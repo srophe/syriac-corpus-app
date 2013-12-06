@@ -1,0 +1,235 @@
+/* Application styles could go here */
+body {
+	font-family: arial, sans-serif;
+    background-color:#999;
+}
+
+/* Main content blocks */
+.navbar {margin:0 40px;padding:0;}
+
+#content {margin:0 40px; padding:40px 0 0; background-color:white;}
+
+.main {background-color:white; padding:1em; border-right:1px solid #ccc;}
+
+.citation {padding:0px 20px; margin:0; color: #555; border-top:1px solid #666666; background-color:#eee;}
+
+.column2 well {border: 1px solid #ccc; padding:.5em;}
+
+
+.home {margin:1em; padding:1.5em 2.5em;}
+
+footer {margin:0 40px;padding:1px; text-align:center;}
+
+/* Typography */
+h2 {font-size:1.5em; margin:0 -1em; padding-left:8px;}
+h3 {font-size: 1.2em; margin-top:0; margin-bottom:.2em; padding-bottom:0;}
+.column1 h3{border-bottom:1px solid #333333; padding-bottom:0; margin-bottom:1em;}
+h3.label {
+    background-color:#ccc;
+    line-height: 1.2em;
+    font-size: 2em;
+    float:left;
+}
+
+h3.syr{
+    margin-right:.5em;
+    margin-top:.5em;
+    float:right !important;
+}
+h4 {font-size: 1em; margin-top:1em;}
+.srp-label {background-color:none; color:#999999; font-weight:bold;}
+.textBox {display:block;}
+.caveat {font-size: .785em; font-style:italic; margin-top:-.5em; padding-top:0;}
+.title {border-bottom:3px solid #666666;}
+.about {padding-top: 1em;}
+
+/* Browse page styles */
+.browse-alpha {border-bottom:1px solid #ccc; padding-left:2em; padding:0; margin-bottom:1em;}
+.browse-alpha-syr {border-bottom:1px solid #ccc;}
+.browse-alpha li + li {
+    padding-left: 10px;
+}
+
+/* footnote styles */
+
+.footnote-refs, .footnote-tgt {
+    font-size: 11.6px;
+    line-height: 0.5em;
+    vertical-align: baseline;
+    position: relative;
+    top: -0.4em;
+
+}
+.footnote-tgt {
+    margin-left:-1.5em;
+    padding-right:.5em;    
+}
+
+.anchor{
+  display: block;
+  height: 45px; 
+  margin-top: -45px; 
+  visibility: hidden;
+}
+
+
+.title-monographic {
+	font-style: italic;
+}
+
+.heading-inline {
+	font-weight: bold;
+}
+
+/* styles for names */
+.placeName {
+ font-weight: bold;
+}
+
+/* styles for languages and scripts */
+
+:lang(en) {
+	font-family: arial, sans-serif;
+}
+
+
+:lang(syr),:lang(syc) {
+ font-family: "Estrangelo Edessa", Verdana, Arial, Helvetica, sans-serif;
+  font-size:larger;
+}
+:lang(syr-Syrj), :lang(syc-Syrj) {
+ font-family: "Serto Batnan", Verdana, Arial, Helvetica, sans-serif;
+  font-size:larger;
+}
+
+:lang(syr-Syre), :lang(syc-Syre) {
+ font-family: "East Syriac Adiabene", Verdana, Arial, Helvetica, sans-serif;
+  font-size:larger;
+}
+
+:lang(ar) {
+ font-family: arial, sans-serif;
+}
+
+.tab-pane {
+	padding: 1em;
+	padding-top: 1.5em;
+	border-left: 1px solid rgb(221, 221, 221);
+	border-bottom: 1px solid rgb(221, 221, 221);
+	border-right: 1px solid rgb(221, 221, 221);
+	border-radius: 3px;
+}
+
+.tab-pane ul {
+	margin-left: 1em;
+	margin-right: 1em;
+}
+
+
+#nametabs {
+	margin-bottom: 0px;
+}
+
+/* link icon styles (inline) */
+#link-icons{padding-top:1em; margin-bottom:0;}
+#link-icons a {
+    display:inline-block; 
+    padding-right: .5em; 
+    }
+#link-icons > a > img {
+		box-shadow: 2px 2px 2px #888888;
+}
+
+#link-icons > a > img[title~="Pleiades"] {
+		border-radius: 12px;	
+}
+
+#link-icons > a > img[title~="Wikipedia"], 
+#link-icons > a > img[title~="Maps"], 
+#link-icons > a > img[title~="Atom"], 
+#link-icons > a > img[title~="TEI"] {
+		border-radius: 5px;	
+}
+
+#link-icons > a > img:hover {
+		box-shadow: none;
+}
+
+/* Helper circle for place URI*/
+.helper.circle {
+	border: 1px solid rgb(0, 136, 204);
+	border-radius: 50%;
+	height: 1em;
+	width: 1em;
+	text-align: center;
+	vertical-align: center;
+    float: left;
+    margin-right: 0.5em;
+    box-shadow: 1px 1px 1px #888888;
+}
+
+.helper.circle:hover {
+	box-shadow: none;
+	cursor:help;
+}
+.helper.circle > p {
+	color: rgb(0,136,204);
+	font-size: .83em;
+	position: relative;
+	vertical-align: middle;
+	top: -.2em;
+	font-family: serif;
+	font-weight: bold;
+}
+
+
+#sources ul {
+	list-style-type: none;
+	padding-left: -0.1em;
+	text-indent: -1em;
+}
+
+#externals {
+	margin-top: 1em;
+}
+
+dt {
+	margin-top: 1.5em;
+}
+dd {
+	margin-top: 0.5em;
+}
+
+div[id|=place] h3 {
+	font-size: medium;
+}
+div[id|=place] > div:first-of-type {
+	width: 30%;
+	float: right;
+	padding: 1em;
+	padding-top: 0px;
+	background-color: #EEE;
+}
+div[id|=place] > div:first-of-type > h3, div[id|=place] > div:first-of-type + div > h3 {
+	margin-top: 0px;
+	padding-top: 0px;
+}
+
+div[id|=place] > div:last-of-type {
+	margin-bottom: 3em;
+}
+
+#description li:first-letter {
+	text-transform: capitalize;
+}
+
+.pubPlace > .placeName {
+	font-weight: normal;
+}
+
+/* Map styles */
+
+#map {
+  height: 180px;
+  margin-bottom: 1em;
+}
