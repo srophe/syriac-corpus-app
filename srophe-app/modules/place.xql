@@ -91,6 +91,14 @@ declare function place:get-nested-loc(){
     </nested-place>
 };
 
+declare function place:get-confessions(){
+    let $confessions := doc($config:app-root || "/data/confessions/tei/confessions.xml")//tei:list
+    return
+    <confessions xmlns="http://www.tei-c.org/ns/1.0">
+        {$confessions}
+    </confessions>
+ };
+ 
 (:~
  : Get related place names
  : <relation name="contained" active="http://syriaca.org/place/145 http://syriaca.org/place/166" passive="#place-78" source="#bib78-1" to="0363"/>
@@ -133,10 +141,10 @@ declare %templates:wrap function place:get-place-data($node as node(), $model as
                     xmlns:math="http://www.w3.org/1998/Math/MathML"
                     xmlns="http://www.tei-c.org/ns/1.0">
                     {
-                        ($rec/child::*, place:get-related-places($rec),place:get-nested-loc())
+                        ($rec/child::*, place:get-related-places($rec),place:get-nested-loc(),place:get-confessions())
                     }
                     </TEI>
-    let $cache :='sdfjdf'
+    let $cache :='sdfhjhjhfjdf'
     return
 (:        $buildRec:)
        transform:transform($buildRec, doc('../resources/xsl/placepage.xsl'),() )

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div xmlns="http://www.w3.org/1999/xhtml" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="span10 offset1">
+                <h2 class="title about">The <i>The Syriac Gazetteer</i>: Browse Lists</h2>
+                <div class="pull-right" id="link-icons">
+                    <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;q=http://localhost:8080/exist/apps/srophe/atom.xql">
+                        <img src="../resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view all known locations on Google Maps"/>
+                    </a>
+                </div>
+                <p style="margin:1em;">Listings of places registered in the Syriac Gazetteer.</p>
+                <!-- Calls xquery functions -->
+                <div data-template="browse:get-places">
+                    <div data-template="browse:get-place-names"/>
+                </div>
+                <div id="externals">
+                    <p>
+                        <span class="label">Other formats</span>
+                    </p>
+                    <ul>
+                        <li>
+                            <a href="atom.xql" rel="alternate" type="application/atom+xml" title="full set of records from the Syriac Gazetteer in Atom XML format">atom xml</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
