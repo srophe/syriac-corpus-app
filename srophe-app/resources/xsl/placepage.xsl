@@ -203,35 +203,58 @@
     <!-- Place content is split into two columns -->
     <xsl:template name="col1">
         <!-- NOTE, for map do well with map in half and type and location in other half, force better proportions -->
-        <xsl:if test="t:location[@type='gps' and t:geo]">
-            <div class="well">
-                <div class="row-fluid">
-                    <!-- The map widget -->
-                    <div class="span7">
-                        <!-- If map data exists generate location link for use by map.js -->
-                        <xsl:if test="t:location/t:geo[1]">
-                            <xsl:apply-templates select="t:location[t:geo][1]/t:geo[1]" mode="json-uri"/>
-                        </xsl:if>
-                        <div id="map"/>
-                    </div>
-                    <div class="span5" style="padding-left:1em;padding-top:.5em;">
-                        <div id="type">
-                            <!-- NOTE: may need to move this elsewhere -->
-                            <p>
-                                <strong>Place Type: </strong>
-                                <xsl:value-of select="@type"/>
-                            </p>
+        <xsl:choose>
+            <xsl:when test="t:location[@type='gps'and t:geo]">
+                <div class="well">
+                    <div class="row-fluid">
+                        <!-- The map widget -->
+                        <div class="span7">
+                            <!-- If map data exists generate location link for use by map.js -->
+                            <xsl:if test="t:location/t:geo[1]">
+                                <xsl:apply-templates select="t:location[t:geo][1]/t:geo[1]" mode="json-uri"/>
+                            </xsl:if>
+                            <div id="map"/>
                         </div>
-                        <div id="location">
-                            <h4>Location</h4>
-                            <ul style="margin-left:1.25em;margin-top:-.5em;padding:0;">
-                                <xsl:apply-templates select="t:location"/>
-                            </ul>
+                        <div class="span5" style="padding-left:1em;padding-top:.5em;">
+                            <div id="type">
+                                <!-- NOTE: may need to move this elsewhere -->
+                                <p>
+                                    <strong>Place Type: </strong>
+                                    <xsl:value-of select="@type"/>
+                                </p>
+                            </div>
+                            <div id="location">
+                                <h4>Location</h4>
+                                <ul style="margin-left:1.25em;margin-top:-.5em;padding:0;">
+                                    <xsl:apply-templates select="t:location"/>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <div class="well">
+                    <div class="row-fluid">
+                        <div class="span12" style="padding-left:1em;padding-top:.5em;">
+                            <div id="type">
+                                <!-- NOTE: may need to move this elsewhere -->
+                                <p>
+                                    <strong>Place Type: </strong>
+                                    <xsl:value-of select="@type"/>
+                                </p>
+                            </div>
+                            <div id="location">
+                                <h4>Location</h4>
+                                <ul style="margin-left:1.25em;margin-top:-.5em;padding:0;">
+                                    <xsl:apply-templates select="t:location"/>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xsl:otherwise>
+        </xsl:choose>
         <div style="padding:.5em;">
             <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
                 <div id="description">
