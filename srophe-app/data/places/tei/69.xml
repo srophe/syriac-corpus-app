@@ -125,8 +125,8 @@
                     <location type="nested" source="#bib69-7">
                         <region ref="http://syriaca.org/place/719">Mardīn region</region>
                     </location>
-                    <state type="existence" from="0800">
-                        <precision match="@from" notAfter="0800" notBefore="0793"/>
+                    <state type="existence" from="0800" from-custom="0800-01-01">
+                        <precision match="@from" notAfter="0800" notBefore="0793" notBefore-custom="0793-01-01" notAfter-custom="0800-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܘܐܰܦܩ and ܡܟܰܬܒܰܙܰܒܢܗ should read ܘܰܐܦܩ and ܡܰܟܬܰܒܙܰܒܢܗ respectively.</note>
                     <note type="errata">Matti Moosa's English translation of Barsoum's description is incomplete, and it says "north" when it should be "east."</note>

@@ -90,9 +90,9 @@
                     <placeName xml:id="name623-3" xml:lang="syr-Syrj" source="#bib623-2">ܐܶܦܶܣܘܣ</placeName>
                     <placeName xml:id="name623-4" xml:lang="ar" source="#bib623-3">افسس</placeName>
                     <desc xml:id="abstract-en-623" xml:lang="en">A city in western <placeName ref="http://syriaca.org/place/504">Asia Minor</placeName>.</desc>
-                    <state type="existence" from="-0500" to="1400">
-                        <precision match="@from" notAfter="-0500"/>
-                        <precision match="@to" notAfter="1500" notBefore="1400"/>
+                    <state type="existence" from="-0500" to="1400" to-custom="1400-01-01" from-custom="-0500-01-01">
+                        <precision match="@from" notAfter="-0500" notAfter-custom="-0500-01-01"/>
+                        <precision match="@to" notAfter="1500" notBefore="1400" notBefore-custom="1400-01-01" notAfter-custom="1500-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/623</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/599612</idno>

@@ -71,9 +71,9 @@
                     <placeName xml:id="name582-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib582-1">Beth Zagba</placeName>
                     <placeName xml:id="name582-2" xml:lang="en" source="#bib582-2">Bet Zagba</placeName>
                     <desc xml:id="abstract-en-582" xml:lang="en">The site of the monastery where the Rabbula Gospels were copied, probably located north of <placeName ref="http://syriaca.org/place/11">Apamea</placeName>.</desc>
-                    <state type="existence" from="0568" to="0586">
-                        <precision match="@from" notAfter="0568"/>
-                        <precision match="@to" notBefore="0586"/>
+                    <state type="existence" from="0568" to="0586" to-custom="0586-01-01" from-custom="0568-01-01">
+                        <precision match="@from" notAfter="0568" notAfter-custom="0568-01-01"/>
+                        <precision match="@to" notBefore="0586" notBefore-custom="0586-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/582</idno>
                     <idno type="URI">

@@ -108,9 +108,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib333-3">a town near Melitene.</quote>
                     </desc>
-                    <state type="existence" from="1095" to="1155">
-                        <precision match="@from" notAfter="1095"/>
-                        <precision match="@to" notBefore="1155"/>
+                    <state type="existence" from="1095" to="1155" to-custom="1155-01-01" from-custom="1095-01-01">
+                        <precision match="@from" notAfter="1095" notAfter-custom="1095-01-01"/>
+                        <precision match="@to" notBefore="1155" notBefore-custom="1155-01-01"/>
                     </state>
                     <note type="deprecation" xml:id="name333-3-deprecation">Dolabani's printer misread his kaph as a beth.</note>
                     <link target="#name333-3 #name333-3-deprecation"/>

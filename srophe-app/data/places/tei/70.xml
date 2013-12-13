@@ -110,9 +110,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib70-4">the Persian martyr, is north of Qellith. It was a large monastery, established in the sixth century. In 1250 it had about sixty monks. Later, it became an episcopal see and from it came one Patriarch and eleven bishops. It was abandoned in 1700 and its ruins can still be seen.</quote>
                     </desc>
-                    <state type="existence" from="0300" to="1700">
-                        <precision match="@from" notBefore="0300"/>
-                        <precision match="@to" notAfter="1700"/>
+                    <state type="existence" from="0300" to="1700" to-custom="1700-01-01" from-custom="0300-01-01">
+                        <precision match="@from" notBefore="0300" notBefore-custom="0300-01-01"/>
+                        <precision match="@to" notAfter="1700" notAfter-custom="1700-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܕܐܶܦܣܩܘܦܳܐ should read ܕܶܐܦܝܣܩܘܦܳܐ.</note>
                     <note type="errata">In Barsoum's description انشىء should read انشئ.</note>

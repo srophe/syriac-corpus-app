@@ -90,8 +90,8 @@
                     <placeName xml:id="name1472-3" xml:lang="syr-Syrj" source="#bib1472-1">ܩܰܐܪܝܐ</placeName>
                     <placeName xml:id="name1472-4" xml:lang="ar" source="#bib1472-2">قاريا</placeName>
                     <desc xml:id="abstract-en-1472" xml:lang="en">A region of western Anatolia</desc>
-                    <state type="existence" from="0538">
-                        <precision match="@from" notAfter="0538"/>
+                    <state type="existence" from="0538" from-custom="0538-01-01">
+                        <precision match="@from" notAfter="0538" notAfter-custom="0538-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1472</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/599564</idno>

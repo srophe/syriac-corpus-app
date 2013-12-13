@@ -113,9 +113,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib410-3">a small town in the province of Aleppo.</quote>
                     </desc>
-                    <state type="existence" from="0581" to="0575">
-                        <precision match="@from" notAfter="0581"/>
-                        <precision match="@to" notBefore="0575"/>
+                    <state type="existence" from="0581" to="0575" to-custom="0575-01-01" from-custom="0581-01-01">
+                        <precision match="@from" notAfter="0581" notAfter-custom="0581-01-01"/>
+                        <precision match="@to" notBefore="0575" notBefore-custom="0575-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/410</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/668366</idno>

@@ -70,9 +70,9 @@
                 <place xml:id="place-678" type="settlement">
                     <placeName xml:id="name678-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib678-1">ʿAṭshaneh</placeName>
                     <desc xml:id="abstract-en-678" xml:lang="en">A town with a Syriac Orthodox seminary.</desc>
-                    <state type="existence" from="1971" to="1975">
-                        <precision match="@from" notAfter="1971"/>
-                        <precision match="@to" notBefore="1975"/>
+                    <state type="existence" from="1971" to="1975" to-custom="1975-01-01" from-custom="1971-01-01">
+                        <precision match="@from" notAfter="1971" notAfter-custom="1971-01-01"/>
+                        <precision match="@to" notBefore="1975" notBefore-custom="1975-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/678</idno>
                     <bibl xml:id="bib678-1">

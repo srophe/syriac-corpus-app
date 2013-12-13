@@ -108,9 +108,9 @@
                     <location type="gps" source="#bib18-2">
                         <geo>36.21667 37.16667</geo>
                     </location>
-                    <state type="existence" from="0640" to="2013">
-                        <precision match="@from" notAfter="0640"/>
-                        <precision match="@to" notBefore="2013"/>
+                    <state type="existence" from="0640" to="2013" to-custom="2013-01-01" from-custom="0640-01-01">
+                        <precision match="@from" notAfter="0640" notAfter-custom="0640-01-01"/>
+                        <precision match="@to" notBefore="2013" notBefore-custom="2013-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/18</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/658409</idno>

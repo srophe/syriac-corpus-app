@@ -113,9 +113,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib406-3">a village near Antioch.</quote>
                     </desc>
-                    <state type="existence" from="0723" to="1200">
-                        <precision match="@from" notAfter="0723"/>
-                        <precision match="@to" notBefore="1200"/>
+                    <state type="existence" from="0723" to="1200" to-custom="1200-01-01" from-custom="0723-01-01">
+                        <precision match="@from" notAfter="0723" notAfter-custom="0723-01-01"/>
+                        <precision match="@to" notBefore="1200" notBefore-custom="1200-01-01"/>
                     </state>
                     <note type="deprecation" xml:id="name406-3-deprecation">Dolabani or his printer interchanged the letters ḥeth and yod.</note>
                     <link target="#name406-3 #name406-3-deprecation"/>

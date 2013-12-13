@@ -95,8 +95,8 @@
                     <desc xml:lang="en">
                         <quote source="#bib336-2">on the Dry river, in the province of Melitene. It was established in 960 by the monk Elijah Ibn Jājī, in commemoration of the Forty Martyrs. There the monk John, the pupil of Marun, taught linguistics and philosophy (c. 980-999). Sixteen eminent men of the church graduated from it until 1105. In 1085, however, it was destroyed in an attack by three thousand Turkish soldiers against Melitene.</quote>
                     </desc>
-                    <state type="existence" from="0960" to="1105">
-                        <precision match="@to" notBefore="1105"/>
+                    <state type="existence" from="0960" to="1105" to-custom="1105-01-01" from-custom="0960-01-01">
+                        <precision match="@to" notBefore="1105" notBefore-custom="1105-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/336</idno>
                     <bibl xml:id="bib336-1">

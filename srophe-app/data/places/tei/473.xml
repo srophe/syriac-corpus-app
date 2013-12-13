@@ -95,9 +95,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib473-1">196. The Enaton</quote>
                     </desc>
-                    <state type="existence" from="0616" to="0599">
-                        <precision match="@from" notAfter="0616"/>
-                        <precision match="@to" notBefore="0599"/>
+                    <state type="existence" from="0616" to="0599" to-custom="0599-01-01" from-custom="0616-01-01">
+                        <precision match="@from" notAfter="0616" notAfter-custom="0616-01-01"/>
+                        <precision match="@to" notBefore="0599" notBefore-custom="0599-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/473</idno>
                     <bibl xml:id="bib473-1">

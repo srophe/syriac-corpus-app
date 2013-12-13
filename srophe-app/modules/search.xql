@@ -5,11 +5,14 @@ module namespace search="http://syriaca.org//search";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 import module namespace kwic="http://exist-db.org/xquery/kwic" at "resource:org/exist/xquery/lib/kwic.xql";
+declare namespace util="http://exist-db.org/xquery/util";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 
 declare variable $search:q {request:get-parameter('q', '')};
 declare variable $search:mode {request:get-parameter('mode', '')};
+declare variable $search:place {request:get-parameter('place', '')};
+declare variable $search:type {request:get-parameter('place', '')};
 declare variable $search:start {request:get-parameter('start', 1) cast as xs:integer};
 
 declare function search:build-ft-query(){
@@ -31,15 +34,29 @@ declare function search:build-ft-query(){
         </query>
 };
 
+declare function search:build-predicates(){
+    let $keyword := if(exists($search:q) and $search:q != '') then concat('[',ft:query(., search:build-ft-query()),']')
+                    else ''
+    let $place   := if(exists($search:place) and $search:place != '') then concat('[',ft:query(tei:placeName, search:build-ft-query()),']')
+                    else ''  
+    (:NOTE, may need to have moe sophisticated processing for type, if no other params exist?:)
+    let $type    := if(exists($search:type) and $search:type != '') then concat('[',@type=$search:type,']')
+                    else '' 
+    return ($keyword,$place,$type)                
+};
 declare function search:build-get-results($node as node(), $model as map(*)){
     map {"hits" := search:get-hits()}
 };
 
 declare function search:get-hits(){
     let $query := search:build-ft-query()
-    for $hit in collection($config:app-root || "/data/places/tei")//tei:place[ft:query(., $query)]
+    let $eval-string := concat("collection('/db/apps/srophe/data/places/tei')//tei:place",'[ft:query(.,search:build-ft-query())]')
+    let $hits := util:eval($eval-string)    
+    for $hit in $hits
+(:    for $hit in collection($config:app-root || "/data/places/tei")//tei:place[ft:query(., $query)]:)
+(:    for $hit in collection($config:app-root || "/data/places/tei")//tei:place[ft:query(tei:placeName, 'edessa')][@type ='settlement']:)
     order by ft:score($hit) descending
-    return $hit
+    return $eval-string
 };
 
 declare  %templates:wrap function search:hit-count($node as node()*, $model as map(*)) {
@@ -108,6 +125,40 @@ return
       </ul>
     </div>
     -->
+    </div>
+};
+
+declare 
+    %templates:default("start", 1)
+function search:show-form($node as node()*, $model as map(*)) {
+    <div>
+    <form method="get" action="search.html">  
+        <!-- Full text -->
+        <label>Place Name: </label>
+        <input type="text" name="place"/>
+        <!-- range -->
+        <label>Type: </label>
+        <!-- Values from controlled vocab in https://docs.google.com/spreadsheet/ccc?key=0AnhFTnX2Mw6YdGFieExCX0xIQ3Q0WnBOQmlnclo0WlE&usp=sharing#gid=1-->
+        <select name="type">
+            <option value="">- Select -</option>
+            <option value="settlement">settlement</option>
+            <option value="monastery">monastery</option>
+            <option value="region">region</option>
+            <option value="province">province</option>
+            <option value="open-water">open-water</option>
+            <option value="fortification">fortification</option>
+            <option value="mountain">mountain</option>
+            <option value="quarter">quarter</option>
+            <option value="state">state</option>
+            <option value="building">building</option>
+            <option value="diocese">diocese</option>
+            <option value="island">island</option>
+            <option value="parish">parish</option>
+            <option value="unknown">unknown</option>
+        </select>
+        <br/>
+    <input type="submit" name="Submit"/>
+</form>
     </div>
 };
 

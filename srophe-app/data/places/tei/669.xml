@@ -78,9 +78,9 @@
                     <location type="nested" source="#bib669-2">
                         <region ref="http://syriaca.org/place/722">Mosul region</region>
                     </location>
-                    <state type="existence" from="0800" to="1092">
-                        <precision match="@from" notAfter="0800" notBefore="0300"/>
-                        <precision match="@to" notAfter="1899" notBefore="1092"/>
+                    <state type="existence" from="0800" to="1092" to-custom="1092-01-01" from-custom="0800-01-01">
+                        <precision match="@from" notAfter="0800" notBefore="0300" notBefore-custom="0300-01-01" notAfter-custom="0800-01-01"/>
+                        <precision match="@to" notAfter="1899" notBefore="1092" notBefore-custom="1092-01-01" notAfter-custom="1899-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/669</idno>
                     <bibl xml:id="bib669-1">

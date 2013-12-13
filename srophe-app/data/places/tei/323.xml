@@ -108,9 +108,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib323-3">a district about six leagues from Ḥomṣ, towards Damascus,situated between the mountains of Lebanon and Sinnir. Today it is a small village, recently built near the ruins of ancient Josya.</quote>
                     </desc>
-                    <state type="existence" from="0600" to="0500">
-                        <precision match="@from" notAfter="0600"/>
-                        <precision match="@to" notBefore="0500"/>
+                    <state type="existence" from="0600" to="0500" to-custom="0500-01-01" from-custom="0600-01-01">
+                        <precision match="@from" notAfter="0600" notAfter-custom="0600-01-01"/>
+                        <precision match="@to" notBefore="0500" notBefore-custom="0500-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/323</idno>
                     <idno type="URI">http://ar.wikipedia.org/wiki/جوسية</idno>

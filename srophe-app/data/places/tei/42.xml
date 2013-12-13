@@ -121,8 +121,8 @@
                     <desc xml:lang="en">
                         <quote source="#bib42-5">an ancient town above Mosul on the western bank of the Tigris, ruined in the fourteenth century. It is now called Eski Mosul.</quote>
                     </desc>
-                    <state type="existence" from="0559">
-                        <precision match="@from" notAfter="0559"/>
+                    <state type="existence" from="0559" from-custom="0559-01-01">
+                        <precision match="@from" notAfter="0559" notAfter-custom="0559-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/42</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/874379</idno>

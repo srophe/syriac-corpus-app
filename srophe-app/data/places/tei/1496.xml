@@ -90,9 +90,9 @@
                     <placeName xml:id="name1496-3" xml:lang="syr-Syrj" source="#bib1496-1">ܐܡ ܓܰܥܦܰܪ</placeName>
                     <placeName xml:id="name1496-4" xml:lang="ar" source="#bib1496-2">ام جعفر</placeName>
                     <desc xml:id="abstract-en-1496" xml:lang="en">Part of the western side of <placeName ref="http://syriaca.org/place/41">Baghdad</placeName>.</desc>
-                    <state type="existence" from="0925" to="0925">
-                        <precision match="@from" notAfter="0925"/>
-                        <precision match="@to" notBefore="0925"/>
+                    <state type="existence" from="0925" to="0925" to-custom="0925-01-01" from-custom="0925-01-01">
+                        <precision match="@from" notAfter="0925" notAfter-custom="0925-01-01"/>
+                        <precision match="@to" notBefore="0925" notBefore-custom="0925-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1496</idno>
                     <bibl xml:id="bib1496-1">

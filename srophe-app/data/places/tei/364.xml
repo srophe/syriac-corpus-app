@@ -109,9 +109,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib364-3">was built in the name of St. Shabtai, a fifth-century ascetic, opposite the Monastery of Mor Abḥai, near the Monastery of Fusqīn in Karkar. It was restored by Athanasius Denḥa, metropolitan of Edessa (1171-1191). While a monk, Patriarch John XII resided in this monastery and in it he was consecrated Patriarch, it remained populated until the beginning of the seventeenth century.</quote>
                     </desc>
-                    <state type="existence" from="1208" to="1191">
-                        <precision match="@from" notAfter="1208"/>
-                        <precision match="@to" notBefore="1191"/>
+                    <state type="existence" from="1208" to="1191" to-custom="1191-01-01" from-custom="1208-01-01">
+                        <precision match="@from" notAfter="1208" notAfter-custom="1208-01-01"/>
+                        <precision match="@to" notBefore="1191" notBefore-custom="1191-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܕܰܢܚܳܐ should read ܕܶܢܚܳܐ and "1171 . 1191" should read "1171 - 1191".</note>
                     <idno type="URI">http://syriaca.org/place/364</idno>

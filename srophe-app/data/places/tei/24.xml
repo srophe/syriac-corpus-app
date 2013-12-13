@@ -108,9 +108,9 @@
                     <location type="nested" source="#bib24-5">
                         <region ref="http://syriaca.org/place/221">Ṭūr ʿAbdīn</region>
                     </location>
-                    <state type="existence" from="0734" to="0675">
-                        <precision match="@from" notAfter="0734"/>
-                        <precision match="@to" notBefore="0675"/>
+                    <state type="existence" from="0734" to="0675" to-custom="0675-01-01" from-custom="0734-01-01">
+                        <precision match="@from" notAfter="0734" notAfter-custom="0734-01-01"/>
+                        <precision match="@to" notBefore="0675" notBefore-custom="0675-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/24</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Yemişli,_Midyat</idno>

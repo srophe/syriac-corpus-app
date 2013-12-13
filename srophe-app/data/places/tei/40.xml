@@ -120,9 +120,9 @@
                     <location type="gps" source="#bib40-2">
                         <geo>32.516667 36.483333</geo>
                     </location>
-                    <state type="existence" from="0400" to="0617">
-                        <precision match="@from" notAfter="0400"/>
-                        <precision match="@to" notBefore="0617"/>
+                    <state type="existence" from="0400" to="0617" to-custom="0617-01-01" from-custom="0400-01-01">
+                        <precision match="@from" notAfter="0400" notAfter-custom="0400-01-01"/>
+                        <precision match="@to" notBefore="0617" notBefore-custom="0617-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/40</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/678073</idno>

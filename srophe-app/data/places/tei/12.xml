@@ -70,8 +70,8 @@
                 <place xml:id="place-12" type="province">
                     <placeName xml:id="name12-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib12-1 #bib12-2">Arabia</placeName>
                     <desc xml:id="abstract-en-12" xml:lang="en">A Roman province including the Sinai peninsula and Roman territory east of the Jordan River.</desc>
-                    <state type="existence" from="0106" to="0639">
-                        <precision match="@to" notAfter="0639"/>
+                    <state type="existence" from="0106" to="0639" to-custom="0639-01-01" from-custom="0106-01-01">
+                        <precision match="@to" notAfter="0639" notAfter-custom="0639-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/12</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/981506</idno>

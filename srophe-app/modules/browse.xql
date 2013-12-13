@@ -4,15 +4,11 @@ xquery version "3.0";
  :)
 module namespace browse="http://syriaca.org//browse";
 
-(:~ 
- : Imported modules 
- :)
+(: Imported modules :)
 import module namespace templates="http://syriaca.org//templates" at "templates.xql";
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 
-(:~ 
- : Namespaces 
- :)
+(: Namespaces :)
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
@@ -52,6 +48,7 @@ declare function browse:get-place-en($node as node(), $model as map(*)){
 };
 
 (:~
+ : @deprecated no longer needed and confusing for users
  : Build numbered English browse list, returns all results 
  : Returns all English titles, with no sort options applies.
  : Final sorting is handled by xslt ../resources/xsl/browselisting.xsl
@@ -123,7 +120,7 @@ declare function browse:get-letter-menu($node as node()){
  : Final results are passed to ../resources/xsl/browselisting.xsl
  :)
 declare %templates:wrap function browse:get-place-names($node as node(), $model as map(*)){
-    let $cache := 'testing3'
+    let $cache := 'testing345'
     let $results := 
      <tei:TEI xml:lang="en"
         xmlns:xi="http://www.w3.org/2001/XInclude"

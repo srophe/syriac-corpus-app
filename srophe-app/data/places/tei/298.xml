@@ -109,9 +109,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib298-4">a village in the mountains of Lebanon.</quote>
                     </desc>
-                    <state type="existence" from="1451" to="1451">
-                        <precision match="@from" notAfter="1451"/>
-                        <precision match="@to" notBefore="1451"/>
+                    <state type="existence" from="1451" to="1451" to-custom="1451-01-01" from-custom="1451-01-01">
+                        <precision match="@from" notAfter="1451" notAfter-custom="1451-01-01"/>
+                        <precision match="@to" notBefore="1451" notBefore-custom="1451-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/298</idno>
                     <bibl xml:id="bib298-1">

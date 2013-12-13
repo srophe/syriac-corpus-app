@@ -91,9 +91,9 @@
                     <placeName xml:id="name1522-4" xml:lang="ar" source="#bib1522-2">دير نردس</placeName>
                     <placeName xml:id="name1522-5" xml:lang="en" source="#bib1522-3">Monastery of Nardes</placeName>
                     <desc xml:id="abstract-en-1522" xml:lang="en">A monastery near <placeName ref="http://syriaca.org/place/139">Mosul</placeName>.</desc>
-                    <state type="existence" from="0628" to="0579">
-                        <precision match="@from" notAfter="0628"/>
-                        <precision match="@to" notBefore="0579"/>
+                    <state type="existence" from="0628" to="0579" to-custom="0579-01-01" from-custom="0628-01-01">
+                        <precision match="@from" notAfter="0628" notAfter-custom="0628-01-01"/>
+                        <precision match="@to" notBefore="0579" notBefore-custom="0579-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1522</idno>
                     <bibl xml:id="bib1522-1">

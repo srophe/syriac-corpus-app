@@ -96,9 +96,9 @@
                     <placeName xml:id="name241-4" xml:lang="ar" source="#bib241-3">حبسناس</placeName>
                     <placeName xml:id="name241-5" xml:lang="en" source="#bib241-4">Habsnas</placeName>
                     <desc xml:id="abstract-en-241" xml:lang="en">A village in <placeName ref="http://syriaca.org/place/221">Ṭur ʿAbdin</placeName> northwest of <placeName ref="http://syriaca.org/place/137">Midyat</placeName>.</desc>
-                    <state type="existence" from="0657" to="0855">
-                        <precision match="@from" notAfter="0657"/>
-                        <precision match="@to" notBefore="0855"/>
+                    <state type="existence" from="0657" to="0855" to-custom="0855-01-01" from-custom="0657-01-01">
+                        <precision match="@from" notAfter="0657" notAfter-custom="0657-01-01"/>
+                        <precision match="@to" notBefore="0855" notBefore-custom="0855-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/241</idno>
                     <bibl xml:id="bib241-1">

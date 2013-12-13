@@ -90,9 +90,9 @@
                     <placeName xml:id="name1469-3" xml:lang="syr-Syrj" source="#bib1469-1">ܦܰܪܓܰܝ</placeName>
                     <placeName xml:id="name1469-4" xml:lang="ar" source="#bib1469-2">برجة</placeName>
                     <desc xml:id="abstract-en-1469" xml:lang="en">A city in Pamphylia</desc>
-                    <state type="existence" from="-0323" to="1200">
-                        <precision match="@from" notAfter="-0323"/>
-                        <precision match="@to" notBefore="1200"/>
+                    <state type="existence" from="-0323" to="1200" to-custom="1200-01-01" from-custom="-0323-01-01">
+                        <precision match="@from" notAfter="-0323" notAfter-custom="-0323-01-01"/>
+                        <precision match="@to" notBefore="1200" notBefore-custom="1200-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1469</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/639048</idno>

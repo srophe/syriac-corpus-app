@@ -116,9 +116,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib396-3">in the Mount of Edessa, south of the city of Edessa and the Nawāwīs Monastery. The chronicler monk of Zuqnin mentioned it in his history (c. 751). One Patriarch and some bishops graduated from it. It remained active until the thirteenth century.</quote>
                     </desc>
-                    <state type="existence" from="1191" to="1150">
-                        <precision match="@from" notAfter="1191"/>
-                        <precision match="@to" notBefore="1150"/>
+                    <state type="existence" from="1191" to="1150" to-custom="1150-01-01" from-custom="1191-01-01">
+                        <precision match="@from" notAfter="1191" notAfter-custom="1191-01-01"/>
+                        <precision match="@to" notBefore="1150" notBefore-custom="1150-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/396</idno>
                     <bibl xml:id="bib396-1">

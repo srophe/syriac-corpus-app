@@ -115,9 +115,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib224-5">built on top of a mountain near Melitene, it looks like a citadel, a fact which has led some writers to call it the Monastery of the Cave. It was first mentioned in church history in 790. It was the Patriarchal see from the eleventh century until the thirteenth century. A great monastery, it produced five patriarchs and forty-three metropolitans. It remained populated until the middle of the seventeenth century, when it was abandoned.</quote>
                     </desc>
-                    <state type="existence" from="0790" to="1625">
-                        <precision match="@from" notAfter="0790"/>
-                        <precision match="@to" notBefore="1625"/>
+                    <state type="existence" from="0790" to="1625" to-custom="1625-01-01" from-custom="0790-01-01">
+                        <precision match="@from" notAfter="0790" notAfter-custom="0790-01-01"/>
+                        <precision match="@to" notBefore="1625" notBefore-custom="1625-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/224</idno>
                     <idno type="URI">

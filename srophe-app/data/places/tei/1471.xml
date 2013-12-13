@@ -91,8 +91,8 @@
                     <placeName xml:id="name1471-4" xml:lang="ar" source="#bib1471-2">انطارادوس</placeName>
                     <placeName xml:id="name1471-5" xml:lang="en" source="#bib1471-3">Antaracus</placeName>
                     <desc xml:id="abstract-en-1471" xml:lang="en">A port city in Syria, modern Ṭarṭūs.</desc>
-                    <state type="existence" from="0538">
-                        <precision match="@from" notAfter="0538"/>
+                    <state type="existence" from="0538" from-custom="0538-01-01">
+                        <precision match="@from" notAfter="0538" notAfter-custom="0538-01-01"/>
                     </state>
                     <note type="deprecation" xml:id="name1471-5-deprecation">Moosa's name "Antaracus" is a typo.</note>
                     <link target="#name1471-5 #name1471-5-deprecation"/>

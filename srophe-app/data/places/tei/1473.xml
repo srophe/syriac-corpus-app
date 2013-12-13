@@ -70,8 +70,8 @@
                 <place xml:id="place-1473" type="settlement">
                     <placeName xml:id="name1473-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib1473-1">Pelusium</placeName>
                     <desc xml:id="abstract-en-1473" xml:lang="en">A city of the Nile delta.</desc>
-                    <state type="existence" from="0538">
-                        <precision match="@from" notAfter="0538"/>
+                    <state type="existence" from="0538" from-custom="0538-01-01">
+                        <precision match="@from" notAfter="0538" notAfter-custom="0538-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1473</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/727192</idno>

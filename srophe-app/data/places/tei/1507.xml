@@ -90,9 +90,9 @@
                     <placeName xml:id="name1507-3" xml:lang="syr-Syrj" source="#bib1507-1">ܒܰܚܪܰܝܢ</placeName>
                     <placeName xml:id="name1507-4" xml:lang="ar" source="#bib1507-2">البحرين</placeName>
                     <desc xml:id="abstract-en-1507" xml:lang="en">A place whose inhabitants received a letter from <persName ref="http://syriaca.org/person/148">Ḥabīb b. Khidma Abū Rāʾiṭa</persName>.</desc>
-                    <state type="existence" from="0850" to="0750">
-                        <precision match="@from" notAfter="0850"/>
-                        <precision match="@to" notBefore="0750"/>
+                    <state type="existence" from="0850" to="0750" to-custom="0750-01-01" from-custom="0850-01-01">
+                        <precision match="@from" notAfter="0850" notAfter-custom="0850-01-01"/>
+                        <precision match="@to" notBefore="0750" notBefore-custom="0750-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1507</idno>
                     <bibl xml:id="bib1507-1">

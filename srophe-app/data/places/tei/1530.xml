@@ -91,9 +91,9 @@
                     <placeName xml:id="name1530-4" xml:lang="ar" source="#bib1530-2">دير ابرهيم</placeName>
                     <placeName xml:id="name1530-5" xml:lang="en" source="#bib1530-3">Monastery of Abraham</placeName>
                     <desc xml:id="abstract-en-1530" xml:lang="en">A monastery of unknown location where <persName ref="http://syriaca.org/person/72">Paulos of Beth Ukome</persName> was detained.</desc>
-                    <state type="existence" from="0581" to="0575">
-                        <precision match="@from" notAfter="0581"/>
-                        <precision match="@to" notBefore="0575"/>
+                    <state type="existence" from="0581" to="0575" to-custom="0575-01-01" from-custom="0581-01-01">
+                        <precision match="@from" notAfter="0581" notAfter-custom="0581-01-01"/>
+                        <precision match="@to" notBefore="0575" notBefore-custom="0575-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1530</idno>
                     <bibl xml:id="bib1530-1">

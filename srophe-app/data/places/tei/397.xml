@@ -114,9 +114,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib397-4">near Kesūm, was first mentioned in history at the end of the seventh century. Ten bishops graduated from it between 810 and 925.</quote>
                     </desc>
-                    <state type="existence" from="0688" to="0925">
-                        <precision match="@from" notAfter="0688"/>
-                        <precision match="@to" notBefore="0925"/>
+                    <state type="existence" from="0688" to="0925" to-custom="0925-01-01" from-custom="0688-01-01">
+                        <precision match="@from" notAfter="0688" notAfter-custom="0688-01-01"/>
+                        <precision match="@to" notBefore="0925" notBefore-custom="0925-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/397</idno>
                     <bibl xml:id="bib397-1">

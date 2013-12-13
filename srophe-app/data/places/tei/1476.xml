@@ -91,8 +91,8 @@
                     <placeName xml:id="name1476-4" xml:lang="ar" source="#bib1476-2">فيلادلفيا</placeName>
                     <placeName xml:id="name1476-5" xml:lang="en" source="#bib1476-3">̇Philadelphia</placeName>
                     <desc xml:id="abstract-en-1476" xml:lang="en">A city of western Anatolia.</desc>
-                    <state type="existence" from="0538">
-                        <precision match="@from" notAfter="0538"/>
+                    <state type="existence" from="0538" from-custom="0538-01-01">
+                        <precision match="@from" notAfter="0538" notAfter-custom="0538-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1476</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/550822</idno>

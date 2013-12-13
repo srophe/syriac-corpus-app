@@ -116,9 +116,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib378-4">built in the name of the prophet Elijah near Qanqart, a journey of an hour and a half from Diyarbakir, was first mentioned in history in 1050. It was twice renovated, once by Patriarch Michael the Great in 1173 and again in 1730 by Patriarch Ignatius Shukr Allah. It was abandoned at the start of the nineteenth century and on its site today stands a village called Qara Kelisa (“The Black Church,” because of the black stones of the area). Its remains are still visible. See the Patriarchal Magazine, VI, 144-153.</quote>
                     </desc>
-                    <state type="existence" from="1100" to="1800">
-                        <precision match="@from" notAfter="1100"/>
-                        <precision match="@to" notBefore="1800"/>
+                    <state type="existence" from="1100" to="1800" to-custom="1800-01-01" from-custom="1100-01-01">
+                        <precision match="@from" notAfter="1100" notAfter-custom="1100-01-01"/>
+                        <precision match="@to" notBefore="1800" notBefore-custom="1800-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܐܠܝܐ ܢܺܒܝܐ should read ܐܠܝܐ ܢܒܺܝܐ.</note>
                     <idno type="URI">http://syriaca.org/place/378</idno>

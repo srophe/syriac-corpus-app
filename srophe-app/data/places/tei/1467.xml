@@ -90,9 +90,9 @@
                     <placeName xml:id="name1467-3" xml:lang="syr-Syrj" source="#bib1467-1">ܣܰܟܰܐ</placeName>
                     <placeName xml:id="name1467-4" xml:lang="ar" source="#bib1467-2">سخا</placeName>
                     <desc xml:id="abstract-en-1467" xml:lang="en">A city in Egypt.</desc>
-                    <state type="existence" from="0538" to="0538">
-                        <precision match="@from" notAfter="0538"/>
-                        <precision match="@to" notBefore="0538"/>
+                    <state type="existence" from="0538" to="0538" to-custom="0538-01-01" from-custom="0538-01-01">
+                        <precision match="@from" notAfter="0538" notAfter-custom="0538-01-01"/>
+                        <precision match="@to" notBefore="0538" notBefore-custom="0538-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1467</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/727256</idno>

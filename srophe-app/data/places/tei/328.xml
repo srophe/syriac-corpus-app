@@ -108,8 +108,8 @@
                     <desc xml:lang="en">
                         <quote source="#bib328-3">an ancient village in southern Iraq, near Qaṣr Ibn Hubayra, in the vicinity of al-Kūfa.</quote>
                     </desc>
-                    <state type="existence" to="1943">
-                        <precision match="@to" notAfter="1943"/>
+                    <state type="existence" to="1943" to-custom="1943-01-01">
+                        <precision match="@to" notAfter="1943" notAfter-custom="1943-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/328</idno>
                     <bibl xml:id="bib328-1">

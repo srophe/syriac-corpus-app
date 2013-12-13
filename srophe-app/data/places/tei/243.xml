@@ -96,9 +96,9 @@
                     <placeName xml:id="name243-4" xml:lang="ar" source="#bib243-3">بانمعم</placeName>
                     <placeName xml:id="name243-5" xml:lang="en" source="#bib243-4">Banimʿim</placeName>
                     <desc xml:id="abstract-en-243" xml:lang="en">A village in <placeName ref="http://syriaca.org/place/221">Ṭur ʿAbdin</placeName> southeast of <placeName ref="http://syriaca.org/place/137">Midyat</placeName>.</desc>
-                    <state type="existence" from="0925" to="1376">
-                        <precision match="@from" notAfter="0925"/>
-                        <precision match="@to" notBefore="1376"/>
+                    <state type="existence" from="0925" to="1376" to-custom="1376-01-01" from-custom="0925-01-01">
+                        <precision match="@from" notAfter="0925" notAfter-custom="0925-01-01"/>
+                        <precision match="@to" notBefore="1376" notBefore-custom="1376-01-01"/>
                     </state>
                     <note type="deprecation" xml:id="name243-4-deprecation">Barsoum's Arabic name form swapped the order of the letters, and this was followed by Moosa's translation.</note>
                     <link target="#name243-4 #name243-4-deprecation"/>

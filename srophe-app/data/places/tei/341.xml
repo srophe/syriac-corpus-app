@@ -109,9 +109,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib341-4">near the village of Talʿada, in the vicinity of Antioch. It was built by the noble monk Eusebius the Great and Amian, who established a school for the teaching of philosophy about 340. St. Simon the Stylite entered this monastery at the beginning of his monastic vocation. In 409 it had 120 monks. It produced Patriarch John III and two bishops in the ninth century.</quote>
                     </desc>
-                    <state type="existence" from="0409" to="0800">
-                        <precision match="@from" notAfter="0409"/>
-                        <precision match="@to" notBefore="0800"/>
+                    <state type="existence" from="0409" to="0800" to-custom="0800-01-01" from-custom="0409-01-01">
+                        <precision match="@from" notAfter="0409" notAfter-custom="0409-01-01"/>
+                        <precision match="@to" notBefore="0800" notBefore-custom="0800-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܕܐܰܢܛܝܘܟܺܝܰܐ, ܘܐܰܡܝܐܢ, and ܕܐܶܣܛܘܢܗ should read ܕܰܐܢܛܝܘܟܺܝܰܐ, ܘܰܐܡܝܐܢ, and ܕܶܐܣܛܘܢܗ respectively.</note>
                     <idno type="URI">http://syriaca.org/place/341</idno>

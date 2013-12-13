@@ -112,9 +112,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib417-3">a village in the Manazgird [Malazgirt] territory.</quote>
                     </desc>
-                    <state type="existence" from="1299" to="1473">
-                        <precision match="@from" notAfter="1299"/>
-                        <precision match="@to" notBefore="1473"/>
+                    <state type="existence" from="1299" to="1473" to-custom="1473-01-01" from-custom="1299-01-01">
+                        <precision match="@from" notAfter="1299" notAfter-custom="1299-01-01"/>
+                        <precision match="@to" notBefore="1473" notBefore-custom="1473-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/417</idno>
                     <bibl xml:id="bib417-1">

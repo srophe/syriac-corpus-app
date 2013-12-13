@@ -83,8 +83,8 @@
                     <location type="gps" source="#bib46-2">
                         <geo>33.88694 35.51306</geo>
                     </location>
-                    <state type="existence" to="2013">
-                        <precision match="@to" notBefore="2013"/>
+                    <state type="existence" to="2013" to-custom="2013-01-01">
+                        <precision match="@to" notBefore="2013" notBefore-custom="2013-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/46</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/678060</idno>

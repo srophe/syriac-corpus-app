@@ -109,9 +109,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib365-3">built in Sarug and named after St. Shila (d. 506). Two synods were convened in this monastery, in 706 and 846, and between 698 and 930 it produced nine bishops.</quote>
                     </desc>
-                    <state type="existence" from="0527" to="0930">
-                        <precision match="@from" notAfter="0527" notBefore="0518"/>
-                        <precision match="@to" notAfter="2013" notBefore="0930"/>
+                    <state type="existence" from="0527" to="0930" to-custom="0930-01-01" from-custom="0527-01-01">
+                        <precision match="@from" notAfter="0527" notBefore="0518" notBefore-custom="0518-01-01" notAfter-custom="0527-01-01"/>
+                        <precision match="@to" notAfter="2013" notBefore="0930" notBefore-custom="0930-01-01" notAfter-custom="2013-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/365</idno>
                     <bibl xml:id="bib365-1">

@@ -76,9 +76,9 @@
                     <placeName xml:id="name6-2" xml:lang="en" source="#bib6-1 #bib6-2">Adiabene</placeName>
                     <placeName xml:id="name6-3" xml:lang="en" source="#bib6-2">Ḥaḏyab</placeName>
                     <desc xml:id="abstract-en-6" xml:lang="en">A diocese of the Church of the East, centered around <placeName ref="http://syriaca.org/place/13">Arbela</placeName>.</desc>
-                    <state type="existence" from="0410" to="1444">
-                        <precision match="@from" notAfter="0410"/>
-                        <precision match="@to" notBefore="1444"/>
+                    <state type="existence" from="0410" to="1444" to-custom="1444-01-01" from-custom="0410-01-01">
+                        <precision match="@from" notAfter="0410" notAfter-custom="0410-01-01"/>
+                        <precision match="@to" notBefore="1444" notBefore-custom="1444-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/6</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Adiabene_(East_Syrian_Ecclesiastical_Province)</idno>

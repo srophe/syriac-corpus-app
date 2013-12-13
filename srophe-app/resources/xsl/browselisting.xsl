@@ -60,9 +60,11 @@
             <xsl:when test="/t:TEI/@browse-type = 'syr'">
                 <xsl:call-template name="do-list-syr"/>
             </xsl:when>
+            <!-- @deprecated             
             <xsl:when test="/t:TEI/@browse-type = 'num'">
                 <xsl:call-template name="do-list-num"/>
             </xsl:when>
+            -->
             <xsl:otherwise>
                 <xsl:call-template name="do-list-en"/>
             </xsl:otherwise>
@@ -85,9 +87,6 @@
                 </li>
                 <li>
                     <a href="?lang=syr&amp;sort=ܐ" data-toggle="tab" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
-                </li>
-                <li>
-                    <a href="?lang=num" data-toggle="tab">Syriac gazetteer number</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -161,9 +160,6 @@
                 <li class="active">
                     <a href="?lang=syr" data-toggle="tab" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
                 </li>
-                <li>
-                    <a href="?lang=num" data-toggle="tab">Syriac gazetteer number</a>
-                </li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="syriac" dir="rtl">
@@ -214,12 +210,11 @@
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      named template: do-list-num
-     
      Sorted by place number 
+      @deprecated 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template name="do-list-num">
         <div class="tabbable">
-            <!-- tabs -->
             <ul class="nav nav-tabs" id="nametabs">
                 <li>
                     <a href="?lang=en&amp;sort=A" data-toggle="tab">English</a>
@@ -231,12 +226,10 @@
                     <a href="?lang=num" data-toggle="tab">Syriac gazetteer number</a>
                 </li>
             </ul>
-            <div class="tab-content">    
-                <!-- NOTE: write a sorted, linked list of all the place titles in the gazetteer -->
+            <div class="tab-content">
                 <div class="tab-pane active" id="num">
                     <ul>
                         <xsl:for-each select="//t:place">
-                            <!-- Sorts on place number -->
                             <xsl:sort select="xs:integer(substring-after(@xml:id,'place-'))"/>
                             <xsl:variable name="placenum" select="substring-after(@xml:id,'place-')"/>
                             <li>
@@ -269,7 +262,8 @@
             </div>
         </div>
     </xsl:template>
-
+    
+    
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      named template: letter-menu-syr
      

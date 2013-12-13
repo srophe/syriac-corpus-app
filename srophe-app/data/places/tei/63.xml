@@ -116,8 +116,8 @@
                     <location type="gps" source="#bib63-1">
                         <geo>38.1666666 38.6666666</geo>
                     </location>
-                    <state type="existence" to="1235">
-                        <precision match="@to" notAfter="1300" notBefore="1235"/>
+                    <state type="existence" to="1235" to-custom="1235-01-01">
+                        <precision match="@to" notAfter="1300" notBefore="1235" notBefore-custom="1235-01-01" notAfter-custom="1300-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/63</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Qlaudia_(West_Syrian_Diocese)</idno>
