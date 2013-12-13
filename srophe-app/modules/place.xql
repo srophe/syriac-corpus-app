@@ -81,7 +81,7 @@ declare function place:get-metadata() {
 :)
 declare function place:get-nested-loc(){
     let $ref-id := concat('http://syriaca.org/place/',$place:id)
-    for $nested-loc in collection($config:app-root || "/data/places/tei")//tei:location/tei:*[@ref=$ref-id]
+    for $nested-loc in collection($config:app-root || "/data/places/tei")//tei:location[@type="nested"]/tei:*[@ref=$ref-id]
     let $parent-name := $nested-loc//tei:placeName[1]
     let $place-id := substring-after($nested-loc/ancestor::*/tei:place[1]/@xml:id,'place-')
     let $place-type := $nested-loc/ancestor::*/tei:place[1]/@type
