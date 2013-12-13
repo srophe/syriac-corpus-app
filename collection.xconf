@@ -5,12 +5,15 @@
         <lucene>
             <!-- Does not currently search tei header info, other then title -->
             <text qname="tei:place"/>
-            <text qname="tei:placeName"/>
+            <text qname="tei:placeName" boost="1.5"/>
             <text qname="tei:titleStmt" boost="2.0">
                 <ignore qname="tei:sponsor"/>
                 <ignore qname="tei:funder"/>
                 <ignore qname="tei:editor"/>
                 <ignore qname="tei:respStmt"/>
+            </text>
+            <text qname="tei:location">
+                <ignore qname="tei:geo"/>
             </text>
         </lucene>
         <create qname="@xml:lang" type="xs:string"/>
@@ -19,25 +22,20 @@
         <create qname="@target" type="xs:string"/>
         <create qname="@active" type="xs:string"/>
         <create qname="@syriaca-tags" type="xs:string"/>
-        <!--
-        <create qname="@to" type="xs:string"/>
-        <create qname="@from" type="xs:string"/>
-        <create qname="@when" type="xs:string"/>
-        <create qname="@notBefore" type="xs:string"/>
-        <create qname="@notAfter" type="xs:string"/>
+        <create qname="@to-custom" type="xs:date"/>
+        <create qname="@from-custom" type="xs:date"/>
+        <create qname="@when-custom" type="xs:date"/>
+        <create qname="@notBefore-custom" type="xs:date"/>
+        <create qname="@notAfter-custom" type="xs:date"/>
         <create qname="@source" type="xs:string"/>
         <create qname="@level" type="xs:string"/>
-        -->
-
-<!--        <create qname="tei:title" type="xs:string"/>-->
-<!--        <create qname="tei:place" type="xs:string"/>-->
 <!--        <create qname="tei:placeName" type="xs:string"/>-->
-<!--        <create qname="tei:state" type="xs:string"/>-->
-<!--        <create qname="tei:event" type="xs:string"/>-->
+        <create qname="tei:state" type="xs:string"/>
+        <create qname="tei:event" type="xs:string"/>
 <!--        <create qname="tei:label" type="xs:string"/>-->
 <!--        <create qname="tei:item" type="xs:string"/>-->
 <!--        <create qname="tei:link" type="xs:string"/>-->
-        <create qname="tei:location" type="xs:string"/>
+        <create qname="tei:geo" type="xs:string"/>
 <!--        <create qname="tei:region" type="xs:string"/>-->
         <create qname="tei:relation" type="xs:string"/>
         
