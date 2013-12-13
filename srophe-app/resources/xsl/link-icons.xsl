@@ -82,12 +82,12 @@
       
 <!-- NOTE: add links to xml and atom when code is built -->
       <!-- TEI source link -->
-            <a href="{$placenum}.xml" rel="alternate" type="application/tei+xml">
+            <a href="/exist/apps/srophe/data/places/tei/{$placenum}.xml" rel="alternate" type="application/tei+xml">
                 <img src="../resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/>
             </a>
       
       <!-- Atom format link -->
-            <a href="{$placenum}-atom.xml" rel="alternate" type="application/atom+xml">
+            <a href="atom.xql?id={$placenum}" rel="alternate" type="application/atom+xml">
                 <img src="../resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/>
             </a>
         </div>
@@ -124,12 +124,12 @@
 <!-- NOTE: correct links to tei and atom -->       
                 <!-- TEI source link -->
                 <li>
-                    <a href="{$placenum}.xml" rel="alternate" type="application/tei+xml">
+                    <a href="/exist/apps/srophe/data/places/tei/{$placenum}.xml" rel="alternate" type="application/tei+xml">
                         <img src="../resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/> TEI XML source data</a>
                 </li>
         <!-- Atom format link -->
                 <li>
-                    <a href="{$placenum}-atom.xml" rel="alternate" type="application/atom+xml">
+                    <a href="atom.xql?id={$placenum}" rel="alternate" type="application/atom+xml">
                         <img src="../resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/> Atom XML format</a>
                 </li>
         <!-- Wikipedia links -->
