@@ -164,11 +164,11 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="syriac" dir="rtl">
                     <!-- Calls ABC menu for browsing. -->
-                    <div class="browse-alpha-syr tabbable" lang="syr" dir="rtl" style="font-size:.75em">
+                    <div class="browse-alpha-syr tabbable" style="font-size:.75em">
                         <xsl:call-template name="letter-menu-syr"/>
                     </div>
                     <!-- Letter heading. Uses parameter passed from xquery, if no letter, default value is ܐ -->
-                    <h3 class="label syr" lang="syr" dir="rtl">
+                    <h3 class="label syr">
                         <xsl:choose>
                             <xsl:when test="/t:TEI/@browse-sort != ''">
                                 <xsl:value-of select="/t:TEI/@browse-sort"/>
@@ -187,17 +187,11 @@
                                     <!-- Syriac name -->
                                     <bdi dir="rtl" lang="syr" xml:lang="syr">
                                         <xsl:value-of select="t:placeName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']"/>
-                                    </bdi>
-                                    <bdi dir="rtl" lang="en" xml:lang="en">
-                                        <span> -  </span>
-                                    </bdi>
-                                    <!-- Type if exists -->
-                                    <xsl:if test="@type">
-                                        <bdi dir="ltr" lang="en" xml:lang="en"> (<xsl:value-of select="@type"/>)</bdi>
-                                    </xsl:if>
+                                    </bdi> -   
                                     <!-- English name -->
                                     <bdi dir="ltr" lang="en" xml:lang="en">
                                         <xsl:value-of select="t:placeName[@xml:lang='en'][@syriaca-tags='#syriaca-headword']"/>
+                                        <xsl:if test="@type"> (<xsl:value-of select="@type"/>)</xsl:if>
                                     </bdi>
                                 </a>
                             </li>

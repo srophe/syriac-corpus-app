@@ -120,7 +120,7 @@ declare function browse:get-letter-menu($node as node()){
  : Final results are passed to ../resources/xsl/browselisting.xsl
  :)
 declare %templates:wrap function browse:get-place-names($node as node(), $model as map(*)){
-    let $cache := 'testing345'
+    let $cache := 'testfklksjldsdfkjdslkfj345'
     let $results := 
      <tei:TEI xml:lang="en"
         xmlns:xi="http://www.w3.org/2001/XInclude"

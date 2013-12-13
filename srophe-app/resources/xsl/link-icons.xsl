@@ -75,7 +75,7 @@
       <!-- Google map links -->
             <xsl:for-each select="//t:place/t:location[@type='gps']/t:geo">
                 <!-- {$base}{$placeslevel}? -->
-                <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;q={$placenum}-atom.xml&amp;z=4">
+                <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;q=http:http://23.92.16.148:8080/exist/apps/srophe/data/places/atom/{$placenum}-atom.xml&amp;z=4">
                     <img src="../resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {ancestor::t:place/t:placeName[@xml:lang='en'][1]} on Google Maps"/>
                 </a>
             </xsl:for-each>
