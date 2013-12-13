@@ -10,15 +10,8 @@ declare namespace request="http://exist-db.org/xquery/request";
 declare variable $id {request:get-parameter('id', '')};
 declare variable $start {request:get-parameter('start', 1) cast as xs:integer};
 
-declare option exist:serialize "method=xml media-type=application/atom+xml omit-xml-declaration=no indent=yes";
-(:
- let $authors := let $author-name := distinct-values($rec/descendant::tei:titleStmt/tei:editor) 
-                    for $author in $author-name
-                    return <meta name="DC.creator" property="dc.creator" lang="en" content="{$author}" />
-    let $contributors := let $contrib-name := distinct-values($rec/descendant::tei:titleStmt/tei:respStmt/tei:name) 
-                         for $contributor in $contrib-name                        
-                         return    <meta name="DC.contributor" property="dc.contributor" lang="en" content="{$contributor}" />              
-:)
+declare option exist:serialize "method=xml media-type=application/rss+xml omit-xml-declaration=no indent=yes";
+
 (:Not complete, need to work on responsible persons function and add in contributors:)
 declare function local:build-entry($rec){
     let $place-id := substring-after($rec/descendant::tei:place/@xml:id,'place-')
@@ -42,8 +35,9 @@ declare function local:build-entry($rec){
     <entry xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss">
         <title>{$place-title}</title>
         <link rel="alternate" type="text/html" href="http://syriaca.org/place/{$place-id}" />
-        <link rel="self" type="application/atom+xml" href="http://syriaca.org/place/{$place-id}-atom.xml"/>
+        <link rel="self" type="application/atom+xml" href="http://syriaca.org/places/atom.xql?id={$place-id}"/>
         <id>tag:syriaca.org,2013:{$place-id}</id>
+        <georss:point>{$rec//tei:geo}</georss:point>
         <updated>{local:format-dates($date)}</updated>
         {($summary, $res-pers)}
     </entry>   
@@ -86,7 +80,7 @@ declare function local:format-dates($date){
 
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss"> 
     <title>The Syriac Gazetteer: Latest Updates</title>
-    <link rel="self" type="application/atom+xml" href="http://syriaca.org/place/latest-atom.xml"/>
+    <link rel="self" type="application/atom+xml" href="http://syriaca.org/places/atom.xql"/>
     <id>tag:syriaca.org,2013:gazetteer-latest</id>
        {
        if(exists($id) and $id !='') then local:get-place-entry()

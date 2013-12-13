@@ -1,5 +1,7 @@
 xquery version "3.0";
-
+(:~
+ : @depreciated: use /srophe/places/atom.xql 
+ :)
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";

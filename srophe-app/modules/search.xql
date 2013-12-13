@@ -50,13 +50,13 @@ declare function search:build-get-results($node as node(), $model as map(*)){
 
 declare function search:get-hits(){
     let $query := search:build-ft-query()
-    let $eval-string := concat("collection('/db/apps/srophe/data/places/tei')//tei:place",'[ft:query(.,search:build-ft-query())]')
-    let $hits := util:eval($eval-string)    
-    for $hit in $hits
-(:    for $hit in collection($config:app-root || "/data/places/tei")//tei:place[ft:query(., $query)]:)
+    (:let $eval-string := concat("collection('/db/apps/srophe/data/places/tei')//tei:place",'[ft:query(.,search:build-ft-query())]'):)
+    (:let $hits := util:eval($eval-string):)    
+(:    for $hit in $hits:)
+   for $hit in collection($config:app-root || "/data/places/tei")//tei:place[ft:query(., $query)]
 (:    for $hit in collection($config:app-root || "/data/places/tei")//tei:place[ft:query(tei:placeName, 'edessa')][@type ='settlement']:)
     order by ft:score($hit) descending
-    return $eval-string
+    return $hit
 };
 
 declare  %templates:wrap function search:hit-count($node as node()*, $model as map(*)) {
@@ -73,6 +73,7 @@ let $start := if($search:start) then $search:start else 1
 let $end := min (($search:start + $records - 1,$max)) 
 let $pages := round($max div $records) + 1
 return
+if(exists($search:q) and $search:q != '') then 
     <div class="row-fluid" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px solid #333; padding-top: 2em;">
     <div class="span6">
         Found: {$max} matches for <span class="match" style="font-weight:bold;">{$search:q}</span>.
@@ -90,6 +91,7 @@ return
             {$start} to 
             {
                 if($max lt $records) then $max
+                else if($max lt ($search:start + $records)) then $max
                 else $search:start + $records
             } 
             of {$max}
@@ -97,8 +99,8 @@ return
         <!--<li>Jump to: </li>-->
         <li>
             {
-                if($start lt $max - $records) then <i class="icon-forward"></i>
-                else <a href="?q={$search:q}&amp;start={$next}"><i class="icon-forward"></i></a>
+                if($start lt $max - $records) then <a href="?q={$search:q}&amp;start={$next}"><i class="icon-forward"></i></a> 
+                else <i class="icon-forward"></i>
             }
         </li>
         <li><a href="?q={$search:q}&amp;start={$max - $records}"><i class="icon-step-forward"></i></a></li>
@@ -126,12 +128,16 @@ return
     </div>
     -->
     </div>
+else ''
 };
 
 declare 
     %templates:default("start", 1)
-function search:show-form($node as node()*, $model as map(*)) {
-    <div>
+function search:show-form($node as node()*, $model as map(*)) {   
+if(exists($search:q) and $search:q != '') then ''
+else 
+<div>
+    <h3>Advanced Search Options [Beta]</h3>
     <form method="get" action="search.html">  
         <!-- Full text -->
         <label>Place Name: </label>
@@ -158,8 +164,9 @@ function search:show-form($node as node()*, $model as map(*)) {
         </select>
         <br/>
     <input type="submit" name="Submit"/>
-</form>
-    </div>
+    </form> 
+   </div>
+  
 };
 
 declare 
