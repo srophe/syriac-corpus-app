@@ -223,12 +223,14 @@
                                     <xsl:value-of select="@type"/>
                                 </p>
                             </div>
-                            <div id="location">
-                                <h4>Location</h4>
-                                <ul style="margin-left:1.25em;margin-top:-.5em;padding:0;">
-                                    <xsl:apply-templates select="t:location"/>
-                                </ul>
-                            </div>
+                            <xsl:if test="t:location">
+                                <div id="location">
+                                    <h4>Location</h4>
+                                    <ul style="margin-left:1.25em;margin-top:-.5em;padding:0;">
+                                        <xsl:apply-templates select="t:location"/>
+                                    </ul>
+                                </div>
+                            </xsl:if>
                         </div>
                     </div>
                 </div>
@@ -676,7 +678,8 @@
      handle standard output of 'nested' locations 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:location[@type='nested']">
-        <li>Within <xsl:for-each select="t:*">
+        <li>Within 
+            <xsl:for-each select="t:*">
                 <xsl:apply-templates select="."/>
                 <xsl:if test="following-sibling::t:*">
                     <xsl:text> within </xsl:text>
@@ -799,12 +802,14 @@
                 <xsl:choose>
                     <xsl:when test="string-length(@ref) &lt; 1"/>
                     <xsl:when test="starts-with(@ref, $uribase)">
+                        <xsl:text> </xsl:text>
                         <a class="placeName" href="?id={substring-after(@ref, $uribase)}">
                             <xsl:call-template name="langattr"/>
                             <xsl:apply-templates mode="cleanout"/>
                         </a>
                     </xsl:when>
                     <xsl:otherwise>
+                        <xsl:text> </xsl:text>
                         <a class="placeName" href="{@ref}">
                             <xsl:call-template name="langattr"/>
                             <xsl:apply-templates mode="cleanout"/>
