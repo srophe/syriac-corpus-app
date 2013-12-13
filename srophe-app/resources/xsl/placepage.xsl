@@ -686,12 +686,12 @@
                 </xsl:if>
             </xsl:for-each>
             <xsl:text>.</xsl:text>
-            <xsl:apply-templates select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
+            <xsl:sequence select="local:do-refs(@source,'eng')"/>
         </li>
     </xsl:template>
     <xsl:template match="t:location[@type='gps' and t:geo]">
         <li>Coordinates: <xsl:value-of select="t:geo"/>
-            <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
+            <xsl:sequence select="local:do-refs(@source,'eng')"/>
         </li>
     </xsl:template>
     <xsl:template match="t:offset | t:measure">
