@@ -119,7 +119,7 @@ declare function place:get-related-places($rec as node()*){
                             return
                                  attribute {name($att)} {$att},                      
                         for $get-related in collection($config:app-root || "/data/places/tei")/id($place-id)
-                        return $get-related//tei:placeName[1])
+                        return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
                     }
                     </relation>
         }
