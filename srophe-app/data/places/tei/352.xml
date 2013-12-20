@@ -109,9 +109,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib352-3">in the mountain of Sinjar, is first mentioned in history in the sixth century. From it graduated Maphryono Paul in 722 and the monk David Bar Paul in the beginning of the ninth century.</quote>
                     </desc>
-                    <state type="existence" from="0600" to="0800" to-custom="0800-01-01" from-custom="0600-01-01">
-                        <precision match="@from" notAfter="0600" notAfter-custom="0600-01-01"/>
-                        <precision match="@to" notBefore="0800" notBefore-custom="0800-01-01"/>
+                    <state type="existence" from="0600" to="0800" srp-to-sort="0800-01-01" syriaca-computed-to="0800-01-01" syriaca-computed-from="0600-01-01" syriaca-computed-end="0800-01-01" syriaca-computed-start="0600-01-01">
+                        <precision match="@from" notAfter="0600" syriaca-computed-notAfter="0600-01-01" syriaca-computed-end="0600-01-01"/>
+                        <precision match="@to" notBefore="0800" syriaca-computed-notBefore="0800-01-01" syriaca-computed-start="0800-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܫܬܝܺܬܝܳܬܐ should read ܫܬܝܺܬܳܝܬܐ.</note>
                     <idno type="URI">http://syriaca.org/place/352</idno>

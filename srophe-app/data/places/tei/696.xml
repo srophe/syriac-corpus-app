@@ -84,9 +84,9 @@
                     <placeName xml:id="name696-2" xml:lang="ar" source="#bib696-1">معمورة العزيز</placeName>
                     <placeName xml:id="name696-3" xml:lang="en" source="#bib696-2">Maʿmurat al-ʿAzīz</placeName>
                     <desc xml:id="abstract-en-696" xml:lang="en">A vilayet of the Ottoman Empire created from a portion of Diyarbakir vilayet.</desc>
-                    <state type="existence" from="1879" to="1923" to-custom="1923-01-01" from-custom="1879-01-01">
-                        <precision match="@from" notAfter="1879" notAfter-custom="1879-01-01"/>
-                        <precision match="@to" notBefore="1923" notBefore-custom="1923-01-01"/>
+                    <state type="existence" from="1879" to="1923" srp-to-sort="1923-01-01" syriaca-computed-to="1923-01-01" syriaca-computed-from="1879-01-01" syriaca-computed-end="1923-01-01" syriaca-computed-start="1879-01-01">
+                        <precision match="@from" notAfter="1879" syriaca-computed-notAfter="1879-01-01" syriaca-computed-end="1879-01-01"/>
+                        <precision match="@to" notBefore="1923" syriaca-computed-notBefore="1923-01-01" syriaca-computed-start="1923-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/696</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Vilayet_of_Mamuret-ul-Aziz</idno>

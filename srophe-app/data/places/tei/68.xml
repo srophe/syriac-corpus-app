@@ -116,9 +116,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib68-5">between Zāz and Ḥiṣn Kifa in Tur ʿAbdin, was first mentioned in history in 775. It was the see of the bishops of Ḥaḥ from 1089 to 1873. One Patriarch of Tur ʿAbdin, a Maphryono and six bishops graduated from it. In the middle of the last century it became the site of a small village, but its church still exists.</quote>
                     </desc>
-                    <state type="existence" from="0775" to="1873" to-custom="1873-01-01" from-custom="0775-01-01">
-                        <precision match="@from" notAfter="0775" notAfter-custom="0775-01-01"/>
-                        <precision match="@to" notBefore="1873" notBefore-custom="1873-01-01"/>
+                    <state type="existence" from="0775" to="1873" srp-to-sort="1873-01-01" syriaca-computed-to="1873-01-01" syriaca-computed-from="0775-01-01" syriaca-computed-end="1873-01-01" syriaca-computed-start="0775-01-01">
+                        <precision match="@from" notAfter="0775" syriaca-computed-notAfter="0775-01-01" syriaca-computed-end="0775-01-01"/>
+                        <precision match="@to" notBefore="1873" syriaca-computed-notBefore="1873-01-01" syriaca-computed-start="1873-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܥܕܺܬܗ should read ܥܺܕܬܗ</note>
                     <idno type="URI">http://syriaca.org/place/68</idno>

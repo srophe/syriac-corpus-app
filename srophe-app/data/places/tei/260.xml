@@ -123,8 +123,8 @@
                     <location type="nested" source="#bib260-6">
                         <region ref="http://syriaca.org/place/722">Mosul region</region>
                     </location>
-                    <state type="existence" from="1232" from-custom="1232-01-01">
-                        <precision match="@from" notAfter="1232" notAfter-custom="1232-01-01"/>
+                    <state type="existence" from="1232" syriaca-computed-from="1232-01-01" syriaca-computed-start="1232-01-01">
+                        <precision match="@from" notAfter="1232" syriaca-computed-notAfter="1232-01-01" syriaca-computed-end="1232-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/260</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Bartella</idno>

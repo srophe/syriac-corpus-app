@@ -112,8 +112,8 @@
                     <desc xml:lang="en">
                         <quote source="#bib411-4">a town southeast of Ḥama, toward the desert.</quote>
                     </desc>
-                    <state type="existence" from="0790" from-custom="0790-01-01">
-                        <precision match="@from" notAfter="0790" notAfter-custom="0790-01-01"/>
+                    <state type="existence" from="0790" syriaca-computed-from="0790-01-01" syriaca-computed-start="0790-01-01">
+                        <precision match="@from" notAfter="0790" syriaca-computed-notAfter="0790-01-01" syriaca-computed-end="0790-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/411</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/668362</idno>

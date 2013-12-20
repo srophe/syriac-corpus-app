@@ -77,6 +77,7 @@ declare function local:format-dates($date){
         else ''
     else ''
 };
+
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss"> 
     <title>The Syriac Gazetteer: Latest Updates</title>
     <link rel="self" type="application/atom+xml" href="http://syriaca.org/places/atom.xql"/>

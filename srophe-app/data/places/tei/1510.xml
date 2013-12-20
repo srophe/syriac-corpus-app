@@ -90,9 +90,9 @@
                     <placeName xml:id="name1510-3" xml:lang="syr-Syrj" source="#bib1510-1">ܒܰܐܕܝܐ</placeName>
                     <placeName xml:id="name1510-4" xml:lang="ar" source="#bib1510-2">بادية</placeName>
                     <desc xml:id="abstract-en-1510" xml:lang="en">A village perhaps near <placeName ref="http://syriaca.org/place/193">Tagrit</placeName>.</desc>
-                    <state type="existence" from="0806" to="0715" to-custom="0715-01-01" from-custom="0806-01-01">
-                        <precision match="@from" notAfter="0806" notAfter-custom="0806-01-01"/>
-                        <precision match="@to" notBefore="0715" notBefore-custom="0715-01-01"/>
+                    <state type="existence" from="0806" to="0715" srp-to-sort="0715-01-01" syriaca-computed-to="0715-01-01" syriaca-computed-from="0806-01-01" syriaca-computed-end="0715-01-01" syriaca-computed-start="0806-01-01">
+                        <precision match="@from" notAfter="0806" syriaca-computed-notAfter="0806-01-01" syriaca-computed-end="0806-01-01"/>
+                        <precision match="@to" notBefore="0715" syriaca-computed-notBefore="0715-01-01" syriaca-computed-start="0715-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1510</idno>
                     <bibl xml:id="bib1510-1">

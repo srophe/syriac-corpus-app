@@ -113,9 +113,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib113-4">a town between Dara and Rish ʿAyna, southwest of Mardin; now only a village.</quote>
                     </desc>
-                    <state type="existence" from="0869" to="1125" to-custom="1125-01-01" from-custom="0869-01-01">
-                        <precision match="@from" notAfter="0869" notAfter-custom="0869-01-01"/>
-                        <precision match="@to" notBefore="1125" notBefore-custom="1125-01-01"/>
+                    <state type="existence" from="0869" to="1125" srp-to-sort="1125-01-01" syriaca-computed-to="1125-01-01" syriaca-computed-from="0869-01-01" syriaca-computed-end="1125-01-01" syriaca-computed-start="0869-01-01">
+                        <precision match="@from" notAfter="0869" syriaca-computed-notAfter="0869-01-01" syriaca-computed-end="0869-01-01"/>
+                        <precision match="@to" notBefore="1125" syriaca-computed-notBefore="1125-01-01" syriaca-computed-start="1125-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/113</idno>
                     <bibl xml:id="bib113-1">

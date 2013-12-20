@@ -111,9 +111,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib356-4">in al-Raqqa, surrounded by the Balikh river. It was once a great and famous monastery; John of Talla became a monk there in 508. From this monastery graduated Patriarch John IV and twenty bishops, but it declined after 954. The Abbasid Caliph Harun al-Rashid visited it one day, liked it and bestowed favors on its monks.</quote>
                     </desc>
-                    <state type="existence" from="0508" to="0954" to-custom="0954-01-01" from-custom="0508-01-01">
-                        <precision match="@from" notAfter="0508" notAfter-custom="0508-01-01"/>
-                        <precision match="@to" notBefore="0954" notBefore-custom="0954-01-01"/>
+                    <state type="existence" from="0508" to="0954" srp-to-sort="0954-01-01" syriaca-computed-to="0954-01-01" syriaca-computed-from="0508-01-01" syriaca-computed-end="0954-01-01" syriaca-computed-start="0508-01-01">
+                        <precision match="@from" notAfter="0508" syriaca-computed-notAfter="0508-01-01" syriaca-computed-end="0508-01-01"/>
+                        <precision match="@to" notBefore="0954" syriaca-computed-notBefore="0954-01-01" syriaca-computed-start="0954-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܘܐܶܬܢܰܦܩ and ܘܐܰܪܒܥܳܐ should read ܘܶܐܬܢܰܦܩ and ܘܰܐܪܒܥܳܐ respectively.</note>
                     <idno type="URI">http://syriaca.org/place/356</idno>

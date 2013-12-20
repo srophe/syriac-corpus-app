@@ -79,8 +79,8 @@
                     <location type="gps" source="#bib192-1">
                         <geo>35.55 45.433333</geo>
                     </location>
-                    <state type="existence" from="1784-11-14" to="2013" to-custom="2013-01-01" from-custom="1784-11-14">
-                        <precision match="@to" notBefore="2013" notBefore-custom="2013-01-01"/>
+                    <state type="existence" from="1784-11-14" to="2013" srp-to-sort="2013-01-01" syriaca-computed-to="2013-01-01" syriaca-computed-from="1784-11-14" syriaca-computed-end="2013-01-01" syriaca-computed-start="1784-11-14">
+                        <precision match="@to" notBefore="2013" syriaca-computed-notBefore="2013-01-01" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/192</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Sulaymaniyah</idno>

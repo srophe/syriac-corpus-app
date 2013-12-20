@@ -70,8 +70,8 @@
                 <place xml:id="place-280" type="settlement">
                     <placeName xml:id="name280-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib280-1">Ṣaydnāyā</placeName>
                     <desc xml:id="abstract-en-280" xml:lang="en">A village north of <placeName ref="http://syriaca.org/place/66">Damascus</placeName> and southwest of Maʿlula.</desc>
-                    <state type="existence" to="2013" to-custom="2013-01-01">
-                        <precision match="@to" notBefore="2013" notBefore-custom="2013-01-01"/>
+                    <state type="existence" to="2013" srp-to-sort="2013-01-01" syriaca-computed-to="2013-01-01" syriaca-computed-end="2013-01-01">
+                        <precision match="@to" notBefore="2013" syriaca-computed-notBefore="2013-01-01" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/280</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Saidnaya</idno>

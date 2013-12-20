@@ -113,9 +113,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib393-4">in the province of Antioch. It was in this monastery that Dionysius II resided in the middle of the seventh century and translated books of philosophy into our Syriac language.</quote>
                     </desc>
-                    <state type="existence" from="0645" to="0645" to-custom="0645-01-01" from-custom="0645-01-01">
-                        <precision match="@from" notAfter="0645" notAfter-custom="0645-01-01"/>
-                        <precision match="@to" notBefore="0645" notBefore-custom="0645-01-01"/>
+                    <state type="existence" from="0645" to="0645" srp-to-sort="0645-01-01" syriaca-computed-to="0645-01-01" syriaca-computed-from="0645-01-01" syriaca-computed-end="0645-01-01" syriaca-computed-start="0645-01-01">
+                        <precision match="@from" notAfter="0645" syriaca-computed-notAfter="0645-01-01" syriaca-computed-end="0645-01-01"/>
+                        <precision match="@to" notBefore="0645" syriaca-computed-notBefore="0645-01-01" syriaca-computed-start="0645-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/393</idno>
                     <bibl xml:id="bib393-1">

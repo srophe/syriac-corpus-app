@@ -128,9 +128,9 @@
                     <location type="gps" source="#bib142-2">
                         <geo>37.06667 41.21667</geo>
                     </location>
-                    <state type="existence" from="0306" to="2013" to-custom="2013-01-01" from-custom="0306-01-01">
-                        <precision match="@from" notAfter="0306" notAfter-custom="0306-01-01"/>
-                        <precision match="@to" notBefore="2013" notBefore-custom="2013-01-01"/>
+                    <state type="existence" from="0306" to="2013" srp-to-sort="2013-01-01" syriaca-computed-to="2013-01-01" syriaca-computed-from="0306-01-01" syriaca-computed-end="2013-01-01" syriaca-computed-start="0306-01-01">
+                        <precision match="@from" notAfter="0306" syriaca-computed-notAfter="0306-01-01" syriaca-computed-end="0306-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-notBefore="2013-01-01" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܕܰܓܙܝܳܪܐ should read ܕܓܳܙܰܪܬܐ.</note>
                     <idno type="URI">http://syriaca.org/place/142</idno>

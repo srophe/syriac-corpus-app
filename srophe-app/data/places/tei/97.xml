@@ -117,8 +117,8 @@
                     <location type="gps" source="#bib97-1">
                         <geo>37.270778 37.837917</geo>
                     </location>
-                    <state type="existence" from="1235" from-custom="1235-01-01">
-                        <precision match="@from" notAfter="1235" notAfter-custom="1235-01-01"/>
+                    <state type="existence" from="1235" syriaca-computed-from="1235-01-01" syriaca-computed-start="1235-01-01">
+                        <precision match="@from" notAfter="1235" syriaca-computed-notAfter="1235-01-01" syriaca-computed-end="1235-01-01"/>
                     </state>
                     <note type="errata">Barsoum's description erroneously identifies this place with <placeName ref="http://syriaca.org/place/209">Zeugma</placeName>.</note>
                     <idno type="URI">http://syriaca.org/place/97</idno>

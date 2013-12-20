@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t" version="2.0">
-  
-  <!-- ================================================================== 
+    
+    <!-- ================================================================== 
        Copyright 2013 New York University
        
        This file is part of the Syriac Reference Portal Places Application.
@@ -23,8 +23,8 @@
        see (http://www.gnu.org/licenses/).
        
        ================================================================== --> 
-  
-  <!-- ================================================================== 
+    
+    <!-- ================================================================== 
        link-icons.xsl
        
        This XSLT is meant to be called from placepage.xsl in order to 
@@ -47,22 +47,22 @@
           Endowment for the Humanities.
        
        ================================================================== -->  
-  
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+    
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      template: name=link-icons
      emit the link icons div and its contents
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template name="link-icons">
         <div id="link-icons" class="span4 text-right">
-      
-      <!-- Pleiades links -->
+            
+            <!-- Pleiades links -->
             <xsl:for-each select="//t:place/t:idno[contains(.,'pleiades')]">
                 <a href="{normalize-space(.)}">
                     <img src="../resources/img/circle-pi-25.png" alt="Image of the Greek letter pi in blue; small icon of the Pleiades project" title="click to view {ancestor::t:place/t:placeName[@xml:lang='en'][1]} in Pleiades"/>
                 </a>
             </xsl:for-each>
-      
-      <!-- Wikipedia links -->
+            
+            <!-- Wikipedia links -->
             <xsl:for-each select="//t:place/t:idno[contains(.,'wikipedia')]">
                 <xsl:variable name="get-title">
                     <xsl:value-of select="replace(tokenize(.,'/')[last()],'_',' ')"/>
@@ -71,22 +71,22 @@
                     <img src="../resources/img/Wikipedia-25.png" alt="The Wikipedia icon" title="click to view {$get-title} in Wikipedia"/>
                 </a>
             </xsl:for-each>
-
-      <!-- Google map links -->
+            
+            <!-- Google map links -->
             <xsl:for-each select="//t:place/t:location[@type='gps']/t:geo">
                 <!-- {$base}{$placeslevel}? -->
                 <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://dev.syriaca.org:8080/exist/apps/srophe/places/atom.xql?id={$placenum}">
                     <img src="../resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {ancestor::t:place/t:placeName[@xml:lang='en'][1]} on Google Maps"/>
                 </a>
             </xsl:for-each>
-      
-<!-- NOTE: add links to xml and atom when code is built -->
-      <!-- TEI source link -->
+            
+            <!-- NOTE: add links to xml and atom when code is built -->
+            <!-- TEI source link -->
             <a href="/exist/apps/srophe/data/places/tei/{$placenum}.xml" rel="alternate" type="application/tei+xml">
                 <img src="../resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/>
             </a>
-      
-      <!-- Atom format link -->
+            
+            <!-- Atom format link -->
             <a href="atom.xql?id={$placenum}" rel="alternate" type="application/atom+xml">
                 <img src="../resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/>
             </a>
@@ -106,14 +106,14 @@
                         <a href="{normalize-space(.)}"> "<xsl:value-of select="substring-before(substring-after(normalize-space(.),'sK='),'&amp;sT=')"/>" in the Comprehensive Bibliography on Syriac Christianity</a>
                     </li>
                 </xsl:for-each>
-        <!-- Pleiades links -->
+                <!-- Pleiades links -->
                 <xsl:for-each select="t:idno[contains(.,'pleiades')]">
                     <li>
                         <a href="{normalize-space(.)}">
                             <img src="../resources/img/circle-pi-25.png" alt="Image of the Greek letter pi in blue; small icon of the Pleiades project" title="click to view {ancestor::t:place/t:placeName[@xml:lang='en'][1]} in Pleiades"/> View in Pleiades</a>
                     </li>
                 </xsl:for-each>
-        <!-- Google map links -->
+                <!-- Google map links -->
                 <xsl:for-each select="t:location[@type='gps']/t:geo">
                     <!-- {$base}{$placeslevel} -->
                     <li>
@@ -127,18 +127,18 @@
                             <img src="../resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {ancestor::t:place/t:placeName[@xml:lang='en'][1]} on Google Maps"/> View in Google Maps</a>
                     </li>
                 </xsl:for-each>
-<!-- NOTE: correct links to tei and atom -->       
+                <!-- NOTE: correct links to tei and atom -->       
                 <!-- TEI source link -->
                 <li>
                     <a href="/exist/apps/srophe/data/places/tei/{$placenum}.xml" rel="alternate" type="application/tei+xml">
                         <img src="../resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/> TEI XML source data</a>
                 </li>
-        <!-- Atom format link -->
+                <!-- Atom format link -->
                 <li>
                     <a href="atom.xql?id={$placenum}" rel="alternate" type="application/atom+xml">
                         <img src="../resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/> Atom XML format</a>
                 </li>
-        <!-- Wikipedia links -->
+                <!-- Wikipedia links -->
                 <xsl:for-each select="t:idno[contains(.,'wikipedia')]">
                     <xsl:variable name="get-title">
                         <xsl:value-of select="replace(tokenize(.,'/')[last()],'_',' ')"/>

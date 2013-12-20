@@ -91,8 +91,8 @@
                     <placeName xml:id="name1470-4" xml:lang="ar" source="#bib1470-2">دير القديس سمعان</placeName>
                     <placeName xml:id="name1470-5" xml:lang="en" source="#bib1470-3">Monastery of St. Simon</placeName>
                     <desc xml:id="abstract-en-1470" xml:lang="en">An unlocated monastery</desc>
-                    <state type="existence" from="0538" from-custom="0538-01-01">
-                        <precision match="@from" notAfter="0538" notAfter-custom="0538-01-01"/>
+                    <state type="existence" from="0538" syriaca-computed-from="0538-01-01" syriaca-computed-start="0538-01-01">
+                        <precision match="@from" notAfter="0538" syriaca-computed-notAfter="0538-01-01" syriaca-computed-end="0538-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1470</idno>
                     <bibl xml:id="bib1470-1">

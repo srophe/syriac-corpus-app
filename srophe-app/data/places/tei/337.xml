@@ -112,9 +112,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib337-3">in Karkar, was built in 1138 and remained in existence until 1600. In 1170, Patriarch Michael the Great rebuilt its church. It produced five bishops.</quote>
                     </desc>
-                    <state type="existence" from="1137" to="1600" to-custom="1600-01-01" from-custom="1137-01-01">
-                        <precision match="@from" notAfter="1137" notAfter-custom="1137-01-01"/>
-                        <precision match="@to" notBefore="1600" notBefore-custom="1600-01-01"/>
+                    <state type="existence" from="1137" to="1600" srp-to-sort="1600-01-01" syriaca-computed-to="1600-01-01" syriaca-computed-from="1137-01-01" syriaca-computed-end="1600-01-01" syriaca-computed-start="1137-01-01">
+                        <precision match="@from" notAfter="1137" syriaca-computed-notAfter="1137-01-01" syriaca-computed-end="1137-01-01"/>
+                        <precision match="@to" notBefore="1600" syriaca-computed-notBefore="1600-01-01" syriaca-computed-start="1600-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/337</idno>
                     <bibl xml:id="bib337-1">

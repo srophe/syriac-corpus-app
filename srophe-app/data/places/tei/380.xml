@@ -113,9 +113,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib380-3">in the province of Marʿash. Between 1100 and 1200 four bishops graduated from it.</quote>
                     </desc>
-                    <state type="existence" from="1100" to="1200" to-custom="1200-01-01" from-custom="1100-01-01">
-                        <precision match="@from" notAfter="1100" notAfter-custom="1100-01-01"/>
-                        <precision match="@to" notBefore="1200" notBefore-custom="1200-01-01"/>
+                    <state type="existence" from="1100" to="1200" srp-to-sort="1200-01-01" syriaca-computed-to="1200-01-01" syriaca-computed-from="1100-01-01" syriaca-computed-end="1200-01-01" syriaca-computed-start="1100-01-01">
+                        <precision match="@from" notAfter="1100" syriaca-computed-notAfter="1100-01-01" syriaca-computed-end="1100-01-01"/>
+                        <precision match="@to" notBefore="1200" syriaca-computed-notBefore="1200-01-01" syriaca-computed-start="1200-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/380</idno>
                     <bibl xml:id="bib380-1">

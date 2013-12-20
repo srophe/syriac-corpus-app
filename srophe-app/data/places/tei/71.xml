@@ -109,8 +109,8 @@
                     <desc xml:lang="en">
                         <quote source="#bib71-4">an old monastery near Midyat, built about 763. It produced three bishops. </quote>
                     </desc>
-                    <state type="existence" from="0763" from-custom="0763-01-01">
-                        <precision match="@from" notBefore="0763" notBefore-custom="0763-01-01"/>
+                    <state type="existence" from="0763" syriaca-computed-from="0763-01-01" syriaca-computed-start="0763-01-01">
+                        <precision match="@from" notBefore="0763" syriaca-computed-notBefore="0763-01-01" syriaca-computed-start="0763-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܡܕܝܢܳܬܐ should read ܡܕܝܢܬܳܐ.</note>
                     <idno type="URI">http://syriaca.org/place/71</idno>

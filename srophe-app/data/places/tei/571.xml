@@ -92,9 +92,9 @@
                     <placeName xml:id="name571-5" xml:lang="en" source="#bib571-3">Euphemia</placeName>
                     <desc xml:id="abstract-en-571" xml:lang="en">A ruined monastery attested near <placeName ref="http://syriaca.org/place/215">Ḥimṣ</placeName>
                     </desc>
-                    <state type="existence" from="1286" to="1286" to-custom="1286-01-01" from-custom="1286-01-01">
-                        <precision match="@from" notAfter="1286" notAfter-custom="1286-01-01"/>
-                        <precision match="@to" notBefore="1286" notBefore-custom="1286-01-01"/>
+                    <state type="existence" from="1286" to="1286" srp-to-sort="1286-01-01" syriaca-computed-to="1286-01-01" syriaca-computed-from="1286-01-01" syriaca-computed-end="1286-01-01" syriaca-computed-start="1286-01-01">
+                        <precision match="@from" notAfter="1286" syriaca-computed-notAfter="1286-01-01" syriaca-computed-end="1286-01-01"/>
+                        <precision match="@to" notBefore="1286" syriaca-computed-notBefore="1286-01-01" syriaca-computed-start="1286-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/571</idno>
                     <bibl xml:id="bib571-1">

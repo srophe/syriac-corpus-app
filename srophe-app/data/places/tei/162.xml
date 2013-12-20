@@ -103,9 +103,9 @@
                     <location type="gps" source="#bib162-1">
                         <geo>35.99861 36.99806</geo>
                     </location>
-                    <state type="existence" from="0638" to="0638" to-custom="0638-01-01" from-custom="0638-01-01">
-                        <precision match="@from" notAfter="0638" notAfter-custom="0638-01-01"/>
-                        <precision match="@to" notBefore="0638" notBefore-custom="0638-01-01"/>
+                    <state type="existence" from="0638" to="0638" srp-to-sort="0638-01-01" syriaca-computed-to="0638-01-01" syriaca-computed-from="0638-01-01" syriaca-computed-end="0638-01-01" syriaca-computed-start="0638-01-01">
+                        <precision match="@from" notAfter="0638" syriaca-computed-notAfter="0638-01-01" syriaca-computed-end="0638-01-01"/>
+                        <precision match="@to" notBefore="0638" syriaca-computed-notBefore="0638-01-01" syriaca-computed-start="0638-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/162</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/668226</idno>

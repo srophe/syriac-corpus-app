@@ -1,14 +1,15 @@
 xquery version "3.0";
 (:~
- : Builds browse page
+ : Builds browse page for Syriac Gazetteer
+ : Alphabetical English and Syriac Browse lists
+ : Results output as TEI xml and transformed by ../resources/xsl/browselisting.xsl
  :)
+ 
 module namespace browse="http://syriaca.org//browse";
 
-(: Imported modules :)
 import module namespace templates="http://syriaca.org//templates" at "templates.xql";
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 
-(: Namespaces :)
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
@@ -22,11 +23,13 @@ declare namespace ngram="http://exist-db.org/xquery/ngram";
  : @param $lang selects language for browse display
  : @param $sort passes browse by letter for alphabetical browse lists
  :)
-
+ 
 declare variable $browse:lang {request:get-parameter('lang', '')};
 declare variable $browse:sort {request:get-parameter('sort', '')};
 
-
+(:~
+ : Initialize search string
+:)
 declare function browse:get-places($node as node(), $model as map(*)){
      map { "places-data" := collection($config:app-root || "/data/places/tei")//tei:place[tei:placeName[@xml:lang = 'en'][starts-with(@syriaca-tags, '#syriaca-headword')]]}
 };
@@ -75,7 +78,7 @@ declare function browse:get-place-syr($node as node(), $model as map(*)){
 };
 
 (:~
- : Insures that browse list matches letters and thier equivalent, as established by The Syriac Gazetteer
+ : Matches English letters and thier equivalent letters as established by The Syriac Gazetteer
  : @param $browse:sort indicates letter for browse
  :)
 declare function browse:get-sort(){
@@ -94,7 +97,7 @@ declare function browse:get-sort(){
 };
 
 (:~
- : Strips english titles of non-sort characters
+ : Strips english titles of non-sort characters as established by The Syriac Gazetteer
  :)
 declare function browse:build-sort-string($titlestring){
     replace(replace(replace($titlestring,'^\s+',''),'^al-',''),'[‘ʻʿ]','')
@@ -120,7 +123,7 @@ declare function browse:get-letter-menu($node as node()){
  : Final results are passed to ../resources/xsl/browselisting.xsl
  :)
 declare %templates:wrap function browse:get-place-names($node as node(), $model as map(*)){
-    let $cache := 'testfklksjldsdfkjdslkfj345'
+    let $cache := 'testing3457'
     let $results := 
      <tei:TEI xml:lang="en"
         xmlns:xi="http://www.w3.org/2001/XInclude"

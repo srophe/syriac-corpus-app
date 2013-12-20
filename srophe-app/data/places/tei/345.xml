@@ -112,9 +112,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib345-4">is situated in Sīs, Cilicia. Patriarch John XII resided there in 1108. Between 1266 and 1279, it was burned three times by Egyptian troops, who also killed twenty-five monks. (See Bar Hebraeus, Chronography, pp. 523, 531, 542). Gregorius, metropolitan of Sīs, may have belonged to this monastery around 1290.</quote>
                     </desc>
-                    <state type="existence" from="1263" to="1263" to-custom="1263-01-01" from-custom="1263-01-01">
-                        <precision match="@from" notAfter="1263" notAfter-custom="1263-01-01"/>
-                        <precision match="@to" notBefore="1263" notBefore-custom="1263-01-01"/>
+                    <state type="existence" from="1263" to="1263" srp-to-sort="1263-01-01" syriaca-computed-to="1263-01-01" syriaca-computed-from="1263-01-01" syriaca-computed-end="1263-01-01" syriaca-computed-start="1263-01-01">
+                        <precision match="@from" notAfter="1263" syriaca-computed-notAfter="1263-01-01" syriaca-computed-end="1263-01-01"/>
+                        <precision match="@to" notBefore="1263" syriaca-computed-notBefore="1263-01-01" syriaca-computed-start="1263-01-01"/>
                     </state>
                     <note type="errata">Dolabani's printer erroneously included ܒܳܣܝܣ from the description as part of name.  Also in Dolabani's translation of Barsoum's description ܘܐܰܘܩܕܽܘܗܝ should read ܘܰܐܘܩܕܽܘܗܝ.</note>
                     <idno type="URI">http://syriaca.org/place/345</idno>

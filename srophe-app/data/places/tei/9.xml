@@ -123,9 +123,9 @@
                     <location type="gps" source="#bib9-1">
                         <geo>37.263889 35.905556</geo>
                     </location>
-                    <state type="existence" from="0525" to="1375" to-custom="1375-01-01" from-custom="0525-01-01">
-                        <precision match="@from" notAfter="0525" notAfter-custom="0525-01-01"/>
-                        <precision match="@to" notAfter="2013" notBefore="1375" notBefore-custom="1375-01-01" notAfter-custom="2013-01-01"/>
+                    <state type="existence" from="0525" to="1375" srp-to-sort="1375-01-01" syriaca-computed-to="1375-01-01" syriaca-computed-from="0525-01-01" syriaca-computed-end="1375-01-01" syriaca-computed-start="0525-01-01">
+                        <precision match="@from" notAfter="0525" syriaca-computed-notAfter="0525-01-01" syriaca-computed-end="0525-01-01"/>
+                        <precision match="@to" notAfter="2013" notBefore="1375" syriaca-computed-notBefore="1375-01-01" syriaca-computed-notAfter="2013-01-01" syriaca-computed-end="2013-01-01" syriaca-computed-start="1375-01-01"/>
                     </state>
                     <note type="deprecation" xml:id="name9-6-deprecation">Dolabani's printer misread the initial olaph of this name as a zayn.</note>
                     <link target="#name9-6 #name9-6-deprecation"/>

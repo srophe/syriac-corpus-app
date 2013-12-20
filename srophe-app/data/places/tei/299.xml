@@ -117,9 +117,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib299-3">a town in Syria between Aleppo and al-Raqqa, known in antiquity as Perpalisos, it is now called Maskana.</quote>
                     </desc>
-                    <state type="existence" from="0253" to="1000" to-custom="1000-01-01" from-custom="0253-01-01">
-                        <precision match="@from" notAfter="0253" notAfter-custom="0253-01-01"/>
-                        <precision match="@to" notBefore="1000" notBefore-custom="1000-01-01"/>
+                    <state type="existence" from="0253" to="1000" srp-to-sort="1000-01-01" syriaca-computed-to="1000-01-01" syriaca-computed-from="0253-01-01" syriaca-computed-end="1000-01-01" syriaca-computed-start="0253-01-01">
+                        <precision match="@from" notAfter="0253" syriaca-computed-notAfter="0253-01-01" syriaca-computed-end="0253-01-01"/>
+                        <precision match="@to" notBefore="1000" syriaca-computed-notBefore="1000-01-01" syriaca-computed-start="1000-01-01"/>
                     </state>
                     <note type="deprecation" xml:id="name299-12-deprecation">Moosa's transcription "Perpalisos" should be "Barbalissus".</note>
                     <link target="#name299-12 #name299-12-deprecation"/>

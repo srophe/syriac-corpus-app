@@ -109,9 +109,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib347-3">in Ḥarran. A synod met there in 793. It produced one Patriarch and three bishops and remained active until 975.</quote>
                     </desc>
-                    <state type="existence" from="0793" to="0975" to-custom="0975-01-01" from-custom="0793-01-01">
-                        <precision match="@from" notAfter="0793" notAfter-custom="0793-01-01"/>
-                        <precision match="@to" notBefore="0975" notBefore-custom="0975-01-01"/>
+                    <state type="existence" from="0793" to="0975" srp-to-sort="0975-01-01" syriaca-computed-to="0975-01-01" syriaca-computed-from="0793-01-01" syriaca-computed-end="0975-01-01" syriaca-computed-start="0793-01-01">
+                        <precision match="@from" notAfter="0793" syriaca-computed-notAfter="0793-01-01" syriaca-computed-end="0793-01-01"/>
+                        <precision match="@to" notBefore="0975" syriaca-computed-notBefore="0975-01-01" syriaca-computed-start="0975-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܣܘܢܰܗܕܘܣ should read ܣܘܢܗܳܕܘܣ.</note>
                     <idno type="URI">http://syriaca.org/place/347</idno>

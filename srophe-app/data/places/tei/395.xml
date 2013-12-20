@@ -113,9 +113,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib395-3">in Shaghr, in the province of Qallisura. Two patriarchs and five bishops graduated from it between 986 and 1170.</quote>
                     </desc>
-                    <state type="existence" from="0986" to="1170" to-custom="1170-01-01" from-custom="0986-01-01">
-                        <precision match="@from" notAfter="0986" notAfter-custom="0986-01-01"/>
-                        <precision match="@to" notBefore="1170" notBefore-custom="1170-01-01"/>
+                    <state type="existence" from="0986" to="1170" srp-to-sort="1170-01-01" syriaca-computed-to="1170-01-01" syriaca-computed-from="0986-01-01" syriaca-computed-end="1170-01-01" syriaca-computed-start="0986-01-01">
+                        <precision match="@from" notAfter="0986" syriaca-computed-notAfter="0986-01-01" syriaca-computed-end="0986-01-01"/>
+                        <precision match="@to" notBefore="1170" syriaca-computed-notBefore="1170-01-01" syriaca-computed-start="1170-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/395</idno>
                     <bibl xml:id="bib395-1">

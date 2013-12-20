@@ -11,8 +11,8 @@ body {
 
 .main {background-color:white; padding:1em; border-right:1px solid #ccc;}
 
-.citation {padding:0px 20px; margin:0; color: #555; border-top:1px solid #666666; background-color:#eee;}
-
+.citationinfo {padding:0px 20px 20px; color: #555; border-top:1px solid #666666; background-color:#eee; }
+#citation {display:none;}
 .column2 well {border: 1px solid #ccc; padding:.5em;}
 
 

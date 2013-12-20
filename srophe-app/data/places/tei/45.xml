@@ -110,9 +110,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib45-4">an ancient town, formerly located near Sarug.</quote>
                     </desc>
-                    <state type="existence" from="0582" to="0482" to-custom="0482-01-01" from-custom="0582-01-01">
-                        <precision match="@from" notAfter="0582" notAfter-custom="0582-01-01"/>
-                        <precision match="@to" notBefore="0482" notBefore-custom="0482-01-01"/>
+                    <state type="existence" from="0582" to="0482" srp-to-sort="0482-01-01" syriaca-computed-to="0482-01-01" syriaca-computed-from="0582-01-01" syriaca-computed-end="0482-01-01" syriaca-computed-start="0582-01-01">
+                        <precision match="@from" notAfter="0582" syriaca-computed-notAfter="0582-01-01" syriaca-computed-end="0582-01-01"/>
+                        <precision match="@to" notBefore="0482" syriaca-computed-notBefore="0482-01-01" syriaca-computed-start="0482-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/45</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/658405</idno>

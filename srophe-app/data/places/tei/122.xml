@@ -124,9 +124,9 @@
                     <location type="gps" source="#bib122-1">
                         <geo>36.53333 37.95</geo>
                     </location>
-                    <state type="existence" from="0499" to="2013" to-custom="2013-01-01" from-custom="0499-01-01">
-                        <precision match="@from" notAfter="0499" notAfter-custom="0499-01-01"/>
-                        <precision match="@to" notBefore="2013" notBefore-custom="2013-01-01"/>
+                    <state type="existence" from="0499" to="2013" srp-to-sort="2013-01-01" syriaca-computed-to="2013-01-01" syriaca-computed-from="0499-01-01" syriaca-computed-end="2013-01-01" syriaca-computed-start="0499-01-01">
+                        <precision match="@from" notAfter="0499" syriaca-computed-notAfter="0499-01-01" syriaca-computed-end="0499-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-notBefore="2013-01-01" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/122</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/658480</idno>

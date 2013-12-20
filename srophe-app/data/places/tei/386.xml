@@ -113,8 +113,8 @@
                     <desc xml:lang="en">
                         <quote source="#bib386-3">built in the name of the Virgin and the Forty Martyrs in Claudia, near the village of Sinjis, was first mentioned in history in 986. Ten metropolitans graduated from it. In 1257 the henchmen of Ahmad Ibn Ballās burned this monastery.</quote>
                     </desc>
-                    <state type="existence" from="0986" to="1257" to-custom="1257-01-01" from-custom="0986-01-01">
-                        <precision match="@from" notAfter="0986" notAfter-custom="0986-01-01"/>
+                    <state type="existence" from="0986" to="1257" srp-to-sort="1257-01-01" syriaca-computed-to="1257-01-01" syriaca-computed-from="0986-01-01" syriaca-computed-end="1257-01-01" syriaca-computed-start="0986-01-01">
+                        <precision match="@from" notAfter="0986" syriaca-computed-notAfter="0986-01-01" syriaca-computed-end="0986-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/386</idno>
                     <bibl xml:id="bib386-1">

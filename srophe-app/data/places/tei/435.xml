@@ -112,9 +112,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib435-3">an ancient town north of Biricik on the river Farzmān, a tributary of the Euphrates called Marzīmān.</quote>
                     </desc>
-                    <state type="existence" from="1124" to="1056" to-custom="1056-01-01" from-custom="1124-01-01">
-                        <precision match="@from" notAfter="1124" notAfter-custom="1124-01-01"/>
-                        <precision match="@to" notBefore="1056" notBefore-custom="1056-01-01"/>
+                    <state type="existence" from="1124" to="1056" srp-to-sort="1056-01-01" syriaca-computed-to="1056-01-01" syriaca-computed-from="1124-01-01" syriaca-computed-end="1056-01-01" syriaca-computed-start="1124-01-01">
+                        <precision match="@from" notAfter="1124" syriaca-computed-notAfter="1124-01-01" syriaca-computed-end="1124-01-01"/>
+                        <precision match="@to" notBefore="1056" syriaca-computed-notBefore="1056-01-01" syriaca-computed-start="1056-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/435</idno>
                     <bibl xml:id="bib435-1">

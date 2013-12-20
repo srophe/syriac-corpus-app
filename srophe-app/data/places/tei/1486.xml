@@ -90,8 +90,8 @@
                     <placeName xml:id="name1486-3" xml:lang="syr-Syrj" source="#bib1486-1">ܥܺܕܬܳܐ ܕܰܒܬܘܠܬܐ</placeName>
                     <placeName xml:id="name1486-4" xml:lang="ar" source="#bib1486-2">بيعة العذرآء</placeName>
                     <desc xml:id="abstract-en-1486" xml:lang="en">A church in <placeName ref="http://syriaca.org/place/97">Qalʿa Rumayta</placeName>.</desc>
-                    <state type="existence" from="1235" from-custom="1235-01-01">
-                        <precision match="@from" notBefore="1235" notBefore-custom="1235-01-01"/>
+                    <state type="existence" from="1235" syriaca-computed-from="1235-01-01" syriaca-computed-start="1235-01-01">
+                        <precision match="@from" notBefore="1235" syriaca-computed-notBefore="1235-01-01" syriaca-computed-start="1235-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1486</idno>
                     <bibl xml:id="bib1486-1">

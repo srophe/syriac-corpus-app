@@ -1,19 +1,14 @@
 xquery version "3.0";
 
 (:~
- : Builds dynamic nav based on url called by page.html
+ : Builds dynamic nav menu based on url called by page.html
  :)
+
 module namespace nav="http://syriaca.org//nav";
 
-(:~ 
- : Imported modules 
- :)
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 import module namespace place="http://syriaca.org//place" at "place.xql";
 
-(:~ 
- : Namespaces 
- :)
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";

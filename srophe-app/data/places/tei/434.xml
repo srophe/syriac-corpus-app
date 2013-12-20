@@ -105,9 +105,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib434-3">a town in the district of Antioch whose location is unknown; birthplace of the learned Jacob of Edessa.</quote>
                     </desc>
-                    <state type="existence" from="0672" to="0608" to-custom="0608-01-01" from-custom="0672-01-01">
-                        <precision match="@from" notAfter="0672" notAfter-custom="0672-01-01"/>
-                        <precision match="@to" notBefore="0608" notBefore-custom="0608-01-01"/>
+                    <state type="existence" from="0672" to="0608" srp-to-sort="0608-01-01" syriaca-computed-to="0608-01-01" syriaca-computed-from="0672-01-01" syriaca-computed-end="0608-01-01" syriaca-computed-start="0672-01-01">
+                        <precision match="@from" notAfter="0672" syriaca-computed-notAfter="0672-01-01" syriaca-computed-end="0672-01-01"/>
+                        <precision match="@to" notBefore="0608" syriaca-computed-notBefore="0608-01-01" syriaca-computed-start="0608-01-01"/>
                     </state>
                     <note type="errata">Dolabani's Syriac translation erroneously identifies this place with <placeName ref="http://syriaca.org/place/9">Anazarba</placeName>.</note>
                     <idno type="URI">http://syriaca.org/place/434</idno>

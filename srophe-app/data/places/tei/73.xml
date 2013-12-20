@@ -115,8 +115,8 @@
                     <desc xml:lang="en">
                         <quote source="#bib73-4">was built in the name of the Virgin and St. Theodorus. It is a small monastery hewn in the rocks in a mountain overlooking the Zaʿfaran Monastery and housed a group of monks. We have a great deal of information about it since the fourteenth century. At times it was administered by a bishop. It became empty, however, about 1927.</quote>
                     </desc>
-                    <state type="existence" to="1927" to-custom="1927-01-01">
-                        <precision match="@to" notAfter="1927" notAfter-custom="1927-01-01"/>
+                    <state type="existence" to="1927" srp-to-sort="1927-01-01" syriaca-computed-to="1927-01-01" syriaca-computed-end="1927-01-01">
+                        <precision match="@to" notAfter="1927" syriaca-computed-notAfter="1927-01-01" syriaca-computed-end="1927-01-01"/>
                     </state>
                     <note type="errata">GEDSH Map III omits the dot in Noṭpo</note>
                     <idno type="URI">http://syriaca.org/place/73</idno>

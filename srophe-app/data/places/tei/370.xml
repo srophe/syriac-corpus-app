@@ -113,9 +113,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib370-3">in the vicinity of Kesum and Raʿbān, was usurped by the wicked Gurtij the Armenian, who persecuted and expelled its monks, converting it into a citadel in 1114, but the monks were able to regain it. Between 1095 and 1132, six bishops graduated from it.</quote>
                     </desc>
-                    <state type="existence" from="1095" to="1132" to-custom="1132-01-01" from-custom="1095-01-01">
-                        <precision match="@from" notAfter="1095" notAfter-custom="1095-01-01"/>
-                        <precision match="@to" notBefore="1132" notBefore-custom="1132-01-01"/>
+                    <state type="existence" from="1095" to="1132" srp-to-sort="1132-01-01" syriaca-computed-to="1132-01-01" syriaca-computed-from="1095-01-01" syriaca-computed-end="1132-01-01" syriaca-computed-start="1095-01-01">
+                        <precision match="@from" notAfter="1095" syriaca-computed-notAfter="1095-01-01" syriaca-computed-end="1095-01-01"/>
+                        <precision match="@to" notBefore="1132" syriaca-computed-notBefore="1132-01-01" syriaca-computed-start="1132-01-01"/>
                     </state>
                     <note type="deprecation" xml:id="name370-3-deprecation">Dolabani's printer read his ʿe as a lomadh, and replaced his nun with a dolath.</note>
                     <link target="#name370-3 #name370-3-deprecation"/>

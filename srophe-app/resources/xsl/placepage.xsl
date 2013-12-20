@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -110,28 +110,31 @@
   <!-- Citations section -->
         <div class="row-fluid">
             <xsl:variable name="htmluri" select="concat('?id=',$placenum)"/>
-            <div class="span12 citation">
-                <div id="citation">
-                    <h3>How to Cite This Entry</h3>
-                    <div id="citation-note">
-                        <h4>Note:</h4>
-                        <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
+            <div class="span12 citationinfo">
+                <h3>How to Cite This Entry</h3>
+                <div id="citation-note" class="well">
+                    <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
+                    <br/>
+                    <span class="pull-right">
+                        <a id="moreInfo">Show full citation information...</a>
+                    </span>
+                    <div id="citation">
+                        <div id="citation-bibliography">
+                            <h4>Bibliography:</h4>
+                            <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
+                        </div>
+                        <div id="about">
+                            <h3>About this Entry</h3>
+                            <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
+                        </div>
+                        <div id="license">
+                            <h3>Copyright and License for Reuse</h3>
+                            <p>
+                                <xsl:text>Except otherwise noted, this page is © </xsl:text>
+                                <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>.</p>
+                            <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
+                        </div>
                     </div>
-                    <div id="citation-bibliography">
-                        <h4>Bibliography:</h4>
-                        <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
-                    </div>
-                </div>
-                <div id="about">
-                    <h3>About this Entry</h3>
-                    <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
-                </div>
-                <div id="license">
-                    <h3>Copyright and License for Reuse</h3>
-                    <p>
-                        <xsl:text>Except otherwise noted, this page is © </xsl:text>
-                        <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>.</p>
-                    <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
                 </div>
             </div>
         </div>

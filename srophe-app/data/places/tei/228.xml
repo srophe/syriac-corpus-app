@@ -122,8 +122,8 @@
                     <location type="gps" source="#bib228-2">
                         <geo>34.021667 36.842222</geo>
                     </location>
-                    <state type="existence" from="0600" from-custom="0600-01-01">
-                        <precision match="@from" notAfter="0600" notBefore="0300" notBefore-custom="0300-01-01" notAfter-custom="0600-01-01"/>
+                    <state type="existence" from="0600" syriaca-computed-from="0600-01-01" syriaca-computed-start="0600-01-01">
+                        <precision match="@from" notAfter="0600" notBefore="0300" syriaca-computed-notBefore="0300-01-01" syriaca-computed-notAfter="0600-01-01" syriaca-computed-end="0600-01-01" syriaca-computed-start="0300-01-01"/>
                     </state>
                     <note type="errata">In Barsoum's description فيها should read فيه.</note>
                     <idno type="URI">http://syriaca.org/place/228</idno>

@@ -112,9 +112,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib423-3">an ancient town on the east bank of the Tigris, near the Great Zab.</quote>
                     </desc>
-                    <state type="existence" from="0903" to="0863" to-custom="0863-01-01" from-custom="0903-01-01">
-                        <precision match="@from" notAfter="0903" notAfter-custom="0903-01-01"/>
-                        <precision match="@to" notBefore="0863" notBefore-custom="0863-01-01"/>
+                    <state type="existence" from="0903" to="0863" srp-to-sort="0863-01-01" syriaca-computed-to="0863-01-01" syriaca-computed-from="0903-01-01" syriaca-computed-end="0863-01-01" syriaca-computed-start="0903-01-01">
+                        <precision match="@from" notAfter="0903" syriaca-computed-notAfter="0903-01-01" syriaca-computed-end="0903-01-01"/>
+                        <precision match="@to" notBefore="0863" syriaca-computed-notBefore="0863-01-01" syriaca-computed-start="0863-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/423</idno>
                     <bibl xml:id="bib423-1">

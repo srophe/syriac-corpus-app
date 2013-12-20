@@ -113,9 +113,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib371-4">in al-Raqqa, on the west bank of the Euphrates. The Empress Theodora (d. 548) gave money for its construction and in 635 it was enlarged by the monks. By 956, one Patriarch and ten bishops had graduated from it.</quote>
                     </desc>
-                    <state type="existence" from="0548" to="0956" to-custom="0956-01-01" from-custom="0548-01-01">
-                        <precision match="@from" notAfter="0548" notAfter-custom="0548-01-01"/>
-                        <precision match="@to" notBefore="0956" notBefore-custom="0956-01-01"/>
+                    <state type="existence" from="0548" to="0956" srp-to-sort="0956-01-01" syriaca-computed-to="0956-01-01" syriaca-computed-from="0548-01-01" syriaca-computed-end="0956-01-01" syriaca-computed-start="0548-01-01">
+                        <precision match="@from" notAfter="0548" syriaca-computed-notAfter="0548-01-01" syriaca-computed-end="0548-01-01"/>
+                        <precision match="@to" notBefore="0956" syriaca-computed-notBefore="0956-01-01" syriaca-computed-start="0956-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/371</idno>
                     <bibl xml:id="bib371-1">

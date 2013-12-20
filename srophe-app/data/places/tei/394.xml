@@ -113,9 +113,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib394-3">in the Blessed Mountain near Melitene, was built by St. Aaron of Sarug, the ascetic, in 389. It produced six bishops between 1088 and 1289.</quote>
                     </desc>
-                    <state type="existence" from="0999" to="1289" to-custom="1289-01-01" from-custom="0999-01-01">
-                        <precision match="@from" notAfter="0999" notAfter-custom="0999-01-01"/>
-                        <precision match="@to" notBefore="1289" notBefore-custom="1289-01-01"/>
+                    <state type="existence" from="0999" to="1289" srp-to-sort="1289-01-01" syriaca-computed-to="1289-01-01" syriaca-computed-from="0999-01-01" syriaca-computed-end="1289-01-01" syriaca-computed-start="0999-01-01">
+                        <precision match="@from" notAfter="0999" syriaca-computed-notAfter="0999-01-01" syriaca-computed-end="0999-01-01"/>
+                        <precision match="@to" notBefore="1289" syriaca-computed-notBefore="1289-01-01" syriaca-computed-start="1289-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/394</idno>
                     <bibl xml:id="bib394-1">

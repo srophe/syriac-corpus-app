@@ -108,8 +108,8 @@
                     <desc xml:lang="en">
                         <quote source="#bib316-3">an ancient city southwest of Port Saʿīd, ruined in 1227.</quote>
                     </desc>
-                    <state type="existence" from="0833" to="1227" to-custom="1227-01-01" from-custom="0833-01-01">
-                        <precision match="@from" notAfter="0833" notAfter-custom="0833-01-01"/>
+                    <state type="existence" from="0833" to="1227" srp-to-sort="1227-01-01" syriaca-computed-to="1227-01-01" syriaca-computed-from="0833-01-01" syriaca-computed-end="1227-01-01" syriaca-computed-start="0833-01-01">
+                        <precision match="@from" notAfter="0833" syriaca-computed-notAfter="0833-01-01" syriaca-computed-end="0833-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/316</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/727247</idno>

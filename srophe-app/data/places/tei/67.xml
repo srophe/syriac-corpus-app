@@ -111,8 +111,8 @@
                     <location type="gps" source="#bib67-1">
                         <geo>37.17899 40.95491</geo>
                     </location>
-                    <state type="existence" from="0505" to="1125" to-custom="1125-01-01" from-custom="0505-01-01">
-                        <precision match="@to" notBefore="1125" notBefore-custom="1125-01-01"/>
+                    <state type="existence" from="0505" to="1125" srp-to-sort="1125-01-01" syriaca-computed-to="1125-01-01" syriaca-computed-from="0505-01-01" syriaca-computed-end="1125-01-01" syriaca-computed-start="0505-01-01">
+                        <precision match="@to" notBefore="1125" syriaca-computed-notBefore="1125-01-01" syriaca-computed-start="1125-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/67</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/874444</idno>

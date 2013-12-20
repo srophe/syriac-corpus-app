@@ -91,9 +91,9 @@
                     <placeName xml:id="name1520-4" xml:lang="ar" source="#bib1520-2">هيكل مار يوحنا المعمدان</placeName>
                     <placeName xml:id="name1520-5" xml:lang="en" source="#bib1520-3">Church of St. John the Baptist</placeName>
                     <desc xml:id="abstract-en-1520" xml:lang="en">A church probably in <placeName ref="http://syriaca.org/place/8">Amid</placeName>.</desc>
-                    <state type="existence" from="0650" to="0650" to-custom="0650-01-01" from-custom="0650-01-01">
-                        <precision match="@from" notAfter="0650" notAfter-custom="0650-01-01"/>
-                        <precision match="@to" notBefore="0650" notBefore-custom="0650-01-01"/>
+                    <state type="existence" from="0650" to="0650" srp-to-sort="0650-01-01" syriaca-computed-to="0650-01-01" syriaca-computed-from="0650-01-01" syriaca-computed-end="0650-01-01" syriaca-computed-start="0650-01-01">
+                        <precision match="@from" notAfter="0650" syriaca-computed-notAfter="0650-01-01" syriaca-computed-end="0650-01-01"/>
+                        <precision match="@to" notBefore="0650" syriaca-computed-notBefore="0650-01-01" syriaca-computed-start="0650-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1520</idno>
                     <bibl xml:id="bib1520-1">

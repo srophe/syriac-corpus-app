@@ -90,7 +90,7 @@
                 </li>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane active" id="english">
+                <div class="tab-pane active" id="english" dir="ltr">
                     <!-- Calls ABC menu for browsing. -->
                     <div class="browse-alpha tabbable">
                         <xsl:call-template name="letter-menu-en"/>

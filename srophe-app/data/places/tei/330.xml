@@ -111,9 +111,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib330-4">the town of Kharput in Armenia, between Amid and Melitene. Its people moved to the nearby new town of Maʿmūrat al-ʿAzīz.</quote>
                     </desc>
-                    <state type="existence" from="1496" to="1496" to-custom="1496-01-01" from-custom="1496-01-01">
-                        <precision match="@from" notAfter="1496" notAfter-custom="1496-01-01"/>
-                        <precision match="@to" notBefore="1496" notBefore-custom="1496-01-01"/>
+                    <state type="existence" from="1496" to="1496" srp-to-sort="1496-01-01" syriaca-computed-to="1496-01-01" syriaca-computed-from="1496-01-01" syriaca-computed-end="1496-01-01" syriaca-computed-start="1496-01-01">
+                        <precision match="@from" notAfter="1496" syriaca-computed-notAfter="1496-01-01" syriaca-computed-end="1496-01-01"/>
+                        <precision match="@to" notBefore="1496" syriaca-computed-notBefore="1496-01-01" syriaca-computed-start="1496-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/330</idno>
                     <bibl xml:id="bib330-1">

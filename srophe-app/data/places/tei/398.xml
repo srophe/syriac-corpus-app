@@ -116,9 +116,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib398-3">in the Mount of Edessa, an hour and a half south of the city. It was built in the fifth century and was mentioned by John of Ephesus in his history in 519.  It was renovated by its abbot, John of Sarug, who was elevated to the office of Maphryono of the East in 1164. It remained inhabited until 1223. Its ruins are still visible.</quote>
                     </desc>
-                    <state type="existence" from="0500" to="1223" to-custom="1223-01-01" from-custom="0500-01-01">
-                        <precision match="@from" notAfter="0500" notAfter-custom="0500-01-01"/>
-                        <precision match="@to" notAfter="1943" notBefore="1223" notBefore-custom="1223-01-01" notAfter-custom="1943-01-01"/>
+                    <state type="existence" from="0500" to="1223" srp-to-sort="1223-01-01" syriaca-computed-to="1223-01-01" syriaca-computed-from="0500-01-01" syriaca-computed-end="1223-01-01" syriaca-computed-start="0500-01-01">
+                        <precision match="@from" notAfter="0500" syriaca-computed-notAfter="0500-01-01" syriaca-computed-end="0500-01-01"/>
+                        <precision match="@to" notAfter="1943" notBefore="1223" syriaca-computed-notBefore="1223-01-01" syriaca-computed-notAfter="1943-01-01" syriaca-computed-end="1943-01-01" syriaca-computed-start="1223-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܒܡܰܐܬܰܐ should read ܒܡܰܐܬܳܐ.</note>
                     <idno type="URI">http://syriaca.org/place/398</idno>

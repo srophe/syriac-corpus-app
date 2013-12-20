@@ -91,9 +91,9 @@
                     <placeName xml:id="name1524-4" xml:lang="ar" source="#bib1524-2">دير ارعا ربتا</placeName>
                     <placeName xml:id="name1524-5" xml:lang="en" source="#bib1524-3">Monastery of Arʿa Rabtha</placeName>
                     <desc xml:id="abstract-en-1524" xml:lang="en">A monastery at <placeName ref="http://syriaca.org/place/102">Ingila</placeName>.</desc>
-                    <state type="existence" from="0516" to="0494" to-custom="0494-01-01" from-custom="0516-01-01">
-                        <precision match="@from" notAfter="0516" notAfter-custom="0516-01-01"/>
-                        <precision match="@to" notBefore="0494" notBefore-custom="0494-01-01"/>
+                    <state type="existence" from="0516" to="0494" srp-to-sort="0494-01-01" syriaca-computed-to="0494-01-01" syriaca-computed-from="0516-01-01" syriaca-computed-end="0494-01-01" syriaca-computed-start="0516-01-01">
+                        <precision match="@from" notAfter="0516" syriaca-computed-notAfter="0516-01-01" syriaca-computed-end="0516-01-01"/>
+                        <precision match="@to" notBefore="0494" syriaca-computed-notBefore="0494-01-01" syriaca-computed-start="0494-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1524</idno>
                     <bibl xml:id="bib1524-1">

@@ -5,17 +5,17 @@ xquery version "3.0";
 
 module namespace place="http://syriaca.org//place";
 
-(: Imported modules :)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 
-(: Namespaces :)
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace transform="http://exist-db.org/xquery/transform";
 
-(: Parameters passed from the url :)
+(:~ 
+ : Parameters passed from the url 
+ :)
 declare variable $place:id {request:get-parameter('id', '')};
 
 (:~
@@ -144,7 +144,7 @@ declare %templates:wrap function place:get-place-data($node as node(), $model as
                         ($rec/child::*, place:get-related-places($rec),place:get-nested-loc(),place:get-confessions())
                     }
                     </TEI>
-    let $cache :='forcerfssdf3'
+    let $cache :='forcerefresh76dssda4'
     return
 (:        $buildRec:)
        transform:transform($buildRec, doc('../resources/xsl/placepage.xsl'),() )

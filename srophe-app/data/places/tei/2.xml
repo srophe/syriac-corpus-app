@@ -99,9 +99,9 @@
                     <location type="gps" source="#bib2-1">
                         <geo>37.483889 41.4025</geo>
                     </location>
-                    <state type="existence" from="1501" to="2013" to-custom="2013-01-01" from-custom="1501-01-01">
-                        <precision match="@from" notAfter="1501" notAfter-custom="1501-01-01"/>
-                        <precision match="@to" notBefore="2013" notBefore-custom="2013-01-01"/>
+                    <state type="existence" from="1501" to="2013" srp-to-sort="2013-01-01" syriaca-computed-to="2013-01-01" syriaca-computed-from="1501-01-01" syriaca-computed-end="2013-01-01" syriaca-computed-start="1501-01-01">
+                        <precision match="@from" notAfter="1501" syriaca-computed-notAfter="1501-01-01" syriaca-computed-end="1501-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-notBefore="2013-01-01" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/2</idno>
                     <idno type="URI">http://tr.wikipedia.org/wiki/Barıştepe,_Midyat</idno>

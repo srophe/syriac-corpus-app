@@ -118,9 +118,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib233-5">also known as the Great Monastery, is situated south of Siman mountain, a twenty-minute walk north of the village of Talʿada, in the province of Antioch. It was built before 340 by Amian the ascetic and in it resided Eusebius the ascetic (both men are mentioned above). This monastery is mentioned by chroniclers Theodoret of Cyrus and John of Ephesus. In 942, Patriarch John built a tower there. It produced nine bishops. Its remains can still be seen today.</quote>
                     </desc>
-                    <state type="existence" from="0400" to="0942" to-custom="0942-01-01" from-custom="0400-01-01">
-                        <precision match="@from" notAfter="0400" notBefore="0300" notBefore-custom="0300-01-01" notAfter-custom="0400-01-01"/>
-                        <precision match="@to" notBefore="0942" notBefore-custom="0942-01-01"/>
+                    <state type="existence" from="0400" to="0942" srp-to-sort="0942-01-01" syriaca-computed-to="0942-01-01" syriaca-computed-from="0400-01-01" syriaca-computed-end="0942-01-01" syriaca-computed-start="0400-01-01">
+                        <precision match="@from" notAfter="0400" notBefore="0300" syriaca-computed-notBefore="0300-01-01" syriaca-computed-notAfter="0400-01-01" syriaca-computed-end="0400-01-01" syriaca-computed-start="0300-01-01"/>
+                        <precision match="@to" notBefore="0942" syriaca-computed-notBefore="0942-01-01" syriaca-computed-start="0942-01-01"/>
                     </state>
                     <note type="errata">GEDSH Map II displays the location too far to the south, east of <placeName ref="http://syriaca.org/place/91">Ḥama</placeName> rather than west of <placeName ref="http://syriaca.org/place/18">Aleppo</placeName>.</note>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܕܐܶܦܶܣܘܣ should read ܕܶܐܦܶܣܘܣ.</note>

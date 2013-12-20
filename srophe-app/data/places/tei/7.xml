@@ -96,8 +96,8 @@
                     <placeName xml:id="name7-4" xml:lang="ar" source="#bib7-3">مصر</placeName>
                     <placeName xml:id="name7-5" xml:lang="en" source="#bib7-4 #bib7-5">Egypt</placeName>
                     <desc xml:id="abstract-en-7" xml:lang="en">The Roman province of Egypt</desc>
-                    <state type="existence" from="-0030" to="0646" to-custom="0646-01-01" from-custom="-0030-01-01">
-                        <precision match="@to" notAfter="0646" notAfter-custom="0646-01-01"/>
+                    <state type="existence" from="-0030" to="0646" srp-to-sort="0646-01-01" syriaca-computed-to="0646-01-01" syriaca-computed-from="-0030-01-01" syriaca-computed-end="0646-01-01" syriaca-computed-start="-0030-01-01">
+                        <precision match="@to" notAfter="0646" syriaca-computed-notAfter="0646-01-01" syriaca-computed-end="0646-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/7</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/981503</idno>

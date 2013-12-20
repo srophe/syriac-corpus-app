@@ -112,9 +112,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib424-3">a village in the province of Melitene. Master Ṣaliba Qarikari (d. 1164) is thought to have come from there.</quote>
                     </desc>
-                    <state type="existence" from="1164" to="1064" to-custom="1064-01-01" from-custom="1164-01-01">
-                        <precision match="@from" notAfter="1164" notAfter-custom="1164-01-01"/>
-                        <precision match="@to" notBefore="1064" notBefore-custom="1064-01-01"/>
+                    <state type="existence" from="1164" to="1064" srp-to-sort="1064-01-01" syriaca-computed-to="1064-01-01" syriaca-computed-from="1164-01-01" syriaca-computed-end="1064-01-01" syriaca-computed-start="1164-01-01">
+                        <precision match="@from" notAfter="1164" syriaca-computed-notAfter="1164-01-01" syriaca-computed-end="1164-01-01"/>
+                        <precision match="@to" notBefore="1064" syriaca-computed-notBefore="1064-01-01" syriaca-computed-start="1064-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/424</idno>
                     <bibl xml:id="bib424-1">

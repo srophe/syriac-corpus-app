@@ -112,9 +112,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib344-3">near Kharput, first was mentioned in history in 1057. It produced four bishops. In 1290 it was ransacked by a group of Muslims and Muslims finally occupied it in 1311.</quote>
                     </desc>
-                    <state type="existence" from="1224" to="1238" to-custom="1238-01-01" from-custom="1224-01-01">
-                        <precision match="@from" notAfter="1224" notAfter-custom="1224-01-01"/>
-                        <precision match="@to" notBefore="1238" notBefore-custom="1238-01-01"/>
+                    <state type="existence" from="1224" to="1238" srp-to-sort="1238-01-01" syriaca-computed-to="1238-01-01" syriaca-computed-from="1224-01-01" syriaca-computed-end="1238-01-01" syriaca-computed-start="1224-01-01">
+                        <precision match="@from" notAfter="1224" syriaca-computed-notAfter="1224-01-01" syriaca-computed-end="1224-01-01"/>
+                        <precision match="@to" notBefore="1238" syriaca-computed-notBefore="1238-01-01" syriaca-computed-start="1238-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܘܐܰܚܕܘܗܝ should read ܘܰܐܚܕܘܗܝ.</note>
                     <idno type="URI">http://syriaca.org/place/344</idno>

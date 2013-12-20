@@ -91,9 +91,9 @@
                     <placeName xml:id="name1508-4" xml:lang="ar" source="#bib1508-3">بيت جبرين</placeName>
                     <placeName xml:id="name1508-5" xml:lang="en" source="#bib1508-4">Beth Gabrin</placeName>
                     <desc xml:id="abstract-en-1508" xml:lang="en">A village in Palestine, the site of a Syrian Orthodox synod in 807/8.</desc>
-                    <state type="existence" from="0807" to="0808" to-custom="0808-01-01" from-custom="0807-01-01">
-                        <precision match="@from" notAfter="0807" notAfter-custom="0807-01-01"/>
-                        <precision match="@to" notBefore="0808" notBefore-custom="0808-01-01"/>
+                    <state type="existence" from="0807" to="0808" srp-to-sort="0808-01-01" syriaca-computed-to="0808-01-01" syriaca-computed-from="0807-01-01" syriaca-computed-end="0808-01-01" syriaca-computed-start="0807-01-01">
+                        <precision match="@from" notAfter="0807" syriaca-computed-notAfter="0807-01-01" syriaca-computed-end="0807-01-01"/>
+                        <precision match="@to" notBefore="0808" syriaca-computed-notBefore="0808-01-01" syriaca-computed-start="0808-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1508</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/687854</idno>

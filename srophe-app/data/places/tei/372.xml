@@ -116,9 +116,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib372-3">on the left bank of the Euphrates, near Mor Abḥai Monastery in Karkar. Master David and a group of monks renovated it at the beginning of the eleventh century. To this monastery are attributed five bishops in the tenth century. Its nave was built by the monk Habakkuk (fl. c. 1160). The monastery was still populated in 1565, but was abandoned a few years later.</quote>
                     </desc>
-                    <state type="existence" from="1025" to="1565" to-custom="1565-01-01" from-custom="1025-01-01">
-                        <precision match="@from" notAfter="1025" notAfter-custom="1025-01-01"/>
-                        <precision match="@to" notBefore="1565" notBefore-custom="1565-01-01"/>
+                    <state type="existence" from="1025" to="1565" srp-to-sort="1565-01-01" syriaca-computed-to="1565-01-01" syriaca-computed-from="1025-01-01" syriaca-computed-end="1565-01-01" syriaca-computed-start="1025-01-01">
+                        <precision match="@from" notAfter="1025" syriaca-computed-notAfter="1025-01-01" syriaca-computed-end="1025-01-01"/>
+                        <precision match="@to" notBefore="1565" syriaca-computed-notBefore="1565-01-01" syriaca-computed-start="1565-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܒܓܰܪܓܪܰ should read ܒܓܰܪܓܰܪ.</note>
                     <idno type="URI">http://syriaca.org/place/372</idno>

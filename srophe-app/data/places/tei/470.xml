@@ -102,9 +102,9 @@
                     <location type="nested" source="#bib470-5">
                         <settlement ref="http://syriaca.org/place/130">Mardīn</settlement>
                     </location>
-                    <state type="existence" from="1165" to="1943" to-custom="1943-01-01" from-custom="1165-01-01">
-                        <precision match="@from" notAfter="1165" notAfter-custom="1165-01-01"/>
-                        <precision match="@to" notBefore="1943" notBefore-custom="1943-01-01"/>
+                    <state type="existence" from="1165" to="1943" srp-to-sort="1943-01-01" syriaca-computed-to="1943-01-01" syriaca-computed-from="1165-01-01" syriaca-computed-end="1943-01-01" syriaca-computed-start="1165-01-01">
+                        <precision match="@from" notAfter="1165" syriaca-computed-notAfter="1165-01-01" syriaca-computed-end="1165-01-01"/>
+                        <precision match="@to" notBefore="1943" syriaca-computed-notBefore="1943-01-01" syriaca-computed-start="1943-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/470</idno>
                     <bibl xml:id="bib470-1">

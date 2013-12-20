@@ -91,8 +91,8 @@
                     <placeName xml:id="name1451-4" xml:lang="ar" source="#bib1451-2">هنزيط</placeName>
                     <placeName xml:id="name1451-5" xml:lang="en" source="#bib1451-3">Anazete</placeName>
                     <desc xml:id="abstract-en-1451" xml:lang="en">A town about which <persName ref="http://syriaca.org/person/13">Ephrem</persName> composed memre.</desc>
-                    <state type="existence" from="0373" from-custom="0373-01-01">
-                        <precision match="@from" notAfter="0373" notAfter-custom="0373-01-01"/>
+                    <state type="existence" from="0373" syriaca-computed-from="0373-01-01" syriaca-computed-start="0373-01-01">
+                        <precision match="@from" notAfter="0373" syriaca-computed-notAfter="0373-01-01" syriaca-computed-end="0373-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1451</idno>
                     <bibl xml:id="bib1451-1">

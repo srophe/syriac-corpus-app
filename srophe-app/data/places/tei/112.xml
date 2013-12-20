@@ -113,9 +113,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib112-4">an ancient town in the province of Samosata, between Aleppo and Edessa. It also had a citadel.</quote>
                     </desc>
-                    <state type="existence" from="1129" to="1143" to-custom="1143-01-01" from-custom="1129-01-01">
-                        <precision match="@from" notAfter="1129" notAfter-custom="1129-01-01"/>
-                        <precision match="@to" notBefore="1143" notBefore-custom="1143-01-01"/>
+                    <state type="existence" from="1129" to="1143" srp-to-sort="1143-01-01" syriaca-computed-to="1143-01-01" syriaca-computed-from="1129-01-01" syriaca-computed-end="1143-01-01" syriaca-computed-start="1129-01-01">
+                        <precision match="@from" notAfter="1129" syriaca-computed-notAfter="1129-01-01" syriaca-computed-end="1129-01-01"/>
+                        <precision match="@to" notBefore="1143" syriaca-computed-notBefore="1143-01-01" syriaca-computed-start="1143-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/112</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Fortress_of_Kaysun</idno>

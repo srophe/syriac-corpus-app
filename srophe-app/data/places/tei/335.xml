@@ -111,9 +111,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib335-4">or the Monastery of the Ladders, is on the right bank of the Euphrates, a half-hour journey from the village of ʿUrbīsh, near Karkar. It was established sometime after the fifth century and was first mentioned by historians in the beginning of the ninth century. It produced one Patriarch and fourteen bishops. It was inhabited until the beginning of the eighteenth century. Some of its ruins are still standing.</quote>
                     </desc>
-                    <state type="existence" from="1480" to="1537" to-custom="1537-01-01" from-custom="1480-01-01">
-                        <precision match="@from" notAfter="1480" notAfter-custom="1480-01-01"/>
-                        <precision match="@to" notBefore="1537" notBefore-custom="1537-01-01"/>
+                    <state type="existence" from="1480" to="1537" srp-to-sort="1537-01-01" syriaca-computed-to="1537-01-01" syriaca-computed-from="1480-01-01" syriaca-computed-end="1537-01-01" syriaca-computed-start="1480-01-01">
+                        <precision match="@from" notAfter="1480" syriaca-computed-notAfter="1480-01-01" syriaca-computed-end="1480-01-01"/>
+                        <precision match="@to" notBefore="1537" syriaca-computed-notBefore="1537-01-01" syriaca-computed-start="1537-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܘܐܶܬܕܟܪܗ should read ܘܶܐܬܕܟܪܗ and ܘܐܰܘܠܕ should read ܘܰܐܘܠܕ.  Also, ܘܐܰܪܒܥܣܪ should read ܘܰܐܪܒܥܣܪ and ܘܰܬܡܳܢܥܶܣܪ̈ܐ should read ܬܡܳܢܥܶܣܪ̈ܐ.</note>
                     <note type="errata">In Barsoum's description انشىء should read انشئ.</note>

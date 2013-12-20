@@ -109,9 +109,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib358-4">outside Diyarbakir, is a famous, great monastery. Patriarch John I (d. 775) and fourteen bishops graduated from it.</quote>
                     </desc>
-                    <state type="existence" from="0568" to="0775" to-custom="0775-01-01" from-custom="0568-01-01">
-                        <precision match="@from" notAfter="0568" notAfter-custom="0568-01-01"/>
-                        <precision match="@to" notBefore="0775" notBefore-custom="0775-01-01"/>
+                    <state type="existence" from="0568" to="0775" srp-to-sort="0775-01-01" syriaca-computed-to="0775-01-01" syriaca-computed-from="0568-01-01" syriaca-computed-end="0775-01-01" syriaca-computed-start="0568-01-01">
+                        <precision match="@from" notAfter="0568" syriaca-computed-notAfter="0568-01-01" syriaca-computed-end="0568-01-01"/>
+                        <precision match="@to" notBefore="0775" syriaca-computed-notBefore="0775-01-01" syriaca-computed-start="0775-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܘܐܰܪܒܰܥܣܰܪ should read ܘܰܐܪܒܰܥܣܰܪ.</note>
                     <note type="errata">In Barsoum's description اياونيس should read ايوانيس.</note>

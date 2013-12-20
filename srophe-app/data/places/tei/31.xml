@@ -114,9 +114,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib31-5">a small territory between Nisibin and Sinjar.</quote>
                     </desc>
-                    <state type="existence" from="0559" to="0559" to-custom="0559-01-01" from-custom="0559-01-01">
-                        <precision match="@from" notAfter="0559" notAfter-custom="0559-01-01"/>
-                        <precision match="@to" notBefore="0559" notBefore-custom="0559-01-01"/>
+                    <state type="existence" from="0559" to="0559" srp-to-sort="0559-01-01" syriaca-computed-to="0559-01-01" syriaca-computed-from="0559-01-01" syriaca-computed-end="0559-01-01" syriaca-computed-start="0559-01-01">
+                        <precision match="@from" notAfter="0559" syriaca-computed-notAfter="0559-01-01" syriaca-computed-end="0559-01-01"/>
+                        <precision match="@to" notBefore="0559" syriaca-computed-notBefore="0559-01-01" syriaca-computed-start="0559-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/31</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/874340</idno>

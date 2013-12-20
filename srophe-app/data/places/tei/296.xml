@@ -111,9 +111,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib296-3">an ancient town in Karkar (in Iraq).</quote>
                     </desc>
-                    <state type="existence" from="1191" to="1120" to-custom="1120-01-01" from-custom="1191-01-01">
-                        <precision match="@from" notAfter="1191" notAfter-custom="1191-01-01"/>
-                        <precision match="@to" notBefore="1120" notBefore-custom="1120-01-01"/>
+                    <state type="existence" from="1191" to="1120" srp-to-sort="1120-01-01" syriaca-computed-to="1120-01-01" syriaca-computed-from="1191-01-01" syriaca-computed-end="1120-01-01" syriaca-computed-start="1191-01-01">
+                        <precision match="@from" notAfter="1191" syriaca-computed-notAfter="1191-01-01" syriaca-computed-end="1191-01-01"/>
+                        <precision match="@to" notBefore="1120" syriaca-computed-notBefore="1120-01-01" syriaca-computed-start="1120-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܡܕܝܢܬܳܘܢܝܬܐ should read ܡܕܝܢܬܽܘܢܝܬܐ.</note>
                     <idno type="URI">http://syriaca.org/place/296</idno>

@@ -103,9 +103,9 @@
                     <location type="nested" source="#bib217-5">
                         <region ref="http://syriaca.org/place/724">Seert region</region>
                     </location>
-                    <state type="existence" from="1461" to="1505" to-custom="1505-01-01" from-custom="1461-01-01">
-                        <precision match="@from" notAfter="1461" notAfter-custom="1461-01-01"/>
-                        <precision match="@to" notBefore="1505" notBefore-custom="1505-01-01"/>
+                    <state type="existence" from="1461" to="1505" srp-to-sort="1505-01-01" syriaca-computed-to="1505-01-01" syriaca-computed-from="1461-01-01" syriaca-computed-end="1505-01-01" syriaca-computed-start="1461-01-01">
+                        <precision match="@from" notAfter="1461" syriaca-computed-notAfter="1461-01-01" syriaca-computed-end="1461-01-01"/>
+                        <precision match="@to" notBefore="1505" syriaca-computed-notBefore="1505-01-01" syriaca-computed-start="1505-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/217</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/874496</idno>

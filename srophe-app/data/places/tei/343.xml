@@ -110,9 +110,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib343-3">near Ḥārim, between Euphemia and Ḥomṣ, is a famous and great monastery which was built in 480 through the private donation of the eminent Syrian Peter bin Joseph of Ḥomṣ, who bequeathed a great deal of property for the sustenance of its monks. In the third decade of the fifth century, its monks numbered 6,300. It remained populated until 830 and produced three bishops.</quote>
                     </desc>
-                    <state type="existence" from="0518" to="0830" to-custom="0830-01-01" from-custom="0518-01-01">
-                        <precision match="@from" notAfter="0518" notBefore="0300" notBefore-custom="0300-01-01" notAfter-custom="0518-01-01"/>
-                        <precision match="@to" notBefore="0830" notBefore-custom="0830-01-01"/>
+                    <state type="existence" from="0518" to="0830" srp-to-sort="0830-01-01" syriaca-computed-to="0830-01-01" syriaca-computed-from="0518-01-01" syriaca-computed-end="0830-01-01" syriaca-computed-start="0518-01-01">
+                        <precision match="@from" notAfter="0518" notBefore="0300" syriaca-computed-notBefore="0300-01-01" syriaca-computed-notAfter="0518-01-01" syriaca-computed-end="0518-01-01" syriaca-computed-start="0300-01-01"/>
+                        <precision match="@to" notBefore="0830" syriaca-computed-notBefore="0830-01-01" syriaca-computed-start="0830-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܘܐܶܬܢܰܦܰܩܘ should read ܘܶܐܬܢܰܦܰܩܘ.</note>
                     <note type="errata">Barsoum's description erroneously merges the information for this location with that of the other <placeName ref="http://syriaca.org/place/571">Mor Bosus</placeName>, which is located between Apamea and Ḥomṣ.</note>

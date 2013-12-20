@@ -131,9 +131,9 @@
                     <location type="nested" source="#bib226-7">
                         <region ref="http://syriaca.org/place/221">Ṭūr ʿAbdīn</region>
                     </location>
-                    <state type="existence" from="0397" to="2013" to-custom="2013-01-01" from-custom="0397-01-01">
-                        <precision match="@from" notAfter="0397" notBefore="0300" notBefore-custom="0300-01-01" notAfter-custom="0397-01-01"/>
-                        <precision match="@to" notBefore="2013" notBefore-custom="2013-01-01"/>
+                    <state type="existence" from="0397" to="2013" srp-to-sort="2013-01-01" syriaca-computed-to="2013-01-01" syriaca-computed-from="0397-01-01" syriaca-computed-end="2013-01-01" syriaca-computed-start="0397-01-01">
+                        <precision match="@from" notAfter="0397" notBefore="0300" syriaca-computed-notBefore="0300-01-01" syriaca-computed-notAfter="0397-01-01" syriaca-computed-end="0397-01-01" syriaca-computed-start="0300-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-notBefore="2013-01-01" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <note type="errata">In Dolabani's translation of Barsoum's description ܛܒܺܝܒܶܐ should read ܛܒܺܝܒܳܐ.</note>
                     <idno type="URI">http://syriaca.org/place/226</idno>

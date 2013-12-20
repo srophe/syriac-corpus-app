@@ -109,9 +109,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib326-4">an ancient town in Palestine, whose location is unknown.</quote>
                     </desc>
-                    <state type="existence" from="0599" to="0527" to-custom="0527-01-01" from-custom="0599-01-01">
-                        <precision match="@from" notAfter="0599" notAfter-custom="0599-01-01"/>
-                        <precision match="@to" notBefore="0527" notBefore-custom="0527-01-01"/>
+                    <state type="existence" from="0599" to="0527" srp-to-sort="0527-01-01" syriaca-computed-to="0527-01-01" syriaca-computed-from="0599-01-01" syriaca-computed-end="0527-01-01" syriaca-computed-start="0599-01-01">
+                        <precision match="@from" notAfter="0599" syriaca-computed-notAfter="0599-01-01" syriaca-computed-end="0599-01-01"/>
+                        <precision match="@to" notBefore="0527" syriaca-computed-notBefore="0527-01-01" syriaca-computed-start="0527-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/326</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/662169/</idno>
