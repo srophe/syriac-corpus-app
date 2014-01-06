@@ -4,6 +4,7 @@
         <fulltext default="none" attributes="no"/>
         <lucene>
             <!-- Does not currently search tei header info, other then title -->
+            <!-- Should maybe not index placeName, location, state or event?-->
             <text qname="tei:place"/>
             <text qname="tei:placeName" boost="2.0"/>
             <text qname="tei:location">
@@ -17,16 +18,9 @@
         <create qname="@syriaca-tags" type="xs:string"/>
         <create qname="@syriaca-computed-start" type="xs:date"/>
         <create qname="@syriaca-computed-end" type="xs:date"/>
-        <!--
-        <create qname="@syriaca-computed-notAfter" type="xs:date"/>
-        <create qname="@syriaca-computed-notBefore" type="xs:date"/>
-        <create qname="@syriaca-computed-to" type="xs:date"/>
-        <create qname="@syriaca-computed-from" type="xs:date"/>
-        <create qname="@syriaca-computed-when" type="xs:date"/>
-        -->
         <!--        <create qname="tei:placeName" type="xs:string"/>-->
-        <create qname="tei:state" type="xs:string"/>
-        <create qname="tei:event" type="xs:string"/>
+        <!--        <create qname="tei:state" type="xs:string"/>-->
+        <!--        <create qname="tei:event" type="xs:string"/>-->
         <!--        <create qname="tei:label" type="xs:string"/>-->
         <!--        <create qname="tei:item" type="xs:string"/>-->
         <!--        <create qname="tei:link" type="xs:string"/>-->
