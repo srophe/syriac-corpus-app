@@ -223,7 +223,9 @@
                                 <!-- NOTE: may need to move this elsewhere -->
                                 <p>
                                     <strong>Place Type: </strong>
-                                    <xsl:value-of select="@type"/>
+                                    <a href="../help/types.html#{normalize-space(@type)}">
+                                        <xsl:value-of select="@type"/>
+                                    </a>
                                 </p>
                             </div>
                             <xsl:if test="t:location">
