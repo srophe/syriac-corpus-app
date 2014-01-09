@@ -426,12 +426,6 @@
     <xsl:template match="t:citedRange[ancestor::t:bibl or ancestor::t:biblStruct]" mode="footnote" priority="1">
         <xsl:variable name="prefix">
             <xsl:choose>
-                <xsl:when test="@unit='pp' and contains(., '-')">
-                    <xsl:text>pp. </xsl:text>
-                </xsl:when>
-                <xsl:when test="@unit='pp' and not(contains(., '-'))">
-                    <xsl:text>p. </xsl:text>
-                </xsl:when>
                 <xsl:when test="@unit='entry'">
                     <xsl:text>“</xsl:text>
                 </xsl:when>
