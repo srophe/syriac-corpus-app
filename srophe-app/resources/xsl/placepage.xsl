@@ -265,7 +265,7 @@
         <div style="padding:.5em;">
             <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
                 <div id="description">
-                    <h3>Description</h3>
+                    <h3>Brief Descriptions</h3>
                     <ul>
                         <xsl:for-each-group select="t:desc" group-by="if (contains(@xml:lang, '-')=true()) then substring-before(@xml:lang, '-') else @xml:lang">
                             <xsl:sort collation="{$languages}" select="if (contains(@xml:lang, '-')=true()) then substring-before(@xml:lang, '-') else @xml:lang"/>
