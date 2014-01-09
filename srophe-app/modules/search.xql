@@ -347,6 +347,7 @@ function search:show-hits($node as node()*, $model as map(*)) {
                         <bdi dir="ltr" lang="en" xml:lang="en">
                             {$hit/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en']}
                         </bdi>
+                        <bdi dir="ltr" lang="en" xml:lang="en"> ({string($hit/@type)})</bdi>
                         {
                             if($hit/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='syr']) then 
                                 (<bdi dir="ltr" lang="en" xml:lang="en"><span> -  </span></bdi>,
