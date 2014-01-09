@@ -277,7 +277,7 @@ let $url-params := replace(request:get-query-string(), '&amp;start=\d+', '')
 let $parameters :=  request:get-parameter-names()
 let $search-string: = 
         for $parameter in $parameters
-        return if($parameter = 'search' or $parameter = 'start') then ''
+        return if($parameter = 'search' or starts-with($parameter,'start')) then ''
                else search:clean-string(request:get-parameter($parameter, '')) 
 return
    ( <div class="row-fluid" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px solid #333; padding-top: 2em;">
