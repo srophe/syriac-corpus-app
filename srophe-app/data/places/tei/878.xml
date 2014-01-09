@@ -4,7 +4,9 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Vatican</title>
+                <title level="a" xml:lang="en">Vatican
+                                        — <foreign xml:lang="syr">ܘܐܬܝܩܐܢ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -31,9 +33,24 @@
                 <availability>
                     <licence target="http://creativecommons.org/licenses/by/3.0/">
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
+                        <p>This entry incorporates copyrighted material from the following work(s):
+                                                <listBibl>
+                                <bibl>
+                                    <ptr target="#bib878-1"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib878-2"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib878-3"/>
+                                </bibl>
+                            </listBibl>
+                            <note>used under a Creative Commons Attribution license <ref target="http://creativecommons.org/licenses/by/3.0/"/>
+                            </note>
+                        </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,19 +82,37 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
             <listPlace>
                 <place xml:id="place-878" type="quarter">
-                    <placeName xml:id="name878-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib878-1">Vatican</placeName>
+                    <placeName xml:id="name878-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib878-3 #bib878-4">Vatican</placeName>
+                    <placeName xml:id="name878-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܘܐܬܝܩܐܢ</placeName>
+                    <placeName xml:id="name878-3" xml:lang="syr-Syrj" source="#bib878-1">ܘܰܐܬܝܩܰܐܢ</placeName>
+                    <placeName xml:id="name878-4" xml:lang="ar" source="#bib878-2">الواتيكان</placeName>
                     <desc xml:id="abstract-en-878" xml:lang="en">A portion of the city of Rome.</desc>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/878</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Vatican_Hill</idno>
                     <bibl xml:id="bib878-1">
+                        <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
+                        <ptr target="http://syriaca.org/bibl/3"/>
+                        <citedRange unit="pp">35</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib878-2">
+                        <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
+                        <ptr target="http://syriaca.org/bibl/2"/>
+                        <citedRange unit="pp">24</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib878-3">
+                        <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
+                        <ptr target="http://syriaca.org/bibl/4"/>
+                        <citedRange unit="pp">14</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib878-4">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">4, 5, 6, 7, 10, 11, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 34, 35, 50, 53, 59, 68, 74, 75, 80, 89, 97, 106, 122, 125, 128, 195, 196, 197, 229, 267, 271, 313, 316, 317, 348, 353, 354, 355, 356, 359</citedRange>

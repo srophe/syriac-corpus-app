@@ -41,7 +41,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -73,7 +73,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -84,7 +84,10 @@
                     <placeName xml:id="name516-2" xml:lang="ar" source="#bib516-1">يربوز</placeName>
                     <placeName xml:id="name516-3" xml:lang="en" source="#bib516-2">Yarbuz</placeName>
                     <desc xml:id="abstract-en-516" xml:lang="en">A village between <placeName ref="http://syriaca.org/place/15">Adana</placeName> and <placeName ref="http://syriaca.org/place/222">ʿAintab</placeName>.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="1900" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="1900-01-01">
+                        <precision match="@from" notAfter="1900" syriaca-computed-end="1900-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/516</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Yarpuz</idno>
                     <idno type="URI">http://dbpedia.org/resource/Yarpuz</idno>

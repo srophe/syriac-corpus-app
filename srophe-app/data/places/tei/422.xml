@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -113,7 +113,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib422-4">a town in the province of al-Ṣawr, populated by Syrians until the middle of the seventeenth century.</quote>
                     </desc>
-                    <state type="existence"/>
+                    <state type="existence" from="1549" to="1625" syriaca-computed-end="1625-01-01" syriaca-computed-start="1549-01-01">
+                        <precision match="@from" notAfter="1549" syriaca-computed-end="1549-01-01"/>
+                        <precision match="@to" notBefore="1625" syriaca-computed-start="1625-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/422</idno>
                     <bibl xml:id="bib422-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>

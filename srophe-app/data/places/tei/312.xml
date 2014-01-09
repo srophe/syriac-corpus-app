@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -112,9 +112,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib312-3">a town in the district of Rabiʿa, later Shabakhtan, northwest of Mardin.</quote>
                     </desc>
-                    <state type="existence" from="1125" to="1170" srp-to-sort="1170-01-01" syriaca-computed-to="1170-01-01" syriaca-computed-from="1125-01-01" syriaca-computed-end="1170-01-01" syriaca-computed-start="1125-01-01">
-                        <precision match="@from" notAfter="1125" syriaca-computed-notAfter="1125-01-01" syriaca-computed-end="1125-01-01"/>
-                        <precision match="@to" notBefore="1170" syriaca-computed-notBefore="1170-01-01" syriaca-computed-start="1170-01-01"/>
+                    <state type="existence" from="1125" to="1207" syriaca-computed-end="1207-01-01" syriaca-computed-start="1125-01-01">
+                        <precision match="@from" notAfter="1125" syriaca-computed-end="1125-01-01"/>
+                        <precision match="@to" notBefore="1207" syriaca-computed-start="1207-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/312</idno>
                     <bibl xml:id="bib312-1">

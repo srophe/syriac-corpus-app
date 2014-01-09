@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -112,7 +112,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib448-4">a town in the northeastern part of Malabar, in India.</quote>
                     </desc>
-                    <state type="existence"/>
+                    <state type="existence" from="1764" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="1764-01-01">
+                        <precision match="@from" notAfter="1764" syriaca-computed-end="1764-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/448</idno>
                     <bibl xml:id="bib448-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>

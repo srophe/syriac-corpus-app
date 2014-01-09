@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -109,10 +109,11 @@
                     <desc xml:lang="en">
                         <quote source="#bib71-4">an old monastery near Midyat, built about 763. It produced three bishops. </quote>
                     </desc>
-                    <state type="existence" from="0763" syriaca-computed-from="0763-01-01" syriaca-computed-start="0763-01-01">
-                        <precision match="@from" notBefore="0763" syriaca-computed-notBefore="0763-01-01" syriaca-computed-start="0763-01-01"/>
+                    <state type="existence" from="0793" to="0763" syriaca-computed-end="0763-01-01" syriaca-computed-start="0793-01-01">
+                        <precision match="@from" notAfter="0793" notBefore="0733" syriaca-computed-end="0793-01-01" syriaca-computed-start="0733-01-01"/>
+                        <precision match="@to" notBefore="0763" syriaca-computed-start="0763-01-01"/>
                     </state>
-                    <note type="errata">In Dolabani's translation of Barsoum's description ܡܕܝܢܳܬܐ should read ܡܕܝܢܬܳܐ.</note>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܡܕܝܢܳܬܐ should read ܡܕܝܢܬܳܐ.</note>
                     <idno type="URI">http://syriaca.org/place/71</idno>
                     <bibl xml:id="bib71-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>

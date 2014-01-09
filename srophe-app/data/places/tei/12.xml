@@ -4,7 +4,9 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Arabia</title>
+                <title level="a" xml:lang="en">Arabia
+                                        — <foreign xml:lang="syr">ܐܬܪ̈ܘܬܐ ܕܥܪ̈ܒܝܐ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -13,6 +15,11 @@
                 <editor role="general" ref="http://syriaca.org/editors.xml#tcarlson">Thomas A. Carlson</editor>
                 <editor role="general" ref="http://syriaca.org/editors.xml#dmichelson">David A. Michelson</editor>
                 <editor role="creator" ref="http://syriaca.org/editors.xml#tcarlson">Thomas A. Carlson</editor>
+                <editor role="creator" ref="http://syriaca.org/editors.xml#dmichelson">David A. Michelson</editor>
+                <respStmt>
+                    <resp>Initial Barsoum entry creation by</resp>
+                    <name ref="http://syriaca.org/editors.xml#dmichelson">David A. Michelson</name>
+                </respStmt>
                 <respStmt>
                     <resp>Data merging, Pleiades and Wikipedia linking, and XML by</resp>
                     <name ref="http://syriaca.org/editors.xml#tcarlson">Thomas A. Carlson</name>
@@ -27,9 +34,24 @@
                 <availability>
                     <licence target="http://creativecommons.org/licenses/by/3.0/">
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
+                        <p>This entry incorporates copyrighted material from the following work(s):
+                                                <listBibl>
+                                <bibl>
+                                    <ptr target="#bib12-2"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib12-3"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib12-4"/>
+                                </bibl>
+                            </listBibl>
+                            <note>used under a Creative Commons Attribution license <ref target="http://creativecommons.org/licenses/by/3.0/"/>
+                            </note>
+                        </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,17 +83,20 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
             <listPlace>
                 <place xml:id="place-12" type="province">
-                    <placeName xml:id="name12-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib12-1 #bib12-2">Arabia</placeName>
+                    <placeName xml:id="name12-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib12-1 #bib12-4 #bib12-5">Arabia</placeName>
+                    <placeName xml:id="name12-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܬܪ̈ܘܬܐ ܕܥܪ̈ܒܝܐ</placeName>
+                    <placeName xml:id="name12-3" xml:lang="syr-Syrj" source="#bib12-2">ܐܰܬܪ̈ܰܘܳܬܐ ܕܥܰܪ̈ܰܒܳܝܐ</placeName>
+                    <placeName xml:id="name12-4" xml:lang="ar" source="#bib12-3">بلاد العرب</placeName>
                     <desc xml:id="abstract-en-12" xml:lang="en">A Roman province including the Sinai peninsula and Roman territory east of the Jordan River.</desc>
-                    <state type="existence" from="0106" to="0639" srp-to-sort="0639-01-01" syriaca-computed-to="0639-01-01" syriaca-computed-from="0106-01-01" syriaca-computed-end="0639-01-01" syriaca-computed-start="0106-01-01">
-                        <precision match="@to" notAfter="0639" syriaca-computed-notAfter="0639-01-01" syriaca-computed-end="0639-01-01"/>
+                    <state type="existence" from="0106" to="0639" syriaca-computed-end="0639-01-01" syriaca-computed-start="0106-01-01">
+                        <precision match="@to" notAfter="0639" syriaca-computed-end="0639-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/12</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/981506</idno>
@@ -86,6 +111,21 @@
                         <citedRange unit="maps">Map I A2</citedRange>
                     </bibl>
                     <bibl xml:id="bib12-2">
+                        <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
+                        <ptr target="http://syriaca.org/bibl/3"/>
+                        <citedRange unit="pp">26</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib12-3">
+                        <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
+                        <ptr target="http://syriaca.org/bibl/2"/>
+                        <citedRange unit="pp">15</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib12-4">
+                        <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
+                        <ptr target="http://syriaca.org/bibl/4"/>
+                        <citedRange unit="pp">4</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib12-5">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Arabia&amp;sT=keywords">Arabia</citedRange>

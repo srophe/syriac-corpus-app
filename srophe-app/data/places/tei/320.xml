@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -109,11 +109,11 @@
                     <desc xml:lang="en">
                         <quote source="#bib320-3">a town north of Aleppo, near the Euphrates, from which salt was brought to the province of Aleppo.</quote>
                     </desc>
-                    <state type="existence" from="0595" to="0531" srp-to-sort="0531-01-01" syriaca-computed-to="0531-01-01" syriaca-computed-from="0595-01-01" syriaca-computed-end="0531-01-01" syriaca-computed-start="0595-01-01">
-                        <precision match="@from" notAfter="0595" syriaca-computed-notAfter="0595-01-01" syriaca-computed-end="0595-01-01"/>
-                        <precision match="@to" notBefore="0531" syriaca-computed-notBefore="0531-01-01" syriaca-computed-start="0531-01-01"/>
+                    <state type="existence" from="0595" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0595-01-01">
+                        <precision match="@from" notAfter="0595" syriaca-computed-end="0595-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <note type="errata">In Dolabani's translation of Barsoum's description ܐܟ should read ܐܝܟ.</note>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܐܟ should read ܐܝܟ.</note>
                     <idno type="URI">http://syriaca.org/place/320</idno>
                     <idno type="URI">http://ar.wikipedia.org/wiki/الجبول</idno>
                     <bibl xml:id="bib320-1">

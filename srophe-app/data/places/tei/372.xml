@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -116,11 +116,11 @@
                     <desc xml:lang="en">
                         <quote source="#bib372-3">on the left bank of the Euphrates, near Mor Abḥai Monastery in Karkar. Master David and a group of monks renovated it at the beginning of the eleventh century. To this monastery are attributed five bishops in the tenth century. Its nave was built by the monk Habakkuk (fl. c. 1160). The monastery was still populated in 1565, but was abandoned a few years later.</quote>
                     </desc>
-                    <state type="existence" from="1025" to="1565" srp-to-sort="1565-01-01" syriaca-computed-to="1565-01-01" syriaca-computed-from="1025-01-01" syriaca-computed-end="1565-01-01" syriaca-computed-start="1025-01-01">
-                        <precision match="@from" notAfter="1025" syriaca-computed-notAfter="1025-01-01" syriaca-computed-end="1025-01-01"/>
-                        <precision match="@to" notBefore="1565" syriaca-computed-notBefore="1565-01-01" syriaca-computed-start="1565-01-01"/>
+                    <state type="existence" from="1000" to="1565" syriaca-computed-end="1565-01-01" syriaca-computed-start="1000-01-01">
+                        <precision match="@from" notAfter="1000" notBefore="0300" syriaca-computed-end="1000-01-01" syriaca-computed-start="0300-01-01"/>
+                        <precision match="@to" notAfter="1600" notBefore="1565" syriaca-computed-end="1600-01-01" syriaca-computed-start="1565-01-01"/>
                     </state>
-                    <note type="errata">In Dolabani's translation of Barsoum's description ܒܓܰܪܓܪܰ should read ܒܓܰܪܓܰܪ.</note>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܒܓܰܪܓܪܰ should read ܒܓܰܪܓܰܪ.</note>
                     <idno type="URI">http://syriaca.org/place/372</idno>
                     <bibl xml:id="bib372-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>

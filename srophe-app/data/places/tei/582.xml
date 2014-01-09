@@ -4,7 +4,9 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Beth Zagba</title>
+                <title level="a" xml:lang="en">Beth Zagba
+                                        — <foreign xml:lang="syr">ܒܝܬ ܙܘܓܒܐ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -27,9 +29,24 @@
                 <availability>
                     <licence target="http://creativecommons.org/licenses/by/3.0/">
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
+                        <p>This entry incorporates copyrighted material from the following work(s):
+                                                <listBibl>
+                                <bibl>
+                                    <ptr target="#bib582-2"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib582-3"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib582-4"/>
+                                </bibl>
+                            </listBibl>
+                            <note>used under a Creative Commons Attribution license <ref target="http://creativecommons.org/licenses/by/3.0/"/>
+                            </note>
+                        </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -69,11 +86,15 @@
             <listPlace>
                 <place xml:id="place-582" type="unknown">
                     <placeName xml:id="name582-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib582-1">Beth Zagba</placeName>
-                    <placeName xml:id="name582-2" xml:lang="en" source="#bib582-2">Bet Zagba</placeName>
+                    <placeName xml:id="name582-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܝܬ ܙܘܓܒܐ</placeName>
+                    <placeName xml:id="name582-3" xml:lang="syr-Syrj" source="#bib582-2">ܒܶܝܬ ܙܘܓܒܐ</placeName>
+                    <placeName xml:id="name582-4" xml:lang="ar" source="#bib582-3">بيت زغبا</placeName>
+                    <placeName xml:id="name582-5" xml:lang="en" source="#bib582-4">Beth Zaghba</placeName>
+                    <placeName xml:id="name582-6" xml:lang="en" source="#bib582-5">Bet Zagba</placeName>
                     <desc xml:id="abstract-en-582" xml:lang="en">The site of the monastery where the Rabbula Gospels were copied, probably located north of <placeName ref="http://syriaca.org/place/11">Apamea</placeName>.</desc>
-                    <state type="existence" from="0568" to="0586" srp-to-sort="0586-01-01" syriaca-computed-to="0586-01-01" syriaca-computed-from="0568-01-01" syriaca-computed-end="0586-01-01" syriaca-computed-start="0568-01-01">
-                        <precision match="@from" notAfter="0568" syriaca-computed-notAfter="0568-01-01" syriaca-computed-end="0568-01-01"/>
-                        <precision match="@to" notBefore="0586" syriaca-computed-notBefore="0586-01-01" syriaca-computed-start="0586-01-01"/>
+                    <state type="existence" from="0568" to="0586" syriaca-computed-end="0586-01-01" syriaca-computed-start="0568-01-01">
+                        <precision match="@from" notAfter="0568" syriaca-computed-end="0568-01-01"/>
+                        <precision match="@to" notBefore="0586" syriaca-computed-start="0586-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/582</idno>
                     <idno type="URI">
@@ -85,6 +106,21 @@
                         <citedRange unit="pp">348</citedRange>
                     </bibl>
                     <bibl xml:id="bib582-2">
+                        <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
+                        <ptr target="http://syriaca.org/bibl/3"/>
+                        <citedRange unit="pp">33</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib582-3">
+                        <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
+                        <ptr target="http://syriaca.org/bibl/2"/>
+                        <citedRange unit="pp">23</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib582-4">
+                        <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
+                        <ptr target="http://syriaca.org/bibl/4"/>
+                        <citedRange unit="pp">13</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib582-5">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Bet Zagba&amp;sT=keywords">Bet Zagba</citedRange>

@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -115,9 +115,12 @@
                     <desc xml:lang="en">
                         <quote source="#bib225-5">also called the Pit Monastery, is situated about six hours’ journey southeast of Mosul. It was built in the beginning of the fifth century. From it graduated one Maphryono and seven bishops. In 1839, it was usurped by a group which seceded and joined the Catholic church. It was deserted for some sixty years, but is now populated.</quote>
                     </desc>
-                    <state type="existence"/>
-                    <note type="errata">In Dolabani's translation of Barsoum's description ܘܐܶܬܢܰܦܰܩܘ should read ܘܶܐܬܢܰܦܰܩܘ.</note>
-                    <note type="errata">In Barsoum's description انشىء should read انشئ.</note>
+                    <state type="existence" from="1164" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="1164-01-01">
+                        <precision match="@from" notAfter="1164" notBefore="0300" syriaca-computed-end="1164-01-01" syriaca-computed-start="0300-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܘܐܶܬܢܰܦܰܩܘ should read ܘܶܐܬܢܰܦܰܩܘ.</note>
+                    <note type="corrigenda">In Barsoum's description انشىء should read انشئ.</note>
                     <idno type="URI">http://syriaca.org/place/225</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Mar_Behnam_Monastery</idno>
                     <idno type="URI">http://dbpedia.org/resource/Mar_Behnam_Monastery</idno>

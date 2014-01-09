@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -113,7 +113,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib419-3">a large village which was situated in the Ghūta of Damascus, at the foot of Qasyun Mountain. It has now become part of Damascus.</quote>
                     </desc>
-                    <state type="existence"/>
+                    <state type="existence" to="2013" syriaca-computed-end="2013-01-01">
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/419</idno>
                     <bibl xml:id="bib419-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>

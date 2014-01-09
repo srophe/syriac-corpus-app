@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -112,9 +112,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib424-3">a village in the province of Melitene. Master Ṣaliba Qarikari (d. 1164) is thought to have come from there.</quote>
                     </desc>
-                    <state type="existence" from="1164" to="1064" srp-to-sort="1064-01-01" syriaca-computed-to="1064-01-01" syriaca-computed-from="1164-01-01" syriaca-computed-end="1064-01-01" syriaca-computed-start="1164-01-01">
-                        <precision match="@from" notAfter="1164" syriaca-computed-notAfter="1164-01-01" syriaca-computed-end="1164-01-01"/>
-                        <precision match="@to" notBefore="1064" syriaca-computed-notBefore="1064-01-01" syriaca-computed-start="1064-01-01"/>
+                    <state type="existence" from="1134" to="1064" syriaca-computed-end="1064-01-01" syriaca-computed-start="1134-01-01">
+                        <precision match="@from" notAfter="1134" syriaca-computed-end="1134-01-01"/>
+                        <precision match="@to" notBefore="1064" syriaca-computed-start="1064-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/424</idno>
                     <bibl xml:id="bib424-1">

@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,7 +65,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -79,7 +79,10 @@
                         <region ref="http://syriaca.org/place/775">Salmas district</region>
                         <region ref="http://syriaca.org/place/729">Ūrmī region</region>
                     </location>
-                    <state type="existence"/>
+                    <state type="existence" from="0697" to="1913" syriaca-computed-end="1913-01-01" syriaca-computed-start="0697-01-01">
+                        <precision match="@from" notAfter="0697" syriaca-computed-end="0697-01-01"/>
+                        <precision match="@to" notBefore="1913" syriaca-computed-start="1913-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/246</idno>
                     <bibl xml:id="bib246-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>

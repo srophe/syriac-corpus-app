@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -112,8 +112,11 @@
                     <desc xml:lang="en">
                         <quote source="#bib436-4">a village north of Ḥomṣ, heavily populated by Syrians.</quote>
                     </desc>
-                    <state type="existence"/>
-                    <note type="errata">Moosa's English translation of Barsoum's description says "north" when it should be "east."</note>
+                    <state type="existence" from="1916" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="1916-01-01">
+                        <precision match="@from" notAfter="1916" syriaca-computed-end="1916-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
+                    <note type="corrigenda">Moosa's English translation of Barsoum's description says "north" when it should be "east."</note>
                     <idno type="URI">http://syriaca.org/place/436</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Fairouzeh</idno>
                     <idno type="URI">http://dbpedia.org/resource/Fairouzeh</idno>

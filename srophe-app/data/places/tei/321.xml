@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -112,8 +112,11 @@
                     <desc xml:lang="en">
                         <quote source="#bib321-3">a district between the rivers Khabur and Tigris. In ancient times it was the abode of the bani Taghlib, a large Arab tribe which was Syrian Orthodox and remained Christian until the tenth century. One of its members is the famous poet Ghiyath Ibn Ghawth, nicknamed al-Akhṭal (c. 710). It became desolate in the fourteenth century, but was resettled about 1921. New towns such as Ḥasaka, Qamishli and others were built in it.</quote>
                     </desc>
-                    <state type="existence"/>
-                    <note type="errata">In Dolabani's translation of Barsoum's description ܘܐܶܬܚ̈ܕܰܬܝ should read ܘܶܐܬܚ̈ܕܰܬܝ and ܇ ܒܘܪܐ should read ܚܒܘܪܐ.</note>
+                    <state type="existence" from="0680" to="1500" syriaca-computed-end="1500-01-01" syriaca-computed-start="0680-01-01">
+                        <precision match="@from" notAfter="0680" syriaca-computed-end="0680-01-01"/>
+                        <precision match="@to" notBefore="1500" syriaca-computed-start="1500-01-01"/>
+                    </state>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܘܐܶܬܚ̈ܕܰܬܝ should read ܘܶܐܬܚ̈ܕܰܬܝ and ܇ ܒܘܪܐ should read ܚܒܘܪܐ.</note>
                     <idno type="URI">http://syriaca.org/place/321</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Diyar_Rabi'a</idno>
                     <bibl xml:id="bib321-1">

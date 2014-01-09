@@ -4,7 +4,9 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">China</title>
+                <title level="a" xml:lang="en">China
+                                        — <foreign xml:lang="syr">ܨܝܢ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -31,9 +33,24 @@
                 <availability>
                     <licence target="http://creativecommons.org/licenses/by/3.0/">
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
+                        <p>This entry incorporates copyrighted material from the following work(s):
+                                                <listBibl>
+                                <bibl>
+                                    <ptr target="#bib472-3"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib472-4"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib472-5"/>
+                                </bibl>
+                            </listBibl>
+                            <note>used under a Creative Commons Attribution license <ref target="http://creativecommons.org/licenses/by/3.0/"/>
+                            </note>
+                        </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,21 +82,27 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
             <listPlace>
                 <place xml:id="place-472" type="region">
-                    <placeName xml:id="name472-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib472-2 #bib472-3 #bib472-4">China</placeName>
+                    <placeName xml:id="name472-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib472-2 #bib472-5 #bib472-6 #bib472-7">China</placeName>
+                    <placeName xml:id="name472-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܨܝܢ</placeName>
+                    <placeName xml:id="name472-3" xml:lang="syr-Syrj" source="#bib472-3">ܨܺܝܢ</placeName>
+                    <placeName xml:id="name472-4" xml:lang="ar" source="#bib472-4">الصين</placeName>
                     <desc xml:id="abstract-en-472" xml:lang="en">
                         <quote source="#bib472-1">it remains uncertain when Christians first reached the main, historically Chinese-speaking (Han), part of China.</quote>
                     </desc>
                     <desc xml:lang="en">
                         <quote source="#bib472-1">129. China, Syriac Christianity in</quote>
                     </desc>
-                    <state type="existence"/>
+                    <state type="existence" from="-0221" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0221-01-01">
+                        <precision match="@from" notAfter="-0221" syriaca-computed-end="-0221-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/472</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/China</idno>
                     <idno type="URI">
@@ -98,11 +121,26 @@
                         <citedRange unit="pp">94–96 (with fig. 34), 99, 123, 203, 210, 261, 360–361, 382, 414, 417, 428 (with fig. 127)</citedRange>
                     </bibl>
                     <bibl xml:id="bib472-3">
+                        <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
+                        <ptr target="http://syriaca.org/bibl/3"/>
+                        <citedRange unit="pp">26</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib472-4">
+                        <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
+                        <ptr target="http://syriaca.org/bibl/2"/>
+                        <citedRange unit="pp">15</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib472-5">
+                        <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
+                        <ptr target="http://syriaca.org/bibl/4"/>
+                        <citedRange unit="pp">4</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib472-6">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=C&amp;sK=China&amp;sT=keywords">China</citedRange>
                     </bibl>
-                    <bibl xml:id="bib472-4">
+                    <bibl xml:id="bib472-7">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">1, 16, 17, 19, 342, 343, 344, 345-346, 347</citedRange>

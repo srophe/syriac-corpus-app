@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -109,7 +109,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib366-3">in Marʿash. Seven bishops graduated from it between 805 and 1110.</quote>
                     </desc>
-                    <state type="existence"/>
+                    <state type="existence" from="0805" to="1110" syriaca-computed-end="1110-01-01" syriaca-computed-start="0805-01-01">
+                        <precision match="@from" notAfter="0805" notBefore="0300" syriaca-computed-end="0805-01-01" syriaca-computed-start="0300-01-01"/>
+                        <precision match="@to" notAfter="1943" notBefore="1110" syriaca-computed-end="1943-01-01" syriaca-computed-start="1110-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/366</idno>
                     <bibl xml:id="bib366-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>

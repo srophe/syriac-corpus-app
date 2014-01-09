@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,7 +61,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -70,7 +70,9 @@
                 <place xml:id="place-589" type="settlement">
                     <placeName xml:id="name589-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib589-1">Dibsi Faraj</placeName>
                     <desc xml:id="abstract-en-589" xml:lang="en">A former village and archaeological site on the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> now beneath al-Assad Lake.</desc>
-                    <state type="existence"/>
+                    <state type="existence" to="2013" syriaca-computed-end="2013-01-01">
+                        <precision match="@to" notAfter="2013" syriaca-computed-end="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/589</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/668201</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Dibsi_Faraj</idno>

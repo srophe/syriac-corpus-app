@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -117,8 +117,9 @@
                     <location type="gps" source="#bib97-1">
                         <geo>37.270778 37.837917</geo>
                     </location>
-                    <state type="existence" from="1235" syriaca-computed-from="1235-01-01" syriaca-computed-start="1235-01-01">
-                        <precision match="@from" notAfter="1235" syriaca-computed-notAfter="1235-01-01" syriaca-computed-end="1235-01-01"/>
+                    <state type="existence" from="1203" to="1293" syriaca-computed-end="1293-01-01" syriaca-computed-start="1203-01-01">
+                        <precision match="@from" notAfter="1203" syriaca-computed-end="1203-01-01"/>
+                        <precision match="@to" notAfter="2013" notBefore="1293" syriaca-computed-end="2013-01-01" syriaca-computed-start="1293-01-01"/>
                     </state>
                     <note type="errata">Barsoum's description erroneously identifies this place with <placeName ref="http://syriaca.org/place/209">Zeugma</placeName>.</note>
                     <idno type="URI">http://syriaca.org/place/97</idno>

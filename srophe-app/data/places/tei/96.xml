@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,7 +65,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -78,7 +78,10 @@
                     <location type="gps" source="#bib96-1">
                         <geo>31.31671 48.68438</geo>
                     </location>
-                    <state type="existence"/>
+                    <state type="existence" from="0271" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0271-01-01">
+                        <precision match="@from" notAfter="0271" syriaca-computed-end="0271-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/96</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/912865</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Ahvaz</idno>

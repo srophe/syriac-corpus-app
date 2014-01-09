@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,7 +65,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -75,7 +75,10 @@
                     <placeName xml:id="name255-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib255-1 #bib255-2">Ashitha</placeName>
                     <placeName xml:id="name255-2" xml:lang="en" source="#bib255-3">Āshīṯā</placeName>
                     <desc xml:id="abstract-en-255" xml:lang="en">A city in the Hakkari mountains.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="1819" to="1924" syriaca-computed-end="1924-01-01" syriaca-computed-start="1819-01-01">
+                        <precision match="@from" notAfter="1819" syriaca-computed-end="1819-01-01"/>
+                        <precision match="@to" notBefore="1924" syriaca-computed-start="1924-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/255</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Ashitha</idno>
                     <idno type="URI">http://dbpedia.org/resource/Ashitha</idno>

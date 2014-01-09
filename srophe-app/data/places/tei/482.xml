@@ -50,7 +50,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -82,7 +82,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -96,7 +96,10 @@
                     <placeName xml:id="name482-5" xml:lang="en" source="#bib482-4">Dayr al-Zur</placeName>
                     <placeName xml:id="name482-6" xml:lang="en" source="#bib482-5">Deir al-Zor</placeName>
                     <desc xml:id="abstract-en-482" xml:lang="en">A city on the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> southeast of <placeName ref="http://syriaca.org/place/109">al-Raqqa</placeName>.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="1867" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="1867-01-01">
+                        <precision match="@from" notAfter="1867" syriaca-computed-end="1867-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/482</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Deir_ez-Zor</idno>
                     <idno type="URI">http://dbpedia.org/resource/Deir_ez-Zor</idno>

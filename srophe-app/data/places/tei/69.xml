@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -125,11 +125,12 @@
                     <location type="nested" source="#bib69-7">
                         <region ref="http://syriaca.org/place/719">Mardīn region</region>
                     </location>
-                    <state type="existence" from="0800" syriaca-computed-from="0800-01-01" syriaca-computed-start="0800-01-01">
-                        <precision match="@from" notAfter="0800" notBefore="0793" syriaca-computed-notBefore="0793-01-01" syriaca-computed-notAfter="0800-01-01" syriaca-computed-end="0800-01-01" syriaca-computed-start="0793-01-01"/>
+                    <state type="existence" from="0800" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0800-01-01">
+                        <precision match="@from" notAfter="0800" notBefore="0793" syriaca-computed-end="0800-01-01" syriaca-computed-start="0793-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <note type="errata">In Dolabani's translation of Barsoum's description ܘܐܰܦܩ and ܡܟܰܬܒܰܙܰܒܢܗ should read ܘܰܐܦܩ and ܡܰܟܬܰܒܙܰܒܢܗ respectively.</note>
-                    <note type="errata">Matti Moosa's English translation of Barsoum's description is incomplete, and it says "north" when it should be "east."</note>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܘܐܰܦܩ and ܡܟܰܬܒܰܙܰܒܢܗ should read ܘܰܐܦܩ and ܡܰܟܬܰܒܙܰܒܢܗ respectively.</note>
+                    <note type="corrigenda">Matti Moosa's English translation of Barsoum's description is incomplete, and it says "north" when it should be "east."</note>
                     <idno type="URI">http://syriaca.org/place/69</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Mor_Hananyo_Monastery</idno>
                     <idno type="URI">http://dbpedia.org/resource/Mor_Hananyo_Monastery</idno>

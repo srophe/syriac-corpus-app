@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,7 +61,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -73,11 +73,13 @@
                     <location type="gps" source="#bib53-1">
                         <geo>32.5 34.89972</geo>
                     </location>
-                    <state type="existence"/>
+                    <state type="existence" from="-0013" to="1265" syriaca-computed-end="1265-01-01" syriaca-computed-start="-0013-01-01">
+                        <precision match="@from" notAfter="-0013" notBefore="-0025" syriaca-computed-end="-0013-01-01" syriaca-computed-start="-0025-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/53</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/678401</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Caesarea_Maritima</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Caesarea_Maritima</idno>
+                    <idno type="URI">http://en.wikipedia.org/wiki/Caesarea</idno>
                     <bibl xml:id="bib53-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>

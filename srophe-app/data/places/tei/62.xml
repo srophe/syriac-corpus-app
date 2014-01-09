@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -125,7 +125,10 @@
                     <location type="gps" source="#bib62-1">
                         <geo>35.15676 40.42574</geo>
                     </location>
-                    <state type="existence"/>
+                    <state type="existence" from="0363" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0363-01-01">
+                        <precision match="@from" notAfter="0363" syriaca-computed-end="0363-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <note type="deprecation" xml:id="name62-11-deprecation">Moosa's transcription of these names is non-standard.</note>
                     <link target="#name62-11 #name62-11-deprecation"/>
                     <link target="#name62-12 #name62-11-deprecation"/>

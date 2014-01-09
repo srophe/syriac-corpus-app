@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,7 +61,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -71,7 +71,10 @@
                     <placeName xml:id="name579-1" xml:lang="en" syriaca-tags="#syriaca-headword">Bassīṭ</placeName>
                     <placeName xml:id="name579-2" xml:lang="en" source="#bib579-1">Bassit</placeName>
                     <desc xml:id="abstract-en-579" xml:lang="en">A coastal town north of <placeName ref="http://syriaca.org/place/118">Laodicea</placeName>.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="-0600" to="0500" syriaca-computed-end="0500-01-01" syriaca-computed-start="-0600-01-01">
+                        <precision match="@from" notAfter="-0600" syriaca-computed-end="-0600-01-01"/>
+                        <precision match="@to" notAfter="1980" notBefore="0500" syriaca-computed-end="1980-01-01" syriaca-computed-start="0500-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/579</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/668340</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Ras_al-Bassit</idno>

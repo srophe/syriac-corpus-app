@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -90,9 +90,9 @@
                     <placeName xml:id="name1468-3" xml:lang="syr-Syrj" source="#bib1468-1">ܗܶܐܠܺܝܩܰܪܢܣܳܘܣ</placeName>
                     <placeName xml:id="name1468-4" xml:lang="ar" source="#bib1468-2">هاليكرناس</placeName>
                     <desc xml:id="abstract-en-1468" xml:lang="en">A city in western Anatolia.</desc>
-                    <state type="existence" from="-0480" to="0527" srp-to-sort="0527-01-01" syriaca-computed-to="0527-01-01" syriaca-computed-from="-0480-01-01" syriaca-computed-end="0527-01-01" syriaca-computed-start="-0480-01-01">
-                        <precision match="@from" notAfter="-0480" syriaca-computed-notAfter="-0480-01-01" syriaca-computed-end="-0480-01-01"/>
-                        <precision match="@to" notBefore="0527" syriaca-computed-notBefore="0527-01-01" syriaca-computed-start="0527-01-01"/>
+                    <state type="existence" from="-0480" to="0527" syriaca-computed-end="0527-01-01" syriaca-computed-start="-0480-01-01">
+                        <precision match="@from" notAfter="-0480" syriaca-computed-end="-0480-01-01"/>
+                        <precision match="@to" notBefore="0527" syriaca-computed-start="0527-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1468</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/599636</idno>

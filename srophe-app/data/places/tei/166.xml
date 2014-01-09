@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,7 +61,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -71,7 +71,9 @@
                     <placeName xml:id="name166-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib166-1 #bib166-2">Roman Empire</placeName>
                     <placeName xml:id="name166-2" xml:lang="en" source="#bib166-2">Byzantine empire</placeName>
                     <desc xml:id="abstract-en-166" xml:lang="en">The empire west of the <placeName ref="http://syriaca.org/place/150">Persian-Sasanian Empire</placeName> which endured in various forms until 1453.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="-0027" to="1453" syriaca-computed-end="1453-01-01" syriaca-computed-start="-0027-01-01">
+                        <precision match="@from" notAfter="-0027" notBefore="-0044" syriaca-computed-end="-0027-01-01" syriaca-computed-start="-0044-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/166</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Roman_Empire</idno>
                     <idno type="URI">http://dbpedia.org/resource/Roman_Empire</idno>

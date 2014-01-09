@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -103,9 +103,9 @@
                     <location type="nested" source="#bib217-5">
                         <region ref="http://syriaca.org/place/724">Seert region</region>
                     </location>
-                    <state type="existence" from="1461" to="1505" srp-to-sort="1505-01-01" syriaca-computed-to="1505-01-01" syriaca-computed-from="1461-01-01" syriaca-computed-end="1505-01-01" syriaca-computed-start="1461-01-01">
-                        <precision match="@from" notAfter="1461" syriaca-computed-notAfter="1461-01-01" syriaca-computed-end="1461-01-01"/>
-                        <precision match="@to" notBefore="1505" syriaca-computed-notBefore="1505-01-01" syriaca-computed-start="1505-01-01"/>
+                    <state type="existence" from="0640" to="1913" syriaca-computed-end="1913-01-01" syriaca-computed-start="0640-01-01">
+                        <precision match="@from" notAfter="0640" syriaca-computed-end="0640-01-01"/>
+                        <precision match="@to" notBefore="1913" syriaca-computed-start="1913-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/217</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/874496</idno>

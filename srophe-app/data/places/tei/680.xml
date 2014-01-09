@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,7 +61,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -70,8 +70,8 @@
                 <place xml:id="place-680" type="monastery">
                     <placeName xml:id="name680-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib680-1">Mor Awgen</placeName>
                     <desc xml:id="abstract-en-680" xml:lang="en">A monastery in Switzerland.</desc>
-                    <state type="existence" from="1999" to="2013" srp-to-sort="2013-01-01" syriaca-computed-to="2013-01-01" syriaca-computed-from="1999-01-01" syriaca-computed-end="2013-01-01" syriaca-computed-start="1999-01-01">
-                        <precision match="@to" notBefore="2013" syriaca-computed-notBefore="2013-01-01" syriaca-computed-start="2013-01-01"/>
+                    <state type="existence" from="1999" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="1999-01-01">
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/680</idno>
                     <bibl xml:id="bib680-1">

@@ -50,7 +50,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -82,7 +82,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -94,7 +94,10 @@
                     <placeName xml:id="name486-3" xml:lang="syr-Syrj" source="#bib486-1">ܣܽܘܪܺܝܰܐ</placeName>
                     <placeName xml:id="name486-4" xml:lang="ar" source="#bib486-2">ارض الشام</placeName>
                     <desc xml:id="abstract-en-486" xml:lang="en">A historical region bounded on the north by the <placeName ref="http://syriaca.org/place/82">Euphrates River</placeName> and the Taurus Mountains, on the west by the <placeName ref="http://syriaca.org/place/135">Mediterranean Sea</placeName>, on the east by the desert, and on the south by <placeName ref="http://syriaca.org/place/698">Palestine</placeName>, which during the medieval period was considered the southernmost district of Syria.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="-0200" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0200-01-01">
+                        <precision match="@from" notAfter="-0200" syriaca-computed-end="-0200-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/486</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/1306</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Syria</idno>

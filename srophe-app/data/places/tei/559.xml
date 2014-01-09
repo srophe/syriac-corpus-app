@@ -43,7 +43,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -75,7 +75,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -86,7 +86,10 @@
                     <placeName xml:id="name559-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܪܟܚ</placeName>
                     <placeName xml:id="name559-3" xml:lang="syr-Syrj" source="#bib559-2">ܐܰܪܟܰܚ</placeName>
                     <desc xml:id="abstract-en-559" xml:lang="en">A village in <placeName ref="http://syriaca.org/place/221">Ṭur ʿAbdin</placeName>.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="1918" to="1943" syriaca-computed-end="1943-01-01" syriaca-computed-start="1918-01-01">
+                        <precision match="@from" notAfter="1918" syriaca-computed-end="1918-01-01"/>
+                        <precision match="@to" notBefore="1943" syriaca-computed-start="1943-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/559</idno>
                     <bibl xml:id="bib559-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>

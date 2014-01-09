@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -90,7 +90,10 @@
                     <placeName xml:id="name538-3" xml:lang="syr-Syrj" source="#bib538-1">ܙܰܐܙ</placeName>
                     <placeName xml:id="name538-4" xml:lang="ar" source="#bib538-2">زاز</placeName>
                     <desc xml:id="abstract-en-538" xml:lang="en">A village in <placeName ref="http://syriaca.org/place/221">Ṭur ʿAbdin</placeName>.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="1431" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="1431-01-01">
+                        <precision match="@from" notAfter="1431" syriaca-computed-end="1431-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/538</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/İzbırak,_Mardin</idno>
                     <idno type="URI">http://dbpedia.org/resource/İzbırak,_Mardin</idno>

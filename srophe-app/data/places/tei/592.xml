@@ -4,7 +4,9 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Italy</title>
+                <title level="a" xml:lang="en">Italy
+                                        — <foreign xml:lang="syr">ܐܝܛܐܠܝ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -27,9 +29,24 @@
                 <availability>
                     <licence target="http://creativecommons.org/licenses/by/3.0/">
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
+                        <p>This entry incorporates copyrighted material from the following work(s):
+                                                <listBibl>
+                                <bibl>
+                                    <ptr target="#bib592-1"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib592-2"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib592-3"/>
+                                </bibl>
+                            </listBibl>
+                            <note>used under a Creative Commons Attribution license <ref target="http://creativecommons.org/licenses/by/3.0/"/>
+                            </note>
+                        </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,14 +78,16 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
             <listPlace>
                 <place xml:id="place-592" type="state">
-                    <placeName xml:id="name592-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib592-1">Italy</placeName>
+                    <placeName xml:id="name592-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib592-3 #bib592-4">Italy</placeName>
+                    <placeName xml:id="name592-2" xml:lang="syr" syriaca-tags="#syriaca-headword" source="#bib592-1">ܐܝܛܐܠܝ</placeName>
+                    <placeName xml:id="name592-3" xml:lang="ar" source="#bib592-2">ايطاليا</placeName>
                     <desc xml:id="abstract-en-592" xml:lang="en">A Mediterranean nation in southern <placeName ref="http://syriaca.org/place/591">Europe</placeName>.</desc>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/592</idno>
@@ -79,6 +98,21 @@
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=I&amp;sK=Italy&amp;sT=keywords
                                         </idno>
                     <bibl xml:id="bib592-1">
+                        <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
+                        <ptr target="http://syriaca.org/bibl/3"/>
+                        <citedRange unit="pp">492</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib592-2">
+                        <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
+                        <ptr target="http://syriaca.org/bibl/2"/>
+                        <citedRange unit="pp">460</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib592-3">
+                        <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
+                        <ptr target="http://syriaca.org/bibl/4"/>
+                        <citedRange unit="pp">513</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib592-4">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=I&amp;sK=Italy&amp;sT=keywords">Italy</citedRange>

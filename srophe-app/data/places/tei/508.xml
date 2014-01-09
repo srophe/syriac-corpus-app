@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -91,7 +91,10 @@
                     <placeName xml:id="name508-4" xml:lang="ar" source="#bib508-2">اليمن</placeName>
                     <placeName xml:id="name508-5" xml:lang="en" source="#bib508-3">Yaman</placeName>
                     <desc xml:id="abstract-en-508" xml:lang="en">A region in the extreme south of the Arabian peninsula.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="0891" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0891-01-01">
+                        <precision match="@from" notAfter="0891" syriaca-computed-end="0891-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/508</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Yemen</idno>
                     <idno type="URI">http://dbpedia.org/resource/Yemen</idno>

@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -91,9 +91,9 @@
                     <placeName xml:id="name1464-4" xml:lang="ar" source="#bib1464-2">دير مار توما</placeName>
                     <placeName xml:id="name1464-5" xml:lang="en" source="#bib1464-3">Monastery of St. Thomas</placeName>
                     <desc xml:id="abstract-en-1464" xml:lang="en">A monastery near the port of <placeName ref="http://syriaca.org/place/183">Seleucia Pieria</placeName>.</desc>
-                    <state type="existence" from="0498" to="0521" srp-to-sort="0521-01-01" syriaca-computed-to="0521-01-01" syriaca-computed-from="0498-01-01" syriaca-computed-end="0521-01-01" syriaca-computed-start="0498-01-01">
-                        <precision match="@from" notAfter="0498" syriaca-computed-notAfter="0498-01-01" syriaca-computed-end="0498-01-01"/>
-                        <precision match="@to" notBefore="0521" syriaca-computed-notBefore="0521-01-01" syriaca-computed-start="0521-01-01"/>
+                    <state type="existence" from="0498" to="0521" syriaca-computed-end="0521-01-01" syriaca-computed-start="0498-01-01">
+                        <precision match="@from" notAfter="0498" syriaca-computed-end="0498-01-01"/>
+                        <precision match="@to" notBefore="0521" syriaca-computed-start="0521-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1464</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/658621</idno>

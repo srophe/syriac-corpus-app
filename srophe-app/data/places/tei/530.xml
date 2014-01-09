@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -90,7 +90,9 @@
                     <placeName xml:id="name530-3" xml:lang="syr-Syrj" source="#bib530-1">ܒܽܘܪܣܰܥܝܕ</placeName>
                     <placeName xml:id="name530-4" xml:lang="ar" source="#bib530-2">بور سعيد</placeName>
                     <desc xml:id="abstract-en-530" xml:lang="en">A coastal city in Egypt.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="1859-04-25" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="1859-04-25">
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/530</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Port_Said</idno>
                     <idno type="URI">http://dbpedia.org/resource/Port_Said</idno>

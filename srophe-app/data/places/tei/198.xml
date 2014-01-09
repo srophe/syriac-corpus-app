@@ -51,7 +51,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -83,7 +83,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -97,8 +97,11 @@
                     <placeName xml:id="name198-5" xml:lang="en" source="#bib198-4">Talʿada</placeName>
                     <placeName xml:id="name198-6" xml:lang="en" source="#bib198-5">Tell Ada</placeName>
                     <desc xml:id="abstract-en-198" xml:lang="en">A village 48 km. west of <placeName ref="http://syriaca.org/place/18">Aleppo</placeName> known for the nearby <placeName ref="http://syriaca.org/place/233">Monastery of Tell ʿAda</placeName>.</desc>
-                    <state type="existence"/>
-                    <note type="errata">GEDSH Map I displays the location too far to the south, east of <placeName ref="http://syriaca.org/place/91">Ḥama</placeName> rather than west of <placeName ref="http://syriaca.org/place/18">Aleppo</placeName>.</note>
+                    <state type="existence" from="0457" to="0941" syriaca-computed-end="0941-01-01" syriaca-computed-start="0457-01-01">
+                        <precision match="@from" notAfter="0457" syriaca-computed-end="0457-01-01"/>
+                        <precision match="@to" notBefore="0941" syriaca-computed-start="0941-01-01"/>
+                    </state>
+                    <note type="corrigenda">GEDSH Map I displays the location too far to the south, east of <placeName ref="http://syriaca.org/place/91">Ḥama</placeName> rather than west of <placeName ref="http://syriaca.org/place/18">Aleppo</placeName>.</note>
                     <idno type="URI">http://syriaca.org/place/198</idno>
                     <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Tell Ada&amp;sT=keywords

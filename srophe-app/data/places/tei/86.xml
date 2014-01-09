@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -118,9 +118,9 @@
                     <location type="gps" source="#bib86-1">
                         <geo>38.028889 39.032222</geo>
                     </location>
-                    <state type="existence" from="1109" to="1143" srp-to-sort="1143-01-01" syriaca-computed-to="1143-01-01" syriaca-computed-from="1109-01-01" syriaca-computed-end="1143-01-01" syriaca-computed-start="1109-01-01">
-                        <precision match="@from" notAfter="1109" syriaca-computed-notAfter="1109-01-01" syriaca-computed-end="1109-01-01"/>
-                        <precision match="@to" notBefore="1143" syriaca-computed-notBefore="1143-01-01" syriaca-computed-start="1143-01-01"/>
+                    <state type="existence" from="-0030" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0030-01-01">
+                        <precision match="@from" notAfter="-0030" syriaca-computed-end="-0030-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/86</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/874353</idno>

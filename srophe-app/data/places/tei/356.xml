@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -111,11 +111,11 @@
                     <desc xml:lang="en">
                         <quote source="#bib356-4">in al-Raqqa, surrounded by the Balikh river. It was once a great and famous monastery; John of Talla became a monk there in 508. From this monastery graduated Patriarch John IV and twenty bishops, but it declined after 954. The Abbasid Caliph Harun al-Rashid visited it one day, liked it and bestowed favors on its monks.</quote>
                     </desc>
-                    <state type="existence" from="0508" to="0954" srp-to-sort="0954-01-01" syriaca-computed-to="0954-01-01" syriaca-computed-from="0508-01-01" syriaca-computed-end="0954-01-01" syriaca-computed-start="0508-01-01">
-                        <precision match="@from" notAfter="0508" syriaca-computed-notAfter="0508-01-01" syriaca-computed-end="0508-01-01"/>
-                        <precision match="@to" notBefore="0954" syriaca-computed-notBefore="0954-01-01" syriaca-computed-start="0954-01-01"/>
+                    <state type="existence" from="0508" to="0954" syriaca-computed-end="0954-01-01" syriaca-computed-start="0508-01-01">
+                        <precision match="@from" notAfter="0508" notBefore="0300" syriaca-computed-end="0508-01-01" syriaca-computed-start="0300-01-01"/>
+                        <precision match="@to" notAfter="1943" notBefore="0954" syriaca-computed-end="1943-01-01" syriaca-computed-start="0954-01-01"/>
                     </state>
-                    <note type="errata">In Dolabani's translation of Barsoum's description ܘܐܶܬܢܰܦܩ and ܘܐܰܪܒܥܳܐ should read ܘܶܐܬܢܰܦܩ and ܘܰܐܪܒܥܳܐ respectively.</note>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܘܐܶܬܢܰܦܩ and ܘܐܰܪܒܥܳܐ should read ܘܶܐܬܢܰܦܩ and ܘܰܐܪܒܥܳܐ respectively.</note>
                     <idno type="URI">http://syriaca.org/place/356</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/668402</idno>
                     <idno type="URI">

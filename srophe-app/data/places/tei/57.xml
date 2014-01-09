@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,7 +61,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -70,7 +70,10 @@
                 <place xml:id="place-57" type="province">
                     <placeName xml:id="name57-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib57-1">Cilicia II</placeName>
                     <desc xml:id="abstract-en-57" xml:lang="en">A Roman province of coastal Anatolia with its capital at Anazarbos.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="0305" to="0600" syriaca-computed-end="0600-01-01" syriaca-computed-start="0305-01-01">
+                        <precision match="@from" notAfter="0305" notBefore="0284" syriaca-computed-end="0305-01-01" syriaca-computed-start="0284-01-01"/>
+                        <precision match="@to" notAfter="0750" notBefore="0600" syriaca-computed-end="0750-01-01" syriaca-computed-start="0600-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/57</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/1001929</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Cilicia_(Roman_province)</idno>

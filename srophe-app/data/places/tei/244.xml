@@ -51,7 +51,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -83,7 +83,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -97,7 +97,10 @@
                     <placeName xml:id="name244-5" xml:lang="ar" source="#bib244-3">قرتمين</placeName>
                     <placeName xml:id="name244-6" xml:lang="en" source="#bib244-5">Qartmin</placeName>
                     <desc xml:id="abstract-en-244" xml:lang="en">A village in <placeName ref="http://syriaca.org/place/221">Ṭur ʿAbdin</placeName> southeast of <placeName ref="http://syriaca.org/place/137">Midyat</placeName>.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="0397" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0397-01-01">
+                        <precision match="@from" notAfter="0397" syriaca-computed-end="0397-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/244</idno>
                     <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qartmin&amp;sT=keywords

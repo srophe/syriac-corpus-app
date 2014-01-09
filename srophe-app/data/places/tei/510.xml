@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -90,7 +90,10 @@
                     <placeName xml:id="name510-3" xml:lang="syr-Syrj" source="#bib510-1">ܬܳܘܩܰܐܬ</placeName>
                     <placeName xml:id="name510-4" xml:lang="ar" source="#bib510-2">توقات</placeName>
                     <desc xml:id="abstract-en-510" xml:lang="en">A city of north-central <placeName ref="http://syriaca.org/place/504">Anatolia</placeName>.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="-0030" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0030-01-01">
+                        <precision match="@from" notAfter="-0030" syriaca-computed-end="-0030-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/510</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/857105</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Tokat</idno>

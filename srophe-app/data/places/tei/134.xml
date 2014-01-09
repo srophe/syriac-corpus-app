@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,7 +95,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -122,7 +122,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib134-4">once the most famous city in the northeastern part of the province of Diyarbakir, now a small town.</quote>
                     </desc>
-                    <state type="existence"/>
+                    <state type="existence" from="0410" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0410-01-01">
+                        <precision match="@from" notAfter="0410" syriaca-computed-end="0410-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/134</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/874573</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Silvan,_Turkey</idno>

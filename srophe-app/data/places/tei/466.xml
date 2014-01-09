@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -112,7 +112,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib466-3">a town in Turkey, northeast of Tokat.</quote>
                     </desc>
-                    <state type="existence"/>
+                    <state type="existence" from="-0071" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0071-01-01">
+                        <precision match="@from" notAfter="-0071" syriaca-computed-end="-0071-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/466</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/857177</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Niksar</idno>

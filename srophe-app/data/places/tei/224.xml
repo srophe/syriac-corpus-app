@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -115,9 +115,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib224-5">built on top of a mountain near Melitene, it looks like a citadel, a fact which has led some writers to call it the Monastery of the Cave. It was first mentioned in church history in 790. It was the Patriarchal see from the eleventh century until the thirteenth century. A great monastery, it produced five patriarchs and forty-three metropolitans. It remained populated until the middle of the seventeenth century, when it was abandoned.</quote>
                     </desc>
-                    <state type="existence" from="0790" to="1625" srp-to-sort="1625-01-01" syriaca-computed-to="1625-01-01" syriaca-computed-from="0790-01-01" syriaca-computed-end="1625-01-01" syriaca-computed-start="0790-01-01">
-                        <precision match="@from" notAfter="0790" syriaca-computed-notAfter="0790-01-01" syriaca-computed-end="0790-01-01"/>
-                        <precision match="@to" notBefore="1625" syriaca-computed-notBefore="1625-01-01" syriaca-computed-start="1625-01-01"/>
+                    <state type="existence" from="0790" to="1675" syriaca-computed-end="1675-01-01" syriaca-computed-start="0790-01-01">
+                        <precision match="@from" notAfter="0790" notBefore="0300" syriaca-computed-end="0790-01-01" syriaca-computed-start="0300-01-01"/>
+                        <precision match="@to" notBefore="1675" syriaca-computed-start="1675-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/224</idno>
                     <idno type="URI">

@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -113,7 +113,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib451-3">a village in the district of Baʿarbaya adjacent to the Izla Mountain.</quote>
                     </desc>
-                    <state type="existence"/>
+                    <state type="existence" from="1293" to="1183" syriaca-computed-end="1183-01-01" syriaca-computed-start="1293-01-01">
+                        <precision match="@from" notAfter="1293" syriaca-computed-end="1293-01-01"/>
+                        <precision match="@to" notBefore="1183" syriaca-computed-start="1183-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/451</idno>
                     <bibl xml:id="bib451-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>

@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -117,7 +117,7 @@
                         <region ref="http://syriaca.org/place/712">Gāzartā region</region>
                     </location>
                     <state type="existence"/>
-                    <note type="errata">In Dolabani's translation of Barsoum's description ܗܝܺܓܡܘܽܢܺܘܬܐ should read ܗܺܝܓܡܽܘܢܽܘܬܐ  and ܐܰܬܪ̈ܘܳܬܳܗ should read ܐܰܬܪ̈ܘܳܬܳܗ̇.  Also ܕܰܓܙܝܺܪܬܐ should read ܕܓܳܙܰܪܬܐ.</note>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܗܝܺܓܡܘܽܢܺܘܬܐ should read ܗܺܝܓܡܽܘܢܽܘܬܐ  and ܐܰܬܪ̈ܘܳܬܳܗ should read ܐܰܬܪ̈ܘܳܬܳܗ̇.  Also ܕܰܓܙܝܺܪܬܐ should read ܕܓܳܙܰܪܬܐ.</note>
                     <idno type="URI">http://syriaca.org/place/332</idno>
                     <bibl xml:id="bib332-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>

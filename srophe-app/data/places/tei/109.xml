@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -122,11 +122,11 @@
                     <location type="gps" source="#bib109-1">
                         <geo>35.95 39.016667</geo>
                     </location>
-                    <state type="existence" from="0581" to="2013" srp-to-sort="2013-01-01" syriaca-computed-to="2013-01-01" syriaca-computed-from="0581-01-01" syriaca-computed-end="2013-01-01" syriaca-computed-start="0581-01-01">
-                        <precision match="@from" notAfter="0581" syriaca-computed-notAfter="0581-01-01" syriaca-computed-end="0581-01-01"/>
-                        <precision match="@to" notBefore="2013" syriaca-computed-notBefore="2013-01-01" syriaca-computed-start="2013-01-01"/>
+                    <state type="existence" from="0581" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0581-01-01">
+                        <precision match="@from" notAfter="0581" syriaca-computed-end="0581-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <note type="errata">In Dolabani's translation of Barsoum's description ܘܡܶܬܰܐܡܪ should read ܘܡܶܬܶܐܡܪ.</note>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܘܡܶܬܰܐܡܪ should read ܘܡܶܬܶܐܡܪ.</note>
                     <idno type="URI">http://syriaca.org/place/109</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/668318</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Al-Raqqah</idno>

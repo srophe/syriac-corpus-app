@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -90,9 +90,9 @@
                     <placeName xml:id="name1469-3" xml:lang="syr-Syrj" source="#bib1469-1">ܦܰܪܓܰܝ</placeName>
                     <placeName xml:id="name1469-4" xml:lang="ar" source="#bib1469-2">برجة</placeName>
                     <desc xml:id="abstract-en-1469" xml:lang="en">A city in Pamphylia</desc>
-                    <state type="existence" from="-0323" to="1200" srp-to-sort="1200-01-01" syriaca-computed-to="1200-01-01" syriaca-computed-from="-0323-01-01" syriaca-computed-end="1200-01-01" syriaca-computed-start="-0323-01-01">
-                        <precision match="@from" notAfter="-0323" syriaca-computed-notAfter="-0323-01-01" syriaca-computed-end="-0323-01-01"/>
-                        <precision match="@to" notBefore="1200" syriaca-computed-notBefore="1200-01-01" syriaca-computed-start="1200-01-01"/>
+                    <state type="existence" from="-0323" to="1200" syriaca-computed-end="1200-01-01" syriaca-computed-start="-0323-01-01">
+                        <precision match="@from" notAfter="-0323" syriaca-computed-end="-0323-01-01"/>
+                        <precision match="@to" notBefore="1200" syriaca-computed-start="1200-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1469</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/639048</idno>

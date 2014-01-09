@@ -41,13 +41,13 @@
                         <p>This entry incorporates copyrighted material from the following work(s):
                                                 <listBibl>
                                 <bibl>
+                                    <ptr target="#bib298-1"/>
+                                </bibl>
+                                <bibl>
                                     <ptr target="#bib298-2"/>
                                 </bibl>
                                 <bibl>
                                     <ptr target="#bib298-3"/>
-                                </bibl>
-                                <bibl>
-                                    <ptr target="#bib298-4"/>
                                 </bibl>
                             </listBibl>
                             <note>used under a Creative Commons Attribution license <ref target="http://creativecommons.org/licenses/by/3.0/"/>
@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,49 +87,44 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
             <listPlace>
                 <place xml:id="place-298" type="settlement">
-                    <placeName xml:id="name298-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib298-1">Baqufa</placeName>
+                    <placeName xml:id="name298-1" xml:lang="en" syriaca-tags="#syriaca-headword">Baqufa</placeName>
                     <placeName xml:id="name298-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܐܩܘܦܐ</placeName>
-                    <placeName xml:id="name298-3" xml:lang="syr-Syrj" source="#bib298-2">ܒܐܩܘܦܰܐ</placeName>
-                    <placeName xml:id="name298-4" xml:lang="ar" source="#bib298-3">باقوفا</placeName>
-                    <placeName xml:id="name298-5" xml:lang="en" source="#bib298-4">Bāqūfā</placeName>
+                    <placeName xml:id="name298-3" xml:lang="syr-Syrj" source="#bib298-1">ܒܐܩܘܦܰܐ</placeName>
+                    <placeName xml:id="name298-4" xml:lang="ar" source="#bib298-2">باقوفا</placeName>
+                    <placeName xml:id="name298-5" xml:lang="en" source="#bib298-3">Bāqūfā</placeName>
                     <desc xml:id="abstract-en-298" xml:lang="en"/>
                     <desc xml:lang="syr-Syrj">
-                        <quote source="#bib298-2">ܩܪܝܬܐ ܕܰܒܛܘܪܳܐ ܕܠܶܒܢܳܢ.</quote>
+                        <quote source="#bib298-1">ܩܪܝܬܐ ܕܰܒܛܘܪܳܐ ܕܠܶܒܢܳܢ.</quote>
                     </desc>
                     <desc xml:lang="ar">
-                        <quote source="#bib298-3">قرية في جبل لبنان</quote>
+                        <quote source="#bib298-2">قرية في جبل لبنان</quote>
                     </desc>
                     <desc xml:lang="en">
-                        <quote source="#bib298-4">a village in the mountains of Lebanon.</quote>
+                        <quote source="#bib298-3">a village in the mountains of Lebanon.</quote>
                     </desc>
-                    <state type="existence" from="1451" to="1451" srp-to-sort="1451-01-01" syriaca-computed-to="1451-01-01" syriaca-computed-from="1451-01-01" syriaca-computed-end="1451-01-01" syriaca-computed-start="1451-01-01">
-                        <precision match="@from" notAfter="1451" syriaca-computed-notAfter="1451-01-01" syriaca-computed-end="1451-01-01"/>
-                        <precision match="@to" notBefore="1451" syriaca-computed-notBefore="1451-01-01" syriaca-computed-start="1451-01-01"/>
+                    <state type="existence" from="1451" to="1451" syriaca-computed-end="1451-01-01" syriaca-computed-start="1451-01-01">
+                        <precision match="@from" notAfter="1451" syriaca-computed-end="1451-01-01"/>
+                        <precision match="@to" notBefore="1451" syriaca-computed-start="1451-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/298</idno>
                     <bibl xml:id="bib298-1">
-                        <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="pp">262</citedRange>
-                    </bibl>
-                    <bibl xml:id="bib298-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">537</citedRange>
                     </bibl>
-                    <bibl xml:id="bib298-3">
+                    <bibl xml:id="bib298-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">505</citedRange>
                     </bibl>
-                    <bibl xml:id="bib298-4">
+                    <bibl xml:id="bib298-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">552</citedRange>

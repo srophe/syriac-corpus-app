@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -120,8 +120,11 @@
                     <location type="gps" source="#bib92-1">
                         <geo>37.714167 41.413056</geo>
                     </location>
-                    <state type="existence"/>
-                    <note type="errata">In Dolabani's translation of Barsoum's description ܠܓܙܺܝܪܳܬܐ should read ܠܓܳܙܰܪܬܳܐ.</note>
+                    <state type="existence" from="0640" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0640-01-01">
+                        <precision match="@from" notAfter="0640" syriaca-computed-end="0640-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܠܓܙܺܝܪܳܬܐ should read ܠܓܳܙܰܪܬܳܐ.</note>
                     <idno type="URI">http://syriaca.org/place/92</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/874664</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Hasankeyf</idno>

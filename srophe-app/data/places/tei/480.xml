@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -90,7 +90,10 @@
                     <placeName xml:id="name480-3" xml:lang="syr-Syrj" source="#bib480-1">ܨܰܐܡܨܘܽܢ</placeName>
                     <placeName xml:id="name480-4" xml:lang="ar" source="#bib480-2">سمسون</placeName>
                     <desc xml:id="abstract-en-480" xml:lang="en">A port city on the <placeName ref="http://syriaca.org/place/503">Black Sea</placeName> in northern central <placeName ref="http://syriaca.org/place/504">Anatolia</placeName>.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="-0047" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0047-01-01">
+                        <precision match="@from" notAfter="-0047" syriaca-computed-end="-0047-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/480</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/857024</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Samsun</idno>

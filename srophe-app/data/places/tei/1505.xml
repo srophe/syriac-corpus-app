@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -91,9 +91,9 @@
                     <placeName xml:id="name1505-4" xml:lang="ar" source="#bib1505-2">بنشمش</placeName>
                     <placeName xml:id="name1505-5" xml:lang="en" source="#bib1505-3">Benshams</placeName>
                     <desc xml:id="abstract-en-1505" xml:lang="en">A place east of the <placeName ref="http://syriaca.org/place/114">Khabur river</placeName> in <placeName ref="http://syriaca.org/place/321">Jazira</placeName>.</desc>
-                    <state type="existence" from="0837" to="0737" srp-to-sort="0737-01-01" syriaca-computed-to="0737-01-01" syriaca-computed-from="0837-01-01" syriaca-computed-end="0737-01-01" syriaca-computed-start="0837-01-01">
-                        <precision match="@from" notAfter="0837" syriaca-computed-notAfter="0837-01-01" syriaca-computed-end="0837-01-01"/>
-                        <precision match="@to" notBefore="0737" syriaca-computed-notBefore="0737-01-01" syriaca-computed-start="0737-01-01"/>
+                    <state type="existence" from="0837" to="0737" syriaca-computed-end="0737-01-01" syriaca-computed-start="0837-01-01">
+                        <precision match="@from" notAfter="0837" syriaca-computed-end="0837-01-01"/>
+                        <precision match="@to" notBefore="0737" syriaca-computed-start="0737-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1505</idno>
                     <bibl xml:id="bib1505-1">

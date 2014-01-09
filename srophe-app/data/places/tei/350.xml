@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -96,9 +96,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib350-2">also called George Monastery: in the province of Samosata. Its name first appears in history at the end of the seventh century, but nothing is known about it after the ninth century. From it graduated one Patriarch and five bishops.</quote>
                     </desc>
-                    <state type="existence" from="0700" to="0900" srp-to-sort="0900-01-01" syriaca-computed-to="0900-01-01" syriaca-computed-from="0700-01-01" syriaca-computed-end="0900-01-01" syriaca-computed-start="0700-01-01">
-                        <precision match="@from" notAfter="0700" syriaca-computed-notAfter="0700-01-01" syriaca-computed-end="0700-01-01"/>
-                        <precision match="@to" notBefore="0900" syriaca-computed-notBefore="0900-01-01" syriaca-computed-start="0900-01-01"/>
+                    <state type="existence" from="0700" to="0900" syriaca-computed-end="0900-01-01" syriaca-computed-start="0700-01-01">
+                        <precision match="@from" notAfter="0700" notBefore="0300" syriaca-computed-end="0700-01-01" syriaca-computed-start="0300-01-01"/>
+                        <precision match="@to" notAfter="1943" notBefore="0900" syriaca-computed-end="1943-01-01" syriaca-computed-start="0900-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/350</idno>
                     <bibl xml:id="bib350-1">

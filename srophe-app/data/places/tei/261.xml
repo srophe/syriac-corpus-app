@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,7 +65,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -79,7 +79,10 @@
                     <location type="nested" source="#bib261-2">
                         <region ref="http://syriaca.org/place/993">Erbil region</region>
                     </location>
-                    <state type="existence"/>
+                    <state type="existence" from="0925" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0925-01-01">
+                        <precision match="@from" notAfter="0925" syriaca-computed-end="0925-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/261</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Ankawa</idno>
                     <idno type="URI">http://dbpedia.org/resource/Ankawa</idno>

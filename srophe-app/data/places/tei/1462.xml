@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -94,8 +94,8 @@
                     <placeName xml:id="name1462-7" xml:lang="en" source="#bib1462-3">Cell of Elishaʿ the Ascetic</placeName>
                     <placeName xml:id="name1462-8" xml:lang="en" source="#bib1462-3">Monastery of the Chariot</placeName>
                     <desc xml:id="abstract-en-1462" xml:lang="en">A monastery where Barloho was a monk.</desc>
-                    <state type="existence" from="0525" syriaca-computed-from="0525-01-01" syriaca-computed-start="0525-01-01">
-                        <precision match="@from" notAfter="0525" syriaca-computed-notAfter="0525-01-01" syriaca-computed-end="0525-01-01"/>
+                    <state type="existence" from="0525" syriaca-computed-start="0525-01-01">
+                        <precision match="@from" notAfter="0525" syriaca-computed-end="0525-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1462</idno>
                     <bibl xml:id="bib1462-1">

@@ -51,7 +51,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -83,7 +83,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -96,7 +96,10 @@
                     <placeName xml:id="name214-4" xml:lang="ar" source="#bib214-3">حوران</placeName>
                     <placeName xml:id="name214-5" xml:lang="en" source="#bib214-5">Hawran</placeName>
                     <desc xml:id="abstract-en-214" xml:lang="en">A region south of <placeName ref="http://syriaca.org/place/66">Damascus</placeName> and east of the Sea of Galilee.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="-0030" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0030-01-01">
+                        <precision match="@from" notAfter="-0030" syriaca-computed-end="-0030-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/214</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/678041</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Hauran</idno>

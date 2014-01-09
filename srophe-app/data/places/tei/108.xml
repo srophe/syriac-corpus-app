@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,7 +95,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -132,7 +132,10 @@
                     <location type="gps" source="#bib108-2">
                         <geo>35.468099 44.3953</geo>
                     </location>
-                    <state type="existence"/>
+                    <state type="existence" from="-0858" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0858-01-01">
+                        <precision match="@from" notAfter="-0858" syriaca-computed-end="-0858-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/108</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/893941</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Kirkuk</idno>

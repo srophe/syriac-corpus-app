@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,7 +95,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -122,7 +122,10 @@
                         <region ref="http://syriaca.org/place/801">Ātel district</region>
                         <region ref="http://syriaca.org/place/724">Seert region</region>
                     </location>
-                    <state type="existence"/>
+                    <state type="existence" from="0300" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0300-01-01">
+                        <precision match="@from" notAfter="0300" syriaca-computed-end="0300-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/446</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/658442</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Kilis</idno>

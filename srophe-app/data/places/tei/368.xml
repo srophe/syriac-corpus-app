@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -120,7 +120,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib368-5">built on top of Mount Sinai by Justinian, now belongs to the Greeks. Fifteen monks presently live in it. It has a magnificent library, containing about 280 old Syriac manuscripts, most of which are written in the Estrangelo and Malkite scripts. It is also a bishopric seat whose metropolitan resides in Cairo.</quote>
                     </desc>
-                    <state type="existence"/>
+                    <state type="existence" from="0600" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0600-01-01">
+                        <precision match="@from" notAfter="0600" notBefore="0500" syriaca-computed-end="0600-01-01" syriaca-computed-start="0500-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/368</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/746745</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Saint_Catherine's_Monastery</idno>

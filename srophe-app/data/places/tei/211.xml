@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -107,7 +107,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib211-1">35. al-Anbār</quote>
                     </desc>
-                    <state type="existence"/>
+                    <state type="existence" from="0360" to="0762" syriaca-computed-end="0762-01-01" syriaca-computed-start="0360-01-01">
+                        <precision match="@from" notAfter="0360" notBefore="0340" syriaca-computed-end="0360-01-01" syriaca-computed-start="0340-01-01"/>
+                        <precision match="@to" notAfter="2013" notBefore="0762" syriaca-computed-end="2013-01-01" syriaca-computed-start="0762-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/211</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/894043</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Anbar_(town)</idno>

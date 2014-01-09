@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,7 +95,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -120,7 +120,7 @@
                         <quote source="#bib409-3">a vast territory, ten days’ journey south of Herat.</quote>
                     </desc>
                     <state type="existence"/>
-                    <note type="errata">In Dolabani's translation of Barsoum's description ܒܩܘܪܳܒܐ should read ܒܩܘܪܒܳܐ.</note>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܒܩܘܪܳܒܐ should read ܒܩܘܪܒܳܐ.</note>
                     <idno type="URI">http://syriaca.org/place/409</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/29547</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Sistan</idno>

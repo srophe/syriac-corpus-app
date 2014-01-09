@@ -29,14 +29,16 @@ declare function local:add-custom-dates(){
 
 declare function local:notAfter($doc){
         for $date in $doc/descendant-or-self::*/@notAfter
-        let $date-norm := if(string-length($date) eq 4) then concat(string($date),'-01-01')
+        let $date-norm := if(starts-with($date,'0000') and string-length($date) eq 4) then '0001-01-01'
+                          else if(string-length($date) eq 4) then concat(string($date),'-01-01')
                           else if(string-length($date) eq 5) then concat(string($date),'-01-01')
+                          else if(string-length($date) eq 7) then concat(string($date),'-01')
                           else string($date)
               return 
               (: $date-norm castable as xs:date :)
               if($date[@syriaca-computed-end]) then 'exists'
               else   try {
-                        (update insert attribute syriaca-computed-end {xs:date($date-norm)} into $date/parent::*, 'added')
+                        update insert attribute syriaca-computed-end {xs:date($date-norm)} into $date/parent::*
                      } catch * {
                          <date place="{$doc/@xml:id}">{
                              (string($date-norm), "Error:", $err:code)
@@ -47,14 +49,16 @@ declare function local:notAfter($doc){
 
 declare function local:notBefore($doc){
         for $date in $doc/descendant-or-self::*/@notBefore
-        let $date-norm := if(string-length($date) eq 4) then concat(string($date),'-01-01')
+        let $date-norm := if(starts-with($date,'0000') and string-length($date) eq 4) then '0001-01-01'
+                          else if(string-length($date) eq 4) then concat(string($date),'-01-01')
                           else if(string-length($date) eq 5) then concat(string($date),'-01-01')
+                          else if(string-length($date) eq 7) then concat(string($date),'-01')
                           else string($date)
               return 
               (: $date-norm castable as xs:date :)
               if($date[@syriaca-computed-start]) then 'exists'
               else   try {
-                        (update insert attribute syriaca-computed-start {xs:date($date-norm)} into $date/parent::*, 'added')
+                        update insert attribute syriaca-computed-start {xs:date($date-norm)} into $date/parent::*
                      } catch * {
                          <date place="{$doc/@xml:id}">{
                              (string($date-norm), "Error:", $err:code)
@@ -64,14 +68,16 @@ declare function local:notBefore($doc){
 
 declare function local:to($doc){
         for $date in $doc/descendant-or-self::*/@to
-        let $date-norm := if(string-length($date) eq 4) then concat(string($date),'-01-01')
+        let $date-norm := if(starts-with($date,'0000') and string-length($date) eq 4) then '0001-01-01'
+                          else if(string-length($date) eq 4) then concat(string($date),'-01-01')
                           else if(string-length($date) eq 5) then concat(string($date),'-01-01')
+                          else if(string-length($date) eq 7) then concat(string($date),'-01')
                           else string($date)
               return 
               (: $date-norm castable as xs:date :)
               if($date[@syriaca-computed-end]) then 'exists'
               else   try {
-                        (update insert attribute syriaca-computed-end {xs:date($date-norm)} into $date/parent::*, 'added')
+                        update insert attribute syriaca-computed-end {xs:date($date-norm)} into $date/parent::*
                      } catch * {
                          <date place="{$doc/@xml:id}">{
                              (string($date-norm), "Error:", $err:code)
@@ -81,14 +87,16 @@ declare function local:to($doc){
 
 declare function local:from($doc){
         for $date in $doc/descendant-or-self::*/@from
-        let $date-norm := if(string-length($date) eq 4) then concat(string($date),'-01-01')
+        let $date-norm := if(starts-with($date,'0000') and string-length($date) eq 4) then '0001-01-01'
+                          else if(string-length($date) eq 4) then concat(string($date),'-01-01')
                           else if(string-length($date) eq 5) then concat(string($date),'-01-01')
+                          else if(string-length($date) eq 7) then concat(string($date),'-01')
                           else string($date)
               return 
               (: $date-norm castable as xs:date :)
               if($date[@syriaca-computed-start]) then 'exists'
               else   try {
-                        (update insert attribute syriaca-computed-start {xs:date($date-norm)} into $date/parent::*, 'added')
+                        update insert attribute syriaca-computed-start {xs:date($date-norm)} into $date/parent::*
                      } catch * {
                          <date place="{$doc/@xml:id}">{
                              (string($date-norm), "Error:", $err:code)
@@ -98,14 +106,16 @@ declare function local:from($doc){
 
 declare function local:when($doc){
         for $date in $doc/descendant-or-self::*/@when
-        let $date-norm := if(string-length($date) eq 4) then concat(string($date),'-01-01')
+        let $date-norm := if(starts-with($date,'0000') and string-length($date) eq 4) then '0001-01-01'
+                          else if(string-length($date) eq 4) then concat(string($date),'-01-01')
                           else if(string-length($date) eq 5) then concat(string($date),'-01-01')
+                          else if(string-length($date) eq 7) then concat(string($date),'-01')
                           else string($date)
               return 
               (: $date-norm castable as xs:date :)
               if($date[@syriaca-computed-start]) then 'exists'
               else   try {
-                        (update insert attribute syriaca-computed-start {xs:date($date-norm)} into $date/parent::*, 'added')
+                        update insert attribute syriaca-computed-start {xs:date($date-norm)} into $date/parent::*
                      } catch * {
                          <date place="{$doc/@xml:id}">{
                              (string($date-norm), "Error:", $err:code)

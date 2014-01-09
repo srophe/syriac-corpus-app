@@ -4,7 +4,9 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Saint Petersburg</title>
+                <title level="a" xml:lang="en">Saint Petersburg
+                                        — <foreign xml:lang="syr">ܦܛܪܘܣܒܘܪܓ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -31,9 +33,24 @@
                 <availability>
                     <licence target="http://creativecommons.org/licenses/by/3.0/">
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
+                        <p>This entry incorporates copyrighted material from the following work(s):
+                                                <listBibl>
+                                <bibl>
+                                    <ptr target="#bib848-1"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib848-2"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib848-3"/>
+                                </bibl>
+                            </listBibl>
+                            <note>used under a Creative Commons Attribution license <ref target="http://creativecommons.org/licenses/by/3.0/"/>
+                            </note>
+                        </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,7 +82,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -73,13 +90,32 @@
             <listPlace>
                 <place xml:id="place-848" type="settlement">
                     <placeName xml:id="name848-1" xml:lang="en" syriaca-tags="#syriaca-headword">Saint Petersburg</placeName>
-                    <placeName xml:id="name848-2" xml:lang="en" source="#bib848-1">Leningrad</placeName>
+                    <placeName xml:id="name848-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܦܛܪܘܣܒܘܪܓ</placeName>
+                    <placeName xml:id="name848-3" xml:lang="syr-Syrj" source="#bib848-1">ܦܶܛܪܘܣܒܘܽܪܓ</placeName>
+                    <placeName xml:id="name848-4" xml:lang="ar" source="#bib848-2">بطرسبرج</placeName>
+                    <placeName xml:id="name848-5" xml:lang="en" source="#bib848-3">Petersburg</placeName>
+                    <placeName xml:id="name848-6" xml:lang="en" source="#bib848-4">Leningrad</placeName>
                     <desc xml:id="abstract-en-848" xml:lang="en"/>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/848</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Saint_Petersburg</idno>
                     <idno type="URI">http://dbpedia.org/resource/Saint_Petersburg</idno>
                     <bibl xml:id="bib848-1">
+                        <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
+                        <ptr target="http://syriaca.org/bibl/3"/>
+                        <citedRange unit="pp">35</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib848-2">
+                        <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
+                        <ptr target="http://syriaca.org/bibl/2"/>
+                        <citedRange unit="pp">24</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib848-3">
+                        <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
+                        <ptr target="http://syriaca.org/bibl/4"/>
+                        <citedRange unit="pp">14</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib848-4">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">11</citedRange>

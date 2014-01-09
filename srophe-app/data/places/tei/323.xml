@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -108,9 +108,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib323-3">a district about six leagues from Ḥomṣ, towards Damascus,situated between the mountains of Lebanon and Sinnir. Today it is a small village, recently built near the ruins of ancient Josya.</quote>
                     </desc>
-                    <state type="existence" from="0600" to="0500" srp-to-sort="0500-01-01" syriaca-computed-to="0500-01-01" syriaca-computed-from="0600-01-01" syriaca-computed-end="0500-01-01" syriaca-computed-start="0600-01-01">
-                        <precision match="@from" notAfter="0600" syriaca-computed-notAfter="0600-01-01" syriaca-computed-end="0600-01-01"/>
-                        <precision match="@to" notBefore="0500" syriaca-computed-notBefore="0500-01-01" syriaca-computed-start="0500-01-01"/>
+                    <state type="existence" from="0600" to="2011" syriaca-computed-end="2011-01-01" syriaca-computed-start="0600-01-01">
+                        <precision match="@from" notAfter="0600" syriaca-computed-end="0600-01-01"/>
+                        <precision match="@to" notBefore="2011" syriaca-computed-start="2011-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/323</idno>
                     <idno type="URI">http://ar.wikipedia.org/wiki/جوسية</idno>

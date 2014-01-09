@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -117,16 +117,16 @@
                     <desc xml:lang="en">
                         <quote source="#bib299-3">a town in Syria between Aleppo and al-Raqqa, known in antiquity as Perpalisos, it is now called Maskana.</quote>
                     </desc>
-                    <state type="existence" from="0253" to="1000" srp-to-sort="1000-01-01" syriaca-computed-to="1000-01-01" syriaca-computed-from="0253-01-01" syriaca-computed-end="1000-01-01" syriaca-computed-start="0253-01-01">
-                        <precision match="@from" notAfter="0253" syriaca-computed-notAfter="0253-01-01" syriaca-computed-end="0253-01-01"/>
-                        <precision match="@to" notBefore="1000" syriaca-computed-notBefore="1000-01-01" syriaca-computed-start="1000-01-01"/>
+                    <state type="existence" from="0253" to="1000" syriaca-computed-end="1000-01-01" syriaca-computed-start="0253-01-01">
+                        <precision match="@from" notAfter="0253" syriaca-computed-end="0253-01-01"/>
+                        <precision match="@to" notBefore="1000" syriaca-computed-start="1000-01-01"/>
                     </state>
                     <note type="deprecation" xml:id="name299-12-deprecation">Moosa's transcription "Perpalisos" should be "Barbalissus".</note>
                     <link target="#name299-12 #name299-12-deprecation"/>
                     <idno type="URI">http://syriaca.org/place/299</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/668208</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Maskanah</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Maskanah</idno>
+                    <idno type="URI">http://en.wikipedia.org/wiki/Barbalissos</idno>
+                    <idno type="URI">http://dbpedia.org/resource/Barbalissos</idno>
                     <bibl xml:id="bib299-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>

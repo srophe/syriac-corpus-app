@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -113,9 +113,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib406-3">a village near Antioch.</quote>
                     </desc>
-                    <state type="existence" from="0723" to="1200" srp-to-sort="1200-01-01" syriaca-computed-to="1200-01-01" syriaca-computed-from="0723-01-01" syriaca-computed-end="1200-01-01" syriaca-computed-start="0723-01-01">
-                        <precision match="@from" notAfter="0723" syriaca-computed-notAfter="0723-01-01" syriaca-computed-end="0723-01-01"/>
-                        <precision match="@to" notBefore="1200" syriaca-computed-notBefore="1200-01-01" syriaca-computed-start="1200-01-01"/>
+                    <state type="existence" from="0723" to="1200" syriaca-computed-end="1200-01-01" syriaca-computed-start="0723-01-01">
+                        <precision match="@from" notAfter="0723" syriaca-computed-end="0723-01-01"/>
+                        <precision match="@to" notBefore="1200" syriaca-computed-start="1200-01-01"/>
                     </state>
                     <note type="deprecation" xml:id="name406-3-deprecation">Dolabani or his printer interchanged the letters ḥeth and yod.</note>
                     <link target="#name406-3 #name406-3-deprecation"/>

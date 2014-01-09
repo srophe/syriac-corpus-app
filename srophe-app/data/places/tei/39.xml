@@ -51,7 +51,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -83,7 +83,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -96,7 +96,10 @@
                     <placeName xml:id="name39-4" xml:lang="ar" source="#bib39-3">بازبدي</placeName>
                     <placeName xml:id="name39-5" xml:lang="en" source="#bib39-4">Bazabdi</placeName>
                     <desc xml:id="abstract-en-39" xml:lang="en">A diocese of the Church of the East on the upper <placeName ref="http://syriaca.org/place/202">Tigris</placeName>.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="0497" to="1134" syriaca-computed-end="1134-01-01" syriaca-computed-start="0497-01-01">
+                        <precision match="@from" notAfter="0497" syriaca-computed-end="0497-01-01"/>
+                        <precision match="@to" notAfter="2013" notBefore="1134" syriaca-computed-end="2013-01-01" syriaca-computed-start="1134-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/39</idno>
                     <bibl xml:id="bib39-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>

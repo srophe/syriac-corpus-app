@@ -4,7 +4,9 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Adiabene</title>
+                <title level="a" xml:lang="en">Adiabene
+                                        — <foreign xml:lang="syr">ܚܕܝܐܒ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -31,9 +33,24 @@
                 <availability>
                     <licence target="http://creativecommons.org/licenses/by/3.0/">
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
+                        <p>This entry incorporates copyrighted material from the following work(s):
+                                                <listBibl>
+                                <bibl>
+                                    <ptr target="#bib993-3"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib993-4"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib993-5"/>
+                                </bibl>
+                            </listBibl>
+                            <note>used under a Creative Commons Attribution license <ref target="http://creativecommons.org/licenses/by/3.0/"/>
+                            </note>
+                        </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,16 +82,19 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
             <listPlace>
                 <place xml:id="place-993" type="region">
-                    <placeName xml:id="name993-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib993-2 #bib993-3 #bib993-4">Adiabene</placeName>
+                    <placeName xml:id="name993-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib993-2 #bib993-5 #bib993-6 #bib993-7">Adiabene</placeName>
                     <placeName xml:id="name993-2" xml:lang="en" source="#bib993-2">Ḥadyab</placeName>
-                    <placeName xml:id="name993-3" xml:lang="en" source="#bib993-4">Erbil</placeName>
+                    <placeName xml:id="name993-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܕܝܐܒ</placeName>
+                    <placeName xml:id="name993-4" xml:lang="syr-Syrj" source="#bib993-3">ܚܶܕܝܰܐܒ</placeName>
+                    <placeName xml:id="name993-5" xml:lang="ar" source="#bib993-4">حدياب</placeName>
+                    <placeName xml:id="name993-6" xml:lang="en" source="#bib993-7">Erbil</placeName>
                     <desc xml:id="abstract-en-993" xml:lang="en">
                         <quote source="#bib993-1">Classical Adiabene, Syriac Ḥadyāb, refers to the region between the Upper and Lower Zab rivers, from the Tigris in the west to Mt. Ṣalāḥ al-dīn (= Mt. Pirmum) in the east.</quote>
                     </desc>
@@ -82,6 +102,9 @@
                         <quote source="#bib993-1">20. Adiabene</quote>
                     </desc>
                     <state type="existence"/>
+                    <note type="deprecation" xml:id="name993-3-deprecation">Dolabani transcribed the name from Arabic rather than presenting a native Syriac form.</note>
+                    <link target="#name993-3 #name993-3-deprecation"/>
+                    <link target="#name993-4 #name993-3-deprecation"/>
                     <idno type="URI">http://syriaca.org/place/993</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/893935</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Adiabene</idno>
@@ -102,11 +125,26 @@
                         <citedRange unit="maps">Map I C1, II C1</citedRange>
                     </bibl>
                     <bibl xml:id="bib993-3">
+                        <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
+                        <ptr target="http://syriaca.org/bibl/3"/>
+                        <citedRange unit="pp">162</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib993-4">
+                        <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
+                        <ptr target="http://syriaca.org/bibl/2"/>
+                        <citedRange unit="pp">142</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib993-5">
+                        <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
+                        <ptr target="http://syriaca.org/bibl/4"/>
+                        <citedRange unit="pp">164</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib993-6">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Adiabene&amp;sT=keywords">Adiabene</citedRange>
                     </bibl>
-                    <bibl xml:id="bib993-4">
+                    <bibl xml:id="bib993-7">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">14, 20, 30, 95, 127, 165, 166-174, 346, 347, 350, 354, 355, 358</citedRange>

@@ -51,7 +51,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -83,7 +83,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -98,8 +98,8 @@
                     <location type="gps" source="#bib160-1">
                         <geo>37.05 41.216667</geo>
                     </location>
-                    <state type="existence" from="1926" to="2013" srp-to-sort="2013-01-01" syriaca-computed-to="2013-01-01" syriaca-computed-from="1926-01-01" syriaca-computed-end="2013-01-01" syriaca-computed-start="1926-01-01">
-                        <precision match="@to" notBefore="2013" syriaca-computed-notBefore="2013-01-01" syriaca-computed-start="2013-01-01"/>
+                    <state type="existence" from="1926" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="1926-01-01">
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/160</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Qamishli</idno>

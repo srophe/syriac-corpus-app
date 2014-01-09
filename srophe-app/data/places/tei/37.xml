@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,13 +61,13 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
             <listPlace>
-                <place xml:id="place-37" type="diocese">
+                <place xml:id="place-37" type="region">
                     <placeName xml:id="name37-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib37-2">Beth Qaṭraye</placeName>
                     <placeName xml:id="name37-2" xml:lang="en" source="#bib37-3">Bet Qatraye</placeName>
                     <desc xml:id="abstract-en-37" xml:lang="en">
@@ -76,7 +76,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib37-1">102. Beth Qaṭraye</quote>
                     </desc>
-                    <state type="existence"/>
+                    <state type="existence" from="0600" to="0800" syriaca-computed-end="0800-01-01" syriaca-computed-start="0600-01-01">
+                        <precision match="@from" notAfter="0600" syriaca-computed-end="0600-01-01"/>
+                        <precision match="@to" notAfter="2013" notBefore="0800" syriaca-computed-end="2013-01-01" syriaca-computed-start="0800-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/37</idno>
                     <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Bet Qatraye&amp;sT=keywords

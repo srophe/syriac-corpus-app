@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -113,8 +113,11 @@
                     <desc xml:lang="en">
                         <quote source="#bib463-3">a village northwest of Mardin.</quote>
                     </desc>
-                    <state type="existence"/>
-                    <note type="errata">In Dolabani's translation of Barsoum's description ܩܪܺܝܳܬܐ should read ܩܪܺܝܬܳܐ.</note>
+                    <state type="existence" from="1537" to="1475" syriaca-computed-end="1475-01-01" syriaca-computed-start="1537-01-01">
+                        <precision match="@from" notAfter="1537" syriaca-computed-end="1537-01-01"/>
+                        <precision match="@to" notBefore="1475" syriaca-computed-start="1475-01-01"/>
+                    </state>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܩܪܺܝܳܬܐ should read ܩܪܺܝܬܳܐ.</note>
                     <idno type="URI">http://syriaca.org/place/463</idno>
                     <bibl xml:id="bib463-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>

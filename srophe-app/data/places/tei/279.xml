@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,7 +61,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -72,8 +72,9 @@
                     <placeName xml:id="name279-2" xml:lang="en" source="#bib279-2">Maalula</placeName>
                     <placeName xml:id="name279-3" xml:lang="en" source="#bib279-2">Malula</placeName>
                     <desc xml:id="abstract-en-279" xml:lang="en">A village northeast of <placeName ref="http://syriaca.org/place/66">Damascus</placeName> and southwest of Qara.</desc>
-                    <state type="existence" to="2013" srp-to-sort="2013-01-01" syriaca-computed-to="2013-01-01" syriaca-computed-end="2013-01-01">
-                        <precision match="@to" notBefore="2013" syriaca-computed-notBefore="2013-01-01" syriaca-computed-start="2013-01-01"/>
+                    <state type="existence" from="1879" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="1879-01-01">
+                        <precision match="@from" notAfter="1879" syriaca-computed-end="1879-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/279</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/678273</idno>

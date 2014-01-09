@@ -50,7 +50,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -82,7 +82,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -98,9 +98,9 @@
                     <location type="nested" source="#bib1380-4">
                         <region ref="http://syriaca.org/place/993">Erbil region</region>
                     </location>
-                    <state type="existence" from="0708" to="1536" srp-to-sort="1536-01-01" syriaca-computed-to="1536-01-01" syriaca-computed-from="0708-01-01" syriaca-computed-end="1536-01-01" syriaca-computed-start="0708-01-01">
-                        <precision match="@from" notAfter="0708" syriaca-computed-notAfter="0708-01-01" syriaca-computed-end="0708-01-01"/>
-                        <precision match="@to" notBefore="1536" syriaca-computed-notBefore="1536-01-01" syriaca-computed-start="1536-01-01"/>
+                    <state type="existence" from="0708" to="1536" syriaca-computed-end="1536-01-01" syriaca-computed-start="0708-01-01">
+                        <precision match="@from" notAfter="0708" syriaca-computed-end="0708-01-01"/>
+                        <precision match="@to" notBefore="1536" syriaca-computed-start="1536-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1380</idno>
                     <bibl xml:id="bib1380-1">

@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -122,10 +122,10 @@
                     <location type="gps" source="#bib228-2">
                         <geo>34.021667 36.842222</geo>
                     </location>
-                    <state type="existence" from="0600" syriaca-computed-from="0600-01-01" syriaca-computed-start="0600-01-01">
-                        <precision match="@from" notAfter="0600" notBefore="0300" syriaca-computed-notBefore="0300-01-01" syriaca-computed-notAfter="0600-01-01" syriaca-computed-end="0600-01-01" syriaca-computed-start="0300-01-01"/>
+                    <state type="existence" from="0600" to="2012" syriaca-computed-end="2012-01-01" syriaca-computed-start="0600-01-01">
+                        <precision match="@from" notAfter="0600" notBefore="0300" syriaca-computed-end="0600-01-01" syriaca-computed-start="0300-01-01"/>
                     </state>
-                    <note type="errata">In Barsoum's description فيها should read فيه.</note>
+                    <note type="corrigenda">In Barsoum's description فيها should read فيه.</note>
                     <idno type="URI">http://syriaca.org/place/228</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Monastery_of_Saint_Moses_the_Abyssinian</idno>
                     <idno type="URI">http://dbpedia.org/resource/Monastery_of_Saint_Moses_the_Abyssinian</idno>

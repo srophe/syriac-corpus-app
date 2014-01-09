@@ -4,7 +4,9 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Constantinople</title>
+                <title level="a" xml:lang="en">Constantinople
+                                        — <foreign xml:lang="syr">ܩܘܣܛܢܛܝܢܘܦܘܠܝܣ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -31,9 +33,24 @@
                 <availability>
                     <licence target="http://creativecommons.org/licenses/by/3.0/">
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
+                        <p>This entry incorporates copyrighted material from the following work(s):
+                                                <listBibl>
+                                <bibl>
+                                    <ptr target="#bib586-2"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib586-3"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib586-4"/>
+                                </bibl>
+                            </listBibl>
+                            <note>used under a Creative Commons Attribution license <ref target="http://creativecommons.org/licenses/by/3.0/"/>
+                            </note>
+                        </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,16 +82,22 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
             <listPlace>
                 <place xml:id="place-586" type="settlement">
-                    <placeName xml:id="name586-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib586-1 #bib586-2 #bib586-3">Constantinople</placeName>
+                    <placeName xml:id="name586-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib586-1 #bib586-4 #bib586-5 #bib586-6">Constantinople</placeName>
+                    <placeName xml:id="name586-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܘܣܛܢܛܝܢܘܦܘܠܝܣ</placeName>
+                    <placeName xml:id="name586-3" xml:lang="syr-Syrj" source="#bib586-2">ܩܘܣܛܰܢܛܝܢܘܦܳܘܠܝܣ</placeName>
+                    <placeName xml:id="name586-4" xml:lang="ar" source="#bib586-3">القسطنطينية</placeName>
                     <desc xml:id="abstract-en-586" xml:lang="en">The capital of the Byzantine Empire.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="0330" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0330-01-01">
+                        <precision match="@from" notAfter="0330" syriaca-computed-end="0330-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/586</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/520998</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Constantinople</idno>
@@ -88,11 +111,26 @@
                         <citedRange unit="pp">1, 5, 10, 33, 104, 107, 109, 117, 129, 135, 137, 148, 155, 156, 167, 174, 181, 192, 196, 201, 212, 229–230, 231, 236, 238, 248, 259, 260, 265, 270, 282, 283, 285, 299, 303, 306, 322–333, 324, 331, 332, 340, 348, 352, 353–354, 357, 361, 362, 366, 368, 376, 393, 401, 408, 425, 431, 445, 446, 447, 448</citedRange>
                     </bibl>
                     <bibl xml:id="bib586-2">
+                        <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
+                        <ptr target="http://syriaca.org/bibl/3"/>
+                        <citedRange unit="pp">483</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib586-3">
+                        <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
+                        <ptr target="http://syriaca.org/bibl/2"/>
+                        <citedRange unit="pp">451</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib586-4">
+                        <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
+                        <ptr target="http://syriaca.org/bibl/4"/>
+                        <citedRange unit="pp">504</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib586-5">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=C&amp;sK=Constantinople&amp;sT=keywords">Constantinople</citedRange>
                     </bibl>
-                    <bibl xml:id="bib586-3">
+                    <bibl xml:id="bib586-6">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">17, 61, 89, 190, 362, 363, 364</citedRange>

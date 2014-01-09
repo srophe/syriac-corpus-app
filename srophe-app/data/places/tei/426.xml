@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -99,10 +99,11 @@
             <listPlace>
                 <place xml:id="place-426" type="settlement">
                     <placeName xml:id="name426-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib426-1">Quṭurbul</placeName>
-                    <placeName xml:id="name426-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܛܪܒܠ</placeName>
-                    <placeName xml:id="name426-3" xml:lang="syr-Syrj" source="#bib426-2">ܩܶܛܪܒܠ</placeName>
-                    <placeName xml:id="name426-4" xml:lang="ar" source="#bib426-3">قطربل</placeName>
-                    <placeName xml:id="name426-5" xml:lang="en" source="#bib426-4">Quṭrubul</placeName>
+                    <placeName xml:id="name426-2" xml:lang="en" source="#bib426-1">Qaṭrabil</placeName>
+                    <placeName xml:id="name426-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܛܪܒܠ</placeName>
+                    <placeName xml:id="name426-4" xml:lang="syr-Syrj" source="#bib426-2">ܩܶܛܪܒܠ</placeName>
+                    <placeName xml:id="name426-5" xml:lang="ar" source="#bib426-3">قطربل</placeName>
+                    <placeName xml:id="name426-6" xml:lang="en" source="#bib426-4">Quṭrubul</placeName>
                     <desc xml:id="abstract-en-426" xml:lang="en">A village near <placeName ref="http://syriaca.org/place/8">Amid</placeName>.</desc>
                     <desc xml:lang="syr-Syrj">
                         <quote source="#bib426-2">ܩܪܝܬܳܐ ܗܝ ܕܠܘܩܒܰܠ ܐܳܡܝܕ ܕܥܰܠ ܝܰܕ ܕܶܩܠܰܬ ܢܦܰܩܘ ܐܢܳܫ̈ܝܗ̇ ܣܘܪ̈ܝܳܝܐ ܫܢܰܬ  1928 .</quote>
@@ -113,7 +114,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib426-4">a town on the Tigris, opposite the city of Diyarbakr. Its Syrian population left it in 1928.</quote>
                     </desc>
-                    <state type="existence"/>
+                    <state type="existence" from="1710" to="1914" syriaca-computed-end="1914-01-01" syriaca-computed-start="1710-01-01">
+                        <precision match="@from" notAfter="1710" syriaca-computed-end="1710-01-01"/>
+                        <precision match="@to" notBefore="1914" syriaca-computed-start="1914-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/426</idno>
                     <bibl xml:id="bib426-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>

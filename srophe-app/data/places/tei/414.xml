@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -112,7 +112,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib414-4">a town in Pisidia in Asia Minor, west of Konya, no longer in existence.</quote>
                     </desc>
-                    <state type="existence"/>
+                    <state type="existence" from="-0187" to="0440" syriaca-computed-end="0440-01-01" syriaca-computed-start="-0187-01-01">
+                        <precision match="@from" notAfter="-0187" syriaca-computed-end="-0187-01-01"/>
+                        <precision match="@to" notAfter="1943" notBefore="0440" syriaca-computed-end="1943-01-01" syriaca-computed-start="0440-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/414</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/638758</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Sozopolis,_Pisidia</idno>

@@ -4,7 +4,9 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Nicaea</title>
+                <title level="a" xml:lang="en">Nicaea
+                                        — <foreign xml:lang="syr">ܢܝܩܝܐ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -27,9 +29,24 @@
                 <availability>
                     <licence target="http://creativecommons.org/licenses/by/3.0/">
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
+                        <p>This entry incorporates copyrighted material from the following work(s):
+                                                <listBibl>
+                                <bibl>
+                                    <ptr target="#bib621-1"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib621-2"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib621-3"/>
+                                </bibl>
+                            </listBibl>
+                            <note>used under a Creative Commons Attribution license <ref target="http://creativecommons.org/licenses/by/3.0/"/>
+                            </note>
+                        </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,18 +78,22 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
             <listPlace>
                 <place xml:id="place-621" type="settlement">
-                    <placeName xml:id="name621-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib621-1">Nicaea</placeName>
+                    <placeName xml:id="name621-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib621-4">Nicaea</placeName>
+                    <placeName xml:id="name621-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܢܝܩܝܐ</placeName>
+                    <placeName xml:id="name621-3" xml:lang="syr-Syrj" source="#bib621-1">ܢܺܝܩܺܝܐ</placeName>
+                    <placeName xml:id="name621-4" xml:lang="ar" source="#bib621-2">نيقية</placeName>
+                    <placeName xml:id="name621-5" xml:lang="en" source="#bib621-3">Nicea</placeName>
                     <desc xml:id="abstract-en-621" xml:lang="en">A city in northwestern <placeName ref="http://syriaca.org/place/504">Anatolia</placeName>.</desc>
-                    <state type="existence" from="0325" to="2013" srp-to-sort="2013-01-01" syriaca-computed-to="2013-01-01" syriaca-computed-from="0325-01-01" syriaca-computed-end="2013-01-01" syriaca-computed-start="0325-01-01">
-                        <precision match="@from" notAfter="0325" syriaca-computed-notAfter="0325-01-01" syriaca-computed-end="0325-01-01"/>
-                        <precision match="@to" notBefore="2013" syriaca-computed-notBefore="2013-01-01" syriaca-computed-start="2013-01-01"/>
+                    <state type="existence" from="0325" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0325-01-01">
+                        <precision match="@from" notAfter="0325" syriaca-computed-end="0325-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/621</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/511268</idno>
@@ -82,6 +103,21 @@
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=N&amp;sK=Nicaea&amp;sT=keywords
                                         </idno>
                     <bibl xml:id="bib621-1">
+                        <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
+                        <ptr target="http://syriaca.org/bibl/3"/>
+                        <citedRange unit="pp">453</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib621-2">
+                        <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
+                        <ptr target="http://syriaca.org/bibl/2"/>
+                        <citedRange unit="pp">422</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib621-3">
+                        <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
+                        <ptr target="http://syriaca.org/bibl/4"/>
+                        <citedRange unit="pp">472</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib621-4">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=N&amp;sK=Nicaea&amp;sT=keywords">Nicaea</citedRange>

@@ -51,7 +51,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -83,7 +83,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -96,7 +96,9 @@
                     <placeName xml:id="name240-4" xml:lang="ar" source="#bib240-3">باتي</placeName>
                     <placeName xml:id="name240-5" xml:lang="en" source="#bib240-4">Bāti</placeName>
                     <desc xml:id="abstract-en-240" xml:lang="en">A village in <placeName ref="http://syriaca.org/place/221">Ṭur ʿAbdin</placeName> northeast of <placeName ref="http://syriaca.org/place/137">Midyat</placeName>.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="1943" syriaca-computed-start="1943-01-01">
+                        <precision match="@from" notAfter="1943" syriaca-computed-end="1943-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/240</idno>
                     <bibl xml:id="bib240-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>

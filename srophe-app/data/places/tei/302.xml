@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -121,7 +121,10 @@
                     <location type="nested" source="#bib302-5">
                         <region ref="http://syriaca.org/place/724">Seert region</region>
                     </location>
-                    <state type="existence"/>
+                    <state type="existence" from="1526" to="1943" syriaca-computed-end="1943-01-01" syriaca-computed-start="1526-01-01">
+                        <precision match="@from" notAfter="1526" syriaca-computed-end="1526-01-01"/>
+                        <precision match="@to" notBefore="1943" syriaca-computed-start="1943-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/302</idno>
                     <bibl xml:id="bib302-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>

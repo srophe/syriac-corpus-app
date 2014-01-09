@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,19 +78,22 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
             <listPlace>
-                <place xml:id="place-527" type="unknown">
+                <place xml:id="place-527" type="fortification">
                     <placeName xml:id="name527-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib527-3">Ḥiṣn Maslama Ibn ʿAbd al-Malik</placeName>
                     <placeName xml:id="name527-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܣܢ ܡܣܠܡܗ ܒܢ ܥܒܕ ܐܠܡܠܟ</placeName>
                     <placeName xml:id="name527-3" xml:lang="syr-Syrj" source="#bib527-1">ܚܰܣܰܢ ܡܰܣܠܡܗ ܒܶܢ ܥܰܒܕ ܐܠܡܠܟ</placeName>
                     <placeName xml:id="name527-4" xml:lang="ar" source="#bib527-2">حصن مسلمة بن عبد الملك</placeName>
                     <desc xml:id="abstract-en-527" xml:lang="en">Not far from <placeName ref="http://syriaca.org/place/314">Tell Maḥre</placeName>.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="1225" to="0705" syriaca-computed-end="0705-01-01" syriaca-computed-start="1225-01-01">
+                        <precision match="@from" notAfter="1225" notBefore="0705" syriaca-computed-end="1225-01-01" syriaca-computed-start="0705-01-01"/>
+                        <precision match="@to" notAfter="2013" notBefore="0705" syriaca-computed-end="2013-01-01" syriaca-computed-start="0705-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/527</idno>
                     <bibl xml:id="bib527-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>

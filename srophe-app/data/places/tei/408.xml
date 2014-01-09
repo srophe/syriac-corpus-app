@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,7 +95,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -117,9 +117,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib408-4">a large village in al-Bushayriyya, in the province of Diyarbakir.</quote>
                     </desc>
-                    <state type="existence" from="1481" to="1481" srp-to-sort="1481-01-01" syriaca-computed-to="1481-01-01" syriaca-computed-from="1481-01-01" syriaca-computed-end="1481-01-01" syriaca-computed-start="1481-01-01">
-                        <precision match="@from" notAfter="1481" syriaca-computed-notAfter="1481-01-01" syriaca-computed-end="1481-01-01"/>
-                        <precision match="@to" notBefore="1481" syriaca-computed-notBefore="1481-01-01" syriaca-computed-start="1481-01-01"/>
+                    <state type="existence" from="1481" to="1481" syriaca-computed-end="1481-01-01" syriaca-computed-start="1481-01-01">
+                        <precision match="@from" notAfter="1481" syriaca-computed-end="1481-01-01"/>
+                        <precision match="@to" notBefore="1481" syriaca-computed-start="1481-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/408</idno>
                     <bibl xml:id="bib408-1">

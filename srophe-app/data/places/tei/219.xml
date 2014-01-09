@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -123,7 +123,10 @@
                     <location type="gps" source="#bib219-2">
                         <geo>31.88332 44.44985</geo>
                     </location>
-                    <state type="existence"/>
+                    <state type="existence" from="0358" to="1000" syriaca-computed-end="1000-01-01" syriaca-computed-start="0358-01-01">
+                        <precision match="@from" notAfter="0358" syriaca-computed-end="0358-01-01"/>
+                        <precision match="@to" notBefore="1000" syriaca-computed-start="1000-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/219</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/912800</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Al-Hirah</idno>

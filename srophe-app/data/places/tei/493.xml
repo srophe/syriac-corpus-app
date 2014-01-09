@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -91,7 +91,10 @@
                     <placeName xml:id="name493-4" xml:lang="ar" source="#bib493-2">قطر الصوفنيين</placeName>
                     <placeName xml:id="name493-5" xml:lang="en" source="#bib493-3">Sufniyyin province</placeName>
                     <desc xml:id="abstract-en-493" xml:lang="en">A region north of <placeName ref="http://syriaca.org/place/134">Maypherqaṭ</placeName>.</desc>
-                    <state type="existence"/>
+                    <state type="existence" from="-0550" to="0600" syriaca-computed-end="0600-01-01" syriaca-computed-start="-0550-01-01">
+                        <precision match="@from" notAfter="-0550" syriaca-computed-end="-0550-01-01"/>
+                        <precision match="@to" notBefore="0600" syriaca-computed-start="0600-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/493</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/874707</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Sophene</idno>

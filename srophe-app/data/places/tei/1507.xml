@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -90,9 +90,9 @@
                     <placeName xml:id="name1507-3" xml:lang="syr-Syrj" source="#bib1507-1">ܒܰܚܪܰܝܢ</placeName>
                     <placeName xml:id="name1507-4" xml:lang="ar" source="#bib1507-2">البحرين</placeName>
                     <desc xml:id="abstract-en-1507" xml:lang="en">A place whose inhabitants received a letter from <persName ref="http://syriaca.org/person/148">Ḥabīb b. Khidma Abū Rāʾiṭa</persName>.</desc>
-                    <state type="existence" from="0850" to="0750" srp-to-sort="0750-01-01" syriaca-computed-to="0750-01-01" syriaca-computed-from="0850-01-01" syriaca-computed-end="0750-01-01" syriaca-computed-start="0850-01-01">
-                        <precision match="@from" notAfter="0850" syriaca-computed-notAfter="0850-01-01" syriaca-computed-end="0850-01-01"/>
-                        <precision match="@to" notBefore="0750" syriaca-computed-notBefore="0750-01-01" syriaca-computed-start="0750-01-01"/>
+                    <state type="existence" from="0850" to="0750" syriaca-computed-end="0750-01-01" syriaca-computed-start="0850-01-01">
+                        <precision match="@from" notAfter="0850" syriaca-computed-end="0850-01-01"/>
+                        <precision match="@to" notBefore="0750" syriaca-computed-start="0750-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1507</idno>
                     <bibl xml:id="bib1507-1">

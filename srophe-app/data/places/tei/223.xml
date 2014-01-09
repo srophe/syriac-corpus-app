@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,7 +65,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -85,7 +85,10 @@
                         <region ref="http://syriaca.org/place/776">Sapsāpā district</region>
                         <region ref="http://syriaca.org/place/708">ʿAqrā region</region>
                     </location>
-                    <state type="existence"/>
+                    <state type="existence" from="0596" to="1200" syriaca-computed-end="1200-01-01" syriaca-computed-start="0596-01-01">
+                        <precision match="@from" notAfter="0596" notBefore="0595" syriaca-computed-end="0596-01-01" syriaca-computed-start="0595-01-01"/>
+                        <precision match="@to" notAfter="1600" notBefore="1200" syriaca-computed-end="1600-01-01" syriaca-computed-start="1200-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/223</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Beth_Abe_Monastery</idno>
                     <idno type="URI">http://dbpedia.org/resource/Beth_Abe_Monastery</idno>

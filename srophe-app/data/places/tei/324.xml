@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -108,7 +108,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib324-4">a village of Bazabdi, above Isfes.</quote>
                     </desc>
-                    <state type="existence"/>
+                    <state type="existence" from="1384" to="1354" syriaca-computed-end="1354-01-01" syriaca-computed-start="1384-01-01">
+                        <precision match="@from" notAfter="1384" syriaca-computed-end="1384-01-01"/>
+                        <precision match="@to" notBefore="1354" syriaca-computed-start="1354-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/324</idno>
                     <bibl xml:id="bib324-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>

@@ -4,7 +4,9 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">New York</title>
+                <title level="a" xml:lang="en">New York
+                                        — <foreign xml:lang="syr">ܢܝܘܝܘܪܟ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -31,9 +33,24 @@
                 <availability>
                     <licence target="http://creativecommons.org/licenses/by/3.0/">
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
+                        <p>This entry incorporates copyrighted material from the following work(s):
+                                                <listBibl>
+                                <bibl>
+                                    <ptr target="#bib859-1"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib859-2"/>
+                                </bibl>
+                                <bibl>
+                                    <ptr target="#bib859-3"/>
+                                </bibl>
+                            </listBibl>
+                            <note>used under a Creative Commons Attribution license <ref target="http://creativecommons.org/licenses/by/3.0/"/>
+                            </note>
+                        </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,20 +82,40 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
             <listPlace>
                 <place xml:id="place-859" type="settlement">
-                    <placeName xml:id="name859-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib859-1">New York</placeName>
+                    <placeName xml:id="name859-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib859-3 #bib859-4">New York</placeName>
+                    <placeName xml:id="name859-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܢܝܘܝܘܪܟ</placeName>
+                    <placeName xml:id="name859-3" xml:lang="syr-Syrj" source="#bib859-1">ܢܺܝܘܝܘܪܟ</placeName>
+                    <placeName xml:id="name859-4" xml:lang="ar" source="#bib859-2">نيورك</placeName>
                     <desc xml:id="abstract-en-859" xml:lang="en"/>
                     <state type="existence"/>
+                    <note type="deprecation" xml:id="name859-4-deprecation">Arabic printer dropped a ya-waw pair by haplography.</note>
+                    <link target="#name859-4 #name859-4-deprecation"/>
                     <idno type="URI">http://syriaca.org/place/859</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/New_York_City</idno>
                     <idno type="URI">http://dbpedia.org/resource/New_York_City</idno>
                     <bibl xml:id="bib859-1">
+                        <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
+                        <ptr target="http://syriaca.org/bibl/3"/>
+                        <citedRange unit="pp">242</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib859-2">
+                        <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
+                        <ptr target="http://syriaca.org/bibl/2"/>
+                        <citedRange unit="pp">216</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib859-3">
+                        <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
+                        <ptr target="http://syriaca.org/bibl/4"/>
+                        <citedRange unit="pp">251</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib859-4">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">11</citedRange>

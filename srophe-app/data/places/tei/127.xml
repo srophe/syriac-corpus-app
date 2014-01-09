@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,7 +65,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -80,7 +80,10 @@
                     <location type="nested" source="#bib127-3">
                         <settlement ref="http://syriaca.org/place/139">Mosul</settlement>
                     </location>
-                    <state type="existence"/>
+                    <state type="existence" from="0800" to="1393" syriaca-computed-end="1393-01-01" syriaca-computed-start="0800-01-01">
+                        <precision match="@from" notAfter="0800" notBefore="0300" syriaca-computed-end="0800-01-01" syriaca-computed-start="0300-01-01"/>
+                        <precision match="@to" notBefore="1393" syriaca-computed-start="1393-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/127</idno>
                     <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=m&amp;sK=monastery of Mar Yonan&amp;sT=keywords

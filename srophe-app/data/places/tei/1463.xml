@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -96,9 +96,9 @@
                     <placeName xml:id="name1463-9" xml:lang="en" source="#bib1463-3">Monastery of the Virgin</placeName>
                     <placeName xml:id="name1463-10" xml:lang="en" source="#bib1463-3">Beth Licinius</placeName>
                     <desc xml:id="abstract-en-1463" xml:lang="en">A monastery dedicated to the Virgin Mary located on the Black Mountain.</desc>
-                    <state type="existence" from="0525" to="2013" srp-to-sort="2013-01-01" syriaca-computed-to="2013-01-01" syriaca-computed-from="0525-01-01" syriaca-computed-end="2013-01-01" syriaca-computed-start="0525-01-01">
-                        <precision match="@from" notAfter="0525" syriaca-computed-notAfter="0525-01-01" syriaca-computed-end="0525-01-01"/>
-                        <precision match="@to" notAfter="2013" syriaca-computed-notAfter="2013-01-01" syriaca-computed-end="2013-01-01"/>
+                    <state type="existence" from="0525" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0525-01-01">
+                        <precision match="@from" notAfter="0525" syriaca-computed-end="0525-01-01"/>
+                        <precision match="@to" notAfter="2013" syriaca-computed-end="2013-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1463</idno>
                     <bibl xml:id="bib1463-1">

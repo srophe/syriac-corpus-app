@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-10-26-04:00</date>
+                <date>2013-12-18-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-10-26-04:00">CREATED: place</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -118,8 +118,11 @@
                     <location type="nested" source="#bib339-5">
                         <region ref="http://syriaca.org/place/723">Nisibis region</region>
                     </location>
-                    <state type="existence"/>
-                    <note type="errata">In Dolabani's translation of Barsoum's description ܘܐܶܫܬܰܚܠܦܘ and ܘܐܶܫܬܰܠܛܘ should read ܘܶܐܫܬܰܚܠܦܘ and ܘܶܐܫܬܰܠܛܘ respectively.</note>
+                    <state type="existence" from="0600" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0600-01-01">
+                        <precision match="@from" notAfter="0600" notBefore="0300" syriaca-computed-end="0600-01-01" syriaca-computed-start="0300-01-01"/>
+                        <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
+                    </state>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܘܐܶܫܬܰܚܠܦܘ and ܘܐܶܫܬܰܠܛܘ should read ܘܶܐܫܬܰܚܠܦܘ and ܘܶܐܫܬܰܠܛܘ respectively.</note>
                     <idno type="URI">http://syriaca.org/place/339</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/874579</idno>
                     <idno type="URI">
