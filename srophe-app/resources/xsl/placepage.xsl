@@ -695,8 +695,17 @@
         </li>
     </xsl:template>
     <xsl:template match="t:location[@type='gps' and t:geo]">
-        <li>Coordinates: <xsl:value-of select="t:geo"/>
-            <xsl:sequence select="local:do-refs(@source,'eng')"/>
+        <li>Coordinates: 
+            <ul class="unstyled offset1">
+                <li>
+                    <xsl:value-of select="concat('Lat. ',tokenize(t:geo,' ')[1],'°')"/>
+                </li>
+                <li>
+                    <xsl:value-of select="concat('Long. ',tokenize(t:geo,' ')[2],'°')"/>
+                    <!--            <xsl:value-of select="t:geo"/>-->
+                    <xsl:sequence select="local:do-refs(@source,'eng')"/>
+                </li>
+            </ul>
         </li>
     </xsl:template>
     <xsl:template match="t:offset | t:measure">
