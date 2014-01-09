@@ -337,7 +337,25 @@
                     <xsl:call-template name="confessions"/>
                 </div>
             </xsl:if>
-          <!--NOTE: temporarily supressed Build errata 
+          <!-- Note type Incerta  -->
+            <xsl:if test="t:note[@type='incerta']">
+                <div id="errata">
+                    <h3>Incerta</h3>
+                    <ul>
+                        <xsl:apply-templates select="t:note[@type='incerta']"/>
+                    </ul>
+                </div>
+            </xsl:if>
+          <!-- Note type Incerta  -->
+            <xsl:if test="t:note[@type='corrigenda']">
+                <div id="errata">
+                    <h3>Corrigenda</h3>
+                    <ul>
+                        <xsl:apply-templates select="t:note[@type='corrigenda']"/>
+                    </ul>
+                </div>
+            </xsl:if>
+            <!--NOTE: temporarily supressed Build errata 
             <xsl:if test="t:note[@type='errata' or @type='deprecation']">
                 <div id="errata">
                     <h3>Errata</h3>
@@ -771,6 +789,11 @@
                         </xsl:if>
                     </dd>
                 </dl>
+            </xsl:when>
+            <xsl:when test="@type='corrigenda' or @type='incerta'">
+                <li>
+                    <xsl:apply-templates/>
+                </li>
             </xsl:when>
             <xsl:otherwise>
                 <p>
