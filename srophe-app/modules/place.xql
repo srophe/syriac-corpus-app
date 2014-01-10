@@ -107,13 +107,13 @@ declare function place:get-related-places($rec as node()*){
     <related-items>
         {
             for $related in $rec//tei:relation
-            return
+            let $active := 
                 for $rel-item in tokenize($related/@active,' ')
                 let $item-id := tokenize($rel-item, '/')[last()]
                 let $item-uri := $rel-item
                 let $place-id := concat('place-',$item-id)
                 return
-                    <relation id="{$item-id}" uri="{$item-uri}">
+                    <relation id="{$item-id}" uri="{$item-uri}" varient="active">
                     {
                         (for $att in $related/@*
                             return
@@ -122,6 +122,41 @@ declare function place:get-related-places($rec as node()*){
                         return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
                     }
                     </relation>
+            let $passive := 
+                for $rel-item in tokenize($related/@passive,' ')
+                let $item-id := tokenize($rel-item, '/')[last()]
+                let $item-uri := $rel-item
+                let $place-id := concat('place-',$item-id)
+                return
+                    <relation id="{$item-id}" uri="{$item-uri}" varient="passive">
+                    {
+                        (for $att in $related/@*
+                            return
+                                 attribute {name($att)} {$att},                      
+                        for $get-related in collection($config:app-root || "/data/places/tei")/id($place-id)
+                        return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
+                    }
+                    </relation>
+            let $mutual := 
+                    <relation varient="mutual">
+                        {
+                            for $rel-item in tokenize($related/@mutual,' ')
+                            let $item-id := tokenize($rel-item, '/')[last()]
+                            let $item-uri := $rel-item
+                            let $place-id := concat('place-',$item-id)
+                            return
+                                <mutual id="{$item-id}">{
+                                (for $att in $related/@*
+                                return
+                                     attribute {name($att)} {$att},                      
+                                for $get-related in collection($config:app-root || "/data/places/tei")/id($place-id)
+                                return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
+                                }
+                                </mutual>
+                        }
+                    </relation>
+
+            return ($active,$passive,$mutual)
         }
     </related-items>
 };
