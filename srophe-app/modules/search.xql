@@ -264,57 +264,81 @@ declare  %templates:wrap function search:hit-count($node as node()*, $model as m
  : If 0 results show search form
 :)
 declare  %templates:wrap function search:pageination($node as node()*, $model as map(*)){
-let $max := search:hit-count($node, $model)
-let $records := 20
-let $prev := $search:start - $records
-let $next := if ($max < $search:start +$records) then $search:start 
-             else $search:start + $records
-let $start := if($search:start) then $search:start else 1             
-let $end := min(($search:start + $records - 1,$max)) 
-let $pages := round($max div $records) + 1
+let $perpage := 20
+let $start := if($search:start) then $search:start else 1
+let $total-result-count := search:hit-count($node, $model)
+let $end := 
+    if ($total-result-count lt $perpage) then 
+        $total-result-count
+    else 
+        $start + $perpage
+let $number-of-pages :=  xs:integer(ceiling($total-result-count div $perpage))
+let $current-page := xs:integer(($start + $perpage) div $perpage)
 (: get all parameters to pass to paging function:)
 let $url-params := replace(request:get-query-string(), '&amp;start=\d+', '')
 let $parameters :=  request:get-parameter-names()
 let $search-string: = 
         for $parameter in $parameters
         return if($parameter = 'search' or starts-with($parameter,'start')) then ''
-               else search:clean-string(request:get-parameter($parameter, '')) 
+               else search:clean-string(request:get-parameter($parameter, ''))
+let $pagination-links := 
+    if ($total-result-count = 0) then ()
+    else 
+        <div class="row-fluid" xmlns="http://www.w3.org/1999/xhtml">
+            <div class="span5">
+            <h4>Search results:</h4>
+                <p class="offset1">{$total-result-count} matches for <span class="match" style="font-weight:bold;">{$search-string}</span>.</p>
+            </div>
+            {if(search:hit-count($node, $model) gt $perpage) then 
+              <div class="span7" style="text-align:right">
+                  <div class="pagination" >
+                      <ul style="margin-bottom:-2em; padding-bottom:0;">
+                          {
+                          (: Show 'Previous' for all but the 1st page of results :)
+                              if ($current-page = 1) then ()
+                              else
+                                  <li><a href="{concat('?', $url-params, '&amp;start=', $perpage * ($current-page - 2)) }">Prev</a></li>
+                          }
+                          {
+                          (: Show links to each page of results :)
+                              let $max-pages-to-show := 8
+                              let $padding := xs:integer(round($max-pages-to-show div 2))
+                              let $start-page := 
+                                  if ($current-page le ($padding + 1)) then
+                                      1
+                                  else $current-page - $padding
+                              let $end-page := 
+                                  if ($number-of-pages le ($current-page + $padding)) then
+                                      $number-of-pages
+                                  else $current-page + $padding - 1
+                              for $page in ($start-page to $end-page)
+                              let $newstart := 
+                                  if($page = 1) then 1 
+                                  else $perpage * ($page - 1)
+                              return
+                                  (
+                                  if ($newstart eq $start) then 
+                                      (<li class="active"><a href="#" >{$page}</a></li>)
+                                  else
+                                      <li><a href="{concat('?', $url-params, '&amp;start=', $newstart)}">{$page}</a></li>
+                                  )
+                          }
+           
+                          {
+                          (: Shows 'Next' for all but the last page of results :)
+                              if ($start + $perpage ge $total-result-count) then ()
+                              else
+                                  <li><a href="{concat('?', $url-params, '&amp;start=', $start + $perpage)}">Next</a></li>
+                          }
+                      </ul>
+                  </div>
+              </div>
+             else'' 
+              }
+        </div>    
+
 return
-   ( <div class="row-fluid" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px solid #333; padding-top: 2em;">
-        <div class="span6">
-           {$max} matches for <span class="match" style="font-weight:bold;">{$search-string}</span>.
-        </div>
-        {if(search:hit-count($node, $model) gt $records) then 
-        <div class="span6">
-          <ul class="inline pull-right">
-            <li><a href="?{$url-params}&amp;start=1"><i class="icon-step-backward"></i></a></li>
-            <li>
-                {
-                    if($start = 1) then <i class="icon-backward"></i> 
-                    else <a href="?{$url-params}&amp;start={$prev}"><i class="icon-backward"></i></a> 
-                }
-            </li>
-            <li>
-                {$start} to 
-                {
-                    if($max lt $records) then $max
-                    else if($max lt ($search:start + $records)) then $max
-                    else $search:start + $records
-                } 
-                of {$max}
-            </li>
-            <!--<li>Jump to: </li>-->
-            <li>
-                {
-                    if($start lt $max - $records) then <a href="?{$url-params}&amp;start={$next}"><i class="icon-forward"></i></a> 
-                    else <i class="icon-forward"></i>
-                }
-            </li>
-            <li><a href="?{$url-params}&amp;start={$max - $records}"><i class="icon-step-forward"></i></a></li>
-          </ul>
-        </div>
-        else ''}
-   </div>,
+   ($pagination-links,
    if(search:hit-count($node,$model) gt 0) then ''
    else <div>{search-form:show-form()}</div>
    )
@@ -331,11 +355,13 @@ declare %templates:wrap  function search:show-form($node as node()*, $model as m
 declare 
     %templates:default("start", 1)
 function search:show-hits($node as node()*, $model as map(*)) {
+<div class="well" style="background-color:white;">
+{
     for $hit at $p in subsequence($model("hits"), $search:start, 20)
     let $kwic := kwic:summarize($hit, <config width="40" table="no"/>)
     let $id := substring-after($hit/@xml:id,'place-')
     return
-        <div class="row-fluid" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px solid #ccc; padding-top:.5em">
+        <div class="row-fluid" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
             <div class="span10 offset1">
                 <div class="result">
                   <div class="span1" style="margin-right:-1em;">
@@ -371,6 +397,8 @@ function search:show-hits($node as node()*, $model as map(*)) {
                 </div>
             </div>
         </div>
+   }
+   </div>
 };
 
 (:~
@@ -379,6 +407,4 @@ function search:show-hits($node as node()*, $model as map(*)) {
 declare %templates:wrap function search:build-page($node as node()*, $model as map(*)) {
 if(exists(request:get-parameter-names())) then (search:pageination($node,$model),search:show-hits($node, $model))
 else ''
-
-
 };
