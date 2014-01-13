@@ -25,26 +25,26 @@ declare function nav:build-nav($node as node(), $model as map(*)){
     return
      if (contains(request:get-uri(),'help')) then 
         <ul class="nav">
-            <li><a href="/exist/apps/srophe/places/browse.html">browse</a></li>
-            <li><a href="/exist/apps/srophe/places/about.html">about</a></li>
+            <li><a href="/exist/apps/srophe/geo/browse.html">browse</a></li>
+            <li><a href="/exist/apps/srophe/geo/about.html">about</a></li>
             <li class="active"><a href="/exist/apps/srophe/help/index.html">help</a></li>
         </ul>
      else if (starts-with($active-page,'browse')) then 
         <ul class="nav">
-            <li class="active"><a href="/exist/apps/srophe/places/browse.html">browse</a></li>
-            <li><a href="/exist/apps/srophe/places/about.html">about</a></li>
+            <li class="active"><a href="/exist/apps/srophe/geo/browse.html">browse</a></li>
+            <li><a href="/exist/apps/srophe/geo/about.html">about</a></li>
             <li><a href="/exist/apps/srophe/help/index.html">help</a></li>
         </ul>
      else if(starts-with($active-page,'about')) then 
          <ul class="nav">
-             <li><a href="/exist/apps/srophe/places/browse.html">browse</a></li>
-             <li class="active"><a href="/exist/apps/srophe/places/about.html">about</a></li>
+             <li><a href="/exist/apps/srophe/geo/browse.html">browse</a></li>
+             <li class="active"><a href="/exist/apps/srophe/geo/about.html">about</a></li>
              <li><a href="/exist/apps/srophe/help/index.html">help</a></li>
          </ul>
      else 
         <ul class="nav">
-            <li><a href="/exist/apps/srophe/places/browse.html">browse</a></li>
-            <li><a href="/exist/apps/srophe/places/about.html">about</a></li>
+            <li><a href="/exist/apps/srophe/geo/browse.html">browse</a></li>
+            <li><a href="/exist/apps/srophe/geo/about.html">about</a></li>
             <li><a href="/exist/apps/srophe/help/index.html">help</a></li>
         </ul>
 };

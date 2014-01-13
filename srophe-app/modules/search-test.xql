@@ -34,25 +34,6 @@ declare variable $lang {request:get-parameter('lang', '')};
 
 declare variable $start {request:get-parameter('start', 1) cast as xs:integer};
 
-declare function local:build-ft-query(){
-    <query>
-        {
-            if ($mode eq 'any') then
-                for $term in tokenize($q, '\s')
-                return
-                    <term occur="should">{$term}</term>
-            else if ($mode eq 'all') then
-                for $term in tokenize($q, '\s')
-                return
-                    <term occur="must">{$term}</term>
-            else if ($mode eq 'phrase') then
-                <phrase>{$q}</phrase>
-            else
-                <near>{$q}</near>
-        }
-        </query>
-};
-
 (:~
  : Build full-text keyword search over all tei:place data
  : @q full text query
@@ -105,12 +86,13 @@ declare function local:event(){
  : tei:event[@type != attestation]
  : @es event start range index
  : @ee event end range index
-//tei:place[descendant::tei:state[@syriaca-computed-start gt "1000-01-01" and @syriaca-computed-end lt "1200-01-01"]]
+//tei:place[descendant::tei:state[@syriaca-computed-start gt "1000-01-01" and @syriaca-computed-end lt "1200-01-01"] or [@syriaca-computed-start gt "1000-01-01" and not(@syriaca-computed-end)]]
+concat('[descendant::tei:event[@type != "attestation" or not(@type)][@syriaca-computed-start gt "',local:do-date($e-start),'" and @syriaca-computed-end lt "',local:do-date($e-end),'"]]')
 :)
 declare function local:event-dates(){
     if(exists($e-start) and $e-start != '') then 
         if(exists($e-end) and $e-end != '') then 
-            concat('[descendant::tei:event[@type != "attestation" or not(@type)][@syriaca-computed-start gt "',local:do-date($e-start),'" and @syriaca-computed-end lt "',local:do-date($e-end),'"]]')
+            concat('[descendant::tei:event[@type != "attestation" or not(@type)][(@syriaca-computed-start gt "',local:do-date($e-start),'" and @syriaca-computed-end lt "',local:do-date($e-end),'") or (@syriaca-computed-start gt "',local:do-date($e-start),'" and not(@syriaca-computed-end))]]')
         else concat('[descendant::tei:event[@type != "attestation" or not(@type)][@syriaca-computed-start gt "',local:do-date($e-start),'"]]') 
     else if (exists($e-end) and $e-end != '') then 
         concat('[descendant::tei:event[@type != "attestation" or not(@type)][@syriaca-computed-end lt "',local:do-date($e-end),'"]]')
@@ -134,7 +116,7 @@ declare function local:attestation(){
 declare function local:attestation-dates(){
     if(exists($a-start) and $a-start != '') then 
         if(exists($a-end) and $a-end != '') then 
-            concat('[descendant::tei:event[@type = "attestation"][@syriaca-computed-start gt "',local:do-date($a-start),'" and @syriaca-computed-end lt "',local:do-date($a-end),'"]]')
+             concat('[descendant::tei:event[@type != "attestation" or not(@type)][(@syriaca-computed-start gt "',local:do-date($e-start),'" and @syriaca-computed-end lt "',local:do-date($e-end),'") or (@syriaca-computed-start gt "',local:do-date($e-start),'" and not(@syriaca-computed-end))]]')
         else concat('[descendant::tei:event[@type = "attestation"][@syriaca-computed-start gt "',local:do-date($a-start),'"]]') 
     else if (exists($a-end) and $a-end != '') then 
         concat('[descendant::tei:event[@type = "attestation"][@syriaca-computed-end lt "',local:do-date($a-end),'"]]')
@@ -269,7 +251,7 @@ declare function local:run-search(){
             <div class="result">
               <div class="span9">  
                 <p style="font-weight:bold padding:.5em;" date="{$hit/descendant::*/@syriaca-computed-notAfter}">
-                  <a href="places/place.html?id={$id}">
+                  <a href="geo/place.html?id={$id}">
                     <bdi dir="ltr" lang="en" xml:lang="en">
                         {$hit/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en']}
                     </bdi>
