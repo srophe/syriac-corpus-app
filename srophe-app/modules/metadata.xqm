@@ -28,6 +28,7 @@ declare function metadata:get-title($node, $model){
     for $title in tokenize(request:get-uri(), '/')[last()]
     return
      if (starts-with($title,'place')) then place:get-place-title()
+     else if (starts-with($title,'browse')) then 'Index'
      else if(starts-with($title,'index')) then 'The Syriac Gazetteer'
      else concat('The Syriac Gazetteer: ',substring-before($title,'.html'))
 };
