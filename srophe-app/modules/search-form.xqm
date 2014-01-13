@@ -87,8 +87,7 @@ declare function search-form:show-form() {
                      <hr/>
                      <!-- Existence -->
                      <div class="row-fluid">
-                         <div class="span3">Existence: </div>
-                         <div class="span9"><input type="text" name="exist"/></div>
+                        <div class="span3">Existence </div>
                      </div>
                      <div class="row-fluid">
                          <div class="span3">Dates: </div>
