@@ -42,7 +42,7 @@ declare variable $search:start {request:get-parameter('start', 1) cast as xs:int
  : @param-string parameter string to be cleaned
 :)
 declare function search:clean-string($param-string){
-    replace ($param-string, "[&amp;&quot;-;-`~!@#$%^()_+-=\[\]\{\}\|';:/.,(:]", "")
+    replace ($param-string, "[&amp;&quot;!@#$%^+=_]", "")
 };
 
 (:~
