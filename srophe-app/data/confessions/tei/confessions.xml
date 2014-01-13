@@ -52,6 +52,9 @@
                         <item xml:id="syriac">
                             <label>Syriac</label>
                             <list>
+                                <item xml:id="bardaisanites">
+                                    <label>Bardaisanites</label>
+                                </item>
                                 <item xml:id="east-syrian">
                                     <label>East Syrian</label>
                                     <list>
@@ -72,6 +75,9 @@
                                 <item xml:id="indian">
                                     <label>Indian</label>
                                     <list>
+                                        <item xml:id="chaldean-syrian-church">
+                                            <label>Chaldean Syrian Church</label>
+                                        </item>
                                         <item xml:id="malabar-catholic-church">
                                             <label>Malabar Catholic Church</label>
                                         </item>
@@ -156,6 +162,9 @@
                                 </item>
                                 <item xml:id="greek-orthodox">
                                     <label>Greek Orthodox</label>
+                                </item>
+                                <item xml:id="marcionites">
+                                    <label>Marcionites</label>
                                 </item>
                             </list>
                         </item>
