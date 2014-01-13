@@ -241,7 +241,10 @@ declare function local:test-search(){
             </div>
 
 };
-
+declare function local:lang(){
+        if(exists($lang) and $lang != '') then '[tei:placeName/@xml:lang="ar"]'
+    else ''
+};
 (:~
  : Builds search query and results
  :
@@ -252,6 +255,7 @@ declare function local:run-search(){
     local:type(),
     local:place-name(),
     local:location(),
+    local:lang(),
     local:event(),local:event-dates(),
     local:attestation(), local:attestation-dates(), 
     local:existence(),local:existence-dates(),
@@ -278,99 +282,12 @@ declare function local:run-search(){
               </div>
 };
 
-declare function local:build-form(){
-<div>
-    <h3>Advanced Search Options [Beta]</h3>
-    <form method="get" action="search-test.xql">  
-        <!-- Full text -->
-        <label>Place Name: </label>
-        <input type="text" name="p"/>
-        <!-- range -->
-        <label>Type: </label>
-        <!-- Values from controlled vocab in https://docs.google.com/spreadsheet/ccc?key=0AnhFTnX2Mw6YdGFieExCX0xIQ3Q0WnBOQmlnclo0WlE&usp=sharing#gid=1-->
-        <select name="type">
-            <option value="">- Select -</option>
-            <option value="settlement">settlement</option>
-            <option value="monastery">monastery</option>
-            <option value="region">region</option>
-            <option value="province">province</option>
-            <option value="open-water">open-water</option>
-            <option value="fortification">fortification</option>
-            <option value="mountain">mountain</option>
-            <option value="quarter">quarter</option>
-            <option value="state">state</option>
-            <option value="building">building</option>
-            <option value="diocese">diocese</option>
-            <option value="island">island</option>
-            <option value="parish">parish</option>
-            <option value="unknown">unknown</option>
-        </select>
-        <br/>
-       
-       <!-- location ? not place name, how will this be different?-->
-        <label>Location: </label>
-        <input type="text" name="loc"/>
-        <!-- Will need to be worked out so a range can be searched 
-        <label>Coords: </label>
-        <input type="text" name="lat"/> - <input type="text" name="long"/> 
-        -->
-        
-        <!-- Events-->
-        <label>Events: </label>
-        <!-- full text -->
-        <input type="text" name="e"/>
-        <!-- Dates ?-->
-        <input type="text" name="e-start"/>
-        <input type="text" name="e-end"/>
-        <span class="hint">* Dates should be entered as YYYY or YYYY-MM-DD</span>
-        
-        <!-- Attestations-->
-        <label>Attestations: </label>
-        <!-- full text -->
-        <input type="text" name="a"/>
-        <!-- Dates ?-->
-        <input type="text" name="a-start"/>
-        <input type="text" name="a-end"/>
-        <span class="hint">* Dates should be entered as YYYY or YYYY-MM-DD</span>
-        
-        <!-- Confessions-->
-        <label>Confessions: </label>
-        <!-- full text -->
-        <input type="text" name="c"/>
-        <!-- Dates ?-->
-        <input type="text" name="c-start"/>
-        <input type="text" name="c-end"/>
-        <span class="hint">* Dates should be entered as YYYY or YYYY-MM-DD</span>
-        
-        <!-- Existence-->
-        <label>Existence: </label>
-        <!-- full text -->
-        <input type="text" name="exist"/>
-        <!-- Dates ?-->
-        <input type="text" name="exist-start"/>
-        <input type="text" name="exist-end"/>
-        <span class="hint">* Dates should be entered as YYYY or YYYY-MM-DD</span>
-        
-        <!-- Engl/Arabic/Syriac -->
-        <select name="lang">
-            <option value="">- Select -</option>
-            <option value="en">English</option>
-            <option value="ar">Arabic</option>
-            <option value="syr">Syriac</option>
-        </select>
-    
-    
-        <input type="submit" name="Submit"/>
-    </form> 
-   </div>
-};
-
 let $cache := 'ddd'
 let $eval-string := concat("collection('/db/apps/srophe/data/places/tei')//tei:place",
     local:keyword(),
     local:type(),
     local:place-name(),
-    local:location(),
+    local:location(),local:lang(),
     local:event(),local:event-dates(),
     local:attestation(), local:attestation-dates(), 
     local:existence(),local:existence-dates(),

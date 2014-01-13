@@ -51,8 +51,8 @@ declare function search-form:show-form() {
                      <div class="row-fluid">
                          <div class="span3">Dates: </div>
                          <div class="span9 form-inline">
-                             <input type="text" name="e-start" placeholder="Start Date" class="input-small"/>&#160;
-                             <input type="text" name="e-end" placeholder="End Date" class="input-small"/>
+                             <input type="text" name="eStart" placeholder="Start Date" class="input-small"/>&#160;
+                             <input type="text" name="eEnd" placeholder="End Date" class="input-small"/>
                              <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
                          </div>
                      </div>
@@ -65,8 +65,8 @@ declare function search-form:show-form() {
                      <div class="row-fluid">
                          <div class="span3">Dates: </div>
                          <div class="span9 form-inline">
-                             <input type="text" name="a-start" placeholder="Start Date" class="input-small"/>&#160;
-                             <input type="text" name="a-end" placeholder="End Date" class="input-small"/>
+                             <input type="text" name="aStart" placeholder="Start Date" class="input-small"/>&#160;
+                             <input type="text" name="aEnd" placeholder="End Date" class="input-small"/>
                              <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
                          </div>
                      </div>
@@ -79,8 +79,8 @@ declare function search-form:show-form() {
                      <div class="row-fluid">
                          <div class="span3">Dates: </div>
                          <div class="span9 form-inline">    
-                             <input type="text" name="c-start" placeholder="Start Date" class="input-small"/>&#160;
-                             <input type="text" name="c-end" placeholder="End Date" class="input-small"/>
+                             <input type="text" name="cStart" placeholder="Start Date" class="input-small"/>&#160;
+                             <input type="text" name="cEnd" placeholder="End Date" class="input-small"/>
                              <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
                          </div>
                      </div>
@@ -93,8 +93,8 @@ declare function search-form:show-form() {
                      <div class="row-fluid">
                          <div class="span3">Dates: </div>
                          <div class="span9 form-inline">
-                             <input type="text" name="exist-start" placeholder="Start Date" class="input-small"/>&#160;
-                             <input type="text" name="exist-end" placeholder="End Date" class="input-small"/>
+                             <input type="text" name="existStart" placeholder="Start Date" class="input-small"/>&#160;
+                             <input type="text" name="existEnd" placeholder="End Date" class="input-small"/>
                              <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
                          </div>
                      </div>
