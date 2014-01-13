@@ -107,19 +107,23 @@ declare function search-form:show-form() {
                             <!-- Values from controlled vocab in https://docs.google.com/spreadsheet/ccc?key=0AnhFTnX2Mw6YdGFieExCX0xIQ3Q0WnBOQmlnclo0WlE&usp=sharing#gid=1-->
                             <select name="type" class="input-medium">
                                 <option value="">- Select -</option>
-                                <option value="settlement">settlement</option>
-                                <option value="monastery">monastery</option>
-                                <option value="region">region</option>
-                                <option value="province">province</option>
-                                <option value="open-water">open-water</option>
-                                <option value="fortification">fortification</option>
-                                <option value="mountain">mountain</option>
-                                <option value="quarter">quarter</option>
-                                <option value="state">state</option>
                                 <option value="building">building</option>
+                                <option value="church">church</option>
                                 <option value="diocese">diocese</option>
+                                <option value="fortification">fortification</option>
                                 <option value="island">island</option>
+                                <option value="madrasa">madrasa</option>
+                                <option value="monastery">monastery</option>
+                                <option value="mosque">mosque</option>
+                                <option value="mountain">mountain</option>
+                                <option value="open-water">open-water</option>
                                 <option value="parish">parish</option>
+                                <option value="quarter">quarter</option>
+                                <option value="region">region</option>
+                                <option value="settlement">settlement</option>
+                                <option value="state">state</option>
+                                <option value="synagogue">synagogue</option>
+                                <option value="temple">temple</option>
                                 <option value="unknown">unknown</option>
                             </select>
                     <hr/>
