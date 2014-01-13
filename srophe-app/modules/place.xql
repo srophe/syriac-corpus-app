@@ -138,23 +138,25 @@ declare function place:get-related-places($rec as node()*){
                     }
                     </relation>
             let $mutual := 
-                    <relation varient="mutual">
-                        {
-                            for $rel-item in tokenize($related/@mutual,' ')
-                            let $item-id := tokenize($rel-item, '/')[last()]
-                            let $item-uri := $rel-item
-                            let $place-id := concat('place-',$item-id)
-                            return
-                                <mutual id="{$item-id}">{
-                                (for $att in $related/@*
+                    if($related/@mutual) then
+                        <relation varient="mutual">
+                            {
+                                for $rel-item in tokenize($related/@mutual,' ')
+                                let $item-id := tokenize($rel-item, '/')[last()]
+                                let $item-uri := $rel-item
+                                let $place-id := concat('place-',$item-id)
                                 return
-                                     attribute {name($att)} {$att},                      
-                                for $get-related in collection($config:app-root || "/data/places/tei")/id($place-id)
-                                return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
-                                }
-                                </mutual>
-                        }
-                    </relation>
+                                    <mutual id="{$item-id}">{
+                                    (for $att in $related/@*
+                                    return
+                                         attribute {name($att)} {$att},                      
+                                    for $get-related in collection($config:app-root || "/data/places/tei")/id($place-id)
+                                    return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
+                                    }
+                                    </mutual>
+                            }
+                        </relation>
+                      else ''  
 
             return ($active,$passive,$mutual)
         }
@@ -179,7 +181,7 @@ declare %templates:wrap function place:get-place-data($node as node(), $model as
                         ($rec/child::*, place:get-related-places($rec),place:get-nested-loc(),place:get-confessions())
                     }
                     </TEI>
-    let $cache :='forcerefreshdssdasdf4'
+    let $cache :='forcerefreshdasdf4'
     return
 (:        $buildRec:)
        transform:transform($buildRec, doc('../resources/xsl/placepage.xsl'),() )
