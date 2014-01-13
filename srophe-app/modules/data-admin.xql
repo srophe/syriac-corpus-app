@@ -9,17 +9,7 @@ declare namespace request="http://exist-db.org/xquery/request";
 
 declare variable $option {request:get-parameter('option', '')};
 
-(: update insert attribute when-custom {'{xs:date($date-norm)}'} into $date 
-check to see which dates should be searched on. All?
-when
-to
-from
-notBefore
-notAfter
-
-syriaca-computed-to
-add changes to change log at bottom of tei
-:)
+(: Insert custom generated dates :)
                         
 declare function local:add-custom-dates(){
    for $doc in collection('/db/apps/srophe/data/places/tei')//tei:place 
@@ -131,6 +121,7 @@ declare function local:remove-attributes(){
         return update delete $date
 
 };
+
 (:
 descendant::tei:event[@type != "attestation"][@syriaca-computed-start
 :)
@@ -142,8 +133,49 @@ declare function local:test-dates(){
             <date parent="{$doc/tei:placeName[@xml:lang='en'][1]}">{$date}</date>
 };
 
+(: Add location data from Pleiades.xml :)
+declare function local:get-places(){
+    for $places in doc('/db/apps/srophe/data/places/Pleiades-Grabber-Results-Edited.xml')//row[Match='UPDATED']
+    let $id := concat('place-',$places/Place_ID)
+    return 
+        for $place in collection('/db/apps/srophe/data/places/tei')/id($id)
+        let $placeid := $id
+        let $bibNo := count(//tei:place/tei:bibl) + 1
+        let $lat := $place/Latitude
+        let $long := $place/Longitude
+        return <p>{$place//tei:placeName[1]/text()}</p>
+};
+(: 
+  need to add in function to select who you are, add in latest date
+    /TEI/teiHeader/fileDesc/publicationStmt/date
+   test and add buttons 
+:)
+declare function local:do-geo-insert($place, $id, $bibNo){
+    try {
+          (update insert 
+                  <location type="gps" source="#bib{$id}-{$bibNo}">
+                    <geo>{concat($lat,' ',$long)}</geo>
+                  </location>
+          following $place//tei:desc[last()],
+          update insert
+                <bibl xml:id="bib{$id}-{$bibNo}">
+                  <title>http://pleiades.stoa.org/places/{XXXXXX}</title>
+                  <ptr target="http://pleiades.stoa.org/places/{XXXXXX}"/>
+                </bibl>
+          following $place//tei:bibl[last()],
+          update insert 
+            <change who="http://syriaca.org/editors.xml#{$editor}" when="{current-date()}">ADDED: latitude and longitude from Pleiades</change>
+          preceding $place/tei:teiHeader/tei:revisionDesc/tei:change[1]
+          )
+        } catch * {
+        <p>{
+            (string($id), "Error:", $err:code)
+        }</p>
+};
+
 let $cache := 'cache'
-return 
+return <div>{local:get-places()}</div>
+(:
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8"/>
@@ -199,3 +231,4 @@ return
         </div>
     </body>
 </html>
+:)

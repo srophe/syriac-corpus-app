@@ -153,10 +153,10 @@
                     <location type="gps" source="#bib78-2">
                         <geo>37.15 38.8</geo>
                     </location>
-                    <location type="relative" source="#bib78-5">
-                        "<measure unit="days-journey" quantity="5">five day journey</measure>
+                    <location type="relative" subtype="quote" source="#bib78-5">
+                        <measure unit="days-journey" quantity="5">five day journey</measure>
                         <offset>eastward from</offset>
-                        <placeName ref="http://syriaca.org/place/18">Aleppo</placeName>"
+                        <placeName ref="http://syriaca.org/place/18">Aleppo</placeName>
                     </location>
                     <event when="-0304" source="#bib78-1" syriaca-computed-start="-0304-01-01">
                         <p xml:lang="en">Renamed Edessa by Seleucus I Nicator.</p>
