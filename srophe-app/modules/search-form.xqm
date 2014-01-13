@@ -51,8 +51,8 @@ declare function search-form:show-form() {
                      <div class="row-fluid">
                          <div class="span3">Dates: </div>
                          <div class="span9 form-inline">
-                             <input type="text" name="eStart" placeholder="Start Date" class="input-small"/>&#160;
-                             <input type="text" name="eEnd" placeholder="End Date" class="input-small"/>
+                             <input type="text" name="eds" placeholder="Start Date" class="input-small"/>&#160;
+                             <input type="text" name="ede" placeholder="End Date" class="input-small"/>
                              <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
                          </div>
                      </div>
@@ -65,8 +65,8 @@ declare function search-form:show-form() {
                      <div class="row-fluid">
                          <div class="span3">Dates: </div>
                          <div class="span9 form-inline">
-                             <input type="text" name="aStart" placeholder="Start Date" class="input-small"/>&#160;
-                             <input type="text" name="aEnd" placeholder="End Date" class="input-small"/>
+                             <input type="text" name="ads" placeholder="Start Date" class="input-small"/>&#160;
+                             <input type="text" name="ade" placeholder="End Date" class="input-small"/>
                              <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
                          </div>
                      </div>
@@ -79,8 +79,8 @@ declare function search-form:show-form() {
                      <div class="row-fluid">
                          <div class="span3">Dates: </div>
                          <div class="span9 form-inline">    
-                             <input type="text" name="cStart" placeholder="Start Date" class="input-small"/>&#160;
-                             <input type="text" name="cEnd" placeholder="End Date" class="input-small"/>
+                             <input type="text" name="cds" placeholder="Start Date" class="input-small"/>&#160;
+                             <input type="text" name="cde" placeholder="End Date" class="input-small"/>
                              <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
                          </div>
                      </div>
@@ -93,8 +93,8 @@ declare function search-form:show-form() {
                      <div class="row-fluid">
                          <div class="span3">Dates: </div>
                          <div class="span9 form-inline">
-                             <input type="text" name="existStart" placeholder="Start Date" class="input-small"/>&#160;
-                             <input type="text" name="existEnd" placeholder="End Date" class="input-small"/>
+                             <input type="text" name="existds" placeholder="Start Date" class="input-small"/>&#160;
+                             <input type="text" name="existde" placeholder="End Date" class="input-small"/>
                              <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
                          </div>
                      </div>
@@ -125,18 +125,12 @@ declare function search-form:show-form() {
                     <hr/>
                     <!-- Language -->
                         <label>Language: </label>
-                        <input type="radio" name="lang" value="en" class="offset1"/>English<br/>
-                        <input type="radio" name="lang" value="ar" class="offset1"/>Arabic<br/>
-                        <input type="radio" name="lang" value="syr" class="offset1"/>Syriac<br/>
-                        
-                            <!-- Engl/Arabic/Syriac 
-                            <select name="lang" class="input-medium">
-                                <option value="">- Select -</option>
-                                <option value="en">English</option>
-                                <option value="ar">Arabic</option>
-                                <option value="syr">Syriac</option>
-                            </select>
-                            -->
+                        <div class="offset1">
+                            <input type="radio" name="lang" value="en"/> English<br/>
+                            <input type="radio" name="lang" value="ar"/> Arabic<br/>
+                            <input type="radio" name="lang" value="syr"/> Syriac<br/>
+                        </div>
+
                     </div>
                 </div>
             </div>
