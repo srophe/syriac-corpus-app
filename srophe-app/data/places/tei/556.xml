@@ -50,7 +50,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-13-05:00</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -82,7 +82,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -98,15 +98,6 @@
                     <placeName xml:id="name556-6" xml:lang="en" source="#bib556-4">monastery of John the Arab</placeName>
                     <placeName xml:id="name556-7" xml:lang="en" source="#bib556-5">Mār Yōḥannān the Arab</placeName>
                     <desc xml:id="abstract-en-556" xml:lang="en">A monastery near the monastery of <placeName ref="http://syriaca.org/place/339">Mar Awgen</placeName>.</desc>
-                    <location type="gps" source="#bib556-7">
-                        <geo>37.198257 41.430776</geo>
-                    </location>
-                    <location type="gps" source="#bib556-6">
-                        <geo>37.198257 41.430776</geo>
-                    </location>
-                    <location xmlns="" type="gps" source="#bib556-6">
-                        <geo>37.198257 41.430776</geo>
-                    </location>
                     <location type="nested" source="#bib556-5">
                         <region ref="http://syriaca.org/place/723">Nisibis region</region>
                     </location>
@@ -144,18 +135,6 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">43, 46, 48, 354</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
-                    </bibl>
-                    <bibl xml:id="bib556-6">
-                        <title>http://pleiades.stoa.org/places/874586</title>
-                        <ptr target="http://pleiades.stoa.org/places/874586"/>
-                    </bibl>
-                    <bibl xml:id="bib556-7">
-                        <title>http://pleiades.stoa.org/places/874586</title>
-                        <ptr target="http://pleiades.stoa.org/places/874586"/>
-                    </bibl>
-                    <bibl xmlns="" xml:id="bib556-6">
-                        <title>http://pleiades.stoa.org/places/874586</title>
-                        <ptr target="http://pleiades.stoa.org/places/874586"/>
                     </bibl>
                 </place>
             </listPlace>

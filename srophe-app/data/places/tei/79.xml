@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-13-05:00</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,7 +61,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -71,15 +71,6 @@
                 <place xml:id="place-79" type="province">
                     <placeName xml:id="name79-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib79-1">Euphratesia</placeName>
                     <desc xml:id="abstract-en-79" xml:lang="en">A Roman province on the west bank of the Euphrates from above Samosata to Circesium.</desc>
-                    <location type="gps" source="#bib79-3">
-                        <geo>37.5 37.5</geo>
-                    </location>
-                    <location type="gps" source="#bib79-2">
-                        <geo>37.5 37.5</geo>
-                    </location>
-                    <location xmlns="" type="gps" source="#bib79-2">
-                        <geo>37.5 37.5</geo>
-                    </location>
                     <state type="existence" from="0350" to="0600" syriaca-computed-end="0600-01-01" syriaca-computed-start="0350-01-01">
                         <precision match="@from" notAfter="0350" notBefore="0330" syriaca-computed-end="0350-01-01" syriaca-computed-start="0330-01-01"/>
                         <precision match="@to" notAfter="0700" notBefore="0600" syriaca-computed-end="0700-01-01" syriaca-computed-start="0600-01-01"/>
@@ -92,18 +83,6 @@
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="maps">Map I B2</citedRange>
-                    </bibl>
-                    <bibl xml:id="bib79-2">
-                        <title>http://pleiades.stoa.org/places/1001934</title>
-                        <ptr target="http://pleiades.stoa.org/places/1001934"/>
-                    </bibl>
-                    <bibl xml:id="bib79-3">
-                        <title>http://pleiades.stoa.org/places/1001934</title>
-                        <ptr target="http://pleiades.stoa.org/places/1001934"/>
-                    </bibl>
-                    <bibl xmlns="" xml:id="bib79-2">
-                        <title>http://pleiades.stoa.org/places/1001934</title>
-                        <ptr target="http://pleiades.stoa.org/places/1001934"/>
                     </bibl>
                 </place>
             </listPlace>

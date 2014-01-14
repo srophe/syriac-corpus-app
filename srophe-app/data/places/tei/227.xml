@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-13-05:00</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,7 +95,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -125,15 +125,6 @@
                     <desc xml:lang="en">
                         <quote source="#bib227-5">a large monastery, built at the end of the fourth century, it became a metropolitan see and still holds that honor today. At the beginning it housed a great number of monks. It suffered many changes and calamities until it was renovated in 1845. It produced two Patriarchs, six Maphryonos and thirty bishops.</quote>
                     </desc>
-                    <location type="gps" source="#bib227-9">
-                        <geo>36.491605 43.392187</geo>
-                    </location>
-                    <location type="gps" source="#bib227-8">
-                        <geo>36.491605 43.392187</geo>
-                    </location>
-                    <location xmlns="" type="gps" source="#bib227-8">
-                        <geo>36.491605 43.392187</geo>
-                    </location>
                     <location type="nested" source="#bib227-7">
                         <region ref="http://syriaca.org/place/722">Mosul region</region>
                     </location>
@@ -186,18 +177,6 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">188, 200, 201, 202, 258</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
-                    </bibl>
-                    <bibl xml:id="bib227-8">
-                        <title>http://pleiades.stoa.org/places/874581</title>
-                        <ptr target="http://pleiades.stoa.org/places/874581"/>
-                    </bibl>
-                    <bibl xml:id="bib227-9">
-                        <title>http://pleiades.stoa.org/places/874581</title>
-                        <ptr target="http://pleiades.stoa.org/places/874581"/>
-                    </bibl>
-                    <bibl xmlns="" xml:id="bib227-8">
-                        <title>http://pleiades.stoa.org/places/874581</title>
-                        <ptr target="http://pleiades.stoa.org/places/874581"/>
                     </bibl>
                 </place>
             </listPlace>

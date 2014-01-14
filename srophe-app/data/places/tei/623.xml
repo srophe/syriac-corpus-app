@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-13-05:00</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -91,15 +91,6 @@
                     <placeName xml:id="name623-3" xml:lang="syr-Syrj" source="#bib623-2">ܐܶܦܶܣܘܣ</placeName>
                     <placeName xml:id="name623-4" xml:lang="ar" source="#bib623-3">افسس</placeName>
                     <desc xml:id="abstract-en-623" xml:lang="en">A city in western <placeName ref="http://syriaca.org/place/504">Asia Minor</placeName>.</desc>
-                    <location type="gps" source="#bib623-7">
-                        <geo>37.941944 27.339722</geo>
-                    </location>
-                    <location type="gps" source="#bib623-6">
-                        <geo>37.941944 27.339722</geo>
-                    </location>
-                    <location xmlns="" type="gps" source="#bib623-6">
-                        <geo>37.941944 27.339722</geo>
-                    </location>
                     <state type="existence" from="-0500" to="1400" syriaca-computed-end="1400-01-01" syriaca-computed-start="-0500-01-01">
                         <precision match="@from" notAfter="-0500" syriaca-computed-end="-0500-01-01"/>
                         <precision match="@to" notAfter="1500" notBefore="1400" syriaca-computed-end="1500-01-01" syriaca-computed-start="1400-01-01"/>
@@ -135,18 +126,6 @@
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Ephesus&amp;sT=keywords">Ephesus</citedRange>
-                    </bibl>
-                    <bibl xml:id="bib623-6">
-                        <title>http://pleiades.stoa.org/places/599612</title>
-                        <ptr target="http://pleiades.stoa.org/places/599612"/>
-                    </bibl>
-                    <bibl xml:id="bib623-7">
-                        <title>http://pleiades.stoa.org/places/599612</title>
-                        <ptr target="http://pleiades.stoa.org/places/599612"/>
-                    </bibl>
-                    <bibl xmlns="" xml:id="bib623-6">
-                        <title>http://pleiades.stoa.org/places/599612</title>
-                        <ptr target="http://pleiades.stoa.org/places/599612"/>
                     </bibl>
                 </place>
             </listPlace>

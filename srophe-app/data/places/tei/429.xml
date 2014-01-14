@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,6 +91,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-01-10">ADDED: disambiguation note</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -116,6 +118,7 @@
                         <precision match="@from" notAfter="-0885" syriaca-computed-end="-0885-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
+                    <note type="disambiguation">Not the same place as <placeName ref="http://syriaca.org/place/665">ʿĀnāt</placeName>.</note>
                     <idno type="URI">http://syriaca.org/place/429</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/893936</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Anah</idno>

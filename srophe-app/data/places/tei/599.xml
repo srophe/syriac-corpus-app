@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-13-05:00</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,7 +61,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -71,15 +71,6 @@
                 <place xml:id="place-599" type="river">
                     <placeName xml:id="name599-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib599-1">Jordan</placeName>
                     <desc xml:id="abstract-en-599" xml:lang="en">A river which flows into the Dead Sea.</desc>
-                    <location type="gps" source="#bib599-3">
-                        <geo>33.1864496 35.6191595</geo>
-                    </location>
-                    <location type="gps" source="#bib599-2">
-                        <geo>33.1864496 35.6191595</geo>
-                    </location>
-                    <location xmlns="" type="gps" source="#bib599-2">
-                        <geo>33.1864496 35.6191595</geo>
-                    </location>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/599</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/687932</idno>
@@ -92,18 +83,6 @@
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=Jordan&amp;sT=keywords">Jordan</citedRange>
-                    </bibl>
-                    <bibl xml:id="bib599-2">
-                        <title>http://pleiades.stoa.org/places/687932</title>
-                        <ptr target="http://pleiades.stoa.org/places/687932"/>
-                    </bibl>
-                    <bibl xml:id="bib599-3">
-                        <title>http://pleiades.stoa.org/places/687932</title>
-                        <ptr target="http://pleiades.stoa.org/places/687932"/>
-                    </bibl>
-                    <bibl xmlns="" xml:id="bib599-2">
-                        <title>http://pleiades.stoa.org/places/687932</title>
-                        <ptr target="http://pleiades.stoa.org/places/687932"/>
                     </bibl>
                 </place>
             </listPlace>

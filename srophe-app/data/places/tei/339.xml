@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-13-05:00</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -116,15 +116,6 @@
                     <desc xml:lang="en">
                         <quote source="#bib339-3">at the foot of the Izla mountain, which overlooks Nisibin. Built at the end of the fourth or the start of the fifth century, it suffered many vicissitudes. The Nestorians held it for a long time, but we regained it at the end of the eighteenth century. It produced two bishops. At present it is inhabited by only one monk.</quote>
                     </desc>
-                    <location type="gps" source="#bib339-7">
-                        <geo>37.187038 41.409741</geo>
-                    </location>
-                    <location type="gps" source="#bib339-6">
-                        <geo>37.187038 41.409741</geo>
-                    </location>
-                    <location xmlns="" type="gps" source="#bib339-6">
-                        <geo>37.187038 41.409741</geo>
-                    </location>
                     <location type="nested" source="#bib339-5">
                         <region ref="http://syriaca.org/place/723">Nisibis region</region>
                     </location>
@@ -163,18 +154,6 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">16, 20, 38, 39, 42, 43-44, 45-47, 48, 85, 114, 124, 169, 178, 179, 208, 223, 259, 260, 345, 348, 353, 354</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
-                    </bibl>
-                    <bibl xml:id="bib339-6">
-                        <title>http://pleiades.stoa.org/places/874579</title>
-                        <ptr target="http://pleiades.stoa.org/places/874579"/>
-                    </bibl>
-                    <bibl xml:id="bib339-7">
-                        <title>http://pleiades.stoa.org/places/874579</title>
-                        <ptr target="http://pleiades.stoa.org/places/874579"/>
-                    </bibl>
-                    <bibl xmlns="" xml:id="bib339-6">
-                        <title>http://pleiades.stoa.org/places/874579</title>
-                        <ptr target="http://pleiades.stoa.org/places/874579"/>
                     </bibl>
                 </place>
             </listPlace>

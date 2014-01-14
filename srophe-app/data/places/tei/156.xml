@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-13-05:00</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,7 +61,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -72,15 +72,6 @@
                     <placeName xml:id="name156-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib156-1">Persian Gulf</placeName>
                     <placeName xml:id="name156-2" xml:lang="en" source="#bib156-2">Persian gulf</placeName>
                     <desc xml:id="abstract-en-156" xml:lang="en">The sea that separates the Arabian peninsula from Iran.</desc>
-                    <location type="gps" source="#bib156-4">
-                        <geo>27.0000001 50.9999999</geo>
-                    </location>
-                    <location type="gps" source="#bib156-3">
-                        <geo>27.0000001 50.9999999</geo>
-                    </location>
-                    <location xmlns="" type="gps" source="#bib156-3">
-                        <geo>27.0000001 50.9999999</geo>
-                    </location>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/156</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/29713</idno>
@@ -98,18 +89,6 @@
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=P&amp;sK=Persian gulf&amp;sT=keywords">Persian gulf</citedRange>
-                    </bibl>
-                    <bibl xml:id="bib156-3">
-                        <title>http://pleiades.stoa.org/places/29713</title>
-                        <ptr target="http://pleiades.stoa.org/places/29713"/>
-                    </bibl>
-                    <bibl xml:id="bib156-4">
-                        <title>http://pleiades.stoa.org/places/29713</title>
-                        <ptr target="http://pleiades.stoa.org/places/29713"/>
-                    </bibl>
-                    <bibl xmlns="" xml:id="bib156-3">
-                        <title>http://pleiades.stoa.org/places/29713</title>
-                        <ptr target="http://pleiades.stoa.org/places/29713"/>
                     </bibl>
                 </place>
             </listPlace>

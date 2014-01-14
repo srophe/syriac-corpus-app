@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-13-05:00</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-01-10">ADDED: disambiguation note</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -109,19 +110,11 @@
                     <desc xml:lang="en">
                         <quote source="#bib205-4">a ruined town on the Euphrates, near Samosata.</quote>
                     </desc>
-                    <location type="gps" source="#bib205-6">
-                        <geo>37.110367 37.86555</geo>
-                    </location>
-                    <location type="gps" source="#bib205-5">
-                        <geo>37.110367 37.86555</geo>
-                    </location>
-                    <location xmlns="" type="gps" source="#bib205-5">
-                        <geo>37.110367 37.86555</geo>
-                    </location>
                     <state type="existence" from="-0030" to="0845" syriaca-computed-end="0845-01-01" syriaca-computed-start="-0030-01-01">
                         <precision match="@from" notAfter="-0030" syriaca-computed-end="-0030-01-01"/>
                         <precision match="@to" notBefore="0845" syriaca-computed-start="0845-01-01"/>
                     </state>
+                    <note type="disambiguation">Not the same place as <placeName ref="http://syriaca.org/place/695">Halfeti</placeName>.</note>
                     <idno type="URI">http://syriaca.org/place/205</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/658562</idno>
                     <bibl xml:id="bib205-1">
@@ -143,18 +136,6 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
-                    </bibl>
-                    <bibl xml:id="bib205-5">
-                        <title>http://pleiades.stoa.org/places/658562</title>
-                        <ptr target="http://pleiades.stoa.org/places/658562"/>
-                    </bibl>
-                    <bibl xml:id="bib205-6">
-                        <title>http://pleiades.stoa.org/places/658562</title>
-                        <ptr target="http://pleiades.stoa.org/places/658562"/>
-                    </bibl>
-                    <bibl xmlns="" xml:id="bib205-5">
-                        <title>http://pleiades.stoa.org/places/658562</title>
-                        <ptr target="http://pleiades.stoa.org/places/658562"/>
                     </bibl>
                 </place>
             </listPlace>

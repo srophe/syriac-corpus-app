@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,6 +87,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-01-10">ADDED: disambiguation note</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -117,6 +119,7 @@
                     <note type="errata">Barsoum's description erroneously merges the information for this location with that of the other <placeName ref="http://syriaca.org/place/571">Mor Bosus</placeName>, which is located between Apamea and Ḥomṣ.</note>
                     <note type="corrigenda">In Dolabani's translation of Barsoum's description ܘܐܶܬܢܰܦܰܩܘ should read ܘܶܐܬܢܰܦܰܩܘ.</note>
                     <note type="corrigenda">In Moosa's English translation of Barsoum's description "fifth" should read "following."</note>
+                    <note type="disambiguation">Not the same place as <placeName ref="http://syriaca.org/place/571">Mor Bosus</placeName>.</note>
                     <idno type="URI">http://syriaca.org/place/343</idno>
                     <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=m&amp;sK=monastery of Mar Bassus&amp;sT=keywords

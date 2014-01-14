@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-13-05:00</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,7 +61,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -71,15 +71,6 @@
                 <place xml:id="place-272" type="fortification">
                     <placeName xml:id="name272-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib272-1">Crac des Chevaliers</placeName>
                     <desc xml:id="abstract-en-272" xml:lang="en">A Crusader fortress west of <placeName ref="http://syriaca.org/place/215">Ḥimṣ</placeName>.</desc>
-                    <location type="gps" source="#bib272-3">
-                        <geo>34.756897 36.294731</geo>
-                    </location>
-                    <location type="gps" source="#bib272-2">
-                        <geo>34.756897 36.294731</geo>
-                    </location>
-                    <location xmlns="" type="gps" source="#bib272-2">
-                        <geo>34.756897 36.294731</geo>
-                    </location>
                     <state type="existence" from="1030" to="1271" syriaca-computed-end="1271-01-01" syriaca-computed-start="1030-01-01"/>
                     <idno type="URI">http://syriaca.org/place/272</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/587486981</idno>
@@ -89,18 +80,6 @@
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="maps">Map V</citedRange>
-                    </bibl>
-                    <bibl xml:id="bib272-2">
-                        <title>http://pleiades.stoa.org/places/587486981</title>
-                        <ptr target="http://pleiades.stoa.org/places/587486981"/>
-                    </bibl>
-                    <bibl xml:id="bib272-3">
-                        <title>http://pleiades.stoa.org/places/587486981</title>
-                        <ptr target="http://pleiades.stoa.org/places/587486981"/>
-                    </bibl>
-                    <bibl xmlns="" xml:id="bib272-2">
-                        <title>http://pleiades.stoa.org/places/587486981</title>
-                        <ptr target="http://pleiades.stoa.org/places/587486981"/>
                     </bibl>
                 </place>
             </listPlace>

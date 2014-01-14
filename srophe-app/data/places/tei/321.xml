@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,6 +87,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-01-10">ADDED: disambiguation note</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -117,6 +119,7 @@
                         <precision match="@to" notBefore="1500" syriaca-computed-start="1500-01-01"/>
                     </state>
                     <note type="corrigenda">In Dolabani's translation of Barsoum's description ܘܐܶܬܚ̈ܕܰܬܝ should read ܘܶܐܬܚ̈ܕܰܬܝ and ܇ ܒܘܪܐ should read ܚܒܘܪܐ.</note>
+                    <note type="disambiguation">Not the same place as <placeName ref="http://syriaca.org/place/712">Gazarta</placeName>, which is not necessarily west of the <placeName ref="http://syriaca.org/place/202">Tigris</placeName>.</note>
                     <idno type="URI">http://syriaca.org/place/321</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Diyar_Rabi'a</idno>
                     <bibl xml:id="bib321-1">

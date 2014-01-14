@@ -62,7 +62,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-04</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -94,6 +94,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-01-04">FIXED: location of quotation marks relative to elements in <gi>location</gi> of type "relative"</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18">ADDED: work URIs to attestation <gi>state</gi> elements</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-08">CHANGED: <gi>desc</gi> or <gi>label</gi> within <gi>event</gi> to <gi>p</gi>

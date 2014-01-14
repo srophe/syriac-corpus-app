@@ -9,19 +9,22 @@ declare namespace request="http://exist-db.org/xquery/request";
 
 declare variable $option {request:get-parameter('option', '')};
 declare variable $editor {request:get-parameter('editor', '')};
+declare variable $comment {request:get-parameter('comment', '')};
 
 (:~
  : Insert custom generated dates
  : Takes @notBefore, @notAfter, @to, @from, and @when and adds a syriaca computed date 
  : attribute for searching. 
- :)
-                        
+ :)                       
 declare function local:add-custom-dates(){
    for $doc in collection('/db/apps/srophe/data/places/tei')//tei:place 
    return 
-    (local:notAfter($doc),local:notBefore($doc),local:to($doc),local:from($doc),local:when($doc))                     
+    (local:notAfter($doc),local:notBefore($doc),local:to($doc),local:from($doc),local:when($doc),local:add-change-log($doc))                     
 };
-
+(:~
+ : Take data from @notAfter, check for existing @syriaca-computed-end
+ : if none, format date and add @syriaca-computed-end as xs:date
+:)
 declare function local:notAfter($doc){
         for $date in $doc/descendant-or-self::*/@notAfter
         let $date-norm := if(starts-with($date,'0000') and string-length($date) eq 4) then '0001-01-01'
@@ -41,7 +44,10 @@ declare function local:notAfter($doc){
                      }
                      
 };
-
+(:~
+ : Take data from @notBefore, check for existing @syriaca-computed-start
+ : if none, format date and add @syriaca-computed-start as xs:date
+:)
 declare function local:notBefore($doc){
         for $date in $doc/descendant-or-self::*/@notBefore
         let $date-norm := if(starts-with($date,'0000') and string-length($date) eq 4) then '0001-01-01'
@@ -60,7 +66,10 @@ declare function local:notBefore($doc){
                          }</date>
                      }
 };
-
+(:~
+ : Take data from @to, check for existing @syriaca-computed-end
+ : if none, format date and add @syriaca-computed-end as xs:date
+:)
 declare function local:to($doc){
         for $date in $doc/descendant-or-self::*/@to
         let $date-norm := if(starts-with($date,'0000') and string-length($date) eq 4) then '0001-01-01'
@@ -79,7 +88,10 @@ declare function local:to($doc){
                          }</date>
                      }
 };
-
+(:~
+ : Take data from @from, check for existing @syriaca-computed-start
+ : if none, format date and add @syriaca-computed-start as xs:date
+:)
 declare function local:from($doc){
         for $date in $doc/descendant-or-self::*/@from
         let $date-norm := if(starts-with($date,'0000') and string-length($date) eq 4) then '0001-01-01'
@@ -98,7 +110,10 @@ declare function local:from($doc){
                          }</date>
                      }
 };
-
+(:~
+ : Take data from @when, check for existing @syriaca-computed-start
+ : if none, format date and add @syriaca-computed-start as xs:date
+:)
 declare function local:when($doc){
         for $date in $doc/descendant-or-self::*/@when
         let $date-norm := if(starts-with($date,'0000') and string-length($date) eq 4) then '0001-01-01'
@@ -120,7 +135,7 @@ declare function local:when($doc){
 
 (:~ 
  : General function to remove attributes. 
- : Edit as needed
+ : Edit as needed, no public interface for this function 
 :)
 declare function local:remove-attributes(){
    for $doc in collection('/db/apps/srophe/data/places/tei')//tei:place
@@ -128,11 +143,11 @@ declare function local:remove-attributes(){
    (:add test for when-custom so I don't add it repeatedly:)
         for $date in $doc/descendant-or-self::*/@from-custom
         return update delete $date
-
 };
 
 (:~
  : General test function to inspect current dates
+ : No public interface for this function
 :)
 declare function local:test-dates(){
    for $doc in collection('/db/apps/srophe/data/places/tei')//tei:place
@@ -143,16 +158,14 @@ declare function local:test-dates(){
 };
 
 (: Add location data from Pleiades.xml 
-
  May not need a button for this, as it is a one time operation (in theory)
 :)
-
 (:~ Test data, uncomment to test
         <div>
-             <location type="gps" source="#bib{$place-id}-{$bibNo}">
+             <location type="gps" source="#bib{$doc-id}-{$bibNo}">
                     <geo>{concat($lat,' ',$long)}</geo>
              </location>
-             <bibl xml:id="bib{$place-id}-{$bibNo}">
+             <bibl xml:id="bib{$doc-id}-{$bibNo}">
                   <title>http://pleiades.stoa.org/places/{$pleiades-id}</title>
                   <ptr target="http://pleiades.stoa.org/places/{$pleiades-id}"/>
              </bibl>
@@ -163,51 +176,61 @@ declare function local:update-locations(){
     for $places in doc('/db/apps/srophe/data/places/Pleiades-Grabber-Results-Edited.xml')//row[Match='UPDATED']
     let $id := concat('place-',$places/Place_ID)
     return 
-        for $place in collection('/db/apps/srophe/data/places/tei')/id($id)[1]
-        let $place-id := substring-after($id,'place-')
-        let $bibNo := count($place//tei:bibl) + 1
+        for $doc in collection('/db/apps/srophe/data/places/tei')/id($id)[1]
+        let $doc-id := substring-after($id,'place-')
+        let $bibNo := count($doc//tei:bibl) + 1
         let $lat := $places/Latitude
         let $long := $places/Longitude
         let $pleiades-id := string($places/Pleiades_ID)
         return (
              try {
                    (update insert 
-                           <location xmlns="http://www.tei-c.org/ns/1.0" type="gps" source="#bib{$place-id}-{$bibNo}">
+                           <location xmlns="http://www.tei-c.org/ns/1.0" type="gps" source="#bib{$doc-id}-{$bibNo}">
                              <geo>{concat($lat,' ',$long)}</geo>
                            </location>
-                   following $place//tei:desc[last()],
+                   following $doc//tei:desc[last()],
                    update insert
-                         <bibl xmlns="http://www.tei-c.org/ns/1.0" xml:id="bib{$place-id}-{$bibNo}">
+                         <bibl xmlns="http://www.tei-c.org/ns/1.0" xml:id="bib{$doc-id}-{$bibNo}">
                            <title>http://pleiades.stoa.org/places/{$pleiades-id}</title>
                            <ptr target="http://pleiades.stoa.org/places/{$pleiades-id}"/>
                       </bibl>
-                   following $place//tei:bibl[last()]
+                   following $doc//tei:bibl[last()]
                    )
                  } catch * {
                      <p>{
                          (string($id), "Error:", $err:code)
                      }</p>
                  },
-                local:add-change-log($place))
+                local:add-change-log($doc))
                 
 };
 (:
 NEEDS to be tested does not need a button
+Checking list to make sure it is correct before adding to data Will need to update fresh data to dev and run it.
+        if(count(local:related-data($doc-id,$doc-name)) gt 0) then 
+             <relation name="shares-name-with" mutual="#{(substring-after($doc-id,'place-'), local:related-data($doc-id,$doc-name))}"/>       
+         else ''
 :)
-declare function local:link-related-names(){
-    for $place in collection('/db/apps/srophe/data/places/tei')//tei:place[@type='diocese']
-    let $place-name := $place/tei:placeName[1]/text()
-    let $place-id := $place/@xml:id
+
+declare function local:related-data($doc-id,$doc-name){
+    for $doc-rel in collection('/db/apps/srophe/data/places/tei')//tei:place[tei:placeName[@syriaca-tags='#syriaca-headword'] = $doc-name]
+    let $doc-rel-id := $doc-rel/@xml:id
+    let $doc-rel-name := $doc-rel/text()
+    where not($doc-rel-id = $doc-id)
     return 
-        for $place-rel in collection('/db/apps/srophe/data/places/tei')//tei:place[tei:placeName[1] = $place-name]
-        let $place-rel-id := $place-rel/@xml:id
-        let $place-rel-name := $place-rel/tei:placeName[1]/text()
-        return
-            <div>
-                <p id="{$place-id}">{$place-name}</p>
-                <p id="{$place-rel-id}">{$place-rel-name}</p>
-            </div>
+        concat(' http://syriaca.org/place/',substring-after($doc-rel-id,'place-')) 
 };
+
+declare function local:link-related-names(){
+    let $docs-all := for $docs in collection('/db/apps/srophe/data/places/tei')//tei:place[tei:placeName[@syriaca-tags='#syriaca-headword']] return $docs
+    for $doc at $p in subsequence($docs-all, 1, 500)
+    let $doc-name := $doc/tei:placeName[@syriaca-tags='#syriaca-headword'][1]/text()
+    let $doc-id := $doc/@xml:id
+    return 
+        if(count(local:related-data($doc-id,$doc-name)) gt 0) then 
+             <relation name="shares-name-with" mutual="#place{(substring-after($doc-id,'place-'), local:related-data($doc-id,$doc-name))}"/>       
+         else ''
+};          
 
 (: 
   need to add in function to select who you are, add in latest date
@@ -218,24 +241,26 @@ declare function local:link-related-names(){
    save for later
 :)
 
-
 (:~
  : Insert new change element and change publication date
+ : @param $editor from form and $comment from form
+ : ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching
+ : ADDED: latitude and longitude from Pleiades
 :)
-declare function local:add-change-log($place){
+declare function local:add-change-log($doc){
 (:/TEI/teiHeader/fileDesc/publicationStmt/date:)
        (update insert 
-            <change xmlns="http://www.tei-c.org/ns/1.0" who="http://syriaca.org/editors.xml#{$editor}" when="{current-dateTime()}">ADDED: latitude and longitude from Pleiades</change>
-          preceding $place/ancestor::*//tei:teiHeader/tei:revisionDesc/tei:change[1],
-          update value $place/ancestor::*//tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:date with current-dateTime()
+            <change xmlns="http://www.tei-c.org/ns/1.0" who="http://syriaca.org/editors.xml#{$editor}" when="{current-dateTime()}">
+                {$comment}
+            </change>
+          preceding $doc/ancestor::*//tei:teiHeader/tei:revisionDesc/tei:change[1],
+          update value $doc/ancestor::*//tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:date with current-dateTime()
           )
 };
 
 let $cache := 'cache'
-(: Need to add a sucess message if no error codes. 
-xmldb:get-current-user() 
-:)
-return <div>{local:link-related-names()}</div> 
+(: Need to add a sucess message if no error codes. xmldb:get-current-user() :)
+return <div>{local:update-locations()}</div> 
 (:
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>

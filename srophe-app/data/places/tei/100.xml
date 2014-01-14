@@ -51,7 +51,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-13-05:00</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -83,7 +83,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -97,15 +97,6 @@
                     <placeName xml:id="name100-4" xml:lang="ar" source="#bib100-3">جبل الازل</placeName>
                     <placeName xml:id="name100-5" xml:lang="en" source="#bib100-4">Izla Mountain</placeName>
                     <desc xml:id="abstract-en-100" xml:lang="en">A mountain north of <placeName ref="http://syriaca.org/place/142">Nisibis</placeName>.</desc>
-                    <location type="gps" source="#bib100-7">
-                        <geo>37.333333 41.166667</geo>
-                    </location>
-                    <location type="gps" source="#bib100-6">
-                        <geo>37.333333 41.166667</geo>
-                    </location>
-                    <location xmlns="" type="gps" source="#bib100-6">
-                        <geo>37.333333 41.166667</geo>
-                    </location>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/100</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/874530</idno>
@@ -139,18 +130,6 @@
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=I&amp;sK=Izla&amp;sT=keywords">Izla</citedRange>
-                    </bibl>
-                    <bibl xml:id="bib100-6">
-                        <title>http://pleiades.stoa.org/places/874530</title>
-                        <ptr target="http://pleiades.stoa.org/places/874530"/>
-                    </bibl>
-                    <bibl xml:id="bib100-7">
-                        <title>http://pleiades.stoa.org/places/874530</title>
-                        <ptr target="http://pleiades.stoa.org/places/874530"/>
-                    </bibl>
-                    <bibl xmlns="" xml:id="bib100-6">
-                        <title>http://pleiades.stoa.org/places/874530</title>
-                        <ptr target="http://pleiades.stoa.org/places/874530"/>
                     </bibl>
                 </place>
             </listPlace>

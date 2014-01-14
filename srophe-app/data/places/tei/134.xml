@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-13-05:00</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,7 +95,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -123,15 +123,6 @@
                     <desc xml:lang="en">
                         <quote source="#bib134-4">once the most famous city in the northeastern part of the province of Diyarbakir, now a small town.</quote>
                     </desc>
-                    <location type="gps" source="#bib134-8">
-                        <geo>38.1427855 41.003257</geo>
-                    </location>
-                    <location type="gps" source="#bib134-7">
-                        <geo>38.1427855 41.003257</geo>
-                    </location>
-                    <location xmlns="" type="gps" source="#bib134-7">
-                        <geo>38.1427855 41.003257</geo>
-                    </location>
                     <state type="existence" from="0410" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0410-01-01">
                         <precision match="@from" notAfter="0410" syriaca-computed-end="0410-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -182,18 +173,6 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">38, 49, 53, 54</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
-                    </bibl>
-                    <bibl xml:id="bib134-7">
-                        <title>http://pleiades.stoa.org/places/874573</title>
-                        <ptr target="http://pleiades.stoa.org/places/874573"/>
-                    </bibl>
-                    <bibl xml:id="bib134-8">
-                        <title>http://pleiades.stoa.org/places/874573</title>
-                        <ptr target="http://pleiades.stoa.org/places/874573"/>
-                    </bibl>
-                    <bibl xmlns="" xml:id="bib134-7">
-                        <title>http://pleiades.stoa.org/places/874573</title>
-                        <ptr target="http://pleiades.stoa.org/places/874573"/>
                     </bibl>
                 </place>
             </listPlace>

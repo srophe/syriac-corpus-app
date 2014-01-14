@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-13-05:00</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -91,15 +91,6 @@
                     <placeName xml:id="name480-3" xml:lang="syr-Syrj" source="#bib480-1">ܨܰܐܡܨܘܽܢ</placeName>
                     <placeName xml:id="name480-4" xml:lang="ar" source="#bib480-2">سمسون</placeName>
                     <desc xml:id="abstract-en-480" xml:lang="en">A port city on the <placeName ref="http://syriaca.org/place/503">Black Sea</placeName> in northern central <placeName ref="http://syriaca.org/place/504">Anatolia</placeName>.</desc>
-                    <location type="gps" source="#bib480-5">
-                        <geo>41.292721 36.3313</geo>
-                    </location>
-                    <location type="gps" source="#bib480-4">
-                        <geo>41.292721 36.3313</geo>
-                    </location>
-                    <location xmlns="" type="gps" source="#bib480-4">
-                        <geo>41.292721 36.3313</geo>
-                    </location>
                     <state type="existence" from="-0047" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0047-01-01">
                         <precision match="@from" notAfter="-0047" syriaca-computed-end="-0047-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -122,18 +113,6 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">551</citedRange>
-                    </bibl>
-                    <bibl xml:id="bib480-4">
-                        <title>http://pleiades.stoa.org/places/857024</title>
-                        <ptr target="http://pleiades.stoa.org/places/857024"/>
-                    </bibl>
-                    <bibl xml:id="bib480-5">
-                        <title>http://pleiades.stoa.org/places/857024</title>
-                        <ptr target="http://pleiades.stoa.org/places/857024"/>
-                    </bibl>
-                    <bibl xmlns="" xml:id="bib480-4">
-                        <title>http://pleiades.stoa.org/places/857024</title>
-                        <ptr target="http://pleiades.stoa.org/places/857024"/>
                     </bibl>
                 </place>
             </listPlace>

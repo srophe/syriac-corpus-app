@@ -42,7 +42,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-07-31</date>
+                <date>2014-01-14T11:06:04.031-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -74,6 +74,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-07-31">REMOVED: place type from <gi>title</gi>
             </change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-07-28">ADDED: formattable markup to <gi>title</gi> and <gi>licence</gi>
