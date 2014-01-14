@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -343,7 +343,7 @@
             </xsl:if>
           <!-- Note type Incerta  -->
             <xsl:if test="t:note[@type='incerta']">
-                <div id="errata">
+                <div id="incerta">
                     <h3>Incerta</h3>
                     <ul>
                         <xsl:apply-templates select="t:note[@type='incerta']"/>
@@ -352,10 +352,19 @@
             </xsl:if>
           <!-- Note type Incerta  -->
             <xsl:if test="t:note[@type='corrigenda']">
-                <div id="errata">
+                <div id="corrigenda">
                     <h3>Corrigenda</h3>
                     <ul>
                         <xsl:apply-templates select="t:note[@type='corrigenda']"/>
+                    </ul>
+                </div>
+            </xsl:if>
+            <!-- Note type deprecation  -->
+            <xsl:if test="t:note[@type='deprecation']">
+                <div id="deprecation">
+                    <h3>Deprecations</h3>
+                    <ul>
+                        <xsl:apply-templates select="t:note[@type='deprecation']"/>
                     </ul>
                 </div>
             </xsl:if>
@@ -836,18 +845,14 @@
         <xsl:choose>
             <!-- Adds definition list for depreciated names -->
             <xsl:when test="@type='deprecation'">
-                <dl>
-                    <dt>
-                        <xsl:apply-templates select="../t:link[contains(@target,$xmlid)]"/>
-                    </dt>
-                    <dd>
+                <li>
+                    <xsl:apply-templates select="../t:link[contains(@target,$xmlid)]"/>:
                         <xsl:apply-templates/>
                         <!-- Check for ending punctuation, if none, add . -->
-                        <xsl:if test="not(ends-with(.,'.'))">
-                            <xsl:text>.</xsl:text>
-                        </xsl:if>
-                    </dd>
-                </dl>
+                    <xsl:if test="not(ends-with(.,'.'))">
+                        <xsl:text>.</xsl:text>
+                    </xsl:if>
+                </li>
             </xsl:when>
             <xsl:when test="@type='corrigenda' or @type='incerta'">
                 <li>
