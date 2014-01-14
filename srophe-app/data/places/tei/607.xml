@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-13-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,6 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -91,6 +92,15 @@
                     <placeName xml:id="name607-4" xml:lang="ar" source="#bib607-3">مرو</placeName>
                     <placeName xml:id="name607-5" xml:lang="en" source="#bib607-4">Maru</placeName>
                     <desc xml:id="abstract-en-607" xml:lang="en">A city of <placeName ref="http://syriaca.org/place/574">Khurasan</placeName>.</desc>
+                    <location type="gps" source="#bib607-7">
+                        <geo>37.662778 62.1925</geo>
+                    </location>
+                    <location type="gps" source="#bib607-6">
+                        <geo>37.662778 62.1925</geo>
+                    </location>
+                    <location xmlns="" type="gps" source="#bib607-6">
+                        <geo>37.662778 62.1925</geo>
+                    </location>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/607</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/961873</idno>
@@ -123,6 +133,18 @@
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Merv&amp;sT=keywords">Merv</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib607-6">
+                        <title>http://pleiades.stoa.org/places/961873</title>
+                        <ptr target="http://pleiades.stoa.org/places/961873"/>
+                    </bibl>
+                    <bibl xml:id="bib607-7">
+                        <title>http://pleiades.stoa.org/places/961873</title>
+                        <ptr target="http://pleiades.stoa.org/places/961873"/>
+                    </bibl>
+                    <bibl xmlns="" xml:id="bib607-6">
+                        <title>http://pleiades.stoa.org/places/961873</title>
+                        <ptr target="http://pleiades.stoa.org/places/961873"/>
                     </bibl>
                 </place>
             </listPlace>

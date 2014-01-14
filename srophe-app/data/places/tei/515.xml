@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-13-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,6 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -89,6 +90,15 @@
                     <placeName xml:id="name515-2" xml:lang="syr" syriaca-tags="#syriaca-headword" source="#bib515-1">ܐܪܟ</placeName>
                     <placeName xml:id="name515-3" xml:lang="ar" source="#bib515-2">ارك</placeName>
                     <desc xml:id="abstract-en-515" xml:lang="en">A village on the desert road between <placeName ref="http://syriaca.org/place/153">Palmyra</placeName> and <placeName ref="http://syriaca.org/place/514">Sukhna</placeName>.</desc>
+                    <location type="gps" source="#bib515-5">
+                        <geo>34.671287 38.582516</geo>
+                    </location>
+                    <location type="gps" source="#bib515-4">
+                        <geo>34.671287 38.582516</geo>
+                    </location>
+                    <location xmlns="" type="gps" source="#bib515-4">
+                        <geo>34.671287 38.582516</geo>
+                    </location>
                     <state type="existence" from="0075" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0075-01-01">
                         <precision match="@from" notAfter="0075" syriaca-computed-end="0075-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -111,6 +121,18 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">557</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib515-4">
+                        <title>http://pleiades.stoa.org/places/668196</title>
+                        <ptr target="http://pleiades.stoa.org/places/668196"/>
+                    </bibl>
+                    <bibl xml:id="bib515-5">
+                        <title>http://pleiades.stoa.org/places/668196</title>
+                        <ptr target="http://pleiades.stoa.org/places/668196"/>
+                    </bibl>
+                    <bibl xmlns="" xml:id="bib515-4">
+                        <title>http://pleiades.stoa.org/places/668196</title>
+                        <ptr target="http://pleiades.stoa.org/places/668196"/>
                     </bibl>
                 </place>
             </listPlace>

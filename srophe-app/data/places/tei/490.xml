@@ -50,7 +50,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-13-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -82,6 +82,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -96,6 +97,15 @@
                     <placeName xml:id="name490-5" xml:lang="en" source="#bib490-3">Tell al-Arman</placeName>
                     <placeName xml:id="name490-6" xml:lang="en" source="#bib490-4">Tel Armen</placeName>
                     <desc xml:id="abstract-en-490" xml:lang="en">A town south of <placeName ref="http://syriaca.org/place/130">Mardin</placeName> near <placeName ref="http://syriaca.org/place/401">Dunaysar</placeName>.</desc>
+                    <location type="gps" source="#bib490-6">
+                        <geo>37.191031 40.589019</geo>
+                    </location>
+                    <location type="gps" source="#bib490-5">
+                        <geo>37.191031 40.589019</geo>
+                    </location>
+                    <location xmlns="" type="gps" source="#bib490-5">
+                        <geo>37.191031 40.589019</geo>
+                    </location>
                     <location type="nested" source="#bib490-4">
                         <region ref="http://syriaca.org/place/719">Mardīn region</region>
                     </location>
@@ -127,6 +137,18 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">76</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib490-5">
+                        <title>http://pleiades.stoa.org/places/874572</title>
+                        <ptr target="http://pleiades.stoa.org/places/874572"/>
+                    </bibl>
+                    <bibl xml:id="bib490-6">
+                        <title>http://pleiades.stoa.org/places/874572</title>
+                        <ptr target="http://pleiades.stoa.org/places/874572"/>
+                    </bibl>
+                    <bibl xmlns="" xml:id="bib490-5">
+                        <title>http://pleiades.stoa.org/places/874572</title>
+                        <ptr target="http://pleiades.stoa.org/places/874572"/>
                     </bibl>
                 </place>
             </listPlace>

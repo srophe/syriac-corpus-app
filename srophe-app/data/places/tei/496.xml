@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-13-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,6 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -91,6 +92,15 @@
                     <placeName xml:id="name496-4" xml:lang="ar" source="#bib496-2">رفنية</placeName>
                     <placeName xml:id="name496-5" xml:lang="en" source="#bib496-3">Raphina</placeName>
                     <desc xml:id="abstract-en-496" xml:lang="en">A city of western Syria.</desc>
+                    <location type="gps" source="#bib496-5">
+                        <geo>34.966351 36.39298</geo>
+                    </location>
+                    <location type="gps" source="#bib496-4">
+                        <geo>34.966351 36.39298</geo>
+                    </location>
+                    <location xmlns="" type="gps" source="#bib496-4">
+                        <geo>34.966351 36.39298</geo>
+                    </location>
                     <state type="existence" from="0300" to="1943" syriaca-computed-end="1943-01-01" syriaca-computed-start="0300-01-01">
                         <precision match="@from" notAfter="0300" syriaca-computed-end="0300-01-01"/>
                         <precision match="@to" notBefore="1943" syriaca-computed-start="1943-01-01"/>
@@ -115,6 +125,18 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">554</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib496-4">
+                        <title>http://pleiades.stoa.org/places/668350</title>
+                        <ptr target="http://pleiades.stoa.org/places/668350"/>
+                    </bibl>
+                    <bibl xml:id="bib496-5">
+                        <title>http://pleiades.stoa.org/places/668350</title>
+                        <ptr target="http://pleiades.stoa.org/places/668350"/>
+                    </bibl>
+                    <bibl xmlns="" xml:id="bib496-4">
+                        <title>http://pleiades.stoa.org/places/668350</title>
+                        <ptr target="http://pleiades.stoa.org/places/668350"/>
                     </bibl>
                 </place>
             </listPlace>

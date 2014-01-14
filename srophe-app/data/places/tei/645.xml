@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-13-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,6 +61,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -70,6 +71,15 @@
                 <place xml:id="place-645" type="settlement">
                     <placeName xml:id="name645-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib645-1 #bib645-2">Tell Tuneinir</placeName>
                     <desc xml:id="abstract-en-645" xml:lang="en">A village southeast of <placeName ref="http://syriaca.org/place/213">al-Ḥasake</placeName>.</desc>
+                    <location type="gps" source="#bib645-4">
+                        <geo>36.438598 40.86652</geo>
+                    </location>
+                    <location type="gps" source="#bib645-3">
+                        <geo>36.438598 40.86652</geo>
+                    </location>
+                    <location xmlns="" type="gps" source="#bib645-3">
+                        <geo>36.438598 40.86652</geo>
+                    </location>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/645</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/874762</idno>
@@ -85,6 +95,18 @@
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Tell Tuneinir&amp;sT=keywords">Tell Tuneinir</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib645-3">
+                        <title>http://pleiades.stoa.org/places/874762</title>
+                        <ptr target="http://pleiades.stoa.org/places/874762"/>
+                    </bibl>
+                    <bibl xml:id="bib645-4">
+                        <title>http://pleiades.stoa.org/places/874762</title>
+                        <ptr target="http://pleiades.stoa.org/places/874762"/>
+                    </bibl>
+                    <bibl xmlns="" xml:id="bib645-3">
+                        <title>http://pleiades.stoa.org/places/874762</title>
+                        <ptr target="http://pleiades.stoa.org/places/874762"/>
                     </bibl>
                 </place>
             </listPlace>

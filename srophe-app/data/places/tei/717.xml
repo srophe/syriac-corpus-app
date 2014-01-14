@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-13-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,6 +65,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -75,6 +76,15 @@
                     <placeName xml:id="name717-1" xml:lang="en" syriaca-tags="#syriaca-headword">Beth Aramaye</placeName>
                     <placeName xml:id="name717-2" xml:lang="en" source="#bib717-1">Beṯ Aramāye</placeName>
                     <desc xml:id="abstract-en-717" xml:lang="en"/>
+                    <location type="gps" source="#bib717-3">
+                        <geo>32.5 44.5</geo>
+                    </location>
+                    <location type="gps" source="#bib717-2">
+                        <geo>32.5 44.5</geo>
+                    </location>
+                    <location xmlns="" type="gps" source="#bib717-2">
+                        <geo>32.5 44.5</geo>
+                    </location>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/717</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/893958</idno>
@@ -83,6 +93,18 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">17, 127, 344</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib717-2">
+                        <title>http://pleiades.stoa.org/places/893958</title>
+                        <ptr target="http://pleiades.stoa.org/places/893958"/>
+                    </bibl>
+                    <bibl xml:id="bib717-3">
+                        <title>http://pleiades.stoa.org/places/893958</title>
+                        <ptr target="http://pleiades.stoa.org/places/893958"/>
+                    </bibl>
+                    <bibl xmlns="" xml:id="bib717-2">
+                        <title>http://pleiades.stoa.org/places/893958</title>
+                        <ptr target="http://pleiades.stoa.org/places/893958"/>
                     </bibl>
                 </place>
             </listPlace>

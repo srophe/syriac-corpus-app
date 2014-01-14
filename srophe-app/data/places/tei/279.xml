@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-13-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,6 +61,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -72,6 +73,15 @@
                     <placeName xml:id="name279-2" xml:lang="en" source="#bib279-2">Maalula</placeName>
                     <placeName xml:id="name279-3" xml:lang="en" source="#bib279-2">Malula</placeName>
                     <desc xml:id="abstract-en-279" xml:lang="en">A village northeast of <placeName ref="http://syriaca.org/place/66">Damascus</placeName> and southwest of Qara.</desc>
+                    <location type="gps" source="#bib279-4">
+                        <geo>33.843692 36.520816</geo>
+                    </location>
+                    <location type="gps" source="#bib279-3">
+                        <geo>33.843692 36.520816</geo>
+                    </location>
+                    <location xmlns="" type="gps" source="#bib279-3">
+                        <geo>33.843692 36.520816</geo>
+                    </location>
                     <state type="existence" from="1879" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="1879-01-01">
                         <precision match="@from" notAfter="1879" syriaca-computed-end="1879-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -97,6 +107,18 @@
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Maalula&amp;sT=keywords">Maalula</citedRange>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Malula&amp;sT=keywords">Malula</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib279-3">
+                        <title>http://pleiades.stoa.org/places/678273</title>
+                        <ptr target="http://pleiades.stoa.org/places/678273"/>
+                    </bibl>
+                    <bibl xml:id="bib279-4">
+                        <title>http://pleiades.stoa.org/places/678273</title>
+                        <ptr target="http://pleiades.stoa.org/places/678273"/>
+                    </bibl>
+                    <bibl xmlns="" xml:id="bib279-3">
+                        <title>http://pleiades.stoa.org/places/678273</title>
+                        <ptr target="http://pleiades.stoa.org/places/678273"/>
                     </bibl>
                 </place>
             </listPlace>

@@ -8,8 +8,13 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 declare namespace request="http://exist-db.org/xquery/request";
 
 declare variable $option {request:get-parameter('option', '')};
+declare variable $editor {request:get-parameter('editor', '')};
 
-(: Insert custom generated dates :)
+(:~
+ : Insert custom generated dates
+ : Takes @notBefore, @notAfter, @to, @from, and @when and adds a syriaca computed date 
+ : attribute for searching. 
+ :)
                         
 declare function local:add-custom-dates(){
    for $doc in collection('/db/apps/srophe/data/places/tei')//tei:place 
@@ -113,6 +118,10 @@ declare function local:when($doc){
                      }
 };
 
+(:~ 
+ : General function to remove attributes. 
+ : Edit as needed
+:)
 declare function local:remove-attributes(){
    for $doc in collection('/db/apps/srophe/data/places/tei')//tei:place
    return 
@@ -122,8 +131,8 @@ declare function local:remove-attributes(){
 
 };
 
-(:
-descendant::tei:event[@type != "attestation"][@syriaca-computed-start
+(:~
+ : General test function to inspect current dates
 :)
 declare function local:test-dates(){
    for $doc in collection('/db/apps/srophe/data/places/tei')//tei:place
@@ -133,48 +142,100 @@ declare function local:test-dates(){
             <date parent="{$doc/tei:placeName[@xml:lang='en'][1]}">{$date}</date>
 };
 
-(: Add location data from Pleiades.xml :)
-declare function local:get-places(){
+(: Add location data from Pleiades.xml 
+
+ May not need a button for this, as it is a one time operation (in theory)
+:)
+
+(:~ Test data, uncomment to test
+        <div>
+             <location type="gps" source="#bib{$place-id}-{$bibNo}">
+                    <geo>{concat($lat,' ',$long)}</geo>
+             </location>
+             <bibl xml:id="bib{$place-id}-{$bibNo}">
+                  <title>http://pleiades.stoa.org/places/{$pleiades-id}</title>
+                  <ptr target="http://pleiades.stoa.org/places/{$pleiades-id}"/>
+             </bibl>
+             <change who="http://syriaca.org/editors.xml#{$editor}" when="{current-dateTime()}">ADDED: latitude and longitude from Pleiades</change>
+        </div>
+:)
+declare function local:update-locations(){
     for $places in doc('/db/apps/srophe/data/places/Pleiades-Grabber-Results-Edited.xml')//row[Match='UPDATED']
     let $id := concat('place-',$places/Place_ID)
     return 
-        for $place in collection('/db/apps/srophe/data/places/tei')/id($id)
-        let $placeid := $id
-        let $bibNo := count(//tei:place/tei:bibl) + 1
-        let $lat := $place/Latitude
-        let $long := $place/Longitude
-        return <p>{$place//tei:placeName[1]/text()}</p>
+        for $place in collection('/db/apps/srophe/data/places/tei')/id($id)[1]
+        let $place-id := substring-after($id,'place-')
+        let $bibNo := count($place//tei:bibl) + 1
+        let $lat := $places/Latitude
+        let $long := $places/Longitude
+        let $pleiades-id := string($places/Pleiades_ID)
+        return (
+             try {
+                   (update insert 
+                           <location xmlns="http://www.tei-c.org/ns/1.0" type="gps" source="#bib{$place-id}-{$bibNo}">
+                             <geo>{concat($lat,' ',$long)}</geo>
+                           </location>
+                   following $place//tei:desc[last()],
+                   update insert
+                         <bibl xmlns="http://www.tei-c.org/ns/1.0" xml:id="bib{$place-id}-{$bibNo}">
+                           <title>http://pleiades.stoa.org/places/{$pleiades-id}</title>
+                           <ptr target="http://pleiades.stoa.org/places/{$pleiades-id}"/>
+                      </bibl>
+                   following $place//tei:bibl[last()]
+                   )
+                 } catch * {
+                     <p>{
+                         (string($id), "Error:", $err:code)
+                     }</p>
+                 },
+                local:add-change-log($place))
+                
 };
+(:
+NEEDS to be tested does not need a button
+:)
+declare function local:link-related-names(){
+    for $place in collection('/db/apps/srophe/data/places/tei')//tei:place[@type='diocese']
+    let $place-name := $place/tei:placeName[1]/text()
+    let $place-id := $place/@xml:id
+    return 
+        for $place-rel in collection('/db/apps/srophe/data/places/tei')//tei:place[tei:placeName[1] = $place-name]
+        let $place-rel-id := $place-rel/@xml:id
+        let $place-rel-name := $place-rel/tei:placeName[1]/text()
+        return
+            <div>
+                <p id="{$place-id}">{$place-name}</p>
+                <p id="{$place-rel-id}">{$place-rel-name}</p>
+            </div>
+};
+
 (: 
   need to add in function to select who you are, add in latest date
     /TEI/teiHeader/fileDesc/publicationStmt/date
    test and add buttons 
+   need to add a general form for selecting who is editing, and adding a comment to change log.
+   needs to popup after submit, and before action is taken?
+   save for later
 :)
-declare function local:do-geo-insert($place, $id, $bibNo){
-    try {
-          (update insert 
-                  <location type="gps" source="#bib{$id}-{$bibNo}">
-                    <geo>{concat($lat,' ',$long)}</geo>
-                  </location>
-          following $place//tei:desc[last()],
-          update insert
-                <bibl xml:id="bib{$id}-{$bibNo}">
-                  <title>http://pleiades.stoa.org/places/{XXXXXX}</title>
-                  <ptr target="http://pleiades.stoa.org/places/{XXXXXX}"/>
-                </bibl>
-          following $place//tei:bibl[last()],
-          update insert 
-            <change who="http://syriaca.org/editors.xml#{$editor}" when="{current-date()}">ADDED: latitude and longitude from Pleiades</change>
-          preceding $place/tei:teiHeader/tei:revisionDesc/tei:change[1]
+
+
+(:~
+ : Insert new change element and change publication date
+:)
+declare function local:add-change-log($place){
+(:/TEI/teiHeader/fileDesc/publicationStmt/date:)
+       (update insert 
+            <change xmlns="http://www.tei-c.org/ns/1.0" who="http://syriaca.org/editors.xml#{$editor}" when="{current-dateTime()}">ADDED: latitude and longitude from Pleiades</change>
+          preceding $place/ancestor::*//tei:teiHeader/tei:revisionDesc/tei:change[1],
+          update value $place/ancestor::*//tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:date with current-dateTime()
           )
-        } catch * {
-        <p>{
-            (string($id), "Error:", $err:code)
-        }</p>
 };
 
 let $cache := 'cache'
-return <div>{local:get-places()}</div>
+(: Need to add a sucess message if no error codes. 
+xmldb:get-current-user() 
+:)
+return <div>{local:link-related-names()}</div> 
 (:
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -205,13 +266,35 @@ return <div>{local:get-places()}</div>
         </div>
         <div id="content">
         <div class="row-fluid" style="margin:4em;">
-            <div class="span12 offset">
+            <div class="span12">
                 <form>
-                    <p>Run Syriac Computed Dates to add @syriac-computed-start and @syriac-computed-end dates. </p>
                     <button type="text" name="option" value="dates" class="btn btn-info">Run Syriac Computed Dates</button>
+                    <p class="text-info">
+                        Inserts Syriac computed dates into data for search by date function.</p>
+                   <div class="well" style="display:block; width:70%;font-size:.75em; margin:.5em 1em 1em; padding:.5em;">
+                        Adds @syriac-computed-start generated from @when, @from, and @notBefore<br/>
+                        Adds @syriac-computed-end generated from @to and @notAfter
+                    </div>
+                    <button type="text" name="option" value="pleiades-loc" class="btn btn-info">Insert Pleiades Location Data</button>
+                    <p class="text-info">
+                        Inserts Pleiades location data. Generated from /data/places/Pleiades-Grabber-Results-Edited.xml.</p>
+
+<pre style="display:block; width:70%;font-size:.7em; margin:.5em;padding:.5em;">   &lt;location type="gps" source="#bibPLACEID-BIBNO"&gt;
+        &lt;geo&gt;LAT LONG&lt;/geo&gt;
+    &lt;/location&gt;
+    &lt;bibl xml:id="bibPLACEID-BIBNO"&gt;
+        &lt;title&gt;http://pleiades.stoa.org/places/PLEIADESID&lt;/title&gt;
+        &lt;ptr target="http://pleiades.stoa.org/places/PLEIADESID"/&gt;
+    &lt;/bibl&gt;
+    &lt;change who="http://syriaca.org/editors.xml#EDITOR" when="CURRENT_DATE"&gt;
+        ADDED: latitude and longitude from Pleiades
+    &lt;/change&gt;
+</pre>
+
                 </form>
                 {
                     if(exists($option) and $option = 'dates') then local:add-custom-dates()
+                    else if(exists($option) and $option = 'pleiades-loc') then local:update-locations()
                     else ''
                 }            
             </div>

@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-13-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,6 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -111,6 +112,15 @@
                     <desc xml:lang="en">
                         <quote source="#bib437-3">an ancient city in the easternmost part of Macedonia; it lay in ruins after the thirteenth century.</quote>
                     </desc>
+                    <location type="gps" source="#bib437-5">
+                        <geo>41.012021 24.285182</geo>
+                    </location>
+                    <location type="gps" source="#bib437-4">
+                        <geo>41.012021 24.285182</geo>
+                    </location>
+                    <location xmlns="" type="gps" source="#bib437-4">
+                        <geo>41.012021 24.285182</geo>
+                    </location>
                     <state type="existence" from="-0356" to="1300" syriaca-computed-end="1300-01-01" syriaca-computed-start="-0356-01-01">
                         <precision match="@to" notBefore="1300" syriaca-computed-start="1300-01-01"/>
                     </state>
@@ -132,6 +142,18 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib437-4">
+                        <title>http://pleiades.stoa.org/places/501482</title>
+                        <ptr target="http://pleiades.stoa.org/places/501482"/>
+                    </bibl>
+                    <bibl xml:id="bib437-5">
+                        <title>http://pleiades.stoa.org/places/501482</title>
+                        <ptr target="http://pleiades.stoa.org/places/501482"/>
+                    </bibl>
+                    <bibl xmlns="" xml:id="bib437-4">
+                        <title>http://pleiades.stoa.org/places/501482</title>
+                        <ptr target="http://pleiades.stoa.org/places/501482"/>
                     </bibl>
                 </place>
             </listPlace>

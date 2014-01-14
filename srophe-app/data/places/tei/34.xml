@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-13-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,6 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -105,6 +106,15 @@
                     <placeName xml:id="name34-9" xml:lang="en" source="#bib34-5">Elam</placeName>
                     <placeName xml:id="name34-10" xml:lang="en" source="#bib34-6">ʿĪlām</placeName>
                     <desc xml:id="abstract-en-34" xml:lang="en">A diocese of the Church of the East, also known as Elam, centered around Beth Lapaṭ.</desc>
+                    <location type="gps" source="#bib34-8">
+                        <geo>31.5 48.5</geo>
+                    </location>
+                    <location type="gps" source="#bib34-7">
+                        <geo>31.5 48.5</geo>
+                    </location>
+                    <location xmlns="" type="gps" source="#bib34-7">
+                        <geo>31.5 48.5</geo>
+                    </location>
                     <state type="existence" from="0410" to="1318" syriaca-computed-end="1318-01-01" syriaca-computed-start="0410-01-01">
                         <precision match="@from" notAfter="0410" syriaca-computed-end="0410-01-01"/>
                         <precision match="@to" notAfter="1430" notBefore="1318" syriaca-computed-end="1430-01-01" syriaca-computed-start="1318-01-01"/>
@@ -151,6 +161,18 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">40, 175, 193, 342, 343, 346</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib34-7">
+                        <title>http://pleiades.stoa.org/places/912823</title>
+                        <ptr target="http://pleiades.stoa.org/places/912823"/>
+                    </bibl>
+                    <bibl xml:id="bib34-8">
+                        <title>http://pleiades.stoa.org/places/912823</title>
+                        <ptr target="http://pleiades.stoa.org/places/912823"/>
+                    </bibl>
+                    <bibl xmlns="" xml:id="bib34-7">
+                        <title>http://pleiades.stoa.org/places/912823</title>
+                        <ptr target="http://pleiades.stoa.org/places/912823"/>
                     </bibl>
                 </place>
             </listPlace>

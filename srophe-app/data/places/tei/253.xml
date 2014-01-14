@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-13-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,6 +65,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -74,6 +75,15 @@
                 <place xml:id="place-253" type="settlement">
                     <placeName xml:id="name253-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib253-1 #bib253-2">Penek</placeName>
                     <desc xml:id="abstract-en-253" xml:lang="en">A town on the <placeName ref="http://syriaca.org/place/202">Tigris</placeName> northwest of <placeName ref="http://syriaca.org/place/88">Gazarta</placeName>.</desc>
+                    <location type="gps" source="#bib253-4">
+                        <geo>37.445274 42.052515</geo>
+                    </location>
+                    <location type="gps" source="#bib253-3">
+                        <geo>37.445274 42.052515</geo>
+                    </location>
+                    <location xmlns="" type="gps" source="#bib253-3">
+                        <geo>37.445274 42.052515</geo>
+                    </location>
                     <location type="nested" source="#bib253-2">
                         <region ref="http://syriaca.org/place/786">Tigris Valley</region>
                         <region ref="http://syriaca.org/place/712">Gāzartā region</region>
@@ -95,6 +105,18 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">100, 115</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib253-3">
+                        <title>http://pleiades.stoa.org/places/874648</title>
+                        <ptr target="http://pleiades.stoa.org/places/874648"/>
+                    </bibl>
+                    <bibl xml:id="bib253-4">
+                        <title>http://pleiades.stoa.org/places/874648</title>
+                        <ptr target="http://pleiades.stoa.org/places/874648"/>
+                    </bibl>
+                    <bibl xmlns="" xml:id="bib253-3">
+                        <title>http://pleiades.stoa.org/places/874648</title>
+                        <ptr target="http://pleiades.stoa.org/places/874648"/>
                     </bibl>
                 </place>
             </listPlace>

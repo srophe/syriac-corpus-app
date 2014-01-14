@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-13-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,6 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -114,6 +115,15 @@
                     <desc xml:lang="en">
                         <quote source="#bib31-5">a small territory between Nisibin and Sinjar.</quote>
                     </desc>
+                    <location type="gps" source="#bib31-8">
+                        <geo>36.5 41.5</geo>
+                    </location>
+                    <location type="gps" source="#bib31-7">
+                        <geo>36.5 41.5</geo>
+                    </location>
+                    <location xmlns="" type="gps" source="#bib31-7">
+                        <geo>36.5 41.5</geo>
+                    </location>
                     <state type="existence" from="0559" to="0559" syriaca-computed-end="0559-01-01" syriaca-computed-start="0559-01-01">
                         <precision match="@from" notAfter="0559" syriaca-computed-end="0559-01-01"/>
                         <precision match="@to" notBefore="0559" syriaca-computed-start="0559-01-01"/>
@@ -155,6 +165,18 @@
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Bet Arabaye&amp;sT=keywords">Bet Arabaye</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib31-7">
+                        <title>http://pleiades.stoa.org/places/874340</title>
+                        <ptr target="http://pleiades.stoa.org/places/874340"/>
+                    </bibl>
+                    <bibl xml:id="bib31-8">
+                        <title>http://pleiades.stoa.org/places/874340</title>
+                        <ptr target="http://pleiades.stoa.org/places/874340"/>
+                    </bibl>
+                    <bibl xmlns="" xml:id="bib31-7">
+                        <title>http://pleiades.stoa.org/places/874340</title>
+                        <ptr target="http://pleiades.stoa.org/places/874340"/>
                     </bibl>
                 </place>
             </listPlace>

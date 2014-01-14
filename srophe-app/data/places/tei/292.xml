@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-13-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,6 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -109,6 +110,15 @@
                     <desc xml:lang="en">
                         <quote source="#bib292-3">a town fifty miles south of Samsun, on the bank of Yeşil Irmak.</quote>
                     </desc>
+                    <location type="gps" source="#bib292-5">
+                        <geo>40.6549427 35.8280877</geo>
+                    </location>
+                    <location type="gps" source="#bib292-4">
+                        <geo>40.6549427 35.8280877</geo>
+                    </location>
+                    <location xmlns="" type="gps" source="#bib292-4">
+                        <geo>40.6549427 35.8280877</geo>
+                    </location>
                     <state type="existence" from="-0183" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0183-01-01">
                         <precision match="@from" notAfter="-0183" syriaca-computed-end="-0183-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -132,6 +142,18 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">551</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib292-4">
+                        <title>http://pleiades.stoa.org/places/857018</title>
+                        <ptr target="http://pleiades.stoa.org/places/857018"/>
+                    </bibl>
+                    <bibl xml:id="bib292-5">
+                        <title>http://pleiades.stoa.org/places/857018</title>
+                        <ptr target="http://pleiades.stoa.org/places/857018"/>
+                    </bibl>
+                    <bibl xmlns="" xml:id="bib292-4">
+                        <title>http://pleiades.stoa.org/places/857018</title>
+                        <ptr target="http://pleiades.stoa.org/places/857018"/>
                     </bibl>
                 </place>
             </listPlace>

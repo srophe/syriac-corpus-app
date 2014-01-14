@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-13-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,6 +61,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -75,6 +76,15 @@
                     <desc xml:lang="en">
                         <quote source="#bib161-1">439. Qara</quote>
                     </desc>
+                    <location type="gps" source="#bib161-5">
+                        <geo>34.16826385 36.75343335</geo>
+                    </location>
+                    <location type="gps" source="#bib161-4">
+                        <geo>34.16826385 36.75343335</geo>
+                    </location>
+                    <location xmlns="" type="gps" source="#bib161-4">
+                        <geo>34.16826385 36.75343335</geo>
+                    </location>
                     <state type="existence" from="0300" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0300-01-01">
                         <precision match="@from" notAfter="0300" syriaca-computed-end="0300-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -103,6 +113,18 @@
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qara&amp;sT=keywords">Qara</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib161-4">
+                        <title>http://pleiades.stoa.org/places/668221</title>
+                        <ptr target="http://pleiades.stoa.org/places/668221"/>
+                    </bibl>
+                    <bibl xml:id="bib161-5">
+                        <title>http://pleiades.stoa.org/places/668221</title>
+                        <ptr target="http://pleiades.stoa.org/places/668221"/>
+                    </bibl>
+                    <bibl xmlns="" xml:id="bib161-4">
+                        <title>http://pleiades.stoa.org/places/668221</title>
+                        <ptr target="http://pleiades.stoa.org/places/668221"/>
                     </bibl>
                 </place>
             </listPlace>

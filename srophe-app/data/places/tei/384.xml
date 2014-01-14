@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-13-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,6 +95,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -126,6 +127,15 @@
                     <desc xml:lang="en">
                         <quote source="#bib384-3">believed to be in Tur ʿAbdin, was also called Beth Gugi Monastery. It remained active until the beginning of the sixth century, but then was deserted. On its ruins the Nestorian monastery of Abraham of Kashkar was built, but it was regained by the Syrians at the beginning of the nineteenth century. They also regained possession of the Monastery of St. John Ṭayoyo, near the Monastery of St. Eugene, and renovated both of these monasteries.</quote>
                     </desc>
+                    <location type="gps" source="#bib384-7">
+                        <geo>37.211579 41.473406</geo>
+                    </location>
+                    <location type="gps" source="#bib384-6">
+                        <geo>37.211579 41.473406</geo>
+                    </location>
+                    <location xmlns="" type="gps" source="#bib384-6">
+                        <geo>37.211579 41.473406</geo>
+                    </location>
                     <location type="nested" source="#bib384-5">
                         <region ref="http://syriaca.org/place/723">Nisibis region</region>
                     </location>
@@ -163,6 +173,18 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">38, 43, 353, 354</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib384-6">
+                        <title>http://pleiades.stoa.org/places/874578</title>
+                        <ptr target="http://pleiades.stoa.org/places/874578"/>
+                    </bibl>
+                    <bibl xml:id="bib384-7">
+                        <title>http://pleiades.stoa.org/places/874578</title>
+                        <ptr target="http://pleiades.stoa.org/places/874578"/>
+                    </bibl>
+                    <bibl xmlns="" xml:id="bib384-6">
+                        <title>http://pleiades.stoa.org/places/874578</title>
+                        <ptr target="http://pleiades.stoa.org/places/874578"/>
                     </bibl>
                 </place>
             </listPlace>

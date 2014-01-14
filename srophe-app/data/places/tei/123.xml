@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-13-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,6 +65,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -77,6 +78,15 @@
                     <placeName xml:id="name123-3" xml:lang="en" source="#bib123-3">Maishān</placeName>
                     <placeName xml:id="name123-4" xml:lang="en" source="#bib123-3">Basra</placeName>
                     <desc xml:id="abstract-en-123" xml:lang="en">A region of southern <placeName ref="http://syriaca.org/place/98">Iraq</placeName> south of <placeName ref="http://syriaca.org/place/111">Kashkar</placeName> and northwest of <placeName ref="http://syriaca.org/place/44">Baṣra</placeName>.</desc>
+                    <location type="gps" source="#bib123-5">
+                        <geo>30.8093425 47.562804</geo>
+                    </location>
+                    <location type="gps" source="#bib123-4">
+                        <geo>30.8093425 47.562804</geo>
+                    </location>
+                    <location xmlns="" type="gps" source="#bib123-4">
+                        <geo>30.8093425 47.562804</geo>
+                    </location>
                     <state type="existence" from="0226" to="0637" syriaca-computed-end="0637-01-01" syriaca-computed-start="0226-01-01">
                         <precision match="@from" notAfter="0226" syriaca-computed-end="0226-01-01"/>
                         <precision match="@to" notBefore="0637" syriaca-computed-start="0637-01-01"/>
@@ -106,6 +116,18 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">17, 344</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib123-4">
+                        <title>http://pleiades.stoa.org/places/912905</title>
+                        <ptr target="http://pleiades.stoa.org/places/912905"/>
+                    </bibl>
+                    <bibl xml:id="bib123-5">
+                        <title>http://pleiades.stoa.org/places/912905</title>
+                        <ptr target="http://pleiades.stoa.org/places/912905"/>
+                    </bibl>
+                    <bibl xmlns="" xml:id="bib123-4">
+                        <title>http://pleiades.stoa.org/places/912905</title>
+                        <ptr target="http://pleiades.stoa.org/places/912905"/>
                     </bibl>
                 </place>
             </listPlace>

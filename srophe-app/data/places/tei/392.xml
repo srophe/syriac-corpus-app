@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2013-12-18-05:00</date>
+                <date>2014-01-13-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,6 +95,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change xmlns="" who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-13-05:00">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -119,6 +120,15 @@
                     <desc xml:lang="en">
                         <quote source="#bib392-4">in Tur ʿAbdin, near the villages of Arkaḥ and Badabbah. This monastery was built about the sixth century and became a bishopric see in the fourteenth century, but was finally destroyed in 1926. It produced ten bishops.</quote>
                     </desc>
+                    <location type="gps" source="#bib392-8">
+                        <geo>37.231912 41.411144</geo>
+                    </location>
+                    <location type="gps" source="#bib392-7">
+                        <geo>37.231912 41.411144</geo>
+                    </location>
+                    <location xmlns="" type="gps" source="#bib392-7">
+                        <geo>37.231912 41.411144</geo>
+                    </location>
                     <location type="nested" source="#bib392-6">
                         <region ref="http://syriaca.org/place/723">Nisibis region</region>
                     </location>
@@ -160,6 +170,18 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">43</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib392-7">
+                        <title>http://pleiades.stoa.org/places/874582</title>
+                        <ptr target="http://pleiades.stoa.org/places/874582"/>
+                    </bibl>
+                    <bibl xml:id="bib392-8">
+                        <title>http://pleiades.stoa.org/places/874582</title>
+                        <ptr target="http://pleiades.stoa.org/places/874582"/>
+                    </bibl>
+                    <bibl xmlns="" xml:id="bib392-7">
+                        <title>http://pleiades.stoa.org/places/874582</title>
+                        <ptr target="http://pleiades.stoa.org/places/874582"/>
                     </bibl>
                 </place>
             </listPlace>
