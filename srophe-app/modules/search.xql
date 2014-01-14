@@ -108,7 +108,7 @@ declare function search:event-dates(){
             concat('[descendant::tei:event[@type != "attestation" or not(@type)][(@syriaca-computed-start gt "',search:do-date($search:eds),'" and @syriaca-computed-end lt "',search:do-date($search:ede),'") or (@syriaca-computed-start gt "',search:do-date($search:eds),'" and not(@syriaca-computed-end))]]')
         else concat('[descendant::tei:event[@type != "attestation" or not(@type)][@syriaca-computed-start gt "',search:do-date($search:eds),'"]]') 
     else if (exists($search:ede) and $search:ede != '') then 
-        concat('[descendant::tei:event[@type != "attestation" or not(@type)][@syriaca-computed-end lt "',search:do-date($search:ede),'"]]')
+        concat('[descendant::tei:state[@type != "attestation" or not(@type)][@syriaca-computed-end lt "',search:do-date($search:cde),'" or @syriaca-computed-start lt "',search:do-date($search:cde),'" and not(@syriaca-computed-end)]]')
     else ''
 };
 
@@ -130,10 +130,10 @@ declare function search:attestation(){
 declare function search:attestation-dates(){
     if(exists($search:ads) and $search:ads != '') then 
         if(exists($search:ade) and $search:ade != '') then 
-             concat('[descendant::tei:event[@type != "attestation" or not(@type)][(@syriaca-computed-start gt "',search:do-date($search:ads),'" and @syriaca-computed-end lt "',search:do-date($search:ade),'") or (@syriaca-computed-start gt "',search:do-date($search:ads),'" and not(@syriaca-computed-end))]]')
+             concat('[descendant::tei:event[@type = "attestation"][(@syriaca-computed-start gt "',search:do-date($search:ads),'" and @syriaca-computed-end lt "',search:do-date($search:ade),'") or (@syriaca-computed-start gt "',search:do-date($search:ads),'" and not(@syriaca-computed-end))]]')
         else concat('[descendant::tei:event[@type = "attestation"][@syriaca-computed-start gt "',search:do-date($search:ads),'"]]') 
     else if (exists($search:ade) and $search:ade != '') then 
-        concat('[descendant::tei:event[@type = "attestation"][@syriaca-computed-end lt "',search:do-date($search:ade),'"]]')
+        concat('[descendant::tei:state[@type = "attestation"][@syriaca-computed-end lt "',search:do-date($search:cde),'" or @syriaca-computed-start lt "',search:do-date($search:cde),'" and not(@syriaca-computed-end)]]')
     else ''
 };
 
@@ -151,14 +151,15 @@ declare function search:confession(){
  : tei:state[@type = confession]
  : @ads confession start range index
  : @ade confession end range index
+concat('[descendant::tei:state[@type = "confession"][@syriaca-computed-end lt "',search:do-date($search:cde),'"]]')
 :)
 declare function search:confession-dates(){
     if(exists($search:cds) and $search:cds != '') then 
         if(exists($search:cde) and $search:cde != '') then 
-            concat('[descendant::tei:event[@type != "attestation" or not(@type)][(@syriaca-computed-start gt "',search:do-date($search:cds),'" and @syriaca-computed-end lt "',search:do-date($search:cde),'") or (@syriaca-computed-start gt "',search:do-date($search:cds),'" and not(@syriaca-computed-end))]]')
+            concat('[descendant::tei:event[@type = "confession"][(@syriaca-computed-start gt "',search:do-date($search:cds),'" and @syriaca-computed-end lt "',search:do-date($search:cde),'") or (@syriaca-computed-start gt "',search:do-date($search:cds),'" and not(@syriaca-computed-end))]]')
         else concat('[descendant::tei:state[@type = "confession"][@syriaca-computed-start gt "',search:do-date($search:cds),'"]]') 
     else if (exists($search:cde) and $search:cde != '') then 
-        concat('[descendant::tei:state[@type = "confession"][@syriaca-computed-end lt "',search:do-date($search:cde),'"]]')
+        concat('[descendant::tei:state[@type = "confession"][@syriaca-computed-end lt "',search:do-date($search:cde),'" or @syriaca-computed-start lt "',search:do-date($search:cde),'" and not(@syriaca-computed-end)]]')
     else ''
 };
 
@@ -180,10 +181,10 @@ declare function search:existence(){
 declare function search:existence-dates(){
     if(exists($search:existds) and $search:existds != '') then 
         if(exists($search:existde) and $search:existde != '') then 
-            concat('[descendant::tei:event[@type != "attestation" or not(@type)][(@syriaca-computed-start gt "',search:do-date($search:existds),'" and @syriaca-computed-end lt "',search:do-date($search:existde),'") or (@syriaca-computed-start gt "',search:do-date($search:existds),'" and not(@syriaca-computed-end))]]')
+            concat('[descendant::tei:event[@type = "existence" or not(@type)][(@syriaca-computed-start gt "',search:do-date($search:existds),'" and @syriaca-computed-end lt "',search:do-date($search:existde),'") or (@syriaca-computed-start gt "',search:do-date($search:existds),'" and not(@syriaca-computed-end))]]')
         else concat('[descendant::tei:state[@type = "existence"][@syriaca-computed-start gt "',search:do-date($search:existds),'"]]') 
-    else if (exists($search:existde) and $search:existde != '') then 
-        concat('[descendant::tei:state[@type = "existence"][@syriaca-computed-end lt "',search:do-date($search:existde),'"]]')
+    else if (exists($search:existde) and $search:existde != '') then
+            concat('[descendant::tei:state[@type = "existence"][@syriaca-computed-end lt "',search:do-date($search:cde),'" or @syriaca-computed-start lt "',search:do-date($search:cde),'" and not(@syriaca-computed-end)]]')
     else ''
 };
 
