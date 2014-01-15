@@ -252,12 +252,23 @@ declare function local:link-related-names(){
 declare function local:add-change-log($doc){
 (:/TEI/teiHeader/fileDesc/publicationStmt/date:)
        (update insert 
-            <change xmlns="http://www.tei-c.org/ns/1.0" who="http://syriaca.org/editors.xml#{$editor}" when="{current-dateTime()}">
+            <change xmlns="http://www.tei-c.org/ns/1.0" who="http://syriaca.org/editors.xml#{$editor}" when="{current-date()}">
                 {$comment}
             </change>
           preceding $doc/ancestor::*//tei:teiHeader/tei:revisionDesc/tei:change[1],
-          update value $doc/ancestor::*//tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:date with current-dateTime()
+          update value $doc/ancestor::*//tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:date with current-date()
           )
+};
+
+declare function local:trim-dates(){
+   for $doc in collection('/db/apps/srophe/data/places/tei')//tei:teiHeader
+   return 
+    update value $doc//tei:fileDesc/tei:publicationStmt/tei:date with current-date()
+   (:add test for when-custom so I don't add it repeatedly
+        for $change-date in $doc//tei:change[contains(@when,'T')] 
+        return 
+            update value $change-date/@when with substring-before($change-date/@when,'T')
+            :)
 };
 
 let $cache := 'cache'
@@ -278,7 +289,7 @@ This one is run with paging because it is too memory intensive otherwise
 local:link-related-names()
 ADDED: relation element with shares-name-with attribute for all place headwords that share names
 :)
-return <div>You can not run this data, ask Winona for permission</div> 
+return <div>{local:trim-dates()}: You can not run this data, ask Winona for permission</div> 
 (:
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
