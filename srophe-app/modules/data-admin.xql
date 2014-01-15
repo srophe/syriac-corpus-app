@@ -201,7 +201,7 @@ declare function local:update-locations(){
                          (string($id), "Error:", $err:code)
                      }</p>
                  },
-                local:add-change-log($doc))
+                local:add-change-log($doc),<p>{$doc-id}</p>)
                 
 };
 (:
@@ -223,12 +223,14 @@ declare function local:related-data($doc-id,$doc-name){
 
 declare function local:link-related-names(){
     let $docs-all := for $docs in collection('/db/apps/srophe/data/places/tei')//tei:place[tei:placeName[@syriaca-tags='#syriaca-headword']] return $docs
-    for $doc at $p in subsequence($docs-all, 1, 500)
+    for $doc at $p in subsequence($docs-all, 2600, 100)
     let $doc-name := $doc/tei:placeName[@syriaca-tags='#syriaca-headword'][1]/text()
     let $doc-id := $doc/@xml:id
     return 
         if(count(local:related-data($doc-id,$doc-name)) gt 0) then 
-             <relation name="shares-name-with" mutual="#place{(substring-after($doc-id,'place-'), local:related-data($doc-id,$doc-name))}"/>       
+            (update insert 
+                <relation xmlns="http://www.tei-c.org/ns/1.0" name="shares-name-with" mutual="#place{(substring-after($doc-id,'place-'), local:related-data($doc-id,$doc-name))}"/>
+            following $doc, local:add-change-log($doc),<p>{$doc-id}</p>)       
          else ''
 };          
 
@@ -259,8 +261,24 @@ declare function local:add-change-log($doc){
 };
 
 let $cache := 'cache'
-(: Need to add a sucess message if no error codes. xmldb:get-current-user() :)
-return <div>{local:update-locations()}</div> 
+(: Need to add a sucess message if no error codes.
+
+(session:create(),
+xmldb:login('/db/apps/srophe/', 'admin', '', true()))
+
+xmldb:get-current-user() 
+
+local:add-custom-dates()
+ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching
+
+local:update-locations()
+ADDED: latitude and longitude from Pleiades
+
+This one is run with paging because it is too memory intensive otherwise
+local:link-related-names()
+ADDED: relation element with shares-name-with attribute for all place headwords that share names
+:)
+return <div>You can not run this data, ask Winona for permission</div> 
 (:
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>

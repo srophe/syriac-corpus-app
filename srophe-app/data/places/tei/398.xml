@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14T11:06:04.031-05:00</date>
+                <date>2014-01-14T21:40:34.242-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:40:34.242-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:36:54.36-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -117,6 +118,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib398-3">in the Mount of Edessa, an hour and a half south of the city. It was built in the fifth century and was mentioned by John of Ephesus in his history in 519.  It was renovated by its abbot, John of Sarug, who was elevated to the office of Maphryono of the East in 1164. It remained inhabited until 1223. Its ruins are still visible.</quote>
                     </desc>
+                    <location type="gps" source="#bib398-4">
+                        <geo>37.105188 38.90284</geo>
+                    </location>
                     <state type="existence" from="0500" to="1223" syriaca-computed-end="1223-01-01" syriaca-computed-start="0500-01-01">
                         <precision match="@from" notAfter="0500" notBefore="0400" syriaca-computed-end="0500-01-01" syriaca-computed-start="0400-01-01"/>
                         <precision match="@to" notAfter="1943" notBefore="1223" syriaca-computed-end="1943-01-01" syriaca-computed-start="1223-01-01"/>
@@ -138,6 +142,10 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">565</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib398-4">
+                        <title>http://pleiades.stoa.org/places/658527</title>
+                        <ptr target="http://pleiades.stoa.org/places/658527"/>
                     </bibl>
                 </place>
             </listPlace>

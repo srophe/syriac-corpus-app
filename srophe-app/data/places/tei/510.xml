@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14T11:06:04.031-05:00</date>
+                <date>2014-01-14T21:40:34.242-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,7 +78,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:40:34.242-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:36:54.36-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -91,6 +92,9 @@
                     <placeName xml:id="name510-3" xml:lang="syr-Syrj" source="#bib510-1">ܬܳܘܩܰܐܬ</placeName>
                     <placeName xml:id="name510-4" xml:lang="ar" source="#bib510-2">توقات</placeName>
                     <desc xml:id="abstract-en-510" xml:lang="en">A city of north-central <placeName ref="http://syriaca.org/place/504">Anatolia</placeName>.</desc>
+                    <location type="gps" source="#bib510-4">
+                        <geo>40.317677 36.549116</geo>
+                    </location>
                     <state type="existence" from="-0030" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0030-01-01">
                         <precision match="@from" notAfter="-0030" syriaca-computed-end="-0030-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -113,6 +117,10 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib510-4">
+                        <title>http://pleiades.stoa.org/places/857105</title>
+                        <ptr target="http://pleiades.stoa.org/places/857105"/>
                     </bibl>
                 </place>
             </listPlace>

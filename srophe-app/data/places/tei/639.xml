@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14T11:06:04.031-05:00</date>
+                <date>2014-01-14T21:40:34.242-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,7 +61,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:40:34.242-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:36:54.36-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -71,6 +72,9 @@
                 <place xml:id="place-639" type="settlement">
                     <placeName xml:id="name639-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib639-1">Qumran</placeName>
                     <desc xml:id="abstract-en-639" xml:lang="en">A settlement near the Dead Sea.</desc>
+                    <location type="gps" source="#bib639-2">
+                        <geo>31.741828 35.459407</geo>
+                    </location>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/639</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/688011/</idno>
@@ -82,6 +86,10 @@
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qumran&amp;sT=keywords">Qumran</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib639-2">
+                        <title>http://pleiades.stoa.org/places/688011</title>
+                        <ptr target="http://pleiades.stoa.org/places/688011"/>
                     </bibl>
                 </place>
             </listPlace>

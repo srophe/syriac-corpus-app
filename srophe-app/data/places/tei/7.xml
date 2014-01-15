@@ -51,7 +51,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14T11:06:04.031-05:00</date>
+                <date>2014-01-14T21:40:34.242-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -83,7 +83,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:40:34.242-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:36:54.36-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -97,6 +98,9 @@
                     <placeName xml:id="name7-4" xml:lang="ar" source="#bib7-3">مصر</placeName>
                     <placeName xml:id="name7-5" xml:lang="en" source="#bib7-4 #bib7-5">Egypt</placeName>
                     <desc xml:id="abstract-en-7" xml:lang="en">The Roman province of Egypt</desc>
+                    <location type="gps" source="#bib7-6">
+                        <geo>27.5 27.5</geo>
+                    </location>
                     <state type="existence" from="-0030" to="0646" syriaca-computed-end="0646-01-01" syriaca-computed-start="-0030-01-01">
                         <precision match="@to" notAfter="0646" syriaca-computed-end="0646-01-01"/>
                     </state>
@@ -131,6 +135,10 @@
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Egypt&amp;sT=keywords">Egypt</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib7-6">
+                        <title>http://pleiades.stoa.org/places/981503</title>
+                        <ptr target="http://pleiades.stoa.org/places/981503"/>
                     </bibl>
                 </place>
             </listPlace>

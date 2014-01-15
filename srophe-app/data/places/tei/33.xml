@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14T11:06:04.031-05:00</date>
+                <date>2014-01-14T21:40:34.242-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:40:34.242-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:36:54.36-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -109,6 +110,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib33-1">99. Beth Garmai</quote>
                     </desc>
+                    <location type="gps" source="#bib33-8">
+                        <geo>35.5 44.5</geo>
+                    </location>
                     <state type="existence" from="0410" to="1318" syriaca-computed-end="1318-01-01" syriaca-computed-start="0410-01-01">
                         <precision match="@from" notAfter="0410" syriaca-computed-end="0410-01-01"/>
                         <precision match="@to" notAfter="1430" notBefore="1318" syriaca-computed-end="1430-01-01" syriaca-computed-start="1318-01-01"/>
@@ -158,6 +162,10 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">17, 127, 174-175, 178, 342, 344, 345, 346</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib33-8">
+                        <title>http://pleiades.stoa.org/places/893999</title>
+                        <ptr target="http://pleiades.stoa.org/places/893999"/>
                     </bibl>
                 </place>
             </listPlace>

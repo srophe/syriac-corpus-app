@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14T11:06:04.031-05:00</date>
+                <date>2014-01-14T21:40:34.242-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,7 +95,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:40:34.242-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:36:54.36-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -125,6 +126,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib221-5">a mountain connected with the mountain of Izla, which overlooks Nisibin. The territory of the same name harbors a great number of monasteries and cells, as well as some fifty villages large and small. Two-thirds of the inhabitants of these villages are Syrian Christians; the rest are Muslims and Yezidis. The capital of Tur ʿAbdin is Midyat.  Following are the names of the villages mentioned in our book: to the east of Tur ʿAbdin are situated Anḥil, Fifyath and Qarṭmin; to the west are Bāti, Habsnas, Salaḥ, ʿUrnus, ʿAynward, Kafra, Kafarze, Kafrsalta, Kafrshami and Kandarib; to the north are Ālīn, Baqsyan, Ḥaḥ, Ḥiṣn Kifa, Dayr Ṣalib, Zāz and Karburan; to the south are Arbo, Badebe, Basibrina, Banimʿim, Tamars, Ḥbob, Sari Awastir, ʿArban and Meddo.&#160; The ruined villages and those whose location is unknown, are Ḥāliḥ, Zabdīqā, Kafryab and Kalasht.</quote>
                     </desc>
+                    <location type="gps" source="#bib221-8">
+                        <geo>37.5 41.5</geo>
+                    </location>
                     <state type="existence" from="0400" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0400-01-01">
                         <precision match="@from" notAfter="0400" syriaca-computed-end="0400-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -174,6 +178,10 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">38, 39, 40, 43, 44, 109</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib221-8">
+                        <title>http://pleiades.stoa.org/places/874477</title>
+                        <ptr target="http://pleiades.stoa.org/places/874477"/>
                     </bibl>
                 </place>
             </listPlace>

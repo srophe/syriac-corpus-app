@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14T11:06:04.031-05:00</date>
+                <date>2014-01-14T21:40:34.242-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:40:34.242-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:36:54.36-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-01-10">ADDED: disambiguation note</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -110,6 +111,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib205-4">a ruined town on the Euphrates, near Samosata.</quote>
                     </desc>
+                    <location type="gps" source="#bib205-5">
+                        <geo>37.110367 37.86555</geo>
+                    </location>
                     <state type="existence" from="-0030" to="0845" syriaca-computed-end="0845-01-01" syriaca-computed-start="-0030-01-01">
                         <precision match="@from" notAfter="-0030" syriaca-computed-end="-0030-01-01"/>
                         <precision match="@to" notBefore="0845" syriaca-computed-start="0845-01-01"/>
@@ -136,6 +140,10 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib205-5">
+                        <title>http://pleiades.stoa.org/places/658562</title>
+                        <ptr target="http://pleiades.stoa.org/places/658562"/>
                     </bibl>
                 </place>
             </listPlace>

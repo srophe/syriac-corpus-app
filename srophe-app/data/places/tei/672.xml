@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14T11:06:04.031-05:00</date>
+                <date>2014-01-14T21:40:34.242-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,7 +61,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:40:34.242-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:36:54.36-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -71,6 +72,9 @@
                 <place xml:id="place-672" type="settlement">
                     <placeName xml:id="name672-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib672-1">Arragan</placeName>
                     <desc xml:id="abstract-en-672" xml:lang="en">A village in <placeName ref="http://syriaca.org/place/84">Fars</placeName>.</desc>
+                    <location type="gps" source="#bib672-2">
+                        <geo>30.662826 50.309141</geo>
+                    </location>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/672</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/912989</idno>
@@ -78,6 +82,10 @@
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">441</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib672-2">
+                        <title>http://pleiades.stoa.org/places/912989</title>
+                        <ptr target="http://pleiades.stoa.org/places/912989"/>
                     </bibl>
                 </place>
             </listPlace>

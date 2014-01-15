@@ -51,7 +51,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14T11:06:04.031-05:00</date>
+                <date>2014-01-14T21:40:34.242-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -83,7 +83,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:40:34.242-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:36:54.36-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -97,6 +98,9 @@
                     <placeName xml:id="name135-4" xml:lang="ar" source="#bib135-3">بحر الروم</placeName>
                     <placeName xml:id="name135-5" xml:lang="en" source="#bib135-4">Mediterranean</placeName>
                     <desc xml:id="abstract-en-135" xml:lang="en">The large sea which divides Europe from Africa and whose eastern waters reach Anatolia, Syria, and Egypt.</desc>
+                    <location type="gps" source="#bib135-5">
+                        <geo>35.0000035 19.9999957</geo>
+                    </location>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/135</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/1043</idno>
@@ -121,6 +125,10 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib135-5">
+                        <title>http://pleiades.stoa.org/places/1043</title>
+                        <ptr target="http://pleiades.stoa.org/places/1043"/>
                     </bibl>
                 </place>
             </listPlace>

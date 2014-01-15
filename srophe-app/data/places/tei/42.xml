@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14T11:06:04.031-05:00</date>
+                <date>2014-01-14T21:51:18.501-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,7 +91,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T11:06:04.031-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:51:18.501-05:00">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:40:34.242-05:00">ADDED: latitude and longitude from Pleiades</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14T21:36:54.36-05:00">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -122,6 +124,9 @@
                     <desc xml:lang="en">
                         <quote source="#bib42-5">an ancient town above Mosul on the western bank of the Tigris, ruined in the fourteenth century. It is now called Eski Mosul.</quote>
                     </desc>
+                    <location type="gps" source="#bib42-8">
+                        <geo>36.514152 42.726566</geo>
+                    </location>
                     <state type="existence" from="0559" to="1318" syriaca-computed-end="1318-01-01" syriaca-computed-start="0559-01-01">
                         <precision match="@from" notAfter="0559" syriaca-computed-end="0559-01-01"/>
                         <precision match="@to" notAfter="1985" notBefore="1318" syriaca-computed-end="1985-01-01" syriaca-computed-start="1318-01-01"/>
@@ -170,7 +175,12 @@
                         <citedRange unit="pp">44, 49</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
+                    <bibl xml:id="bib42-8">
+                        <title>http://pleiades.stoa.org/places/874379</title>
+                        <ptr target="http://pleiades.stoa.org/places/874379"/>
+                    </bibl>
                 </place>
+                <relation name="shares-name-with" mutual="#place42  http://syriaca.org/place/2268"/>
             </listPlace>
         </body>
     </text>
