@@ -7,9 +7,13 @@
             <!-- Should maybe not index placeName, location, state or event?-->
             <text qname="tei:place"/>
             <text qname="tei:placeName" boost="2.0"/>
+            <text qname="tei:location" boost=".5"/>
+            <text qname="tei:desc" boost="1.5"/>
+            <!--
             <text qname="tei:location">
                 <ignore qname="tei:geo"/>
             </text>
+            -->
             <text qname="tei:state"/>
             <text qname="tei:event"/>
         </lucene>
@@ -25,6 +29,7 @@
         <!--        <create qname="tei:item" type="xs:string"/>-->
         <!--        <create qname="tei:link" type="xs:string"/>-->
         <create qname="tei:geo" type="xs:string"/>
+        <create qname="tei:placeName" type="xs:string"/>
         <!--        <create qname="tei:region" type="xs:string"/>-->
         <create qname="tei:relation" type="xs:string"/>
     </index>

@@ -5,11 +5,12 @@
             <div class="span10 offset1">
                 <h2 class="title about">Index of Places</h2>
                 <div class="pull-right" id="link-icons">
-                    <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://dev.syriaca.org:8080/exist/apps/srophe/geo/atom.xql">
+                    <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://dev.syriaca.org:8080/exist/apps/srophe/geo/atom-map.xql">
                         <img src="../resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view all known locations on Google Maps"/>
                     </a>
                 </div>
                 <p style="margin:1em;">Listings of places registered in the Syriac Gazetteer.</p>
+                <div id="map" style="height: 180px; "/>
                 <!-- Calls xquery functions -->
                 <div data-template="browse:get-places">
                     <div data-template="browse:get-place-names"/>

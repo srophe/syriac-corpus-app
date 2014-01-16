@@ -37,7 +37,7 @@ declare function local:build-entry($rec){
         <link rel="alternate" type="text/html" href="http://syriaca.org/place/{$place-id}" />
         <link rel="self" type="application/atom+xml" href="http://syriaca.org/places/atom.xql?id={$place-id}"/>
         <id>tag:syriaca.org,2013:{$place-id}</id>
-        <georss:point>{$rec//tei:geo}</georss:point>
+        <georss:point>{string($rec//tei:geo)}</georss:point>
         <updated>{local:format-dates($date)}</updated>
         {($summary, $res-pers)}
     </entry>   
