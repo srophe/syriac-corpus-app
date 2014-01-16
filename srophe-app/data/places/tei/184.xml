@@ -174,7 +174,7 @@
                         <ptr target="http://pleiades.stoa.org/places/874699"/>
                     </bibl>
                 </place>
-                <relation name="shares-name-with" mutual="#place184  http://syriaca.org/place/2377"/>
+                <relation name="share-a-name" mutual="#place-184  http://syriaca.org/place/2377"/>
             </listPlace>
         </body>
     </text>

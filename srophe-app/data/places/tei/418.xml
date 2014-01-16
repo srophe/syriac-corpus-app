@@ -134,7 +134,7 @@
                         <citedRange unit="pp">558</citedRange>
                     </bibl>
                 </place>
-                <relation name="shares-name-with" mutual="#place418  http://syriaca.org/place/419"/>
+                <relation name="share-a-name" mutual="#place-418  http://syriaca.org/place/419"/>
             </listPlace>
         </body>
     </text>

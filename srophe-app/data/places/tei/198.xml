@@ -134,7 +134,7 @@
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Tell Ada&amp;sT=keywords">Tell Ada</citedRange>
                     </bibl>
                 </place>
-                <relation name="shares-name-with" mutual="#place198  http://syriaca.org/place/233"/>
+                <relation name="share-a-name" mutual="#place-198  http://syriaca.org/place/233"/>
             </listPlace>
         </body>
     </text>

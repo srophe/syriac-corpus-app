@@ -260,15 +260,23 @@ declare function local:add-change-log($doc){
           )
 };
 
-declare function local:trim-dates(){
-   for $doc in collection('/db/apps/srophe/data/places/tei')//tei:teiHeader
-   return 
-    update value $doc//tei:fileDesc/tei:publicationStmt/tei:date with current-date()
-   (:add test for when-custom so I don't add it repeatedly
-        for $change-date in $doc//tei:change[contains(@when,'T')] 
-        return 
-            update value $change-date/@when with substring-before($change-date/@when,'T')
-            :)
+(:test before running
+ (update value tei:relation/@name with 'share-a-name', update value tei:relation/@mutual with $new-mutual
+     
+    )
+        <relation xmlns="http://www.tei-c.org/ns/1.0" name="share-a-name" mutual="{$new-mutual}"/>
+:)
+declare function local:remove-mutual(){
+   for $doc in collection('/db/apps/srophe/data/places/tei')//tei:relation
+   let $mutual := string($doc/@mutual)
+   let $new-mutual-end := substring-after($mutual,' ')
+   let $new-mutual-beging := substring-before(substring-after($mutual,'place'),' ')
+   let $new-mutual := concat('#place-',$new-mutual-beging,' ',$new-mutual-end)
+   where $doc[@name='shares-name-with']
+   return
+    (update value $doc/@name with 'share-a-name', update value $doc/@mutual with $new-mutual)
+
+   
 };
 
 let $cache := 'cache'
@@ -289,7 +297,7 @@ This one is run with paging because it is too memory intensive otherwise
 local:link-related-names()
 ADDED: relation element with shares-name-with attribute for all place headwords that share names
 :)
-return <div>{local:trim-dates()}: You can not run this data, ask Winona for permission</div> 
+return <div>{}: You can not run this data, ask Winona for permission</div> 
 (:
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>

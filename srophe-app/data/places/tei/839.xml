@@ -89,7 +89,7 @@
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
                 </place>
-                <relation name="shares-name-with" mutual="#place839  http://syriaca.org/place/2253"/>
+                <relation name="share-a-name" mutual="#place-839  http://syriaca.org/place/2253"/>
             </listPlace>
         </body>
     </text>

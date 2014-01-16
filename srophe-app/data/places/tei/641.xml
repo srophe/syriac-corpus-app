@@ -143,7 +143,7 @@
                         <ptr target="http://pleiades.stoa.org/places/423025"/>
                     </bibl>
                 </place>
-                <relation name="shares-name-with" mutual="#place641  http://syriaca.org/place/2360"/>
+                <relation name="share-a-name" mutual="#place-641  http://syriaca.org/place/2360"/>
             </listPlace>
         </body>
     </text>

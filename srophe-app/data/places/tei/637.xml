@@ -90,7 +90,7 @@
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qardu&amp;sT=keywords">Qardu</citedRange>
                     </bibl>
                 </place>
-                <relation name="shares-name-with" mutual="#place637  http://syriaca.org/place/2355"/>
+                <relation name="share-a-name" mutual="#place-637  http://syriaca.org/place/2355"/>
             </listPlace>
         </body>
     </text>

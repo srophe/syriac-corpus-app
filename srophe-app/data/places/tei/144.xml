@@ -150,7 +150,7 @@
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=N&amp;sK=Nineveh&amp;sT=keywords">Nineveh</citedRange>
                     </bibl>
                 </place>
-                <relation name="shares-name-with" mutual="#place144  http://syriaca.org/place/2350"/>
+                <relation name="share-a-name" mutual="#place-144  http://syriaca.org/place/2350"/>
             </listPlace>
         </body>
     </text>

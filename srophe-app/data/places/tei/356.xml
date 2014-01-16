@@ -161,7 +161,7 @@
                         <ptr target="http://pleiades.stoa.org/places/668402"/>
                     </bibl>
                 </place>
-                <relation name="shares-name-with" mutual="#place356  http://syriaca.org/place/357"/>
+                <relation name="share-a-name" mutual="#place-356  http://syriaca.org/place/357"/>
             </listPlace>
         </body>
     </text>

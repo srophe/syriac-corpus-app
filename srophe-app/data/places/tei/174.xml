@@ -89,7 +89,7 @@
                         <citedRange unit="maps">Map I A1</citedRange>
                     </bibl>
                 </place>
-                <relation name="shares-name-with" mutual="#place174  http://syriaca.org/place/182"/>
+                <relation name="share-a-name" mutual="#place-174  http://syriaca.org/place/182"/>
             </listPlace>
         </body>
     </text>

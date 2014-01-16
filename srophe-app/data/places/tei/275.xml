@@ -84,7 +84,7 @@
                         <citedRange unit="maps">Map V</citedRange>
                     </bibl>
                 </place>
-                <relation name="shares-name-with" mutual="#place275  http://syriaca.org/place/992"/>
+                <relation name="share-a-name" mutual="#place-275  http://syriaca.org/place/992"/>
             </listPlace>
         </body>
     </text>

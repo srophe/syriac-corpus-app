@@ -149,7 +149,7 @@
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Azerbaijan&amp;sT=keywords">Azerbaijan</citedRange>
                     </bibl>
                 </place>
-                <relation name="shares-name-with" mutual="#place5  http://syriaca.org/place/2278"/>
+                <relation name="share-a-name" mutual="#place-5  http://syriaca.org/place/2278"/>
             </listPlace>
         </body>
     </text>

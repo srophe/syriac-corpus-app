@@ -135,7 +135,7 @@
                         <ptr target="http://pleiades.stoa.org/places/707498"/>
                     </bibl>
                 </place>
-                <relation name="shares-name-with" mutual="#place714  http://syriaca.org/place/59  http://syriaca.org/place/2292"/>
+                <relation name="share-a-name" mutual="#place-714  http://syriaca.org/place/59  http://syriaca.org/place/2292"/>
             </listPlace>
         </body>
     </text>
