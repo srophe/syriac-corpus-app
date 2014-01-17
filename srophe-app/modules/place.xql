@@ -181,7 +181,7 @@ declare %templates:wrap function place:get-place-data($node as node(), $model as
                         ($rec/child::*, place:get-related-places($rec),place:get-nested-loc(),place:get-confessions())
                     }
                     </TEI>
-    let $cache :='forcerefreshdasdff4'
+    let $cache :='forcerefresh'
     return
 (:        $buildRec:)
        transform:transform($buildRec, doc('../resources/xsl/placepage.xsl'),() )
