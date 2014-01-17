@@ -75,14 +75,14 @@
             <!-- Google map links -->
             <xsl:for-each select="//t:place/t:location[@type='gps']/t:geo">
                 <!-- {$base}{$placeslevel}? -->
-                <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://dev.syriaca.org:8080/exist/apps/srophe/places/atom.xql?id={$placenum}">
+                <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://dev.syriaca.org:8080/exist/apps/srophe/geo/atom.xql?id={$placenum}">
                     <img src="../resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {ancestor::t:place/t:placeName[@xml:lang='en'][1]} on Google Maps"/>
                 </a>
             </xsl:for-each>
             
             <!-- NOTE: add links to xml and atom when code is built -->
             <!-- TEI source link -->
-            <a href="/exist/apps/srophe/data/places/tei/{$placenum}.xml" rel="alternate" type="application/tei+xml">
+            <a href="/exist/apps/srophe/data/geo/tei/{$placenum}.xml" rel="alternate" type="application/tei+xml">
                 <img src="../resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/>
             </a>
             
@@ -123,14 +123,14 @@
                             <xsl:text>, </xsl:text>
                             <xsl:value-of select="$coords[1]"/>
                         </xsl:variable>
-                        <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://dev.syriaca.org:8080/exist/apps/srophe/places/atom.xql?id={$placenum}">
+                        <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://dev.syriaca.org:8080/exist/apps/srophe/geo/atom.xql?id={$placenum}">
                             <img src="../resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {ancestor::t:place/t:placeName[@xml:lang='en'][1]} on Google Maps"/> View in Google Maps</a>
                     </li>
                 </xsl:for-each>
                 <!-- NOTE: correct links to tei and atom -->       
                 <!-- TEI source link -->
                 <li>
-                    <a href="/exist/apps/srophe/data/places/tei/{$placenum}.xml" rel="alternate" type="application/tei+xml">
+                    <a href="/exist/apps/srophe/data/geo/tei/{$placenum}.xml" rel="alternate" type="application/tei+xml">
                         <img src="../resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/> TEI XML source data</a>
                 </li>
                 <!-- Atom format link -->
