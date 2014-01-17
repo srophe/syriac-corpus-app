@@ -2,7 +2,7 @@ xquery version "3.0";
 
 module namespace app="http://syriaca.org//templates";
 (:~
- : General use xqueries for srphe app.
+ : General use xqueries for srophe app.
 :)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org//config" at "config.xqm";
