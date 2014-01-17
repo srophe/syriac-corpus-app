@@ -139,9 +139,11 @@ declare function place:get-related-places($rec as node()*){
                     </relation>
             let $mutual := 
                     if($related/@mutual) then
+                    let $mutual-string := normalize-space($related/@mutual)
+                    return
                         <relation varient="mutual">
                             {
-                                for $rel-item in tokenize($related/@mutual,' ')
+                                for $rel-item in tokenize($mutual-string,' ')
                                 let $item-id := tokenize($rel-item, '/')[last()]
                                 let $item-uri := $rel-item
                                 let $place-id := concat('place-',$item-id)
@@ -181,7 +183,7 @@ declare %templates:wrap function place:get-place-data($node as node(), $model as
                         ($rec/child::*, place:get-related-places($rec),place:get-nested-loc(),place:get-confessions())
                     }
                     </TEI>
-    let $cache :='forcerefresh'
+    let $cache :='forcerefresh22'
     return
 (:        $buildRec:)
        transform:transform($buildRec, doc('../resources/xsl/placepage.xsl'),() )

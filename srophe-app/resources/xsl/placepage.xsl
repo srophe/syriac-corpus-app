@@ -819,8 +819,8 @@
                 <li>
                     <xsl:value-of select="$currentPlace"/>
                     <xsl:choose>
-                        <xsl:when test="count(mutual) = 1"> and </xsl:when>
-                        <xsl:when test="count(mutual) &gt; 1">, </xsl:when>
+                        <xsl:when test="count(mutual) = 2"> and </xsl:when>
+                        <xsl:when test="count(mutual) &gt; 3">, </xsl:when>
                         <xsl:otherwise/>
                     </xsl:choose>
                     <xsl:for-each select="mutual">
