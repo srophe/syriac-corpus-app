@@ -97,6 +97,10 @@
                     <h2 class="span8">
                         <!-- Format title, calls template in place-title-std.xsl -->
                         <xsl:call-template name="get-title"/>
+                        <span class="get-syriac" style="font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none">
+                            <a href="../help/view-syriac.html">
+                                <img src="../resources/img/faq.png" alt="The Google Maps icon"/>&#160;Don't see Syriac?</a>
+                        </span>
                     </h2>
                     <!-- Call link icons (located in link-icons.xsl) -->
                     <xsl:call-template name="link-icons"/>   
