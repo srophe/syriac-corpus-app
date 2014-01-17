@@ -537,6 +537,7 @@
         <!-- find confessions in place data using confession-id -->
         <xsl:choose>
             <xsl:when test="$place-data//t:state[@type='confession' and substring-after(@ref,'#') = $confession-id]">
+                <xsl:variable name="child-id" select="string-join(descendant-or-self::t:item/@xml:id,' ')"/>
                 <xsl:for-each select="$place-data//t:state[@type='confession' and substring-after(@ref,'#') = $confession-id]">
                     <!-- Build ref id to find attestations -->
                     <xsl:variable name="ref-id" select="concat('#',@xml:id)"/>
@@ -575,7 +576,73 @@
                                     </xsl:when>
                                     <xsl:otherwise/>
                                 </xsl:choose>
-                            </xsl:for-each>)
+                            </xsl:for-each>
+                            <xsl:if test="count(//t:event[@type='attestation' and child::*[contains(@target,$ref-id)] ]) = 1">
+                                <xsl:choose>
+                                    <xsl:when test="//t:event[@type='attestation' and child::*[contains(@target,$ref-id)]][@notBefore] or //t:event[@type='attestation' and child::*[contains(@target,$ref-id)]][@when]">
+                                        <xsl:variable name="end-date-list">
+                                            <xsl:for-each select="//t:state[@type='confession' and contains($child-id,substring-after(@ref,'#'))]">
+                                                <xsl:variable name="confession-id" select="substring-after(@ref,'#')"/>
+                                                <xsl:variable name="ref-id" select="concat('#',@xml:id)"/>
+                                                <!-- Checks for attestations that reference any children of the current confession -->
+                                                <xsl:for-each select="//t:event[@type='attestation' and t:link[contains(@target,$ref-id)]]">
+                                                    <xsl:if test="@when or @notAfter">
+                                                        <xsl:variable name="date" select="@when | @notAfter"/>
+                                                        <li date="{string($date)}">as late as <xsl:value-of select="local:trim-date($date)"/>
+                                                        </li>
+                                                    </xsl:if>
+                                                </xsl:for-each>
+                                            </xsl:for-each>
+                                        </xsl:variable>
+                                        <xsl:variable name="end-date">
+                                            <xsl:for-each select="$end-date-list/child::*">
+                                                <!-- sorts list by date and outputs first date -->
+                                                <xsl:sort select="@date"/>
+                                                <xsl:if test="position()=last()">
+                                                    <xsl:value-of select="."/>
+                                                </xsl:if>
+                                            </xsl:for-each>
+                                        </xsl:variable>
+                                        <xsl:value-of select="concat(', ',$end-date)"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:variable name="start-date-list">
+                                            <xsl:for-each select="//t:state[@type='confession' and contains($child-id,substring-after(@ref,'#'))]">
+                                                <xsl:variable name="confession-id" select="substring-after(@ref,'#')"/>
+                                                <xsl:variable name="ref-id" select="concat('#',@xml:id)"/>
+                                                <!-- Checks for attestations that reference any children of the current confession -->
+                                                <xsl:for-each select="//t:event[@type='attestation' and t:link[contains(@target,$ref-id)]]">
+                                                    <xsl:if test="@when or @notBefore">
+                                                        <xsl:variable name="date" select="@when |@notBefore"/>
+                                                        <li date="{string($date)}">
+                                                            <xsl:choose>
+                                                                <!-- process @when dates use, local:trim-date function to trim 0 from dates-->
+                                                                <xsl:when test="./@when">
+                                                                    attested as early as <xsl:value-of select="local:trim-date(@when)"/>
+                                                                </xsl:when>
+                                                                <!-- process @notBefore dates -->
+                                                                <xsl:when test="./@notBefore">
+                                                                    attested around <xsl:value-of select="local:trim-date(@notBefore)"/>
+                                                                </xsl:when>
+                                                            </xsl:choose>
+                                                        </li>
+                                                    </xsl:if>
+                                                </xsl:for-each>
+                                            </xsl:for-each>
+                                        </xsl:variable>
+                                        <xsl:variable name="start-date">
+                                            <xsl:for-each select="$start-date-list/child::*">
+                                                <!-- sorts list by date and outputs first date -->
+                                                <xsl:sort select="@date"/>
+                                                <xsl:if test="position()=1">
+                                                    <xsl:value-of select="."/>
+                                                </xsl:if>
+                                            </xsl:for-each>
+                                        </xsl:variable>
+                                        <xsl:value-of select="concat($start-date,', ')"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:if>)
                         </xsl:when>
                         <!-- If not attestation information -->
                         <xsl:otherwise> 

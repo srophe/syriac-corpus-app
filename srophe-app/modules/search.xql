@@ -108,7 +108,7 @@ declare function search:event-dates(){
             concat('[descendant::tei:event[@type != "attestation" or not(@type)][(@syriaca-computed-start gt "',search:do-date($search:eds),'" and @syriaca-computed-end lt "',search:do-date($search:ede),'") or (@syriaca-computed-start gt "',search:do-date($search:eds),'" and not(@syriaca-computed-end))]]')
         else concat('[descendant::tei:event[@type != "attestation" or not(@type)][@syriaca-computed-start gt "',search:do-date($search:eds),'"]]') 
     else if (exists($search:ede) and $search:ede != '') then 
-        concat('[descendant::tei:state[@type != "attestation" or not(@type)][@syriaca-computed-end lt "',search:do-date($search:cde),'" or @syriaca-computed-start lt "',search:do-date($search:cde),'" and not(@syriaca-computed-end)]]')
+        concat('[descendant::tei:state[@type != "attestation" or not(@type)][@syriaca-computed-end lt "',search:do-date($search:ede),'" or @syriaca-computed-start lt "',search:do-date($search:ede),'" and not(@syriaca-computed-end)]]')
     else ''
 };
 
