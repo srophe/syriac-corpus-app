@@ -245,6 +245,51 @@ declare  %templates:wrap function search:hit-count($node as node()*, $model as m
 };
 
 (:~
+ : Build search parameter string for search results page
+
+declare variable $search:exist {request:get-parameter('exist', '')};
+declare variable $search:existds {request:get-parameter('existds', '')};
+declare variable $search:existde {request:get-parameter('existde', '')};
+
+declare variable $search:lang {request:get-parameter('lang', '')};
+:)
+declare function search:search-string(){
+    let $q-string := if(exists($search:q) and $search:q != '') then (<span class="param">Keyword: </span>,<span class="match">{search:clean-string($search:q)}&#160;</span>)
+                     else ''
+    let $p-string := if(exists($search:p) and $search:p != '') then (<span class="param">Place Name: </span>,<span class="match">{search:clean-string($search:p)} &#160;</span>)
+                        else ''                            
+    let $type-string := if(exists($search:type) and $search:type != '') then (<span class="param">Type: </span>,<span class="match">{search:clean-string($search:type)} &#160;</span>)
+                        else ''     
+    let $loc-string := if(exists($search:loc) and $search:loc != '') then (<span class="param">Location: </span>,<span class="match">{search:clean-string($search:loc)} &#160;</span>)
+                        else ''     
+    let $e-string := if(exists($search:e) and $search:e != '') then (<span class="param">Event: </span>, <span class="match">{search:clean-string($search:e)} &#160;</span>)
+                     else ''                             
+    let $eds-string := if(exists($search:eds) and $search:eds != '') then (<span class="param">Event Start Date: </span>, <span class="match">{search:clean-string($search:eds)} &#160;</span>)
+                     else ''     
+    let $ede-string := if(exists($search:ede) and $search:ede != '') then (<span class="param">Event End Date: </span>, <span class="match">{search:clean-string($search:ede)} &#160;</span>)
+                     else ''                   
+    let $a-string := if(exists($search:a) and $search:a != '') then (<span class="param">Attestations: </span>, <span class="match">{search:clean-string($search:a)}&#160; </span>)
+                     else ''     
+    let $ads-string := if(exists($search:ads) and $search:ads != '') then (<span class="param">Attestations Start Date: </span>, <span class="match">{search:clean-string($search:ads)}&#160;</span>)
+                     else ''     
+    let $ade-string := if(exists($search:ade) and $search:ade != '') then (<span class="param">Attestations End Date: </span>, <span class="match">{search:clean-string($search:ade)} &#160;</span>)
+                     else ''                   
+    let $c-string := if(exists($search:c) and $search:c != '') then (<span class="param">Confessions: </span>, <span class="match">{search:clean-string($search:c)} &#160;</span>)
+                     else ''     
+    let $cds-string := if(exists($search:cds) and $search:cds != '') then (<span class="param">Confessions Start Date: </span>, <span class="match">{search:clean-string($search:cds)} &#160;</span>)
+                     else ''     
+    let $cde-string := if(exists($search:cde) and $search:cde != '') then (<span class="param">Confessions End Date: </span>, <span class="match">{search:clean-string($search:cde)} &#160;</span>)
+                     else ''                       
+    let $existds-string := if(exists($search:existds) and $search:existds != '') then (<span class="param">Confessions Start Date: </span>, <span class="match">{search:clean-string($search:existds)}&#160; </span>)
+                     else ''     
+    let $existde-string := if(exists($search:existde) and $search:existde != '') then (<span class="param">Confessions End Date: </span>, <span class="match">{search:clean-string($search:existde)}&#160; </span>)
+                     else ''                   
+    let $lang-string := if(exists($search:lang) and $search:lang != '') then (<span class="param">Language: </span>, <span class="match">{search:clean-string($search:lang)} &#160;</span>)
+                     else ''                       
+    return ($q-string,$p-string,$type-string,$loc-string,$e-string,$eds-string,$ede-string,$a-string,$ads-string,$ade-string,$c-string,$cds-string,$cde-string,$existds-string,$existde-string,$lang-string)                                          
+};
+
+(:~
  : Build paging for search results pages
  : If 0 results show search form
 :)
@@ -271,7 +316,7 @@ let $pagination-links :=
         <div class="row-fluid" xmlns="http://www.w3.org/1999/xhtml">
             <div class="span5">
             <h4>Search results:</h4>
-                <p class="offset1">{$total-result-count} matches for <span class="match" style="font-weight:bold;">{$search-string}</span>.</p>
+                <p class="offset1">{$total-result-count} matches for {search:search-string()}.</p>
             </div>
             {if(search:hit-count($node, $model) gt $perpage) then 
               <div class="span7" style="text-align:right">

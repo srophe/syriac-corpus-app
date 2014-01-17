@@ -233,3 +233,9 @@ div[id|=place] > div:last-of-type {
   height: 180px;
   margin-bottom: 1em;
 }
+
+/* Search styles */
+.match {
+    font-style:italic; color:blue;
+}
+.param {font-weight:bold;}
