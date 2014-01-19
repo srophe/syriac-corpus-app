@@ -1000,7 +1000,7 @@
                     <xsl:when test="string-length(@ref) &lt; 1"/>
                     <xsl:when test="starts-with(@ref, $uribase)">
                         <xsl:text> </xsl:text>
-                        <a class="placeName" href="?id={substring-after(@ref, $uribase)}">
+                        <a class="placeName" href="place.html?id={substring-after(@ref, $uribase)}">
                             <xsl:call-template name="langattr"/>
                             <xsl:apply-templates mode="cleanout"/>
                         </a>
