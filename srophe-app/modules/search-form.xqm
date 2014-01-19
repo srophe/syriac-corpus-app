@@ -129,9 +129,9 @@ declare function search-form:show-form() {
                     <!-- Language -->
                         <label>Language: </label>
                         <div class="offset1">
-                            <input type="radio" name="lang" value="en"/> English<br/>
-                            <input type="radio" name="lang" value="ar"/> Arabic<br/>
-                            <input type="radio" name="lang" value="syr"/> Syriac<br/>
+                            <input type="checkbox" name="en" value="en"/> English<br/>
+                            <input type="checkbox" name="ar" value="ar"/> Arabic<br/>
+                            <input type="checkbox" name="syr" value="syr"/> Syriac<br/>
                         </div>
 
                     </div>

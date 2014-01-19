@@ -33,7 +33,9 @@ declare variable $search:exist {request:get-parameter('exist', '')};
 declare variable $search:existds {request:get-parameter('existds', '')};
 declare variable $search:existde {request:get-parameter('existde', '')};
 
-declare variable $search:lang {request:get-parameter('lang', '')};
+declare variable $search:en {request:get-parameter('en', '')};
+declare variable $search:syr {request:get-parameter('syr', '')};
+declare variable $search:ar {request:get-parameter('ar', '')};
 
 declare variable $search:start {request:get-parameter('start', 1) cast as xs:integer};
 
@@ -205,9 +207,27 @@ let $final-date := xs:date($date-format)
 return $final-date
 };
 
-(:need some clarification on what exactly is being limited by lang?:)
-declare function search:limit-by-lang(){
-    if(exists($search:lang) and $search:lang != '') then concat('[descendant::*/@xml:lang = "',$search:lang,'"]')
+(:~
+ : Limit by English language
+ :)
+declare function search:limit-by-lang-en(){
+    if(exists($search:en) and $search:en != '') then concat('[child::*/@xml:lang = "',$search:en,'"]')
+    else ''
+};
+
+(:~
+ : Limit by Syriac language
+ :)
+declare function search:limit-by-lang-syr(){
+    if(exists($search:syr) and $search:syr != '') then concat('[child::*/@xml:lang = "',$search:syr,'"]')
+    else ''
+};
+
+(:~
+ : Limit by Arabic language
+ :)
+declare function search:limit-by-lang-ar(){
+    if(exists($search:ar) and $search:ar != '') then concat('[child::*/@xml:lang = "',$search:ar,'"]')
     else ''
 };
 
@@ -221,11 +241,11 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
     search:type(),
     search:place-name(),
     search:location(),
-    search:limit-by-lang(),
     search:event(),search:event-dates(),
     search:attestation(), search:attestation-dates(), 
     search:existence(),search:existence-dates(),
-    search:confession(),search:confession-dates()
+    search:confession(),search:confession-dates(),
+    search:limit-by-lang-en(),search:limit-by-lang-syr(),search:limit-by-lang-ar()
     )
     return
     map {"hits" := 
@@ -283,10 +303,15 @@ declare function search:search-string(){
     let $existds-string := if(exists($search:existds) and $search:existds != '') then (<span class="param">Confessions Start Date: </span>, <span class="match">{search:clean-string($search:existds)}&#160; </span>)
                      else ''     
     let $existde-string := if(exists($search:existde) and $search:existde != '') then (<span class="param">Confessions End Date: </span>, <span class="match">{search:clean-string($search:existde)}&#160; </span>)
-                     else ''                   
-    let $lang-string := if(exists($search:lang) and $search:lang != '') then (<span class="param">Language: </span>, <span class="match">{search:clean-string($search:lang)} &#160;</span>)
-                     else ''                       
-    return ($q-string,$p-string,$type-string,$loc-string,$e-string,$eds-string,$ede-string,$a-string,$ads-string,$ade-string,$c-string,$cds-string,$cde-string,$existds-string,$existde-string,$lang-string)                                          
+                     else ''                    
+    let $en-lang-string := if(exists($search:en) and $search:en != '') then <span class="param">English </span>
+                     else ''
+    let $syr-lang-string := if(exists($search:syr) and $search:syr != '') then <span class="param">Syriac </span>
+                     else ''
+    let $ar-lang-string := if(exists($search:ar) and $search:ar != '') then <span class="param">Arabic </span>
+                     else ''           
+
+    return ($q-string,$p-string,$type-string,$loc-string,$e-string,$eds-string,$ede-string,$a-string,$ads-string,$ade-string,$c-string,$cds-string,$cde-string,$existds-string,$existde-string,$en-lang-string,$ar-lang-string,$syr-lang-string)                                          
 };
 
 (:~
@@ -398,7 +423,7 @@ function search:show-hits($node as node()*, $model as map(*)) {
                   </div>
                   <div class="span9">  
                     <p style="font-weight:bold padding:.5em;">
-                        <a href="geo/place.html?id={$id}">
+                        <a href="place.html?id={$id}">
                         <bdi dir="ltr" lang="en" xml:lang="en">
                             {$hit/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en']}
                         </bdi>
