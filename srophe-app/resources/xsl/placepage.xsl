@@ -99,7 +99,7 @@
                         <xsl:call-template name="get-title"/>
                         <span class="get-syriac" style="font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none">
                             <xsl:if test="//t:place/child::*[@xml:lang ='syr']">
-                                <a href="../help/view-syriac.html">
+                                <a href="help/view-syriac.html">
                                     <img src="../resources/img/faq.png" alt="The Google Maps icon"/>&#160;Don't see Syriac?</a>
                             </xsl:if>
                         </span>
@@ -229,7 +229,7 @@
                                 <!-- NOTE: may need to move this elsewhere -->
                                 <p>
                                     <strong>Place Type: </strong>
-                                    <a href="../help/types.html#{normalize-space(@type)}">
+                                    <a href="help/types.html#{normalize-space(@type)}">
                                         <xsl:value-of select="@type"/>
                                     </a>
                                 </p>
@@ -254,7 +254,7 @@
                                 <!-- NOTE: may need to move this elsewhere -->
                                 <p>
                                     <strong>Place Type: </strong>
-                                    <a href="../help/types.html#{normalize-space(@type)}">
+                                    <a href="help/types.html#{normalize-space(@type)}">
                                         <xsl:value-of select="@type"/>
                                     </a>
                                 </p>
