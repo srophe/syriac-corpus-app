@@ -60,6 +60,9 @@
             <xsl:when test="/t:TEI/@browse-type = 'syr'">
                 <xsl:call-template name="do-list-syr"/>
             </xsl:when>
+            <xsl:when test="/t:TEI/@browse-type = 'map'">
+                <xsl:call-template name="do-map"/>
+            </xsl:when>
             <!-- @deprecated             
             <xsl:when test="/t:TEI/@browse-type = 'num'">
                 <xsl:call-template name="do-list-num"/>
@@ -319,5 +322,83 @@
                 </xsl:choose>
             </xsl:for-each>
         </ul>
+    </xsl:template>
+    
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+     named template: do-map
+     
+     Builds english browse links 
+     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <xsl:template name="do-map">
+        <div class="tabbable">
+            <!-- Tabs -->
+            <ul class="nav nav-tabs" id="nametabs">
+                <li>
+                    <a href="?lang=en&amp;sort=A" data-toggle="tab">English</a>
+                </li>
+                <li>
+                    <a href="?lang=syr" data-toggle="tab" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
+                </li>
+                <li class="active">
+                    <a href="?lang=map" data-toggle="tab">Map</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="map">
+                <div class="tab-pane active">
+                    <div id="place-map" style="height: 250px;"/>
+                </div>
+                <!--
+                <script type="text/javascript">
+                    var terrain = L.tileLayer(
+                    'http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', 
+                    {attribution: "ISAW, 2012"});
+                    
+                    var streets = L.tileLayer(
+                    'http://api.tiles.mapbox.com/v3/sgillies.map-pmfv2yqx/{z}/{x}/{y}.png', 
+                    {attribution: "ISAW, 2012"});
+                    
+                    var imperium = L.tileLayer(
+                    'http://pelagios.dme.ait.ac.at/tilesets/imperium//{z}/{x}/{y}.png', {
+                    attribution: 'Tiles: <a href="http://pelagios-project.blogspot.com/2012/09/a-digital-map-of-roman-empire.html">Pelagios</a>, 2012; Data: NASA, OSM, Pleiades, DARMC', maxZoom: 11 });
+                    
+                    $.getJSON("../modules/geojson.xql", function(data){
+                        var geojson := L.geoJson(data, {
+                            onEachFeature: functiom (feature, layer) {
+                            layer.bindPopup(feature.properties.name);
+                            }
+                        });
+                        var map = L.map('place-map').fitBountds(geojson.getBounds());
+                        L.control.attribution({prefix: false}).addTo(map);
+                        terrain.addTo(map);
+                        L.control.layers({
+                        "Terrain (default)": terrain,
+                        "Streets": streets,
+                        "Imperium": imperium }).addTo(map);
+                        geojson.addTo(map);
+                    });
+                </script>
+                -->
+                <script>
+                    var terrain = L.tileLayer(
+                    'http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', 
+                    {attribution: "ISAW, 2012"});
+                    
+                    $.getJSON("/exist/apps/srophe/modules/geojson.xql", function(data) {
+                        var geojson = L.geoJson(data, {
+                        onEachFeature: function (feature, layer) {
+                        layer.bindPopup(feature.properties.name);
+                        }
+                    });
+                    var map = L.map('place-map').fitBounds(geojson.getBounds());
+                    terrain.addTo(map);
+                    L.control.layers({
+                    "Terrain (default)": terrain,
+                    "Streets": streets,
+                    "Imperium": imperium }).addTo(map);
+                    geojson.addTo(map);
+                    });
+                </script>
+            </div>
+        </div>
     </xsl:template>
 </xsl:stylesheet>

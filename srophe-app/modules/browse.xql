@@ -135,6 +135,7 @@ declare %templates:wrap function browse:get-place-names($node as node(), $model 
             if($browse:lang ='en') then browse:get-place-en($node, $model)
             else if($browse:lang ='syr') then browse:get-place-syr($node, $model)
             else if($browse:lang ='num') then browse:get-place-all($node, $model)
+            else if($browse:lang ='map') then ''
             else browse:get-place-en($node, $model)
            else browse:get-place-en($node, $model)
            }
