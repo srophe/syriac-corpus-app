@@ -351,7 +351,10 @@
             </ul>
             <div class="tab-content" id="map">
                 <div class="tab-pane active">
-                    <div id="map" style="height: 375px;"/>
+                    <div class="progress progress-striped active" align="center">
+                        <div class="bar" style="width: 40%;"/>
+                    </div>
+                    <div id="map" style="height: 350px;"/>
                     <script type="text/javascript">
                         var terrain = L.tileLayer(
                         'http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', 
