@@ -144,6 +144,7 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="/exist/apps/srophe/resources/js/map.js"/>
     </xsl:template>
     
 <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
