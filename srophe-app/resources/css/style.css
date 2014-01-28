@@ -229,11 +229,14 @@ div[id|=place] > div:last-of-type {
 
 /* Map styles */
 
-#map {
+.map-small {
   height: 180px;
   margin-bottom: 1em;
 }
-
+.map-large {
+  height: 180px;
+  margin-bottom: 1em;
+}
 /* Search styles */
 .match {
     font-style:italic; color:blue;

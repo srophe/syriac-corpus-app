@@ -86,10 +86,13 @@
             <!-- Tabs -->
             <ul class="nav nav-tabs" id="nametabs">
                 <li class="active">
-                    <a href="?lang=en&amp;sort=A" data-toggle="tab">English</a>
+                    <a href="browse.html?lang=en&amp;sort=A">English</a>
                 </li>
                 <li>
-                    <a href="?lang=syr&amp;sort=ܐ" data-toggle="tab" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
+                    <a href="browse.html?lang=syr&amp;sort=ܐ" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
+                </li>
+                <li>
+                    <a href="browse.html?lang=map">Map</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -158,10 +161,13 @@
             <!-- Tabs -->
             <ul class="nav nav-tabs" id="nametabs">
                 <li>
-                    <a href="?lang=en&amp;sort=A" data-toggle="tab">English</a>
+                    <a href="browse.html?lang=en&amp;sort=A">English</a>
                 </li>
                 <li class="active">
-                    <a href="?lang=syr" data-toggle="tab" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
+                    <a href="browse.html?lang=syr" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
+                </li>
+                <li>
+                    <a href="browse.html?lang=map">Map</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -214,13 +220,13 @@
         <div class="tabbable">
             <ul class="nav nav-tabs" id="nametabs">
                 <li>
-                    <a href="?lang=en&amp;sort=A" data-toggle="tab">English</a>
+                    <a href="?lang=en&amp;sort=A">English</a>
                 </li>
                 <li>
-                    <a href="?lang=syr" data-toggle="tab" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
+                    <a href="?lang=syr" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
                 </li>
                 <li class="active">
-                    <a href="?lang=num" data-toggle="tab">Syriac gazetteer number</a>
+                    <a href="?lang=num">Syriac gazetteer number</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -334,70 +340,57 @@
             <!-- Tabs -->
             <ul class="nav nav-tabs" id="nametabs">
                 <li>
-                    <a href="?lang=en&amp;sort=A" data-toggle="tab">English</a>
+                    <a href="browse.html?lang=en&amp;sort=A">English</a>
                 </li>
                 <li>
-                    <a href="?lang=syr" data-toggle="tab" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
+                    <a href="browse.html?lang=syr" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
                 </li>
                 <li class="active">
-                    <a href="?lang=map" data-toggle="tab">Map</a>
+                    <a href="browse.html?lang=map">Map</a>
                 </li>
             </ul>
             <div class="tab-content" id="map">
                 <div class="tab-pane active">
-                    <div id="place-map" style="height: 250px;"/>
-                </div>
-                <!--
-                <script type="text/javascript">
-                    var terrain = L.tileLayer(
-                    'http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', 
-                    {attribution: "ISAW, 2012"});
-                    
-                    var streets = L.tileLayer(
-                    'http://api.tiles.mapbox.com/v3/sgillies.map-pmfv2yqx/{z}/{x}/{y}.png', 
-                    {attribution: "ISAW, 2012"});
-                    
-                    var imperium = L.tileLayer(
-                    'http://pelagios.dme.ait.ac.at/tilesets/imperium//{z}/{x}/{y}.png', {
-                    attribution: 'Tiles: <a href="http://pelagios-project.blogspot.com/2012/09/a-digital-map-of-roman-empire.html">Pelagios</a>, 2012; Data: NASA, OSM, Pleiades, DARMC', maxZoom: 11 });
-                    
-                    $.getJSON("../modules/geojson.xql", function(data){
-                        var geojson := L.geoJson(data, {
-                            onEachFeature: functiom (feature, layer) {
-                            layer.bindPopup(feature.properties.name);
-                            }
-                        });
-                        var map = L.map('place-map').fitBountds(geojson.getBounds());
-                        L.control.attribution({prefix: false}).addTo(map);
+                    <div id="map" style="height: 375px;"/>
+                    <script type="text/javascript">
+                        var terrain = L.tileLayer(
+                        'http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', 
+                        {attribution: "ISAW, 2012"});
+                        
+                        /* Not added by default, only through user control action */
+                        var streets = L.tileLayer(
+                        'http://api.tiles.mapbox.com/v3/sgillies.map-pmfv2yqx/{z}/{x}/{y}.png', 
+                        {attribution: "ISAW, 2012"});
+                        
+                        var imperium = L.tileLayer(
+                        'http://pelagios.dme.ait.ac.at/tilesets/imperium//{z}/{x}/{y}.png', {
+                        attribution: 'Tiles: &lt;a href="http://pelagios-project.blogspot.com/2012/09/a-digital-map-of-roman-empire.html"&gt;Pelagios&lt;/a&gt;, 2012; Data: NASA, OSM, Pleiades, DARMC',
+                        maxZoom: 11 });
+                        
+                        
+                        $.getJSON('/exist/apps/srophe/modules/geojson.xql',function(data){
+                        var geojson = L.geoJson(data, {
+                        onEachFeature: function (feature, layer){
+                        var popupContent = "&lt;a href='" + feature.properties.uri + "'&gt;" +
+                        feature.properties.name + " - " + feature.properties.type + "&lt;/a&gt;";
+                        
+                        layer.bindPopup(popupContent);
+                        }
+                        }) 
+                        
+                        var map = L.map('map').fitBounds(geojson.getBounds());
+                        
                         terrain.addTo(map);
+                        
                         L.control.layers({
                         "Terrain (default)": terrain,
                         "Streets": streets,
                         "Imperium": imperium }).addTo(map);
+                        
                         geojson.addTo(map);
-                    });
-                </script>
-                -->
-                <script>
-                    var terrain = L.tileLayer(
-                    'http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', 
-                    {attribution: "ISAW, 2012"});
-                    
-                    $.getJSON("/exist/apps/srophe/modules/geojson.xql", function(data) {
-                        var geojson = L.geoJson(data, {
-                        onEachFeature: function (feature, layer) {
-                        layer.bindPopup(feature.properties.name);
-                        }
-                    });
-                    var map = L.map('place-map').fitBounds(geojson.getBounds());
-                    terrain.addTo(map);
-                    L.control.layers({
-                    "Terrain (default)": terrain,
-                    "Streets": streets,
-                    "Imperium": imperium }).addTo(map);
-                    geojson.addTo(map);
-                    });
-                </script>
+                        });     
+                    </script>
+                </div>
             </div>
         </div>
     </xsl:template>
