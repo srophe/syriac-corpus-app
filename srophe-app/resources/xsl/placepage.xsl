@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -357,7 +357,16 @@
                     </ul>
                 </div>
             </xsl:if>
-          <!-- Note type Incerta  -->
+            <!-- Note type Errata  -->
+            <xsl:if test="t:note[@type='errata']">
+                <div id="incerta">
+                    <h3>Errata</h3>
+                    <ul>
+                        <xsl:apply-templates select="t:note[@type='errata']"/>
+                    </ul>
+                </div>
+            </xsl:if>
+            <!-- Note type Corrigenda  -->
             <xsl:if test="t:note[@type='corrigenda']">
                 <div id="corrigenda">
                     <h3>Corrigenda</h3>
@@ -1066,7 +1075,7 @@
                     </xsl:if>
                 </li>
             </xsl:when>
-            <xsl:when test="@type='corrigenda' or @type='incerta'">
+            <xsl:when test="@type='corrigenda' or @type='incerta' or @type ='errata'">
                 <li>
                     <xsl:apply-templates/>
                 </li>
