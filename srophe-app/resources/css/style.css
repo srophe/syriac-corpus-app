@@ -278,3 +278,5 @@ div[id|=place] > div:last-of-type {
 .has-spinner.btn-large.active .spinner {
     width: 19px;
 }
+#toggle-relation {display:none;}
+#toggle-relation dd{padding-top:0; margin-top:0; }
