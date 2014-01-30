@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -818,31 +818,146 @@
             </xsl:when>
             <xsl:when test="@varient='mutual'">
                 <li>
-                    <xsl:value-of select="$currentPlace"/>
-                    <xsl:choose>
-                        <xsl:when test="count(mutual) = 2"> and </xsl:when>
-                        <xsl:when test="count(mutual) &gt; 2">, </xsl:when>
-                        <xsl:otherwise/>
-                    </xsl:choose>
-                    <xsl:for-each select="mutual">
-                        <xsl:if test="child::*">
-                            <a href="{concat('place.html?id=',@id)}">
-                                <xsl:value-of select="t:placeName"/>
-                            </a>
+<!--                    <xsl:value-of select="$currentPlace"/> -->
+                    <!-- Need to test number of groups and output only the first two -->
+                    <xsl:variable name="group1-count">
+                        <xsl:for-each-group select="mutual" group-by="@type">
+                            <xsl:sort select="count(current-group()/child::*)" order="descending"/>
+                            <xsl:if test="position()=1">
+                                <xsl:value-of select="count(current-group()/child::*)"/>
+                            </xsl:if>
+                        </xsl:for-each-group>
+                    </xsl:variable>
+                    <xsl:variable name="group2-count">
+                        <xsl:for-each-group select="mutual" group-by="@type">
+                            <xsl:sort select="count(current-group()/child::*)" order="descending"/>
+                            <xsl:if test="position()=2">
+                                <xsl:value-of select="count(current-group()/child::*)"/>
+                            </xsl:if>
+                        </xsl:for-each-group>
+                    </xsl:variable>
+                    <xsl:variable name="total-count" select="count(mutual/child::*)"/>
+                    <xsl:for-each-group select="mutual" group-by="@type">
+                        <xsl:sort select="count(current-group()/child::*)" order="descending"/>
+                        <xsl:variable name="plural-type">
                             <xsl:choose>
-                                <xsl:when test="count(following-sibling::*) = 1">, and </xsl:when>
-                                <xsl:when test="count(following-sibling::*) &gt; 1">, </xsl:when>
+                                <xsl:when test="current-grouping-key() = 'building'">Buildings</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'church'">Churches</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'diocese'">Dioceses</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'fortification'">Fortifications</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'island'">Islands</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'madrasa'">Madrasas</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'monastery'">Monasteries</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'mosque'">Mosques</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'mountain'">Mountains</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'open-water'">Bodies of open-water</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'parish'">Parishes</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'province'">Provinces</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'quarter'">Quarters</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'region'">Regions</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'river'">Rivers</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'settlement'">Settlements</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'state'">States</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'synagogue'">Synagogues</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'temple'">Temples</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'unknown'">Unknown</xsl:when>
                             </xsl:choose>
-                        </xsl:if>
-                    </xsl:for-each>
+                        </xsl:variable>
+                        <xsl:variable name="type" select="concat(upper-case(substring(current-grouping-key(),1,1)),substring(current-grouping-key(),2))"/>
+                        <xsl:choose>
+                            <xsl:when test="position()=1">
+                                <xsl:value-of select="count(current-group()/child::*)"/>
+                                <xsl:text> </xsl:text>
+                                <xsl:choose>
+                                    <xsl:when test="count(current-group()/child::*) &gt; 1">
+                                        <xsl:value-of select="$plural-type"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="$type"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:text> </xsl:text>
+                            </xsl:when>
+                            <xsl:when test="position() = 2">
+                                <xsl:choose>
+                                    <xsl:when test="last() &gt; 2">, </xsl:when>
+                                    <xsl:when test="last() = 2"> and </xsl:when>
+                                </xsl:choose>
+                                <xsl:value-of select="count(current-group()/child::*)"/>
+                                <xsl:text> </xsl:text>
+                                <xsl:choose>
+                                    <xsl:when test="count(current-group()/child::*) &gt; 1">
+                                        <xsl:value-of select="$plural-type"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="$type"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>,
+                                <!-- Need to count remaining items, this is not correct just place holder -->
+                                <xsl:if test="last() &gt; 2"> and 
+                                    <xsl:value-of select="$total-count - ($group1-count + $group2-count)"/> 
+                                    other places, 
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:otherwise/>
+                        </xsl:choose>
+                    </xsl:for-each-group>
                     <xsl:text> </xsl:text>
                     <xsl:value-of select="replace(child::*[1]/@name,'-',' ')"/>
+                    with '<xsl:value-of select="$currentPlace"/>'
+                    
                     <xsl:value-of select="local:do-dates(child::*[1])"/>
                     <xsl:text> </xsl:text>
                     <!-- If footnotes exist call function do-refs pass footnotes and language variables to function -->
                     <xsl:if test="child::*[1]/@source">
                         <xsl:sequence select="local:do-refs(child::*[1]/@source,@xml:lang)"/>
                     </xsl:if>
+                    <!-- toggle to full list, grouped by type -->
+                    <a href="#" id="more-relation">(see list)</a>
+                    <dl id="toggle-relation">
+                        <xsl:for-each-group select="mutual" group-by="@type">
+                            <xsl:sort select="count(current-group()/child::*)" order="descending"/>
+                            <xsl:variable name="plural-type">
+                                <xsl:choose>
+                                    <xsl:when test="current-grouping-key() = 'building'">Buildings</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'church'">Churches</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'diocese'">Dioceses</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'fortification'">Fortifications</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'island'">Islands</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'madrasa'">Madrasas</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'monastery'">Monasteries</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'mosque'">Mosques</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'mountain'">Mountains</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'open-water'">Bodies of open-water</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'parish'">Parishes</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'province'">Provinces</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'quarter'">Quarters</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'region'">Regions</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'river'">Rivers</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'settlement'">Settlements</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'state'">States</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'synagogue'">Synagogues</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'temple'">Temples</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'unknown'">Unknown</xsl:when>
+                                </xsl:choose>
+                            </xsl:variable>
+                            <dt>
+                                <xsl:value-of select="$plural-type"/>
+                            </dt>
+                            <xsl:for-each select="current-group()">
+                                <dd>
+                                    <a href="{concat('place.html?id=',@id)}">
+                                        <xsl:value-of select="t:placeName"/>
+                                        <xsl:value-of select="concat(' (',string(@type),')')"/>
+                                    </a>
+                                </dd>
+                            </xsl:for-each>
+                        </xsl:for-each-group>
+                        <dt>
+                            <a href="#" id="less-relation">
+                                <i class="icon-chevron-up"/>hide list</a>
+                        </dt>
+                    </dl>
                 </li>
             </xsl:when>
         </xsl:choose>

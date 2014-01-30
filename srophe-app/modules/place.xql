@@ -153,7 +153,9 @@ declare function place:get-related-places($rec as node()*){
                                     return
                                          attribute {name($att)} {$att},                      
                                     for $get-related in collection($config:app-root || "/data/places/tei")/id($place-id)
-                                    return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
+                                    let $type := string($get-related/@type)
+                                    return 
+                                        (attribute type {$type}, $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en']))
                                     }
                                     </mutual>
                             }
@@ -183,7 +185,7 @@ declare %templates:wrap function place:get-place-data($node as node(), $model as
                         ($rec/child::*, place:get-related-places($rec),place:get-nested-loc(),place:get-confessions())
                     }
                     </TEI>
-    let $cache :='forcerefresh223'
+    let $cache :='Change value to force refresh 55'
     return
 (:        $buildRec:)
        transform:transform($buildRec, doc('../resources/xsl/placepage.xsl'),() )
