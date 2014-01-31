@@ -24,16 +24,16 @@ declare function nav:build-nav($node as node(), $model as map(*)){
     for $active-page in tokenize(request:get-uri(), '/')[last()]
     return
      if (contains(request:get-uri(),'help')) then 
-        (<a data-template="config:app-title" class="brand" href="../index.html">The Syriac Gazetteer</a>,
+        (<a data-template="config:app-title" class="brand" href="../../geo/index.html">The Syriac Gazetteer</a>,
         <ul class="nav">
-            <li><a href="../browse.html">index</a></li>
-            <li><a href="../about.html">about</a></li>
+            <li><a href="../../geo/browse.html">index</a></li>
+            <li><a href="../../geo/about.html">about</a></li>
             <li class="active"><a href="index.html">help</a></li>
         </ul>,
         <p class="navbar-text nav pull-right" style="margin-left:1em; margin-right:1em;">
-            <a class="pull-right" href="../search.html">advanced search</a>
+            <a class="pull-right" href="../../geo/search.html">advanced search</a>
         </p>,
-        <form class="navbar-search pull-right s-asearch form-search" action="../search.html" method="get">
+        <form class="navbar-search pull-right s-asearch form-search" action="../../geo/search.html" method="get">
             <div class="input-append">
                 <input class="search-query" type="text" placeholder="search" name="q"/>     
                     <button type="submit" class="btn">Go</button>
@@ -41,16 +41,16 @@ declare function nav:build-nav($node as node(), $model as map(*)){
         </form>
         )
      else if (starts-with($active-page,'browse')) then
-      (<a data-template="config:app-title" class="brand" href="index.html">The Syriac Gazetteer</a>,
+      (<a data-template="config:app-title" class="brand" href="../geo/index.html">The Syriac Gazetteer</a>,
         <ul class="nav">
-            <li class="active"><a href="browse.html">index</a></li>
-            <li><a href="about.html">about</a></li>
-            <li><a href="help/index.html">help</a></li>
+            <li class="active"><a href="../geo/browse.html">index</a></li>
+            <li><a href="../geo/about.html">about</a></li>
+            <li><a href="../geo/help/index.html">help</a></li>
         </ul>,
         <p class="navbar-text nav pull-right" style="margin-left:1em; margin-right:1em;">
-            <a class="pull-right" href="search.html">advanced search</a>
+            <a class="pull-right" href="../geo/search.html">advanced search</a>
         </p>,
-        <form class="navbar-search pull-right s-asearch form-search" action="search.html" method="get">
+        <form class="navbar-search pull-right s-asearch form-search" action="../geo/search.html" method="get">
             <div class="input-append">
                 <input class="search-query" type="text" placeholder="search" name="q"/>     
                     <button type="submit" class="btn">Go</button>
@@ -58,16 +58,16 @@ declare function nav:build-nav($node as node(), $model as map(*)){
         </form>
         )
      else if(starts-with($active-page,'about')) then 
-      (<a data-template="config:app-title" class="brand" href="index.html">The Syriac Gazetteer</a>,
+      (<a data-template="config:app-title" class="brand" href="../geo/index.html">The Syriac Gazetteer</a>,
          <ul class="nav">
-             <li><a href="browse.html">index</a></li>
-             <li class="active"><a href="about.html">about</a></li>
-             <li><a href="help/index.html">help</a></li>
+             <li><a href="../geo/browse.html">index</a></li>
+             <li class="active"><a href="../geo/about.html">about</a></li>
+             <li><a href="../geo/help/index.html">help</a></li>
          </ul>,
         <p class="navbar-text nav pull-right" style="margin-left:1em; margin-right:1em;">
-            <a class="pull-right" href="search.html">advanced search</a>
+            <a class="pull-right" href="../geo/search.html">advanced search</a>
         </p>,
-        <form class="navbar-search pull-right s-asearch form-search" action="search.html" method="get">
+        <form class="navbar-search pull-right s-asearch form-search" action="../geo/search.html" method="get">
             <div class="input-append">
                 <input class="search-query" type="text" placeholder="search" name="q"/>     
                     <button type="submit" class="btn">Go</button>
@@ -75,16 +75,16 @@ declare function nav:build-nav($node as node(), $model as map(*)){
         </form>
          )
      else 
-      (<a data-template="config:app-title" class="brand" href="index.html">The Syriac Gazetteer</a>,
+      (<a data-template="config:app-title" class="brand" href="../geo/index.html">The Syriac Gazetteer</a>,
         <ul class="nav">
-            <li><a href="browse.html">index</a></li>
-            <li><a href="about.html">about</a></li>
-            <li><a href="help/index.html">help</a></li>
+            <li><a href="../geo/browse.html">index</a></li>
+            <li><a href="../geo/about.html">about</a></li>
+            <li><a href="../geo/help/index.html">help</a></li>
         </ul>,
         <p class="navbar-text nav pull-right" style="margin-left:1em; margin-right:1em;">
-            <a class="pull-right" href="search.html">advanced search</a>
+            <a class="pull-right" href="../geo/search.html">advanced search</a>
         </p>,
-        <form class="navbar-search pull-right s-asearch form-search" action="search.html" method="get">
+        <form class="navbar-search pull-right s-asearch form-search" action="../geo/search.html" method="get">
             <div class="input-append">
                 <input class="search-query" type="text" placeholder="search" name="q"/>     
                     <button type="submit" class="btn">Go</button>
