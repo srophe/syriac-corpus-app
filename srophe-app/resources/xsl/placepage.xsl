@@ -144,7 +144,10 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="/exist/apps/srophe/resources/js/map.js"/>
+        <xsl:if test="//t:geo">
+            <script type="text/javascript" src="/exist/apps/srophe/resources/js/map.js"/>
+        </xsl:if>
+        <script type="text/javascript" src="/exist/apps/srophe/resources/js/main.js"/>
     </xsl:template>
     
 <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
@@ -198,6 +201,33 @@
                         <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
                             <xsl:call-template name="sources"/>
                         </xsl:if>
+                        <!-- Button to trigger modal -->
+                        <a href="#report-errors" role="button" class="btn btn-primary" data-toggle="modal">See errors?</a>
+                        
+                        <!-- Modal -->
+                        <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h3 id="report-errors-label">Report Errors</h3>
+                            </div>
+                            <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
+                                <div class="modal-body" id="modal-body">
+                                    <label>Name:</label>
+                                    <input type="text" name="name"/>
+                                    <label>e-mail address:</label>
+                                    <input type="text" name="email"/>
+                                    <label>Subject:</label>
+                                    <input type="text" name="subject"/>
+                                    <label>Comments:</label>
+                                    <textarea name="comments" id="comments" rows="8" class="span9"/>
+                                    <input type="hidden" name="id" value="{$placenum}"/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                    <button class="btn btn-primary" type="submit">Send email</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

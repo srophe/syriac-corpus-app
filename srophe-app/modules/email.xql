@@ -12,24 +12,11 @@ declare namespace mail="http://exist-db.org/xquery/mail";
 
 declare variable $id {request:get-parameter('id', '')};
 
-declare function local:form(){
-    <form action="email.xql" method="post">
-        <label>Name:</label> <input type="text" name="name"/>
-        <label>e-mail address:</label><input type="text" name="email"/>
-        <label>Subject:</label><input type="text" name="subject"/>
-        <label>Comments:</label>
-        <textarea name="comments" id="comments" rows="20" cols="60"/>
-        <input type="hidden" name="id" value="{$id}"/>
-        <submit/>
-    </form>   
-};
-
 declare function local:build-message(){
 let $email-data := request:get-data()
 let $email-address := xmldb:decode(substring-before(substring-after($email-data, 'email='), '&amp;'))
 let $place-id := xmldb:decode(substring-before(substring-after($email-data, 'id='), '&amp;'))
 let $subject := xmldb:decode(substring-before(substring-after($email-data, 'subject='), '&amp;'))
-
 return
   <mail>
     <from>{$email-address}</from>
@@ -59,14 +46,12 @@ return
       </xhtml>
     </message>
   </mail>
-
 };
 
-let $cache := 'test'
+let $cache := 'change this value to force page refresh 33'
 return
-if(request:get-data()) then 
     if ( mail:send-email(local:build-message(),(), ()) ) then
-      <h1>Sent Message OK :-)</h1>
+      <h4>Thank you. Your message has been sent.</h4>
     else
-      <h1>Could not Send Message :-(</h1>
-else local:form()      
+      <h4>Could not send message.</h4>
+      
