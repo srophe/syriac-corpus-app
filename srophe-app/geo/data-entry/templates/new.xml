@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:math="http://www.w3.org/1998/Math/MathML" xml:lang="en">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title level="a" xml:lang="en"/>
+            </titleStmt>
+            <publicationStmt>
+                <date/>
+            </publicationStmt>
+            <sourceDesc>
+                <bibl/>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <listPlace>
+                <place xml:id="place-XXX" type="TYPE">
+                    <!--Must include 1 english name place type -->
+                    <placeName xml:id="nameXXX-X" xml:lang="en/syr/syr-Syrj/ar" source="bibrefs" syriaca-tags="#syriaca-headword"/>           
+                    <!-- bibl also save to bible data folder? -->
+                    <bibl xml:id="bib78-1">
+                        <!-- repeatable -->
+                        <author>Author</author>
+                        <!-- title repeatable a(article?) m(manuscript) -->
+                        <title level="a" xml:lang="en">article title</title>
+                        <!-- point to bib record -->
+<!--                        <ptr target="http://syriaca.org/bibl/1"/>-->
+                        <!--unit: pages maps-->
+                        <citedRange unit="pp"/>
+                    </bibl>
+                </place>
+                <!-- relations?
+                <relation name="contained" active="http://syriaca.org/place/145 http://syriaca.org/place/166" passive="#place-78" source="#bib78-1" to="0363"/>
+                -->
+            </listPlace>
+        </body>
+    </text>
+</TEI>

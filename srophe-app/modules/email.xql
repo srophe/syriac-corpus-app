@@ -48,9 +48,29 @@ return
   </mail>
 };
 
+declare function local:build-message-test(){
+  <mail>
+    <from>Winona Salesky &lt;wsalesky@gmail.com&gt;</from>
+    <to>wsalesky@gmail.com</to>
+    <subject>test mail funciton</subject>
+    <message>
+      <xhtml>
+           <html>
+               <head>
+                 <title>test mail funciton</title>
+               </head>
+               <body>
+                 testing mail functions
+              </body>
+           </html>
+      </xhtml>
+    </message>
+  </mail>
+};
+
 let $cache := 'change this value to force page refresh 33'
 return
-    if ( mail:send-email(local:build-message(),(), ()) ) then
+    if ( mail:send-email(local:build-message-test(),(), ()) ) then
       <h4>Thank you. Your message has been sent.</h4>
     else
       <h4>Could not send message.</h4>
