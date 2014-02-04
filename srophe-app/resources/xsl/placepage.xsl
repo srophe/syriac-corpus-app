@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -148,6 +148,7 @@
             <script type="text/javascript" src="/exist/apps/srophe/resources/js/map.js"/>
         </xsl:if>
         <script type="text/javascript" src="/exist/apps/srophe/resources/js/main.js"/>
+        <script type="text/javascript" src="/exist/apps/srophe/resources/js/jquery.validate.min.js"/>
     </xsl:template>
     
 <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
@@ -203,13 +204,13 @@
                             <xsl:call-template name="sources"/>
                         </xsl:if>
                         <!-- Button to trigger modal -->
-                        <a href="#report-errors" role="button" class="btn btn-primary" data-toggle="modal">See errors?</a>
+                        <a href="#report-errors" role="button" class="btn btn-primary" data-toggle="modal">Corrections?</a>
                         
                         <!-- Modal -->
                         <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h3 id="report-errors-label">Report Errors in Place Data</h3>
+                                <h3 id="report-errors-label">Corrections?</h3>
                             </div>
                             <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
                                 <div class="modal-body" id="modal-body">
@@ -222,13 +223,35 @@
                                     <label>Comments:</label>
                                     <textarea name="comments" id="comments" rows="8" class="span9"/>
                                     <input type="hidden" name="id" value="{$placenum}"/>
+                                    <input type="hidden" name="place" value="{string(t:placeName[1])}"/>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                                    <input id="subscribe-email-submit" type="submit" value="Send e-mail" class="btn btn-primary"/>
+                                    <input id="email-submit" type="submit" value="Send e-mail" class="btn btn-primary"/>
                                 </div>
                             </form>
                         </div>
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#email').validate(
+                                    {
+                                    rules: {
+                                        name: {
+                                            minlength: 2,
+                                            required: true
+                                            },
+                                        comments: {
+                                             minlength: 2,
+                                             required: true
+                                             },
+                                        email: {
+                                            required: true,
+                                            email: true
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
                     </div>
                 </div>
             </div>

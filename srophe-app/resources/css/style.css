@@ -280,3 +280,8 @@ div[id|=place] > div:last-of-type {
 }
 #toggle-relation {display:none;}
 #toggle-relation dd{padding-top:0; margin-top:0; }
+
+/* styles for forms */
+label.error {
+  color: #B94A48; /* color to match Bootstraps error class */
+}
