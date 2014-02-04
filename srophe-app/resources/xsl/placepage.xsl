@@ -157,7 +157,8 @@
         <!-- Start place content -->
         <div class="row-fluid">
             <!-- Main content -->
-            <div class="span10">
+            <!-- Change to span10 when RDF is added back in -->
+            <div class="span12">
                 <div class="row-fluid">
                     <div class="span12 main">
                         <!-- Place URI and Abstract -->
