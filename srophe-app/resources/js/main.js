@@ -1,17 +1,16 @@
 // Main javascript functions used by place pages
-//Ajax to send error email
 $(document).on('submit','form#email',function(e){
     e.preventDefault();
     $.ajax({
         type:'POST', 
         url: $('#email').attr('action'), 
+        data: $('#email').serializeArray(),
         dataType: "html", 
         success: function(response) {
             var temp = response;
             $('div#modal-body').html(temp);
     }});
 });
-
 
 // Toggle for citation
 $( "#moreInfo" ).click(function() {

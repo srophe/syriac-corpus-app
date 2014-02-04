@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -208,7 +208,7 @@
                         <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h3 id="report-errors-label">Report Errors</h3>
+                                <h3 id="report-errors-label">Report Errors in Place Data</h3>
                             </div>
                             <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
                                 <div class="modal-body" id="modal-body">
@@ -224,7 +224,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                                    <button class="btn btn-primary" type="submit">Send email</button>
+                                    <input id="subscribe-email-submit" type="submit" value="Send e-mail" class="btn btn-primary"/>
                                 </div>
                             </form>
                         </div>
@@ -232,12 +232,12 @@
                 </div>
             </div>
             <!-- RDF Results -->
-            <div class="span2">
+            <!--<div class="span2">
                 <h3>RDF Results</h3>
                 <div>
                     Results
                 </div>
-            </div>
+            </div>-->
         </div>
     </xsl:template>
     <!-- Place content is split into two columns -->

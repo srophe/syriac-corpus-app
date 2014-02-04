@@ -9,50 +9,16 @@ declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace mail="http://exist-db.org/xquery/mail";
+declare namespace request="http://exist-db.org/xquery/request";
 
-declare variable $id {request:get-parameter('id', '')};
-
-declare function local:build-message(){
-let $email-data := request:get-data()
-let $email-address := xmldb:decode(substring-before(substring-after($email-data, 'email='), '&amp;'))
-let $place-id := xmldb:decode(substring-before(substring-after($email-data, 'id='), '&amp;'))
-let $subject := xmldb:decode(substring-before(substring-after($email-data, 'subject='), '&amp;'))
-return
-  <mail>
-    <from>{$email-address}</from>
-    <to>wsalesky@gmail.com</to>
-    <subject>{$place-id} {$subject}</subject>
-    <message>
-      <xhtml>
-           <html>
-               <head>
-                 <title>{$place-id} {$subject}</title>
-               </head>
-               <body>
-                  {
-                  let $parsed-data := tokenize($email-data , "&amp;" )
-                  for $parsed-query-term in $parsed-data
-                  let $parse-query-value := substring-after($parsed-query-term,"=")
-                  let $parameter-name := substring-before($parsed-query-term, concat("=", $parse-query-value))
-                  return 
-                  (
-                  <h3>{$parameter-name}</h3>,
-                  <p>{xmldb:decode($parse-query-value)}</p>
-                    )
-
-                  }
-              </body>
-           </html>
-      </xhtml>
-    </message>
-  </mail>
-};
+declare option exist:serialize "method=xml media-type=text/xml indent=yes";
 
 declare function local:build-message-test(){
   <mail>
-    <from>Winona Salesky &lt;wsalesky@gmail.com&gt;</from>
-    <to>wsalesky@gmail.com</to>
-    <subject>test mail funciton</subject>
+    <from>Syriaca.org &lt;david.a.michelson@vanderbilt.edu&gt;</from>
+    <to>david.a.michelson@vanderbilt.edu</to>
+    <cc>tcarlson@princeton.edu</cc>
+    <subject>{request:get-parameter('subject','')} for {request:get-parameter('id','')}</subject>
     <message>
       <xhtml>
            <html>
@@ -60,7 +26,11 @@ declare function local:build-message-test(){
                  <title>test mail funciton</title>
                </head>
                <body>
-                 testing mail functions
+                 <p>Name: {request:get-parameter('name','')}</p>
+                 <p>e-mail: {request:get-parameter('email','')}</p>
+                 <p>Subject: {request:get-parameter('subject','')} for {request:get-parameter('id','')}</p>
+                 <p>Place: http://syriaca.org//place/{request:get-parameter('id','')}</p>
+                 {request:get-parameter('comments','')}
               </body>
            </html>
       </xhtml>
@@ -69,9 +39,8 @@ declare function local:build-message-test(){
 };
 
 let $cache := 'change this value to force page refresh 33'
-return
-    if ( mail:send-email(local:build-message-test(),(), ()) ) then
+return 
+    if ( mail:send-email(local:build-message-test(),"library.vanderbilt.edu", ()) ) then
       <h4>Thank you. Your message has been sent.</h4>
     else
       <h4>Could not send message.</h4>
-      
