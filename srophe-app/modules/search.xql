@@ -400,20 +400,8 @@ return
    )
 };
 
-(:~
- : Builds search form, called from search-form.xqm
-:)
-declare %templates:wrap  function search:show-form($node as node()*, $model as map(*)) {   
-    if(exists(request:get-parameter-names())) then ''
-    else <div>{search-form:show-form()}</div>
-};
-declare 
-    %templates:default("start", 1)
-function search:show-hits($node as node()*, $model as map(*)) {
-<div class="well" style="background-color:white;">
-<div>
-    {
-    if(count($model("hits")//tei:geo) gt 1) then
+declare function search:build-geojson($node as node()*, $model as map(*)){
+if(count($model("hits")//tei:geo) gt 1) then
          (<div id="map" style="height: 250px;"/>,
          <script type="text/javascript">
              <![CDATA[
@@ -435,12 +423,11 @@ function search:show-hits($node as node()*, $model as map(*)) {
               		var placesgeo =]]>
               		{geo:build-geojson($node,$model)}
                      <![CDATA[
-                     
-                    
+
                         var geojson = L.geoJson(placesgeo, {
                         onEachFeature: function (feature, layer){
-                        var popupContent = "&lt;a href='" + feature.properties.uri + "'&gt;" +
-                        feature.properties.name + " - " + feature.properties.type + "&lt;/a&gt;";
+                        var popupContent = "<a href='" + feature.properties.uri + "'>" +
+                        feature.properties.name + " - " + feature.properties.type + "</a>";
                         
                         layer.bindPopup(popupContent);
                         }
@@ -461,8 +448,20 @@ function search:show-hits($node as node()*, $model as map(*)) {
                         ]]>
                     </script>)
                else ''
-    }
-    </div>
+};
+
+(:~
+ : Builds search form, called from search-form.xqm
+:)
+declare %templates:wrap  function search:show-form($node as node()*, $model as map(*)) {   
+    if(exists(request:get-parameter-names())) then ''
+    else <div>{search-form:show-form()}</div>
+};
+declare 
+    %templates:default("start", 1)
+function search:show-hits($node as node()*, $model as map(*)) {
+<div class="well" style="background-color:white;">
+<div>{search:build-geojson($node,$model)}</div>
 {
     for $hit at $p in subsequence($model("hits"), $search:start, 20)
     let $kwic := kwic:summarize($hit, <config width="40" table="no"/>)
