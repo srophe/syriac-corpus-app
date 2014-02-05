@@ -2,6 +2,8 @@ xquery version "3.0";
 
 module namespace search="http://syriaca.org//search";
 import module namespace search-form="http://syriaca.org//search-form" at "search-form.xqm";
+import module namespace geo="http://syriaca.org//geojson" at "geojson.xqm";
+
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 import module namespace kwic="http://exist-db.org/xquery/kwic" at "resource:org/exist/xquery/lib/kwic.xql";
@@ -405,11 +407,62 @@ declare %templates:wrap  function search:show-form($node as node()*, $model as m
     if(exists(request:get-parameter-names())) then ''
     else <div>{search-form:show-form()}</div>
 };
-
 declare 
     %templates:default("start", 1)
 function search:show-hits($node as node()*, $model as map(*)) {
 <div class="well" style="background-color:white;">
+<div>
+    {
+    if(count($model("hits")//tei:geo) gt 1) then
+         (<div id="map" style="height: 250px;"/>,
+         <script type="text/javascript">
+             <![CDATA[
+                    var terrain = L.tileLayer(
+                        'http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', 
+                        {attribution: "ISAW, 2012"});
+                        
+                        /* Not added by default, only through user control action */
+                    var streets = L.tileLayer(
+                        'http://api.tiles.mapbox.com/v3/sgillies.map-pmfv2yqx/{z}/{x}/{y}.png', 
+                        {attribution: "ISAW, 2012"});
+                        
+                    var imperium = L.tileLayer(
+                        'http://pelagios.dme.ait.ac.at/tilesets/imperium//{z}/{x}/{y}.png', {
+                        attribution: 'Tiles: &lt;a href="http://pelagios-project.blogspot.com/2012/09/a-digital-map-of-roman-empire.html"&gt;Pelagios&lt;/a&gt;, 2012; Data: NASA, OSM, Pleiades, DARMC',
+                        maxZoom: 11 });
+
+
+              		var placesgeo =]]>
+              		{geo:build-geojson($node,$model)}
+                     <![CDATA[
+                     
+                    
+                        var geojson = L.geoJson(placesgeo, {
+                        onEachFeature: function (feature, layer){
+                        var popupContent = "&lt;a href='" + feature.properties.uri + "'&gt;" +
+                        feature.properties.name + " - " + feature.properties.type + "&lt;/a&gt;";
+                        
+                        layer.bindPopup(popupContent);
+                        }
+                        }) 
+                        
+                        var map = L.map('map').fitBounds(geojson.getBounds());
+                        
+                        terrain.addTo(map);
+                        
+                        L.control.layers({
+                        "Terrain (default)": terrain,
+                        "Streets": streets,
+                        "Imperium": imperium }).addTo(map);
+                        
+                        geojson.addTo(map);
+ 
+                     
+                        ]]>
+                    </script>)
+               else ''
+    }
+    </div>
 {
     for $hit at $p in subsequence($model("hits"), $search:start, 20)
     let $kwic := kwic:summarize($hit, <config width="40" table="no"/>)
@@ -439,12 +492,6 @@ function search:show-hits($node as node()*, $model as map(*)) {
                         </a>
                     </p>
                     <div style="margin-bottom:1em; margin-top:-1em; padding-left:1em;">
-                     <!-- $kwic[1] gets keyword in context, but odd output with syriac due to right to left text 
-                     <div>{
-                        for $summary at $h in subsequence($kwic, 1, 5) 
-                        return $summary
-                    }</div>
-                     -->
                         {$hit/tei:desc[starts-with(@xml:id,'abstract')]/descendant-or-self::text()}
                     </div>
                   </div>
@@ -452,13 +499,13 @@ function search:show-hits($node as node()*, $model as map(*)) {
             </div>
         </div>
    }
-   </div>
+</div>
 };
 
 (:~
  : Checks to see if there are any parameters in the URL, if yes, runs search, if no displays search form. 
 :)
 declare %templates:wrap function search:build-page($node as node()*, $model as map(*)) {
-if(exists(request:get-parameter-names())) then (search:pageination($node,$model),search:show-hits($node, $model))
-else ''
+    if(exists(request:get-parameter-names())) then (search:pageination($node,$model),search:show-hits($node, $model))
+    else ''
 };
