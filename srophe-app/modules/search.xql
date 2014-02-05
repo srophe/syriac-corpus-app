@@ -253,11 +253,33 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
     map {"hits" := 
                 let $hits := util:eval($eval-string)    
                 for $hit in $hits
-                let $id := substring-after($hit/@xml:id,'place-')
                 order by ft:score($hit) descending
                 return $hit
     }
 };
+
+(:
+ let $hits := util:eval($eval-string)    
+                for $hit in $hits
+                order by $hit[@type = 'settlement'], ft:score($hit) descending
+                return $hit
+let $hits := util:eval($eval-string)    
+                for $hit in $hits
+                let $id := substring-after($hit/@xml:id,'place-')
+                let $type := string($hit/@type)
+                group by $type
+                order by ft:score($hit) descending,
+                $hit[@type = 'settlement'], 
+                $hit[@type = 'monastery'], $hit[@type = 'fortification'],
+                $hit[@type = 'synagogue'],$hit[@type = 'church'],$hit[@type = 'mosque'],$hit[@type = 'madrasa'],
+                $hit[@type = 'temple'],$hit[@type = 'building']
+                return 
+                for $ordered-hits in $hit
+                order by ft:score($ordered-hits) descending
+                return $ordered-hits
+    }
+settlement, monastery, fortification, synagogue, church, mosque, madrasa, temple, building, mountain, island, open-water, river, region, state, province, diocese, quarter, parish, unknown
+:)
 
 (:~ 
  : Count total hits
