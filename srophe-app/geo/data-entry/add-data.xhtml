@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:bf="http://betterform.sourceforge.net/xforms" xmlns:xf="http://www.w3.org/2002/xforms" bf:toaster-position="tl-down">
+    <head>
+        <title>TEST: Add data to Record</title>
+        <meta name="author" content="wsalesky at gmail.com"/>
+        <meta name="description" content="TEST: Add data to Record"/>
+
+		<!--<link rel="stylesheet" type="text/css" href="bfResources/styles/dashboard.css" />-->
+        <link rel="stylesheet" type="text/css" href="styles/demo.css"/>
+        <link rel="stylesheet" type="text/css" href="$shared/resources/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="$shared/resources/css/bootstrap-responsive.min.css"/>
+        <style type="text/css">
+            .xfRepeatIndex{background-color:white !important; padding:.5em;}
+            label{font-weight:bold;}
+            .xfTrigger{margin-left: 1em;}
+            td {padding-right: 1em;}
+        </style>
+    </head>
+    <body class="soria" style="margin:30px;">
+        <div id="xforms" style="width: 850px;">
+            <div style="display:none">
+                <xf:model id="master">
+                    <xf:instance xmlns="" id="new" src="templates/new.xml"/>
+                    <xf:instance xmlns="" id="template" src="templates/template.xml"/>
+                    <xf:instance xmlns="" id="confessions" src="/exist/apps/srophe/data/confessions/tei/confessions.xml"/>
+                </xf:model>
+            </div>
+            <div class="Section" dojotype="dijit.layout.ContentPane">
+                <!-- 
+                    wrap, popup with id, uri and place names from orig record
+                    only use xform for new record info:
+                    
+                    Make each section toggle on toggle insert elements
+                    
+                -->
+                <div class="new-source">
+                    <fieldset class="well">
+                        <label>Source</label> 
+                        <!-- bind bibid bind bib id to all source attributes for following items-->
+                        <xf:repeat nodeset="instance('new')//tei:place/tei:bibl" id="new-source" class="srophe-repeat">
+                            <xf:repeat nodeset="tei:author" id="source-author" appearance="compact">
+                                <xf:input ref=".">
+                                    <xf:label>Author: </xf:label>
+                                </xf:input>
+                                <xf:trigger class="editTrigger btn" appearance="minimal">
+                                    <xf:label>+ author</xf:label>
+                                    <xf:insert ev:event="DOMActivate" context="." nodeset="." at="last()" position="after" origin="instance('template')//tei:place/tei:bibl/tei:author"/>
+                                </xf:trigger>
+                                <xf:trigger class="editTrigger btn" appearance="minimal">
+                                    <xf:label>Remove</xf:label>
+                                    <xf:delete ev:event="DOMActivate" nodeset="." at="index('source-author')"/>
+                                </xf:trigger>
+                            </xf:repeat>
+                            <xf:repeat nodeset="tei:title" id="source-title" appearance="compact">
+                                <xf:input ref=".">
+                                    <xf:label>Title: </xf:label>
+                                </xf:input>&#160; 
+                                <xf:select1 ref="@level">
+                                    <xf:label>Level: </xf:label>
+                                    <xf:item>
+                                        <xf:label>Article</xf:label>
+                                        <xf:value>a</xf:value>
+                                    </xf:item>
+                                    <xf:item>
+                                        <xf:label>Manuscript</xf:label>
+                                        <xf:value>m</xf:value>
+                                    </xf:item>
+                                </xf:select1>
+                                <!-- add lang -->
+                                <xf:trigger class="editTrigger btn" appearance="minimal">
+                                    <xf:label>+ title</xf:label>
+                                    <xf:insert ev:event="DOMActivate" context="." nodeset="." at="last()" position="after" origin="instance('template')//tei:place/tei:bibl/tei:title"/>
+                                </xf:trigger>
+                                <xf:trigger class="editTrigger btn" appearance="minimal">
+                                    <xf:label>Remove</xf:label>
+                                    <xf:delete ev:event="DOMActivate" nodeset="." at="index('source-title')"/>
+                                </xf:trigger>
+                            </xf:repeat>
+                            <xf:input ref="tei:citedRange">
+                                <xf:label>Cited Range: </xf:label>
+                            </xf:input>
+                            <div class="pull-right">
+                                <xf:trigger class="editTrigger btn" appearance="minimal">
+                                    <xf:label>Remove</xf:label>
+                                    <xf:delete ev:event="DOMActivate" nodeset="." at="index('new-source')"/>
+                                </xf:trigger>
+                                <br class="clearfix"/>
+                            </div>
+                            <br class="clearfix"/>
+                        </xf:repeat>
+                        <div>
+                            <br class="clearfix"/>
+                            <xf:trigger class="editTrigger btn" appearance="minimal">
+                                <xf:label>+ source</xf:label>
+                                <xf:insert ev:event="DOMActivate" context="instance('new')//tei:place/tei:bibl" nodeset="instance('new')//tei:place/tei:bibl" at="last()" position="after" origin="instance('template')//tei:place/tei:bibl"/>
+                            </xf:trigger>
+                        </div>
+                    </fieldset>
+                    <fieldset class="well">
+                        <label>Place </label>
+                        <xf:repeat nodeset="instance('new')//tei:place/tei:placeName" id="newPlaceName" appearance="compact">
+                            <xf:input ref=".">
+                                <xf:label>Name</xf:label>
+                            </xf:input>
+                                    <!-- Add new lang -->
+                            <xf:select1 ref="@xml:lang">
+                                <xf:label>Language:</xf:label>
+                                <xf:item>
+                                    <xf:label>--- Select Language ---</xf:label>
+                                    <xf:value/>
+                                </xf:item>
+                                <xf:item>
+                                    <xf:label>English</xf:label>
+                                    <xf:value>en</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                    <xf:label>Vocalized West Syriac</xf:label>
+                                    <xf:value>syr-Syrj</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                    <xf:label>Vocalized East Syriac</xf:label>
+                                    <xf:value>syr-Syrn</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                    <xf:label>Vocalized East Syriac</xf:label>
+                                    <xf:value>syr-Syrn</xf:value>
+                                </xf:item>
+                                <xf:item>
+                                    <xf:label>Arabic</xf:label>
+                                    <xf:value>ar</xf:value>
+                                </xf:item>
+                            </xf:select1>
+                            <xf:input ref="@xml:lang">
+                                <xf:label>Write in Language</xf:label>
+                            </xf:input>
+                            <xf:trigger ref="." class="editTrigger btn" appearance="minimal">
+                                <xf:label>Remove</xf:label>
+                                <xf:delete ev:event="DOMActivate" nodeset="." at="index('newPlaceName')"/>
+                            </xf:trigger>
+                        </xf:repeat>
+                        <xf:trigger class="editTrigger btn" appearance="minimal">
+                            <xf:label>+ Place Name</xf:label>
+                            <xf:insert ev:event="DOMActivate" context="instance('new')//tei:place" nodeset="instance('new')//tei:place/tei:placeName" at="last()" position="after" origin="instance('template')//tei:place/tei:placeName"/>
+                        </xf:trigger>
+                    </fieldset>
+                    <fieldset>
+                        <fieldset class="well">
+                            <xf:textarea ref="instance('new')//tei:place/tei:desc[starts-with(@xml:id,'abstract')]">
+                                <xf:label>Abstract</xf:label>
+                            </xf:textarea>
+                            <!-- Make dispapear after one instance -->
+                            <xf:trigger class="btn" appearance="minimal">
+                                <xf:label>Add Abstract</xf:label>
+                                <xf:insert ev:event="DOMActivate" context="instance('new')//tei:place" nodeset="instance('new')//tei:place/tei:placeName" at="last()" position="after" origin="instance('template')//tei:place/tei:desc[1]"/>
+                            </xf:trigger>
+                        </fieldset>
+                        <fieldset class="well">
+                            <xf:textarea ref="instance('new')//tei:place/tei:desc">
+                                <xf:label>Description</xf:label>
+                            </xf:textarea>
+                            <xf:trigger class="btn" appearance="minimal">
+                                <xf:label>Add Description</xf:label>
+                                <xf:insert ev:event="DOMActivate" context="instance('new')//tei:place" nodeset="instance('new')//tei:place/tei:placeName" at="last()" position="after" origin="instance('template')//tei:place/tei:desc[1]"/>
+                            </xf:trigger>
+                        </fieldset>
+                            <!-- issues -->
+                        <fieldset class="well">
+                            <label>Location</label>
+                            <!-- Need to work on more complex location element -->
+                            <xf:trigger class="btn" appearance="minimal">
+                                <xf:label>Coordinates</xf:label>
+                                <xf:insert ev:event="DOMActivate" context="instance('new')//tei:place" nodeset="instance('new')//tei:place/tei:location" at="last()" position="after" origin="instance('template')//tei:place/tei:location[tei:geo]"/>
+                            </xf:trigger>
+                            <xf:input ref="instance('new')//tei:place/tei:location/tei:geo">
+                                <xf:label>Coordinates</xf:label>
+                            </xf:input>
+                           <!-- should enable delete as well -->
+                        </fieldset>
+                        <fieldset class="well">
+                            <label>Events</label>
+                            <xf:repeat nodeset="instance('new')//tei:place/tei:event[not(@type='attestation')]" id="newevent" appearance="compact">
+                                <xf:input ref=".">
+                                    <xf:label>Event: </xf:label>
+                                </xf:input>
+                                <!-- select date type from dropdown, have input popup -->
+                                <!-- Toggle dates -->
+                                <xf:trigger class="btn" appearance="minimal">
+                                    <xf:label>X</xf:label>
+                                    <xf:delete ev:event="DOMActivate" nodeset="." at="index('newevent')"/>
+                                </xf:trigger>
+                            </xf:repeat>
+                            <xf:trigger class="btn" appearance="minimal">
+                                <xf:label>New event</xf:label>
+                                <xf:insert ev:event="DOMActivate" context="instance('new')//tei:place" nodeset="instance('new')//tei:place/tei:event" at="last()" position="after" origin="instance('template')//tei:place/tei:event[1]"/>
+                            </xf:trigger>
+                        </fieldset>
+                        <fieldset class="well">
+                            <label>Attestation</label>
+                            <xf:repeat nodeset="instance('new')//tei:place/tei:event[@type='attestation']" id="newattestation" appearance="compact">
+                                <xf:input ref=".">
+                                    <xf:label>Attestation: </xf:label>
+                                </xf:input>
+                                Dates:
+                                <!-- select date type from dropdown, have input popup -->
+                                <xf:trigger class="btn" appearance="minimal">
+                                    <xf:label>X</xf:label>
+                                    <xf:delete ev:event="DOMActivate" nodeset="." at="index('newattestation')"/>
+                                </xf:trigger>
+                            </xf:repeat>
+                            <xf:trigger class="btn" appearance="minimal">
+                                <xf:label>New attestation</xf:label>
+                                <xf:insert ev:event="DOMActivate" context="instance('new')//tei:place" nodeset="instance('new')//tei:place/tei:event[@type='attestation']" at="last()" position="after" origin="instance('template')//tei:place/tei:event[@type='attestation']"/>
+                            </xf:trigger>
+                        </fieldset>
+                        <fieldset class="well">
+                            <label>Confessions</label>
+                            <xf:repeat nodeset="instance('new')//tei:place/tei:state[@type='confession']" id="newconfession" appearance="compact">&gt;
+                                <xf:select1 ref=".">
+                                    <xf:label>Confession:</xf:label>
+                                    <xf:itemset nodeset="instance('confessions')//tei:item">
+                                        <xf:label ref="child::tei:label"/>
+                                        <xf:value ref="@xml:id"/>
+                                    </xf:itemset>
+                                </xf:select1>
+                                Dates:
+                                
+                                ref:
+                                
+                                <!-- select date type from dropdown, have input popup -->
+                                <xf:trigger class="btn" appearance="minimal">
+                                    <xf:label>X</xf:label>
+                                    <xf:delete ev:event="DOMActivate" nodeset="." at="index('newconfession')"/>
+                                </xf:trigger>
+                            </xf:repeat>
+                            <xf:trigger class="btn" appearance="minimal">
+                                <xf:label>New confession</xf:label>
+                                <xf:insert ev:event="DOMActivate" context="instance('new')//tei:place" nodeset="instance('new')//tei:place/tei:state[@type='confession']" at="last()" position="after" origin="instance('template')//tei:place/tei:state[@type='confession']"/>
+                            </xf:trigger>
+                        </fieldset>
+                    </fieldset>
+                </div>
+                
+                
+                <!--
+                    place name (probably with radio buttons for language, 
+                    perhaps with a radio button for a "fill-in-the-language"), 
+                    abstract, 
+                    location (either lat/long or textual), 
+                    description, 
+                    event (with date fields separate from desc), 
+                    confession (from a drop-down list?), or 
+                    attestation.
+                -->
+            </div>
+        </div>
+    </body>
+</html>
