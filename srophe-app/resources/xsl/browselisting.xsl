@@ -178,14 +178,16 @@
                     </div>
                     <!-- Letter heading. Uses parameter passed from xquery, if no letter, default value is ܐ -->
                     <h3 class="label syr">
-                        <xsl:choose>
-                            <xsl:when test="/t:TEI/@browse-sort != ''">
-                                <xsl:value-of select="/t:TEI/@browse-sort"/>
-                            </xsl:when>
-                            <xsl:otherwise>ܐ</xsl:otherwise>
-                        </xsl:choose>
+                        <span lang="syr" dir="rtl">
+                            <xsl:choose>
+                                <xsl:when test="/t:TEI/@browse-sort != ''">
+                                    <xsl:value-of select="/t:TEI/@browse-sort"/>
+                                </xsl:when>
+                                <xsl:otherwise>ܐ</xsl:otherwise>
+                            </xsl:choose>
+                        </span>
                     </h3>
-                    <ul style="margin-right:5em; margin-top:1em;">
+                    <ul style="margin-right:7em; margin-top:1em;">
                         <!-- For each place build title and links -->
                         <xsl:for-each select="//t:place">
                             <!-- Sorts on syriac name  -->
