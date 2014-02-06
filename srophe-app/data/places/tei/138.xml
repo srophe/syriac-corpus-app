@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-02-06</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,6 +95,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">CHANGED: Syriac headword to unvocalized version of the new name form</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">ADDED: additional Syriac name and bibliogrpahic reference to Shbadnay as the source.</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -105,10 +107,11 @@
             <listPlace>
                 <place xml:id="place-138" type="settlement">
                     <placeName xml:id="name138-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib138-1 #bib138-5">Mopsuestia</placeName>
-                    <placeName xml:id="name138-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܣܝܣܛܐ</placeName>
+                    <placeName xml:id="name138-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܗܦܣܘܣܛܝܐ</placeName>
                     <placeName xml:id="name138-3" xml:lang="syr-Syrj" source="#bib138-2">ܡܣܝܣܛܰܐ</placeName>
                     <placeName xml:id="name138-4" xml:lang="ar" source="#bib138-3">المصيصة</placeName>
                     <placeName xml:id="name138-5" xml:lang="en" source="#bib138-4">Maṣṣīṣa</placeName>
+                    <placeName xml:id="name138-6" xml:lang="syr-Syrn" source="#bib138-6">ܡܲܗܦܣܘܼܣܛܝܼܵܐ</placeName>
                     <desc xml:id="abstract-en-138" xml:lang="en">A town of <placeName ref="http://syriaca.org/place/57">Cilicia II</placeName> southwest of <placeName ref="http://syriaca.org/place/9">Anazarbos</placeName> on the <placeName ref="'http://syriaca.org/place/159">Pyramos river</placeName>.</desc>
                     <desc xml:lang="syr-Syrj">
                         <quote source="#bib138-2">ܡܕܝܢܬܳܐ ܗܝ ܕܥܰܠ ܣܦܳܪ ܢܰܗܪܳܐ ܓܺܝܚܘܢ ܒܩܘܪܒܳܐ ܕܰܐܛܰܢܰܗ ܠܡܰܕܢܚܳܐ.</quote>
@@ -155,6 +158,11 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">62-63, 65</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib138-6">
+                        <author>Isḥaq Shbadnaya</author>
+                        <title xml:lang="en">Poem on God's Governance from 'In the Beginning' until Eternity</title>
+                        <citedRange unit="pp">CUA Hyvernat Syr. Ms. 7, f. 53b</citedRange>
                     </bibl>
                 </place>
                 <relation name="share-a-name" mutual="#place-138  http://syriaca.org/place/2345"/>
