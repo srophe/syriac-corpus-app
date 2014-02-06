@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-02-06</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,6 +95,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">ADDED <gi>quote</gi> elements around Syriac text in <gi>note</gi> of type="corrigenda".</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -136,7 +137,7 @@
                         <precision match="@from" notAfter="0397" notBefore="0300" syriaca-computed-end="0397-01-01" syriaca-computed-start="0300-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܛܒܺܝܒܶܐ should read ܛܒܺܝܒܳܐ.</note>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܛܒܺܝܒܶܐ</quote> should read <quote xml:lang="syr-Syrj">ܛܒܺܝܒܳܐ</quote>.</note>
                     <idno type="URI">http://syriaca.org/place/226</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/874583</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Mor_Gabriel_Monastery</idno>

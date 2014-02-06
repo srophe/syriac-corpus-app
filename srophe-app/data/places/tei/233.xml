@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-02-06</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,6 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">ADDED <gi>quote</gi> elements around Syriac text in <gi>note</gi> of type="corrigenda".</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -125,7 +126,7 @@
                         <precision match="@to" notAfter="2013" notBefore="0941" syriaca-computed-end="2013-01-01" syriaca-computed-start="0941-01-01"/>
                     </state>
                     <note type="corrigenda">GEDSH Map II displays the location too far to the south, east of <placeName ref="http://syriaca.org/place/91">Ḥama</placeName> rather than west of <placeName ref="http://syriaca.org/place/18">Aleppo</placeName>.</note>
-                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܕܐܶܦܶܣܘܣ should read ܕܶܐܦܶܣܘܣ.</note>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܕܐܶܦܶܣܘܣ</quote> should read <quote xml:lang="syr-Syrj">ܕܶܐܦܶܣܘܣ</quote>.</note>
                     <idno type="URI">http://syriaca.org/place/233</idno>
                     <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=m&amp;sK=monastery of Tell Ada&amp;sT=keywords

@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-02-06</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,6 +87,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">ADDED <gi>quote</gi> elements around Syriac and Arabic text in <gi>note</gi> of type="corrigenda".</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -119,8 +120,8 @@
                         <precision match="@from" notAfter="1700" notBefore="0300" syriaca-computed-end="1700-01-01" syriaca-computed-start="0300-01-01"/>
                         <precision match="@to" notAfter="1700" notBefore="0300" syriaca-computed-end="1700-01-01" syriaca-computed-start="0300-01-01"/>
                     </state>
-                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܕܐܶܦܣܩܘܦܳܐ should read ܕܶܐܦܝܣܩܘܦܳܐ.</note>
-                    <note type="corrigenda">In Barsoum's description انشىء should read انشئ.</note>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܕܐܶܦܣܩܘܦܳܐ</quote> should read <quote xml:lang="syr-Syrj">ܕܶܐܦܝܣܩܘܦܳܐ</quote>.</note>
+                    <note type="corrigenda">In Barsoum's description <quote xml:lang="ar">انشىء</quote> should read <quote xml:lang="ar">انشئ</quote>.</note>
                     <idno type="URI">http://syriaca.org/place/70</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/874577</idno>
                     <idno type="URI">

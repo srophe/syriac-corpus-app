@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-02-06</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,6 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">ADDED <gi>quote</gi> elements around Syriac text in <gi>note</gi> of type="corrigenda".</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -116,7 +117,7 @@
                         <quote source="#bib418-3">a village near Edessa, established by ʿAbd al-Mālik Ibn Ṣāliḥ al-Hāshimi. Al-Khālidi states that it was near al-Raqqa, near Batyas and the Monastery of Mar Zakka. The first person to build palaces there was the Abbasid Caliph al-Mahdi.</quote>
                     </desc>
                     <state type="existence"/>
-                    <note type="corrigenda">In Dolabani's translation of Barsoum's description ܕܪܰܩܗ̇ should read ܕܪܰܩܗ̈.</note>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܕܪܰܩܗ̇</quote> should read <quote xml:lang="syr-Syrj">ܕܪܰܩܗ̈</quote>.</note>
                     <idno type="URI">http://syriaca.org/place/418</idno>
                     <bibl xml:id="bib418-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
