@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -413,7 +413,7 @@
             </xsl:if>
             <!-- Note type Errata  -->
             <xsl:if test="t:note[@type='errata']">
-                <div id="incerta">
+                <div id="errata">
                     <h3>Errata</h3>
                     <ul>
                         <xsl:apply-templates select="t:note[@type='errata']"/>
@@ -626,8 +626,7 @@
                                     <!-- process @notBefore dates -->
                                     <xsl:when test="./@notBefore">
                                         <xsl:choose>
-                                            <xsl:when test="position() = 1">
-                                                attested around <xsl:value-of select="local:trim-date(@notBefore)"/>
+                                            <xsl:when test="position() = 1">attested around <xsl:value-of select="local:trim-date(@notBefore)"/>
                                             </xsl:when>
                                             <xsl:otherwise>
                                                 <xsl:if test="preceding-sibling::*">, </xsl:if>attested as early as <xsl:value-of select="local:trim-date(@notBefore)"/>
@@ -681,12 +680,10 @@
                                                         <li date="{string($date)}">
                                                             <xsl:choose>
                                                                 <!-- process @when dates use, local:trim-date function to trim 0 from dates-->
-                                                                <xsl:when test="./@when">
-                                                                    attested as early as <xsl:value-of select="local:trim-date(@when)"/>
+                                                                <xsl:when test="./@when">attested as early as <xsl:value-of select="local:trim-date(@when)"/>
                                                                 </xsl:when>
                                                                 <!-- process @notBefore dates -->
-                                                                <xsl:when test="./@notBefore">
-                                                                    attested around <xsl:value-of select="local:trim-date(@notBefore)"/>
+                                                                <xsl:when test="./@notBefore">attested around <xsl:value-of select="local:trim-date(@notBefore)"/>
                                                                 </xsl:when>
                                                             </xsl:choose>
                                                         </li>
@@ -734,13 +731,9 @@
                                 <li date="{string($date)}">
                                     <xsl:choose>
                                     <!-- process @when dates use, local:trim-date function to trim 0 from dates-->
-                                        <xsl:when test="./@when">
-                                        attested as early as <xsl:value-of select="local:trim-date(@when)"/>
-                                        </xsl:when>
+                                        <xsl:when test="./@when">attested as early as <xsl:value-of select="local:trim-date(@when)"/></xsl:when>
                                     <!-- process @notBefore dates -->
-                                        <xsl:when test="./@notBefore">
-                                        attested around <xsl:value-of select="local:trim-date(@notBefore)"/>
-                                        </xsl:when>
+                                        <xsl:when test="./@notBefore">attested around <xsl:value-of select="local:trim-date(@notBefore)"/></xsl:when>
                                     </xsl:choose>
                                 </li>
                             </xsl:if>
