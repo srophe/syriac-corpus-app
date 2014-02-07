@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -731,9 +731,11 @@
                                 <li date="{string($date)}">
                                     <xsl:choose>
                                     <!-- process @when dates use, local:trim-date function to trim 0 from dates-->
-                                        <xsl:when test="./@when">attested as early as <xsl:value-of select="local:trim-date(@when)"/></xsl:when>
+                                        <xsl:when test="./@when">attested as early as <xsl:value-of select="local:trim-date(@when)"/>
+                                        </xsl:when>
                                     <!-- process @notBefore dates -->
-                                        <xsl:when test="./@notBefore">attested around <xsl:value-of select="local:trim-date(@notBefore)"/></xsl:when>
+                                        <xsl:when test="./@notBefore">attested around <xsl:value-of select="local:trim-date(@notBefore)"/>
+                                        </xsl:when>
                                     </xsl:choose>
                                 </li>
                             </xsl:if>
@@ -1165,6 +1167,7 @@
         <xsl:text>”</xsl:text>
         <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
     </xsl:template>
+    <!-- NOTE: When persons are populated add back to this template for now, t:persName template, no link -->
     <xsl:template match="t:placeName | t:region | t:settlement">
         <xsl:choose>
             <xsl:when test="@ref">
@@ -1214,8 +1217,11 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
-    
+     
+    <xsl:template match="t:persName">
+        <xsl:call-template name="langattr"/>
+        <xsl:apply-templates mode="cleanout"/>
+    </xsl:template>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of the licence element in the tei header
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
