@@ -5,7 +5,7 @@
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Mopsuestia
-                                        — <foreign xml:lang="syr">ܡܣܝܣܛܐ</foreign>
+                    — <foreign xml:lang="syr">ܡܗܦܣܘܣܛܝܐ</foreign>
                 </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-02-06</date>
+                <date>2014-02-10</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,6 +95,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-10">FIXED: typo in URI for Pyramos River in abstract</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-10">FIXED: TEI header title to conform with new Syriac headword</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">CHANGED: Syriac headword to unvocalized version of the new name form</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">ADDED: additional Syriac name and bibliographic reference to Shbadnaya as the source.</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
@@ -112,7 +114,7 @@
                     <placeName xml:id="name138-4" xml:lang="ar" source="#bib138-3">المصيصة</placeName>
                     <placeName xml:id="name138-5" xml:lang="en" source="#bib138-4">Maṣṣīṣa</placeName>
                     <placeName xml:id="name138-6" xml:lang="syr-Syrn" source="#bib138-6">ܡܲܗܦܣܘܼܣܛܝܼܵܐ</placeName>
-                    <desc xml:id="abstract-en-138" xml:lang="en">A town of <placeName ref="http://syriaca.org/place/57">Cilicia II</placeName> southwest of <placeName ref="http://syriaca.org/place/9">Anazarbos</placeName> on the <placeName ref="'http://syriaca.org/place/159">Pyramos river</placeName>.</desc>
+                    <desc xml:id="abstract-en-138" xml:lang="en">A town of <placeName ref="http://syriaca.org/place/57">Cilicia II</placeName> southwest of <placeName ref="http://syriaca.org/place/9">Anazarbos</placeName> on the <placeName ref="http://syriaca.org/place/159">Pyramos river</placeName>.</desc>
                     <desc xml:lang="syr-Syrj">
                         <quote source="#bib138-2">ܡܕܝܢܬܳܐ ܗܝ ܕܥܰܠ ܣܦܳܪ ܢܰܗܪܳܐ ܓܺܝܚܘܢ ܒܩܘܪܒܳܐ ܕܰܐܛܰܢܰܗ ܠܡܰܕܢܚܳܐ.</quote>
                     </desc>
