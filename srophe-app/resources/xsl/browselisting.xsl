@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" exclude-result-prefixes="xs t s saxon" version="2.0">
     
     <!-- ================================================================== 
        Copyright 2013 New York University
@@ -356,7 +356,7 @@
                     <div class="progress progress-striped active" align="center">
                         <div class="bar" style="width: 40%;"/>
                     </div>
-                    <div id="map" style="height: 350px;"/>
+                    <div id="map" style="height: auto;"/>
                     <script type="text/javascript">
                         var terrain = L.tileLayer(
                         'http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', 
@@ -394,6 +394,11 @@
                         
                         geojson.addTo(map);
                         });     
+                        
+                        //resize
+                        $('#map').height(function(){
+                        return $(window).height() * 0.6;
+                        });
                     </script>
                 </div>
             </div>
