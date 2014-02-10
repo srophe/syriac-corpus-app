@@ -73,8 +73,17 @@ declare function search-form:show-form() {
                      <hr/>
                      <!-- Confessions -->
                      <div class="row-fluid">
-                         <div class="span3">Confessions: </div>
-                         <div class="span9"><input type="text" name="c"/></div>
+                         <div class="span3">Religious Communities: </div>
+                         <div class="span9">
+                         <select name="c">
+                            <option value="">-- Select --</option>
+                                {for $confession in doc('/db/apps/srophe/data/confessions/tei/confessions.xml')//tei:item
+                                 return 
+                                 <option value="{$confession/child::tei:label}">{$confession/child::tei:label}</option>
+                                }
+                                
+                        </select>
+                         </div>
                      </div>
                      <div class="row-fluid">
                          <div class="span3">Dates: </div>
@@ -117,8 +126,10 @@ declare function search-form:show-form() {
                                 <option value="mountain">mountain</option>
                                 <option value="open-water">open-water</option>
                                 <option value="parish">parish</option>
+                                <option value="province">province</option>
                                 <option value="quarter">quarter</option>
                                 <option value="region">region</option>
+                                <option value="river">river</option>
                                 <option value="settlement">settlement</option>
                                 <option value="state">state</option>
                                 <option value="synagogue">synagogue</option>
