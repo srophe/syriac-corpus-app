@@ -23,7 +23,7 @@ declare namespace ngram="http://exist-db.org/xquery/ngram";
  : @param $lang selects language for browse display
  : @param $sort passes browse by letter for alphabetical browse lists
  :)
- 
+declare variable $browse:type {request:get-parameter('type', '')}; 
 declare variable $browse:lang {request:get-parameter('lang', '')};
 declare variable $browse:sort {request:get-parameter('sort', '')};
 
@@ -117,7 +117,20 @@ declare function browse:get-letter-menu($node as node()){
     return substring($browse-title,1,1)
     ) 
 };
-
+(:~
+ : Returns a list places by type
+ : @param $browse:type indicates language of browse list
+ : @param $browse:sort indicates letter for browse
+ : Uses browse:build-sort-string() to strip title of non sort characters
+:)
+declare function browse:get-place-type($node as node(), $model as map(*)){
+    for $place-name in $model("places-data")
+    let $title := $place-name/tei:placeName[1]/text()
+    let $browse-title := browse:build-sort-string($title)
+    where matches($place-name/@type, $browse:type)
+    order by $browse-title
+    return $place-name 
+};
 (:~
  : Builds tei node to be transformed by xslt
  : Final results are passed to ../resources/xsl/browselisting.xsl
@@ -129,12 +142,15 @@ declare %templates:wrap function browse:get-place-names($node as node(), $model 
         xmlns:xi="http://www.w3.org/2001/XInclude"
         xmlns:svg="http://www.w3.org/2000/svg"
         xmlns:math="http://www.w3.org/1998/Math/MathML"
-        xmlns="http://www.tei-c.org/ns/1.0" browse-type="{$browse:lang}" browse-sort="{$browse:sort}">
+        xmlns="http://www.tei-c.org/ns/1.0" browse-lang="{$browse:lang}" browse-sort="{$browse:sort}" browse-type="{$browse:type}">
         <tei:menu xmlns="http://www.tei-c.org/ns/1.0">{browse:get-letter-menu($node)}</tei:menu>
         { if(exists($browse:lang)) then 
             if($browse:lang ='en') then browse:get-place-en($node, $model)
             else if($browse:lang ='syr') then browse:get-place-syr($node, $model)
             else if($browse:lang ='num') then browse:get-place-all($node, $model)
+            else if($browse:lang ='type') then 
+                if(exists($browse:type) and $browse:type !='') then browse:get-place-type($node,$model)
+                else 'Type'
             else if($browse:lang ='map') then ''
             else browse:get-place-en($node, $model)
            else browse:get-place-en($node, $model)
