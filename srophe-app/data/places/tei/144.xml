@@ -105,8 +105,8 @@
                     <location type="gps" source="#bib144-2">
                         <geo>36.35944 43.15278</geo>
                     </location>
-                    <state type="existence" from="-1700" to="0637" syriaca-computed-end="0637-01-01" syriaca-computed-start="-1700-01-01">
-                        <precision match="@from" notAfter="-1700" syriaca-computed-end="-1700-01-01"/>
+                    <state type="existence" from="-1700" to="0637" syriaca-computed-end="0637-01-01">
+                        <precision match="@from" notAfter="-1700"/>
                         <precision match="@to" notAfter="1842" notBefore="0637" syriaca-computed-end="1842-01-01" syriaca-computed-start="0637-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/144</idno>

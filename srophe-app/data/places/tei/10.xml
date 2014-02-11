@@ -110,8 +110,8 @@
                     <location type="gps" source="#bib10-2">
                         <geo>36.2 36.15</geo>
                     </location>
-                    <state type="existence" from="-0300" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0300-01-01">
-                        <precision match="@from" notAfter="-0300" syriaca-computed-end="-0300-01-01"/>
+                    <state type="existence" from="-0300" to="2013" syriaca-computed-end="2013-01-01">
+                        <precision match="@from" notAfter="-0300"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/10</idno>

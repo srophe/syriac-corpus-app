@@ -118,8 +118,8 @@
                     <location type="gps" source="#bib430-4">
                         <geo>36.244537 40.707477</geo>
                     </location>
-                    <state type="existence" from="-0330" to="0300" syriaca-computed-end="0300-01-01" syriaca-computed-start="-0330-01-01">
-                        <precision match="@from" notAfter="-0330" syriaca-computed-end="-0330-01-01"/>
+                    <state type="existence" from="-0330" to="0300" syriaca-computed-end="0300-01-01">
+                        <precision match="@from" notAfter="-0330"/>
                         <precision match="@to" notBefore="0300" syriaca-computed-start="0300-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/430</idno>

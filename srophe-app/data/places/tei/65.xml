@@ -99,8 +99,8 @@
                     <location type="gps" source="#bib65-1">
                         <geo>36.73466 36.94896</geo>
                     </location>
-                    <state type="existence" from="-0281" to="1150" syriaca-computed-end="1150-01-01" syriaca-computed-start="-0281-01-01">
-                        <precision match="@from" notAfter="-0281" notBefore="-0300" syriaca-computed-end="-0281-01-01" syriaca-computed-start="-0300-01-01"/>
+                    <state type="existence" from="-0281" to="1150" syriaca-computed-end="1150-01-01">
+                        <precision match="@from" notAfter="-0281" notBefore="-0300"/>
                         <precision match="@to" notAfter="2013" notBefore="1150" syriaca-computed-end="2013-01-01" syriaca-computed-start="1150-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/65</idno>

@@ -100,8 +100,8 @@
                     <location type="gps" source="#bib91-1">
                         <geo>35.13333 36.75</geo>
                     </location>
-                    <state type="existence" from="-0835" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0835-01-01">
-                        <precision match="@from" notAfter="-0835" syriaca-computed-end="-0835-01-01"/>
+                    <state type="existence" from="-0835" to="2013" syriaca-computed-end="2013-01-01">
+                        <precision match="@from" notAfter="-0835"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <note type="deprecation" xml:id="name91-4-deprecation">Barsoum's name omits the two dots from the tāʼ marbūṭa.</note>

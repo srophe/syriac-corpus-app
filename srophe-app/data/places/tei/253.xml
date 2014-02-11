@@ -83,8 +83,8 @@
                         <region ref="http://syriaca.org/place/786">Tigris Valley</region>
                         <region ref="http://syriaca.org/place/712">Gāzartā region</region>
                     </location>
-                    <state type="existence" from="-0030" to="0800" syriaca-computed-end="0800-01-01" syriaca-computed-start="-0030-01-01">
-                        <precision match="@from" notAfter="-0030" syriaca-computed-end="-0030-01-01"/>
+                    <state type="existence" from="-0030" to="0800" syriaca-computed-end="0800-01-01">
+                        <precision match="@from" notAfter="-0030"/>
                         <precision match="@to" notAfter="2013" notBefore="0800" syriaca-computed-end="2013-01-01" syriaca-computed-start="0800-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/253</idno>

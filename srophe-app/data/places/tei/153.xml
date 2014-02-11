@@ -74,8 +74,8 @@
                     <location type="gps" source="#bib153-1">
                         <geo>34.56 38.26722</geo>
                     </location>
-                    <state type="existence" from="-1000" to="1929" syriaca-computed-end="1929-01-01" syriaca-computed-start="-1000-01-01">
-                        <precision match="@from" notAfter="-1000" syriaca-computed-end="-1000-01-01"/>
+                    <state type="existence" from="-1000" to="1929" syriaca-computed-end="1929-01-01">
+                        <precision match="@from" notAfter="-1000"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/153</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/668331</idno>

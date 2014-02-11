@@ -88,8 +88,8 @@
                     <location type="nested" source="#bib19-4">
                         <region ref="http://syriaca.org/place/722">Mosul region</region>
                     </location>
-                    <state type="existence" from="-0750" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0750-01-01">
-                        <precision match="@from" notAfter="-0750" syriaca-computed-end="-0750-01-01"/>
+                    <state type="existence" from="-0750" to="2013" syriaca-computed-end="2013-01-01">
+                        <precision match="@from" notAfter="-0750"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/19</idno>

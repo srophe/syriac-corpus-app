@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-02-10-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,6 +61,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-02-10-05:00">ADDED: syriaca-computed-end for elements with when attributes</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-01-04">ADDED: date to abstract</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-01-04">ADDED: existence dates, GEDSH citation, confessions, related places</change>
@@ -76,7 +77,7 @@
                     <event from="1960" to="1962" source="#bib602-2" syriaca-computed-end="1962-01-01" syriaca-computed-start="1960-01-01">
                         <p>Publication of Hudra by <persName ref="http://syriaca.org/person/441">Toma Darmo</persName>.</p>
                     </event>
-                    <event when="1987" source="#bib602-2" syriaca-computed-start="1987-01-01">
+                    <event when="1987" source="#bib602-2" syriaca-computed-start="1987-01-01" syriaca-computed-end="1987-01-01">
                         <p>The first international Syriac Conference was held at Saint Ephrem's Ecumenical Research Institute (SEERI), <placeName ref="http://syriaca.org/place/1947">Kottayam</placeName>, Kerala</p>
                     </event>
                     <state type="existence" from="1956-11-01" syriaca-computed-start="1956-11-01"/>

@@ -115,8 +115,8 @@
                     <location type="gps" source="#bib292-4">
                         <geo>40.6549427 35.8280877</geo>
                     </location>
-                    <state type="existence" from="-0183" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0183-01-01">
-                        <precision match="@from" notAfter="-0183" syriaca-computed-end="-0183-01-01"/>
+                    <state type="existence" from="-0183" to="2013" syriaca-computed-end="2013-01-01">
+                        <precision match="@from" notAfter="-0183"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܡܪܰܕܶܐ</quote> should read <quote xml:lang="syr-Syrj">ܡܰܪܕܶܐ</quote>.</note>

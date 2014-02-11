@@ -92,10 +92,21 @@ concat('[descendant::tei:event[@type != "attestation" or not(@type)][@syriaca-co
 declare function local:event-dates(){
     if(exists($e-start) and $e-start != '') then 
         if(exists($e-end) and $e-end != '') then 
-            concat('[descendant::tei:event[@type != "attestation" or not(@type)][(@syriaca-computed-start gt "',local:do-date($e-start),'" and @syriaca-computed-end lt "',local:do-date($e-end),'") or (@syriaca-computed-start gt "',local:do-date($e-start),'" and not(@syriaca-computed-end))]]')
-        else concat('[descendant::tei:event[@type != "attestation" or not(@type)][@syriaca-computed-start gt "',local:do-date($e-start),'"]]') 
+            concat('/descendant::tei:event[@type != "attestation" or not(@type)]
+            [(
+            @syriaca-computed-start gt 
+                "',local:do-date($e-start),'" 
+                and @syriaca-computed-end lt 
+                "',local:do-date($e-end),'"
+                ) or (
+                @syriaca-computed-start gt 
+                "',local:do-date($e-start),'" 
+                and 
+                not(exists(@syriaca-computed-end)))]')
+        else 
+            concat('/descendant::tei:event[@type != "attestation" or not(@type)][@syriaca-computed-start gt "',local:do-date($e-start),'"]')
     else if (exists($e-end) and $e-end != '') then 
-        concat('[descendant::tei:event[@type != "attestation" or not(@type)][@syriaca-computed-end lt "',local:do-date($e-end),'"]]')
+        concat('/descendant::tei:event[@type != "attestation" or not(@type)][@syriaca-computed-end lt "',local:do-date($e-end),'" or @syriaca-computed-start lt "',local:do-date($e-end),'" and not(@syriaca-computed-end)]')
     else ''
 };
 
@@ -248,20 +259,7 @@ declare function local:run-search(){
     let $id := substring-after($hit/@xml:id,'place-')
     order by ft:score($hit) descending
     return 
-            <div class="result">
-              <div class="span9">  
-                <p style="font-weight:bold padding:.5em;" date="{$hit/descendant::*/@syriaca-computed-notAfter}">
-                  <a href="geo/place.html?id={$id}">
-                    <bdi dir="ltr" lang="en" xml:lang="en">
-                        {$hit/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en']}
-                    </bdi>
-                  </a>
-                </p>
-                <div>
-                    {util:eval(concat('$hit',local:show-confession-dates()))}
-                </div>
-               </div>
-              </div>
+            <div class="result">{$hit}</div>
 };
 
 let $cache := 'ddd'
@@ -276,8 +274,10 @@ let $eval-string := concat("collection('/db/apps/srophe/data/places/tei')//tei:p
     local:confession(),local:confession-dates()
     )
 return 
-<div total="{count(local:run-search())}" eval-string="{$eval-string}">
-{local:run-search()}
+<div>
+{
+    local:run-search()
+ }
 </div>
 
     

@@ -104,8 +104,8 @@
                     <location type="gps" source="#bib203-1">
                         <geo>34.43333 35.85</geo>
                     </location>
-                    <state type="existence" from="-0800" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0800-01-01">
-                        <precision match="@from" notAfter="-0800" syriaca-computed-end="-0800-01-01"/>
+                    <state type="existence" from="-0800" to="2013" syriaca-computed-end="2013-01-01">
+                        <precision match="@from" notAfter="-0800"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <note type="deprecation" xml:id="name203-4-deprecation">Dolabani or his printer added an erroneous extra vowel.</note>

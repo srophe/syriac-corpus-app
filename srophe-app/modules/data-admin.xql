@@ -279,6 +279,13 @@ declare function local:remove-mutual(){
    
 };
 
+declare function local:change-computed-dates(){
+for $doc in collection('/db/apps/srophe/data/places/tei')//tei:place[descendant-or-self::*/@when]
+return local:add-change-log($doc)
+    
+};
+
+(: remove computed start and computed end replace negitive dates:)
 let $cache := 'cache'
 (: Need to add a sucess message if no error codes.
 

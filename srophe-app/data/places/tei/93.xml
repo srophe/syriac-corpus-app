@@ -75,8 +75,8 @@
                     <location type="gps" source="#bib93-1">
                         <geo>35.58806 42.71833</geo>
                     </location>
-                    <state type="existence" from="-0100" to="0241" syriaca-computed-end="0241-01-01" syriaca-computed-start="-0100-01-01">
-                        <precision match="@from" notAfter="-0100" syriaca-computed-end="-0100-01-01"/>
+                    <state type="existence" from="-0100" to="0241" syriaca-computed-end="0241-01-01">
+                        <precision match="@from" notAfter="-0100"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/93</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/894004</idno>

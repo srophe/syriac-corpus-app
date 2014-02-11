@@ -77,8 +77,8 @@
                     <desc xml:lang="en">
                         <quote source="#bib474-1">260. Ḥimyar</quote>
                     </desc>
-                    <state type="existence" from="-0110" to="0525" syriaca-computed-end="0525-01-01" syriaca-computed-start="-0110-01-01">
-                        <precision match="@from" notAfter="-0110" syriaca-computed-end="-0110-01-01"/>
+                    <state type="existence" from="-0110" to="0525" syriaca-computed-end="0525-01-01">
+                        <precision match="@from" notAfter="-0110"/>
                         <precision match="@to" notBefore="0525" syriaca-computed-start="0525-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/474</idno>

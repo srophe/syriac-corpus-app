@@ -100,8 +100,8 @@
                     <desc xml:lang="en">
                         <quote source="#bib472-1">129. China, Syriac Christianity in</quote>
                     </desc>
-                    <state type="existence" from="-0221" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0221-01-01">
-                        <precision match="@from" notAfter="-0221" syriaca-computed-end="-0221-01-01"/>
+                    <state type="existence" from="-0221" to="2013" syriaca-computed-end="2013-01-01">
+                        <precision match="@from" notAfter="-0221"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/472</idno>

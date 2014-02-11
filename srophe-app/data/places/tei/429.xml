@@ -114,8 +114,8 @@
                     <desc xml:lang="en">
                         <quote source="#bib429-3">a town in Iraq, west of the Euphrates and southeast of Dayr al-Zur.</quote>
                     </desc>
-                    <state type="existence" from="-0885" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="-0885-01-01">
-                        <precision match="@from" notAfter="-0885" syriaca-computed-end="-0885-01-01"/>
+                    <state type="existence" from="-0885" to="2013" syriaca-computed-end="2013-01-01">
+                        <precision match="@from" notAfter="-0885"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
                     <note type="disambiguation">Not the same place as <placeName ref="http://syriaca.org/place/665">ʿĀnāt</placeName>.</note>

@@ -114,8 +114,8 @@
                     <location type="gps" source="#bib205-5">
                         <geo>37.110367 37.86555</geo>
                     </location>
-                    <state type="existence" from="-0030" to="0845" syriaca-computed-end="0845-01-01" syriaca-computed-start="-0030-01-01">
-                        <precision match="@from" notAfter="-0030" syriaca-computed-end="-0030-01-01"/>
+                    <state type="existence" from="-0030" to="0845" syriaca-computed-end="0845-01-01">
+                        <precision match="@from" notAfter="-0030"/>
                         <precision match="@to" notBefore="0845" syriaca-computed-start="0845-01-01"/>
                     </state>
                     <note type="disambiguation">Not the same place as <placeName ref="http://syriaca.org/place/695">Halfeti</placeName>.</note>

@@ -49,7 +49,13 @@ h4 {font-size: 1em; margin-top:1em;}
 .browse-alpha li + li {
     padding-left: 10px;
 }
-
+.nav-stacked > .active > a,
+    .nav-stacked > .active > a:hover {
+      color: #000;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+      background-color: #eee;
+      cursor: pointer;
+    }
 /* footnote styles */
 
 .footnote-refs, .footnote-tgt {

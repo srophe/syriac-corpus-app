@@ -119,8 +119,8 @@
                     <location type="gps" source="#bib456-5">
                         <geo>31.530845 34.433158</geo>
                     </location>
-                    <state type="existence" from="-0030" to="0743" syriaca-computed-end="0743-01-01" syriaca-computed-start="-0030-01-01">
-                        <precision match="@from" notAfter="-0030" syriaca-computed-end="-0030-01-01"/>
+                    <state type="existence" from="-0030" to="0743" syriaca-computed-end="0743-01-01">
+                        <precision match="@from" notAfter="-0030"/>
                         <precision match="@to" notBefore="0743" syriaca-computed-start="0743-01-01"/>
                     </state>
                     <note type="disambiguation">Not the same conceptual place as <placeName ref="http://syriaca.org/place/87">Gaza</placeName>.</note>
