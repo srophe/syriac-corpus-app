@@ -44,6 +44,6 @@ declare function app:transform($nodes as node()*) as item()* {
  : Pull confession data for confessions.html
 :)
 declare %templates:wrap function app:build-confessions($node as node(), $model as map(*)){
-    let $confession := doc('/db/apps/srophe/data/confessions/tei/confessions.xml')//tei:body/child::*[1]
+    let $confession := doc('/db/apps/srophe/documentation/confessions.xml')//tei:body/child::*[1]
     return app:transform($confession)
 };

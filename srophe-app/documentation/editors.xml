@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TEI
-    xml:lang="en"
-    xmlns="http://www.tei-c.org/ns/1.0">
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en">
     <teiHeader>
         <fileDesc>
             <titleStmt>
@@ -41,7 +39,7 @@
                 <p>A list of editors for Syriaca.org, in no particular order.</p>
             </editorialDecl>
         </encodingDesc>
-    <revisionDesc>
+        <revisionDesc>
             <change when="2013-03-25" who="http://syriaca.org/editors.xml#tcarlson">CREATED: editors list</change>
         </revisionDesc>
     </teiHeader>
@@ -74,7 +72,7 @@
                         <addName type="middle-initial">A.</addName>
                         <surname>Carlson</surname>
                     </persName>
-                 </person>
+                </person>
                 <person xml:id="ngibson">
                     <persName xml:lang="en">
                         <forename>Nathan</forename>

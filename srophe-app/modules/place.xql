@@ -92,7 +92,7 @@ declare function place:get-nested-loc(){
 };
 
 declare function place:get-confessions(){
-    let $confessions := doc($config:app-root || "/data/confessions/tei/confessions.xml")//tei:list
+    let $confessions := doc($config:app-root || "/documentation/confessions.xml")//tei:list
     return
     <confessions xmlns="http://www.tei-c.org/ns/1.0">
         {$confessions}
@@ -185,7 +185,7 @@ declare %templates:wrap function place:get-place-data($node as node(), $model as
                         ($rec/child::*, place:get-related-places($rec),place:get-nested-loc(),place:get-confessions())
                     }
                     </TEI>
-    let $cache :='Change value to force refresh 5534'
+    let $cache :='Change value to force refresh 554'
     return
 (:        $buildRec:)
        transform:transform($buildRec, doc('../resources/xsl/placepage.xsl'),() )
