@@ -252,71 +252,132 @@
                         <div class="span4">
                             <ul style="margin-left:0; width: 15em;" class="nav nav-tabs nav-stacked">
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'building'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
+                                    <xsl:if test="/t:TEI/@browse-type = 'building'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
                                     <a href="?lang=type&amp;type=building">building</a>
                                 </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'church'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=church">church</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'church'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=church">church</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'diocese'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=diocese">diocese</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'diocese'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=diocese">diocese</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'fortification'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=fortification">fortification</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'fortification'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=fortification">fortification</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'island'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=island">island</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'island'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=island">island</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'madrasa'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=madrasa">madrasa</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'madrasa'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=madrasa">madrasa</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'monastery'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=monastery">monastery</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'monastery'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=monastery">monastery</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'mosque'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=mosque">mosque</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'mosque'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=mosque">mosque</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'mountain'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=mountain">mountain</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'mountain'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=mountain">mountain</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'open-water'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=open-water">open-water</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'open-water'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=open-water">open-water</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'parish'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=parish">parish</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'parish'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=parish">parish</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'province'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=province">province</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'province'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=province">province</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'quarter'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=quarter">quarter</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'quarter'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=quarter">quarter</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'region'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=region">region</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'region'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=region">region</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'river'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=river">river</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'river'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=river">river</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'settlement'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=settlement">settlement</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'settlement'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=settlement">settlement</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'state'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=state">state</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'state'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=state">state</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'synagogue'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=synagogue">synagogue</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'synagogue'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=synagogue">synagogue</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'temple'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=temple">temple</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'temple'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=temple">temple</a>
+                                </li>
                                 <li>
-                                    <xsl:if test="/t:TEI/@browse-type = 'unknown'"><xsl:attribute name="class">active</xsl:attribute></xsl:if>
-                                    <a href="?lang=type&amp;type=unknown">unknown</a></li>
+                                    <xsl:if test="/t:TEI/@browse-type = 'unknown'">
+                                        <xsl:attribute name="class">active</xsl:attribute>
+                                    </xsl:if>
+                                    <a href="?lang=type&amp;type=unknown">unknown</a>
+                                </li>
                             </ul>
                         </div>
                         <xsl:if test="/t:TEI/@browse-type != ''">
                             <div class="span8 well" style="background-color:white; margin:0; padding:.25em .5em;">
-                                <h3><xsl:value-of select="concat(upper-case(substring(/t:TEI/@browse-type,1,1)),substring(/t:TEI/@browse-type,2))"/></h3>
+                                <h3>
+                                    <xsl:value-of select="concat(upper-case(substring(/t:TEI/@browse-type,1,1)),substring(/t:TEI/@browse-type,2))"/>
+                                </h3>
                                 <xsl:if test="count(//t:place) = 0">
                                     <p>No places of this type yet. </p>
                                 </xsl:if>
@@ -353,7 +414,7 @@
                                             </a>
                                         </li>
                                     </xsl:for-each>
-                                </ul> 
+                                </ul>
                             </div>
                         </xsl:if>
                     </div>
@@ -438,6 +499,9 @@
                 </li>
                 <li>
                     <a href="browse.html?lang=syr" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
+                </li>
+                <li>
+                    <a href="browse.html?lang=type">Type</a>
                 </li>
                 <li class="active">
                     <a href="browse.html?lang=map">Map</a>
