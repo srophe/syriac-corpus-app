@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -78,7 +78,7 @@
     <!-- NOTE: Change to eXist xml -->
     <xsl:param name="xmlbase">/db/apps/srophe/data/places/tei/xml/</xsl:param>
     <xsl:param name="editoruriprefix">http://syriaca.org/editors.xml#</xsl:param>
-    <xsl:variable name="editorssourcedoc">/db/apps/srophe/data/editors/tei/editors.xml</xsl:variable>
+    <xsl:variable name="editorssourcedoc">/db/apps/srophe/documentation/editors.xml</xsl:variable>
     <xsl:param name="uribase">http://syriaca.org/place/</xsl:param>
     <xsl:variable name="placenum" select="substring-after(/descendant::*/t:place[1]/@xml:id,'place-')"/>
  <!-- =================================================================== -->
@@ -99,7 +99,7 @@
                         <xsl:call-template name="get-title"/>
                         <span class="get-syriac" style="font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none">
                             <xsl:if test="//t:place/child::*[@xml:lang ='syr']">
-                                <a href="help/view-syriac.html">
+                                <a href="../documentation/view-syriac.html">
                                     <img src="../resources/img/faq.png" alt="The Google Maps icon"/>&#160;Don't see Syriac?</a>
                             </xsl:if>
                         </span>
@@ -169,7 +169,7 @@
                                 <xsl:for-each select="t:idno[contains(.,'syriaca.org')]">
                                     <div style="margin:0 1em 1em; color: #999999;">
                                         <small>
-                                            <a href="help/terms.html#place-uri" title="Click to read more about Place URIs">
+                                            <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs">
                                                 <div class="helper circle">
                                                     <p>i</p>
                                                 </div>
@@ -284,7 +284,7 @@
                                 <!-- NOTE: may need to move this elsewhere -->
                                 <p>
                                     <strong>Place Type: </strong>
-                                    <a href="help/types.html#{normalize-space(@type)}">
+                                    <a href="../documentation/types.html#{normalize-space(@type)}">
                                         <xsl:value-of select="@type"/>
                                     </a>
                                 </p>
@@ -309,7 +309,7 @@
                                 <!-- NOTE: may need to move this elsewhere -->
                                 <p>
                                     <strong>Place Type: </strong>
-                                    <a href="help/types.html#{normalize-space(@type)}">
+                                    <a href="../documentation/types.html#{normalize-space(@type)}">
                                         <xsl:value-of select="@type"/>
                                     </a>
                                 </p>
