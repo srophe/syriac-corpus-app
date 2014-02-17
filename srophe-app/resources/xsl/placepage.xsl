@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -191,6 +191,59 @@
                             <!-- Column 1 -->
                             <div class="span8 column1">
                                 <xsl:call-template name="col1"/>
+                              <div style="margin-bottom:1em;">  
+                                <!-- Button to trigger modal -->
+                                <a href="#report-errors" role="button" class="btn btn-primary" data-toggle="modal">Corrections?</a>
+                                <xsl:text> </xsl:text>
+                                  <a href="../documentation/faq.html#selection" role="button" class="btn btn-primary">Is this record complete?</a>
+                                
+                                <!-- Modal -->
+                                <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h3 id="report-errors-label">Corrections?</h3>
+                                    </div>
+                                    <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
+                                        <div class="modal-body" id="modal-body">
+                                            <label>Name:</label>
+                                            <input type="text" name="name"/>
+                                            <label>e-mail address:</label>
+                                            <input type="text" name="email"/>
+                                            <label>Subject:</label>
+                                            <input type="text" name="subject"/>
+                                            <label>Comments:</label>
+                                            <textarea name="comments" id="comments" rows="8" class="span9"/>
+                                            <input type="hidden" name="id" value="{$placenum}"/>
+                                            <input type="hidden" name="place" value="{string(t:placeName[1])}"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                            <input id="email-submit" type="submit" value="Send e-mail" class="btn btn-primary"/>
+                                        </div>
+                                    </form>
+                                </div>
+                                <script type="text/javascript">
+                                    $(document).ready(function() {
+                                    $('#email').validate(
+                                        {
+                                            rules: {
+                                                name: {
+                                                    minlength: 2,
+                                                    required: true
+                                                },
+                                                comments: {
+                                                    minlength: 2,
+                                                    required: true
+                                                },
+                                                email: {
+                                                    required: true,
+                                                    email: true
+                                               }
+                                            }
+                                        });
+                                    });
+                                </script>
+                              </div>  
                                 <xsl:if test="not(exists(t:desc)) or string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &lt; 1">
                                     <xsl:call-template name="sources"/>
                                 </xsl:if>
@@ -200,58 +253,10 @@
                                 <xsl:call-template name="col2"/>
                             </div>
                         </div>
+                        
                         <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
                             <xsl:call-template name="sources"/>
                         </xsl:if>
-                        <!-- Button to trigger modal -->
-                        <a href="#report-errors" role="button" class="btn btn-primary" data-toggle="modal">Corrections?</a>
-                        
-                        <!-- Modal -->
-                        <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h3 id="report-errors-label">Corrections?</h3>
-                            </div>
-                            <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
-                                <div class="modal-body" id="modal-body">
-                                    <label>Name:</label>
-                                    <input type="text" name="name"/>
-                                    <label>e-mail address:</label>
-                                    <input type="text" name="email"/>
-                                    <label>Subject:</label>
-                                    <input type="text" name="subject"/>
-                                    <label>Comments:</label>
-                                    <textarea name="comments" id="comments" rows="8" class="span9"/>
-                                    <input type="hidden" name="id" value="{$placenum}"/>
-                                    <input type="hidden" name="place" value="{string(t:placeName[1])}"/>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                                    <input id="email-submit" type="submit" value="Send e-mail" class="btn btn-primary"/>
-                                </div>
-                            </form>
-                        </div>
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                $('#email').validate(
-                                    {
-                                    rules: {
-                                        name: {
-                                            minlength: 2,
-                                            required: true
-                                            },
-                                        comments: {
-                                             minlength: 2,
-                                             required: true
-                                             },
-                                        email: {
-                                            required: true,
-                                            email: true
-                                        }
-                                    }
-                                });
-                            });
-                        </script>
                     </div>
                 </div>
             </div>
@@ -1006,7 +1011,7 @@
                                 <dd>
                                     <a href="{concat('place.html?id=',@id)}">
                                         <xsl:value-of select="t:placeName"/>
-                                        <xsl:value-of select="concat(' (',string(@type),')')"/>
+                                        <xsl:value-of select="concat(' (',string(@type),' place/',@id,')')"/>
                                     </a>
                                 </dd>
                             </xsl:for-each>
@@ -1020,6 +1025,7 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
+    
     <xsl:template match="t:location[@type='geopolitical' or @type='relative']">
         <li>
             <xsl:choose>
