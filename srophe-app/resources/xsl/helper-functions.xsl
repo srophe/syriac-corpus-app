@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t" version="2.0">
- 
- <!-- 
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:fo="http://www.w3.org/1999/XSL/Format" exclude-result-prefixes="xs t" version="2.0">
+    
+    <!-- 
   Function to output dates in correct formats passes whole element to function, 
   function also uses trim-date to strip leading 0
  -->
     <xsl:function name="local:do-dates">
         <xsl:param name="element" as="node()"/>
         <xsl:if test="$element/@when or $element/@notBefore or $element/@notAfter or $element/@from or $element/@to">
-   (<xsl:choose>
-    <!-- Formats to and from dates -->
+            (<xsl:choose>
+                <!-- Formats to and from dates -->
                 <xsl:when test="$element/@from">
                     <xsl:choose>
                         <xsl:when test="$element/@to">
@@ -22,50 +22,50 @@
                 <xsl:when test="$element/@to">to <xsl:value-of select="local:trim-date($element/@to)"/>
                 </xsl:when>
             </xsl:choose>
-   <!-- Formats notBefore and notAfter dates -->
+            <!-- Formats notBefore and notAfter dates -->
             <xsl:if test="$element/@notBefore">
-    <!-- Adds comma if there are other dates -->
+                <!-- Adds comma if there are other dates -->
                 <xsl:if test="$element/@to or $element/@from">, </xsl:if>not before <xsl:value-of select="local:trim-date($element/@notBefore)"/>
             </xsl:if>
             <xsl:if test="$element/@notAfter">
-    <!-- Adds comma if there are other dates -->
+                <!-- Adds comma if there are other dates -->
                 <xsl:if test="$element/@to or $element/@from or $element/@notBefore">, </xsl:if>not after <xsl:value-of select="local:trim-date($element/@notAfter)"/>
             </xsl:if>
-   <!-- Formats when, single date -->
+            <!-- Formats when, single date -->
             <xsl:if test="$element/@when">
-    <!-- Adds comma if there are other dates -->
+                <!-- Adds comma if there are other dates -->
                 <xsl:if test="$element/@to or $element/@from or $element/@notBefore or $element/@notAfter">, </xsl:if>
                 <xsl:value-of select="local:trim-date($element/@when)"/>
             </xsl:if>)
-   </xsl:if>
+        </xsl:if>
     </xsl:function>
- 
- <!-- Date function to remove leading 0s -->
+    
+    <!-- Date function to remove leading 0s -->
     <xsl:function name="local:trim-date">
         <xsl:param name="date"/>
         <xsl:choose>
-   <!-- NOTE: This can easily be changed to display BCE instead -->
-   <!-- removes leading 0 but leaves -  -->
+            <!-- NOTE: This can easily be changed to display BCE instead -->
+            <!-- removes leading 0 but leaves -  -->
             <xsl:when test="starts-with($date,'-0')">
                 <xsl:value-of select="concat(substring($date,3),' BCE')"/>
             </xsl:when>
-   <!-- removes leading 0 -->
+            <!-- removes leading 0 -->
             <xsl:when test="starts-with($date,'0')">
                 <xsl:value-of select="substring($date,2)"/>
             </xsl:when>
-   <!-- passes value through without changing it -->
+            <!-- passes value through without changing it -->
             <xsl:otherwise>
                 <xsl:value-of select="$date"/>
             </xsl:otherwise>
         </xsl:choose>
-<!--  <xsl:value-of select="string(number($date))"/>-->
+        <!--  <xsl:value-of select="string(number($date))"/>-->
     </xsl:function>
- 
- <!-- Function for adding footnotes -->
+    
+    <!-- Function for adding footnotes -->
     <xsl:function name="local:do-refs" as="node()">
         <xsl:param name="refs"/>
         <xsl:param name="lang"/>
-          <!-- 
+        <!-- 
            <bdi class="footnote-refs" dir="ltr"> <span class="footnote-ref"><a href="#bib78-5">5</a></span></bdi>
            NOTE: check to see if this is the real rule accross footnotes, otherwise it will need to get more complicated.
           -->
@@ -86,8 +86,28 @@
             </xsl:for-each>
         </bdi>
     </xsl:function>
+    <!-- Function for adding footnotes pdf -->
+    <xsl:function name="local:do-refs-pdf" as="node()">
+        <xsl:param name="refs"/>
+        <xsl:param name="lang"/>
+        <!-- 
+           <bdi class="footnote-refs" dir="ltr"> <span class="footnote-ref"><a href="#bib78-5">5</a></span></bdi>
+           NOTE: check to see if this is the real rule accross footnotes, otherwise it will need to get more complicated.
+          -->
+        <fo:inline-container writing-mode="lr-tb">
+            <fo:block xml:lang="en" vertical-align="super">
+                <xsl:for-each select="tokenize($refs,' ')">
+                        <xsl:text> </xsl:text>
+                        <fo:basic-link external-destination="url('{.}')" xsl:use-attribute-sets="href">
+                            <xsl:value-of select="substring-after(.,'-')"/>
+                        </fo:basic-link>
+                        <xsl:if test="position() != last()">,<xsl:text> </xsl:text></xsl:if>
+                </xsl:for-each>
+            </fo:block>
+        </fo:inline-container>
+    </xsl:function>
     
- <!-- Process names editors/authors ect -->
+    <!-- Process names editors/authors ect -->
     <xsl:function name="local:emit-responsible-persons">
         <!-- node passed by refering stylesheet -->
         <xsl:param name="current-node"/>
@@ -147,8 +167,8 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
- 
- <!-- Text normalization functions -->
+    
+    <!-- Text normalization functions -->
     <xsl:template match="t:*" mode="out-normal">
         <xsl:variable name="thislang" select="ancestor-or-self::*[@xml:lang][1]/@xml:lang"/>
         <xsl:choose>
@@ -156,6 +176,20 @@
                 <bdi dir="rtl">
                     <xsl:apply-templates select="." mode="text-normal"/>
                 </bdi>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="." mode="text-normal"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!-- Text normalization functions -->
+    <xsl:template match="t:*" mode="out-normal-pdf">
+        <xsl:variable name="thislang" select="ancestor-or-self::*[@xml:lang][1]/@xml:lang"/>
+        <xsl:choose>
+            <xsl:when test="starts-with($thislang, 'syr') or starts-with($thislang, 'syc') or starts-with($thislang, 'ar')">
+                <fo:bidi-override writing-mode="rl-tb">
+                    <xsl:apply-templates select="." mode="text-normal"/>
+                </fo:bidi-override>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="." mode="text-normal"/>
