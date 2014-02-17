@@ -1011,7 +1011,7 @@
                                 <dd>
                                     <a href="{concat('place.html?id=',@id)}">
                                         <xsl:value-of select="t:placeName"/>
-                                        <xsl:value-of select="concat(' (',string(@type),' place/',@id,')')"/>
+                                        <xsl:value-of select="concat(' (',string(@type),', place/',@id,')')"/>
                                     </a>
                                 </dd>
                             </xsl:for-each>
