@@ -79,7 +79,12 @@ declare function search-form:show-form() {
                             <option value="">-- Select --</option>
                                 {for $confession in doc('/db/apps/srophe/documentation/confessions.xml')//tei:item
                                  return 
-                                 <option value="{$confession/child::tei:label}">{$confession/child::tei:label}</option>
+                                 <option value="{$confession/child::tei:label}">
+                                 {
+                                    (for $confession-parent in $confession/ancestor::tei:item return '&#160;',
+                                     $confession/child::tei:label)
+                                 }
+                                 </option>
                                 }
                                 
                         </select>

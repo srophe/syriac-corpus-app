@@ -44,24 +44,28 @@
 
 
  <!-- =================================================================== -->
- <!-- TEMPLATES -->
+ <!-- Attribute sets -->
  <!-- =================================================================== -->
     <xsl:attribute-set name="h1">
         <xsl:attribute name="font-size">16pt</xsl:attribute>
-        <xsl:attribute name="font-weight">bold</xsl:attribute>
+        <xsl:attribute name="font-weight">500</xsl:attribute>
         <xsl:attribute name="color">#333333</xsl:attribute>
         <xsl:attribute name="margin-top">24pt</xsl:attribute>
         <xsl:attribute name="margin-bottom">12pt</xsl:attribute>
+        <xsl:attribute name="border-bottom">1pt solid #333333</xsl:attribute>
     </xsl:attribute-set>
     <xsl:attribute-set name="h3">
-        <xsl:attribute name="font-size">12pt</xsl:attribute>
-        <xsl:attribute name="font-weight">bold</xsl:attribute>
-        <xsl:attribute name="color">#666666</xsl:attribute>
+        <xsl:attribute name="font-size">14pt</xsl:attribute>
+        <xsl:attribute name="font-weight">500</xsl:attribute>
+        <xsl:attribute name="color">#333333</xsl:attribute>
     </xsl:attribute-set>
     <xsl:attribute-set name="h4">
-        <xsl:attribute name="font-size">10pt</xsl:attribute>
+        <xsl:attribute name="font-size">12pt</xsl:attribute>
         <xsl:attribute name="font-weight">bold</xsl:attribute>
-        <xsl:attribute name="color">#666666</xsl:attribute>
+        <xsl:attribute name="color">#333333</xsl:attribute>
+    </xsl:attribute-set>
+    <xsl:attribute-set name="font-small">
+        <xsl:attribute name="font-size">10pt</xsl:attribute>
     </xsl:attribute-set>
     <xsl:attribute-set name="href">
         <xsl:attribute name="color">blue</xsl:attribute>
@@ -73,6 +77,12 @@
     <xsl:attribute-set name="caveat">
         <xsl:attribute name="font-size">10pt</xsl:attribute>
         <xsl:attribute name="font-style">italic</xsl:attribute>
+        <xsl:attribute name="color">grey</xsl:attribute>
+    </xsl:attribute-set>
+    <xsl:attribute-set name="list-block">
+        <xsl:attribute name="provisional-distance-between-starts">18pt</xsl:attribute>
+        <xsl:attribute name="provisional-label-separation">3pt</xsl:attribute>
+        <xsl:attribute name="margin-left">12pt</xsl:attribute>
     </xsl:attribute-set>
     <xsl:attribute-set name="def-list">
         <xsl:attribute name="margin-left">12pt</xsl:attribute>
@@ -89,7 +99,9 @@
         <xsl:attribute name="margin-bottom">8pt</xsl:attribute>
         <xsl:attribute name="margin-left">8pt</xsl:attribute>
     </xsl:attribute-set>
-    
+    <xsl:attribute-set name="syr">
+        <xsl:attribute name="margin-top">Estrangelo Edessa</xsl:attribute>
+    </xsl:attribute-set>
     <!-- Parameters used by xslt -->
     <xsl:param name="normalization">NFKC</xsl:param>
     <!-- NOTE: Change to eXist xml -->
@@ -115,40 +127,20 @@
                 </fo:simple-page-master>
             </fo:layout-master-set>
             <fo:page-sequence master-reference="contents">
-                <fo:static-content flow-name="xsl-region-before">
-                    <fo:block padding-top=".025in" margin-bottom="0in" padding-after="0in" padding-bottom="0">
-                        <fo:block color="gray" padding-top="0in" margin-top="-0.015in" border-top-width=".015in">
-                            <!--<xsl:value-of select="$pageHeader"/>-->
-                        </fo:block>
-                    </fo:block>
-                </fo:static-content>
                 <fo:static-content flow-name="xsl-region-after">
-                    <fo:block border-top-style="solid" border-top-color="#7E1416" border-top-width=".04in" padding-top=".025in" margin-bottom="0in" padding-after="0in" padding-bottom="0">
-                        <fo:block color="gray" padding-top="0in" margin-top="-0.015in" border-top-style="solid" border-top-color="#7E1416" border-top-width=".015in">
-                            <fo:table space-before="0.07in" table-layout="fixed" width="100%" font-size="8pt" margin-top=".05in" padding-top="0in">
-                                <fo:table-column column-width="5in"/>
-                                <fo:table-column column-width="2in"/>
-                                <fo:table-body>
-                                    <fo:table-row>
-                                        <fo:table-cell>
-                                            <fo:block text-align="left" margin-left=".025in">
-                                                <fo:retrieve-marker retrieve-class-name="title"/>
-                                            </fo:block>
-                                        </fo:table-cell>
-                                        <fo:table-cell>
-                                            <fo:block text-align="right" margin-right="-.475in">
-                                                <xsl:text> Page </xsl:text>
-                                                <fo:page-number/>
-                                            </fo:block>
-                                            <fo:block>Copyright Vanderbilt University, Princeton University, and the Contributor(s), 2014.</fo:block>
-                                        </fo:table-cell>
-                                    </fo:table-row>
-                                </fo:table-body>
-                            </fo:table>
+                    <fo:block border-top-style="solid" border-top-color="#666666" border-top-width=".015in" padding-top=".025in" margin-bottom="0in" padding-after="0in" padding-bottom="0">
+                        <fo:block color="gray" padding-top="0in" margin-top="-0.015in" border-top-style="solid" border-top-color="#gray" border-top-width=".01in" xsl:use-attribute-sets="font-small">
+                            <fo:block>
+                                <fo:block text-align="center">Copyright Vanderbilt University, Princeton University, and the Contributor(s), 2014.</fo:block>
+                                <fo:block text-align="center">
+                                    <xsl:text> Page </xsl:text>
+                                    <fo:page-number/>
+                                </fo:block>
+                            </fo:block>
                         </fo:block>
                     </fo:block>
                 </fo:static-content>
-                <fo:flow flow-name="xsl-region-body">
+                <fo:flow flow-name="xsl-region-body" font="12pt Times">
                     <fo:block>
                         <xsl:apply-templates select="//t:place"/>    
                     </fo:block>
@@ -164,27 +156,52 @@
         <fo:block xsl:use-attribute-sets="h1">
             <!-- Format title, calls template in place-title-std.xsl -->
             <xsl:value-of select="$pageHeader"/>    
-        </fo:block>   
-            <!-- End Title -->
-        
-        <!-- Start place content -->
-            
-        <xsl:for-each select="t:idno[contains(.,'syriaca.org')]">
-            <fo:block margin="8pt" color="#999999" font-size="10pt">
-                <fo:basic-link external-destination="url('http://syriaca.org/documentation/terms.html#place-uri')" xsl:use-attribute-sets="href">                   
-                        ?<!-- Add helper circle? logo -->                    
-                </fo:basic-link>
-                Place URI: 
-                    <fo:basic-link external-destination="url('{.}')" xsl:use-attribute-sets="href">
-                        <xsl:value-of select="."/>
-                    </fo:basic-link>
-            </fo:block>
-        </xsl:for-each>    
+        </fo:block>       
+        <!-- End Title -->
         <!-- Abstract -->
         <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1]" mode="abstract"/>   
-        <fo:block>
+        <fo:table border="none">
+            <fo:table-column column-width="50%"/>
+            <fo:table-column column-width="50%"/>
+            <fo:table-body>
+                <fo:table-row>
+                    <fo:table-cell>
+                        <xsl:for-each select="t:idno[contains(.,'syriaca.org')]">
+                            <fo:block margin="8pt">
+                                <!--<fo:basic-link external-destination="url('http://syriaca.org/documentation/terms.html#place-uri')" xsl:use-attribute-sets="href">                   
+                                             ? Add helper circle? logo                     
+                                    </fo:basic-link>
+                                    -->
+                                <fo:inline xsl:use-attribute-sets="bold">Place URI: </fo:inline> 
+                                <fo:basic-link external-destination="url('{.}')" xsl:use-attribute-sets="href">
+                                    <xsl:value-of select="."/>
+                                </fo:basic-link>
+                            </fo:block>
+                        </xsl:for-each>
+                        
+                        <fo:block margin="8pt">
+                            <fo:inline xsl:use-attribute-sets="bold">Place Type: </fo:inline>
+                            <fo:basic-link external-destination="url('http://syriaca.org/documentation/types.html#{normalize-space(@type)}')">
+                                <xsl:value-of select="@type"/>
+                            </fo:basic-link>
+                        </fo:block>
+                        
+                    </fo:table-cell>
+                    <fo:table-cell>
+                        <xsl:if test="t:location">
+                            <fo:block margin="8pt" >    
+                                <xsl:apply-templates select="t:location"/>
+                            </fo:block>    
+                        </xsl:if>
+                    </fo:table-cell>
+                </fo:table-row>
+            </fo:table-body>
+        </fo:table>
+        <!-- Start place content -->
+
+        <fo:block xsl:use-attribute-sets="p">
             <fo:block xsl:use-attribute-sets="h3">Names</fo:block>
-            <fo:list-block>
+            <fo:list-block xsl:use-attribute-sets="list-block">
                 <xsl:apply-templates select="t:placeName[@syriaca-tags='#syriaca-headword' and @xml:lang='syr']" mode="list">
                     <xsl:sort lang="syr" select="."/>
                 </xsl:apply-templates>
@@ -206,26 +223,10 @@
         <xsl:if test="not(exists(t:desc)) or string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &lt; 1">
             <xsl:call-template name="sources"/>
         </xsl:if>
-
-        <!-- NOTE, for map do well with map in half and type and location in other half, force better proportions -->
-        <fo:block>
-            <fo:inline xsl:use-attribute-sets="bold">Place Type:</fo:inline>
-            <fo:basic-link external-destination="url('http://syriaca.org/documentation/types.html#{normalize-space(@type)}')">
-                <xsl:value-of select="@type"/>
-            </fo:basic-link>
-        </fo:block>
-        <xsl:if test="t:location">
-            <fo:block>
-                <fo:block xsl:use-attribute-sets="h4">Location </fo:block>
-                <fo:list-block>
-                    <xsl:apply-templates select="t:location"/>
-                </fo:list-block>
-            </fo:block>
-        </xsl:if>
         <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
-            <fo:block>
+            <fo:block xsl:use-attribute-sets="p">
                 <fo:block xsl:use-attribute-sets="h3">Brief Descriptions</fo:block>
-                <fo:list-block>
+                <fo:list-block xsl:use-attribute-sets="list-block">
                     <xsl:for-each-group select="t:desc" group-by="if (contains(@xml:lang, '-')=true()) then substring-before(@xml:lang, '-') else @xml:lang">
                         <xsl:sort collation="{$languages}" select="if (contains(@xml:lang, '-')=true()) then substring-before(@xml:lang, '-') else @xml:lang"/>
                         <xsl:for-each select="current-group()">
@@ -244,16 +245,16 @@
                     </nested-places>
             -->
         <xsl:if test="/child::*/nested-place">
-            <fo:block>
+            <fo:block xsl:use-attribute-sets="p">
                 <fo:block xsl:use-attribute-sets="h3">Contains</fo:block>
-                <fo:list-block>
+                <fo:list-block xsl:use-attribute-sets="list-block">
                     <xsl:for-each select="/child::*/nested-place">
                         <xsl:sort collation="{$mixed}" select="t:placeName[@xml:lang='en'][1]/@reg"/>
                         <fo:list-item>
-                            <fo:list-item-label>
+                            <fo:list-item-label end-indent="label-end()">
                                 <fo:block>&#8226;</fo:block>
                             </fo:list-item-label>
-                            <fo:list-item-body>
+                            <fo:list-item-body start-indent="body-start()">
                                 <fo:block>
                                     <fo:basic-link external-destination="url('http://syriaca.org/place/{@id}')" xsl:use-attribute-sets="href">
                                         <xsl:value-of select="."/>
@@ -267,10 +268,10 @@
         </xsl:if>
         <!-- Build related places and people if they exist -->
         <xsl:if test="../t:relation">
-            <fo:block>
+            <fo:block xsl:use-attribute-sets="p">
                 <fo:block xsl:use-attribute-sets="h3">Related Places</fo:block>
                 <!--
-                <fo:list-block>
+                <fo:list-block xsl:use-attribute-sets="list-block">
                     <xsl:apply-templates select="//t:related-items"/>
                 </fo:list-block>
                 -->
@@ -278,18 +279,18 @@
         </xsl:if>
         <!-- Events without @type="attestation" -->
         <xsl:if test="t:event[not(@type='attestation')]">
-            <fo:block>
-                <fo:block xsl:use-attribute-sets="h3">Event</fo:block>
-                <fo:list-block>
+            <fo:block xsl:use-attribute-sets="p">
+                <fo:block xsl:use-attribute-sets="h3">Events</fo:block>
+                <fo:list-block xsl:use-attribute-sets="list-block">
                     <xsl:apply-templates select="t:event[not(@type='attestation')]" mode="event"/>
                 </fo:list-block>
             </fo:block>
         </xsl:if> 
         <!-- Events with @type="attestation" -->
         <xsl:if test="t:event[@type='attestation']">
-            <fo:block>
-                <fo:block xsl:use-attribute-sets="h3">Attestation</fo:block>
-                <fo:list-block>
+            <fo:block xsl:use-attribute-sets="p">
+                <fo:block xsl:use-attribute-sets="h3">Attestations</fo:block>
+                <fo:list-block xsl:use-attribute-sets="list-block">
                     <!-- Sorts events on dates, checks first for @notBefore and if not present, uses @when -->
                     <xsl:for-each select="t:event[@type='attestation']">
                         <xsl:sort select="if(exists(@notBefore)) then @notBefore else @when"/>
@@ -300,35 +301,35 @@
         </xsl:if>
         <!-- Calls named template to pull confession information -->
         <xsl:if test="t:state[@type='confession']">
-            <fo:block>
+            <fo:block xsl:use-attribute-sets="p">
                 <fo:block xsl:use-attribute-sets="h3">Known Religious Communities</fo:block>
-                <fo:block>This list is not necessarily exhaustive, and the order does not represent importance or proportion of the population. Dates do not represent starting or ending dates of a group's presence, but rather when they are attested. Instead, the list only represents groups for which Syriaca.org has source(s) and dates.</fo:block>
+                <fo:block xsl:use-attribute-sets="caveat">This list is not necessarily exhaustive, and the order does not represent importance or proportion of the population. Dates do not represent starting or ending dates of a group's presence, but rather when they are attested. Instead, the list only represents groups for which Syriaca.org has source(s) and dates.</fo:block>
                 <xsl:call-template name="confessions"/>                
             </fo:block>
         </xsl:if>
         <!-- Note type Incerta  -->
         <xsl:if test="t:note[@type='incerta']">
-            <fo:block>
+            <fo:block xsl:use-attribute-sets="p">
                 <fo:block xsl:use-attribute-sets="h3">Incerta</fo:block>
-                <fo:list-block>
+                <fo:list-block xsl:use-attribute-sets="list-block">
                     <xsl:apply-templates select="t:note[@type='incerta']"/>
                 </fo:list-block>
             </fo:block>
         </xsl:if>
         <!-- Note type Incerta  -->
         <xsl:if test="t:note[@type='errata']">
-            <fo:block>
+            <fo:block xsl:use-attribute-sets="p">
                 <fo:block xsl:use-attribute-sets="h3">Errata</fo:block>
-                <fo:list-block>
+                <fo:list-block xsl:use-attribute-sets="list-block">
                     <xsl:apply-templates select="t:note[@type='errata']"/>
                 </fo:list-block>
             </fo:block>
         </xsl:if>
         <!-- Note type corrigenda  -->
         <xsl:if test="t:note[@type='corrigenda']">
-            <fo:block>
+            <fo:block xsl:use-attribute-sets="p">
                 <fo:block xsl:use-attribute-sets="h3">Corrigenda</fo:block>
-                <fo:list-block>
+                <fo:list-block xsl:use-attribute-sets="list-block">
                     <xsl:apply-templates select="t:note[@type='corrigenda']"/>
                 </fo:list-block>
             </fo:block>
@@ -336,7 +337,7 @@
 
         <xsl:call-template name="see-also"/>
         <xsl:call-template name="sources"/>
-        <fo:block>
+        <fo:block xsl:use-attribute-sets="p">
             <fo:block xsl:use-attribute-sets="h3">How to Cite This Entry</fo:block>
             <fo:block>
                 <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
@@ -357,17 +358,18 @@
     </xsl:template>
 
     <xsl:template name="see-also">
-        <fo:block>
+        <fo:block xsl:use-attribute-sets="p">
             <fo:block xsl:use-attribute-sets="h3">See Also</fo:block>
-            <fo:list-block>
+            <fo:list-block xsl:use-attribute-sets="list-block">
                 <xsl:for-each select="t:idno[contains(.,'csc.org.il')]">
                     <fo:list-item>
-                        <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                        <fo:list-item-body>
+                        <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                        <fo:list-item-body start-indent="body-start()">
                             <fo:block>
-                                <fo:basic-link xsl:use-attribute-sets="href" external-destination="{normalize-space(.)}">
-                                    "<xsl:value-of select="substring-before(substring-after(normalize-space(.),'sK='),'&amp;sT=')"/>" in the Comprehensive Bibliography on Syriac Christianity
-                                </fo:basic-link>
+                                "<xsl:value-of select="substring-before(substring-after(normalize-space(.),'sK='),'&amp;sT=')"/>" in the Comprehensive Bibliography on Syriac Christianity
+                                [<fo:basic-link xsl:use-attribute-sets="href" external-destination="{normalize-space(.)}">
+                                    <xsl:value-of select="normalize-space(.)"/>
+                                </fo:basic-link>]
                             </fo:block>
                         </fo:list-item-body>
                     </fo:list-item>
@@ -375,11 +377,13 @@
                 <!-- Pleiades links -->
                 <xsl:for-each select="t:idno[contains(.,'pleiades')]">
                     <fo:list-item>
-                        <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                        <fo:list-item-body>
+                        <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                        <fo:list-item-body start-indent="body-start()">
                             <fo:block>
-                                <fo:basic-link external-destination="{normalize-space(.)}" xsl:use-attribute-sets="href">
-                                    <fo:external-graphic src="url('../resources/img/circle-pi-25.png')"/> View in Pleiades</fo:basic-link>
+                                <fo:external-graphic src="url('../resources/img/circle-pi-25.png')"/> View in Pleiades
+                                [<fo:basic-link external-destination="{normalize-space(.)}" xsl:use-attribute-sets="href">
+                                    <xsl:value-of select="normalize-space(.)"/>
+                                    </fo:basic-link>]
                             </fo:block>
                         </fo:list-item-body>
                     </fo:list-item>
@@ -393,12 +397,13 @@
                         <xsl:value-of select="$coords[1]"/>
                     </xsl:variable>
                     <fo:list-item>
-                        <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                        <fo:list-item-body>
+                        <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                        <fo:list-item-body start-indent="body-start()">
                             <fo:block>
-                                <fo:basic-link external-destination="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://syriaca.org/geo/atom.xql?id={$placenum}" xsl:use-attribute-sets="href">
-                                    <fo:external-graphic src="url('../resources/img/gmaps-25.png')"/> View in Google Maps
-                                </fo:basic-link>
+                                View in Google Maps
+                                 [<fo:basic-link external-destination="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://syriaca.org/geo/atom.xql?id={$placenum}" xsl:use-attribute-sets="href">
+                                     <xsl:value-of select="concat('https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://syriaca.org/geo/atom.xql?id=',$placenum)"/>
+                                </fo:basic-link>]
                             </fo:block>
                         </fo:list-item-body>
                     </fo:list-item>
@@ -406,12 +411,12 @@
                 
                 <!-- TEI source link -->
                 <fo:list-item>
-                    <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                    <fo:list-item-body>
+                    <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
                         <fo:block>
-                            <fo:basic-link external-destination="http://syriaca.org/place/tei/{$placenum}" xsl:use-attribute-sets="href">
-                                <fo:external-graphic src="url('../resources/img/tei-25.png')"/>TEI XML source data
-                            </fo:basic-link>
+                            TEI XML source data [<fo:basic-link external-destination="http://syriaca.org/place/tei/{$placenum}" xsl:use-attribute-sets="href">
+                                <fo:external-graphic src="url('../resources/img/tei-25.png')"/><xsl:value-of select="concat('http://syriaca.org/place/tei/',$placenum)"/>
+                            </fo:basic-link>]
                         </fo:block>
                     </fo:list-item-body>
                 </fo:list-item>
@@ -421,8 +426,8 @@
                         <xsl:value-of select="replace(tokenize(.,'/')[last()],'_',' ')"/>
                     </xsl:variable>
                     <fo:list-item>
-                        <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                        <fo:list-item-body>
+                        <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                        <fo:list-item-body start-indent="body-start()">
                             <fo:block>
                                 <fo:basic-link external-destination="{.}" xsl:use-attribute-sets="href">
                                     <fo:external-graphic src="url('../resources/img/Wikipedia-25.png')"/> "<xsl:value-of select="$get-title"/>" in Wikipedia
@@ -444,7 +449,7 @@
                         editorial guidelines
                     </fo:basic-link>.
                 </fo:block>
-            <fo:list-block>
+            <fo:list-block xsl:use-attribute-sets="list-block">
                 <xsl:apply-templates select="t:bibl" mode="footnote"/>
             </fo:list-block>
         </fo:block>
@@ -463,7 +468,7 @@
         <xsl:choose>
             <xsl:when test="//t:placeName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword'][1]">
                 <fo:inline-container writing-mode="rl-tb">
-                    <fo:block xml:lang="syr">
+                    <fo:block xml:lang="syr" xsl:use-attribute-sets="syr">
                         <xsl:value-of select="//t:placeName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword'][1]"/>
                     </fo:block>
                 </fo:inline-container>
@@ -482,8 +487,8 @@
     <!-- Template to print out events -->
     <xsl:template match="t:event" mode="event">
         <fo:list-item>
-            <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-            <fo:list-item-body>
+            <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+            <fo:list-item-body start-indent="body-start()">
                 <fo:block>
                         <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
                     <xsl:apply-templates select="child::*" mode="plain"/>
@@ -513,7 +518,7 @@
         </xsl:variable>
         <!-- Works through the tree structure in the confessions.xml to output only the relevant confessions -->
         <xsl:for-each select="/child::*/t:confessions/descendant::t:list[1]">
-            <fo:list-block>
+            <fo:list-block xsl:use-attribute-sets="list-block">
             <!-- Checks for top level confessions that may have a match or a descendant with a match, supresses any that do not -->
                 <xsl:if test="descendant-or-self::t:item[contains($current-confessions,@xml:id)]">
                     <!-- Goes through each item to check for a match or a child match -->
@@ -521,8 +526,8 @@
                         <xsl:if test="descendant-or-self::t:item[contains($current-confessions,@xml:id)]">
                             <!-- output current level -->
                             <fo:list-item>
-                                <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                                <fo:list-item-body>
+                                <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                                <fo:list-item-body start-indent="body-start()">
                                     <fo:block>
                                         <!-- print label -->
                                         <xsl:apply-templates select="t:label" mode="confessions"/>
@@ -534,12 +539,12 @@
                                     </fo:block>
                                 <!-- check next level -->
                                     <xsl:if test="descendant::t:item[contains($current-confessions,@xml:id)]">
-                                        <fo:list-block>
+                                        <fo:list-block xsl:use-attribute-sets="list-block">
                                             <xsl:for-each select="child::*/t:item">
                                                 <xsl:if test="descendant-or-self::t:item[contains($current-confessions,@xml:id)]">
                                                     <fo:list-item>
-                                                        <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                                                        <fo:list-item-body>
+                                                        <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                                                        <fo:list-item-body start-indent="body-start()">
                                                             <fo:block>
                                                                 <xsl:apply-templates select="t:label" mode="confessions"/>
                                                             <!-- build dates based on attestation information -->
@@ -549,12 +554,12 @@
                                                                 </xsl:call-template>
                                                             </fo:block>
                                                             <xsl:if test="descendant::t:item[contains($current-confessions,@xml:id)]">
-                                                                <fo:list-block>
+                                                                <fo:list-block xsl:use-attribute-sets="list-block">
                                                                     <xsl:for-each select="child::*/t:item">
                                                                         <xsl:if test="descendant-or-self::t:item[contains($current-confessions,@xml:id)]">
                                                                             <fo:list-item>
-                                                                                <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                                                                                <fo:list-item-body>
+                                                                                <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                                                                                <fo:list-item-body start-indent="body-start()">
                                                                                     <fo:block>
                                                                                         <xsl:apply-templates select="t:label" mode="confessions"/>
                                                                                 <!-- build dates based on attestation information -->
@@ -564,12 +569,12 @@
                                                                                         </xsl:call-template>
                                                                                     </fo:block>
                                                                                     <xsl:if test="descendant::t:item[contains($current-confessions,@xml:id)]">
-                                                                                        <fo:list-block>
+                                                                                        <fo:list-block xsl:use-attribute-sets="list-block">
                                                                                             <xsl:for-each select="child::*/t:item">
                                                                                                 <xsl:if test="descendant-or-self::t:item[contains($current-confessions,@xml:id)]">
                                                                                                     <fo:list-item>
-                                                                                                        <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                                                                                                        <fo:list-item-body>
+                                                                                                        <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                                                                                                        <fo:list-item-body start-indent="body-start()">
                                                                                                             <fo:block>
                                                                                                                 <xsl:apply-templates select="t:label" mode="confessions"/>
                                                                                                          <!-- build dates based on attestation information -->
@@ -730,8 +735,8 @@
         <xsl:variable name="confessions" select="document('/db/apps/srophe/data/confessions/tei/confessions.xml')//t:body/t:list"/>
         <xsl:variable name="id" select="substring-after(@ref,'#')"/>
         <fo:list-item>
-            <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-            <fo:list-item-body>
+            <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+            <fo:list-item-body start-indent="body-start()">
                 <fo:block>
                     <xsl:value-of select="$id"/>: 
                     <xsl:for-each select="$confessions//t:item[@xml:id = $id]/ancestor-or-self::*/t:label">
@@ -778,8 +783,8 @@
             <xsl:when test="@id=concat('#place-',$placenum)"/>
             <xsl:when test="@varient='active'">
                 <fo:list-item>
-                    <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                    <fo:list-item-body>
+                    <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
                         <fo:block>
                             <fo:basic-link external-destination="url('http://syriaca.org/place/{@id}')" xsl:use-attribute-sets="href">
                                 <xsl:value-of select="t:placeName"/>
@@ -801,8 +806,8 @@
             </xsl:when>
             <xsl:when test="@varient='passive'">
                 <fo:list-item>
-                    <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                    <fo:list-item-body>
+                    <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
                         <fo:block>
                             <xsl:value-of select="$currentPlace"/>
                             <xsl:text> </xsl:text>
@@ -824,8 +829,8 @@
             </xsl:when>
             <xsl:when test="@varient='mutual'">
                 <fo:list-item>
-                    <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                    <fo:list-item-body>
+                    <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
                         <fo:block>
                             <xsl:value-of select="$currentPlace"/>
                             <xsl:choose>
@@ -859,25 +864,17 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="t:location[@type='geopolitical' or @type='relative']">
-        <fo:list-item>
-            <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-            <fo:list-item-body>
                 <fo:block>
                     <xsl:apply-templates/>
                     <xsl:sequence select="local:do-refs-pdf(@source,ancestor::t:*[@xml:lang][1])"/>
                 </fo:block>
-            </fo:list-item-body>
-        </fo:list-item>
     </xsl:template>
        
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  
      handle standard output of 'nested' locations 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:location[@type='nested']">
-        <fo:list-item>
-            <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-            <fo:list-item-body>
-                <fo:block>Within 
+             <fo:block>Within 
                     <xsl:for-each select="t:*">
                         <xsl:apply-templates select="."/>
                         <xsl:if test="following-sibling::t:*">
@@ -887,36 +884,15 @@
                     <xsl:text>.</xsl:text>
                     <xsl:sequence select="local:do-refs-pdf(@source,'eng')"/>
                 </fo:block>
-            </fo:list-item-body>
-        </fo:list-item>
     </xsl:template>
     <xsl:template match="t:location[@type='gps' and t:geo]">
-        <fo:list-item>
-            <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-            <fo:list-item-body>
-                <fo:block>Coordinates: </fo:block>
-                <fo:list-block>
-                    <fo:list-item>
-                        <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                        <fo:list-item-body>
-                            <fo:block>
-                                <xsl:value-of select="concat('Lat. ',tokenize(t:geo,' ')[1],'°')"/>                                
-                            </fo:block>
-                        </fo:list-item-body>
-                    </fo:list-item>
-                    <fo:list-item>
-                        <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                        <fo:list-item-body>
-                            <fo:block>
-                                <xsl:value-of select="concat('Long. ',tokenize(t:geo,' ')[2],'°')"/>
-                                <!--            <xsl:value-of select="t:geo"/>-->
-                                <xsl:sequence select="local:do-refs-pdf(@source,'eng')"/>
-                            </fo:block>
-                        </fo:list-item-body>
-                    </fo:list-item>
-                </fo:list-block>
-            </fo:list-item-body>
-        </fo:list-item>
+        <fo:block xsl:use-attribute-sets="bold">Coordinates: </fo:block>         
+        <fo:block>
+            <xsl:value-of select="concat('Lat. ',tokenize(t:geo,' ')[1],'°')"/> 
+            <xsl:value-of select="concat('Long. ',tokenize(t:geo,' ')[2],'°')"/>
+            <!--            <xsl:value-of select="t:geo"/>-->
+            <xsl:sequence select="local:do-refs-pdf(@source,'eng')"/>    
+        </fo:block>
     </xsl:template>
     <xsl:template match="t:offset | t:measure">
         <xsl:apply-templates select="." mode="out-normal"/>
@@ -934,7 +910,7 @@
     </xsl:template>
     <!-- Descriptions for place abstract  added template for abstracts, handles quotes and references.-->
     <xsl:template match="t:desc[starts-with(@xml:id, 'abstract-en')]" mode="abstract">
-        <fo:block margin="8pt" border="1pt solid #cccccc" padding="12pt" background-color="#eeeeee">
+        <fo:block margin="8pt" border="1pt solid #eeeeee" padding="8pt">
             <xsl:apply-templates/>
         </fo:block>
     </xsl:template>
@@ -942,8 +918,8 @@
     <!-- General descriptions within the body of the place element, uses lists -->
     <xsl:template match="t:desc[not(starts-with(@xml:id, 'abstract-en'))]">
         <fo:list-item>
-            <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-            <fo:list-item-body>
+            <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+            <fo:list-item-body start-indent="body-start()">
                 <fo:block>
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
@@ -956,11 +932,11 @@
      handle standard output of a listBibl element 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:listBibl">
-        <fo:list-block>
+        <fo:list-block xsl:use-attribute-sets="list-block">
             <xsl:for-each select="t:bibl">
                 <fo:list-item>
-                    <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                    <fo:list-item-body>
+                    <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
                         <fo:block>
                             <xsl:apply-templates select="." mode="biblist"/>
                             <xsl:text>.</xsl:text>
@@ -994,8 +970,8 @@
             </xsl:when>
             <xsl:when test="@type='corrigenda' or @type='incerta'">
                 <fo:list-item>
-                    <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                    <fo:list-item-body>
+                    <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
                         <fo:block>
                             <xsl:apply-templates/>
                         </fo:block>
@@ -1077,8 +1053,8 @@
             <!-- Output all other names -->
             <xsl:otherwise>
                 <fo:list-item>
-                    <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                    <fo:list-item-body>
+                    <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
                         <fo:block>
                             <xsl:call-template name="langattr"/>
                             <xsl:apply-templates select="." mode="out-normal-pdf"/>
