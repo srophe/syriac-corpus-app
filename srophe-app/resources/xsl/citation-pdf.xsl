@@ -162,8 +162,8 @@
             <fo:block xsl:use-attribute-sets="h4">Authorial and Editorial Responsibility:</fo:block>
             <fo:list-block>
                 <fo:list-item>
-                    <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                    <fo:list-item-body>
+                    <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
                         <fo:block>
                             <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
                             <xsl:sequence select="local:emit-responsible-persons(t:principal,'footnote',2)"/>
@@ -175,8 +175,8 @@
                     </fo:list-item-body>
                 </fo:list-item>
                 <fo:list-item>
-                    <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                    <fo:list-item-body>
+                    <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
                         <fo:block>
                             <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
                             <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='general'],'footnote',2)"/>
@@ -188,8 +188,8 @@
                     </fo:list-item-body>
                 </fo:list-item>
                 <fo:list-item>
-                    <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                    <fo:list-item-body>
+                    <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                    <fo:list-item-body start-indent="body-start()">
                         <fo:block>
                             <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
                             <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='creator'],'biblist',2)"/>
@@ -210,8 +210,8 @@
                 <fo:list-block>
                     <xsl:for-each select="t:respStmt">
                         <fo:list-item>
-                            <fo:list-item-label><fo:block>&#8226;</fo:block></fo:list-item-label>
-                            <fo:list-item-body>
+                            <fo:list-item-label end-indent="label-end()"><fo:block>&#8226;</fo:block></fo:list-item-label>
+                            <fo:list-item-body start-indent="body-start()">
                                 <fo:block>
                                     <xsl:value-of select="t:resp"/>
                                     <xsl:text> </xsl:text>
