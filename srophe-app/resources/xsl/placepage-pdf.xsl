@@ -47,37 +47,41 @@
  <!-- Attribute sets -->
  <!-- =================================================================== -->
     <xsl:attribute-set name="h1">
-        <xsl:attribute name="font-size">16pt</xsl:attribute>
-        <xsl:attribute name="font-weight">500</xsl:attribute>
+        <xsl:attribute name="font-size">14pt</xsl:attribute>
+        <xsl:attribute name="font-weight">600</xsl:attribute>
         <xsl:attribute name="color">#333333</xsl:attribute>
         <xsl:attribute name="margin-top">24pt</xsl:attribute>
         <xsl:attribute name="margin-bottom">12pt</xsl:attribute>
         <xsl:attribute name="border-bottom">1pt solid #333333</xsl:attribute>
     </xsl:attribute-set>
     <xsl:attribute-set name="h3">
-        <xsl:attribute name="font-size">14pt</xsl:attribute>
-        <xsl:attribute name="font-weight">500</xsl:attribute>
+        <xsl:attribute name="font-size">12pt</xsl:attribute>
+        <xsl:attribute name="font-weight">600</xsl:attribute>
         <xsl:attribute name="color">#333333</xsl:attribute>
     </xsl:attribute-set>
     <xsl:attribute-set name="h4">
-        <xsl:attribute name="font-size">12pt</xsl:attribute>
+        <xsl:attribute name="font-size">10pt</xsl:attribute>
         <xsl:attribute name="font-weight">bold</xsl:attribute>
         <xsl:attribute name="color">#333333</xsl:attribute>
     </xsl:attribute-set>
     <xsl:attribute-set name="font-small">
-        <xsl:attribute name="font-size">10pt</xsl:attribute>
+        <xsl:attribute name="font-size">9pt</xsl:attribute>
     </xsl:attribute-set>
     <xsl:attribute-set name="href">
         <xsl:attribute name="color">blue</xsl:attribute>
         <xsl:attribute name="text-decoration">underline</xsl:attribute>
     </xsl:attribute-set>
     <xsl:attribute-set name="bold">
-        <xsl:attribute name="font-weight">bold</xsl:attribute>
+        <xsl:attribute name="font-weight">600</xsl:attribute>
     </xsl:attribute-set>
     <xsl:attribute-set name="caveat">
         <xsl:attribute name="font-size">10pt</xsl:attribute>
         <xsl:attribute name="font-style">italic</xsl:attribute>
         <xsl:attribute name="color">grey</xsl:attribute>
+        <xsl:attribute name="margin-top">4pt</xsl:attribute>
+        <xsl:attribute name="margin-left">8pt</xsl:attribute>
+        <xsl:attribute name="margin-right">8pt</xsl:attribute>
+        <xsl:attribute name="margin-bottom">4pt</xsl:attribute>
     </xsl:attribute-set>
     <xsl:attribute-set name="list-block">
         <xsl:attribute name="provisional-distance-between-starts">18pt</xsl:attribute>
@@ -94,10 +98,7 @@
         <xsl:attribute name="margin-left">18pt</xsl:attribute>
     </xsl:attribute-set>
     <xsl:attribute-set name="p">
-        <xsl:attribute name="margin-top">8pt</xsl:attribute>
-        <xsl:attribute name="margin-right">8pt</xsl:attribute>
-        <xsl:attribute name="margin-bottom">8pt</xsl:attribute>
-        <xsl:attribute name="margin-left">8pt</xsl:attribute>
+        <xsl:attribute name="margin">8pt</xsl:attribute>
     </xsl:attribute-set>
     <xsl:attribute-set name="syr">
         <xsl:attribute name="margin-top">Estrangelo Edessa</xsl:attribute>
@@ -130,7 +131,7 @@
                 <fo:static-content flow-name="xsl-region-after">
                     <fo:block border-top-style="solid" border-top-color="#666666" border-top-width=".015in" padding-top=".025in" margin-bottom="0in" padding-after="0in" padding-bottom="0">
                         <fo:block color="gray" padding-top="0in" margin-top="-0.015in" border-top-style="solid" border-top-color="#gray" border-top-width=".01in" xsl:use-attribute-sets="font-small">
-                            <fo:block>
+                            <fo:block margin-top="4pt">
                                 <fo:block text-align="center">Copyright Vanderbilt University, Princeton University, and the Contributor(s), 2014.</fo:block>
                                 <fo:block text-align="center">
                                     <xsl:text> Page </xsl:text>
@@ -140,7 +141,7 @@
                         </fo:block>
                     </fo:block>
                 </fo:static-content>
-                <fo:flow flow-name="xsl-region-body" font="12pt Times">
+                <fo:flow flow-name="xsl-region-body" font-family="Times" font-size="10pt">
                     <fo:block>
                         <xsl:apply-templates select="//t:place"/>    
                     </fo:block>
@@ -161,8 +162,8 @@
         <!-- Abstract -->
         <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1]" mode="abstract"/>   
         <fo:table border="none">
-            <fo:table-column column-width="50%"/>
-            <fo:table-column column-width="50%"/>
+            <fo:table-column column-width="40%"/>
+            <fo:table-column column-width="60%"/>
             <fo:table-body>
                 <fo:table-row>
                     <fo:table-cell>
@@ -864,7 +865,8 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="t:location[@type='geopolitical' or @type='relative']">
-                <fo:block>
+                <fo:block xsl:use-attribute-sets="p">
+                    <fo:inline xsl:use-attribute-sets="bold">Location: </fo:inline>
                     <xsl:apply-templates/>
                     <xsl:sequence select="local:do-refs-pdf(@source,ancestor::t:*[@xml:lang][1])"/>
                 </fo:block>
@@ -874,7 +876,7 @@
      handle standard output of 'nested' locations 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:location[@type='nested']">
-             <fo:block>Within 
+             <fo:inline>Within 
                     <xsl:for-each select="t:*">
                         <xsl:apply-templates select="."/>
                         <xsl:if test="following-sibling::t:*">
@@ -883,15 +885,17 @@
                     </xsl:for-each>
                     <xsl:text>.</xsl:text>
                     <xsl:sequence select="local:do-refs-pdf(@source,'eng')"/>
-                </fo:block>
+                </fo:inline>
     </xsl:template>
     <xsl:template match="t:location[@type='gps' and t:geo]">
-        <fo:block xsl:use-attribute-sets="bold">Coordinates: </fo:block>         
-        <fo:block>
-            <xsl:value-of select="concat('Lat. ',tokenize(t:geo,' ')[1],'°')"/> 
-            <xsl:value-of select="concat('Long. ',tokenize(t:geo,' ')[2],'°')"/>
-            <!--            <xsl:value-of select="t:geo"/>-->
-            <xsl:sequence select="local:do-refs-pdf(@source,'eng')"/>    
+        <fo:block xsl:use-attribute-sets="p">
+            <fo:inline xsl:use-attribute-sets="bold">Coordinates: </fo:inline>         
+            <fo:inline>
+                <xsl:value-of select="concat('Lat. ',tokenize(t:geo,' ')[1],'°')"/> 
+                <xsl:value-of select="concat('Long. ',tokenize(t:geo,' ')[2],'°')"/>
+                <!--            <xsl:value-of select="t:geo"/>-->
+                <xsl:sequence select="local:do-refs-pdf(@source,'eng')"/>    
+            </fo:inline>            
         </fo:block>
     </xsl:template>
     <xsl:template match="t:offset | t:measure">

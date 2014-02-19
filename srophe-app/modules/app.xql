@@ -47,3 +47,33 @@ declare %templates:wrap function app:build-confessions($node as node(), $model a
     let $confession := doc('/db/apps/srophe/documentation/confessions.xml')//tei:body/child::*[1]
     return app:transform($confession)
 };
+
+(:~
+ : get editors as distinct values
+:)
+declare function app:get-editors(){
+distinct-values(
+    (for $editors in collection('/db/apps/srophe/data/places/tei')//tei:respStmt/tei:name/@ref
+     return substring-after($editors,'#'),
+     for $editors-change in collection('/db/apps/srophe/data/places/tei')//tei:change/@who
+     return substring-after($editors-change,'#'))
+    )
+};
+
+(:~
+ : Build editor list. Sort alphabeticaly
+:)
+declare %templates:wrap function app:build-editor-list($node as node(), $model as map(*)){
+    let $editors := doc('/db/apps/srophe/documentation/editors.xml')//tei:listPerson
+    for $editor in app:get-editors()
+    let $name := 
+        for $editor-name in $editors//tei:person[@xml:id = $editor]
+        return concat($editor-name/tei:persName/tei:forename,' ',$editor-name/tei:persName/tei:addName,' ',$editor-name/tei:persName/tei:surname)
+    let $sort-name :=
+        for $editor-name in $editors//tei:person[@xml:id = $editor] return $editor-name/tei:persName/tei:surname
+    order by $sort-name
+    return
+        if($editor != '') then 
+          <li>{normalize-space($name)}</li>
+        else ''  
+};
