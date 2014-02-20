@@ -101,7 +101,7 @@
         <xsl:attribute name="margin">8pt</xsl:attribute>
     </xsl:attribute-set>
     <xsl:attribute-set name="syr">
-        <xsl:attribute name="margin-top">Estrangelo Edessa</xsl:attribute>
+        <xsl:attribute name="font-family">Estrangelo Edessa</xsl:attribute>
     </xsl:attribute-set>
     <!-- Parameters used by xslt -->
     <xsl:param name="normalization">NFKC</xsl:param>

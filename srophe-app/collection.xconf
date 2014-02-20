@@ -32,5 +32,7 @@
         <create qname="tei:placeName" type="xs:string"/>
         <!--        <create qname="tei:region" type="xs:string"/>-->
         <create qname="tei:relation" type="xs:string"/>
+        <create qname="@who" type="xs:string"/>
+        <create qname="@ref" type="xs:string"/>
     </index>
 </collection>
