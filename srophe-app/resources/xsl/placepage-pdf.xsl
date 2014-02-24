@@ -101,7 +101,7 @@
         <xsl:attribute name="margin">8pt</xsl:attribute>
     </xsl:attribute-set>
     <xsl:attribute-set name="syr">
-        <xsl:attribute name="font-family">Estrangelo Edessa</xsl:attribute>
+        <xsl:attribute name="font-family">Estrangelo Nisibin</xsl:attribute>
     </xsl:attribute-set>
     <!-- Parameters used by xslt -->
     <xsl:param name="normalization">NFKC</xsl:param>
@@ -141,7 +141,7 @@
                         </fo:block>
                     </fo:block>
                 </fo:static-content>
-                <fo:flow flow-name="xsl-region-body" font-family="Times" font-size="10pt">
+                <fo:flow flow-name="xsl-region-body" font-family="Arial Unicode MS" font-size="10pt">
                     <fo:block>
                         <xsl:apply-templates select="//t:place"/>    
                     </fo:block>
@@ -258,7 +258,16 @@
                             <fo:list-item-body start-indent="body-start()">
                                 <fo:block>
                                     <fo:basic-link external-destination="url('http://syriaca.org/place/{@id}')" xsl:use-attribute-sets="href">
-                                        <xsl:value-of select="."/>
+                                        <xsl:choose>
+                                            <xsl:when test="t:placeName/@xml:lang='syr' or t:placeName/@xml:lang='ar' or t:placeName/@xml:lang='syc'">
+                                                <fo:bidi-override unicode-bidi="bidi-override" direction="rtl">
+                                                    <xsl:value-of select="."/>            
+                                                </fo:bidi-override>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="."/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </fo:basic-link>
                                 </fo:block>
                             </fo:list-item-body>
