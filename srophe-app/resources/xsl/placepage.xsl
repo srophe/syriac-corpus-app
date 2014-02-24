@@ -191,38 +191,38 @@
                             <!-- Column 1 -->
                             <div class="span8 column1">
                                 <xsl:call-template name="col1"/>
-                              <div style="margin-bottom:1em;">  
+                                <div style="margin-bottom:1em;">  
                                 <!-- Button to trigger modal -->
-                                <a href="#report-errors" role="button" class="btn btn-primary" data-toggle="modal">Corrections?</a>
-                                <xsl:text> </xsl:text>
-                                  <a href="../documentation/faq.html#selection" role="button" class="btn btn-primary">Is this record complete?</a>
+                                    <a href="#report-errors" role="button" class="btn btn-primary" data-toggle="modal">Corrections?</a>
+                                    <xsl:text> </xsl:text>
+                                    <a href="../documentation/faq.html#selection" role="button" class="btn btn-primary">Is this record complete?</a>
                                 
                                 <!-- Modal -->
-                                <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                        <h3 id="report-errors-label">Corrections?</h3>
+                                    <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <h3 id="report-errors-label">Corrections?</h3>
+                                        </div>
+                                        <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
+                                            <div class="modal-body" id="modal-body">
+                                                <label>Name:</label>
+                                                <input type="text" name="name"/>
+                                                <label>e-mail address:</label>
+                                                <input type="text" name="email"/>
+                                                <label>Subject:</label>
+                                                <input type="text" name="subject"/>
+                                                <label>Comments:</label>
+                                                <textarea name="comments" id="comments" rows="8" class="span9"/>
+                                                <input type="hidden" name="id" value="{$placenum}"/>
+                                                <input type="hidden" name="place" value="{string(t:placeName[1])}"/>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                                <input id="email-submit" type="submit" value="Send e-mail" class="btn btn-primary"/>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
-                                        <div class="modal-body" id="modal-body">
-                                            <label>Name:</label>
-                                            <input type="text" name="name"/>
-                                            <label>e-mail address:</label>
-                                            <input type="text" name="email"/>
-                                            <label>Subject:</label>
-                                            <input type="text" name="subject"/>
-                                            <label>Comments:</label>
-                                            <textarea name="comments" id="comments" rows="8" class="span9"/>
-                                            <input type="hidden" name="id" value="{$placenum}"/>
-                                            <input type="hidden" name="place" value="{string(t:placeName[1])}"/>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                                            <input id="email-submit" type="submit" value="Send e-mail" class="btn btn-primary"/>
-                                        </div>
-                                    </form>
-                                </div>
-                                <script type="text/javascript">
+                                    <script type="text/javascript">
                                     $(document).ready(function() {
                                     $('#email').validate(
                                         {
@@ -243,7 +243,7 @@
                                         });
                                     });
                                 </script>
-                              </div>  
+                                </div>
                                 <xsl:if test="not(exists(t:desc)) or string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &lt; 1">
                                     <xsl:call-template name="sources"/>
                                 </xsl:if>
@@ -253,7 +253,6 @@
                                 <xsl:call-template name="col2"/>
                             </div>
                         </div>
-                        
                         <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
                             <xsl:call-template name="sources"/>
                         </xsl:if>
@@ -1025,7 +1024,6 @@
             </xsl:when>
         </xsl:choose>
     </xsl:template>
-    
     <xsl:template match="t:location[@type='geopolitical' or @type='relative']">
         <li>
             <xsl:choose>
@@ -1168,9 +1166,25 @@
         </p>
     </xsl:template>
     <xsl:template match="t:quote">
-        <xsl:text>“</xsl:text>
-        <xsl:apply-templates/>
-        <xsl:text>”</xsl:text>
+        <xsl:choose>
+            <xsl:when test="@xml:lang">
+                <xsl:text>“</xsl:text>
+                <bdi>
+                    <xsl:attribute name="dir">
+                        <xsl:call-template name="getdirection"/>
+                    </xsl:attribute>
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </bdi>
+                <xsl:text>”</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>“</xsl:text>
+                <xsl:apply-templates/>
+                <xsl:text>”</xsl:text>                
+            </xsl:otherwise>
+        </xsl:choose>
+
         <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
     </xsl:template>
     <!-- NOTE: When persons are populated add back to this template for now, t:persName template, no link -->
