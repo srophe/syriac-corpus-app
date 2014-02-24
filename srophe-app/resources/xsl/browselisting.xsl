@@ -558,6 +558,9 @@
                     </script>
                 </div>
             </div>
+            <div class="pull-right caveat" style="margin-top:1em;">
+                <xsl:copy-of select="//t:count-geo"/>
+            </div>
         </div>
     </xsl:template>
 </xsl:stylesheet>

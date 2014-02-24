@@ -132,6 +132,18 @@ declare function browse:get-place-type($node as node(), $model as map(*)){
     return $place-name 
 };
 (:~
+ : Returns a count of all places with coordinates
+:)
+declare function browse:count-geo($node as node(), $model as map(*)){
+    count(collection('/db/apps/srophe/data/places/tei')//tei:place[descendant::*/tei:geo]) 
+};
+(:~
+ : Returns a count of all places with coordinates
+:)
+declare function browse:count-all($node as node(), $model as map(*)){
+    count(collection('/db/apps/srophe/data/places/tei')//tei:place) 
+};
+(:~
  : Builds tei node to be transformed by xslt
  : Final results are passed to ../resources/xsl/browselisting.xsl
  :)
@@ -151,7 +163,7 @@ declare %templates:wrap function browse:get-place-names($node as node(), $model 
             else if($browse:lang ='type') then 
                 if(exists($browse:type) and $browse:type !='') then browse:get-place-type($node,$model)
                 else 'Type'
-            else if($browse:lang ='map') then ''
+            else if($browse:lang ='map') then <tei:count-geo>*{browse:count-geo($node, $model)} of {browse:count-all($node, $model)} places have coordinates and are shown on this map. <a href="../documentation/faq.html">Read more...</a></tei:count-geo>
             else browse:get-place-en($node, $model)
            else browse:get-place-en($node, $model)
            }
