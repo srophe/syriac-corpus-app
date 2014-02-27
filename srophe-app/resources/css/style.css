@@ -1,15 +1,48 @@
 /* Application styles could go here */
+/*
+ * Colors:
+ * Dark red: 753C28
+ * Dark orange: B3522B
+ * Light orange: E69849
+ * Pale tan: F5F2E9
+ * Dark Blue: 456889
+ * Blue/grey: A2B1B9
+ * Light Blue: DDEAF1
+ * Dark Grey #333
+ * Light Grey (text): #999
+ */
 body {
 	font-family: arial, sans-serif;
-    background-color:#999;
+    background-color:#753C28;
 }
+#main {background-color:#F5F2E9;margin:0;padding:0;}
 
 /* Main content blocks */
-.navbar {margin:0 40px;padding:0;}
+.navbar {
+    margin:0;
+    height: 50px !important; 
+    background-color:white; 
+    border-bottom:4px solid #753C28 !important;
+}
+.navbar-inner {height: 50px !important; margin:0; border-bottom:.5em solid #753C28 !important;}
+.navbar-inner .container{height: 45px !important; padding-top:.5em;}
+.brand {margin-top:-.75em;}
 
-#content {margin:0 40px; padding:40px 0 0; background-color:white;}
+.navbar-inner .nav > li > a:hover, .advanced-search > a:hover {
+        border-bottom: 4px solid #E69849 !important;  
+        text-decoration:none;
+}
+.navbar-inner > .container > .nav > li.selected {border-bottom: 4px solid #E69849 !important; }
+.advanced-search > a {color:#999; text-decoration:none;}
+.transparent {
+    /* default fallback */
+    background: rgb(255, 255, 255) transparent;
+    /* nice browsers */
+    background: rgba(255, 255, 255, 0.8);
+    
+}
 
-.main {background-color:white; padding:1em; border-right:1px solid #ccc;}
+#content {margin:40px 40px 0px 40px; padding:40px 20px 0 20px; background-color:white;}
 
 .citationinfo {padding:0px 20px 20px; color: #555; border-top:1px solid #666666; background-color:#eee; }
 #citation {display:none;}
@@ -21,9 +54,10 @@ body {
 footer {margin:0 40px;padding:1px; text-align:center;}
 
 /* Typography */
-h2 {font-size:1.5em; margin:0 -1em; padding-left:8px;}
-h3 {font-size: 1.2em; margin-top:0; margin-bottom:.2em; padding-bottom:0;}
-.column1 h3{border-bottom:1px solid #333333; padding-bottom:0; margin-bottom:1em;}
+h2 {font-size:1.5em; margin:0 -1em; padding-left:8px; color:#E69849; font-weight:500;}
+h3 {font-size: 1.2em; margin-top:0; margin-bottom:.2em; padding-bottom:0; color:#753C28; font-weight:500;}
+h4 {font-size: 1em; margin-top:0; margin-bottom:.2em; padding-bottom:0; color:#333; font-weight:600;}
+.column1 h3{border-bottom:1px solid #999; padding-bottom:0; margin-bottom:1em;}
 h3.label {
     background-color:#ccc;
     line-height: 1.2em;
@@ -56,6 +90,8 @@ h4 {font-size: 1em; margin-top:1em;}
       background-color: #eee;
       cursor: pointer;
     }
+    
+    
 /* footnote styles */
 
 .footnote-refs, .footnote-tgt {
@@ -290,4 +326,21 @@ div[id|=place] > div:last-of-type {
 /* styles for forms */
 label.error {
   color: #B94A48; /* color to match Bootstraps error class */
+}
+
+.btn-custom {
+  background-color: hsl(29, 80%, 27%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d77417", endColorstr="#7b430d");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#d77417), to(#7b430d));
+  background-image: -moz-linear-gradient(top, #d77417, #7b430d);
+  background-image: -ms-linear-gradient(top, #d77417, #7b430d);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d77417), color-stop(100%, #7b430d));
+  background-image: -webkit-linear-gradient(top, #d77417, #7b430d);
+  background-image: -o-linear-gradient(top, #d77417, #7b430d);
+  background-image: linear-gradient(#d77417, #7b430d);
+  border-color: #7b430d #7b430d hsl(29, 80%, 22%);
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.33);
+  -webkit-font-smoothing: antialiased;
 }
