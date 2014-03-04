@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-02-06</date>
+                <date>2014-03-03</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,7 +87,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">ADDED <gi>quote</gi> elements around Syriac text in <gi>note</gi> of type="corrigenda".</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-03">ADDED: abstract and existence dates, and type specification </change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">ADDED: <gi>quote</gi> elements around Syriac text in <gi>note</gi> of type="corrigenda".</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -95,7 +96,7 @@
     <text>
         <body>
             <listPlace>
-                <place xml:id="place-311" type="unknown">
+                <place xml:id="place-311" type="diocese">
                     <placeName xml:id="name311-1" xml:lang="en" syriaca-tags="#syriaca-headword">Tel Arsenius</placeName>
                     <placeName xml:id="name311-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܬܠ ܐܪܣܐܢܝܘܣ</placeName>
                     <placeName xml:id="name311-3" xml:lang="syr-Syrj" source="#bib311-1">ܬܶܠ ܐܰܪܣܰܐܢܝܘܣ</placeName>
@@ -103,7 +104,7 @@
                     <placeName xml:id="name311-5" xml:lang="ar" source="#bib311-2">تلّ ارسانيوس</placeName>
                     <placeName xml:id="name311-6" xml:lang="ar" source="#bib311-2">تيل</placeName>
                     <placeName xml:id="name311-7" xml:lang="en" source="#bib311-3">Tell Arsenius</placeName>
-                    <desc xml:id="abstract-en-311" xml:lang="en"/>
+                    <desc xml:id="abstract-en-311" xml:lang="en">A Syrian Orthodox diocese on the river <placeName ref="http://syriaca.org/place/82">Euphrates</placeName>.</desc>
                     <desc xml:lang="syr-Syrj">
                         <quote source="#bib311-1">ܥܰܠ ܣܦܬ ܦܪܳܬ ܕܩܰܪܝܒܐ ܠܟܰܪܟܘܽܬ.</quote>
                     </desc>
@@ -113,7 +114,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib311-3">on the Euphrates, near Kharput.</quote>
                     </desc>
-                    <state type="existence"/>
+                    <state type="existence" from="1264" to="1264" syriaca-computed-end="1264-01-01" syriaca-computed-start="1264-01-01">
+                        <precision match="@from" notAfter="1264" syriaca-computed-end="1264-01-01"/>
+                        <precision match="@to" notAfter="2013" notBefore="1264" syriaca-computed-end="2013-01-01" syriaca-computed-start="1264-01-01"/>
+                    </state>
                     <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܠܟܰܪܟܘܽܬ</quote> should read <quote xml:lang="syr-Syrj">ܠܟܰܪܒܘܽܬ</quote>.</note>
                     <idno type="URI">http://syriaca.org/place/311</idno>
                     <bibl xml:id="bib311-1">

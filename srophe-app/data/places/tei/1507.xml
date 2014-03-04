@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-03-03</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,6 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-03">CHANGED: place type and tighter existence dates, based on BH Eccl Chron</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -85,15 +86,15 @@
     <text>
         <body>
             <listPlace>
-                <place xml:id="place-1507" type="unknown">
+                <place xml:id="place-1507" type="diocese">
                     <placeName xml:id="name1507-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib1507-3">al-Baḥrayn</placeName>
                     <placeName xml:id="name1507-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܚܪܝܢ</placeName>
                     <placeName xml:id="name1507-3" xml:lang="syr-Syrj" source="#bib1507-1">ܒܰܚܪܰܝܢ</placeName>
                     <placeName xml:id="name1507-4" xml:lang="ar" source="#bib1507-2">البحرين</placeName>
                     <desc xml:id="abstract-en-1507" xml:lang="en">A place whose inhabitants received a letter from <persName ref="http://syriaca.org/person/148">Ḥabīb b. Khidma Abū Rāʾiṭa</persName>.</desc>
-                    <state type="existence" from="0850" to="0750" syriaca-computed-end="0750-01-01" syriaca-computed-start="0850-01-01">
-                        <precision match="@from" notAfter="0850" syriaca-computed-end="0850-01-01"/>
-                        <precision match="@to" notBefore="0750" syriaca-computed-start="0750-01-01"/>
+                    <state type="existence" from="0847" to="0834" syriaca-computed-end="0834-01-01" syriaca-computed-start="0847-01-01">
+                        <precision match="@from" notAfter="0847" syriaca-computed-end="0847-01-01"/>
+                        <precision match="@to" notBefore="0834" syriaca-computed-start="0834-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/1507</idno>
                     <bibl xml:id="bib1507-1">
