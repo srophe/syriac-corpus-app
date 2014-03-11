@@ -89,6 +89,11 @@
             <a href="atom.xql?id={$placenum}" rel="alternate" type="application/atom+xml">
                 <img src="../resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/>
             </a>
+            <!-- Atom format link -->
+            <a href="javascript:window.print();">
+                <img src="../resources/img/icons-print.png" alt="The Print format icon" title="click to send this page to the printer"/>
+            </a>
+            
         </div>
     </xsl:template>
     
@@ -126,7 +131,7 @@
                             <img src="../resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {ancestor::t:place/t:placeName[@xml:lang='en'][1]} on Google Maps"/> View in Google Maps</a>
                     </li>
                 </xsl:for-each>
-                   
+                
                 <!-- TEI source link -->
                 <li>
                     <a href="http://syriaca.org/place/tei/{$placenum}" rel="alternate" type="application/tei+xml">
