@@ -32,10 +32,6 @@
                     <resp>Arabic description entry by</resp>
                     <name ref="http://syriaca.org/editors.xml#rakhrass">Dayroyo Roger-Youssef Akhrass</name>
                 </respStmt>
-                <respStmt>
-                    <resp>Wilmshurst index information entry by</resp>
-                    <name ref="http://syriaca.org/editors.xml#adavis">Anthony Davis</name>
-                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -63,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-03-10</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,6 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-10">REMOVED: data from Wilmshurst, which was an erroneous match</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -109,7 +106,7 @@
                     <placeName xml:id="name446-3" xml:lang="ar" source="#bib446-2">كلز</placeName>
                     <placeName xml:id="name446-4" xml:lang="ar" source="#bib446-2">كلس</placeName>
                     <placeName xml:id="name446-5" xml:lang="en" source="#bib446-3">Killiz</placeName>
-                    <placeName xml:id="name446-6" xml:lang="en" source="#bib446-3 #bib446-4">Kilis</placeName>
+                    <placeName xml:id="name446-6" xml:lang="en" source="#bib446-3">Kilis</placeName>
                     <desc xml:id="abstract-en-446" xml:lang="en"/>
                     <desc xml:lang="syr-Syrj">
                         <quote source="#bib446-1">ܐܰܬܪܰܐ ܗܘ ܕܰܠܓܰܪܒܝܳܐ ܕܚܳܠܒ.</quote>
@@ -120,12 +117,8 @@
                     <desc xml:lang="en">
                         <quote source="#bib446-3">a town in the northern part of the province of Aleppo.</quote>
                     </desc>
-                    <location type="gps" source="#bib446-5">
+                    <location type="gps" source="#bib446-4">
                         <geo>36.716346 37.114125</geo>
-                    </location>
-                    <location type="nested" source="#bib446-4">
-                        <region ref="http://syriaca.org/place/801">Ātel district</region>
-                        <region ref="http://syriaca.org/place/724">Seert region</region>
                     </location>
                     <state type="existence" from="0300" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0300-01-01">
                         <precision match="@from" notAfter="0300" syriaca-computed-end="0300-01-01"/>
@@ -151,12 +144,6 @@
                         <citedRange unit="pp">555</citedRange>
                     </bibl>
                     <bibl xml:id="bib446-4">
-                        <author>David Wilmshurst</author>
-                        <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
-                        <citedRange unit="pp">99</citedRange>
-                        <ptr target="http://syriaca.org/bibl/9"/>
-                    </bibl>
-                    <bibl xml:id="bib446-5">
                         <title>http://pleiades.stoa.org/places/658442</title>
                         <ptr target="http://pleiades.stoa.org/places/658442"/>
                     </bibl>
