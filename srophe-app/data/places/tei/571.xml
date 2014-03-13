@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-03-13</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,6 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-13">FIXED: Barsoum names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-01-10">ADDED: disambiguation note</change>
@@ -89,16 +90,19 @@
             <listPlace>
                 <place xml:id="place-571" type="monastery">
                     <placeName xml:id="name571-1" xml:lang="en" syriaca-tags="#syriaca-headword">Mor Bosus</placeName>
-                    <placeName xml:id="name571-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܘܦܘܡܝܐ</placeName>
-                    <placeName xml:id="name571-3" xml:lang="syr-Syrj" source="#bib571-1">ܐܘܦܘܡܺܝܰܐ</placeName>
-                    <placeName xml:id="name571-4" xml:lang="ar" source="#bib571-2">اوفيمية</placeName>
-                    <placeName xml:id="name571-5" xml:lang="en" source="#bib571-3">Euphemia</placeName>
+                    <placeName xml:id="name571-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܕܝܪܐ ܕܡܪܝ ܒܣܘܣ</placeName>
+                    <placeName xml:id="name571-3" xml:lang="syr-Syrj" source="#bib571-1">ܕܰܝܪܐ ܕܡܳܪܝ ܒܳܣܘܣ</placeName>
+                    <placeName xml:id="name571-4" xml:lang="ar" source="#bib571-2">دير مار باسوس</placeName>
+                    <placeName xml:id="name571-5" xml:lang="en" source="#bib571-3">Bāsūs Monastery</placeName>
                     <desc xml:id="abstract-en-571" xml:lang="en">A ruined monastery attested near <placeName ref="http://syriaca.org/place/215">Ḥimṣ</placeName>
                     </desc>
-                    <state type="existence" from="1286" to="1286" syriaca-computed-end="1286-01-01" syriaca-computed-start="1286-01-01">
+                    <state type="existence" from="0300" to="1286" syriaca-computed-end="1286-01-01" syriaca-computed-start="0300-01-01">
                         <precision match="@from" notAfter="1286" notBefore="0300" syriaca-computed-end="1286-01-01" syriaca-computed-start="0300-01-01"/>
-                        <precision match="@to" notAfter="2013" notBefore="1286" syriaca-computed-end="2013-01-01" syriaca-computed-start="1286-01-01"/>
+                        <precision match="@to" notAfter="1286" syriaca-computed-end="1286-01-01"/>
                     </state>
+                    <note type="errata">Barsoum's description erroneously merges the information for this location with that of the other <placeName ref="http://syriaca.org/place/343">Mor Bosus</placeName>.</note>
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܘܐܶܬܢܰܦܰܩܘ</quote> should read <quote xml:lang="syr-Syrj">ܘܶܐܬܢܰܦܰܩܘ</quote>.</note>
+                    <note type="corrigenda">In Moosa's English translation of Barsoum's description "fifth" should read "following."</note>
                     <note type="disambiguation">Not the same place as <placeName ref="http://syriaca.org/place/343">Mor Bosus</placeName>.</note>
                     <idno type="URI">http://syriaca.org/place/571</idno>
                     <bibl xml:id="bib571-1">
