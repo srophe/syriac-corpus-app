@@ -61,8 +61,30 @@
   h3 {
     page-break-after: avoid;
   }
+  
   /* Syriaca.org specific styles */
-  .navbar {display:none;}
+  .noprint, .navbar  {display:none;}
   .footnote-refs {display:block; margin:.5em;line-height:1em;}
-  #link-icons {display:none;}
+  /* Show hidden citation information*/
+  #citation {display:block;}
+  /* hide buttons */
+  #link-icons, #moreInfo,.btn, .helper {display:none;}
+  .footnote-refs {display:inline !important; text-decoration:none;}
+    
+   /* 
+   a[href^=http]:after {
+      content:" <" attr(href) "> ";
+   }
+    $a:after > img {
+    content: "";
+   }
+   */
+   a:not(:local-link):after {
+   content:" <" attr(href) "> ";
+    }
+    a, a:visited { text-decoration: underline; }
+    a[href]:after { content: " (" attr(href) ")"; }
+     abbr[title]:after { content: " (" attr(title) ")"; }
+    .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; text-decoration:none !important;}  /* Don't show links for images, or javascript/internal links */
+
 }
