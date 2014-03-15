@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-03-15</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,6 +78,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-15">ADDED: existence dates</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-15">CHANGED: place type and abstract</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -85,13 +87,16 @@
     <text>
         <body>
             <listPlace>
-                <place xml:id="place-492" type="unknown">
+                <place xml:id="place-492" type="settlement">
                     <placeName xml:id="name492-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib492-3">Qaṣr Ibn Hubayra</placeName>
                     <placeName xml:id="name492-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܨܪܐ ܕܒܪ ܗܘܒܝܪܗ</placeName>
                     <placeName xml:id="name492-3" xml:lang="syr-Syrj" source="#bib492-1">ܩܰܨܪܐ ܕܒܰܪ ܗܘܒܝܪܗ</placeName>
                     <placeName xml:id="name492-4" xml:lang="ar" source="#bib492-2">قصر ابن هبيرة</placeName>
-                    <desc xml:id="abstract-en-492" xml:lang="en">In southern Iraq.</desc>
-                    <state type="existence"/>
+                    <desc xml:id="abstract-en-492" xml:lang="en">A town in southern Iraq founded during the caliphate of Marwān II (r. 744-750) by the last Umayyad governor of Iraq, Yazīd bin ʿUmar bin Hubayra.</desc>
+                    <state type="existence" from="0750" to="1010" syriaca-computed-end="1010-01-01" syriaca-computed-start="0750-01-01">
+                        <precision match="@from" notBefore="0744" notAfter="0750" syriaca-computed-end="0750-01-01" syriaca-computed-start="0744-01-01"/>
+                        <precision match="@to" notBefore="1010" syriaca-computed-start="1010-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/492</idno>
                     <bibl xml:id="bib492-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
