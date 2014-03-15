@@ -143,11 +143,9 @@ declare function browse:count-geo($node as node(), $model as map(*)){
 declare function browse:count-all($node as node(), $model as map(*)){
     count(collection('/db/apps/srophe/data/places/tei')//tei:place) 
 };
+
 (:~
  : Build browse type
- change display to have tabs on html, with templates for counts, and types ect, and xslt only for the 
- browse list results. 
-  if($model("places-data")[@type = $type]/descendant::tei:geo) then true() else ''
 :)
 declare function browse:type-counts($node as node(), $model as map(*)){
 if($browse:view = 'type') then 
@@ -159,13 +157,8 @@ if($browse:view = 'type') then
         return 
         <li>{if($browse:type = $type) then attribute class {'active'} else '' }
         <a href="?view=type&amp;type={$type}">{$type} &#160; 
-        {
-            count(
-            for $type-count in $model("places-data")[@type = $type]
-            return $type-count
-            )
-            
-        }</a>
+            <span class="count">({count(for $type-count in $model("places-data")[@type = $type]return $type-count)})</span>
+        </a>
         </li>
         }
     </ul>
