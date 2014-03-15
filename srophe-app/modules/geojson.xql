@@ -1,6 +1,6 @@
 xquery version "3.0";
 (:~
- : Testing json output for leafletjs maps 
+ :  geojson output for leafletjs maps 
  :)
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 
@@ -13,10 +13,14 @@ declare namespace request="http://exist-db.org/xquery/request";
 declare namespace json="http://www.json.org";
 declare option exist:serialize "method=json media-type=text/javascript encoding=UTF-8";
 
+declare variable $type {request:get-parameter('type', '')};
+
 let $json := 
 <json type="FeatureCollection">
     {
-    let $geo-map := map{"geo-data" := collection($config:app-root || "/data/places/tei")//tei:geo} 
+    let $geo-map := if(exists($type) and $type != '') then
+        map{"geo-data" := collection($config:app-root || "/data/places/tei")//tei:geo[ancestor::tei:place[@type=$type]]}
+        else map{"geo-data" := collection($config:app-root || "/data/places/tei")//tei:geo} 
     for $place-name in map:get($geo-map, 'geo-data')
     let $id := string($place-name/ancestor::tei:place/@xml:id)
     let $type := string($place-name/ancestor::tei:place/@type)
