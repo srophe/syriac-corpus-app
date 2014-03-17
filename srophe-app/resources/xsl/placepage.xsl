@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0"
-    xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0"
-    xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml"
-    exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
-    <!-- ================================================================== 
+ <!-- ================================================================== 
        Copyright 2013 New York University
        
        This file is part of the Syriac Reference Portal Places Application.
@@ -27,9 +22,9 @@
        along with the Syriac Reference Portal Places Application.  If not,
        see (http://www.gnu.org/licenses/).
        
-       ================================================================== -->
-
-    <!-- ================================================================== 
+       ================================================================== --> 
+ 
+ <!-- ================================================================== 
        placepage.xsl
        
        This XSLT transforms places xml (TEI) files to HTML. It builds the
@@ -54,9 +49,9 @@
           Endowment for the Humanities.
        
        ================================================================== -->
-    <!-- =================================================================== -->
-    <!-- import component stylesheets for HTML page portions -->
-    <!-- =================================================================== -->
+ <!-- =================================================================== -->
+ <!-- import component stylesheets for HTML page portions -->
+ <!-- =================================================================== -->
     <xsl:import href="place-title-std.xsl"/>
     <xsl:import href="helper-functions.xsl"/>
     <xsl:import href="link-icons.xsl"/>
@@ -65,70 +60,66 @@
     <xsl:import href="json-uri.xsl"/>
     <xsl:import href="langattr.xsl"/>
     <xsl:import href="collations.xsl"/>
-
-    <!-- =================================================================== -->
-    <!-- set output so we get (mostly) indented HTML -->
-    <!-- =================================================================== -->
+    
+ <!-- =================================================================== -->
+ <!-- set output so we get (mostly) indented HTML -->
+ <!-- =================================================================== -->
     <xsl:output name="html" encoding="UTF-8" method="xhtml" indent="no"/>
 
-    <!-- =================================================================== -->
-    <!--  initialize top-level variables and transform parameters -->
-    <!--  sourcedir: where to look for XML files to summarize/link to -->
-    <!--  description: a meta description for the HTML page we will output -->
-    <!--  name-app: name of the application (for use in head/title) -->
-    <!--  name-page-short: short name of the page (for use in head/title) -->
-    <!--  colquery: constructed variable with query for collection fn. -->
-    <!-- =================================================================== -->
+ <!-- =================================================================== -->
+ <!--  initialize top-level variables and transform parameters -->
+ <!--  sourcedir: where to look for XML files to summarize/link to -->
+ <!--  description: a meta description for the HTML page we will output -->
+ <!--  name-app: name of the application (for use in head/title) -->
+ <!--  name-page-short: short name of the page (for use in head/title) -->
+ <!--  colquery: constructed variable with query for collection fn. -->
+ <!-- =================================================================== -->
     <xsl:param name="normalization">NFKC</xsl:param>
     <!-- NOTE: Change to eXist xml -->
     <xsl:param name="xmlbase">/db/apps/srophe/data/places/tei/xml/</xsl:param>
     <xsl:param name="editoruriprefix">http://syriaca.org/editors.xml#</xsl:param>
     <xsl:variable name="editorssourcedoc">/db/apps/srophe/documentation/editors.xml</xsl:variable>
     <xsl:param name="uribase">http://syriaca.org/place/</xsl:param>
-    <xsl:variable name="placenum"
-        select="substring-after(/descendant::*/t:place[1]/@xml:id,'place-')"/>
-    <!-- =================================================================== -->
-    <!-- TEMPLATES -->
-    <!-- =================================================================== -->
+    <xsl:variable name="placenum" select="substring-after(/descendant::*/t:place[1]/@xml:id,'place-')"/>
+ <!-- =================================================================== -->
+ <!-- TEMPLATES -->
+ <!-- =================================================================== -->
 
 
-    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-    <!-- |||| Root template matches tei root -->
-    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+ <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+ <!-- |||| Root template matches tei root -->
+ <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
     <xsl:template match="/">
         <div class="row-fluid">
             <div class="span12">
-                <!-- Start Title and link icons -->
+    <!-- Start Title and link icons -->
                 <div class="row-fluid title">
                     <h2 class="span8">
                         <!-- Format title, calls template in place-title-std.xsl -->
                         <xsl:call-template name="get-title"/>
-                        <span class="get-syriac noprint"
-                            style="font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none">
+                        <span class="get-syriac noprint" style="font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none">
                             <xsl:if test="//t:place/child::*[@xml:lang ='syr']">
                                 <a href="../documentation/view-syriac.html">
-                                    <img src="../resources/img/faq.png" alt="The Google Maps icon"
-                                    />&#160;Don't see Syriac?</a>
+                                    <img src="../resources/img/faq.png" alt="The Google Maps icon"/>&#160;Don't see Syriac?</a>
                             </xsl:if>
                         </span>
                     </h2>
                     <!-- Call link icons (located in link-icons.xsl) -->
-                    <xsl:call-template name="link-icons"/>
-                    <!-- End Title -->
+                    <xsl:call-template name="link-icons"/>   
+     <!-- End Title -->
                 </div>
                 <!-- Main place page content -->
                 <xsl:apply-templates select="//t:place"/>
             </div>
         </div>
-        <!-- End main content section -->
-        <!-- Citations section -->
+  <!-- End main content section -->
+  <!-- Citations section -->
         <div class="row-fluid">
             <xsl:variable name="htmluri" select="concat('?id=',$placenum)"/>
             <div class="span12 citationinfo">
                 <h3>How to Cite This Entry</h3>
                 <div id="citation-note" class="well">
-                    <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt"
-                        mode="cite-foot"/>
+                    <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
                     <br/>
                     <span class="pull-right">
                         <a id="moreInfo">Show full citation information...</a>
@@ -136,24 +127,18 @@
                     <div id="citation">
                         <div id="citation-bibliography">
                             <h4>Bibliography:</h4>
-                            <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt"
-                                mode="cite-biblist"/>
+                            <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
                         </div>
                         <div id="about">
                             <h3>About this Entry</h3>
-                            <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt"
-                                mode="about"/>
+                            <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
                         </div>
                         <div id="license">
                             <h3>Copyright and License for Reuse</h3>
                             <p>
                                 <xsl:text>Except otherwise noted, this page is © </xsl:text>
-                                <xsl:value-of
-                                    select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"
-                                />.</p>
-                            <xsl:apply-templates
-                                select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"
-                            />
+                                <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>.</p>
+                            <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
                         </div>
                     </div>
                 </div>
@@ -165,10 +150,10 @@
         <script type="text/javascript" src="/exist/apps/srophe/resources/js/main.js"/>
         <script type="text/javascript" src="/exist/apps/srophe/resources/js/jquery.validate.min.js"/>
     </xsl:template>
-
-    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-    <!-- |||| Place templates -->
-    <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    
+<!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+<!-- |||| Place templates -->
+<!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
     <xsl:template match="t:place">
         <!-- Start place content -->
         <div class="row-fluid">
@@ -184,11 +169,9 @@
                                 <xsl:for-each select="t:idno[contains(.,'syriaca.org')]">
                                     <div style="margin:0 1em 1em; color: #999999;">
                                         <small>
-                                            <a href="../documentation/terms.html#place-uri"
-                                                title="Click to read more about Place URIs"
-                                                class="noprint">
-                                                <div class="helper circle">
-                                                  <p>i</p>
+                                            <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
+                                                <div class="helper circle noprint">
+                                                    <p>i</p>
                                                 </div>
                                             </a>
                                             <p>
@@ -199,9 +182,7 @@
                                         </small>
                                     </div>
                                 </xsl:for-each>
-                                <xsl:apply-templates
-                                    select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1]"
-                                    mode="abstract"/>
+                                <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1]" mode="abstract"/>
                             </div>
                         </div>
                         <!-- End abstract row -->
@@ -210,25 +191,19 @@
                             <!-- Column 1 -->
                             <div class="span8 column1">
                                 <xsl:call-template name="col1"/>
-                                <div style="margin-bottom:1em;">
-                                    <!-- Button to trigger modal -->
-                                    <a href="#report-errors" role="button" class="btn"
-                                        data-toggle="modal">Corrections?</a>
+                                <div style="margin-bottom:1em;">  
+                                <!-- Button to trigger modal -->
+                                    <a href="#report-errors" role="button" class="btn" data-toggle="modal">Corrections?</a>
                                     <xsl:text> </xsl:text>
-                                    <a href="../documentation/faq.html#selection" role="button"
-                                        class="btn">Is this record complete?</a>
-
-                                    <!-- Modal -->
-                                    <div id="report-errors" class="modal hide fade" tabindex="-1"
-                                        role="dialog" aria-labelledby="report-errors-label"
-                                        aria-hidden="true">
+                                    <a href="../documentation/faq.html#selection" role="button" class="btn">Is this record complete?</a>
+                                
+                                <!-- Modal -->
+                                    <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
                                         <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-hidden="true">×</button>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                             <h3 id="report-errors-label">Corrections?</h3>
                                         </div>
-                                        <form action="/exist/apps/srophe/modules/email.xql"
-                                            method="post" id="email">
+                                        <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
                                             <div class="modal-body" id="modal-body">
                                                 <label>Name:</label>
                                                 <input type="text" name="name"/>
@@ -237,17 +212,13 @@
                                                 <label>Subject:</label>
                                                 <input type="text" name="subject"/>
                                                 <label>Comments:</label>
-                                                <textarea name="comments" id="comments" rows="8"
-                                                  class="span9"/>
+                                                <textarea name="comments" id="comments" rows="8" class="span9"/>
                                                 <input type="hidden" name="id" value="{$placenum}"/>
-                                                <input type="hidden" name="place"
-                                                  value="{string(t:placeName[1])}"/>
+                                                <input type="hidden" name="place" value="{string(t:placeName[1])}"/>
                                             </div>
                                             <div class="modal-footer">
-                                                <button class="btn" data-dismiss="modal"
-                                                  aria-hidden="true">Close</button>
-                                                <input id="email-submit" type="submit"
-                                                  value="Send e-mail" class="btn"/>
+                                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                                <input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
                                             </div>
                                         </form>
                                     </div>
@@ -273,8 +244,7 @@
                                     });
                                 </script>
                                 </div>
-                                <xsl:if
-                                    test="not(exists(t:desc)) or string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &lt; 1">
+                                <xsl:if test="not(exists(t:desc)) or string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &lt; 1">
                                     <xsl:call-template name="sources"/>
                                 </xsl:if>
                             </div>
@@ -283,8 +253,7 @@
                                 <xsl:call-template name="col2"/>
                             </div>
                         </div>
-                        <xsl:if
-                            test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
+                        <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
                             <xsl:call-template name="sources"/>
                         </xsl:if>
                     </div>
@@ -310,8 +279,7 @@
                         <div class="span7">
                             <!-- If map data exists generate location link for use by map.js -->
                             <xsl:if test="t:location/t:geo[1]">
-                                <xsl:apply-templates select="t:location[t:geo][1]/t:geo[1]"
-                                    mode="json-uri"/>
+                                <xsl:apply-templates select="t:location[t:geo][1]/t:geo[1]" mode="json-uri"/>
                             </xsl:if>
                             <div id="map" class="map-small"/>
                         </div>
@@ -320,8 +288,7 @@
                                 <!-- NOTE: may need to move this elsewhere -->
                                 <p>
                                     <strong>Place Type: </strong>
-                                    <a href="../documentation/types.html#{normalize-space(@type)}"
-                                        class="noprint">
+                                    <a href="../documentation/types.html#{normalize-space(@type)}" class="no-print-link">
                                         <xsl:value-of select="@type"/>
                                     </a>
                                 </p>
@@ -346,8 +313,7 @@
                                 <!-- NOTE: may need to move this elsewhere -->
                                 <p>
                                     <strong>Place Type: </strong>
-                                    <a href="../documentation/types.html#{normalize-space(@type)}"
-                                        class="noprint">
+                                    <a href="../documentation/types.html#{normalize-space(@type)}" class="no-print-link">
                                         <xsl:value-of select="@type"/>
                                     </a>
                                 </p>
@@ -370,13 +336,10 @@
                 <div id="description">
                     <h3>Brief Descriptions</h3>
                     <ul>
-                        <xsl:for-each-group select="t:desc"
-                            group-by="if (contains(@xml:lang, '-')=true()) then substring-before(@xml:lang, '-') else @xml:lang">
-                            <xsl:sort collation="{$languages}"
-                                select="if (contains(@xml:lang, '-')=true()) then substring-before(@xml:lang, '-') else @xml:lang"/>
+                        <xsl:for-each-group select="t:desc" group-by="if (contains(@xml:lang, '-')=true()) then substring-before(@xml:lang, '-') else @xml:lang">
+                            <xsl:sort collation="{$languages}" select="if (contains(@xml:lang, '-')=true()) then substring-before(@xml:lang, '-') else @xml:lang"/>
                             <xsl:for-each select="current-group()">
-                                <xsl:sort lang="{current-grouping-key()}"
-                                    select="normalize-space(.)"/>
+                                <xsl:sort lang="{current-grouping-key()}" select="normalize-space(.)"/>
                                 <xsl:apply-templates select="."/>
                             </xsl:for-each>
                         </xsl:for-each-group>
@@ -395,11 +358,10 @@
                     <h3>Contains</h3>
                     <ul>
                         <xsl:for-each select="/child::*/nested-place">
-                            <xsl:sort collation="{$mixed}"
-                                select="t:placeName[@xml:lang='en'][1]/@reg"/>
+                            <xsl:sort collation="{$mixed}" select="t:placeName[@xml:lang='en'][1]/@reg"/>
                             <li>
                                 <a href="{concat('place.html?id=',@id)}">
-                                    <!--                                <xsl:call-template name="place-title-std"/>-->
+<!--                                <xsl:call-template name="place-title-std"/>-->
                                     <xsl:value-of select="."/>
                                 </a>
                             </li>
@@ -407,25 +369,22 @@
                     </ul>
                 </div>
             </xsl:if>
-
-            <!-- Events without @type="attestation" -->
+          
+          <!-- Events without @type="attestation" -->
             <xsl:if test="t:event[not(@type='attestation')]">
                 <div id="event">
-                    <h3>Event<xsl:if test="count(t:event[not(@type='attestation')]) &gt; 1"
-                            >s</xsl:if>
+                    <h3>Event<xsl:if test="count(t:event[not(@type='attestation')]) &gt; 1">s</xsl:if>
                     </h3>
                     <ul>
-                        <xsl:apply-templates select="t:event[not(@type='attestation')]" mode="event"
-                        />
+                        <xsl:apply-templates select="t:event[not(@type='attestation')]" mode="event"/>
                     </ul>
                 </div>
-            </xsl:if>
-
-            <!-- Events with @type="attestation" -->
+            </xsl:if> 
+          
+          <!-- Events with @type="attestation" -->
             <xsl:if test="t:event[@type='attestation']">
                 <div id="event">
-                    <h3>Attestation<xsl:if test="count(t:event[@type='attestation']) &gt; 1"
-                            >s</xsl:if>
+                    <h3>Attestation<xsl:if test="count(t:event[@type='attestation']) &gt; 1">s</xsl:if>
                     </h3>
                     <ul>
                         <!-- Sorts events on dates, checks first for @notBefore and if not present, uses @when -->
@@ -436,22 +395,18 @@
                     </ul>
                 </div>
             </xsl:if>
-
-            <!-- Calls named template to pull confession information -->
+            
+          <!-- Calls named template to pull confession information -->
             <xsl:if test="t:state[@type='confession']">
                 <div id="description">
                     <h3>Known Religious Communities</h3>
                     <p class="caveat">
-                        <em>This list is not necessarily exhaustive, and the order does not
-                            represent importance or proportion of the population. Dates do not
-                            represent starting or ending dates of a group's presence, but rather
-                            when they are attested. Instead, the list only represents groups for
-                            which Syriaca.org has source(s) and dates.</em>
+                        <em>This list is not necessarily exhaustive, and the order does not represent importance or proportion of the population. Dates do not represent starting or ending dates of a group's presence, but rather when they are attested. Instead, the list only represents groups for which Syriaca.org has source(s) and dates.</em>
                     </p>
                     <xsl:call-template name="confessions"/>
                 </div>
             </xsl:if>
-            <!-- Note type Incerta  -->
+          <!-- Note type Incerta  -->
             <xsl:if test="t:note[@type='incerta']">
                 <div id="incerta">
                     <h3>Incerta</h3>
@@ -492,27 +447,19 @@
     <xsl:template name="col2">
         <div id="placenames" class="well">
             <h3>Names</h3>
-            <xsl:apply-templates
-                select="t:placeName[@syriaca-tags='#syriaca-headword' and @xml:lang='syr']"
-                mode="list">
+            <xsl:apply-templates select="t:placeName[@syriaca-tags='#syriaca-headword' and @xml:lang='syr']" mode="list">
                 <xsl:sort lang="syr" select="."/>
             </xsl:apply-templates>
-            <xsl:apply-templates
-                select="t:placeName[@syriaca-tags='#syriaca-headword' and @xml:lang='en']"
-                mode="list">
+            <xsl:apply-templates select="t:placeName[@syriaca-tags='#syriaca-headword' and @xml:lang='en']" mode="list">
                 <xsl:sort collation="{$mixed}" select="."/>
             </xsl:apply-templates>
-            <xsl:apply-templates
-                select="t:placeName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and starts-with(@xml:lang, 'syr')]"
-                mode="list">
+            <xsl:apply-templates select="t:placeName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and starts-with(@xml:lang, 'syr')]" mode="list">
                 <xsl:sort lang="syr" select="."/>
             </xsl:apply-templates>
             <xsl:apply-templates select="t:placeName[starts-with(@xml:lang, 'ar')]" mode="list">
                 <xsl:sort lang="ar" select="."/>
             </xsl:apply-templates>
-            <xsl:apply-templates
-                select="t:placeName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar'))]"
-                mode="list">
+            <xsl:apply-templates select="t:placeName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar'))]" mode="list">
                 <xsl:sort collation="{$mixed}" select="."/>
             </xsl:apply-templates>
         </div>
@@ -533,9 +480,7 @@
             <div id="sources">
                 <h3>Sources</h3>
                 <p>
-                    <small>Any information without attribution has been created following the
-                        Syriaca.org <a href="http://syriaca.org/documentation/">editorial
-                            guidelines</a>.</small>
+                    <small>Any information without attribution has been created following the Syriaca.org <a href="http://syriaca.org/documentation/">editorial guidelines</a>.</small>
                 </p>
                 <ul>
                     <!-- Bibliography elements are processed by bibliography.xsl -->
@@ -547,7 +492,7 @@
     <!-- Children of place element -->
     <!-- Template to print out events -->
     <xsl:template match="t:event" mode="event">
-        <li>
+        <li> 
             <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
             <xsl:apply-templates select="child::*" mode="plain"/>
             <!-- Adds dates if available -->
@@ -558,7 +503,7 @@
             </xsl:if>
         </li>
     </xsl:template>
-
+    
     <!-- Named template to handle nested confessions -->
     <xsl:template name="confessions">
         <!-- Variable stores all confessions from confessions.xml -->
@@ -579,8 +524,7 @@
                 <xsl:if test="descendant-or-self::t:item[contains($current-confessions,@xml:id)]">
                     <!-- Goes through each item to check for a match or a child match -->
                     <xsl:for-each select="t:item">
-                        <xsl:if
-                            test="descendant-or-self::t:item[contains($current-confessions,@xml:id)]">
+                        <xsl:if test="descendant-or-self::t:item[contains($current-confessions,@xml:id)]">
                             <!-- output current level -->
                             <li>
                                 <!-- print label -->
@@ -591,64 +535,49 @@
                                     <xsl:with-param name="confession-id" select="@xml:id"/>
                                 </xsl:call-template>
                                 <!-- check next level -->
-                                <xsl:if
-                                    test="descendant::t:item[contains($current-confessions,@xml:id)]">
+                                <xsl:if test="descendant::t:item[contains($current-confessions,@xml:id)]">
                                     <ul>
                                         <xsl:for-each select="child::*/t:item">
-                                            <xsl:if
-                                                test="descendant-or-self::t:item[contains($current-confessions,@xml:id)]">
+                                            <xsl:if test="descendant-or-self::t:item[contains($current-confessions,@xml:id)]">
                                                 <li>
-                                                  <xsl:apply-templates select="t:label"
-                                                  mode="confessions"/>
-                                                  <!-- build dates based on attestation information -->
-                                                  <xsl:call-template name="confession-dates">
-                                                  <xsl:with-param name="place-data"
-                                                  select="$place-data"/>
-                                                  <xsl:with-param name="confession-id"
-                                                  select="@xml:id"/>
-                                                  </xsl:call-template>
-                                                  <xsl:if
-                                                  test="descendant::t:item[contains($current-confessions,@xml:id)]">
-                                                  <ul>
-                                                  <xsl:for-each select="child::*/t:item">
-                                                  <xsl:if
-                                                  test="descendant-or-self::t:item[contains($current-confessions,@xml:id)]">
-                                                  <li>
-                                                  <xsl:apply-templates select="t:label"
-                                                  mode="confessions"/>
-                                                  <!-- build dates based on attestation information -->
-                                                  <xsl:call-template name="confession-dates">
-                                                  <xsl:with-param name="place-data"
-                                                  select="$place-data"/>
-                                                  <xsl:with-param name="confession-id"
-                                                  select="@xml:id"/>
-                                                  </xsl:call-template>
-                                                  <xsl:if
-                                                  test="descendant::t:item[contains($current-confessions,@xml:id)]">
-                                                  <ul>
-                                                  <xsl:for-each select="child::*/t:item">
-                                                  <xsl:if
-                                                  test="descendant-or-self::t:item[contains($current-confessions,@xml:id)]">
-                                                  <li>
-                                                  <xsl:apply-templates select="t:label"
-                                                  mode="confessions"/>
-                                                  <!-- build dates based on attestation information -->
-                                                  <xsl:call-template name="confession-dates">
-                                                  <xsl:with-param name="place-data"
-                                                  select="$place-data"/>
-                                                  <xsl:with-param name="confession-id"
-                                                  select="@xml:id"/>
-                                                  </xsl:call-template>
-                                                  </li>
-                                                  </xsl:if>
-                                                  </xsl:for-each>
-                                                  </ul>
-                                                  </xsl:if>
-                                                  </li>
-                                                  </xsl:if>
-                                                  </xsl:for-each>
-                                                  </ul>
-                                                  </xsl:if>
+                                                    <xsl:apply-templates select="t:label" mode="confessions"/>
+                                                    <!-- build dates based on attestation information -->
+                                                    <xsl:call-template name="confession-dates">
+                                                        <xsl:with-param name="place-data" select="$place-data"/>
+                                                        <xsl:with-param name="confession-id" select="@xml:id"/>
+                                                    </xsl:call-template>
+                                                    <xsl:if test="descendant::t:item[contains($current-confessions,@xml:id)]">
+                                                        <ul>
+                                                            <xsl:for-each select="child::*/t:item">
+                                                                <xsl:if test="descendant-or-self::t:item[contains($current-confessions,@xml:id)]">
+                                                                    <li>
+                                                                        <xsl:apply-templates select="t:label" mode="confessions"/>
+                                                                        <!-- build dates based on attestation information -->
+                                                                        <xsl:call-template name="confession-dates">
+                                                                            <xsl:with-param name="place-data" select="$place-data"/>
+                                                                            <xsl:with-param name="confession-id" select="@xml:id"/>
+                                                                        </xsl:call-template>
+                                                                        <xsl:if test="descendant::t:item[contains($current-confessions,@xml:id)]">
+                                                                            <ul>
+                                                                                <xsl:for-each select="child::*/t:item">
+                                                                                    <xsl:if test="descendant-or-self::t:item[contains($current-confessions,@xml:id)]">
+                                                                                        <li>
+                                                                                            <xsl:apply-templates select="t:label" mode="confessions"/>
+                                                                                            <!-- build dates based on attestation information -->
+                                                                                            <xsl:call-template name="confession-dates">
+                                                                                                <xsl:with-param name="place-data" select="$place-data"/>
+                                                                                                <xsl:with-param name="confession-id" select="@xml:id"/>
+                                                                                            </xsl:call-template>
+                                                                                        </li>
+                                                                                    </xsl:if>
+                                                                                </xsl:for-each>
+                                                                            </ul>
+                                                                        </xsl:if>
+                                                                    </li>
+                                                                </xsl:if>
+                                                            </xsl:for-each>
+                                                        </ul>
+                                                    </xsl:if>
                                                 </li>
                                             </xsl:if>
                                         </xsl:for-each>
@@ -661,12 +590,12 @@
             </ul>
         </xsl:for-each>
     </xsl:template>
-
+    
     <!-- Create labels for confessions -->
     <xsl:template match="t:label" mode="confessions">
         <xsl:value-of select="."/>
     </xsl:template>
-
+    
     <!-- Named template to build confession dates bassed on attestation dates -->
     <xsl:template name="confession-dates">
         <!-- param passes place data for processing -->
@@ -675,31 +604,25 @@
         <xsl:param name="confession-id"/>
         <!-- find confessions in place data using confession-id -->
         <xsl:choose>
-            <xsl:when
-                test="$place-data//t:state[@type='confession' and substring-after(@ref,'#') = $confession-id]">
-                <xsl:variable name="child-id"
-                    select="string-join(descendant-or-self::t:item/@xml:id,' ')"/>
-                <xsl:for-each
-                    select="$place-data//t:state[@type='confession' and substring-after(@ref,'#') = $confession-id]">
+            <xsl:when test="$place-data//t:state[@type='confession' and substring-after(@ref,'#') = $confession-id]">
+                <xsl:variable name="child-id" select="string-join(descendant-or-self::t:item/@xml:id,' ')"/>
+                <xsl:for-each select="$place-data//t:state[@type='confession' and substring-after(@ref,'#') = $confession-id]">
                     <!-- Build ref id to find attestations -->
                     <xsl:variable name="ref-id" select="concat('#',@xml:id)"/>
                     <!-- Find attestations with matching confession-id in link/@target  -->
                     <xsl:choose>
-                        <xsl:when
-                            test="//t:event[@type='attestation' and child::*[contains(@target,$ref-id)] ]">
-                            <!-- If there is a match process dates --> (<xsl:for-each
-                                select="//t:event[@type='attestation' and t:link[contains(@target,$ref-id)] ]">
+                        <xsl:when test="//t:event[@type='attestation' and child::*[contains(@target,$ref-id)] ]">
+                            <!-- If there is a match process dates -->
+                            (<xsl:for-each select="//t:event[@type='attestation' and t:link[contains(@target,$ref-id)] ]">
                                 <!-- Sort dates -->
                                 <xsl:sort select="if(exists(@notBefore)) then @notBefore else @when"/>
                                 <xsl:choose>
                                     <!-- process @when dates use, local:trim-date function to trim 0 from dates-->
                                     <xsl:when test="./@when">
                                         <xsl:choose>
-                                            <xsl:when test="position() = 1">attested as early as
-                                                  <xsl:value-of select="local:trim-date(@when)"/>
+                                            <xsl:when test="position() = 1">attested as early as <xsl:value-of select="local:trim-date(@when)"/>
                                             </xsl:when>
-                                            <xsl:when test="position()=last()">, as late as
-                                                  <xsl:value-of select="local:trim-date(@when)"/>
+                                            <xsl:when test="position()=last()">, as late as <xsl:value-of select="local:trim-date(@when)"/>
                                             </xsl:when>
                                             <xsl:otherwise/>
                                         </xsl:choose>
@@ -707,47 +630,34 @@
                                     <!-- process @notBefore dates -->
                                     <xsl:when test="./@notBefore">
                                         <xsl:choose>
-                                            <xsl:when test="position() = 1">attested around
-                                                  <xsl:value-of select="local:trim-date(@notBefore)"
-                                                />
+                                            <xsl:when test="position() = 1">attested around <xsl:value-of select="local:trim-date(@notBefore)"/>
                                             </xsl:when>
                                             <xsl:otherwise>
-                                                <xsl:if test="preceding-sibling::*">,
-                                                </xsl:if>attested as early as <xsl:value-of
-                                                  select="local:trim-date(@notBefore)"/>
+                                                <xsl:if test="preceding-sibling::*">, </xsl:if>attested as early as <xsl:value-of select="local:trim-date(@notBefore)"/>
                                             </xsl:otherwise>
                                         </xsl:choose>
                                     </xsl:when>
                                     <!-- process @notAfter dates -->
                                     <xsl:when test="./@notAfter">
-                                        <xsl:if test="./@notBefore">, </xsl:if>as late as
-                                            <xsl:value-of select="local:trim-date(@notAfter)"/>
+                                        <xsl:if test="./@notBefore">, </xsl:if>as late as <xsl:value-of select="local:trim-date(@notAfter)"/>
                                     </xsl:when>
                                     <xsl:otherwise/>
                                 </xsl:choose>
                             </xsl:for-each>
-                            <xsl:if
-                                test="count(//t:event[@type='attestation' and child::*[contains(@target,$ref-id)] ]) = 1">
+                            <xsl:if test="count(//t:event[@type='attestation' and child::*[contains(@target,$ref-id)] ]) = 1">
                                 <xsl:choose>
-                                    <xsl:when
-                                        test="//t:event[@type='attestation' and child::*[contains(@target,$ref-id)]][@notBefore] or //t:event[@type='attestation' and child::*[contains(@target,$ref-id)]][@when]">
+                                    <xsl:when test="//t:event[@type='attestation' and child::*[contains(@target,$ref-id)]][@notBefore] or //t:event[@type='attestation' and child::*[contains(@target,$ref-id)]][@when]">
                                         <xsl:variable name="end-date-list">
-                                            <xsl:for-each
-                                                select="//t:state[@type='confession' and contains($child-id,substring-after(@ref,'#'))]">
-                                                <xsl:variable name="confession-id"
-                                                  select="substring-after(@ref,'#')"/>
-                                                <xsl:variable name="ref-id"
-                                                  select="concat('#',@xml:id)"/>
+                                            <xsl:for-each select="//t:state[@type='confession' and contains($child-id,substring-after(@ref,'#'))]">
+                                                <xsl:variable name="confession-id" select="substring-after(@ref,'#')"/>
+                                                <xsl:variable name="ref-id" select="concat('#',@xml:id)"/>
                                                 <!-- Checks for attestations that reference any children of the current confession -->
-                                                <xsl:for-each
-                                                  select="//t:event[@type='attestation' and t:link[contains(@target,$ref-id)]]">
-                                                  <xsl:if test="@when or @notAfter">
-                                                  <xsl:variable name="date"
-                                                  select="@when | @notAfter"/>
-                                                  <li date="{string($date)}">as late as
-                                                  <xsl:value-of select="local:trim-date($date)"/>
-                                                  </li>
-                                                  </xsl:if>
+                                                <xsl:for-each select="//t:event[@type='attestation' and t:link[contains(@target,$ref-id)]]">
+                                                    <xsl:if test="@when or @notAfter">
+                                                        <xsl:variable name="date" select="@when | @notAfter"/>
+                                                        <li date="{string($date)}">as late as <xsl:value-of select="local:trim-date($date)"/>
+                                                        </li>
+                                                    </xsl:if>
                                                 </xsl:for-each>
                                             </xsl:for-each>
                                         </xsl:variable>
@@ -756,7 +666,7 @@
                                                 <!-- sorts list by date and outputs first date -->
                                                 <xsl:sort select="@date"/>
                                                 <xsl:if test="position()=last()">
-                                                  <xsl:value-of select="."/>
+                                                    <xsl:value-of select="."/>
                                                 </xsl:if>
                                             </xsl:for-each>
                                         </xsl:variable>
@@ -764,32 +674,24 @@
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:variable name="start-date-list">
-                                            <xsl:for-each
-                                                select="//t:state[@type='confession' and contains($child-id,substring-after(@ref,'#'))]">
-                                                <xsl:variable name="confession-id"
-                                                  select="substring-after(@ref,'#')"/>
-                                                <xsl:variable name="ref-id"
-                                                  select="concat('#',@xml:id)"/>
+                                            <xsl:for-each select="//t:state[@type='confession' and contains($child-id,substring-after(@ref,'#'))]">
+                                                <xsl:variable name="confession-id" select="substring-after(@ref,'#')"/>
+                                                <xsl:variable name="ref-id" select="concat('#',@xml:id)"/>
                                                 <!-- Checks for attestations that reference any children of the current confession -->
-                                                <xsl:for-each
-                                                  select="//t:event[@type='attestation' and t:link[contains(@target,$ref-id)]]">
-                                                  <xsl:if test="@when or @notBefore">
-                                                  <xsl:variable name="date"
-                                                  select="@when |@notBefore"/>
-                                                  <li date="{string($date)}">
-                                                  <xsl:choose>
-                                                  <!-- process @when dates use, local:trim-date function to trim 0 from dates-->
-                                                  <xsl:when test="./@when">attested as early as
-                                                  <xsl:value-of select="local:trim-date(@when)"/>
-                                                  </xsl:when>
-                                                  <!-- process @notBefore dates -->
-                                                  <xsl:when test="./@notBefore">attested around
-                                                  <xsl:value-of select="local:trim-date(@notBefore)"
-                                                  />
-                                                  </xsl:when>
-                                                  </xsl:choose>
-                                                  </li>
-                                                  </xsl:if>
+                                                <xsl:for-each select="//t:event[@type='attestation' and t:link[contains(@target,$ref-id)]]">
+                                                    <xsl:if test="@when or @notBefore">
+                                                        <xsl:variable name="date" select="@when |@notBefore"/>
+                                                        <li date="{string($date)}">
+                                                            <xsl:choose>
+                                                                <!-- process @when dates use, local:trim-date function to trim 0 from dates-->
+                                                                <xsl:when test="./@when">attested as early as <xsl:value-of select="local:trim-date(@when)"/>
+                                                                </xsl:when>
+                                                                <!-- process @notBefore dates -->
+                                                                <xsl:when test="./@notBefore">attested around <xsl:value-of select="local:trim-date(@notBefore)"/>
+                                                                </xsl:when>
+                                                            </xsl:choose>
+                                                        </li>
+                                                    </xsl:if>
                                                 </xsl:for-each>
                                             </xsl:for-each>
                                         </xsl:variable>
@@ -798,16 +700,19 @@
                                                 <!-- sorts list by date and outputs first date -->
                                                 <xsl:sort select="@date"/>
                                                 <xsl:if test="position()=1">
-                                                  <xsl:value-of select="."/>
+                                                    <xsl:value-of select="."/>
                                                 </xsl:if>
                                             </xsl:for-each>
                                         </xsl:variable>
                                         <xsl:value-of select="concat($start-date,', ')"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
-                            </xsl:if>) </xsl:when>
+                            </xsl:if>)
+                        </xsl:when>
                         <!-- If not attestation information -->
-                        <xsl:otherwise> (no attestations yet recorded) </xsl:otherwise>
+                        <xsl:otherwise> 
+                            (no attestations yet recorded)
+                        </xsl:otherwise>
                     </xsl:choose>
                     <!-- Add refs if they exist -->
                     <xsl:if test="@source">
@@ -815,30 +720,25 @@
                     </xsl:if>
                 </xsl:for-each>
             </xsl:when>
-            <xsl:otherwise>
+            <xsl:otherwise> 
                 <!-- Checks for children with of current confession by checking confessions.xml information -->
-                <xsl:variable name="child-id"
-                    select="string-join(descendant-or-self::t:item/@xml:id,' ')"/>
+                <xsl:variable name="child-id" select="string-join(descendant-or-self::t:item/@xml:id,' ')"/>
                 <!-- Checks for existing children of current confession by matching against child-id -->
                 <xsl:variable name="start-date-list">
-                    <xsl:for-each
-                        select="$place-data//t:state[@type='confession' and contains($child-id,substring-after(@ref,'#'))]">
+                    <xsl:for-each select="$place-data//t:state[@type='confession' and contains($child-id,substring-after(@ref,'#'))]">
                         <xsl:variable name="confession-id" select="substring-after(@ref,'#')"/>
                         <xsl:variable name="ref-id" select="concat('#',@xml:id)"/>
-                        <!-- Checks for attestations that reference any children of the current confession -->
-                        <xsl:for-each
-                            select="//t:event[@type='attestation' and t:link[contains(@target,$ref-id)]]">
+                     <!-- Checks for attestations that reference any children of the current confession -->
+                        <xsl:for-each select="//t:event[@type='attestation' and t:link[contains(@target,$ref-id)]]">
                             <xsl:if test="@when or @notBefore">
                                 <xsl:variable name="date" select="@when |@notBefore"/>
                                 <li date="{string($date)}">
                                     <xsl:choose>
-                                        <!-- process @when dates use, local:trim-date function to trim 0 from dates-->
-                                        <xsl:when test="./@when">attested as early as <xsl:value-of
-                                                select="local:trim-date(@when)"/>
+                                    <!-- process @when dates use, local:trim-date function to trim 0 from dates-->
+                                        <xsl:when test="./@when">attested as early as <xsl:value-of select="local:trim-date(@when)"/>
                                         </xsl:when>
-                                        <!-- process @notBefore dates -->
-                                        <xsl:when test="./@notBefore">attested around <xsl:value-of
-                                                select="local:trim-date(@notBefore)"/>
+                                    <!-- process @notBefore dates -->
+                                        <xsl:when test="./@notBefore">attested around <xsl:value-of select="local:trim-date(@notBefore)"/>
                                         </xsl:when>
                                     </xsl:choose>
                                 </li>
@@ -855,20 +755,17 @@
                         </xsl:if>
                     </xsl:for-each>
                 </xsl:variable>
-
+                
                 <!-- Looks for end dates -->
                 <xsl:variable name="end-date-list">
-                    <xsl:for-each
-                        select="$place-data//t:state[@type='confession' and contains($child-id,substring-after(@ref,'#'))]">
+                    <xsl:for-each select="$place-data//t:state[@type='confession' and contains($child-id,substring-after(@ref,'#'))]">
                         <xsl:variable name="confession-id" select="substring-after(@ref,'#')"/>
                         <xsl:variable name="ref-id" select="concat('#',@xml:id)"/>
                         <!-- Checks for attestations that reference any children of the current confession -->
-                        <xsl:for-each
-                            select="//t:event[@type='attestation' and t:link[contains(@target,$ref-id)]]">
+                        <xsl:for-each select="//t:event[@type='attestation' and t:link[contains(@target,$ref-id)]]">
                             <xsl:if test="@when or @notAfter">
                                 <xsl:variable name="date" select="@when | @notAfter"/>
-                                <li date="{string($date)}">as late as <xsl:value-of
-                                        select="local:trim-date($date)"/>
+                                <li date="{string($date)}">as late as <xsl:value-of select="local:trim-date($date)"/>
                                 </li>
                             </xsl:if>
                         </xsl:for-each>
@@ -883,34 +780,34 @@
                         </xsl:if>
                     </xsl:for-each>
                 </xsl:variable>
-
+                
                 <!-- Putting start and end dates together -->
-                <xsl:if test="(string-length($start-date) &gt; 1) or string-length($end-date) &gt;1"
-                    > (<xsl:if test="string-length($start-date) &gt; 1">
+                <xsl:if test="(string-length($start-date) &gt; 1) or string-length($end-date) &gt;1">
+                    (<xsl:if test="string-length($start-date) &gt; 1">
                         <xsl:value-of select="$start-date"/>
                     </xsl:if>
                     <xsl:if test="string-length($end-date) &gt;1">
                         <xsl:if test="string-length($start-date) &gt; 1">, </xsl:if>
                         <xsl:value-of select="$end-date"/>
-                    </xsl:if>) </xsl:if>
+                    </xsl:if>)
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
+    
     <!-- Template to print out confession section -->
     <xsl:template match="t:state[@type='confession']">
         <!-- Get all ancesors of current confession (but only once) -->
-        <xsl:variable name="confessions"
-            select="document('/db/apps/srophe/data/confessions/tei/confessions.xml')//t:body/t:list"/>
+        <xsl:variable name="confessions" select="document('/db/apps/srophe/data/confessions/tei/confessions.xml')//t:body/t:list"/>
         <xsl:variable name="id" select="substring-after(@ref,'#')"/>
         <li>
-            <xsl:value-of select="$id"/>: <xsl:for-each
-                select="$confessions//t:item[@xml:id = $id]/ancestor-or-self::*/t:label">
+            <xsl:value-of select="$id"/>: 
+            <xsl:for-each select="$confessions//t:item[@xml:id = $id]/ancestor-or-self::*/t:label">
                 <xsl:value-of select="."/>
             </xsl:for-each>
         </li>
     </xsl:template>
-
+    
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
         Related Places templates 
         matches the following structure generated by record.xql: 
@@ -935,7 +832,8 @@
             <xsl:choose>
                 <!-- Differentiates between resided and other name attributes -->
                 <xsl:when test="@name='resided'">
-                    <xsl:value-of select="@name"/> in </xsl:when>
+                    <xsl:value-of select="@name"/> in 
+                </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="replace(@name,'-',' ')"/>
                 </xsl:otherwise>
@@ -982,7 +880,7 @@
             </xsl:when>
             <xsl:when test="@varient='mutual'">
                 <li>
-                    <!--                    <xsl:value-of select="$currentPlace"/> -->
+<!--                    <xsl:value-of select="$currentPlace"/> -->
                     <!-- Need to test number of groups and output only the first two -->
                     <xsl:variable name="group1-count">
                         <xsl:for-each-group select="mutual" group-by="@type">
@@ -1005,48 +903,29 @@
                         <xsl:sort select="count(current-group()/child::*)" order="descending"/>
                         <xsl:variable name="plural-type">
                             <xsl:choose>
-                                <xsl:when test="current-grouping-key() = 'building'"
-                                    >Buildings</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'church'"
-                                    >Churches</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'diocese'"
-                                    >Dioceses</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'fortification'"
-                                    >Fortifications</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'island'"
-                                    >Islands</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'madrasa'"
-                                    >Madrasas</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'monastery'"
-                                    >Monasteries</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'mosque'"
-                                    >Mosques</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'mountain'"
-                                    >Mountains</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'open-water'">Bodies of
-                                    open-water</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'parish'"
-                                    >Parishes</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'province'"
-                                    >Provinces</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'quarter'"
-                                    >Quarters</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'region'"
-                                    >Regions</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'building'">Buildings</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'church'">Churches</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'diocese'">Dioceses</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'fortification'">Fortifications</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'island'">Islands</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'madrasa'">Madrasas</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'monastery'">Monasteries</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'mosque'">Mosques</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'mountain'">Mountains</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'open-water'">Bodies of open-water</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'parish'">Parishes</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'province'">Provinces</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'quarter'">Quarters</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'region'">Regions</xsl:when>
                                 <xsl:when test="current-grouping-key() = 'river'">Rivers</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'settlement'"
-                                    >Settlements</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'settlement'">Settlements</xsl:when>
                                 <xsl:when test="current-grouping-key() = 'state'">States</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'synagogue'"
-                                    >Synagogues</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'temple'"
-                                    >Temples</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'unknown'"
-                                    >Unknown</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'synagogue'">Synagogues</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'temple'">Temples</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'unknown'">Unknown</xsl:when>
                             </xsl:choose>
                         </xsl:variable>
-                        <xsl:variable name="type"
-                            select="concat(upper-case(substring(current-grouping-key(),1,1)),substring(current-grouping-key(),2))"/>
+                        <xsl:variable name="type" select="concat(upper-case(substring(current-grouping-key(),1,1)),substring(current-grouping-key(),2))"/>
                         <xsl:choose>
                             <xsl:when test="position()=1">
                                 <xsl:value-of select="count(current-group()/child::*)"/>
@@ -1075,17 +954,21 @@
                                     <xsl:otherwise>
                                         <xsl:value-of select="$type"/>
                                     </xsl:otherwise>
-                                </xsl:choose>, <!-- Need to count remaining items, this is not correct just place holder -->
-                                <xsl:if test="last() &gt; 2"> and <xsl:value-of
-                                        select="$total-count - ($group1-count + $group2-count)"/>
-                                    other places, </xsl:if>
+                                </xsl:choose>,
+                                <!-- Need to count remaining items, this is not correct just place holder -->
+                                <xsl:if test="last() &gt; 2"> and 
+                                    <xsl:value-of select="$total-count - ($group1-count + $group2-count)"/> 
+                                    other places, 
+                                </xsl:if>
                             </xsl:when>
                             <xsl:otherwise/>
                         </xsl:choose>
                     </xsl:for-each-group>
                     <xsl:text> </xsl:text>
-                    <xsl:value-of select="replace(child::*[1]/@name,'-',' ')"/> with '<xsl:value-of
-                        select="$currentPlace"/>' <xsl:value-of select="local:do-dates(child::*[1])"/>
+                    <xsl:value-of select="replace(child::*[1]/@name,'-',' ')"/>
+                    with '<xsl:value-of select="$currentPlace"/>'
+                    
+                    <xsl:value-of select="local:do-dates(child::*[1])"/>
                     <xsl:text> </xsl:text>
                     <!-- If footnotes exist call function do-refs pass footnotes and language variables to function -->
                     <xsl:if test="child::*[1]/@source">
@@ -1098,46 +981,26 @@
                             <xsl:sort select="count(current-group()/child::*)" order="descending"/>
                             <xsl:variable name="plural-type">
                                 <xsl:choose>
-                                    <xsl:when test="current-grouping-key() = 'building'"
-                                        >Buildings</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'church'"
-                                        >Churches</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'diocese'"
-                                        >Dioceses</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'fortification'"
-                                        >Fortifications</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'island'"
-                                        >Islands</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'madrasa'"
-                                        >Madrasas</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'monastery'"
-                                        >Monasteries</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'mosque'"
-                                        >Mosques</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'mountain'"
-                                        >Mountains</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'open-water'">Bodies of
-                                        open-water</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'parish'"
-                                        >Parishes</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'province'"
-                                        >Provinces</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'quarter'"
-                                        >Quarters</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'region'"
-                                        >Regions</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'river'"
-                                        >Rivers</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'settlement'"
-                                        >Settlements</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'state'"
-                                        >States</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'synagogue'"
-                                        >Synagogues</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'temple'"
-                                        >Temples</xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'unknown'"
-                                        >Unknown</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'building'">Buildings</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'church'">Churches</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'diocese'">Dioceses</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'fortification'">Fortifications</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'island'">Islands</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'madrasa'">Madrasas</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'monastery'">Monasteries</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'mosque'">Mosques</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'mountain'">Mountains</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'open-water'">Bodies of open-water</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'parish'">Parishes</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'province'">Provinces</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'quarter'">Quarters</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'region'">Regions</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'river'">Rivers</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'settlement'">Settlements</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'state'">States</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'synagogue'">Synagogues</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'temple'">Temples</xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'unknown'">Unknown</xsl:when>
                                 </xsl:choose>
                             </xsl:variable>
                             <dt>
@@ -1147,8 +1010,7 @@
                                 <dd>
                                     <a href="{concat('place.html?id=',@id)}">
                                         <xsl:value-of select="t:placeName"/>
-                                        <xsl:value-of
-                                            select="concat(' (',string(@type),', place/',@id,')')"/>
+                                        <xsl:value-of select="concat(' (',string(@type),', place/',@id,')')"/>
                                     </a>
                                 </dd>
                             </xsl:for-each>
@@ -1173,12 +1035,13 @@
             <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
         </li>
     </xsl:template>
-
+       
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  
      handle standard output of 'nested' locations 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:location[@type='nested']">
-        <li>Within <xsl:for-each select="t:*">
+        <li>Within 
+            <xsl:for-each select="t:*">
                 <xsl:apply-templates select="."/>
                 <xsl:if test="following-sibling::t:*">
                     <xsl:text> within </xsl:text>
@@ -1189,7 +1052,8 @@
         </li>
     </xsl:template>
     <xsl:template match="t:location[@type='gps' and t:geo]">
-        <li>Coordinates: <ul class="unstyled offset1">
+        <li>Coordinates: 
+            <ul class="unstyled offset1">
                 <li>
                     <xsl:value-of select="concat('Lat. ',tokenize(t:geo,' ')[1],'°')"/>
                 </li>
@@ -1207,7 +1071,7 @@
         </xsl:if>
         <xsl:apply-templates select="." mode="out-normal"/>
     </xsl:template>
-
+    
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      Description templates 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -1224,7 +1088,7 @@
             <xsl:apply-templates/>
         </p>
     </xsl:template>
-
+    
     <!-- General descriptions within the body of the place element, uses lists -->
     <xsl:template match="t:desc[not(starts-with(@xml:id, 'abstract-en'))]">
         <li>
@@ -1232,7 +1096,7 @@
             <xsl:apply-templates/>
         </li>
     </xsl:template>
-
+    
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of a listBibl element 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -1246,7 +1110,7 @@
             </xsl:for-each>
         </ul>
     </xsl:template>
-
+    
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of a note element 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -1256,8 +1120,9 @@
             <!-- Adds definition list for depreciated names -->
             <xsl:when test="@type='deprecation'">
                 <li>
-                    <xsl:apply-templates select="../t:link[contains(@target,$xmlid)]"/>: <xsl:apply-templates/>
-                    <!-- Check for ending punctuation, if none, add . -->
+                    <xsl:apply-templates select="../t:link[contains(@target,$xmlid)]"/>:
+                        <xsl:apply-templates/>
+                        <!-- Check for ending punctuation, if none, add . -->
                     <xsl:if test="not(ends-with(.,'.'))">
                         <xsl:text>.</xsl:text>
                     </xsl:if>
@@ -1279,7 +1144,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
+    
     <!-- Handles t:link elements for deperciated notes, pulls value from matching element, output element and footnotes -->
     <xsl:template match="t:link">
         <xsl:variable name="elementID" select="substring-after(substring-before(@target,' '),'#')"/>
@@ -1357,8 +1222,7 @@
         <xsl:variable name="nameID" select="concat('#',@xml:id)"/>
         <xsl:choose>
             <!-- Suppress depreciated names here -->
-            <xsl:when
-                test="/descendant-or-self::t:link[substring-before(@target,' ') = $nameID][contains(@target,'deprecation')]"/>
+            <xsl:when test="/descendant-or-self::t:link[substring-before(@target,' ') = $nameID][contains(@target,'deprecation')]"/>
             <!-- Output all other names -->
             <xsl:otherwise>
                 <li dir="ltr">
@@ -1382,16 +1246,14 @@
     <xsl:template match="t:licence">
         <xsl:if test="@target">
             <xsl:variable name="licenserev" select="tokenize(@target, '/')[last()-1]"/>
-            <xsl:variable name="licensetype"
-                select="tokenize(substring-before(@target, $licenserev), '/')[last()-1]"/>
+            <xsl:variable name="licensetype" select="tokenize(substring-before(@target, $licenserev), '/')[last()-1]"/>
             <a rel="license" href="{@target}">
-                <img alt="Creative Commons License" style="border-width:0"
-                    src="http://i.creativecommons.org/l/{$licensetype}/{$licenserev}/80x15.png"/>
+                <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/{$licensetype}/{$licenserev}/80x15.png"/>
             </a>
         </xsl:if>
         <xsl:apply-templates/>
     </xsl:template>
-
+    
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of the ref element
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -1402,30 +1264,24 @@
     </xsl:template>
     <xsl:template name="get-headword-ele" as="element()*">
         <xsl:choose>
-            <xsl:when
-                test="./descendant-or-self::t:listPlace/t:place/t:placeName[@syriaca-tags='#syriaca-headword']">
-                <xsl:sequence
-                    select="./descendant-or-self::t:listPlace/t:place/t:placeName[@syriaca-tags='#syriaca-headword']"
-                />
+            <xsl:when test="./descendant-or-self::t:listPlace/t:place/t:placeName[@syriaca-tags='#syriaca-headword']">
+                <xsl:sequence select="./descendant-or-self::t:listPlace/t:place/t:placeName[@syriaca-tags='#syriaca-headword']"/>
             </xsl:when>
             <xsl:otherwise>
-                <!--                <xsl:message>WARNING: placepage.xsl unable to find placeName tagged with '#syriaca-headword' in <xsl:value-of select="document-uri(.)"/></xsl:message>-->
+<!--                <xsl:message>WARNING: placepage.xsl unable to find placeName tagged with '#syriaca-headword' in <xsl:value-of select="document-uri(.)"/></xsl:message>-->
                 <xsl:sequence select="./descendant-or-self::t:listPlace/t:place/t:placeName[1]"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
+    
     <!-- NOTE: where is this used? Seems to be an issue with syrac text-->
     <xsl:template name="get-description-ele" as="element()*">
         <xsl:choose>
-            <xsl:when
-                test="./descendant-or-self::t:listPlace/t:place/t:desc[starts-with(@xml:id, 'abstract-en')]">
-                <xsl:sequence
-                    select="./descendant-or-self::t:listPlace/t:place/t:desc[starts-with(@xml:id, 'abstract-en')]"
-                />
+            <xsl:when test="./descendant-or-self::t:listPlace/t:place/t:desc[starts-with(@xml:id, 'abstract-en')]">
+                <xsl:sequence select="./descendant-or-self::t:listPlace/t:place/t:desc[starts-with(@xml:id, 'abstract-en')]"/>
             </xsl:when>
             <xsl:otherwise>
-                <!--                <xsl:message>WARNING: placepage.xsl unable to find desc with id that starts with 'abstract-en' in <xsl:value-of select="document-uri(.)"/></xsl:message>-->
+<!--                <xsl:message>WARNING: placepage.xsl unable to find desc with id that starts with 'abstract-en' in <xsl:value-of select="document-uri(.)"/></xsl:message>-->
                 <xsl:sequence select="./descendant-or-self::t:listPlace/t:place/t:desc[1]"/>
             </xsl:otherwise>
         </xsl:choose>
@@ -1439,7 +1295,7 @@
     <xsl:template match="t:*" mode="cleanout">
         <xsl:apply-templates mode="cleanout"/>
     </xsl:template>
-
+    
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
     <!-- |||| match=t:*: suppress all TEI elements not otherwise handled -->
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->

@@ -85,6 +85,6 @@
     a, a:visited { text-decoration: underline; }
     a[href]:after { content: " (" attr(href) ")"; }
      abbr[title]:after { content: " (" attr(title) ")"; }
-    .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; text-decoration:none !important;}  /* Don't show links for images, or javascript/internal links */
+    .ir a:after, a.no-print-link:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; text-decoration:none !important;}  /* Don't show links for images, or javascript/internal links */
 
 }
