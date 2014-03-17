@@ -177,7 +177,14 @@
                 <xsl:if test="count(//t:place) = 0">
                     <p>No places of this type yet. </p>
                 </xsl:if>
-                <div id="map" style="display:none;height:400px"/>
+                <div id="map-div" style="display:none;">
+                    <div id="map" class="map" style="height:400px"/>
+                    <div id="map-caveat" class="map pull-right caveat" style="margin-top:1em;">
+                       <xsl:value-of select="count(//t:place[descendant::t:geo])"/> of <xsl:value-of select="count(//t:place)"/> 
+                        places have coordinates and are shown on this map. <a href="../documentation/faq.html">Read more...</a>
+                    </div>
+                    <br style="clear-fix"/>
+                </div>
                 <xsl:variable name="geojson-uri">
                     <xsl:text>/exist/apps/srophe/modules/geojson.xql?type=</xsl:text>
                     <xsl:value-of select="/t:TEI/@browse-type"/>
@@ -223,7 +230,7 @@
                     $("#show-map-btn").click(function(e){
                         e.preventDefault();
                         $(this).text($(this).text() == 'View map' ? 'Hide map' : 'View map'); 
-                        $("#map").toggle(function(){initMap();});
+                        $("#map-div").toggle(function(){initMap();});
                         
                     });    
                 </script>
