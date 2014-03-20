@@ -16,6 +16,7 @@ body {
     background-color:#753C28;
 }
 #main {background-color:#F5F2E9;margin:0;padding:0;}
+#content {margin:40px 40px 0px 40px; padding:2em 3em; background-color:white;}
 
 /* Main content blocks */
 .navbar {
@@ -42,8 +43,6 @@ body {
     
 }
 
-#content {margin:40px 40px 0px 40px; padding:40px 20px 0 20px; background-color:white;}
-
 .citationinfo {padding:0px 20px 20px; color: #555; border-top:1px solid #666666; background-color:#eee; }
 #citation {display:none;}
 .column2 well {border: 1px solid #ccc; padding:.5em;}
@@ -56,10 +55,10 @@ footer {margin:0 40px;padding:1px; text-align:center;}
 /* Typography */
 h1 {font-size:1.5em; margin:0 -1em; padding-left:8px; color:#E69849; font-weight:500;}
 /*h2 {font-size:1.5em; margin:0 -1em; padding-left:8px; color:#E69849; font-weight:500;}*/
-h2, h3 {font-size: 1.2em; margin-top:0; margin-bottom:.2em; padding-bottom:0; color:#753C28; font-weight:500;}
-h3 {font-size: 1.2em; margin-top:0; margin-bottom:.2em; padding-bottom:0; color:#753C28; font-weight:500;}
-h3.underline {color:#999; border-bottom:3px solid #E69849; padding-bottom:-.75em; margin-bottom:1em;}
-h4 {font-size: 1em; margin-top:0; margin-bottom:.2em; padding-bottom:0; color:#333; font-weight:600;}
+h2 {font-size: 1.25em; margin-top:0; margin-bottom:.2em; margin-left:-.75em; padding-bottom:0; color:#753C28; font-weight:500; margin-left:-.35em;}
+h3 {font-size: 1.2em; margin-top:0; margin-bottom:.2em; padding-bottom:0; color:#333; font-weight:500; margin-left:-.5em;}
+h3.underline {color:#999; border-bottom:3px solid #E69849; padding-bottom:-.75em; margin-bottom:1em; margin-top:1em;}
+h4 {font-size: 1em; margin-top:0; margin-bottom:.2em; padding-bottom:0; font-weight:bold; margin-left:-.5em;}
 
 .column1 h3{border-bottom:1px solid #999; padding-bottom:0; margin-bottom:1em;}
 h3.label {

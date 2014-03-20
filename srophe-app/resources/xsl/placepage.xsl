@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -195,8 +195,8 @@
                                 <!-- Button to trigger modal -->
                                     <a href="#report-errors" role="button" class="btn" data-toggle="modal">Corrections?</a>
                                     <xsl:text> </xsl:text>
-                                    <a href="../documentation/faq.html#selection" role="button" class="btn">Is this record complete?</a>
-                                
+                                    <a href="#selection" role="button" class="btn" data-toggle="modal">Is this record complete?</a>
+                                    
                                 <!-- Modal -->
                                     <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
                                         <div class="modal-header">
@@ -243,6 +243,25 @@
                                         });
                                     });
                                 </script>
+                                    <!-- Modal for FAQ  NOT working, woul have to change faq structure-->
+                                    <div style="width: 750px; margin-left: -280px;" id="selection" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="faq-label" aria-hidden="true">
+                                        <div class="modal-header" style="height:15px !important;">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> × </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn" href="../documentation/faq.html" aria-hidden="true">See all FAQs</a>
+                                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        $('#selection').on('shown', function () {
+                                        $( "#popup" ).load( "../documentation/faq.html #selection" );
+                                        })
+                                    </script>
+                                    
                                 </div>
                                 <xsl:if test="not(exists(t:desc)) or string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &lt; 1">
                                     <xsl:call-template name="sources"/>
