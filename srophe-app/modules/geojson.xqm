@@ -35,7 +35,7 @@ let $json :=
                    <coordinates json:literal="true">{substring-before($geo,' ')}</coordinates>
                </geometry>
                <properties>
-                   <uri>{concat('http://syriaca.org/place/',substring-after($id,'place-'))}</uri>
+                   <uri>{concat('/place/',substring-after($id,'place-'),'.html')}</uri>
                    <type>{$type}</type>
                    <name>{$title}</name>
                </properties>

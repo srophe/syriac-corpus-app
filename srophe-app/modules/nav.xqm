@@ -24,18 +24,18 @@ declare function nav:build-nav($node as node(), $model as map(*)){
     for $active-page in tokenize(request:get-uri(), '/')[last()]
     return
      if (contains(request:get-uri(),'help')) then 
-        (<a class="brand" href="../../geo/index.html">
-               <img alt="The Syriac Gazetteer" src="/exist/apps/srophe/resources/img/icon-orange-text.png" style="height:45px;"/>
+        (<a class="brand" href="../index.html">
+               <img alt="The Syriac Gazetteer" src="../../resources/img/icon-orange-text.png" style="height:45px;"/>
         </a>,
         <ul class="nav">
-            <li><a href="../../geo/browse.html">index</a></li>
-            <li><a href="../../geo/about.html">about</a></li>
+            <li><a href="../browse.html">index</a></li>
+            <li><a href="../about.html">about</a></li>
             <li class="selected"><a href="index.html">help</a></li>
         </ul>,
         <p class="navbar-text nav pull-right advanced-search" style="margin-left:1em; margin-right:1em;">
-            <a class="pull-right" href="../../geo/search.html">advanced search</a>
+            <a class="pull-right" href="../search.html">advanced search</a>
         </p>,
-        <form class="navbar-search pull-right s-asearch form-search" action="../../geo/search.html" method="get">
+        <form class="navbar-search pull-right s-asearch form-search" action="../search.html" method="get">
             <div class="input-append">
                 <input class="search-query" type="text" placeholder="search" name="q"/>     
                     <button type="submit" class="btn">Go</button>
@@ -43,19 +43,17 @@ declare function nav:build-nav($node as node(), $model as map(*)){
         </form>
         )
      else if (starts-with($active-page,'browse')) then
-      (<a class="brand" href="../geo/index.html"style="margin-left:-2em;margin-top:-.75em;">
-               <img alt="The Syriac Gazetteer" 
-               src="/exist/apps/srophe/resources/img/icon-orange-text.png" 
-               style="height:45px;"/></a>,
+      (<a class="brand" href="index.html">
+               <img alt="The Syriac Gazetteer" src="../resources/img/icon-orange-text.png" style="height:45px;"/></a>,
         <ul class="nav">
-            <li class="selected"><a href="../geo/browse.html">index</a></li>
-            <li><a href="../geo/about.html">about</a></li>
-            <li><a href="../geo/help/index.html">help</a></li>
+            <li class="selected"><a href="browse.html">index</a></li>
+            <li><a href="about.html">about</a></li>
+            <li><a href="help/index.html">help</a></li>
         </ul>,
         <p class="navbar-text nav pull-right advanced-search" style="margin-left:1em; margin-right:1em;">
-            <a class="pull-right" href="../geo/search.html">advanced search</a>
+            <a class="pull-right" href="search.html">advanced search</a>
         </p>,
-        <form class="navbar-search pull-right s-asearch form-search" action="../geo/search.html" method="get">
+        <form class="navbar-search pull-right s-asearch form-search" action="search.html" method="get">
             <div class="input-append">
                 <input class="search-query" type="text" placeholder="search" name="q"/>     
                     <button type="submit" class="btn">Go</button>
@@ -63,17 +61,17 @@ declare function nav:build-nav($node as node(), $model as map(*)){
         </form>
         )
      else if(starts-with($active-page,'about')) then 
-      (<a class="brand" href="../geo/index.html">
-               <img src="/exist/apps/srophe/resources/img/icon-orange-text.png" style="height:45px;" alt="The Syriac Gazetteer"/></a>,
+      (<a class="brand" href="index.html">
+               <img src="../resources/img/icon-orange-text.png" style="height:45px;" alt="The Syriac Gazetteer"/></a>,
          <ul class="nav">
-             <li><a href="../geo/browse.html">index</a></li>
-             <li class="selected"><a href="../geo/about.html">about</a></li>
-             <li><a href="../geo/help/index.html">help</a></li>
+             <li><a href="browse.html">index</a></li>
+             <li class="selected"><a href="about.html">about</a></li>
+             <li><a href="help/index.html">help</a></li>
          </ul>,
         <p class="navbar-text nav pull-right advanced-search" style="margin-left:1em; margin-right:1em;">
-            <a class="pull-right" href="../geo/search.html">advanced search</a>
+            <a class="pull-right" href="search.html">advanced search</a>
         </p>,
-        <form class="navbar-search pull-right s-asearch form-search" action="../geo/search.html" method="get">
+        <form class="navbar-search pull-right s-asearch form-search" action="search.html" method="get">
             <div class="input-append">
                 <input class="search-query" type="text" placeholder="search" name="q"/>     
                     <button type="submit" class="btn">Go</button>
@@ -81,17 +79,17 @@ declare function nav:build-nav($node as node(), $model as map(*)){
         </form>
          )
      else 
-      (<a class="brand" href="../geo/index.html">
-               <img src="/exist/apps/srophe/resources/img/icon-orange-text.png" style="height:45px;" alt="The Syriac Gazetteer"/></a>,
+      (<a class="brand" href="index.html">
+               <img src="../resources/img/icon-orange-text.png" style="height:45px;" alt="The Syriac Gazetteer"/></a>,
         <ul class="nav">
-            <li><a href="../geo/browse.html">index</a></li>
-            <li><a href="../geo/about.html">about</a></li>
-            <li><a href="../geo/help/index.html">help</a></li>
+            <li><a href="browse.html">index</a></li>
+            <li><a href="about.html">about</a></li>
+            <li><a href="help/index.html">help</a></li>
         </ul>,
         <p class="navbar-text nav pull-right advanced-search" style="margin-left:1em; margin-right:1em;">
-            <a class="pull-right" href="../geo/search.html">advanced search</a>
+            <a class="pull-right" href="search.html">advanced search</a>
         </p>,
-        <form class="navbar-search pull-right s-asearch form-search" action="../geo/search.html" method="get">
+        <form class="navbar-search pull-right s-asearch form-search" action="search.html" method="get">
             <div class="input-append">
                 <input class="search-query" type="text" placeholder="search" name="q"/>     
                     <button type="submit" class="btn">Go</button>

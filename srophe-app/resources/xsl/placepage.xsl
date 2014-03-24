@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -261,7 +261,6 @@
                                         $( "#popup" ).load( "../documentation/faq.html #selection" );
                                         })
                                     </script>
-                                    
                                 </div>
                                 <xsl:if test="not(exists(t:desc)) or string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &lt; 1">
                                     <xsl:call-template name="sources"/>
@@ -379,7 +378,7 @@
                         <xsl:for-each select="/child::*/nested-place">
                             <xsl:sort collation="{$mixed}" select="t:placeName[@xml:lang='en'][1]/@reg"/>
                             <li>
-                                <a href="{concat('place.html?id=',@id)}">
+                                <a href="{concat('/place/',@id,'.html')}">
 <!--                                <xsl:call-template name="place-title-std"/>-->
                                     <xsl:value-of select="."/>
                                 </a>
@@ -863,7 +862,7 @@
             <xsl:when test="@id=concat('#place-',$placenum)"/>
             <xsl:when test="@varient='active'">
                 <li>
-                    <a href="{concat('place.html?id=',@id)}">
+                    <a href="{concat('/place/',@id,'.html')}">
                         <xsl:value-of select="t:placeName"/>
                     </a>
                     <xsl:text> </xsl:text>
@@ -885,7 +884,7 @@
                     <xsl:text> </xsl:text>
                     <xsl:value-of select="$name-string"/>
                     <xsl:text> </xsl:text>
-                    <a href="{concat('place.html?id=',@id)}">
+                    <a href="{concat('/place/',@id,'.html')}">
                         <xsl:value-of select="t:placeName"/>
                     </a>
                     <xsl:text> </xsl:text>
@@ -1027,7 +1026,7 @@
                             </dt>
                             <xsl:for-each select="current-group()">
                                 <dd>
-                                    <a href="{concat('place.html?id=',@id)}">
+                                    <a href="{concat('/place/',@id,'.html')}">
                                         <xsl:value-of select="t:placeName"/>
                                         <xsl:value-of select="concat(' (',string(@type),', place/',@id,')')"/>
                                     </a>
@@ -1213,7 +1212,7 @@
                     <xsl:when test="string-length(@ref) &lt; 1"/>
                     <xsl:when test="starts-with(@ref, $uribase)">
                         <xsl:text> </xsl:text>
-                        <a class="placeName" href="place.html?id={substring-after(@ref, $uribase)}">
+                        <a class="placeName" href="/place/{substring-after(@ref, $uribase)}.html">
                             <xsl:call-template name="langattr"/>
                             <xsl:apply-templates mode="cleanout"/>
                         </a>

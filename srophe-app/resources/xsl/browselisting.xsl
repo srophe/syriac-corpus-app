@@ -137,7 +137,7 @@
                     <xsl:sort collation="{$mixed}" select="t:placeName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']"/>
                     <xsl:variable name="placenum" select="substring-after(@xml:id,'place-')"/>
                     <li>
-                        <a href="place.html?id={$placenum}">
+                        <a href="/place/{$placenum}.html">
                                     <!-- Syriac name -->
                             <bdi dir="rtl" lang="syr" xml:lang="syr">
                                 <xsl:value-of select="t:placeName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']"/>
@@ -180,7 +180,7 @@
                 <div id="map-div" style="display:none;">
                     <div id="map" class="map" style="height:400px"/>
                     <div id="map-caveat" class="map pull-right caveat" style="margin-top:1em;">
-                       <xsl:value-of select="count(//t:place[descendant::t:geo])"/> of <xsl:value-of select="count(//t:place)"/> 
+                        <xsl:value-of select="count(//t:place[descendant::t:geo])"/> of <xsl:value-of select="count(//t:place)"/> 
                         places have coordinates and are shown on this map. <a href="../documentation/faq.html">Read more...</a>
                     </div>
                     <br style="clear-fix"/>
@@ -260,7 +260,7 @@
             <xsl:sort collation="{$mixed}" select="t:placeName[@xml:lang='en'][1]"/>
             <xsl:variable name="placenum" select="substring-after(@xml:id,'place-')"/>
             <li>
-                <a href="place.html?id={$placenum}">
+                <a href="/place/{$placenum}.html">
                     <!-- English name -->
                     <bdi dir="ltr" lang="en" xml:lang="en">
                         <xsl:value-of select="t:placeName[@xml:lang='en'][@syriaca-tags='#syriaca-headword']"/>
