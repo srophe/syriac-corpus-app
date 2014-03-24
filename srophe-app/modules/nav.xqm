@@ -42,6 +42,25 @@ declare function nav:build-nav($node as node(), $model as map(*)){
             </div>
         </form>
         )
+     else if (contains(request:get-uri(),'place')) then 
+        (<a class="brand" href="/geo/index.html">
+               <img alt="The Syriac Gazetteer" src="/resources/img/icon-orange-text.png" style="height:45px;"/>
+        </a>,
+        <ul class="nav">
+            <li><a href="/geo/browse.html">index</a></li>
+            <li><a href="/geo/about.html">about</a></li>
+            <li><a href="/geo/help/index.html">help</a></li>
+        </ul>,
+        <p class="navbar-text nav pull-right advanced-search" style="margin-left:1em; margin-right:1em;">
+            <a class="pull-right" href="/geo/search.html">advanced search</a>
+        </p>,
+        <form class="navbar-search pull-right s-asearch form-search" action="/geo/search.html" method="get">
+            <div class="input-append">
+                <input class="search-query" type="text" placeholder="search" name="q"/>     
+                    <button type="submit" class="btn">Go</button>
+            </div>
+        </form>
+        )   
      else if (starts-with($active-page,'browse')) then
       (<a class="brand" href="index.html">
                <img alt="The Syriac Gazetteer" src="../resources/img/icon-orange-text.png" style="height:45px;"/></a>,
