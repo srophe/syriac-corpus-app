@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-03-25</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,6 +95,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcalrlson" when="2014-03-25">FIXED: capitalization of 'mount' in abstract.</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -115,7 +116,7 @@
                     <placeName xml:id="name388-10" xml:lang="en" source="#bib388-6">monastery of St Mark</placeName>
                     <placeName xml:id="name388-11" xml:lang="en" source="#bib388-7">Saint Mark's (West Syrian)</placeName>
                     <desc xml:id="abstract-en-388" xml:lang="en">
-                        <quote source="#bib388-1">Said to be located on the site of the Last Supper and named after the Evangelist, the monastery is situated on mount Zion in Jerusalem.</quote>
+                        <quote source="#bib388-1">Said to be located on the site of the Last Supper and named after the Evangelist, the monastery is situated on Mount Zion in Jerusalem.</quote>
                     </desc>
                     <desc xml:lang="en">
                         <quote source="#bib388-1">354. Mark, Monastery of St.</quote>
