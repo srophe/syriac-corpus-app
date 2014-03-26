@@ -42,12 +42,20 @@ declare function browse:get-places($node as node(), $model as map(*)){
  : Final sorting is handled by xslt ../resources/xsl/browselisting.xsl
  :)
 declare function browse:get-place-en($node as node(), $model as map(*)){
-    for $place-name in $model("places-data")
-    let $title := $place-name/tei:placeName[1]/text()
+    for $place in $model("places-data")
+    let $title := $place/tei:placeName[1]/text()
+    let $place-id := $place/@xml:id
+    let $place-type := $place/@type
     let $browse-title := browse:build-sort-string($title)
     where contains(browse:get-sort(),substring($browse-title,1,1))
     order by $browse-title
-    return $place-name 
+    return 
+       <place xmlns="http://www.tei-c.org/ns/1.0" xml:id="{$place-id}" type="{$place-type}" sort-title="{$browse-title}">
+            {
+                for $place-name in $place/tei:placeName[@syriaca-tags="#syriaca-headword"]
+                return $place-name
+            }
+       </place>
 };
 
 (:~
@@ -179,7 +187,7 @@ declare function browse:build-tabs($node as node(), $model as map(*)){
  : Final results are passed to ../resources/xsl/browselisting.xsl
  :)
 declare %templates:wrap function browse:get-place-names($node as node(), $model as map(*)){
-    let $cache := 'change this value to force page refresh'
+    let $cache := 'change this value to force page refresh 23438938766'
     let $results := 
      <tei:TEI xml:lang="en"
         xmlns:xi="http://www.w3.org/2001/XInclude"

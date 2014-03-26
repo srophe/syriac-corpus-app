@@ -257,7 +257,7 @@
     <xsl:template name="place-name-en">
         <xsl:for-each select="//t:place">
             <!-- Sort places by mixed collation in collation.xsl -->
-            <xsl:sort collation="{$mixed}" select="t:placeName[@xml:lang='en'][1]"/>
+            <xsl:sort collation="{$mixed}" select="@sort-title"/>
             <xsl:variable name="placenum" select="substring-after(@xml:id,'place-')"/>
             <li>
                 <a href="/place/{$placenum}.html">
