@@ -86,7 +86,7 @@
             </a>
             
             <!-- Atom format link -->
-            <a href="atom.xql?id={$placenum}" rel="alternate" type="application/atom+xml">
+            <a href="/geo/atom.xql?id={$placenum}" rel="alternate" type="application/atom+xml">
                 <img src="../resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/>
             </a>
             <!-- Atom format link -->
@@ -138,7 +138,7 @@
                 </li>
                 <!-- Atom format link -->
                 <li>
-                    <a href="atom.xql?id={$placenum}" rel="alternate" type="application/atom+xml">
+                    <a href="/geo/atom.xql?id={$placenum}" rel="alternate" type="application/atom+xml">
                         <img src="../resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/> Atom XML format</a>
                 </li>
                 <!-- Wikipedia links -->
