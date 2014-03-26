@@ -648,10 +648,9 @@
                                     <!-- process @notBefore dates -->
                                     <xsl:when test="./@notBefore">
                                         <xsl:choose>
-                                            <xsl:when test="position() = 1">attested around <xsl:value-of select="local:trim-date(@notBefore)"/>
-                                            </xsl:when>
+                                            <xsl:when test="position() = 1">attested around <xsl:value-of select="local:trim-date(@notBefore)"/></xsl:when>
                                             <xsl:otherwise>
-                                                <xsl:if test="preceding-sibling::*">, </xsl:if>attested as early as <xsl:value-of select="local:trim-date(@notBefore)"/>
+                                                <xsl:if test="preceding-sibling::*">, </xsl:if>as late as <xsl:value-of select="local:trim-date(@notBefore)"/>
                                             </xsl:otherwise>
                                         </xsl:choose>
                                     </xsl:when>
@@ -746,16 +745,16 @@
                     <xsl:for-each select="$place-data//t:state[@type='confession' and contains($child-id,substring-after(@ref,'#'))]">
                         <xsl:variable name="confession-id" select="substring-after(@ref,'#')"/>
                         <xsl:variable name="ref-id" select="concat('#',@xml:id)"/>
-                     <!-- Checks for attestations that reference any children of the current confession -->
+                        <!-- Checks for attestations that reference any children of the current confession -->
                         <xsl:for-each select="//t:event[@type='attestation' and t:link[contains(@target,$ref-id)]]">
                             <xsl:if test="@when or @notBefore">
                                 <xsl:variable name="date" select="@when |@notBefore"/>
                                 <li date="{string($date)}">
                                     <xsl:choose>
-                                    <!-- process @when dates use, local:trim-date function to trim 0 from dates-->
+                                        <!-- process @when dates use, local:trim-date function to trim 0 from dates-->
                                         <xsl:when test="./@when">attested as early as <xsl:value-of select="local:trim-date(@when)"/>
                                         </xsl:when>
-                                    <!-- process @notBefore dates -->
+                                        <!-- process @notBefore dates -->
                                         <xsl:when test="./@notBefore">attested around <xsl:value-of select="local:trim-date(@notBefore)"/>
                                         </xsl:when>
                                     </xsl:choose>
