@@ -61,14 +61,14 @@
                                         <item xml:id="ancient-church-of-the-east">
                                             <label>Ancient Church of the East</label>
                                         </item>
+                                        <item xml:id="assyrian-evangelical-church">
+                                            <label>Assyrian Evangelical Church</label>
+                                        </item>
                                         <item xml:id="chaldean-catholic">
                                             <label>Chaldean Catholic</label>
                                         </item>
                                         <item xml:id="church-of-the-east">
                                             <label>Church of the East</label>
-                                        </item>
-                                        <item xml:id="assyrian-evangelical-church">
-                                            <label>Assyrian Evangelical Church</label>
                                         </item>
                                     </list>
                                 </item>
