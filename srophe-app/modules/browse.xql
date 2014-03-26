@@ -168,7 +168,7 @@ else ''
 
 declare function browse:build-tabs($node as node(), $model as map(*)){
 <ul class="nav nav-tabs" id="nametabs">
-    <li>{if($browse:view = 'en') then attribute class {'active'} else '' }<a href="browse.html?view=en&amp;sort=A">English</a></li>
+    <li>{if(not($browse:view)) then attribute class {'active'} else if($browse:view = 'en') then attribute class {'active'} else '' }<a href="browse.html?view=en&amp;sort=A">English</a></li>
     <li>{if($browse:view = 'syr') then attribute class {'active'} else '' }<a href="browse.html?view=syr&amp;sort=ܐ" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a></li>
     <li>{if($browse:view = 'type') then attribute class {'active'} else '' }<a href="browse.html?view=type">Type</a></li>
     <li>{if($browse:view = 'map') then attribute class {'active'} else '' }<a href="browse.html?view=map">Map</a></li>
@@ -194,7 +194,7 @@ declare %templates:wrap function browse:get-place-names($node as node(), $model 
             else if($browse:view ='type') then 
                 if(exists($browse:type) and $browse:type !='') then browse:get-place-type($node,$model)
                 else 'Type'
-            else if($browse:view ='map') then <tei:count-geo>*{browse:count-geo($node, $model)} of {browse:count-all($node, $model)} places have coordinates and are shown on this map. <a href="../documentation/faq.html">Read more...</a></tei:count-geo>
+            else if($browse:view ='map') then <tei:count-geo>*{browse:count-geo($node, $model)} of {browse:count-all($node, $model)} places have coordinates and are shown on this map. <a href="#map-selection" role="button"  data-toggle="modal">Read more...</a></tei:count-geo>
             else browse:get-place-en($node, $model)
            else browse:get-place-en($node, $model)
            }

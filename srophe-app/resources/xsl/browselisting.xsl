@@ -162,12 +162,12 @@
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template name="do-list-type">
         <xsl:if test="/t:TEI/@browse-type = ''">
-            <div class="span8 well" style="background-color:white; margin:0; padding:.25em .5em;">
+            <div class="span8 well" style="background-color:white; margin:0; padding:.25em 1em;">
                 <h3>Please select a type</h3>
             </div>
         </xsl:if>
         <xsl:if test="/t:TEI/@browse-type != ''">
-            <div class="span8 well" style="background-color:white; margin:0; padding:.25em .5em;">
+            <div class="span8 well" style="background-color:white; margin:0; padding:.25em 1em;">
                 <h3>
                     <xsl:value-of select="concat(upper-case(substring(/t:TEI/@browse-type,1,1)),substring(/t:TEI/@browse-type,2))"/>
                 </h3>
@@ -366,6 +366,24 @@
         </div>
         <div class="pull-right caveat" style="margin-top:1em;">
             <xsl:copy-of select="//t:count-geo"/>
+            <!-- Modal for FAQ -->
+            <div style="width: 750px; margin-left: -280px;" id="map-selection" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="faq-label" aria-hidden="true">
+                <div class="modal-header" style="height:15px !important;">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> × </button>
+                </div>
+                <div class="modal-body">
+                    <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn" href="../documentation/faq.html" aria-hidden="true">See all FAQs</a>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                </div>
+            </div>
+            <script>
+                $('#map-selection').on('shown', function () {
+                $( "#popup" ).load( "../documentation/faq.html #map-selection" );
+                })
+            </script>
         </div>
     </xsl:template>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
