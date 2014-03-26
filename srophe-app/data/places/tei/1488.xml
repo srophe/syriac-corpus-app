@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-03-26</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,6 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcalrson" when="2014-03-26">FIXED: type clarified to "diocese" rather than "unknown"</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -85,7 +86,7 @@
     <text>
         <body>
             <listPlace>
-                <place xml:id="place-1488" type="unknown">
+                <place xml:id="place-1488" type="diocese">
                     <placeName xml:id="name1488-1" xml:lang="en" syriaca-tags="#syriaca-headword">Shalabdīn</placeName>
                     <placeName xml:id="name1488-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܫܠܒܕܝܢ</placeName>
                     <placeName xml:id="name1488-3" xml:lang="syr-Syrj" source="#bib1488-1">ܝܠܒܕܺܝܢ</placeName>
