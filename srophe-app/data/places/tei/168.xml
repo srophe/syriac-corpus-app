@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-02-10-05:00</date>
+                <date>2014-03-26</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,6 +65,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-26">FIXED: URI for confessions.xml needed "documentation/" to be inserted</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-02-10-05:00">ADDED: syriaca-computed-end for elements with when attributes</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="htttp://syriaca.org/editors.xml#tcarlson" when="2014-01-05">ADDED: Vosté's article, events, confessions, and attestations</change>
@@ -160,13 +161,13 @@
                         <precision match="@from" notAfter="0700" notBefore="0600" syriaca-computed-end="0700-01-01" syriaca-computed-start="0600-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <state type="confession" xml:id="confession168-1" ref="http://syriaca.org/confessions.xml#east-syrian" from="0600" source="#bib168-1" syriaca-computed-start="0600-01-01">
+                    <state type="confession" xml:id="confession168-1" ref="http://syriaca.org/documentation/confessions.xml#east-syrian" from="0600" source="#bib168-1" syriaca-computed-start="0600-01-01">
                         <label>East Syrian</label>
                     </state>
-                    <state type="confession" xml:id="confession168-2" ref="http://syriaca.org/confessions.xml#church-of-the-east" from="1552" to="1800" source="#bib168-1" syriaca-computed-end="1800-01-01" syriaca-computed-start="1552-01-01">
+                    <state type="confession" xml:id="confession168-2" ref="http://syriaca.org/documentation/confessions.xml#church-of-the-east" from="1552" to="1800" source="#bib168-1" syriaca-computed-end="1800-01-01" syriaca-computed-start="1552-01-01">
                         <label>Church of the East</label>
                     </state>
-                    <state type="confession" xml:id="confession168-3" ref="http://syriaca.org/confessions.xml#chaldean-catholic" from="1808" source="#bib168-5" syriaca-computed-start="1808-01-01">
+                    <state type="confession" xml:id="confession168-3" ref="http://syriaca.org/documentation/confessions.xml#chaldean-catholic" from="1808" source="#bib168-5" syriaca-computed-start="1808-01-01">
                         <label>Chaldean Catholic</label>
                     </state>
                     <idno type="URI">http://syriaca.org/place/168</idno>

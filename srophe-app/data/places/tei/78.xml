@@ -62,7 +62,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-02-10-05:00</date>
+                <date>2014-03-26</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -94,6 +94,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-26">FIXED: URI for confessions.xml needed "documentation/" to be inserted</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-02-10-05:00">ADDED: syriaca-computed-end for elements with when attributes</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-01-04">FIXED: location of quotation marks relative to elements in <gi>location</gi> of type "relative"</change>
@@ -219,22 +220,22 @@
                         <link target="#confession78-1 #attestation78-7"/>
                     </event>
                     <state type="existence" from="-0304"/>
-                    <state type="confession" xml:id="confession78-2" ref="http://syriaca.org/confessions.xml#christians" from="0030" to="1924" source="#bib78-1" syriaca-computed-end="1924-01-01" syriaca-computed-start="0030-01-01">
+                    <state type="confession" xml:id="confession78-2" ref="http://syriaca.org/documentation/confessions.xml#christians" from="0030" to="1924" source="#bib78-1" syriaca-computed-end="1924-01-01" syriaca-computed-start="0030-01-01">
                         <label>Christians</label>
                     </state>
-                    <state type="confession" xml:id="confession78-1" ref="http://syriaca.org/confessions.xml#syrian-orthodox" from="0451" to="1924" source="#bib78-1" syriaca-computed-end="1924-01-01" syriaca-computed-start="0451-01-01">
+                    <state type="confession" xml:id="confession78-1" ref="http://syriaca.org/documentation/confessions.xml#syrian-orthodox" from="0451" to="1924" source="#bib78-1" syriaca-computed-end="1924-01-01" syriaca-computed-start="0451-01-01">
                         <label>Syrian Orthodox</label>
                     </state>
-                    <state type="confession" xml:id="confession78-3" ref="http://syriaca.org/confessions.xml#melkite" from="0451" to="0641" syriaca-computed-end="0641-01-01" syriaca-computed-start="0451-01-01">
+                    <state type="confession" xml:id="confession78-3" ref="http://syriaca.org/documentation/confessions.xml#melkite" from="0451" to="0641" syriaca-computed-end="0641-01-01" syriaca-computed-start="0451-01-01">
                         <label>Melkite</label>
                     </state>
-                    <state type="confession" xml:id="confession78-4" ref="http://syriaca.org/confessions.xml#muslims" from="0641" source="#bib78-1" syriaca-computed-start="0641-01-01">
+                    <state type="confession" xml:id="confession78-4" ref="http://syriaca.org/documentation/confessions.xml#muslims" from="0641" source="#bib78-1" syriaca-computed-start="0641-01-01">
                         <label>Muslims</label>
                     </state>
-                    <state type="confession" xml:id="confession78-5" ref="http://syriaca.org/confessions.xml#latin" from="1098" to="1144" source="#bib78-1" syriaca-computed-end="1144-01-01" syriaca-computed-start="1098-01-01">
+                    <state type="confession" xml:id="confession78-5" ref="http://syriaca.org/documentation/confessions.xml#latin" from="1098" to="1144" source="#bib78-1" syriaca-computed-end="1144-01-01" syriaca-computed-start="1098-01-01">
                         <label>Latin</label>
                     </state>
-                    <state type="confession" xml:id="confession78-6" ref="http://syriaca.org/confessions.xml#jews" from="0050" to="0424" source="#bib78-11" syriaca-computed-end="0424-01-01" syriaca-computed-start="0050-01-01">
+                    <state type="confession" xml:id="confession78-6" ref="http://syriaca.org/documentation/confessions.xml#jews" from="0050" to="0424" source="#bib78-11" syriaca-computed-end="0424-01-01" syriaca-computed-start="0050-01-01">
                         <label>Jews</label>
                         <precision match="@from" notAfter="0100" syriaca-computed-end="0100-01-01"/>
                         <precision match="@to" notBefore="0412" syriaca-computed-start="0412-01-01"/>

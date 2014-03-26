@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-02-10-05:00</date>
+                <date>2014-03-26</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,6 +61,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-26">FIXED: URI for confessions.xml needed "documentation/" to be inserted</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-02-10-05:00">ADDED: syriaca-computed-end for elements with when attributes</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-01-04">ADDED: date to abstract</change>
@@ -81,25 +82,25 @@
                         <p>The first international Syriac Conference was held at Saint Ephrem's Ecumenical Research Institute (SEERI), <placeName ref="http://syriaca.org/place/1947">Kottayam</placeName>, Kerala</p>
                     </event>
                     <state type="existence" from="1956-11-01" syriaca-computed-start="1956-11-01"/>
-                    <state type="confession" xml:id="confession602-7" ref="http://syriaca.org/confessions.xml#chaldean-syrian-church" from="1956" source="#bib602-2" syriaca-computed-start="1956-01-01">
+                    <state type="confession" xml:id="confession602-7" ref="http://syriaca.org/documentation/confessions.xml#chaldean-syrian-church" from="1956" source="#bib602-2" syriaca-computed-start="1956-01-01">
                         <label>Chaldean Syrian Church</label>
                     </state>
-                    <state type="confession" xml:id="confession602-1" ref="http://syriaca.org/confessions.xml#malabar-catholic-church" from="1956" source="#bib602-2" syriaca-computed-start="1956-01-01">
+                    <state type="confession" xml:id="confession602-1" ref="http://syriaca.org/documentation/confessions.xml#malabar-catholic-church" from="1956" source="#bib602-2" syriaca-computed-start="1956-01-01">
                         <label>Malabar Catholic Church</label>
                     </state>
-                    <state type="confession" xml:id="confession602-2" ref="http://syriaca.org/confessions.xml#malabar-independent-syrian-church" from="1956" source="#bib602-2" syriaca-computed-start="1956-01-01">
+                    <state type="confession" xml:id="confession602-2" ref="http://syriaca.org/documentation/confessions.xml#malabar-independent-syrian-church" from="1956" source="#bib602-2" syriaca-computed-start="1956-01-01">
                         <label>Malabar Independent Syrian Church</label>
                     </state>
-                    <state type="confession" xml:id="confession602-3" ref="http://syriaca.org/confessions.xml#malankara-catholic-church" from="1956" source="#bib602-2" syriaca-computed-start="1956-01-01">
+                    <state type="confession" xml:id="confession602-3" ref="http://syriaca.org/documentation/confessions.xml#malankara-catholic-church" from="1956" source="#bib602-2" syriaca-computed-start="1956-01-01">
                         <label>Malankara Catholic Church</label>
                     </state>
-                    <state type="confession" xml:id="confession602-4" ref="http://syriaca.org/confessions.xml#malankara-orthodox-syrian-church" from="1956" source="#bib602-2" syriaca-computed-start="1956-01-01">
+                    <state type="confession" xml:id="confession602-4" ref="http://syriaca.org/documentation/confessions.xml#malankara-orthodox-syrian-church" from="1956" source="#bib602-2" syriaca-computed-start="1956-01-01">
                         <label>Malankara Orthodox Syrian Church</label>
                     </state>
-                    <state type="confession" xml:id="confession602-5" ref="http://syriaca.org/confessions.xml#malankara-syriac-orthodox-church" from="1956" source="#bib602-2" syriaca-computed-start="1956-01-01">
+                    <state type="confession" xml:id="confession602-5" ref="http://syriaca.org/documentation/confessions.xml#malankara-syriac-orthodox-church" from="1956" source="#bib602-2" syriaca-computed-start="1956-01-01">
                         <label>Malankara Syriac Orthodox Church</label>
                     </state>
-                    <state type="confession" xml:id="confession602-6" ref="http://syriaca.org/confessions.xml#mar-thoma-syrian-church" from="1956" source="#bib602-2" syriaca-computed-start="1956-01-01">
+                    <state type="confession" xml:id="confession602-6" ref="http://syriaca.org/documentation/confessions.xml#mar-thoma-syrian-church" from="1956" source="#bib602-2" syriaca-computed-start="1956-01-01">
                         <label>Mar Thoma Syrian Church</label>
                     </state>
                     <idno type="URI">http://syriaca.org/place/602</idno>
