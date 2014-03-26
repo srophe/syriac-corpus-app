@@ -75,12 +75,15 @@ h3.syr{
     float:right !important;
 }
 h4 {font-size: 1em; margin-top:1em;}
+
 .srp-label {background-color:none; color:#999999; font-weight:bold;}
 .textBox {display:block;}
 .caveat {font-size: .785em; font-style:italic; margin-top:-.5em; padding-top:0;}
 .title {border-bottom:2px solid #666666;margin-bottom:1em;}
 .about {padding-top: .5em; border-bottom:2px solid #666666;margin-bottom:1em;}
 .caption{text-align:center; font-size:.75em;color:grey;}
+.funding {margin:1em;}
+.no-logo {font-size:1.25em; font-weight:600; font-family:serif; color:#333; margin:1em;}
 /* Browse page styles */
 .browse-alpha {border-bottom:1px solid #ccc; padding-left:2em; padding:0; margin-bottom:1em;}
 .browse-alpha-syr {border-bottom:1px solid #ccc;}
@@ -283,6 +286,7 @@ div[id|=place] > div:last-of-type {
   height: 180px;
   margin-bottom: 1em;
 }
+
 /* Search styles */
 .match {
     font-style:italic; color:blue;
@@ -324,6 +328,7 @@ div[id|=place] > div:last-of-type {
 .has-spinner.btn-large.active .spinner {
     width: 19px;
 }
+
 #toggle-relation {display:none;}
 #toggle-relation dd{padding-top:0; margin-top:0; }
 
