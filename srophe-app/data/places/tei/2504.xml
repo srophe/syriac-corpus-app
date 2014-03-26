@@ -4,7 +4,7 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">ʻMar Yoḥannan and Mar Ishoʿsabran’</title>
+                <title level="a" xml:lang="en">Shaykh ʿAdī</title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-03-26</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,6 +65,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-26">ADDED: abstract <gi>desc</gi>.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-26">FIXED: actually, this is the main Yezidi shrine in Lalish, only fictionally an earlier monastery, so retyped it as 'temple' and added its Arabic name</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -72,18 +74,28 @@
     <text>
         <body>
             <listPlace>
-                <place xml:id="place-2504" type="monastery">
-                    <placeName xml:id="name2504-1" xml:lang="en" syriaca-tags="#syriaca-headword">ʻMar Yoḥannan and Mar Ishoʿsabran’</placeName>
-                    <placeName xml:id="name2504-2" xml:lang="en" source="#bib2504-1">‘Mār Yōhannān and Mār Īshōʿsabrān’</placeName>
-                    <desc xml:id="abstract-en-2504" xml:lang="en"/>
-                    <location type="nested" source="#bib2504-1">
+                <place xml:id="place-2504" type="temple">
+                    <placeName xml:id="name2504-1" xml:lang="en" syriaca-tags="#syriaca-headword">Shaykh ʿAdī</placeName>
+                    <placeName xml:id="name2504-2" xml:lang="en" source="#bib2504-1">Shaikh ‘Adi</placeName>
+                    <placeName xml:id="name2504-3" xml:lang="en" source="#bib2504-2">‘Mār Yōhannān and Mār Īshōʿsabrān’</placeName>
+                    <desc xml:id="abstract-en-2504" xml:lang="en">The main Yezidi shrine in <placeName ref="http://syriaca.org/place/1399">Lālish</placeName>, which according to a Syriac text forged in the 19th century was originally a monastery.</desc>
+                    <location type="nested" source="#bib2504-2">
                         <settlement ref="http://syriaca.org/place/1399">Lālish</settlement>
                         <region ref="http://syriaca.org/place/777">Shemkān district</region>
                         <region ref="http://syriaca.org/place/703">ʿAmādīyā region</region>
                     </location>
                     <state type="existence"/>
+                    <state type="confession" xml:id="confession2504-1" ref="http://syriaca.org/documentation/confessions.xml#yezidis" from="1160" source="#bib2504-1">
+                        <label>Yezidis</label>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/2504</idno>
                     <bibl xml:id="bib2504-1">
+                        <author>David Wilmshurst</author>
+                        <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
+                        <citedRange unit="pp">188, 203</citedRange>
+                        <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib2504-2">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">203-204</citedRange>

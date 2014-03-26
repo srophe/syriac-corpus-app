@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-03-26</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,6 +65,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-26">ADDED: Yezidi confession and Wikipedia link, but not DBpedia because Wikipedia types it as a valley.</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -80,7 +81,11 @@
                         <region ref="http://syriaca.org/place/703">ʿAmādīyā region</region>
                     </location>
                     <state type="existence"/>
+                    <state type="confession" xml:id="confession1399-1" ref="http://syriaca.org/documentation/confessions.xml#yezidis" from="1160" source="#bib1399-1">
+                        <label>Yezidis</label>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/1399</idno>
+                    <idno type="URI">http://en.wikipedia.org/wiki/Lalish</idno>
                     <bibl xml:id="bib1399-1">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
