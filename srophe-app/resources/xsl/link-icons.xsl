@@ -133,7 +133,7 @@
                 
                 <!-- TEI source link -->
                 <li>
-                    <a href="/place/tei/{$placenum}/tei" rel="alternate" type="application/tei+xml">
+                    <a href="/place/{$placenum}/tei" rel="alternate" type="application/tei+xml">
                         <img src="../resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/> TEI XML source data</a>
                 </li>
                 <!-- Atom format link -->
