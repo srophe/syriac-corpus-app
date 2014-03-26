@@ -4,7 +4,7 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Mount Qāsiyūn
+                <title level="a" xml:lang="en">Mt. Qāsiyūn
                                         — <foreign xml:lang="syr">ܛܘܪܐ ܕܩܐܣܝܘܢ</foreign>
                 </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-03-26</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,6 +78,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-26">FIXED: GEDSH name is abbreviated "Mt." rather than full text "Mount"</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -86,7 +87,7 @@
         <body>
             <listPlace>
                 <place xml:id="place-518" type="mountain">
-                    <placeName xml:id="name518-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib518-1">Mount Qāsiyūn</placeName>
+                    <placeName xml:id="name518-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib518-1">Mt. Qāsiyūn</placeName>
                     <placeName xml:id="name518-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܛܘܪܐ ܕܩܐܣܝܘܢ</placeName>
                     <placeName xml:id="name518-3" xml:lang="syr-Syrj" source="#bib518-2">ܛܘܪܳܐ ܕܩܰܐܣܒܘܢ</placeName>
                     <placeName xml:id="name518-4" xml:lang="ar" source="#bib518-3">جبل قاسيون</placeName>
