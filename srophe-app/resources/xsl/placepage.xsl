@@ -331,7 +331,7 @@
                                 <!-- NOTE: may need to move this elsewhere -->
                                 <p>
                                     <strong>Place Type: </strong>
-                                    <a href="../documentation/types.html#{normalize-space(@type)}" class="no-print-link">
+                                    <a href="../documentation/place-types.html#{normalize-space(@type)}" class="no-print-link">
                                         <xsl:value-of select="@type"/>
                                     </a>
                                 </p>
