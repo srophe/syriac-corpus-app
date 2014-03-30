@@ -495,6 +495,26 @@ return
 declare function search:build-geojson($node as node()*, $model as map(*)){
 if(count($model("hits")//tei:geo) gt 1) then
          (<div id="map" style="height: 250px;"/>,
+         <div>*{count($model("hits")//tei:geo)} of {search:hit-count($node,$model)} places have coordinates and are shown on this map. <a href="#map-selection" role="button"  data-toggle="modal">Read more...</a></div>,
+         <div style="width: 750px; margin-left: -280px;" id="map-selection" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="faq-label" aria-hidden="true">
+                <div class="modal-header" style="height:15px !important;">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> × </button>
+                </div>
+                <div class="modal-body">
+                    <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn" href="../documentation/faq.html" aria-hidden="true">See all FAQs</a>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                </div>
+            </div>,
+            <script>
+            <![CDATA[
+                $('#map-selection').on('shown', function () {
+                $( "#popup" ).load( "../documentation/faq.html #map-selection" );
+                })
+                ]]>
+            </script>,
          <script type="text/javascript">
              <![CDATA[
                     var terrain = L.tileLayer(
