@@ -37,7 +37,29 @@
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner" style="clear:both;">
                 <div class="container">
-                    <div data-template="nav:build-nav"/>
+                    <a class="brand" href="/geo/index.html">
+                        <img src="/resources/img/icon-orange-text.png" style="height:45px;" alt="The Syriac Gazetteer"/>
+                    </a>
+                    <ul class="nav">
+                        <li>
+                            <a href="/geo/browse.html">index</a>
+                        </li>
+                        <li>
+                            <a href="/geo/about.html">about</a>
+                        </li>
+                        <li>
+                            <a href="/geo/help/index.html">help</a>
+                        </li>
+                    </ul>
+                    <p class="navbar-text nav pull-right advanced-search" style="margin-left:1em; margin-right:1em;">
+                        <a class="pull-right" href="/geo/search.html">advanced search</a>
+                    </p>
+                    <form class="navbar-search pull-right s-asearch form-search" action="/geo/search.html" method="get">
+                        <div class="input-append">
+                            <input class="search-query" type="text" placeholder="search the Syriac Gazetteer" name="q"/>
+                            <button type="submit" class="btn">Go</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -56,7 +78,7 @@
         </div>
         <!-- Add google analytics code for production: UA-333143-26-->
         <script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            var _gaq=[['_setAccount','UA-XXXX-XX'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
