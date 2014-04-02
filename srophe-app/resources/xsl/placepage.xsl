@@ -140,9 +140,25 @@
                                 <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>.</p>
                             <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
                         </div>
+                        <span class="pull-right">
+                            <a id="lessInfo">Hide citation information...</a>
+                        </span>
                     </div>
                 </div>
             </div>
+            <script type="text/javascript">
+                // Toggle for citation
+                $( "#moreInfo" ).click(function() {
+                    $( "#citation" ).toggle( "slow", function() {
+                        $( "#moreInfo" ).toggle();
+                    });
+                });
+                $( "#lessInfo" ).click(function() {
+                    $( "#citation" ).toggle( "slow", function() {
+                        $( "#lessInfo" ).toggle();
+                    });
+                });
+            </script>
         </div>
         <xsl:if test="//t:geo">
             <script type="text/javascript" src="/exist/apps/srophe/resources/js/map.js"/>
