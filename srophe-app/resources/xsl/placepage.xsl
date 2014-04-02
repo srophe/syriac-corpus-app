@@ -216,7 +216,7 @@
                                 <!-- Modal -->
                                     <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
                                         <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Ã—</button>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
                                             <h3 id="report-errors-label">Corrections?</h3>
                                         </div>
                                         <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
@@ -262,7 +262,7 @@
                                     <!-- Modal for FAQ  NOT working, woul have to change faq structure-->
                                     <div style="width: 750px; margin-left: -280px;" id="selection" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="faq-label" aria-hidden="true">
                                         <div class="modal-header" style="height:15px !important;">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> Ã— </button>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> X</button>
                                         </div>
                                         <div class="modal-body">
                                             <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
