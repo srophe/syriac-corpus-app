@@ -155,7 +155,7 @@
                 });
                 $( "#lessInfo" ).click(function() {
                     $( "#citation" ).toggle( "slow", function() {
-                        $( "#lessInfo" ).toggle();
+                        $( "#moreInfo" ).toggle();
                     });
                 });
             </script>
