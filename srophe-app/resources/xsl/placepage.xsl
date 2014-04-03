@@ -827,7 +827,7 @@
                 </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>p   
+    </xsl:template> 
     <!-- Template to print out confession section -->
     <xsl:template match="t:state[@type='confession']">
         <!-- Get all ancesors of current confession (but only once) -->
