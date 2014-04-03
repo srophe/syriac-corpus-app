@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -136,7 +136,7 @@
                         <div id="license">
                             <h3>Copyright and License for Reuse</h3>
                             <p>
-                                <xsl:text>Except otherwise noted, this page is Â© </xsl:text>
+                                <xsl:text>Except otherwise noted, this page is © </xsl:text>
                                 <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>.</p>
                             <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
                         </div>
@@ -145,20 +145,21 @@
                         </span>
                     </div>
                 </div>
+                <script type="text/javascript">
+                    // Toggle for citation
+                    $( "#moreInfo" ).click(function() {
+                        $( "#citation" ).toggle( "slow", function() {
+                            $( "#moreInfo" ).toggle();
+                        });
+                    });
+                    
+                    $( "#lessInfo" ).click(function() {
+                        $( "#citation" ).toggle( "slow", function() {
+                            $( "#moreInfo" ).toggle();
+                        });
+                    });
+                </script>
             </div>
-            <script type="text/javascript">
-                // Toggle for citation
-                $( "#moreInfo" ).click(function() {
-                    $( "#citation" ).toggle( "slow", function() {
-                        $( "#moreInfo" ).toggle();
-                    });
-                });
-                $( "#lessInfo" ).click(function() {
-                    $( "#citation" ).toggle( "slow", function() {
-                        $( "#moreInfo" ).toggle();
-                    });
-                });
-            </script>
         </div>
         <xsl:if test="//t:geo">
             <script type="text/javascript" src="/exist/apps/srophe/resources/js/map.js"/>
@@ -216,7 +217,7 @@
                                 <!-- Modal -->
                                     <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
                                         <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                             <h3 id="report-errors-label">Corrections?</h3>
                                         </div>
                                         <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
@@ -262,7 +263,7 @@
                                     <!-- Modal for FAQ  NOT working, woul have to change faq structure-->
                                     <div style="width: 750px; margin-left: -280px;" id="selection" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="faq-label" aria-hidden="true">
                                         <div class="modal-header" style="height:15px !important;">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> X</button>
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> × </button>
                                         </div>
                                         <div class="modal-body">
                                             <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
@@ -347,7 +348,7 @@
                                 <!-- NOTE: may need to move this elsewhere -->
                                 <p>
                                     <strong>Place Type: </strong>
-                                    <a href="../documentation/types.html#{normalize-space(@type)}" class="no-print-link">
+                                    <a href="../documentation/place-types.html#{normalize-space(@type)}" class="no-print-link">
                                         <xsl:value-of select="@type"/>
                                     </a>
                                 </p>
@@ -384,7 +385,7 @@
                 Checks for nested locations, nested location is added to the tei via record.xql
                 XML ouput:
                     <nested-places xmlns="http://www.w3.org/1999/xhtml" id="place-1721" type="">
-                        <placeName xmlns="http://www.tei-c.org/ns/1.0" xml:id="name1721-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib1721-1">ShÅ«rzÄq</placeName>
+                        <placeName xmlns="http://www.tei-c.org/ns/1.0" xml:id="name1721-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib1721-1">Shūrzāq</placeName>
                     </nested-places>
             -->
             <xsl:if test="/child::*/nested-place">
@@ -826,8 +827,7 @@
                 </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
-    </xsl:template>
-    
+    </xsl:template>p   
     <!-- Template to print out confession section -->
     <xsl:template match="t:state[@type='confession']">
         <!-- Get all ancesors of current confession (but only once) -->
@@ -1088,10 +1088,10 @@
         <li>Coordinates: 
             <ul class="unstyled offset1">
                 <li>
-                    <xsl:value-of select="concat('Lat. ',tokenize(t:geo,' ')[1],'Â°')"/>
+                    <xsl:value-of select="concat('Lat. ',tokenize(t:geo,' ')[1],'°')"/>
                 </li>
                 <li>
-                    <xsl:value-of select="concat('Long. ',tokenize(t:geo,' ')[2],'Â°')"/>
+                    <xsl:value-of select="concat('Long. ',tokenize(t:geo,' ')[2],'°')"/>
                     <!--            <xsl:value-of select="t:geo"/>-->
                     <xsl:sequence select="local:do-refs(@source,'eng')"/>
                 </li>
@@ -1201,7 +1201,7 @@
     <xsl:template match="t:quote">
         <xsl:choose>
             <xsl:when test="@xml:lang">
-                <xsl:text>â€œ</xsl:text>
+                <xsl:text>“</xsl:text>
                 <bdi>
                     <xsl:attribute name="dir">
                         <xsl:call-template name="getdirection"/>
@@ -1209,12 +1209,12 @@
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                 </bdi>
-                <xsl:text>â€</xsl:text>
+                <xsl:text>”</xsl:text>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text>â€œ</xsl:text>
+                <xsl:text>“</xsl:text>
                 <xsl:apply-templates/>
-                <xsl:text>â€</xsl:text>
+                <xsl:text>”</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
