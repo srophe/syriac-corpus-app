@@ -12,13 +12,6 @@ $(document).on('submit','form#email',function(e){
     }});
 });
 
-// Toggle for citation
-$( "#moreInfo" ).click(function() {
-  $( "#citation" ).toggle( "slow", function() {
-    $( "#moreInfo" ).toggle();
-  });
-});
-
 // Toggel for related places
 $( "#more-relation" ).click(function() {
   $(this).text($(this).text() == '(see list)' ? '(hide list)' : '(see list)'); 
