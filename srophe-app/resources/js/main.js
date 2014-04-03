@@ -28,3 +28,20 @@ if (navigator.appVersion.indexOf("Mac") > -1 || navigator.appVersion.indexOf("Li
     $('.get-syriac').show();
 }
 
+$('#email').validate(
+    {
+        rules: {
+            name: {
+                minlength: 2,
+                required: true
+             },
+            comments: {
+                minlength: 2,
+                required: true
+        },
+        email: {
+            required: true,
+            email: true
+        }
+   }
+});
