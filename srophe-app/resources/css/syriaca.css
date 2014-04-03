@@ -13,9 +13,9 @@
  */
 body {
 	font-family: arial, sans-serif;
-    background-color:#753C28;
+    background-color:#456889;
 }
-#main {background-color:#F5F2E9;margin:0;padding:0;}
+#main {background-color:#999;margin:0;padding:0;}
 #content {margin:40px 40px 0px 40px; padding:3em; background-color:white;}
 
 /* Main content blocks */
@@ -23,15 +23,15 @@ body {
     margin:0;
     height: 50px !important; 
     background-color:white; 
-    border-bottom:4px solid #753C28 !important;
+    border-bottom:4px solid #456889 !important;
 }
-.navbar-inner {height: 50px !important; margin:0; border-bottom:.5em solid #753C28 !important;}
-.navbar-inner .container{height: 45px !important; margin-left:.5em;}
-.brand {margin-top:-.5em; margin-left:40px;padding-left:0;}
-.brand img {margin-left:1.5em; padding-left:0;}
-.nav, .navbar-search {height:45px;  padding-top:.5em;}
+.navbar-inner {height: 50px !important; margin:0; border-bottom:.5em solid #456889 !important;}
+.navbar-inner .container{height: 45px !important; padding-top:.5em; margin-left:.5em;}
+.brand {margin-top:-.75em; margin-left:40px;padding-left:0;}
+.brand img {margin-left:1.5em;padding-left:0;}
+
 .navbar-inner .nav > li > a:hover, .advanced-search > a:hover {
-        border-bottom: 4px solid #E69849 !important;  
+        border-bottom: 4px solid #DDEAF1 !important;  
         text-decoration:none;
 }
 .navbar-inner > .container > .nav > li.selected {border-bottom: 4px solid #E69849 !important; }
@@ -54,11 +54,11 @@ body {
 footer {margin:0 40px;padding:1px; text-align:center;}
 
 /* Typography */
-h1 {font-size:1.5em; margin:0; color:#E69849; font-weight:500;}
+h1 {font-size:1.5em; margin:0; color:#456889; font-weight:500;}
 /*h2 {font-size:1.5em; margin:0 -1em; padding-left:8px; color:#E69849; font-weight:500;}*/
-h2 {font-size: 1.25em; margin-top:0; margin-bottom:.2em; margin-left:0; padding-bottom:0; color:#753C28; font-weight:500; margin-left:0;}
+h2 {font-size: 1.25em; margin-top:0; margin-bottom:.2em; margin-left:0; padding-bottom:0; color:#999; font-weight:500; margin-left:0;}
 h3 {font-size: 1.2em; margin-top:0; margin-bottom:.2em; padding-bottom:0; color:#333; font-weight:500; margin-left:0;}
-h3.underline {color:#999; border-bottom:3px solid #E69849; padding-bottom:-.75em; margin-bottom:1em; margin-top:1em;}
+h3.underline {color:#999; border-bottom:3px solid #456889; padding-bottom:-.75em; margin-bottom:1em; margin-top:1em;}
 h4 {font-size: 1em; margin-top:0; margin-bottom:.2em; padding-bottom:0; font-weight:bold; margin-left:0;}
 
 .column1 h3{border-bottom:1px solid #999; padding-bottom:0; margin-bottom:1em;}
