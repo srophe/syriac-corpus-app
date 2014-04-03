@@ -210,7 +210,7 @@
                                 <xsl:call-template name="col1"/>
                                 <div style="margin-bottom:1em;">  
                                 <!-- Button to trigger modal -->
-                                    <a href="#report-errors" role="button" class="btn" data-toggle="modal">Corrections?</a>
+                                    <a href="#report-errors" role="button" class="btn" data-toggle="modal">Corrections/Additions?</a>
                                     <xsl:text> </xsl:text>
                                     <a href="#selection" role="button" class="btn" data-toggle="modal">Is this record complete?</a>
                                     
@@ -218,7 +218,7 @@
                                     <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                            <h3 id="report-errors-label">Corrections?</h3>
+                                            <h3 id="report-errors-label">Corrections/Additions?</h3>
                                         </div>
                                         <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
                                             <div class="modal-body" id="modal-body">
@@ -239,27 +239,6 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <script type="text/javascript">
-                                    $(document).ready(function() {
-                                    $('#email').validate(
-                                        {
-                                            rules: {
-                                                name: {
-                                                    minlength: 2,
-                                                    required: true
-                                                },
-                                                comments: {
-                                                    minlength: 2,
-                                                    required: true
-                                                },
-                                                email: {
-                                                    required: true,
-                                                    email: true
-                                               }
-                                            }
-                                        });
-                                    });
-                                </script>
                                     <!-- Modal for FAQ  NOT working, woul have to change faq structure-->
                                     <div style="width: 750px; margin-left: -280px;" id="selection" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="faq-label" aria-hidden="true">
                                         <div class="modal-header" style="height:15px !important;">
