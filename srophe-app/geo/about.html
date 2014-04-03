@@ -40,6 +40,7 @@
                         <li>Mark Dickens, University of Alberta</li>
                         <li>George A. Kiraz, Beth Mardutho: The Syriac Institute</li>
                         <li>Jonathan Loopstra, Capital University</li>
+                        <li>Andrea Schmidt, Université catholique de Louvain</li>
                         <li>H. L. Murre-van den Berg, Universiteit Leiden</li>
                         <li>Hidemi Takahashi, University of Tokyo</li>
                         <li>Lucas Van Rompay, Duke University</li>
@@ -84,52 +85,7 @@
                         <a href="http://syriaca.org/geo">http://syriaca.org/geo</a>.</p>
                     <p>A model citation can be found on most individual articles as well; users are encouraged to <a href="#contact" data-toggle="modal">contact the editors</a> to discuss other means of attribution.</p>
                     <!-- Contact -->
-                    <div id="contact" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h3 id="report-errors-label">Contact the Editors</h3>
-                        </div>
-                        <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
-                            <div class="modal-body" id="modal-body">
-                                <label>Name:</label>
-                                <input type="text" name="name"/>
-                                <label>e-mail address:</label>
-                                <input type="text" name="email"/>
-                                <label>Subject:</label>
-                                <input type="text" name="subject"/>
-                                <label>Comments:</label>
-                                <textarea name="comments" id="comments" rows="8" class="span9"/>
-                                <input type="hidden" name="id" value="{$placenum}"/>
-                                <input type="hidden" name="place" value="{string(t:placeName[1])}"/>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                                <input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
-                            </div>
-                        </form>
-                    </div>
-                    <script type="text/javascript">
-                        $(document).ready(function() {
-                        $('#email').validate(
-                        {
-                        rules: {
-                        name: {
-                        minlength: 2,
-                        required: true
-                        },
-                        comments: {
-                        minlength: 2,
-                        required: true
-                        },
-                        email: {
-                        required: true,
-                        email: true
-                        }
-                        }
-                        });
-                        });
-                    </script>
-                    
+                    <div data-template="app:contact-form"/>
                     <h2>Funding for <i>The Syriac Gazeteer</i> was provided by:</h2>
                     <ul class="inline funding" style="margin-left:2em;">
                         <li>
