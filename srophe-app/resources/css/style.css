@@ -26,10 +26,10 @@ body {
     border-bottom:4px solid #753C28 !important;
 }
 .navbar-inner {height: 50px !important; margin:0; border-bottom:.5em solid #753C28 !important;}
-.navbar-inner .container{height: 45px !important; margin-left:.5em;}
+.navbar-inner .container{height: 45px !important; padding-top:.5em; margin-left:.5em;}
 .brand {margin-top:-.5em; margin-left:40px;padding-left:0;}
-.brand img {margin-left:1.5em; padding-left:0;}
-.nav, .navbar-search {height:45px;  padding-top:.5em;}
+.brand img {margin-left:1.5em;padding-left:0;}
+.navbar-inner .nav, .navbar-search {padding-top:.5em;}
 .navbar-inner .nav > li > a:hover, .advanced-search > a:hover {
         border-bottom: 4px solid #E69849 !important;  
         text-decoration:none;
@@ -188,6 +188,9 @@ h4 {font-size: 1em; margin-top:1em;}
 #nametabs {
 	margin-bottom: 0px;
 }
+
+.type-content {padding:1em;}
+.type-nav {width: 85%;}
 
 /* link icon styles (inline) */
 #link-icons{padding-top:1em; margin-bottom:0;}
