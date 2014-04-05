@@ -23,11 +23,12 @@ declare function nav:build-nav($node as node(), $model as map(*)){
     return
         if(starts-with($active-page,'place')) then 
             (<a class="brand" href="/geo/index.html">
-               <img src="/resources/img/icon-orange-text.png" style="height:45px;" alt="The Syriac Gazetteer"/></a>,
+               <img src="/resources/img/icon-orange-text.png" alt="The Syriac Gazetteer"/></a>,
                 <ul class="nav">
                     <li><a href="/geo/browse.html">index</a></li>
                     <li><a href="/geo/about.html">about</a></li>
                     <li><a href="/geo/help/index.html">help</a></li>
+                    <li><a href="/geo/howtoadd.html">add new place</a></li>
                 </ul>,
                 <p class="navbar-text nav pull-right advanced-search" style="margin-left:1em; margin-right:1em;">
                     <a class="pull-right" href="/geo/search.html">advanced search</a>
@@ -41,12 +42,13 @@ declare function nav:build-nav($node as node(), $model as map(*)){
                 )
         else if (contains(request:get-uri(),'help/')) then 
                 (<a class="brand" href="../index.html">
-                       <img alt="The Syriac Gazetteer" src="../../resources/img/icon-orange-text.png" style="height:45px;"/>
+                       <img alt="The Syriac Gazetteer" src="../../resources/img/icon-orange-text.png"/>
                 </a>,
                 <ul class="nav">
                     <li><a href="../browse.html">index</a></li>
                     <li><a href="../about.html">about</a></li>
                     <li class="selected"><a href="index.html">help</a></li>
+                    <li><a href="../howtoadd.html">add new place</a></li>
                 </ul>,
                 <p class="navbar-text nav pull-right advanced-search" style="margin-left:1em; margin-right:1em;">
                     <a class="pull-right" href="../search.html">advanced search</a>
@@ -60,11 +62,12 @@ declare function nav:build-nav($node as node(), $model as map(*)){
                 )        
         else
             (<a class="brand" href="index.html">
-                   <img src="../resources/img/icon-orange-text.png" style="height:45px;" alt="The Syriac Gazetteer"/></a>,
+                   <img src="../resources/img/icon-orange-text.png" alt="The Syriac Gazetteer"/></a>,
             <ul class="nav">
                 <li><a href="browse.html">index</a></li>
                 <li><a href="about.html">about</a></li>
                 <li><a href="help/index.html">help</a></li>
+                <li><a href="howtoadd.html">add new place</a></li>
             </ul>,
             <p class="navbar-text nav pull-right advanced-search" style="margin-left:1em; margin-right:1em;">
                 <a class="pull-right" href="search.html">advanced search</a>
@@ -85,7 +88,7 @@ declare function nav:build-nav($node as node(), $model as map(*)){
 declare function nav:build-documentation-nav(){
     if(contains(request:get-uri(),'documentation/')) then
       (<a class="brand" href="/geo/index.html">
-               <img src="/resources/img/icon-orange-text.png" style="height:45px;" alt="The Syriac Gazetteer"/></a>,
+               <img src="/resources/img/icon-orange-text.png" alt="The Syriac Gazetteer"/></a>,
                 <ul class="nav">
                     <li><a href="">{request:get-uri()}</a></li>
                     <li><a href="">{$active-page}</a></li>
@@ -105,7 +108,7 @@ declare function nav:build-documentation-nav(){
                 ) 
     else 
         (
-            <a class="brand" href="/index.html"><img alt="Syriac.org" src="/exist/apps/srophe/resources/img/syriaca-orange-text.png" style="height:45px;"/></a>,
+            <a class="brand" href="/index.html"><img alt="Syriac.org" src="/exist/apps/srophe/resources/img/syriaca-orange-text.png"/></a>,
                    <div>
                         <ul class="nav">
                             <li>
@@ -121,7 +124,7 @@ declare function nav:build-documentation-nav(){
 
 declare function nav:build-nav-syr(){
 (
-            <a class="brand" href="/index.html"><img alt="Syriac.org" src="/exist/apps/srophe/resources/img/syriaca-orange-text.png" style="height:45px;"/></a>,
+            <a class="brand" href="/index.html"><img alt="Syriac.org" src="/exist/apps/srophe/resources/img/syriaca-orange-text.png"/></a>,
                    <div>
                         <ul class="nav">
                             <li>
