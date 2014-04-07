@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>Syriaca.org: The Syriac Reference Portal.</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta data-template="config:app-meta"/>
+        <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"/>
+        <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/"/>
+        <meta name="DC.subject" property="dc.subject" content="Geography, Ancient"/>
+        <meta name="DC.type" property="dc.type" content="Text"/>
+        <meta name="DC.isPartOf" property="dc.ispartof" content="The Syriac Gazetteer"/>
+        <link rel="shortcut icon" href="/exist/apps/srophe/resources/images/favicon.ico"/>
+        <link rel="stylesheet" type="text/css" href="$shared/resources/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="$shared/resources/css/bootstrap-responsive.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/exist/apps/srophe/resources/css/syriaca.css"/>
+        <link rel="stylesheet" type="text/css" media="print" href="/exist/apps/srophe/resources/css/print.css"/>
+        <!--        <script type="text/javascript" src="$shared/resources/scripts/jquery/jquery-1.7.1.min.js"/>-->
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css"/>
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+        <![endif]-->
+        
+    </head>
+    <body id="body">
+        <!--[if lt IE 7]>
+                <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+            <![endif]-->
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner" id="topnav">
+                <div class="container" id="syr-nav">
+                    <a class="brand" href="/index.html">
+                        <img alt="Syriac.org" src="/exist/apps/srophe/resources/img/syriaca-logo.png"/>
+                    </a>
+                    <div>
+                        <ul class="nav">
+                            <li>
+                                <a href="/geo/index.html">gazetteer</a>
+                            </li>
+                            <li>
+                                <a href="/documentation/index.html">documentation</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--
+                    <p class="navbar-text nav pull-right" style="margin-left:1em;">
+                        <a class="pull-right" href="/exist/apps/srophe/search.html">advanced search</a>
+                    </p>
+                    <form class="navbar-search pull-right s-asearch form-search" action="/exist/apps/srophe/search.html" method="get">
+                        <div class="input-append">
+                            <input class="search-query" type="text" placeholder="search" name="q"/>
+                            <button type="submit" class="btn">Go</button>
+                        </div>
+                    </form>
+                    -->
+                </div>
+                <div class="container" id="geo-nav" style="display:none;">
+                    <a class="brand" href="/geo/index.html">
+                        <img src="/resources/img/icon-orange-text.png" alt="The Syriac Gazetteer"/></a>
+                    <ul class="nav">
+                        <li><a href="/geo/browse.html">index</a></li>
+                        <li><a href="/geo/about.html">about</a></li>
+                        <li><a href="/geo/help/index.html">help</a></li>
+                        <li><a href="/geo/howtoadd.html">add new place</a></li>
+                    </ul>
+                    <p class="navbar-text nav pull-right advanced-search" style="margin-left:1em; margin-right:1em;">
+                        <a class="pull-right" href="/geo/search.html">advanced search</a>
+                    </p>
+                    <form class="navbar-search pull-right s-asearch form-search" action="/geo/search.html" method="get">
+                        <div class="input-append">
+                            <input class="search-query" type="text" placeholder="search" name="q"/>     
+                            <button type="submit" class="btn">Go</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="main">
+            <div id="content" class="container-fluid well"/>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12 text-center" style="color:white;">
+                    <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">
+                        <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/80x15.png"/>
+                    </a> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a>.
+                    <br/>Copyright Vanderbilt University, Princeton University, and the Contributor(s), 2014.
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>
+        <script type="text/javascript" src="$shared/resources/scripts/loadsource.js"/>
+        <script type="text/javascript" src="$shared/resources/scripts/bootstrap.min.js"/>
+        <script type="text/javascript" src="/exist/apps/srophe/resources/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"/>
+        <script type="text/javascript" src="/exist/apps/srophe/resources/js/plugins.js"/>
+        <script type="text/javascript" src="/exist/apps/srophe/resources/js/main.js"/>
+        <script type="text/javascript">
+           $( document ).ready(function() {
+                 var referrer =  document.referrer;
+                 if(!referrer) return; //returns default header in xquery
+                 else if(referrer.toLowerCase().indexOf("geo") !== -1){ //returns default (relative links) header for gazetteer
+                      $('#geo-nav').css("display","block");
+                      $('#syr-nav').css("display","none");
+                 }
+                 else if(referrer.toLowerCase().indexOf("/place/") !== -1){ //returns abosloute links header for gazetteer
+                      $('#geo-nav').css("display","block");
+                      $('#syr-nav').css("display","none");
+                 }    
+                 else{ //returns syraca.org header
+                      $('#geo-nav').css("display","none");
+                      $('#syr-nav').css("display","block");
+                 } 
+             });
+        </script>
+        <!-- Add google analytics code for production: UA-333143-26-->
+        <script>
+            var _gaq=[['_setAccount','UA-XXXX-XX'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>
