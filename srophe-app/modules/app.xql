@@ -2,7 +2,7 @@ xquery version "3.0";
 
 module namespace app="http://syriaca.org//templates";
 (:~
- : General use xqueries for srophe app.
+ : General use xqueries for accross srophe app.
 :)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org//config" at "config.xqm";
@@ -11,16 +11,47 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 
 (:~
+ : Generic contact form can be added to any page by calling:
+ : <div data-template="app:contact-form"/>
+ : with a link to open it that looks like this: <a href="#contact" data-toggle="modal">Link text</a>
+:)
+declare %templates:wrap function app:contact-form($node as node(), $model as map(*))
+{
+    <div id="contact" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="report-errors-label">Contact Us</h3>
+        </div>
+        <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
+            <div class="modal-body" id="modal-body">
+                <label>Name:</label>
+                <input type="text" name="name"/>
+                <label>e-mail address:</label>
+                <input type="text" name="email"/>
+                <label>Subject:</label>
+                <input type="text" name="subject"/>
+                <label>Comments:</label>
+                <textarea name="comments" id="comments" rows="8" class="span9"/>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                <input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
+            </div>
+        </form>
+    </div>
+};
+
+(:~
  : Grabs latest news for home page
  : http://syriaca.org/feed/
  :)
  
 declare %templates:wrap function app:get-feed($node as node(), $model as map(*)){ 
-   let $news := doc('http://syriaca.org/feed/')/child::*
+   let $news := doc('http://syriaca.org/blog/feed/')/child::*
    for $latest at $n in subsequence($news//item, 1, 5)
    return 
    <li>
-        <a href="{$latest/link/text()}">{$latest/title/text()}</a> [{$latest/pubDate}]
+        <a href="{$latest/link/text()}">{$latest/title/text()}</a>
    </li>
 };
 
@@ -74,6 +105,8 @@ declare %templates:wrap function app:build-editor-list($node as node(), $model a
     order by $sort-name
     return
         if($editor != '') then 
-          <li>{normalize-space($name)}</li>
+            if(normalize-space($name) != '') then 
+            <li>{normalize-space($name)}</li>
+            else ''
         else ''  
 };
