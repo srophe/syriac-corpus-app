@@ -21,7 +21,6 @@
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
         <![endif]-->
-        
     </head>
     <body id="body">
         <!--[if lt IE 7]>
@@ -57,19 +56,28 @@
                 </div>
                 <div class="container" id="geo-nav" style="display:none;">
                     <a class="brand" href="/geo/index.html">
-                        <img src="/resources/img/icon-orange-text.png" alt="The Syriac Gazetteer"/></a>
+                        <img src="/resources/img/icon-orange-text.png" alt="The Syriac Gazetteer"/>
+                    </a>
                     <ul class="nav">
-                        <li><a href="/geo/browse.html">index</a></li>
-                        <li><a href="/geo/about.html">about</a></li>
-                        <li><a href="/geo/help/index.html">help</a></li>
-                        <li><a href="/geo/howtoadd.html">add new place</a></li>
+                        <li>
+                            <a href="/geo/browse.html">index</a>
+                        </li>
+                        <li>
+                            <a href="/geo/about.html">about</a>
+                        </li>
+                        <li>
+                            <a href="/geo/help/index.html">help</a>
+                        </li>
+                        <li>
+                            <a href="/geo/howtoadd.html">add new place</a>
+                        </li>
                     </ul>
                     <p class="navbar-text nav pull-right advanced-search" style="margin-left:1em; margin-right:1em;">
                         <a class="pull-right" href="/geo/search.html">advanced search</a>
                     </p>
                     <form class="navbar-search pull-right s-asearch form-search" action="/geo/search.html" method="get">
                         <div class="input-append">
-                            <input class="search-query" type="text" placeholder="search" name="q"/>     
+                            <input class="search-query" type="text" placeholder="search" name="q"/>
                             <button type="submit" class="btn">Go</button>
                         </div>
                     </form>
@@ -102,10 +110,12 @@
                  else if(referrer.toLowerCase().indexOf("geo") !== -1){ //returns default (relative links) header for gazetteer
                       $('#geo-nav').css("display","block");
                       $('#syr-nav').css("display","none");
+                      $('link[href="/exist/apps/srophe/resources/css/syriaca.css"]').attr('href','/exist/apps/srophe/resources/css/style.css');
                  }
                  else if(referrer.toLowerCase().indexOf("/place/") !== -1){ //returns abosloute links header for gazetteer
                       $('#geo-nav').css("display","block");
                       $('#syr-nav').css("display","none");
+                      $('link[href="/exist/apps/srophe/resources/css/syriaca.css"]').attr('href','/exist/apps/srophe/resources/css/style.css');
                  }    
                  else{ //returns syraca.org header
                       $('#geo-nav').css("display","none");
@@ -114,6 +124,7 @@
              });
         </script>
         <!-- Add google analytics code for production: UA-333143-26-->
+        <!-- <link rel="stylesheet" type="text/css" href="/exist/apps/srophe/resources/css/syriaca.css"/> -->
         <script>
             var _gaq=[['_setAccount','UA-XXXX-XX'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
