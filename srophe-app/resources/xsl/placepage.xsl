@@ -210,11 +210,12 @@
                                 <xsl:call-template name="col1"/>
                                 <div style="margin-bottom:1em;">  
                                 <!-- Button to trigger modal -->
-                                    <a href="#report-errors" role="button" class="btn" data-toggle="modal">Corrections/Additions?</a>
+                                    <!--<a href="#report-errors" role="button" class="btn" data-toggle="modal">Corrections/Additions?</a>-->
+                                    <a href="howtoadd.html" class="btn">Corrections/Additions?</a>
                                     <xsl:text> </xsl:text>
                                     <a href="#selection" role="button" class="btn" data-toggle="modal">Is this record complete?</a>
                                     
-                                <!-- Modal -->
+                                <!-- Modal 
                                     <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -238,7 +239,7 @@
                                                 <input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
                                             </div>
                                         </form>
-                                    </div>
+                                    </div>-->
                                     <!-- Modal for FAQ  NOT working, woul have to change faq structure-->
                                     <div style="width: 750px; margin-left: -280px;" id="selection" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="faq-label" aria-hidden="true">
                                         <div class="modal-header" style="height:15px !important;">
@@ -644,7 +645,8 @@
                                     <!-- process @notBefore dates -->
                                     <xsl:when test="./@notBefore">
                                         <xsl:choose>
-                                            <xsl:when test="position() = 1">attested around <xsl:value-of select="local:trim-date(@notBefore)"/></xsl:when>
+                                            <xsl:when test="position() = 1">attested around <xsl:value-of select="local:trim-date(@notBefore)"/>
+                                            </xsl:when>
                                             <xsl:otherwise>
                                                 <xsl:if test="preceding-sibling::*">, </xsl:if>as late as <xsl:value-of select="local:trim-date(@notBefore)"/>
                                             </xsl:otherwise>
