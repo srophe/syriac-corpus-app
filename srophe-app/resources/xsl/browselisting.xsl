@@ -181,7 +181,7 @@
                     <div id="map" class="map" style="height:400px"/>
                     <div id="map-caveat" class="map pull-right caveat" style="margin-top:1em;">
                         <xsl:value-of select="count(//t:place[descendant::t:geo])"/> of <xsl:value-of select="count(//t:place)"/> 
-                        places have coordinates and are shown on this map. <a href="../documentation/faq.html">Read more...</a>
+                        places have coordinates and are shown on this map. <a href="../documentation/faq#map-selection.html">Read more...</a>
                     </div>
                     <br style="clear-fix"/>
                 </div>
