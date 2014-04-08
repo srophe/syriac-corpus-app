@@ -20,6 +20,7 @@ $( "#more-relation" ).click(function() {
 
 //hide related places
 $("#less-relation").click(function(){
+  $("#more-relation").text($("#more-relation").text() == '(hide list)' ? '(see list)' : '(hide list)');
   $("#toggle-relation").hide();
 });
 
