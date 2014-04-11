@@ -66,7 +66,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-04-10">ADDED: syriaca-headword tag to name2533-1</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-04-10">ADDED: syriaca-headword tag to name2533-1 and abstract</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-10">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
@@ -75,7 +75,7 @@
             <listPlace>
                 <place xml:id="place-2533" type="settlement">
                     <placeName xml:id="name2533-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib2533-1">Kilis</placeName>
-                    <desc xml:id="abstract-en-446" xml:lang="en"/>
+                    <desc xml:id="abstract-en-2533" xml:lang="en">A village near <placeName ref="http://syriaca.org/place/188">Siirt</placeName>.</desc>
                     <location type="nested" source="#bib2533-1">
                         <region ref="http://syriaca.org/place/801">Ātel district</region>
                         <region ref="http://syriaca.org/place/724">Seert region</region>
