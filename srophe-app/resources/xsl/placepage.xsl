@@ -211,7 +211,7 @@
                                 <div style="margin-bottom:1em;">  
                                 <!-- Button to trigger modal -->
                                     <!--<a href="#report-errors" role="button" class="btn" data-toggle="modal">Corrections/Additions?</a>-->
-                                    <a href="howtoadd.html" class="btn">Corrections/Additions?</a>
+                                    <a href="/geo/howtoadd.html" class="btn">Corrections/Additions?</a>
                                     <xsl:text> </xsl:text>
                                     <a href="#selection" role="button" class="btn" data-toggle="modal">Is this record complete?</a>
                                     
