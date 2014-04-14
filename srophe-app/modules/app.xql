@@ -24,14 +24,21 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
         </div>
         <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
             <div class="modal-body" id="modal-body">
-                <label>Name:</label>
-                <input type="text" name="name"/>
-                <label>e-mail address:</label>
-                <input type="text" name="email"/>
-                <label>Subject:</label>
-                <input type="text" name="subject"/>
-                <label>Comments:</label>
-                <textarea name="comments" id="comments" rows="8" class="span9"/>
+                <!--<label>Name:</label>-->
+                <input type="text" name="name" placeholder="Name"/><br/>
+                <!--<label>e-mail address:</label>-->
+                <input type="text" name="email" placeholder="email"/><br/>
+                <!--<label>Subject:</label>--> 
+                <input type="text" name="subject" placeholder="subject"/><br/>
+                <textarea name="comments" id="comments" rows="5" class="span9" placeholder="Comments"/>
+                <!-- start reCaptcha API-->
+                <script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia"></script>
+                <noscript>
+                 <iframe src="http://api.recaptcha.net/noscript?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia"  height="100" width="100" frameborder="0"></iframe><br/>
+                    <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+                    <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+                </noscript>
+                <!-- end Client API reCaptcha code -->
             </div>
             <div class="modal-footer">
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
