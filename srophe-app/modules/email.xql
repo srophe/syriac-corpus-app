@@ -29,9 +29,9 @@ let $place-uri := if(request:get-parameter('id','')) then concat('Place: http://
 return
   <mail>
     <from>Syriaca.org &lt;david.a.michelson@vanderbilt.edu&gt;</from>
-    <to>wsalesky@gmail.com</to>
-    <!--<to>david.a.michelson@vanderbilt.edu</to>-->
-    <!--<cc>tcarlson@princeton.edu</cc>-->
+    <!--<to>wsalesky@gmail.com</to>-->
+    <to>david.a.michelson@vanderbilt.edu</to>
+    <cc>tcarlson@princeton.edu</cc>
     <subject>{request:get-parameter('subject','')} for {request:get-parameter('place','')} {request:get-parameter('id','')}</subject>
     <message>
       <xhtml>
