@@ -15,6 +15,8 @@ $.validator.setDefaults({
                     Recaptcha.reload();
                 }else {
                     $('div#modal-body').html(temp);
+                    $('#email-submit').hide();
+                    $('#email')[0].reset();
                 }
                // $('div#modal-body').html(temp);
         }});
