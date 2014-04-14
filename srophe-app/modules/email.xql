@@ -1,9 +1,8 @@
 xquery version "3.0";
 
 (:~
- : Builds dynamic nav menu based on url called by page.html
+ : Build email from form returns error or sucess message to ajax function
  :)
-
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -30,10 +29,10 @@ let $place-uri := if(request:get-parameter('id','')) then concat('Place: http://
 return
   <mail>
     <from>Syriaca.org &lt;david.a.michelson@vanderbilt.edu&gt;</from>
-    <!--<to>wsalesky@gmail.com</to>-->
+    <to>wsalesky@gmail.com</to>
     <!--<to>david.a.michelson@vanderbilt.edu</to>-->
     <!--<cc>tcarlson@princeton.edu</cc>-->
-    <subject>{request:get-parameter('subject','')} for {request:get-parameter('place','')} [{request:get-parameter('id','')}]</subject>
+    <subject>{request:get-parameter('subject','')} for {request:get-parameter('place','')} {request:get-parameter('id','')}</subject>
     <message>
       <xhtml>
            <html>
@@ -66,4 +65,4 @@ return
                    <h4>Could not send message.</h4>
                 else 'Recaptcha fail'   
             else  <h4>Incomplete form.</h4>
-   else  <h4>Incomplete form.</h4>            
+   else  <h4>Incomplete form.</h4>
