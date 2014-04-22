@@ -418,7 +418,7 @@ declare function local:build-form(){
                                                             <xf:label>Enter Language</xf:label>
                                                             <xf:toggle case="enter-lang" ev:event="DOMActivate"/>
                                                         </xf:trigger>
-                                                        <xf:select1 ref="@xml:lang">
+                                                        <xf:select1 ref="tei:p/@xml:lang">
                                                             <xf:item>
                                                                 <xf:label>--- Select Language ---</xf:label>
                                                                 <xf:value/>
@@ -450,7 +450,7 @@ declare function local:build-form(){
                                                             <xf:label>Enter Language</xf:label>
                                                             <xf:toggle case="enter-lang" ev:event="DOMActivate"/>
                                                         </xf:trigger>
-                                                        <xf:input ref="@xml:lang"/>
+                                                        <xf:input ref="tei:p/@xml:lang"/>
                                                     </xf:case>
                                                 </xf:switch>
                                             </div>
