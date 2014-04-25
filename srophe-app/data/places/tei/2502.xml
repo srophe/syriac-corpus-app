@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-04-25</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,6 +65,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-04-25">ADDED: CBSC name and links</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -75,6 +76,7 @@
                 <place xml:id="place-2502" type="monastery">
                     <placeName xml:id="name2502-1" xml:lang="en" syriaca-tags="#syriaca-headword">Mar Yoḥannan the Egyptian</placeName>
                     <placeName xml:id="name2502-2" xml:lang="en" source="#bib2502-1">Mār Yōḥannān the Egyptian</placeName>
+                    <placeName xml:id="name2502-4" xml:lang="en" source="#bib2502-2">Mar John the Egyptian</placeName>
                     <placeName xml:id="name2502-3" xml:lang="en" source="#bib2502-1">Ḥlaḥlaḥ</placeName>
                     <desc xml:id="abstract-en-2502" xml:lang="en"/>
                     <location type="nested" source="#bib2502-1">
@@ -83,11 +85,17 @@
                     </location>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/2502</idno>
+                    <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Mar%20John%20the%20Egyptian&amp;sT=keywords</idno>
                     <bibl xml:id="bib2502-1">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">20, 69, 109, 110, 113, 114, 116, 349, 353, 354, 358</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib2502-2">
+                        <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
+                        <ptr target="http://syriaca.org/bibl/5"/>
+                        <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Mar%20John%20the%20Egyptian&amp;sT=keywords">Mar John the Egyptian</citedRange>
                     </bibl>
                 </place>
             </listPlace>
