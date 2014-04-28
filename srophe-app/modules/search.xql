@@ -223,10 +223,10 @@ if(exists($search:cds) and $search:cds != '') then
                 @syriaca-computed-start gt 
                 "',search:do-date($search:cds),'" 
                 and 
-                not(exists(@syriaca-computed-end)))
+                not(exists(@syriaca-computed-end))
                 )')
         else 
-            concat('(@syriaca-computed-start gt "',search:do-date($search:cds),'") or (@syriaca-computed-end gt "',search:do-date($search:cds),'"))')
+            concat('(@syriaca-computed-start gt "',search:do-date($search:cds),'") or (@syriaca-computed-end gt "',search:do-date($search:cds),'")')
     else if (exists($search:cde) and $search:cde != '') then 
         concat('((@syriaca-computed-end lt "',search:do-date($search:cde),'") or (@syriaca-computed-start lt "',search:do-date($search:cde),'" and not(@syriaca-computed-end)))')
     else ''
