@@ -1,6 +1,7 @@
 xquery version "3.0";
 (:~
- : @depreciated: use get-tei-rec.xql 
+ : Returns tie xml record
+ : @param $id record id
  :)
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 
@@ -15,7 +16,6 @@ declare variable $id {request:get-parameter('id', '')};
 
 declare option exist:serialize "method=xml media-type=text/xml omit-xml-declaration=no indent=yes";
 
-let $placeid := concat('place-',$id)
-for $recs in collection($config:app-root || "/data/places/tei")/id($placeid)
+for $recs in collection($config:app-root || "/data")/id($id)
 let $rec := $recs/ancestor::tei:TEI
 return $rec
