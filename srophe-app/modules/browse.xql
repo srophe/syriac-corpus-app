@@ -30,59 +30,63 @@ declare variable $browse:type-map {request:get-parameter('type-map', '')};
 (:~
  : Initialize search string
 :)
-declare function browse:get-places($node as node(), $model as map(*)){
-     map { "places-data" := collection($config:app-root || "/data/places/tei")//tei:place[tei:placeName[@xml:lang = 'en'][starts-with(@syriaca-tags, '#syriaca-headword')]]}
+declare function browse:get-all($node as node(), $model as map(*)){
+    map { "places-data" := collection($config:app-root || "/data/places/tei")}
 };
 
 (:~
- : Build English browse list
- : @param $browse:view indicates language of browse list
- : @param $browse:sort indicates letter for browse
- : Uses browse:build-sort-string() to strip title of non sort characters
- : Final sorting is handled by xslt ../resources/xsl/browselisting.xsl
- :)
-declare function browse:get-place-en($node as node(), $model as map(*)){
-    for $place in $model("places-data")
-    let $title := $place/tei:placeName[1]/text()
-    let $place-id := $place/@xml:id
-    let $place-type := $place/@type
+ : Build browse using supplied options
+ : @param $browse:type place type browse
+ : @param $browse:view browse option, lang or map
+ : @param $browse:sort place returned by first character in title
+:)
+(:
+need to rewrite sort by title function take less time 
+:)
+declare function browse:build-browse-results($node as node(), $model as map(*)){
+    let $eval-string := concat("$model('places-data')//tei:place",
+    browse:get-syr()
+    )
+    let $places := util:eval($eval-string)    
+    for $place-data in $places
+    let $place-id := string($place-data/@xml:id)
+    let $place-type := string($place-data/@type)
+    let $title := 
+        if($browse:view = 'syr') then $place-data/tei:placeName[@xml:lang = 'syr'][1]/text()
+        else $place-data/tei:placeName[1]/text()
     let $browse-title := browse:build-sort-string($title)
-    where contains(browse:get-sort(),substring($browse-title,1,1))
-    order by $browse-title
+    where contains(browse:get-sort(), substring($browse-title,1,1))
+    (:order by $browse-title:)
     return 
-       <place xmlns="http://www.tei-c.org/ns/1.0" xml:id="{$place-id}" type="{$place-type}" sort-title="{$browse-title}">
+        <place xmlns="http://www.tei-c.org/ns/1.0" xml:id="{$place-id}" type="{$place-type}" sort-title="{$browse-title}">
             {
-                for $place-name in $place/tei:placeName[@syriaca-tags="#syriaca-headword"]
+                for $place-name in $place-data/tei:placeName[@syriaca-tags="#syriaca-headword"]
                 return $place-name
             }
-       </place>
+        </place>
+};
+(:
+[contains(browse:get-sort(),substring(tei:placeName[1],1,1))]
+concat('[child::*/@xml:lang = "',$search:ar,'"]')
+:)
+(:~
+ : Filter titles by syriac 
+ : @param $browse:view
+:)
+declare function browse:get-syr(){
+    if($browse:view = 'syr') then
+        "[tei:placeName[@xml:lang = 'syr']]"
+    else ()    
 };
 
 (:~
- : @deprecated no longer needed and confusing for users
- : Build numbered English browse list, returns all results 
- : Returns all English titles, with no sort options applies.
- : Final sorting is handled by xslt ../resources/xsl/browselisting.xsl
- :)
-declare function browse:get-place-all($node as node(), $model as map(*)){
-    for $place-name in $model("places-data")
-    return $place-name     
-};
-
-(:~
- : Build Syriac browse list
- : @param $browse:view indicates language of browse list
- : @param $browse:sort indicates letter for browse
- : Final sorting is handled by xslt ../resources/xsl/browselisting.xsl
- :)
-declare function browse:get-place-syr($node as node(), $model as map(*)){
-    for $place-name in $model("places-data")/self::*[tei:placeName[@xml:lang = 'syr']]
-    let $title := $place-name/tei:placeName[@xml:lang = 'syr']/text()
-    let $title-length := string-length($title)
-    let $title-letter := substring($title,1,1)
-    where contains($title-letter,$browse:sort)
-    order by $title collation "?view=syr"
-    return $place-name
+ : Builds collation for syriac results
+ : @param $browse:view
+:)
+declare function browse:get-order(){
+    if($browse:view = 'syr') then
+        'collation "?view=syr"'
+    else ()
 };
 
 (:~
@@ -105,6 +109,22 @@ declare function browse:get-sort(){
 };
 
 (:~
+ : Returns a list of unique values for the first letter of each title
+ : @depreciated, currently have data for every letter, function adds unnecessarily to processing time
+ : @param $browse:view indicates language of browse list
+ : @param $browse:sort indicates letter for browse
+ : Uses browse:build-sort-string() to strip title of non sort characters
+declare function browse:get-letter-menu($node as node(), $model as map(*)){
+    distinct-values(
+        for $place in $model("places-data")//tei:place
+        let $title := $place/tei:placeName[1]/text()
+        let $browse-title := browse:build-sort-string($title)
+        return substring($browse-title,1,1)
+    ) 
+};
+:)
+
+(:~
  : Strips english titles of non-sort characters as established by The Syriac Gazetteer
  :)
 declare function browse:build-sort-string($titlestring){
@@ -112,33 +132,20 @@ declare function browse:build-sort-string($titlestring){
 };
 
 (:~
- : Returns a list of unique values for the first letter of each title
- : @param $browse:view indicates language of browse list
- : @param $browse:sort indicates letter for browse
- : Uses browse:build-sort-string() to strip title of non sort characters
- :)
-declare function browse:get-letter-menu($node as node()){
-    distinct-values(
-    for $place-name in collection($config:app-root || "/data/places/tei")//tei:placeName[starts-with(@syriaca-tags, '#syriaca-headword')]
-    let $title := $place-name/text()
-    let $browse-title := browse:build-sort-string($title)
-    return substring($browse-title,1,1)
-    ) 
-};
-(:~
  : Returns a list places by type
  : @param $browse:type indicates language of browse list
  : @param $browse:sort indicates letter for browse
  : Uses browse:build-sort-string() to strip title of non sort characters
 :)
 declare function browse:get-place-type($node as node(), $model as map(*)){
-    for $place-name in $model("places-data")
+    for $place-name in $model("places-data")//tei:place[@type = $browse:type]
     let $title := $place-name/tei:placeName[1]/text()
     let $browse-title := browse:build-sort-string($title)
     where matches($place-name/@type, $browse:type)
     order by $browse-title
     return $place-name 
 };
+
 (:~
  : Returns a count of all places with coordinates
 :)
@@ -149,7 +156,7 @@ declare function browse:count-geo($node as node(), $model as map(*)){
  : Returns a count of all places with coordinates
 :)
 declare function browse:count-all($node as node(), $model as map(*)){
-    count(collection('/db/apps/srophe/data/places/tei')//tei:place) 
+    count($model("places-data")) 
 };
 
 (:~
@@ -158,18 +165,18 @@ declare function browse:count-all($node as node(), $model as map(*)){
 declare function browse:type-counts($node as node(), $model as map(*)){
 if($browse:view = 'type') then 
     <div class="span4">
-    <ul style="margin-left:0; width: 15em; float:left" class="nav nav-tabs nav-stacked">
-        {
-        let $types := 'building church diocese fortification island madrasa monastery mosque mountain open-water parish province quarter region river settlement state synagogue temple unknown'
-        for $type in tokenize($types,' ')
-        return 
-        <li>{if($browse:type = $type) then attribute class {'active'} else '' }
-        <a href="?view=type&amp;type={$type}">{$type} &#160; 
-            <span class="count">({count(for $type-count in $model("places-data")[@type = $type]return $type-count)})</span>
-        </a>
-        </li>
-        }
-    </ul>
+        <ul class="nav nav-tabs nav-stacked pull-left type-nav">
+            {
+            let $types := 'building church diocese fortification island madrasa monastery mosque mountain open-water parish province quarter region river settlement state synagogue temple unknown'
+            for $type in tokenize($types,' ')
+            return 
+                <li>{if($browse:type = $type) then attribute class {'active'} else '' }
+                    <a href="?view=type&amp;type={$type}">{$type} &#160; 
+                        <span class="count">({count(for $type-count in $model("places-data")//tei:place[@type = $type]return $type-count)})</span>
+                    </a>
+                </li>
+            }
+        </ul>
     </div>    
 else ''    
 };
@@ -187,25 +194,30 @@ declare function browse:build-tabs($node as node(), $model as map(*)){
  : Final results are passed to ../resources/xsl/browselisting.xsl
  :)
 declare %templates:wrap function browse:get-place-names($node as node(), $model as map(*)){
-    let $cache := 'change this value to force page refresh 23438938766'
+    let $cache := 'change this value to force page refresh 287643766'
     let $results := 
      <tei:TEI xml:lang="en"
         xmlns:xi="http://www.w3.org/2001/XInclude"
         xmlns:svg="http://www.w3.org/2000/svg"
         xmlns:math="http://www.w3.org/1998/Math/MathML"
         xmlns="http://www.tei-c.org/ns/1.0" browse-view="{$browse:view}" browse-sort="{$browse:sort}" browse-type="{$browse:type}" browse-type-map="{$browse:type-map}">
-        <tei:menu xmlns="http://www.tei-c.org/ns/1.0">{browse:get-letter-menu($node)}</tei:menu>
-        { if(exists($browse:view)) then 
-            if($browse:view ='en') then browse:get-place-en($node, $model)
-            else if($browse:view ='syr') then browse:get-place-syr($node, $model)
-            else if($browse:view ='num') then browse:get-place-all($node, $model)
-            else if($browse:view ='type') then 
-                if(exists($browse:type) and $browse:type !='') then browse:get-place-type($node,$model)
+        {
+            (
+            if($browse:view = 'map') then 
+                <tei:count-geo>
+                *{browse:count-geo($node, $model)} of {browse:count-all($node, $model)} places have coordinates 
+                and are shown on this map. <a href="#map-selection" role="button"  data-toggle="modal">
+                Read more...</a>
+                </tei:count-geo>
+             else (),  
+            if($browse:view = 'type') then 
+                if($browse:type != '') then browse:get-place-type($node, $model) 
                 else 'Type'
-            else if($browse:view ='map') then <tei:count-geo>*{browse:count-geo($node, $model)} of {browse:count-all($node, $model)} places have coordinates and are shown on this map. <a href="#map-selection" role="button"  data-toggle="modal">Read more...</a></tei:count-geo>
-            else browse:get-place-en($node, $model)
-           else browse:get-place-en($node, $model)
-           }
+            else browse:build-browse-results($node, $model)
+            )
+          }
      </tei:TEI>  
-    return transform:transform($results, doc('../resources/xsl/browselisting.xsl'),() )
+    return 
+    (:$results:)
+    transform:transform($results, doc('../resources/xsl/browselisting.xsl'),() )
 };

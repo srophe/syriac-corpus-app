@@ -180,9 +180,28 @@
                 <div id="map-div" style="display:none;">
                     <div id="map" class="map" style="height:400px"/>
                     <div id="map-caveat" class="map pull-right caveat" style="margin-top:1em;">
-                        <xsl:value-of select="count(//t:place[descendant::t:geo])"/> of <xsl:value-of select="count(//t:place)"/> 
-                        places have coordinates and are shown on this map. <a href="../documentation/faq#map-selection.html">Read more...</a>
+                        <xsl:value-of select="count(//t:place[descendant::t:geo])"/> of 
+                        <xsl:value-of select="count(//t:place)"/> 
+                        places have coordinates and are shown on this map. 
+                        <a href="#map-selection" role="button" data-toggle="modal">Read more...</a>
                     </div>
+                    <div style="width: 750px; margin-left: -280px;" id="map-selection" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="faq-label" aria-hidden="true">
+                        <div class="modal-header" style="height:15px !important;">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> × </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn" href="../documentation/faq.html" aria-hidden="true">See all FAQs</a>
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                        </div>
+                    </div>
+                    <script>
+                        $('#map-selection').on('shown', function () {
+                            $( "#popup" ).load( "../documentation/faq.html #map-selection" );
+                        })
+                    </script>
                     <br style="clear-fix"/>
                 </div>
                 <xsl:variable name="geojson-uri">
@@ -295,26 +314,14 @@
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template name="letter-menu-syr">
         <!-- Uses unique values passed from xquery into tei menu element as string -->
-        <xsl:variable name="letterBrowse" select="/t:TEI/t:menu"/>
         <ul class="inline" style="padding-right: 2em;">
             <!-- Uses tokenize to split string and iterate through each character in the list below to check for matches with $letterBrowse variable -->
             <xsl:for-each select="tokenize('ܐ ܒ ܓ ܕ ܗ ܘ ܙ ܚ ܛ ܝ ܟ ܠ ܡ ܢ ܣ ܥ ܦ ܩ ܪ ܫ ܬ', ' ')">
-                <xsl:choose>
-                    <!-- If there is a match, create link to character results -->
-                    <xsl:when test="contains($letterBrowse,current())">
-                        <li lang="syr" dir="rtl">
-                            <a href="?view=syr&amp;sort={current()}">
-                                <xsl:value-of select="current()"/>
-                            </a>
-                        </li>
-                    </xsl:when>
-                    <!-- Otherwise, no links -->
-                    <xsl:otherwise>
-                        <li lang="syr" dir="rtl">
-                            <xsl:value-of select="current()"/>
-                        </li>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <li lang="syr" dir="rtl">
+                    <a href="?view=syr&amp;sort={current()}">
+                        <xsl:value-of select="current()"/>
+                    </a>    
+                </li>
             </xsl:for-each>
         </ul>
     </xsl:template>
@@ -329,23 +336,12 @@
         <xsl:variable name="letterBrowse" select="/t:TEI/t:menu"/>
         <ul class="inline">
         <!-- For each character in the list below check for matches in $letterBrowse variable -->
-            <xsl:for-each select="tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z', ' ')">
-                <xsl:choose>
-                <!-- If there is a match, create link to character results -->
-                    <xsl:when test="contains($letterBrowse,current())">
-                        <li>
-                            <a href="?view=en&amp;sort={current()}">
-                                <xsl:value-of select="current()"/>
-                            </a>
-                        </li>
-                    </xsl:when>
-                <!-- Otherwise, no links -->
-                    <xsl:otherwise>
-                        <li>
-                            <xsl:value-of select="current()"/>
-                        </li>
-                    </xsl:otherwise>
-                </xsl:choose>
+            <xsl:for-each select="tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z', ' ')">    
+                <li>
+                    <a href="?view=en&amp;sort={current()}">
+                        <xsl:value-of select="current()"/>
+                    </a>    
+                </li>
             </xsl:for-each>
         </ul>
     </xsl:template>
@@ -381,7 +377,7 @@
             </div>
             <script>
                 $('#map-selection').on('shown', function () {
-                $( "#popup" ).load( "../documentation/faq.html #map-selection" );
+                    $( "#popup" ).load( "../documentation/faq.html #map-selection" );
                 })
             </script>
         </div>
@@ -393,48 +389,6 @@
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template name="map">
         <div id="map" style="height: auto;"/>
-        <script type="text/javascript">
-            var terrain = L.tileLayer(
-            'http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', 
-            {attribution: "ISAW, 2012"});
-            
-            /* Not added by default, only through user control action */
-            var streets = L.tileLayer(
-            'http://api.tiles.mapbox.com/v3/sgillies.map-pmfv2yqx/{z}/{x}/{y}.png', 
-            {attribution: "ISAW, 2012"});
-            
-            var imperium = L.tileLayer(
-            'http://pelagios.dme.ait.ac.at/tilesets/imperium//{z}/{x}/{y}.png', {
-            attribution: 'Tiles: &lt;a href="http://pelagios-project.blogspot.com/2012/09/a-digital-map-of-roman-empire.html"&gt;Pelagios&lt;/a&gt;, 2012; Data: NASA, OSM, Pleiades, DARMC',
-            maxZoom: 11 });
-            
-            
-            $.getJSON('/exist/apps/srophe/modules/geojson.xql',function(data){
-            var geojson = L.geoJson(data, {
-            onEachFeature: function (feature, layer){
-            var popupContent = "&lt;a href='" + feature.properties.uri + "'&gt;" +
-            feature.properties.name + " - " + feature.properties.type + "&lt;/a&gt;";
-            
-            layer.bindPopup(popupContent);
-            }
-            }) 
-            
-            var map = L.map('map').fitBounds(geojson.getBounds());
-            
-            terrain.addTo(map);
-            
-            L.control.layers({
-            "Terrain (default)": terrain,
-            "Streets": streets,
-            "Imperium": imperium }).addTo(map);
-            
-            geojson.addTo(map);
-            });     
-            
-            //resize
-            $('#map').height(function(){
-                return $(window).height() * 0.6;
-            });
-        </script>
+        <script type="text/javascript" src="/exist/apps/srophe/resources/js/mapjson.js"/>
     </xsl:template>
 </xsl:stylesheet>
