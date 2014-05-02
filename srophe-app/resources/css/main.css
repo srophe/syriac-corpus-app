@@ -13,9 +13,10 @@
  */
 body {
 	font-family: arial, sans-serif;
+    background-color:#753C28;
 }
-#main {margin:0;padding:0;}
-#content {margin:40px 40px 0px 40px; padding:3em; background-color:white;}
+#main {background-color:#F5F2E9;margin:0;padding:0;}
+#content {margin:40px 2.5% 0 2.5%; padding:3em; background-color:white;}
 
 /* Main content blocks */
 .navbar {
@@ -43,7 +44,7 @@ body {
     
 }
 
-.citationinfo {padding:0px 20px 20px; color: #555; border-top:1px solid #666666; background-color:#eee; }
+.citationinfo {padding:0 1em 1em; color: #555; border-top:1px solid #666666; background-color:#eee; }
 #citation {display:none;}
 .column2 well {border: 1px solid #ccc; padding:.5em;}
 .well-white {background-color:white;padding:.5em;}
@@ -74,7 +75,7 @@ h3.syr{
     float:right !important;
 }
 h4 {font-size: 1em; margin-top:1em;}
-
+.get-syriac {font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none}
 .srp-label {background-color:none; color:#999999; font-weight:bold;}
 .textBox {display:block;}
 .caveat {font-size: .785em; font-style:italic; margin-top:-.5em; padding-top:0;}
@@ -96,7 +97,7 @@ h4 {font-size: 1em; margin-top:1em;}
 .browse-alpha {border-bottom:1px solid #ccc; padding-left:2em; padding:0; margin-bottom:1em;}
 .browse-alpha-syr {border-bottom:1px solid #ccc;}
 .browse-alpha li + li {
-    padding-left: 10px;
+    padding-left: 1.5em;
 }
 .nav-stacked > .active > a,
     .nav-stacked > .active > a:hover {
@@ -110,7 +111,7 @@ h4 {font-size: 1em; margin-top:1em;}
 /* footnote styles */
 
 .footnote-refs, .footnote-tgt {
-    font-size: 11.6px;
+    font-size: .7em;
     line-height: 0.5em;
     vertical-align: baseline;
     position: relative;
@@ -122,12 +123,15 @@ h4 {font-size: 1em; margin-top:1em;}
     padding-right:.5em;    
 }
 
-.anchor{
-  display: block;
-  top:-65px !important;
-  height: 65px; 
-  margin-top: -65px; 
-  visibility: hidden;
+.anchor { 
+    position: relative; 
+    top:-75px !important;
+    visibility: hidden; 
+    }
+.anchor:before {
+  content:"";
+  float: left;
+  height: 0px;
 }
 
 
@@ -185,7 +189,7 @@ h4 {font-size: 1em; margin-top:1em;}
 
 
 #nametabs {
-	margin-bottom: 0px;
+	margin-bottom: 0;
 }
 
 .type-content {padding:1em;}
@@ -268,12 +272,12 @@ div[id|=place] > div:first-of-type {
 	width: 30%;
 	float: right;
 	padding: 1em;
-	padding-top: 0px;
+	padding-top: 0;
 	background-color: #EEE;
 }
 div[id|=place] > div:first-of-type > h3, div[id|=place] > div:first-of-type + div > h3 {
-	margin-top: 0px;
-	padding-top: 0px;
+	margin-top: 0;
+	padding-top: 0;
 }
 
 div[id|=place] > div:last-of-type {
