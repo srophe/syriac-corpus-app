@@ -320,7 +320,7 @@
                 <li lang="syr" dir="rtl">
                     <a href="?view=syr&amp;sort={current()}">
                         <xsl:value-of select="current()"/>
-                    </a>    
+                    </a>
                 </li>
             </xsl:for-each>
         </ul>
@@ -336,11 +336,11 @@
         <xsl:variable name="letterBrowse" select="/t:TEI/t:menu"/>
         <ul class="inline">
         <!-- For each character in the list below check for matches in $letterBrowse variable -->
-            <xsl:for-each select="tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z', ' ')">    
+            <xsl:for-each select="tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z', ' ')">
                 <li>
                     <a href="?view=en&amp;sort={current()}">
                         <xsl:value-of select="current()"/>
-                    </a>    
+                    </a>
                 </li>
             </xsl:for-each>
         </ul>

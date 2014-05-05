@@ -370,3 +370,27 @@ label.error {
   -webkit-font-smoothing: antialiased;
 }
 .feedback {margin-top:1em;}
+/* -- leafletjs styles -- 
+.leaflet-control-layers-list {
+  max-height: 350px;
+  overflow: auto !important;
+  -moz-column-count: 2;
+  -moz-column-gap: 10px;
+  -webkit-column-count: 2;
+  -webkit-column-gap: 10px;
+}*/
+.leaflet-control-layers-toggle:after{ 
+    display:block;
+    content:"Map options";
+    font-size:small;
+    color:#000 ;
+    float:left;
+    margin-left:3em;
+}
+.leaflet-control-layers-toggle{ 
+    width:125px !important;
+    background-position: 3px 3px !important;
+    text-decoration:none;
+    line-height:36px;
+
+}
