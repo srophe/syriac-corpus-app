@@ -1,8 +1,5 @@
 xquery version "3.0";
 
-(:~
- : Provides html metadata. Passes data to page.html via config.xqm
- :)
 module namespace geo="http://syriaca.org//geojson";
 
 import module namespace config="http://syriaca.org//config" at "config.xqm";
