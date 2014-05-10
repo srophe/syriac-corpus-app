@@ -4,7 +4,8 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Kafīf</title>
+                <title level="a" xml:lang="en">Kafīf — <foreign xml:lang="syr">ܟܦܝܦ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -33,7 +34,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-05-10</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,6 +66,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-05-10">ADDED: Syriac name and 1777 attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -74,10 +76,15 @@
             <listPlace>
                 <place xml:id="place-1362" type="settlement">
                     <placeName xml:id="name1362-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib1362-1">Kafīf</placeName>
+                    <placeName xml:id="name1362-2" xml:lang="syr" syriaca-tags="#syriaca-headword" source="#bib1362-2">ܟܦܝܦ</placeName>
                     <desc xml:id="abstract-en-1362" xml:lang="en"/>
                     <location type="nested" source="#bib1362-1">
                         <region ref="http://syriaca.org/place/724">Seert region</region>
                     </location>
+                    <event type="attestation" xml:id="attestation1362-1" notBefore="1776-10-01" notAfter="1777-09-30" source="#bib1423-2" syriaca-computed-end="1777-09-30" syriaca-computed-start="1776-10-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="syr">ܟܦܝܦ</foreign> in Mingana Syr. Ms. 316, dated 2088 A.G.</p>
+                        <link target=" #name1362-2 #attestation1362-1"/>
+                    </event>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/1362</idno>
                     <bibl xml:id="bib1362-1">
@@ -85,6 +92,12 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">98</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib1362-2">
+                        <author ref="http://syriaca.org/person/639">Alphonse Mingana</author>
+                        <title xml:lang="en" level="m">Catalogue of the Mingana Collection of Manuscripts</title>
+                        <citedRange unit="col">I:597</citedRange>
+                        <ptr target="http://syriaca.org/bibl/637"/>
                     </bibl>
                 </place>
             </listPlace>

@@ -4,7 +4,8 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Mārshānīs</title>
+                <title level="a" xml:lang="en">Mārshānīs — <foreign xml:lang="syr">ܡܪܫܢܝܣ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -65,6 +66,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-05-10">ADDED: Syriac name and 1777 attestation</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-05-10">FIXED: URL of Ātel district is nested <gi>location</gi></change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -75,11 +77,16 @@
             <listPlace>
                 <place xml:id="place-1423" type="settlement">
                     <placeName xml:id="name1423-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib1423-1">Mārshānīs</placeName>
+                    <placeName xml:id="name1423-2" xml:lang="syr" syriaca-tags="#syriaca-headword" source="#bib1423-2">ܡܪܫܢܝܣ</placeName>
                     <desc xml:id="abstract-en-1423" xml:lang="en"/>
                     <location type="nested" source="#bib1423-1">
                         <region ref="http://syriaca.org/place/732">Ātel district</region>
                         <region ref="http://syriaca.org/place/724">Seert region</region>
                     </location>
+                    <event type="attestation" xml:id="attestation1423-1" notBefore="1776-10-01" notAfter="1777-09-30" source="#bib1423-2" syriaca-computed-end="1777-09-30" syriaca-computed-start="1776-10-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="syr">ܡܪܫܢܝܣ</foreign> in Mingana Syr. Ms. 316, dated 2088 A.G.</p>
+                        <link target=" #name1423-2 #attestation1423-1"/>
+                    </event>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/1423</idno>
                     <bibl xml:id="bib1423-1">
@@ -87,6 +94,12 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">90, 98</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib1423-2">
+                        <author ref="http://syriaca.org/person/639">Alphonse Mingana</author>
+                        <title xml:lang="en" level="m">Catalogue of the Mingana Collection of Manuscripts</title>
+                        <citedRange unit="col">I:597</citedRange>
+                        <ptr target="http://syriaca.org/bibl/637"/>
                     </bibl>
                 </place>
             </listPlace>
