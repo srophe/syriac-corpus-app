@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-05-10</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,6 +65,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-05-10">FIXED: URL of Ātel district is nested <gi>location</gi></change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -79,7 +80,7 @@
                     <desc xml:id="abstract-en-2127" xml:lang="en"/>
                     <location type="nested" source="#bib2127-1">
                         <settlement ref="http://syriaca.org/place/921">Upper Artūn</settlement>
-                        <region ref="http://syriaca.org/place/801">Ātel district</region>
+                        <region ref="http://syriaca.org/place/732">Ātel district</region>
                         <region ref="http://syriaca.org/place/724">Seert region</region>
                     </location>
                     <state type="existence"/>
