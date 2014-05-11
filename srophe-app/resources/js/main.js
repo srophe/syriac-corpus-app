@@ -53,13 +53,13 @@ $().ready(function() {
 // Toggel for related places
 $( "#more-relation" ).click(function() {
   $(this).text($(this).text() == '(see list)' ? '(hide list)' : '(see list)'); 
-  $( "#toggle-relation" ).toggle( "slow");
+  $( "#toggle-relation" ).show( "slow");
 });
 
 //hide related places
 $("#less-relation").click(function(){
   $("#more-relation").text($("#more-relation").text() == '(hide list)' ? '(see list)' : '(hide list)');
-  $("#toggle-relation").hide();
+  $("#toggle-relation").hide("slow");
 });
 
 
