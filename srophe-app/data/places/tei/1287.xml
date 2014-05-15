@@ -4,7 +4,8 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Hōz</title>
+                <title level="a" xml:lang="en">Hōz — <foreign xml:lang="syr">ܐܘܙ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -33,7 +34,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-05-15</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,6 +66,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-05-15">ADDED: Syriac name, English name, and 1548 attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -74,11 +76,17 @@
             <listPlace>
                 <place xml:id="place-1287" type="settlement">
                     <placeName xml:id="name1287-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib1287-1">Hōz</placeName>
+                    <placeName xml:id="name1287-2" xml:lang="en" source="#bib1287-2">Ōz</placeName>
+                    <placeName xml:id="name1287-3" xml:lang="syr" syriaca-tags="#syriaca-headword" source="#bib1287-3">ܐܘܙ</placeName>
                     <desc xml:id="abstract-en-1287" xml:lang="en"/>
                     <location type="nested" source="#bib1287-1">
                         <region ref="http://syriaca.org/place/751">Gwerkel district</region>
                         <region ref="http://syriaca.org/place/712">Gāzartā region</region>
                     </location>
+                    <event type="attestation" xml:id="attestation1287-1" notBefore="1547-10-01" notAfter="1548-09-30" source="#bib1287-3" syriaca-computed-end="1548-09-30" syriaca-computed-start="1547-10-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="syr">ܐܘܙ</foreign> in Mingana Syr. Ms. 421, dated 1859 A.G.</p>
+                        <link target=" #name1287-3 #attestation1287-1"/>
+                    </event>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/1287</idno>
                     <bibl xml:id="bib1287-1">
@@ -86,6 +94,18 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">100, 106, 107, 111, 120, 123</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib1287-2">
+                        <author ref="http://syriaca.org/person/639">Alphonse Mingana</author>
+                        <title xml:lang="en" level="m">Catalogue of the Mingana Collection of Manuscripts</title>
+                        <citedRange unit="col">I:747</citedRange>
+                        <ptr target="http://syriaca.org/bibl/637"/>
+                    </bibl>
+                    <bibl xml:id="bib1287-3">
+                        <author ref="http://syriaca.org/person/639">Alphonse Mingana</author>
+                        <title xml:lang="en" level="m">Catalogue of the Mingana Collection of Manuscripts</title>
+                        <citedRange unit="col">I:748</citedRange>
+                        <ptr target="http://syriaca.org/bibl/637"/>
                     </bibl>
                 </place>
             </listPlace>

@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-05-15</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,6 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-05-15">ADDED: Syriac name and c.1700 attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-01-10">ADDED: disambiguation note</change>
@@ -111,6 +112,7 @@
                     <placeName xml:id="name88-8" xml:lang="ar" source="#bib88-3">جزيرة ابن عمر</placeName>
                     <placeName xml:id="name88-9" xml:lang="en" source="#bib88-4">Jazirat Ibn ʿUmar</placeName>
                     <placeName xml:id="name88-10" xml:lang="en" source="#bib88-5">Gāzartā</placeName>
+                    <placeName xml:id="name88-11" xml:lang="syr" source="#bib88-6">ܓܙܪܬܐ ܙܒܕܝܬܐ</placeName>
                     <desc xml:id="abstract-en-88" xml:lang="en">A city on the <placeName ref="http://syriaca.org/place/202">Tigris river</placeName> between <placeName ref="http://syriaca.org/place/8">Amida</placeName> and <placeName ref="http://syriaca.org/place/139">Mosul</placeName>.</desc>
                     <desc xml:lang="syr-Syrj">
                         <quote source="#bib88-2">ܡܕܺܝܢܬܘܢܝܬܳܐ ܗܝ ܕܥܰܠ ܕܶܩܠܰܬ ܒܶܝܬ ܐܳܡܝܕ ܠܡܰܘܨܠ.</quote>
@@ -124,6 +126,10 @@
                     <location type="gps" source="#bib88-1">
                         <geo>37.325 42.195833</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation88-1" notBefore="1650" notAfter="1750" source="#bib88-6" syriaca-computed-end="1750-01-01" syriaca-computed-start="1650-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="syr">ܓܙܪܬܐ ܙܒܕܝܬܐ</foreign> in Mingana Syr. Ms. 421 in a note c. 1700.</p>
+                        <link target=" #name88-11 #attestation88-1"/>
+                    </event>
                     <state type="existence" from="0912" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0912-01-01">
                         <precision match="@from" notAfter="0912" syriaca-computed-end="0912-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -158,6 +164,12 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">20, 21, 39, 40, 46, 60, 69, 70, 71, 77, 91, 92, 95, 98, 100, 101-107, 109, 110, 112-115, 117, 118, 119, 128, 136, 137, 140, 165, 169, 173, 179, 223, 241, 259, 260, 345, 348, 349, 351, 352, 353</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib88-6">
+                        <author ref="http://syriaca.org/person/639">Alphonse Mingana</author>
+                        <title xml:lang="en" level="m">Catalogue of the Mingana Collection of Manuscripts</title>
+                        <citedRange unit="col">I:748</citedRange>
+                        <ptr target="http://syriaca.org/bibl/637"/>
                     </bibl>
                 </place>
                 <relation name="share-a-name" mutual="#place-88  http://syriaca.org/place/712  http://syriaca.org/place/2304"/>
