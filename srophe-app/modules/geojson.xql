@@ -35,12 +35,10 @@ let $json :=
             </geometry>
             <properties>
                 <uri>{concat('/place/',substring-after($id,'place-'),'.html')}</uri>
-                <type>{$type}</type>
+                <placeType>{if($type='opne-water') then 'openWater' else $type}</placeType>
                 <name>{$title}</name>
             </properties>
         </features>
   }
 </json>
 return $json
-
-  
