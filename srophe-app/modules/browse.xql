@@ -103,7 +103,7 @@ declare function browse:get-sort(){
         else if($browse:sort = 'H') then 'H h ḥ Ḥ'
         else if($browse:sort = 'T') then 'T t ṭ Ṭ'
         else if($browse:sort = 'I') then 'I i ī Ī'
-        else if($browse:sort = 'O') then 'O o Œ œ'
+        else if($browse:sort = 'O') then 'O Ō o Œ œ'
         else $browse:sort
     else 'A a ẵ Ẵ ằ Ằ ā Ā'
 };
