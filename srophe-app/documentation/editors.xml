@@ -162,6 +162,12 @@
                         <surname>Salesky</surname>
                     </persName>
                 </person>
+                <person xml:id="skhader">
+                    <persName xml:lang="en">
+                        <forename>Samer</forename>
+                        <surname>Khader</surname>
+                    </persName>
+                </person>
                 <org xml:id="uasyriacresearchgroup">
                     <name xml:lang="en">The Syriac Research Group, University of Alabama</name>
                 </org>
