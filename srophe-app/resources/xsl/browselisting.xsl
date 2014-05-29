@@ -48,6 +48,9 @@
     <xsl:output encoding="UTF-8" method="html" indent="yes"/>
     <xsl:param name="normalization">NFKC</xsl:param>
     
+    <xsl:variable name="collection" select="/t:TEI/@browse-coll"/>
+    <xsl:variable name="collection-param" select="concat('&amp;coll=',$collection)"/>
+    
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      top-level logic and instructions for creating the browse listing page
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -102,7 +105,7 @@
                     <!-- List -->
             <ul style="margin-left:4em; padding-top:1em;">
                         <!-- for each place build title and links -->
-                <xsl:call-template name="place-name-en"/>
+                <xsl:call-template name="name-en"/>
             </ul>
         </div>
     </xsl:template>
@@ -132,26 +135,124 @@
             </h3>
             <ul style="margin-right:7em; margin-top:1em;">
                         <!-- For each place build title and links -->
-                <xsl:for-each select="//t:place">
-                            <!-- Sorts on syriac name  -->
-                    <xsl:sort collation="{$mixed}" select="t:placeName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']"/>
-                    <xsl:variable name="placenum" select="substring-after(@xml:id,'place-')"/>
+                <xsl:for-each select="//t:browse">
+                    <!-- Sorts on syriac name  -->
+                    <xsl:sort collation="{$mixed}" select="child::*[@xml:lang='syr'][@syriaca-tags='#syriaca-headword'][1]"/>
                     <li>
-                        <a href="/place/{$placenum}.html">
+                        <xsl:choose>
+                            <xsl:when test="t:persName">
+                                <xsl:variable name="persnum" select="substring-after(@xml:id,'person-')"/>
+                                <a href="person.html?id={$persnum}">
                                     <!-- Syriac name -->
-                            <bdi dir="rtl" lang="syr" xml:lang="syr">
-                                <xsl:value-of select="t:placeName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']"/>
-                            </bdi> -   
+                                    <bdi dir="rtl" lang="syr" xml:lang="syr">
+                                        <xsl:value-of select="string-join(t:persName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']/child::*/text(),' ')"/>
+                                    </bdi> -   
                                     <!-- English name -->
-                            <bdi dir="ltr" lang="en" xml:lang="en">
-                                <xsl:value-of select="t:placeName[@xml:lang='en'][@syriaca-tags='#syriaca-headword']"/>
-                                <xsl:if test="@type"> (<xsl:value-of select="@type"/>)</xsl:if>
-                            </bdi>
-                        </a>
+                                    <bdi dir="ltr" lang="en" xml:lang="en">
+                                        <xsl:value-of select="string-join(t:persName[starts-with(@xml:lang,'en')][@syriaca-tags='#syriaca-headword']/child::*/text(),' ')"/>
+                                        <!-- ana if exists -->
+                                        <xsl:if test="@ana != ''">
+                                            <bdi dir="ltr" lang="en" xml:lang="en"> (<xsl:value-of select="substring-after(@ana,'#syriaca-')"/>)</bdi>
+                                        </xsl:if>
+                                    </bdi>
+                                </a>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:variable name="placenum" select="substring-after(@xml:id,'place-')"/>
+                                <a href="/place/{$placenum}.html">
+                                    <!-- Syriac name -->
+                                    <bdi dir="rtl" lang="syr" xml:lang="syr">
+                                        <xsl:value-of select="t:placeName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']"/>
+                                    </bdi> -   
+                                    <!-- English name -->
+                                    <bdi dir="ltr" lang="en" xml:lang="en">
+                                        <xsl:value-of select="t:placeName[@xml:lang='en'][@syriaca-tags='#syriaca-headword']"/>
+                                        <xsl:if test="@type"> (<xsl:value-of select="@type"/>)</xsl:if>
+                                    </bdi>
+                                </a>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </li>
                 </xsl:for-each>
             </ul>
         </div>
+    </xsl:template>
+    
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+     named template: name-en
+     
+     Builds english place names
+     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <xsl:template name="name-en">
+        <xsl:for-each select="//t:browse">
+            <!-- Sort places by mixed collation in collation.xsl -->
+            <xsl:sort collation="{$mixed}" select="@sort-title"/>
+            <li>
+                <xsl:choose>
+                    <xsl:when test="t:persName">
+                        <xsl:variable name="persnum" select="substring-after(@xml:id,'person-')"/>
+                        <!-- Active link for production site
+                            <a href="/person/{$persnum}.html">
+                        -->
+                        <a href="person.html?id={$persnum}">
+                            <!-- English name -->
+                            <bdi dir="ltr" lang="en" xml:lang="en">
+                                <xsl:value-of select="string-join(t:persName[starts-with(@xml:lang,'en')][@syriaca-tags='#syriaca-headword']/child::*/text(),' ')"/>
+                            </bdi>
+                            <!-- ana if exists -->
+                            <xsl:if test="@ana != ''">
+                                <bdi dir="ltr" lang="en" xml:lang="en"> (<xsl:value-of select="substring-after(@ana,'#syriaca-')"/>)</bdi>
+                            </xsl:if>
+                            <!-- Type if exists -->
+                            <xsl:if test="@type != ''">
+                                <bdi dir="ltr" lang="en" xml:lang="en"> (<xsl:value-of select="@type"/>)</bdi>
+                            </xsl:if>
+                            <bdi dir="ltr" lang="en" xml:lang="en">
+                                <span> -  </span>
+                            </bdi>
+                            <!-- Syriac name if available -->
+                            <xsl:choose>
+                                <xsl:when test="t:persName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']">
+                                    <bdi dir="rtl" lang="syr" xml:lang="syr">
+                                        <xsl:value-of select="string-join(t:persName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']/child::*/text(),' ')"/>
+                                    </bdi>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <bdi dir="ltr">[ Syriac Not Available ]</bdi>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </a>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:variable name="placenum" select="substring-after(@xml:id,'place-')"/>
+                        <a href="/place/{$placenum}.html">
+                            <!-- English name -->
+                            <bdi dir="ltr" lang="en" xml:lang="en">
+                                <xsl:value-of select="t:placeName[@xml:lang='en'][@syriaca-tags='#syriaca-headword']"/>
+                            </bdi>
+                            <!-- Type if exists -->
+                            <xsl:if test="@type">
+                                <bdi dir="ltr" lang="en" xml:lang="en"> (<xsl:value-of select="@type"/>)</bdi>
+                            </xsl:if>
+                            <bdi dir="ltr" lang="en" xml:lang="en">
+                                <span> -  </span>
+                            </bdi>
+                            <!-- Syriac name if available -->
+                            <xsl:choose>
+                                <xsl:when test="t:placeName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']">
+                                    <bdi dir="rtl" lang="syr" xml:lang="syr">
+                                        <xsl:value-of select="t:placeName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']"/>
+                                    </bdi>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <bdi dir="ltr">[ Syriac Not Available ]</bdi>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </a>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </li>
+        </xsl:for-each>
     </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -174,14 +275,14 @@
                 <xsl:if test="count(descendant::t:geo) &gt; 1">
                     <a href="#" id="show-map-btn">View map</a>
                 </xsl:if>
-                <xsl:if test="count(//t:place) = 0">
+                <xsl:if test="count(//t:browse) = 0">
                     <p>No places of this type yet. </p>
                 </xsl:if>
                 <div id="map-div" style="display:none;">
                     <div id="map" class="map" style="height:400px"/>
                     <div id="map-caveat" class="map pull-right caveat" style="margin-top:1em;">
-                        <xsl:value-of select="count(//t:place[descendant::t:geo])"/> of 
-                        <xsl:value-of select="count(//t:place)"/> 
+                        <xsl:value-of select="count(//t:browse[descendant::t:geo])"/> of 
+                        <xsl:value-of select="count(//t:browse)"/> 
                         places have coordinates and are shown on this map. 
                         <a href="#map-selection" role="button" data-toggle="modal">Read more...</a>
                     </div>
@@ -260,7 +361,7 @@
                     <xsl:otherwise>
                         <ul style="margin-left:4em; padding-top:1em;">
                             <!-- for each place build title and links -->
-                            <xsl:call-template name="place-name-en"/>
+                            <xsl:call-template name="name-en"/>
                         </ul>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -268,45 +369,7 @@
         </xsl:if>
     </xsl:template>
    
-    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-     named template: place-name-en
-     
-     Builds english place names
-     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <xsl:template name="place-name-en">
-        <xsl:for-each select="//t:place">
-            <!-- Sort places by mixed collation in collation.xsl -->
-            <xsl:sort collation="{$mixed}" select="@sort-title"/>
-            <xsl:variable name="placenum" select="substring-after(@xml:id,'place-')"/>
-            <li>
-                <a href="/place/{$placenum}.html">
-                    <!-- English name -->
-                    <bdi dir="ltr" lang="en" xml:lang="en">
-                        <xsl:value-of select="t:placeName[@xml:lang='en'][@syriaca-tags='#syriaca-headword']"/>
-                    </bdi>
-                    <!-- Type if exists -->
-                    <xsl:if test="@type">
-                        <bdi dir="ltr" lang="en" xml:lang="en"> (<xsl:value-of select="@type"/>)</bdi>
-                    </xsl:if>
-                    <bdi dir="ltr" lang="en" xml:lang="en">
-                        <span> -  </span>
-                    </bdi>
-                    <!-- Syriac name if available -->
-                    <xsl:choose>
-                        <xsl:when test="t:placeName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']">
-                            <bdi dir="rtl" lang="syr" xml:lang="syr">
-                                <xsl:value-of select="t:placeName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']"/>
-                            </bdi>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <bdi dir="ltr">[ Syriac Not Available ]</bdi>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </a>
-            </li>
-        </xsl:for-each>
-    </xsl:template>
-    
+
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      named template: letter-menu-syr
      
@@ -318,7 +381,7 @@
             <!-- Uses tokenize to split string and iterate through each character in the list below to check for matches with $letterBrowse variable -->
             <xsl:for-each select="tokenize('ܐ ܒ ܓ ܕ ܗ ܘ ܙ ܚ ܛ ܝ ܟ ܠ ܡ ܢ ܣ ܥ ܦ ܩ ܪ ܫ ܬ', ' ')">
                 <li lang="syr" dir="rtl">
-                    <a href="?view=syr&amp;sort={current()}">
+                    <a href="?view=syr&amp;sort={current()}{$collection-param}">
                         <xsl:value-of select="current()"/>
                     </a>
                 </li>
@@ -338,7 +401,7 @@
         <!-- For each character in the list below check for matches in $letterBrowse variable -->
             <xsl:for-each select="tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z', ' ')">
                 <li>
-                    <a href="?view=en&amp;sort={current()}">
+                    <a href="?view=en&amp;sort={current()}{$collection-param}">
                         <xsl:value-of select="current()"/>
                     </a>
                 </li>
