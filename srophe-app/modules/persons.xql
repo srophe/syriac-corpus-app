@@ -30,6 +30,32 @@ declare function persons:get-persons($node as node(), $model as map(*)){
     return map {"persons-data" := $rec}
 };
 
+(:~
+ : Get related items     
+:)
+declare function persons:get-related-places($rec as node()*){
+    <related-items>
+        {
+            for $related in $rec//tei:relation 
+            let $item-uri := string($related/@passive)
+            let $desc := $related/tei:desc
+            return 
+                <relation uri="{$item-uri}">
+                    {(for $att in $related/@*
+                      return attribute {name($att)} {$att},
+                        for $rel-item in collection($config:app-root || "/data")//tei:idno [. = $item-uri]
+                        let $title := $rel-item/ancestor::tei:TEI//tei:titleStmt/tei:title[1]
+                        return 
+                            <item uri="{$item-uri}">{$title}</item>
+                           ,
+                           $desc
+                           
+                       )
+                    }
+                </relation>    
+        }
+     </related-items> 
+};      
 (:~ 
  : Pull together persons page data   
  : Adds related persons and nested locations to full TEI document
@@ -45,11 +71,11 @@ declare %templates:wrap function persons:get-persons-data($node as node(), $mode
                     xmlns:math="http://www.w3.org/1998/Math/MathML"
                     xmlns="http://www.tei-c.org/ns/1.0">
                     {
-                        $rec/child::*
+                       ($rec/child::*,persons:get-related-places($rec) )
                     }
                     </TEI>
     let $cache :='Change value to force page refresh 90066887963'
     return
-       (: $buildRec:)
+        (:$buildRec:)
        transform:transform($buildRec, doc('../resources/xsl/personspage.xsl'),() )
 };
