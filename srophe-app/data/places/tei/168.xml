@@ -4,7 +4,8 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Rabban Hormizd</title>
+                <title level="a" xml:lang="en">Rabban Hormizd — <foreign xml:lang="syr">ܪܒܢ ܗܘܪܡܝܙܕ ܥܓ̰ܡܝܐ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -33,7 +34,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-03-26</date>
+                <date>2014-06-07</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,6 +66,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-07">ADDED: Syriac headword and 1683 attestation</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-26">FIXED: URI for confessions.xml needed "documentation/" to be inserted</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-02-10-05:00">ADDED: syriaca-computed-end for elements with when attributes</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
@@ -79,6 +81,8 @@
                     <placeName xml:id="name168-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib168-2">Rabban Hormizd</placeName>
                     <placeName xml:id="name168-2" xml:lang="en" source="#bib168-3">monastery of Rabban Hormizd</placeName>
                     <placeName xml:id="name168-3" xml:lang="en" source="#bib168-4">Rabban Hormizd the Persian</placeName>
+                    <placeName xml:id="name168-4" xml:lang="syr" syriaca-tags="#syriaca-headword" source="#bib168-6">ܪܒܢ ܗܘܪܡܝܙܕ ܥܓ̰ܡܝܐ</placeName>
+                    <placeName xml:id="name168-5" xml:lang="syr-Syrn" source="#bib168-6">ܪܲܒ̇ܢ ܗܘܿܪܡܝܼܙܕ ܥܲܓ̰ܡܵܝܐ</placeName>
                     <desc xml:id="abstract-en-168" xml:lang="en">
                         <quote source="#bib168-1">The Chaldean monastery of Rabban Hormizd, built upon a mountain ridge northeast of Alqosh in northern Iraq, is famous not only for its magnificent location and impressive buildings, but also for its central role in the history of the transmission of E.-Syr. literature and its importance in the struggles between the Chald. Church and the Ch. of E., to which the monastery originally belonged.</quote>
                     </desc>
@@ -157,6 +161,10 @@
                         <p xml:lang="en">Attestation of allegiance to <persName>Catholicos Shemʿon</persName> who died <date when="1558-11" syriaca-computed-start="1558-11-01" syriaca-computed-end="1558-11-01">the start of Tishri I 1570 (November 1558)</date> in an inscription.</p>
                         <link target="#confession168-2 #attestation168-8"/>
                     </event>
+                    <event type="attestation" xml:id="attestation168-9" when="1683-06-21" source="#bib168-6" syriaca-computed-end="1683-06-21" syriaca-computed-start="1683-06-21">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="syr">ܪܲܒ̇ܢ ܗܘܿܪܡܝܼܙܕ ܥܲܓ̰ܡܵܝܐ</foreign> in the colophon of <title>Mardin, Chaldean Cathedral Ms. Macomber 32,19 [HMML CCM 00168]</title>.</p>
+                        <link targets="#name168-5 #attestation168-9"/>
+                    </event>
                     <state type="existence" from="0700" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0700-01-01">
                         <precision match="@from" notAfter="0700" notBefore="0600" syriaca-computed-end="0700-01-01" syriaca-computed-start="0600-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -205,6 +213,10 @@
                         <title level="a" xml:lang="fr">Les inscriptions de Rabban Hormizd et de N.-D. des Semences près d’Alqoš (Iraq)</title>
                         <citedRange unit="pp">266-268, 271-272, 274-276, 281-284, 286-287</citedRange>
                         <ptr target="http://syriaca.org/bibl/635"/>
+                    </bibl>
+                    <bibl xml:id="bib168-6">
+                        <title xml:lang="en">Mardin, Chaldean Cathedral Ms. Macomber 32,19 [HMML CCM 00168]</title>
+                        <citedRange unit="ff">93v</citedRange>
                     </bibl>
                 </place>
             </listPlace>

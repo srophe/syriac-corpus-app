@@ -4,7 +4,8 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Karsāpā</title>
+                <title level="a" xml:lang="en">Karsāpā — <foreign xml:lang="syr">ܟܪܣܒܐ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -33,7 +34,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-07</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,6 +66,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-07">ADDED: Syriac headword, 1683 attestation, existence dates</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -74,17 +76,30 @@
             <listPlace>
                 <place xml:id="place-1369" type="settlement">
                     <placeName xml:id="name1369-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib1369-1">Karsāpā</placeName>
+                    <placeName xml:id="name1369-2" xml:lang="syr" syriaca-tags="#syriaca-headword" source="#bib1369-2">ܟܪܣܒܐ</placeName>
+                    <placeName xml:id="name1369-3" xml:lang="syr-Syrn" source="#bib1369-2">ܟܲܪܣܵܒ̣ܐ</placeName>
                     <desc xml:id="abstract-en-1369" xml:lang="en"/>
                     <location type="nested" source="#bib1369-1">
                         <region ref="http://syriaca.org/place/722">Mosul region</region>
                     </location>
-                    <state type="existence"/>
+                    <event type="attestation" xml:id="attestation1369-1" when="1683-06-21" source="#bib1369-2" syriaca-computed-end="1683-06-21" syriaca-computed-start="1683-06-21">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="syr">ܟܲܪܣܵܒ̣ܐ</foreign> in the colophon of <title>Mardin, Chaldean Cathedral Ms. Macomber 32,19 [HMML CCM 00168]</title>.</p>
+                        <link targets="#name1369-3 #attestation1369-1"/>
+                    </event>
+                    <state type="existence" from="1683" to="1683" syriaca-computed-end="1683-01-01" syriaca-computed-start="1683-01-01">
+                        <precision match="@from" notAfter="1683" syriaca-computed-end="1683-01-01"/>
+                        <precision match="@to" notBefore="1683" syriaca-computed-start="1683-01-01"/>
+                    </state>
                     <idno type="URI">http://syriaca.org/place/1369</idno>
                     <bibl xml:id="bib1369-1">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">189, 199, 240, 261</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib1369-2">
+                        <title xml:lang="en">Mardin, Chaldean Cathedral Ms. Macomber 32,19 [HMML CCM 00168]</title>
+                        <citedRange unit="ff">94r</citedRange>
                     </bibl>
                 </place>
             </listPlace>
