@@ -184,7 +184,12 @@
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Seleucia-Ctesiphon&amp;sT=keywords">Seleucia-Ctesiphon</citedRange>
                     </bibl>
-                <bibl xml:id="bib58-7"/>
+                <bibl xml:id="bib58-7">
+                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                  <author>Yāqūt al-Ḥamawī</author>
+                  <ptr target="http://syriaca.org/bibl/636"/>
+                  <citedRange unit="pp"/>
+               </bibl>
             </place>
             </listPlace>
         </body>

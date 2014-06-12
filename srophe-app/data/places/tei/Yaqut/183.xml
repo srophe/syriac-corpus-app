@@ -101,7 +101,12 @@
                         <citedRange unit="pp">229, 345</citedRange>
                         <citedRange unit="maps">Map I A2</citedRange>
                     </bibl>
-                <bibl xml:id="bib183-2"/>
+                <bibl xml:id="bib183-2">
+                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                  <author>Yāqūt al-Ḥamawī</author>
+                  <ptr target="http://syriaca.org/bibl/636"/>
+                  <citedRange unit="pp"/>
+               </bibl>
             </place>
             </listPlace>
         </body>

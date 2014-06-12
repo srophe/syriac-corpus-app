@@ -188,7 +188,12 @@
                         <title>http://pleiades.stoa.org/places/874699</title>
                         <ptr target="http://pleiades.stoa.org/places/874699"/>
                     </bibl>
-                <bibl xml:id="bib184-8"/>
+                <bibl xml:id="bib184-8">
+                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                  <author>Yāqūt al-Ḥamawī</author>
+                  <ptr target="http://syriaca.org/bibl/636"/>
+                  <citedRange unit="pp"/>
+               </bibl>
             </place>
                 <relation name="share-a-name" mutual="#place-184  http://syriaca.org/place/2377"/>
             </listPlace>

@@ -141,7 +141,12 @@
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Tigris&amp;sT=keywords">Tigris</citedRange>
                     </bibl>
-                <bibl xml:id="bib202-6"/>
+                <bibl xml:id="bib202-6">
+                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                  <author>Yāqūt al-Ḥamawī</author>
+                  <ptr target="http://syriaca.org/bibl/636"/>
+                  <citedRange unit="pp"/>
+               </bibl>
             </place>
             </listPlace>
         </body>

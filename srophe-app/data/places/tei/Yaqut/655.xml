@@ -99,7 +99,12 @@
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Sirrin&amp;sT=keywords">Sirrin</citedRange>
                     </bibl>
-                <bibl xml:id="bib655-2"/>
+                <bibl xml:id="bib655-2">
+                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                  <author>Yāqūt al-Ḥamawī</author>
+                  <ptr target="http://syriaca.org/bibl/636"/>
+                  <citedRange unit="pp"/>
+               </bibl>
             </place>
             </listPlace>
         </body>

@@ -180,7 +180,12 @@
                         <citedRange unit="pp">1, 2, 5, 8, 11, 12, 14, 17, 20, 22, 24, 25, 26, 27, 28, 29, 30, 33, 35, 36, 38, 39, 47, 49, 53, 64, 66, 70, 78, 80, 89, 109, 112, 121, 122, 136, 140, 147, 160, 166, 172, 173, 176, 180, 185, 186, 187, 188, 189, 190, 191, 192-199, 200, 201, 204, 205-216 , 217 , 219 , 220, 222, 223 , 224, 231, 231, 232, 234, 236, 241, 242, 254, 257, 259, 263, 264, 265, 267, 269, 271, 283, 288, 289, 313, 316, 318, 320, 321, 345, 348, 349, 350, 352, 355, 357, 358, 359, 363</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib139-8"/>
+                <bibl xml:id="bib139-8">
+                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                  <author>Yāqūt al-Ḥamawī</author>
+                  <ptr target="http://syriaca.org/bibl/636"/>
+                  <citedRange unit="pp"/>
+               </bibl>
             </place>
                 <relation name="share-a-name"
                       mutual="#place-139  http://syriaca.org/place/722  http://syriaca.org/place/2346"/>

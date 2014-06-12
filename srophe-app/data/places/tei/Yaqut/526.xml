@@ -129,7 +129,12 @@
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=I&amp;sK=Iran&amp;sT=keywords">Iran</citedRange>
                     </bibl>
-                <bibl xml:id="bib526-5"/>
+                <bibl xml:id="bib526-5">
+                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                  <author>Yāqūt al-Ḥamawī</author>
+                  <ptr target="http://syriaca.org/bibl/636"/>
+                  <citedRange unit="pp"/>
+               </bibl>
             </place>
             </listPlace>
         </body>

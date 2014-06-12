@@ -163,7 +163,12 @@
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Azerbaijan&amp;sT=keywords">Azerbaijan</citedRange>
                     </bibl>
-                <bibl xml:id="bib5-6"/>
+                <bibl xml:id="bib5-6">
+                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                  <author>Yāqūt al-Ḥamawī</author>
+                  <ptr target="http://syriaca.org/bibl/636"/>
+                  <citedRange unit="pp"/>
+               </bibl>
             </place>
                 <relation name="share-a-name" mutual="#place-5  http://syriaca.org/place/2278"/>
             </listPlace>

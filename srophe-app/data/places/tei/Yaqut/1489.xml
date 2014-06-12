@@ -136,7 +136,12 @@
                         <title>http://pleiades.stoa.org/places/874720</title>
                         <ptr target="http://pleiades.stoa.org/places/874720"/>
                     </bibl>
-                <bibl xml:id="bib1489-5"/>
+                <bibl xml:id="bib1489-5">
+                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                  <author>Yāqūt al-Ḥamawī</author>
+                  <ptr target="http://syriaca.org/bibl/636"/>
+                  <citedRange unit="pp"/>
+               </bibl>
             </place>
             </listPlace>
         </body>

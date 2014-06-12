@@ -112,7 +112,12 @@
                         <citedRange unit="pp">278, 284, 304, 310, 325, 352</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib207-3"/>
+                <bibl xml:id="bib207-3">
+                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                  <author>Yāqūt al-Ḥamawī</author>
+                  <ptr target="http://syriaca.org/bibl/636"/>
+                  <citedRange unit="pp"/>
+               </bibl>
             </place>
                 <relation name="share-a-name"
                       mutual="#place-207  http://syriaca.org/place/791  http://syriaca.org/place/2407"/>

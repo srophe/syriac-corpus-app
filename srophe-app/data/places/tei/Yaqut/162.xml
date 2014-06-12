@@ -155,7 +155,12 @@
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=C&amp;sK=Chalcis&amp;sT=keywords">Chalcis</citedRange>
                     </bibl>
-                <bibl xml:id="bib162-5"/>
+                <bibl xml:id="bib162-5">
+                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                  <author>Yāqūt al-Ḥamawī</author>
+                  <ptr target="http://syriaca.org/bibl/636"/>
+                  <citedRange unit="pp"/>
+               </bibl>
             </place>
             </listPlace>
         </body>

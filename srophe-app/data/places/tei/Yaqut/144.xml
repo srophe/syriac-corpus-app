@@ -167,7 +167,12 @@
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=N&amp;sK=Nineveh&amp;sT=keywords">Nineveh</citedRange>
                     </bibl>
-                <bibl xml:id="bib144-7"/>
+                <bibl xml:id="bib144-7">
+                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                  <author>Yāqūt al-Ḥamawī</author>
+                  <ptr target="http://syriaca.org/bibl/636"/>
+                  <citedRange unit="pp"/>
+               </bibl>
             </place>
                 <relation name="share-a-name" mutual="#place-144  http://syriaca.org/place/2350"/>
             </listPlace>

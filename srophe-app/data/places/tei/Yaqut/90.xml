@@ -131,7 +131,12 @@
                         <citedRange unit="pp">1, 2, 3, 6, 8, 12, 14, 15, 17, 24, 33, 36, 37, 89, 166, 232, 242, 275, 276-311, 322, 324, 346, 352, 353, 354, 365, 366, 367, 369, 370</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib90-5"/>
+                <bibl xml:id="bib90-5">
+                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                  <author>Yāqūt al-Ḥamawī</author>
+                  <ptr target="http://syriaca.org/bibl/636"/>
+                  <citedRange unit="pp"/>
+               </bibl>
             </place>
                 <relation name="share-a-name" mutual="#place-90  http://syriaca.org/place/2310"/>
             </listPlace>

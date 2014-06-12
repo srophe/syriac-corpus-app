@@ -93,7 +93,12 @@
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=N&amp;sK=North Africa&amp;sT=keywords">North Africa</citedRange>
                     </bibl>
-                <bibl xml:id="bib1178-2"/>
+                <bibl xml:id="bib1178-2">
+                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                  <author>Yāqūt al-Ḥamawī</author>
+                  <ptr target="http://syriaca.org/bibl/636"/>
+                  <citedRange unit="pp"/>
+               </bibl>
             </place>
             </listPlace>
         </body>
