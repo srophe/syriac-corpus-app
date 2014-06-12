@@ -52,7 +52,6 @@
                     <title xml:lang="de" level="m">Geschichte der syrischen Literatur mit Ausschluß der christlich-palästinensischen Texte</title>
                     <imprint>
                         <publisher xml:lang="de">A. Marcus und E. Webers Verlag Dr. jur. Albert Ahn</publisher>
-                        <!-- Do we need to add a place record for Bonn? -->
                         <pubPlace ref="http://syriaca.org/place/2541">Bonn</pubPlace>
                         <date>1922</date>
                     </imprint>
