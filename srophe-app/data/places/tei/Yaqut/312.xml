@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Tel Besme
@@ -98,29 +98,29 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-312" type="settlement">
-                    <placeName xml:id="name312-1" xml:lang="en" syriaca-tags="#syriaca-headword">Tel Besme</placeName>
-                    <placeName xml:id="name312-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܬܠܒܣ̈ܡܐ</placeName>
-                    <placeName xml:id="name312-3" xml:lang="syr-Syrj" source="#bib312-1">ܬܶܠܒܣܡ</placeName>
-                    <placeName xml:id="name312-4" xml:lang="syr-Syrj" source="#bib312-1">ܬܶܠܒܶܣ̈ܡܐ</placeName>
-                    <placeName xml:id="name312-5" xml:lang="ar" source="#bib312-2">تلّ بسم</placeName>
-                    <placeName xml:id="name312-6" xml:lang="ar" source="#bib312-2">تلّ بسمة</placeName>
-                    <placeName xml:id="name312-7" xml:lang="en" source="#bib312-3">Tālbsam</placeName>
-                    <placeName xml:id="name312-8" xml:lang="en" source="#bib312-3">Tālbsma</placeName>
-                    <desc xml:id="abstract-en-312" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-312" type="settlement">
+               <placeName xml:id="name312-1" xml:lang="en" syriaca-tags="#syriaca-headword">Tel Besme</placeName>
+               <placeName xml:id="name312-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܬܠܒܣ̈ܡܐ</placeName>
+               <placeName xml:id="name312-3" xml:lang="syr-Syrj" source="#bib312-1">ܬܶܠܒܣܡ</placeName>
+               <placeName xml:id="name312-4" xml:lang="syr-Syrj" source="#bib312-1">ܬܶܠܒܶܣ̈ܡܐ</placeName>
+               <placeName xml:id="name312-5" xml:lang="ar" source="#bib312-2">تلّ بسم</placeName>
+               <placeName xml:id="name312-6" xml:lang="ar" source="#bib312-2">تلّ بسمة</placeName>
+               <placeName xml:id="name312-7" xml:lang="en" source="#bib312-3">Tālbsam</placeName>
+               <placeName xml:id="name312-8" xml:lang="en" source="#bib312-3">Tālbsma</placeName>
+               <desc xml:id="abstract-en-312" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib312-1">ܐܰܬܪܐ ܗܘ ܕܡܶܢ ܦܶܢܝ̈ܬܳܐ ܕܕܺܝܐܰܪ ܪܒܝܥܗ ܘܡܶܢ ܦܶܢܝ̈ܬܳܐ ܕܰܫܒܟܬܐܢ ܠܓܰܪܒܰܝ ܡܰܥܪܰܒ ܡܰܪܕܝܢ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib312-2">بلد من نواحي ديار ربيعة ثم من ناحية شبختان شمالي غربي ماردين</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib312-3">a town in the district of Rabiʿa, later Shabakhtan, northwest of Mardin.</quote>
                     </desc>
-                    <state type="existence"
+               <state type="existence"
                       from="1125"
                       to="1207"
                       syriaca-computed-end="1207-01-01"
@@ -128,30 +128,30 @@
                         <precision match="@from" notAfter="1125" syriaca-computed-end="1125-01-01"/>
                         <precision match="@to" notBefore="1207" syriaca-computed-start="1207-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/312</idno>
-                    <bibl xml:id="bib312-1">
+               <idno type="URI">http://syriaca.org/place/312</idno>
+               <bibl xml:id="bib312-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">538</citedRange>
                     </bibl>
-                    <bibl xml:id="bib312-2">
+               <bibl xml:id="bib312-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">505</citedRange>
                     </bibl>
-                    <bibl xml:id="bib312-3">
+               <bibl xml:id="bib312-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">559</citedRange>
                     </bibl>
-                <bibl xml:id="bib312-4">
+               <bibl xml:id="bib312-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

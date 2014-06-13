@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Turkestan</title>
@@ -72,36 +72,36 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-647" type="region">
-                    <placeName xml:id="name647-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-647" type="region">
+               <placeName xml:id="name647-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib647-1">Turkestan</placeName>
-                    <desc xml:id="abstract-en-647" xml:lang="en">A region in <placeName ref="http://syriaca.org/place/585">Central Asia</placeName>.</desc>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/647</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Turkestan</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Turkestan</idno>
-                    <idno type="URI">
+               <desc xml:id="abstract-en-647" xml:lang="en">A region in <placeName ref="http://syriaca.org/place/585">Central Asia</placeName>.</desc>
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/647</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Turkestan</idno>
+               <idno type="URI">http://dbpedia.org/resource/Turkestan</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Turkestan&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib647-1">
+               <bibl xml:id="bib647-1">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Turkestan&amp;sT=keywords">Turkestan</citedRange>
                     </bibl>
-                <bibl xml:id="bib647-2">
+               <bibl xml:id="bib647-2">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

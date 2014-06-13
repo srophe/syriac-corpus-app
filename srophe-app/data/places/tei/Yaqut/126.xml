@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Mar Aḥa</title>
@@ -77,23 +77,23 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-126" type="monastery">
-                    <placeName xml:id="name126-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-126" type="monastery">
+               <placeName xml:id="name126-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib126-1">Mar Aḥa</placeName>
-                    <placeName xml:id="name126-2" xml:lang="en" source="#bib126-2">monastery of Mar Ahha</placeName>
-                    <placeName xml:id="name126-3" xml:lang="en" source="#bib126-3">Mār Aḥḥā the Egyptian</placeName>
-                    <placeName xml:id="name126-4" xml:lang="en" source="#bib126-3">Zarnūqā</placeName>
-                    <desc xml:id="abstract-en-126" xml:lang="en">A monastery west of <placeName ref="http://syriaca.org/place/88">Gazarta</placeName>.</desc>
-                    <location type="nested" source="#bib126-3">
+               <placeName xml:id="name126-2" xml:lang="en" source="#bib126-2">monastery of Mar Ahha</placeName>
+               <placeName xml:id="name126-3" xml:lang="en" source="#bib126-3">Mār Aḥḥā the Egyptian</placeName>
+               <placeName xml:id="name126-4" xml:lang="en" source="#bib126-3">Zarnūqā</placeName>
+               <desc xml:id="abstract-en-126" xml:lang="en">A monastery west of <placeName ref="http://syriaca.org/place/88">Gazarta</placeName>.</desc>
+               <location type="nested" source="#bib126-3">
                         <region ref="http://syriaca.org/place/786">Tigris Valley</region>
                         <region ref="http://syriaca.org/place/712">Gāzartā region</region>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0400"
                       to="1836"
                       syriaca-computed-end="1836-01-01"
@@ -105,38 +105,38 @@
                              syriaca-computed-start="0300-01-01"/>
                         <precision match="@to" notBefore="1836" syriaca-computed-start="1836-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/126</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/126</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=m&amp;sK=monastery of Mar Ahha&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib126-1">
+               <bibl xml:id="bib126-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">4</citedRange>
                         <citedRange unit="maps">Map IV</citedRange>
                     </bibl>
-                    <bibl xml:id="bib126-2">
+               <bibl xml:id="bib126-2">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=m&amp;sK=monastery of Mar Ahha&amp;sT=keywords">monastery of Mar Ahha</citedRange>
                     </bibl>
-                    <bibl xml:id="bib126-3">
+               <bibl xml:id="bib126-3">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">20, 95, 102, 109, 110, 113, 115-116, 117, 119, 165, 349, 353, 354, 358</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib126-4">
+               <bibl xml:id="bib126-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name"
+            <relation name="share-a-name"
                       mutual="#place-126  http://syriaca.org/place/1867  http://syriaca.org/place/1868"/>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

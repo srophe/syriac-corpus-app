@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Monastery of Yaʿqob the Recluse</title>
@@ -72,17 +72,17 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-1230" type="monastery">
-                    <placeName xml:id="name1230-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-1230" type="monastery">
+               <placeName xml:id="name1230-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib1230-1">Monastery of Yaʿqob the Recluse</placeName>
-                    <placeName xml:id="name1230-2" xml:lang="en" source="#bib1230-2">monastery of Mar Jacob</placeName>
-                    <desc xml:id="abstract-en-1230" xml:lang="en">A monastery near <placeName ref="http://syriaca.org/place/188">Siirt</placeName>.</desc>
-                    <state type="existence"
+               <placeName xml:id="name1230-2" xml:lang="en" source="#bib1230-2">monastery of Mar Jacob</placeName>
+               <desc xml:id="abstract-en-1230" xml:lang="en">A monastery near <placeName ref="http://syriaca.org/place/188">Siirt</placeName>.</desc>
+               <state type="existence"
                       from="0998"
                       to="1895"
                       syriaca-computed-end="1895-01-01"
@@ -90,29 +90,29 @@
                         <precision match="@from" notAfter="0998" syriaca-computed-end="0998-01-01"/>
                         <precision match="@to" notBefore="1895" syriaca-computed-start="1895-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/1230</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/1230</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=m&amp;sK=monastery of Mar Jacob&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib1230-1">
+               <bibl xml:id="bib1230-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">4</citedRange>
                     </bibl>
-                    <bibl xml:id="bib1230-2">
+               <bibl xml:id="bib1230-2">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=m&amp;sK=monastery of Mar Jacob&amp;sT=keywords">monastery of Mar Jacob</citedRange>
                     </bibl>
-                <bibl xml:id="bib1230-3">
+               <bibl xml:id="bib1230-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

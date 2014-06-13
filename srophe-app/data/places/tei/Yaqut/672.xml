@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Arragan</title>
@@ -73,38 +73,38 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-672" type="settlement">
-                    <placeName xml:id="name672-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-672" type="settlement">
+               <placeName xml:id="name672-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib672-1">Arragan</placeName>
-                    <desc xml:id="abstract-en-672" xml:lang="en">A village in <placeName ref="http://syriaca.org/place/84">Fars</placeName>.</desc>
-                    <location type="gps" source="#bib672-2">
+               <desc xml:id="abstract-en-672" xml:lang="en">A village in <placeName ref="http://syriaca.org/place/84">Fars</placeName>.</desc>
+               <location type="gps" source="#bib672-2">
                         <geo>30.662826 50.309141</geo>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/672</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/912989</idno>
-                    <bibl xml:id="bib672-1">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/672</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/912989</idno>
+               <bibl xml:id="bib672-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">441</citedRange>
                     </bibl>
-                    <bibl xml:id="bib672-2">
+               <bibl xml:id="bib672-2">
                         <title>http://pleiades.stoa.org/places/912989</title>
                         <ptr target="http://pleiades.stoa.org/places/912989"/>
                     </bibl>
-                <bibl xml:id="bib672-3">
+               <bibl xml:id="bib672-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

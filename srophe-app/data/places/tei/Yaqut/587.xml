@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Dayr al-Rūm</title>
@@ -72,14 +72,14 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-587" type="quarter">
-                    <placeName xml:id="name587-1" xml:lang="en" syriaca-tags="#syriaca-headword">Dayr al-Rūm</placeName>
-                    <placeName xml:id="name587-2" xml:lang="en" source="#bib587-1">Deir al-Rum</placeName>
-                    <desc xml:id="abstract-en-587" xml:lang="en">A quarter of <placeName ref="http://syriaca.org/place/41">Baghdad</placeName>.</desc>
-                    <state type="existence"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-587" type="quarter">
+               <placeName xml:id="name587-1" xml:lang="en" syriaca-tags="#syriaca-headword">Dayr al-Rūm</placeName>
+               <placeName xml:id="name587-2" xml:lang="en" source="#bib587-1">Deir al-Rum</placeName>
+               <desc xml:id="abstract-en-587" xml:lang="en">A quarter of <placeName ref="http://syriaca.org/place/41">Baghdad</placeName>.</desc>
+               <state type="existence"
                       from="0892"
                       to="1136"
                       syriaca-computed-end="1136-01-01"
@@ -95,24 +95,24 @@
                              syriaca-computed-end="2013-01-01"
                              syriaca-computed-start="1136-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/587</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/587</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=D&amp;sK=Deir al-Rum&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib587-1">
+               <bibl xml:id="bib587-1">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=D&amp;sK=Deir al-Rum&amp;sT=keywords">Deir al-Rum</citedRange>
                     </bibl>
-                <bibl xml:id="bib587-2">
+               <bibl xml:id="bib587-2">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

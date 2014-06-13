@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Mar Mari</title>
@@ -77,33 +77,33 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-2471" type="monastery">
-                    <placeName xml:id="name2471-1" xml:lang="en" syriaca-tags="#syriaca-headword">Mar Mari</placeName>
-                    <placeName xml:id="name2471-2" xml:lang="en" source="#bib2471-1">Mār Mārī</placeName>
-                    <desc xml:id="abstract-en-2471" xml:lang="en"/>
-                    <location type="nested" source="#bib2471-1">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-2471" type="monastery">
+               <placeName xml:id="name2471-1" xml:lang="en" syriaca-tags="#syriaca-headword">Mar Mari</placeName>
+               <placeName xml:id="name2471-2" xml:lang="en" source="#bib2471-1">Mār Mārī</placeName>
+               <desc xml:id="abstract-en-2471" xml:lang="en"/>
+               <location type="nested" source="#bib2471-1">
                         <settlement ref="http://syriaca.org/place/41">Baghdad</settlement>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/2471</idno>
-                    <bibl xml:id="bib2471-1">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/2471</idno>
+               <bibl xml:id="bib2471-1">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">184, 345</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib2471-2">
+               <bibl xml:id="bib2471-2">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name" mutual="#place-2471  http://syriaca.org/place/2009"/>
-            </listPlace>
-        </body>
-    </text>
+            <relation name="share-a-name" mutual="#place-2471  http://syriaca.org/place/2009"/>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

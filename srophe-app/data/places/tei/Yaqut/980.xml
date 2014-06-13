@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Bashosh</title>
@@ -79,23 +79,23 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-980" type="settlement">
-                    <placeName xml:id="name980-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-980" type="settlement">
+               <placeName xml:id="name980-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib980-1">Bashosh</placeName>
-                    <placeName xml:id="name980-2" xml:lang="en" source="#bib980-1">Shosh</placeName>
-                    <placeName xml:id="name980-3" xml:lang="en" source="#bib980-2">Bāshōsh</placeName>
-                    <placeName xml:id="name980-4" xml:lang="en" source="#bib980-2">Shōsh</placeName>
-                    <desc xml:id="abstract-en-980" xml:lang="en">A village in northern Iraq.</desc>
-                    <location type="nested" source="#bib980-2">
+               <placeName xml:id="name980-2" xml:lang="en" source="#bib980-1">Shosh</placeName>
+               <placeName xml:id="name980-3" xml:lang="en" source="#bib980-2">Bāshōsh</placeName>
+               <placeName xml:id="name980-4" xml:lang="en" source="#bib980-2">Shōsh</placeName>
+               <desc xml:id="abstract-en-980" xml:lang="en">A village in northern Iraq.</desc>
+               <location type="nested" source="#bib980-2">
                         <region ref="http://syriaca.org/place/776">Sapsāpā district</region>
                         <region ref="http://syriaca.org/place/708">ʿAqrā region</region>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0779"
                       to="1951"
                       source="#bib980-1"
@@ -104,26 +104,26 @@
                         <precision match="@from" notAfter="0779" syriaca-computed-end="0779-01-01"/>
                         <precision match="@to" notBefore="1951" syriaca-computed-start="1951-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/980</idno>
-                    <bibl xml:id="bib980-1">
+               <idno type="URI">http://syriaca.org/place/980</idno>
+               <bibl xml:id="bib980-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">7, 235, 414</citedRange>
                     </bibl>
-                    <bibl xml:id="bib980-2">
+               <bibl xml:id="bib980-2">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">70, 154, 156, 157, 158</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib980-3">
+               <bibl xml:id="bib980-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">al-Hattākh
@@ -107,36 +107,36 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-467" type="settlement">
-                    <placeName xml:id="name467-1" xml:lang="en" syriaca-tags="#syriaca-headword">al-Hattākh</placeName>
-                    <placeName xml:id="name467-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܗܬܐܟ</placeName>
-                    <placeName xml:id="name467-3" xml:lang="syr-Syrj" source="#bib467-1">ܗܰܬܰܐܟ</placeName>
-                    <placeName xml:id="name467-4" xml:lang="syr-Syrj" source="#bib467-1">ܐܰܢܛܰܐܟ</placeName>
-                    <placeName xml:id="name467-5" xml:lang="ar" source="#bib467-2">الهتاخ</placeName>
-                    <placeName xml:id="name467-6" xml:lang="ar" source="#bib467-2">انطاخ</placeName>
-                    <placeName xml:id="name467-7" xml:lang="en" source="#bib467-3">Hattākh</placeName>
-                    <placeName xml:id="name467-8" xml:lang="en" source="#bib467-3">Antakh</placeName>
-                    <placeName xml:id="name467-9" xml:lang="en" source="#bib467-4">Ḥattāḥ</placeName>
-                    <desc xml:id="abstract-en-467" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-467" type="settlement">
+               <placeName xml:id="name467-1" xml:lang="en" syriaca-tags="#syriaca-headword">al-Hattākh</placeName>
+               <placeName xml:id="name467-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܗܬܐܟ</placeName>
+               <placeName xml:id="name467-3" xml:lang="syr-Syrj" source="#bib467-1">ܗܰܬܰܐܟ</placeName>
+               <placeName xml:id="name467-4" xml:lang="syr-Syrj" source="#bib467-1">ܐܰܢܛܰܐܟ</placeName>
+               <placeName xml:id="name467-5" xml:lang="ar" source="#bib467-2">الهتاخ</placeName>
+               <placeName xml:id="name467-6" xml:lang="ar" source="#bib467-2">انطاخ</placeName>
+               <placeName xml:id="name467-7" xml:lang="en" source="#bib467-3">Hattākh</placeName>
+               <placeName xml:id="name467-8" xml:lang="en" source="#bib467-3">Antakh</placeName>
+               <placeName xml:id="name467-9" xml:lang="en" source="#bib467-4">Ḥattāḥ</placeName>
+               <desc xml:id="abstract-en-467" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib467-1">ܩܶܠܥܳܐ ܘܐܰܬܪܳܐ ܕܰܒܓܰܪܒܰܝ ܡܝܺܦܰܪܩܰܛ ܒܰܐܬܪܳܐ ܕܨܘܦܢܳܝ̈ܐ ܡܫܰܡܗܝܢ ܠܳܗ̇ ܐܢܳܫ̈ܐ ܐܰܢܛܰܐܟ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib467-2">قلعة وبليدة شمالي ميافرقين في قطر الصوفنيين تسميها العامة انطاخ.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib467-3">a citadel and a small town north of Miyapharqin, in the Sufniyyin province; popularly called Antakh.</quote>
                     </desc>
-                    <location type="gps" source="#bib467-5">
+               <location type="gps" source="#bib467-5">
                         <geo>38.347032 40.752181</geo>
                     </location>
-                    <location type="nested" source="#bib467-4">
+               <location type="nested" source="#bib467-4">
                         <region ref="http://syriaca.org/place/707">Āmid region</region>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0640"
                       to="1913"
                       syriaca-computed-end="1913-01-01"
@@ -144,41 +144,41 @@
                         <precision match="@from" notAfter="0640" syriaca-computed-end="0640-01-01"/>
                         <precision match="@to" notBefore="1913" syriaca-computed-start="1913-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/467</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/874372</idno>
-                    <bibl xml:id="bib467-1">
+               <idno type="URI">http://syriaca.org/place/467</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/874372</idno>
+               <bibl xml:id="bib467-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">562</citedRange>
                     </bibl>
-                    <bibl xml:id="bib467-2">
+               <bibl xml:id="bib467-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">520</citedRange>
                     </bibl>
-                    <bibl xml:id="bib467-3">
+               <bibl xml:id="bib467-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">553</citedRange>
                     </bibl>
-                    <bibl xml:id="bib467-4">
+               <bibl xml:id="bib467-4">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">53</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                    <bibl xml:id="bib467-5">
+               <bibl xml:id="bib467-5">
                         <title>http://pleiades.stoa.org/places/874372</title>
                         <ptr target="http://pleiades.stoa.org/places/874372"/>
                     </bibl>
-                <bibl xml:id="bib467-6">
+               <bibl xml:id="bib467-6">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

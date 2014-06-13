@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Ingila
@@ -98,32 +98,32 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-102" type="settlement">
-                    <placeName xml:id="name102-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-102" type="settlement">
+               <placeName xml:id="name102-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib102-1">Ingila</placeName>
-                    <placeName xml:id="name102-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܓܠ</placeName>
-                    <placeName xml:id="name102-3" xml:lang="syr-Syrj" source="#bib102-2">ܐܰܓܶܠ</placeName>
-                    <placeName xml:id="name102-4" xml:lang="ar" source="#bib102-3">اكل</placeName>
-                    <placeName xml:id="name102-5" xml:lang="en" source="#bib102-4">Agel</placeName>
-                    <desc xml:id="abstract-en-102" xml:lang="en">A town on the <placeName ref="http://syriaca.org/place/202">Tigris</placeName> northwest of <placeName ref="http://syriaca.org/place/8">Amida</placeName>.</desc>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name102-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܓܠ</placeName>
+               <placeName xml:id="name102-3" xml:lang="syr-Syrj" source="#bib102-2">ܐܰܓܶܠ</placeName>
+               <placeName xml:id="name102-4" xml:lang="ar" source="#bib102-3">اكل</placeName>
+               <placeName xml:id="name102-5" xml:lang="en" source="#bib102-4">Agel</placeName>
+               <desc xml:id="abstract-en-102" xml:lang="en">A town on the <placeName ref="http://syriaca.org/place/202">Tigris</placeName> northwest of <placeName ref="http://syriaca.org/place/8">Amida</placeName>.</desc>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib102-2">ܡܕܺܝܢܬܘܽܢܳܝܬܐ ܕܰܠܓܰܪܒܰܝ ܐܳܡܺܝܕ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib102-3">تلفظ كافها كالجيم المصرية بليدة في شمال ديار بكر</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib102-4">a small town north of Diyarbakir.</quote>
                     </desc>
-                    <location type="gps" source="#bib102-1">
+               <location type="gps" source="#bib102-1">
                         <geo>38.25661 40.08367</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0514"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -131,38 +131,38 @@
                         <precision match="@from" notAfter="0514" syriaca-computed-end="0514-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/102</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/874348</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Eğil</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Carcathiocerta</idno>
-                    <bibl xml:id="bib102-1">
+               <idno type="URI">http://syriaca.org/place/102</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/874348</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Eğil</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Carcathiocerta</idno>
+               <bibl xml:id="bib102-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="maps">Map I B1</citedRange>
                     </bibl>
-                    <bibl xml:id="bib102-2">
+               <bibl xml:id="bib102-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">536</citedRange>
                     </bibl>
-                    <bibl xml:id="bib102-3">
+               <bibl xml:id="bib102-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">504</citedRange>
                     </bibl>
-                    <bibl xml:id="bib102-4">
+               <bibl xml:id="bib102-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">551</citedRange>
                     </bibl>
-                <bibl xml:id="bib102-5">
+               <bibl xml:id="bib102-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

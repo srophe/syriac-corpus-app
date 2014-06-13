@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">ʿAqra
@@ -107,42 +107,42 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-25" type="settlement">
-                    <placeName xml:id="name25-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-25" type="settlement">
+               <placeName xml:id="name25-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib25-1">ʿAqra</placeName>
-                    <placeName xml:id="name25-2"
+               <placeName xml:id="name25-2"
                           xml:lang="syr"
                           syriaca-tags="#syriaca-headword"
                           source="#bib25-2">ܥܩܪ</placeName>
-                    <placeName xml:id="name25-3" xml:lang="syr-Syrj" source="#bib25-2">ܥܰܩܪ ܚܘܡܰܝܕܝܗ</placeName>
-                    <placeName xml:id="name25-4" xml:lang="ar" source="#bib25-3">العقر</placeName>
-                    <placeName xml:id="name25-5" xml:lang="ar" source="#bib25-3">عقر الحميدية</placeName>
-                    <placeName xml:id="name25-6" xml:lang="en" source="#bib25-4">ʿAqr</placeName>
-                    <placeName xml:id="name25-7" xml:lang="en" source="#bib25-4">ʿAqr al-Ḥumaydiyya</placeName>
-                    <placeName xml:id="name25-8" xml:lang="en" source="#bib25-5">ʿAqrā</placeName>
-                    <placeName xml:id="name25-9" xml:lang="en" source="#bib25-5">ʿEqrā</placeName>
-                    <desc xml:id="abstract-en-25" xml:lang="en">A town east of the Tigris and north of the Great Zab in northern Iraq.</desc>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name25-3" xml:lang="syr-Syrj" source="#bib25-2">ܥܰܩܪ ܚܘܡܰܝܕܝܗ</placeName>
+               <placeName xml:id="name25-4" xml:lang="ar" source="#bib25-3">العقر</placeName>
+               <placeName xml:id="name25-5" xml:lang="ar" source="#bib25-3">عقر الحميدية</placeName>
+               <placeName xml:id="name25-6" xml:lang="en" source="#bib25-4">ʿAqr</placeName>
+               <placeName xml:id="name25-7" xml:lang="en" source="#bib25-4">ʿAqr al-Ḥumaydiyya</placeName>
+               <placeName xml:id="name25-8" xml:lang="en" source="#bib25-5">ʿAqrā</placeName>
+               <placeName xml:id="name25-9" xml:lang="en" source="#bib25-5">ʿEqrā</placeName>
+               <desc xml:id="abstract-en-25" xml:lang="en">A town east of the Tigris and north of the Great Zab in northern Iraq.</desc>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib25-2">ܩܶܠܥܳܐ ܕܰܒܛܘܪܐ ܕܡܘܨܠ. ܘܰܠܡܰܕܢܚܳܗ̇ ܡܰܪܕܶܐ ܬܪܶܝܢ ܝܰܘ̈ܡܝܢ ܡܶܬܝܰܕܥܳܐ ܗܘܳܬ ܥܰܩܪ ܚܘܡܰܝܕܝܗ. </quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib25-3">قلعة من جبال الموصل شرقيها مرحلة يومين عنها تعرف بعقر الحميدية.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib25-4">a citadel two days journey north of Mosul. It is known as ʿAqr al-Ḥumaydiyya.</quote>
                     </desc>
-                    <location type="gps" source="#bib25-1">
+               <location type="gps" source="#bib25-1">
                         <geo>36.741389 43.893333</geo>
                     </location>
-                    <location type="nested" source="#bib25-5">
+               <location type="nested" source="#bib25-5">
                         <region ref="http://syriaca.org/place/776">Sapsāpā district</region>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="1877"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -150,46 +150,46 @@
                         <precision match="@from" notAfter="1877" syriaca-computed-end="1877-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <note type="corrigenda">Moosa's English translation of Barsoum's description says "north" when it should be "east."</note>
-                    <idno type="URI">http://syriaca.org/place/25</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Aqrah</idno>
-                    <bibl xml:id="bib25-1">
+               <note type="corrigenda">Moosa's English translation of Barsoum's description says "north" when it should be "east."</note>
+               <idno type="URI">http://syriaca.org/place/25</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Aqrah</idno>
+               <bibl xml:id="bib25-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">18, 70, 92, 226, 443</citedRange>
                         <citedRange unit="maps">Map II C1, IV</citedRange>
                     </bibl>
-                    <bibl xml:id="bib25-2">
+               <bibl xml:id="bib25-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">559</citedRange>
                     </bibl>
-                    <bibl xml:id="bib25-3">
+               <bibl xml:id="bib25-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">517</citedRange>
                     </bibl>
-                    <bibl xml:id="bib25-4">
+               <bibl xml:id="bib25-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">551</citedRange>
                     </bibl>
-                    <bibl xml:id="bib25-5">
+               <bibl xml:id="bib25-5">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">12, 126, 152, 155, 156, 157, 158-159, 161, 162, 166, 172</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib25-6">
+               <bibl xml:id="bib25-6">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name"
+            <relation name="share-a-name"
                       mutual="#place-25  http://syriaca.org/place/708  http://syriaca.org/place/2264"/>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

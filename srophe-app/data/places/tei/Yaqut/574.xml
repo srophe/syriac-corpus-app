@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Anasartha</title>
@@ -73,19 +73,19 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-574" type="settlement">
-                    <placeName xml:id="name574-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-574" type="settlement">
+               <placeName xml:id="name574-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib574-1">Anasartha</placeName>
-                    <desc xml:id="abstract-en-574" xml:lang="en">A Roman village southeast of <placeName ref="http://syriaca.org/place/18">Aleppo</placeName>.</desc>
-                    <location type="gps" source="#bib574-2">
+               <desc xml:id="abstract-en-574" xml:lang="en">A Roman village southeast of <placeName ref="http://syriaca.org/place/18">Aleppo</placeName>.</desc>
+               <location type="gps" source="#bib574-2">
                         <geo>35.809864 37.518964</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0426"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -93,31 +93,31 @@
                         <precision match="@from" notAfter="0426" syriaca-computed-end="0426-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/574</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/668187</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Anasartha</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Anasartha</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/574</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/668187</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Anasartha</idno>
+               <idno type="URI">http://dbpedia.org/resource/Anasartha</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Anasartha&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib574-1">
+               <bibl xml:id="bib574-1">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Anasartha&amp;sT=keywords">Anasartha</citedRange>
                     </bibl>
-                    <bibl xml:id="bib574-2">
+               <bibl xml:id="bib574-2">
                         <title>http://pleiades.stoa.org/places/668187</title>
                         <ptr target="http://pleiades.stoa.org/places/668187"/>
                     </bibl>
-                <bibl xml:id="bib574-3">
+               <bibl xml:id="bib574-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

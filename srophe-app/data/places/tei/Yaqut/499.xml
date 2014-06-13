@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Maʿarrat al-Nuʿmān
@@ -89,19 +89,19 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-499" type="settlement">
-                    <placeName xml:id="name499-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-499" type="settlement">
+               <placeName xml:id="name499-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib499-1 #bib499-4">Maʿarrat al-Nuʿmān</placeName>
-                    <placeName xml:id="name499-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܥܪܝܐ ܢܥܡܢ</placeName>
-                    <placeName xml:id="name499-3" xml:lang="syr-Syrj" source="#bib499-2">ܡܥܪܝܐ ܢܥܡܰܢ</placeName>
-                    <placeName xml:id="name499-4" xml:lang="ar" source="#bib499-3">معرة النعمان</placeName>
-                    <desc xml:id="abstract-en-499" xml:lang="en">A city in northern Syria.</desc>
-                    <state type="existence"
+               <placeName xml:id="name499-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܥܪܝܐ ܢܥܡܢ</placeName>
+               <placeName xml:id="name499-3" xml:lang="syr-Syrj" source="#bib499-2">ܡܥܪܝܐ ܢܥܡܰܢ</placeName>
+               <placeName xml:id="name499-4" xml:lang="ar" source="#bib499-3">معرة النعمان</placeName>
+               <desc xml:id="abstract-en-499" xml:lang="en">A city in northern Syria.</desc>
+               <state type="existence"
                       from="0891"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -109,36 +109,36 @@
                         <precision match="@from" notAfter="0891" syriaca-computed-end="0891-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/499</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Maarrat_al-Nu'man</idno>
-                    <bibl xml:id="bib499-1">
+               <idno type="URI">http://syriaca.org/place/499</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Maarrat_al-Nu'man</idno>
+               <bibl xml:id="bib499-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">24</citedRange>
                     </bibl>
-                    <bibl xml:id="bib499-2">
+               <bibl xml:id="bib499-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">560</citedRange>
                     </bibl>
-                    <bibl xml:id="bib499-3">
+               <bibl xml:id="bib499-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">519</citedRange>
                     </bibl>
-                    <bibl xml:id="bib499-4">
+               <bibl xml:id="bib499-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">554</citedRange>
                     </bibl>
-                <bibl xml:id="bib499-5">
+               <bibl xml:id="bib499-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

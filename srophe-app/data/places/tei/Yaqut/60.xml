@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Caesarea
@@ -103,75 +103,75 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-60" type="settlement">
-                    <placeName xml:id="name60-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-60" type="settlement">
+               <placeName xml:id="name60-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib60-1 #bib60-4">Caesarea</placeName>
-                    <placeName xml:id="name60-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܣܪܝܐ</placeName>
-                    <placeName xml:id="name60-3" xml:lang="syr-Syrj" source="#bib60-2">ܩܶܣܰܪܝܐ</placeName>
-                    <placeName xml:id="name60-4" xml:lang="syr-Syrj" source="#bib60-2">ܩܰܝܣܰܪ</placeName>
-                    <placeName xml:id="name60-5" xml:lang="ar" source="#bib60-3">قيسارية</placeName>
-                    <placeName xml:id="name60-6" xml:lang="ar" source="#bib60-3">قيصرية</placeName>
-                    <placeName xml:id="name60-7" xml:lang="ar" source="#bib60-3">قيسر</placeName>
-                    <placeName xml:id="name60-8" xml:lang="en" source="#bib60-4">Kayseri</placeName>
-                    <desc xml:id="abstract-en-60" xml:lang="en">A city in Cappadocia, modern Kayseri.</desc>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name60-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܣܪܝܐ</placeName>
+               <placeName xml:id="name60-3" xml:lang="syr-Syrj" source="#bib60-2">ܩܶܣܰܪܝܐ</placeName>
+               <placeName xml:id="name60-4" xml:lang="syr-Syrj" source="#bib60-2">ܩܰܝܣܰܪ</placeName>
+               <placeName xml:id="name60-5" xml:lang="ar" source="#bib60-3">قيسارية</placeName>
+               <placeName xml:id="name60-6" xml:lang="ar" source="#bib60-3">قيصرية</placeName>
+               <placeName xml:id="name60-7" xml:lang="ar" source="#bib60-3">قيسر</placeName>
+               <placeName xml:id="name60-8" xml:lang="en" source="#bib60-4">Kayseri</placeName>
+               <desc xml:id="abstract-en-60" xml:lang="en">A city in Cappadocia, modern Kayseri.</desc>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib60-2">ܡܕܝܢܬܳܐ ܗܝ ܕܰܒܬܰܝܡܢܳܐ ܡܰܕܢܚܳܝܐ ܕܰܐܢܩܘܪܰܐ ܘܡܶܬܩܰܪܝܳܐ ܝܰܘܡܳܢ ܩܰܝܣܰܪ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib60-3">مدينة في الجنوب الشرقي من انقرة تعرف الآن بقيسر.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib60-4">a town southeast of Ankara, known today as Kayseri.</quote>
                     </desc>
-                    <location type="gps" source="#bib60-1">
+               <location type="gps" source="#bib60-1">
                         <geo>38.73333 35.48333</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="-0316"
                       to="2013"
                       syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-0316"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/60</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/629035</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Kayseri</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Kayseri</idno>
-                    <bibl xml:id="bib60-1">
+               <idno type="URI">http://syriaca.org/place/60</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/629035</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Kayseri</idno>
+               <idno type="URI">http://dbpedia.org/resource/Kayseri</idno>
+               <bibl xml:id="bib60-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">64</citedRange>
                         <citedRange unit="maps">Map I A1</citedRange>
                     </bibl>
-                    <bibl xml:id="bib60-2">
+               <bibl xml:id="bib60-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">560</citedRange>
                     </bibl>
-                    <bibl xml:id="bib60-3">
+               <bibl xml:id="bib60-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">518</citedRange>
                     </bibl>
-                    <bibl xml:id="bib60-4">
+               <bibl xml:id="bib60-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">552</citedRange>
                     </bibl>
-                <bibl xml:id="bib60-5">
+               <bibl xml:id="bib60-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name" mutual="#place-60  http://syriaca.org/place/53"/>
-            </listPlace>
-        </body>
-    </text>
+            <relation name="share-a-name" mutual="#place-60  http://syriaca.org/place/53"/>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

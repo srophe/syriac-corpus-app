@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Maragha
@@ -106,32 +106,32 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-129" type="settlement">
-                    <placeName xml:id="name129-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-129" type="settlement">
+               <placeName xml:id="name129-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib129-1 #bib129-4">Maragha</placeName>
-                    <placeName xml:id="name129-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܪܐܓܗ</placeName>
-                    <placeName xml:id="name129-3" xml:lang="syr-Syrj" source="#bib129-2">ܡܰܪܰܐܓܰܗ</placeName>
-                    <placeName xml:id="name129-4" xml:lang="ar" source="#bib129-3">مراغة</placeName>
-                    <placeName xml:id="name129-5" xml:lang="en" source="#bib129-5">Marāghā</placeName>
-                    <desc xml:id="abstract-en-129" xml:lang="en">A city south of <placeName ref="http://syriaca.org/place/308">Tabriz</placeName>.</desc>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name129-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܪܐܓܗ</placeName>
+               <placeName xml:id="name129-3" xml:lang="syr-Syrj" source="#bib129-2">ܡܰܪܰܐܓܰܗ</placeName>
+               <placeName xml:id="name129-4" xml:lang="ar" source="#bib129-3">مراغة</placeName>
+               <placeName xml:id="name129-5" xml:lang="en" source="#bib129-5">Marāghā</placeName>
+               <desc xml:id="abstract-en-129" xml:lang="en">A city south of <placeName ref="http://syriaca.org/place/308">Tabriz</placeName>.</desc>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib129-2">ܐܰܬܪܐ ܕܰܛܒܺܝܒ ܒܰܡܕܝ̈ܢܳܬܐ ܕܰܐܕܘܪܒܰܝܓܰܐܢ ܠܬܰܝܡܢ ܬܶܒܪܝܙ ܘܰܠܡܰܕܢܚܐ ܕܝܰܡܬܐ ܕܐܘܪܡܺܝܐ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib129-3">بلدة اشهر مدن اذربيجان جنوبي تبريز وشرقي بحيرة اورمية.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib129-4">a most famous town of Azerbayjan, south of Tabriz and east of Lake Urmiya.</quote>
                     </desc>
-                    <location type="gps" source="#bib129-1">
+               <location type="gps" source="#bib129-1">
                         <geo>37.383333 46.266667</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="1029"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -139,44 +139,44 @@
                         <precision match="@from" notAfter="1029" syriaca-computed-end="1029-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/129</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Maragheh</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Maragheh</idno>
-                    <bibl xml:id="bib129-1">
+               <idno type="URI">http://syriaca.org/place/129</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Maragheh</idno>
+               <idno type="URI">http://dbpedia.org/resource/Maragheh</idno>
+               <bibl xml:id="bib129-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">55, 61</citedRange>
                         <citedRange unit="maps">Map II D1</citedRange>
                     </bibl>
-                    <bibl xml:id="bib129-2">
+               <bibl xml:id="bib129-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">561</citedRange>
                     </bibl>
-                    <bibl xml:id="bib129-3">
+               <bibl xml:id="bib129-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">519</citedRange>
                     </bibl>
-                    <bibl xml:id="bib129-4">
+               <bibl xml:id="bib129-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
                     </bibl>
-                    <bibl xml:id="bib129-5">
+               <bibl xml:id="bib129-5">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">16, 17, 18, 184, 322-323</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib129-6">
+               <bibl xml:id="bib129-6">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

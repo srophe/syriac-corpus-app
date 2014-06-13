@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Nabk
@@ -94,23 +94,23 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-143" type="settlement">
-                    <placeName xml:id="name143-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-143" type="settlement">
+               <placeName xml:id="name143-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib143-1">Nabk</placeName>
-                    <placeName xml:id="name143-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܢܒܟ</placeName>
-                    <placeName xml:id="name143-3" xml:lang="syr-Syrj" source="#bib143-2">ܢܰܒܟ</placeName>
-                    <placeName xml:id="name143-4" xml:lang="ar" source="#bib143-3">النبك</placeName>
-                    <placeName xml:id="name143-5" xml:lang="en" source="#bib143-4">al-Nabak</placeName>
-                    <desc xml:id="abstract-en-143" xml:lang="en">A town northeast of <placeName ref="http://syriaca.org/place/66">Damascus</placeName> and southwest of <placeName ref="http://syriaca.org/place/212">al-Qaryatayn</placeName>.</desc>
-                    <location type="gps" source="#bib143-1">
+               <placeName xml:id="name143-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܢܒܟ</placeName>
+               <placeName xml:id="name143-3" xml:lang="syr-Syrj" source="#bib143-2">ܢܰܒܟ</placeName>
+               <placeName xml:id="name143-4" xml:lang="ar" source="#bib143-3">النبك</placeName>
+               <placeName xml:id="name143-5" xml:lang="en" source="#bib143-4">al-Nabak</placeName>
+               <desc xml:id="abstract-en-143" xml:lang="en">A town northeast of <placeName ref="http://syriaca.org/place/66">Damascus</placeName> and southwest of <placeName ref="http://syriaca.org/place/212">al-Qaryatayn</placeName>.</desc>
+               <location type="gps" source="#bib143-1">
                         <geo>34.016667 36.716667</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="1185"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -118,39 +118,39 @@
                         <precision match="@from" notAfter="1185" syriaca-computed-end="1185-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/143</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/678085</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/An-Nabk</idno>
-                    <idno type="URI">http://dbpedia.org/resource/An-Nabk</idno>
-                    <bibl xml:id="bib143-1">
+               <idno type="URI">http://syriaca.org/place/143</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/678085</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/An-Nabk</idno>
+               <idno type="URI">http://dbpedia.org/resource/An-Nabk</idno>
+               <bibl xml:id="bib143-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">41, 183, 197, 296–297, 342, 389, 425, 462 (fig. 85c)</citedRange>
                         <citedRange unit="maps">Map II A2, V</citedRange>
                     </bibl>
-                    <bibl xml:id="bib143-2">
+               <bibl xml:id="bib143-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">554</citedRange>
                     </bibl>
-                    <bibl xml:id="bib143-3">
+               <bibl xml:id="bib143-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">515</citedRange>
                     </bibl>
-                    <bibl xml:id="bib143-4">
+               <bibl xml:id="bib143-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">567</citedRange>
                     </bibl>
-                <bibl xml:id="bib143-5">
+               <bibl xml:id="bib143-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

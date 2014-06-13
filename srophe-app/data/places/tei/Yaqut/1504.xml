@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Sivas
@@ -90,53 +90,53 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-1504" type="settlement">
-                    <placeName xml:id="name1504-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-1504" type="settlement">
+               <placeName xml:id="name1504-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib1504-3">Sivas</placeName>
-                    <placeName xml:id="name1504-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܣܝܘܐܣ</placeName>
-                    <placeName xml:id="name1504-3" xml:lang="syr-Syrj" source="#bib1504-1">ܣܺܝܘܐܰܣ</placeName>
-                    <placeName xml:id="name1504-4" xml:lang="ar" source="#bib1504-2">سيواس</placeName>
-                    <desc xml:id="abstract-en-1504" xml:lang="en">A city in central Anatolia.</desc>
-                    <location type="gps" source="#bib1504-4">
+               <placeName xml:id="name1504-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܣܝܘܐܣ</placeName>
+               <placeName xml:id="name1504-3" xml:lang="syr-Syrj" source="#bib1504-1">ܣܺܝܘܐܰܣ</placeName>
+               <placeName xml:id="name1504-4" xml:lang="ar" source="#bib1504-2">سيواس</placeName>
+               <desc xml:id="abstract-en-1504" xml:lang="en">A city in central Anatolia.</desc>
+               <location type="gps" source="#bib1504-4">
                         <geo>39.747662 37.017879</geo>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/1504</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/629075</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Sivas</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Sivas</idno>
-                    <bibl xml:id="bib1504-1">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/1504</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/629075</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Sivas</idno>
+               <idno type="URI">http://dbpedia.org/resource/Sivas</idno>
+               <bibl xml:id="bib1504-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">561</citedRange>
                     </bibl>
-                    <bibl xml:id="bib1504-2">
+               <bibl xml:id="bib1504-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">519</citedRange>
                     </bibl>
-                    <bibl xml:id="bib1504-3">
+               <bibl xml:id="bib1504-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
                     </bibl>
-                    <bibl xml:id="bib1504-4">
+               <bibl xml:id="bib1504-4">
                         <title>http://pleiades.stoa.org/places/629075</title>
                         <ptr target="http://pleiades.stoa.org/places/629075"/>
                     </bibl>
-                <bibl xml:id="bib1504-5">
+               <bibl xml:id="bib1504-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

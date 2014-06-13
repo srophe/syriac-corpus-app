@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">ʿIrqa
@@ -103,70 +103,70 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-432" type="settlement">
-                    <placeName xml:id="name432-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-432" type="settlement">
+               <placeName xml:id="name432-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib432-3">ʿIrqa</placeName>
-                    <placeName xml:id="name432-2"
+               <placeName xml:id="name432-2"
                           xml:lang="syr"
                           syriaca-tags="#syriaca-headword"
                           source="#bib432-1">ܥܪܩܐ</placeName>
-                    <placeName xml:id="name432-3" xml:lang="ar" source="#bib432-2">عرقة</placeName>
-                    <desc xml:id="abstract-en-432" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name432-3" xml:lang="ar" source="#bib432-2">عرقة</placeName>
+               <desc xml:id="abstract-en-432" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib432-1">ܐܰܬܪܰܐ ܗܘ ܕܥܰܠ ܝܰܕ ܝܰܡܐ ܒܶܝܬ ܦܰܢܺܝܗ ܘܰܛܪܺܝܦܳܘܠܝܣ ܒܡܰܕܢܰܚ ܓܰܪܒܰܝ ܕܝܠܗ̇. ܒܰܝܢܳܬܗܝܢ ܐܰܪܒܥܐ ܦܰܪ̈ܣܚܐ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib432-2">بلد على سيف البحر بين رفنية وطرابلس في شرقيها الشمالي بينهما اربعة فراسخ.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib432-3">a town on the seashore between Raphina and Tripoli, about four leagues from the latter city.</quote>
                     </desc>
-                    <location type="gps" source="#bib432-4">
+               <location type="gps" source="#bib432-4">
                         <geo>34.531277 36.047047</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="-1300"
                       to="2013"
                       syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-1300"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/432</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/668198</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Arqa</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Arqa</idno>
-                    <bibl xml:id="bib432-1">
+               <idno type="URI">http://syriaca.org/place/432</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/668198</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Arqa</idno>
+               <idno type="URI">http://dbpedia.org/resource/Arqa</idno>
+               <bibl xml:id="bib432-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">559</citedRange>
                     </bibl>
-                    <bibl xml:id="bib432-2">
+               <bibl xml:id="bib432-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">517</citedRange>
                     </bibl>
-                    <bibl xml:id="bib432-3">
+               <bibl xml:id="bib432-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">554</citedRange>
                     </bibl>
-                    <bibl xml:id="bib432-4">
+               <bibl xml:id="bib432-4">
                         <title>http://pleiades.stoa.org/places/668198</title>
                         <ptr target="http://pleiades.stoa.org/places/668198"/>
                     </bibl>
-                <bibl xml:id="bib432-5">
+               <bibl xml:id="bib432-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Mashhad Kuḥayl
@@ -102,28 +102,28 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-458" type="settlement">
-                    <placeName xml:id="name458-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-458" type="settlement">
+               <placeName xml:id="name458-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib458-3">Mashhad Kuḥayl</placeName>
-                    <placeName xml:id="name458-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܫܗܕ ܟܘܚܝܠ</placeName>
-                    <placeName xml:id="name458-3" xml:lang="syr-Syrj" source="#bib458-1">ܡܰܫܗܕ ܟܘܚܰܝܠ</placeName>
-                    <placeName xml:id="name458-4" xml:lang="ar" source="#bib458-2">مشهد كحيل</placeName>
-                    <desc xml:id="abstract-en-458" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name458-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܫܗܕ ܟܘܚܝܠ</placeName>
+               <placeName xml:id="name458-3" xml:lang="syr-Syrj" source="#bib458-1">ܡܰܫܗܕ ܟܘܚܰܝܠ</placeName>
+               <placeName xml:id="name458-4" xml:lang="ar" source="#bib458-2">مشهد كحيل</placeName>
+               <desc xml:id="abstract-en-458" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib458-1">ܡܕܺܝܢܬܐ ܗܘܳܬ ܪܰܒܬܐ ܕܥܰܠ ܕܶܩܠܰܬ ܒܰܝܢܳܬ ܬܪܶܝܢ ܙܒܐ ܠܥܶܠ ܡܶܢ ܬܰܓܪܺܝܬ ܒܓܰܒܳܐ ܡܰܥܪܒܳܝܐ. ܝܰܘܡܳܢ ܕܶܝܢ ܠܰܝܬ ܠܳܗ̇ ܛܶܒܐ ܘܠܐ ܐܳܬܳܐ ܘܐܝܺܬܝܶܗ̇ ܡܳܬܳܐ ܕܡܘܫܶܐ ܕܒܰܪ ܟܐܺܦܳܐ ܝܰܕܘܥܬܳܢܐ ܣܘܪܝܳܝܳܐ  903</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib458-2">« قال ياقوت » كانت كحيل مدينة عظيمة على دجلة بين الزابين فوق تكريت من الجانب الغربي، اما الآن فليس لها خبر ولا اثر » وهي موطن موسى ابن كيفا العالم السرياني 903 +. </quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib458-3">Yaquṭ says, “Kuḥayl was a big city on the Tigris between the two Zabs, above Takrit, going southwards. Today it is no more.” Kuḥayl was the birthplace of the Syrian learned man Moses Bar Kepha (d. 903).</quote>
                     </desc>
-                    <state type="existence"
+               <state type="existence"
                       from="0833"
                       to="0813"
                       syriaca-computed-end="0813-01-01"
@@ -135,30 +135,30 @@
                              syriaca-computed-end="1200-01-01"
                              syriaca-computed-start="0813-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/458</idno>
-                    <bibl xml:id="bib458-1">
+               <idno type="URI">http://syriaca.org/place/458</idno>
+               <bibl xml:id="bib458-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">561</citedRange>
                     </bibl>
-                    <bibl xml:id="bib458-2">
+               <bibl xml:id="bib458-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">519</citedRange>
                     </bibl>
-                    <bibl xml:id="bib458-3">
+               <bibl xml:id="bib458-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
                     </bibl>
-                <bibl xml:id="bib458-4">
+               <bibl xml:id="bib458-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

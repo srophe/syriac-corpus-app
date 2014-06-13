@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Qalʿa Rumayta
@@ -103,33 +103,33 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-97" type="settlement">
-                    <placeName xml:id="name97-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-97" type="settlement">
+               <placeName xml:id="name97-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib97-1">Qalʿa Rumayta</placeName>
-                    <placeName xml:id="name97-2" xml:lang="en" source="#bib97-1">Hṙomklay</placeName>
-                    <placeName xml:id="name97-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܠܥܐ ܪܘܡܝܬܐ</placeName>
-                    <placeName xml:id="name97-4" xml:lang="syr-Syrj" source="#bib97-2">ܩܶܠܥܳܐ ܪܘܡܳܝܬܐ</placeName>
-                    <placeName xml:id="name97-5" xml:lang="ar" source="#bib97-3">قلعة الروم</placeName>
-                    <placeName xml:id="name97-6" xml:lang="en" source="#bib97-4">Qalʿat al-Rum</placeName>
-                    <desc xml:id="abstract-en-97" xml:lang="en">A city on the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> west of <placeName ref="http://syriaca.org/place/78">Edessa</placeName> and northeast of <placeName ref="http://syriaca.org/place/222">ʿAintab</placeName>.</desc>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name97-2" xml:lang="en" source="#bib97-1">Hṙomklay</placeName>
+               <placeName xml:id="name97-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܠܥܐ ܪܘܡܝܬܐ</placeName>
+               <placeName xml:id="name97-4" xml:lang="syr-Syrj" source="#bib97-2">ܩܶܠܥܳܐ ܪܘܡܳܝܬܐ</placeName>
+               <placeName xml:id="name97-5" xml:lang="ar" source="#bib97-3">قلعة الروم</placeName>
+               <placeName xml:id="name97-6" xml:lang="en" source="#bib97-4">Qalʿat al-Rum</placeName>
+               <desc xml:id="abstract-en-97" xml:lang="en">A city on the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> west of <placeName ref="http://syriaca.org/place/78">Edessa</placeName> and northeast of <placeName ref="http://syriaca.org/place/222">ʿAintab</placeName>.</desc>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib97-2">ܩܶܠܥܳܐ ܚܰܣܝܢܬܳܐ ܘܰܐܬܪܐ ܕܰܠܡܰܥܪܰܒ ܦܪܳܬ ܠܘܩܒܰܠ ܒܝܪܬܐ ܠܩܘܪܒܳܐ ܕܰܩܪܝܬܐ ܟ̣ܠܦܬܝ. ܘܡܶܫܬܰܡܗܐ ܗܘܳܬ ܩܶܠܥܳܐ ܕܙܘܓܡܐ. ܘܚܰܪܝܒܐ</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib97-3">قلعة حصينة وبلد غربي الفرات مقابل البيرة بالقرب من قرية خلفتي وكان اسم القلعة زوغما، خربة.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib97-4">an ancient fortified citadel and town west of the Euphrates, opposite al-Bīra. The name of the citadel was Zughma.</quote>
                     </desc>
-                    <location type="gps" source="#bib97-1">
+               <location type="gps" source="#bib97-1">
                         <geo>37.270778 37.837917</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="1203"
                       to="1293"
                       syriaca-computed-end="1293-01-01"
@@ -141,40 +141,40 @@
                              syriaca-computed-end="2013-01-01"
                              syriaca-computed-start="1293-01-01"/>
                     </state>
-                    <note type="errata">Barsoum's description erroneously identifies this place with <placeName ref="http://syriaca.org/place/209">Zeugma</placeName>.</note>
-                    <note type="disambiguation">Not the same place as <placeName ref="http://syriaca.org/place/695">Halfeti</placeName>.</note>
-                    <idno type="URI">http://syriaca.org/place/97</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Rumkale</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Rumkale</idno>
-                    <bibl xml:id="bib97-1">
+               <note type="errata">Barsoum's description erroneously identifies this place with <placeName ref="http://syriaca.org/place/209">Zeugma</placeName>.</note>
+               <note type="disambiguation">Not the same place as <placeName ref="http://syriaca.org/place/695">Halfeti</placeName>.</note>
+               <idno type="URI">http://syriaca.org/place/97</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Rumkale</idno>
+               <idno type="URI">http://dbpedia.org/resource/Rumkale</idno>
+               <bibl xml:id="bib97-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">35</citedRange>
                         <citedRange unit="maps">Map II B1</citedRange>
                     </bibl>
-                    <bibl xml:id="bib97-2">
+               <bibl xml:id="bib97-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">558-559</citedRange>
                     </bibl>
-                    <bibl xml:id="bib97-3">
+               <bibl xml:id="bib97-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">518</citedRange>
                     </bibl>
-                    <bibl xml:id="bib97-4">
+               <bibl xml:id="bib97-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">557</citedRange>
                     </bibl>
-                <bibl xml:id="bib97-5">
+               <bibl xml:id="bib97-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

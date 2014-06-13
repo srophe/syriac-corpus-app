@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">ʿAyn Zarba
@@ -102,39 +102,39 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-9" type="settlement">
-                    <placeName xml:id="name9-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-9" type="settlement">
+               <placeName xml:id="name9-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib9-1 #bib9-4">ʿAyn Zarba</placeName>
-                    <placeName xml:id="name9-2" xml:lang="en" source="#bib9-1">Anazarbos</placeName>
-                    <placeName xml:id="name9-3" xml:lang="en" source="#bib9-1">Anazarba</placeName>
-                    <placeName xml:id="name9-4" xml:lang="syr" syriaca-tags="#syriaca-headword">ܥܝܢ ܙܪܒܐ</placeName>
-                    <placeName xml:id="name9-5" xml:lang="syr-Syrj" source="#bib9-2">ܥܰܝܢܕܰܐܒܐ</placeName>
-                    <placeName xml:id="name9-6" xml:lang="syr-Syrj" source="#bib9-2">ܙܢܐܙܪܒܐ</placeName>
-                    <placeName xml:id="name9-7" xml:lang="syr-Syrj" source="#bib9-2">ܐܰܢܐܙܘܪܐ</placeName>
-                    <placeName xml:id="name9-8" xml:lang="ar" source="#bib9-3">عين زربة</placeName>
-                    <placeName xml:id="name9-9" xml:lang="ar" source="#bib9-3">انازربة</placeName>
-                    <placeName xml:id="name9-10" xml:lang="ar" source="#bib9-3">انازروه</placeName>
-                    <placeName xml:id="name9-11" xml:lang="en" source="#bib9-4">Anāzarba</placeName>
-                    <placeName xml:id="name9-12" xml:lang="en" source="#bib9-4">Anāzūra</placeName>
-                    <desc xml:id="abstract-en-9" xml:lang="en">A city in Cilicia, a provincial capital of the Roman Empire and for a time the capital of the Armenian Kingdom of Cilicia.</desc>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name9-2" xml:lang="en" source="#bib9-1">Anazarbos</placeName>
+               <placeName xml:id="name9-3" xml:lang="en" source="#bib9-1">Anazarba</placeName>
+               <placeName xml:id="name9-4" xml:lang="syr" syriaca-tags="#syriaca-headword">ܥܝܢ ܙܪܒܐ</placeName>
+               <placeName xml:id="name9-5" xml:lang="syr-Syrj" source="#bib9-2">ܥܰܝܢܕܰܐܒܐ</placeName>
+               <placeName xml:id="name9-6" xml:lang="syr-Syrj" source="#bib9-2">ܙܢܐܙܪܒܐ</placeName>
+               <placeName xml:id="name9-7" xml:lang="syr-Syrj" source="#bib9-2">ܐܰܢܐܙܘܪܐ</placeName>
+               <placeName xml:id="name9-8" xml:lang="ar" source="#bib9-3">عين زربة</placeName>
+               <placeName xml:id="name9-9" xml:lang="ar" source="#bib9-3">انازربة</placeName>
+               <placeName xml:id="name9-10" xml:lang="ar" source="#bib9-3">انازروه</placeName>
+               <placeName xml:id="name9-11" xml:lang="en" source="#bib9-4">Anāzarba</placeName>
+               <placeName xml:id="name9-12" xml:lang="en" source="#bib9-4">Anāzūra</placeName>
+               <desc xml:id="abstract-en-9" xml:lang="en">A city in Cilicia, a provincial capital of the Roman Empire and for a time the capital of the Armenian Kingdom of Cilicia.</desc>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib9-2">ܡܕܝܢܬܳܐ ܕܰܒܩܝܠܺܝܩܝܰܐ ܣܺܝܡܳܐ ܗܘܳܬ ܥܰܠ ܢܗܰܪ ܓܺܝ̣ܚܘܢ ܘܝܰܘܡܳܢ ܗܘܳܬ ܩܪܺܝܬܳܐ ܕܡܶܬܶܐܡܰܪ ܠܳܗ̇ ܐܰܢܐܙܘܪܐ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib9-3">مدينة في قيليقية كانت واقعة على نهر جيحان وامست الان قرية يقال لها انازروه.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib9-4">a town in Cilicia, on the river Jījān. Today it is a small village called Anāzūra.</quote>
                     </desc>
-                    <location type="gps" source="#bib9-1">
+               <location type="gps" source="#bib9-1">
                         <geo>37.263889 35.905556</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0525"
                       to="1375"
                       syriaca-computed-end="1375-01-01"
@@ -146,41 +146,41 @@
                              syriaca-computed-end="2013-01-01"
                              syriaca-computed-start="1375-01-01"/>
                     </state>
-                    <note type="deprecation" xml:id="name9-6-deprecation">Dolabani's printer misread the initial olaph of this name as a zayn.</note>
-                    <link target="#name9-6 #name9-6-deprecation"/>
-                    <idno type="URI">http://syriaca.org/place/9</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/658378</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Anazarbus</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Anazarbus</idno>
-                    <bibl xml:id="bib9-1">
+               <note type="deprecation" xml:id="name9-6-deprecation">Dolabani's printer misread the initial olaph of this name as a zayn.</note>
+               <link target="#name9-6 #name9-6-deprecation"/>
+               <idno type="URI">http://syriaca.org/place/9</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/658378</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Anazarbus</idno>
+               <idno type="URI">http://dbpedia.org/resource/Anazarbus</idno>
+               <bibl xml:id="bib9-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">35</citedRange>
                         <citedRange unit="maps">Map I A1, II A1</citedRange>
                     </bibl>
-                    <bibl xml:id="bib9-2">
+               <bibl xml:id="bib9-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">559</citedRange>
                     </bibl>
-                    <bibl xml:id="bib9-3">
+               <bibl xml:id="bib9-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">517</citedRange>
                     </bibl>
-                    <bibl xml:id="bib9-4">
+               <bibl xml:id="bib9-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">551</citedRange>
                     </bibl>
-                <bibl xml:id="bib9-5">
+               <bibl xml:id="bib9-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

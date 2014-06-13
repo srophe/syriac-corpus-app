@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Bālis
@@ -99,37 +99,37 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-299" type="settlement">
-                    <placeName xml:id="name299-1" xml:lang="en" syriaca-tags="#syriaca-headword">Bālis</placeName>
-                    <placeName xml:id="name299-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܐܠܫ</placeName>
-                    <placeName xml:id="name299-3" xml:lang="syr-Syrj" source="#bib299-1">ܒܳܐܠܫ</placeName>
-                    <placeName xml:id="name299-4" xml:lang="syr-Syrj" source="#bib299-1">ܒܪܒܐܠܝܣܘܣ</placeName>
-                    <placeName xml:id="name299-5" xml:lang="syr-Syrj" source="#bib299-1">ܡܰܣܟܢܗ</placeName>
-                    <placeName xml:id="name299-6" xml:lang="ar" source="#bib299-2">بالس</placeName>
-                    <placeName xml:id="name299-7" xml:lang="ar" source="#bib299-2">بالش</placeName>
-                    <placeName xml:id="name299-8" xml:lang="ar" source="#bib299-2">برباليسوس</placeName>
-                    <placeName xml:id="name299-9" xml:lang="ar" source="#bib299-2">مسكنة</placeName>
-                    <placeName xml:id="name299-10" xml:lang="en" source="#bib299-3">Bāls</placeName>
-                    <placeName xml:id="name299-11" xml:lang="en" source="#bib299-3">Bālsh</placeName>
-                    <placeName xml:id="name299-12" xml:lang="en" source="#bib299-3">Perpalisos</placeName>
-                    <placeName xml:id="name299-13" xml:lang="en" source="#bib299-3">Maskana</placeName>
-                    <desc xml:id="abstract-en-299" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-299" type="settlement">
+               <placeName xml:id="name299-1" xml:lang="en" syriaca-tags="#syriaca-headword">Bālis</placeName>
+               <placeName xml:id="name299-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܐܠܫ</placeName>
+               <placeName xml:id="name299-3" xml:lang="syr-Syrj" source="#bib299-1">ܒܳܐܠܫ</placeName>
+               <placeName xml:id="name299-4" xml:lang="syr-Syrj" source="#bib299-1">ܒܪܒܐܠܝܣܘܣ</placeName>
+               <placeName xml:id="name299-5" xml:lang="syr-Syrj" source="#bib299-1">ܡܰܣܟܢܗ</placeName>
+               <placeName xml:id="name299-6" xml:lang="ar" source="#bib299-2">بالس</placeName>
+               <placeName xml:id="name299-7" xml:lang="ar" source="#bib299-2">بالش</placeName>
+               <placeName xml:id="name299-8" xml:lang="ar" source="#bib299-2">برباليسوس</placeName>
+               <placeName xml:id="name299-9" xml:lang="ar" source="#bib299-2">مسكنة</placeName>
+               <placeName xml:id="name299-10" xml:lang="en" source="#bib299-3">Bāls</placeName>
+               <placeName xml:id="name299-11" xml:lang="en" source="#bib299-3">Bālsh</placeName>
+               <placeName xml:id="name299-12" xml:lang="en" source="#bib299-3">Perpalisos</placeName>
+               <placeName xml:id="name299-13" xml:lang="en" source="#bib299-3">Maskana</placeName>
+               <desc xml:id="abstract-en-299" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib299-1">ܐܰܬܪܐ ܕܒܶܝܬ ܚܳܠܳܒ ܠܩܰܐܠܘܢܝܩܝ ܘܐܝܬܘܗܝ ܒܪܒܐܠܝܣܘܣ ܥܰܬܝܩܬܳܐ ܘܡܶܫܬܰܡܰܗ ܝܰܘܡܳܢ ܡܰܣܟܢܗ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib299-2">بلدة بارض الشام بين حلب والرقة وهي برباليسوس القديمة تسمى في وقتنا مسكنة</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib299-3">a town in Syria between Aleppo and al-Raqqa, known in antiquity as Perpalisos, it is now called Maskana.</quote>
                     </desc>
-                    <location type="gps" source="#bib299-4">
+               <location type="gps" source="#bib299-4">
                         <geo>36.0021275 38.126807</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0253"
                       to="1000"
                       syriaca-computed-end="1000-01-01"
@@ -137,39 +137,39 @@
                         <precision match="@from" notAfter="0253" syriaca-computed-end="0253-01-01"/>
                         <precision match="@to" notBefore="1000" syriaca-computed-start="1000-01-01"/>
                     </state>
-                    <note type="deprecation" xml:id="name299-12-deprecation">Moosa's transcription "Perpalisos" should be "Barbalissus".</note>
-                    <link target="#name299-12 #name299-12-deprecation"/>
-                    <idno type="URI">http://syriaca.org/place/299</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/668208</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Barbalissos</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Barbalissos</idno>
-                    <bibl xml:id="bib299-1">
+               <note type="deprecation" xml:id="name299-12-deprecation">Moosa's transcription "Perpalisos" should be "Barbalissus".</note>
+               <link target="#name299-12 #name299-12-deprecation"/>
+               <idno type="URI">http://syriaca.org/place/299</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/668208</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Barbalissos</idno>
+               <idno type="URI">http://dbpedia.org/resource/Barbalissos</idno>
+               <bibl xml:id="bib299-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">537</citedRange>
                     </bibl>
-                    <bibl xml:id="bib299-2">
+               <bibl xml:id="bib299-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">505</citedRange>
                     </bibl>
-                    <bibl xml:id="bib299-3">
+               <bibl xml:id="bib299-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">552</citedRange>
                     </bibl>
-                    <bibl xml:id="bib299-4">
+               <bibl xml:id="bib299-4">
                         <title>http://pleiades.stoa.org/places/668208</title>
                         <ptr target="http://pleiades.stoa.org/places/668208"/>
                     </bibl>
-                <bibl xml:id="bib299-5">
+               <bibl xml:id="bib299-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

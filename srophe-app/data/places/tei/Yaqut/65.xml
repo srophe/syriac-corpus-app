@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Cyrrhus
@@ -94,22 +94,22 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-65" type="settlement">
-                    <placeName xml:id="name65-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-65" type="settlement">
+               <placeName xml:id="name65-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib65-1 #bib65-4">Cyrrhus</placeName>
-                    <placeName xml:id="name65-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܘܪܘܣ</placeName>
-                    <placeName xml:id="name65-3" xml:lang="syr-Syrj" source="#bib65-2">ܩܽܘܪܳܘܣ</placeName>
-                    <placeName xml:id="name65-4" xml:lang="ar" source="#bib65-3">قورس</placeName>
-                    <desc xml:id="abstract-en-65" xml:lang="en">An ancient and medieval city 70 km north of Aleppo.</desc>
-                    <location type="gps" source="#bib65-1">
+               <placeName xml:id="name65-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܘܪܘܣ</placeName>
+               <placeName xml:id="name65-3" xml:lang="syr-Syrj" source="#bib65-2">ܩܽܘܪܳܘܣ</placeName>
+               <placeName xml:id="name65-4" xml:lang="ar" source="#bib65-3">قورس</placeName>
+               <desc xml:id="abstract-en-65" xml:lang="en">An ancient and medieval city 70 km north of Aleppo.</desc>
+               <location type="gps" source="#bib65-1">
                         <geo>36.73466 36.94896</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="-0281"
                       to="1150"
                       syriaca-computed-end="1150-01-01">
@@ -120,39 +120,39 @@
                              syriaca-computed-end="2013-01-01"
                              syriaca-computed-start="1150-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/65</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/658446</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Cyrrhus</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Cyrrhus</idno>
-                    <bibl xml:id="bib65-1">
+               <idno type="URI">http://syriaca.org/place/65</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/658446</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Cyrrhus</idno>
+               <idno type="URI">http://dbpedia.org/resource/Cyrrhus</idno>
+               <bibl xml:id="bib65-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">127, 347, 402, 407</citedRange>
                         <citedRange unit="maps">Map I B1</citedRange>
                     </bibl>
-                    <bibl xml:id="bib65-2">
+               <bibl xml:id="bib65-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">359</citedRange>
                     </bibl>
-                    <bibl xml:id="bib65-3">
+               <bibl xml:id="bib65-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">330</citedRange>
                     </bibl>
-                    <bibl xml:id="bib65-4">
+               <bibl xml:id="bib65-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">377</citedRange>
                     </bibl>
-                <bibl xml:id="bib65-5">
+               <bibl xml:id="bib65-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

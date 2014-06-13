@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Baṣra</title>
@@ -77,22 +77,22 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-44" type="settlement">
-                    <placeName xml:id="name44-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-44" type="settlement">
+               <placeName xml:id="name44-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib44-1">Baṣra</placeName>
-                    <placeName xml:id="name44-2" xml:lang="en" source="#bib44-1">Prat d-Mayshan</placeName>
-                    <placeName xml:id="name44-3" xml:lang="en" source="#bib44-2">Basrah</placeName>
-                    <placeName xml:id="name44-4" xml:lang="en" source="#bib44-3">Basra</placeName>
-                    <desc xml:id="abstract-en-44" xml:lang="en">A city in southern Iraq.</desc>
-                    <location type="gps" source="#bib44-1">
+               <placeName xml:id="name44-2" xml:lang="en" source="#bib44-1">Prat d-Mayshan</placeName>
+               <placeName xml:id="name44-3" xml:lang="en" source="#bib44-2">Basrah</placeName>
+               <placeName xml:id="name44-4" xml:lang="en" source="#bib44-3">Basra</placeName>
+               <desc xml:id="abstract-en-44" xml:lang="en">A city in southern Iraq.</desc>
+               <location type="gps" source="#bib44-1">
                         <geo>30.5 47.816667</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0636"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -100,40 +100,40 @@
                         <precision match="@from" notAfter="0636" syriaca-computed-end="0636-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/44</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/912821</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Basra</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Basra</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/44</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/912821</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Basra</idno>
+               <idno type="URI">http://dbpedia.org/resource/Basra</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Basrah&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib44-1">
+               <bibl xml:id="bib44-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">48, 51, 92, 170, 183, 202, 212, 217, 221, 262, 306, 378, 389, 398, 411, 437</citedRange>
                         <citedRange unit="maps">Map I D3, II D3</citedRange>
                     </bibl>
-                    <bibl xml:id="bib44-2">
+               <bibl xml:id="bib44-2">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Basrah&amp;sT=keywords">Basrah</citedRange>
                     </bibl>
-                    <bibl xml:id="bib44-3">
+               <bibl xml:id="bib44-3">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">89, 265, 361, 363, 364</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib44-4">
+               <bibl xml:id="bib44-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name" mutual="#place-44  http://syriaca.org/place/2269"/>
-            </listPlace>
-        </body>
-    </text>
+            <relation name="share-a-name" mutual="#place-44  http://syriaca.org/place/2269"/>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

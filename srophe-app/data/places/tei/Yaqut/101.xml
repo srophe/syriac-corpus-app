@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Yabrud</title>
@@ -72,20 +72,20 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-101" type="settlement">
-                    <placeName xml:id="name101-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-101" type="settlement">
+               <placeName xml:id="name101-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib101-1">Yabrud</placeName>
-                    <placeName xml:id="name101-2" xml:lang="en" source="#bib101-1">Iabrouda</placeName>
-                    <desc xml:id="abstract-en-101" xml:lang="en">A town on the road between <placeName ref="http://syriaca.org/place/66">Damascus</placeName> and <placeName ref="http://syriaca.org/place/215">Emesa</placeName>.</desc>
-                    <location type="gps" source="#bib101-1">
+               <placeName xml:id="name101-2" xml:lang="en" source="#bib101-1">Iabrouda</placeName>
+               <desc xml:id="abstract-en-101" xml:lang="en">A town on the road between <placeName ref="http://syriaca.org/place/66">Damascus</placeName> and <placeName ref="http://syriaca.org/place/215">Emesa</placeName>.</desc>
+               <location type="gps" source="#bib101-1">
                         <geo>33.97223 36.63115</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0300"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -93,24 +93,24 @@
                         <precision match="@from" notAfter="0300" syriaca-computed-end="0300-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/101</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/678196</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Yabrud</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Yabrud</idno>
-                    <bibl xml:id="bib101-1">
+               <idno type="URI">http://syriaca.org/place/101</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/678196</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Yabrud</idno>
+               <idno type="URI">http://dbpedia.org/resource/Yabrud</idno>
+               <bibl xml:id="bib101-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">197, 343</citedRange>
                         <citedRange unit="maps">Map I A2, V</citedRange>
                     </bibl>
-                <bibl xml:id="bib101-2">
+               <bibl xml:id="bib101-2">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

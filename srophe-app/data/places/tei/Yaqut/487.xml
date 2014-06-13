@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Lebanon
@@ -94,67 +94,67 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-487" type="region">
-                    <placeName xml:id="name487-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-487" type="region">
+               <placeName xml:id="name487-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib487-3 #bib487-4 #bib487-5">Lebanon</placeName>
-                    <placeName xml:id="name487-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܠܒܢܢ</placeName>
-                    <placeName xml:id="name487-3" xml:lang="syr-Syrj" source="#bib487-1">ܠܶܒܢܳܢ</placeName>
-                    <placeName xml:id="name487-4" xml:lang="ar" source="#bib487-2">لبنان</placeName>
-                    <desc xml:id="abstract-en-487" xml:lang="en">A mountainous region in the central Levantine coast of the <placeName ref="http://syriaca.org/place/135">Mediterranean Sea</placeName>.</desc>
-                    <location type="gps" source="#bib487-6">
+               <placeName xml:id="name487-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܠܒܢܢ</placeName>
+               <placeName xml:id="name487-3" xml:lang="syr-Syrj" source="#bib487-1">ܠܶܒܢܳܢ</placeName>
+               <placeName xml:id="name487-4" xml:lang="ar" source="#bib487-2">لبنان</placeName>
+               <desc xml:id="abstract-en-487" xml:lang="en">A mountainous region in the central Levantine coast of the <placeName ref="http://syriaca.org/place/135">Mediterranean Sea</placeName>.</desc>
+               <location type="gps" source="#bib487-6">
                         <geo>34.3 36.116667</geo>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/487</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/678267</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Lebanon</idno>
-                    <idno type="URI">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/487</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/678267</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Lebanon</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=L&amp;sK=Lebanon&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib487-1">
+               <bibl xml:id="bib487-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">537</citedRange>
                     </bibl>
-                    <bibl xml:id="bib487-2">
+               <bibl xml:id="bib487-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">505</citedRange>
                     </bibl>
-                    <bibl xml:id="bib487-3">
+               <bibl xml:id="bib487-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">552</citedRange>
                     </bibl>
-                    <bibl xml:id="bib487-4">
+               <bibl xml:id="bib487-4">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=L&amp;sK=Lebanon&amp;sT=keywords">Lebanon</citedRange>
                     </bibl>
-                    <bibl xml:id="bib487-5">
+               <bibl xml:id="bib487-5">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">50</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                    <bibl xml:id="bib487-6">
+               <bibl xml:id="bib487-6">
                         <title>http://pleiades.stoa.org/places/678267</title>
                         <ptr target="http://pleiades.stoa.org/places/678267"/>
                     </bibl>
-                <bibl xml:id="bib487-7">
+               <bibl xml:id="bib487-7">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

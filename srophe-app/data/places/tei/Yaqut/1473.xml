@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Pelusium</title>
@@ -73,42 +73,42 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-1473" type="settlement">
-                    <placeName xml:id="name1473-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-1473" type="settlement">
+               <placeName xml:id="name1473-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib1473-1">Pelusium</placeName>
-                    <desc xml:id="abstract-en-1473" xml:lang="en">A city of the Nile delta.</desc>
-                    <location type="gps" source="#bib1473-2">
+               <desc xml:id="abstract-en-1473" xml:lang="en">A city of the Nile delta.</desc>
+               <location type="gps" source="#bib1473-2">
                         <geo>31.049917 32.600128</geo>
                     </location>
-                    <state type="existence" from="0538" syriaca-computed-start="0538-01-01">
+               <state type="existence" from="0538" syriaca-computed-start="0538-01-01">
                         <precision match="@from" notAfter="0538" syriaca-computed-end="0538-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/1473</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/727192</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Pelusium</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Pelusium</idno>
-                    <bibl xml:id="bib1473-1">
+               <idno type="URI">http://syriaca.org/place/1473</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/727192</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Pelusium</idno>
+               <idno type="URI">http://dbpedia.org/resource/Pelusium</idno>
+               <bibl xml:id="bib1473-1">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">286</citedRange>
                     </bibl>
-                    <bibl xml:id="bib1473-2">
+               <bibl xml:id="bib1473-2">
                         <title>http://pleiades.stoa.org/places/727192</title>
                         <ptr target="http://pleiades.stoa.org/places/727192"/>
                     </bibl>
-                <bibl xml:id="bib1473-3">
+               <bibl xml:id="bib1473-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

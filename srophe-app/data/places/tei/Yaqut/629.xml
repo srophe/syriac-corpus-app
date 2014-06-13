@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Nile</title>
@@ -73,44 +73,44 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-629" type="river">
-                    <placeName xml:id="name629-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-629" type="river">
+               <placeName xml:id="name629-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib629-1">Nile</placeName>
-                    <desc xml:id="abstract-en-629" xml:lang="en">The major river of <placeName ref="http://syriaca.org/place/715">Egypt</placeName>.</desc>
-                    <location type="gps" source="#bib629-2">
+               <desc xml:id="abstract-en-629" xml:lang="en">The major river of <placeName ref="http://syriaca.org/place/715">Egypt</placeName>.</desc>
+               <location type="gps" source="#bib629-2">
                         <geo>29.7497813 31.2706</geo>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/629</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/727172/</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Nile</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Nile</idno>
-                    <idno type="URI">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/629</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/727172/</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Nile</idno>
+               <idno type="URI">http://dbpedia.org/resource/Nile</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=N&amp;sK=Nile&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib629-1">
+               <bibl xml:id="bib629-1">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=N&amp;sK=Nile&amp;sT=keywords">Nile</citedRange>
                     </bibl>
-                    <bibl xml:id="bib629-2">
+               <bibl xml:id="bib629-2">
                         <title>http://pleiades.stoa.org/places/727172</title>
                         <ptr target="http://pleiades.stoa.org/places/727172"/>
                     </bibl>
-                <bibl xml:id="bib629-3">
+               <bibl xml:id="bib629-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

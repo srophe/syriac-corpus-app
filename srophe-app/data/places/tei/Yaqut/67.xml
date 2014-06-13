@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Dara
@@ -99,31 +99,31 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-67" type="settlement">
-                    <placeName xml:id="name67-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-67" type="settlement">
+               <placeName xml:id="name67-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib67-1 #bib67-4 #bib67-5">Dara</placeName>
-                    <placeName xml:id="name67-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܕܪܐ</placeName>
-                    <placeName xml:id="name67-3" xml:lang="syr-Syrj" source="#bib67-2">ܕܳܪܳܐ</placeName>
-                    <placeName xml:id="name67-4" xml:lang="ar" source="#bib67-3">دارا</placeName>
-                    <desc xml:id="abstract-en-67" xml:lang="en">A Roman city between Mardin and Nisibis.</desc>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name67-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܕܪܐ</placeName>
+               <placeName xml:id="name67-3" xml:lang="syr-Syrj" source="#bib67-2">ܕܳܪܳܐ</placeName>
+               <placeName xml:id="name67-4" xml:lang="ar" source="#bib67-3">دارا</placeName>
+               <desc xml:id="abstract-en-67" xml:lang="en">A Roman city between Mardin and Nisibis.</desc>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib67-2">ܡܕܝܺܢܬܐ ܗܝ ܕܒܰܦܫܦܘܽܠܐ ܕܛܘܪܐ ܒܶܝܬ ܢܨܺܝܒܝܺܢ ܠܡܰܪܕܺܝܢ ܐܶܬܝܰܬܒܰܬ ܫܢܰܬ  506  ܘܩܰܘܝܰܬ ܟܘܪܣܝܳܐ ܐܶܦܝܣܩܘܦܳܝܐ ܠܣܘܪ̈ܝܳܝܐ ܥܕܡܐ ܠܡܶܨܥܝ̈ܬܗ ܕܕܳܪܳܐ ܕܝ̄ܒ ܘܝܰܘܡܳܢ ܩܪܺܝܬܳܐ ܗܝ ܙܥܘܽܪܬܐ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib67-3">بلدة في لحف جبل بين نصيبين وماردين مُصّرت عام 506م وظلت كرسيا اسقفيا للسريان حتى اواسط المئة الثانية عشرة وهي اليوم قرية حقيرة</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib67-4">a town situated at the foot of the mountain between Nisibin and Mardin. Built in 506, it remained a seat of Syrian bishops until the middle of the twelfth century. Today it is an insignificant village.</quote>
                     </desc>
-                    <location type="gps" source="#bib67-1">
+               <location type="gps" source="#bib67-1">
                         <geo>37.17899 40.95491</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0505"
                       to="1125"
                       syriaca-computed-end="1125-01-01"
@@ -134,50 +134,50 @@
                              syriaca-computed-end="2011-01-01"
                              syriaca-computed-start="1125-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/67</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/874444</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Dara_(Mesopotamia)</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Dara_(Mesopotamia)</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/67</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/874444</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Dara_(Mesopotamia)</idno>
+               <idno type="URI">http://dbpedia.org/resource/Dara_(Mesopotamia)</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=D&amp;sK=Dara&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib67-1">
+               <bibl xml:id="bib67-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">104, 168, 178, 251, 267, 419, 432</citedRange>
                         <citedRange unit="maps">Map I B1, II B1, III</citedRange>
                     </bibl>
-                    <bibl xml:id="bib67-2">
+               <bibl xml:id="bib67-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">540</citedRange>
                     </bibl>
-                    <bibl xml:id="bib67-3">
+               <bibl xml:id="bib67-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">507</citedRange>
                     </bibl>
-                    <bibl xml:id="bib67-4">
+               <bibl xml:id="bib67-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">553</citedRange>
                     </bibl>
-                    <bibl xml:id="bib67-5">
+               <bibl xml:id="bib67-5">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=D&amp;sK=Dara&amp;sT=keywords">Dara</citedRange>
                     </bibl>
-                <bibl xml:id="bib67-6">
+               <bibl xml:id="bib67-6">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name"
+            <relation name="share-a-name"
                       mutual="#place-67  http://syriaca.org/place/1143  http://syriaca.org/place/1234"/>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

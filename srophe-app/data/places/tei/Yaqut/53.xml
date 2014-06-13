@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Caesarea</title>
@@ -73,43 +73,43 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-53" type="settlement">
-                    <placeName xml:id="name53-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-53" type="settlement">
+               <placeName xml:id="name53-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib53-1">Caesarea</placeName>
-                    <desc xml:id="abstract-en-53" xml:lang="en">A port city in Palaestina north of Gaza.</desc>
-                    <location type="gps" source="#bib53-1">
+               <desc xml:id="abstract-en-53" xml:lang="en">A port city in Palaestina north of Gaza.</desc>
+               <location type="gps" source="#bib53-1">
                         <geo>32.5 34.89972</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="-0013"
                       to="1265"
                       syriaca-computed-end="1265-01-01">
                         <precision match="@from" notAfter="-0013" notBefore="-0025"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/53</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/678401</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Caesarea_Maritima</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Caesarea</idno>
-                    <bibl xml:id="bib53-1">
+               <idno type="URI">http://syriaca.org/place/53</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/678401</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Caesarea_Maritima</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Caesarea</idno>
+               <bibl xml:id="bib53-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">153, 155, 189, 336–337, 394</citedRange>
                         <citedRange unit="maps">Map I A2</citedRange>
                     </bibl>
-                <bibl xml:id="bib53-2">
+               <bibl xml:id="bib53-2">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name" mutual="#place-53  http://syriaca.org/place/60"/>
-            </listPlace>
-        </body>
-    </text>
+            <relation name="share-a-name" mutual="#place-53  http://syriaca.org/place/60"/>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

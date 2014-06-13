@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Qara</title>
@@ -73,24 +73,24 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-161" type="settlement">
-                    <placeName xml:id="name161-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-161" type="settlement">
+               <placeName xml:id="name161-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib161-2 #bib161-3">Qara</placeName>
-                    <desc xml:id="abstract-en-161" xml:lang="en">
+               <desc xml:id="abstract-en-161" xml:lang="en">
                         <quote source="#bib161-1">Town in the Qalamun mountains, Syria, ca. 95 km. northeast of Damascus and less than 20 km. north of Nabk (see Dayr Mār Mūsā al-Ḥabashī), often mentioned as a caravan station between Ḥimṣ and Damascus.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib161-1">439. Qara</quote>
                     </desc>
-                    <location type="gps" source="#bib161-4">
+               <location type="gps" source="#bib161-4">
                         <geo>34.16826385 36.75343335</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0300"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -98,44 +98,44 @@
                         <precision match="@from" notAfter="0300" syriaca-computed-end="0300-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/161</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/668221</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Qarah,_Syria</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Qarah,_Syria</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/161</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/668221</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Qarah,_Syria</idno>
+               <idno type="URI">http://dbpedia.org/resource/Qarah,_Syria</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qara&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib161-1">
+               <bibl xml:id="bib161-1">
                         <author>L. Van Rompay </author>
                         <title level="a" xml:lang="en">439. Qara</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">342-343</citedRange>
                     </bibl>
-                    <bibl xml:id="bib161-2">
+               <bibl xml:id="bib161-2">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">40, 286, 342–343 (with fig. 101, 102), 425</citedRange>
                         <citedRange unit="maps">Map II A2, V</citedRange>
                     </bibl>
-                    <bibl xml:id="bib161-3">
+               <bibl xml:id="bib161-3">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qara&amp;sT=keywords">Qara</citedRange>
                     </bibl>
-                    <bibl xml:id="bib161-4">
+               <bibl xml:id="bib161-4">
                         <title>http://pleiades.stoa.org/places/668221</title>
                         <ptr target="http://pleiades.stoa.org/places/668221"/>
                     </bibl>
-                <bibl xml:id="bib161-5">
+               <bibl xml:id="bib161-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

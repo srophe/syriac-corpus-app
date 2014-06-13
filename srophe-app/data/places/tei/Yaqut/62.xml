@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Circesium
@@ -102,41 +102,41 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-62" type="settlement">
-                    <placeName xml:id="name62-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-62" type="settlement">
+               <placeName xml:id="name62-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib62-1">Circesium</placeName>
-                    <placeName xml:id="name62-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܪܩܝܣܝܘܢ</placeName>
-                    <placeName xml:id="name62-3" xml:lang="syr-Syrj" source="#bib62-2">ܩܰܪܩܝܣܝܘܢ</placeName>
-                    <placeName xml:id="name62-4" xml:lang="syr-Syrj" source="#bib62-2">ܩܪܩܝܣܝܐ</placeName>
-                    <placeName xml:id="name62-5" xml:lang="syr-Syrj" source="#bib62-2">ܐܰܒܘܣܰܪܰܐܝ</placeName>
-                    <placeName xml:id="name62-6" xml:lang="syr-Syrj" source="#bib62-2">ܒܨܝܪܗ̈</placeName>
-                    <placeName xml:id="name62-7" xml:lang="ar" source="#bib62-3">قرقسيون</placeName>
-                    <placeName xml:id="name62-8" xml:lang="ar" source="#bib62-3">قرقيسياء</placeName>
-                    <placeName xml:id="name62-9" xml:lang="ar" source="#bib62-3">ابو سراي</placeName>
-                    <placeName xml:id="name62-10" xml:lang="ar" source="#bib62-3">بصيرة</placeName>
-                    <placeName xml:id="name62-11" xml:lang="en" source="#bib62-4">Qarqisun</placeName>
-                    <placeName xml:id="name62-12" xml:lang="en" source="#bib62-4">Qarqisyya</placeName>
-                    <placeName xml:id="name62-13" xml:lang="en" source="#bib62-4">Abu Saray</placeName>
-                    <placeName xml:id="name62-14" xml:lang="en" source="#bib62-4">Busayra</placeName>
-                    <desc xml:id="abstract-en-62" xml:lang="en">A city at the confluence of the Euphrates and the Khabur rivers.</desc>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name62-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܪܩܝܣܝܘܢ</placeName>
+               <placeName xml:id="name62-3" xml:lang="syr-Syrj" source="#bib62-2">ܩܰܪܩܝܣܝܘܢ</placeName>
+               <placeName xml:id="name62-4" xml:lang="syr-Syrj" source="#bib62-2">ܩܪܩܝܣܝܐ</placeName>
+               <placeName xml:id="name62-5" xml:lang="syr-Syrj" source="#bib62-2">ܐܰܒܘܣܰܪܰܐܝ</placeName>
+               <placeName xml:id="name62-6" xml:lang="syr-Syrj" source="#bib62-2">ܒܨܝܪܗ̈</placeName>
+               <placeName xml:id="name62-7" xml:lang="ar" source="#bib62-3">قرقسيون</placeName>
+               <placeName xml:id="name62-8" xml:lang="ar" source="#bib62-3">قرقيسياء</placeName>
+               <placeName xml:id="name62-9" xml:lang="ar" source="#bib62-3">ابو سراي</placeName>
+               <placeName xml:id="name62-10" xml:lang="ar" source="#bib62-3">بصيرة</placeName>
+               <placeName xml:id="name62-11" xml:lang="en" source="#bib62-4">Qarqisun</placeName>
+               <placeName xml:id="name62-12" xml:lang="en" source="#bib62-4">Qarqisyya</placeName>
+               <placeName xml:id="name62-13" xml:lang="en" source="#bib62-4">Abu Saray</placeName>
+               <placeName xml:id="name62-14" xml:lang="en" source="#bib62-4">Busayra</placeName>
+               <desc xml:id="abstract-en-62" xml:lang="en">A city at the confluence of the Euphrates and the Khabur rivers.</desc>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib62-2">ܐܰܬܪܐ ܗܘ ܕܥܰܠ ܢܗܰܪ ܢܒܘܪܐܝܟܐ ܕܢܳܣܶܟ ܒܰܦܪܳܬ. ܚܪܶܒ ܘܐܝܬ ܒܕܘܟܬܗ ܩܪܝܬܳܐ ܕܡܶܬܐܡܰܪ ܠܳܗ̇ ܐܰܒܘܣܰܪܰܐܝ (ܒܨܝܪܗ̈) </quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib62-3">بلد على نهر الخابور عند مصبه في الفرات خرب وفي موضعه قرية ابو سراي (بصيرة).</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib62-4">a town near the place where the Khabur joins the Euphrates; it no longer exists. On its site lies the village of Abu Saray (Busayra).</quote>
                     </desc>
-                    <location type="gps" source="#bib62-1">
+               <location type="gps" source="#bib62-1">
                         <geo>35.15676 40.42574</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0363"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -144,41 +144,41 @@
                         <precision match="@from" notAfter="0363" syriaca-computed-end="0363-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <note type="deprecation" xml:id="name62-11-deprecation">Moosa's transcription of these names is non-standard.</note>
-                    <link target="#name62-11 #name62-11-deprecation"/>
-                    <link target="#name62-12 #name62-11-deprecation"/>
-                    <idno type="URI">http://syriaca.org/place/62</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/893974</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Circesium</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Al-Busayrah</idno>
-                    <bibl xml:id="bib62-1">
+               <note type="deprecation" xml:id="name62-11-deprecation">Moosa's transcription of these names is non-standard.</note>
+               <link target="#name62-11 #name62-11-deprecation"/>
+               <link target="#name62-12 #name62-11-deprecation"/>
+               <idno type="URI">http://syriaca.org/place/62</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/893974</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Circesium</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Al-Busayrah</idno>
+               <bibl xml:id="bib62-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="maps">Map I B2</citedRange>
                     </bibl>
-                    <bibl xml:id="bib62-2">
+               <bibl xml:id="bib62-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">558</citedRange>
                     </bibl>
-                    <bibl xml:id="bib62-3">
+               <bibl xml:id="bib62-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">518</citedRange>
                     </bibl>
-                    <bibl xml:id="bib62-4">
+               <bibl xml:id="bib62-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">557</citedRange>
                     </bibl>
-                <bibl xml:id="bib62-5">
+               <bibl xml:id="bib62-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

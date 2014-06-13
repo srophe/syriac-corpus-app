@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">ʿAmadiyya</title>
@@ -77,20 +77,20 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-20" type="settlement">
-                    <placeName xml:id="name20-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-20" type="settlement">
+               <placeName xml:id="name20-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib20-1">ʿAmadiyya</placeName>
-                    <placeName xml:id="name20-2" xml:lang="en" source="#bib20-2">ʿAmādīyā</placeName>
-                    <desc xml:id="abstract-en-20" xml:lang="en">A town in the mountains of northern Iraq, east of the Tigris.</desc>
-                    <location type="gps" source="#bib20-1">
+               <placeName xml:id="name20-2" xml:lang="en" source="#bib20-2">ʿAmādīyā</placeName>
+               <desc xml:id="abstract-en-20" xml:lang="en">A town in the mountains of northern Iraq, east of the Tigris.</desc>
+               <location type="gps" source="#bib20-1">
                         <geo>37.0933 43.4872</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="1376"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -98,31 +98,31 @@
                         <precision match="@from" notAfter="1376" syriaca-computed-end="1376-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/20</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Amadiya</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Amadiya</idno>
-                    <bibl xml:id="bib20-1">
+               <idno type="URI">http://syriaca.org/place/20</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Amadiya</idno>
+               <idno type="URI">http://dbpedia.org/resource/Amadiya</idno>
+               <bibl xml:id="bib20-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">17, 83, 92, 116, 346, 436</citedRange>
                         <citedRange unit="maps">Map IV</citedRange>
                     </bibl>
-                    <bibl xml:id="bib20-2">
+               <bibl xml:id="bib20-2">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">12, 22, 30, 31, 33, 125, 126, 127, 128-132, 134, 135-137, 150, 196, 225, 241, 262, 264, 267, 268, 352, 359</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib20-3">
+               <bibl xml:id="bib20-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name"
+            <relation name="share-a-name"
                       mutual="#place-20  http://syriaca.org/place/703  http://syriaca.org/place/2263"/>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

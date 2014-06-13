@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Cairo
@@ -94,63 +94,63 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-521" type="settlement">
-                    <placeName xml:id="name521-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-521" type="settlement">
+               <placeName xml:id="name521-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib521-1 #bib521-4 #bib521-5">Cairo</placeName>
-                    <placeName xml:id="name521-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܐܗܪܗ̈</placeName>
-                    <placeName xml:id="name521-3" xml:lang="syr-Syrj" source="#bib521-2">ܩܐܰܗܪܗ̈</placeName>
-                    <placeName xml:id="name521-4" xml:lang="ar" source="#bib521-3">القاهرة</placeName>
-                    <desc xml:id="abstract-en-521" xml:lang="en">A major city on the <placeName ref="http://syriaca.org/place/629">Nile</placeName> which served as a medieval and modern capital of <placeName ref="http://syriaca.org/place/715">Egypt</placeName>.</desc>
-                    <state type="existence"
+               <placeName xml:id="name521-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܐܗܪܗ̈</placeName>
+               <placeName xml:id="name521-3" xml:lang="syr-Syrj" source="#bib521-2">ܩܐܰܗܪܗ̈</placeName>
+               <placeName xml:id="name521-4" xml:lang="ar" source="#bib521-3">القاهرة</placeName>
+               <desc xml:id="abstract-en-521" xml:lang="en">A major city on the <placeName ref="http://syriaca.org/place/629">Nile</placeName> which served as a medieval and modern capital of <placeName ref="http://syriaca.org/place/715">Egypt</placeName>.</desc>
+               <state type="existence"
                       from="0969"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
                       syriaca-computed-start="0969-01-01">
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/521</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Cairo</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Cairo</idno>
-                    <bibl xml:id="bib521-1">
+               <idno type="URI">http://syriaca.org/place/521</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Cairo</idno>
+               <idno type="URI">http://dbpedia.org/resource/Cairo</idno>
+               <bibl xml:id="bib521-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">14, 92, 106, 165, 239, 314, 381, 386</citedRange>
                     </bibl>
-                    <bibl xml:id="bib521-2">
+               <bibl xml:id="bib521-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">536</citedRange>
                     </bibl>
-                    <bibl xml:id="bib521-3">
+               <bibl xml:id="bib521-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">504</citedRange>
                     </bibl>
-                    <bibl xml:id="bib521-4">
+               <bibl xml:id="bib521-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">558</citedRange>
                     </bibl>
-                    <bibl xml:id="bib521-5">
+               <bibl xml:id="bib521-5">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">64-65, 317, 361, 363, 364</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib521-6">
+               <bibl xml:id="bib521-6">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name" mutual="#place-521  http://syriaca.org/place/2284"/>
-            </listPlace>
-        </body>
-    </text>
+            <relation name="share-a-name" mutual="#place-521  http://syriaca.org/place/2284"/>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

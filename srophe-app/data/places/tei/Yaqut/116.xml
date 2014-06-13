@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Lake Urmia
@@ -94,51 +94,51 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-116" type="open-water">
-                    <placeName xml:id="name116-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-116" type="open-water">
+               <placeName xml:id="name116-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib116-1">Lake Urmia</placeName>
-                    <placeName xml:id="name116-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܝܡܬܐ ܕܐܘܪܡܝܐ</placeName>
-                    <placeName xml:id="name116-3" xml:lang="syr-Syrj" source="#bib116-2">ܝܰܡܬܳܐ ܕܐܘܪܡܺܝܐ</placeName>
-                    <placeName xml:id="name116-4" xml:lang="ar" source="#bib116-3">بحيرة اورمية</placeName>
-                    <placeName xml:id="name116-5" xml:lang="en" source="#bib116-4">Lake Urmiya</placeName>
-                    <desc xml:id="abstract-en-116" xml:lang="en">A lake in northern <placeName ref="http://syriaca.org/place/526">Iran</placeName> west of <placeName ref="http://syriaca.org/place/308">Tabriz</placeName> and southeast of <placeName ref="http://syriaca.org/place/117">Lake Van</placeName>.</desc>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/116</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Lake_Urmia</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Lake_Urmia</idno>
-                    <bibl xml:id="bib116-1">
+               <placeName xml:id="name116-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܝܡܬܐ ܕܐܘܪܡܝܐ</placeName>
+               <placeName xml:id="name116-3" xml:lang="syr-Syrj" source="#bib116-2">ܝܰܡܬܳܐ ܕܐܘܪܡܺܝܐ</placeName>
+               <placeName xml:id="name116-4" xml:lang="ar" source="#bib116-3">بحيرة اورمية</placeName>
+               <placeName xml:id="name116-5" xml:lang="en" source="#bib116-4">Lake Urmiya</placeName>
+               <desc xml:id="abstract-en-116" xml:lang="en">A lake in northern <placeName ref="http://syriaca.org/place/526">Iran</placeName> west of <placeName ref="http://syriaca.org/place/308">Tabriz</placeName> and southeast of <placeName ref="http://syriaca.org/place/117">Lake Van</placeName>.</desc>
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/116</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Lake_Urmia</idno>
+               <idno type="URI">http://dbpedia.org/resource/Lake_Urmia</idno>
+               <bibl xml:id="bib116-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="maps">Map I C1, II C1, IV</citedRange>
                     </bibl>
-                    <bibl xml:id="bib116-2">
+               <bibl xml:id="bib116-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">561</citedRange>
                     </bibl>
-                    <bibl xml:id="bib116-3">
+               <bibl xml:id="bib116-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">519</citedRange>
                     </bibl>
-                    <bibl xml:id="bib116-4">
+               <bibl xml:id="bib116-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
                     </bibl>
-                <bibl xml:id="bib116-5">
+               <bibl xml:id="bib116-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

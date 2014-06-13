@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Konia
@@ -104,68 +104,68 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-440" type="settlement">
-                    <placeName xml:id="name440-1" xml:lang="en" syriaca-tags="#syriaca-headword">Konia</placeName>
-                    <placeName xml:id="name440-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܝܩܘܢܝܘܢ</placeName>
-                    <placeName xml:id="name440-3" xml:lang="syr-Syrj" source="#bib440-1">ܐܝܺܩܘܢܝܘܢ</placeName>
-                    <placeName xml:id="name440-4" xml:lang="syr-Syrj" source="#bib440-1">ܩܳܘܢܝܰܐ</placeName>
-                    <placeName xml:id="name440-5" xml:lang="ar" source="#bib440-2">قونية</placeName>
-                    <placeName xml:id="name440-6" xml:lang="en" source="#bib440-3">Konya</placeName>
-                    <desc xml:id="abstract-en-440" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-440" type="settlement">
+               <placeName xml:id="name440-1" xml:lang="en" syriaca-tags="#syriaca-headword">Konia</placeName>
+               <placeName xml:id="name440-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܝܩܘܢܝܘܢ</placeName>
+               <placeName xml:id="name440-3" xml:lang="syr-Syrj" source="#bib440-1">ܐܝܺܩܘܢܝܘܢ</placeName>
+               <placeName xml:id="name440-4" xml:lang="syr-Syrj" source="#bib440-1">ܩܳܘܢܝܰܐ</placeName>
+               <placeName xml:id="name440-5" xml:lang="ar" source="#bib440-2">قونية</placeName>
+               <placeName xml:id="name440-6" xml:lang="en" source="#bib440-3">Konya</placeName>
+               <desc xml:id="abstract-en-440" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib440-1">ܩܳܘܢܝܰܐ ܡܕܝܢܬܳܐ ܗܝ ܕܰܒܡܶܨܥܰܬ ܐܰܢܰܐܛܳܘܠ ܘܰܠܬܰܝܡܢܗ̇ ܕܰܐܢܩܰܘܪܐ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib440-2">مدينة في وسط الاناضول جنوبي انقرة.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib440-3">a city in central Anatolia, south of Ankara.</quote>
                     </desc>
-                    <location type="gps" source="#bib440-4">
+               <location type="gps" source="#bib440-4">
                         <geo>37.872202 32.492331</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="-0354"
                       to="2013"
                       syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-0354"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܕܐܰܢܩܰܘܪܐ</quote> should read <quote xml:lang="syr-Syrj">ܕܰܐܢܩܽܘܪܐ</quote>.</note>
-                    <idno type="URI">http://syriaca.org/place/440</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/648647</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Konya</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Konya</idno>
-                    <bibl xml:id="bib440-1">
+               <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܕܐܰܢܩܰܘܪܐ</quote> should read <quote xml:lang="syr-Syrj">ܕܰܐܢܩܽܘܪܐ</quote>.</note>
+               <idno type="URI">http://syriaca.org/place/440</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/648647</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Konya</idno>
+               <idno type="URI">http://dbpedia.org/resource/Konya</idno>
+               <bibl xml:id="bib440-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">560</citedRange>
                     </bibl>
-                    <bibl xml:id="bib440-2">
+               <bibl xml:id="bib440-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">518</citedRange>
                     </bibl>
-                    <bibl xml:id="bib440-3">
+               <bibl xml:id="bib440-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">555</citedRange>
                     </bibl>
-                    <bibl xml:id="bib440-4">
+               <bibl xml:id="bib440-4">
                         <title>http://pleiades.stoa.org/places/648647</title>
                         <ptr target="http://pleiades.stoa.org/places/648647"/>
                     </bibl>
-                <bibl xml:id="bib440-5">
+               <bibl xml:id="bib440-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

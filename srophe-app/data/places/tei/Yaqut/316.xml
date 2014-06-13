@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Tinnīs
@@ -99,68 +99,68 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-316" type="settlement">
-                    <placeName xml:id="name316-1" xml:lang="en" syriaca-tags="#syriaca-headword">Tinnīs</placeName>
-                    <placeName xml:id="name316-2"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-316" type="settlement">
+               <placeName xml:id="name316-1" xml:lang="en" syriaca-tags="#syriaca-headword">Tinnīs</placeName>
+               <placeName xml:id="name316-2"
                           xml:lang="syr"
                           syriaca-tags="#syriaca-headword"
                           source="#bib316-1">ܬܢܝܣ</placeName>
-                    <placeName xml:id="name316-3" xml:lang="ar" source="#bib316-2">تِنّيس</placeName>
-                    <placeName xml:id="name316-4" xml:lang="en" source="#bib316-3">Tinnis</placeName>
-                    <desc xml:id="abstract-en-316" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name316-3" xml:lang="ar" source="#bib316-2">تِنّيس</placeName>
+               <placeName xml:id="name316-4" xml:lang="en" source="#bib316-3">Tinnis</placeName>
+               <desc xml:id="abstract-en-316" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib316-1">ܡܕܝܢܬܐ ܥܰܬܝܩܬܳܐ ܕܰܒܬܰܝܡܰܢ ܡܰܥܪܰܒ ܒܳܘܪܣܰܥܝܕ ܚܶܪܒܰܬ  1227.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib316-2">مدينة قديمة كانت في جنوبي غربي بورسعيد خربت سنة 1227 </quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib316-3">an ancient city southwest of Port Saʿīd, ruined in 1227.</quote>
                     </desc>
-                    <location type="gps" source="#bib316-4">
+               <location type="gps" source="#bib316-4">
                         <geo>31.255258 32.292698</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0833"
                       to="1227"
                       syriaca-computed-end="1227-01-01"
                       syriaca-computed-start="0833-01-01">
                         <precision match="@from" notAfter="0833" syriaca-computed-end="0833-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/316</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/727247</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Tennis,_Egypt</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Tennis,_Egypt</idno>
-                    <bibl xml:id="bib316-1">
+               <idno type="URI">http://syriaca.org/place/316</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/727247</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Tennis,_Egypt</idno>
+               <idno type="URI">http://dbpedia.org/resource/Tennis,_Egypt</idno>
+               <bibl xml:id="bib316-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">538</citedRange>
                     </bibl>
-                    <bibl xml:id="bib316-2">
+               <bibl xml:id="bib316-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">506</citedRange>
                     </bibl>
-                    <bibl xml:id="bib316-3">
+               <bibl xml:id="bib316-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">559</citedRange>
                     </bibl>
-                    <bibl xml:id="bib316-4">
+               <bibl xml:id="bib316-4">
                         <title>http://pleiades.stoa.org/places/727247</title>
                         <ptr target="http://pleiades.stoa.org/places/727247"/>
                     </bibl>
-                <bibl xml:id="bib316-5">
+               <bibl xml:id="bib316-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

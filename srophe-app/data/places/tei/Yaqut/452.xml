@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">al-Kūfa
@@ -103,34 +103,34 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-452" type="settlement">
-                    <placeName xml:id="name452-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-452" type="settlement">
+               <placeName xml:id="name452-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib452-1">al-Kūfa</placeName>
-                    <placeName xml:id="name452-2"
+               <placeName xml:id="name452-2"
                           xml:lang="syr"
                           syriaca-tags="#syriaca-headword"
                           source="#bib452-2">ܟܘܦܗ</placeName>
-                    <placeName xml:id="name452-3" xml:lang="syr-Syrj" source="#bib452-2">ܥܰܐܩܘܠܐ</placeName>
-                    <placeName xml:id="name452-4" xml:lang="ar" source="#bib452-3">الكوفة</placeName>
-                    <placeName xml:id="name452-5" xml:lang="ar" source="#bib452-3">عاقولا</placeName>
-                    <placeName xml:id="name452-6" xml:lang="en" source="#bib452-4">Kufa</placeName>
-                    <placeName xml:id="name452-7" xml:lang="en" source="#bib452-4">Aqula</placeName>
-                    <desc xml:id="abstract-en-452" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name452-3" xml:lang="syr-Syrj" source="#bib452-2">ܥܰܐܩܘܠܐ</placeName>
+               <placeName xml:id="name452-4" xml:lang="ar" source="#bib452-3">الكوفة</placeName>
+               <placeName xml:id="name452-5" xml:lang="ar" source="#bib452-3">عاقولا</placeName>
+               <placeName xml:id="name452-6" xml:lang="en" source="#bib452-4">Kufa</placeName>
+               <placeName xml:id="name452-7" xml:lang="en" source="#bib452-4">Aqula</placeName>
+               <desc xml:id="abstract-en-452" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib452-2">ܘܡܶܬܶܐܡܰܪ ܠܳܗ̇ ܥܰܐܩܘܠܐ ܘܺܗܝ ܗܺܝ ܐܰܬܪܐ ܕܝܺܕܝܥ ܒܰܙܒܰܢ ܐܰܪܥܳܐ ܕܒܳܒܝܠ ܒܡܰܕܒܪܳܐ ܕܥܪܰܐܩ ܚܰܪܝܒܳܐ. </quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib452-3">ويقال لها عاقولا وهي المصر المشهور يوما بارض بابل من سواد العراق، مندرسة.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib452-4">in southern Iraq; no longer in existence.</quote>
                     </desc>
-                    <state type="existence"
+               <state type="existence"
                       from="0638"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -138,39 +138,39 @@
                         <precision match="@from" notAfter="0638" syriaca-computed-end="0638-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܘܺܗܝ</quote> should read <quote xml:lang="syr-Syrj">ܘܗܺܝ</quote>.</note>
-                    <idno type="URI">http://syriaca.org/place/452</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/912808</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Kufa</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Kufa</idno>
-                    <bibl xml:id="bib452-1">
+               <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܘܺܗܝ</quote> should read <quote xml:lang="syr-Syrj">ܘܗܺܝ</quote>.</note>
+               <idno type="URI">http://syriaca.org/place/452</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/912808</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Kufa</idno>
+               <idno type="URI">http://dbpedia.org/resource/Kufa</idno>
+               <bibl xml:id="bib452-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">70, 198</citedRange>
                     </bibl>
-                    <bibl xml:id="bib452-2">
+               <bibl xml:id="bib452-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">561</citedRange>
                     </bibl>
-                    <bibl xml:id="bib452-3">
+               <bibl xml:id="bib452-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">519</citedRange>
                     </bibl>
-                    <bibl xml:id="bib452-4">
+               <bibl xml:id="bib452-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">555</citedRange>
                     </bibl>
-                <bibl xml:id="bib452-5">
+               <bibl xml:id="bib452-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

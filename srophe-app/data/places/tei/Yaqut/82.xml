@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Euphrates
@@ -94,61 +94,61 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-82" type="river">
-                    <placeName xml:id="name82-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-82" type="river">
+               <placeName xml:id="name82-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib82-1 #bib82-4 #bib82-5">Euphrates</placeName>
-                    <placeName xml:id="name82-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܦܪܬ</placeName>
-                    <placeName xml:id="name82-3" xml:lang="syr-Syrj" source="#bib82-2">ܦܪܰܬ</placeName>
-                    <placeName xml:id="name82-4" xml:lang="ar" source="#bib82-3">الفرات</placeName>
-                    <desc xml:id="abstract-en-82" xml:lang="en">The western major river of Mesopotamia, flowing from eastern Turkey to the Persian Gulf.</desc>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/82</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/912849</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Euphrates</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Euphrates</idno>
-                    <idno type="URI">
+               <placeName xml:id="name82-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܦܪܬ</placeName>
+               <placeName xml:id="name82-3" xml:lang="syr-Syrj" source="#bib82-2">ܦܪܰܬ</placeName>
+               <placeName xml:id="name82-4" xml:lang="ar" source="#bib82-3">الفرات</placeName>
+               <desc xml:id="abstract-en-82" xml:lang="en">The western major river of Mesopotamia, flowing from eastern Turkey to the Persian Gulf.</desc>
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/82</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/912849</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Euphrates</idno>
+               <idno type="URI">http://dbpedia.org/resource/Euphrates</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Euphrates&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib82-1">
+               <bibl xml:id="bib82-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">21, 31, 37, 54, 71, 114, 116, 132–133 (with fig. 45), 198, 209–210, 229, 234, 283, 314–315, 320, 345–346, 368, 403, 418, 432, 433</citedRange>
                         <citedRange unit="maps">Map I B2, II B2, III</citedRange>
                     </bibl>
-                    <bibl xml:id="bib82-2">
+               <bibl xml:id="bib82-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">559</citedRange>
                     </bibl>
-                    <bibl xml:id="bib82-3">
+               <bibl xml:id="bib82-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">517</citedRange>
                     </bibl>
-                    <bibl xml:id="bib82-4">
+               <bibl xml:id="bib82-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">551</citedRange>
                     </bibl>
-                    <bibl xml:id="bib82-5">
+               <bibl xml:id="bib82-5">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Euphrates&amp;sT=keywords">Euphrates</citedRange>
                     </bibl>
-                <bibl xml:id="bib82-6">
+               <bibl xml:id="bib82-6">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

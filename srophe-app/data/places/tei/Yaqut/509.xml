@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">al-Wāsiṭ
@@ -90,20 +90,20 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-509" type="settlement">
-                    <placeName xml:id="name509-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-509" type="settlement">
+               <placeName xml:id="name509-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib509-1">al-Wāsiṭ</placeName>
-                    <placeName xml:id="name509-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܘܐܣܛ</placeName>
-                    <placeName xml:id="name509-3" xml:lang="syr-Syrj" source="#bib509-2">ܘܰܐܣܛ</placeName>
-                    <placeName xml:id="name509-4" xml:lang="ar" source="#bib509-3">واسط</placeName>
-                    <placeName xml:id="name509-5" xml:lang="en" source="#bib509-4">Wasit</placeName>
-                    <desc xml:id="abstract-en-509" xml:lang="en">A city of southern Iraq on the west bank of the <placeName ref="http://syriaca.org/place/202">Tigris</placeName>.</desc>
-                    <state type="existence"
+               <placeName xml:id="name509-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܘܐܣܛ</placeName>
+               <placeName xml:id="name509-3" xml:lang="syr-Syrj" source="#bib509-2">ܘܰܐܣܛ</placeName>
+               <placeName xml:id="name509-4" xml:lang="ar" source="#bib509-3">واسط</placeName>
+               <placeName xml:id="name509-5" xml:lang="en" source="#bib509-4">Wasit</placeName>
+               <desc xml:id="abstract-en-509" xml:lang="en">A city of southern Iraq on the west bank of the <placeName ref="http://syriaca.org/place/202">Tigris</placeName>.</desc>
+               <state type="existence"
                       from="0714"
                       to="1522"
                       syriaca-computed-end="1522-01-01"
@@ -115,38 +115,38 @@
                              syriaca-computed-start="0694-01-01"/>
                         <precision match="@to" notBefore="1522" syriaca-computed-start="1522-01-01"/>
                     </state>
-                    <note type="disambiguation">Not the same conceptual place as <placeName ref="http://syriaca.org/place/111">Kashkar</placeName>.</note>
-                    <idno type="URI">http://syriaca.org/place/509</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Wasit,_Iraq</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Wasit,_Iraq</idno>
-                    <bibl xml:id="bib509-1">
+               <note type="disambiguation">Not the same conceptual place as <placeName ref="http://syriaca.org/place/111">Kashkar</placeName>.</note>
+               <idno type="URI">http://syriaca.org/place/509</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Wasit,_Iraq</idno>
+               <idno type="URI">http://dbpedia.org/resource/Wasit,_Iraq</idno>
+               <bibl xml:id="bib509-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">1, 8, 50, 70, 162, 195, 212, 405</citedRange>
                     </bibl>
-                    <bibl xml:id="bib509-2">
+               <bibl xml:id="bib509-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">562</citedRange>
                     </bibl>
-                    <bibl xml:id="bib509-3">
+               <bibl xml:id="bib509-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">520</citedRange>
                     </bibl>
-                    <bibl xml:id="bib509-4">
+               <bibl xml:id="bib509-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
                     </bibl>
-                <bibl xml:id="bib509-5">
+               <bibl xml:id="bib509-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

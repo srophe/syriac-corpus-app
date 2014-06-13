@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Tokat
@@ -90,59 +90,59 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-510" type="settlement">
-                    <placeName xml:id="name510-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-510" type="settlement">
+               <placeName xml:id="name510-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib510-3">Tokat</placeName>
-                    <placeName xml:id="name510-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܬܘܩܐܬ</placeName>
-                    <placeName xml:id="name510-3" xml:lang="syr-Syrj" source="#bib510-1">ܬܳܘܩܰܐܬ</placeName>
-                    <placeName xml:id="name510-4" xml:lang="ar" source="#bib510-2">توقات</placeName>
-                    <desc xml:id="abstract-en-510" xml:lang="en">A city of north-central <placeName ref="http://syriaca.org/place/504">Anatolia</placeName>.</desc>
-                    <location type="gps" source="#bib510-4">
+               <placeName xml:id="name510-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܬܘܩܐܬ</placeName>
+               <placeName xml:id="name510-3" xml:lang="syr-Syrj" source="#bib510-1">ܬܳܘܩܰܐܬ</placeName>
+               <placeName xml:id="name510-4" xml:lang="ar" source="#bib510-2">توقات</placeName>
+               <desc xml:id="abstract-en-510" xml:lang="en">A city of north-central <placeName ref="http://syriaca.org/place/504">Anatolia</placeName>.</desc>
+               <location type="gps" source="#bib510-4">
                         <geo>40.317677 36.549116</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="-0030"
                       to="2013"
                       syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-0030"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/510</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/857105</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Tokat</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Tokat</idno>
-                    <bibl xml:id="bib510-1">
+               <idno type="URI">http://syriaca.org/place/510</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/857105</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Tokat</idno>
+               <idno type="URI">http://dbpedia.org/resource/Tokat</idno>
+               <bibl xml:id="bib510-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">562</citedRange>
                     </bibl>
-                    <bibl xml:id="bib510-2">
+               <bibl xml:id="bib510-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">520</citedRange>
                     </bibl>
-                    <bibl xml:id="bib510-3">
+               <bibl xml:id="bib510-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
                     </bibl>
-                    <bibl xml:id="bib510-4">
+               <bibl xml:id="bib510-4">
                         <title>http://pleiades.stoa.org/places/857105</title>
                         <ptr target="http://pleiades.stoa.org/places/857105"/>
                     </bibl>
-                <bibl xml:id="bib510-5">
+               <bibl xml:id="bib510-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Nagran
@@ -102,90 +102,90 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-464" type="settlement">
-                    <placeName xml:id="name464-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-464" type="settlement">
+               <placeName xml:id="name464-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib464-2">Nagran</placeName>
-                    <placeName xml:id="name464-2" xml:lang="en" source="#bib464-2">Negran</placeName>
-                    <placeName xml:id="name464-3" xml:lang="en" source="#bib464-2">Najrān</placeName>
-                    <placeName xml:id="name464-4" xml:lang="syr" syriaca-tags="#syriaca-headword">ܢܓܪܐܢ</placeName>
-                    <placeName xml:id="name464-5" xml:lang="syr-Syrj" source="#bib464-3">ܢܰܓܪܰܐܢ</placeName>
-                    <placeName xml:id="name464-6" xml:lang="ar" source="#bib464-4">نجران</placeName>
-                    <placeName xml:id="name464-7" xml:lang="en" source="#bib464-5 #bib464-6">Najran</placeName>
-                    <desc xml:id="abstract-en-464" xml:lang="en">
+               <placeName xml:id="name464-2" xml:lang="en" source="#bib464-2">Negran</placeName>
+               <placeName xml:id="name464-3" xml:lang="en" source="#bib464-2">Najrān</placeName>
+               <placeName xml:id="name464-4" xml:lang="syr" syriaca-tags="#syriaca-headword">ܢܓܪܐܢ</placeName>
+               <placeName xml:id="name464-5" xml:lang="syr-Syrj" source="#bib464-3">ܢܰܓܪܰܐܢ</placeName>
+               <placeName xml:id="name464-6" xml:lang="ar" source="#bib464-4">نجران</placeName>
+               <placeName xml:id="name464-7" xml:lang="en" source="#bib464-5 #bib464-6">Najran</placeName>
+               <desc xml:id="abstract-en-464" xml:lang="en">
                         <quote source="#bib464-1">City in S. Arabia (Syr. Nagran, or Negran; Arab. Najrān), and city in Iraq.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib464-1">388. Nagran</quote>
                     </desc>
-                    <desc xml:lang="syr-Syrj">
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib464-3">ܡܕܺܝܢܬܳܐ ܗܘܳܬ ܥܰܬܝܩܬܳܐ ܒܝܰܡܰܢ ܒܓܰܪܒܰܝ ܡܰܕܢܚܳܐ ܕܝܠܳܗ̇ ܗܘܳܬ ܚܰܪܝܒܳܐ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib464-4">مدينة قديمة كانت باليمن في الشمال الشرقي، خربة.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib464-5">an ancient city in northeastern Yaman.</quote>
                     </desc>
-                    <state type="existence"
+               <state type="existence"
                       from="-0685"
                       to="2013"
                       syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-0685"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/464</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/39286</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Najran</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Najran</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/464</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/39286</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Najran</idno>
+               <idno type="URI">http://dbpedia.org/resource/Najran</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=N&amp;sK=Najran&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib464-1">
+               <bibl xml:id="bib464-1">
                         <author>L. Van Rompay </author>
                         <title level="a" xml:lang="en">388. Nagran</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">302-303</citedRange>
                     </bibl>
-                    <bibl xml:id="bib464-2">
+               <bibl xml:id="bib464-2">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">70, 149, 197, 199, 220, 272, 293, 302–303, 333, 376, 441</citedRange>
                     </bibl>
-                    <bibl xml:id="bib464-3">
+               <bibl xml:id="bib464-3">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">562</citedRange>
                     </bibl>
-                    <bibl xml:id="bib464-4">
+               <bibl xml:id="bib464-4">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">520</citedRange>
                     </bibl>
-                    <bibl xml:id="bib464-5">
+               <bibl xml:id="bib464-5">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
                     </bibl>
-                    <bibl xml:id="bib464-6">
+               <bibl xml:id="bib464-6">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=N&amp;sK=Najran&amp;sT=keywords">Najran</citedRange>
                     </bibl>
-                <bibl xml:id="bib464-7">
+               <bibl xml:id="bib464-7">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

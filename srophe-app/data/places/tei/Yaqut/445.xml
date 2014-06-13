@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Kafrṭāb
@@ -102,28 +102,28 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-445" type="settlement">
-                    <placeName xml:id="name445-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-445" type="settlement">
+               <placeName xml:id="name445-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib445-3">Kafrṭāb</placeName>
-                    <placeName xml:id="name445-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܟܦܪܛܐܒ</placeName>
-                    <placeName xml:id="name445-3" xml:lang="syr-Syrj" source="#bib445-1">ܟܦܰܪܛܐܒ</placeName>
-                    <placeName xml:id="name445-4" xml:lang="ar" source="#bib445-2">كفر طاب</placeName>
-                    <desc xml:id="abstract-en-445" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name445-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܟܦܪܛܐܒ</placeName>
+               <placeName xml:id="name445-3" xml:lang="syr-Syrj" source="#bib445-1">ܟܦܰܪܛܐܒ</placeName>
+               <placeName xml:id="name445-4" xml:lang="ar" source="#bib445-2">كفر طاب</placeName>
+               <desc xml:id="abstract-en-445" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib445-1">ܡܕܺܝܢܳܬܘܢܳܝ ܕܰܒܡܰܕܒܪܳܐ ܨܗܘܐ ܕܒܶܝܬ ܡܥܪܝܐ ܢܥܡܰܢ ܠܚܳܠܳܒ ܐܶܬܠܰܝܬܝ ܪܘܫܡܳܗ̇.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib445-2">بلدة في برية معطشة بين معرة النعمان وحلب عفا رسمها.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib445-3">an ancient town in the Muʿaṭṭasha desert between Maʿarrat al-Nuʿmān and Aleppo.</quote>
                     </desc>
-                    <state type="existence"
+               <state type="existence"
                       from="1059"
                       to="1200"
                       syriaca-computed-end="1200-01-01"
@@ -131,31 +131,31 @@
                         <precision match="@from" notAfter="1059" syriaca-computed-end="1059-01-01"/>
                         <precision match="@to" notBefore="1200" syriaca-computed-start="1200-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/445</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Kfar_Tab_(West_Syrian_Diocese)</idno>
-                    <bibl xml:id="bib445-1">
+               <idno type="URI">http://syriaca.org/place/445</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Kfar_Tab_(West_Syrian_Diocese)</idno>
+               <bibl xml:id="bib445-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">560</citedRange>
                     </bibl>
-                    <bibl xml:id="bib445-2">
+               <bibl xml:id="bib445-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">519</citedRange>
                     </bibl>
-                    <bibl xml:id="bib445-3">
+               <bibl xml:id="bib445-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">554</citedRange>
                     </bibl>
-                <bibl xml:id="bib445-4">
+               <bibl xml:id="bib445-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

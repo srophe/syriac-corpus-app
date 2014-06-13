@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">al-Ṣāliḥiyya
@@ -103,53 +103,53 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-419" type="settlement">
-                    <placeName xml:id="name419-1" xml:lang="en" syriaca-tags="#syriaca-headword">al-Ṣāliḥiyya</placeName>
-                    <placeName xml:id="name419-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܨܐܠܚܝܗ </placeName>
-                    <placeName xml:id="name419-3" xml:lang="syr-Syrj" source="#bib419-1">ܨܰܐܠܚܝܗ </placeName>
-                    <placeName xml:id="name419-4" xml:lang="ar" source="#bib419-2">الصالحية</placeName>
-                    <placeName xml:id="name419-5" xml:lang="en" source="#bib419-3">Ṣaliḥiyya</placeName>
-                    <desc xml:id="abstract-en-419" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-419" type="settlement">
+               <placeName xml:id="name419-1" xml:lang="en" syriaca-tags="#syriaca-headword">al-Ṣāliḥiyya</placeName>
+               <placeName xml:id="name419-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܨܐܠܚܝܗ </placeName>
+               <placeName xml:id="name419-3" xml:lang="syr-Syrj" source="#bib419-1">ܨܰܐܠܚܝܗ </placeName>
+               <placeName xml:id="name419-4" xml:lang="ar" source="#bib419-2">الصالحية</placeName>
+               <placeName xml:id="name419-5" xml:lang="en" source="#bib419-3">Ṣaliḥiyya</placeName>
+               <desc xml:id="abstract-en-419" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib419-1">܆ܩܪܝܬܐ ܗܝ ܪܰܒܬܐ ܕܒܰܫܦܘܠܐ ܕܛܘܪܳܐ ܕܩܰܐܣܒܘܢ ܕܰܒܥܳܒܐ ܕܕܰܪܡܣܘܩ ܘܐܶܬܚܰܝܕܰܬ ܠܗ̇ </quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib419-2">قرية كبيرة كانت في لحف جبل قاسيون من غوطة دمشق وقد اتصلت بها.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib419-3">a large village which was situated in the Ghūta of Damascus, at the foot of Qasyun Mountain. It has now become part of Damascus.</quote>
                     </desc>
-                    <state type="existence" to="2013" syriaca-computed-end="2013-01-01">
+               <state type="existence" to="2013" syriaca-computed-end="2013-01-01">
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/419</idno>
-                    <bibl xml:id="bib419-1">
+               <idno type="URI">http://syriaca.org/place/419</idno>
+               <bibl xml:id="bib419-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">557</citedRange>
                     </bibl>
-                    <bibl xml:id="bib419-2">
+               <bibl xml:id="bib419-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">517</citedRange>
                     </bibl>
-                    <bibl xml:id="bib419-3">
+               <bibl xml:id="bib419-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">558</citedRange>
                     </bibl>
-                <bibl xml:id="bib419-4">
+               <bibl xml:id="bib419-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name" mutual="#place-419  http://syriaca.org/place/418"/>
-            </listPlace>
-        </body>
-    </text>
+            <relation name="share-a-name" mutual="#place-419  http://syriaca.org/place/418"/>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

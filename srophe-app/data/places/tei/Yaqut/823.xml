@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Hamadān</title>
@@ -77,39 +77,39 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-823" type="settlement">
-                    <placeName xml:id="name823-1" xml:lang="en" syriaca-tags="#syriaca-headword">Hamadān</placeName>
-                    <placeName xml:id="name823-2" xml:lang="en" source="#bib823-1">Hamaḏān</placeName>
-                    <desc xml:id="abstract-en-823" xml:lang="en"/>
-                    <location type="gps" source="#bib823-2">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-823" type="settlement">
+               <placeName xml:id="name823-1" xml:lang="en" syriaca-tags="#syriaca-headword">Hamadān</placeName>
+               <placeName xml:id="name823-2" xml:lang="en" source="#bib823-1">Hamaḏān</placeName>
+               <desc xml:id="abstract-en-823" xml:lang="en"/>
+               <location type="gps" source="#bib823-2">
                         <geo>34.799294 48.512209</geo>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/823</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/903021</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Hamedan</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Hamedan</idno>
-                    <bibl xml:id="bib823-1">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/823</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/903021</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Hamedan</idno>
+               <idno type="URI">http://dbpedia.org/resource/Hamedan</idno>
+               <bibl xml:id="bib823-1">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">17, 18, 183, 278, 280, 322, 323</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                    <bibl xml:id="bib823-2">
+               <bibl xml:id="bib823-2">
                         <title>http://pleiades.stoa.org/places/903021</title>
                         <ptr target="http://pleiades.stoa.org/places/903021"/>
                     </bibl>
-                <bibl xml:id="bib823-3">
+               <bibl xml:id="bib823-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

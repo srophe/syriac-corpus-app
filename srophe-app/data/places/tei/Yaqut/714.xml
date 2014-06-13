@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Cyprus
@@ -95,65 +95,65 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-714" type="island">
-                    <placeName xml:id="name714-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-714" type="island">
+               <placeName xml:id="name714-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib714-1 #bib714-4 #bib714-5">Cyprus</placeName>
-                    <placeName xml:id="name714-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܘܦܪܘܣ</placeName>
-                    <placeName xml:id="name714-3" xml:lang="syr-Syrj" source="#bib714-2">ܩܘܽܦܪܘܣ</placeName>
-                    <placeName xml:id="name714-4" xml:lang="ar" source="#bib714-3">قبرس</placeName>
-                    <desc xml:id="abstract-en-714" xml:lang="en"/>
-                    <location type="gps" source="#bib714-6">
+               <placeName xml:id="name714-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܘܦܪܘܣ</placeName>
+               <placeName xml:id="name714-3" xml:lang="syr-Syrj" source="#bib714-2">ܩܘܽܦܪܘܣ</placeName>
+               <placeName xml:id="name714-4" xml:lang="ar" source="#bib714-3">قبرس</placeName>
+               <desc xml:id="abstract-en-714" xml:lang="en"/>
+               <location type="gps" source="#bib714-6">
                         <geo>35.0444470024 32.6288214881</geo>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/714</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/707498</idno>
-                    <bibl xml:id="bib714-1">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/714</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/707498</idno>
+               <bibl xml:id="bib714-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">59, 69, 92, 107, 108, 134, 147, 181, 183, 210, 299, 322, 372, 384</citedRange>
                         <citedRange unit="maps">Map I A2, II A2</citedRange>
                     </bibl>
-                    <bibl xml:id="bib714-2">
+               <bibl xml:id="bib714-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">287</citedRange>
                     </bibl>
-                    <bibl xml:id="bib714-3">
+               <bibl xml:id="bib714-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">261</citedRange>
                     </bibl>
-                    <bibl xml:id="bib714-4">
+               <bibl xml:id="bib714-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">300</citedRange>
                     </bibl>
-                    <bibl xml:id="bib714-5">
+               <bibl xml:id="bib714-5">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">4, 40, 63-64, 66, 346, 347</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                    <bibl xml:id="bib714-6">
+               <bibl xml:id="bib714-6">
                         <title>http://pleiades.stoa.org/places/707498</title>
                         <ptr target="http://pleiades.stoa.org/places/707498"/>
                     </bibl>
-                <bibl xml:id="bib714-7">
+               <bibl xml:id="bib714-7">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name"
+            <relation name="share-a-name"
                       mutual="#place-714  http://syriaca.org/place/59  http://syriaca.org/place/2292"/>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

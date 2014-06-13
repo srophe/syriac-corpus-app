@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Tibet</title>
@@ -72,36 +72,36 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-646" type="region">
-                    <placeName xml:id="name646-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-646" type="region">
+               <placeName xml:id="name646-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib646-1">Tibet</placeName>
-                    <desc xml:id="abstract-en-646" xml:lang="en">A mountainous region northeast of <placeName ref="http://syriaca.org/place/500">India</placeName> and west of <placeName ref="http://syriaca.org/place/472">China</placeName>.</desc>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/646</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Tibet</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Tibet</idno>
-                    <idno type="URI">
+               <desc xml:id="abstract-en-646" xml:lang="en">A mountainous region northeast of <placeName ref="http://syriaca.org/place/500">India</placeName> and west of <placeName ref="http://syriaca.org/place/472">China</placeName>.</desc>
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/646</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Tibet</idno>
+               <idno type="URI">http://dbpedia.org/resource/Tibet</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Tibet&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib646-1">
+               <bibl xml:id="bib646-1">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Tibet&amp;sT=keywords">Tibet</citedRange>
                     </bibl>
-                <bibl xml:id="bib646-2">
+               <bibl xml:id="bib646-2">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

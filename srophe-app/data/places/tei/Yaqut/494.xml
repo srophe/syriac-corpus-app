@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Ancyra
@@ -90,66 +90,66 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-494" type="settlement">
-                    <placeName xml:id="name494-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-494" type="settlement">
+               <placeName xml:id="name494-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib494-1">Ancyra</placeName>
-                    <placeName xml:id="name494-2" xml:lang="en" source="#bib494-1">Ankyra</placeName>
-                    <placeName xml:id="name494-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܢܩܘܪܐ</placeName>
-                    <placeName xml:id="name494-4" xml:lang="syr-Syrj" source="#bib494-2">ܐܰܢܩܘܪܰܐ</placeName>
-                    <placeName xml:id="name494-5" xml:lang="ar" source="#bib494-3">انقرة</placeName>
-                    <placeName xml:id="name494-6" xml:lang="en" source="#bib494-4">Ankara</placeName>
-                    <desc xml:id="abstract-en-494" xml:lang="en">A city of central <placeName ref="http://syriaca.org/place/504">Anatolia</placeName>.</desc>
-                    <location type="gps" source="#bib494-5">
+               <placeName xml:id="name494-2" xml:lang="en" source="#bib494-1">Ankyra</placeName>
+               <placeName xml:id="name494-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܢܩܘܪܐ</placeName>
+               <placeName xml:id="name494-4" xml:lang="syr-Syrj" source="#bib494-2">ܐܰܢܩܘܪܰܐ</placeName>
+               <placeName xml:id="name494-5" xml:lang="ar" source="#bib494-3">انقرة</placeName>
+               <placeName xml:id="name494-6" xml:lang="en" source="#bib494-4">Ankara</placeName>
+               <desc xml:id="abstract-en-494" xml:lang="en">A city of central <placeName ref="http://syriaca.org/place/504">Anatolia</placeName>.</desc>
+               <location type="gps" source="#bib494-5">
                         <geo>39.943198 32.860538</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="-1000"
                       to="2013"
                       syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-1000"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/494</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/619103</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Ankara</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Ankara</idno>
-                    <bibl xml:id="bib494-1">
+               <idno type="URI">http://syriaca.org/place/494</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/619103</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Ankara</idno>
+               <idno type="URI">http://dbpedia.org/resource/Ankara</idno>
+               <bibl xml:id="bib494-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">238, 307, 409</citedRange>
                     </bibl>
-                    <bibl xml:id="bib494-2">
+               <bibl xml:id="bib494-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">560</citedRange>
                     </bibl>
-                    <bibl xml:id="bib494-3">
+               <bibl xml:id="bib494-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">518</citedRange>
                     </bibl>
-                    <bibl xml:id="bib494-4">
+               <bibl xml:id="bib494-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">552</citedRange>
                     </bibl>
-                    <bibl xml:id="bib494-5">
+               <bibl xml:id="bib494-5">
                         <title>http://pleiades.stoa.org/places/619103</title>
                         <ptr target="http://pleiades.stoa.org/places/619103"/>
                     </bibl>
-                <bibl xml:id="bib494-6">
+               <bibl xml:id="bib494-6">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

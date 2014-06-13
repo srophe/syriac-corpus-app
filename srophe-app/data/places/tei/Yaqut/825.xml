@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Ḥadita</title>
@@ -77,32 +77,32 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-825" type="settlement">
-                    <placeName xml:id="name825-1" xml:lang="en" syriaca-tags="#syriaca-headword">Ḥadita</placeName>
-                    <placeName xml:id="name825-2" xml:lang="en" source="#bib825-1">Ḥadīṯā</placeName>
-                    <desc xml:id="abstract-en-825" xml:lang="en"/>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/825</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Hdatta</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Hdatta</idno>
-                    <bibl xml:id="bib825-1">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-825" type="settlement">
+               <placeName xml:id="name825-1" xml:lang="en" syriaca-tags="#syriaca-headword">Ḥadita</placeName>
+               <placeName xml:id="name825-2" xml:lang="en" source="#bib825-1">Ḥadīṯā</placeName>
+               <desc xml:id="abstract-en-825" xml:lang="en"/>
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/825</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Hdatta</idno>
+               <idno type="URI">http://dbpedia.org/resource/Hdatta</idno>
+               <bibl xml:id="bib825-1">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">63, 168</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib825-2">
+               <bibl xml:id="bib825-2">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name" mutual="#place-825  http://syriaca.org/place/2311"/>
-            </listPlace>
-        </body>
-    </text>
+            <relation name="share-a-name" mutual="#place-825  http://syriaca.org/place/2311"/>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

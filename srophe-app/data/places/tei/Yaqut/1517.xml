@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Tell Zqipa</title>
@@ -76,19 +76,19 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-1517" type="settlement">
-                    <placeName xml:id="name1517-1" xml:lang="en" syriaca-tags="#syriaca-headword">Tell Zqipa</placeName>
-                    <placeName xml:id="name1517-2" xml:lang="en" source="#bib1517-1">Tel Isqōf</placeName>
-                    <placeName xml:id="name1517-3" xml:lang="en" source="#bib1517-1">Tel Zqīpā</placeName>
-                    <placeName xml:id="name1517-4" xml:lang="en" source="#bib1517-1">Tesqōpā</placeName>
-                    <desc xml:id="abstract-en-1517" xml:lang="en">A large village in the plain of <placeName ref="http://syriaca.org/place/139">Mosul</placeName>.</desc>
-                    <location type="nested" source="#bib1517-1">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-1517" type="settlement">
+               <placeName xml:id="name1517-1" xml:lang="en" syriaca-tags="#syriaca-headword">Tell Zqipa</placeName>
+               <placeName xml:id="name1517-2" xml:lang="en" source="#bib1517-1">Tel Isqōf</placeName>
+               <placeName xml:id="name1517-3" xml:lang="en" source="#bib1517-1">Tel Zqīpā</placeName>
+               <placeName xml:id="name1517-4" xml:lang="en" source="#bib1517-1">Tesqōpā</placeName>
+               <desc xml:id="abstract-en-1517" xml:lang="en">A large village in the plain of <placeName ref="http://syriaca.org/place/139">Mosul</placeName>.</desc>
+               <location type="nested" source="#bib1517-1">
                         <region ref="http://syriaca.org/place/722">Mosul region</region>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="1220"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -96,23 +96,23 @@
                         <precision match="@from" notAfter="1220" syriaca-computed-end="1220-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/1517</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Tel_Isqof</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Tel_Isqof</idno>
-                    <bibl xml:id="bib1517-1">
+               <idno type="URI">http://syriaca.org/place/1517</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Tel_Isqof</idno>
+               <idno type="URI">http://dbpedia.org/resource/Tel_Isqof</idno>
+               <bibl xml:id="bib1517-1">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">12, 46, 59, 141, 176, 188, 189, 197, 198, 199, 202, 204, 205, 232, 233, 234-237, 238, 247, 260, 263, 264, 265, 266, 267, 273, 355</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib1517-2">
+               <bibl xml:id="bib1517-2">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

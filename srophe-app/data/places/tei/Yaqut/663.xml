@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Iskenderun</title>
@@ -73,41 +73,41 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-663" type="settlement">
-                    <placeName xml:id="name663-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-663" type="settlement">
+               <placeName xml:id="name663-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib663-1">Iskenderun</placeName>
-                    <placeName xml:id="name663-2" xml:lang="en" source="#bib663-1">Alexandretta</placeName>
-                    <desc xml:id="abstract-en-663" xml:lang="en">A coastal city north of <placeName ref="http://syriaca.org/place/10">Antioch</placeName>.</desc>
-                    <location type="gps" source="#bib663-2">
+               <placeName xml:id="name663-2" xml:lang="en" source="#bib663-1">Alexandretta</placeName>
+               <desc xml:id="abstract-en-663" xml:lang="en">A coastal city north of <placeName ref="http://syriaca.org/place/10">Antioch</placeName>.</desc>
+               <location type="gps" source="#bib663-2">
                         <geo>36.589023 36.166038</geo>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/663</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/658371/</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/İskenderun</idno>
-                    <idno type="URI">http://dbpedia.org/resource/İskenderun</idno>
-                    <bibl xml:id="bib663-1">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/663</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/658371/</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/İskenderun</idno>
+               <idno type="URI">http://dbpedia.org/resource/İskenderun</idno>
+               <bibl xml:id="bib663-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">14, 22</citedRange>
                     </bibl>
-                    <bibl xml:id="bib663-2">
+               <bibl xml:id="bib663-2">
                         <title>http://pleiades.stoa.org/places/658371</title>
                         <ptr target="http://pleiades.stoa.org/places/658371"/>
                     </bibl>
-                <bibl xml:id="bib663-3">
+               <bibl xml:id="bib663-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

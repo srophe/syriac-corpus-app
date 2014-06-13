@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Kharput
@@ -98,31 +98,31 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-330" type="settlement">
-                    <placeName xml:id="name330-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-330" type="settlement">
+               <placeName xml:id="name330-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib330-1 #bib330-4">Kharput</placeName>
-                    <placeName xml:id="name330-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܣܢ ܙܝܐܕ</placeName>
-                    <placeName xml:id="name330-3" xml:lang="syr-Syrj" source="#bib330-2">ܚܰܣܰܢ ܙܰܝܰܐܕ</placeName>
-                    <placeName xml:id="name330-4" xml:lang="syr-Syrj" source="#bib330-2">ܟ݂ܰܪܒܘܬ</placeName>
-                    <placeName xml:id="name330-5" xml:lang="ar" source="#bib330-3">حصن زياد</placeName>
-                    <placeName xml:id="name330-6" xml:lang="ar" source="#bib330-3">خربوت</placeName>
-                    <placeName xml:id="name330-7" xml:lang="en" source="#bib330-4">Ḥiṣn Ziyād</placeName>
-                    <desc xml:id="abstract-en-330" xml:lang="en">A town northeast of Melitene.</desc>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name330-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܣܢ ܙܝܐܕ</placeName>
+               <placeName xml:id="name330-3" xml:lang="syr-Syrj" source="#bib330-2">ܚܰܣܰܢ ܙܰܝܰܐܕ</placeName>
+               <placeName xml:id="name330-4" xml:lang="syr-Syrj" source="#bib330-2">ܟ݂ܰܪܒܘܬ</placeName>
+               <placeName xml:id="name330-5" xml:lang="ar" source="#bib330-3">حصن زياد</placeName>
+               <placeName xml:id="name330-6" xml:lang="ar" source="#bib330-3">خربوت</placeName>
+               <placeName xml:id="name330-7" xml:lang="en" source="#bib330-4">Ḥiṣn Ziyād</placeName>
+               <desc xml:id="abstract-en-330" xml:lang="en">A town northeast of Melitene.</desc>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib330-2">ܒܶܝܬ ܐܳܡܝܕ ܠܡܝܺܠܝܛܝܢܝ ܘܐܝܬܶܝܗ̇ ܡܕܝܢܰܬ ܟ݂ܰܪܒܘܬ ܕܐܰܫܩܶܠ ܝܰܘܡܳܢ ܐܢܳܫܶܝ̈ܗ̇ ܠܰܡܕܺܝܢܰܬ ܐܰܠܥܰܙܝܺܓ ܚܕܰܬܳܐ ܕܩܰܪܝܒܐ ܠܗ̇.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib330-3">بارض ارمينية بين آمد وملطية وهي مدينة خربوت التي نزح اليوم اهلها الى مدينة معمورة العزيز الحديثة المجاورة لها</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib330-4">the town of Kharput in Armenia, between Amid and Melitene. Its people moved to the nearby new town of Maʿmūrat al-ʿAzīz.</quote>
                     </desc>
-                    <state type="existence"
+               <state type="existence"
                       from="1131"
                       to="2011"
                       syriaca-computed-end="2011-01-01"
@@ -130,35 +130,35 @@
                         <precision match="@from" notAfter="1131" syriaca-computed-end="1131-01-01"/>
                         <precision match="@to" notBefore="2011" syriaca-computed-start="2011-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/330</idno>
-                    <bibl xml:id="bib330-1">
+               <idno type="URI">http://syriaca.org/place/330</idno>
+               <bibl xml:id="bib330-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">43, 167, 326</citedRange>
                     </bibl>
-                    <bibl xml:id="bib330-2">
+               <bibl xml:id="bib330-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">539</citedRange>
                     </bibl>
-                    <bibl xml:id="bib330-3">
+               <bibl xml:id="bib330-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">506</citedRange>
                     </bibl>
-                    <bibl xml:id="bib330-4">
+               <bibl xml:id="bib330-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">554</citedRange>
                     </bibl>
-                <bibl xml:id="bib330-5">
+               <bibl xml:id="bib330-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

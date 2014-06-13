@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Anḥil
@@ -98,28 +98,28 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-24" type="settlement">
-                    <placeName xml:id="name24-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-24" type="settlement">
+               <placeName xml:id="name24-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib24-4">Anḥil</placeName>
-                    <placeName xml:id="name24-2" xml:lang="en" source="#bib24-1">Anhil</placeName>
-                    <placeName xml:id="name24-3" xml:lang="en" source="#bib24-1">Anḥel</placeName>
-                    <placeName xml:id="name24-4" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܢܚܠ</placeName>
-                    <placeName xml:id="name24-5" xml:lang="syr-Syrj" source="#bib24-2">ܐܰܢܚܠ</placeName>
-                    <placeName xml:id="name24-6" xml:lang="ar" source="#bib24-3">انحل</placeName>
-                    <placeName xml:id="name24-7" xml:lang="en" source="#bib24-5">Enḥel</placeName>
-                    <desc xml:id="abstract-en-24" xml:lang="en">A village in <placeName ref="http://syriaca.org/place/221">Ṭur ʿAbdin</placeName>.</desc>
-                    <location type="gps" source="#bib24-1">
+               <placeName xml:id="name24-2" xml:lang="en" source="#bib24-1">Anhil</placeName>
+               <placeName xml:id="name24-3" xml:lang="en" source="#bib24-1">Anḥel</placeName>
+               <placeName xml:id="name24-4" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܢܚܠ</placeName>
+               <placeName xml:id="name24-5" xml:lang="syr-Syrj" source="#bib24-2">ܐܰܢܚܠ</placeName>
+               <placeName xml:id="name24-6" xml:lang="ar" source="#bib24-3">انحل</placeName>
+               <placeName xml:id="name24-7" xml:lang="en" source="#bib24-5">Enḥel</placeName>
+               <desc xml:id="abstract-en-24" xml:lang="en">A village in <placeName ref="http://syriaca.org/place/221">Ṭur ʿAbdin</placeName>.</desc>
+               <location type="gps" source="#bib24-1">
                         <geo>37.33 41.34</geo>
                     </location>
-                    <location type="nested" source="#bib24-5">
+               <location type="nested" source="#bib24-5">
                         <region ref="http://syriaca.org/place/221">Ṭūr ʿAbdīn</region>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0734"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -127,44 +127,44 @@
                         <precision match="@from" notAfter="0734" syriaca-computed-end="0734-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/24</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Yemişli,_Midyat</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Yemişli,_Midyat</idno>
-                    <bibl xml:id="bib24-1">
+               <idno type="URI">http://syriaca.org/place/24</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Yemişli,_Midyat</idno>
+               <idno type="URI">http://dbpedia.org/resource/Yemişli,_Midyat</idno>
+               <bibl xml:id="bib24-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">264</citedRange>
                         <citedRange unit="maps">Map III</citedRange>
                     </bibl>
-                    <bibl xml:id="bib24-2">
+               <bibl xml:id="bib24-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">558</citedRange>
                     </bibl>
-                    <bibl xml:id="bib24-3">
+               <bibl xml:id="bib24-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">517</citedRange>
                     </bibl>
-                    <bibl xml:id="bib24-4">
+               <bibl xml:id="bib24-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">559</citedRange>
                     </bibl>
-                    <bibl xml:id="bib24-5">
+               <bibl xml:id="bib24-5">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">47</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib24-6">
+               <bibl xml:id="bib24-6">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

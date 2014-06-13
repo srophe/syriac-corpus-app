@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Filasṭīn
@@ -94,68 +94,68 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-698" type="region">
-                    <placeName xml:id="name698-1" xml:lang="en" syriaca-tags="#syriaca-headword">Filasṭīn</placeName>
-                    <placeName xml:id="name698-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܦܠܫܬ</placeName>
-                    <placeName xml:id="name698-3" xml:lang="syr-Syrj" source="#bib698-1">ܦܠܶܫܬ</placeName>
-                    <placeName xml:id="name698-4" xml:lang="ar" source="#bib698-2">فلسطين</placeName>
-                    <placeName xml:id="name698-5"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-698" type="region">
+               <placeName xml:id="name698-1" xml:lang="en" syriaca-tags="#syriaca-headword">Filasṭīn</placeName>
+               <placeName xml:id="name698-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܦܠܫܬ</placeName>
+               <placeName xml:id="name698-3" xml:lang="syr-Syrj" source="#bib698-1">ܦܠܶܫܬ</placeName>
+               <placeName xml:id="name698-4" xml:lang="ar" source="#bib698-2">فلسطين</placeName>
+               <placeName xml:id="name698-5"
                           xml:lang="en"
                           source="#bib698-3 #bib698-4 #bib698-5">Palestine</placeName>
-                    <desc xml:id="abstract-en-698" xml:lang="en"/>
-                    <location type="gps" source="#bib698-6">
+               <desc xml:id="abstract-en-698" xml:lang="en"/>
+               <location type="gps" source="#bib698-6">
                         <geo>31.25 34.75</geo>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/698</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/687995</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Palestine</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Palestine</idno>
-                    <idno type="URI">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/698</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/687995</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Palestine</idno>
+               <idno type="URI">http://dbpedia.org/resource/Palestine</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=P&amp;sK=Palestine&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib698-1">
+               <bibl xml:id="bib698-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">539</citedRange>
                     </bibl>
-                    <bibl xml:id="bib698-2">
+               <bibl xml:id="bib698-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">506</citedRange>
                     </bibl>
-                    <bibl xml:id="bib698-3">
+               <bibl xml:id="bib698-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">553</citedRange>
                     </bibl>
-                    <bibl xml:id="bib698-4">
+               <bibl xml:id="bib698-4">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=P&amp;sK=Palestine&amp;sT=keywords">Palestine</citedRange>
                     </bibl>
-                    <bibl xml:id="bib698-5">
+               <bibl xml:id="bib698-5">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">17, 40, 62-65, 66, 342</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                    <bibl xml:id="bib698-6">
+               <bibl xml:id="bib698-6">
                         <title>http://pleiades.stoa.org/places/687995</title>
                         <ptr target="http://pleiades.stoa.org/places/687995"/>
                     </bibl>
-                <bibl xml:id="bib698-7">
+               <bibl xml:id="bib698-7">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

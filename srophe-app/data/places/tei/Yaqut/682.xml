@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">ʿAyn al-Tamr</title>
@@ -72,30 +72,30 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-682" type="settlement">
-                    <placeName xml:id="name682-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-682" type="settlement">
+               <placeName xml:id="name682-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib682-1">ʿAyn al-Tamr</placeName>
-                    <desc xml:id="abstract-en-682" xml:lang="en">A village near <placeName ref="http://syriaca.org/place/219">Ḥirta</placeName>.</desc>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/682</idno>
-                    <bibl xml:id="bib682-1">
+               <desc xml:id="abstract-en-682" xml:lang="en">A village near <placeName ref="http://syriaca.org/place/219">Ḥirta</placeName>.</desc>
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/682</idno>
+               <bibl xml:id="bib682-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">199</citedRange>
                     </bibl>
-                <bibl xml:id="bib682-2">
+               <bibl xml:id="bib682-2">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

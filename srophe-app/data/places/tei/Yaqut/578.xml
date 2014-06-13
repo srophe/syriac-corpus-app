@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Babylonia</title>
@@ -73,44 +73,44 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-578" type="region">
-                    <placeName xml:id="name578-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-578" type="region">
+               <placeName xml:id="name578-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib578-1">Babylonia</placeName>
-                    <desc xml:id="abstract-en-578" xml:lang="en">A region of Mesopotamia around the ancient city of Babylon.</desc>
-                    <location type="gps" source="#bib578-2">
+               <desc xml:id="abstract-en-578" xml:lang="en">A region of Mesopotamia around the ancient city of Babylon.</desc>
+               <location type="gps" source="#bib578-2">
                         <geo>32.5 44.5</geo>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/578</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/912816</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Babylonia</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Babylonia</idno>
-                    <idno type="URI">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/578</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/912816</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Babylonia</idno>
+               <idno type="URI">http://dbpedia.org/resource/Babylonia</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Babylonia&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib578-1">
+               <bibl xml:id="bib578-1">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Babylonia&amp;sT=keywords">Babylonia</citedRange>
                     </bibl>
-                    <bibl xml:id="bib578-2">
+               <bibl xml:id="bib578-2">
                         <title>http://pleiades.stoa.org/places/912816</title>
                         <ptr target="http://pleiades.stoa.org/places/912816"/>
                     </bibl>
-                <bibl xml:id="bib578-3">
+               <bibl xml:id="bib578-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

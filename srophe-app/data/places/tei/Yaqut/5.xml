@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Adharbayjān
@@ -99,30 +99,30 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-5" type="region">
-                    <placeName xml:id="name5-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-5" type="region">
+               <placeName xml:id="name5-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib5-1">Adharbayjān</placeName>
-                    <placeName xml:id="name5-2" xml:lang="en" source="#bib5-1 #bib5-5">Azerbaijan</placeName>
-                    <placeName xml:id="name5-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܕܪܒܝܓܐܢ</placeName>
-                    <placeName xml:id="name5-4" xml:lang="syr-Syrj" source="#bib5-2">ܐܰܕܰܪܒܰܝܓܰܐܢ</placeName>
-                    <placeName xml:id="name5-5" xml:lang="ar" source="#bib5-3">اذربيجان</placeName>
-                    <placeName xml:id="name5-6" xml:lang="en" source="#bib5-4">Azerbayjan</placeName>
-                    <desc xml:id="abstract-en-5" xml:lang="en">A region west of the Caspian Sea, encompassing the modern country of Azerbaijan and the provinces of northwest Iran.</desc>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name5-2" xml:lang="en" source="#bib5-1 #bib5-5">Azerbaijan</placeName>
+               <placeName xml:id="name5-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܕܪܒܝܓܐܢ</placeName>
+               <placeName xml:id="name5-4" xml:lang="syr-Syrj" source="#bib5-2">ܐܰܕܰܪܒܰܝܓܰܐܢ</placeName>
+               <placeName xml:id="name5-5" xml:lang="ar" source="#bib5-3">اذربيجان</placeName>
+               <placeName xml:id="name5-6" xml:lang="en" source="#bib5-4">Azerbayjan</placeName>
+               <desc xml:id="abstract-en-5" xml:lang="en">A region west of the Caspian Sea, encompassing the modern country of Azerbaijan and the provinces of northwest Iran.</desc>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib5-2">ܩܠܺܝܡܐ ܪܘܺܝܚܐ ܕܡܶܬܬܰܚܰܡ ܗܘܳܐ ܒܝܰܡܐ ܕܩܳܙܒܝܢ ܠܡܰܕܢܚܐ ܘܰܒܝܰܡܬܐ ܕܘܰܐܢ ܠܡܰܥܪܒܐ</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib5-3">اقليم واسع كان حدّه من بحر قزبين مشرقاً الى بحيرة وان مغرباً</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib5-4">a vast territory whose boundaries extended from the Caspian Sea in the east to Lake Van in the west.</quote>
                     </desc>
-                    <state type="existence"
+               <state type="existence"
                       from="0700"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -130,48 +130,48 @@
                         <precision match="@from" notAfter="0700" syriaca-computed-end="0700-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/5</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Azerbaijan</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Azerbaijan_(Iran)</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/5</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Azerbaijan</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Azerbaijan_(Iran)</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Azerbaijan&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib5-1">
+               <bibl xml:id="bib5-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">11, 359, 422</citedRange>
                         <citedRange unit="maps">Map II D1</citedRange>
                     </bibl>
-                    <bibl xml:id="bib5-2">
+               <bibl xml:id="bib5-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">535-536</citedRange>
                     </bibl>
-                    <bibl xml:id="bib5-3">
+               <bibl xml:id="bib5-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">504</citedRange>
                     </bibl>
-                    <bibl xml:id="bib5-4">
+               <bibl xml:id="bib5-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">552</citedRange>
                     </bibl>
-                    <bibl xml:id="bib5-5">
+               <bibl xml:id="bib5-5">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Azerbaijan&amp;sT=keywords">Azerbaijan</citedRange>
                     </bibl>
-                <bibl xml:id="bib5-6">
+               <bibl xml:id="bib5-6">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name" mutual="#place-5  http://syriaca.org/place/2278"/>
-            </listPlace>
-        </body>
-    </text>
+            <relation name="share-a-name" mutual="#place-5  http://syriaca.org/place/2278"/>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

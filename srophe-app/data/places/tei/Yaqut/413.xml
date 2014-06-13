@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Simandu
@@ -102,54 +102,54 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-413" type="settlement">
-                    <placeName xml:id="name413-1" xml:lang="en" syriaca-tags="#syriaca-headword">Simandu</placeName>
-                    <placeName xml:id="name413-2"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-413" type="settlement">
+               <placeName xml:id="name413-1" xml:lang="en" syriaca-tags="#syriaca-headword">Simandu</placeName>
+               <placeName xml:id="name413-2"
                           xml:lang="syr"
                           syriaca-tags="#syriaca-headword"
                           source="#bib413-1">ܣܝܡܢܕܘ</placeName>
-                    <placeName xml:id="name413-3" xml:lang="ar" source="#bib413-2">سمندو</placeName>
-                    <placeName xml:id="name413-4" xml:lang="ar" source="#bib413-2">سيمندو</placeName>
-                    <placeName xml:id="name413-5" xml:lang="en" source="#bib413-3">Samando</placeName>
-                    <placeName xml:id="name413-6" xml:lang="en" source="#bib413-3">Semando</placeName>
-                    <desc xml:id="abstract-en-413" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name413-3" xml:lang="ar" source="#bib413-2">سمندو</placeName>
+               <placeName xml:id="name413-4" xml:lang="ar" source="#bib413-2">سيمندو</placeName>
+               <placeName xml:id="name413-5" xml:lang="en" source="#bib413-3">Samando</placeName>
+               <placeName xml:id="name413-6" xml:lang="en" source="#bib413-3">Semando</placeName>
+               <desc xml:id="abstract-en-413" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib413-1">ܐܰܬܪܐ ܗܘ ܕܒܰܐܬܪ̈ܰܘܳܬܐ ܕܰܐܢܰܐܕܳܘܠ </quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib413-2">بلد في وسط بلاد الروم (الاناضول).</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib413-3">a town in central Anatolia.</quote>
                     </desc>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/413</idno>
-                    <bibl xml:id="bib413-1">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/413</idno>
+               <bibl xml:id="bib413-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">557</citedRange>
                     </bibl>
-                    <bibl xml:id="bib413-2">
+               <bibl xml:id="bib413-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">516</citedRange>
                     </bibl>
-                    <bibl xml:id="bib413-3">
+               <bibl xml:id="bib413-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">558</citedRange>
                     </bibl>
-                <bibl xml:id="bib413-4">
+               <bibl xml:id="bib413-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

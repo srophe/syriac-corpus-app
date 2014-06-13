@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Sijistān
@@ -108,78 +108,78 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-409" type="region">
-                    <placeName xml:id="name409-1" xml:lang="en" syriaca-tags="#syriaca-headword">Sijistān</placeName>
-                    <placeName xml:id="name409-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܣܓܣܬܐܢ</placeName>
-                    <placeName xml:id="name409-3" xml:lang="syr-Syrj" source="#bib409-1">ܣܰܓܣܬܰܐܢ</placeName>
-                    <placeName xml:id="name409-4" xml:lang="ar" source="#bib409-2">سجستان</placeName>
-                    <placeName xml:id="name409-5" xml:lang="en" source="#bib409-3">Sijistan</placeName>
-                    <placeName xml:id="name409-6" xml:lang="en" source="#bib409-4">Segestan</placeName>
-                    <placeName xml:id="name409-7" xml:lang="en" source="#bib409-5">Segestān</placeName>
-                    <desc xml:id="abstract-en-409" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-409" type="region">
+               <placeName xml:id="name409-1" xml:lang="en" syriaca-tags="#syriaca-headword">Sijistān</placeName>
+               <placeName xml:id="name409-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܣܓܣܬܐܢ</placeName>
+               <placeName xml:id="name409-3" xml:lang="syr-Syrj" source="#bib409-1">ܣܰܓܣܬܰܐܢ</placeName>
+               <placeName xml:id="name409-4" xml:lang="ar" source="#bib409-2">سجستان</placeName>
+               <placeName xml:id="name409-5" xml:lang="en" source="#bib409-3">Sijistan</placeName>
+               <placeName xml:id="name409-6" xml:lang="en" source="#bib409-4">Segestan</placeName>
+               <placeName xml:id="name409-7" xml:lang="en" source="#bib409-5">Segestān</placeName>
+               <desc xml:id="abstract-en-409" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib409-1">ܦܢܝܬܳܐ ܗܝ ܪܰܒܬܳܐ ܘܰܩܠܝܡܳܐ ܗܘ ܦܰܬܝܳܐ ܒܩܘܪܳܒܐ ܕܗܰܪܐܬ ܪܰܚܝܩܳܐ  10  ܝܰܘܡ̈ܝܢ </quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib409-2">ناحية كبيرة وولاية واسعة جنوب هرات وبينهما عشرة ايام.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib409-3">a vast territory, ten days’ journey south of Herat.</quote>
                     </desc>
-                    <location type="gps" source="#bib409-6">
+               <location type="gps" source="#bib409-6">
                         <geo>32.5 62.5</geo>
                     </location>
-                    <state type="existence"/>
-                    <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܒܩܘܪܳܒܐ</quote> should read <quote xml:lang="syr-Syrj">ܒܩܘܪܒܳܐ</quote>.</note>
-                    <idno type="URI">http://syriaca.org/place/409</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/29547</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Sistan</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Sistan</idno>
-                    <idno type="URI">
+               <state type="existence"/>
+               <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܒܩܘܪܳܒܐ</quote> should read <quote xml:lang="syr-Syrj">ܒܩܘܪܒܳܐ</quote>.</note>
+               <idno type="URI">http://syriaca.org/place/409</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/29547</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Sistan</idno>
+               <idno type="URI">http://dbpedia.org/resource/Sistan</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Segestan&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib409-1">
+               <bibl xml:id="bib409-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">556</citedRange>
                     </bibl>
-                    <bibl xml:id="bib409-2">
+               <bibl xml:id="bib409-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">516</citedRange>
                     </bibl>
-                    <bibl xml:id="bib409-3">
+               <bibl xml:id="bib409-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">558</citedRange>
                     </bibl>
-                    <bibl xml:id="bib409-4">
+               <bibl xml:id="bib409-4">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Segestan&amp;sT=keywords">Segestan</citedRange>
                     </bibl>
-                    <bibl xml:id="bib409-5">
+               <bibl xml:id="bib409-5">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">17, 344</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                    <bibl xml:id="bib409-6">
+               <bibl xml:id="bib409-6">
                         <title>http://pleiades.stoa.org/places/29547</title>
                         <ptr target="http://pleiades.stoa.org/places/29547"/>
                     </bibl>
-                <bibl xml:id="bib409-7">
+               <bibl xml:id="bib409-7">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

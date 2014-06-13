@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">ʿĀnah
@@ -103,62 +103,62 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-429" type="settlement">
-                    <placeName xml:id="name429-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-429" type="settlement">
+               <placeName xml:id="name429-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib429-3">ʿĀnah</placeName>
-                    <placeName xml:id="name429-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܥܐܢܐ</placeName>
-                    <placeName xml:id="name429-3" xml:lang="syr-Syrj" source="#bib429-1">ܥܰܐܢܰܐ</placeName>
-                    <placeName xml:id="name429-4" xml:lang="ar" source="#bib429-2">عانة</placeName>
-                    <desc xml:id="abstract-en-429" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name429-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܥܐܢܐ</placeName>
+               <placeName xml:id="name429-3" xml:lang="syr-Syrj" source="#bib429-1">ܥܰܐܢܰܐ</placeName>
+               <placeName xml:id="name429-4" xml:lang="ar" source="#bib429-2">عانة</placeName>
+               <desc xml:id="abstract-en-429" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib429-1">ܐܰܬܪܐ ܗܘ ܕܰܠܡܰܥܪܒܳܐ ܕܰܦܪܳܬ. ܘܰܠܬܰܝܡܢܳܐ ܡܰܕܢܚܳܝܐ ܕܕܰܝܪ ܐܠܙܘܪ. ܡܶܢ ܐܰܬܪ̈ܘܬܐ ܕܥܪܰܐܩ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib429-2">بلد غربي الفرات جنوبي شرقي دير الزور من بلاد العراق.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib429-3">a town in Iraq, west of the Euphrates and southeast of Dayr al-Zur.</quote>
                     </desc>
-                    <state type="existence"
+               <state type="existence"
                       from="-0885"
                       to="2013"
                       syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-0885"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <note type="disambiguation">Not the same place as <placeName ref="http://syriaca.org/place/665">ʿĀnāt</placeName>.</note>
-                    <idno type="URI">http://syriaca.org/place/429</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/893936</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Anah</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Anah</idno>
-                    <bibl xml:id="bib429-1">
+               <note type="disambiguation">Not the same place as <placeName ref="http://syriaca.org/place/665">ʿĀnāt</placeName>.</note>
+               <idno type="URI">http://syriaca.org/place/429</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/893936</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Anah</idno>
+               <idno type="URI">http://dbpedia.org/resource/Anah</idno>
+               <bibl xml:id="bib429-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">559</citedRange>
                     </bibl>
-                    <bibl xml:id="bib429-2">
+               <bibl xml:id="bib429-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">517</citedRange>
                     </bibl>
-                    <bibl xml:id="bib429-3">
+               <bibl xml:id="bib429-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">551</citedRange>
                     </bibl>
-                <bibl xml:id="bib429-4">
+               <bibl xml:id="bib429-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

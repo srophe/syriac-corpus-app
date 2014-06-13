@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Mygdonius</title>
@@ -72,34 +72,34 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-140" type="river">
-                    <placeName xml:id="name140-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-140" type="river">
+               <placeName xml:id="name140-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib140-1">Mygdonius</placeName>
-                    <placeName xml:id="name140-2" xml:lang="en" source="#bib140-1">Çağçağ</placeName>
-                    <desc xml:id="abstract-en-140" xml:lang="en">A tributary of the <placeName ref="http://syriaca.org/place/114">Khabur river</placeName> which flows past <placeName ref="http://syriaca.org/place/142">Nisibis</placeName>.</desc>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/140</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/874509</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Jaghjagh_River</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Jaghjagh_River</idno>
-                    <bibl xml:id="bib140-1">
+               <placeName xml:id="name140-2" xml:lang="en" source="#bib140-1">Çağçağ</placeName>
+               <desc xml:id="abstract-en-140" xml:lang="en">A tributary of the <placeName ref="http://syriaca.org/place/114">Khabur river</placeName> which flows past <placeName ref="http://syriaca.org/place/142">Nisibis</placeName>.</desc>
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/140</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/874509</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Jaghjagh_River</idno>
+               <idno type="URI">http://dbpedia.org/resource/Jaghjagh_River</idno>
+               <bibl xml:id="bib140-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="maps">Map I C1, III</citedRange>
                     </bibl>
-                <bibl xml:id="bib140-2">
+               <bibl xml:id="bib140-2">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

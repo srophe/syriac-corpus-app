@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Ardabīl</title>
@@ -77,41 +77,41 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-798" type="settlement">
-                    <placeName xml:id="name798-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-798" type="settlement">
+               <placeName xml:id="name798-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib798-1">Ardabīl</placeName>
-                    <desc xml:id="abstract-en-798" xml:lang="en"/>
-                    <location type="gps" source="#bib798-2">
+               <desc xml:id="abstract-en-798" xml:lang="en"/>
+               <location type="gps" source="#bib798-2">
                         <geo>38.24647 48.295051</geo>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/798</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/884119</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Ardabil</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Ardabil</idno>
-                    <bibl xml:id="bib798-1">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/798</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/884119</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Ardabil</idno>
+               <idno type="URI">http://dbpedia.org/resource/Ardabil</idno>
+               <bibl xml:id="bib798-1">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">323</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                    <bibl xml:id="bib798-2">
+               <bibl xml:id="bib798-2">
                         <title>http://pleiades.stoa.org/places/884119</title>
                         <ptr target="http://pleiades.stoa.org/places/884119"/>
                     </bibl>
-                <bibl xml:id="bib798-3">
+               <bibl xml:id="bib798-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

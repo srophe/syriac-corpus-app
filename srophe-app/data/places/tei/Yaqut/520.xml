@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Bālū
@@ -90,20 +90,20 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-520" type="settlement">
-                    <placeName xml:id="name520-1" xml:lang="en" syriaca-tags="#syriaca-headword">Bālū</placeName>
-                    <placeName xml:id="name520-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܐܠܘ</placeName>
-                    <placeName xml:id="name520-3" xml:lang="syr-Syrj" source="#bib520-1">ܒܰܐܠܘ</placeName>
-                    <placeName xml:id="name520-4" xml:lang="ar" source="#bib520-2">بالو</placeName>
-                    <placeName xml:id="name520-5" xml:lang="en" source="#bib520-3">Balū</placeName>
-                    <desc xml:id="abstract-en-520" xml:lang="en">A town east of <placeName ref="http://syriaca.org/place/697">Maʿmūrat al-ʿAzīz</placeName>.</desc>
-                    <location type="gps" source="#bib520-4">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-520" type="settlement">
+               <placeName xml:id="name520-1" xml:lang="en" syriaca-tags="#syriaca-headword">Bālū</placeName>
+               <placeName xml:id="name520-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܐܠܘ</placeName>
+               <placeName xml:id="name520-3" xml:lang="syr-Syrj" source="#bib520-1">ܒܰܐܠܘ</placeName>
+               <placeName xml:id="name520-4" xml:lang="ar" source="#bib520-2">بالو</placeName>
+               <placeName xml:id="name520-5" xml:lang="en" source="#bib520-3">Balū</placeName>
+               <desc xml:id="abstract-en-520" xml:lang="en">A town east of <placeName ref="http://syriaca.org/place/697">Maʿmūrat al-ʿAzīz</placeName>.</desc>
+               <location type="gps" source="#bib520-4">
                         <geo>38.705472 39.952527</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0300"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -111,37 +111,37 @@
                         <precision match="@from" notAfter="0300" syriaca-computed-end="0300-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/520</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/874383</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Palu,_Elazığ</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Palu,_Elazığ</idno>
-                    <bibl xml:id="bib520-1">
+               <idno type="URI">http://syriaca.org/place/520</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/874383</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Palu,_Elazığ</idno>
+               <idno type="URI">http://dbpedia.org/resource/Palu,_Elazığ</idno>
+               <bibl xml:id="bib520-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">536</citedRange>
                     </bibl>
-                    <bibl xml:id="bib520-2">
+               <bibl xml:id="bib520-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">504</citedRange>
                     </bibl>
-                    <bibl xml:id="bib520-3">
+               <bibl xml:id="bib520-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">558</citedRange>
                     </bibl>
-                    <bibl xml:id="bib520-4">
+               <bibl xml:id="bib520-4">
                         <title>http://pleiades.stoa.org/places/874383</title>
                         <ptr target="http://pleiades.stoa.org/places/874383"/>
                     </bibl>
-                <bibl xml:id="bib520-5">
+               <bibl xml:id="bib520-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

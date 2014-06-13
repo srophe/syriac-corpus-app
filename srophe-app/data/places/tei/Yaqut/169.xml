@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Ram Hormizd</title>
@@ -72,19 +72,19 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-169" type="settlement">
-                    <placeName xml:id="name169-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-169" type="settlement">
+               <placeName xml:id="name169-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib169-1 #bib169-2">Ram Hormizd</placeName>
-                    <desc xml:id="abstract-en-169" xml:lang="en">A city east of <placeName ref="http://syriaca.org/place/96">Hormizd Ardashir</placeName> and north of the <placeName ref="http://syriaca.org/place/156">Persian Gulf</placeName>.</desc>
-                    <location type="gps" source="#bib169-1">
+               <desc xml:id="abstract-en-169" xml:lang="en">A city east of <placeName ref="http://syriaca.org/place/96">Hormizd Ardashir</placeName> and north of the <placeName ref="http://syriaca.org/place/156">Persian Gulf</placeName>.</desc>
+               <location type="gps" source="#bib169-1">
                         <geo>31.28217 49.60861</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0300"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -92,33 +92,33 @@
                         <precision match="@from" notAfter="0300" syriaca-computed-end="0300-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/169</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/912926</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Ramhormoz</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Ramhormoz</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/169</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/912926</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Ramhormoz</idno>
+               <idno type="URI">http://dbpedia.org/resource/Ramhormoz</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=R&amp;sK=Ram Hormizd&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib169-1">
+               <bibl xml:id="bib169-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">72, 215</citedRange>
                         <citedRange unit="maps">Map I D3</citedRange>
                     </bibl>
-                    <bibl xml:id="bib169-2">
+               <bibl xml:id="bib169-2">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=R&amp;sK=Ram Hormizd&amp;sT=keywords">Ram Hormizd</citedRange>
                     </bibl>
-                <bibl xml:id="bib169-3">
+               <bibl xml:id="bib169-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

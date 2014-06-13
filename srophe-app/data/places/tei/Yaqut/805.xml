@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Bethlehem
@@ -94,59 +94,59 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-805" type="settlement">
-                    <placeName xml:id="name805-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-805" type="settlement">
+               <placeName xml:id="name805-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib805-3 #bib805-4">Bethlehem</placeName>
-                    <placeName xml:id="name805-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܝܬܠܚܡ</placeName>
-                    <placeName xml:id="name805-3" xml:lang="syr-Syrj" source="#bib805-1">ܒܶܝܬܠܚܡ</placeName>
-                    <placeName xml:id="name805-4" xml:lang="ar" source="#bib805-2">بيت لحم</placeName>
-                    <desc xml:id="abstract-en-805" xml:lang="en"/>
-                    <location type="gps" source="#bib805-5">
+               <placeName xml:id="name805-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܝܬܠܚܡ</placeName>
+               <placeName xml:id="name805-3" xml:lang="syr-Syrj" source="#bib805-1">ܒܶܝܬܠܚܡ</placeName>
+               <placeName xml:id="name805-4" xml:lang="ar" source="#bib805-2">بيت لحم</placeName>
+               <desc xml:id="abstract-en-805" xml:lang="en"/>
+               <location type="gps" source="#bib805-5">
                         <geo>31.712291 35.202123</geo>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/805</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/687856</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Bethlehem</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Bethlehem</idno>
-                    <bibl xml:id="bib805-1">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/805</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/687856</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Bethlehem</idno>
+               <idno type="URI">http://dbpedia.org/resource/Bethlehem</idno>
+               <bibl xml:id="bib805-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">268</citedRange>
                     </bibl>
-                    <bibl xml:id="bib805-2">
+               <bibl xml:id="bib805-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">241</citedRange>
                     </bibl>
-                    <bibl xml:id="bib805-3">
+               <bibl xml:id="bib805-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">280</citedRange>
                     </bibl>
-                    <bibl xml:id="bib805-4">
+               <bibl xml:id="bib805-4">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">72, 138, 306</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                    <bibl xml:id="bib805-5">
+               <bibl xml:id="bib805-5">
                         <title>http://pleiades.stoa.org/places/687856</title>
                         <ptr target="http://pleiades.stoa.org/places/687856"/>
                     </bibl>
-                <bibl xml:id="bib805-6">
+               <bibl xml:id="bib805-6">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

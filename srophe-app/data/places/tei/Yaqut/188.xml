@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Siirt
@@ -107,41 +107,41 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-188" type="settlement">
-                    <placeName xml:id="name188-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-188" type="settlement">
+               <placeName xml:id="name188-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib188-2">Siirt</placeName>
-                    <placeName xml:id="name188-2"
+               <placeName xml:id="name188-2"
                           xml:lang="en"
                           source="#bib188-2 #bib188-6 #bib188-7">Seert</placeName>
-                    <placeName xml:id="name188-3" xml:lang="en" source="#bib188-2">Sʿert</placeName>
-                    <placeName xml:id="name188-4" xml:lang="syr" syriaca-tags="#syriaca-headword">ܣܥܪܬ</placeName>
-                    <placeName xml:id="name188-5" xml:lang="syr-Syrj" source="#bib188-3">ܣܥܶܪܬ</placeName>
-                    <placeName xml:id="name188-6" xml:lang="ar" source="#bib188-4">سعرت</placeName>
-                    <placeName xml:id="name188-7" xml:lang="en" source="#bib188-5">Seʿert</placeName>
-                    <desc xml:id="abstract-en-188" xml:lang="en">
+               <placeName xml:id="name188-3" xml:lang="en" source="#bib188-2">Sʿert</placeName>
+               <placeName xml:id="name188-4" xml:lang="syr" syriaca-tags="#syriaca-headword">ܣܥܪܬ</placeName>
+               <placeName xml:id="name188-5" xml:lang="syr-Syrj" source="#bib188-3">ܣܥܶܪܬ</placeName>
+               <placeName xml:id="name188-6" xml:lang="ar" source="#bib188-4">سعرت</placeName>
+               <placeName xml:id="name188-7" xml:lang="en" source="#bib188-5">Seʿert</placeName>
+               <desc xml:id="abstract-en-188" xml:lang="en">
                         <quote source="#bib188-1">A city in eastern Turkey, southwest of Lake Van.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib188-1">510. Siirt</quote>
                     </desc>
-                    <desc xml:lang="syr-Syrj">
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib188-3">ܡܕܝܢܬܳܐ ܗܝ ܕܰܒܬܰܝܡܢܐ ܕܒܶܕܠܝܣ ( ܘܰܒܣܘܪܝܳܝܳܐ ܡܶܬܩܰܪܝܳܐ ܐܰܬܪܐ ܕܰܡܒܰܕܪ̈ܐ)</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib188-4">مدينة جنوبي بدليس.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib188-5">a town south of Bedlis. [Modern name, Siirt. (tr.)]</quote>
                     </desc>
-                    <location type="gps" source="#bib188-2">
+               <location type="gps" source="#bib188-2">
                         <geo>37.933333 41.95</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="1424"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -149,62 +149,62 @@
                         <precision match="@from" notAfter="1424" syriaca-computed-end="1424-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/188</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Siirt</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Siirt</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/188</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Siirt</idno>
+               <idno type="URI">http://dbpedia.org/resource/Siirt</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Seert&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib188-1">
+               <bibl xml:id="bib188-1">
                         <author>A. Harrak</author>
                         <title level="a" xml:lang="en">510. Siirt</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">379</citedRange>
                     </bibl>
-                    <bibl xml:id="bib188-2">
+               <bibl xml:id="bib188-2">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">1, 4, 8, 12, 27, 49, 56, 57, 113, 141, 147, 164, 203, 217, 218, 230, 265, 273, 302, 324, 325, 355, 362 (with fig. 108), 370, 373, 375, 379, 402, 405, 411, 435, 441, 447</citedRange>
                         <citedRange unit="maps">Map II C1, III, IV</citedRange>
                     </bibl>
-                    <bibl xml:id="bib188-3">
+               <bibl xml:id="bib188-3">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">556</citedRange>
                     </bibl>
-                    <bibl xml:id="bib188-4">
+               <bibl xml:id="bib188-4">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">516</citedRange>
                     </bibl>
-                    <bibl xml:id="bib188-5">
+               <bibl xml:id="bib188-5">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">558</citedRange>
                     </bibl>
-                    <bibl xml:id="bib188-6">
+               <bibl xml:id="bib188-6">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Seert&amp;sT=keywords">Seert</citedRange>
                     </bibl>
-                    <bibl xml:id="bib188-7">
+               <bibl xml:id="bib188-7">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">11, 13-14, 23, 27, 39, 55, 56, 64, 70, 73, 74, 81, 82, 83, 84, 87, 89, 90, 91, 92, 93-94, 96, 98, 99, 102, 108, 113, 116, 176, 179, 213, 232, 264, 270, 316, 348, 352, 359</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib188-8">
+               <bibl xml:id="bib188-8">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name"
+            <relation name="share-a-name"
                       mutual="#place-188  http://syriaca.org/place/724  http://syriaca.org/place/2365  http://syriaca.org/place/2366"/>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

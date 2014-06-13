@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Mor Shlemun
@@ -98,26 +98,26 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-361" type="monastery">
-                    <placeName xml:id="name361-1" xml:lang="en" syriaca-tags="#syriaca-headword">Mor Shlemun</placeName>
-                    <placeName xml:id="name361-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܕܝܪܐ ܕܡܪܝ ܫܠܝܡܘܢ</placeName>
-                    <placeName xml:id="name361-3" xml:lang="syr-Syrj" source="#bib361-1">ܕܰܝܪܳܐ ܕܡܳܪܝ ܫܠܶܝܡܘܢ</placeName>
-                    <placeName xml:id="name361-4" xml:lang="ar" source="#bib361-2">دير مار سليمان</placeName>
-                    <placeName xml:id="name361-5" xml:lang="en" source="#bib361-3">Solomon Monastery</placeName>
-                    <desc xml:id="abstract-en-361" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-361" type="monastery">
+               <placeName xml:id="name361-1" xml:lang="en" syriaca-tags="#syriaca-headword">Mor Shlemun</placeName>
+               <placeName xml:id="name361-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܕܝܪܐ ܕܡܪܝ ܫܠܝܡܘܢ</placeName>
+               <placeName xml:id="name361-3" xml:lang="syr-Syrj" source="#bib361-1">ܕܰܝܪܳܐ ܕܡܳܪܝ ܫܠܶܝܡܘܢ</placeName>
+               <placeName xml:id="name361-4" xml:lang="ar" source="#bib361-2">دير مار سليمان</placeName>
+               <placeName xml:id="name361-5" xml:lang="en" source="#bib361-3">Solomon Monastery</placeName>
+               <desc xml:id="abstract-en-361" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib361-1">ܒܩܘܪܒܳܐ ܕܕܠܘܟ. ܘܚܳܐܰܪ ܠܡܰܪܓܐ ܕܥܰܝܢܳܐ ܘܥܰܡܝܪ ܗܘܳܐ  875  -  1000  ܘܢܰܦܶܩ  13  ܐܶܦܝܣܩܘܦ̈ܐ. </quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib361-2">بالثغر قرب دلوك يطلّ على مرج العين كان عامراً 875-1000 وخرّج ثلاثة عشر اسقفاً</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib361-3">in al-Thaghr, near Duluk, overlooking Marj al-ʿAyn, was inhabited between 875 and 1000. Thirteen bishops graduated from it.</quote>
                     </desc>
-                    <state type="existence"
+               <state type="existence"
                       from="0875"
                       to="1000"
                       syriaca-computed-end="1000-01-01"
@@ -133,30 +133,30 @@
                              syriaca-computed-end="1943-01-01"
                              syriaca-computed-start="1000-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/361</idno>
-                    <bibl xml:id="bib361-1">
+               <idno type="URI">http://syriaca.org/place/361</idno>
+               <bibl xml:id="bib361-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">547</citedRange>
                     </bibl>
-                    <bibl xml:id="bib361-2">
+               <bibl xml:id="bib361-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">511</citedRange>
                     </bibl>
-                    <bibl xml:id="bib361-3">
+               <bibl xml:id="bib361-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">569</citedRange>
                     </bibl>
-                <bibl xml:id="bib361-4">
+               <bibl xml:id="bib361-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

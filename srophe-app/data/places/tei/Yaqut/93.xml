@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Ḥaṭra</title>
@@ -72,52 +72,52 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-93" type="settlement">
-                    <placeName xml:id="name93-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-93" type="settlement">
+               <placeName xml:id="name93-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib93-1">Ḥaṭra</placeName>
-                    <placeName xml:id="name93-2" xml:lang="en" source="#bib93-2">Hatra</placeName>
-                    <desc xml:id="abstract-en-93" xml:lang="en">A Parthian city southwest of <placeName ref="http://syriaca.org/place/144">Nineveh</placeName> and northeast of <placeName ref="http://syriaca.org/place/77">Dura-Europos</placeName>.</desc>
-                    <location type="gps" source="#bib93-1">
+               <placeName xml:id="name93-2" xml:lang="en" source="#bib93-2">Hatra</placeName>
+               <desc xml:id="abstract-en-93" xml:lang="en">A Parthian city southwest of <placeName ref="http://syriaca.org/place/144">Nineveh</placeName> and northeast of <placeName ref="http://syriaca.org/place/77">Dura-Europos</placeName>.</desc>
+               <location type="gps" source="#bib93-1">
                         <geo>35.58806 42.71833</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="-0100"
                       to="0241"
                       syriaca-computed-end="0241-01-01">
                         <precision match="@from" notAfter="-0100"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/93</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/894004</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Hatra</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Hatra</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/93</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/894004</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Hatra</idno>
+               <idno type="URI">http://dbpedia.org/resource/Hatra</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=H&amp;sK=Hatra&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib93-1">
+               <bibl xml:id="bib93-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">29, 56</citedRange>
                         <citedRange unit="maps">Map I C2</citedRange>
                     </bibl>
-                    <bibl xml:id="bib93-2">
+               <bibl xml:id="bib93-2">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=H&amp;sK=Hatra&amp;sT=keywords">Hatra</citedRange>
                     </bibl>
-                <bibl xml:id="bib93-3">
+               <bibl xml:id="bib93-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Syria
@@ -93,53 +93,53 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-486" type="region">
-                    <placeName xml:id="name486-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-486" type="region">
+               <placeName xml:id="name486-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib486-3 #bib486-5">Syria</placeName>
-                    <placeName xml:id="name486-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܣܘܪܝܐ</placeName>
-                    <placeName xml:id="name486-3" xml:lang="syr-Syrj" source="#bib486-1">ܣܽܘܪܺܝܰܐ</placeName>
-                    <placeName xml:id="name486-4" xml:lang="ar" source="#bib486-2">ارض الشام</placeName>
-                    <desc xml:id="abstract-en-486" xml:lang="en">A historical region bounded on the north by the <placeName ref="http://syriaca.org/place/82">Euphrates River</placeName> and the Taurus Mountains, on the west by the <placeName ref="http://syriaca.org/place/135">Mediterranean Sea</placeName>, on the east by the desert, and on the south by <placeName ref="http://syriaca.org/place/698">Palestine</placeName>, which during the medieval period was considered the southernmost district of Syria.</desc>
-                    <state type="existence"
+               <placeName xml:id="name486-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܣܘܪܝܐ</placeName>
+               <placeName xml:id="name486-3" xml:lang="syr-Syrj" source="#bib486-1">ܣܽܘܪܺܝܰܐ</placeName>
+               <placeName xml:id="name486-4" xml:lang="ar" source="#bib486-2">ارض الشام</placeName>
+               <desc xml:id="abstract-en-486" xml:lang="en">A historical region bounded on the north by the <placeName ref="http://syriaca.org/place/82">Euphrates River</placeName> and the Taurus Mountains, on the west by the <placeName ref="http://syriaca.org/place/135">Mediterranean Sea</placeName>, on the east by the desert, and on the south by <placeName ref="http://syriaca.org/place/698">Palestine</placeName>, which during the medieval period was considered the southernmost district of Syria.</desc>
+               <state type="existence"
                       from="-0200"
                       to="2013"
                       syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-0200"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/486</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/1306</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Syria</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/486</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/1306</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Syria</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=H&amp;sK=Hellenistic Syria&amp;sT=keywords
                                         </idno>
-                    <idno type="URI">
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Byzantine Syria&amp;sT=keywords
                                         </idno>
-                    <idno type="URI">
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=R&amp;sK=Roman Syria&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib486-1">
+               <bibl xml:id="bib486-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">228</citedRange>
                     </bibl>
-                    <bibl xml:id="bib486-2">
+               <bibl xml:id="bib486-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">505</citedRange>
                     </bibl>
-                    <bibl xml:id="bib486-3">
+               <bibl xml:id="bib486-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">552</citedRange>
                     </bibl>
-                    <bibl xml:id="bib486-4">
+               <bibl xml:id="bib486-4">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
@@ -149,20 +149,20 @@
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=R&amp;sK=Roman Syria&amp;sT=keywords">Roman Syria</citedRange>
                     </bibl>
-                    <bibl xml:id="bib486-5">
+               <bibl xml:id="bib486-5">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">40, 62-65, 66</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib486-6">
+               <bibl xml:id="bib486-6">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">North Africa</title>
@@ -72,35 +72,35 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-1178" type="region">
-                    <placeName xml:id="name1178-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-1178" type="region">
+               <placeName xml:id="name1178-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib1178-1">North Africa</placeName>
-                    <desc xml:id="abstract-en-1178" xml:lang="en">The region north of the Sahara desert.</desc>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/1178</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/North_Africa</idno>
-                    <idno type="URI">
+               <desc xml:id="abstract-en-1178" xml:lang="en">The region north of the Sahara desert.</desc>
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/1178</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/North_Africa</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=N&amp;sK=North Africa&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib1178-1">
+               <bibl xml:id="bib1178-1">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=N&amp;sK=North Africa&amp;sT=keywords">North Africa</citedRange>
                     </bibl>
-                <bibl xml:id="bib1178-2">
+               <bibl xml:id="bib1178-2">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

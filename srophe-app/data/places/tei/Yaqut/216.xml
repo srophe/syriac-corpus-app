@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Ḥarran
@@ -98,97 +98,97 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-216" type="settlement">
-                    <placeName xml:id="name216-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-216" type="settlement">
+               <placeName xml:id="name216-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib216-2">Ḥarran</placeName>
-                    <placeName xml:id="name216-2" xml:lang="en" source="#bib216-2">Carrhae</placeName>
-                    <placeName xml:id="name216-3" xml:lang="en" source="#bib216-2">Ḥārān</placeName>
-                    <placeName xml:id="name216-4"
+               <placeName xml:id="name216-2" xml:lang="en" source="#bib216-2">Carrhae</placeName>
+               <placeName xml:id="name216-3" xml:lang="en" source="#bib216-2">Ḥārān</placeName>
+               <placeName xml:id="name216-4"
                           xml:lang="syr"
                           syriaca-tags="#syriaca-headword"
                           source="#bib216-3">ܚܪܢ</placeName>
-                    <placeName xml:id="name216-5" xml:lang="ar" source="#bib216-4">حرّان</placeName>
-                    <placeName xml:id="name216-6" xml:lang="en" source="#bib216-5">Ḥarrān</placeName>
-                    <placeName xml:id="name216-7" xml:lang="en" source="#bib216-6">Harran</placeName>
-                    <desc xml:id="abstract-en-216" xml:lang="en">
+               <placeName xml:id="name216-5" xml:lang="ar" source="#bib216-4">حرّان</placeName>
+               <placeName xml:id="name216-6" xml:lang="en" source="#bib216-5">Ḥarrān</placeName>
+               <placeName xml:id="name216-7" xml:lang="en" source="#bib216-6">Harran</placeName>
+               <desc xml:id="abstract-en-216" xml:lang="en">
                         <quote source="#bib216-1">Syr./Hebrew Ḥārān; Latin Carrhae; Arabic Ḥarran.  Ancient city in Mesopotamia, approximately 45 km south-southeast of Edessa.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib216-1">250. Ḥarran</quote>
                     </desc>
-                    <desc xml:lang="syr-Syrj">
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib216-3">ܡܕܺܝܢܬܳܐ ܗܘܳܬ ܪܰܒܬܳܐ ܘܥܰܬܝܩܬܳܐ ܕܰܒܬܰܝܡܢܗ̇ ܕܐܽܘܪܗܳܝ ܘܰܚܫܝܒܳܐ ܗܘܳܬ ܪܒܐ ܕܐܰܬܪ̈ܘܳܬܐ ܕܡܨܪ ܘܰܩܪܝܬܳܐ ܗܝ ܗܳܫܐ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib216-4">كانت مدينة عظيمة قديمة في جنوبي الرها و بينهما يوم وعُدّت قصبة ديار مضر وامست قرية</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib216-5">once a great city, a day’s journey south from Edessa. It was considered the capital of Diyar Miṣr, but now is a small village.</quote>
                     </desc>
-                    <location type="gps" source="#bib216-2">
+               <location type="gps" source="#bib216-2">
                         <geo>36.8775 39.033889</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="-2000"
                       to="2013"
                       syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-2000"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/216</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/658427</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Harran</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Harran</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/216</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/658427</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Harran</idno>
+               <idno type="URI">http://dbpedia.org/resource/Harran</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=H&amp;sK=Harran&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib216-1">
+               <bibl xml:id="bib216-1">
                         <author>H. Takahashi</author>
                         <title level="a" xml:lang="en">250. Ḥarran</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">191-192</citedRange>
                     </bibl>
-                    <bibl xml:id="bib216-2">
+               <bibl xml:id="bib216-2">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">2, 54, 71, 127, 133, 138, 142, 168, 189, 191–192 (with fig. 55), 220, 230, 247, 252, 277 (fig. 72), 285, 294, 302, 327, 347, 399, 403, 420</citedRange>
                         <citedRange unit="maps">Map I B1, II B1, III</citedRange>
                     </bibl>
-                    <bibl xml:id="bib216-3">
+               <bibl xml:id="bib216-3">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">539</citedRange>
                     </bibl>
-                    <bibl xml:id="bib216-4">
+               <bibl xml:id="bib216-4">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">506</citedRange>
                     </bibl>
-                    <bibl xml:id="bib216-5">
+               <bibl xml:id="bib216-5">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">553</citedRange>
                     </bibl>
-                    <bibl xml:id="bib216-6">
+               <bibl xml:id="bib216-6">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=H&amp;sK=Harran&amp;sT=keywords">Harran</citedRange>
                     </bibl>
-                <bibl xml:id="bib216-7">
+               <bibl xml:id="bib216-7">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

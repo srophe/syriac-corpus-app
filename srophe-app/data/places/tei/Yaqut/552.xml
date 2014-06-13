@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Ḥārim
@@ -89,45 +89,45 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-552" type="mountain">
-                    <placeName xml:id="name552-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-552" type="mountain">
+               <placeName xml:id="name552-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib552-3">Ḥārim</placeName>
-                    <placeName xml:id="name552-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܐܪܡ</placeName>
-                    <placeName xml:id="name552-3" xml:lang="syr-Syrj" source="#bib552-1">ܚܰܐܪܡ</placeName>
-                    <placeName xml:id="name552-4" xml:lang="ar" source="#bib552-2">حارم</placeName>
-                    <desc xml:id="abstract-en-552" xml:lang="en">A mountain range in northwestern Syria.</desc>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/552</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Harim_Mountains</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Harim_Mountains</idno>
-                    <bibl xml:id="bib552-1">
+               <placeName xml:id="name552-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܐܪܡ</placeName>
+               <placeName xml:id="name552-3" xml:lang="syr-Syrj" source="#bib552-1">ܚܰܐܪܡ</placeName>
+               <placeName xml:id="name552-4" xml:lang="ar" source="#bib552-2">حارم</placeName>
+               <desc xml:id="abstract-en-552" xml:lang="en">A mountain range in northwestern Syria.</desc>
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/552</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Harim_Mountains</idno>
+               <idno type="URI">http://dbpedia.org/resource/Harim_Mountains</idno>
+               <bibl xml:id="bib552-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">543</citedRange>
                     </bibl>
-                    <bibl xml:id="bib552-2">
+               <bibl xml:id="bib552-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">509</citedRange>
                     </bibl>
-                    <bibl xml:id="bib552-3">
+               <bibl xml:id="bib552-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">562</citedRange>
                     </bibl>
-                <bibl xml:id="bib552-4">
+               <bibl xml:id="bib552-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

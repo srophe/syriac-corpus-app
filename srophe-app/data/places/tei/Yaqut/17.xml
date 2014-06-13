@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Akhlat
@@ -99,26 +99,26 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-17" type="settlement">
-                    <placeName xml:id="name17-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-17" type="settlement">
+               <placeName xml:id="name17-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib17-1">Akhlat</placeName>
-                    <placeName xml:id="name17-2" xml:lang="en" source="#bib17-1">Khilat</placeName>
-                    <placeName xml:id="name17-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܟܠܐܛ</placeName>
-                    <placeName xml:id="name17-4" xml:lang="syr-Syrj" source="#bib17-2">ܟܰܠܐܛ</placeName>
-                    <placeName xml:id="name17-5" xml:lang="ar" source="#bib17-3">خلاط</placeName>
-                    <placeName xml:id="name17-6" xml:lang="en" source="#bib17-4">Khalāṭ</placeName>
-                    <placeName xml:id="name17-7" xml:lang="en" source="#bib17-5">Ḥalāṭ</placeName>
-                    <placeName xml:id="name17-8" xml:lang="en" source="#bib17-5">Aḥlāṭ</placeName>
-                    <desc xml:id="abstract-en-17" xml:lang="en">A town on the northwestern coast of Lake Van in eastern Anatolia.</desc>
-                    <location type="gps" source="#bib17-1">
+               <placeName xml:id="name17-2" xml:lang="en" source="#bib17-1">Khilat</placeName>
+               <placeName xml:id="name17-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܟܠܐܛ</placeName>
+               <placeName xml:id="name17-4" xml:lang="syr-Syrj" source="#bib17-2">ܟܰܠܐܛ</placeName>
+               <placeName xml:id="name17-5" xml:lang="ar" source="#bib17-3">خلاط</placeName>
+               <placeName xml:id="name17-6" xml:lang="en" source="#bib17-4">Khalāṭ</placeName>
+               <placeName xml:id="name17-7" xml:lang="en" source="#bib17-5">Ḥalāṭ</placeName>
+               <placeName xml:id="name17-8" xml:lang="en" source="#bib17-5">Aḥlāṭ</placeName>
+               <desc xml:id="abstract-en-17" xml:lang="en">A town on the northwestern coast of Lake Van in eastern Anatolia.</desc>
+               <location type="gps" source="#bib17-1">
                         <geo>38.752778 42.494444</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0998"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -126,46 +126,46 @@
                         <precision match="@from" notAfter="0998" syriaca-computed-end="0998-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/17</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/874409</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Ahlat</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Ahlat</idno>
-                    <bibl xml:id="bib17-1">
+               <idno type="URI">http://syriaca.org/place/17</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/874409</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Ahlat</idno>
+               <idno type="URI">http://dbpedia.org/resource/Ahlat</idno>
+               <bibl xml:id="bib17-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">35, 219, 378</citedRange>
                         <citedRange unit="maps">Map II C1, IV</citedRange>
                     </bibl>
-                    <bibl xml:id="bib17-2">
+               <bibl xml:id="bib17-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">537</citedRange>
                     </bibl>
-                    <bibl xml:id="bib17-3">
+               <bibl xml:id="bib17-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">505</citedRange>
                     </bibl>
-                    <bibl xml:id="bib17-4">
+               <bibl xml:id="bib17-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">552</citedRange>
                     </bibl>
-                    <bibl xml:id="bib17-5">
+               <bibl xml:id="bib17-5">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">278, 310</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib17-6">
+               <bibl xml:id="bib17-6">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name" mutual="#place-17  http://syriaca.org/place/2312"/>
-            </listPlace>
-        </body>
-    </text>
+            <relation name="share-a-name" mutual="#place-17  http://syriaca.org/place/2312"/>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

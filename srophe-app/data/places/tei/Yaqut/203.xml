@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Tripolis
@@ -98,81 +98,81 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-203" type="settlement">
-                    <placeName xml:id="name203-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-203" type="settlement">
+               <placeName xml:id="name203-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib203-1 #bib203-6">Tripolis</placeName>
-                    <placeName xml:id="name203-2"
+               <placeName xml:id="name203-2"
                           xml:lang="en"
                           source="#bib203-1 #bib203-4 #bib203-5">Tripoli</placeName>
-                    <placeName xml:id="name203-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܛܪܝܦܘܠܝܣ</placeName>
-                    <placeName xml:id="name203-4" xml:lang="syr-Syrj" source="#bib203-2">ܛܪܺܝܦܳܘܽܠܝܺܣ</placeName>
-                    <placeName xml:id="name203-5" xml:lang="ar" source="#bib203-3">طرابلس</placeName>
-                    <desc xml:id="abstract-en-203" xml:lang="en">A coastal city north of <placeName ref="http://syriaca.org/place/46">Beirut</placeName>.</desc>
-                    <location type="gps" source="#bib203-1">
+               <placeName xml:id="name203-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܛܪܝܦܘܠܝܣ</placeName>
+               <placeName xml:id="name203-4" xml:lang="syr-Syrj" source="#bib203-2">ܛܪܺܝܦܳܘܽܠܝܺܣ</placeName>
+               <placeName xml:id="name203-5" xml:lang="ar" source="#bib203-3">طرابلس</placeName>
+               <desc xml:id="abstract-en-203" xml:lang="en">A coastal city north of <placeName ref="http://syriaca.org/place/46">Beirut</placeName>.</desc>
+               <location type="gps" source="#bib203-1">
                         <geo>34.43333 35.85</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="-0800"
                       to="2013"
                       syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-0800"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <note type="deprecation" xml:id="name203-4-deprecation">Dolabani or his printer added an erroneous extra vowel.</note>
-                    <link target="#name203-4 #name203-4-deprecation"/>
-                    <idno type="URI">http://syriaca.org/place/203</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/668394</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Tripoli,_Lebanon</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Tripoli,_Lebanon</idno>
-                    <idno type="URI">
+               <note type="deprecation" xml:id="name203-4-deprecation">Dolabani or his printer added an erroneous extra vowel.</note>
+               <link target="#name203-4 #name203-4-deprecation"/>
+               <idno type="URI">http://syriaca.org/place/203</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/668394</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Tripoli,_Lebanon</idno>
+               <idno type="URI">http://dbpedia.org/resource/Tripoli,_Lebanon</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Tripoli&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib203-1">
+               <bibl xml:id="bib203-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">20, 37, 54, 107–108, 124, 183, 368, 425–426</citedRange>
                         <citedRange unit="maps">Map I A2, II A2, V</citedRange>
                     </bibl>
-                    <bibl xml:id="bib203-2">
+               <bibl xml:id="bib203-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">539</citedRange>
                     </bibl>
-                    <bibl xml:id="bib203-3">
+               <bibl xml:id="bib203-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">506</citedRange>
                     </bibl>
-                    <bibl xml:id="bib203-4">
+               <bibl xml:id="bib203-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">553</citedRange>
                     </bibl>
-                    <bibl xml:id="bib203-5">
+               <bibl xml:id="bib203-5">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Tripoli&amp;sT=keywords">Tripoli</citedRange>
                     </bibl>
-                    <bibl xml:id="bib203-6">
+               <bibl xml:id="bib203-6">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">63, 65, 67</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib203-7">
+               <bibl xml:id="bib203-7">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

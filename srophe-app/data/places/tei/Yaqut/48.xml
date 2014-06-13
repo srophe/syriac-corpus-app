@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Serugh
@@ -102,35 +102,35 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-48" type="settlement">
-                    <placeName xml:id="name48-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-48" type="settlement">
+               <placeName xml:id="name48-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib48-1">Serugh</placeName>
-                    <placeName xml:id="name48-2" xml:lang="en" source="#bib48-1">Saruj</placeName>
-                    <placeName xml:id="name48-3"
+               <placeName xml:id="name48-2" xml:lang="en" source="#bib48-1">Saruj</placeName>
+               <placeName xml:id="name48-3"
                           xml:lang="syr"
                           syriaca-tags="#syriaca-headword"
                           source="#bib48-2">ܣܪܘܓ</placeName>
-                    <placeName xml:id="name48-4" xml:lang="ar" source="#bib48-3">سروج</placeName>
-                    <placeName xml:id="name48-5" xml:lang="en" source="#bib48-4">Sarug</placeName>
-                    <desc xml:id="abstract-en-48" xml:lang="en">An ancient city where Jacob of Serugh was bishop.</desc>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name48-4" xml:lang="ar" source="#bib48-3">سروج</placeName>
+               <placeName xml:id="name48-5" xml:lang="en" source="#bib48-4">Sarug</placeName>
+               <desc xml:id="abstract-en-48" xml:lang="en">An ancient city where Jacob of Serugh was bishop.</desc>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib48-2">ܐܰܬܪܰܐ ܗܘ ܕܰܒܕܝܐܪ ܡܶܨܪ ܒܶܝܬ ܚܳܪܳܢ ܠܓܰܪܰܐܒܠܣ</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib48-3">بليدة من ديار مضر بين حران وجرابلس.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib48-4">a small town in the Mudar territory, between Ḥarran and Jarabulus. [Modern name, Suruç (tr.)]</quote>
                     </desc>
-                    <location type="gps" source="#bib48-1">
+               <location type="gps" source="#bib48-1">
                         <geo>36.97608 38.42424</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0518"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -138,38 +138,38 @@
                         <precision match="@from" notAfter="0518" syriaca-computed-end="0518-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/48</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Suruç</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Suruç</idno>
-                    <bibl xml:id="bib48-1">
+               <idno type="URI">http://syriaca.org/place/48</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Suruç</idno>
+               <idno type="URI">http://dbpedia.org/resource/Suruç</idno>
+               <bibl xml:id="bib48-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">107, 178, 276, 345, 396, 433, 445</citedRange>
                         <citedRange unit="maps">Map I B1</citedRange>
                     </bibl>
-                    <bibl xml:id="bib48-2">
+               <bibl xml:id="bib48-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">556</citedRange>
                     </bibl>
-                    <bibl xml:id="bib48-3">
+               <bibl xml:id="bib48-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">516</citedRange>
                     </bibl>
-                    <bibl xml:id="bib48-4">
+               <bibl xml:id="bib48-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">558</citedRange>
                     </bibl>
-                <bibl xml:id="bib48-5">
+               <bibl xml:id="bib48-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Egypt</title>
@@ -78,61 +78,61 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-715" type="region">
-                    <placeName xml:id="name715-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-715" type="region">
+               <placeName xml:id="name715-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib715-1 #bib715-2 #bib715-5 #bib715-6">Egypt</placeName>
-                    <placeName xml:id="name715-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܨܪܝܢ</placeName>
-                    <placeName xml:id="name715-3" xml:lang="syr-Syrj" source="#bib715-3">ܡܶܨܪܝܢ</placeName>
-                    <placeName xml:id="name715-4" xml:lang="ar" source="#bib7-4">مصر</placeName>
-                    <desc xml:id="abstract-en-715" xml:lang="en"/>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/715</idno>
-                    <bibl xml:id="bib715-1">
+               <placeName xml:id="name715-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܨܪܝܢ</placeName>
+               <placeName xml:id="name715-3" xml:lang="syr-Syrj" source="#bib715-3">ܡܶܨܪܝܢ</placeName>
+               <placeName xml:id="name715-4" xml:lang="ar" source="#bib7-4">مصر</placeName>
+               <desc xml:id="abstract-en-715" xml:lang="en"/>
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/715</idno>
+               <bibl xml:id="bib715-1">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">13, 40, 51, 63, 65, 66, 342</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                    <bibl xml:id="bib715-2">
+               <bibl xml:id="bib715-2">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">1, 11, 29, 40-41, 43, 48, 59, 71, 88-89, 92, 100, 103-106, 109, 112, 114, 127, 144-145, 147, 151-152, 156, 183, 185, 188, 205, 210, 236, 252, 262, 289, 299, 306-307, 317, 321, 322, 325, 331, 332, 334, 343, 346, 358, 363, 367, 368, 370, 386-387, 391, 396, 407, 408, 418, 419, 424, 445, 450</citedRange>
                     </bibl>
-                    <bibl xml:id="bib715-3">
+               <bibl xml:id="bib715-3">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">536</citedRange>
                     </bibl>
-                    <bibl xml:id="bib715-4">
+               <bibl xml:id="bib715-4">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">504</citedRange>
                     </bibl>
-                    <bibl xml:id="bib715-5">
+               <bibl xml:id="bib715-5">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">569</citedRange>
                     </bibl>
-                    <bibl xml:id="bib715-6">
+               <bibl xml:id="bib715-6">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Egypt&amp;sT=keywords">Egypt</citedRange>
                     </bibl>
-                <bibl xml:id="bib715-7">
+               <bibl xml:id="bib715-7">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name" mutual="#place-715  http://syriaca.org/place/2298"/>
-            </listPlace>
-        </body>
-    </text>
+            <relation name="share-a-name" mutual="#place-715  http://syriaca.org/place/2298"/>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

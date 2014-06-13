@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Qalʿat Najm</title>
@@ -72,33 +72,33 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-634" type="fortification">
-                    <placeName xml:id="name634-1" xml:lang="en" syriaca-tags="#syriaca-headword">Qalʿat Najm</placeName>
-                    <placeName xml:id="name634-2" xml:lang="en" source="#bib634-1">Qalat Naym</placeName>
-                    <desc xml:id="abstract-en-634" xml:lang="en">A medieval fortress on the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> near <placeName ref="http://syriaca.org/place/122">Mabbug</placeName>.</desc>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/634</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Qal'at_Najm</idno>
-                    <idno type="URI">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-634" type="fortification">
+               <placeName xml:id="name634-1" xml:lang="en" syriaca-tags="#syriaca-headword">Qalʿat Najm</placeName>
+               <placeName xml:id="name634-2" xml:lang="en" source="#bib634-1">Qalat Naym</placeName>
+               <desc xml:id="abstract-en-634" xml:lang="en">A medieval fortress on the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> near <placeName ref="http://syriaca.org/place/122">Mabbug</placeName>.</desc>
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/634</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Qal'at_Najm</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qalat Naym&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib634-1">
+               <bibl xml:id="bib634-1">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qalat Naym&amp;sT=keywords">Qalat Naym</citedRange>
                     </bibl>
-                <bibl xml:id="bib634-2">
+               <bibl xml:id="bib634-2">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

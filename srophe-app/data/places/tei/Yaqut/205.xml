@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Urima
@@ -100,75 +100,75 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-205" type="settlement">
-                    <placeName xml:id="name205-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-205" type="settlement">
+               <placeName xml:id="name205-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib205-1">Urima</placeName>
-                    <placeName xml:id="name205-2"
+               <placeName xml:id="name205-2"
                           xml:lang="syr"
                           syriaca-tags="#syriaca-headword"
                           source="#bib205-2">ܐܘܪܝܡ</placeName>
-                    <placeName xml:id="name205-3" xml:lang="ar" source="#bib205-3">اوريم</placeName>
-                    <placeName xml:id="name205-4" xml:lang="en" source="#bib205-4">Orim</placeName>
-                    <desc xml:id="abstract-en-205" xml:lang="en">A town on the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> west of <placeName ref="http://syriaca.org/place/78">Edessa</placeName>.</desc>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name205-3" xml:lang="ar" source="#bib205-3">اوريم</placeName>
+               <placeName xml:id="name205-4" xml:lang="en" source="#bib205-4">Orim</placeName>
+               <desc xml:id="abstract-en-205" xml:lang="en">A town on the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> west of <placeName ref="http://syriaca.org/place/78">Edessa</placeName>.</desc>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib205-2">ܥܠ ܣܶܦܰܬ ܦܪܳܬ ܠܘܳܬ ܫܰܡܺܝܫܬ ܕܚܰܪܝ̣ܒܐ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib205-3">على ضفة الفرات عند سميساط خربة</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib205-4">a ruined town on the Euphrates, near Samosata.</quote>
                     </desc>
-                    <location type="gps" source="#bib205-5">
+               <location type="gps" source="#bib205-5">
                         <geo>37.110367 37.86555</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="-0030"
                       to="0845"
                       syriaca-computed-end="0845-01-01">
                         <precision match="@from" notAfter="-0030"/>
                         <precision match="@to" notBefore="0845" syriaca-computed-start="0845-01-01"/>
                     </state>
-                    <note type="disambiguation">Not the same place as <placeName ref="http://syriaca.org/place/695">Halfeti</placeName>.</note>
-                    <idno type="URI">http://syriaca.org/place/205</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/658562</idno>
-                    <bibl xml:id="bib205-1">
+               <note type="disambiguation">Not the same place as <placeName ref="http://syriaca.org/place/695">Halfeti</placeName>.</note>
+               <idno type="URI">http://syriaca.org/place/205</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/658562</idno>
+               <bibl xml:id="bib205-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="maps">Map I B1</citedRange>
                     </bibl>
-                    <bibl xml:id="bib205-2">
+               <bibl xml:id="bib205-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">536</citedRange>
                     </bibl>
-                    <bibl xml:id="bib205-3">
+               <bibl xml:id="bib205-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">504</citedRange>
                     </bibl>
-                    <bibl xml:id="bib205-4">
+               <bibl xml:id="bib205-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
                     </bibl>
-                    <bibl xml:id="bib205-5">
+               <bibl xml:id="bib205-5">
                         <title>http://pleiades.stoa.org/places/658562</title>
                         <ptr target="http://pleiades.stoa.org/places/658562"/>
                     </bibl>
-                <bibl xml:id="bib205-6">
+               <bibl xml:id="bib205-6">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

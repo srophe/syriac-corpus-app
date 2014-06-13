@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">al-Jabbūl
@@ -99,26 +99,26 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-320" type="settlement">
-                    <placeName xml:id="name320-1" xml:lang="en" syriaca-tags="#syriaca-headword">al-Jabbūl</placeName>
-                    <placeName xml:id="name320-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܓܒܘܠܐ</placeName>
-                    <placeName xml:id="name320-3" xml:lang="syr-Syrj" source="#bib320-1">ܓܰܒܘܠܐ</placeName>
-                    <placeName xml:id="name320-4" xml:lang="ar" source="#bib320-2">الجبّول</placeName>
-                    <placeName xml:id="name320-5" xml:lang="en" source="#bib320-3">Gabbul</placeName>
-                    <desc xml:id="abstract-en-320" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-320" type="settlement">
+               <placeName xml:id="name320-1" xml:lang="en" syriaca-tags="#syriaca-headword">al-Jabbūl</placeName>
+               <placeName xml:id="name320-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܓܒܘܠܐ</placeName>
+               <placeName xml:id="name320-3" xml:lang="syr-Syrj" source="#bib320-1">ܓܰܒܘܠܐ</placeName>
+               <placeName xml:id="name320-4" xml:lang="ar" source="#bib320-2">الجبّول</placeName>
+               <placeName xml:id="name320-5" xml:lang="en" source="#bib320-3">Gabbul</placeName>
+               <desc xml:id="abstract-en-320" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib320-1">ܩܪܺܝܬܳܐ  ܕܰܒܡܰܕܢܚܳܗ̇ ܕܚܳܠܒ ܕܪܰܚܝܩܳܐ ܡܶܢܗ̇ ܐܟ ܡܰܫܩܠܐ ܪܰܒܐ ܘܩܰܪܝܒܳܐ ܠܰܦܪܳܬ ܘܡܶܢܳܗ̇ ܡܶܬܬܰܘܒܠ ܡܶܠܚܳܐ ܠܟܠ ܦܢܺܝܬܳܗ̇ ܕܚܳܠܳܒ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib320-2">قرية شرقي حلب على نحو مرحلة كبيرة منها بالقرب من الفرات ومنها ينقل الملح الى سائر اعمال حلب</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib320-3">a town north of Aleppo, near the Euphrates, from which salt was brought to the province of Aleppo.</quote>
                     </desc>
-                    <state type="existence"
+               <state type="existence"
                       from="0595"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -126,32 +126,32 @@
                         <precision match="@from" notAfter="0595" syriaca-computed-end="0595-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܐܟ</quote> should read <quote xml:lang="syr-Syrj">ܐܝܟ</quote>.</note>
-                    <idno type="URI">http://syriaca.org/place/320</idno>
-                    <idno type="URI">http://ar.wikipedia.org/wiki/الجبول</idno>
-                    <bibl xml:id="bib320-1">
+               <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܐܟ</quote> should read <quote xml:lang="syr-Syrj">ܐܝܟ</quote>.</note>
+               <idno type="URI">http://syriaca.org/place/320</idno>
+               <idno type="URI">http://ar.wikipedia.org/wiki/الجبول</idno>
+               <bibl xml:id="bib320-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">538</citedRange>
                     </bibl>
-                    <bibl xml:id="bib320-2">
+               <bibl xml:id="bib320-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">506</citedRange>
                     </bibl>
-                    <bibl xml:id="bib320-3">
+               <bibl xml:id="bib320-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">553</citedRange>
                     </bibl>
-                <bibl xml:id="bib320-4">
+               <bibl xml:id="bib320-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

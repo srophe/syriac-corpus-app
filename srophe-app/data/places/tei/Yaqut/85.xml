@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Gabala</title>
@@ -72,42 +72,42 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-85" type="settlement">
-                    <placeName xml:id="name85-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-85" type="settlement">
+               <placeName xml:id="name85-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib85-1">Gabala</placeName>
-                    <desc xml:id="abstract-en-85" xml:lang="en">A city on the coast south-east of <placeName ref="http://syriaca.org/place/118">Laodicea</placeName> and west of <placeName ref="http://syriaca.org/place/11">Apamea</placeName>.</desc>
-                    <location type="gps" source="#bib85-1">
+               <desc xml:id="abstract-en-85" xml:lang="en">A city on the coast south-east of <placeName ref="http://syriaca.org/place/118">Laodicea</placeName> and west of <placeName ref="http://syriaca.org/place/11">Apamea</placeName>.</desc>
+               <location type="gps" source="#bib85-1">
                         <geo>35.37806 35.92233</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="-0330"
                       to="2013"
                       syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-0330"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/85</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/668250</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Jableh</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Jableh</idno>
-                    <bibl xml:id="bib85-1">
+               <idno type="URI">http://syriaca.org/place/85</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/668250</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Jableh</idno>
+               <idno type="URI">http://dbpedia.org/resource/Jableh</idno>
+               <bibl xml:id="bib85-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="maps">Map I A2</citedRange>
                     </bibl>
-                <bibl xml:id="bib85-2">
+               <bibl xml:id="bib85-2">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

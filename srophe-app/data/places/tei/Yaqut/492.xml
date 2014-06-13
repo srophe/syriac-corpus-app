@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Qaṣr Ibn Hubayra
@@ -91,19 +91,19 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-492" type="settlement">
-                    <placeName xml:id="name492-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-492" type="settlement">
+               <placeName xml:id="name492-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib492-3">Qaṣr Ibn Hubayra</placeName>
-                    <placeName xml:id="name492-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܨܪܐ ܕܒܪ ܗܘܒܝܪܗ</placeName>
-                    <placeName xml:id="name492-3" xml:lang="syr-Syrj" source="#bib492-1">ܩܰܨܪܐ ܕܒܰܪ ܗܘܒܝܪܗ</placeName>
-                    <placeName xml:id="name492-4" xml:lang="ar" source="#bib492-2">قصر ابن هبيرة</placeName>
-                    <desc xml:id="abstract-en-492" xml:lang="en">A town in southern Iraq founded during the caliphate of Marwān II (r. 744-750) by the last Umayyad governor of Iraq, Yazīd bin ʿUmar bin Hubayra.</desc>
-                    <state type="existence"
+               <placeName xml:id="name492-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܨܪܐ ܕܒܪ ܗܘܒܝܪܗ</placeName>
+               <placeName xml:id="name492-3" xml:lang="syr-Syrj" source="#bib492-1">ܩܰܨܪܐ ܕܒܰܪ ܗܘܒܝܪܗ</placeName>
+               <placeName xml:id="name492-4" xml:lang="ar" source="#bib492-2">قصر ابن هبيرة</placeName>
+               <desc xml:id="abstract-en-492" xml:lang="en">A town in southern Iraq founded during the caliphate of Marwān II (r. 744-750) by the last Umayyad governor of Iraq, Yazīd bin ʿUmar bin Hubayra.</desc>
+               <state type="existence"
                       from="0750"
                       to="1010"
                       syriaca-computed-end="1010-01-01"
@@ -115,30 +115,30 @@
                              syriaca-computed-start="0744-01-01"/>
                         <precision match="@to" notBefore="1010" syriaca-computed-start="1010-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/492</idno>
-                    <bibl xml:id="bib492-1">
+               <idno type="URI">http://syriaca.org/place/492</idno>
+               <bibl xml:id="bib492-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">539</citedRange>
                     </bibl>
-                    <bibl xml:id="bib492-2">
+               <bibl xml:id="bib492-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">506</citedRange>
                     </bibl>
-                    <bibl xml:id="bib492-3">
+               <bibl xml:id="bib492-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">553</citedRange>
                     </bibl>
-                <bibl xml:id="bib492-4">
+               <bibl xml:id="bib492-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Mar Zena</title>
@@ -77,34 +77,34 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-2507" type="monastery">
-                    <placeName xml:id="name2507-1" xml:lang="en" syriaca-tags="#syriaca-headword">Mar Zena</placeName>
-                    <placeName xml:id="name2507-2" xml:lang="en" source="#bib2507-1">Mār Zenā</placeName>
-                    <placeName xml:id="name2507-3" xml:lang="en" source="#bib2507-1">Dair al-Gayyāra (‘the tar monastery’)</placeName>
-                    <desc xml:id="abstract-en-2507" xml:lang="en"/>
-                    <location type="nested" source="#bib2507-1">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-2507" type="monastery">
+               <placeName xml:id="name2507-1" xml:lang="en" syriaca-tags="#syriaca-headword">Mar Zena</placeName>
+               <placeName xml:id="name2507-2" xml:lang="en" source="#bib2507-1">Mār Zenā</placeName>
+               <placeName xml:id="name2507-3" xml:lang="en" source="#bib2507-1">Dair al-Gayyāra (‘the tar monastery’)</placeName>
+               <desc xml:id="abstract-en-2507" xml:lang="en"/>
+               <location type="nested" source="#bib2507-1">
                         <region ref="http://syriaca.org/place/722">Mosul region</region>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/2507</idno>
-                    <bibl xml:id="bib2507-1">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/2507</idno>
+               <bibl xml:id="bib2507-1">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">200</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib2507-2">
+               <bibl xml:id="bib2507-2">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name" mutual="#place-2507  http://syriaca.org/place/2138"/>
-            </listPlace>
-        </body>
-    </text>
+            <relation name="share-a-name" mutual="#place-2507  http://syriaca.org/place/2138"/>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

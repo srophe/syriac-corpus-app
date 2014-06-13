@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Doliche
@@ -99,32 +99,32 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-75" type="settlement">
-                    <placeName xml:id="name75-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-75" type="settlement">
+               <placeName xml:id="name75-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib75-1 #bib75-4">Doliche</placeName>
-                    <placeName xml:id="name75-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܕܠܘܟ</placeName>
-                    <placeName xml:id="name75-3" xml:lang="syr-Syrj" source="#bib75-2">ܕܰܠܘܟ</placeName>
-                    <placeName xml:id="name75-4" xml:lang="ar" source="#bib75-3">دُلوك</placeName>
-                    <placeName xml:id="name75-5" xml:lang="en" source="#bib75-4">Dulūk</placeName>
-                    <desc xml:id="abstract-en-75" xml:lang="en">A town west of the Euphrates, north of Aleppo, and northeast of Cyrrhus.</desc>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name75-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܕܠܘܟ</placeName>
+               <placeName xml:id="name75-3" xml:lang="syr-Syrj" source="#bib75-2">ܕܰܠܘܟ</placeName>
+               <placeName xml:id="name75-4" xml:lang="ar" source="#bib75-3">دُلوك</placeName>
+               <placeName xml:id="name75-5" xml:lang="en" source="#bib75-4">Dulūk</placeName>
+               <desc xml:id="abstract-en-75" xml:lang="en">A town west of the Euphrates, north of Aleppo, and northeast of Cyrrhus.</desc>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib75-2">ܡܕܝܢܬܳܘܢܝܬܳܐ ܗܝ ܕܒܰܦܢܝܬ ܚܳܠܳܒ ܝܺܕܝܺܥܐ ܗܘܳܬ. ܪܰܚܝ̣ܩܐ ܗܘܳܬ ܡܶܢ ܫܰܡܺܝܫܰܛ ܐܝܟ ܬܪܶܥܣܰܪ ܡܝ̈ܠܐ ܘܝܰܘܡܳܢ ܚܰܪܝܒܐ. </quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib75-3">بليدة من نواحي حلب بالعواصم كانت وهي اثنا عشر ميلاً عن سميساط، خاوية على عروشها</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib75-4">a small town in the province of Aleppo, twelve miles from Samosata.</quote>
                     </desc>
-                    <location type="gps" source="#bib75-5">
+               <location type="gps" source="#bib75-5">
                         <geo>37.153671 37.359985</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0180"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -132,42 +132,42 @@
                         <precision match="@from" notAfter="0180" syriaca-computed-end="0180-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/75</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/658455</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Dülük</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Dülük</idno>
-                    <bibl xml:id="bib75-1">
+               <idno type="URI">http://syriaca.org/place/75</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/658455</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Dülük</idno>
+               <idno type="URI">http://dbpedia.org/resource/Dülük</idno>
+               <bibl xml:id="bib75-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="maps">Map I B1</citedRange>
                     </bibl>
-                    <bibl xml:id="bib75-2">
+               <bibl xml:id="bib75-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">540</citedRange>
                     </bibl>
-                    <bibl xml:id="bib75-3">
+               <bibl xml:id="bib75-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">507</citedRange>
                     </bibl>
-                    <bibl xml:id="bib75-4">
+               <bibl xml:id="bib75-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">553</citedRange>
                     </bibl>
-                    <bibl xml:id="bib75-5">
+               <bibl xml:id="bib75-5">
                         <title>http://pleiades.stoa.org/places/658455</title>
                         <ptr target="http://pleiades.stoa.org/places/658455"/>
                     </bibl>
-                <bibl xml:id="bib75-6">
+               <bibl xml:id="bib75-6">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

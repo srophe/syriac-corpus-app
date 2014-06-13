@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Kharshana
@@ -98,28 +98,28 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-333" type="settlement">
-                    <placeName xml:id="name333-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-333" type="settlement">
+               <placeName xml:id="name333-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib333-3">Kharshana</placeName>
-                    <placeName xml:id="name333-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܟܪܫܢܐ</placeName>
-                    <placeName xml:id="name333-3" xml:lang="syr-Syrj" source="#bib333-1">ܒܪܫܢܐ</placeName>
-                    <placeName xml:id="name333-4" xml:lang="ar" source="#bib333-2">خرشنة</placeName>
-                    <desc xml:id="abstract-en-333" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name333-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܟܪܫܢܐ</placeName>
+               <placeName xml:id="name333-3" xml:lang="syr-Syrj" source="#bib333-1">ܒܪܫܢܐ</placeName>
+               <placeName xml:id="name333-4" xml:lang="ar" source="#bib333-2">خرشنة</placeName>
+               <desc xml:id="abstract-en-333" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib333-1">ܡܕܺܝܢܬܘܽܢܳܝܬܐ ܒܩܘܽܪܒܐ ܕܡܺܝܠܝܛܝܢܝ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib333-2">بلدة قرب ملطية</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib333-3">a town near Melitene.</quote>
                     </desc>
-                    <state type="existence"
+               <state type="existence"
                       from="1095"
                       to="1155"
                       syriaca-computed-end="1155-01-01"
@@ -127,32 +127,32 @@
                         <precision match="@from" notAfter="1095" syriaca-computed-end="1095-01-01"/>
                         <precision match="@to" notBefore="1155" syriaca-computed-start="1155-01-01"/>
                     </state>
-                    <note type="deprecation" xml:id="name333-3-deprecation">Dolabani's printer misread his kaph as a beth.</note>
-                    <link target="#name333-3 #name333-3-deprecation"/>
-                    <idno type="URI">http://syriaca.org/place/333</idno>
-                    <bibl xml:id="bib333-1">
+               <note type="deprecation" xml:id="name333-3-deprecation">Dolabani's printer misread his kaph as a beth.</note>
+               <link target="#name333-3 #name333-3-deprecation"/>
+               <idno type="URI">http://syriaca.org/place/333</idno>
+               <bibl xml:id="bib333-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">540</citedRange>
                     </bibl>
-                    <bibl xml:id="bib333-2">
+               <bibl xml:id="bib333-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">507</citedRange>
                     </bibl>
-                    <bibl xml:id="bib333-3">
+               <bibl xml:id="bib333-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">555</citedRange>
                     </bibl>
-                <bibl xml:id="bib333-4">
+               <bibl xml:id="bib333-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

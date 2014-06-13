@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Shaqlāwa</title>
@@ -76,22 +76,22 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-259" type="settlement">
-                    <placeName xml:id="name259-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-259" type="settlement">
+               <placeName xml:id="name259-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib259-1">Shaqlāwa</placeName>
-                    <placeName xml:id="name259-2" xml:lang="en" source="#bib259-1">Shanqlabad</placeName>
-                    <placeName xml:id="name259-3" xml:lang="en" source="#bib259-2">Shaqlāwā</placeName>
-                    <placeName xml:id="name259-4" xml:lang="en" source="#bib259-2">Shanqlābād</placeName>
-                    <desc xml:id="abstract-en-259" xml:lang="en">A town near Arbela.</desc>
-                    <location type="nested" source="#bib259-2">
+               <placeName xml:id="name259-2" xml:lang="en" source="#bib259-1">Shanqlabad</placeName>
+               <placeName xml:id="name259-3" xml:lang="en" source="#bib259-2">Shaqlāwā</placeName>
+               <placeName xml:id="name259-4" xml:lang="en" source="#bib259-2">Shanqlābād</placeName>
+               <desc xml:id="abstract-en-259" xml:lang="en">A town near Arbela.</desc>
+               <location type="nested" source="#bib259-2">
                         <region ref="http://syriaca.org/place/993">Erbil region</region>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="1200"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -99,29 +99,29 @@
                         <precision match="@from" notAfter="1200" syriaca-computed-end="1200-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/259</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Shaqlawa</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Shaqlawa</idno>
-                    <bibl xml:id="bib259-1">
+               <idno type="URI">http://syriaca.org/place/259</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Shaqlawa</idno>
+               <idno type="URI">http://dbpedia.org/resource/Shaqlawa</idno>
+               <bibl xml:id="bib259-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">228 (fig. 60), 349, 361, 374</citedRange>
                         <citedRange unit="maps">Map IV</citedRange>
                     </bibl>
-                    <bibl xml:id="bib259-2">
+               <bibl xml:id="bib259-2">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">89, 127, 141, 158, 166, 168, 171, 176, 181, 182, 205, 255, 264, 270, 273, 322, 323</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib259-3">
+               <bibl xml:id="bib259-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

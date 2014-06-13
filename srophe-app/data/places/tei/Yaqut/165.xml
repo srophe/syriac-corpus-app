@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Sergiopolis</title>
@@ -72,21 +72,21 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-165" type="settlement">
-                    <placeName xml:id="name165-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-165" type="settlement">
+               <placeName xml:id="name165-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib165-1">Sergiopolis</placeName>
-                    <placeName xml:id="name165-2" xml:lang="en" source="#bib165-1">Reṣafa</placeName>
-                    <placeName xml:id="name165-3" xml:lang="en" source="#bib165-2">Rusafa</placeName>
-                    <desc xml:id="abstract-en-165" xml:lang="en">A town southwest of <placeName ref="http://syriaca.org/place/109">Kallinikos</placeName>.</desc>
-                    <location type="gps" source="#bib165-1">
+               <placeName xml:id="name165-2" xml:lang="en" source="#bib165-1">Reṣafa</placeName>
+               <placeName xml:id="name165-3" xml:lang="en" source="#bib165-2">Rusafa</placeName>
+               <desc xml:id="abstract-en-165" xml:lang="en">A town southwest of <placeName ref="http://syriaca.org/place/109">Kallinikos</placeName>.</desc>
+               <location type="gps" source="#bib165-1">
                         <geo>35.616667 38.75</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="-0800"
                       to="1092"
                       syriaca-computed-end="1092-01-01">
@@ -97,33 +97,33 @@
                              syriaca-computed-end="2013-01-01"
                              syriaca-computed-start="1092-01-01"/>
                     </state>
-                    <note type="corrigenda">GEDSH Map 2 omits dot under the s in the name "Resafa."</note>
-                    <idno type="URI">http://syriaca.org/place/165</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/668354</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Resafa</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Resafa</idno>
-                    <idno type="URI">
+               <note type="corrigenda">GEDSH Map 2 omits dot under the s in the name "Resafa."</note>
+               <idno type="URI">http://syriaca.org/place/165</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/668354</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Resafa</idno>
+               <idno type="URI">http://dbpedia.org/resource/Resafa</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=R&amp;sK=Rusafa&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib165-1">
+               <bibl xml:id="bib165-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="maps">Map I B2, II B2</citedRange>
                     </bibl>
-                    <bibl xml:id="bib165-2">
+               <bibl xml:id="bib165-2">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=R&amp;sK=Rusafa&amp;sT=keywords">Rusafa</citedRange>
                     </bibl>
-                <bibl xml:id="bib165-3">
+               <bibl xml:id="bib165-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

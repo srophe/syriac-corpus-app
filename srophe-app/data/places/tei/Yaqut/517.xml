@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Ghūṭa
@@ -89,43 +89,43 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-517" type="region">
-                    <placeName xml:id="name517-1" xml:lang="en" syriaca-tags="#syriaca-headword">Ghūṭa</placeName>
-                    <placeName xml:id="name517-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܥܒܐ</placeName>
-                    <placeName xml:id="name517-3" xml:lang="syr-Syrj" source="#bib517-1">ܥܳܒܐ</placeName>
-                    <placeName xml:id="name517-4" xml:lang="ar" source="#bib517-2">غوطة</placeName>
-                    <placeName xml:id="name517-5" xml:lang="en" source="#bib517-3">Ghūta</placeName>
-                    <desc xml:id="abstract-en-517" xml:lang="en">The fertile farmland surrounding <placeName ref="http://syriaca.org/place/66">Damascus</placeName>.</desc>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/517</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Ghouta</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Ghouta</idno>
-                    <bibl xml:id="bib517-1">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-517" type="region">
+               <placeName xml:id="name517-1" xml:lang="en" syriaca-tags="#syriaca-headword">Ghūṭa</placeName>
+               <placeName xml:id="name517-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܥܒܐ</placeName>
+               <placeName xml:id="name517-3" xml:lang="syr-Syrj" source="#bib517-1">ܥܳܒܐ</placeName>
+               <placeName xml:id="name517-4" xml:lang="ar" source="#bib517-2">غوطة</placeName>
+               <placeName xml:id="name517-5" xml:lang="en" source="#bib517-3">Ghūta</placeName>
+               <desc xml:id="abstract-en-517" xml:lang="en">The fertile farmland surrounding <placeName ref="http://syriaca.org/place/66">Damascus</placeName>.</desc>
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/517</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Ghouta</idno>
+               <idno type="URI">http://dbpedia.org/resource/Ghouta</idno>
+               <bibl xml:id="bib517-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">557</citedRange>
                     </bibl>
-                    <bibl xml:id="bib517-2">
+               <bibl xml:id="bib517-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">517</citedRange>
                     </bibl>
-                    <bibl xml:id="bib517-3">
+               <bibl xml:id="bib517-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">558</citedRange>
                     </bibl>
-                <bibl xml:id="bib517-4">
+               <bibl xml:id="bib517-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

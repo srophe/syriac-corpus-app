@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Claudia
@@ -102,32 +102,32 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-63" type="settlement">
-                    <placeName xml:id="name63-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-63" type="settlement">
+               <placeName xml:id="name63-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib63-1 #bib63-4">Claudia</placeName>
-                    <placeName xml:id="name63-2" xml:lang="en" source="#bib63-1">Qlaudia</placeName>
-                    <placeName xml:id="name63-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܠܘܕܝܐ</placeName>
-                    <placeName xml:id="name63-4" xml:lang="syr-Syrj" source="#bib63-2">ܩܠܰܘܕܺܝܰܐ</placeName>
-                    <placeName xml:id="name63-5" xml:lang="ar" source="#bib63-3">قلوذية</placeName>
-                    <desc xml:id="abstract-en-63" xml:lang="en">A city southeast of Melitene.</desc>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name63-2" xml:lang="en" source="#bib63-1">Qlaudia</placeName>
+               <placeName xml:id="name63-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܠܘܕܝܐ</placeName>
+               <placeName xml:id="name63-4" xml:lang="syr-Syrj" source="#bib63-2">ܩܠܰܘܕܺܝܰܐ</placeName>
+               <placeName xml:id="name63-5" xml:lang="ar" source="#bib63-3">قلوذية</placeName>
+               <desc xml:id="abstract-en-63" xml:lang="en">A city southeast of Melitene.</desc>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib63-2">ܚܶܣܢܳܐ ܕܩܰܪܝܒ ܗܘܐ ܠܡܺܝܠܝܛܝܢܝ ܐܶܣܬܚܦ ܘܰܗܦܰܟ ܒܢܳܝܗܝ ܚܰܣܢ ܒܰܪ ܩܚܛܒܗ ܫܢܰܬ 141 ܗܳܓܳܪܳܝܬܐ. ܘܫܰܚܠܦܗ ܠܰܐܬܪܐ ܒܰܫܡܗ. ܘܰܚܪܒ ܒܳܬܰܪ ܕܳܪܐ ܬܠܳܬܰܥܣܝܪܳܝܐ. </quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib63-3">حصن كان بقرب ملطية هدم فاعاد بناءه الحسن بن قحطبة سنة 141 هـ وحوله بلدة باسمه خربت بعد القرن الثالث عشر.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib63-4">a citadel near Melitene, destroyed and rebuilt by al-Ḥasan Ibn Quḥṭuba in 141 A.H. Around the citadel was built a town bearing the same name, but it was laid to ruin after the thirteenth century.</quote>
                     </desc>
-                    <location type="gps" source="#bib63-1">
+               <location type="gps" source="#bib63-1">
                         <geo>38.1666666 38.6666666</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0953"
                       to="1235"
                       syriaca-computed-end="1235-01-01"
@@ -139,37 +139,37 @@
                              syriaca-computed-end="1300-01-01"
                              syriaca-computed-start="1235-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/63</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Qlaudia_(West_Syrian_Diocese)</idno>
-                    <bibl xml:id="bib63-1">
+               <idno type="URI">http://syriaca.org/place/63</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Qlaudia_(West_Syrian_Diocese)</idno>
+               <bibl xml:id="bib63-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">178, 408</citedRange>
                         <citedRange unit="maps">Map II B1</citedRange>
                     </bibl>
-                    <bibl xml:id="bib63-2">
+               <bibl xml:id="bib63-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">559-560</citedRange>
                     </bibl>
-                    <bibl xml:id="bib63-3">
+               <bibl xml:id="bib63-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">518</citedRange>
                     </bibl>
-                    <bibl xml:id="bib63-4">
+               <bibl xml:id="bib63-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">552</citedRange>
                     </bibl>
-                <bibl xml:id="bib63-5">
+               <bibl xml:id="bib63-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

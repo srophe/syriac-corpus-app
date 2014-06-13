@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Dunaysar
@@ -102,32 +102,32 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-401" type="settlement">
-                    <placeName xml:id="name401-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-401" type="settlement">
+               <placeName xml:id="name401-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib401-3">Dunaysar</placeName>
-                    <placeName xml:id="name401-2"
+               <placeName xml:id="name401-2"
                           xml:lang="syr"
                           syriaca-tags="#syriaca-headword"
                           source="#bib401-1">ܕܢܝܣܪ</placeName>
-                    <placeName xml:id="name401-3" xml:lang="ar" source="#bib401-2">دُنَيسر</placeName>
-                    <placeName xml:id="name401-4" xml:lang="ar" source="#bib401-2">قوج حصار</placeName>
-                    <placeName xml:id="name401-5" xml:lang="en" source="#bib401-3">Koç Hisar</placeName>
-                    <desc xml:id="abstract-en-401" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name401-3" xml:lang="ar" source="#bib401-2">دُنَيسر</placeName>
+               <placeName xml:id="name401-4" xml:lang="ar" source="#bib401-2">قوج حصار</placeName>
+               <placeName xml:id="name401-5" xml:lang="en" source="#bib401-3">Koç Hisar</placeName>
+               <desc xml:id="abstract-en-401" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib401-1">ܠܬܰܝܡܢܗ ܡܰܥܪܒܳܝܐ ܕܡܰܪܕܝܢ ܒܰܝܢܳܬܗܝܢ ܬܪܶܝܢ ܦܰܪ̈ܣܚܐ ܒܕܳܪܐ ܕܰܬܠܳܬܰܥܣܪ ܡܕܝܢܬܳܐ ܗܘܳܬ ܪܒܬܐ. ܝܰܘܡܳܢܐ ܒܪܰܡ ܩܰܝܳܡܐ ܒܕܘܟܬܗ̇ ܩܰܣܛܪܐ ܕܡܶܬܶܐܡܰܪ ܠܗ ܩܶܙܶܠܬܰܦܰܗ ܗ̄ ܬܶܠܳܐ ܣܘܡܳܩܐ. </quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib401-2">جنوبي ماردين بينهما فرسخان كانت في القرن الثالث عشر بلدة عظيمة اما اليوم فهي قرية تسمى قوج حصار يجاورها قرية تل ارمن.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib401-3">situated south of Mardin, Dunaysar was a large town in the thirteenth century. Today it is a small village, called Koç Hisar, near Tell al-Arman.</quote>
                     </desc>
-                    <state type="existence"
+               <state type="existence"
                       from="1225"
                       to="1943"
                       syriaca-computed-end="1943-01-01"
@@ -135,31 +135,31 @@
                         <precision match="@from" notAfter="1225" syriaca-computed-end="1225-01-01"/>
                         <precision match="@to" notBefore="1943" syriaca-computed-start="1943-01-01"/>
                     </state>
-                    <note type="errata">Dolabani's description asserts an erroneous relation to <placeName ref="http://syriaca.org/place/490">Kızıltepe</placeName>.</note>
-                    <idno type="URI">http://syriaca.org/place/401</idno>
-                    <bibl xml:id="bib401-1">
+               <note type="errata">Dolabani's description asserts an erroneous relation to <placeName ref="http://syriaca.org/place/490">Kızıltepe</placeName>.</note>
+               <idno type="URI">http://syriaca.org/place/401</idno>
+               <bibl xml:id="bib401-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">555</citedRange>
                     </bibl>
-                    <bibl xml:id="bib401-2">
+               <bibl xml:id="bib401-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">516</citedRange>
                     </bibl>
-                    <bibl xml:id="bib401-3">
+               <bibl xml:id="bib401-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">553</citedRange>
                     </bibl>
-                <bibl xml:id="bib401-4">
+               <bibl xml:id="bib401-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

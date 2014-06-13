@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Lesser Zab</title>
@@ -73,42 +73,42 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-121" type="river">
-                    <placeName xml:id="name121-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-121" type="river">
+               <placeName xml:id="name121-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib121-1">Lesser Zab</placeName>
-                    <placeName xml:id="name121-2" xml:lang="en" source="#bib121-1">Lower Zab</placeName>
-                    <desc xml:id="abstract-en-121" xml:lang="en">A river which flows south of <placeName ref="http://syriaca.org/place/13">Arbela</placeName> and north of <placeName ref="http://syriaca.org/place/108">Karka d-Beth Slokh</placeName> and enters the <placeName ref="http://syriaca.org/place/202">Tigris</placeName> above <placeName ref="http://syriaca.org/place/193">Tagrit</placeName>.</desc>
-                    <location type="gps" source="#bib121-2">
+               <placeName xml:id="name121-2" xml:lang="en" source="#bib121-1">Lower Zab</placeName>
+               <desc xml:id="abstract-en-121" xml:lang="en">A river which flows south of <placeName ref="http://syriaca.org/place/13">Arbela</placeName> and north of <placeName ref="http://syriaca.org/place/108">Karka d-Beth Slokh</placeName> and enters the <placeName ref="http://syriaca.org/place/202">Tigris</placeName> above <placeName ref="http://syriaca.org/place/193">Tagrit</placeName>.</desc>
+               <location type="gps" source="#bib121-2">
                         <geo>35.8572581 44.7915335</geo>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/121</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/894184</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Little_Zab</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Little_Zab</idno>
-                    <bibl xml:id="bib121-1">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/121</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/894184</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Little_Zab</idno>
+               <idno type="URI">http://dbpedia.org/resource/Little_Zab</idno>
+               <bibl xml:id="bib121-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">10, 71, 85, 378</citedRange>
                         <citedRange unit="maps">Map I C2, II C2, IV</citedRange>
                     </bibl>
-                    <bibl xml:id="bib121-2">
+               <bibl xml:id="bib121-2">
                         <title>http://pleiades.stoa.org/places/894184</title>
                         <ptr target="http://pleiades.stoa.org/places/894184"/>
                     </bibl>
-                <bibl xml:id="bib121-3">
+               <bibl xml:id="bib121-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

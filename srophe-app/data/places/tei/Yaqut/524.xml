@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Mount Sinjar
@@ -90,50 +90,50 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-524" type="mountain">
-                    <placeName xml:id="name524-1" xml:lang="en" syriaca-tags="#syriaca-headword">Mount Sinjar</placeName>
-                    <placeName xml:id="name524-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܛܘܪܐ ܕܫܝܓܪ</placeName>
-                    <placeName xml:id="name524-3" xml:lang="syr-Syrj" source="#bib524-1">ܛܘܪܳܐ ܕܫܝܓܳܪ</placeName>
-                    <placeName xml:id="name524-4" xml:lang="ar" source="#bib524-2">جبل سنجار</placeName>
-                    <placeName xml:id="name524-5" xml:lang="en" source="#bib524-3">Sinjar mountain</placeName>
-                    <desc xml:id="abstract-en-524" xml:lang="en">A mountainous ridge in northwestern Iraq.</desc>
-                    <location type="gps" source="#bib524-4">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-524" type="mountain">
+               <placeName xml:id="name524-1" xml:lang="en" syriaca-tags="#syriaca-headword">Mount Sinjar</placeName>
+               <placeName xml:id="name524-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܛܘܪܐ ܕܫܝܓܪ</placeName>
+               <placeName xml:id="name524-3" xml:lang="syr-Syrj" source="#bib524-1">ܛܘܪܳܐ ܕܫܝܓܳܪ</placeName>
+               <placeName xml:id="name524-4" xml:lang="ar" source="#bib524-2">جبل سنجار</placeName>
+               <placeName xml:id="name524-5" xml:lang="en" source="#bib524-3">Sinjar mountain</placeName>
+               <desc xml:id="abstract-en-524" xml:lang="en">A mountainous ridge in northwestern Iraq.</desc>
+               <location type="gps" source="#bib524-4">
                         <geo>36.354311 41.7171985</geo>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/524</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/874700</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Sinjar_Mountains</idno>
-                    <bibl xml:id="bib524-1">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/524</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/874700</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Sinjar_Mountains</idno>
+               <bibl xml:id="bib524-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">557</citedRange>
                     </bibl>
-                    <bibl xml:id="bib524-2">
+               <bibl xml:id="bib524-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">516</citedRange>
                     </bibl>
-                    <bibl xml:id="bib524-3">
+               <bibl xml:id="bib524-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">558</citedRange>
                     </bibl>
-                    <bibl xml:id="bib524-4">
+               <bibl xml:id="bib524-4">
                         <title>http://pleiades.stoa.org/places/874700</title>
                         <ptr target="http://pleiades.stoa.org/places/874700"/>
                     </bibl>
-                <bibl xml:id="bib524-5">
+               <bibl xml:id="bib524-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

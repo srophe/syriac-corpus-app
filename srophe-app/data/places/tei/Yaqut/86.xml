@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Gargar
@@ -102,73 +102,73 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-86" type="settlement">
-                    <placeName xml:id="name86-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-86" type="settlement">
+               <placeName xml:id="name86-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib86-1 #bib86-4">Gargar</placeName>
-                    <placeName xml:id="name86-2" xml:lang="en" source="#bib86-1">Gerger</placeName>
-                    <placeName xml:id="name86-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܓܪܓܪ</placeName>
-                    <placeName xml:id="name86-4" xml:lang="syr-Syrj" source="#bib86-2">ܓܰܪܓܰܪ</placeName>
-                    <placeName xml:id="name86-5" xml:lang="ar" source="#bib86-3">كركر</placeName>
-                    <placeName xml:id="name86-6" xml:lang="ar" source="#bib86-3">جرجر</placeName>
-                    <placeName xml:id="name86-7" xml:lang="en" source="#bib86-4">Karkar</placeName>
-                    <desc xml:id="abstract-en-86" xml:lang="en">A city near the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> between <placeName ref="http://syriaca.org/place/136">Melitene</placeName> and <placeName ref="http://syriaca.org/place/8">Amida</placeName>.</desc>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name86-2" xml:lang="en" source="#bib86-1">Gerger</placeName>
+               <placeName xml:id="name86-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܓܪܓܪ</placeName>
+               <placeName xml:id="name86-4" xml:lang="syr-Syrj" source="#bib86-2">ܓܰܪܓܰܪ</placeName>
+               <placeName xml:id="name86-5" xml:lang="ar" source="#bib86-3">كركر</placeName>
+               <placeName xml:id="name86-6" xml:lang="ar" source="#bib86-3">جرجر</placeName>
+               <placeName xml:id="name86-7" xml:lang="en" source="#bib86-4">Karkar</placeName>
+               <desc xml:id="abstract-en-86" xml:lang="en">A city near the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> between <placeName ref="http://syriaca.org/place/136">Melitene</placeName> and <placeName ref="http://syriaca.org/place/8">Amida</placeName>.</desc>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib86-2">ܚܶܣܢܰܐ ܗܘ ܘܰܡܕܝܢܬܐ ܒܩܘܪܒܳܐ ܕܡܝܺܠܝܺܛܝܢܝ ܒܶܝܬ ܫܰܡܝܫܰܛ ܠܚܰܣܢ ܙܝܰܐܕ ܠܡܰܥܪܒܳܐ ܕܰܦܪܳܬ. ܚܶܪܒܰܬ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib86-3">حصن وبلدة قرب ملطية بين سميساط وحصن زياد غربي الفرات تولاها الخراب.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib86-4">an ancient citadel and town near Melitene, between Samosata and Ḥiṣn Ziyād, west of the Euphrates.</quote>
                     </desc>
-                    <location type="gps" source="#bib86-1">
+               <location type="gps" source="#bib86-1">
                         <geo>38.028889 39.032222</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="-0030"
                       to="2013"
                       syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-0030"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/86</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/874353</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Gerger</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Gerger</idno>
-                    <bibl xml:id="bib86-1">
+               <idno type="URI">http://syriaca.org/place/86</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/874353</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Gerger</idno>
+               <idno type="URI">http://dbpedia.org/resource/Gerger</idno>
+               <bibl xml:id="bib86-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">60, 284, 290, 335</citedRange>
                         <citedRange unit="maps">Map III</citedRange>
                     </bibl>
-                    <bibl xml:id="bib86-2">
+               <bibl xml:id="bib86-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">560</citedRange>
                     </bibl>
-                    <bibl xml:id="bib86-3">
+               <bibl xml:id="bib86-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">518</citedRange>
                     </bibl>
-                    <bibl xml:id="bib86-4">
+               <bibl xml:id="bib86-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">555</citedRange>
                     </bibl>
-                <bibl xml:id="bib86-5">
+               <bibl xml:id="bib86-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

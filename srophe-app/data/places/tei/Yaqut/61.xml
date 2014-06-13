@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Caspian Sea
@@ -95,58 +95,58 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-61" type="open-water">
-                    <placeName xml:id="name61-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-61" type="open-water">
+               <placeName xml:id="name61-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib61-1 #bib61-4">Caspian Sea</placeName>
-                    <placeName xml:id="name61-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܝܡܐ ܕܩܙܒܝܢ</placeName>
-                    <placeName xml:id="name61-3" xml:lang="syr-Syrj" source="#bib61-2">ܝܰܡܐ ܕܩܳܙܒܝܢ</placeName>
-                    <placeName xml:id="name61-4" xml:lang="ar" source="#bib61-3">بحر قزبين</placeName>
-                    <desc xml:id="abstract-en-61" xml:lang="en">A large inland sea north of Iran and east of Adharbayjān.</desc>
-                    <location type="gps" source="#bib61-5">
+               <placeName xml:id="name61-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܝܡܐ ܕܩܙܒܝܢ</placeName>
+               <placeName xml:id="name61-3" xml:lang="syr-Syrj" source="#bib61-2">ܝܰܡܐ ܕܩܳܙܒܝܢ</placeName>
+               <placeName xml:id="name61-4" xml:lang="ar" source="#bib61-3">بحر قزبين</placeName>
+               <desc xml:id="abstract-en-61" xml:lang="en">A large inland sea north of Iran and east of Adharbayjān.</desc>
+               <location type="gps" source="#bib61-5">
                         <geo>38.5 50.5</geo>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/61</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/884130</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Caspian_Sea</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Caspian_Sea</idno>
-                    <bibl xml:id="bib61-1">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/61</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/884130</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Caspian_Sea</idno>
+               <idno type="URI">http://dbpedia.org/resource/Caspian_Sea</idno>
+               <bibl xml:id="bib61-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="maps">Map I D1, II D1</citedRange>
                     </bibl>
-                    <bibl xml:id="bib61-2">
+               <bibl xml:id="bib61-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">535</citedRange>
                     </bibl>
-                    <bibl xml:id="bib61-3">
+               <bibl xml:id="bib61-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">504</citedRange>
                     </bibl>
-                    <bibl xml:id="bib61-4">
+               <bibl xml:id="bib61-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">552</citedRange>
                     </bibl>
-                    <bibl xml:id="bib61-5">
+               <bibl xml:id="bib61-5">
                         <title>http://pleiades.stoa.org/places/884130</title>
                         <ptr target="http://pleiades.stoa.org/places/884130"/>
                     </bibl>
-                <bibl xml:id="bib61-6">
+               <bibl xml:id="bib61-6">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

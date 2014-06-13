@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Samarqand</title>
@@ -77,41 +77,41 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-865" type="settlement">
-                    <placeName xml:id="name865-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-865" type="settlement">
+               <placeName xml:id="name865-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib865-1">Samarqand</placeName>
-                    <desc xml:id="abstract-en-865" xml:lang="en"/>
-                    <location type="gps" source="#bib865-2">
+               <desc xml:id="abstract-en-865" xml:lang="en"/>
+               <location type="gps" source="#bib865-2">
                         <geo>39.656498 66.947223</geo>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/865</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/59915</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Samarkand</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Samarkand</idno>
-                    <bibl xml:id="bib865-1">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/865</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/59915</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Samarkand</idno>
+               <idno type="URI">http://dbpedia.org/resource/Samarkand</idno>
+               <bibl xml:id="bib865-1">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">19</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                    <bibl xml:id="bib865-2">
+               <bibl xml:id="bib865-2">
                         <title>http://pleiades.stoa.org/places/59915</title>
                         <ptr target="http://pleiades.stoa.org/places/59915"/>
                     </bibl>
-                <bibl xml:id="bib865-3">
+               <bibl xml:id="bib865-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

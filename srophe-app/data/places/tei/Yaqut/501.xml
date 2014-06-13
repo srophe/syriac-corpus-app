@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Māksīn
@@ -89,41 +89,41 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-501" type="settlement">
-                    <placeName xml:id="name501-1" xml:lang="en" syriaca-tags="#syriaca-headword">Māksīn</placeName>
-                    <placeName xml:id="name501-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܐܟܣܝܢ</placeName>
-                    <placeName xml:id="name501-3" xml:lang="syr-Syrj" source="#bib501-1">ܡܰܐܟܣܝܢ</placeName>
-                    <placeName xml:id="name501-4" xml:lang="ar" source="#bib501-2">ماكسين</placeName>
-                    <placeName xml:id="name501-5" xml:lang="en" source="#bib501-3">Macine</placeName>
-                    <desc xml:id="abstract-en-501" xml:lang="en">A town of the <placeName ref="http://syriaca.org/place/332">Khābūrā district</placeName>.</desc>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/501</idno>
-                    <bibl xml:id="bib501-1">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-501" type="settlement">
+               <placeName xml:id="name501-1" xml:lang="en" syriaca-tags="#syriaca-headword">Māksīn</placeName>
+               <placeName xml:id="name501-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܐܟܣܝܢ</placeName>
+               <placeName xml:id="name501-3" xml:lang="syr-Syrj" source="#bib501-1">ܡܰܐܟܣܝܢ</placeName>
+               <placeName xml:id="name501-4" xml:lang="ar" source="#bib501-2">ماكسين</placeName>
+               <placeName xml:id="name501-5" xml:lang="en" source="#bib501-3">Macine</placeName>
+               <desc xml:id="abstract-en-501" xml:lang="en">A town of the <placeName ref="http://syriaca.org/place/332">Khābūrā district</placeName>.</desc>
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/501</idno>
+               <bibl xml:id="bib501-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">540</citedRange>
                     </bibl>
-                    <bibl xml:id="bib501-2">
+               <bibl xml:id="bib501-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">507</citedRange>
                     </bibl>
-                    <bibl xml:id="bib501-3">
+               <bibl xml:id="bib501-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">555</citedRange>
                     </bibl>
-                <bibl xml:id="bib501-4">
+               <bibl xml:id="bib501-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

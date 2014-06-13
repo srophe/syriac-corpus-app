@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Kashkar</title>
@@ -78,16 +78,16 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-111" type="settlement">
-                    <placeName xml:id="name111-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-111" type="settlement">
+               <placeName xml:id="name111-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib111-1 #bib111-2 #bib111-3">Kashkar</placeName>
-                    <desc xml:id="abstract-en-111" xml:lang="en">An ancient town in southern Iraq.</desc>
-                    <state type="existence"
+               <desc xml:id="abstract-en-111" xml:lang="en">An ancient town in southern Iraq.</desc>
+               <state type="existence"
                       from="0270"
                       to="0694"
                       syriaca-computed-end="0694-01-01"
@@ -99,41 +99,41 @@
                              syriaca-computed-end="1200-01-01"
                              syriaca-computed-start="0694-01-01"/>
                     </state>
-                    <note type="disambiguation">Not the same conceptual place as <placeName ref="http://syriaca.org/place/509">al-Wāsiṭ</placeName>.</note>
-                    <idno type="URI">http://syriaca.org/place/111</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/912880</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Kashkar</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Kashkar</idno>
-                    <idno type="URI">
+               <note type="disambiguation">Not the same conceptual place as <placeName ref="http://syriaca.org/place/509">al-Wāsiṭ</placeName>.</note>
+               <idno type="URI">http://syriaca.org/place/111</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/912880</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Kashkar</idno>
+               <idno type="URI">http://dbpedia.org/resource/Kashkar</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=K&amp;sK=Kashkar&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib111-1">
+               <bibl xml:id="bib111-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">1, 8, 50, 70, 162, 195, 212, 405</citedRange>
                         <citedRange unit="maps">Map I D3, II D3</citedRange>
                     </bibl>
-                    <bibl xml:id="bib111-2">
+               <bibl xml:id="bib111-2">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=K&amp;sK=Kashkar&amp;sT=keywords">Kashkar</citedRange>
                     </bibl>
-                    <bibl xml:id="bib111-3">
+               <bibl xml:id="bib111-3">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">193, 217</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib111-4">
+               <bibl xml:id="bib111-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name" mutual="#place-111  http://syriaca.org/place/2323"/>
-            </listPlace>
-        </body>
-    </text>
+            <relation name="share-a-name" mutual="#place-111  http://syriaca.org/place/2323"/>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

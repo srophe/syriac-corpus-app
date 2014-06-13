@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Narsaybād
@@ -102,50 +102,50 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-465" type="region">
-                    <placeName xml:id="name465-1" xml:lang="en" syriaca-tags="#syriaca-headword">Narsaybād</placeName>
-                    <placeName xml:id="name465-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܢܪܣܝܒܐܕ</placeName>
-                    <placeName xml:id="name465-3" xml:lang="syr-Syrj" source="#bib465-1">ܢܪܣܝܒܰܐܕ</placeName>
-                    <placeName xml:id="name465-4" xml:lang="ar" source="#bib465-2">نرسيباد</placeName>
-                    <placeName xml:id="name465-5" xml:lang="en" source="#bib465-3">Narsībād</placeName>
-                    <desc xml:id="abstract-en-465" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-465" type="region">
+               <placeName xml:id="name465-1" xml:lang="en" syriaca-tags="#syriaca-headword">Narsaybād</placeName>
+               <placeName xml:id="name465-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܢܪܣܝܒܐܕ</placeName>
+               <placeName xml:id="name465-3" xml:lang="syr-Syrj" source="#bib465-1">ܢܪܣܝܒܰܐܕ</placeName>
+               <placeName xml:id="name465-4" xml:lang="ar" source="#bib465-2">نرسيباد</placeName>
+               <placeName xml:id="name465-5" xml:lang="en" source="#bib465-3">Narsībād</placeName>
+               <desc xml:id="abstract-en-465" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib465-1">ܦܢܝܬܳܐ ܗܝ ܕܒܶܝܬ ܟܽܘܦܰܗ ܠܘܰܐܣܛ. ܘܰܟܒܰܪ ܗܺܝ ܗܝ̣ ܢܰܪܣܝܐܢ ܐܰܘ ܢܪܣ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib465-2">ولعلها نرسيان او هي النرس او غيرها، ناحية كانت بين الكوفة وواسط.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib465-3">perhaps Naryān or al-Nars, or possibly another location, a territory between al-Kufa and Wasit in southern Iraq.</quote>
                     </desc>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/465</idno>
-                    <bibl xml:id="bib465-1">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/465</idno>
+               <bibl xml:id="bib465-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">562</citedRange>
                     </bibl>
-                    <bibl xml:id="bib465-2">
+               <bibl xml:id="bib465-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">520</citedRange>
                     </bibl>
-                    <bibl xml:id="bib465-3">
+               <bibl xml:id="bib465-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
                     </bibl>
-                <bibl xml:id="bib465-4">
+               <bibl xml:id="bib465-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

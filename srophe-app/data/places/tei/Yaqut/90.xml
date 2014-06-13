@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Hakkari</title>
@@ -77,22 +77,22 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-90" type="region">
-                    <placeName xml:id="name90-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-90" type="region">
+               <placeName xml:id="name90-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib90-2 #bib90-3">Hakkari</placeName>
-                    <placeName xml:id="name90-2" xml:lang="en" source="#bib90-4">Hakkārī</placeName>
-                    <desc xml:id="abstract-en-90" xml:lang="en">
+               <placeName xml:id="name90-2" xml:lang="en" source="#bib90-4">Hakkārī</placeName>
+               <desc xml:id="abstract-en-90" xml:lang="en">
                         <quote source="#bib90-1">The region in the southeast corner of Turkey dominated by the mountains Cilo Dag (4170 m.) and Sat Dag (3810 m.), and the highlands around them, cut by the gorges of the Great Zab River and its tributaries.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib90-1">245. Hakkari</quote>
                     </desc>
-                    <state type="existence"
+               <state type="existence"
                       from="1214"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -100,46 +100,46 @@
                         <precision match="@from" notAfter="1214" syriaca-computed-end="1214-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/90</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Hakkari</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Hakkari</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/90</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Hakkari</idno>
+               <idno type="URI">http://dbpedia.org/resource/Hakkari</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=H&amp;sK=Hakkari&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib90-1">
+               <bibl xml:id="bib90-1">
                         <author>J. F. Coakley </author>
                         <title level="a" xml:lang="en">245. Hakkari</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">186-187</citedRange>
                     </bibl>
-                    <bibl xml:id="bib90-2">
+               <bibl xml:id="bib90-2">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">94, 99, 186–187, 351, 352, 361, 436</citedRange>
                         <citedRange unit="maps">Map II C1</citedRange>
                     </bibl>
-                    <bibl xml:id="bib90-3">
+               <bibl xml:id="bib90-3">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=H&amp;sK=Hakkari&amp;sT=keywords">Hakkari</citedRange>
                     </bibl>
-                    <bibl xml:id="bib90-4">
+               <bibl xml:id="bib90-4">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">1, 2, 3, 6, 8, 12, 14, 15, 17, 24, 33, 36, 37, 89, 166, 232, 242, 275, 276-311, 322, 324, 346, 352, 353, 354, 365, 366, 367, 369, 370</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib90-5">
+               <bibl xml:id="bib90-5">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name" mutual="#place-90  http://syriaca.org/place/2310"/>
-            </listPlace>
-        </body>
-    </text>
+            <relation name="share-a-name" mutual="#place-90  http://syriaca.org/place/2310"/>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

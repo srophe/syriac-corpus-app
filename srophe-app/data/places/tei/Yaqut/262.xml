@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Qaraqosh
@@ -102,39 +102,39 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-262" type="settlement">
-                    <placeName xml:id="name262-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-262" type="settlement">
+               <placeName xml:id="name262-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib262-2 #bib262-6">Qaraqosh</placeName>
-                    <placeName xml:id="name262-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܝܬ ܟܘܕܝܕܐ</placeName>
-                    <placeName xml:id="name262-3" xml:lang="syr-Syrj" source="#bib262-3">ܒܶܝܬ ܟܘܕܰܝܕܐ</placeName>
-                    <placeName xml:id="name262-4" xml:lang="ar" source="#bib262-4">باُخديدة</placeName>
-                    <placeName xml:id="name262-5" xml:lang="en" source="#bib262-5">Beth Khudayda</placeName>
-                    <placeName xml:id="name262-6" xml:lang="en" source="#bib262-7">Qaraqōsh</placeName>
-                    <placeName xml:id="name262-7" xml:lang="en" source="#bib262-7">Beṯ Khūdaidā</placeName>
-                    <desc xml:id="abstract-en-262" xml:lang="en">
+               <placeName xml:id="name262-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܝܬ ܟܘܕܝܕܐ</placeName>
+               <placeName xml:id="name262-3" xml:lang="syr-Syrj" source="#bib262-3">ܒܶܝܬ ܟܘܕܰܝܕܐ</placeName>
+               <placeName xml:id="name262-4" xml:lang="ar" source="#bib262-4">باُخديدة</placeName>
+               <placeName xml:id="name262-5" xml:lang="en" source="#bib262-5">Beth Khudayda</placeName>
+               <placeName xml:id="name262-6" xml:lang="en" source="#bib262-7">Qaraqōsh</placeName>
+               <placeName xml:id="name262-7" xml:lang="en" source="#bib262-7">Beṯ Khūdaidā</placeName>
+               <desc xml:id="abstract-en-262" xml:lang="en">
                         <quote source="#bib262-1">A sizable town located to the east of Mosul, on the same road along which Barṭelle and Karamlish are located.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib262-1">441. Qaraqosh</quote>
                     </desc>
-                    <desc xml:lang="syr-Syrj">
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib262-3">ܩܪܝܬܐ ܪܰܒܬܳܐ ܕܒܐܘܚܕܳܢܐ ܕܢܝܺܢܘܶܐ ܠܡܰܕܢܚܐ ܕܡܰܘܨܠ ܘܡܶܬܐܡܰܪ ܠܗ̇ ܝܰܘܡܳܢ ܩܰܪܰܩܽܘܫ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib262-4">قرية كبيرة من اعمال نينوى شرقي مدينة الموصل يقال لها اليوم قرقوش</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib262-5">a large village in the province of Nineveh, north of Mosul; now called Qaraqosh.</quote>
                     </desc>
-                    <location type="nested" source="#bib262-7">
+               <location type="nested" source="#bib262-7">
                         <region ref="http://syriaca.org/place/722">Mosul region</region>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0600"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -142,60 +142,60 @@
                         <precision match="@from" notAfter="0600" syriaca-computed-end="0600-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/262</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Bakhdida</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Bakhdida</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/262</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Bakhdida</idno>
+               <idno type="URI">http://dbpedia.org/resource/Bakhdida</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qaraqosh&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib262-1">
+               <bibl xml:id="bib262-1">
                         <author>A. Harrak </author>
                         <title level="a" xml:lang="en">441. Qaraqosh</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">343-344</citedRange>
                     </bibl>
-                    <bibl xml:id="bib262-2">
+               <bibl xml:id="bib262-2">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">40, 63, 242, 296, 310, 343–344 (with fig. 103), 464 (fig. 104c)</citedRange>
                         <citedRange unit="maps">Map IV</citedRange>
                     </bibl>
-                    <bibl xml:id="bib262-3">
+               <bibl xml:id="bib262-3">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">536</citedRange>
                     </bibl>
-                    <bibl xml:id="bib262-4">
+               <bibl xml:id="bib262-4">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">504</citedRange>
                     </bibl>
-                    <bibl xml:id="bib262-5">
+               <bibl xml:id="bib262-5">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">552</citedRange>
                     </bibl>
-                    <bibl xml:id="bib262-6">
+               <bibl xml:id="bib262-6">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qaraqosh&amp;sT=keywords">Qaraqosh</citedRange>
                     </bibl>
-                    <bibl xml:id="bib262-7">
+               <bibl xml:id="bib262-7">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">189, 200, 201, 205, 301</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib262-8">
+               <bibl xml:id="bib262-8">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Salmas</title>
@@ -77,19 +77,19 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-177" type="settlement">
-                    <placeName xml:id="name177-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-177" type="settlement">
+               <placeName xml:id="name177-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib177-1 #bib177-2">Salmas</placeName>
-                    <desc xml:id="abstract-en-177" xml:lang="en">A town northwest of <placeName ref="http://syriaca.org/place/116">Lake Urmia</placeName>.</desc>
-                    <location type="gps" source="#bib177-1">
+               <desc xml:id="abstract-en-177" xml:lang="en">A town northwest of <placeName ref="http://syriaca.org/place/116">Lake Urmia</placeName>.</desc>
+               <location type="gps" source="#bib177-1">
                         <geo>38.2 44.766667</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="1281"
                       to="2013"
                       syriaca-computed-end="2013-01-01"
@@ -97,32 +97,32 @@
                         <precision match="@from" notAfter="1281" syriaca-computed-end="1281-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/177</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/874671</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Salmas</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Salmas</idno>
-                    <bibl xml:id="bib177-1">
+               <idno type="URI">http://syriaca.org/place/177</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/874671</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Salmas</idno>
+               <idno type="URI">http://dbpedia.org/resource/Salmas</idno>
+               <bibl xml:id="bib177-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">92, 187</citedRange>
                         <citedRange unit="maps">Map IV</citedRange>
                     </bibl>
-                    <bibl xml:id="bib177-2">
+               <bibl xml:id="bib177-2">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">259, 282, 322, 323, 326-327</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib177-3">
+               <bibl xml:id="bib177-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name"
+            <relation name="share-a-name"
                       mutual="#place-177  http://syriaca.org/place/775  http://syriaca.org/place/2368"/>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

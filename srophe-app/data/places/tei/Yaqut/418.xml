@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">al-Ṣāliḥiyya
@@ -104,52 +104,52 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-418" type="settlement">
-                    <placeName xml:id="name418-1" xml:lang="en" syriaca-tags="#syriaca-headword">al-Ṣāliḥiyya</placeName>
-                    <placeName xml:id="name418-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܨܐܠܚܝܗ̇</placeName>
-                    <placeName xml:id="name418-3" xml:lang="syr-Syrj" source="#bib418-1">ܨܰܐܠܚܝܗ̇</placeName>
-                    <placeName xml:id="name418-4" xml:lang="ar" source="#bib418-2">الصالحية</placeName>
-                    <placeName xml:id="name418-5" xml:lang="en" source="#bib418-3">Saliḥiyya</placeName>
-                    <desc xml:id="abstract-en-418" xml:lang="en"/>
-                    <desc xml:lang="syr-Syrj">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-418" type="settlement">
+               <placeName xml:id="name418-1" xml:lang="en" syriaca-tags="#syriaca-headword">al-Ṣāliḥiyya</placeName>
+               <placeName xml:id="name418-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܨܐܠܚܝܗ̇</placeName>
+               <placeName xml:id="name418-3" xml:lang="syr-Syrj" source="#bib418-1">ܨܰܐܠܚܝܗ̇</placeName>
+               <placeName xml:id="name418-4" xml:lang="ar" source="#bib418-2">الصالحية</placeName>
+               <placeName xml:id="name418-5" xml:lang="en" source="#bib418-3">Saliḥiyya</placeName>
+               <desc xml:id="abstract-en-418" xml:lang="en"/>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib418-1">ܩܪܝܬܳܐ ܗܝ ܕܒܩܘܪܒܳܐ ܕܐܘܪܗܳܝ ܘܩܰܕܡܳܝܐ ܕܬܰܚܡܗ̇ ܥܰܒܕ ܐܠܡܰܠܟ ܒܰܪ ܨܰܐܠܚ ܐܰܠܗܰܐܫܡܝ. ܟ݂ܰܐܠܕܝ ܕܶܝܢ ܐܶܡܪ ܒܩܘܪܒܐ ܕܪܰܩܗ̇ ܐܝܬ ܠܘܳܬܗ̇ ܒܰܛܝܐܣ ܘܕܰܝܪܳܐ ܕܡܳܪܝ ܙܰܟܰܝ ܩܰܕܡܳܝܐ ܕܫܰܟܠܠ ܩܨܪ̈ܝܗ̇ ܡܗܕܝ</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib418-2">قرية قرب الرها اختطها عبد الملك بن صالح الهاشمي، وقال الخالدي قرب الرقة عندها بطياس ودير مار زكى؛ اول من احدث قصورها المهدي.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib418-3">a village near Edessa, established by ʿAbd al-Mālik Ibn Ṣāliḥ al-Hāshimi. Al-Khālidi states that it was near al-Raqqa, near Batyas and the Monastery of Mar Zakka. The first person to build palaces there was the Abbasid Caliph al-Mahdi.</quote>
                     </desc>
-                    <state type="existence"/>
-                    <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܕܪܰܩܗ̇</quote> should read <quote xml:lang="syr-Syrj">ܕܪܰܩܗ̈</quote>.</note>
-                    <idno type="URI">http://syriaca.org/place/418</idno>
-                    <bibl xml:id="bib418-1">
+               <state type="existence"/>
+               <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܕܪܰܩܗ̇</quote> should read <quote xml:lang="syr-Syrj">ܕܪܰܩܗ̈</quote>.</note>
+               <idno type="URI">http://syriaca.org/place/418</idno>
+               <bibl xml:id="bib418-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">557</citedRange>
                     </bibl>
-                    <bibl xml:id="bib418-2">
+               <bibl xml:id="bib418-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">517</citedRange>
                     </bibl>
-                    <bibl xml:id="bib418-3">
+               <bibl xml:id="bib418-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">558</citedRange>
                     </bibl>
-                <bibl xml:id="bib418-4">
+               <bibl xml:id="bib418-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-                <relation name="share-a-name" mutual="#place-418  http://syriaca.org/place/419"/>
-            </listPlace>
-        </body>
-    </text>
+            <relation name="share-a-name" mutual="#place-418  http://syriaca.org/place/419"/>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

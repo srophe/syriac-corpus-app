@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Jericho</title>
@@ -76,58 +76,58 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-105" type="settlement">
-                    <placeName xml:id="name105-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-105" type="settlement">
+               <placeName xml:id="name105-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib105-1 #bib105-2 #bib105-3">Jericho</placeName>
-                    <desc xml:id="abstract-en-105" xml:lang="en">A town near the <placeName ref="http://syriaca.org/place/599">Jordan river</placeName> east of <placeName ref="http://syriaca.org/place/104">Jerusalem</placeName>.</desc>
-                    <location type="gps" source="#bib105-1">
+               <desc xml:id="abstract-en-105" xml:lang="en">A town near the <placeName ref="http://syriaca.org/place/599">Jordan river</placeName> east of <placeName ref="http://syriaca.org/place/104">Jerusalem</placeName>.</desc>
+               <location type="gps" source="#bib105-1">
                         <geo>31.855444 35.462181</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="-9000"
                       to="2013"
                       syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-9000"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/105</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/687917</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Jericho</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Jericho</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/105</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/687917</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Jericho</idno>
+               <idno type="URI">http://dbpedia.org/resource/Jericho</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=Jericho&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib105-1">
+               <bibl xml:id="bib105-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">39, 228 (with fig. 60), 341</citedRange>
                         <citedRange unit="maps">Map II A3</citedRange>
                     </bibl>
-                    <bibl xml:id="bib105-2">
+               <bibl xml:id="bib105-2">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=Jericho&amp;sT=keywords">Jericho</citedRange>
                     </bibl>
-                    <bibl xml:id="bib105-3">
+               <bibl xml:id="bib105-3">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">65</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib105-4">
+               <bibl xml:id="bib105-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

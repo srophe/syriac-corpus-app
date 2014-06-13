@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Mar Gabriel and Mar Abraham</title>
@@ -76,42 +76,42 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-661" type="monastery">
-                    <placeName xml:id="name661-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-661" type="monastery">
+               <placeName xml:id="name661-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib661-1">Mar Gabriel and Mar Abraham</placeName>
-                    <placeName xml:id="name661-2" xml:lang="en" source="#bib661-1">Mar Abraham</placeName>
-                    <placeName xml:id="name661-3" xml:lang="en" source="#bib661-1">Upper Monastery</placeName>
-                    <placeName xml:id="name661-4" xml:lang="en" source="#bib661-2">Mār Gabriel</placeName>
-                    <desc xml:id="abstract-en-661" xml:lang="en">An important monastery near <placeName ref="http://syriaca.org/place/139">Mosul</placeName> whose site has been incorporated into the modern city.</desc>
-                    <location type="nested" source="#bib661-2">
+               <placeName xml:id="name661-2" xml:lang="en" source="#bib661-1">Mar Abraham</placeName>
+               <placeName xml:id="name661-3" xml:lang="en" source="#bib661-1">Upper Monastery</placeName>
+               <placeName xml:id="name661-4" xml:lang="en" source="#bib661-2">Mār Gabriel</placeName>
+               <desc xml:id="abstract-en-661" xml:lang="en">An important monastery near <placeName ref="http://syriaca.org/place/139">Mosul</placeName> whose site has been incorporated into the modern city.</desc>
+               <location type="nested" source="#bib661-2">
                         <settlement ref="http://syriaca.org/place/139">Mosul</settlement>
                     </location>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/661</idno>
-                    <bibl xml:id="bib661-1">
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/661</idno>
+               <bibl xml:id="bib661-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">143, 171, 249, 436</citedRange>
                     </bibl>
-                    <bibl xml:id="bib661-2">
+               <bibl xml:id="bib661-2">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">140, 214</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib661-3">
+               <bibl xml:id="bib661-3">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

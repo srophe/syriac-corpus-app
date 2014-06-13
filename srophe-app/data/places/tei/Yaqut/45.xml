@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Baṭnan
@@ -99,33 +99,33 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-45" type="settlement">
-                    <placeName xml:id="name45-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-45" type="settlement">
+               <placeName xml:id="name45-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib45-1">Baṭnan</placeName>
-                    <placeName xml:id="name45-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܛܢܢ</placeName>
-                    <placeName xml:id="name45-3" xml:lang="syr-Syrj" source="#bib45-2">ܒܰܛܢܢ</placeName>
-                    <placeName xml:id="name45-4" xml:lang="ar" source="#bib45-3">بَطنان</placeName>
-                    <placeName xml:id="name45-5" xml:lang="en" source="#bib45-4">Baṭnān</placeName>
-                    <placeName xml:id="name45-6" xml:lang="en" source="#bib45-5">Batnan</placeName>
-                    <desc xml:id="abstract-en-45" xml:lang="en">A town of <placeName ref="http://syriaca.org/place/48">Serugh</placeName>.</desc>
-                    <desc xml:lang="syr-Syrj">
+               <placeName xml:id="name45-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܛܢܢ</placeName>
+               <placeName xml:id="name45-3" xml:lang="syr-Syrj" source="#bib45-2">ܒܰܛܢܢ</placeName>
+               <placeName xml:id="name45-4" xml:lang="ar" source="#bib45-3">بَطنان</placeName>
+               <placeName xml:id="name45-5" xml:lang="en" source="#bib45-4">Baṭnān</placeName>
+               <placeName xml:id="name45-6" xml:lang="en" source="#bib45-5">Batnan</placeName>
+               <desc xml:id="abstract-en-45" xml:lang="en">A town of <placeName ref="http://syriaca.org/place/48">Serugh</placeName>.</desc>
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib45-2">ܡܕܺܝܢܬܐ ܥܰܬܝܩܬܳܐ ܕܰܒܩܘܪܒܳܐ ܕܰܣܪܘܓ ܗܘܬ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib45-3">مدينة قديمة كانت بقرب سروج</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib45-4">an ancient town, formerly located near Sarug.</quote>
                     </desc>
-                    <location type="gps" source="#bib45-6">
+               <location type="gps" source="#bib45-6">
                         <geo>36.976694 38.42451</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0582"
                       to="0482"
                       syriaca-computed-end="0482-01-01"
@@ -133,50 +133,50 @@
                         <precision match="@from" notAfter="0582" syriaca-computed-end="0582-01-01"/>
                         <precision match="@to" notBefore="0482" syriaca-computed-start="0482-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/45</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/658405</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/45</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/658405</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Batnan&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib45-1">
+               <bibl xml:id="bib45-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">396, 433</citedRange>
                         <citedRange unit="maps">Map I B1</citedRange>
                     </bibl>
-                    <bibl xml:id="bib45-2">
+               <bibl xml:id="bib45-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">537</citedRange>
                     </bibl>
-                    <bibl xml:id="bib45-3">
+               <bibl xml:id="bib45-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">505</citedRange>
                     </bibl>
-                    <bibl xml:id="bib45-4">
+               <bibl xml:id="bib45-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">552</citedRange>
                     </bibl>
-                    <bibl xml:id="bib45-5">
+               <bibl xml:id="bib45-5">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Batnan&amp;sT=keywords">Batnan</citedRange>
                     </bibl>
-                    <bibl xml:id="bib45-6">
+               <bibl xml:id="bib45-6">
                         <title>http://pleiades.stoa.org/places/658405</title>
                         <ptr target="http://pleiades.stoa.org/places/658405"/>
                     </bibl>
-                <bibl xml:id="bib45-7">
+               <bibl xml:id="bib45-7">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Mar Yawnan</title>
@@ -76,22 +76,22 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-127" type="monastery">
-                    <placeName xml:id="name127-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-127" type="monastery">
+               <placeName xml:id="name127-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib127-1">Mar Yawnan</placeName>
-                    <placeName xml:id="name127-2" xml:lang="en" source="#bib127-1">Monastery of Jonah</placeName>
-                    <placeName xml:id="name127-3" xml:lang="en" source="#bib127-2">monastery of Mar Yonan</placeName>
-                    <placeName xml:id="name127-4" xml:lang="en" source="#bib127-3">Mār Yōnān</placeName>
-                    <desc xml:id="abstract-en-127" xml:lang="en">A monastery near <placeName ref="http://syriaca.org/place/139">Mosul</placeName>.</desc>
-                    <location type="nested" source="#bib127-3">
+               <placeName xml:id="name127-2" xml:lang="en" source="#bib127-1">Monastery of Jonah</placeName>
+               <placeName xml:id="name127-3" xml:lang="en" source="#bib127-2">monastery of Mar Yonan</placeName>
+               <placeName xml:id="name127-4" xml:lang="en" source="#bib127-3">Mār Yōnān</placeName>
+               <desc xml:id="abstract-en-127" xml:lang="en">A monastery near <placeName ref="http://syriaca.org/place/139">Mosul</placeName>.</desc>
+               <location type="nested" source="#bib127-3">
                         <settlement ref="http://syriaca.org/place/139">Mosul</settlement>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0800"
                       to="1393"
                       syriaca-computed-end="1393-01-01"
@@ -103,36 +103,36 @@
                              syriaca-computed-start="0300-01-01"/>
                         <precision match="@to" notBefore="1393" syriaca-computed-start="1393-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/127</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/127</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=m&amp;sK=monastery of Mar Yonan&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib127-1">
+               <bibl xml:id="bib127-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">194, 309</citedRange>
                         <citedRange unit="maps">Map IV</citedRange>
                     </bibl>
-                    <bibl xml:id="bib127-2">
+               <bibl xml:id="bib127-2">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=m&amp;sK=monastery of Mar Yonan&amp;sT=keywords">monastery of Mar Yonan</citedRange>
                     </bibl>
-                    <bibl xml:id="bib127-3">
+               <bibl xml:id="bib127-3">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">189</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib127-4">
+               <bibl xml:id="bib127-4">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

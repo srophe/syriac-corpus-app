@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Pishon</title>
@@ -72,36 +72,36 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-1181" type="river">
-                    <placeName xml:id="name1181-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-1181" type="river">
+               <placeName xml:id="name1181-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib1181-1">Pishon</placeName>
-                    <desc xml:id="abstract-en-1181" xml:lang="en">One of the biblical rivers coming out of Eden in Genesis 2</desc>
-                    <state type="existence"/>
-                    <idno type="URI">http://syriaca.org/place/1181</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Pishon</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Pishon</idno>
-                    <idno type="URI">
+               <desc xml:id="abstract-en-1181" xml:lang="en">One of the biblical rivers coming out of Eden in Genesis 2</desc>
+               <state type="existence"/>
+               <idno type="URI">http://syriaca.org/place/1181</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Pishon</idno>
+               <idno type="URI">http://dbpedia.org/resource/Pishon</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=P&amp;sK=Pishon&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib1181-1">
+               <bibl xml:id="bib1181-1">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=P&amp;sK=Pishon&amp;sT=keywords">Pishon</citedRange>
                     </bibl>
-                <bibl xml:id="bib1181-2">
+               <bibl xml:id="bib1181-2">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Rabban Yawsep</title>
@@ -76,17 +76,17 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-2517" type="monastery">
-                    <placeName xml:id="name2517-1" xml:lang="en" syriaca-tags="#syriaca-headword">Rabban Yawsep</placeName>
-                    <placeName xml:id="name2517-2" xml:lang="en" source="#bib2517-1">Rabban Joseph</placeName>
-                    <desc xml:id="abstract-en-2517" xml:lang="en"/>
-                    <location type="nested" source="#bib2517-1">
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-2517" type="monastery">
+               <placeName xml:id="name2517-1" xml:lang="en" syriaca-tags="#syriaca-headword">Rabban Yawsep</placeName>
+               <placeName xml:id="name2517-2" xml:lang="en" source="#bib2517-1">Rabban Joseph</placeName>
+               <desc xml:id="abstract-en-2517" xml:lang="en"/>
+               <location type="nested" source="#bib2517-1">
                         <region ref="http://syriaca.org/place/"/>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0894"
                       to="0894"
                       syriaca-computed-end="0894-01-01"
@@ -94,21 +94,21 @@
                         <precision match="@from" notAfter="0894" syriaca-computed-end="0894-01-01"/>
                         <precision match="@to" notBefore="0894" syriaca-computed-start="0894-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/2517</idno>
-                    <bibl xml:id="bib2517-1">
+               <idno type="URI">http://syriaca.org/place/2517</idno>
+               <bibl xml:id="bib2517-1">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">49</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-                <bibl xml:id="bib2517-2">
+               <bibl xml:id="bib2517-2">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>

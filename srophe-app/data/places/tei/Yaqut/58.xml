@@ -7,7 +7,7 @@
      xmlns:xs="http://www.w3.org/2001/XMLSchema"
      xmlns:syriaca="http://syriaca.org"
      xml:lang="en">
-    <teiHeader>
+   <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Ctesiphon
@@ -102,36 +102,36 @@
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-    <text>
-        <body>
-            <listPlace>
-                <place xml:id="place-58" type="settlement">
-                    <placeName xml:id="name58-1"
+   <text>
+      <body>
+         <listPlace>
+            <place xml:id="place-58" type="settlement">
+               <placeName xml:id="name58-1"
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib58-2 #bib58-5">Ctesiphon</placeName>
-                    <placeName xml:id="name58-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܛܝܣܦܘܢ</placeName>
-                    <placeName xml:id="name58-3" xml:lang="syr-Syrj" source="#bib58-3">ܩܰܛܝܣܦܘܢ</placeName>
-                    <placeName xml:id="name58-4" xml:lang="ar" source="#bib58-4">قسطفون</placeName>
-                    <desc xml:id="abstract-en-58" xml:lang="en">
+               <placeName xml:id="name58-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܛܝܣܦܘܢ</placeName>
+               <placeName xml:id="name58-3" xml:lang="syr-Syrj" source="#bib58-3">ܩܰܛܝܣܦܘܢ</placeName>
+               <placeName xml:id="name58-4" xml:lang="ar" source="#bib58-4">قسطفون</placeName>
+               <desc xml:id="abstract-en-58" xml:lang="en">
                         <quote source="#bib58-1">Located on the Tigris, south of modern Baghdad.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib58-1">483. Seleucia-Ctesiphon</quote>
                     </desc>
-                    <desc xml:lang="syr-Syrj">
+               <desc xml:lang="syr-Syrj">
                         <quote source="#bib58-3">ܬܰܪܬܝܢ ܡܕܝ̈ܢܳܢ ܕܒܰܚܕ̈ܕܐ ܣܒܝܣ̈ܢ ܘܡܶܬܩܰܪ̈ܝܳܢ ܡܕܝ̈ܢܳܬܐ ܐܶܡܐ ܕܰܡܕܝ̈ܢܬܳܐ ܕܦܳܪ̈ܣܳܝܐ ܣܰܐܣܰܐܢܳܝ̈ܐ ܠܬܰܝܡܢܳܗ̇ ܕܒܓܕܕ ܡܰܪܕܶܐ ܫܶܬ ܫܳܥܝ̈ܢ ܘܰܚܪܶܒ̈ܝ ܒܫܘܪܳܝ ܫܘܠܛܳܢܐ ܕܥܰܪ̈ܒܝܐ ܘܰܒܓܰܢܒܗܝܢ ܝܰܘܡܳܢ ܩܪܝܬܳܐ ܕܣܰܠܡܰܐܢ ܒܰܐܟ.</quote>
                     </desc>
-                    <desc xml:lang="ar">
+               <desc xml:lang="ar">
                         <quote source="#bib58-4">مدينتان متصلتان سميتا بالمدائن عاصمة الفرس الساسانيين، جنوبي بغداد مسيرة ست ساعات، خربتا في صدر الفتح العربي وبجانبهما اليوم قرية سلمان باك.</quote>
                     </desc>
-                    <desc xml:lang="en">
+               <desc xml:lang="en">
                         <quote source="#bib58-5">two connected cities. They were the capital of the Sassanids, situated about six hours journey south of Baghdad. Both these cities were destroyed at the beginning of the Arab conquest. Near their site is the present village of Salman Pak.</quote>
                     </desc>
-                    <location type="gps" source="#bib58-2">
+               <location type="gps" source="#bib58-2">
                         <geo>33.09361 44.58056</geo>
                     </location>
-                    <state type="existence"
+               <state type="existence"
                       from="0000"
                       to="0637"
                       syriaca-computed-end="0637-01-01"
@@ -143,55 +143,55 @@
                              syriaca-computed-end="1215-01-01"
                              syriaca-computed-start="0637-01-01"/>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/58</idno>
-                    <idno type="URI">http://pleiades.stoa.org/places/893976</idno>
-                    <idno type="URI">http://en.wikipedia.org/wiki/Ctesiphon</idno>
-                    <idno type="URI">http://dbpedia.org/resource/Ctesiphon</idno>
-                    <idno type="URI">
+               <idno type="URI">http://syriaca.org/place/58</idno>
+               <idno type="URI">http://pleiades.stoa.org/places/893976</idno>
+               <idno type="URI">http://en.wikipedia.org/wiki/Ctesiphon</idno>
+               <idno type="URI">http://dbpedia.org/resource/Ctesiphon</idno>
+               <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Seleucia-Ctesiphon&amp;sT=keywords
                                         </idno>
-                    <bibl xml:id="bib58-1">
+               <bibl xml:id="bib58-1">
                         <author>M. C. Cassis</author>
                         <title level="a" xml:lang="en">483. Seleucia-Ctesiphon</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">365</citedRange>
                     </bibl>
-                    <bibl xml:id="bib58-2">
+               <bibl xml:id="bib58-2">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">1, 5, 11, 12, 21, 24, 27, 50, 53, 57, 70, 72, 73, 110, 164, 171, 183, 212, 215, 217, 218, 221, 244, 258, 268, 271, 273, 320, 346, 365, 373, 376, 415, 429</citedRange>
                         <citedRange unit="maps">Map I C2, II C2</citedRange>
                     </bibl>
-                    <bibl xml:id="bib58-3">
+               <bibl xml:id="bib58-3">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">556</citedRange>
                     </bibl>
-                    <bibl xml:id="bib58-4">
+               <bibl xml:id="bib58-4">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">516</citedRange>
                     </bibl>
-                    <bibl xml:id="bib58-5">
+               <bibl xml:id="bib58-5">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">558</citedRange>
                     </bibl>
-                    <bibl xml:id="bib58-6">
+               <bibl xml:id="bib58-6">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry"
                               target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Seleucia-Ctesiphon&amp;sT=keywords">Seleucia-Ctesiphon</citedRange>
                     </bibl>
-                <bibl xml:id="bib58-7">
+               <bibl xml:id="bib58-7">
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
                   <citedRange unit="pp"/>
                </bibl>
             </place>
-            </listPlace>
-        </body>
-    </text>
+         </listPlace>
+      </body>
+   </text>
 </TEI>
