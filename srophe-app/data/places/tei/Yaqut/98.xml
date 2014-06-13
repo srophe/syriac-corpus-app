@@ -104,7 +104,7 @@
                           source="#bib98-1 #bib98-4 #bib98-5">Iraq</placeName>
                <placeName xml:id="name98-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܥܪܐܩ</placeName>
                <placeName xml:id="name98-3" xml:lang="syr-Syrj" source="#bib98-2">ܥܪܰܐܩ</placeName>
-               <placeName xml:id="name98-4" xml:lang="ar" source="#bib98-3 bib98-6">العراق</placeName>
+               <placeName xml:id="name98-4" xml:lang="ar" source="#bib98-3 #bib98-6">العراق</placeName>
                <desc xml:id="abstract-en-98" xml:lang="en">A region encompassing lower Mesopotamia.</desc>
                <state type="existence"
                       from="0600"

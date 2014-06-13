@@ -86,6 +86,7 @@
                           syriaca-tags="#syriaca-headword"
                           source="#bib20-1">ʿAmadiyya</placeName>
                <placeName xml:id="name20-2" xml:lang="en" source="#bib20-2">ʿAmādīyā</placeName>
+               <placeName xml:id="name20-3" xml:lang="ar" source="#bib20-3">العِمَادِيّة</placeName>
                <desc xml:id="abstract-en-20" xml:lang="en">A town in the mountains of northern Iraq, east of the Tigris.</desc>
                <location type="gps" source="#bib20-1">
                         <geo>37.0933 43.4872</geo>

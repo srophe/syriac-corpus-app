@@ -100,6 +100,7 @@
                <placeName xml:id="name527-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܣܢ ܡܣܠܡܗ ܒܢ ܥܒܕ ܐܠܡܠܟ</placeName>
                <placeName xml:id="name527-3" xml:lang="syr-Syrj" source="#bib527-1">ܚܰܣܰܢ ܡܰܣܠܡܗ ܒܶܢ ܥܰܒܕ ܐܠܡܠܟ</placeName>
                <placeName xml:id="name527-4" xml:lang="ar" source="#bib527-2">حصن مسلمة بن عبد الملك</placeName>
+               <placeName xml:id="name527-5" xml:lang="ar" source="#bib527-4">حصن مسلمة</placeName>
                <desc xml:id="abstract-en-527" xml:lang="en">Not far from <placeName ref="http://syriaca.org/place/314">Tell Maḥre</placeName>.</desc>
                <state type="existence"
                       from="1225"

@@ -106,6 +106,7 @@
                <placeName xml:id="name116-3" xml:lang="syr-Syrj" source="#bib116-2">ܝܰܡܬܳܐ ܕܐܘܪܡܺܝܐ</placeName>
                <placeName xml:id="name116-4" xml:lang="ar" source="#bib116-3">بحيرة اورمية</placeName>
                <placeName xml:id="name116-5" xml:lang="en" source="#bib116-4">Lake Urmiya</placeName>
+               <placeName xml:id="name116-6" xml:lang="ar" source="#bib116-5">بُحَيْرة ارمية</placeName>
                <desc xml:id="abstract-en-116" xml:lang="en">A lake in northern <placeName ref="http://syriaca.org/place/526">Iran</placeName> west of <placeName ref="http://syriaca.org/place/308">Tabriz</placeName> and southeast of <placeName ref="http://syriaca.org/place/117">Lake Van</placeName>.</desc>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/116</idno>

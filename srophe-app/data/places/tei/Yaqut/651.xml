@@ -80,6 +80,7 @@
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib651-1">Mount Zion</placeName>
+               <placeName xml:id="name651-2" xml:lang="ar" source="#bib651-2">صِهْيَوْن</placeName>
                <desc xml:id="abstract-en-651" xml:lang="en">A hill in <placeName ref="http://syriaca.org/place/104">Jerusalem</placeName>.</desc>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/651</idno>

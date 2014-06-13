@@ -106,6 +106,7 @@
                <placeName xml:id="name43-3" xml:lang="syr-Syrj" source="#bib43-2">ܢܗܰܪ ܒܰܐܠܚ</placeName>
                <placeName xml:id="name43-4" xml:lang="ar" source="#bib43-3">نهر البليخ</placeName>
                <placeName xml:id="name43-5" xml:lang="en" source="#bib43-4">Balikh river</placeName>
+               <placeName xml:id="name43-6" xml:lang="ar" source="#bib43-5">البليخ</placeName>
                <desc xml:id="abstract-en-43" xml:lang="en">A tributary of the Euphrates that enters it at al-Raqqa.</desc>
                <state type="existence"/>
                <note type="incerta">GEDSH article "Edessa" identifies with <placeName ref="http://syriaca.org/place/191">Daysan</placeName>, but the identification is contested.</note>

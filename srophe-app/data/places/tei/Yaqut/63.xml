@@ -113,7 +113,7 @@
                <placeName xml:id="name63-2" xml:lang="en" source="#bib63-1">Qlaudia</placeName>
                <placeName xml:id="name63-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܠܘܕܝܐ</placeName>
                <placeName xml:id="name63-4" xml:lang="syr-Syrj" source="#bib63-2">ܩܠܰܘܕܺܝܰܐ</placeName>
-               <placeName xml:id="name63-5" xml:lang="ar" source="#bib63-3 bib63-5">قلوذية</placeName>
+               <placeName xml:id="name63-5" xml:lang="ar" source="#bib63-3 #bib63-5">قلوذية</placeName>
                <desc xml:id="abstract-en-63" xml:lang="en">A city southeast of Melitene.</desc>
                <desc xml:lang="syr-Syrj">
                         <quote source="#bib63-2">ܚܶܣܢܳܐ ܕܩܰܪܝܒ ܗܘܐ ܠܡܺܝܠܝܛܝܢܝ ܐܶܣܬܚܦ ܘܰܗܦܰܟ ܒܢܳܝܗܝ ܚܰܣܢ ܒܰܪ ܩܚܛܒܗ ܫܢܰܬ 141 ܗܳܓܳܪܳܝܬܐ. ܘܫܰܚܠܦܗ ܠܰܐܬܪܐ ܒܰܫܡܗ. ܘܰܚܪܒ ܒܳܬܰܪ ܕܳܪܐ ܬܠܳܬܰܥܣܝܪܳܝܐ. </quote>

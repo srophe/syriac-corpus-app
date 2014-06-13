@@ -98,6 +98,7 @@
                <placeName xml:id="name519-3" xml:lang="syr-Syrj" source="#bib519-1">ܒܰܛܝܐܣ</placeName>
                <placeName xml:id="name519-4" xml:lang="ar" source="#bib519-2">بطياس</placeName>
                <placeName xml:id="name519-5" xml:lang="en" source="#bib519-3">Batyas</placeName>
+               <placeName xml:id="name519-6" xml:lang="ar" source="#bib519-4">بِطْياس</placeName>
                <desc xml:id="abstract-en-519" xml:lang="en">Near <placeName ref="http://syriaca.org/place/109">al-Raqqa</placeName>.</desc>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/519</idno>

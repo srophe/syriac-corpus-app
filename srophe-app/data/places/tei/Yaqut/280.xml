@@ -80,6 +80,7 @@
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib280-1">Ṣaydnāyā</placeName>
+               <placeName xml:id="name280-2" xml:lang="ar" source="#bib280-2">صيدنايا</placeName>
                <desc xml:id="abstract-en-280" xml:lang="en">A village north of <placeName ref="http://syriaca.org/place/66">Damascus</placeName> and southwest of Maʿlula.</desc>
                <state type="existence"
                       from="1700"

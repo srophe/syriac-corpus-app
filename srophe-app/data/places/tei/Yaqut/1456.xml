@@ -100,6 +100,7 @@
                <placeName xml:id="name1456-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܘܪܐ</placeName>
                <placeName xml:id="name1456-3" xml:lang="syr-Syrj" source="#bib1456-1">ܚܰܘܪܐ</placeName>
                <placeName xml:id="name1456-4" xml:lang="ar" source="#bib1456-2">حَوْرا</placeName>
+               <placeName xml:id="name1456-5" xml:lang="ar" source="#bib1456-4">حَوْرة</placeName>
                <desc xml:id="abstract-en-1456" xml:lang="en">A village near Serugh.</desc>
                <state type="existence" from="0471" syriaca-computed-start="0471-01-01">
                         <precision match="@from" notAfter="0471" syriaca-computed-end="0471-01-01"/>

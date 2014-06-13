@@ -100,6 +100,7 @@
                <placeName xml:id="name495-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܢܓܦ</placeName>
                <placeName xml:id="name495-3" xml:lang="syr-Syrj" source="#bib495-2">ܢܰܓܦ</placeName>
                <placeName xml:id="name495-4" xml:lang="ar" source="#bib495-3">النجف</placeName>
+               <placeName xml:id="name495-5" xml:lang="ar" source="#bib495-5">النَجَف</placeName>
                <desc xml:id="abstract-en-495" xml:lang="en">A city on the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> south of <placeName ref="http://syriaca.org/place/41">Baghdad</placeName>.</desc>
                <state type="existence"
                       from="1600"

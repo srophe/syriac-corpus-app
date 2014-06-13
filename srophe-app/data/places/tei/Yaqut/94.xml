@@ -114,7 +114,7 @@
                <placeName xml:id="name94-5" xml:lang="en" source="#bib94-1">Parrin</placeName>
                <placeName xml:id="name94-6" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܣܢ ܡܢܨܘܪ</placeName>
                <placeName xml:id="name94-7" xml:lang="syr-Syrj" source="#bib94-2">ܚܰܣܰܢ ܡܰܢܨܘܪ</placeName>
-               <placeName xml:id="name94-8" xml:lang="ar" source="#bib94-3 bib94-5">حصن منصور</placeName>
+               <placeName xml:id="name94-8" xml:lang="ar" source="#bib94-3 #bib94-5">حصن منصور</placeName>
                <desc xml:id="abstract-en-94" xml:lang="en">A city north of <placeName ref="http://syriaca.org/place/97">Qalʿa Rumayta</placeName> and southwest of <placeName ref="http://syriaca.org/place/136">Melitene</placeName>.</desc>
                <desc xml:lang="syr-Syrj">
                         <quote source="#bib94-2">ܡܕܝܰܢܬܐ ܗܝ ܕܰܒܓܰܪܒܰܝ ܫܰܡܝܫܰܛ ܠܡܰܥܪܒܳܐ ܕܰܦܪܳܬ ܕܡܶܬܶܐܡܰܪ ܠܗ̇ ܬܘܒ ܐܰܕܺܝܰܐܡܰܐܢ.</quote>

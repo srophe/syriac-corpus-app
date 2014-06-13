@@ -86,6 +86,7 @@
                           syriaca-tags="#syriaca-headword"
                           source="#bib875-1">Tehran</placeName>
                <placeName xml:id="name875-2" xml:lang="en" source="#bib875-2">Teheran</placeName>
+               <placeName xml:id="name875-3" xml:lang="ar" source="#bib875-3">طِهْران</placeName>
                <desc xml:id="abstract-en-875" xml:lang="en"/>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/875</idno>

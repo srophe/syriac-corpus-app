@@ -100,6 +100,7 @@
                           source="#bib497-1">ܣܢܝܪ</placeName>
                <placeName xml:id="name497-3" xml:lang="ar" source="#bib497-2">سنير</placeName>
                <placeName xml:id="name497-4" xml:lang="en" source="#bib497-3">Sinnir</placeName>
+               <placeName xml:id="name497-5" xml:lang="ar" source="#bib497-4">سَنِير</placeName>
                <desc xml:id="abstract-en-497" xml:lang="en">A mountain in southwestern Syria.</desc>
                <state type="existence"/>
                <note type="deprecation" xml:id="name497-4-deprecation">Moosa's transcription "Sinnir" is non-standard.</note>

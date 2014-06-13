@@ -82,6 +82,8 @@
                           syriaca-tags="#syriaca-headword"
                           source="#bib147-1 #bib147-2">Orontes</placeName>
                <placeName xml:id="name147-2" xml:lang="en" source="#bib147-1">ʿĀṣī</placeName>
+               <placeName xml:id="name147-" xml:lang="ar" source="#bib147-4">الأُرُنْد</placeName>
+               <placeName xml:id="name147-" xml:lang="ar" source="#bib147-4">العاصي</placeName>
                <desc xml:id="abstract-en-147" xml:lang="en">A river of <placeName ref="http://syriaca.org/place/486">Syria</placeName> which runs from southwest of <placeName ref="http://syriaca.org/place/215">Emesa</placeName> north to <placeName ref="http://syriaca.org/place/10">Antioch</placeName>.</desc>
                <location type="gps" source="#bib147-3">
                         <geo>35.2728339 36.4825754</geo>

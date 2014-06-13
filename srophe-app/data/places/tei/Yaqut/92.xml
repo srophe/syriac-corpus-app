@@ -116,7 +116,7 @@
                <placeName xml:id="name92-3" xml:lang="en" source="#bib92-1">Ḥesn Kifo</placeName>
                <placeName xml:id="name92-4" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܣܢܐ ܕܟܐܦܐ</placeName>
                <placeName xml:id="name92-5" xml:lang="syr-Syrj" source="#bib92-2">ܚܰܣܢ ܟܺܐܦܐ</placeName>
-               <placeName xml:id="name92-6" xml:lang="ar" source="#bib92-3 bib92-6">حصن كيفا</placeName>
+               <placeName xml:id="name92-6" xml:lang="ar" source="#bib92-3 #bib92-6">حصن كيفا</placeName>
                <placeName xml:id="name92-7" xml:lang="en" source="#bib92-4">Ḥiṣn Kifa</placeName>
                <placeName xml:id="name92-8" xml:lang="en" source="#bib92-5">Ḥesnā d'Kīfā</placeName>
                <placeName xml:id="name92-9" xml:lang="en" source="#bib92-5">Ḥiṣn Kayf</placeName>

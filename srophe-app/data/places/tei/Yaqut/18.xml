@@ -111,6 +111,7 @@
                <placeName xml:id="name18-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܠܒ</placeName>
                <placeName xml:id="name18-4" xml:lang="syr-Syrj" source="#bib18-3">ܚܳܠܒ</placeName>
                <placeName xml:id="name18-5" xml:lang="ar" source="#bib18-4">حلب</placeName>
+               <placeName xml:id="name18-6" xml:lang="ar" source="#bib18-8">حَلَب</placeName>
                <desc xml:id="abstract-en-18" xml:lang="en">
                         <quote source="#bib18-1">City in northern Syria and an important center of Christianity in the Middle East today as the seat of a total of nine bishoprics.</quote>
                     </desc>

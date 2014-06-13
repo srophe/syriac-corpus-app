@@ -80,6 +80,7 @@
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib273-1">Marqab</placeName>
+               <placeName xml:id="name273-2" xml:lang="ar" source="#bib273-2">المَرْقب</placeName>
                <desc xml:id="abstract-en-273" xml:lang="en">A fortress overlooking the Mediterranean coastal road near Baniyas.</desc>
                <state type="existence"
                       from="1062"

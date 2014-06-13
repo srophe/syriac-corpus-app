@@ -110,6 +110,8 @@
                <placeName xml:id="name104-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܘܪܫܠܡ</placeName>
                <placeName xml:id="name104-3" xml:lang="syr-Syrj" source="#bib104-3">ܐܘܪܫܠܶܡ</placeName>
                <placeName xml:id="name104-4" xml:lang="ar" source="#bib104-4">اورشليم</placeName>
+               <placeName xml:id="name104-" xml:lang="ar" source="#bib104-8">أُوْرِيْشَلِم</placeName>
+               <placeName xml:id="name104-" xml:lang="ar" source="#bib104-8">بيت المقدس</placeName>
                <desc xml:id="abstract-en-104" xml:lang="en">
                         <quote source="#bib104-1">As the birthplace of Christianity and the main destination of pilgrimage, Jerusalem played an important role for Christians of all Syr. traditions.</quote>
                     </desc>

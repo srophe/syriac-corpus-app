@@ -116,6 +116,7 @@
                           syriaca-tags="#syriaca-headword"
                           source="#bib432-1">ܥܪܩܐ</placeName>
                <placeName xml:id="name432-3" xml:lang="ar" source="#bib432-2">عرقة</placeName>
+               <placeName xml:id="name432-4" xml:lang="ar" source="#bib432-5">عِرْقة</placeName>
                <desc xml:id="abstract-en-432" xml:lang="en"/>
                <desc xml:lang="syr-Syrj">
                         <quote source="#bib432-1">ܐܰܬܪܰܐ ܗܘ ܕܥܰܠ ܝܰܕ ܝܰܡܐ ܒܶܝܬ ܦܰܢܺܝܗ ܘܰܛܪܺܝܦܳܘܠܝܣ ܒܡܰܕܢܰܚ ܓܰܪܒܰܝ ܕܝܠܗ̇. ܒܰܝܢܳܬܗܝܢ ܐܰܪܒܥܐ ܦܰܪ̈ܣܚܐ.</quote>

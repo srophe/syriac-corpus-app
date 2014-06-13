@@ -107,6 +107,7 @@
                <placeName xml:id="name204-4" xml:lang="syr-Syrj" source="#bib204-2">ܙܒܐ ܪܰܒܐ</placeName>
                <placeName xml:id="name204-5" xml:lang="ar" source="#bib204-3">الزاب الكبير</placeName>
                <placeName xml:id="name204-6" xml:lang="en" source="#bib204-4">Great Zab</placeName>
+               <placeName xml:id="name204-7" xml:lang="ar" source="#bib204-5">الزاب الأعلى</placeName>
                <desc xml:id="abstract-en-204" xml:lang="en">A tributary of the <placeName ref="http://syriaca.org/place/202">Tigris</placeName> which flows north of <placeName ref="http://syriaca.org/place/13">Arbela</placeName>.</desc>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/204</idno>

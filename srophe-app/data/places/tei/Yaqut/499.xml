@@ -99,7 +99,7 @@
                           source="#bib499-1 #bib499-4">Maʿarrat al-Nuʿmān</placeName>
                <placeName xml:id="name499-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܥܪܝܐ ܢܥܡܢ</placeName>
                <placeName xml:id="name499-3" xml:lang="syr-Syrj" source="#bib499-2">ܡܥܪܝܐ ܢܥܡܰܢ</placeName>
-               <placeName xml:id="name499-4" xml:lang="ar" source="#bib499-3 bib499-5">معرة النعمان</placeName>
+               <placeName xml:id="name499-4" xml:lang="ar" source="#bib499-3 #bib499-5">معرة النعمان</placeName>
                <desc xml:id="abstract-en-499" xml:lang="en">A city in northern Syria.</desc>
                <state type="existence"
                       from="0891"

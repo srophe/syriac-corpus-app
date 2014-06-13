@@ -116,7 +116,7 @@
                <placeName xml:id="name8-5" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܡܝܕ</placeName>
                <placeName xml:id="name8-6" xml:lang="syr-Syrj" source="#bib8-3">ܐܳܡܝ̣ܕ</placeName>
                <placeName xml:id="name8-7" xml:lang="syr-Syrj" source="#bib8-3">ܕܝܰܐܪܒܟܶܪ</placeName>
-               <placeName xml:id="name8-8" xml:lang="ar" source="#bib8-4 bib8-8">آمد</placeName>
+               <placeName xml:id="name8-8" xml:lang="ar" source="#bib8-4 #bib8-8">آمد</placeName>
                <placeName xml:id="name8-9" xml:lang="ar" source="#bib8-4"> ديار بكر</placeName>
                <placeName xml:id="name8-10" xml:lang="en" source="#bib8-5">Diyarbakir</placeName>
                <placeName xml:id="name8-11" xml:lang="en" source="#bib8-7">Āmid</placeName>

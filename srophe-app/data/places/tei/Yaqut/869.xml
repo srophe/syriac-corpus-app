@@ -85,6 +85,7 @@
                           syriaca-tags="#syriaca-headword"
                           source="#bib869-1">Shenna</placeName>
                <placeName xml:id="name869-2" xml:lang="en" source="#bib869-2">Shennā d'Beṯ Ramman</placeName>
+               <placeName xml:id="name869-3" xml:lang="ar" source="#bib869-3">السِّنّ</placeName>
                <desc xml:id="abstract-en-869" xml:lang="en">A city in northern Iraq.</desc>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/869</idno>

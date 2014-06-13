@@ -114,6 +114,7 @@
                <placeName xml:id="name4-3" xml:lang="syr-Syrj" source="#bib4-2">ܨܰܘܪܐ</placeName>
                <placeName xml:id="name4-4" xml:lang="ar" source="#bib4-3">الصور</placeName>
                <placeName xml:id="name4-5" xml:lang="en" source="#bib4-4">Ṣawr</placeName>
+               <placeName xml:id="name4-6" xml:lang="ar" source="#bib4-5">الصَور</placeName>
                <desc xml:id="abstract-en-4" xml:lang="en">A village in <placeName ref="http://syriaca.org/place/221">Ṭur ʿAbdin</placeName>.</desc>
                <desc xml:lang="syr-Syrj">
                         <quote source="#bib4-2">ܐܰܬܪܐ ܘܩܶܠܥܳܐ ܕܰܠܓܰܪܒܝ ܡܰܕܢܰܚ ܡܰܪܕܝܢ ܡܰܪܕܶܐ ܝܰܘܡܳܐ</quote>

@@ -98,6 +98,7 @@
                <placeName xml:id="name501-3" xml:lang="syr-Syrj" source="#bib501-1">ܡܰܐܟܣܝܢ</placeName>
                <placeName xml:id="name501-4" xml:lang="ar" source="#bib501-2">ماكسين</placeName>
                <placeName xml:id="name501-5" xml:lang="en" source="#bib501-3">Macine</placeName>
+               <placeName xml:id="name501-6" xml:lang="ar" source="#bib501-4">ماكِسِين</placeName>
                <desc xml:id="abstract-en-501" xml:lang="en">A town of the <placeName ref="http://syriaca.org/place/332">Khābūrā district</placeName>.</desc>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/501</idno>

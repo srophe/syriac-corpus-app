@@ -80,6 +80,7 @@
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib600-1">Jordan valley</placeName>
+               <placeName xml:id="name600-2" xml:lang="ar" source="#bib600-2">الغَوْر</placeName>
                <desc xml:id="abstract-en-600" xml:lang="en">The valley which contains the <placeName ref="http://syriaca.org/place/599">Jordan River</placeName>.</desc>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/600</idno>

@@ -108,7 +108,7 @@
                <placeName xml:id="name299-3" xml:lang="syr-Syrj" source="#bib299-1">ܒܳܐܠܫ</placeName>
                <placeName xml:id="name299-4" xml:lang="syr-Syrj" source="#bib299-1">ܒܪܒܐܠܝܣܘܣ</placeName>
                <placeName xml:id="name299-5" xml:lang="syr-Syrj" source="#bib299-1">ܡܰܣܟܢܗ</placeName>
-               <placeName xml:id="name299-6" xml:lang="ar" source="#bib299-2 bib299-5">بالس</placeName>
+               <placeName xml:id="name299-6" xml:lang="ar" source="#bib299-2 #bib299-5">بالس</placeName>
                <placeName xml:id="name299-7" xml:lang="ar" source="#bib299-2">بالش</placeName>
                <placeName xml:id="name299-8" xml:lang="ar" source="#bib299-2">برباليسوس</placeName>
                <placeName xml:id="name299-9" xml:lang="ar" source="#bib299-2">مسكنة</placeName>

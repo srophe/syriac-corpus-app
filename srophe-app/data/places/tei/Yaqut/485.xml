@@ -98,6 +98,7 @@
                <placeName xml:id="name485-3" xml:lang="syr-Syrj" source="#bib485-1">ܢܰܗܪܘܣܐ ܕܟܘܣܪ</placeName>
                <placeName xml:id="name485-4" xml:lang="ar" source="#bib485-2">نهير الخوسر</placeName>
                <placeName xml:id="name485-5" xml:lang="en" source="#bib485-3">Khuser Creek</placeName>
+               <placeName xml:id="name485-6" xml:lang="ar" source="#bib485-4">خَوْسر</placeName>
                <desc xml:id="abstract-en-485" xml:lang="en">A tributary of the <placeName ref="http://syriaca.org/place/202">Tigris</placeName> in northern Iraq.</desc>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/485</idno>

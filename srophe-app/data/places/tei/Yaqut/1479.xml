@@ -98,6 +98,7 @@
                <placeName xml:id="name1479-3" xml:lang="syr-Syrj" source="#bib1479-1">ܐܰܢܨܢܐ</placeName>
                <placeName xml:id="name1479-4" xml:lang="ar" source="#bib1479-2">انصنا</placeName>
                <placeName xml:id="name1479-5" xml:lang="en" source="#bib1479-3">Ausana</placeName>
+               <placeName xml:id="name1479-6" xml:lang="ar" source="#bib1479-4">أَنْصِنا</placeName>
                <desc xml:id="abstract-en-1479" xml:lang="en">The seat of a bishop named Theodore whose biography, no longer extant, was ascribed to <persName ref="http://syriaca.org/person/58">Zacharias Rhetor</persName>.</desc>
                <state type="existence"/>
                <note type="deprecation" xml:id="name1479-5-deprecation">Moosa's transcription "Ausana" is a typo for "Ansana".</note>

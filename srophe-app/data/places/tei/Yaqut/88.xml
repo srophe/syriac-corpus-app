@@ -123,6 +123,7 @@
                <placeName xml:id="name88-9" xml:lang="en" source="#bib88-4">Jazirat Ibn ʿUmar</placeName>
                <placeName xml:id="name88-10" xml:lang="en" source="#bib88-5">Gāzartā</placeName>
                <placeName xml:id="name88-11" xml:lang="syr" source="#bib88-6">ܓܙܪܬܐ ܙܒܕܝܬܐ</placeName>
+               <placeName xml:id="name88-12" xml:lang="ar" source="#bib88-7">جزيرة البن عمر</placeName>
                <desc xml:id="abstract-en-88" xml:lang="en">A city on the <placeName ref="http://syriaca.org/place/202">Tigris river</placeName> between <placeName ref="http://syriaca.org/place/8">Amida</placeName> and <placeName ref="http://syriaca.org/place/139">Mosul</placeName>.</desc>
                <desc xml:lang="syr-Syrj">
                         <quote source="#bib88-2">ܡܕܺܝܢܬܘܢܝܬܳܐ ܗܝ ܕܥܰܠ ܕܶܩܠܰܬ ܒܶܝܬ ܐܳܡܝܕ ܠܡܰܘܨܠ.</quote>

@@ -109,7 +109,7 @@
                <placeName xml:id="name321-3" xml:lang="syr-Syrj" source="#bib321-1">ܓܳܙܰܪܬܐ ܥܶܠܳܝܬܳܐ</placeName>
                <placeName xml:id="name321-4" xml:lang="syr-Syrj" source="#bib321-1">ܐܰܬܪ̈ܘܬܳܐ ܕܪܒܝܥܗ̇</placeName>
                <placeName xml:id="name321-5" xml:lang="ar" source="#bib321-2">الجزيرة العليا</placeName>
-               <placeName xml:id="name321-6" xml:lang="ar" source="#bib321-2 bib321-4">ديار ربيعة</placeName>
+               <placeName xml:id="name321-6" xml:lang="ar" source="#bib321-2 #bib321-4">ديار ربيعة</placeName>
                <placeName xml:id="name321-7" xml:lang="en" source="#bib321-3">Upper Jazira</placeName>
                <placeName xml:id="name321-8" xml:lang="en" source="#bib321-3">Diyār Rabiʿa</placeName>
                <desc xml:id="abstract-en-321" xml:lang="en"/>

@@ -98,6 +98,7 @@
                <placeName xml:id="name517-3" xml:lang="syr-Syrj" source="#bib517-1">ܥܳܒܐ</placeName>
                <placeName xml:id="name517-4" xml:lang="ar" source="#bib517-2">غوطة</placeName>
                <placeName xml:id="name517-5" xml:lang="en" source="#bib517-3">Ghūta</placeName>
+               <placeName xml:id="name517-6" xml:lang="ar" source="#bib517-4">الغْوْطة</placeName>
                <desc xml:id="abstract-en-517" xml:lang="en">The fertile farmland surrounding <placeName ref="http://syriaca.org/place/66">Damascus</placeName>.</desc>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/517</idno>

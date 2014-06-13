@@ -86,6 +86,7 @@
                           syriaca-tags="#syriaca-headword"
                           source="#bib727-1">Tangut</placeName>
                <placeName xml:id="name727-2" xml:lang="en" source="#bib727-2">Tangūt</placeName>
+               <placeName xml:id="name727-3" xml:lang="ar" source="#bib727-3">تنكُت</placeName>
                <desc xml:id="abstract-en-727" xml:lang="en"/>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/727</idno>

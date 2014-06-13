@@ -79,6 +79,7 @@
                <placeName xml:id="name655-1" xml:lang="en" syriaca-tags="#syriaca-headword">Ṣarrīn</placeName>
                <placeName xml:id="name655-2" xml:lang="en" source="#bib655-1">Serrin</placeName>
                <placeName xml:id="name655-3" xml:lang="en" source="#bib655-1">Sirrin</placeName>
+               <placeName xml:id="name655-4" xml:lang="ar" source="#bib655-2">صِرِّين</placeName>
                <desc xml:id="abstract-en-655" xml:lang="en">A village in modern Syria near the Euphrates.</desc>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/655</idno>

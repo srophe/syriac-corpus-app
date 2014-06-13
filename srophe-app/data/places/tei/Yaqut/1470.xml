@@ -98,6 +98,7 @@
                <placeName xml:id="name1470-3" xml:lang="syr-Syrj" source="#bib1470-1">ܕܰܝܪܐ ܕܩܰܕܝܫܐ ܫܶܡܥܘܢ</placeName>
                <placeName xml:id="name1470-4" xml:lang="ar" source="#bib1470-2">دير القديس سمعان</placeName>
                <placeName xml:id="name1470-5" xml:lang="en" source="#bib1470-3">Monastery of St. Simon</placeName>
+               <placeName xml:id="name1470-6" xml:lang="ar" source="#bib1470-4">دير سِمعان</placeName>
                <desc xml:id="abstract-en-1470" xml:lang="en">An unlocated monastery</desc>
                <state type="existence" from="0538" syriaca-computed-start="0538-01-01">
                         <precision match="@from" notAfter="0538" syriaca-computed-end="0538-01-01"/>

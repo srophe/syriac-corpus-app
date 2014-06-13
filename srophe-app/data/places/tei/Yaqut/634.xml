@@ -78,6 +78,7 @@
             <place xml:id="place-634" type="fortification">
                <placeName xml:id="name634-1" xml:lang="en" syriaca-tags="#syriaca-headword">Qalʿat Najm</placeName>
                <placeName xml:id="name634-2" xml:lang="en" source="#bib634-1">Qalat Naym</placeName>
+               <placeName xml:id="name634-3" xml:lang="ar" source="#bib634-2">قلعة النجم</placeName>
                <desc xml:id="abstract-en-634" xml:lang="en">A medieval fortress on the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> near <placeName ref="http://syriaca.org/place/122">Mabbug</placeName>.</desc>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/634</idno>

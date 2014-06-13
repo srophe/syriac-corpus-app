@@ -81,6 +81,7 @@
                           syriaca-tags="#syriaca-headword"
                           source="#bib140-1">Mygdonius</placeName>
                <placeName xml:id="name140-2" xml:lang="en" source="#bib140-1">Çağçağ</placeName>
+               <placeName xml:id="name140-3" xml:lang="ar" source="#bib140-2">الهِرماس</placeName>
                <desc xml:id="abstract-en-140" xml:lang="en">A tributary of the <placeName ref="http://syriaca.org/place/114">Khabur river</placeName> which flows past <placeName ref="http://syriaca.org/place/142">Nisibis</placeName>.</desc>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/140</idno>

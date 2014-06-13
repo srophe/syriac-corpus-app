@@ -88,7 +88,7 @@
                           source="#bib715-1 #bib715-2 #bib715-5 #bib715-6">Egypt</placeName>
                <placeName xml:id="name715-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܨܪܝܢ</placeName>
                <placeName xml:id="name715-3" xml:lang="syr-Syrj" source="#bib715-3">ܡܶܨܪܝܢ</placeName>
-               <placeName xml:id="name715-4" xml:lang="ar" source="#bib7-4 bib715-7">مصر</placeName>
+               <placeName xml:id="name715-4" xml:lang="ar" source="#bib7-4 #bib715-7">مصر</placeName>
                <desc xml:id="abstract-en-715" xml:lang="en"/>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/715</idno>

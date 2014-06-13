@@ -82,6 +82,7 @@
             <place xml:id="place-2424" type="monastery">
                <placeName xml:id="name2424-1" xml:lang="en" syriaca-tags="#syriaca-headword">Baʿut</placeName>
                <placeName xml:id="name2424-2" xml:lang="en" source="#bib2424-1">Bāʿūṯ</placeName>
+               <placeName xml:id="name2424-3" xml:lang="ar" source="#bib2424-2">دير باغوث</placeName>
                <desc xml:id="abstract-en-2424" xml:lang="en"/>
                <location type="nested" source="#bib2424-1">
                         <region ref="http://syriaca.org/place/710">Beṯ ʿArabāye region</region>

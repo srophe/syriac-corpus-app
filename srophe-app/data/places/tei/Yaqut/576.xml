@@ -104,6 +104,7 @@
                <placeName xml:id="name576-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܪܡܢܝܐ</placeName>
                <placeName xml:id="name576-3" xml:lang="syr-Syrj" source="#bib576-1">ܐܰܪܡܶܢܺܝܐ</placeName>
                <placeName xml:id="name576-4" xml:lang="ar" source="#bib576-2">ارمينية</placeName>
+               <placeName xml:id="name576-5" xml:lang="ar" source="#bib576-6">إِرْمِيْنِيَة</placeName>
                <desc xml:id="abstract-en-576" xml:lang="en">A mountainous region between the Caspian Sea and eastern Anatolia, south of Georgia and north of Kurdistan.</desc>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/576</idno>

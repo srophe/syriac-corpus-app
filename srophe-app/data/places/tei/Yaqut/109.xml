@@ -121,6 +121,7 @@
                <placeName xml:id="name109-9" xml:lang="ar" source="#bib109-3">قالونيقس</placeName>
                <placeName xml:id="name109-10" xml:lang="en" source="#bib109-4">al-Raqqa</placeName>
                <placeName xml:id="name109-11" xml:lang="en" source="#bib109-4">Callinicus</placeName>
+               <placeName xml:id="name109-12" xml:lang="ar" source="#bib109-6">الرَقَّة</placeName>
                <desc xml:id="abstract-en-109" xml:lang="en">A city on the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> where the <placeName ref="http://syriaca.org/place/191">Daiṣan</placeName> enters it.</desc>
                <desc xml:lang="syr-Syrj">
                         <quote source="#bib109-2">ܡܕܝܢܬܳܐ ܗܘܳܬ ܪܰܒܬܳܐ ܒܩܘܪܒܳܐ ܕܰܦܪܳܬ ܘܡܶܬܰܐܡܪ ܠܗ̇ ܪܰܩܰܗ̈ ܘܝܰܘܡܳܢܐ ܗܘܳܬ ܡܕܝܢܬܳܘܢܺܝܬܳܐ ܕܕܳܡܝܳܐ ܠܰܩܪܺܝܬܳܐ.</quote>

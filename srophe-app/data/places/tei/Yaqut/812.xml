@@ -85,6 +85,7 @@
                           syriaca-tags="#syriaca-headword"
                           source="#bib812-1">Daquqa</placeName>
                <placeName xml:id="name812-2" xml:lang="en" source="#bib812-2">Dāqūqā</placeName>
+               <placeName xml:id="name812-3" xml:lang="ar" source="#bib812-3">دَقُوقاء</placeName>
                <desc xml:id="abstract-en-812" xml:lang="en">A town in Beth Garmai.</desc>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/812</idno>

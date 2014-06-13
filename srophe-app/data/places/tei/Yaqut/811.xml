@@ -85,6 +85,7 @@
                           xml:lang="en"
                           syriaca-tags="#syriaca-headword"
                           source="#bib811-1">Damietta</placeName>
+               <placeName xml:id="name811-2" xml:lang="ar" source="#bib811-3">دمياط</placeName>
                <desc xml:id="abstract-en-811" xml:lang="en"/>
                <location type="gps" source="#bib811-2">
                         <geo>31.417068 31.812588</geo>

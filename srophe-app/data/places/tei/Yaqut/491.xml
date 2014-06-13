@@ -100,6 +100,7 @@
                <placeName xml:id="name491-5" xml:lang="ar" source="#bib491-2">ديار مضر</placeName>
                <placeName xml:id="name491-6" xml:lang="en" source="#bib491-3">Mudar territory</placeName>
                <placeName xml:id="name491-7" xml:lang="en" source="#bib491-3">Diyar Miṣr</placeName>
+               <placeName xml:id="name491-8" xml:lang="ar" source="#bib491-4">ديار مُضر</placeName>
                <desc xml:id="abstract-en-491" xml:lang="en">A region of Mesopotamia on the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> from <placeName ref="http://syriaca.org/place/178">Samosata</placeName> to western Iraq.</desc>
                <state type="existence"
                       from="0700"

@@ -83,6 +83,7 @@
             <place xml:id="place-2505" type="monastery">
                <placeName xml:id="name2505-1" xml:lang="en" syriaca-tags="#syriaca-headword">Mar Yonan</placeName>
                <placeName xml:id="name2505-2" xml:lang="en" source="#bib2505-1">Mār Yōnān</placeName>
+               <placeName xml:id="name2505-3" xml:lang="ar" source="#bib2505-2">دير مريونان</placeName>
                <desc xml:id="abstract-en-2505" xml:lang="en"/>
                <location type="nested" source="#bib2505-1">
                         <settlement ref="http://syriaca.org/place/211">Anbār</settlement>

@@ -100,6 +100,7 @@
                <placeName xml:id="name552-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܐܪܡ</placeName>
                <placeName xml:id="name552-3" xml:lang="syr-Syrj" source="#bib552-1">ܚܰܐܪܡ</placeName>
                <placeName xml:id="name552-4" xml:lang="ar" source="#bib552-2">حارم</placeName>
+               <placeName xml:id="name552-5" xml:lang="ar" source="#bib552-4">حارِم</placeName>
                <desc xml:id="abstract-en-552" xml:lang="en">A mountain range in northwestern Syria.</desc>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/552</idno>

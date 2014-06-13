@@ -85,6 +85,7 @@
                           syriaca-tags="#syriaca-headword"
                           source="#bib871-1">Shahrzur</placeName>
                <placeName xml:id="name871-2" xml:lang="en" source="#bib871-2">Shāhrzūr</placeName>
+               <placeName xml:id="name871-3" xml:lang="ar" source="#bib871-3">شَهْرَزور</placeName>
                <desc xml:id="abstract-en-871" xml:lang="en"/>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/871</idno>

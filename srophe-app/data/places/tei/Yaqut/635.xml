@@ -80,6 +80,7 @@
                <placeName xml:id="name635-1" xml:lang="en" syriaca-tags="#syriaca-headword">Qalʿat Simʿān</placeName>
                <placeName xml:id="name635-2" xml:lang="en" source="#bib635-1">Qalʿāt Simʿān</placeName>
                <placeName xml:id="name635-3" xml:lang="en" source="#bib635-2">Qalat Siman</placeName>
+               <placeName xml:id="name635-4" xml:lang="ar" source="#bib635-4">دير سمعان</placeName>
                <desc xml:id="abstract-en-635" xml:lang="en">The monastery of St. Simeon Stylites west of <placeName ref="http://syriaca.org/place/18">Aleppo</placeName>.</desc>
                <location type="gps" source="#bib635-3">
                         <geo>36.334167 36.843889</geo>

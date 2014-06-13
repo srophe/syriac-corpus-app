@@ -113,6 +113,8 @@
                <placeName xml:id="name211-5" xml:lang="ar" source="#bib211-4">الانبار</placeName>
                <placeName xml:id="name211-6" xml:lang="en" source="#bib211-5">al-ʾAnbar</placeName>
                <placeName xml:id="name211-7" xml:lang="en" source="#bib211-6">Anbar</placeName>
+               <placeName xml:id="name211-" xml:lang="ar" source="#bib211-8">فيروزسابور</placeName>
+               <placeName xml:id="name211-" xml:lang="ar" source="#bib211-8">الأَنبار</placeName>
                <desc xml:id="abstract-en-211" xml:lang="en">
                         <quote source="#bib211-1">Large Sasanian city on the eastern bank of the Euphrates, the ruins are near present-day Falluja, ca. 60 km. west of Baghdad.</quote>
                     </desc>

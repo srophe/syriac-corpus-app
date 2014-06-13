@@ -111,6 +111,7 @@
                <placeName xml:id="name406-3" xml:lang="syr-Syrj" source="#bib406-1">ܪܘܝܚܢ</placeName>
                <placeName xml:id="name406-4" xml:lang="ar" source="#bib406-2">روحين</placeName>
                <placeName xml:id="name406-5" xml:lang="en" source="#bib406-3">Ruḥīn</placeName>
+               <placeName xml:id="name406-6" xml:lang="ar" source="#bib406-4">رُوْحِين</placeName>
                <desc xml:id="abstract-en-406" xml:lang="en"/>
                <desc xml:lang="syr-Syrj">
                         <quote source="#bib406-1">ܡܶܢ ܩܘܪ̈ܝܳܐ  ܕܐܰܢܛܝܘܟܝ ܕܰܚܪ̈ܶܒܝ.</quote>
