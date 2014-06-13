@@ -109,7 +109,7 @@
                <placeName xml:id="name330-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܣܢ ܙܝܐܕ</placeName>
                <placeName xml:id="name330-3" xml:lang="syr-Syrj" source="#bib330-2">ܚܰܣܰܢ ܙܰܝܰܐܕ</placeName>
                <placeName xml:id="name330-4" xml:lang="syr-Syrj" source="#bib330-2">ܟ݂ܰܪܒܘܬ</placeName>
-               <placeName xml:id="name330-5" xml:lang="ar" source="#bib330-3">حصن زياد</placeName>
+               <placeName xml:id="name330-5" xml:lang="ar" source="#bib330-3 bib330-5">حصن زياد</placeName>
                <placeName xml:id="name330-6" xml:lang="ar" source="#bib330-3">خربوت</placeName>
                <placeName xml:id="name330-7" xml:lang="en" source="#bib330-4">Ḥiṣn Ziyād</placeName>
                <desc xml:id="abstract-en-330" xml:lang="en">A town northeast of Melitene.</desc>

@@ -104,7 +104,7 @@
                           source="#bib143-1">Nabk</placeName>
                <placeName xml:id="name143-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܢܒܟ</placeName>
                <placeName xml:id="name143-3" xml:lang="syr-Syrj" source="#bib143-2">ܢܰܒܟ</placeName>
-               <placeName xml:id="name143-4" xml:lang="ar" source="#bib143-3">النبك</placeName>
+               <placeName xml:id="name143-4" xml:lang="ar" source="#bib143-3 bib143-5">النبك</placeName>
                <placeName xml:id="name143-5" xml:lang="en" source="#bib143-4">al-Nabak</placeName>
                <desc xml:id="abstract-en-143" xml:lang="en">A town northeast of <placeName ref="http://syriaca.org/place/66">Damascus</placeName> and southwest of <placeName ref="http://syriaca.org/place/212">al-Qaryatayn</placeName>.</desc>
                <location type="gps" source="#bib143-1">

@@ -111,7 +111,7 @@
                <placeName xml:id="name418-1" xml:lang="en" syriaca-tags="#syriaca-headword">al-Ṣāliḥiyya</placeName>
                <placeName xml:id="name418-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܨܐܠܚܝܗ̇</placeName>
                <placeName xml:id="name418-3" xml:lang="syr-Syrj" source="#bib418-1">ܨܰܐܠܚܝܗ̇</placeName>
-               <placeName xml:id="name418-4" xml:lang="ar" source="#bib418-2">الصالحية</placeName>
+               <placeName xml:id="name418-4" xml:lang="ar" source="#bib418-2 bib418-4">الصالحية</placeName>
                <placeName xml:id="name418-5" xml:lang="en" source="#bib418-3">Saliḥiyya</placeName>
                <desc xml:id="abstract-en-418" xml:lang="en"/>
                <desc xml:lang="syr-Syrj">

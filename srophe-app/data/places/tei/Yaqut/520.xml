@@ -97,7 +97,7 @@
                <placeName xml:id="name520-1" xml:lang="en" syriaca-tags="#syriaca-headword">Bālū</placeName>
                <placeName xml:id="name520-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܐܠܘ</placeName>
                <placeName xml:id="name520-3" xml:lang="syr-Syrj" source="#bib520-1">ܒܰܐܠܘ</placeName>
-               <placeName xml:id="name520-4" xml:lang="ar" source="#bib520-2">بالو</placeName>
+               <placeName xml:id="name520-4" xml:lang="ar" source="#bib520-2 bib520-5">بالو</placeName>
                <placeName xml:id="name520-5" xml:lang="en" source="#bib520-3">Balū</placeName>
                <desc xml:id="abstract-en-520" xml:lang="en">A town east of <placeName ref="http://syriaca.org/place/697">Maʿmūrat al-ʿAzīz</placeName>.</desc>
                <location type="gps" source="#bib520-4">

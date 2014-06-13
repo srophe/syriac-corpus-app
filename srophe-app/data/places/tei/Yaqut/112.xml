@@ -115,7 +115,7 @@
                           xml:lang="syr"
                           syriaca-tags="#syriaca-headword"
                           source="#bib112-2">ܟܝܫܘܡ</placeName>
-               <placeName xml:id="name112-4" xml:lang="ar" source="#bib112-3">كيسوم</placeName>
+               <placeName xml:id="name112-4" xml:lang="ar" source="#bib112-3 bib112-5">كيسوم</placeName>
                <placeName xml:id="name112-5" xml:lang="en" source="#bib112-4">Kesum</placeName>
                <desc xml:id="abstract-en-112" xml:lang="en">A town north of <placeName ref="http://syriaca.org/place/97">Qalʿa Rumayta</placeName> and west of <placeName ref="http://syriaca.org/place/178">Samosata</placeName>.</desc>
                <desc xml:lang="syr-Syrj">

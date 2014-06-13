@@ -98,7 +98,7 @@
                           xml:lang="syr"
                           syriaca-tags="#syriaca-headword"
                           source="#bib505-1">ܫܝܪܘܢ</placeName>
-               <placeName xml:id="name505-3" xml:lang="ar" source="#bib505-2">شروان</placeName>
+               <placeName xml:id="name505-3" xml:lang="ar" source="#bib505-2 bib505-4">شروان</placeName>
                <placeName xml:id="name505-4" xml:lang="en" source="#bib505-3">Sherwan</placeName>
                <desc xml:id="abstract-en-505" xml:lang="en">A village northeast of <placeName ref="http://syriaca.org/place/188">Siirt</placeName>.</desc>
                <state type="existence"

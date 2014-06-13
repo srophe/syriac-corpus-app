@@ -114,7 +114,7 @@
                <placeName xml:id="name97-2" xml:lang="en" source="#bib97-1">Hṙomklay</placeName>
                <placeName xml:id="name97-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܠܥܐ ܪܘܡܝܬܐ</placeName>
                <placeName xml:id="name97-4" xml:lang="syr-Syrj" source="#bib97-2">ܩܶܠܥܳܐ ܪܘܡܳܝܬܐ</placeName>
-               <placeName xml:id="name97-5" xml:lang="ar" source="#bib97-3">قلعة الروم</placeName>
+               <placeName xml:id="name97-5" xml:lang="ar" source="#bib97-3 bib97-5">قلعة الروم</placeName>
                <placeName xml:id="name97-6" xml:lang="en" source="#bib97-4">Qalʿat al-Rum</placeName>
                <desc xml:id="abstract-en-97" xml:lang="en">A city on the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> west of <placeName ref="http://syriaca.org/place/78">Edessa</placeName> and northeast of <placeName ref="http://syriaca.org/place/222">ʿAintab</placeName>.</desc>
                <desc xml:lang="syr-Syrj">

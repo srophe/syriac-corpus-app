@@ -112,7 +112,7 @@
                           xml:lang="syr"
                           syriaca-tags="#syriaca-headword"
                           source="#bib216-3">ܚܪܢ</placeName>
-               <placeName xml:id="name216-5" xml:lang="ar" source="#bib216-4">حرّان</placeName>
+               <placeName xml:id="name216-5" xml:lang="ar" source="#bib216-4 bib216-7">حرّان</placeName>
                <placeName xml:id="name216-6" xml:lang="en" source="#bib216-5">Ḥarrān</placeName>
                <placeName xml:id="name216-7" xml:lang="en" source="#bib216-6">Harran</placeName>
                <desc xml:id="abstract-en-216" xml:lang="en">
