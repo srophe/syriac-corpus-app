@@ -192,7 +192,7 @@
                   <title xml:lang="en" level="m">Muʿjam al-buldān</title>
                   <author>Yāqūt al-Ḥamawī</author>
                   <ptr target="http://syriaca.org/bibl/636"/>
-                  <citedRange unit="pp"/>
+                  <citedRange unit="pp">ΙΙΙ:297</citedRange>
                </bibl>
             </place>
             <relation name="share-a-name" mutual="#place-184  http://syriaca.org/place/2377"/>
