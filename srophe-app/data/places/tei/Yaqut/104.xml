@@ -121,6 +121,17 @@
                <location type="gps" source="#bib104-2">
                         <geo>31.78333 35.21667</geo>
                     </location>
+               <event type="attestation"
+                      xml:id="attestation104-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib104-8"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of names <foreign xml:lang="ar">أُوْرِيْشَلِم</foreign> and <foreign xml:lang="ar">بيت المقدس</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name104-5 #attestation104-1"/>
+                  <link target="#name104-6 #attestation104-1"/>
+               </event>
                <state type="existence"
                       from="-1000"
                       to="2013"

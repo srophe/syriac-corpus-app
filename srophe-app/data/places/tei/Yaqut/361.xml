@@ -118,6 +118,16 @@
                <desc xml:lang="en">
                         <quote source="#bib361-3">in al-Thaghr, near Duluk, overlooking Marj al-ʿAyn, was inhabited between 875 and 1000. Thirteen bishops graduated from it.</quote>
                     </desc>
+               <event type="attestation"
+                      xml:id="attestation361-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib361-4"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">دير سليمان</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name361-6 #attestation361-1"/>
+               </event>
                <state type="existence"
                       from="0875"
                       to="1000"

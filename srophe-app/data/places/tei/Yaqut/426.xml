@@ -126,6 +126,16 @@
                <desc xml:lang="en">
                         <quote source="#bib426-4">a town on the Tigris, opposite the city of Diyarbakr. Its Syrian population left it in 1928.</quote>
                     </desc>
+               <event type="attestation"
+                      xml:id="attestation426-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib426-5"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">قُطْرَبُّل</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name426-7 #attestation426-1"/>
+               </event>
                <state type="existence"
                       from="1710"
                       to="1914"

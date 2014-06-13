@@ -104,6 +104,16 @@
                <location type="gps" source="#bib496-4">
                         <geo>34.966351 36.39298</geo>
                     </location>
+               <event type="attestation"
+                      xml:id="attestation496-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib496-5"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">رَفَنِيّة</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name496-6 #attestation496-1"/>
+               </event>
                <state type="existence"
                       from="0300"
                       to="1943"

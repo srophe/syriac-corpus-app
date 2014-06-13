@@ -123,6 +123,16 @@
                <desc xml:lang="en">
                         <quote source="#bib5-4">a vast territory whose boundaries extended from the Caspian Sea in the east to Lake Van in the west.</quote>
                     </desc>
+               <event type="attestation"
+                      xml:id="attestation5-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib5-6"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">أَذْرَبِيجَان</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name5-7 #attestation5-1"/>
+               </event>
                <state type="existence"
                       from="0700"
                       to="2013"

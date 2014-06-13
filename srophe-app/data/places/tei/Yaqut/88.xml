@@ -147,6 +147,16 @@
                         <p xml:lang="en">Attestation of name <foreign xml:lang="syr">ܓܙܪܬܐ ܙܒܕܝܬܐ</foreign> in Mingana Syr. Ms. 421 in a note c. 1700.</p>
                         <link target=" #name88-11 #attestation88-1"/>
                     </event>
+               <event type="attestation"
+                      xml:id="attestation88-2"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib88-7"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">جزيرة البن عمر</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name88-12 #attestation88-2"/>
+               </event>
                <state type="existence"
                       from="0912"
                       to="2013"

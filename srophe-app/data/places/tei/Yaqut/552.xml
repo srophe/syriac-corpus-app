@@ -102,6 +102,16 @@
                <placeName xml:id="name552-4" xml:lang="ar" source="#bib552-2">حارم</placeName>
                <placeName xml:id="name552-5" xml:lang="ar" source="#bib552-4">حارِم</placeName>
                <desc xml:id="abstract-en-552" xml:lang="en">A mountain range in northwestern Syria.</desc>
+               <event type="attestation"
+                      xml:id="attestation552-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib552-4"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">حارِم</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name552-5 #attestation552-1"/>
+               </event>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/552</idno>
                <idno type="URI">http://en.wikipedia.org/wiki/Harim_Mountains</idno>

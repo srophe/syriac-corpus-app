@@ -126,6 +126,16 @@
                <desc xml:lang="en">
                         <quote source="#bib413-3">a town in central Anatolia.</quote>
                     </desc>
+               <event type="attestation"
+                      xml:id="attestation413-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib413-4"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">سَمَنْدو</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name413-7 #attestation413-1"/>
+               </event>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/413</idno>
                <bibl xml:id="bib413-1">

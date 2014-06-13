@@ -128,6 +128,16 @@
                <desc xml:lang="en">
                         <quote source="#bib368-5">built on top of Mount Sinai by Justinian, now belongs to the Greeks. Fifteen monks presently live in it. It has a magnificent library, containing about 280 old Syriac manuscripts, most of which are written in the Estrangelo and Malkite scripts. It is also a bishopric seat whose metropolitan resides in Cairo.</quote>
                     </desc>
+               <event type="attestation"
+                      xml:id="attestation368-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib368-7"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">دير طور سينا</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name368-5 #attestation368-1"/>
+               </event>
                <state type="existence"
                       from="0600"
                       to="2013"

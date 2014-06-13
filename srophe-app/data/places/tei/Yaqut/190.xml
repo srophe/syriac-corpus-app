@@ -113,6 +113,17 @@
                <location type="gps" source="#bib190-1">
                         <geo>37.45 35.8</geo>
                     </location>
+               <event type="attestation"
+                      xml:id="attestation190-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib190-5"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of names <foreign xml:lang="ar">سيسية</foreign> and <foreign xml:lang="ar">سيس</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name190-5 #attestation190-1"/>
+                  <link target="#name190-3 #attestation190-1"/>
+               </event>
                <state type="existence"
                       from="0325"
                       to="2013"

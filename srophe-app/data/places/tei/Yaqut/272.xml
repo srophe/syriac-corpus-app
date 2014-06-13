@@ -86,6 +86,16 @@
                <location type="gps" source="#bib272-2">
                         <geo>34.756897 36.294731</geo>
                     </location>
+               <event type="attestation"
+                      xml:id="attestation272-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib272-3"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">حصن الاكراد</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name272-2 #attestation272-1"/>
+               </event>
                <state type="existence"
                       from="1030"
                       to="1271"

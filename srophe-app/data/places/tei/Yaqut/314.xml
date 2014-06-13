@@ -123,6 +123,17 @@
                <desc xml:lang="en">
                         <quote source="#bib314-4">a small town between Ḥiṣn Maslama Ibn ʿAbd al-Malik and al-Raqqa, now called Tell al-Manakhir. </quote>
                     </desc>
+               <event type="attestation"
+                      xml:id="attestation314-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib314-5"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of names <foreign xml:lang="ar">تل مَحْرى</foreign> and <foreign xml:lang="ar">تل بحرى</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name314-7 #attestation314-1"/>
+                  <link target="#name314-8 #attestation314-1"/>
+               </event>
                <state type="existence"
                       from="0718"
                       to="0745"

@@ -82,6 +82,16 @@
                           source="#bib682-1">ʿAyn al-Tamr</placeName>
                <placeName xml:id="name682-2" xml:lang="ar" source="#bib682-2">عين التمر</placeName>
                <desc xml:id="abstract-en-682" xml:lang="en">A village near <placeName ref="http://syriaca.org/place/219">Ḥirta</placeName>.</desc>
+               <event type="attestation"
+                      xml:id="attestation682-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib682-2"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">عين التمر</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name682-2 #attestation682-1"/>
+               </event>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/682</idno>
                <bibl xml:id="bib682-1">

@@ -294,6 +294,17 @@
                         <p xml:lang="en">Attestation of Syrian Orthodox metropolitan for Edessa according to <persName ref="http://syriaca.org/person/372">Barsoum</persName>'s <title ref="http://syriaca.org/work/215">Scattered Pearls</title>.</p>
                         <link target="#confession78-1 #attestation78-7"/>
                     </event>
+               <event type="attestation"
+                      xml:id="attestation78-8"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib78-12"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of names <foreign xml:lang="ar">الرُّهاء</foreign> and <foreign xml:lang="ar">أَذاسا</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name78-11 #attestation78-8"/>
+                  <link target="#name78-12 #attestation78-8"/>
+               </event>
                <state type="existence" from="-0304"/>
                <state type="confession"
                       xml:id="confession78-2"

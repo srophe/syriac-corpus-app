@@ -119,6 +119,16 @@
                <desc xml:lang="en">
                         <quote source="#bib313-3">a town formerly in Roman territory, one of many which formed the line of fortification between Roman and Muslim territories near Melitene.</quote>
                     </desc>
+               <event type="attestation"
+                      xml:id="attestation313-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib313-4"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">تل بطريق</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name313-6 #attestation313-1"/>
+               </event>
                <state type="existence"
                       from="0967"
                       to="1091"

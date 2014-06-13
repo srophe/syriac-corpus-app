@@ -101,6 +101,16 @@
                <placeName xml:id="name499-3" xml:lang="syr-Syrj" source="#bib499-2">ܡܥܪܝܐ ܢܥܡܰܢ</placeName>
                <placeName xml:id="name499-4" xml:lang="ar" source="#bib499-3 #bib499-5">معرة النعمان</placeName>
                <desc xml:id="abstract-en-499" xml:lang="en">A city in northern Syria.</desc>
+               <event type="attestation"
+                      xml:id="attestation499-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib499-5"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">معرة النعمان</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name499-4 #attestation499-1"/>
+               </event>
                <state type="existence"
                       from="0891"
                       to="2013"

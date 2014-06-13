@@ -119,6 +119,16 @@
                <desc xml:lang="en">
                         <quote source="#bib295-3">a village on the Tigris, now in ruins, five hours journey northeast of Mosul.</quote>
                     </desc>
+               <event type="attestation"
+                      xml:id="attestation295-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib295-4"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">بارِمّا</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name295-7 #attestation295-1"/>
+               </event>
                <state type="existence"
                       from="0863"
                       to="0863"

@@ -102,6 +102,16 @@
                <placeName xml:id="name527-4" xml:lang="ar" source="#bib527-2">حصن مسلمة بن عبد الملك</placeName>
                <placeName xml:id="name527-5" xml:lang="ar" source="#bib527-4">حصن مسلمة</placeName>
                <desc xml:id="abstract-en-527" xml:lang="en">Not far from <placeName ref="http://syriaca.org/place/314">Tell Maḥre</placeName>.</desc>
+               <event type="attestation"
+                      xml:id="attestation527-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib527-4"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">حصن مسلمة</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name527-5 #attestation527-1"/>
+               </event>
                <state type="existence"
                       from="1225"
                       to="0705"

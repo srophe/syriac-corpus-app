@@ -104,6 +104,16 @@
                <placeName xml:id="name591-3" xml:lang="ar" source="#bib591-2">اوروبا</placeName>
                <placeName xml:id="name591-4" xml:lang="ar" source="#bib591-5">أَوْرَفِّي</placeName>
                <desc xml:id="abstract-en-591" xml:lang="en">A continent west of Asia and north of Africa.</desc>
+               <event type="attestation"
+                      xml:id="attestation591-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib591-5"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">أَوْرَفِّي</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name591-4 #attestation591-1"/>
+               </event>
                <state type="existence"/>
                <idno type="URI">http://syriaca.org/place/591</idno>
                <idno type="URI">http://en.wikipedia.org/wiki/Europe</idno>

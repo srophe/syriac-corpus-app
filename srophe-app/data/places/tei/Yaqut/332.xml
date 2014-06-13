@@ -129,6 +129,16 @@
                <location type="nested" source="#bib332-4">
                         <region ref="http://syriaca.org/place/712">Gāzartā region</region>
                     </location>
+               <event type="attestation"
+                      xml:id="attestation332-1"
+                      notBefore="1224"
+                      notAfter="1228"
+                      source="#bib332-5"
+                      syriaca-computed-start="1224-01-01"
+                      syriaca-computed-end="1228-01-01">
+                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">خابوراء</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
+                  <link target="#name332-6 #attestation332-1"/>
+               </event>
                <state type="existence"/>
                <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܗܝܺܓܡܘܽܢܺܘܬܐ</quote> should read <quote xml:lang="syr-Syrj">ܗܺܝܓܡܽܘܢܽܘܬܐ </quote> 
                         and <quote xml:lang="syr-Syrj">ܐܰܬܪ̈ܘܳܬܳܗ</quote> should read <quote xml:lang="syr-Syrj">ܐܰܬܪ̈ܘܳܬܳܗ̇</quote>.  Also <quote xml:lang="syr-Syrj">ܕܰܓܙܝܺܪܬܐ</quote> should read 
