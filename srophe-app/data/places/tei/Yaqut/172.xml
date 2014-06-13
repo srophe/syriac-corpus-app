@@ -119,7 +119,7 @@
                <placeName xml:id="name172-7" xml:lang="syr-Syrj" source="#bib172-3">ܪܝܺܫ ܥܰܝܢܳܐ</placeName>
                <placeName xml:id="name172-8" xml:lang="ar" source="#bib172-4 #bib172-6">رأس عين</placeName>
                <placeName xml:id="name172-9" xml:lang="en" source="#bib172-5">Rish ʿAyna</placeName>
-               <placeName xml:id="name172-11" xml:lang="ar" source="#bib172-6">رأس العين</placeName>
+               <placeName xml:id="name172-10" xml:lang="ar" source="#bib172-6">رأس العين</placeName>
                <desc xml:id="abstract-en-172" xml:lang="en">
                         <quote source="#bib172-1">City on the Khabur, located in the eastern part of ancient Osrhoene and today straddling the Turkish-Syrian border, the Syrian part now bearing the name Raʾs al-ʿAyn and the Turkish part Ceylanpınar (earlier Resülayn).</quote>
                     </desc>
@@ -147,7 +147,7 @@
                       syriaca-computed-end="1228-01-01">
                   <p xml:lang="en">Attestation of names <foreign xml:lang="ar">رأس عين</foreign> and <foreign xml:lang="ar">رأس العين</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
                   <link target="#name172-8 #attestation172-1"/>
-                  <link target="#name172-11 #attestation172-1"/>
+                  <link target="#name172-10 #attestation172-1"/>
                </event>
                <state type="existence"
                       from="0688"
