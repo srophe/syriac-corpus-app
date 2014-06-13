@@ -101,7 +101,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-         <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation</change>
+         <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-10">FIXED: typo in URI for Pyramos River in abstract</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-10">FIXED: TEI header title to conform with new Syriac headword</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">CHANGED: Syriac headword to unvocalized version of the new name form</change>

@@ -71,7 +71,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-         <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation</change>
+         <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-09">REMOVED: settlement within nested location, because it's near rather than within the settlement</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-09">ADDED: abstract and relative location quote from Wilmshurst</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
