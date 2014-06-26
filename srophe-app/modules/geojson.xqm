@@ -1,16 +1,24 @@
 xquery version "3.0";
 
 module namespace geo="http://syriaca.org//geojson";
-
+(:~
+ : Module returns coordinates for leafletjs maps, or for API requests
+ : @author Winona Salesky <wsalesky@gmail.com>
+ : @authored 2014-06-25
+:)
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 
-import module namespace json = "http://www.json.org";
+declare namespace json = "http://www.json.org";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 declare namespace transform="http://exist-db.org/xquery/transform";
-declare namespace request="http://exist-db.org/xquery/request";
-declare option exist:serialize "method=json media-type=text/javascript encoding=UTF-8";
 
-
+(:~
+ : Module builds GEOJSON features element for each place returned
+ : @param $geo coordinates string
+ : @param $id  record id 
+ : @param $rec-type place type
+ : @param $title place title
+:)
 declare function geo:build-json($geo as xs:string,$id as xs:string, $rec-type as xs:string, $title as xs:string) as element(features){
     <features json:array="true">
         <type>Feature</type>
@@ -19,18 +27,26 @@ declare function geo:build-json($geo as xs:string,$id as xs:string, $rec-type as
             <coordinates json:literal="true">{substring-before($geo,' ')}</coordinates>
         </geometry>
         <properties>
-            <uri>{concat('/place/',substring-after($id,'place-'),'.html')}</uri>
+            <uri>{concat('http://syriaca.org/place/',substring-after($id,'place-'),'.html')}</uri>
             <placeType>{if($rec-type='opne-water') then 'openWater' else $rec-type}</placeType>
-            <name>{$title}</name>
+            <name>{$title} - {if($rec-type='open-water') then 'openWater' else $rec-type}</name>
         </properties>
     </features>
 };
 
+(:~
+ : Module builds KML Placemark element for each place returned
+ : @param $geo coordinates string
+ : @param $id  record id 
+ : @param $rec-type place type
+ : @param $title place title
+:)
 declare function geo:build-kml($geo as xs:string,$id as xs:string, $rec-type as xs:string, $title as xs:string) as element(features){
     <kml xmlns="http://www.opengis.net/kml/2.2">
         <Placemark>
-            <name>{$title}</name>
-            <description>{if($rec-type='open-water') then 'openWater' else $rec-type} {concat('/place/',substring-after($id,'place-'),'.html')}</description>
+            <name>{$title} - {if($rec-type='open-water') then 'openWater' else $rec-type}</name>
+            <description>{concat('http://syriaca.org/place/',substring-after($id,'place-'),'.html')}
+            </description>
             <Point>
                 <coordinates>{replace($geo,' ',',')}</coordinates>
             </Point>
@@ -38,13 +54,11 @@ declare function geo:build-kml($geo as xs:string,$id as xs:string, $rec-type as 
     </kml>    
 };
 
-(:
-have to add limit for search results, does not serialize as json. 
-not sure what to do about this. 
-add type 
-param $q
-param $type
-param $output
+(:~
+ : Build results set for geographic data, or passes in results from search 
+ : @param $geo-search predefined results set passed from search.xqm
+ : @param $type place type from predefined list: http://syriaca.org/documentation/place-types.html
+ : @param $output indicates json or kml
 :)
 declare function geo:get-coordinates($geo-search as element()*, $type as xs:string*, $output as xs:string*) as element()*{
     let $geo-map :=
@@ -63,6 +77,12 @@ declare function geo:get-coordinates($geo-search as element()*, $type as xs:stri
         else geo:build-json($geo,$id,$rec-type,$title)
 };
 
+(:~
+ : Build root element for KML output
+ : @param $geo-search predefined results set passed from search.xqm
+ : @param $type place type from predefined list: http://syriaca.org/documentation/place-types.html
+ : @param $output indicates json or kml
+:)
 declare function geo:kml-wrapper($geo-search as element()*, $type as xs:string*, $output as xs:string*) as element()*{
     <kml xmlns="http://www.opengis.net/kml/2.2">
         <Document>
@@ -71,12 +91,24 @@ declare function geo:kml-wrapper($geo-search as element()*, $type as xs:string*,
     </kml>
 };
 
+(:~
+ : Build root element for geojson output
+ : @param $geo-search predefined results set passed from search.xqm
+ : @param $type place type from predefined list: http://syriaca.org/documentation/place-types.html
+ : @param $output indicates json or kml
+:)
 declare function geo:json-wrapper($geo-search as element()*, $type as xs:string*, $output as xs:string*) as element()*{
     <json type="FeatureCollection">
         {geo:get-coordinates($geo-search,$type,$output)}
     </json>
 };
 
+(:~
+ : Transform results to json with xslt for inclusion in search page. 
+ : @param $geo-search predefined results set passed from search.xqm
+ : @param $type place type from predefined list: http://syriaca.org/documentation/place-types.html
+ : @param $output indicates json or kml
+:)
 declare function geo:json-transform($geo-search as node()*, $type as xs:string*, $output as xs:string*){
     transform:transform(geo:json-wrapper($geo-search, $type, $output), doc('../resources/xsl/geojson.xsl'),() )  
 };
