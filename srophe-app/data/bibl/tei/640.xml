@@ -44,15 +44,15 @@
             <biblStruct>
                 <monogr>
                     <author>
-                        <persName xml:lang="en" ref="http://syriaca.org/person/411">
+                        <persName xml:lang="fr" ref="http://syriaca.org/person/411">
                             <forename>J.-B.</forename>
                             <surname>Chabot</surname>
                         </persName>
                     </author>
                     <title xml:lang="fr" level="m">Littérature syriaque</title>
                     <imprint>
-                        <publisher xml:lang="fr">Bloud et Gay</publisher>
-                        <pubPlace ref="http://syriaca.org/place/863">Paris</pubPlace>
+                        <publisher xml:lang="fr">Librairie Bloud &amp; Gay</publisher>
+                        <pubPlace ref="http://syriaca.org/place/863"/>
                         <date>1934</date>
                     </imprint>
                 </monogr>

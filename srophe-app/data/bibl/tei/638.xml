@@ -44,7 +44,8 @@
             <biblStruct>
                 <monogr>
                     <author>
-                        <persName xml:lang="en" ref="http://syriaca.org/person/377">
+                        <persName xml:lang="de" ref="http://syriaca.org/person/377">
+                            <addName type="untagged-title">Dr.</addName>
                             <forename>Anton</forename>
                             <surname>Baumstark</surname>
                         </persName>

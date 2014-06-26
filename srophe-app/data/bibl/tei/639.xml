@@ -46,7 +46,8 @@
                     <author>
                         <persName xml:lang="en" ref="http://syriaca.org/person/807">
                             <forename>William</forename>
-                            <surname>Wright</surname>
+                            <surname>Wright</surname>, 
+                            <addName type="untagged-title">LL.D.</addName>
                         </persName>
                     </author>
                     <title xml:lang="en" level="m">A Short History of Syriac Literature</title>
