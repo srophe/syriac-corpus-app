@@ -57,7 +57,7 @@ declare function search:clean-string($param-string){
 :)
 declare function search:keyword(){
     if(exists($search:q) and $search:q != '') then concat('[ft:query(descendant-or-self::*,"',search:clean-string($search:q),'")]')
-    else ()    
+    else ''    
 };
 
 (:~
@@ -66,7 +66,7 @@ declare function search:keyword(){
 :)
 declare function search:place-name(){
     if(exists($search:p) and $search:p != '') then concat('[ft:query(tei:placeName,"',search:clean-string($search:p),'")]')
-    else ()    
+    else ''    
 };
 
 (:~
@@ -75,7 +75,7 @@ declare function search:place-name(){
 :)
 declare function search:type(){
     if(exists($search:type) and $search:type != '') then string(concat('[@type = "',search:clean-string($search:type),'"]'))
-    else () 
+    else '' 
 };
 
 (:~
@@ -85,7 +85,7 @@ declare function search:type(){
 :)
 declare function search:location(){
     if(exists($search:loc) and $search:loc != '') then concat('[ft:query(tei:location,"',search:clean-string($search:loc),'")]')
-    else ()
+    else ''
 };
 
 (:~
@@ -95,7 +95,7 @@ declare function search:location(){
 :)
 declare function search:event(){
     if(exists($search:e) and $search:e != '') then concat('[ft:query(tei:event[@type != "attestation" or not(@type)],"',search:clean-string($search:e),'")]')
-    else ()
+    else ''
 };
 
 (:~
@@ -124,7 +124,7 @@ declare function search:event-dates(){
             concat('[descendant::tei:event[@type != "attestation" or not(@type)][@syriaca-computed-start gt "',search:do-date($search:eds),'" or @syriaca-computed-end gt "',search:do-date($search:eds),'"]]')
     else if (exists($search:ede) and $search:ede != '') then 
         concat('[descendant::tei:event[@type != "attestation" or not(@type)][@syriaca-computed-end lt "',search:do-date($search:ede),'" or @syriaca-computed-start lt "',search:do-date($search:ede),'" and not(@syriaca-computed-end)]]')
-    else ()
+    else ''
 };
 
 (:~
@@ -133,7 +133,7 @@ declare function search:event-dates(){
 :)
 declare function search:attestation(){
     if(exists($search:a) and $search:a != '') then concat('[ft:query(tei:event[@type = "attestation"],"',search:clean-string($search:a),'")]')
-    else ()
+    else ''
 };
 
 (:~
@@ -160,7 +160,7 @@ declare function search:attestation-dates(){
             concat('[descendant::tei:event[@type = "attestation"][@syriaca-computed-start gt "',search:do-date($search:ads),'" or @syriaca-computed-end gt "',search:do-date($search:ads),'"]]')
     else if (exists($search:ade) and $search:ade != '') then 
         concat('[descendant::tei:event[@type = "attestation"][@syriaca-computed-end lt "',search:do-date($search:ade),'" or @syriaca-computed-start lt "',search:do-date($search:ade),'" and not(@syriaca-computed-end)]]')
-    else ()
+    else ''
 };
 
 (:~
@@ -173,7 +173,7 @@ declare function search:confession(){
             concat('[descendant::tei:state[@type = "confession"][matches(tei:label,"',$search:c,'") and ',search:confession-text-w-dates(),']]') 
         else concat('[matches(descendant::tei:state[@type = "confession"]/tei:label,"',$search:c,'")]')
     else if(exists($search:cds) and $search:cds != '' or exists($search:cde) and $search:cde != '') then search:confession-dates()
-    else ()
+    else ''
 };
 
 (:~
@@ -201,7 +201,7 @@ if(exists($search:cds) and $search:cds != '') then
             concat('[descendant::tei:state[@type = "confession"][@syriaca-computed-start gt "',search:do-date($search:cds),'" or @syriaca-computed-end gt "',search:do-date($search:cds),'"]]')
     else if (exists($search:cde) and $search:cde != '') then 
         concat('[descendant::tei:state[@type = "confession"][@syriaca-computed-end lt "',search:do-date($search:cde),'" or @syriaca-computed-start lt "',search:do-date($search:cde),'" and not(@syriaca-computed-end)]]')
-    else ()
+    else ''
 };
 
 (:~
@@ -229,7 +229,7 @@ if(exists($search:cds) and $search:cds != '') then
             concat('(@syriaca-computed-start gt "',search:do-date($search:cds),'") or (@syriaca-computed-end gt "',search:do-date($search:cds),'")')
     else if (exists($search:cde) and $search:cde != '') then 
         concat('((@syriaca-computed-end lt "',search:do-date($search:cde),'") or (@syriaca-computed-start lt "',search:do-date($search:cde),'" and not(@syriaca-computed-end)))')
-    else ()
+    else ''
 };
 
 (:~
@@ -238,7 +238,7 @@ if(exists($search:cds) and $search:cds != '') then
 :)
 declare function search:existence(){
     if(exists($search:exist) and $search:exist != '') then concat('[ft:query(descendant::tei:state[@type = "existence"],"',search:clean-string($search:exist),'")]')
-    else ()
+    else ''
 };
 
 (:~
@@ -265,7 +265,7 @@ if(exists($search:existds) and $search:existds != '') then
             concat('[descendant::tei:state[@type = "existence"][@syriaca-computed-start gt "',search:do-date($search:existds),'" or @syriaca-computed-end gt "',search:do-date($search:existds),'"]]')
     else if (exists($search:existde) and $search:existde != '') then 
         concat('[descendant::tei:state[@type = "existence"][@syriaca-computed-end lt "',search:do-date($search:existde),'" or @syriaca-computed-start lt "',search:do-date($search:existde),'" and not(@syriaca-computed-end)]]')
-    else ()
+    else ''
 };
 
 (:~
@@ -290,7 +290,7 @@ return $final-date
  :)
 declare function search:limit-by-lang-en(){
     if(exists($search:en) and $search:en != '') then concat('[child::*/@xml:lang = "',$search:en,'"]')
-    else ()
+    else ''
 };
 
 (:~
@@ -298,7 +298,7 @@ declare function search:limit-by-lang-en(){
  :)
 declare function search:limit-by-lang-syr(){
     if(exists($search:syr) and $search:syr != '') then concat('[child::*/@xml:lang = "',$search:syr,'"]')
-    else ()
+    else ''
 };
 
 (:~
@@ -306,7 +306,7 @@ declare function search:limit-by-lang-syr(){
  :)
 declare function search:limit-by-lang-ar(){
     if(exists($search:ar) and $search:ar != '') then concat('[child::*/@xml:lang = "',$search:ar,'"]')
-    else ()
+    else ''
 };
 
 (:~
@@ -334,29 +334,6 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
     }
 };
 
-(:
- let $hits := util:eval($eval-string)    
-                for $hit in $hits
-                order by $hit[@type = 'settlement'], ft:score($hit) descending
-                return $hit
-let $hits := util:eval($eval-string)    
-                for $hit in $hits
-                let $id := substring-after($hit/@xml:id,'place-')
-                let $type := string($hit/@type)
-                group by $type
-                order by ft:score($hit) descending,
-                $hit[@type = 'settlement'], 
-                $hit[@type = 'monastery'], $hit[@type = 'fortification'],
-                $hit[@type = 'synagogue'],$hit[@type = 'church'],$hit[@type = 'mosque'],$hit[@type = 'madrasa'],
-                $hit[@type = 'temple'],$hit[@type = 'building']
-                return 
-                for $ordered-hits in $hit
-                order by ft:score($ordered-hits) descending
-                return $ordered-hits
-    }
-settlement, monastery, fortification, synagogue, church, mosque, madrasa, temple, building, mountain, island, open-water, river, region, state, province, diocese, quarter, parish, unknown
-:)
-
 (:~ 
  : Count total hits
 :)
@@ -369,41 +346,41 @@ declare  %templates:wrap function search:hit-count($node as node()*, $model as m
 :)
 declare function search:search-string(){
     let $q-string := if(exists($search:q) and $search:q != '') then (<span class="param">Keyword: </span>,<span class="match">{search:clean-string($search:q)}&#160;</span>)
-                     else ()
+                     else ''
     let $p-string := if(exists($search:p) and $search:p != '') then (<span class="param">Place Name: </span>,<span class="match">{search:clean-string($search:p)} &#160;</span>)
-                        else ()                            
+                        else ''                            
     let $type-string := if(exists($search:type) and $search:type != '') then (<span class="param">Type: </span>,<span class="match">{search:clean-string($search:type)} &#160;</span>)
-                        else ()     
+                        else ''     
     let $loc-string := if(exists($search:loc) and $search:loc != '') then (<span class="param">Location: </span>,<span class="match">{search:clean-string($search:loc)} &#160;</span>)
-                        else ()     
+                        else ''     
     let $e-string := if(exists($search:e) and $search:e != '') then (<span class="param">Event: </span>, <span class="match">{search:clean-string($search:e)} &#160;</span>)
-                     else ()                             
+                     else ''                             
     let $eds-string := if(exists($search:eds) and $search:eds != '') then (<span class="param">Event Start Date: </span>, <span class="match">{search:clean-string($search:eds)} &#160;</span>)
-                     else ()     
+                     else ''     
     let $ede-string := if(exists($search:ede) and $search:ede != '') then (<span class="param">Event End Date: </span>, <span class="match">{search:clean-string($search:ede)} &#160;</span>)
-                     else ()                   
+                     else ''                   
     let $a-string := if(exists($search:a) and $search:a != '') then (<span class="param">Attestations: </span>, <span class="match">{search:clean-string($search:a)}&#160; </span>)
-                     else ()     
+                     else ''     
     let $ads-string := if(exists($search:ads) and $search:ads != '') then (<span class="param">Attestations Start Date: </span>, <span class="match">{search:clean-string($search:ads)}&#160;</span>)
-                     else ()     
+                     else ''     
     let $ade-string := if(exists($search:ade) and $search:ade != '') then (<span class="param">Attestations End Date: </span>, <span class="match">{search:clean-string($search:ade)} &#160;</span>)
-                     else ()                   
+                     else ''                   
     let $c-string := if(exists($search:c) and $search:c != '') then (<span class="param">Religious Communities: </span>, <span class="match">{search:clean-string($search:c)} &#160;</span>)
-                     else ()     
+                     else ''     
     let $cds-string := if(exists($search:cds) and $search:cds != '') then (<span class="param">Religious Communities Start Date: </span>, <span class="match">{search:clean-string($search:cds)} &#160;</span>)
-                     else ()     
+                     else ''     
     let $cde-string := if(exists($search:cde) and $search:cde != '') then (<span class="param">Religious Communities End Date: </span>, <span class="match">{search:clean-string($search:cde)} &#160;</span>)
-                     else ()                       
+                     else ''                       
     let $existds-string := if(exists($search:existds) and $search:existds != '') then (<span class="param">Existence Start Date: </span>, <span class="match">{search:clean-string($search:existds)}&#160; </span>)
-                     else ()     
+                     else ''     
     let $existde-string := if(exists($search:existde) and $search:existde != '') then (<span class="param">Existence End Date: </span>, <span class="match">{search:clean-string($search:existde)}&#160; </span>)
-                     else ()                    
+                     else ''                    
     let $en-lang-string := if(exists($search:en) and $search:en != '') then <span class="param">English </span>
-                     else ()
+                     else ''
     let $syr-lang-string := if(exists($search:syr) and $search:syr != '') then <span class="param">Syriac </span>
-                     else ()
+                     else ''
     let $ar-lang-string := if(exists($search:ar) and $search:ar != '') then <span class="param">Arabic </span>
-                     else ()           
+                     else ''           
 
     return ($q-string,$p-string,$type-string,$loc-string,$e-string,$eds-string,$ede-string,$a-string,$ads-string,$ade-string,$c-string,$cds-string,$cde-string,$existds-string,$existde-string,$en-lang-string,$ar-lang-string,$syr-lang-string)                                          
 };
@@ -493,9 +470,12 @@ return
 };
 
 declare function search:build-geojson($node as node()*, $model as map(*)){
-if(count($model("hits")//tei:geo) gt 1) then
+let $geo-hits := $model("hits")//tei:geo
+return
+    if(count($geo-hits) gt 1) then
          (<div id="map" style="height: 250px;"/>,
-         <div>*{count($model("hits")//tei:geo)} of {search:hit-count($node,$model)} places have coordinates and are shown on this map. <a href="#map-selection" role="button"  data-toggle="modal">Read more...</a></div>,
+         <div>*{count($geo-hits)} of {search:hit-count($node,$model)} places have coordinates and are shown on this map. 
+         <a href="#map-selection" role="button"  data-toggle="modal">Read more...</a></div>,
          <div style="width: 750px; margin-left: -280px;" id="map-selection" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="faq-label" aria-hidden="true">
                 <div class="modal-header" style="height:15px !important;">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> × </button>
@@ -533,7 +513,7 @@ if(count($model("hits")//tei:geo) gt 1) then
 
 
               		var placesgeo =]]>
-              		{geo:build-geojson($node,$model)}
+              		{geo:json-transform($geo-hits,'','')}
                      <![CDATA[
 
                         var geojson = L.geoJson(placesgeo, {
@@ -559,7 +539,7 @@ if(count($model("hits")//tei:geo) gt 1) then
                      
                         ]]>
                     </script>)
-               else ()
+               else ''
 };
 
 (:~
@@ -598,7 +578,7 @@ function search:show-hits($node as node()*, $model as map(*)) {
                                 <bdi dir="rtl" lang="syr" xml:lang="syr">
                                     {$hit/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='syr']}
                                 </bdi>)
-                             else ()  
+                             else ''  
                         }
                         </a>
                     </p>
@@ -618,5 +598,5 @@ function search:show-hits($node as node()*, $model as map(*)) {
 :)
 declare %templates:wrap function search:build-page($node as node()*, $model as map(*)) {
     if(exists(request:get-parameter-names())) then (search:pageination($node,$model),search:show-hits($node, $model))
-    else ()
+    else ''
 };

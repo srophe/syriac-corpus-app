@@ -2,7 +2,7 @@
             'http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', 
             {attribution: "ISAW, 2012"});
             
-            /* Not added by default, only through user control action */
+     /* Not added by default, only through user control action */
      var streets = L.tileLayer(
             'http://api.tiles.mapbox.com/v3/sgillies.map-pmfv2yqx/{z}/{x}/{y}.png', 
             {attribution: "ISAW, 2012"});

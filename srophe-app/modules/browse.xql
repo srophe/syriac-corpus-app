@@ -108,6 +108,47 @@ declare function browse:get-place-type($node as node(), $model as map(*)){
 };
 
 
+
+(:~
+ : Returns a list persons by type
+ : @param $browse:type indicates language of browse list
+ : @param $browse:sort indicates letter for browse
+ : Uses browse:build-sort-string() to strip title of non sort characters
+ :)
+declare function browse:get-pers-type($node as node(), $model as map(*)){
+    for $data in $model('browse-data')//self::*[@ana = concat('#',$browse:type)]
+    let $id := string($data/@xml:id)
+    let $type := string($data/@type)
+    let $ana := string($data/@ana)
+    let $title := 
+        if($browse:view = 'syr') then $data/tei:placeName[@xml:lang = 'syr'][1]/text()
+        else $data/tei:placeName[1]/text()
+    let $browse-title := browse:build-sort-string($title)
+    let $geo := $data/descendant::*/tei:geo
+(:    where matches($place-name/@type, $browse:type):)
+    order by $browse-title
+    return 
+     <browse xmlns="http://www.tei-c.org/ns/1.0" xml:id="{$id}" type="{$type}" ana="{$ana}" sort-title="{$browse-title}">
+            {
+                (
+                for $browse-name in $data/child::*[@syriaca-tags="#syriaca-headword"]
+                return $browse-name,
+                $geo
+                )
+            }
+        </browse>
+};
+
+(:Work in progress to streamline 
+declare function browse:get-ana(){
+    if($browse:type != '') then
+        if($browse:coll = 'persons') then 
+            concat("[self::*[@ana = '#", $browse:type,"']]")
+        else concat("//self::*[@type =", $browse:type,"]")
+    else ()    
+};
+:)
+
 (:~
  : Filter titles by syriac 
  : @param $browse:view
@@ -197,6 +238,22 @@ declare function browse:count-all($node as node(), $model as map(*)){
 :)
 declare function browse:type-counts($node as node(), $model as map(*)){
 if($browse:view = 'type') then 
+    if($browse:coll = 'persons') then 
+    <div class="span4">
+        <ul class="nav nav-tabs nav-stacked pull-left type-nav">
+            {
+            let $types := 'syriaca-author syriaca-saint'
+            for $type in tokenize($types,' ')
+            return 
+                <li>{if($browse:type = $type) then attribute class {'active'} else '' }
+                    <a href="?view=type&amp;type={$type}&amp;coll=persons">{$type} &#160; 
+                        <span class="count">({count(for $type-count in $model("browse-data")//self::*[@ana = concat('#',$type)] return $type-count)})</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    else
     <div class="span4">
         <ul class="nav nav-tabs nav-stacked pull-left type-nav">
             {
@@ -227,6 +284,10 @@ if($browse:coll = 'persons') then
             attribute class {'active'} 
          else '' }<a href="browse.html?view=syr&amp;sort=ܐ&amp;coll={$browse:coll}" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
     </li>
+    <li>{if($browse:view = 'type') then 
+            attribute class {'active'}
+         else '' }<a href="browse.html?coll={$browse:coll}&amp;view=type">Type</a>
+    </li>
 </ul>
 else
 <ul class="nav nav-tabs" id="nametabs">
@@ -249,6 +310,7 @@ else
     </li>
 </ul>
 };
+
 (:~
  : Builds tei node to be transformed by xslt
  : Final results are passed to ../resources/xsl/browselisting.xsl
@@ -271,7 +333,11 @@ declare %templates:wrap function browse:get-browse-names($node as node(), $model
                 </tei:count-geo>
              else (),  
              if($browse:view = 'type') then 
-                if($browse:type != '') then browse:get-place-type($node, $model) 
+                if($browse:type != '') then
+                    if($browse:coll = 'persons') then 
+                        browse:get-pers-type($node, $model)
+                    else
+                        browse:get-place-type($node, $model) 
                 else 'Type'
              else browse:build-browse-results($node, $model)
             )
