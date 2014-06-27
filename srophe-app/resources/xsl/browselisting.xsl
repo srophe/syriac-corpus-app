@@ -196,7 +196,7 @@
                         <a href="person.html?id={$persnum}">
                             <!-- English name -->
                             <bdi dir="ltr" lang="en" xml:lang="en">
-                                <xsl:value-of select="string-join(t:persName[starts-with(@xml:lang,'en')][@syriaca-tags='#syriaca-headword']/descendant::*/text(),' ')"/>
+                                <xsl:value-of select="string-join(t:persName[starts-with(@xml:lang,'en')][@syriaca-tags='#syriaca-headword']/descendant-or-self::*/text(),' ')"/>
                             </bdi>
                             <!-- ana if exists -->
                             <xsl:if test="@ana != ''">
@@ -213,7 +213,7 @@
                             <xsl:choose>
                                 <xsl:when test="t:persName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']">
                                     <bdi dir="rtl" lang="syr" xml:lang="syr">
-                                        <xsl:value-of select="string-join(t:persName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']/child::*/text(),' ')"/>
+                                        <xsl:value-of select="string-join(t:persName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']/descendant-or-self::*/text(),' ')"/>
                                     </bdi>
                                 </xsl:when>
                                 <xsl:otherwise>
