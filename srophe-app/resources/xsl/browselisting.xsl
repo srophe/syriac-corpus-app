@@ -27,7 +27,7 @@
     <!-- ================================================================== 
        browselisting.xsl
        
-       This XSLT loops through all places passed by the browse.xql.
+       This XSLT loops through all places/people passed by the browse.xql.
         
        code by: 
         + Winona Salesky (wsalesky@gmail.com) 
@@ -47,7 +47,6 @@
     <xsl:import href="helper-functions.xsl"/>
     <xsl:output encoding="UTF-8" method="html" indent="yes"/>
     <xsl:param name="normalization">NFKC</xsl:param>
-    
     <xsl:variable name="collection" select="/t:TEI/@browse-coll"/>
     <xsl:variable name="collection-param" select="concat('&amp;coll=',$collection)"/>
     

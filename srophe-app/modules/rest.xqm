@@ -41,7 +41,8 @@ function api:get-geo-json($type, $output) {
   : for acceptable types 
   : @param $output passed to geojson.xqm to correctly serialize results
   : Serialized as XML
-  : Can change mime type to: application/vnd.google-earth.kmz, however this forces file download. 
+  : Can change mime type to: application/vnd.google-earth.kmz, however this forces file download.
+      %output:encoding("UTF-8")
 :)
 declare
     %rest:GET
