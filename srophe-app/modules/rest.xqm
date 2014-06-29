@@ -32,7 +32,14 @@ declare
     %output:media-type("application/json")
     %output:method("json")
 function api:get-geo-json($type, $output) {
-     geo:json-wrapper((), $type, $output)
+(<rest:response> 
+  <http:response status="200"> 
+    <http:header name="Content-Type" value="application/json; charset=utf-8"/> 
+  </http:response> 
+</rest:response>, 
+     geo:json-wrapper((), $type, $output) 
+) 
+
 };
 
 (:~
@@ -52,6 +59,12 @@ declare
     %output:media-type("application/xml")
     %output:method("xml")
 function api:get-geo-kml($type, $output) {
-     geo:kml-wrapper((), $type, $output)
+(<rest:response> 
+  <http:response status="200"> 
+    <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
+  </http:response> 
+</rest:response>, 
+     geo:kml-wrapper((), $type, $output) 
+) 
 };
 
