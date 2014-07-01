@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<TEI xmlns:math="http://www.w3.org/1998/Math/MathML"
-     xmlns="http://www.tei-c.org/ns/1.0"
-     xmlns:xi="http://www.w3.org/2001/XInclude"
-     xmlns:svg="http://www.w3.org/2000/svg"
-     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-     xmlns:syriaca="http://syriaca.org"
-     xml:lang="en">
-   <teiHeader>
+<TEI xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:syriaca="http://syriaca.org" xml:lang="en">
+    <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Beirut
@@ -61,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-06-12-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -93,107 +87,95 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-         <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-   <text>
-      <body>
-         <listPlace>
-            <place xml:id="place-46" type="settlement">
-               <placeName xml:id="name46-1"
-                          xml:lang="en"
-                          syriaca-tags="#syriaca-headword"
-                          source="#bib46-2 #bib46-5 #bib46-6 #bib46-7">Beirut</placeName>
-               <placeName xml:id="name46-2" xml:lang="en" source="#bib46-2">Berytos</placeName>
-               <placeName xml:id="name46-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܝܪܘܬ</placeName>
-               <placeName xml:id="name46-4" xml:lang="syr-Syrj" source="#bib46-3">ܒܰܝܪܘܬ</placeName>
-               <placeName xml:id="name46-5" xml:lang="ar" source="#bib46-4">بيروت</placeName>
-               <placeName xml:id="name46-6" xml:lang="ar" source="#bib46-8">بَيْرُوْت</placeName>
-               <desc xml:id="abstract-en-46" xml:lang="en">
+    <text>
+        <body>
+            <listPlace>
+                <place xml:id="place-46" type="settlement">
+                    <placeName xml:id="name46-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib46-2 #bib46-5 #bib46-6 #bib46-7">Beirut</placeName>
+                    <placeName xml:id="name46-2" xml:lang="en" source="#bib46-2">Berytos</placeName>
+                    <placeName xml:id="name46-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܝܪܘܬ</placeName>
+                    <placeName xml:id="name46-4" xml:lang="syr-Syrj" source="#bib46-3">ܒܰܝܪܘܬ</placeName>
+                    <placeName xml:id="name46-5" xml:lang="ar" source="#bib46-4">بيروت</placeName>
+                    <placeName xml:id="name46-6" xml:lang="ar" source="#bib46-8">بَيْرُوْت</placeName>
+                    <desc xml:id="abstract-en-46" xml:lang="en">
                         <quote source="#bib46-1">Beirut, Lebanon is mentioned in many Syr. Orth. texts in connection with the St. Jude monastery and church.</quote>
                     </desc>
-               <desc xml:lang="en">
+                    <desc xml:lang="en">
                         <quote source="#bib46-1">93. Beirut</quote>
                     </desc>
-               <location type="gps" source="#bib46-2">
+                    <location type="gps" source="#bib46-2">
                         <geo>33.88694 35.51306</geo>
                     </location>
-               <event type="attestation"
-                      xml:id="attestation46-1"
-                      notBefore="1224"
-                      notAfter="1228"
-                      source="#bib46-8"
-                      syriaca-computed-start="1224-01-01"
-                      syriaca-computed-end="1228-01-01">
-                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">بَيْرُوْت</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
-                  <link target="#name46-6 #attestation46-1"/>
-               </event>
-               <state type="existence"
-                      from="-1300"
-                      to="2013"
-                      syriaca-computed-end="2013-01-01">
+                    <event type="attestation" xml:id="attestation46-1" notBefore="1224" notAfter="1228" source="#bib46-8" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">بَيْرُوْت</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name46-6 #attestation46-1"/>
+                    </event>
+                    <state type="existence" from="-1300" to="2013" syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-1300"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-               <idno type="URI">http://syriaca.org/place/46</idno>
-               <idno type="URI">http://pleiades.stoa.org/places/678060</idno>
-               <idno type="URI">http://en.wikipedia.org/wiki/Beirut</idno>
-               <idno type="URI">http://dbpedia.org/resource/Beirut</idno>
-               <idno type="URI">
+                    <idno type="URI">http://syriaca.org/place/46</idno>
+                    <idno type="URI">http://pleiades.stoa.org/places/678060</idno>
+                    <idno type="URI">http://en.wikipedia.org/wiki/Beirut</idno>
+                    <idno type="URI">http://dbpedia.org/resource/Beirut</idno>
+                    <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Beirut&amp;sT=keywords
                                         </idno>
-               <bibl xml:id="bib46-1">
+                    <bibl xml:id="bib46-1">
                         <author>R. J. Mouawad</author>
                         <title level="a" xml:lang="en">93. Beirut</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">68-69</citedRange>
                     </bibl>
-               <bibl xml:id="bib46-2">
+                    <bibl xml:id="bib46-2">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">33, 43, 51, 68–69, 83, 89, 92, 100, 111, 113, 124, 134, 140, 165, 167, 173, 208, 231, 238, 243, 244, 247, 252, 262, 267, 271, 314, 338, 343, 350, 353, 358, 360, 362, 368–369, 371–372 (with fig. 111), 389, 396, 397, 448</citedRange>
                         <citedRange unit="maps">Map I A2, II A2, V</citedRange>
                     </bibl>
-               <bibl xml:id="bib46-3">
+                    <bibl xml:id="bib46-3">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">282</citedRange>
                     </bibl>
-               <bibl xml:id="bib46-4">
+                    <bibl xml:id="bib46-4">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">256</citedRange>
                     </bibl>
-               <bibl xml:id="bib46-5">
+                    <bibl xml:id="bib46-5">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">295</citedRange>
                     </bibl>
-               <bibl xml:id="bib46-6">
+                    <bibl xml:id="bib46-6">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
-                        <citedRange unit="entry"
-                              target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Beirut&amp;sT=keywords">Beirut</citedRange>
+                        <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Beirut&amp;sT=keywords">Beirut</citedRange>
                     </bibl>
-               <bibl xml:id="bib46-7">
+                    <bibl xml:id="bib46-7">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">13, 361, 363, 364</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-               <bibl xml:id="bib46-8">
-                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
-                  <author>Yāqūt al-Ḥamawī</author>
-                  <ptr target="http://syriaca.org/bibl/636"/>
-                  <citedRange unit="pp">I:623</citedRange>
-               </bibl>
-            </place>
-            <relation name="share-a-name" mutual="#place-46  http://syriaca.org/place/2272"/>
-         </listPlace>
-      </body>
-   </text>
+                    <bibl xml:id="bib46-8">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">I:623</citedRange>
+                    </bibl>
+                </place>
+                <relation name="share-a-name" mutual="#place-46  http://syriaca.org/place/2272"/>
+            </listPlace>
+        </body>
+    </text>
 </TEI>

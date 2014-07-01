@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<TEI xmlns:math="http://www.w3.org/1998/Math/MathML"
-     xmlns="http://www.tei-c.org/ns/1.0"
-     xmlns:xi="http://www.w3.org/2001/XInclude"
-     xmlns:svg="http://www.w3.org/2000/svg"
-     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-     xmlns:syriaca="http://syriaca.org"
-     xml:lang="en">
-   <teiHeader>
+<TEI xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:syriaca="http://syriaca.org" xml:lang="en">
+    <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">al-Madāʾin</title>
@@ -35,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-06-12-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -67,65 +61,56 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-         <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-   <text>
-      <body>
-         <listPlace>
-            <place xml:id="place-1535" type="settlement">
-               <placeName xml:id="name1535-1" xml:lang="en" syriaca-tags="#syriaca-headword">al-Madāʾin</placeName>
-               <placeName xml:id="name1535-2" xml:lang="en" source="#bib1535-1">Madain</placeName>
-               <placeName xml:id="name1535-3" xml:lang="en" source="#bib1535-1">Mahoza</placeName>
-               <placeName xml:id="name1535-4" xml:lang="en" source="#bib1535-1">al-Madain</placeName>
-               <placeName xml:id="name1535-5" xml:lang="ar" source="#bib1535-2">المدائن</placeName>
-               <desc xml:id="abstract-en-1535" xml:lang="en">A group of settlements including <placeName ref="http://syriaca.org/place/58">Ctesiphon</placeName>, <placeName ref="http://syriaca.org/place/182">Seleucia</placeName>, and <placeName ref="http://syriaca.org/place/475">Kokhe</placeName>.</desc>
-               <event type="attestation"
-                      xml:id="attestation1535-1"
-                      notBefore="1224"
-                      notAfter="1228"
-                      source="#bib1535-2"
-                      syriaca-computed-start="1224-01-01"
-                      syriaca-computed-end="1228-01-01">
-                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">المدائن</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
-                  <link target="#name1535-5 #attestation1535-1"/>
-               </event>
-               <state type="existence"/>
-               <idno type="URI">http://syriaca.org/place/1535</idno>
-               <idno type="URI">
+    <text>
+        <body>
+            <listPlace>
+                <place xml:id="place-1535" type="settlement">
+                    <placeName xml:id="name1535-1" xml:lang="en" syriaca-tags="#syriaca-headword">al-Madāʾin</placeName>
+                    <placeName xml:id="name1535-2" xml:lang="en" source="#bib1535-1">Madain</placeName>
+                    <placeName xml:id="name1535-3" xml:lang="en" source="#bib1535-1">Mahoza</placeName>
+                    <placeName xml:id="name1535-4" xml:lang="en" source="#bib1535-1">al-Madain</placeName>
+                    <placeName xml:id="name1535-5" xml:lang="ar" source="#bib1535-2">المدائن</placeName>
+                    <desc xml:id="abstract-en-1535" xml:lang="en">A group of settlements including <placeName ref="http://syriaca.org/place/58">Ctesiphon</placeName>, <placeName ref="http://syriaca.org/place/182">Seleucia</placeName>, and <placeName ref="http://syriaca.org/place/475">Kokhe</placeName>.</desc>
+                    <event type="attestation" xml:id="attestation1535-1" notBefore="1224" notAfter="1228" source="#bib1535-2" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">المدائن</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name1535-5 #attestation1535-1"/>
+                    </event>
+                    <state type="existence"/>
+                    <idno type="URI">http://syriaca.org/place/1535</idno>
+                    <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Madain&amp;sT=keywords
                                         </idno>
-               <idno type="URI">
+                    <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Mahoza&amp;sT=keywords
                                         </idno>
-               <idno type="URI">
+                    <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=a&amp;sK=al-Madain&amp;sT=keywords
                                         </idno>
-               <idno type="URI">
+                    <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Seleucia-Ctesiphon&amp;sT=keywords
                                         </idno>
-               <bibl xml:id="bib1535-1">
+                    <bibl xml:id="bib1535-1">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
-                        <citedRange unit="entry"
-                              target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Madain&amp;sT=keywords">Madain</citedRange>
-                        <citedRange unit="entry"
-                              target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Mahoza&amp;sT=keywords">Mahoza</citedRange>
-                        <citedRange unit="entry"
-                              target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=a&amp;sK=al-Madain&amp;sT=keywords">al-Madain</citedRange>
-                        <citedRange unit="entry"
-                              target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Seleucia-Ctesiphon&amp;sT=keywords">Seleucia-Ctesiphon</citedRange>
+                        <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Madain&amp;sT=keywords">Madain</citedRange>
+                        <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Mahoza&amp;sT=keywords">Mahoza</citedRange>
+                        <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=a&amp;sK=al-Madain&amp;sT=keywords">al-Madain</citedRange>
+                        <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Seleucia-Ctesiphon&amp;sT=keywords">Seleucia-Ctesiphon</citedRange>
                     </bibl>
-               <bibl xml:id="bib1535-2">
-                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
-                  <author>Yāqūt al-Ḥamawī</author>
-                  <ptr target="http://syriaca.org/bibl/636"/>
-                  <citedRange unit="pp">V:88</citedRange>
-               </bibl>
-            </place>
-         </listPlace>
-      </body>
-   </text>
+                    <bibl xml:id="bib1535-2">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">V:88</citedRange>
+                    </bibl>
+                </place>
+            </listPlace>
+        </body>
+    </text>
 </TEI>

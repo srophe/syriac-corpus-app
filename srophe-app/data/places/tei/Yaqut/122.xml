@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<TEI xmlns:math="http://www.w3.org/1998/Math/MathML"
-     xmlns="http://www.tei-c.org/ns/1.0"
-     xmlns:xi="http://www.w3.org/2001/XInclude"
-     xmlns:svg="http://www.w3.org/2000/svg"
-     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-     xmlns:syriaca="http://syriaca.org"
-     xml:lang="en">
-   <teiHeader>
+<TEI xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:syriaca="http://syriaca.org" xml:lang="en">
+    <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Mabbug
@@ -69,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-06-12-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -101,113 +95,100 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-         <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-   <text>
-      <body>
-         <listPlace>
-            <place xml:id="place-122" type="settlement">
-               <placeName xml:id="name122-1"
-                          xml:lang="en"
-                          syriaca-tags="#syriaca-headword"
-                          source="#bib122-1 #bib122-5">Mabbug</placeName>
-               <placeName xml:id="name122-2" xml:lang="en" source="#bib122-1 #bib122-5">Hierapolis</placeName>
-               <placeName xml:id="name122-3" xml:lang="en" source="#bib122-1">Manbij</placeName>
-               <placeName xml:id="name122-4" xml:lang="en" source="#bib122-1">Membij</placeName>
-               <placeName xml:id="name122-5" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܒܘܓ</placeName>
-               <placeName xml:id="name122-6" xml:lang="syr-Syrj" source="#bib122-2">ܡܰܒܘܓ</placeName>
-               <placeName xml:id="name122-7" xml:lang="ar" source="#bib122-3">منبج</placeName>
-               <placeName xml:id="name122-8" xml:lang="en" source="#bib122-4">Mabug</placeName>
-               <placeName xml:id="name122-9" xml:lang="en" source="#bib122-6">Mambeg</placeName>
-               <placeName xml:id="name122-10" xml:lang="ar" source="#bib122-7">مَنْبِج</placeName>
-               <desc xml:id="abstract-en-122" xml:lang="en">A city between <placeName ref="http://syriaca.org/place/18">Aleppo</placeName> and the <placeName ref="http://syriaca.org/place/82">Euphrates river</placeName>.</desc>
-               <desc xml:lang="syr-Syrj">
+    <text>
+        <body>
+            <listPlace>
+                <place xml:id="place-122" type="settlement">
+                    <placeName xml:id="name122-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib122-1 #bib122-5">Mabbug</placeName>
+                    <placeName xml:id="name122-2" xml:lang="en" source="#bib122-1 #bib122-5">Hierapolis</placeName>
+                    <placeName xml:id="name122-3" xml:lang="en" source="#bib122-1">Manbij</placeName>
+                    <placeName xml:id="name122-4" xml:lang="en" source="#bib122-1">Membij</placeName>
+                    <placeName xml:id="name122-5" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܒܘܓ</placeName>
+                    <placeName xml:id="name122-6" xml:lang="syr-Syrj" source="#bib122-2">ܡܰܒܘܓ</placeName>
+                    <placeName xml:id="name122-7" xml:lang="ar" source="#bib122-3">منبج</placeName>
+                    <placeName xml:id="name122-8" xml:lang="en" source="#bib122-4">Mabug</placeName>
+                    <placeName xml:id="name122-9" xml:lang="en" source="#bib122-6">Mambeg</placeName>
+                    <placeName xml:id="name122-10" xml:lang="ar" source="#bib122-7">مَنْبِج</placeName>
+                    <desc xml:id="abstract-en-122" xml:lang="en">A city between <placeName ref="http://syriaca.org/place/18">Aleppo</placeName> and the <placeName ref="http://syriaca.org/place/82">Euphrates river</placeName>.</desc>
+                    <desc xml:lang="syr-Syrj">
                         <quote source="#bib122-2">ܡܕܝܢܬܳܐ ܗܘܳܬ ܪܰܒܬܐ ܕܒܐܘܚܕܳܢܳܐ ܕܚܳܠܳܒ ܠܓܰܪܒܰܝ ܡܰܕܢܚܳܗ̇ ܒܶܝܬ ܠܳܗ̇ ܠܰܦܪܳܬ ܐܝܬ ܬܠܳܬܐ ܦܪ̈ܣܚܶܐ ܝܰܘܡܳܢ ܩܰܣܛܪܰܐ ܗܘܳܬ. </quote>
                     </desc>
-               <desc xml:lang="ar">
+                    <desc xml:lang="ar">
                         <quote source="#bib122-3">مدينة كبيرة من ولاية حلب في شماليها الشرقي بينها وبين الفرات ثلاثة فراسخ وهي اليوم بليدة.</quote>
                     </desc>
-               <desc xml:lang="en">
+                    <desc xml:lang="en">
                         <quote source="#bib122-4">once a large town in the northeastern part of the province of Aleppo, three leagues from the Euphrates. Today it is a small town.</quote>
                     </desc>
-               <location type="gps" source="#bib122-1">
+                    <location type="gps" source="#bib122-1">
                         <geo>36.53333 37.95</geo>
                     </location>
-               <event type="attestation"
-                      xml:id="attestation122-1"
-                      notBefore="1224"
-                      notAfter="1228"
-                      source="#bib122-7"
-                      syriaca-computed-start="1224-01-01"
-                      syriaca-computed-end="1228-01-01">
-                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">مَنْبِج</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
-                  <link target="#name122-10 #attestation122-1"/>
-               </event>
-               <state type="existence"
-                      from="-0053"
-                      to="2013"
-                      syriaca-computed-end="2013-01-01">
+                    <event type="attestation" xml:id="attestation122-1" notBefore="1224" notAfter="1228" source="#bib122-7" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">مَنْبِج</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name122-10 #attestation122-1"/>
+                    </event>
+                    <state type="existence" from="-0053" to="2013" syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-0053"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-               <idno type="URI">http://syriaca.org/place/122</idno>
-               <idno type="URI">http://pleiades.stoa.org/places/658480</idno>
-               <idno type="URI">http://en.wikipedia.org/wiki/Manbij</idno>
-               <idno type="URI">http://dbpedia.org/resource/Manbij</idno>
-               <idno type="URI">
+                    <idno type="URI">http://syriaca.org/place/122</idno>
+                    <idno type="URI">http://pleiades.stoa.org/places/658480</idno>
+                    <idno type="URI">http://en.wikipedia.org/wiki/Manbij</idno>
+                    <idno type="URI">http://dbpedia.org/resource/Manbij</idno>
+                    <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=H&amp;sK=Hierapolis&amp;sT=keywords
                                         </idno>
-               <idno type="URI">
+                    <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Mabbug&amp;sT=keywords
                                         </idno>
-               <bibl xml:id="bib122-1">
+                    <bibl xml:id="bib122-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">45, 107, 128, 144, 178, 238, 285, 291, 327, 332–333, 336, 345, 384, 401, 402, 409, 418</citedRange>
                         <citedRange unit="maps">Map I B1</citedRange>
                     </bibl>
-               <bibl xml:id="bib122-2">
+                    <bibl xml:id="bib122-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">562</citedRange>
                     </bibl>
-               <bibl xml:id="bib122-3">
+                    <bibl xml:id="bib122-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">520</citedRange>
                     </bibl>
-               <bibl xml:id="bib122-4">
+                    <bibl xml:id="bib122-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
                     </bibl>
-               <bibl xml:id="bib122-5">
+                    <bibl xml:id="bib122-5">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
-                        <citedRange unit="entry"
-                              target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=H&amp;sK=Hierapolis&amp;sT=keywords">Hierapolis</citedRange>
-                        <citedRange unit="entry"
-                              target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Mabbug&amp;sT=keywords">Mabbug</citedRange>
+                        <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=H&amp;sK=Hierapolis&amp;sT=keywords">Hierapolis</citedRange>
+                        <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Mabbug&amp;sT=keywords">Mabbug</citedRange>
                     </bibl>
-               <bibl xml:id="bib122-6">
+                    <bibl xml:id="bib122-6">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">62-63</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-               <bibl xml:id="bib122-7">
-                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
-                  <author>Yāqūt al-Ḥamawī</author>
-                  <ptr target="http://syriaca.org/bibl/636"/>
-                  <citedRange unit="pp">V:237</citedRange>
-               </bibl>
-            </place>
-            <relation name="share-a-name" mutual="#place-122  http://syriaca.org/place/2344"/>
-         </listPlace>
-      </body>
-   </text>
+                    <bibl xml:id="bib122-7">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">V:237</citedRange>
+                    </bibl>
+                </place>
+                <relation name="share-a-name" mutual="#place-122  http://syriaca.org/place/2344"/>
+            </listPlace>
+        </body>
+    </text>
 </TEI>
