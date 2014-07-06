@@ -56,11 +56,16 @@ declare function browse:build-browse-results($node as node(), $model as map(*)){
     let $type := string($data/@type)
     let $ana := string($data/@ana)
     let $en-title := 
-        $data/tei:placeName[starts-with(@xml:lang,'en')][1]/text() | 
-        $data/tei:persName[starts-with(@xml:lang,'en')][@syriaca-tags='#syriaca-headword'][1]/child::*[1]/text()
+        if($data/tei:persName[@syriaca-tags='#syriaca-headword']) then 
+            if($data/tei:persName[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1]/child::*) then
+                $data/tei:persName[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1]/child::*[1]/text()
+            else $data/tei:persName[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1]/text()
+        else    
+            $data/tei:placeName[starts-with(@xml:lang,'en')][1]/text() 
     let $syr-title := 
-        $data/tei:placeName[@xml:lang = 'syr'][1]/text() |
-        $data/tei:persName[starts-with(@xml:lang,'syr')][@syriaca-tags='#syriaca-headword'][1]/child::*[1]/text()
+        if($data/tei:persName[@syriaca-tags='#syriaca-headword']) then
+            $data/tei:persName[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'syr')][1]/descendant-or-self::*[1]/text()
+        else $data/tei:placeName[@xml:lang = 'syr'][1]/text()
     let $title := 
         if($browse:view = 'syr') then $syr-title else $en-title
     let $browse-title := browse:build-sort-string($title)

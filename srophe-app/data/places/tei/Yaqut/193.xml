@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<TEI xmlns:math="http://www.w3.org/1998/Math/MathML"
-     xmlns="http://www.tei-c.org/ns/1.0"
-     xmlns:xi="http://www.w3.org/2001/XInclude"
-     xmlns:svg="http://www.w3.org/2000/svg"
-     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-     xmlns:syriaca="http://syriaca.org"
-     xml:lang="en">
-   <teiHeader>
+<TEI xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:syriaca="http://syriaca.org" xml:lang="en">
+    <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Tagrit
@@ -65,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-06-12-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -97,117 +91,104 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-         <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-   <text>
-      <body>
-         <listPlace>
-            <place xml:id="place-193" type="settlement">
-               <placeName xml:id="name193-1"
-                          xml:lang="en"
-                          syriaca-tags="#syriaca-headword"
-                          source="#bib193-2 #bib193-6">Tagrit</placeName>
-               <placeName xml:id="name193-2" xml:lang="en" source="#bib193-2">Tikrit</placeName>
-               <placeName xml:id="name193-3" xml:lang="en" source="#bib193-2 #bib193-5">Takrit</placeName>
-               <placeName xml:id="name193-4" xml:lang="syr" syriaca-tags="#syriaca-headword">ܬܓܪܝܬ</placeName>
-               <placeName xml:id="name193-5" xml:lang="syr-Syrj" source="#bib193-3">ܬܰܓܪܝܬ</placeName>
-               <placeName xml:id="name193-6" xml:lang="ar" source="#bib193-4">تكريت</placeName>
-               <placeName xml:id="name193-7" xml:lang="en" source="#bib193-7">Tagrīt</placeName>
-               <placeName xml:id="name193-8" xml:lang="ar" source="#bib193-8">تَكريت</placeName>
-               <desc xml:id="abstract-en-193" xml:lang="en">
+    <text>
+        <body>
+            <listPlace>
+                <place xml:id="place-193" type="settlement">
+                    <placeName xml:id="name193-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib193-2 #bib193-6">Tagrit</placeName>
+                    <placeName xml:id="name193-2" xml:lang="en" source="#bib193-2">Tikrit</placeName>
+                    <placeName xml:id="name193-3" xml:lang="en" source="#bib193-2 #bib193-5">Takrit</placeName>
+                    <placeName xml:id="name193-4" xml:lang="syr" syriaca-tags="#syriaca-headword">ܬܓܪܝܬ</placeName>
+                    <placeName xml:id="name193-5" xml:lang="syr-Syrj" source="#bib193-3">ܬܰܓܪܝܬ</placeName>
+                    <placeName xml:id="name193-6" xml:lang="ar" source="#bib193-4">تكريت</placeName>
+                    <placeName xml:id="name193-7" xml:lang="en" source="#bib193-7">Tagrīt</placeName>
+                    <placeName xml:id="name193-8" xml:lang="ar" source="#bib193-8">تَكريت</placeName>
+                    <desc xml:id="abstract-en-193" xml:lang="en">
                         <quote source="#bib193-1">Tagrit is a modern city located on the west bank of the Tigris, almost mid-way between Mosul and Baghdad.</quote>
                     </desc>
-               <desc xml:lang="en">
+                    <desc xml:lang="en">
                         <quote source="#bib193-1">532. Tagrit</quote>
                     </desc>
-               <desc xml:lang="syr-Syrj">
+                    <desc xml:lang="syr-Syrj">
                         <quote source="#bib193-3">ܡܕܺܝܢܬܐ ܕܒܶܝܬ ܒܓܕܕ ܠܡܰܘܨܠ ܐܰܬܛܰܒܒܬ ܗܘܳܬ ܒܕܳܪ̈ܐ ܕܰܥܒܰܪܘ ܒܟܘܽܪܣܝܳܐ ܕܡܰܦܪܝܢܘܬܐ ܕܡܰܕܢܚܐ ܡܶܢ ܫܢܰܬ 628 ܥܕܰܡܐ ܠܫܘܠܳܡܐ ܕܡܰܐܬܐ ܬܪܶܥܣܝܪܳܝܬܐ.</quote>
                     </desc>
-               <desc xml:lang="ar">
+                    <desc xml:lang="ar">
                         <quote source="#bib193-4">بلدة بين بغداد والموصل غربي دجلة كانت في العصور الذاهبة اشتهرت بكرسي مفارنة المشرق من سنة 628 م حتى منسلخ المئة الثانية عشرة</quote>
                     </desc>
-               <desc xml:lang="en">
+                    <desc xml:lang="en">
                         <quote source="#bib193-5">an ancient city west of the Tigris, between Baghdad and Mosul. In the golden age of the Syrians, it was the seat of the Maphryonos of the East from 628 until the end of the twelfth century.</quote>
                     </desc>
-               <location type="gps" source="#bib193-2">
+                    <location type="gps" source="#bib193-2">
                         <geo>34.6 43.68333</geo>
                     </location>
-               <event type="attestation"
-                      xml:id="attestation193-1"
-                      notBefore="1224"
-                      notAfter="1228"
-                      source="#bib193-8"
-                      syriaca-computed-start="1224-01-01"
-                      syriaca-computed-end="1228-01-01">
-                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">تَكريت</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
-                  <link target="#name193-8 #attestation193-1"/>
-               </event>
-               <state type="existence"
-                      from="0628"
-                      to="2013"
-                      syriaca-computed-end="2013-01-01"
-                      syriaca-computed-start="0628-01-01">
+                    <event type="attestation" xml:id="attestation193-1" notBefore="1224" notAfter="1228" source="#bib193-8" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">تَكريت</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name193-8 #attestation193-1"/>
+                    </event>
+                    <state type="existence" from="0628" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0628-01-01">
                         <precision match="@from" notAfter="0628" syriaca-computed-end="0628-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-               <idno type="URI">http://syriaca.org/place/193</idno>
-               <idno type="URI">http://pleiades.stoa.org/places/894099</idno>
-               <idno type="URI">http://en.wikipedia.org/wiki/Tikrit</idno>
-               <idno type="URI">http://dbpedia.org/resource/Tikrit</idno>
-               <idno type="URI">
+                    <idno type="URI">http://syriaca.org/place/193</idno>
+                    <idno type="URI">http://pleiades.stoa.org/places/894099</idno>
+                    <idno type="URI">http://en.wikipedia.org/wiki/Tikrit</idno>
+                    <idno type="URI">http://dbpedia.org/resource/Tikrit</idno>
+                    <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Tagrit&amp;sT=keywords
                                         </idno>
-               <bibl xml:id="bib193-1">
+                    <bibl xml:id="bib193-1">
                         <author>A. Harrak </author>
                         <title level="a" xml:lang="en">532. Tagrit</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">395-396</citedRange>
                     </bibl>
-               <bibl xml:id="bib193-2">
+                    <bibl xml:id="bib193-2">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">39–40 (with fig. 13), 71, 97, 104, 127, 199, 210, 249, 264, 273, 290, 300, 302, 313, 347, 386, 395–396 (with fig. 115), 407, 429</citedRange>
                         <citedRange unit="maps">Map I C2, II C2</citedRange>
                     </bibl>
-               <bibl xml:id="bib193-3">
+                    <bibl xml:id="bib193-3">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">537</citedRange>
                     </bibl>
-               <bibl xml:id="bib193-4">
+                    <bibl xml:id="bib193-4">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">505</citedRange>
                     </bibl>
-               <bibl xml:id="bib193-5">
+                    <bibl xml:id="bib193-5">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">559</citedRange>
                     </bibl>
-               <bibl xml:id="bib193-6">
+                    <bibl xml:id="bib193-6">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
-                        <citedRange unit="entry"
-                              target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Tagrit&amp;sT=keywords">Tagrit</citedRange>
+                        <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Tagrit&amp;sT=keywords">Tagrit</citedRange>
                     </bibl>
-               <bibl xml:id="bib193-7">
+                    <bibl xml:id="bib193-7">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">19, 177, 178, 346</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-               <bibl xml:id="bib193-8">
-                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
-                  <author>Yāqūt al-Ḥamawī</author>
-                  <ptr target="http://syriaca.org/bibl/636"/>
-                  <citedRange unit="pp">II:45</citedRange>
-               </bibl>
-            </place>
-         </listPlace>
-      </body>
-   </text>
+                    <bibl xml:id="bib193-8">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:45</citedRange>
+                    </bibl>
+                </place>
+            </listPlace>
+        </body>
+    </text>
 </TEI>

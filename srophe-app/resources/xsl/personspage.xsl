@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -289,6 +289,7 @@
         <div class="well">
             <ul class="unstyled">
                 <xsl:apply-templates select="t:birth | t:death | t:floruit | t:sex | t:langKnowledge"/>
+                <!-- NOTE What to do about state?? -->
                 <xsl:if test="t:state[@type='martyred']/t:label = 'Yes'">
                     <li>Martyred <xsl:sequence select="local:do-refs(../@source,ancestor::t:*[@xml:lang][1])"/>
                     </li>
@@ -412,12 +413,22 @@
         <!-- NOTE: commented out for now
             Build related places and people if they exist -->
         <xsl:if test="../t:relation">
-            <div id="relations" class="well">
-                <h3>Related People</h3>
-                <ul>
-                    <xsl:apply-templates select="//*:related-items"/>
-                </ul>
-            </div>
+            <xsl:if test="../t:relation[contains(@name,'place')]">
+                <div id="relations" class="well">
+                    <h3>Related Places</h3>
+                    <ul>
+                        <xsl:apply-templates select="//*:related-items/child::*[contains(@name,'place')]"/>
+                    </ul>
+                </div>
+            </xsl:if>
+            <xsl:if test="../t:relation[contains(@name,'person')]">
+                <div id="relations" class="well">
+                    <h3>Related People</h3>
+                    <ul>
+                        <xsl:apply-templates select="//*:related-items/child::*[contains(@name,'people')]"/>
+                    </ul>
+                </div>
+            </xsl:if>
         </xsl:if>
         <xsl:call-template name="link-icons-text"/>
     </xsl:template>
@@ -522,16 +533,18 @@
     </xsl:template>
     <xsl:template match="*:relation">
         <li>
-           <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
-           <xsl:value-of select="substring(t:desc,1,$desc-ln - 1)"/>:  
+            <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
+            <xsl:value-of select="substring(t:desc,1,$desc-ln - 1)"/>:  
            <a href="{@uri}">
-               <xsl:choose>
-                   <xsl:when test="contains(child::*/t:title,' — ')">
-                       <xsl:value-of select="substring-before(child::*/t:title,' — ')"/>
-                   </xsl:when>
-                   <xsl:otherwise><xsl:value-of select="child::*/t:title"/></xsl:otherwise>
-               </xsl:choose>
-           </a>
+                <xsl:choose>
+                    <xsl:when test="contains(child::*/t:title,' — ')">
+                        <xsl:value-of select="substring-before(child::*[1]/t:title,' — ')"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="child::*/t:title"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </a>
             <xsl:text> </xsl:text>
             <xsl:value-of select="local:do-dates(.)"/>
             <xsl:text> </xsl:text>
@@ -730,6 +743,12 @@
                 </span>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <xsl:template match="t:persName" mode="title">
+        <span class="persName">
+            <xsl:call-template name="langattr"/>
+            <xsl:apply-templates mode="cleanout"/>
+        </span>
     </xsl:template>
     <xsl:template match="t:persName" mode="list">
         <xsl:variable name="nameID" select="concat('#',@xml:id)"/>

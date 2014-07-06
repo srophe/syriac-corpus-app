@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<TEI xmlns:math="http://www.w3.org/1998/Math/MathML"
-     xmlns="http://www.tei-c.org/ns/1.0"
-     xmlns:xi="http://www.w3.org/2001/XInclude"
-     xmlns:svg="http://www.w3.org/2000/svg"
-     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-     xmlns:syriaca="http://syriaca.org"
-     xml:lang="en">
-   <teiHeader>
+<TEI xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:syriaca="http://syriaca.org" xml:lang="en">
+    <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Gabala</title>
@@ -35,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-06-12-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -67,58 +61,47 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-         <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-   <text>
-      <body>
-         <listPlace>
-            <place xml:id="place-85" type="settlement">
-               <placeName xml:id="name85-1"
-                          xml:lang="en"
-                          syriaca-tags="#syriaca-headword"
-                          source="#bib85-1">Gabala</placeName>
-               <placeName xml:id="name85-2" xml:lang="ar" source="#bib85-2">جبلة</placeName>
-               <desc xml:id="abstract-en-85" xml:lang="en">A city on the coast south-east of <placeName ref="http://syriaca.org/place/118">Laodicea</placeName> and west of <placeName ref="http://syriaca.org/place/11">Apamea</placeName>.</desc>
-               <location type="gps" source="#bib85-1">
+    <text>
+        <body>
+            <listPlace>
+                <place xml:id="place-85" type="settlement">
+                    <placeName xml:id="name85-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib85-1">Gabala</placeName>
+                    <placeName xml:id="name85-2" xml:lang="ar" source="#bib85-2">جبلة</placeName>
+                    <desc xml:id="abstract-en-85" xml:lang="en">A city on the coast south-east of <placeName ref="http://syriaca.org/place/118">Laodicea</placeName> and west of <placeName ref="http://syriaca.org/place/11">Apamea</placeName>.</desc>
+                    <location type="gps" source="#bib85-1">
                         <geo>35.37806 35.92233</geo>
                     </location>
-               <event type="attestation"
-                      xml:id="attestation85-1"
-                      notBefore="1224"
-                      notAfter="1228"
-                      source="#bib85-2"
-                      syriaca-computed-start="1224-01-01"
-                      syriaca-computed-end="1228-01-01">
-                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">جبلة</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
-                  <link target="#name85-2 #attestation85-1"/>
-               </event>
-               <state type="existence"
-                      from="-0330"
-                      to="2013"
-                      syriaca-computed-end="2013-01-01">
+                    <event type="attestation" xml:id="attestation85-1" notBefore="1224" notAfter="1228" source="#bib85-2" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">جبلة</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name85-2 #attestation85-1"/>
+                    </event>
+                    <state type="existence" from="-0330" to="2013" syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-0330"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-               <idno type="URI">http://syriaca.org/place/85</idno>
-               <idno type="URI">http://pleiades.stoa.org/places/668250</idno>
-               <idno type="URI">http://en.wikipedia.org/wiki/Jableh</idno>
-               <idno type="URI">http://dbpedia.org/resource/Jableh</idno>
-               <bibl xml:id="bib85-1">
+                    <idno type="URI">http://syriaca.org/place/85</idno>
+                    <idno type="URI">http://pleiades.stoa.org/places/668250</idno>
+                    <idno type="URI">http://en.wikipedia.org/wiki/Jableh</idno>
+                    <idno type="URI">http://dbpedia.org/resource/Jableh</idno>
+                    <bibl xml:id="bib85-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="maps">Map I A2</citedRange>
                     </bibl>
-               <bibl xml:id="bib85-2">
-                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
-                  <author>Yāqūt al-Ḥamawī</author>
-                  <ptr target="http://syriaca.org/bibl/636"/>
-                  <citedRange unit="pp">II:122</citedRange>
-               </bibl>
-            </place>
-         </listPlace>
-      </body>
-   </text>
+                    <bibl xml:id="bib85-2">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:122</citedRange>
+                    </bibl>
+                </place>
+            </listPlace>
+        </body>
+    </text>
 </TEI>

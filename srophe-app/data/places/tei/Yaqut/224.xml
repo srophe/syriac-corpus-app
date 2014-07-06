@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<TEI xmlns:math="http://www.w3.org/1998/Math/MathML"
-     xmlns="http://www.tei-c.org/ns/1.0"
-     xmlns:xi="http://www.w3.org/2001/XInclude"
-     xmlns:svg="http://www.w3.org/2000/svg"
-     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-     xmlns:syriaca="http://syriaca.org"
-     xml:lang="en">
-   <teiHeader>
+<TEI xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:syriaca="http://syriaca.org" xml:lang="en">
+    <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Mor Barṣawmo
@@ -61,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-06-12-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -93,107 +87,90 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-         <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-   <text>
-      <body>
-         <listPlace>
-            <place xml:id="place-224" type="monastery">
-               <placeName xml:id="name224-1"
-                          xml:lang="en"
-                          syriaca-tags="#syriaca-headword"
-                          source="#bib224-2">Mor Barṣawmo</placeName>
-               <placeName xml:id="name224-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܕܝܪܐ ܕܡܪܝ ܒܪܨܘܡܐ</placeName>
-               <placeName xml:id="name224-3" xml:lang="syr-Syrj" source="#bib224-3">ܕܰܝܪܐ ܕܡܳܪܝ ܒܰܪܨܘܡܐ</placeName>
-               <placeName xml:id="name224-4" xml:lang="ar" source="#bib224-4">دير مار برصوم</placeName>
-               <placeName xml:id="name224-5" xml:lang="en" source="#bib224-5">Barṣoum Monastery</placeName>
-               <placeName xml:id="name224-6" xml:lang="en" source="#bib224-6">monastery of Mar Barsauma</placeName>
-               <placeName xml:id="name224-7" xml:lang="ar" source="#bib224-7">دير برصوما</placeName>
-               <desc xml:id="abstract-en-224" xml:lang="en">
+    <text>
+        <body>
+            <listPlace>
+                <place xml:id="place-224" type="monastery">
+                    <placeName xml:id="name224-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib224-2">Mor Barṣawmo</placeName>
+                    <placeName xml:id="name224-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܕܝܪܐ ܕܡܪܝ ܒܪܨܘܡܐ</placeName>
+                    <placeName xml:id="name224-3" xml:lang="syr-Syrj" source="#bib224-3">ܕܰܝܪܐ ܕܡܳܪܝ ܒܰܪܨܘܡܐ</placeName>
+                    <placeName xml:id="name224-4" xml:lang="ar" source="#bib224-4">دير مار برصوم</placeName>
+                    <placeName xml:id="name224-5" xml:lang="en" source="#bib224-5">Barṣoum Monastery</placeName>
+                    <placeName xml:id="name224-6" xml:lang="en" source="#bib224-6">monastery of Mar Barsauma</placeName>
+                    <placeName xml:id="name224-7" xml:lang="ar" source="#bib224-7">دير برصوما</placeName>
+                    <desc xml:id="abstract-en-224" xml:lang="en">
                         <quote source="#bib224-1">The monastery, situated in the mountains to the southeast of Melitene and named after the 5th-cent. ascetic Barṣawmo, rose to prominence as the regular residence of Syr. Orth. Patriarchs in the 11th-13th cent., the period often referred to as the Syriac Renaissance.</quote>
                     </desc>
-               <desc xml:lang="en">
+                    <desc xml:lang="en">
                         <quote source="#bib224-1">81. Barṣawmo, Dayro d-Mor</quote>
                     </desc>
-               <desc xml:lang="syr-Syrj">
+                    <desc xml:lang="syr-Syrj">
                         <quote source="#bib224-3">ܕܡܽܘܬ ܩܶܠܥܳܐ ܥܰܠ ܪܝܫ ܛܘܪܐ. ܥܰܠܗܳܝ ܫܰܡܗܘܗܝ ܐܢܳܫܝ̈ܢ ܕܰܝܪܳܐ ܕܰܫܩܝܦܳܐ ܒܩܘܪܒܳܐ ܕܡܝܺܠܝܛܝܺܢܝ ܥܗܺܝܕ ܒܡܰܟܬܰܒܙܰܒܢ̈ܐ ܥܺܕܬܳܢܳܝ̈ܐ ܫܢܰܬ  790  ܘܰܗܘܳܐ ܟܘܪܣܝܳܐ ܦܰܛܪܝܰܪܟܳܝܳܐ ܒܕܳܪܳܐ ܕܰܚܕܰܥܣܪ ܥܕܰܡܐ ܠܰܬܠܳܬܰܥܣܪ ܘܕܰܝܪܳܐ ܪܒܐ ܗܘܐ ܣܡܟ ܠܥܺܕܬܳܐ ܒܚܰܡܫܳܐ ܦܰܛܪܝܰܪ̈ܟܐ  ܘ:  34  ܡܺܝܛܪ̈ܘܦܘܠܝܛܶܐ ܘܥܰܡܝܪ ܗܘܐ ܥܕܰܡܳܐ ܠܡܶܨܥܳܝ̈ܬܗ ܕܕܳܪܐ ܕܰܫܒܰܥܣܪ. ܠܚܰܪܬܐ ܥܰܠܥܶܠ ܙܰܒܢܳܐ ܐܢܳܫܘ̈ܗܝ.</quote>
                     </desc>
-               <desc xml:lang="ar">
+                    <desc xml:lang="ar">
                         <quote source="#bib224-4">على رأس جبل يشبه القلعة ولذلك سماه بعضهم دير الكهف بقرب ملطية ذكر في التاريخ الكنسي سنة 790 وصار كرسيا بطريركياً  في القرن الحادي عشر حتى اواخر الثالث عشر، وكان ديرا عظيماً دعم اللكنيسة  بخمسة بطاركة واربعة وثلاثين مطراناً، وظلّ عامراً آهلاً حتى اواسط القرن السابع عشر ثم عصف الدهر باهله</quote>
                     </desc>
-               <desc xml:lang="en">
+                    <desc xml:lang="en">
                         <quote source="#bib224-5">built on top of a mountain near Melitene, it looks like a citadel, a fact which has led some writers to call it the Monastery of the Cave. It was first mentioned in church history in 790. It was the Patriarchal see from the eleventh century until the thirteenth century. A great monastery, it produced five patriarchs and forty-three metropolitans. It remained populated until the middle of the seventeenth century, when it was abandoned.</quote>
                     </desc>
-               <event type="attestation"
-                      xml:id="attestation224-1"
-                      notBefore="1224"
-                      notAfter="1228"
-                      source="#bib224-7"
-                      syriaca-computed-start="1224-01-01"
-                      syriaca-computed-end="1228-01-01">
-                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">دير برصوما</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
-                  <link target="#name224-7 #attestation224-1"/>
-               </event>
-               <state type="existence"
-                      from="0790"
-                      to="1675"
-                      syriaca-computed-end="1675-01-01"
-                      syriaca-computed-start="0790-01-01">
-                        <precision match="@from"
-                             notAfter="0790"
-                             notBefore="0300"
-                             syriaca-computed-end="0790-01-01"
-                             syriaca-computed-start="0300-01-01"/>
+                    <event type="attestation" xml:id="attestation224-1" notBefore="1224" notAfter="1228" source="#bib224-7" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">دير برصوما</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name224-7 #attestation224-1"/>
+                    </event>
+                    <state type="existence" from="0790" to="1675" syriaca-computed-end="1675-01-01" syriaca-computed-start="0790-01-01">
+                        <precision match="@from" notAfter="0790" notBefore="0300" syriaca-computed-end="0790-01-01" syriaca-computed-start="0300-01-01"/>
                         <precision match="@to" notBefore="1675" syriaca-computed-start="1675-01-01"/>
                     </state>
-               <idno type="URI">http://syriaca.org/place/224</idno>
-               <idno type="URI">
+                    <idno type="URI">http://syriaca.org/place/224</idno>
+                    <idno type="URI">
                                             http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=m&amp;sK=monastery of Mar Barsauma&amp;sT=keywords
                                         </idno>
-               <bibl xml:id="bib224-1">
+                    <bibl xml:id="bib224-1">
                         <author>H. Takahashi</author>
                         <title level="a" xml:lang="en">81. Barṣawmo, Dayro d-Mor</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">60-61</citedRange>
                     </bibl>
-               <bibl xml:id="bib224-2">
+                    <bibl xml:id="bib224-2">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">35, 59, 60–61, 66, 97, 142, 178, 201, 287, 290, 373, 406</citedRange>
                     </bibl>
-               <bibl xml:id="bib224-3">
+                    <bibl xml:id="bib224-3">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">543-544</citedRange>
                     </bibl>
-               <bibl xml:id="bib224-4">
+                    <bibl xml:id="bib224-4">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">509</citedRange>
                     </bibl>
-               <bibl xml:id="bib224-5">
+                    <bibl xml:id="bib224-5">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">562</citedRange>
                     </bibl>
-               <bibl xml:id="bib224-6">
+                    <bibl xml:id="bib224-6">
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
-                        <citedRange unit="entry"
-                              target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=m&amp;sK=monastery of Mar Barsauma&amp;sT=keywords">monastery of Mar Barsauma</citedRange>
+                        <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=m&amp;sK=monastery of Mar Barsauma&amp;sT=keywords">monastery of Mar Barsauma</citedRange>
                     </bibl>
-               <bibl xml:id="bib224-7">
-                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
-                  <author>Yāqūt al-Ḥamawī</author>
-                  <ptr target="http://syriaca.org/bibl/636"/>
-                  <citedRange unit="pp">II:568</citedRange>
-               </bibl>
-            </place>
-         </listPlace>
-      </body>
-   </text>
+                    <bibl xml:id="bib224-7">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:568</citedRange>
+                    </bibl>
+                </place>
+            </listPlace>
+        </body>
+    </text>
 </TEI>

@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<TEI xmlns:math="http://www.w3.org/1998/Math/MathML"
-     xmlns="http://www.tei-c.org/ns/1.0"
-     xmlns:xi="http://www.w3.org/2001/XInclude"
-     xmlns:svg="http://www.w3.org/2000/svg"
-     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-     xmlns:syriaca="http://syriaca.org"
-     xml:lang="en">
-   <teiHeader>
+<TEI xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:syriaca="http://syriaca.org" xml:lang="en">
+    <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Khabur
@@ -57,7 +51,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-06-12-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -89,70 +83,62 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-         <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-01-10">ADDED: disambiguation note</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-   <text>
-      <body>
-         <listPlace>
-            <place xml:id="place-114" type="river">
-               <placeName xml:id="name114-1"
-                          xml:lang="en"
-                          syriaca-tags="#syriaca-headword"
-                          source="#bib114-1">Khabur</placeName>
-               <placeName xml:id="name114-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܒܘܪ</placeName>
-               <placeName xml:id="name114-3" xml:lang="syr-Syrj" source="#bib114-2">ܚܳܒܘܪ</placeName>
-               <placeName xml:id="name114-4" xml:lang="ar" source="#bib114-3 #bib114-5">الخابور</placeName>
-               <placeName xml:id="name114-5" xml:lang="en" source="#bib114-4">Khabur River</placeName>
-               <desc xml:id="abstract-en-114" xml:lang="en">A tributary of the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> that enters it at <placeName ref="http://syriaca.org/place/62">Circesium</placeName>.</desc>
-               <event type="attestation"
-                      xml:id="attestation114-1"
-                      notBefore="1224"
-                      notAfter="1228"
-                      source="#bib114-5"
-                      syriaca-computed-start="1224-01-01"
-                      syriaca-computed-end="1228-01-01">
-                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">الخابور</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
-                  <link target="#name114-4 #attestation114-1"/>
-               </event>
-               <state type="existence"/>
-               <note type="disambiguation">Not the same conceptual place as <idno type="URI">http://pleiades.stoa.org/places/874565</idno>.</note>
-               <idno type="URI">http://syriaca.org/place/114</idno>
-               <idno type="URI">http://pleiades.stoa.org/places/893928</idno>
-               <idno type="URI">http://en.wikipedia.org/wiki/Khabur_River</idno>
-               <idno type="URI">http://dbpedia.org/resource/Khabur_River</idno>
-               <bibl xml:id="bib114-1">
+    <text>
+        <body>
+            <listPlace>
+                <place xml:id="place-114" type="river">
+                    <placeName xml:id="name114-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib114-1">Khabur</placeName>
+                    <placeName xml:id="name114-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܒܘܪ</placeName>
+                    <placeName xml:id="name114-3" xml:lang="syr-Syrj" source="#bib114-2">ܚܳܒܘܪ</placeName>
+                    <placeName xml:id="name114-4" xml:lang="ar" source="#bib114-3 #bib114-5">الخابور</placeName>
+                    <placeName xml:id="name114-5" xml:lang="en" source="#bib114-4">Khabur River</placeName>
+                    <desc xml:id="abstract-en-114" xml:lang="en">A tributary of the <placeName ref="http://syriaca.org/place/82">Euphrates</placeName> that enters it at <placeName ref="http://syriaca.org/place/62">Circesium</placeName>.</desc>
+                    <event type="attestation" xml:id="attestation114-1" notBefore="1224" notAfter="1228" source="#bib114-5" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">الخابور</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name114-4 #attestation114-1"/>
+                    </event>
+                    <state type="existence"/>
+                    <note type="disambiguation">Not the same conceptual place as <idno type="URI">http://pleiades.stoa.org/places/874565</idno>.</note>
+                    <idno type="URI">http://syriaca.org/place/114</idno>
+                    <idno type="URI">http://pleiades.stoa.org/places/893928</idno>
+                    <idno type="URI">http://en.wikipedia.org/wiki/Khabur_River</idno>
+                    <idno type="URI">http://dbpedia.org/resource/Khabur_River</idno>
+                    <bibl xml:id="bib114-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">21, 72, 290, 310, 344, 351</citedRange>
                         <citedRange unit="maps">Map I B2, II B2, III</citedRange>
                     </bibl>
-               <bibl xml:id="bib114-2">
+                    <bibl xml:id="bib114-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">559</citedRange>
                     </bibl>
-               <bibl xml:id="bib114-3">
+                    <bibl xml:id="bib114-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">517</citedRange>
                     </bibl>
-               <bibl xml:id="bib114-4">
+                    <bibl xml:id="bib114-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">551</citedRange>
                     </bibl>
-               <bibl xml:id="bib114-5">
-                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
-                  <author>Yāqūt al-Ḥamawī</author>
-                  <ptr target="http://syriaca.org/bibl/636"/>
-                  <citedRange unit="pp">II:382</citedRange>
-               </bibl>
-            </place>
-         </listPlace>
-      </body>
-   </text>
+                    <bibl xml:id="bib114-5">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:382</citedRange>
+                    </bibl>
+                </place>
+            </listPlace>
+        </body>
+    </text>
 </TEI>

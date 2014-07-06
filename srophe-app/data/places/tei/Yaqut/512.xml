@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<TEI xmlns:math="http://www.w3.org/1998/Math/MathML"
-     xmlns="http://www.tei-c.org/ns/1.0"
-     xmlns:xi="http://www.w3.org/2001/XInclude"
-     xmlns:svg="http://www.w3.org/2000/svg"
-     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-     xmlns:syriaca="http://syriaca.org"
-     xml:lang="en">
-   <teiHeader>
+<TEI xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:syriaca="http://syriaca.org" xml:lang="en">
+    <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Macedonia
@@ -52,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-06-12-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -84,70 +78,62 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-         <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-   <text>
-      <body>
-         <listPlace>
-            <place xml:id="place-512" type="region">
-               <placeName xml:id="name512-1"
-                          xml:lang="en"
-                          syriaca-tags="#syriaca-headword"
-                          source="#bib512-3">Macedonia</placeName>
-               <placeName xml:id="name512-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܩܕܘܢܝܐ</placeName>
-               <placeName xml:id="name512-3" xml:lang="syr-Syrj" source="#bib512-1">ܡܰܩܕܘܢܺܝܰܐ</placeName>
-               <placeName xml:id="name512-4" xml:lang="ar" source="#bib512-2">مقدونية</placeName>
-               <placeName xml:id="name512-5" xml:lang="ar" source="#bib512-5">مَقَذُوْنِية</placeName>
-               <desc xml:id="abstract-en-512" xml:lang="en">A region in southeastern Europe on the northwestern shores of the Aegean Sea.</desc>
-               <location type="gps" source="#bib512-4">
+    <text>
+        <body>
+            <listPlace>
+                <place xml:id="place-512" type="region">
+                    <placeName xml:id="name512-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib512-3">Macedonia</placeName>
+                    <placeName xml:id="name512-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܡܩܕܘܢܝܐ</placeName>
+                    <placeName xml:id="name512-3" xml:lang="syr-Syrj" source="#bib512-1">ܡܰܩܕܘܢܺܝܰܐ</placeName>
+                    <placeName xml:id="name512-4" xml:lang="ar" source="#bib512-2">مقدونية</placeName>
+                    <placeName xml:id="name512-5" xml:lang="ar" source="#bib512-5">مَقَذُوْنِية</placeName>
+                    <desc xml:id="abstract-en-512" xml:lang="en">A region in southeastern Europe on the northwestern shores of the Aegean Sea.</desc>
+                    <location type="gps" source="#bib512-4">
                         <geo>41.25 21.75</geo>
                     </location>
-               <event type="attestation"
-                      xml:id="attestation512-1"
-                      notBefore="1224"
-                      notAfter="1228"
-                      source="#bib512-5"
-                      syriaca-computed-start="1224-01-01"
-                      syriaca-computed-end="1228-01-01">
-                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">مَقَذُوْنِية</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
-                  <link target="#name512-5 #attestation512-1"/>
-               </event>
-               <state type="existence"/>
-               <idno type="URI">http://syriaca.org/place/512</idno>
-               <idno type="URI">http://pleiades.stoa.org/places/491656</idno>
-               <idno type="URI">http://en.wikipedia.org/wiki/Macedonia_(region)</idno>
-               <idno type="URI">http://dbpedia.org/resource/Macedonia_(region)</idno>
-               <bibl xml:id="bib512-1">
+                    <event type="attestation" xml:id="attestation512-1" notBefore="1224" notAfter="1228" source="#bib512-5" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">مَقَذُوْنِية</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name512-5 #attestation512-1"/>
+                    </event>
+                    <state type="existence"/>
+                    <idno type="URI">http://syriaca.org/place/512</idno>
+                    <idno type="URI">http://pleiades.stoa.org/places/491656</idno>
+                    <idno type="URI">http://en.wikipedia.org/wiki/Macedonia_(region)</idno>
+                    <idno type="URI">http://dbpedia.org/resource/Macedonia_(region)</idno>
+                    <bibl xml:id="bib512-1">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">559</citedRange>
                     </bibl>
-               <bibl xml:id="bib512-2">
+                    <bibl xml:id="bib512-2">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">518</citedRange>
                     </bibl>
-               <bibl xml:id="bib512-3">
+                    <bibl xml:id="bib512-3">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
                     </bibl>
-               <bibl xml:id="bib512-4">
+                    <bibl xml:id="bib512-4">
                         <title>http://pleiades.stoa.org/places/491656</title>
                         <ptr target="http://pleiades.stoa.org/places/491656"/>
                     </bibl>
-               <bibl xml:id="bib512-5">
-                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
-                  <author>Yāqūt al-Ḥamawī</author>
-                  <ptr target="http://syriaca.org/bibl/636"/>
-                  <citedRange unit="pp">V:201</citedRange>
-               </bibl>
-            </place>
-         </listPlace>
-      </body>
-   </text>
+                    <bibl xml:id="bib512-5">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">V:201</citedRange>
+                    </bibl>
+                </place>
+            </listPlace>
+        </body>
+    </text>
 </TEI>

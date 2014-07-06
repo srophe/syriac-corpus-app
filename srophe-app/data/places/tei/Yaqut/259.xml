@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<TEI xmlns:math="http://www.w3.org/1998/Math/MathML"
-     xmlns="http://www.tei-c.org/ns/1.0"
-     xmlns:xi="http://www.w3.org/2001/XInclude"
-     xmlns:svg="http://www.w3.org/2000/svg"
-     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-     xmlns:syriaca="http://syriaca.org"
-     xml:lang="en">
-   <teiHeader>
+<TEI xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:syriaca="http://syriaca.org" xml:lang="en">
+    <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Shaqlāwa</title>
@@ -39,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-06-12-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -71,68 +65,56 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-         <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-   <text>
-      <body>
-         <listPlace>
-            <place xml:id="place-259" type="settlement">
-               <placeName xml:id="name259-1"
-                          xml:lang="en"
-                          syriaca-tags="#syriaca-headword"
-                          source="#bib259-1">Shaqlāwa</placeName>
-               <placeName xml:id="name259-2" xml:lang="en" source="#bib259-1">Shanqlabad</placeName>
-               <placeName xml:id="name259-3" xml:lang="en" source="#bib259-2">Shaqlāwā</placeName>
-               <placeName xml:id="name259-4" xml:lang="en" source="#bib259-2">Shanqlābād</placeName>
-               <placeName xml:id="name259-5" xml:lang="ar" source="#bib259-3">شَقْلاباذ</placeName>
-               <desc xml:id="abstract-en-259" xml:lang="en">A town near Arbela.</desc>
-               <location type="nested" source="#bib259-2">
+    <text>
+        <body>
+            <listPlace>
+                <place xml:id="place-259" type="settlement">
+                    <placeName xml:id="name259-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib259-1">Shaqlāwa</placeName>
+                    <placeName xml:id="name259-2" xml:lang="en" source="#bib259-1">Shanqlabad</placeName>
+                    <placeName xml:id="name259-3" xml:lang="en" source="#bib259-2">Shaqlāwā</placeName>
+                    <placeName xml:id="name259-4" xml:lang="en" source="#bib259-2">Shanqlābād</placeName>
+                    <placeName xml:id="name259-5" xml:lang="ar" source="#bib259-3">شَقْلاباذ</placeName>
+                    <desc xml:id="abstract-en-259" xml:lang="en">A town near Arbela.</desc>
+                    <location type="nested" source="#bib259-2">
                         <region ref="http://syriaca.org/place/993">Erbil region</region>
                     </location>
-               <event type="attestation"
-                      xml:id="attestation259-1"
-                      notBefore="1224"
-                      notAfter="1228"
-                      source="#bib259-3"
-                      syriaca-computed-start="1224-01-01"
-                      syriaca-computed-end="1228-01-01">
-                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">شَقْلاباذ</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
-                  <link target="#name259-5 #attestation259-1"/>
-               </event>
-               <state type="existence"
-                      from="1200"
-                      to="2013"
-                      syriaca-computed-end="2013-01-01"
-                      syriaca-computed-start="1200-01-01">
+                    <event type="attestation" xml:id="attestation259-1" notBefore="1224" notAfter="1228" source="#bib259-3" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">شَقْلاباذ</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name259-5 #attestation259-1"/>
+                    </event>
+                    <state type="existence" from="1200" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="1200-01-01">
                         <precision match="@from" notAfter="1200" syriaca-computed-end="1200-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-               <idno type="URI">http://syriaca.org/place/259</idno>
-               <idno type="URI">http://en.wikipedia.org/wiki/Shaqlawa</idno>
-               <idno type="URI">http://dbpedia.org/resource/Shaqlawa</idno>
-               <bibl xml:id="bib259-1">
+                    <idno type="URI">http://syriaca.org/place/259</idno>
+                    <idno type="URI">http://en.wikipedia.org/wiki/Shaqlawa</idno>
+                    <idno type="URI">http://dbpedia.org/resource/Shaqlawa</idno>
+                    <bibl xml:id="bib259-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">228 (fig. 60), 349, 361, 374</citedRange>
                         <citedRange unit="maps">Map IV</citedRange>
                     </bibl>
-               <bibl xml:id="bib259-2">
+                    <bibl xml:id="bib259-2">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">89, 127, 141, 158, 166, 168, 171, 176, 181, 182, 205, 255, 264, 270, 273, 322, 323</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-               <bibl xml:id="bib259-3">
-                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
-                  <author>Yāqūt al-Ḥamawī</author>
-                  <ptr target="http://syriaca.org/bibl/636"/>
-                  <citedRange unit="pp">III:403</citedRange>
-               </bibl>
-            </place>
-         </listPlace>
-      </body>
-   </text>
+                    <bibl xml:id="bib259-3">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">III:403</citedRange>
+                    </bibl>
+                </place>
+            </listPlace>
+        </body>
+    </text>
 </TEI>

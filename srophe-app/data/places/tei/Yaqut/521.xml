@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<TEI xmlns:math="http://www.w3.org/1998/Math/MathML"
-     xmlns="http://www.tei-c.org/ns/1.0"
-     xmlns:xi="http://www.w3.org/2001/XInclude"
-     xmlns:svg="http://www.w3.org/2000/svg"
-     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-     xmlns:syriaca="http://syriaca.org"
-     xml:lang="en">
-   <teiHeader>
+<TEI xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:syriaca="http://syriaca.org" xml:lang="en">
+    <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Cairo
@@ -56,7 +50,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-06-12-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -88,79 +82,67 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-         <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-   <text>
-      <body>
-         <listPlace>
-            <place xml:id="place-521" type="settlement">
-               <placeName xml:id="name521-1"
-                          xml:lang="en"
-                          syriaca-tags="#syriaca-headword"
-                          source="#bib521-1 #bib521-4 #bib521-5">Cairo</placeName>
-               <placeName xml:id="name521-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܐܗܪܗ̈</placeName>
-               <placeName xml:id="name521-3" xml:lang="syr-Syrj" source="#bib521-2">ܩܐܰܗܪܗ̈</placeName>
-               <placeName xml:id="name521-4" xml:lang="ar" source="#bib521-3 #bib521-6">القاهرة</placeName>
-               <desc xml:id="abstract-en-521" xml:lang="en">A major city on the <placeName ref="http://syriaca.org/place/629">Nile</placeName> which served as a medieval and modern capital of <placeName ref="http://syriaca.org/place/715">Egypt</placeName>.</desc>
-               <event type="attestation"
-                      xml:id="attestation521-1"
-                      notBefore="1224"
-                      notAfter="1228"
-                      source="#bib521-6"
-                      syriaca-computed-start="1224-01-01"
-                      syriaca-computed-end="1228-01-01">
-                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">القاهرة</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
-                  <link target="#name521-4 #attestation521-1"/>
-               </event>
-               <state type="existence"
-                      from="0969"
-                      to="2013"
-                      syriaca-computed-end="2013-01-01"
-                      syriaca-computed-start="0969-01-01">
+    <text>
+        <body>
+            <listPlace>
+                <place xml:id="place-521" type="settlement">
+                    <placeName xml:id="name521-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib521-1 #bib521-4 #bib521-5">Cairo</placeName>
+                    <placeName xml:id="name521-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܩܐܗܪܗ̈</placeName>
+                    <placeName xml:id="name521-3" xml:lang="syr-Syrj" source="#bib521-2">ܩܐܰܗܪܗ̈</placeName>
+                    <placeName xml:id="name521-4" xml:lang="ar" source="#bib521-3 #bib521-6">القاهرة</placeName>
+                    <desc xml:id="abstract-en-521" xml:lang="en">A major city on the <placeName ref="http://syriaca.org/place/629">Nile</placeName> which served as a medieval and modern capital of <placeName ref="http://syriaca.org/place/715">Egypt</placeName>.</desc>
+                    <event type="attestation" xml:id="attestation521-1" notBefore="1224" notAfter="1228" source="#bib521-6" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">القاهرة</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name521-4 #attestation521-1"/>
+                    </event>
+                    <state type="existence" from="0969" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0969-01-01">
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-               <idno type="URI">http://syriaca.org/place/521</idno>
-               <idno type="URI">http://en.wikipedia.org/wiki/Cairo</idno>
-               <idno type="URI">http://dbpedia.org/resource/Cairo</idno>
-               <bibl xml:id="bib521-1">
+                    <idno type="URI">http://syriaca.org/place/521</idno>
+                    <idno type="URI">http://en.wikipedia.org/wiki/Cairo</idno>
+                    <idno type="URI">http://dbpedia.org/resource/Cairo</idno>
+                    <bibl xml:id="bib521-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">14, 92, 106, 165, 239, 314, 381, 386</citedRange>
                     </bibl>
-               <bibl xml:id="bib521-2">
+                    <bibl xml:id="bib521-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">536</citedRange>
                     </bibl>
-               <bibl xml:id="bib521-3">
+                    <bibl xml:id="bib521-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">504</citedRange>
                     </bibl>
-               <bibl xml:id="bib521-4">
+                    <bibl xml:id="bib521-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">558</citedRange>
                     </bibl>
-               <bibl xml:id="bib521-5">
+                    <bibl xml:id="bib521-5">
                         <author>David Wilmshurst</author>
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">64-65, 317, 361, 363, 364</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
                     </bibl>
-               <bibl xml:id="bib521-6">
-                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
-                  <author>Yāqūt al-Ḥamawī</author>
-                  <ptr target="http://syriaca.org/bibl/636"/>
-                  <citedRange unit="pp">IV:341</citedRange>
-               </bibl>
-            </place>
-            <relation name="share-a-name" mutual="#place-521  http://syriaca.org/place/2284"/>
-         </listPlace>
-      </body>
-   </text>
+                    <bibl xml:id="bib521-6">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">IV:341</citedRange>
+                    </bibl>
+                </place>
+                <relation name="share-a-name" mutual="#place-521  http://syriaca.org/place/2284"/>
+            </listPlace>
+        </body>
+    </text>
 </TEI>

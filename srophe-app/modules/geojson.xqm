@@ -27,7 +27,7 @@ declare function geo:build-json($geo as xs:string,$id as xs:string, $rec-type as
             <coordinates json:literal="true">{substring-before($geo,' ')}</coordinates>
         </geometry>
         <properties>
-            <uri>{concat('http://syriaca.org/place/',substring-after($id,'place-'),'.html')}</uri>
+            <uri>{concat('http://syriaca.org/place/',substring-after($id,'place-'))}</uri>
             <placeType>{if($rec-type='opne-water') then 'openWater' else $rec-type}</placeType>
             <name>{$title} - {if($rec-type='open-water') then 'openWater' else $rec-type}</name>
         </properties>
@@ -45,7 +45,7 @@ declare function geo:build-kml($geo as xs:string,$id as xs:string, $rec-type as 
     <kml xmlns="http://www.opengis.net/kml/2.2">
         <Placemark>
             <name>{$title} - {if($rec-type='open-water') then 'openWater' else $rec-type}</name>
-            <description>{concat('http://syriaca.org/place/',substring-after($id,'place-'),'.html')}
+            <description>{concat('http://syriaca.org/place/',substring-after($id,'place-'))}
             </description>
             <Point>
                 <coordinates>{replace($geo,' ',',')}</coordinates>

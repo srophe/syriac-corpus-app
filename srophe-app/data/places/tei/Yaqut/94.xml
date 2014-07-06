@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<TEI xmlns:math="http://www.w3.org/1998/Math/MathML"
-     xmlns="http://www.tei-c.org/ns/1.0"
-     xmlns:xi="http://www.w3.org/2001/XInclude"
-     xmlns:svg="http://www.w3.org/2000/svg"
-     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-     xmlns:syriaca="http://syriaca.org"
-     xml:lang="en">
-   <teiHeader>
+<TEI xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:syriaca="http://syriaca.org" xml:lang="en">
+    <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Ḥiṣn Manṣūr
@@ -61,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-06-12-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -93,94 +87,82 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-         <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">ADDED <gi>quote</gi> elements around Syriac text in <gi>note</gi> of type="corrigenda".</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-01-10">ADDED: disambiguation note</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-   <text>
-      <body>
-         <listPlace>
-            <place xml:id="place-94" type="settlement">
-               <placeName xml:id="name94-1"
-                          xml:lang="en"
-                          syriaca-tags="#syriaca-headword"
-                          source="#bib94-4">Ḥiṣn Manṣūr</placeName>
-               <placeName xml:id="name94-2" xml:lang="en" source="#bib94-1">Perrhe</placeName>
-               <placeName xml:id="name94-3" xml:lang="en" source="#bib94-1">Hiṣn Manṣūr</placeName>
-               <placeName xml:id="name94-4" xml:lang="en" source="#bib94-1">Adıyaman</placeName>
-               <placeName xml:id="name94-5" xml:lang="en" source="#bib94-1">Parrin</placeName>
-               <placeName xml:id="name94-6" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܣܢ ܡܢܨܘܪ</placeName>
-               <placeName xml:id="name94-7" xml:lang="syr-Syrj" source="#bib94-2">ܚܰܣܰܢ ܡܰܢܨܘܪ</placeName>
-               <placeName xml:id="name94-8" xml:lang="ar" source="#bib94-3 #bib94-5">حصن منصور</placeName>
-               <desc xml:id="abstract-en-94" xml:lang="en">A city north of <placeName ref="http://syriaca.org/place/97">Qalʿa Rumayta</placeName> and southwest of <placeName ref="http://syriaca.org/place/136">Melitene</placeName>.</desc>
-               <desc xml:lang="syr-Syrj">
+    <text>
+        <body>
+            <listPlace>
+                <place xml:id="place-94" type="settlement">
+                    <placeName xml:id="name94-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib94-4">Ḥiṣn Manṣūr</placeName>
+                    <placeName xml:id="name94-2" xml:lang="en" source="#bib94-1">Perrhe</placeName>
+                    <placeName xml:id="name94-3" xml:lang="en" source="#bib94-1">Hiṣn Manṣūr</placeName>
+                    <placeName xml:id="name94-4" xml:lang="en" source="#bib94-1">Adıyaman</placeName>
+                    <placeName xml:id="name94-5" xml:lang="en" source="#bib94-1">Parrin</placeName>
+                    <placeName xml:id="name94-6" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܣܢ ܡܢܨܘܪ</placeName>
+                    <placeName xml:id="name94-7" xml:lang="syr-Syrj" source="#bib94-2">ܚܰܣܰܢ ܡܰܢܨܘܪ</placeName>
+                    <placeName xml:id="name94-8" xml:lang="ar" source="#bib94-3 #bib94-5">حصن منصور</placeName>
+                    <desc xml:id="abstract-en-94" xml:lang="en">A city north of <placeName ref="http://syriaca.org/place/97">Qalʿa Rumayta</placeName> and southwest of <placeName ref="http://syriaca.org/place/136">Melitene</placeName>.</desc>
+                    <desc xml:lang="syr-Syrj">
                         <quote source="#bib94-2">ܡܕܝܰܢܬܐ ܗܝ ܕܰܒܓܰܪܒܰܝ ܫܰܡܝܫܰܛ ܠܡܰܥܪܒܳܐ ܕܰܦܪܳܬ ܕܡܶܬܶܐܡܰܪ ܠܗ̇ ܬܘܒ ܐܰܕܺܝܰܐܡܰܐܢ.</quote>
                     </desc>
-               <desc xml:lang="ar">
+                    <desc xml:lang="ar">
                         <quote source="#bib94-3">بلدة شمالي سميساط في غربي الفرات يقال لها ايضاً اديمان</quote>
                     </desc>
-               <desc xml:lang="en">
+                    <desc xml:lang="en">
                         <quote source="#bib94-4">a town north of Samosata on the west bank of the Euphrates; also called Adyaman.</quote>
                     </desc>
-               <location type="gps" source="#bib94-1">
+                    <location type="gps" source="#bib94-1">
                         <geo>37.75972 38.27875</geo>
                     </location>
-               <event type="attestation"
-                      xml:id="attestation94-1"
-                      notBefore="1224"
-                      notAfter="1228"
-                      source="#bib94-5"
-                      syriaca-computed-start="1224-01-01"
-                      syriaca-computed-end="1228-01-01">
-                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">حصن منصور</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
-                  <link target="#name94-8 #attestation94-1"/>
-               </event>
-               <state type="existence"
-                      from="0072"
-                      to="2013"
-                      syriaca-computed-end="2013-01-01"
-                      syriaca-computed-start="0072-01-01">
+                    <event type="attestation" xml:id="attestation94-1" notBefore="1224" notAfter="1228" source="#bib94-5" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">حصن منصور</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name94-8 #attestation94-1"/>
+                    </event>
+                    <state type="existence" from="0072" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0072-01-01">
                         <precision match="@from" notAfter="0072" syriaca-computed-end="0072-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
-               <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܡܕܝܰܢܬܐ</quote> should read <quote xml:lang="syr-Syrj">ܡܕܺܝܢܬܐ</quote>.</note>
-               <note type="disambiguation">Same location but not the same conceptual place as <idno type="URI">http://pleiades.stoa.org/places/658574</idno>.</note>
-               <idno type="URI">http://syriaca.org/place/94</idno>
-               <idno type="URI">http://pleiades.stoa.org/places/658568</idno>
-               <idno type="URI">http://en.wikipedia.org/wiki/Adıyaman</idno>
-               <idno type="URI">http://dbpedia.org/resource/Adıyaman</idno>
-               <bibl xml:id="bib94-1">
+                    <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܡܕܝܰܢܬܐ</quote> should read <quote xml:lang="syr-Syrj">ܡܕܺܝܢܬܐ</quote>.</note>
+                    <note type="disambiguation">Same location but not the same conceptual place as <idno type="URI">http://pleiades.stoa.org/places/658574</idno>.</note>
+                    <idno type="URI">http://syriaca.org/place/94</idno>
+                    <idno type="URI">http://pleiades.stoa.org/places/658568</idno>
+                    <idno type="URI">http://en.wikipedia.org/wiki/Adıyaman</idno>
+                    <idno type="URI">http://dbpedia.org/resource/Adıyaman</idno>
+                    <bibl xml:id="bib94-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">60, 163, 178, 367</citedRange>
                         <citedRange unit="maps">Map I B1, II B1, III</citedRange>
                     </bibl>
-               <bibl xml:id="bib94-2">
+                    <bibl xml:id="bib94-2">
                         <title xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">539</citedRange>
                     </bibl>
-               <bibl xml:id="bib94-3">
+                    <bibl xml:id="bib94-3">
                         <title xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">507</citedRange>
                     </bibl>
-               <bibl xml:id="bib94-4">
+                    <bibl xml:id="bib94-4">
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">554</citedRange>
                     </bibl>
-               <bibl xml:id="bib94-5">
-                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
-                  <author>Yāqūt al-Ḥamawī</author>
-                  <ptr target="http://syriaca.org/bibl/636"/>
-                  <citedRange unit="pp">II:306</citedRange>
-               </bibl>
-            </place>
-         </listPlace>
-      </body>
-   </text>
+                    <bibl xml:id="bib94-5">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:306</citedRange>
+                    </bibl>
+                </place>
+            </listPlace>
+        </body>
+    </text>
 </TEI>

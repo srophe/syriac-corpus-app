@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<TEI xmlns:math="http://www.w3.org/1998/Math/MathML"
-     xmlns="http://www.tei-c.org/ns/1.0"
-     xmlns:xi="http://www.w3.org/2001/XInclude"
-     xmlns:svg="http://www.w3.org/2000/svg"
-     xmlns:xs="http://www.w3.org/2001/XMLSchema"
-     xmlns:syriaca="http://syriaca.org"
-     xml:lang="en">
-   <teiHeader>
+<TEI xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:syriaca="http://syriaca.org" xml:lang="en">
+    <teiHeader>
         <fileDesc>
             <titleStmt>
                 <title level="a" xml:lang="en">Ardashir Khurrah</title>
@@ -35,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-06-12-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -67,57 +61,49 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-         <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
-   <text>
-      <body>
-         <listPlace>
-            <place xml:id="place-671" type="settlement">
-               <placeName xml:id="name671-1"
-                          xml:lang="en"
-                          syriaca-tags="#syriaca-headword"
-                          source="#bib671-1">Ardashir Khurrah</placeName>
-               <placeName xml:id="name671-2" xml:lang="ar" source="#bib671-3">أَرْدَشِيْر خُرَّه</placeName>
-               <desc xml:id="abstract-en-671" xml:lang="en">A city of <placeName ref="http://syriaca.org/place/84">Fars</placeName>.</desc>
-               <location type="gps" source="#bib671-2">
+    <text>
+        <body>
+            <listPlace>
+                <place xml:id="place-671" type="settlement">
+                    <placeName xml:id="name671-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib671-1">Ardashir Khurrah</placeName>
+                    <placeName xml:id="name671-2" xml:lang="ar" source="#bib671-3">أَرْدَشِيْر خُرَّه</placeName>
+                    <desc xml:id="abstract-en-671" xml:lang="en">A city of <placeName ref="http://syriaca.org/place/84">Fars</placeName>.</desc>
+                    <location type="gps" source="#bib671-2">
                         <geo>28.852984 52.532446</geo>
                     </location>
-               <event type="attestation"
-                      xml:id="attestation671-1"
-                      notBefore="1224"
-                      notAfter="1228"
-                      source="#bib671-3"
-                      syriaca-computed-start="1224-01-01"
-                      syriaca-computed-end="1228-01-01">
-                  <p xml:lang="en">Attestation of name <foreign xml:lang="ar">أَرْدَشِيْر خُرَّه</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <author>Yāqūt al-Ḥamawī</author>.</p>
-                  <link target="#name671-2 #attestation671-1"/>
-               </event>
-               <state type="existence"/>
-               <idno type="URI">http://syriaca.org/place/671</idno>
-               <idno type="URI">http://pleiades.stoa.org/places/922617</idno>
-               <idno type="URI">http://en.wikipedia.org/wiki/Firuzabad,_Fars</idno>
-               <idno type="URI">http://dbpedia.org/resource/Firuzabad,_Fars</idno>
-               <bibl xml:id="bib671-1">
+                    <event type="attestation" xml:id="attestation671-1" notBefore="1224" notAfter="1228" source="#bib671-3" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">أَرْدَشِيْر خُرَّه</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name671-2 #attestation671-1"/>
+                    </event>
+                    <state type="existence"/>
+                    <idno type="URI">http://syriaca.org/place/671</idno>
+                    <idno type="URI">http://pleiades.stoa.org/places/922617</idno>
+                    <idno type="URI">http://en.wikipedia.org/wiki/Firuzabad,_Fars</idno>
+                    <idno type="URI">http://dbpedia.org/resource/Firuzabad,_Fars</idno>
+                    <bibl xml:id="bib671-1">
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">164</citedRange>
                     </bibl>
-               <bibl xml:id="bib671-2">
+                    <bibl xml:id="bib671-2">
                         <title>http://pleiades.stoa.org/places/922617</title>
                         <ptr target="http://pleiades.stoa.org/places/922617"/>
                     </bibl>
-               <bibl xml:id="bib671-3">
-                  <title xml:lang="en" level="m">Muʿjam al-buldān</title>
-                  <author>Yāqūt al-Ḥamawī</author>
-                  <ptr target="http://syriaca.org/bibl/636"/>
-                  <citedRange unit="pp">I:176</citedRange>
-               </bibl>
-            </place>
-         </listPlace>
-      </body>
-   </text>
+                    <bibl xml:id="bib671-3">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">I:176</citedRange>
+                    </bibl>
+                </place>
+            </listPlace>
+        </body>
+    </text>
 </TEI>

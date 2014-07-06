@@ -27,7 +27,7 @@
     <!-- ================================================================== 
        browselisting.xsl
        
-       This XSLT loops through all places passed by the browse.xql.
+       This XSLT loops through all places/people passed by the browse.xql.
         
        code by: 
         + Winona Salesky (wsalesky@gmail.com) 
@@ -47,7 +47,6 @@
     <xsl:import href="helper-functions.xsl"/>
     <xsl:output encoding="UTF-8" method="html" indent="yes"/>
     <xsl:param name="normalization">NFKC</xsl:param>
-    
     <xsl:variable name="collection" select="/t:TEI/@browse-coll"/>
     <xsl:variable name="collection-param" select="concat('&amp;coll=',$collection)"/>
     
@@ -197,7 +196,7 @@
                         <a href="person.html?id={$persnum}">
                             <!-- English name -->
                             <bdi dir="ltr" lang="en" xml:lang="en">
-                                <xsl:value-of select="string-join(t:persName[starts-with(@xml:lang,'en')][@syriaca-tags='#syriaca-headword']/child::*/text(),' ')"/>
+                                <xsl:value-of select="string-join(t:persName[starts-with(@xml:lang,'en')][@syriaca-tags='#syriaca-headword']/descendant-or-self::*/text(),' ')"/>
                             </bdi>
                             <!-- ana if exists -->
                             <xsl:if test="@ana != ''">
@@ -214,7 +213,7 @@
                             <xsl:choose>
                                 <xsl:when test="t:persName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']">
                                     <bdi dir="rtl" lang="syr" xml:lang="syr">
-                                        <xsl:value-of select="string-join(t:persName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']/child::*/text(),' ')"/>
+                                        <xsl:value-of select="string-join(t:persName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']/descendant-or-self::*/text(),' ')"/>
                                     </bdi>
                                 </xsl:when>
                                 <xsl:otherwise>
