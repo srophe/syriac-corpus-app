@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -289,6 +289,7 @@
         <div class="well">
             <ul class="unstyled">
                 <xsl:apply-templates select="t:birth | t:death | t:floruit | t:sex | t:langKnowledge"/>
+                <!-- NOTE What to do about state?? -->
                 <xsl:if test="t:state[@type='martyred']/t:label = 'Yes'">
                     <li>Martyred <xsl:sequence select="local:do-refs(../@source,ancestor::t:*[@xml:lang][1])"/>
                     </li>
@@ -537,7 +538,7 @@
            <a href="{@uri}">
                 <xsl:choose>
                     <xsl:when test="contains(child::*/t:title,' — ')">
-                        <xsl:value-of select="substring-before(child::*/t:title,' — ')"/>
+                        <xsl:value-of select="substring-before(child::*[1]/t:title,' — ')"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:value-of select="child::*/t:title"/>
