@@ -74,7 +74,7 @@ declare %templates:wrap function persons:get-persons-data($node as node(), $mode
                        ($rec/child::*,persons:get-related-places($rec) )
                     }
                     </TEI>
-    let $cache :='Change value to force page refresh 90066887963'
+    let $cache :='Change value to force page refresh 90068'
     return
         (:$buildRec:)
        transform:transform($buildRec, doc('../resources/xsl/personspage.xsl'),() )

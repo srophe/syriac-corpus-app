@@ -6,6 +6,7 @@ xquery version "3.0";
  : @param $start start paged results
  : @param $perpage default set to 50 can be changed via perpage param
 :)
+import module namespace feed="http://syriaca.org//atom" at "atom.xqm";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -17,7 +18,7 @@ declare namespace georss="http://www.georss.org/georss";
 
 declare variable $collection {request:get-parameter('collection', '')};
 declare variable $id {request:get-parameter('id', '')};
-declare variable $perpage {request:get-parameter('perpage', 50) cast as xs:integer};
+declare variable $perpage {request:get-parameter('perpage', 25) cast as xs:integer};
 declare variable $start {request:get-parameter('start', 1) cast as xs:integer};
 
 declare option exist:serialize "method=xml media-type=application/rss+xml omit-xml-declaration=no indent=yes";
@@ -105,6 +106,9 @@ declare function local:build-feed(){
     for $recs in local:get-feed()
     return local:build-entry($recs)
 };
+
+feed:build-feed($collection,$start,$perpage)
+(:
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss"> 
     <title>The Syriac Gazetteer: Latest Updates</title>
     <link rel="self" type="application/atom+xml" href="http://syriaca.org/atom.xql"/>
@@ -115,3 +119,4 @@ declare function local:build-feed(){
         else local:build-feed()
        }
 </feed>
+:)

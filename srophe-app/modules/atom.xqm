@@ -1,12 +1,13 @@
 xquery version "3.0";
 (:
- : Build atom feed for all srophe modules
- : @param $collection selects data collection for feed, if no collection parameter records from all collections will be returned. 
+ : Build atom feed for all syrica.org modules
+ : Module is used by atom.xql and rest.xqm 
+ : @param $collection selects data collection for feed 
  : @param $id return single entry matching xml:id
  : @param $start start paged results
- : @param $perpage default set to 50 can be changed via perpage param
+ : @param $perpage default set to 25 can be changed via perpage param
 :)
-module namespace browse="http://syriaca.org//browse";
+module namespace feed="http://syriaca.org//atom";
 
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 
@@ -16,16 +17,90 @@ declare namespace util="http://exist-db.org/xquery/util";
 declare namespace request="http://exist-db.org/xquery/request";
 declare namespace georss="http://www.georss.org/georss";
 
-declare variable $browse:collection {request:get-parameter('collection', '')};
-declare variable $browse:id {request:get-parameter('id', '')};
-declare variable $browse:perpage {request:get-parameter('perpage', 50) cast as xs:integer};
-declare variable $browse:start {request:get-parameter('start', 1) cast as xs:integer};
-
 declare option exist:serialize "method=xml media-type=application/rss+xml omit-xml-declaration=no indent=yes";
 
-(:Not complete, need to work on responsible persons function and add in contributors:)
-declare function browse:build-entry($recs){
-    for $rec in $recs
+(:~
+ : Build path to subcollection for atom feed
+ : @param $collection name of syriaca.org subcollection 
+:)
+declare function feed:get-feed($collection as xs:string?) as node()*{
+    let $collection-path := 
+        if($collection != '') then 
+            if($collection = 'place') then '/places' else ('/' || $collection)
+         else '' 
+    let $path := ($config:app-root || '/data' || $collection-path) 
+    for $feed in collection($path)/tei:TEI 
+    let $date := $feed[1]//tei:publicationStmt[1]/tei:date[1]/text()
+    order by $date descending
+    return $feed   
+};
+
+(:~
+ : Return subsequence of full feed
+ : @param $collection name of syriaca.org subcollection 
+ : @param $start start position for results
+ : @param $perpage number of pages to return 
+ : @return An atom entry element
+:)
+declare function feed:process-feed($collection as xs:string?,$start as xs:integer?, $perpage as xs:integer?) as element(entry)*{
+    let $recs := feed:get-feed($collection)
+    for $rec in subsequence($recs,$start, $perpage)
+    return feed:build-entry($rec)
+};
+
+(:~
+ : Get most recently updated date from feed results
+ : @param $collection name of syriaca.org subcollection 
+ : @return A string
+:)
+declare function feed:updated-date($collection as xs:string?) as xs:string?{
+    for $recent in feed:get-feed($collection)[1]
+    let $date := $recent//tei:publicationStmt[1]/tei:date[1]/text()
+    return $date
+};
+
+(:~
+ : Correctly format dates in the TEI
+ : @param $date date passed from TEI records
+ : @return A string
+:)
+declare function feed:format-dates($date as xs:string?) as xs:string{
+    if($date) then 
+        if(string-length($date) = 10) then concat($date,'T12:00:00Z')
+        else if(string-length($date) = 4) then concat($date,'01-01T12:00:00Z')
+        else if(string-length($date) gt 10) then concat(substring($date,1,10),'T12:00:00Z')
+        else ''
+    else ''
+};
+
+(:~
+ : Get single entry 
+ : @param $collection name of syriaca.org subcollection 
+ : @param $id record id
+ : @return As atom feed element
+:)
+declare function feed:get-entry($collection as xs:string, $id as xs:string?) as element(feed)?{
+    let $collection-path :=  
+        if($collection = 'place') then '/places' else ('/' || $collection || '/tei/') 
+    let $path := ($config:app-root || '/data' || $collection-path || $id || '.xml') 
+    for $feed in doc($path)/tei:TEI
+    let $date := $feed[1]//tei:publicationStmt[1]/tei:date[1]/text()
+    return
+    <feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss"> 
+        <title>The Syriac Gazetteer: Latest Updates</title>
+        <link rel="self" type="application/atom+xml" href="http://syriaca.org/atom.xql"/>
+        <id>tag:syriaca.org,2013:gazetteer-latest</id>
+        <updated xmlns="http://www.w3.org/2005/Atom">{feed:format-dates($date)}</updated>
+        {feed:build-entry($feed)}
+    </feed>  
+};
+
+(:~
+ : Build atom entry from TEI record data
+ : @param $rec TEI record
+ : @return A atom entry element
+:)
+declare function feed:build-entry($rec as element()*) as element(entry){
     let $doc-uri := base-uri($rec)
     let $doc-name := util:document-name($rec)
     let $collection := substring-before(substring-after($doc-uri,'/data/'),'/')
@@ -59,60 +134,24 @@ declare function browse:build-entry($recs){
         <link rel="self" type="application/atom+xml" href="http://syriaca.org/{$collection}/{$rec-id}/atom"/>
         <id>tag:syriaca.org,2013:{concat($collection,'/',$rec-id)}</id>
         {$geo}
-        <updated>{local:format-dates($date)}</updated>
+        <updated>{feed:format-dates($date)}</updated>
         {($summary, $res-pers)}
-    </entry>   
-
+    </entry>  
 };
 
-declare function browse:get-place-entry(){
-    for $item in collection($config:app-root || "/data")/id($id)
-    let $rec := $item/ancestor::tei:TEI
-    let $date := $rec/tei:teiHeader/tei:fileDesc/tei:publicationStmt[1]/tei:date[1]/text()
-    return 
-    (
-    <updated xmlns="http://www.w3.org/2005/Atom">{local:format-dates($date)}</updated>,
-    local:build-entry($rec)
-    )
-};
-               
-declare function browse:get-feed(){
-   let $collection := 
-        if($collection) then ($config:app-root || '/data/' || $collection || '/tei')
-        else ($config:app-root || '/data')
-   for $recs in subsequence(collection($collection),$start, $perpage)
-   let $date := $recs[1]//tei:publicationStmt[1]/tei:date[1]/text()
-   order by $date descending
-   return $recs
-};
-
-declare function browse:updated-feed(){
-    for $date in browse:get-feed()[1]
-    let $date := $date//tei:publicationStmt[1]/tei:date[1]/text()
-    return local:format-dates($date)
-};
-
-(:2013-11-07  to 2013-11-07T15:00:00Z:)
-declare function browse:format-dates($date){
-    if($date) then 
-        if(string-length($date) = 10) then concat($date,'T12:00:00Z')
-        else if(string-length($date) = 4) then concat($date,'01-01T12:00:00Z')
-        else if(string-length($date) gt 10) then concat(substring($date,1,10),'T12:00:00Z')
-        else ''
-    else ''
-};
-
-declare function browse:build-feed(){
-<feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss"> 
-    <title>The Syriac Gazetteer: Latest Updates</title>
-    <link rel="self" type="application/atom+xml" href="http://syriaca.org/atom.xql"/>
-    <id>tag:syriaca.org,2013:gazetteer-latest</id>
-    <updated xmlns="http://www.w3.org/2005/Atom">{local:updated-feed()}</updated>
-       {
-        if(exists($id) and $id !='') then browse:get-place-entry()
-        else browse:build-feed()
-       }
-</feed>
-
-
+(:~
+ : Build atom feed
+ : @param $collection name of syriaca.org subcollection 
+ : @param $start
+ : @param $perpage
+ : @return A atom feed element
+:)
+declare function feed:build-feed($collection as xs:string?, $start as xs:integer?, $perpage as xs:integer?) as element(feed)?{
+    <feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss"> 
+        <title>The Syriac Gazetteer: Latest Updates</title>
+        <link rel="self" type="application/atom+xml" href="http://syriaca.org/atom.xql"/>
+        <id>tag:syriaca.org,2013:gazetteer-latest</id>
+        <updated xmlns="http://www.w3.org/2005/Atom">{feed:updated-date($collection)}</updated>
+        {feed:process-feed($collection,$start,$perpage)}
+    </feed>
 };

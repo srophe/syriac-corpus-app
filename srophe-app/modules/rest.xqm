@@ -3,6 +3,8 @@ xquery version "3.0";
 module namespace api="http://syriaca.org/api";
 
 import module namespace geo="http://syriaca.org//geojson" at "geojson.xqm";
+import module namespace feed="http://syriaca.org//atom" at "atom.xqm";
+
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 
 import module namespace req="http://exquery.org/ns/request";
@@ -91,27 +93,48 @@ function api:get-tei($collection as xs:string, $id as xs:string){
 }; 
 
 (:~
-  : Use resxq to format urls for tei
+  : Return atom feed for single record
   : @param $collection syriaca.org subcollection 
   : @param $id record id
   : Serialized as XML
-  NEEDS lots of work on atom.xqm but should be able to move away from current setup
 :)
 declare 
     %rest:GET
     %rest:path("/{$collection}/{$id}/atom")
-    %output:media-type("text/xml")
+    %output:media-type("application/atom+xml")
     %output:method("xml")
-function api:get-rec-atom($collection as xs:string, $id as xs:string){
+function api:get-atom-record($collection as xs:string, $id as xs:string){
    (<rest:response> 
       <http:response status="200"> 
         <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
       </http:response> 
     </rest:response>, 
-     api:get-tei-rec($collection, $id)
+     feed:get-entry($collection, $id)
      )
 }; 
 
+(:~
+  : Return atom feed for syrica.org subcollection
+  : @param $collection syriaca.org subcollection 
+  : @param $id record id
+  : Serialized as XML
+:)
+declare 
+    %rest:GET
+    %rest:path("/{$collection}/atom")
+    %rest:query-param("start", "{$start}", 1)
+    %rest:query-param("perpage", "{$perpage}", 2)
+    %output:media-type("application/atom+xml")
+    %output:method("xml")
+function api:get-atom-feed($collection as xs:string, $start as xs:integer*, $perpage as xs:integer*){
+   (<rest:response> 
+      <http:response status="200"> 
+        <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
+      </http:response> 
+    </rest:response>, 
+     feed:build-feed($collection, $start, $perpage)
+     )
+}; 
 
 (:~
  : Returns tei record for syriaca.org subcollections
