@@ -43,8 +43,8 @@
         <body>
             <biblStruct>
                 <monogr>
-                    <author>
-                        <persName xml:lang="fr" ref="http://syriaca.org/person/411">
+                    <author ref="http://syriaca.org/person/411">
+                        <persName xml:lang="fr">
                             <forename>J.-B.</forename>
                             <surname>Chabot</surname>
                         </persName>
@@ -57,10 +57,10 @@
                     </imprint>
                 </monogr>
                 <series>
-                    <title type="main" level="s">Bibliothèque catholique des sciences religieuses</title>
+                    <title type="main" level="s" xml:lang="fr">Bibliothèque catholique des sciences religieuses</title>
                 </series>
                 <series>
-                    <title type="main" level="s">Littératures chrétiennes de l'Orient</title>
+                    <title type="main" level="s" xml:lang="fr">Littératures chrétiennes de l'Orient</title>
                 </series>
                 <idno type="URI">http://syriaca.org/bibl/640</idno>
             </biblStruct>

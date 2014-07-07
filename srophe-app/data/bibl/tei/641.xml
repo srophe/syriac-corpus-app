@@ -45,14 +45,13 @@
                 <monogr>
                     <author>
                         <!--Need a person @ref here.-->
-                        <!-- Also double-check that this is how it is shown on the physical title page. -->
                         <persName xml:lang="la">
-                            <forename>Ignacio</forename>
+                            <forename>Ignatius</forename>
                             <surname>Ortiz de Urbina</surname>
                         </persName>
                     </author>
                     <title xml:lang="la" level="m">Patrologia Syriaca</title>
-                    <edition xml:lang="la">Altera ed. emendata et aucta</edition>
+                    <edition xml:lang="la">Altera editio emendata et aucta</edition>
                     <imprint>
                         <publisher xml:lang="la">Pont. Institutum Orientalium Studiorum</publisher>
                         <pubPlace ref="http://syriaca.org/place/641">Romae</pubPlace>

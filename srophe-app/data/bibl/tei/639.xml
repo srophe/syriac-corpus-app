@@ -43,11 +43,10 @@
         <body>
             <biblStruct>
                 <monogr>
-                    <author>
-                        <persName xml:lang="en" ref="http://syriaca.org/person/807">
+                    <author ref="http://syriaca.org/person/807">
+                        <persName xml:lang="en">
                             <forename>William</forename>
-                            <surname>Wright</surname>, 
-                            <addName type="untagged-title">LL.D.</addName>
+                            <surname>Wright</surname>
                         </persName>
                     </author>
                     <title xml:lang="en" level="m">A Short History of Syriac Literature</title>

@@ -45,7 +45,6 @@
                 <monogr>
                     <author>
                         <!--Need a person @ref here.-->
-                        <!-- Also double-check that this is how it is shown on the physical title page. -->
                         <persName xml:lang="de">
                             <forename>Rudolf</forename>
                             <surname>Macuch</surname>
@@ -54,7 +53,7 @@
                     <title xml:lang="de" level="m">Geschichte der spät- und neusyrischen Literatur</title>
                     <edition xml:lang="de">1. Aufl</edition>
                     <imprint>
-                        <publisher xml:lang="de">de Gruyter</publisher>
+                        <publisher xml:lang="de">Walter de Gruyter</publisher>
                         <pubPlace ref="http://syriaca.org/place/804">Berlin</pubPlace>
                         <pubPlace ref="http://syriaca.org/place/859">New York</pubPlace>
                         <date>1965</date>
