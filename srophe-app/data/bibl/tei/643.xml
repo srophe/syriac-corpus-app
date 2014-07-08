@@ -6,7 +6,7 @@
         <fileDesc>
             <titleStmt>
                 <title xml:lang="ar">أبونا، أدب اللغة الآرامية</title>
-                <title xml:lang="en-x-gedsh">Abūnā, Adab al-Lugha al-Arāmiyya</title>
+                <title xml:lang="en-x-gedsh">Abūnā, Adab al-Lugha al-Arāmiyya</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
                 <funder>The International Balzan Prize Foundation</funder>
@@ -52,17 +52,17 @@
                             <surname>أبونَا</surname>
                         </persName>
                         <persName xml:lang="en-x-gedsh">
-                            <forename>Albīr</forename>
-                            <surname>Abūnā</surname>
+                            <forename>Albīr</forename>
+                            <surname>Abūnā</surname>
                         </persName>
                     </author>
                     <title xml:lang="ar" level="m">أدب اللغة الآرامية</title>
                     <title xml:lang="syr" level="m">ܣܦܪܢܘܬܐ ܕܠܫܢܐ ܐܪܡܝܐ</title>
-                    <title xml:lang="en-x-gedsh" level="m">Adab al-Lugha al-Arāmiyya</title>
+                    <title xml:lang="en-x-gedsh" level="m">Adab al-Lugha al-Arāmiyya</title>
                     <!--Is this correct for the first ed.?-->
                     <imprint>
                         <publisher xml:lang="ar">دار المشرق</publisher>
-                        <publisher xml:lang="en-x-gedsh">Dār al-Mashriq</publisher>
+                        <publisher xml:lang="en-x-gedsh">Dār al-Mashriq</publisher>
                         <publisher xml:lang="en">Dar el Machreq</publisher>
                         <pubPlace xml:lang="ar" ref="http://syriaca.org/place/46">بيروت</pubPlace>
                         <pubPlace xml:lang="en" ref="http://syriaca.org/place/46">Beirut</pubPlace>
