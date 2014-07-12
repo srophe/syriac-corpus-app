@@ -29,13 +29,14 @@
                         Distributed under a Creative Commons Attribution 3.0 Unported License
                     </licence>
                 </availability>
-                <date>2014-06-26</date>
+                <date>2014-07-11</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
             </sourceDesc>
         </fileDesc>
         <revisionDesc>
+            <change when="2014-07-11" who="http://syriaca.org/editors.xml#tcarlson">CHANGED: expanded author's middle initial sicut printed title page, capitalized title</change>
             <change when="2014-06-26" who="http://syriaca.org/editors.xml#ngibson">CREATED: bibliographic entry</change>
         </revisionDesc>
     </teiHeader>
@@ -45,14 +46,12 @@
                 <monogr>
                     <author>
                         <!--Need a person @ref here.-->
-                        <!-- Also double-check that this is how it is shown on the physical title page. -->
                         <persName xml:lang="en">
-                            <forename>Sebastian P</forename>
+                            <forename>Sebastian Paul</forename>
                             <surname>Brock</surname>
                         </persName>
                     </author>
-                    <title xml:lang="en" level="m">A brief outline of Syriac literature</title>
-                    <!-- Is this the correct edition? -->
+                    <title xml:lang="en" level="m">A Brief Outline of Syriac Literature</title>
                     <edition xml:lang="en">2nd ed., rev. and enlarged</edition>
                     <imprint>
                         <publisher xml:lang="en">St. Ephrem Ecumenical Research Institute</publisher>
