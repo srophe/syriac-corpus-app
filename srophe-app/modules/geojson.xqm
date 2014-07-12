@@ -65,7 +65,21 @@ declare function geo:get-coordinates($geo-search as element()*, $type as xs:stri
         if(not(empty($geo-search))) then 
             map{"geo-data" := $geo-search}
         else if(exists($type) and $type != '') then
-            map{"geo-data" := collection($config:app-root || "/data/places/tei")//tei:geo[ancestor::tei:place[@type=$type]]}
+            if(contains($type,',')) then
+                map{"geo-data" :=  
+                let $types := 
+                    if(contains($type,',')) then 
+                            concat('(',
+                            string-join(for $type-string in tokenize($type,',')
+                                        return concat("'",$type-string,"'"),',')
+                            ,')')
+                        else $type
+                let $path := concat("collection('/db/apps/srophe/data/places/tei')//tei:place[@type = ",$types,"]") 
+                let $person := util:eval($path) 
+                let $place := $person/tei:placeName[1]
+                return $place    
+                }
+            else  map{"geo-data" := collection($config:app-root || "/data/places/tei")//tei:geo[ancestor::tei:place[@type=$type]]} 
         else map{"geo-data" := collection($config:app-root || "/data/places/tei")//tei:geo} 
     for $place-name in map:get($geo-map, 'geo-data')
     let $id := string($place-name/ancestor::tei:place/@xml:id)
