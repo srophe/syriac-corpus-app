@@ -1,21 +1,16 @@
 /* Application styles could go here */
 /*
  * Colors:
- * Dark red: 753C28
- * Dark orange: B3522B
- * Light orange: E69849
- * Pale tan: F5F2E9
- * Dark Blue: 456889
- * Blue/grey: A2B1B9
- * Light Blue: DDEAF1
+ * Violet: BCA7C4
+ * light grey: cccccc
  * Dark Grey #333
  * Light Grey (text): #999
  */
 body {
 	font-family: arial, sans-serif;
-    background-color:#753C28;
+    background-color:#666;
 }
-#main {background-color:#F5F2E9;margin:0;padding:0;}
+#main {background-color:#cccccc;margin:0;padding:0;}
 #content {margin:40px 2.5% 0 2.5%; padding:3em; background-color:white;}
 
 /* Main content blocks */
@@ -23,24 +18,19 @@ body {
     margin:0;
     height: 50px !important; 
     background-color:white; 
-    border-bottom:4px solid #753C28 !important;
+    border-bottom:4px solid #BCA7C4 !important;
 }
-.navbar-inner {height: 50px !important; margin:0; border-bottom:.5em solid #753C28 !important;}
+.navbar-inner {height: 50px !important; margin:0; border-bottom:.5em solid #BCA7C4 !important;}
 .navbar-inner .container{height: 45px !important; padding-top:.5em; margin-left:.5em;}
 .brand {margin-top:-.5em; margin-left:40px;padding-left:0;}
 .brand img {margin-left:1.5em;padding-left:0;}
 .navbar-inner .nav, .navbar-search {padding-top:.5em;}
 .navbar-inner .nav > li > a:hover, .advanced-search > a:hover {
-        border-bottom: 4px solid #E69849 !important;  
+        border-bottom: 4px solid #BCA7C4 !important;  
         text-decoration:none;
 }
 .navbar-inner > .container > .nav > li.selected {border-bottom: 4px solid #E69849 !important; }
 .advanced-search > a {color:#999; text-decoration:none;}
-#search-form {margin-top:2em;}
-#search-form .search-header {margin:-.75em -.75em 1em;}
-#search-form .search-inner {background-color:white; padding-left:1em;}
-#search-form .search-left {border-right:1px solid #ccc; padding-top: 1em;}
-#search-form input {margin-bottom:.5em;}
 .transparent {
     /* default fallback */
     background: rgb(255, 255, 255) transparent;
@@ -59,7 +49,7 @@ body {
 footer {margin:0 40px;padding:1px; text-align:center;}
 
 /* Typography */
-h1 {font-size:1.5em; margin:0; color:#E69849; font-weight:500;}
+h1 {font-size:1.5em; margin:0; color:#666; font-weight:500;}
 /*h2 {font-size:1.5em; margin:0 -1em; padding-left:8px; color:#E69849; font-weight:500;}*/
 h2 {font-size: 1.25em; margin-top:0; margin-bottom:.2em; margin-left:0; padding-bottom:0; color:#753C28; font-weight:500; margin-left:0;}
 h3 {font-size: 1.2em; margin-top:0; margin-bottom:.2em; padding-bottom:0; color:#333; font-weight:500; margin-left:0;}
@@ -128,15 +118,12 @@ h4 {font-size: 1em; margin-top:1em;}
     padding-right:.5em;    
 }
 
-.anchor { 
-    position: relative; 
-    top:-75px !important;
-    visibility: hidden; 
-    }
-.anchor:before {
-  content:"";
-  float: left;
-  height: 0px;
+.anchor{
+  display: block;
+  top:-65px !important;
+  height: 65px; 
+  margin-top: -65px; 
+  visibility: hidden;
 }
 
 
@@ -375,44 +362,3 @@ label.error {
   -webkit-font-smoothing: antialiased;
 }
 .feedback {margin-top:1em;}
-/* -- leafletjs styles -- 
-.leaflet-control-layers-list {
-  max-height: 350px;
-  overflow: auto !important;
-  -moz-column-count: 2;
-  -moz-column-gap: 10px;
-  -webkit-column-count: 2;
-  -webkit-column-gap: 10px;
-}*/
-.leaflet-control-layers-toggle:after{ 
-    display:block;
-    content:"Map options";
-    font-size:small;
-    color:#000 ;
-    float:left;
-    margin-left:3em;
-}
-.leaflet-control-layers-toggle{ 
-    width:125px !important;
-    background-position: 3px 3px !important;
-    text-decoration:none;
-    line-height:36px;
-
-}
-/*
-.fileUpload {
-	position: relative;
-	overflow: hidden;
-	margin: 10px;
-}
-.fileUpload input.upload {
-	position: absolute;
-	top: 0;
-	right: 0;
-	margin: 0;
-	padding: 0;
-	font-size: 20px;
-	cursor: pointer;
-	opacity: 0;
-	filter: alpha(opacity=0);
-}*/

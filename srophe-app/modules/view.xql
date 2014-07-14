@@ -13,10 +13,10 @@ import module namespace templates="http://exist-db.org/xquery/templates" ;
  :)
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 import module namespace app="http://syriaca.org//templates" at "app.xql";
-import module namespace place="http://syriaca.org//place" at "place.xql";
-import module namespace persons="http://syriaca.org//persons" at "persons.xql";
-import module namespace browse="http://syriaca.org//browse" at "browse.xql";
-import module namespace search="http://syriaca.org//search" at "search.xql";
+import module namespace place="http://syriaca.org//place" at "place.xqm";
+import module namespace person="http://syriaca.org//person" at "person.xqm";
+import module namespace browse="http://syriaca.org//browse" at "browse.xqm";
+import module namespace search="http://syriaca.org//search" at "search.xqm";
 import module namespace metadata="http://syriaca.org//metadata" at "metadata.xqm";
 import module namespace admin="http://syriaca.org//admin" at "admin.xqm";
 import module namespace geo="http://syriaca.org//geojson" at "geojson.xqm";
