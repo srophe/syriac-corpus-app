@@ -1,9 +1,9 @@
 xquery version "3.0";
 
 module namespace search="http://syriaca.org//search";
-import module namespace search-form="http://syriaca.org//search-form" at "search-form.xqm";
-import module namespace persons="http://syriaca.org//persons" at "persons.xqm";
-import module namespace places="http://syriaca.org//places" at "places.xqm";
+(:import module namespace search-form="http://syriaca.org//search-form" at "search-form.xqm";:)
+import module namespace persons="http://syriaca.org//persons" at "persons-search.xqm";
+import module namespace places="http://syriaca.org//places" at "places-search.xqm";
 import module namespace geo="http://syriaca.org//geojson" at "geojson.xqm";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
@@ -56,7 +56,7 @@ declare  %templates:wrap function search:hit-count($node as node()*, $model as m
  : Build paging for search results pages
  : If 0 results show search form
 :)
-declare  %templates:wrap function search:pageination($node as node()*, $model as map(*), $collection as xs:string){
+declare  %templates:wrap function search:pageination($node as node()*, $model as map(*), $collection as xs:string?){
 let $perpage := 20
 let $start := if($search:start) then $search:start else 1
 let $total-result-count := search:hit-count($node, $model)
@@ -210,13 +210,14 @@ return
 };
 
 (:~
- : Builds search form, called from search-form.xqm
+ : Calls advanced search forms from sub-collection search modules
+ : @param $collection
 :)
 declare %templates:wrap  function search:show-form($node as node()*, $model as map(*), $collection as xs:string?) {   
     if(exists(request:get-parameter-names())) then ''
     else 
-        if($collection = 'persons') then <div>{search-form:persons()}</div> 
-        else <div>{search-form:show-form()}</div>
+        if($collection = 'persons') then <div>{persons:search-form()}</div> 
+        else <div>{places:search-form()}</div>
 };
 
 (:~ 

@@ -1,6 +1,7 @@
 xquery version "3.0";
 
 (:~
+ : @depreciated  moved forms into places-search.xqm and persons-search.xqm
  : Provides html metadata. Passes data to page.html via config.xqm
  :)
 module namespace search-form="http://syriaca.org//search-form";
