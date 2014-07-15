@@ -19,17 +19,19 @@
         <create qname="@syriaca-tags" type="xs:string"/>
         <create qname="@syriaca-computed-start" type="xs:date"/>
         <create qname="@syriaca-computed-end" type="xs:date"/>
+        <create qname="@when" type="xs:date"/>
+        <create qname="@target" type="xs:date"/>
+        <create qname="@who" type="xs:string"/>
+        <create qname="@ref" type="xs:string"/>
+        <create qname="@where" type="xs:string"/>
+        <create qname="@active" type="xs:string"/>
+        <create qname="@passive" type="xs:string"/>
+        <create qname="@name" type="xs:string"/>
         <create qname="tei:geo" type="xs:string"/>
         <!--<create qname="tei:placeName" type="xs:string"/>-->
         <!--<create qname="tei:persName" type="xs:string"/>-->
         <create qname="tei:relation" type="xs:string"/>
         <create qname="tei:idno" type="xs:string"/>
-        <create qname="@who" type="xs:string"/>
-        <create qname="@ref" type="xs:string"/>
-        <create qname="@ana" type="xs:string"/>
-        <create qname="@active" type="xs:string"/>
-        <create qname="@passive" type="xs:string"/>
-        <create qname="@name" type="xs:string"/>
     </index>
     <triggers>
         <trigger class="org.exist.extensions.exquery.restxq.impl.RestXqTrigger"/>
