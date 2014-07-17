@@ -370,7 +370,7 @@ declare function places:search-string(){
 };
 
 declare function places:results-node($hit){
-    let $root := $hit/ancestor::tei:text//tei:place   
+    let $root := $hit//tei:place   
     let $title-en := $root/tei:placeName[@syriaca-tags='#syriaca-headword'][contains(@xml:lang,'en')][1]
     let $title-syr := 
                     if($root/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='syr'][1]) then 

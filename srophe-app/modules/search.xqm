@@ -31,8 +31,9 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
     map {"hits" := 
                 let $hits := util:eval($eval-string)    
                 for $hit in $hits
-                order by ft:score($hit) descending
-                return $hit
+                group by $hit-parent := $hit/ancestor::tei:text
+                order by ft:score($hit-parent) descending
+                return $hit-parent
     }
 };
 
@@ -227,7 +228,7 @@ declare
     %templates:default("start", 1)
 function search:show-hits($node as node()*, $model as map(*), $collection as xs:string?) {
 <div class="well" style="background-color:white;">
-<div>{search:build-geojson($node,$model), persons:query-string()}</div>
+<div>{search:build-geojson($node,$model)}</div>
 {
     for $hit at $p in subsequence($model("hits"), $search:start, 20)
     return

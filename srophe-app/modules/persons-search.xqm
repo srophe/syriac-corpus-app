@@ -118,6 +118,7 @@ declare function persons:mentioned() as xs:string?{
          concat('//tei:bibl/tei:ptr[matches(@target,"',$persons:mentioned,'")]')
     else ()
 };
+
 (:~
  : Build query string to pass to search.xqm 
 :)
@@ -165,7 +166,7 @@ declare function persons:search-string() as xs:string*{
  : Format search results
 :)
 declare function persons:results-node($hit){
-    let $root := $hit/ancestor::tei:text//tei:person    
+    let $root := $hit//tei:person    
     let $title-en := $root/tei:persName[@syriaca-tags='#syriaca-headword'][contains(@xml:lang,'en')]
     let $title-syr := 
                     if($root/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang='syr']) then 
@@ -175,7 +176,7 @@ declare function persons:results-node($hit){
                             </bdi>)
                     else ''
     let $type := if($root/@ana) then  
-                    <bdi dir="ltr" lang="en" xml:lang="en"> ({replace($root//tei:person/@ana,'#syriaca-','')})</bdi>
+                    <bdi dir="ltr" lang="en" xml:lang="en"> ({replace($root/@ana,'#syriaca-','')})</bdi>
                   else ''  
     let $id := substring-after($root/@xml:id,'person-')                  
     return
@@ -236,6 +237,7 @@ declare function persons:search-form() {
                     <div class="row-fluid">
                         <div class="span2">URI: </div>
                         <div class="span10 form-inline">
+                        <!--
                         <input type="text" name="uri"/>&#160;
                             <select name="uri-type" class="input-medium">
                                 <option value="">- Select -</option>
@@ -245,6 +247,7 @@ declare function persons:search-form() {
                                 <option value="fihrist">Fihrist</option>
                                 <option value="wikipedia">Wikipedia</option>
                             </select>
+                            -->
                         </div>
                     </div>
                     <!-- Date range-->
