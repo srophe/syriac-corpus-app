@@ -80,7 +80,7 @@
     <xsl:param name="editoruriprefix">http://syriaca.org/editors.xml#</xsl:param>
     <xsl:variable name="editorssourcedoc">/db/apps/srophe/documentation/editors.xml</xsl:variable>
     <xsl:param name="uribase">http://syriaca.org/place/</xsl:param>
-    <xsl:variable name="placenum" select="substring-after(/descendant::*/t:place[1]/@xml:id,'place-')"/>
+    <xsl:variable name="resource-id" select="substring-after(/descendant::*/t:place[1]/@xml:id,'place-')"/>
  <!-- =================================================================== -->
  <!-- TEMPLATES -->
  <!-- =================================================================== -->
@@ -115,7 +115,7 @@
   <!-- End main content section -->
   <!-- Citations section -->
         <div class="row-fluid">
-            <xsl:variable name="htmluri" select="concat('?id=',$placenum)"/>
+            <xsl:variable name="htmluri" select="concat('?id=',$resource-id)"/>
             <div class="span12 citationinfo">
                 <h3>How to Cite This Entry</h3>
                 <div id="citation-note" class="well">
@@ -231,7 +231,7 @@
                                                 <input type="text" name="subject"/>
                                                 <label>Comments:</label>
                                                 <textarea name="comments" id="comments" rows="8" class="span9"/>
-                                                <input type="hidden" name="id" value="{$placenum}"/>
+                                                <input type="hidden" name="id" value="{$resource-id}"/>
                                                 <input type="hidden" name="place" value="{string(t:placeName[1])}"/>
                                             </div>
                                             <div class="modal-footer">
@@ -855,7 +855,7 @@
         </xsl:variable>
         <xsl:variable name="currentPlace" select="//t:place/t:placeName[1]"/>
         <xsl:choose>
-            <xsl:when test="@id=concat('#place-',$placenum)"/>
+            <xsl:when test="@id=concat('#place-',$resource-id)"/>
             <xsl:when test="@varient='active'">
                 <li>
                     <a href="{concat('/place/',@id,'.html')}">
@@ -1099,7 +1099,7 @@
     <!-- Descriptions for place abstract  added template for abstracts, handles quotes and references.-->
     <xsl:template match="t:desc[starts-with(@xml:id, 'abstract-en')]" mode="abstract">
         <p>
-            <xsl:apply-templates/>
+            <xsl:apply-templates mode="cleanout"/>
         </p>
     </xsl:template>
     
@@ -1186,6 +1186,21 @@
                 <bdi>
                     <xsl:attribute name="dir">
                         <xsl:call-template name="getdirection"/>
+                    </xsl:attribute>
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </bdi>
+                <xsl:text>”</xsl:text>
+            </xsl:when>
+            <xsl:when test="parent::t:desc/@xml:lang">
+                <xsl:text>“</xsl:text>
+                <bdi>
+                    <xsl:attribute name="dir">
+                        <xsl:choose>
+                            <xsl:when test="parent::t:desc[@xml:lang='en']">ltr</xsl:when>
+                            <xsl:when test="parent::t:desc[@xml:lang='syr' or @xml:lang='ar' or @xml:lang='syc' or @xml:lang='syr-Syrj']">rtl</xsl:when>
+                            <xsl:otherwise>ltr</xsl:otherwise>
+                        </xsl:choose>
                     </xsl:attribute>
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
