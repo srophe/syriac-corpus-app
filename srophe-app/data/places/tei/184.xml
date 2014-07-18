@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,6 +95,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
@@ -113,6 +115,7 @@
                     <placeName xml:id="name184-6" xml:lang="ar" source="#bib184-3">سنجار</placeName>
                     <placeName xml:id="name184-7" xml:lang="en" source="#bib184-5">Singar</placeName>
                     <placeName xml:id="name184-8" xml:lang="en" source="#bib184-6">Sinjār</placeName>
+                    <placeName xml:id="name184-9" xml:lang="ar" source="#bib184-8">سِنْجار</placeName>
                     <desc xml:id="abstract-en-184" xml:lang="en">A town west of <placeName ref="http://syriaca.org/place/139">Mosul</placeName> and east of <placeName ref="http://syriaca.org/place/524">Mount Sinjar</placeName>.</desc>
                     <desc xml:lang="syr-Syrj">
                         <quote source="#bib184-2">ܐܰܬܪܐ ܗܘ ܕܒܰܫܦܘܠܳܐ ܕܛܘܪܳܐ ܕܫܝܓܳܪ ܠܡܰܥܪܰܒ ܡܰܘܨܠ ܒܰܝܢܳܬܗܝܢ ܬܠܳܬܐ ܝܰܘܡܝ̈ܢ.</quote>
@@ -126,6 +129,10 @@
                     <location type="gps" source="#bib184-7">
                         <geo>36.321337 41.859566</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation184-1" notBefore="1224" notAfter="1228" source="#bib184-8" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">سِنْجار</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name184-9 #attestation184-1"/>
+                    </event>
                     <state type="existence" from="0758" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0758-01-01">
                         <precision match="@from" notAfter="0758" syriaca-computed-end="0758-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -172,6 +179,12 @@
                     <bibl xml:id="bib184-7">
                         <title>http://pleiades.stoa.org/places/874699</title>
                         <ptr target="http://pleiades.stoa.org/places/874699"/>
+                    </bibl>
+                    <bibl xml:id="bib184-8">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">ΙΙΙ:297</citedRange>
                     </bibl>
                 </place>
                 <relation name="share-a-name" mutual="#place-184  http://syriaca.org/place/2377"/>

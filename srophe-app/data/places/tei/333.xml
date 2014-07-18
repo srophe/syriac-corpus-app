@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,6 +87,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -99,6 +101,7 @@
                     <placeName xml:id="name333-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܟܪܫܢܐ</placeName>
                     <placeName xml:id="name333-3" xml:lang="syr-Syrj" source="#bib333-1">ܒܪܫܢܐ</placeName>
                     <placeName xml:id="name333-4" xml:lang="ar" source="#bib333-2">خرشنة</placeName>
+                    <placeName xml:id="name333-5" xml:lang="ar" source="#bib333-4">خَرْشنة</placeName>
                     <desc xml:id="abstract-en-333" xml:lang="en"/>
                     <desc xml:lang="syr-Syrj">
                         <quote source="#bib333-1">ܡܕܺܝܢܬܘܽܢܳܝܬܐ ܒܩܘܽܪܒܐ ܕܡܺܝܠܝܛܝܢܝ.</quote>
@@ -109,6 +112,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib333-3">a town near Melitene.</quote>
                     </desc>
+                    <event type="attestation" xml:id="attestation333-1" notBefore="1224" notAfter="1228" source="#bib333-4" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">خَرْشنة</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name333-5 #attestation333-1"/>
+                    </event>
                     <state type="existence" from="1095" to="1155" syriaca-computed-end="1155-01-01" syriaca-computed-start="1095-01-01">
                         <precision match="@from" notAfter="1095" syriaca-computed-end="1095-01-01"/>
                         <precision match="@to" notBefore="1155" syriaca-computed-start="1155-01-01"/>
@@ -130,6 +137,12 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">555</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib333-4">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:410</citedRange>
                     </bibl>
                 </place>
             </listPlace>

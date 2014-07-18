@@ -50,7 +50,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -82,6 +82,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
@@ -94,11 +96,15 @@
                 <place xml:id="place-641" type="settlement">
                     <placeName xml:id="name641-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib641-1 #bib641-4 #bib641-5 #bib641-6">Rome</placeName>
                     <placeName xml:id="name641-2" xml:lang="syr" syriaca-tags="#syriaca-headword" source="#bib641-2">ܪܘܡܝ</placeName>
-                    <placeName xml:id="name641-3" xml:lang="ar" source="#bib641-3">رومية</placeName>
+                    <placeName xml:id="name641-3" xml:lang="ar" source="#bib641-3 #bib641-8">رومية</placeName>
                     <desc xml:id="abstract-en-641" xml:lang="en">The capital city of <placeName ref="http://syriaca.org/place/592">Italy</placeName> and formerly the capital of the <placeName ref="http://syriaca.org/place/166">Roman Empire</placeName>.</desc>
                     <location type="gps" source="#bib641-7">
                         <geo>41.8917375 12.4861685</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation641-1" notBefore="1224" notAfter="1228" source="#bib641-8" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">رومية</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name641-3 #attestation641-1"/>
+                    </event>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/641</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/423025</idno>
@@ -141,6 +147,12 @@
                     <bibl xml:id="bib641-7">
                         <title>http://pleiades.stoa.org/places/423025</title>
                         <ptr target="http://pleiades.stoa.org/places/423025"/>
+                    </bibl>
+                    <bibl xml:id="bib641-8">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">III:113</citedRange>
                     </bibl>
                 </place>
                 <relation name="share-a-name" mutual="#place-641  http://syriaca.org/place/2360"/>

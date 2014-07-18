@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-02-06</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,6 +91,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">ADDED <gi>quote</gi> elements around Syriac text in <gi>note</gi> of type="corrigenda".</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -105,6 +107,7 @@
                     <placeName xml:id="name332-3" xml:lang="ar" source="#bib332-2">خابورآء</placeName>
                     <placeName xml:id="name332-4" xml:lang="en" source="#bib332-3">Khābārā</placeName>
                     <placeName xml:id="name332-5" xml:lang="en" source="#bib332-4">Khābūr</placeName>
+                    <placeName xml:id="name332-6" xml:lang="ar" source="#bib332-5">خابوراء</placeName>
                     <desc xml:id="abstract-en-332" xml:lang="en"/>
                     <desc xml:lang="syr-Syrj">
                         <quote source="#bib332-1">ܗܝܺܓܡܘܽܢܺܘܬܐ ܪܘܝܺܚܬܳܐ ܘܐܰܬܪ̈ܘܳܬܐ ܣܰܓܝ̈ܐܐ ܕܥܰܠ ܢܗܰܪ ܚܰܒܘܪ ܒܶܝܬ ܪܝܫ ܥܰܝܢܳܐ ܘܰܦܪܳܬ ܕܒܰܐܪܥܳܐ ܕܰܓܙܝܺܪܬܐ ܙܟܳܐ ܥܠܶܝܗ̇ ܫܡܐ ܕܢܰܗܪܳܗ̇ ܘܐܶܬܒܰܝܬܝܰܬ ܠܗ. ܘܡܶܢ ܐܰܬܪ̈ܘܳܬܳܗ ܥܰܬܝܩ̈ܐ ܩܰܪܩܰܝܣܝܰܐ ܘܡܰܐܟܣܝܢ ܘܡܰܓܕܰܠ ܘܥܰܪܒܰܐܢ.</quote>
@@ -118,6 +121,10 @@
                     <location type="nested" source="#bib332-4">
                         <region ref="http://syriaca.org/place/712">Gāzartā region</region>
                     </location>
+                    <event type="attestation" xml:id="attestation332-1" notBefore="1224" notAfter="1228" source="#bib332-5" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">خابوراء</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name332-6 #attestation332-1"/>
+                    </event>
                     <state type="existence"/>
                     <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܗܝܺܓܡܘܽܢܺܘܬܐ</quote> should read <quote xml:lang="syr-Syrj">ܗܺܝܓܡܽܘܢܽܘܬܐ </quote> 
                         and <quote xml:lang="syr-Syrj">ܐܰܬܪ̈ܘܳܬܳܗ</quote> should read <quote xml:lang="syr-Syrj">ܐܰܬܪ̈ܘܳܬܳܗ̇</quote>.  Also <quote xml:lang="syr-Syrj">ܕܰܓܙܝܺܪܬܐ</quote> should read 
@@ -143,6 +150,12 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">100, 101, 105, 107, 108, 110, 111, 112, 120-121, 126, 123, 247, 270</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib332-5">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:382</citedRange>
                     </bibl>
                 </place>
             </listPlace>

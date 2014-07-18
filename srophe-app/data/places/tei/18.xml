@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,6 +87,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -101,6 +103,7 @@
                     <placeName xml:id="name18-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܠܒ</placeName>
                     <placeName xml:id="name18-4" xml:lang="syr-Syrj" source="#bib18-3">ܚܳܠܒ</placeName>
                     <placeName xml:id="name18-5" xml:lang="ar" source="#bib18-4">حلب</placeName>
+                    <placeName xml:id="name18-6" xml:lang="ar" source="#bib18-8">حَلَب</placeName>
                     <desc xml:id="abstract-en-18" xml:lang="en">
                         <quote source="#bib18-1">City in northern Syria and an important center of Christianity in the Middle East today as the seat of a total of nine bishoprics.</quote>
                     </desc>
@@ -110,6 +113,10 @@
                     <location type="gps" source="#bib18-2">
                         <geo>36.21667 37.16667</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation18-1" notBefore="1224" notAfter="1228" source="#bib18-8" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">حَلَب</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name18-6 #attestation18-1"/>
+                    </event>
                     <state type="existence" from="0640" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0640-01-01">
                         <precision match="@from" notAfter="0640" syriaca-computed-end="0640-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -159,6 +166,12 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">13, 23, 27, 51, 62-63, 64, 65, 95, 211, 347, 361, 363, 364</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib18-8">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:324</citedRange>
                     </bibl>
                 </place>
                 <relation name="share-a-name" mutual="#place-18  http://syriaca.org/place/2245  http://syriaca.org/place/2246"/>

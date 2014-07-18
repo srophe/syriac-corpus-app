@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,6 +61,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -71,10 +73,15 @@
             <listPlace>
                 <place xml:id="place-672" type="settlement">
                     <placeName xml:id="name672-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib672-1">Arragan</placeName>
+                    <placeName xml:id="name672-2" xml:lang="ar" source="#bib672-3">أَرّجان</placeName>
                     <desc xml:id="abstract-en-672" xml:lang="en">A village in <placeName ref="http://syriaca.org/place/84">Fars</placeName>.</desc>
                     <location type="gps" source="#bib672-2">
                         <geo>30.662826 50.309141</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation672-1" notBefore="1224" notAfter="1228" source="#bib672-3" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">أَرّجان</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name672-2 #attestation672-1"/>
+                    </event>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/672</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/912989</idno>
@@ -86,6 +93,12 @@
                     <bibl xml:id="bib672-2">
                         <title>http://pleiades.stoa.org/places/912989</title>
                         <ptr target="http://pleiades.stoa.org/places/912989"/>
+                    </bibl>
+                    <bibl xml:id="bib672-3">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">I:172</citedRange>
                     </bibl>
                 </place>
             </listPlace>

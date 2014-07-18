@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-02-06</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,6 +87,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">ADDED <gi>quote</gi> elements around Syriac text in <gi>note</gi> of type="corrigenda".</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-01-10">ADDED: disambiguation note</change>
@@ -102,7 +104,7 @@
                     <placeName xml:id="name321-3" xml:lang="syr-Syrj" source="#bib321-1">ܓܳܙܰܪܬܐ ܥܶܠܳܝܬܳܐ</placeName>
                     <placeName xml:id="name321-4" xml:lang="syr-Syrj" source="#bib321-1">ܐܰܬܪ̈ܘܬܳܐ ܕܪܒܝܥܗ̇</placeName>
                     <placeName xml:id="name321-5" xml:lang="ar" source="#bib321-2">الجزيرة العليا</placeName>
-                    <placeName xml:id="name321-6" xml:lang="ar" source="#bib321-2">ديار ربيعة</placeName>
+                    <placeName xml:id="name321-6" xml:lang="ar" source="#bib321-2 #bib321-4">ديار ربيعة</placeName>
                     <placeName xml:id="name321-7" xml:lang="en" source="#bib321-3">Upper Jazira</placeName>
                     <placeName xml:id="name321-8" xml:lang="en" source="#bib321-3">Diyār Rabiʿa</placeName>
                     <desc xml:id="abstract-en-321" xml:lang="en"/>
@@ -115,6 +117,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib321-3">a district between the rivers Khabur and Tigris. In ancient times it was the abode of the bani Taghlib, a large Arab tribe which was Syrian Orthodox and remained Christian until the tenth century. One of its members is the famous poet Ghiyath Ibn Ghawth, nicknamed al-Akhṭal (c. 710). It became desolate in the fourteenth century, but was resettled about 1921. New towns such as Ḥasaka, Qamishli and others were built in it.</quote>
                     </desc>
+                    <event type="attestation" xml:id="attestation321-1" notBefore="1224" notAfter="1228" source="#bib321-4" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">ديار ربيعة</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name321-6 #attestation321-1"/>
+                    </event>
                     <state type="existence" from="0680" to="1500" syriaca-computed-end="1500-01-01" syriaca-computed-start="0680-01-01">
                         <precision match="@from" notAfter="0680" syriaca-computed-end="0680-01-01"/>
                         <precision match="@to" notBefore="1500" syriaca-computed-start="1500-01-01"/>
@@ -138,6 +144,12 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">554</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib321-4">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:562</citedRange>
                     </bibl>
                 </place>
             </listPlace>

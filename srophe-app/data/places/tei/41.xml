@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,6 +87,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -98,7 +100,7 @@
                 <place xml:id="place-41" type="settlement">
                     <placeName xml:id="name41-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib41-2 #bib41-5 #bib41-6 #bib41-7">Baghdad</placeName>
                     <placeName xml:id="name41-2" xml:lang="syr" syriaca-tags="#syriaca-headword" source="#bib41-3">ܒܓܕܕ</placeName>
-                    <placeName xml:id="name41-3" xml:lang="ar" source="#bib41-4">بغداد</placeName>
+                    <placeName xml:id="name41-3" xml:lang="ar" source="#bib41-4 #bib41-8">بغداد</placeName>
                     <placeName xml:id="name41-4" xml:lang="en" source="#bib41-7">Babylon</placeName>
                     <desc xml:id="abstract-en-41" xml:lang="en">
                         <quote source="#bib41-1">City on the Tigris, approximately 35 km. north of Seleucia-Ctesiphon.</quote>
@@ -109,6 +111,10 @@
                     <location type="gps" source="#bib41-2">
                         <geo>33.325 44.422</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation41-1" notBefore="1224" notAfter="1228" source="#bib41-8" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">بغداد</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name41-3 #attestation41-1"/>
+                    </event>
                     <state type="existence" from="0762" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0762-01-01">
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
                     </state>
@@ -157,6 +163,12 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">12, 16, 17, 18, 52, 127, 176, 178, 180, 182-187, 192, 198, 210, 237, 261, 264, 265, 282, 316, 342, 344, 345, 348</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib41-8">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">I:541</citedRange>
                     </bibl>
                 </place>
                 <relation name="share-a-name" mutual="#place-41  http://syriaca.org/place/709  http://syriaca.org/place/2267"/>

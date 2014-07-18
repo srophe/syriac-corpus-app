@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,6 +87,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -99,7 +101,7 @@
                     <placeName xml:id="name294-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܒܝܬ ܓܢܒܪ̈ܐ</placeName>
                     <placeName xml:id="name294-3" xml:lang="syr-Syrj" source="#bib294-1">ܒܐܓܒܐܪܗ</placeName>
                     <placeName xml:id="name294-4" xml:lang="syr-Syrj" source="#bib294-1">ܒܶܝܬ ܓܰܢܒܳܪ̈ܐ</placeName>
-                    <placeName xml:id="name294-5" xml:lang="ar" source="#bib294-2">باجبّارة</placeName>
+                    <placeName xml:id="name294-5" xml:lang="ar" source="#bib294-2 #bib294-4">باجبّارة</placeName>
                     <placeName xml:id="name294-6" xml:lang="en" source="#bib294-3">Bajabbara</placeName>
                     <desc xml:id="abstract-en-294" xml:lang="en"/>
                     <desc xml:lang="syr-Syrj">
@@ -111,6 +113,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib294-3">a village north of Mosul on the Khuser Creek, ruined in the middle of the thirteenth century.</quote>
                     </desc>
+                    <event type="attestation" xml:id="attestation294-1" notBefore="1224" notAfter="1228" source="#bib294-4" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">باجبّارة</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name294-5 #attestation294-1"/>
+                    </event>
                     <state type="existence" from="1225" to="1225" syriaca-computed-end="1225-01-01" syriaca-computed-start="1225-01-01">
                         <precision match="@from" notAfter="1225" syriaca-computed-end="1225-01-01"/>
                         <precision match="@to" notAfter="1275" notBefore="1225" syriaca-computed-end="1275-01-01" syriaca-computed-start="1225-01-01"/>
@@ -131,6 +137,12 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">552</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib294-4">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">I:371</citedRange>
                     </bibl>
                 </place>
             </listPlace>

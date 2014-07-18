@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,6 +91,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -108,6 +110,7 @@
                     <placeName xml:id="name89-7" xml:lang="ar" source="#bib89-3">جرمانيقي</placeName>
                     <placeName xml:id="name89-8" xml:lang="en" source="#bib89-4">Germanicia</placeName>
                     <placeName xml:id="name89-9" xml:lang="en" source="#bib89-4">Kahramanmaraş</placeName>
+                    <placeName xml:id="name89-10" xml:lang="ar" source="#bib89-5">مَرْعَش</placeName>
                     <desc xml:id="abstract-en-89" xml:lang="en">A city near the <placeName ref="http://syriaca.org/place/159">Pyramos river</placeName> northeast of <placeName ref="http://syriaca.org/place/9">ʿAyn Zarba</placeName> and northwest of <placeName ref="http://syriaca.org/place/222">ʿAintab</placeName>.</desc>
                     <desc xml:lang="syr-Syrj">
                         <quote source="#bib89-2">ܘܐܝܬܶܝܗ̇ ܓܰܪܡܰܐܢܝܩܝ ܥܰܬܝܩܬܐ ܡܕܝܺܢܬܐ ܕܰܒܓܰܪܒܝ ܚܳܠܳܒ ܘܰܒܬܝܡܢܳܐ ܕܣܺܝܘܐܰܣ</quote>
@@ -121,6 +124,10 @@
                     <location type="gps" source="#bib89-1">
                         <geo>37.583333 36.933333</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation89-1" notBefore="1224" notAfter="1228" source="#bib89-5" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">مَرْعَش</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name89-10 #attestation89-1"/>
+                    </event>
                     <state type="existence" from="0710" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0710-01-01">
                         <precision match="@from" notAfter="0710" syriaca-computed-end="0710-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -149,6 +156,12 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">556</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib89-5">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">V:126</citedRange>
                     </bibl>
                 </place>
             </listPlace>

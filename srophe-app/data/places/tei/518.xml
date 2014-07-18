@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-03-26</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,6 +78,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-26">FIXED: GEDSH name is abbreviated "Mt." rather than full text "Mount"</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -92,7 +94,12 @@
                     <placeName xml:id="name518-3" xml:lang="syr-Syrj" source="#bib518-2">ܛܘܪܳܐ ܕܩܰܐܣܒܘܢ</placeName>
                     <placeName xml:id="name518-4" xml:lang="ar" source="#bib518-3">جبل قاسيون</placeName>
                     <placeName xml:id="name518-5" xml:lang="en" source="#bib518-4">Qasyun Mountain</placeName>
+                    <placeName xml:id="name518-6" xml:lang="ar" source="#bib518-5">قَاسيُون</placeName>
                     <desc xml:id="abstract-en-518" xml:lang="en">A mountain north of Damascus.</desc>
+                    <event type="attestation" xml:id="attestation518-1" notBefore="1224" notAfter="1228" source="#bib518-5" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">قَاسيُون</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name518-6 #attestation518-1"/>
+                    </event>
                     <state type="existence"/>
                     <note type="deprecation" xml:id="name518-3-deprecation">Dolabani's Syriac form was derived from Barsoum's Arabic, but reading a letter baʾ (with one dot) instead of the letter yaʾ (with two dots).</note>
                     <link target="#name518-3 #name518-3-deprecation"/>
@@ -118,6 +125,12 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">558</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib518-5">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">IV:335</citedRange>
                     </bibl>
                 </place>
             </listPlace>

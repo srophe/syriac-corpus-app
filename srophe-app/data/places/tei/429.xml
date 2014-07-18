@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,6 +91,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-01-10">ADDED: disambiguation note</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -103,7 +105,7 @@
                     <placeName xml:id="name429-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib429-3">ʿĀnah</placeName>
                     <placeName xml:id="name429-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܥܐܢܐ</placeName>
                     <placeName xml:id="name429-3" xml:lang="syr-Syrj" source="#bib429-1">ܥܰܐܢܰܐ</placeName>
-                    <placeName xml:id="name429-4" xml:lang="ar" source="#bib429-2">عانة</placeName>
+                    <placeName xml:id="name429-4" xml:lang="ar" source="#bib429-2 #bib429-4">عانة</placeName>
                     <desc xml:id="abstract-en-429" xml:lang="en"/>
                     <desc xml:lang="syr-Syrj">
                         <quote source="#bib429-1">ܐܰܬܪܐ ܗܘ ܕܰܠܡܰܥܪܒܳܐ ܕܰܦܪܳܬ. ܘܰܠܬܰܝܡܢܳܐ ܡܰܕܢܚܳܝܐ ܕܕܰܝܪ ܐܠܙܘܪ. ܡܶܢ ܐܰܬܪ̈ܘܬܐ ܕܥܪܰܐܩ.</quote>
@@ -114,6 +116,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib429-3">a town in Iraq, west of the Euphrates and southeast of Dayr al-Zur.</quote>
                     </desc>
+                    <event type="attestation" xml:id="attestation429-1" notBefore="1224" notAfter="1228" source="#bib429-4" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">عانة</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name429-4 #attestation429-1"/>
+                    </event>
                     <state type="existence" from="-0885" to="2013" syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-0885"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -137,6 +143,12 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">551</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib429-4">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">IV:81</citedRange>
                     </bibl>
                 </place>
             </listPlace>

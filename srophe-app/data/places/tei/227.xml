@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,6 +95,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -111,6 +113,7 @@
                     <placeName xml:id="name227-5" xml:lang="en" source="#bib227-5">Matthew Monastery</placeName>
                     <placeName xml:id="name227-6" xml:lang="en" source="#bib227-6">monastery of Mar Mattay</placeName>
                     <placeName xml:id="name227-7" xml:lang="en" source="#bib227-7">Mār Mattai</placeName>
+                    <placeName xml:id="name227-8" xml:lang="ar" source="#bib227-9">دير متى</placeName>
                     <desc xml:id="abstract-en-227" xml:lang="en">
                         <quote source="#bib227-1">Located on the Alfof Mountain, known in Arabic as Jabal Maqlūb, 35 km. northeast of Mosul, the monastery is mostly known by its Arabic name Dayr Mār Mattā.</quote>
                     </desc>
@@ -132,6 +135,10 @@
                     <location type="nested" source="#bib227-7">
                         <region ref="http://syriaca.org/place/722">Mosul region</region>
                     </location>
+                    <event type="attestation" xml:id="attestation227-1" notBefore="1224" notAfter="1228" source="#bib227-9" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">دير متى</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name227-8 #attestation227-1"/>
+                    </event>
                     <state type="existence" from="0628" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0628-01-01">
                         <precision match="@from" notAfter="0628" notBefore="0300" syriaca-computed-end="0628-01-01" syriaca-computed-start="0300-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -185,6 +192,12 @@
                     <bibl xml:id="bib227-8">
                         <title>http://pleiades.stoa.org/places/874581</title>
                         <ptr target="http://pleiades.stoa.org/places/874581"/>
+                    </bibl>
+                    <bibl xml:id="bib227-9">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:602</citedRange>
                     </bibl>
                 </place>
             </listPlace>

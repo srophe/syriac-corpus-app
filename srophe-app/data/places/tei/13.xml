@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,6 +91,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -105,6 +107,7 @@
                     <placeName xml:id="name13-4" xml:lang="syr-Syrj" source="#bib13-3">ܐܰܪܒܝܠ</placeName>
                     <placeName xml:id="name13-5" xml:lang="ar" source="#bib13-4">اربل</placeName>
                     <placeName xml:id="name13-6" xml:lang="en" source="#bib13-5">Arbil</placeName>
+                    <placeName xml:id="name13-7" xml:lang="ar" source="#bib13-8">إِرْبِل</placeName>
                     <desc xml:id="abstract-en-13" xml:lang="en">
                         <quote source="#bib13-1">Capital of modern Kurdistan, in eastern Iraq.</quote>
                     </desc>
@@ -123,6 +126,10 @@
                     <location type="gps" source="#bib13-2">
                         <geo>36.191111 44.009167</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation13-1" notBefore="1224" notAfter="1228" source="#bib13-8" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">إِرْبِل</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name13-7 #attestation13-1"/>
+                    </event>
                     <state type="existence" from="-6000" to="2013" syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-6000"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -172,6 +179,12 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">17, 18, 44, 46, 77, 114, 127, 156, 166, 168-169, 172, 176, 184, 190, 191, 192, 201, 202, 260, 261, 298, 323, 345, 349, 352, 359</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib13-8">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">I:167</citedRange>
                     </bibl>
                 </place>
             </listPlace>

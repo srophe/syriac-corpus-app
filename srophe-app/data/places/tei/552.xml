@@ -46,7 +46,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -78,6 +78,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -90,7 +92,12 @@
                     <placeName xml:id="name552-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܐܪܡ</placeName>
                     <placeName xml:id="name552-3" xml:lang="syr-Syrj" source="#bib552-1">ܚܰܐܪܡ</placeName>
                     <placeName xml:id="name552-4" xml:lang="ar" source="#bib552-2">حارم</placeName>
+                    <placeName xml:id="name552-5" xml:lang="ar" source="#bib552-4">حارِم</placeName>
                     <desc xml:id="abstract-en-552" xml:lang="en">A mountain range in northwestern Syria.</desc>
+                    <event type="attestation" xml:id="attestation552-1" notBefore="1224" notAfter="1228" source="#bib552-4" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">حارِم</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name552-5 #attestation552-1"/>
+                    </event>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/552</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Harim_Mountains</idno>
@@ -109,6 +116,12 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">562</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib552-4">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">ii:237</citedRange>
                     </bibl>
                 </place>
             </listPlace>

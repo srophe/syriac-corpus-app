@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-02-06</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,6 +91,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">ADDED <gi>quote</gi> elements around Syriac text in <gi>note</gi> of type="corrigenda".</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -105,10 +107,11 @@
                     <placeName xml:id="name69-3" xml:lang="en" source="#bib69-2">Dayr Mār Ḥanānyā</placeName>
                     <placeName xml:id="name69-4" xml:lang="syr" syriaca-tags="#syriaca-headword">ܕܝܪܐ ܕܙܥܦܪܐܢ</placeName>
                     <placeName xml:id="name69-5" xml:lang="syr-Syrj" source="#bib69-3">ܕܰܝܪܳܐ ܕܙܰܥܦܰܪܐܢ</placeName>
-                    <placeName xml:id="name69-6" xml:lang="ar" source="#bib69-4">دير الزعفران</placeName>
+                    <placeName xml:id="name69-6" xml:lang="ar" source="#bib69-4 #bib69-8">دير الزعفران</placeName>
                     <placeName xml:id="name69-7" xml:lang="en" source="#bib69-5">Zaʿfaran Monastery</placeName>
                     <placeName xml:id="name69-8" xml:lang="en" source="#bib69-6">monastery Deir Zafaran</placeName>
                     <placeName xml:id="name69-9" xml:lang="en" source="#bib69-7">Zaʿfarān (West Syrian)</placeName>
+                    <placeName xml:id="name69-10" xml:lang="ar" source="#bib69-8">عمر الزعفران</placeName>
                     <desc xml:id="abstract-en-69" xml:lang="en">
                         <quote source="#bib69-1">A Syr. Orth. monastery dedicated to Mar Ḥnonyo (Arab. Ḥanānyā) located outside Mardin, and the seat of the patriarchate from 1293 until after World War I.</quote>
                     </desc>
@@ -127,6 +130,11 @@
                     <location type="nested" source="#bib69-7">
                         <region ref="http://syriaca.org/place/719">Mardīn region</region>
                     </location>
+                    <event type="attestation" xml:id="attestation69-1" notBefore="1224" notAfter="1228" source="#bib69-8" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of names <foreign xml:lang="ar">دير الزعفران</foreign> and <foreign xml:lang="ar">عمر الزعفران</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name69-6 #attestation69-1"/>
+                        <link target="#name69-10 #attestation69-1"/>
+                    </event>
                     <state type="existence" from="0800" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0800-01-01">
                         <precision match="@from" notAfter="0800" notBefore="0793" syriaca-computed-end="0800-01-01" syriaca-computed-start="0793-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -178,6 +186,12 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">38, 95</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib69-8">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:580; IV:174</citedRange>
                     </bibl>
                 </place>
             </listPlace>

@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-02-06</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,6 +91,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">ADDED <gi>quote</gi> elements around Syriac text in <gi>note</gi> of type="corrigenda".</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
@@ -104,7 +106,7 @@
                     <placeName xml:id="name418-1" xml:lang="en" syriaca-tags="#syriaca-headword">al-Ṣāliḥiyya</placeName>
                     <placeName xml:id="name418-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܨܐܠܚܝܗ̇</placeName>
                     <placeName xml:id="name418-3" xml:lang="syr-Syrj" source="#bib418-1">ܨܰܐܠܚܝܗ̇</placeName>
-                    <placeName xml:id="name418-4" xml:lang="ar" source="#bib418-2">الصالحية</placeName>
+                    <placeName xml:id="name418-4" xml:lang="ar" source="#bib418-2 #bib418-4">الصالحية</placeName>
                     <placeName xml:id="name418-5" xml:lang="en" source="#bib418-3">Saliḥiyya</placeName>
                     <desc xml:id="abstract-en-418" xml:lang="en"/>
                     <desc xml:lang="syr-Syrj">
@@ -116,6 +118,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib418-3">a village near Edessa, established by ʿAbd al-Mālik Ibn Ṣāliḥ al-Hāshimi. Al-Khālidi states that it was near al-Raqqa, near Batyas and the Monastery of Mar Zakka. The first person to build palaces there was the Abbasid Caliph al-Mahdi.</quote>
                     </desc>
+                    <event type="attestation" xml:id="attestation418-1" notBefore="1224" notAfter="1228" source="#bib418-4" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">الصالحية</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name418-4 #attestation418-1"/>
+                    </event>
                     <state type="existence"/>
                     <note type="corrigenda">In Dolabani's translation of Barsoum's description <quote xml:lang="syr-Syrj">ܕܪܰܩܗ̇</quote> should read <quote xml:lang="syr-Syrj">ܕܪܰܩܗ̈</quote>.</note>
                     <idno type="URI">http://syriaca.org/place/418</idno>
@@ -133,6 +139,12 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">558</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib418-4">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">III:442</citedRange>
                     </bibl>
                 </place>
                 <relation name="share-a-name" mutual="#place-418  http://syriaca.org/place/419"/>

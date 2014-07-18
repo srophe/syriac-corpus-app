@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,6 +91,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -103,7 +105,7 @@
                     <placeName xml:id="name368-2" xml:lang="en" source="#bib368-2">Monastery of St. Catherine</placeName>
                     <placeName xml:id="name368-3" xml:lang="syr" syriaca-tags="#syriaca-headword">ܕܝܪܐ ܕܛܘܪܐ ܕܣܝܢܝ</placeName>
                     <placeName xml:id="name368-4" xml:lang="syr-Syrj" source="#bib368-3">ܕܰܝܪܳܐ ܕܛܘܪܐ ܕܣܺܝܢܰܝ</placeName>
-                    <placeName xml:id="name368-5" xml:lang="ar" source="#bib368-4">دير طور سينا</placeName>
+                    <placeName xml:id="name368-5" xml:lang="ar" source="#bib368-4 #bib368-7">دير طور سينا</placeName>
                     <placeName xml:id="name368-6" xml:lang="en" source="#bib368-5">Mount Sinai Monastery</placeName>
                     <placeName xml:id="name368-7" xml:lang="en" source="#bib368-6">Sinai</placeName>
                     <desc xml:id="abstract-en-368" xml:lang="en">
@@ -121,6 +123,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib368-5">built on top of Mount Sinai by Justinian, now belongs to the Greeks. Fifteen monks presently live in it. It has a magnificent library, containing about 280 old Syriac manuscripts, most of which are written in the Estrangelo and Malkite scripts. It is also a bishopric seat whose metropolitan resides in Cairo.</quote>
                     </desc>
+                    <event type="attestation" xml:id="attestation368-1" notBefore="1224" notAfter="1228" source="#bib368-7" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">دير طور سينا</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name368-5 #attestation368-1"/>
+                    </event>
                     <state type="existence" from="0600" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0600-01-01">
                         <precision match="@from" notAfter="0600" notBefore="0500" syriaca-computed-end="0600-01-01" syriaca-computed-start="0500-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -162,6 +168,12 @@
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Sinai&amp;sT=keywords">Sinai</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib368-7">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:589</citedRange>
                     </bibl>
                 </place>
             </listPlace>

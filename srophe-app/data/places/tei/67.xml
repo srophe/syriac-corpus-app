@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,6 +87,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -99,7 +101,7 @@
                     <placeName xml:id="name67-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib67-1 #bib67-4 #bib67-5">Dara</placeName>
                     <placeName xml:id="name67-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܕܪܐ</placeName>
                     <placeName xml:id="name67-3" xml:lang="syr-Syrj" source="#bib67-2">ܕܳܪܳܐ</placeName>
-                    <placeName xml:id="name67-4" xml:lang="ar" source="#bib67-3">دارا</placeName>
+                    <placeName xml:id="name67-4" xml:lang="ar" source="#bib67-3 #bib67-6">دارا</placeName>
                     <desc xml:id="abstract-en-67" xml:lang="en">A Roman city between Mardin and Nisibis.</desc>
                     <desc xml:lang="syr-Syrj">
                         <quote source="#bib67-2">ܡܕܝܺܢܬܐ ܗܝ ܕܒܰܦܫܦܘܽܠܐ ܕܛܘܪܐ ܒܶܝܬ ܢܨܺܝܒܝܺܢ ܠܡܰܪܕܺܝܢ ܐܶܬܝܰܬܒܰܬ ܫܢܰܬ  506  ܘܩܰܘܝܰܬ ܟܘܪܣܝܳܐ ܐܶܦܝܣܩܘܦܳܝܐ ܠܣܘܪ̈ܝܳܝܐ ܥܕܡܐ ܠܡܶܨܥܝ̈ܬܗ ܕܕܳܪܳܐ ܕܝ̄ܒ ܘܝܰܘܡܳܢ ܩܪܺܝܬܳܐ ܗܝ ܙܥܘܽܪܬܐ.</quote>
@@ -113,6 +115,10 @@
                     <location type="gps" source="#bib67-1">
                         <geo>37.17899 40.95491</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation67-1" notBefore="1224" notAfter="1228" source="#bib67-6" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">دارا</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name67-4 #attestation67-1"/>
+                    </event>
                     <state type="existence" from="0505" to="1125" syriaca-computed-end="1125-01-01" syriaca-computed-start="0505-01-01">
                         <precision match="@to" notAfter="2011" notBefore="1125" syriaca-computed-end="2011-01-01" syriaca-computed-start="1125-01-01"/>
                     </state>
@@ -148,6 +154,12 @@
                         <title xml:lang="en">The Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=D&amp;sK=Dara&amp;sT=keywords">Dara</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib67-6">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:477</citedRange>
                     </bibl>
                 </place>
                 <relation name="share-a-name" mutual="#place-67  http://syriaca.org/place/1143  http://syriaca.org/place/1234"/>

@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,6 +65,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -76,10 +78,17 @@
                 <place xml:id="place-2471" type="monastery">
                     <placeName xml:id="name2471-1" xml:lang="en" syriaca-tags="#syriaca-headword">Mar Mari</placeName>
                     <placeName xml:id="name2471-2" xml:lang="en" source="#bib2471-1">Mār Mārī</placeName>
+                    <placeName xml:id="name2471-3" xml:lang="ar" source="#bib2471-2">دير قُنّى</placeName>
+                    <placeName xml:id="name2471-4" xml:lang="ar" source="#bib2471-2">دير مرماري</placeName>
                     <desc xml:id="abstract-en-2471" xml:lang="en"/>
                     <location type="nested" source="#bib2471-1">
                         <settlement ref="http://syriaca.org/place/41">Baghdad</settlement>
                     </location>
+                    <event type="attestation" xml:id="attestation2471-1" notBefore="1224" notAfter="1228" source="#bib2471-2" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of names <foreign xml:lang="ar">دير قُنّى</foreign> and <foreign xml:lang="ar">دير مرماري</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name2471-3 #attestation2471-1"/>
+                        <link target="#name2471-4 #attestation2471-1"/>
+                    </event>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/2471</idno>
                     <bibl xml:id="bib2471-1">
@@ -87,6 +96,12 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">184, 345</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib2471-2">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:597</citedRange>
                     </bibl>
                 </place>
                 <relation name="share-a-name" mutual="#place-2471  http://syriaca.org/place/2009"/>

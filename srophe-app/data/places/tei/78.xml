@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<TEI xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xml:lang="en">
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xml:lang="en">
     <teiHeader>
         <fileDesc>
             <titleStmt>
@@ -62,7 +62,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-04-10</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -94,6 +94,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-04-10">ADDED: markup around Syriac name in attestation event</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-31">FIXED: date in <gi>relation</gi> was erroneously 363 instead of 641</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-26">FIXED: URI for confessions.xml needed "documentation/" to be inserted</change>
@@ -142,6 +144,8 @@
                     <placeName xml:id="name78-8" xml:lang="en" source="#bib78-1">Adme</placeName>
                     <placeName xml:id="name78-9" xml:lang="en" source="#bib78-1">Antiochia Kallirhoe</placeName>
                     <placeName xml:id="name78-10" xml:lang="en" source="#bib78-1">Urhay</placeName>
+                    <placeName xml:id="name78-11" xml:lang="ar" source="#bib78-12">الرُّهاء</placeName>
+                    <placeName xml:id="name78-12" xml:lang="ar" source="#bib78-12">أَذاسا</placeName>
                     <desc xml:id="abstract-en-78" xml:lang="en">A city of <placeName ref="http://syriaca.org/place/124">Mesopotamia</placeName>, the capital of the ancient kingdom of <placeName ref="http://syriaca.org/place/145">Osrhoene</placeName>, modern Urfa.</desc>
                     <desc xml:lang="en">
                         <quote source="#bib78-1">183. Edessa</quote>
@@ -220,6 +224,11 @@
                     <event type="attestation" xml:id="attestation78-7" when="1624" source="#bib78-5" syriaca-computed-start="1624-01-01" syriaca-computed-end="1624-01-01">
                         <p xml:lang="en">Attestation of Syrian Orthodox metropolitan for Edessa according to <persName ref="http://syriaca.org/person/372">Barsoum</persName>'s <title ref="http://syriaca.org/work/215">Scattered Pearls</title>.</p>
                         <link target="#confession78-1 #attestation78-7"/>
+                    </event>
+                    <event type="attestation" xml:id="attestation78-8" notBefore="1224" notAfter="1228" source="#bib78-12" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of names <foreign xml:lang="ar">الرُّهاء</foreign> and <foreign xml:lang="ar">أَذاسا</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name78-11 #attestation78-8"/>
+                        <link target="#name78-12 #attestation78-8"/>
                     </event>
                     <state type="existence" from="-0304"/>
                     <state type="confession" xml:id="confession78-2" ref="http://syriaca.org/documentation/confessions.xml#christians" from="0030" to="1924" source="#bib78-1" syriaca-computed-end="1924-01-01" syriaca-computed-start="0030-01-01">
@@ -308,6 +317,12 @@
                         <author>Han J. W. Drijvers</author>
                         <ptr target="http://syriaca.org/bibl/634"/>
                         <citedRange unit="pp">90, 102</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib78-12">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">I:155; III:120</citedRange>
                     </bibl>
                 </place>
                 <relation name="contained" active="http://syriaca.org/place/145 http://syriaca.org/place/166" passive="#place-78" source="#bib78-1" to="0641"/>

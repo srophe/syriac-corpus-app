@@ -63,7 +63,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -95,6 +95,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -111,6 +113,7 @@
                     <placeName xml:id="name188-5" xml:lang="syr-Syrj" source="#bib188-3">ܣܥܶܪܬ</placeName>
                     <placeName xml:id="name188-6" xml:lang="ar" source="#bib188-4">سعرت</placeName>
                     <placeName xml:id="name188-7" xml:lang="en" source="#bib188-5">Seʿert</placeName>
+                    <placeName xml:id="name188-8" xml:lang="ar" source="#bib188-8">اسعرت</placeName>
                     <desc xml:id="abstract-en-188" xml:lang="en">
                         <quote source="#bib188-1">A city in eastern Turkey, southwest of Lake Van.</quote>
                     </desc>
@@ -129,6 +132,10 @@
                     <location type="gps" source="#bib188-2">
                         <geo>37.933333 41.95</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation188-1" notBefore="1224" notAfter="1228" source="#bib188-8" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">اسعرت</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name188-8 #attestation188-1"/>
+                    </event>
                     <state type="existence" from="1424" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="1424-01-01">
                         <precision match="@from" notAfter="1424" syriaca-computed-end="1424-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -177,6 +184,12 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">11, 13-14, 23, 27, 39, 55, 56, 64, 70, 73, 74, 81, 82, 83, 84, 87, 89, 90, 91, 92, 93-94, 96, 98, 99, 102, 108, 113, 116, 176, 179, 213, 232, 264, 270, 316, 348, 352, 359</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib188-8">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:565</citedRange>
                     </bibl>
                 </place>
                 <relation name="share-a-name" mutual="#place-188  http://syriaca.org/place/724  http://syriaca.org/place/2365  http://syriaca.org/place/2366"/>

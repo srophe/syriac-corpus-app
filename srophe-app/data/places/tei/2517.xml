@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,6 +65,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -75,10 +77,15 @@
                 <place xml:id="place-2517" type="monastery">
                     <placeName xml:id="name2517-1" xml:lang="en" syriaca-tags="#syriaca-headword">Rabban Yawsep</placeName>
                     <placeName xml:id="name2517-2" xml:lang="en" source="#bib2517-1">Rabban Joseph</placeName>
+                    <placeName xml:id="name2517-3" xml:lang="ar" source="#bib2517-2">دير ابي يوسف</placeName>
                     <desc xml:id="abstract-en-2517" xml:lang="en"/>
                     <location type="nested" source="#bib2517-1">
                         <region ref="http://syriaca.org/place/"/>
                     </location>
+                    <event type="attestation" xml:id="attestation2517-1" notBefore="1224" notAfter="1228" source="#bib2517-2" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">دير ابي يوسف</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name2517-3 #attestation2517-1"/>
+                    </event>
                     <state type="existence" from="0894" to="0894" syriaca-computed-end="0894-01-01" syriaca-computed-start="0894-01-01">
                         <precision match="@from" notAfter="0894" syriaca-computed-end="0894-01-01"/>
                         <precision match="@to" notBefore="0894" syriaca-computed-start="0894-01-01"/>
@@ -89,6 +96,12 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">49</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib2517-2">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:565</citedRange>
                     </bibl>
                 </place>
             </listPlace>

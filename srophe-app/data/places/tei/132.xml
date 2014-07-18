@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,6 +61,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -70,7 +72,12 @@
             <listPlace>
                 <place xml:id="place-132" type="settlement">
                     <placeName xml:id="name132-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib132-1">Mariamme</placeName>
+                    <placeName xml:id="name132-2" xml:lang="ar" source="#bib132-2">مريمين</placeName>
                     <desc xml:id="abstract-en-132" xml:lang="en">A town northwest of <placeName ref="http://syriaca.org/place/215">Emesa</placeName> and southwest of <placeName ref="http://syriaca.org/place/91">Ḥama</placeName>.</desc>
+                    <event type="attestation" xml:id="attestation132-1" notBefore="1224" notAfter="1228" source="#bib132-2" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">مريمين</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name132-2 #attestation132-1"/>
+                    </event>
                     <state type="existence" from="0079" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0079-01-01">
                         <precision match="@from" notAfter="0079" syriaca-computed-end="0079-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -82,6 +89,12 @@
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="maps">Map I A2</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib132-2">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">V:139</citedRange>
                     </bibl>
                 </place>
             </listPlace>

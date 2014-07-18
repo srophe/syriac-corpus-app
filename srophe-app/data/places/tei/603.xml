@@ -50,7 +50,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -82,6 +82,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -93,10 +95,14 @@
                     <placeName xml:id="name603-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib603-1 #bib603-4">Khurasan</placeName>
                     <placeName xml:id="name603-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܟܘܪܐܣܐܢ</placeName>
                     <placeName xml:id="name603-3" xml:lang="syr-Syrj" source="#bib603-2">ܟܘܽܪܐܣܰܐܢ</placeName>
-                    <placeName xml:id="name603-4" xml:lang="ar" source="#bib603-3">خراسان</placeName>
+                    <placeName xml:id="name603-4" xml:lang="ar" source="#bib603-3 #bib603-7">خراسان</placeName>
                     <placeName xml:id="name603-5" xml:lang="en" source="#bib603-5">Khorasan</placeName>
                     <placeName xml:id="name603-6" xml:lang="en" source="#bib603-6">Khorasān</placeName>
                     <desc xml:id="abstract-en-603" xml:lang="en">A region east and somewhat south of the <placeName ref="http://syriaca.org/place/61">Caspian Sea</placeName>.</desc>
+                    <event type="attestation" xml:id="attestation603-1" notBefore="1224" notAfter="1228" source="#bib603-7" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">خراسان</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name603-4 #attestation603-1"/>
+                    </event>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/603</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Greater_Khorasan</idno>
@@ -133,6 +139,12 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">17, 344</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib603-7">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:401</citedRange>
                     </bibl>
                 </place>
             </listPlace>

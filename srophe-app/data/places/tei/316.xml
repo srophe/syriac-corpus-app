@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,6 +87,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -100,6 +102,7 @@
                     <placeName xml:id="name316-2" xml:lang="syr" syriaca-tags="#syriaca-headword" source="#bib316-1">ܬܢܝܣ</placeName>
                     <placeName xml:id="name316-3" xml:lang="ar" source="#bib316-2">تِنّيس</placeName>
                     <placeName xml:id="name316-4" xml:lang="en" source="#bib316-3">Tinnis</placeName>
+                    <placeName xml:id="name316-5" xml:lang="ar" source="#bib316-5">تِنِّيْس</placeName>
                     <desc xml:id="abstract-en-316" xml:lang="en"/>
                     <desc xml:lang="syr-Syrj">
                         <quote source="#bib316-1">ܡܕܝܢܬܐ ܥܰܬܝܩܬܳܐ ܕܰܒܬܰܝܡܰܢ ܡܰܥܪܰܒ ܒܳܘܪܣܰܥܝܕ ܚܶܪܒܰܬ  1227.</quote>
@@ -113,6 +116,10 @@
                     <location type="gps" source="#bib316-4">
                         <geo>31.255258 32.292698</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation316-1" notBefore="1224" notAfter="1228" source="#bib316-5" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">تِنِّيْس</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name316-5 #attestation316-1"/>
+                    </event>
                     <state type="existence" from="0833" to="1227" syriaca-computed-end="1227-01-01" syriaca-computed-start="0833-01-01">
                         <precision match="@from" notAfter="0833" syriaca-computed-end="0833-01-01"/>
                     </state>
@@ -138,6 +145,12 @@
                     <bibl xml:id="bib316-4">
                         <title>http://pleiades.stoa.org/places/727247</title>
                         <ptr target="http://pleiades.stoa.org/places/727247"/>
+                    </bibl>
+                    <bibl xml:id="bib316-5">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:60</citedRange>
                     </bibl>
                 </place>
             </listPlace>

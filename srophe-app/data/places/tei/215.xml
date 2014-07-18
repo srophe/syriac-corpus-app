@@ -51,7 +51,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -83,6 +83,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -98,6 +100,7 @@
                     <placeName xml:id="name215-5" xml:lang="ar" source="#bib215-4">حمص</placeName>
                     <placeName xml:id="name215-6" xml:lang="en" source="#bib215-5">Ḥomṣ</placeName>
                     <placeName xml:id="name215-7" xml:lang="en" source="#bib215-6">Homs</placeName>
+                    <placeName xml:id="name215-8" xml:lang="ar" source="#bib215-7">حِمْص</placeName>
                     <desc xml:id="abstract-en-215" xml:lang="en">
                         <quote source="#bib215-1">City in Syria.</quote>
                     </desc>
@@ -107,6 +110,10 @@
                     <location type="gps" source="#bib215-2">
                         <geo>34.730833 36.709444</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation215-1" notBefore="1224" notAfter="1228" source="#bib215-7" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">حِمْص</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name215-8 #attestation215-1"/>
+                    </event>
                     <state type="existence" from="0161" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0161-01-01">
                         <precision match="@from" notAfter="0161" syriaca-computed-end="0161-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -154,6 +161,12 @@
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=H&amp;sK=Homs&amp;sT=keywords">Homs</citedRange>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Emesa&amp;sT=keywords">Emesa</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib215-7">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:347</citedRange>
                     </bibl>
                 </place>
             </listPlace>

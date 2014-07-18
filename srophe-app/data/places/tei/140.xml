@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,6 +61,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -71,7 +73,12 @@
                 <place xml:id="place-140" type="river">
                     <placeName xml:id="name140-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib140-1">Mygdonius</placeName>
                     <placeName xml:id="name140-2" xml:lang="en" source="#bib140-1">Çağçağ</placeName>
+                    <placeName xml:id="name140-3" xml:lang="ar" source="#bib140-2">الهِرماس</placeName>
                     <desc xml:id="abstract-en-140" xml:lang="en">A tributary of the <placeName ref="http://syriaca.org/place/114">Khabur river</placeName> which flows past <placeName ref="http://syriaca.org/place/142">Nisibis</placeName>.</desc>
+                    <event type="attestation" xml:id="attestation140-1" notBefore="1224" notAfter="1228" source="#bib140-2" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">الهِرماس</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name140-3 #attestation140-1"/>
+                    </event>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/140</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/874509</idno>
@@ -81,6 +88,12 @@
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="maps">Map I C1, III</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib140-2">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">V:459</citedRange>
                     </bibl>
                 </place>
             </listPlace>

@@ -33,7 +33,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -65,6 +65,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -75,10 +77,15 @@
             <listPlace>
                 <place xml:id="place-177" type="settlement">
                     <placeName xml:id="name177-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib177-1 #bib177-2">Salmas</placeName>
+                    <placeName xml:id="name177-2" xml:lang="ar" source="#bib177-3">سَلَماس</placeName>
                     <desc xml:id="abstract-en-177" xml:lang="en">A town northwest of <placeName ref="http://syriaca.org/place/116">Lake Urmia</placeName>.</desc>
                     <location type="gps" source="#bib177-1">
                         <geo>38.2 44.766667</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation177-1" notBefore="1224" notAfter="1228" source="#bib177-3" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">سَلَماس</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name177-2 #attestation177-1"/>
+                    </event>
                     <state type="existence" from="1281" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="1281-01-01">
                         <precision match="@from" notAfter="1281" syriaca-computed-end="1281-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -98,6 +105,12 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">259, 282, 322, 323, 326-327</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib177-3">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">III:270</citedRange>
                     </bibl>
                 </place>
                 <relation name="share-a-name" mutual="#place-177  http://syriaca.org/place/775  http://syriaca.org/place/2368"/>

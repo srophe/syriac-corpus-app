@@ -55,7 +55,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -87,6 +87,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -100,10 +102,15 @@
                     <placeName xml:id="name15-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܐܛܢܗ</placeName>
                     <placeName xml:id="name15-3" xml:lang="syr-Syrj" source="#bib15-2">ܐܰܛܰܢܰܗ</placeName>
                     <placeName xml:id="name15-4" xml:lang="ar" source="#bib15-3">ادنة</placeName>
+                    <placeName xml:id="name15-5" xml:lang="ar" source="#bib15-6">أَذَنَة</placeName>
                     <desc xml:id="abstract-en-15" xml:lang="en">A city on the Seyhan River in south-eastern Anatolia, near the Mediterranean coast.</desc>
                     <location type="gps" source="#bib15-1">
                         <geo>37 35.32133</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation15-1" notBefore="1224" notAfter="1228" source="#bib15-6" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">أَذَنَة</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name15-5 #attestation15-1"/>
+                    </event>
                     <state type="existence" from="-1335" to="2013" syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-1335"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -138,6 +145,12 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">65, 361, 363, 364</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib15-6">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">I:161</citedRange>
                     </bibl>
                 </place>
                 <relation name="share-a-name" mutual="#place-15  http://syriaca.org/place/2277"/>

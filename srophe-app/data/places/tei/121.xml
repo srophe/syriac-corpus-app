@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,6 +61,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -72,10 +74,15 @@
                 <place xml:id="place-121" type="river">
                     <placeName xml:id="name121-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib121-1">Lesser Zab</placeName>
                     <placeName xml:id="name121-2" xml:lang="en" source="#bib121-1">Lower Zab</placeName>
+                    <placeName xml:id="name121-3" xml:lang="ar" source="#bib121-3">الزاب الأسفل</placeName>
                     <desc xml:id="abstract-en-121" xml:lang="en">A river which flows south of <placeName ref="http://syriaca.org/place/13">Arbela</placeName> and north of <placeName ref="http://syriaca.org/place/108">Karka d-Beth Slokh</placeName> and enters the <placeName ref="http://syriaca.org/place/202">Tigris</placeName> above <placeName ref="http://syriaca.org/place/193">Tagrit</placeName>.</desc>
                     <location type="gps" source="#bib121-2">
                         <geo>35.8572581 44.7915335</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation121-1" notBefore="1224" notAfter="1228" source="#bib121-3" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">الزاب الأسفل</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name121-3 #attestation121-1"/>
+                    </event>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/121</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/894184</idno>
@@ -90,6 +97,12 @@
                     <bibl xml:id="bib121-2">
                         <title>http://pleiades.stoa.org/places/894184</title>
                         <ptr target="http://pleiades.stoa.org/places/894184"/>
+                    </bibl>
+                    <bibl xml:id="bib121-3">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">III:139</citedRange>
                     </bibl>
                 </place>
             </listPlace>

@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-02-06</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,6 +91,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-02-06">ADDED <gi>quote</gi> elements around Syriac text in <gi>note</gi> of type="corrigenda".</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
@@ -106,7 +108,7 @@
                     <placeName xml:id="name92-3" xml:lang="en" source="#bib92-1">Ḥesn Kifo</placeName>
                     <placeName xml:id="name92-4" xml:lang="syr" syriaca-tags="#syriaca-headword">ܚܣܢܐ ܕܟܐܦܐ</placeName>
                     <placeName xml:id="name92-5" xml:lang="syr-Syrj" source="#bib92-2">ܚܰܣܢ ܟܺܐܦܐ</placeName>
-                    <placeName xml:id="name92-6" xml:lang="ar" source="#bib92-3">حصن كيفا</placeName>
+                    <placeName xml:id="name92-6" xml:lang="ar" source="#bib92-3 #bib92-6">حصن كيفا</placeName>
                     <placeName xml:id="name92-7" xml:lang="en" source="#bib92-4">Ḥiṣn Kifa</placeName>
                     <placeName xml:id="name92-8" xml:lang="en" source="#bib92-5">Ḥesnā d'Kīfā</placeName>
                     <placeName xml:id="name92-9" xml:lang="en" source="#bib92-5">Ḥiṣn Kayf</placeName>
@@ -123,6 +125,10 @@
                     <location type="gps" source="#bib92-1">
                         <geo>37.714167 41.413056</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation92-1" notBefore="1224" notAfter="1228" source="#bib92-6" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">حصن كيفا</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name92-6 #attestation92-1"/>
+                    </event>
                     <state type="existence" from="0640" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0640-01-01">
                         <precision match="@from" notAfter="0640" syriaca-computed-end="0640-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -158,6 +164,12 @@
                         <title xml:lang="en">The Ecclesiastical Organisation of the Church of the East, 1318-1913</title>
                         <citedRange unit="pp">38, 56, 70, 77, 82, 91, 179, 348, 355</citedRange>
                         <ptr target="http://syriaca.org/bibl/9"/>
+                    </bibl>
+                    <bibl xml:id="bib92-6">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:305</citedRange>
                     </bibl>
                 </place>
                 <relation name="share-a-name" mutual="#place-92  http://syriaca.org/place/2314"/>

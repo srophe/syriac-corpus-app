@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,6 +91,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: latitude and longitude from Pleiades</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
@@ -109,6 +111,8 @@
                     <placeName xml:id="name42-6" xml:lang="syr-Syrj" source="#bib42-3">ܒܳܠܳܕ</placeName>
                     <placeName xml:id="name42-7" xml:lang="ar" source="#bib42-4">بَلد</placeName>
                     <placeName xml:id="name42-8" xml:lang="ar" source="#bib42-4">اسكي موصل</placeName>
+                    <placeName xml:id="name42-9" xml:lang="ar" source="#bib42-9">بَلَد</placeName>
+                    <placeName xml:id="name42-10" xml:lang="ar" source="#bib42-9">بلط</placeName>
                     <desc xml:id="abstract-en-42" xml:lang="en">
                         <quote source="#bib42-1">Balad, Assyrian Balaṭ, Syriac and Arabic Balad or Balaṭ, and modern Aski Mosul (Turkish for ‘Old Mosul’) are names referring to a town located some 40 km. northwest of Mosul, on the west bank of the Tigris.</quote>
                     </desc>
@@ -127,6 +131,11 @@
                     <location type="gps" source="#bib42-8">
                         <geo>36.514152 42.726566</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation42-1" notBefore="1224" notAfter="1228" source="#bib42-9" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of names <foreign xml:lang="ar">بَلَد</foreign> and <foreign xml:lang="ar">بلط</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name42-9 #attestation42-1"/>
+                        <link target="#name42-10 #attestation42-1"/>
+                    </event>
                     <state type="existence" from="0559" to="1318" syriaca-computed-end="1318-01-01" syriaca-computed-start="0559-01-01">
                         <precision match="@from" notAfter="0559" syriaca-computed-end="0559-01-01"/>
                         <precision match="@to" notAfter="1985" notBefore="1318" syriaca-computed-end="1985-01-01" syriaca-computed-start="1318-01-01"/>
@@ -178,6 +187,12 @@
                     <bibl xml:id="bib42-8">
                         <title>http://pleiades.stoa.org/places/874379</title>
                         <ptr target="http://pleiades.stoa.org/places/874379"/>
+                    </bibl>
+                    <bibl xml:id="bib42-9">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">I:570</citedRange>
                     </bibl>
                 </place>
                 <relation name="share-a-name" mutual="#place-42  http://syriaca.org/place/2268"/>

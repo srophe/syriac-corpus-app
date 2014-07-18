@@ -29,7 +29,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -61,6 +61,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: relation element with shares-name-with attribute for all place headwords that share names</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
@@ -71,10 +73,15 @@
             <listPlace>
                 <place xml:id="place-158" type="settlement">
                     <placeName xml:id="name158-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib158-1">Philippopolis</placeName>
+                    <placeName xml:id="name158-2" xml:lang="ar" source="#bib158-2">شهبة</placeName>
                     <desc xml:id="abstract-en-158" xml:lang="en">A town east of <placeName ref="http://syriaca.org/place/201">Tiberias</placeName> in the Roman province of <placeName ref="http://syriaca.org/place/12">Arabia</placeName>.</desc>
                     <location type="gps" source="#bib158-1">
                         <geo>32.85359 36.62683</geo>
                     </location>
+                    <event type="attestation" xml:id="attestation158-1" notBefore="1224" notAfter="1228" source="#bib158-2" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">شهبة</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name158-2 #attestation158-1"/>
+                    </event>
                     <state type="existence" from="0210" to="2013" syriaca-computed-end="2013-01-01" syriaca-computed-start="0210-01-01">
                         <precision match="@from" notAfter="0210" syriaca-computed-end="0210-01-01"/>
                         <precision match="@to" notBefore="2013" syriaca-computed-start="2013-01-01"/>
@@ -87,6 +94,12 @@
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="maps">Map I A2</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib158-2">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">III:425</citedRange>
                     </bibl>
                 </place>
                 <relation name="share-a-name" mutual="#place-158  http://syriaca.org/place/1458"/>

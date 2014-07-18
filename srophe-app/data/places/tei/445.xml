@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,6 +91,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -103,6 +105,7 @@
                     <placeName xml:id="name445-2" xml:lang="syr" syriaca-tags="#syriaca-headword">ܟܦܪܛܐܒ</placeName>
                     <placeName xml:id="name445-3" xml:lang="syr-Syrj" source="#bib445-1">ܟܦܰܪܛܐܒ</placeName>
                     <placeName xml:id="name445-4" xml:lang="ar" source="#bib445-2">كفر طاب</placeName>
+                    <placeName xml:id="name445-5" xml:lang="ar" source="#bib445-4">كفرطاب</placeName>
                     <desc xml:id="abstract-en-445" xml:lang="en"/>
                     <desc xml:lang="syr-Syrj">
                         <quote source="#bib445-1">ܡܕܺܝܢܳܬܘܢܳܝ ܕܰܒܡܰܕܒܪܳܐ ܨܗܘܐ ܕܒܶܝܬ ܡܥܪܝܐ ܢܥܡܰܢ ܠܚܳܠܳܒ ܐܶܬܠܰܝܬܝ ܪܘܫܡܳܗ̇.</quote>
@@ -113,6 +116,10 @@
                     <desc xml:lang="en">
                         <quote source="#bib445-3">an ancient town in the Muʿaṭṭasha desert between Maʿarrat al-Nuʿmān and Aleppo.</quote>
                     </desc>
+                    <event type="attestation" xml:id="attestation445-1" notBefore="1224" notAfter="1228" source="#bib445-4" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">كفرطاب</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name445-5 #attestation445-1"/>
+                    </event>
                     <state type="existence" from="1059" to="1200" syriaca-computed-end="1200-01-01" syriaca-computed-start="1059-01-01">
                         <precision match="@from" notAfter="1059" syriaca-computed-end="1059-01-01"/>
                         <precision match="@to" notBefore="1200" syriaca-computed-start="1200-01-01"/>
@@ -133,6 +140,12 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">554</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib445-4">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">IV:534</citedRange>
                     </bibl>
                 </place>
             </listPlace>

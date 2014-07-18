@@ -41,7 +41,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-01-14-05:00</date>
+                <date>2014-06-30-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -73,6 +73,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
@@ -83,7 +85,12 @@
                 <place xml:id="place-567" type="region">
                     <placeName xml:id="name567-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib567-2">al-Thaghr</placeName>
                     <placeName xml:id="name567-2" xml:lang="ar" source="#bib567-1">الثغر</placeName>
+                    <placeName xml:id="name567-3" xml:lang="ar" source="#bib567-3">الثَغْر</placeName>
                     <desc xml:id="abstract-en-567" xml:lang="en">The border area of northern Syria and Mesopotamia between the Byzantine Empire and the caliphate.</desc>
+                    <event type="attestation" xml:id="attestation567-1" notBefore="1224" notAfter="1228" source="#bib567-3" syriaca-computed-start="1224-01-01" syriaca-computed-end="1228-01-01">
+                        <p xml:lang="en">Attestation of name <foreign xml:lang="ar">الثَغْر</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
+                        <link target="#name567-3 #attestation567-1"/>
+                    </event>
                     <state type="existence" from="0982" to="1200" syriaca-computed-end="1200-01-01" syriaca-computed-start="0982-01-01">
                         <precision match="@from" notAfter="0982" notBefore="0630" syriaca-computed-end="0982-01-01" syriaca-computed-start="0630-01-01"/>
                         <precision match="@to" notBefore="1200" syriaca-computed-start="1200-01-01"/>
@@ -98,6 +105,12 @@
                         <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">569</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib567-3">
+                        <title xml:lang="en" level="m">Muʿjam al-buldān</title>
+                        <author>Yāqūt al-Ḥamawī</author>
+                        <ptr target="http://syriaca.org/bibl/636"/>
+                        <citedRange unit="pp">II:93</citedRange>
                     </bibl>
                 </place>
             </listPlace>
