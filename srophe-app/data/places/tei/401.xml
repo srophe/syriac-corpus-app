@@ -16,6 +16,7 @@
                 <editor role="general" ref="http://syriaca.org/editors.xml#dmichelson">David A. Michelson</editor>
                 <editor role="creator" ref="http://syriaca.org/editors.xml#tcarlson">Thomas A. Carlson</editor>
                 <editor role="creator" ref="http://syriaca.org/editors.xml#dmichelson">David A. Michelson</editor>
+                <editor role="contributor" ref="http://syriaca.org/editors.xml#lyarbrough">Luke Yarbrough</editor>
                 <respStmt>
                     <resp>Initial Barsoum entry creation by</resp>
                     <name ref="http://syriaca.org/editors.xml#dmichelson">David A. Michelson</name>
@@ -31,6 +32,10 @@
                 <respStmt>
                     <resp>Arabic description entry by</resp>
                     <name ref="http://syriaca.org/editors.xml#rakhrass">Dayroyo Roger-Youssef Akhrass</name>
+                </respStmt>
+                <respStmt>
+                    <resp>Citation of al-Dunaysarī's Kitāb Taʾrīkh Dunaysar provided by</resp>
+                    <name ref="http://syriaca.org/editors.xml#lyarbrough">Luke Yarbrough</name>
                 </respStmt>
             </titleStmt>
             <editionStmt>
@@ -59,7 +64,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-06-30-04:00</date>
+                <date>2014-07-18</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,6 +96,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-07-18">ADDED: al-Dunaysari citation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
@@ -147,6 +153,11 @@
                         <author>Yāqūt al-Ḥamawī</author>
                         <ptr target="http://syriaca.org/bibl/636"/>
                         <citedRange unit="pp">II:544</citedRange>
+                    </bibl>
+                    <bibl xml:id="bib401-5">
+                        <title xml:lang="en" level="m">Kitāb Taʾrīkh Dunaysar</title>
+                        <author>ʿUmar b. Khiḍr al-Dunaysarī</author>
+                        <ptr target="http://syriaca.org/bibl/646"/>
                     </bibl>
                 </place>
             </listPlace>
