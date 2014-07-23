@@ -87,7 +87,9 @@
         <xsl:text>, ed. </xsl:text>
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
         <xsl:sequence select="local:emit-responsible-persons(t:principal,'footnote',2)"/>
-        <xsl:if test="following-sibling::t:principal"><xsl:text>, </xsl:text></xsl:if>
+        <xsl:if test="following-sibling::t:principal">
+            <xsl:text>, </xsl:text>
+        </xsl:if>
         <xsl:text> </xsl:text>
         <!-- NOTE:       <xsl:value-of select="$htmluri"/>-->
         <xsl:text>.</xsl:text>
@@ -179,7 +181,7 @@
                 </li>
                 <li>
                     <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-                    <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='creator'],'biblist',2)"/>
+                    <xsl:sequence select="local:emit-responsible-persons(t:editor[@role= ('creator','contributor')],'biblist',2)"/>
                     <xsl:text>, entry contributor</xsl:text>
                     <xsl:if test="count(t:editor[@role='creator'])&gt; 1">s</xsl:if>
                     <xsl:text>, </xsl:text>
