@@ -147,12 +147,13 @@
             <xsl:text> </xsl:text>
             <xsl:apply-templates select="t:title[@level='a'][1]" mode="footnote"/>
         </p>
+        <!--
         <p>
             <span class="heading-inline">Entry Contributor<xsl:if test="count(t:editor[@role='creator'])&gt;1">s</xsl:if>:</span>
             <xsl:text> </xsl:text>
-            <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
             <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='creator'],'footnote',count(t:editor[@role='creator'])+1)"/>
         </p>
+        -->
         <p>
             <span class="heading-inline">Publication Date:</span>
             <xsl:text> </xsl:text>
@@ -165,7 +166,7 @@
             <ul>
                 <li>
                     <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-                    <xsl:sequence select="local:emit-responsible-persons(t:principal,'footnote',2)"/>
+                    <xsl:sequence select="local:emit-responsible-persons-all(t:principal,'footnote')"/>
                     <xsl:text>, general editor</xsl:text>
                     <xsl:if test="count(t:principal) &gt; 1">s</xsl:if>
                     <xsl:text>, </xsl:text>
@@ -173,7 +174,7 @@
                 </li>
                 <li>
                     <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-                    <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='general'],'footnote',2)"/>
+                    <xsl:sequence select="local:emit-responsible-persons-all(t:editor[@role='general'],'footnote')"/>
                     <xsl:text>, editor</xsl:text>
                     <xsl:if test="count(t:editor[@role='general'])&gt; 1">s</xsl:if>
                     <xsl:text>, </xsl:text>
@@ -181,7 +182,7 @@
                 </li>
                 <li>
                     <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-                    <xsl:sequence select="local:emit-responsible-persons(t:editor[@role= ('creator','contributor')],'biblist',2)"/>
+                    <xsl:sequence select="local:emit-responsible-persons-all(t:editor[@role= ('creator','contributor')],'biblist')"/>
                     <xsl:text>, entry contributor</xsl:text>
                     <xsl:if test="count(t:editor[@role='creator'])&gt; 1">s</xsl:if>
                     <xsl:text>, </xsl:text>

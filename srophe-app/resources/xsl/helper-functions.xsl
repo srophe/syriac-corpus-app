@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:fo="http://www.w3.org/1999/XSL/Format" exclude-result-prefixes="xs t" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t" version="2.0">
     
     <!-- 
   Function to output dates in correct formats passes whole element to function, 
@@ -61,6 +61,8 @@
         <!--  <xsl:value-of select="string(number($date))"/>-->
     </xsl:function>
     
+    <!-- To be made: Date function to pretty print dates as Month Day, Year -->
+    
     <!-- Function for adding footnotes -->
     <xsl:function name="local:do-refs" as="node()">
         <xsl:param name="refs"/>
@@ -85,26 +87,6 @@
                 </span>
             </xsl:for-each>
         </bdi>
-    </xsl:function>
-    <!-- Function for adding footnotes pdf -->
-    <xsl:function name="local:do-refs-pdf" as="node()">
-        <xsl:param name="refs"/>
-        <xsl:param name="lang"/>
-        <!-- 
-           <bdi class="footnote-refs" dir="ltr"> <span class="footnote-ref"><a href="#bib78-5">5</a></span></bdi>
-           NOTE: check to see if this is the real rule accross footnotes, otherwise it will need to get more complicated.
-          -->
-        <fo:inline-container writing-mode="lr-tb">
-            <fo:block xml:lang="en" vertical-align="super">
-                <xsl:for-each select="tokenize($refs,' ')">
-                        <xsl:text> </xsl:text>
-                        <fo:basic-link external-destination="url('{.}')" xsl:use-attribute-sets="href">
-                            <xsl:value-of select="substring-after(.,'-')"/>
-                        </fo:basic-link>
-                        <xsl:if test="position() != last()">,<xsl:text> </xsl:text></xsl:if>
-                </xsl:for-each>
-            </fo:block>
-        </fo:inline-container>
     </xsl:function>
     
     <!-- Process names editors/authors ect -->
@@ -168,6 +150,59 @@
         </xsl:choose>
     </xsl:function>
     
+    <!-- Process names editors/authors ect -->
+    <xsl:function name="local:emit-responsible-persons-all">
+        <!-- node passed by refering stylesheet -->
+        <xsl:param name="current-node"/>
+        <!-- mode, footnote or biblist -->
+        <xsl:param name="moded"/>
+        <!-- count number of relevant persons -->
+        <xsl:variable name="ccount">
+            <xsl:value-of select="count($current-node)"/>
+        </xsl:variable>  
+        <!-- process based on above parameters -->
+        <xsl:choose>
+            <xsl:when test="$ccount=1 and $moded='footnote'">
+                <xsl:apply-templates select="$current-node[1]" mode="footnote"/>
+            </xsl:when>
+            <xsl:when test="$ccount=1 and $moded='biblist'">
+                <xsl:apply-templates select="$current-node[1]" mode="lastname-first"/>
+            </xsl:when>
+            <xsl:when test="$ccount = 2 and $moded='footnote'">
+                <xsl:apply-templates select="$current-node[1]" mode="footnote"/>
+                <xsl:text> and </xsl:text>
+                <xsl:apply-templates select="$current-node[2]" mode="footnote"/>
+            </xsl:when>
+            <xsl:when test="$ccount = 2 and $moded='biblist'">
+                <xsl:apply-templates select="$current-node[1]" mode="lastname-first"/>
+                <xsl:text> and </xsl:text>
+                <xsl:apply-templates select="$current-node[2]" mode="biblist"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:for-each select="$current-node">
+                    <xsl:choose>
+                        <xsl:when test="position() = $ccount">
+                            <xsl:if test="$ccount &gt; 2">
+                                <xsl:text>,</xsl:text>
+                            </xsl:if>
+                            <xsl:text> and </xsl:text>
+                        </xsl:when>
+                        <xsl:when test="position() &gt; 1">
+                            <xsl:text>, </xsl:text>
+                        </xsl:when>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="$moded='footnote'">
+                            <xsl:apply-templates mode="footnote"/>
+                        </xsl:when>
+                        <xsl:when test="$moded='biblist'">
+                            <xsl:apply-templates mode="biblist"/>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
     <!-- Text normalization functions -->
     <xsl:template match="t:*" mode="out-normal">
         <xsl:variable name="thislang" select="ancestor-or-self::*[@xml:lang][1]/@xml:lang"/>
@@ -176,20 +211,6 @@
                 <bdi dir="rtl">
                     <xsl:apply-templates select="." mode="text-normal"/>
                 </bdi>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="." mode="text-normal"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <!-- Text normalization functions -->
-    <xsl:template match="t:*" mode="out-normal-pdf">
-        <xsl:variable name="thislang" select="ancestor-or-self::*[@xml:lang][1]/@xml:lang"/>
-        <xsl:choose>
-            <xsl:when test="starts-with($thislang, 'syr') or starts-with($thislang, 'syc') or starts-with($thislang, 'ar')">
-                <fo:bidi-override writing-mode="rl-tb">
-                    <xsl:apply-templates select="." mode="text-normal"/>
-                </fo:bidi-override>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="." mode="text-normal"/>
