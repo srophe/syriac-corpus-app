@@ -7,39 +7,50 @@
    <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title level="a" xml:lang="en">Xystus</title>
+            <title level="a" xml:lang="en">Xystus — ܟܣܘܣܛܘܣ</title>
             <title level="m" xml:lang="en">The Syriac Prosopography</title>
             <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
             <funder>The Andrew W. Mellon Foundation</funder>
             <funder>The National Endowment for the Humanities</funder>
             <funder>The International Balzan Prize Foundation</funder>
             <principal>David A. Michelson</principal>
-            <editor role="general" ref="http://syriaca.org/editors.xml#dmichelson">David A. Michelson</editor>
-            <editor role="general" ref="http://syriaca.org/editors.xml#ngibson">Nathan P. Gibson</editor>
-            <editor role="general" ref="http://syriaca.org/editors.xml#tcarlson">Thomas A. Carlson</editor>
-            <editor role="creator" ref="http://syriaca.org/editors.xml#jwalters">James E. Walters</editor>
-            <editor role="creator" ref="http://syriaca.org/editors.xml#dmichelson">David A. Michelson</editor>
-            <editor role="creator" ref="http://syriaca.org/editors.xml#tcarlson">Thomas A. Carlson</editor>
-            <editor role="creator" ref="http://syriaca.org/editors.xml#ngibson">Nathan P. Gibson</editor>
+            <editor role="general"
+                    ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</editor>
+            <editor role="general"
+                    ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</editor>
+            <editor role="general"
+                    ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</editor>
+            <editor role="creator"
+                    ref="http://syriaca.org/documentation/editors.xml#jwalters">James E. Walters</editor>
+            <editor role="creator"
+                    ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</editor>
+            <editor role="creator"
+                    ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</editor>
+            <editor role="creator"
+                    ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</editor>
             <respStmt>
                <resp>Editing, document design, proofreading, data entry by</resp>
-               <name type="person" ref="http://syriaca.org/editors.xml#dmichelson">David A. Michelson</name>
+               <name type="person"
+                     ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</name>
             </respStmt>
             <respStmt>
                <resp>Matching with viaf.org records, data entry, data transformation, conversion to XML by</resp>
-               <name type="person" ref="http://syriaca.org/editors.xml#ngibson">Nathan P. Gibson</name>
+               <name type="person"
+                     ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
             </respStmt>
             <respStmt>
                <resp>GEDSH and Barsoum English name entry, matching with viaf.org records by</resp>
-               <name type="person" ref="http://syriaca.org/editors.xml#jwalters">James E. Walters</name>
+               <name type="person"
+                     ref="http://syriaca.org/documentation/editors.xml#jwalters">James E. Walters</name>
             </respStmt>
             <respStmt>
                <resp>Editing, Syriac name entry, disambiguation research, conversion to XML by</resp>
-               <name type="person" ref="http://syriaca.org/editors.xml#tcarlson">Thomas A. Carlson</name>
+               <name type="person"
+                     ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</name>
             </respStmt>
             <respStmt>
                <resp>Syriac name entry by</resp>
-               <name type="person" ref="http://syriaca.org/editors.xml#raydin">Robert Aydin</name>
+               <name type="person" ref="http://syriaca.org/documentation/editors.xml#raydin">Robert Aydin</name>
             </respStmt>
          </titleStmt>
          <editionStmt>
@@ -56,16 +67,13 @@
                         <bibl>
                            <ptr target="#bib22-4"/>
                         </bibl>
-                        <bibl>
-                           <ptr target="#bib22-3"/>
-                        </bibl>
                      </listBibl>
                      <note>used under a Creative Commons Attribution license <ref target="http://creativecommons.org/licenses/by/3.0/"/>
                      </note>
                   </p>
                </licence>
             </availability>
-            <date>2014-07-07-05:00</date>
+            <date>2014-07-23-05:00</date>
          </publicationStmt>
          <sourceDesc>
             <p>Born digital.</p>
@@ -117,9 +125,9 @@
          </langUsage>
       </profileDesc>
       <revisionDesc>
-         <change who="http://syriaca.org/editors.xml#tcarlson"
+         <change who="http://syriaca.org/documentation/editors.xml#tcarlson"
                  n="1.0"
-                 when="2014-07-07-05:00"> CREATED: person </change>
+                 when="2014-07-23-05:00"> CREATED: person </change>
       </revisionDesc>
    </teiHeader>
    <text>
@@ -129,7 +137,8 @@
                <persName xml:id="name22-1"
                          corresp="#name22-2 #name22-3"
                          xml:lang="syr"
-                         source="#bib22-4 #bib22-6 #bib22-7">
+                         source="#bib22-4 #bib22-6 #bib22-7"
+                         syriaca-tags="#syriaca-headword">
                   <forename sort="1">ܟܣܘܣܛܘܣ</forename>
                </persName>
                <persName xml:id="name22-2"
@@ -146,10 +155,12 @@
                </persName>
                <persName xml:id="name22-4"
                          xml:lang="en-x-gedsh"
+                         resp="http://syriaca.org"
                          syriaca-tags="#syriaca-headword">
                   <forename sort="1">Xystus</forename>
                </persName>
                <persName xml:id="name22-5" xml:lang="en" source="#bib22-10">Sixtus of Rome</persName>
+               <note type="abstract" xml:id="abstract-en-22"/>
                <idno type="URI">http://syriaca.org/person/22</idno>
                <idno type="URI">http://viaf.org/viaf/sourceID/SRP|22</idno>
                <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Sixtus of Rome&amp;sT=keywords</idno>

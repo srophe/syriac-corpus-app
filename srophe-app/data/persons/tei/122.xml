@@ -7,55 +7,69 @@
    <teiHeader>
       <fileDesc>
          <titleStmt>
-            <title level="a" xml:lang="en">Giwargi, bp. of the Arab tribes</title>
+            <title level="a" xml:lang="en">Giwargi, bp. of the Arab tribes — ܓܘܪܓܝ ܐܦܝܣܩܘܦܐ ܕܥܪ̈ܒܝܐ</title>
             <title level="m" xml:lang="en">The Syriac Prosopography</title>
             <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
             <funder>The Andrew W. Mellon Foundation</funder>
             <funder>The National Endowment for the Humanities</funder>
             <funder>The International Balzan Prize Foundation</funder>
             <principal>David A. Michelson</principal>
-            <editor role="general" ref="http://syriaca.org/editors.xml#dmichelson">David A. Michelson</editor>
-            <editor role="general" ref="http://syriaca.org/editors.xml#ngibson">Nathan P. Gibson</editor>
-            <editor role="general" ref="http://syriaca.org/editors.xml#tcarlson">Thomas A. Carlson</editor>
-            <editor role="creator" ref="http://syriaca.org/editors.xml#jwalters">James E. Walters</editor>
-            <editor role="creator" ref="http://syriaca.org/editors.xml#dmichelson">David A. Michelson</editor>
-            <editor role="creator" ref="http://syriaca.org/editors.xml#tcarlson">Thomas A. Carlson</editor>
-            <editor role="creator" ref="http://syriaca.org/editors.xml#ngibson">Nathan P. Gibson</editor>
+            <editor role="general"
+                    ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</editor>
+            <editor role="general"
+                    ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</editor>
+            <editor role="general"
+                    ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</editor>
+            <editor role="creator"
+                    ref="http://syriaca.org/documentation/editors.xml#jwalters">James E. Walters</editor>
+            <editor role="creator"
+                    ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</editor>
+            <editor role="creator"
+                    ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</editor>
+            <editor role="creator"
+                    ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</editor>
             <respStmt>
                <resp>Editing, document design, proofreading, data entry by</resp>
-               <name type="person" ref="http://syriaca.org/editors.xml#dmichelson">David A. Michelson</name>
+               <name type="person"
+                     ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</name>
             </respStmt>
             <respStmt>
                <resp>Matching with viaf.org records, data entry, data transformation, conversion to XML by</resp>
-               <name type="person" ref="http://syriaca.org/editors.xml#ngibson">Nathan P. Gibson</name>
+               <name type="person"
+                     ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
             </respStmt>
             <respStmt>
                <resp>GEDSH and Barsoum English name entry, matching with viaf.org records by</resp>
-               <name type="person" ref="http://syriaca.org/editors.xml#jwalters">James E. Walters</name>
+               <name type="person"
+                     ref="http://syriaca.org/documentation/editors.xml#jwalters">James E. Walters</name>
             </respStmt>
             <respStmt>
                <resp>Editing, disambiguation research, conversion to XML by</resp>
-               <name type="person" ref="http://syriaca.org/editors.xml#tcarlson">Thomas A. Carlson</name>
+               <name type="person"
+                     ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</name>
             </respStmt>
             <respStmt>
                <resp>Syriac name entry by</resp>
-               <name type="person" ref="http://syriaca.org/editors.xml#raydin">Robert Aydin</name>
+               <name type="person" ref="http://syriaca.org/documentation/editors.xml#raydin">Robert Aydin</name>
             </respStmt>
             <respStmt>
                <resp>Arabic name entry by</resp>
-               <name type="person" ref="http://syriaca.org/editors.xml#jkaado">Jad Kaado</name>
+               <name type="person" ref="http://syriaca.org/documentation/editors.xml#jkaado">Jad Kaado</name>
             </respStmt>
             <respStmt>
                <resp>Normalization of GEDSH dates and entry matching with viaf.org records by</resp>
-               <name type="person" ref="http://syriaca.org/editors.xml#avawter">Alex Vawter</name>
+               <name type="person"
+                     ref="http://syriaca.org/documentation/editors.xml#avawter">Alex Vawter</name>
             </respStmt>
             <respStmt>
                <resp>Editorial oversight for GEDSH and Barsoum English text entry, and proofreading by</resp>
-               <name type="person" ref="http://syriaca.org/editors.xml#cjohnson">Christopher Johnson</name>
+               <name type="person"
+                     ref="http://syriaca.org/documentation/editors.xml#cjohnson">Christopher Johnson</name>
             </respStmt>
             <respStmt>
                <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
-               <name type="org" ref="http://syriaca.org/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
+               <name type="org"
+                     ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
             </respStmt>
          </titleStmt>
          <editionStmt>
@@ -81,7 +95,7 @@
                   </p>
                </licence>
             </availability>
-            <date>2014-07-07-05:00</date>
+            <date>2014-07-23-05:00</date>
          </publicationStmt>
          <sourceDesc>
             <p>Born digital.</p>
@@ -133,9 +147,9 @@
          </langUsage>
       </profileDesc>
       <revisionDesc>
-         <change who="http://syriaca.org/editors.xml#tcarlson"
+         <change who="http://syriaca.org/documentation/editors.xml#tcarlson"
                  n="1.0"
-                 when="2014-07-07-05:00"> CREATED: person </change>
+                 when="2014-07-23-05:00"> CREATED: person </change>
       </revisionDesc>
    </teiHeader>
    <text>
@@ -179,14 +193,21 @@
                   <forename sort="1">ܓܶܘܰܪܓܝ</forename> 
                   <addName type="untagged-title" sort="2">ܐܶܦܝܣܩܘܦܳܐ ܕܥܰܡܡ̈ܐ</addName>
                </persName>
-               <persName xml:id="name122-6" xml:lang="syr" syriaca-tags="#syriaca-headword">
+               <persName xml:id="name122-6"
+                         xml:lang="syr"
+                         resp="http://syriaca.org"
+                         syriaca-tags="#syriaca-headword">
                   <forename sort="1">ܓܘܪܓܝ</forename> 
                   <addName type="untagged-title" sort="2">ܐܦܝܣܩܘܦܐ ܕܥܪ̈ܒܝܐ</addName>
                </persName>
-               <persName xml:id="name122-7" xml:lang="en">
+               <persName xml:id="name122-7"
+                         xml:lang="en"
+                         resp="http://syriaca.org"
+                         syriaca-tags="#syriaca-anglicized">
                   <forename sort="1">George</forename>, <roleName type="office" sort="2">bp. of the Arab tribes</roleName>
                </persName>
                <persName xml:id="name122-8" xml:lang="en" source="#bib122-10">George, bishop of the Arabs</persName>
+               <note type="abstract" xml:id="abstract-en-122"/>
                <idno type="URI">http://syriaca.org/person/122</idno>
                <idno type="URI">http://viaf.org/viaf/sourceID/SRP|122</idno>
                <idno type="URI">http://worldcat.org/identities/np-georgios$al hira</idno>
