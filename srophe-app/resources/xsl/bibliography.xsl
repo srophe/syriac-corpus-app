@@ -144,7 +144,7 @@
                 <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:editor[not(@role) or @role!='translator'],'footnote',2)"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:author,'footnote',2)"/>
+                <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:author[child::*[starts-with(@xml:lang,'en')]],'footnote',2)"/>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:if test="$edited">
@@ -162,8 +162,8 @@
         <!-- handle titles -->
         <xsl:for-each select="t:monogr[1]">
             <xsl:choose>
-                <xsl:when test="t:title[@xml:lang='en']">
-                    <xsl:apply-templates select="t:title[@xml:lang='en']" mode="footnote"/>
+                <xsl:when test="t:title[starts-with(@xml:lang,'en')]">
+                    <xsl:apply-templates select="t:title[starts-with(@xml:lang,'en')]" mode="footnote"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates select="t:title[1]" mode="footnote"/>
@@ -205,7 +205,7 @@
                 <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:editor[not(@role) or @role!='translator'],'biblist',2)"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:author,'biblist',2)"/>
+                <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:author[child::*[starts-with(@xml:lang,'en')]],'biblist',2)"/>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:if test="$edited">
@@ -223,8 +223,8 @@
         <!-- handle titles -->
         <xsl:for-each select="t:monogr[1]">
             <xsl:choose>
-                <xsl:when test="t:title[@xml:lang='en']">
-                    <xsl:apply-templates select="t:title[@xml:lang='en']" mode="biblist"/>
+                <xsl:when test="t:title[starts-with(@xml:lang,'en')]">
+                    <xsl:apply-templates select="t:title[starts-with(@xml:lang,'en')]" mode="biblist"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates select="t:title[1]" mode="biblist"/>
@@ -343,6 +343,9 @@
             <xsl:otherwise>
                 <span class="{local-name()}">
                     <xsl:choose>
+                        <xsl:when test="t:persName[starts-with(@xml:lang,'en')]">
+                            <xsl:apply-templates select="t:persName[starts-with(@xml:lang,'en')][1]" mode="footnote"/>
+                        </xsl:when>
                         <xsl:when test="t:persName">
                             <xsl:apply-templates select="t:persName[1]" mode="footnote"/>
                         </xsl:when>
@@ -389,8 +392,11 @@
     <xsl:template match="t:imprint" mode="footnote biblist" priority="1">
         <xsl:text>(</xsl:text>
         <xsl:choose>
+            <xsl:when test="t:pubPlace[starts-with(@xml:lang,'en')]">
+                <xsl:apply-templates select="t:pubPlace[starts-with(@xml:lang,'en')]" mode="footnote"/>
+            </xsl:when>
             <xsl:when test="t:pubPlace">
-                <xsl:apply-templates select="t:pubPlace" mode="footnote"/>
+                <xsl:apply-templates select="t:pubPlace[1]" mode="footnote"/>
             </xsl:when>
             <xsl:otherwise>
                 <abbr title="no place of publication">n.p.</abbr>
@@ -398,8 +404,8 @@
         </xsl:choose>
         <xsl:text>: </xsl:text>
         <xsl:choose>
-            <xsl:when test="t:publisher[@xml:lang='en']">
-                <xsl:apply-templates select="t:publisher[@xml:lang='en']" mode="footnote"/>
+            <xsl:when test="t:publisher[starts-with(@xml:lang,'en')]">
+                <xsl:apply-templates select="t:publisher[starts-with(@xml:lang,'en')]" mode="footnote"/>
             </xsl:when>
             <xsl:when test="t:publisher">
                 <xsl:apply-templates select="t:publisher[1]" mode="footnote"/>
