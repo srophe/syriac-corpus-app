@@ -59,7 +59,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-06-30-04:00</date>
+                <date>2014-07-28</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -91,6 +91,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-07-28">CHANGED: existence terminus ante quem to be ISO date compliant</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-06-30-04:00">CHANGED tei:author element to tei:persName under tei:event element.</change>
             <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-06-12-05:00">ADDED: Yaqut citation and attestation</change>
             <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
@@ -128,8 +129,8 @@
                         <p xml:lang="en">Attestation of name <foreign xml:lang="ar">طَيْسفون</foreign> in the <title xml:lang="en" level="m">Muʿjam al-buldān</title> of <persName>Yāqūt al-Ḥamawī</persName>.</p>
                         <link target="#name58-5 #attestation58-1"/>
                     </event>
-                    <state type="existence" from="0000" to="0637" syriaca-computed-end="0637-01-01" syriaca-computed-start="0001-01-01">
-                        <precision match="@from" notAfter="0000" syriaca-computed-end="0001-01-01"/>
+                    <state type="existence" from="0001" to="0637" syriaca-computed-end="0637-01-01" syriaca-computed-start="0001-01-01">
+                        <precision match="@from" notAfter="0001" syriaca-computed-end="0001-01-01"/>
                         <precision match="@to" notAfter="1215" notBefore="0637" syriaca-computed-end="1215-01-01" syriaca-computed-start="0637-01-01"/>
                     </state>
                     <idno type="URI">http://syriaca.org/place/58</idno>
