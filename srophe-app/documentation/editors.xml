@@ -28,7 +28,7 @@
                         Distributed under a Creative Commons Attribution 3.0 Unported License
                     </licence>
                 </availability>
-                <date>2014-07-18</date>
+                <date>2014-07-29</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -40,8 +40,9 @@
             </editorialDecl>
         </encodingDesc>
         <revisionDesc>
-            <change when="2014-07-18" who="http://syriaca.org/editors.xml#tcarlson">ADDED: Luke Yarbrough</change>
-            <change when="2013-03-25" who="http://syriaca.org/editors.xml#tcarlson">CREATED: editors list</change>
+            <change when="2014-07-29" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Adam Carter McCollum</change>
+            <change when="2014-07-18" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Luke Yarbrough</change>
+            <change when="2013-03-25" who="http://syriaca.org/documentation/editors.xml#tcarlson">CREATED: editors list</change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -167,6 +168,13 @@
                     <persName xml:lang="en">
                         <forename>Luke</forename>
                         <surname>Yarbrough</surname>
+                    </persName>
+                </person>
+                <person xml:id="amccollum">
+                    <persName xml:lang="en">
+                        <forename>Adam</forename>
+                        <addName>Carter</addName>
+                        <surname>McCollum</surname>
                     </persName>
                 </person>
                 <org xml:id="uasyriacresearchgroup">
