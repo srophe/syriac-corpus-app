@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="syriacaMainODD.rnc" type="application/relax-ng-compact-syntax"?>
 <TEI xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:syriaca="http://syriaca.org" xml:lang="en">
     <teiHeader>
         <fileDesc>
@@ -87,7 +87,7 @@
                     <desc xml:id="abstract-en-801" xml:lang="en"/>
                     <event type="attestation" xml:id="attestation801-1" notBefore="1633-09-01" notAfter="1634-08-31" source="#bib801-2" syriaca-computed-end="1634-08-31" syriaca-computed-start="1633-09-01">
                         <p xml:lang="en">Attestation of name <foreign xml:lang="syr">ܐܵܬܹܝܠ</foreign> in a note in <title>Jerusalem, Saint Mark's Monastery, Ms. 181 [HMML SMMJ 00181]</title>.</p>
-                        <link targets="#name801-4 #attestation801-1"/>
+                        <link target="#name801-4 #attestation801-1"/>
                     </event>
                     <state type="existence"/>
                     <idno type="URI">http://syriaca.org/place/801</idno>

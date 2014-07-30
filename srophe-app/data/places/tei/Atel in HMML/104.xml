@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="syriacaMainODD.rnc" type="application/relax-ng-compact-syntax"?>
 <TEI xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:syriaca="http://syriaca.org" xml:lang="en">
     <teiHeader>
         <fileDesc>
@@ -127,11 +127,11 @@
                     </event>
                     <event type="attestation" xml:id="attestation104-2" notBefore="1633-09-01" notAfter="1634-08-31" source="#bib104-9" syriaca-computed-end="1634-08-31" syriaca-computed-start="1633-09-01">
                         <p xml:lang="en">Attestation of name <foreign xml:lang="syr">ܐܘܿܪܫܠܹܡ</foreign> in a note in <title>Jerusalem, Saint Mark's Monastery, Ms. 181 [HMML SMMJ 00181]</title>.</p>
-                        <link targets="#name104-9 #attestation104-2"/>
+                        <link target="#name104-9 #attestation104-2"/>
                     </event>
                     <event type="attestation" xml:id="attestation104-3" notBefore="1640-09-01" notAfter="1641-08-31" source="#bib104-9" syriaca-computed-end="1641-08-31" syriaca-computed-start="1640-09-01">
                         <p xml:lang="en">Attestation of name <foreign xml:lang="syr">ܐܘܿܪܫܠܹܡ</foreign> in a note in <title>Jerusalem, Saint Mark's Monastery, Ms. 181 [HMML SMMJ 00181]</title>.</p>
-                        <link targets="#name104-9 #attestation104-3"/>
+                        <link target="#name104-9 #attestation104-3"/>
                     </event>
                     <state type="existence" from="-1000" to="2013" syriaca-computed-end="2013-01-01">
                         <precision match="@from" notAfter="-1000"/>
