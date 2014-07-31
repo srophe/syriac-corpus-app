@@ -31,7 +31,7 @@ return
     <from>Syriaca.org &lt;david.a.michelson@vanderbilt.edu&gt;</from>
     <!--<to>wsalesky@gmail.com</to>-->
     <to>david.a.michelson@vanderbilt.edu</to>
-    <cc>tcarlson@princeton.edu</cc>
+    <cc>thomas.a.carlson@okstate.edu</cc>
     <subject>{request:get-parameter('subject','')} for {request:get-parameter('place','')} {request:get-parameter('id','')}</subject>
     <message>
       <xhtml>
