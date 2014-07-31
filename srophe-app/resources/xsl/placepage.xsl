@@ -81,6 +81,7 @@
     <xsl:variable name="editorssourcedoc">/db/apps/srophe/documentation/editors.xml</xsl:variable>
     <xsl:param name="uribase">http://syriaca.org/place/</xsl:param>
     <xsl:variable name="resource-id" select="substring-after(/descendant::*/t:place[1]/@xml:id,'place-')"/>
+    <xsl:variable name="placenum" select="substring-after(/descendant::*/t:place[1]/@xml:id,'place-')"/>
  <!-- =================================================================== -->
  <!-- TEMPLATES -->
  <!-- =================================================================== -->
