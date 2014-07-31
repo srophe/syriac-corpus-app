@@ -149,7 +149,7 @@
         </p>
         <!--
         <p>
-            <span class="heading-inline">Entry Contributor<xsl:if test="count(t:editor[@role='creator'])&gt;1">s</xsl:if>:</span>
+            <span class="heading-inline">Entry Contributor<xsl:if test="count(t:editor[@role='creator'])>1">s</xsl:if>:</span>
             <xsl:text> </xsl:text>
             <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='creator'],'footnote',count(t:editor[@role='creator'])+1)"/>
         </p>

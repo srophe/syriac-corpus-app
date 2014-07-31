@@ -4,7 +4,14 @@
         <xsl:if test="@xml:lang">
             <xsl:copy-of select="@xml:lang"/>
             <xsl:attribute name="lang">
-                <xsl:value-of select="@xml:lang"/>
+                <xsl:choose>
+                    <xsl:when test="starts-with(@xml:lang,'syr')">syr</xsl:when>
+                    <xsl:when test="starts-with(@xml:lang,'ar')">ar</xsl:when>
+                    <xsl:when test="starts-with(@xml:lang,'en')">en</xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@xml:lang"/>        
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:attribute>
         </xsl:if>
     </xsl:template>

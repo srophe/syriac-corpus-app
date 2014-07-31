@@ -100,7 +100,7 @@
                         <span class="get-syriac noprint" style="font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none">
                             <xsl:if test="//t:place/child::*[@xml:lang ='syr']">
                                 <a href="../documentation/view-syriac.html">
-                                    <img src="../resources/img/faq.png" alt="The Google Maps icon"/>&#160;Don't see Syriac?</a>
+                                    <img src="/exist/apps/srophe/resources/img/faq.png" alt="The Google Maps icon"/>&#160;Don't see Syriac?</a>
                             </xsl:if>
                         </span>
                     </h1>
@@ -1202,7 +1202,18 @@
                             <xsl:otherwise>ltr</xsl:otherwise>
                         </xsl:choose>
                     </xsl:attribute>
-                    <xsl:call-template name="langattr"/>
+                    <xsl:attribute name="lang">
+                        <xsl:choose>
+                            <xsl:when test="parent::t:desc/@xml:lang[starts-with(.,'syr')]">syr</xsl:when>
+                            <xsl:otherwise><xsl:value-of select="parent::t:desc/@xml:lang"/></xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:attribute name="xml:lang">
+                        <xsl:choose>
+                            <xsl:when test="parent::t:desc/@xml:lang[starts-with(.,'syr')]">syr</xsl:when>
+                            <xsl:otherwise><xsl:value-of select="parent::t:desc/@xml:lang"/></xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:attribute>
                     <xsl:apply-templates/>
                 </bdi>
                 <xsl:text>”</xsl:text>
