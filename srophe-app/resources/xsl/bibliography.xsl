@@ -448,11 +448,25 @@
         <xsl:choose>
             <xsl:when test="@target">
                 <a href="{@target}">
-                    <xsl:apply-templates select="." mode="out-normal"/>
+                    <xsl:choose>
+                        <xsl:when test="@unit='ff'">
+                            <xsl:text>, f. </xsl:text><xsl:apply-templates select="." mode="out-normal"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="." mode="out-normal"/>                        
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </a>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="." mode="out-normal"/>
+                <xsl:choose>
+                    <xsl:when test="@unit='ff'">
+                        <xsl:text>, f. </xsl:text><xsl:apply-templates select="." mode="out-normal"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="." mode="out-normal"/>                        
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:value-of select="$suffix"/>
