@@ -65,11 +65,11 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-05-15">FIXED: needed diacritic on Yohannan in Wilmshurst name</change>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-26">ADDED: abstract <gi>desc</gi>.</change>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2014-03-26">FIXED: actually, this is the main Yezidi shrine in Lalish, only fictionally an earlier monastery, so retyped it as 'temple' and added its Arabic name</change>
-            <change who="http://syriaca.org/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
-            <change who="http://syriaca.org/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
+            <change who=" http://syriaca.org/documentation/editors.xml#tcarlson" when="2014-05-15">FIXED: needed diacritic on Yohannan in Wilmshurst name</change>
+            <change who=" http://syriaca.org/documentation/editors.xml#tcarlson" when="2014-03-26">ADDED: abstract <gi>desc</gi>.</change>
+            <change who=" http://syriaca.org/documentation/editors.xml#tcarlson" when="2014-03-26">FIXED: actually, this is the main Yezidi shrine in Lalish, only fictionally an earlier monastery, so retyped it as 'temple' and added its Arabic name</change>
+            <change who=" http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-01-14">ADDED: syriaca-computed-start and syriaca-computed-end attributes for searching</change>
+            <change who=" http://syriaca.org/documentation/editors.xml#tcarlson" when="2013-12-18-05:00">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
