@@ -73,7 +73,7 @@
         <body>
             <listPlace>
                 <place xml:id="place-2547" type="monastery">
-                    <placeName xml:id="name2547-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib2547-1">The 'Great Monastery' of <persName ref="http://syriaca.org/person/320">Abraham of Kashkar</persName></placeName>
+                    <placeName xml:id="name2547-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib2547-1">The 'Great Monastery' of <persName ref="http://syriaca.org/person/320">Abraham of <placeName ref="http://syriaca.org/place/111">Kashkar</placeName></persName></placeName>
                     <desc xml:id="abstract-en-2547" xml:lang="en">On <placeName ref="http://syriaca.org/place/100">Mount Izla</placeName></desc>
                     <event when="0571" source="#bib2547-1" syriaca-computed-start="0571-01-01" syriaca-computed-end="0571-01-01">
                         <p xml:lang="en">Monastery founded by <persName ref="http://syriaca.org/person/320">Abraham of <placeName ref="http://syriaca.org/place/111">Kashkar</placeName></persName>
@@ -92,7 +92,7 @@
                         <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <!-- Not comprehensive. -->
-                        <citedRange unit="pp">8, 49</citedRange>
+                        <citedRange unit="pp">8, 49, 70</citedRange>
                     </bibl>
                 </place>
             </listPlace>
