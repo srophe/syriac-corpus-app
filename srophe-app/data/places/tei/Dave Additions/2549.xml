@@ -28,7 +28,7 @@
             </editionStmt>
             <publicationStmt>
                 <authority>Syriaca.org: The Syriac Reference Portal</authority>
-                <idno type="URI">http://syriaca.org/place/2547/tei</idno>
+                <idno type="URI">http://syriaca.org/place/2549/tei</idno>
                 <availability>
                     <licence target="http://creativecommons.org/licenses/by/3.0/">
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
@@ -72,26 +72,26 @@
     <text>
         <body>
             <listPlace>
-                <place xml:id="place-2547" type="region">
-                    <placeName xml:id="name2547-1" xml:lang="en" source="#bib2547-1">Cynegike</placeName>
-                    <placeName xml:id="name2547-2" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib2547-2">Kynegike</placeName>
-                    <desc xml:id="abstract-en-2547" xml:lang="en">A region southwest of <placeName ref="http://syriaca.org/place/162">Chalcis</placeName>.</desc>
-                    <event when="0512" source="#bib2547-1" syriaca-computed-start="0512-01-01" syriaca-computed-end="0512-12-31">
+                <place xml:id="place-2549" type="region">
+                    <placeName xml:id="name2549-1" xml:lang="en" source="#bib2549-1">Cynegike</placeName>
+                    <placeName xml:id="name2549-2" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib2549-2">Kynegike</placeName>
+                    <desc xml:id="abstract-en-2549" xml:lang="en">A region southwest of <placeName ref="http://syriaca.org/place/162">Chalcis</placeName>.</desc>
+                    <event when="0512" source="#bib2549-1" syriaca-computed-start="0512-01-01" syriaca-computed-end="0512-12-31">
                         <p xml:lang="en"><persName ref="http://syriaca.org/person/44">Philoxenus of <placeName ref="http://syriaca.org/place/122">Mabbug</placeName></persName> brought monks from this region to riot in <placeName ref="http://syriaca.org/place/10">Antioch</placeName>.
                         </p>
                     </event>
                     <state type="existence"/>                    
-                    <state type="confession" xml:id="confession2547-1" ref="http://syriaca.org/documentation/confessions.xml#west-syrian" from="0512" syriaca-computed-start="0512-01-01">
+                    <state type="confession" xml:id="confession2549-1" ref="http://syriaca.org/documentation/confessions.xml#west-syrian" from="0512" syriaca-computed-start="0512-01-01">
                         <label>West Syrian</label>
                     </state>
-                    <idno type="URI">http://syriaca.org/place/2547</idno>
+                    <idno type="URI">http://syriaca.org/place/2549</idno>
                     <idno type="URI">http://pleiades.stoa.org/places/658513</idno>
-                    <bibl xml:id="bib2547-1">
+                    <bibl xml:id="bib2549-1">
                         <title xml:lang="en">The Ecclesiastical History of Evagrius Scholasticus</title>
                         <ptr target="http://syriaca.org/bibl/647"/>
                         <citedRange unit="pp">174, 249</citedRange>
                     </bibl>
-                    <bibl xml:id="bib2547-2">
+                    <bibl xml:id="bib2549-2">
                         <title>http://pleiades.stoa.org/places/658513</title>
                         <ptr target="http://pleiades.stoa.org/places/658513"/>
                     </bibl>
