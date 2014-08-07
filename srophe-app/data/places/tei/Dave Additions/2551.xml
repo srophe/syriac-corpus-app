@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://syriaca.org/documentation/syriaca-tei-main.rnc" type="application/relax-ng-compact-syntax"?>
 <TEI xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:syriaca="http://syriaca.org" xml:lang="en">
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Rabban Hormizd — <foreign xml:lang="syr">ܪܒܢ ܗܘܪܡܝܙܕ ܥܓ̰ܡܝܐ</foreign>
-                </title>
+                <title level="a" xml:lang="en">Mar ʿAqiba</title>
                 <title level="m" xml:lang="en">The Syriac Gazetteer</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
@@ -13,14 +12,15 @@
                 <principal>David A. Michelson</principal>
                 <editor role="general" ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</editor>
                 <editor role="general" ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</editor>
-                <editor role="creator" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</editor>
+                <editor role="creator" ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A Carlson</editor>
+                <editor role="creator" ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</editor>
                 <respStmt>
-                    <resp>Data merging, Pleiades and Wikipedia linking, and XML by</resp>
-                    <name ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</name>
+                    <resp>XML by</resp>
+                    <name ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</name>
                 </respStmt>
                 <respStmt>
-                    <resp>Wilmshurst index information entry by</resp>
-                    <name ref="http://syriaca.org/documentation/editors.xml#adavis">Anthony Davis</name>
+                    <resp>Information by</resp>
+                    <name ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</name>
                 </respStmt>
             </titleStmt>
             <editionStmt>
@@ -28,13 +28,13 @@
             </editionStmt>
             <publicationStmt>
                 <authority>Syriaca.org: The Syriac Reference Portal</authority>
-                <idno type="URI">http://syriaca.org/place/2547/tei</idno>
+                <idno type="URI">http://syriaca.org/place/2551/tei</idno>
                 <availability>
                     <licence target="http://creativecommons.org/licenses/by/3.0/">
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-06-07</date>
+                <date>2014-08-07</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -66,35 +66,18 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#ngibson" when="2014-08-04">CREATED: place</change>
-            <change who="http://syriaca.org/documentation/editors.xml#dmichelson" when="2014-08-07">FIXED: typos in http://syriaca.org/documentation/editors.xml#tcarlson</change>
+            <change who="http://syriaca.org/documentation/editors.xml#dmichelson" when="2014-08-05">CREATED: place</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
             <listPlace>
-                <place xml:id="place-2547" type="monastery">
-                    <placeName xml:id="name2547-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib2547-1">The 'Great Monastery' of <persName ref="http://syriaca.org/person/320">Abraham of <placeName ref="http://syriaca.org/place/111">Kashkar</placeName></persName></placeName>
-                    <desc xml:id="abstract-en-2547" xml:lang="en">On <placeName ref="http://syriaca.org/place/100">Mount Izla</placeName></desc>
-                    <event when="0571" source="#bib2547-1" syriaca-computed-start="0571-01-01" syriaca-computed-end="0571-01-01">
-                        <p xml:lang="en">Monastery founded by <persName ref="http://syriaca.org/person/320">Abraham of <placeName ref="http://syriaca.org/place/111">Kashkar</placeName></persName>
-                        </p>
-                    </event>
-                    <state type="existence" from="0571" syriaca-computed-start="0571-01-01"/>                    
-                    <state type="confession" xml:id="confession2547-1" ref="http://syriaca.org/documentation/confessions.xml#church-of-the-east" from="0571" syriaca-computed-start="0571-01-01">
-                        <label>Church of the East</label>
-                    </state>
-                    <note type="disambiguation">
-                        Not the same place as 
-                        <placeName ref="http://syriaca.org/place/233">The Monastery of Tell ʿAda, also known as the ‘Great Monastery’</placeName>.
-                    </note>
-                    <idno type="URI">http://syriaca.org/place/2547</idno>
-                    <bibl xml:id="bib2547-2">
-                        <title xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <!-- Not comprehensive. -->
-                        <citedRange unit="pp">8, 49, 70</citedRange>
-                    </bibl>
+                <place xml:id="place-2551" type="monastery">
+                    <placeName xml:id="name2551-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib2551-1>Mar ʿAqiba</placeName>
+                    <desc xml:id="abstract-en-2551" xml:lang="en">A monastery near <placeName ref="http://syriaca.org/place/162">Qenneshrin</placeName>.</desc>
+                    <state type="existence"/> 
+                    <idno type="URI">http://syriaca.org/place/2551</idno>
+                    <bibl xml:id="bib2551-1"><title xml:lang="en" level="a">The Chronicle of Pseudo-Zachariah Rhetor: Church and War in Late Antiquity</title><author>Geoffrey Greatrex, et. al.</author><ptr target="http://syriaca.org/bibl/648"/><citedRange unit="pp">304 n. 104</citedRange></bibl>
                 </place>
             </listPlace>
         </body>

@@ -12,7 +12,7 @@
                 <principal>David A. Michelson</principal>
                 <editor role="general" ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</editor>
                 <editor role="general" ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</editor>
-                <editor role="creator" ref="http://syriaca.org/documentation/editors.xml#tacarlson">Thomas A Carlson</editor>
+                <editor role="creator" ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A Carlson</editor>
                 <editor role="creator" ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</editor>
                 <respStmt>
                     <resp>XML by</resp>
@@ -67,6 +67,7 @@
         </profileDesc>
         <revisionDesc>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" when="2014-08-05">CREATED: place</change>
+            <change who="http://syriaca.org/documentation/editors.xml#dmichelson" when="2014-08-07">CHANGED: URI from 2547 to 2549 and FIXED: typos in http://syriaca.org/documentation/editors.xml#tcarlson</change>
         </revisionDesc>
     </teiHeader>
     <text>

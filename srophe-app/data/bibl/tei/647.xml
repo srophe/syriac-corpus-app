@@ -3,7 +3,7 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
+                <title xml:lang="en">The Ecclesiastical History of Evagrius Scholasticus</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The National Endowment for the Humanities</funder>
                 <funder>The International Balzan Prize Foundation</funder>
@@ -35,6 +35,7 @@
         </fileDesc>
         <revisionDesc>
             <change when="2014-08-05" who="http://syriaca.org/editors.xml#tcarlson">CREATED: bibliographic entry</change>
+            <change when="2014-08-07" who="http://syriaca.org/editors.xml#dmichelson">FIXED: text node contents of titleStmt/title element to match contents of biblStruct/title</change>
         </revisionDesc>
     </teiHeader>
     <text>
