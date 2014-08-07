@@ -97,6 +97,17 @@
                 </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="$rec/child::t:persName">
+                <xsl:if test="$rec/child::t:persName/@ana">
+                    (<xsl:for-each select="tokenize($rec/child::t:persName/@ana,' ')">
+                        <xsl:value-of select="substring-after(.,'#syriaca-')"/>
+<!-- NOTE add comma for multiple values, FIND SAMPLE RECORD -->
+                    </xsl:for-each>)
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise/>
+        </xsl:choose>
     </xsl:template>
     
     <!-- NOTE: need to remove footnotes from title? -->
@@ -128,11 +139,11 @@
     </xsl:template>
     <xsl:template name="getdirection">
         <xsl:choose>
+            <xsl:when test="@xml:lang='en'">ltr</xsl:when>
+            <xsl:when test="@xml:lang='syr' or @xml:lang='ar' or @xml:lang='syc' or @xml:lang='syr-Syrj'">rtl</xsl:when>
             <xsl:when test="not(@xml:lang)">
                 <xsl:text/>
             </xsl:when>
-            <xsl:when test="@xml:lang='en'">ltr</xsl:when>
-            <xsl:when test="@xml:lang='syr' or @xml:lang='ar' or @xml:lang='syc' or @xml:lang='syr-Syrj'">rtl</xsl:when>
             <xsl:otherwise>
                 <xsl:text/>
             </xsl:otherwise>

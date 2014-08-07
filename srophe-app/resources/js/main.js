@@ -62,6 +62,16 @@ $("#less-relation").click(function(){
   $("#toggle-relation").hide("slow");
 });
 
+//more sophisticated toggle for mulitple how/hide
+$(".toggle").click(function() {
+    var $toggled = $(this).attr('href');
+    if ($.trim($(this).text()) === '(hide list)') {
+        $($toggled).hide( "slow");
+    } else {
+        $($toggled).show( "slow");       
+    }
+    return false;
+});
 
 if (navigator.appVersion.indexOf("Mac") > -1 || navigator.appVersion.indexOf("Linux") > -1) {
     $('.get-syriac').show();

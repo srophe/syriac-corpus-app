@@ -50,7 +50,7 @@
  <!-- =================================================================== -->
  <!-- import component stylesheets for HTML page portions -->
  <!-- =================================================================== -->
-   <!-- NOTE: WS: should change to title-std used by place and persons-->
+   <!-- NOTE: WS: should rename place-title-std to title-std used by place and persons-->
     <xsl:import href="place-title-std.xsl"/>
     <xsl:import href="helper-functions.xsl"/>
     <xsl:import href="link-icons.xsl"/>
@@ -74,12 +74,12 @@
  <!--  colquery: constructed variable with query for collection fn. -->
  <!-- =================================================================== -->
     <xsl:param name="normalization">NFKC</xsl:param>
-    <!-- NOTE: Change to eXist xml -->
     <xsl:param name="xmlbase">/db/apps/srophe/data/persons/tei/xml/</xsl:param>
-    <xsl:param name="editoruriprefix">http://syriaca.org/editors.xml#</xsl:param>
+    <xsl:param name="editoruriprefix">http://syriaca.org/documentation/editors.xml#</xsl:param>
     <xsl:variable name="editorssourcedoc">/db/apps/srophe/documentation/editors.xml</xsl:variable>
-    <xsl:param name="uribase">http://syriaca.org/persons/</xsl:param>
+    <xsl:param name="uribase">http://syriaca.org/person/</xsl:param>
     <xsl:variable name="resource-id" select="substring-after(/descendant::*/t:person[1]/@xml:id,'person-')"/>
+    <xsl:variable name="resource-uri" select="concat($uribase,$resource-id)"/>
  <!-- =================================================================== -->
  <!-- TEMPLATES -->
  <!-- =================================================================== -->
@@ -285,23 +285,81 @@
     </xsl:template>
     <!-- Person content is split into two columns -->
     <xsl:template name="col1">
-        <!-- NOTE, for map do well with map in half and type and location in other half, force better proportions -->
+        <div id="persnames" class="well">
+            <xsl:if test="string-length(t:note[@type='abstract']) &gt; 1">
+                <h4>Identity</h4>
+                <xsl:apply-templates select="t:note[@type='abstract']"/>
+            </xsl:if>
+            <!-- NOTE: Need to add Identy description if it exists, When Nathan gets element back to me.  -->
+            <p>Names: 
+            <xsl:apply-templates select="t:persName[@syriaca-tags='#syriaca-headword' and @xml:lang='syr']" mode="list">
+                    <xsl:sort lang="syr" select="."/>
+                </xsl:apply-templates>
+                <xsl:apply-templates select="t:persName[@syriaca-tags='#syriaca-headword' and @xml:lang='en']" mode="list">
+                    <xsl:sort collation="{$mixed}" select="."/>
+                </xsl:apply-templates>
+                <xsl:apply-templates select="t:persName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and starts-with(@xml:lang, 'syr')]" mode="list">
+                    <xsl:sort lang="syr" select="."/>
+                </xsl:apply-templates>
+                <xsl:apply-templates select="t:persName[starts-with(@xml:lang, 'ar')]" mode="list">
+                    <xsl:sort lang="ar" select="."/>
+                </xsl:apply-templates>
+                <xsl:apply-templates select="t:persName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar'))]" mode="list">
+                    <xsl:sort collation="{$mixed}" select="."/>
+                </xsl:apply-templates>
+            </p>
+        </div>
+      
+        <!-- Timeline test -->
+        <xsl:if test="//t:death | //t:birth | //t:floruit | //t:state | //t:event">
+            <div class="timeline">
+                <script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"/>
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        createStoryJS({
+                        start:      'start_at_end',
+                        type:       'timeline',
+                        width:      '700',
+                        height:     '350',
+                        source:     '<xsl:value-of select="concat('../modules/timeline.xql?uri=',$resource-uri)"/>',
+                        embed_id:   'my-timeline'
+                        });
+                    });
+                </script>
+                <div id="my-timeline"/>
+                <p>*Timeline generated with <a href="http://timeline.knightlab.com/">http://timeline.knightlab.com/</a>
+                </p>
+            </div>
+        </xsl:if>
+        <xsl:if test="//t:death | //t:birth | //t:floruit | //t:state | //t:event">
+            <h4>Dates</h4>
+            <ul>
+                <xsl:for-each select="t:birth | t:death | t:floruit | //t:state[not(@type='attestation')]">
+                    <li>
+                        <xsl:apply-templates select="."/>
+                        <!--<xsl:value-of select="descendant-or-self::*"/>-->
+                    </li>
+                </xsl:for-each>
+            </ul>
+        </xsl:if>
+        
+        <!-- What to do about sex and langKnowledge? Better ogranization of data needed. 
         <div class="well">
             <ul class="unstyled">
                 <xsl:apply-templates select="t:birth | t:death | t:floruit | t:sex | t:langKnowledge"/>
-                <!-- NOTE What to do about state?? -->
                 <xsl:if test="t:state[@type='martyred']/t:label = 'Yes'">
                     <li>Martyred <xsl:sequence select="local:do-refs(../@source,ancestor::t:*[@xml:lang][1])"/>
                     </li>
                 </xsl:if>
             </ul>
         </div>
+        -->
         <xsl:if test="t:location[@type='gps'and t:geo]">
             <div class="well">
                 <div class="row-fluid">
-                        <!-- The map widget -->
+                    <!-- The map widget -->
                     <div class="span7">
-                            <!-- If map data exists generate location link for use by map.js -->
+                        <!-- If map data exists generate location link for use by map.js -->
                         <xsl:if test="t:location/t:geo[1]">
                             <xsl:apply-templates select="t:location[t:geo][1]/t:geo[1]" mode="json-uri"/>
                         </xsl:if>
@@ -346,21 +404,6 @@
                     </ul>
                 </div>
             </xsl:if> 
-            <!-- NOTE: very odd display, need to have a chat about how these relate -->
-            <xsl:if test="t:state[not(@type='attestation') and not(@type='martyred')]">
-                <xsl:for-each-group select="t:state[not(@type='attestation') and not(@type='martyred')]" group-by="@type">
-                    <div class="state">
-                        <h3>
-                            <xsl:value-of select="current-grouping-key()"/>
-                        </h3>
-                        <ul>
-                            <xsl:for-each select="current-group()">
-                                <xsl:apply-templates/>
-                            </xsl:for-each>
-                        </ul>
-                    </div>
-                </xsl:for-each-group>
-            </xsl:if>
           <!-- Events with @type="attestation" -->
             <xsl:if test="t:event[@type='attestation']">
                 <div id="event">
@@ -392,43 +435,102 @@
         </div>
     </xsl:template>
     <xsl:template name="col2">
-        <div id="persnames" class="well">
-            <h3>Names</h3>
-            <xsl:apply-templates select="t:persName[@syriaca-tags='#syriaca-headword' and @xml:lang='syr']" mode="list">
-                <xsl:sort lang="syr" select="."/>
-            </xsl:apply-templates>
-            <xsl:apply-templates select="t:persName[@syriaca-tags='#syriaca-headword' and @xml:lang='en']" mode="list">
-                <xsl:sort collation="{$mixed}" select="."/>
-            </xsl:apply-templates>
-            <xsl:apply-templates select="t:persName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and starts-with(@xml:lang, 'syr')]" mode="list">
-                <xsl:sort lang="syr" select="."/>
-            </xsl:apply-templates>
-            <xsl:apply-templates select="t:persName[starts-with(@xml:lang, 'ar')]" mode="list">
-                <xsl:sort lang="ar" select="."/>
-            </xsl:apply-templates>
-            <xsl:apply-templates select="t:persName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar'))]" mode="list">
-                <xsl:sort collation="{$mixed}" select="."/>
-            </xsl:apply-templates>
-        </div>
+
         <!-- NOTE: commented out for now
             Build related places and people if they exist -->
         <xsl:if test="../t:relation">
-            <xsl:if test="../t:relation[contains(@name,'place')]">
+            <xsl:if test="//*:related-items/*:relation[contains(@uri,'place')]">
                 <div id="relations" class="well">
                     <h3>Related Places</h3>
+                    <xsl:if test="//*:related-items/*:relation/descendant::t:geo">
+                        <xsl:copy-of select="//*:div[@id='map-data']"/>
+                    </xsl:if>
                     <ul>
-                        <xsl:apply-templates select="//*:related-items/child::*[contains(@name,'place')]"/>
+                        <xsl:for-each-group select="//../*:related-items/*:relation[contains(@uri,'place')]" group-by="@name">
+                            <li>
+                                <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
+                                <xsl:value-of select="substring(*:desc,1,$desc-ln - 1)"/>:
+                                <xsl:for-each select="current-group()">
+                                    <xsl:apply-templates select="." mode="relation"/>
+                                    <xsl:if test="position() != last()">, </xsl:if>
+                                </xsl:for-each>
+                            </li>
+                        </xsl:for-each-group>
                     </ul>
+                    <!-- List view option check with Nathan to see what he would like
+                    <ul>
+                        <xsl:for-each-group select="//../*:related-items/*:relation[contains(@uri,'place')]" group-by="@name">
+                            <li>
+                                <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
+                                <xsl:choose>
+                                    <xsl:when test="count(current-group()) > 1">
+                                        <xsl:value-of select="substring-before(*:desc,'places')"/>  
+                                        <xsl:value-of select="count(current-group())"/> places <a href="#toggle-{current-grouping-key()}" class="toggle">(see list)</a>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="substring(*:desc,1,$desc-ln - 1)"/>:
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="count(current-group()) > 1">
+                                        <ul id="toggle-{current-grouping-key()}" style="display:none;">
+                                            <xsl:for-each select="current-group()">
+                                                <li><xsl:apply-templates select="." mode="relation"/></li>
+                                            </xsl:for-each>
+                                            <span class="glyphicon glyphicon-chevron-up"></span><a href="#toggle-{current-grouping-key()}" class="toggle">(hide list)</a>
+                                        </ul>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:apply-templates select="." mode="relation"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>                                    
+                            </li>
+                        </xsl:for-each-group>
+                    </ul>
+                    -->
                 </div>
             </xsl:if>
-            <xsl:if test="../t:relation[contains(@name,'person')]">
+            <xsl:if test="../*:related-items/*:relation[contains(@uri,'person')]">
                 <div id="relations" class="well">
                     <h3>Related People</h3>
+                    <!-- NOTE: currently in list, changed to approved format, list or inline -->
                     <ul>
-                        <xsl:apply-templates select="//*:related-items/child::*[contains(@name,'people')]"/>
+                        <xsl:for-each-group select="//../*:related-items/*:relation[contains(@uri,'people')]" group-by="@name">
+                            <li>
+                                <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
+                                <xsl:choose>
+                                    <xsl:when test="count(current-group()) &gt; 1">
+                                        <xsl:value-of select="substring-before(*:desc,'persons')"/> &#160;
+                                        <xsl:value-of select="count(current-group())"/> persons <a href="#toggle-{current-grouping-key()}" class="toggle">(see list)</a>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="substring(*:desc,1,$desc-ln - 1)"/>:
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="count(current-group()) &gt; 1">
+                                        <ul id="toggle-{current-grouping-key()}" style="display:none;">
+                                            <xsl:for-each select="current-group()">
+                                                <li>
+                                                    <xsl:apply-templates select="." mode="relation"/>
+                                                </li>
+                                            </xsl:for-each>
+                                            <span class="glyphicon glyphicon-chevron-up"/>
+                                            <a href="#toggle-{current-grouping-key()}" class="toggle">(hide list)</a>
+                                        </ul>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:apply-templates select="." mode="relation"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </li>
+                        </xsl:for-each-group>
                     </ul>
                 </div>
             </xsl:if>
+        </xsl:if>
+        <xsl:if test="//*:div[@id = 'worldcat-refs']">
+            <xsl:copy-of select="//*:div[@id = 'worldcat-refs']"/>
         </xsl:if>
         <xsl:call-template name="link-icons-text"/>
     </xsl:template>
@@ -452,35 +554,35 @@
     <xsl:template match="t:relation">
         <xsl:apply-templates select="t:desc"/>
     </xsl:template>
-    <xsl:template match="t:state | t:note[not(@type='abstract')]">
+    <xsl:template match="t:note[not(@type='abstract')]">
         <li>
             <xsl:apply-templates/>
         </li>
     </xsl:template>
-    <xsl:template match="t:state[@type='martyred']"/>
+    <xsl:template match="t:state">
+        <span class="srp-label">
+            <xsl:value-of select="@type"/>:</span>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates mode="plain"/>
+        <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
+    </xsl:template>
     <xsl:template match="t:birth">
-        <li>
-            <span class="srp-label">Birth:</span>
-            <xsl:text> </xsl:text>
-            <xsl:apply-templates/>
-            <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
-        </li>
+        <span class="srp-label">Birth:</span>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates/>
+        <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
     </xsl:template>
     <xsl:template match="t:death">
-        <li>
-            <span class="srp-label">Death:</span>
-            <xsl:text> </xsl:text>
-            <xsl:apply-templates/>
-            <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
-        </li>
+        <span class="srp-label">Death:</span>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates/>
+        <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
     </xsl:template>
     <xsl:template match="t:floruit">
-        <li>
-            <span class="srp-label">floruit:</span>
-            <xsl:text> </xsl:text>
-            <xsl:apply-templates/>
-            <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
-        </li>
+        <span class="srp-label">floruit:</span>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates/>
+        <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
     </xsl:template>
     <xsl:template match="t:sex">
         <li>
@@ -528,31 +630,28 @@
     </xsl:template>
     
     <!-- Related items -->
-    <xsl:template match="*:related-items">
-        <xsl:apply-templates select="*:relation"/>
-    </xsl:template>
-    <xsl:template match="*:relation">
-        <li>
-            <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
-            <xsl:value-of select="substring(t:desc,1,$desc-ln - 1)"/>:  
-           <a href="{@uri}">
-                <xsl:choose>
-                    <xsl:when test="contains(child::*/t:title,' — ')">
-                        <xsl:value-of select="substring-before(child::*[1]/t:title,' — ')"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="child::*/t:title"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </a>
-            <xsl:text> </xsl:text>
-            <xsl:value-of select="local:do-dates(.)"/>
-            <xsl:text> </xsl:text>
+    <!-- NOTE still working on this display -->
+    <xsl:template match="*:relation" mode="relation">
+        <a href="{@uri}">
+            <xsl:choose>
+                <xsl:when test="child::*/t:place">
+                    <xsl:value-of select="child::*/t:place/t:placeName"/>
+                </xsl:when>
+                <xsl:when test="contains(child::*/t:title,' — ')">
+                    <xsl:value-of select="substring-before(child::*[1]/t:title,' — ')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="child::*/t:title"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </a>
+        <xsl:text> </xsl:text>
+        <xsl:value-of select="local:do-dates(.)"/>
+        <xsl:text> </xsl:text>
             <!-- If footnotes exist call function do-refs pass footnotes and language variables to function -->
-            <xsl:if test="@source">
-                <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
-            </xsl:if>
-        </li>
+        <xsl:if test="@source">
+            <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
+        </xsl:if>
     </xsl:template>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  
      handle standard output of 'nested' locations 
@@ -772,14 +871,14 @@
             <xsl:when test="/descendant-or-self::t:link[substring-before(@target,' ') = $nameID][contains(@target,'deprecation')]"/>
             <!-- Output all other names -->
             <xsl:otherwise>
-                <li dir="ltr">
+                <span dir="ltr" class="label label-default pers-label">
                     <!-- write out the persName itself, with appropriate language and directionality indicia -->
                     <span class="persName">
                         <xsl:call-template name="langattr"/>
                         <xsl:apply-templates/>
                     </span>
                     <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
-                </li>
+                </span>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
