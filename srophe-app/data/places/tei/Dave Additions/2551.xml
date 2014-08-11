@@ -73,7 +73,7 @@
         <body>
             <listPlace>
                 <place xml:id="place-2551" type="monastery">
-                    <placeName xml:id="name2551-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib2551-1>Mar ʿAqiba</placeName>
+                    <placeName xml:id="name2551-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib2551-1">Mar ʿAqiba</placeName>
                     <desc xml:id="abstract-en-2551" xml:lang="en">A monastery near <placeName ref="http://syriaca.org/place/162">Qenneshrin</placeName>.</desc>
                     <state type="existence"/> 
                     <idno type="URI">http://syriaca.org/place/2551</idno>
