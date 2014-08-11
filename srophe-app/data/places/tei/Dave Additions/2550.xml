@@ -73,7 +73,7 @@
         <body>
             <listPlace>
                 <place xml:id="place-2550" type="province">
-                    <placeName xml:id="name2550-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib2550-1>Oriens</placeName>
+                    <placeName xml:id="name2550-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib2550-1">Oriens</placeName>
                     <desc xml:id="abstract-en-2550" xml:lang="en">An administrative diocese of the late<placeName ref="http://syriaca.org/place/166">Roman Empire</placeName>.</desc>
                     <state type="existence" from="0300" to="0700" source="#bib2550-1"><precision match="@from" notAfter="0400"/><precision match="@to" notBefore="0600"/></state> 
                     <idno type="URI">http://syriaca.org/place/2550</idno>
