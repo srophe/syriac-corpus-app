@@ -14,12 +14,8 @@
                 <editor role="general" ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</editor>
                 <editor role="creator" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</editor>
                 <respStmt>
-                    <resp>Data merging, Pleiades and Wikipedia linking, and XML by</resp>
-                    <name ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</name>
-                </respStmt>
-                <respStmt>
-                    <resp>Wilmshurst index information entry by</resp>
-                    <name ref="http://syriaca.org/documentation/editors.xml#adavis">Anthony Davis</name>
+                    <resp>Data entry by</resp>
+                    <name ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
                 </respStmt>
             </titleStmt>
             <editionStmt>
@@ -73,9 +69,9 @@
             <listPlace>
                 <place xml:id="place-2546" type="diocese">
                     <placeName xml:id="name2546-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib2546-1">Antioch</placeName>
-                    <desc xml:id="abstract-en-2546" xml:lang="en"/>
+                    <desc xml:id="abstract-en-2546" xml:lang="en">Syrian Orthodox patriarchate of Antioch</desc>
                     <state type="existence"/>
-                    <state type="confession" source="#bib2546" xml:id="confession2546-1" ref="http://syriaca.org/documentation/confessions.xml#syrian-orthodox">
+                    <state type="confession" source="#bib2546-1" xml:id="confession2546-1" ref="http://syriaca.org/documentation/confessions.xml#syrian-orthodox">
                         <label>Syrian Orthodox</label>
                     </state>
                     <idno type="URI">http://syriaca.org/place/2546</idno>
@@ -85,7 +81,7 @@
                         <citedRange unit="pp">5, 258-260, 332, 347-348, 389</citedRange>
                     </bibl>
                 </place>
-                <relation name="share-a-name" mutual="#place-2546  http://syriaca.org/place/995.html  http://syriaca.org/place/10"/>
+                <relation name="share-a-name" mutual="#place-2546  http://syriaca.org/place/995  http://syriaca.org/place/10"/>
             </listPlace>
         </body>
     </text>
