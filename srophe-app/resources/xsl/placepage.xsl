@@ -1204,16 +1204,10 @@
                         </xsl:choose>
                     </xsl:attribute>
                     <xsl:attribute name="lang">
-                        <xsl:choose>
-                            <xsl:when test="parent::t:desc/@xml:lang[starts-with(.,'syr')]">syr</xsl:when>
-                            <xsl:otherwise><xsl:value-of select="parent::t:desc/@xml:lang"/></xsl:otherwise>
-                        </xsl:choose>
+                        <xsl:value-of select="parent::t:desc/@xml:lang"/>
                     </xsl:attribute>
                     <xsl:attribute name="xml:lang">
-                        <xsl:choose>
-                            <xsl:when test="parent::t:desc/@xml:lang[starts-with(.,'syr')]">syr</xsl:when>
-                            <xsl:otherwise><xsl:value-of select="parent::t:desc/@xml:lang"/></xsl:otherwise>
-                        </xsl:choose>
+                        <xsl:value-of select="parent::t:desc/@xml:lang"/>
                     </xsl:attribute>
                     <xsl:apply-templates/>
                 </bdi>
