@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://syriaca.org/documentation/syriaca-tei-main.rnc" type="application/relax-ng-compact-syntax"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:functx="http://www.functx.com" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xml:lang="en">
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Meliton the Philosopher — ܡܝܠܝܛܘܢ</title>
+                <title level="a" xml:lang="en">Meliton the Philosopher — <foreign xml:lang="syr">ܡܝܠܝܛܘܢ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Prosopography</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The Andrew W. Mellon Foundation</funder>
@@ -57,7 +59,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-07-23-05:00</date>
+                <date>2014-08-19-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -109,7 +111,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-23-05:00"> CREATED: person </change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -128,7 +131,7 @@
                     <idno type="URI">http://syriaca.org/person/631</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|631</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Melito&amp;sT=keywords</idno>
-                    <floruit notBefore="0100" notAfter="0300" source="#bib631-1">2nd or 3rd cent.</floruit>
+                    <floruit notBefore="0100" notAfter="0300" source="#bib631-1" syriaca-computed-end="0300-01-01" syriaca-computed-start="0100-01-01">2nd or 3rd cent.</floruit>
                     <state type="office" role="philosopher" source="#bib631-1">
                         <desc xml:lang="en-x-gedsh">the Philosopher</desc>
                     </state>
@@ -144,6 +147,9 @@
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Melito&amp;sT=keywords">Melito</citedRange>
                     </bibl>
                 </person>
+                <relation name="possibly-identical" mutual="#person-631 http://syriaca.org/person/1083" source="#bib631-1">
+                    <desc xml:lang="en">This author is possibly identical with the author represented in another record</desc>
+                </relation>
             </listPerson>
         </body>
     </text>

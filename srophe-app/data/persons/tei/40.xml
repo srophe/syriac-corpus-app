@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://syriaca.org/documentation/syriaca-tei-main.rnc" type="application/relax-ng-compact-syntax"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:functx="http://www.functx.com" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xml:lang="en">
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Yeshuʿ the Stylite — ܝܫܘܥ ܐܣܛܘܢܪܐ</title>
+                <title level="a" xml:lang="en">Yeshuʿ the Stylite — <foreign xml:lang="syr">ܝܫܘܥ ܐܣܛܘܢܪܐ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Prosopography</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The Andrew W. Mellon Foundation</funder>
@@ -77,7 +79,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-23-05:00</date>
+                <date>2014-08-19-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -129,8 +131,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-23-05:00"> CREATED: person </change>
-            <change type="planned">Add note: this record pertains to the person mentioned in the scribal note of the Chronicle of Zuqnin</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -142,16 +144,23 @@
                         <roleName type="office" sort="2">the Stylite</roleName>
                     </persName>
                     <persName xml:id="name40-2" corresp="#name40-3 #name40-4 #name40-5" xml:lang="en" source="#bib40-2">
-                        <Barsoum_en-Full xmlns="">The History Ascribed to the Priest Joshua the Stylite</Barsoum_en-Full>
+                        <roleName type="office" sort="2">The Priest</roleName>
+                        <forename sort="1">Joshua</forename>
+                        <roleName type="office" sort="2">the Stylite</roleName>
                     </persName>
-                    <persName xml:id="name40-3" corresp="#name40-2 #name40-4 #name40-5" xml:lang="ar" source="#bib40-3">التاريخ المنسوب الى <addName type="untagged-title" sort="2">القس</addName>
+                    <persName xml:id="name40-3" corresp="#name40-2 #name40-4 #name40-5" xml:lang="ar" source="#bib40-3">
+                        <addName type="untagged-title" sort="2">القس</addName>
                         <forename sort="1">يشوع</forename>
                         <addName type="untagged-title" sort="2">العمودي</addName>
                     </persName>
-                    <persName xml:id="name40-4" corresp="#name40-2 #name40-3 #name40-5" xml:lang="syr" source="#bib40-4">ܡܟܬܒܙܒܢ̈ܐ ܕܡܒܝܬܝ ܠܩܫܝܫܐ <forename sort="1">ܝܫܘܥ</forename>
+                    <persName xml:id="name40-4" corresp="#name40-2 #name40-3 #name40-5" xml:lang="syr" source="#bib40-4">
+                        <addName type="untagged-title" sort="2">ܩܫܝܫܐ</addName>
+                        <forename sort="1">ܝܫܘܥ</forename>
                         <addName type="untagged-title" sort="2">ܐܣܛܘܢܪܐ</addName>
                     </persName>
-                    <persName xml:id="name40-5" corresp="#name40-2 #name40-3 #name40-4" xml:lang="syr-Syrj" source="#bib40-4">ܡܰܟܬܰܒܙܒܢ̈ܐ ܕܰܡܒܰܝܬܰܝ ܠܩܰܫܝܫܳܐ <forename sort="1">ܝܶܫܘܥ</forename>
+                    <persName xml:id="name40-5" corresp="#name40-2 #name40-3 #name40-4" xml:lang="syr-Syrj" source="#bib40-4">
+                        <addName type="untagged-title" sort="2">ܩܰܫܝܫܳܐ</addName>
+                        <forename sort="1">ܝܶܫܘܥ</forename>
                         <addName type="untagged-title" sort="2">ܐܶܣܛܘܢܳܪܳܐ</addName>
                     </persName>
                     <persName xml:id="name40-6" xml:lang="syr" resp="http://syriaca.org" syriaca-tags="#syriaca-headword">
@@ -162,14 +171,20 @@
                         <forename sort="1">Joshua</forename>
                         <roleName type="office" sort="2">the Stylite</roleName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-40"/>
+                    <note type="abstract" xml:id="abstract-en-40">The historical person mentioned in the note inserted into the Chronicle of Zuqnin; not necessarily the author of the "Chronicle of (Ps.-)Joshua the Stylite" which ends in 506.</note>
                     <idno type="URI">http://syriaca.org/person/40</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|40</idno>
                     <idno type="URI">http://viaf.org/viaf/79425254</idno>
                     <idno type="URI">http://worldcat.org/identities/lccn-n96-26164</idno>
-                    <floruit notBefore="0506" source="#bib40-1">after 506</floruit>
+                    <floruit notBefore="0506" source="#bib40-1" syriaca-computed-start="0506-01-01">after 506</floruit>
                     <state type="office" role="ascetic" source="#bib40-1">
                         <desc xml:lang="en-x-gedsh">the Stylite</desc>
+                    </state>
+                    <state type="office" role="priest" source="#bib40-2">
+                        <desc xml:lang="en">the Priest</desc>
+                    </state>
+                    <state type="office" role="ascetic" source="#bib40-2">
+                        <desc xml:lang="en">the Stylite</desc>
                     </state>
                     <bibl xml:id="bib40-1">
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>

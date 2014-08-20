@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <meta xmlns="http://exist-db.org/xquery/repo">
-    <description>The Syriac Gazetteer</description>
+    <description>The Syriac Reference Portal</description>
     <author>Winona Salesky</author>
     <website>http://syriaca.org/</website>
     <status>beta</status>
@@ -10,5 +10,4 @@
     <target>srophe</target>
     <prepare>pre-install.xql</prepare>
     <finish/>
-    <deployed>2014-07-13T20:59:58.996-04:00</deployed>
 </meta>

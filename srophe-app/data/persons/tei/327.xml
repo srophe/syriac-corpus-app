@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://syriaca.org/documentation/syriaca-tei-main.rnc" type="application/relax-ng-compact-syntax"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:functx="http://www.functx.com" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xml:lang="en">
     <teiHeader>
         <fileDesc>
@@ -57,7 +58,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-07-23-05:00</date>
+                <date>2014-08-19-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -109,7 +110,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-23-05:00"> CREATED: person </change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -123,8 +125,8 @@
                     <note type="abstract" xml:id="abstract-en-327"/>
                     <idno type="URI">http://syriaca.org/person/327</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|327</idno>
-                    <birth when="1469" source="#bib327-1">1469</birth>
-                    <death notBefore="1525" notAfter="1555" source="#bib327-1">ca. 1540</death>
+                    <birth when="1469" source="#bib327-1" syriaca-computed-start="1469-01-01">1469</birth>
+                    <death notBefore="1525" notAfter="1555" source="#bib327-1" syriaca-computed-end="1555-01-01" syriaca-computed-start="1525-01-01">ca. 1540</death>
                     <bibl xml:id="bib327-1">
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>

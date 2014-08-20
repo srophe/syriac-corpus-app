@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://syriaca.org/documentation/syriaca-tei-main.rnc" type="application/relax-ng-compact-syntax"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:functx="http://www.functx.com" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xml:lang="en">
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Giwargis II, Ignatius — ܓܘܪܓܝܣ ܬܪܝܢܐ</title>
+                <title level="a" xml:lang="en">Giwargis II, Ignatius — <foreign xml:lang="syr">ܓܘܪܓܝܣ ܬܪܝܢܐ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Prosopography</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The Andrew W. Mellon Foundation</funder>
@@ -69,7 +71,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-23-05:00</date>
+                <date>2014-08-19-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -121,7 +123,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-23-05:00"> CREATED: person </change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -158,9 +161,9 @@
                     <note type="abstract" xml:id="abstract-en-505"/>
                     <idno type="URI">http://syriaca.org/person/505</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|505</idno>
-                    <birth when="1648" source="#bib505-1">1648</birth>
-                    <death when="1708" source="#bib505-1">1708</death>
-                    <state type="office" role="patriarch" from="1687" to="1708" source="#bib505-1 #bib505-2">
+                    <birth when="1648" source="#bib505-1" syriaca-computed-start="1648-01-01">1648</birth>
+                    <death when="1708" source="#bib505-1" syriaca-computed-start="1708-01-01">1708</death>
+                    <state type="office" role="patriarch" from="1687" to="1708" source="#bib505-1 #bib505-2" syriaca-computed-end="1708-01-01" syriaca-computed-start="1687-01-01">
                         <desc xml:lang="en">Patriarch</desc>
                     </state>
                     <bibl xml:id="bib505-1">

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://syriaca.org/documentation/syriaca-tei-main.rnc" type="application/relax-ng-compact-syntax"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:functx="http://www.functx.com" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xml:lang="en">
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Pawla of Edessa — ܦܘܠܘܣ ܕܐܘܪܗܝ</title>
+                <title level="a" xml:lang="en">Pawla of Edessa — <foreign xml:lang="syr">ܦܘܠܘܣ ܕܐܘܪܗܝ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Prosopography</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The Andrew W. Mellon Foundation</funder>
@@ -77,7 +79,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-23-05:00</date>
+                <date>2014-08-19-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -129,7 +131,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-23-05:00"> CREATED: person </change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -172,7 +175,7 @@
                     <idno type="URI">http://viaf.org/viaf/227712673/</idno>
                     <idno type="URI">http://www.worldcat.org/oclc/1196066</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=P&amp;sK=Paul of Edessa&amp;sT=keywords</idno>
-                    <floruit notBefore="0600" notAfter="0650" source="#bib84-1">early 7th cent.</floruit>
+                    <floruit notBefore="0600" notAfter="0650" source="#bib84-1" syriaca-computed-end="0650-01-01" syriaca-computed-start="0600-01-01">early 7th cent.</floruit>
                     <state type="office" role="metropolitan" source="#bib84-2">
                         <desc xml:lang="en">Metropolitan of Edessa</desc>
                     </state>
@@ -205,6 +208,9 @@
                 </person>
                 <relation name="has-relation-to-place" active="#person-84" passive="http://syriaca.org/place/78 http://syriaca.org/place/59 http://syriaca.org/place/714 http://syriaca.org/place/7 http://syriaca.org/place/715" source="#bib84-2">
                     <desc xml:lang="en">This author has an unspecified connection to places.</desc>
+                </relation>
+                <relation name="possibly-identical" mutual="#person-84 http://syriaca.org/person/86" source="#bib84-1">
+                    <desc xml:lang="en">This author is possibly identical with the author represented in another record</desc>
                 </relation>
             </listPerson>
         </body>

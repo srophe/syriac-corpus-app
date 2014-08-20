@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://syriaca.org/documentation/syriaca-tei-main.rnc" type="application/relax-ng-compact-syntax"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:functx="http://www.functx.com" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xml:lang="en">
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Meliton of Sardis — ܡܝܠܝܛܘܢ ܕܣܐܪܕܝܣ</title>
+                <title level="a" xml:lang="en">Meliton of Sardis — <foreign xml:lang="syr">ܡܝܠܝܛܘܢ ܕܣܐܪܕܝܣ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Prosopography</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The Andrew W. Mellon Foundation</funder>
@@ -56,7 +58,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-23-05:00</date>
+                <date>2014-08-19-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -108,7 +110,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-23-05:00"> CREATED: person </change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -145,7 +148,7 @@
                     <note type="abstract" xml:id="abstract-en-1083"/>
                     <idno type="URI">http://syriaca.org/person/1083</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|1083</idno>
-                    <floruit notBefore="0100" notAfter="0200" source="#bib1083-1">2nd cent.</floruit>
+                    <floruit notBefore="0100" notAfter="0200" source="#bib1083-1" syriaca-computed-end="0200-01-01" syriaca-computed-start="0100-01-01">2nd cent.</floruit>
                     <state type="saint" role="saint" source="#bib1083-2">
                         <desc xml:lang="en">St.</desc>
                     </state>
@@ -173,6 +176,9 @@
                         <citedRange unit="pp">137</citedRange>
                     </bibl>
                 </person>
+                <relation name="possibly-identical" mutual="#person-1083 http://syriaca.org/person/631" source="#bib1083-1">
+                    <desc xml:lang="en">This author is possibly identical with the author represented in another record</desc>
+                </relation>
             </listPerson>
         </body>
     </text>

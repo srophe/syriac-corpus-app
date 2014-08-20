@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://syriaca.org/documentation/syriaca-tei-main.rnc" type="application/relax-ng-compact-syntax"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:functx="http://www.functx.com" xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl" xml:lang="en">
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a" xml:lang="en">Aba II of Kashkar — ܐܒܐ ܒܪ ܒܪܝܟ ܨܒܝܢܗ</title>
+                <title level="a" xml:lang="en">Aba II of Kashkar — <foreign xml:lang="syr">ܐܒܐ ܒܪ ܒܪܝܟ ܨܒܝܢܗ</foreign>
+                </title>
                 <title level="m" xml:lang="en">The Syriac Prosopography</title>
                 <sponsor>Syriaca.org: The Syriac Reference Portal</sponsor>
                 <funder>The Andrew W. Mellon Foundation</funder>
@@ -57,7 +59,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-07-23-05:00</date>
+                <date>2014-08-19-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -109,7 +111,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-23-05:00"> CREATED: person </change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
     <text>
@@ -134,9 +137,9 @@
                     <idno type="URI">http://syriaca.org/person/307</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|307</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Mar Aba II&amp;sT=keywords</idno>
-                    <birth when="0641" source="#bib307-1">641</birth>
-                    <death when="0751" source="#bib307-1">751</death>
-                    <state type="office" from="0741" to="0751" source="#bib307-1">
+                    <birth when="0641" source="#bib307-1" syriaca-computed-start="0641-01-01">641</birth>
+                    <death when="0751" source="#bib307-1" syriaca-computed-start="0751-01-01">751</death>
+                    <state type="office" from="0741" to="0751" source="#bib307-1" syriaca-computed-end="0751-01-01" syriaca-computed-start="0741-01-01">
                         <desc xml:lang="en-x-gedsh">741-751</desc>
                     </state>
                     <bibl xml:id="bib307-1">
@@ -161,6 +164,9 @@
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Mar Aba II&amp;sT=keywords">Mar Aba II</citedRange>
                     </bibl>
                 </person>
+                <relation name="possibly-identical" mutual="#person-307 http://syriaca.org/person/1086" source="#bib307-1">
+                    <desc xml:lang="en">This author is possibly identical with the author represented in another record</desc>
+                </relation>
             </listPerson>
         </body>
     </text>
