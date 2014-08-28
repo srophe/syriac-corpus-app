@@ -67,8 +67,7 @@
                         <publisher xml:lang="en">Dar el Machreq</publisher>
                         <pubPlace xml:lang="ar" ref="http://syriaca.org/place/46">بيروت</pubPlace>
                         <pubPlace xml:lang="en" ref="http://syriaca.org/place/46">Beirut</pubPlace>
-                        <!-- What's the date for the 1st edition? -->
-                        <date></date>
+                        <date>1970</date>
                     </imprint>
                 </monogr>
                 <idno type="URI">http://syriaca.org/bibl/643</idno>
