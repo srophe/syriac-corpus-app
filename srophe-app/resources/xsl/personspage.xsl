@@ -544,16 +544,16 @@
             </xsl:if>
         </xsl:if>
         <xsl:if test="//t:state[not(@when) and not(@notBefore) and not(@notAfter) and not(@to) and not(@from)]">
-            <xsl:for-each select="//t:state[not(@when) and not(@notBefore) and not(@notAfter) and not(@to) and not(@from)]">
+            <xsl:for-each-group select="//t:state[not(@when) and not(@notBefore) and not(@notAfter) and not(@to) and not(@from)]" group-by="@type">
                 <h4>
-                    <xsl:value-of select="concat(upper-case(substring(@type,1,1)),substring(@type,2))"/>
+                    <xsl:value-of select="concat(upper-case(substring(current-grouping-key(),1,1)),substring(current-grouping-key(),2))"/>
                 </h4>
                 <ul>
-                    <li>
-                        <xsl:apply-templates select="."/>
-                    </li>
+                    <xsl:for-each select="current-group()[not(t:desc/@xml:lang = 'en-x-gedsh')]">
+                        <li><xsl:apply-templates select="."/></li>
+                    </xsl:for-each>
                 </ul>
-            </xsl:for-each>
+            </xsl:for-each-group>
         </xsl:if>
         
         <!-- What to do about sex and langKnowledge? Better ogranization of data needed. -->
