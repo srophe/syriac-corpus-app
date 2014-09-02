@@ -57,19 +57,17 @@ declare function browse:build-browse-results($node as node(), $model as map(*)){
     let $ana := string($data/@ana)
     let $en-title := 
         if($data/tei:persName[@syriaca-tags='#syriaca-headword']) then 
-            if($data/tei:persName[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1]/child::*) then
-                $data/tei:persName[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1]/child::*[1]/text()
-            else $data/tei:persName[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1]/text()
+            string-join($data/tei:persName[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1]/descendant::*,' ')
         else    
             $data/tei:placeName[starts-with(@xml:lang,'en')][1]/text() 
     let $syr-title := 
         if($data/tei:persName[@syriaca-tags='#syriaca-headword']) then
-            $data/tei:persName[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'syr')][1]/descendant-or-self::*[1]/text()
+            string-join($data/tei:persName[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'syr')][1]/descendant-or-self::*,' ')
         else $data/tei:placeName[@xml:lang = 'syr'][1]/text()
     let $title := 
         if($browse:view = 'syr') then $syr-title else $en-title
     let $browse-title := browse:build-sort-string($title)
-    where contains(browse:get-sort(), substring($browse-title,1,1))
+    where contains(browse:get-sort(), upper-case(substring($browse-title,1,1)))
     return
         <browse xmlns="http://www.tei-c.org/ns/1.0" xml:id="{$id}" type="{$type}" ana="{$ana}" sort-title="{$browse-title}">
             {
@@ -84,9 +82,6 @@ declare function browse:build-browse-results($node as node(), $model as map(*)){
  : @param $browse:type indicates language of browse list
  : @param $browse:sort indicates letter for browse
  : Uses browse:build-sort-string() to strip title of non sort characters
- let $eval-string := concat("$model('browse-data')//self::*[@type = ",$browse:type,"]")
-    let $results := util:eval($eval-string)    
-    for $place-name in $results
 :)
 declare function browse:get-place-type($node as node(), $model as map(*)){
     for $data in $model('browse-data')//self::*[@type = $browse:type]
@@ -119,7 +114,7 @@ declare function browse:get-place-type($node as node(), $model as map(*)){
  : Uses browse:build-sort-string() to strip title of non sort characters
  :)
 declare function browse:get-pers-type($node as node(), $model as map(*)){
-    for $data in $model('browse-data')//self::*[@ana = concat('#',$browse:type)]
+    for $data in $model('browse-data')
     let $id := string($data/@xml:id)
     let $type := string($data/@type)
     let $ana := string($data/@ana)
@@ -128,6 +123,10 @@ declare function browse:get-pers-type($node as node(), $model as map(*)){
         else $data/tei:placeName[1]/text()
     let $browse-title := browse:build-sort-string($title)
     let $geo := $data/descendant::*/tei:geo
+    where if($browse:type != '') then 
+            if($browse:type = 'unknown') then $data[not(@ana)]
+            else $data[@ana = concat('#',$browse:type)]
+          else ()  
 (:    where matches($place-name/@type, $browse:type):)
     order by $browse-title
     return 
@@ -142,16 +141,6 @@ declare function browse:get-pers-type($node as node(), $model as map(*)){
         </browse>
 };
 
-(:Work in progress to streamline 
-declare function browse:get-ana(){
-    if($browse:type != '') then
-        if($browse:coll = 'persons') then 
-            concat("[self::*[@ana = '#", $browse:type,"']]")
-        else concat("//self::*[@type =", $browse:type,"]")
-    else ()    
-};
-:)
-
 (:~
  : Filter titles by syriac 
  : @param $browse:view
@@ -161,6 +150,7 @@ declare function browse:get-syr(){
         "[child::*[@xml:lang = 'syr'][@syriaca-tags='#syriaca-headword']]"
     else ()    
 };
+
 (:~
  : Filter titles by type 
  : @param $browse:view
@@ -200,22 +190,6 @@ declare function browse:get-sort(){
 };
 
 (:~
- : Returns a list of unique values for the first letter of each title
- : @depreciated, currently have data for every letter, function adds unnecessarily to processing time
- : @param $browse:view indicates language of browse list
- : @param $browse:sort indicates letter for browse
- : Uses browse:build-sort-string() to strip title of non sort characters
-declare function browse:get-letter-menu($node as node(), $model as map(*)){
-    distinct-values(
-        for $place in $model("browse-data")//tei:place
-        let $title := $place/tei:placeName[1]/text()
-        let $browse-title := browse:build-sort-string($title)
-        return substring($browse-title,1,1)
-    ) 
-};
-:)
-
-(:~
  : Strips english titles of non-sort characters as established by The Syriac Gazetteer
  :)
 declare function browse:build-sort-string($titlestring){
@@ -249,8 +223,10 @@ if($browse:view = 'type') then
                 group by $pers-types := $types/@ana
                 order by $pers-types ascending
                 return
-                    <li>{if($browse:type = replace(string($pers-types),'#','')) then attribute class {'active'} else '' }
-                        <a href="?view=type&amp;type={replace(string($pers-types),'#','')}&amp;coll=persons">
+                    let $pers-types-labels := if($pers-types) then replace(string($pers-types),'#','') else 'unknown'
+                    return
+                    <li>{if($browse:type = $pers-types-labels) then attribute class {'active'} else '' }
+                        <a href="?view=type&amp;type={$pers-types-labels}&amp;coll=persons">
                         {if(string($pers-types) = '') then 'unknown' else replace(string($pers-types),'#syriaca-','')}  <span class="count"> ({count($types)})</span>
                         </a>
                     </li>
