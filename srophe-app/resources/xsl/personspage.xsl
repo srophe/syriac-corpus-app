@@ -98,6 +98,25 @@
                         <xsl:call-template name="rec-title-std">
                             <xsl:with-param name="rec" select="//t:person"/>
                         </xsl:call-template>
+                        <!-- Add person type and dates to page heading -->
+                        <xsl:if test="//t:person/@ana or //t:death or t:birth">
+                            (<xsl:choose>
+                                <xsl:when test="contains(//t:person/@ana,'author') and contains(//t:person/@ana,'saint')">author, saint</xsl:when>
+                                <xsl:when test="contains(//t:person/@ana,'author')">author</xsl:when>
+                                <xsl:when test="contains(//t:person/@ana,'saint')">saint</xsl:when>
+                            </xsl:choose>
+                            <xsl:if test="//t:person/@ana and //t:death or //t:birth">, 
+                                    <xsl:if test="not(//t:death)">b. </xsl:if>
+                                <xsl:value-of select="//t:birth/text()"/>
+                                <xsl:if test="//t:death">
+                                    <xsl:choose>
+                                        <xsl:when test="//t:birth"> - </xsl:when>
+                                        <xsl:otherwise>d. </xsl:otherwise>
+                                    </xsl:choose>
+                                    <xsl:value-of select="//t:death/text()"/>
+                                </xsl:if>
+                            </xsl:if>)
+                        </xsl:if>
                         <span class="get-syriac noprint">
                             <xsl:if test="//t:person/child::*[@xml:lang ='syr']">
                                 <a href="../documentation/view-syriac.html">
@@ -108,7 +127,7 @@
                     <xsl:call-template name="link-icons"/>  
      <!-- End Title -->
                 </div>
-                <!-- Main paersons page content -->
+                <!-- Main persons page content -->
                 <xsl:apply-templates select="//t:person"/>
             </div>
         </div>
@@ -161,11 +180,8 @@
                 </script>
             </div>
         </div>
-        <xsl:if test="//t:geo">
-            <script type="text/javascript" src="/exist/apps/srophe/resources/js/map.js"/>
-        </xsl:if>
         <script type="text/javascript" src="/exist/apps/srophe/resources/js/main.js"/>
-        <script type="text/javascript" src="/exist/apps/srophe/resources/js/jquery.validate.min.js"/>
+<!--        <script type="text/javascript" src="/exist/apps/srophe/resources/js/jquery.validate.min.js"/>-->
     </xsl:template>
     
 <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
@@ -199,7 +215,10 @@
                                         </small>
                                     </div>
                                 </xsl:for-each>
-                                <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']" mode="abstract"/>
+                                <!--
+                                    Moved to Identity section
+                                    <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']" mode="abstract"/>
+                                -->
                             </div>
                         </div>
                         <!-- End abstract row -->
@@ -286,16 +305,17 @@
     <!-- Person content is split into two columns -->
     <xsl:template name="col1">
         <div id="persnames" class="well">
-            <xsl:if test="string-length(t:note[@type='abstract']) &gt; 1">
+            <xsl:if test="string-length(t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']) &gt; 1">
                 <h4>Identity</h4>
-                <xsl:apply-templates select="t:note[@type='abstract']"/>
+                <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']" mode="abstract"/>
+                <!--<xsl:apply-templates select="t:note[@type='abstract']"/>-->
             </xsl:if>
             <!-- NOTE: Need to add Identy description if it exists, When Nathan gets element back to me.  -->
             <p>Names: 
-            <xsl:apply-templates select="t:persName[@syriaca-tags='#syriaca-headword' and @xml:lang='syr']" mode="list">
+                <xsl:apply-templates select="t:persName[@syriaca-tags='#syriaca-headword' and starts-with(@xml:lang,'syr')]" mode="list">
                     <xsl:sort lang="syr" select="."/>
                 </xsl:apply-templates>
-                <xsl:apply-templates select="t:persName[@syriaca-tags='#syriaca-headword' and @xml:lang='en']" mode="list">
+                <xsl:apply-templates select="t:persName[@syriaca-tags='#syriaca-headword' and starts-with(@xml:lang,'en')]" mode="list">
                     <xsl:sort collation="{$mixed}" select="."/>
                 </xsl:apply-templates>
                 <xsl:apply-templates select="t:persName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and starts-with(@xml:lang, 'syr')]" mode="list">
@@ -310,50 +330,243 @@
             </p>
         </div>
       
-        <!-- Timeline test -->
-        <xsl:if test="//t:death | //t:birth | //t:floruit | //t:state | //t:event">
-            <div class="timeline">
-                <script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"/>
-                <script type="text/javascript">
-                    $(document).ready(function() {
-                        createStoryJS({
-                        start:      'start_at_end',
-                        type:       'timeline',
-                        width:      '700',
-                        height:     '350',
-                        source:     '<xsl:value-of select="concat('../modules/timeline.xql?uri=',$resource-uri)"/>',
-                        embed_id:   'my-timeline'
-                        });
-                    });
-                </script>
-                <div id="my-timeline"/>
-                <p>*Timeline generated with <a href="http://timeline.knightlab.com/">http://timeline.knightlab.com/</a>
-                </p>
-            </div>
+        <!-- Timeline -->
+        <xsl:choose>
+            <xsl:when test="//t:death | //t:birth | //t:floruit | //t:state | //t:event">
+                <xsl:if test="//t:death | //t:birth | //t:floruit | //t:state | //t:event">
+                    <div class="row-fluid">
+                        <div class="span9">
+                            <div class="timeline">
+                                <script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"/>
+                                <script type="text/javascript">
+                                    $(document).ready(function() {
+                                        var parentWidth = $(".timeline").width();
+                                        createStoryJS({
+                                            start:      'start_at_end',
+                                            type:       'timeline',
+                                            width:      "'" +parentWidth+"'",
+                                            height:     '300',
+                                            source:     '<xsl:value-of select="concat('../modules/timeline.xql?uri=',$resource-uri)"/>',
+                                            embed_id:   'my-timeline'
+                                        });
+                                    });
+                                </script>
+                                <div id="my-timeline"/>
+                                <p>*Timeline generated with <a href="http://timeline.knightlab.com/">http://timeline.knightlab.com/</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <h4>Dates</h4>
+                            <ul class="unstyled">
+                                <xsl:for-each select="t:birth | t:death | t:floruit | //t:state[not(@type='attestation')][@when or @notBefore or @notAfter or @to or @from]">
+                                    <li>
+                                        <xsl:apply-templates select="."/>
+                                        <!--<xsl:value-of select="descendant-or-self::*"/>-->
+                                    </li>
+                                </xsl:for-each>
+                            </ul>
+                        </div>
+                    </div>
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:if test="//t:death | //t:birth | //t:floruit | //t:state[@when or @notBefore or @notAfter or @to or @from]">
+                    <h4>Dates</h4>
+                    <ul>
+                        <xsl:for-each select="t:birth | t:death | t:floruit | //t:state[not(@type='attestation')][@when or @notBefore or @notAfter or @to or @from]">
+                            <li>
+                                <xsl:apply-templates select="."/>
+                                <!--<xsl:value-of select="descendant-or-self::*"/>-->
+                            </li>
+                        </xsl:for-each>
+                    </ul>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:if test="../t:relation">
+            <xsl:if test="//*:related-items/*:relation[contains(@uri,'place')]">
+                <div>
+                    <h2>Related Places in the Syriac Gazetteer</h2>
+                    <xsl:if test="//*:div[@id='geojson']">
+                        <div id="map-data" style="margin-bottom:1em;">
+                            <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2"/>
+                            <script src="http://isawnyu.github.com/awld-js/lib/requirejs/require.min.js" type="text/javascript"/>
+                            <script src="http://isawnyu.github.com/awld-js/awld.js?autoinit" type="text/javascript"/>
+                            <script type="text/javascript" src="/exist/apps/srophe/resources/leaflet/leaflet.awesome-markers.js"/>
+                            <div id="map" style="height: 250px;"/>
+                            <div class="caveat">Places for which we don’t have coordinates are in the list below but not on the map above.</div>
+                            <script type="text/javascript">
+                                var terrain = L.tileLayer(
+                                'http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', 
+                                {attribution: "ISAW, 2012"});
+                                
+                                /* Not added by default, only through user control action */
+                                var streets = L.tileLayer(
+                                'http://api.tiles.mapbox.com/v3/sgillies.map-pmfv2yqx/{z}/{x}/{y}.png', 
+                                {attribution: "ISAW, 2012"});
+                                
+                                var imperium = L.tileLayer(
+                                'http://pelagios.dme.ait.ac.at/tilesets/imperium//{z}/{x}/{y}.png', {
+                                attribution: 'Tiles: &lt;a href="http://pelagios-project.blogspot.com/2012/09/a-digital-map-of-roman-empire.html"&gt;Pelagios&lt;/a&gt;, 2012; Data: NASA, OSM, Pleiades, DARMC',
+                                maxZoom: 11 });
+                                
+                                <xsl:text>var placesgeo =</xsl:text> <xsl:value-of select="//*:div[@id='geojson']"/>
+                                <![CDATA[
+                                var sropheIcon = L.Icon.extend({
+                                      options: {
+                                          iconSize:     [38, 38],
+                                          iconAnchor:   [22, 94],
+                                          popupAnchor:  [-3, -76]
+                                      }
+                                  });
+                                  var redIcon =
+                                         L.AwesomeMarkers.icon({
+                                             markerColor: 'red'
+                                           }),
+                                        orangeIcon =  
+                                            L.AwesomeMarkers.icon({
+                                             markerColor: 'orange'
+                                           }),
+                                        greenIcon = 
+                                         L.AwesomeMarkers.icon({
+                                             markerColor: 'green'
+                                           }),
+                                        blueIcon =  L.AwesomeMarkers.icon({
+                                             markerColor: 'blue'
+                                           });
+                                        
+                                var geojson = L.geoJson(placesgeo, {
+                                        onEachFeature: function (feature, layer){
+                                            var popupContent = "<a href='" + feature.properties.uri + "'>" +
+                                            feature.properties.name + " - " + feature.properties.type + "</a>";
+                                            layer.bindPopup(popupContent);
+                                            switch (feature.properties.relation) {
+                                                case 'born-at': return layer.setIcon(orangeIcon);
+                                                case 'died-at':   return layer.setIcon(redIcon);
+                                                case 'has-literary-connection-to-place':   return layer.setIcon(greenIcon);
+                                                case 'has-relation-to-place':   return layer.setIcon(blueIcon);
+                                            }
+                                            
+                                        }
+                                })
+                                var map = L.map('map').fitBounds(geojson.getBounds(),{maxZoom: 5});     
+                                  
+                                terrain.addTo(map);
+                                        
+                                L.control.layers({
+                                        "Terrain (default)": terrain,
+                                        "Streets": streets,
+                                        "Imperium": imperium }).addTo(map);
+                                        
+                                geojson.addTo(map);      
+                                ]]>
+                            </script>
+                        </div> 
+                        <!-- <xsl:copy-of select="//*:div[@id='map-data']"/>-->
+                    </xsl:if>
+                    <ul class="unstyled">
+                        <xsl:for-each-group select="//../*:related-items/*:relation[contains(@uri,'place')]" group-by="@name">
+                            <li>
+                                <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
+                                <xsl:choose>
+                                    <xsl:when test="current-grouping-key() = 'born-at'">
+                                        <span class="sprite born-at">&#160;&#160;&#160;</span> 
+                                    </xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'died-at'">
+                                        <span class="sprite died-at">&#160;&#160;&#160;</span> 
+                                    </xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'has-literary-connection-to-place'">
+                                        <span class="sprite literary">&#160;&#160;&#160;</span> 
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <span class="sprite relation">&#160;&#160;&#160;</span> 
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:value-of select="substring(*:desc,1,$desc-ln - 1)"/>:
+                                <xsl:for-each select="current-group()">
+                                    <xsl:apply-templates select="." mode="relation"/>
+                                    <!--<xsl:if test="position() != last()">, </xsl:if>-->
+                                </xsl:for-each>
+                            </li>
+                        </xsl:for-each-group>
+                    </ul>
+                    <!-- List view option check with Nathan to see what he would like
+                    <ul>
+                        <xsl:for-each-group select="//../*:related-items/*:relation[contains(@uri,'place')]" group-by="@name">
+                            <li>
+                                <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
+                                <xsl:choose>
+                                    <xsl:when test="count(current-group()) > 1">
+                                        <xsl:value-of select="substring-before(*:desc,'places')"/>  
+                                        <xsl:value-of select="count(current-group())"/> places <a href="#toggle-{current-grouping-key()}" class="toggle">(see list)</a>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="substring(*:desc,1,$desc-ln - 1)"/>:
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="count(current-group()) > 1">
+                                        <ul id="toggle-{current-grouping-key()}" style="display:none;">
+                                            <xsl:for-each select="current-group()">
+                                                <li><xsl:apply-templates select="." mode="relation"/></li>
+                                            </xsl:for-each>
+                                            <span class="glyphicon glyphicon-chevron-up"></span><a href="#toggle-{current-grouping-key()}" class="toggle">(hide list)</a>
+                                        </ul>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:apply-templates select="." mode="relation"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>                                    
+                            </li>
+                        </xsl:for-each-group>
+                    </ul>
+                    -->
+                </div>
+            </xsl:if>
+            <xsl:if test="../*:related-items/*:relation[contains(@uri,'person')]">
+                <div id="relations" class="well">
+                    <h3>Related People</h3>
+                    <!-- NOTE: currently in list, changed to approved format, list or inline -->
+                    <ul>
+                        <xsl:for-each-group select="//../*:related-items/*:relation[contains(@uri,'person')]" group-by="@name">
+                            <li>
+                                <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
+                                <xsl:value-of select="substring(*:desc,1,$desc-ln - 1)"/>:
+                                <xsl:for-each select="current-group()">
+                                    <xsl:apply-templates select="." mode="relation"/>
+                                    <xsl:if test="position() != last()">, </xsl:if>
+                                </xsl:for-each>
+                            </li>
+                        </xsl:for-each-group>
+                    </ul>
+                </div>
+            </xsl:if>
         </xsl:if>
-        <xsl:if test="//t:death | //t:birth | //t:floruit | //t:state | //t:event">
-            <h4>Dates</h4>
-            <ul>
-                <xsl:for-each select="t:birth | t:death | t:floruit | //t:state[not(@type='attestation')]">
+        <xsl:if test="//t:state[not(@when) and not(@notBefore) and not(@notAfter) and not(@to) and not(@from)]">
+            <xsl:for-each select="//t:state[not(@when) and not(@notBefore) and not(@notAfter) and not(@to) and not(@from)]">
+                <h4>
+                    <xsl:value-of select="concat(upper-case(substring(@type,1,1)),substring(@type,2))"/>
+                </h4>
+                <ul>
                     <li>
                         <xsl:apply-templates select="."/>
-                        <!--<xsl:value-of select="descendant-or-self::*"/>-->
                     </li>
-                </xsl:for-each>
-            </ul>
+                </ul>
+            </xsl:for-each>
         </xsl:if>
         
-        <!-- What to do about sex and langKnowledge? Better ogranization of data needed. 
-        <div class="well">
-            <ul class="unstyled">
-                <xsl:apply-templates select="t:birth | t:death | t:floruit | t:sex | t:langKnowledge"/>
-                <xsl:if test="t:state[@type='martyred']/t:label = 'Yes'">
-                    <li>Martyred <xsl:sequence select="local:do-refs(../@source,ancestor::t:*[@xml:lang][1])"/>
-                    </li>
-                </xsl:if>
+        <!-- What to do about sex and langKnowledge? Better ogranization of data needed. -->
+        <xsl:for-each select="//t:sex | //t:langKnowledge">
+            <h4>
+                <xsl:value-of select="concat(upper-case(substring(@type,1,1)),substring(@type,2))"/>
+            </h4>
+            <ul>
+                <li>
+                    <xsl:apply-templates select="."/>
+                </li>
             </ul>
-        </div>
-        -->
+        </xsl:for-each>
         <xsl:if test="t:location[@type='gps'and t:geo]">
             <div class="well">
                 <div class="row-fluid">
@@ -420,117 +633,40 @@
             </xsl:if>
             <xsl:if test="t:note[not(@type='abstract')]">
                 <xsl:for-each-group select="t:note[not(@type='abstract')]" group-by="@type">
-                    <div class="state">
-                        <h3>
-                            <xsl:value-of select="current-grouping-key()"/>
-                        </h3>
-                        <ul>
-                            <xsl:for-each select="current-group()">
-                                <xsl:apply-templates/>
-                            </xsl:for-each>
-                        </ul>
-                    </div>
+                    <h4>
+                        <xsl:value-of select="concat(upper-case(substring(current-grouping-key(),1,1)),substring(current-grouping-key(),2))"/>
+                    </h4>
+                    <ul>
+                        <xsl:for-each select="current-group()">
+                            <xsl:apply-templates/>
+                        </xsl:for-each>
+                    </ul>
                 </xsl:for-each-group>
             </xsl:if>
         </div>
     </xsl:template>
     <xsl:template name="col2">
-
-        <!-- NOTE: commented out for now
-            Build related places and people if they exist -->
-        <xsl:if test="../t:relation">
-            <xsl:if test="//*:related-items/*:relation[contains(@uri,'place')]">
-                <div id="relations" class="well">
-                    <h3>Related Places</h3>
-                    <xsl:if test="//*:related-items/*:relation/descendant::t:geo">
-                        <xsl:copy-of select="//*:div[@id='map-data']"/>
-                    </xsl:if>
-                    <ul>
-                        <xsl:for-each-group select="//../*:related-items/*:relation[contains(@uri,'place')]" group-by="@name">
-                            <li>
-                                <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
-                                <xsl:value-of select="substring(*:desc,1,$desc-ln - 1)"/>:
-                                <xsl:for-each select="current-group()">
-                                    <xsl:apply-templates select="." mode="relation"/>
-                                    <xsl:if test="position() != last()">, </xsl:if>
-                                </xsl:for-each>
-                            </li>
-                        </xsl:for-each-group>
-                    </ul>
-                    <!-- List view option check with Nathan to see what he would like
-                    <ul>
-                        <xsl:for-each-group select="//../*:related-items/*:relation[contains(@uri,'place')]" group-by="@name">
-                            <li>
-                                <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
-                                <xsl:choose>
-                                    <xsl:when test="count(current-group()) > 1">
-                                        <xsl:value-of select="substring-before(*:desc,'places')"/>  
-                                        <xsl:value-of select="count(current-group())"/> places <a href="#toggle-{current-grouping-key()}" class="toggle">(see list)</a>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:value-of select="substring(*:desc,1,$desc-ln - 1)"/>:
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                                <xsl:choose>
-                                    <xsl:when test="count(current-group()) > 1">
-                                        <ul id="toggle-{current-grouping-key()}" style="display:none;">
-                                            <xsl:for-each select="current-group()">
-                                                <li><xsl:apply-templates select="." mode="relation"/></li>
-                                            </xsl:for-each>
-                                            <span class="glyphicon glyphicon-chevron-up"></span><a href="#toggle-{current-grouping-key()}" class="toggle">(hide list)</a>
-                                        </ul>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:apply-templates select="." mode="relation"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>                                    
-                            </li>
-                        </xsl:for-each-group>
-                    </ul>
-                    -->
-                </div>
-            </xsl:if>
-            <xsl:if test="../*:related-items/*:relation[contains(@uri,'person')]">
-                <div id="relations" class="well">
-                    <h3>Related People</h3>
-                    <!-- NOTE: currently in list, changed to approved format, list or inline -->
-                    <ul>
-                        <xsl:for-each-group select="//../*:related-items/*:relation[contains(@uri,'people')]" group-by="@name">
-                            <li>
-                                <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
-                                <xsl:choose>
-                                    <xsl:when test="count(current-group()) &gt; 1">
-                                        <xsl:value-of select="substring-before(*:desc,'persons')"/> &#160;
-                                        <xsl:value-of select="count(current-group())"/> persons <a href="#toggle-{current-grouping-key()}" class="toggle">(see list)</a>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:value-of select="substring(*:desc,1,$desc-ln - 1)"/>:
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                                <xsl:choose>
-                                    <xsl:when test="count(current-group()) &gt; 1">
-                                        <ul id="toggle-{current-grouping-key()}" style="display:none;">
-                                            <xsl:for-each select="current-group()">
-                                                <li>
-                                                    <xsl:apply-templates select="." mode="relation"/>
-                                                </li>
-                                            </xsl:for-each>
-                                            <span class="glyphicon glyphicon-chevron-up"/>
-                                            <a href="#toggle-{current-grouping-key()}" class="toggle">(hide list)</a>
-                                        </ul>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:apply-templates select="." mode="relation"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </li>
-                        </xsl:for-each-group>
-                    </ul>
-                </div>
-            </xsl:if>
-        </xsl:if>
         <xsl:if test="//*:div[@id = 'worldcat-refs']">
-            <xsl:copy-of select="//*:div[@id = 'worldcat-refs']"/>
+            <div id="worldcat-refs" class="well">
+                <h3>Catalog Search Results from WorldCat</h3>
+                <p class="caveat">Based on VIAF ID. May contain inaccuracies. Not curated by Syriaca.org.</p>
+                <xsl:for-each select="//*:div[@id = 'worldcat-refs']/*:ul">
+                    <xsl:variable name="viaf-ref" select="@id"/>
+                    <ul>
+                        <xsl:for-each select="*:li">
+                            <li>
+                                <a href="{@ref}">
+                                    <xsl:value-of select="text()"/>
+                                </a>
+                            </li>
+                        </xsl:for-each>
+                    </ul>
+                    <span class="pull-right">
+                        <a href="{$viaf-ref}">See all <xsl:value-of select="@count"/> titles from WorldCat</a>
+                    </span>
+                </xsl:for-each>
+            </div>    
+            <!--<xsl:copy-of select="//*:div[@id = 'worldcat-refs']"/>-->
         </xsl:if>
         <xsl:call-template name="link-icons-text"/>
     </xsl:template>
@@ -561,7 +697,15 @@
     </xsl:template>
     <xsl:template match="t:state">
         <span class="srp-label">
-            <xsl:value-of select="@type"/>:</span>
+            <xsl:choose>
+                <xsl:when test="@role">
+                    <xsl:value-of select="concat(upper-case(substring(@role,1,1)),substring(@role,2))"/>:
+               </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="concat(upper-case(substring(@type,1,1)),substring(@type,2))"/>:        
+               </xsl:otherwise>
+            </xsl:choose>
+        </span>
         <xsl:text> </xsl:text>
         <xsl:apply-templates mode="plain"/>
         <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
@@ -645,9 +789,7 @@
                 </xsl:otherwise>
             </xsl:choose>
         </a>
-        <xsl:text> </xsl:text>
-        <xsl:value-of select="local:do-dates(.)"/>
-        <xsl:text> </xsl:text>
+        <xsl:if test="preceding-sibling::*">,</xsl:if>
             <!-- If footnotes exist call function do-refs pass footnotes and language variables to function -->
         <xsl:if test="@source">
             <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
@@ -826,7 +968,6 @@
     <xsl:template match="t:date">
         <xsl:apply-templates/>
     </xsl:template>
-    <!-- NOTE: When persons are populated add back to this template for now, t:persName template, no link -->
     <xsl:template match="t:persName | t:region | t:settlement">
         <xsl:choose>
             <xsl:when test="@ref">
@@ -861,7 +1002,7 @@
     <xsl:template match="t:persName" mode="title">
         <span class="persName">
             <xsl:call-template name="langattr"/>
-            <xsl:apply-templates mode="cleanout"/>
+            <xsl:apply-templates mode="text-normal"/>
         </span>
     </xsl:template>
     <xsl:template match="t:persName" mode="list">
@@ -893,10 +1034,34 @@
         <xsl:text> </xsl:text>
     </xsl:template>
     <xsl:template match="t:forename">
+        <xsl:if test="preceding-sibling::*">
+            <xsl:text> </xsl:text>
+        </xsl:if>
         <xsl:apply-templates mode="out-normal"/>
         <xsl:text> </xsl:text>
     </xsl:template>
     <xsl:template match="t:addName">
+        <xsl:if test="preceding-sibling::*">
+            <xsl:text> </xsl:text>
+        </xsl:if>
+        <xsl:apply-templates mode="out-normal"/>
+        <xsl:text> </xsl:text>
+    </xsl:template>
+    <xsl:template match="t:roleName" mode="text-normal">
+        <xsl:apply-templates mode="out-normal"/>
+        <xsl:text> </xsl:text>
+    </xsl:template>
+    <xsl:template match="t:forename" mode="text-normal">
+        <xsl:if test="preceding-sibling::*">
+            <xsl:text> </xsl:text>
+        </xsl:if>
+        <xsl:apply-templates mode="out-normal"/>
+        <xsl:text> </xsl:text>
+    </xsl:template>
+    <xsl:template match="t:addName" mode="text-normal">
+        <xsl:if test="preceding-sibling::*">
+            <xsl:text> </xsl:text>
+        </xsl:if>
         <xsl:apply-templates mode="out-normal"/>
         <xsl:text> </xsl:text>
     </xsl:template>
