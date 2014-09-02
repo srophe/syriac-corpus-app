@@ -213,18 +213,18 @@ Note, what is element for other and type for event
 declare function persons:related-places() as xs:string?{                   
 if($persons:related-place  != '') then 
     if($persons:place-type !='' and $persons:place-type !='any') then 
-        if($persons:place-type = 'birth') then concat("[descendant::tei:relation[@name ='born-at'][contains(@passive,'",$persons:related-place,"')]")
-        else if($persons:place-type = 'death') then concat("[descendant::tei:relation[@name ='died-at'][contains(@passive,'",$persons:related-place,"')]")
-        else if($persons:place-type = 'venerated') then concat("[descendant::tei:event[contains(@contains,'",$persons:related-place,"')]]") 
-        else ()
+        if($persons:place-type = 'birth') then concat("[descendant::tei:relation[@name ='born-at'][matches(@passive,'(^|\W)",$persons:related-place,"(\W|$)')]]")
+        else if($persons:place-type = 'death') then concat("[descendant::tei:relation[@name ='died-at'][matches(@passive,'(^|\W)",$persons:related-place,"(\W|$)')]]")
+        else if($persons:place-type = 'venerated') then concat("[descendant::tei:event[matches(@contains,'(^|\W)",$persons:related-place,"(\W|$)')]]")
+        else concat("[descendant::tei:relation[matches(@passive,'(^|\W)",$persons:related-place,"(\W|$)') | matches(@active,'(^|\W)",$persons:related-place,"(\W|$)')]]")
     else    
-        concat("[descendant::tei:relation[contains(@passive,'",$persons:related-place,"')]]")     
+        concat("[descendant::tei:relation[matches(@passive,'(^|\W)",$persons:related-place,"(\W|$)') | matches(@active,'(^|\W)",$persons:related-place,"(\W|$)')]]")
 else ()
 };
 
 (:~
- : Search related persons
- : need better regex to match both person and whatever else may be included? 
+ : Search related persons as uri in tei:relation/@passive and tei:relation/@active
+ : Uses regex to match on word boundries
 :)
 declare function persons:related-persons() as xs:string?{
     if($persons:related-persons  != '') then
