@@ -84,10 +84,10 @@ h4 {font-size: 1em; margin-top:1em;}
     width:36px;
     height:18px;}
 .born-at {
-  background-position: -18 0;
+  background-position: -14px 0;
 }
 .died-at {
-    background-position: -14px 0;
+    background-position: 0 0;
 }
 .literary {
     background-position: -28px 0;
