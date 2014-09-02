@@ -228,7 +228,7 @@ else ()
 :)
 declare function persons:related-persons() as xs:string?{
     if($persons:related-persons  != '') then
-         concat("[descendant::tei:relation[contains(@passive,'",$persons:related-persons,"') | contains(@active,'",$persons:related-persons,"')]]")
+         concat("[descendant::tei:relation[matches(@passive,'(^|\W)",$persons:related-persons,"(\W|$)') | matches(@active,'(^|\W)",$persons:related-persons,"(\W|$)')]]")
     else ()
 };
 
