@@ -428,6 +428,7 @@ declare function persons:search-form() {
                 </div>    
             </div>
         </div>
+        <div><p><em>* and ? wild cards may not be used at the begining of a word or search string. They may be used withing a string (Eph*m). * and ? will be stripped from the begining of words.</em></p></div>
         <div class="pull-right">
             <button type="submit" class="btn btn-info">Search</button>&#160;
             <button type="reset" class="btn">Clear</button>

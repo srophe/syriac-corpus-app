@@ -8,21 +8,17 @@ module namespace common="http://syriaca.org//common";
  : Cleans search parameters to replace bad/undesirable data in strings
  : NOTE: need to add handling for * at the beginning of words and in phrases
  : @param-string parameter string to be cleaned
- for $term in $tokenize($param-string,' ') 
-return 
-if(starts-wth($term),'*') then  
-    replace(replace($param-string, "[&amp;!@#$%^+=_]:", ""),'"',"'")
-else replace(replace($param-string, "[&amp;!@#$%^+=_]:", ""),'"',"'")
-
-replace(replace($param-string, "[&amp;!@#$%^+=_]:", ""),'"',"'")  
+ 
+replace(replace($param-string, "^\*", ""),"'",'"')     
  :
 :)
 declare function common:clean-string($param-string){  
- replace(replace($param-string, "[&amp;!@#$%^+=_]:", ""),"'",'"')      
+ replace(replace($param-string, "(^|\W\*)|(^|\W\?)|[&amp;!@#$%^+=_]:", ""),"'",'"')      
 };
 
 (:
- : Not used
+ : @depreciated
+ : Uses eXistdb syntax to build complex search queries
 :)
 declare function common:build-query($param-string){
     <query>
