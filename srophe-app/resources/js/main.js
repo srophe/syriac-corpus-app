@@ -11,7 +11,7 @@ $.validator.setDefaults({
             success: function(response) {
                 var temp = response;
                 if(temp == 'Recaptcha fail') {
-                    alert('please retry again');
+                    alert('please try again');
                     Recaptcha.reload();
                 }else {
                     $('div#modal-body').html(temp);
@@ -50,6 +50,7 @@ $().ready(function() {
 		}
 });
 
+
 // Toggel for related places
 $( "#more-relation" ).click(function() {
   $(this).text($(this).text() == '(see list)' ? '(hide list)' : '(see list)'); 
@@ -62,6 +63,16 @@ $("#less-relation").click(function(){
   $("#toggle-relation").hide("slow");
 });
 
+//more sophisticated toggle for mulitple show/hide
+$(".toggle").click(function() {
+    var $toggled = $(this).attr('href');
+    if ($.trim($(this).text()) === '(hide list)') {
+        $($toggled).hide( "slow");
+    } else {
+        $($toggled).show( "slow");       
+    }
+    return false;
+});
 
 if (navigator.appVersion.indexOf("Mac") > -1 || navigator.appVersion.indexOf("Linux") > -1) {
     $('.get-syriac').show();

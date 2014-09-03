@@ -29,9 +29,9 @@ let $place-uri := if(request:get-parameter('id','')) then concat('Place: http://
 return
   <mail>
     <from>Syriaca.org &lt;david.a.michelson@vanderbilt.edu&gt;</from>
-    <!--<to>wsalesky@gmail.com</to>-->
-    <to>david.a.michelson@vanderbilt.edu</to>
-    <cc>thomas.a.carlson@okstate.edu</cc>
+    <cc>wsalesky@gmail.com</cc>
+    <cc>david.a.michelson@vanderbilt.edu</cc>
+    <to>thomas.a.carlson@okstate.edu</to>
     <subject>{request:get-parameter('subject','')} for {request:get-parameter('place','')} {request:get-parameter('id','')}</subject>
     <message>
       <xhtml>
@@ -44,7 +44,7 @@ return
                  <p>e-mail: {request:get-parameter('email','')}</p>
                  <p>Subject: {request:get-parameter('subject','')} {$place}</p>
                  <p>{$place-uri}</p>
-                 {request:get-parameter('comments','')}
+                 <p>{request:get-parameter('comments','')}</p>
               </body>
            </html>
       </xhtml>
@@ -52,7 +52,7 @@ return
   </mail>
 };
 
-let $cache := 'change this value to force page refresh 33'
+let $cache := current-dateTime()
 return 
     if(exists(request:get-parameter('email','')) and request:get-parameter('email','') != '') 
         then 
