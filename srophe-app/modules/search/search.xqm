@@ -3,6 +3,7 @@ xquery version "3.0";
 module namespace search="http://syriaca.org//search";
 import module namespace persons="http://syriaca.org//persons" at "persons-search.xqm";
 import module namespace places="http://syriaca.org//places" at "places-search.xqm";
+import module namespace common="http://syriaca.org//common" at "common.xqm";
 import module namespace geo="http://syriaca.org//geojson" at "../geojson.xqm";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
@@ -26,7 +27,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
     let $eval-string := 
                         if($collection = 'persons') then persons:query-string()
                         else if($collection = '') then places:query-string()
-                        else places:query-string()
+                        else places:query-string()                        
     return                         
     map {"hits" := 
                (: let $hits := util:eval($eval-string)    
@@ -82,11 +83,14 @@ let $search-string: =
         return request:get-parameter($parameter, '')
         (:if($parameter = 'search' or starts-with($parameter,'start')) then ''
                else search:clean-string(request:get-parameter($parameter, '')):)
+let $screen-friendly-string := replace(replace(string-join(search:search-string($collection),' '),'&amp;amp;','&amp;'), '&amp;apos;', '&apos;')
 let $pagination-links := 
         <div class="row-fluid" xmlns="http://www.w3.org/1999/xhtml">
             <div class="span5">
             <h4>Search results:</h4>
-                <p class="offset1">{$total-result-count} matches for {search:search-string($collection)}.</p>
+                <p class="offset1">{$total-result-count} matches for {$screen-friendly-string}.
+                <!-- for debugging xpath <br/>{persons:query-string()}-->
+                </p>
             </div>
             {if(search:hit-count($node, $model) gt $perpage) then 
               <div class="span7" style="text-align:right">
@@ -199,7 +203,7 @@ return
                         }
                         }) 
                         
-                        var map = L.map('map').fitBounds(geojson.getBounds());
+                        var map = L.map('map').fitBounds(geojson.getBounds(),{maxZoom: 4});
                         
                         terrain.addTo(map);
                         
@@ -210,7 +214,6 @@ return
                         
                         geojson.addTo(map);
  
-                     
                         ]]>
                     </script>)
                else ''

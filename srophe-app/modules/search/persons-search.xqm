@@ -27,6 +27,7 @@ declare variable $persons:place-type {request:get-parameter('place-type', '')};
 declare variable $persons:related-persons {request:get-parameter('related-persons', '')};
 declare variable $persons:mentioned {request:get-parameter('mentioned', '')};
 
+
 (:~
  : Build full-text keyword search over all tei:place data
  : @param $q query string
@@ -34,7 +35,7 @@ declare variable $persons:mentioned {request:get-parameter('mentioned', '')};
  common:build-query($pram-string)
 :)
 declare function persons:keyword() as xs:string? {
-    if($persons:q != '') then concat("[ft:query(descendant::*,'",common:clean-string($persons:q),"')]")
+    if($persons:q != '') then concat("[ft:query(.,'",common:clean-string($persons:q),"',common:options())]")
     else ()    
 };
 
@@ -46,7 +47,7 @@ declare function persons:keyword() as xs:string? {
 :)
 declare function persons:name() as xs:string? {
     if($persons:name != '') then
-        concat("[ft:query(descendant::tei:person/tei:persName,'",common:clean-string($persons:name),"')]")   
+        concat("[ft:query(descendant::tei:person/tei:persName,'",common:clean-string($persons:name),"',common:options())]")   
     else ()
 };
 
@@ -76,14 +77,7 @@ declare function persons:type() as xs:string?{
  : Build date search string
  : @param $persons:date-type indicates element to restrict date searches on, if empty, no element restrictions
  : @param $persons:start-date start date
- : @param $persons:end-date end date
- 
-      
-         
-         
-         
-         
-         
+ : @param $persons:end-date end date       
 :)
 declare function persons:date-range() as xs:string?{
 if($persons:date-type != '') then 
@@ -192,24 +186,10 @@ else
             concat("[descendant::*[@syriaca-computed-end lt '",common:do-date($persons:end-date),"' or @syriaca-computed-start lt '",common:do-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
          else '' 
 }; 
+
 (:~
  : Search related places 
- : NOTE add place type
- 
-relation/@active
-relation/@passive
-event/@where
-birth/placeName/@ref
-death/placeName/@ref
-
-Note, what is element for other and type for event
-[[descendant::tei:relation[contains(@passive,'",$persons:related-place,"') or contains(@active,'",$persons:related-place,"')]] 
-                 [descendant::tei:birth/placeName[contains(@ref,'",$persons:related-place,"')]]
-                | [descendant::tei:death/placeName[contains(@ref,'",$persons:related-place,"')]]
-                | [descendant::tei:event[contains(@where,'",$persons:related-place,"')]]]
 :)
-
-
 declare function persons:related-places() as xs:string?{                   
 if($persons:related-place  != '') then 
     if($persons:place-type !='' and $persons:place-type !='any') then 

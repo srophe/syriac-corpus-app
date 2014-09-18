@@ -6,14 +6,31 @@ module namespace common="http://syriaca.org//common";
 
 (:~
  : Cleans search parameters to replace bad/undesirable data in strings
- : NOTE: need to add handling for * at the beginning of words and in phrases
  : @param-string parameter string to be cleaned
- 
+ : NOTE to self: Need to handle ' in full text search, currently stripped before sent to ft:query() function
+ due to difficulties with util:eval;
 replace(replace($param-string, "^\*", ""),"'",'"')     
+replace(replace($param-string, "(^|\W\*)|(^|\W\?)|[&amp;!@#$%^+=_]:", ""),"'",'"')
+ replace(replace($text, '&amp;', '&amp;amp;'), '''', '&amp;apos;')
+ replace(replace($param-string, "(^|\W\*)|(^|\W\?)|[&amp;!@#$%^+=_]:", ""),"'","")
+ 
+ 
  :
 :)
-declare function common:clean-string($param-string){  
- replace(replace($param-string, "(^|\W\*)|(^|\W\?)|[&amp;!@#$%^+=_]:", ""),"'",'"')      
+declare function common:clean-string($param-string){
+replace(replace(replace($param-string, "(^|\W\*)|(^|\W\?)|[!@#$%^+=_]:", ""), '&amp;', '&amp;amp;'), '''', '&amp;apos;')
+};
+
+(:~
+ : Search options passed to ft:query functions
+:)
+declare function common:options(){
+    <options>
+        <default-operator>and</default-operator>
+        <phrase-slop>1</phrase-slop>
+        <leading-wildcard>no</leading-wildcard>
+        <filter-rewrite>yes</filter-rewrite>
+    </options>
 };
 
 (:
