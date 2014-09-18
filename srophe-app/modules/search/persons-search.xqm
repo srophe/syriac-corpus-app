@@ -210,7 +210,9 @@ else ()
 :)
 declare function persons:related-persons() as xs:string?{
     if($persons:related-persons  != '') then
-         concat("[descendant::tei:relation[matches(@passive,'(^|\W)",$persons:related-persons,"(\W|$)') | matches(@active,'(^|\W)",$persons:related-persons,"(\W|$)')]]")
+        let $related-persons-uri := if(ends-with($persons:related-persons,'.html')) then substring-before($persons:related-persons,'.html') else $persons:related-persons
+        return
+         concat("[descendant::tei:relation[matches(@passive,'(^|\W)",$related-persons-uri,"(\W|$)') | matches(@active,'(^|\W)",$related-persons-uri,"(\W|$)')]]")
     else ()
 };
 
@@ -219,7 +221,9 @@ declare function persons:related-persons() as xs:string?{
 :)
 declare function persons:mentioned() as xs:string?{
     if($persons:mentioned  != '') then
-         concat("[descendant::tei:person/tei:bibl/tei:ptr[@target = '",$persons:mentioned,"']]")
+        let $mentioned-uri := if(ends-with($persons:mentioned,'.html')) then substring-before($persons:mentioned,'.html') else $persons:mentioned
+        return
+         concat("[descendant::tei:person/tei:bibl/tei:ptr[@target = '",$mentioned-uri,"']]")
     else ()
 };
 
