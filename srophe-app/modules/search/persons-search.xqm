@@ -192,13 +192,15 @@ else
 :)
 declare function persons:related-places() as xs:string?{                   
 if($persons:related-place  != '') then 
+    let $related-place-uri := if(ends-with($persons:related-place,'.html')) then substring-before($persons:related-place,'.html') else $persons:related-place
+    return
     if($persons:place-type !='' and $persons:place-type !='any') then 
-        if($persons:place-type = 'birth') then concat("[descendant::tei:relation[@name ='born-at'][matches(@passive,'(^|\W)",$persons:related-place,"(\W|$)')]]")
-        else if($persons:place-type = 'death') then concat("[descendant::tei:relation[@name ='died-at'][matches(@passive,'(^|\W)",$persons:related-place,"(\W|$)')]]")
-        else if($persons:place-type = 'venerated') then concat("[descendant::tei:event[matches(@contains,'(^|\W)",$persons:related-place,"(\W|$)')]]")
-        else concat("[descendant::tei:relation[matches(@passive,'(^|\W)",$persons:related-place,"(\W|$)') | matches(@active,'(^|\W)",$persons:related-place,"(\W|$)')]]")
+        if($persons:place-type = 'birth') then concat("[descendant::tei:relation[@name ='born-at'][matches(@passive,'(^|\W)",$related-place-uri,"(\W|$)')]]")
+        else if($persons:place-type = 'death') then concat("[descendant::tei:relation[@name ='died-at'][matches(@passive,'(^|\W)",$related-place-uri,"(\W|$)')]]")
+        else if($persons:place-type = 'venerated') then concat("[descendant::tei:event[matches(@contains,'(^|\W)",$related-place-uri,"(\W|$)')]]")
+        else concat("[descendant::tei:relation[matches(@passive,'(^|\W)",$related-place-uri,"(\W|$)') | matches(@active,'(^|\W)",$related-place-uri,"(\W|$)')]]")
     else    
-        concat("[descendant::tei:relation[matches(@passive,'(^|\W)",$persons:related-place,"(\W|$)') | matches(@active,'(^|\W)",$persons:related-place,"(\W|$)')]]")
+        concat("[descendant::tei:relation[matches(@passive,'(^|\W)",$related-place-uri,"(\W|$)') | matches(@active,'(^|\W)",$related-place-uri,"(\W|$)')]]")
 else ()
 };
 
