@@ -121,7 +121,7 @@ if($persons:date-type != '') then
          else if($persons:end-date != ''  and $persons:start-date = '') then
             concat("[descendant::tei:floruit[@syriaca-computed-end lt '",common:do-date($persons:end-date),"' or @syriaca-computed-start lt '",common:do-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
          else ''      
-   else if($persons:date-type = 'reign') then 
+   else if($persons:date-type = 'office') then 
         if($persons:start-date != '' and $persons:end-date != '') then concat("[//tei:state[@type='office'][(
             @syriaca-computed-start gt 
                 '",common:do-date($persons:start-date),"' 
@@ -316,6 +316,8 @@ declare function persons:search-form() {
         <div class="navbar-inner search-header">
             <h3>Advanced Search</h3>
         </div>
+        <div><p><em>Wild cards * and ? may be used to optimize search results.
+        Wild cards may not be used at the beginning of a word, as it hinders search speed.</em></p></div>
         <div class="well well-small search-inner">
             <div class="row-fluid">
                 <div class="span12">
@@ -378,7 +380,7 @@ declare function persons:search-form() {
                                 <option value="birth">birth</option>
                                 <option value="death">death</option>
                                 <option value="floruit">floruit</option>
-                                <option value="reign">reign</option>
+                                <option value="office">office</option>
                                 <option value="event">other event</option>
                             </select>
                             <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
@@ -414,7 +416,6 @@ declare function persons:search-form() {
                 </div>    
             </div>
         </div>
-        <div><p><em>* and ? wild cards may not be used at the begining of a word or search string. They may be used withing a string (Eph*m). * and ? will be stripped from the begining of words.</em></p></div>
         <div class="pull-right">
             <button type="submit" class="btn btn-info">Search</button>&#160;
             <button type="reset" class="btn">Clear</button>
