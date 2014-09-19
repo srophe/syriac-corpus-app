@@ -75,7 +75,6 @@
  <!--  colquery: constructed variable with query for collection fn. -->
  <!-- =================================================================== -->
     <xsl:param name="normalization">NFKC</xsl:param>
-    <!-- NOTE: Change to eXist xml -->
     <xsl:param name="xmlbase">/db/apps/srophe/data/places/tei/xml/</xsl:param>
     <xsl:param name="editoruriprefix">http://syriaca.org/editors.xml#</xsl:param>
     <xsl:variable name="editorssourcedoc">/db/apps/srophe/documentation/editors.xml</xsl:variable>
@@ -100,7 +99,7 @@
                         <span class="get-syriac noprint" style="font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none">
                             <xsl:if test="//t:place/child::*[@xml:lang ='syr']">
                                 <a href="../documentation/view-syriac.html">
-                                    <img src="../resources/img/faq.png" alt="The Google Maps icon"/>&#160;Don't see Syriac?</a>
+                                    <img src="/exist/apps/srophe/resources/img/faq.png" alt="FAQ icon"/>&#160;Don't see Syriac?</a>
                             </xsl:if>
                         </span>
                     </h1>
@@ -165,7 +164,7 @@
             <script type="text/javascript" src="/exist/apps/srophe/resources/js/map.js"/>
         </xsl:if>
         <script type="text/javascript" src="/exist/apps/srophe/resources/js/main.js"/>
-        <script type="text/javascript" src="/exist/apps/srophe/resources/js/jquery.validate.min.js"/>
+        <!--<script type="text/javascript" src="/exist/apps/srophe/resources/js/jquery.validate.min.js"/>-->
     </xsl:template>
     
 <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
@@ -210,12 +209,10 @@
                                 <xsl:call-template name="col1"/>
                                 <div style="margin-bottom:1em;">  
                                 <!-- Button to trigger modal -->
-                                    <!--<a href="#report-errors" role="button" class="btn" data-toggle="modal">Corrections/Additions?</a>-->
-                                    <a href="/geo/howtoadd.html" class="btn">Corrections/Additions?</a>
+                                    <a href="#report-errors" role="button" class="btn" data-toggle="modal">Corrections/Additions?</a>
+                                    <!--<a href="/geo/howtoadd.html" class="btn">Corrections/Additions?</a>-->
                                     <xsl:text> </xsl:text>
                                     <a href="#selection" role="button" class="btn" data-toggle="modal">Is this record complete?</a>
-                                    
-                                <!-- Modal 
                                     <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -223,24 +220,33 @@
                                         </div>
                                         <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
                                             <div class="modal-body" id="modal-body">
-                                                <label>Name:</label>
-                                                <input type="text" name="name"/>
-                                                <label>e-mail address:</label>
-                                                <input type="text" name="email"/>
-                                                <label>Subject:</label>
-                                                <input type="text" name="subject"/>
-                                                <label>Comments:</label>
-                                                <textarea name="comments" id="comments" rows="8" class="span9"/>
+                                                <!--<label>Name:</label>-->
+                                                <input type="text" name="name" placeholder="Name"/>
+                                                <br/>
+                                                <!--<label>e-mail address:</label>-->
+                                                <input type="text" name="email" placeholder="email"/>
+                                                <br/>
+                                                <!--<label>Subject:</label>-->
+                                                <input type="text" name="subject" placeholder="subject"/>
+                                                <br/>
+                                                <textarea name="comments" id="comments" rows="5" class="span9" placeholder="Comments"/>
                                                 <input type="hidden" name="id" value="{$resource-id}"/>
                                                 <input type="hidden" name="place" value="{string(t:placeName[1])}"/>
+                                                <!-- start reCaptcha API-->
+                                                <script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia"/>
+                                                <noscript>
+                                                    <iframe src="http://api.recaptcha.net/noscript?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia" height="100" width="100" frameborder="0"/>
+                                                    <br/>
+                                                    <textarea name="recaptcha_challenge_field" rows="3" cols="40"/>
+                                                    <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+                                                </noscript>
                                             </div>
                                             <div class="modal-footer">
                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
                                                 <input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
                                             </div>
                                         </form>
-                                    </div>-->
-                                    <!-- Modal for FAQ  NOT working, woul have to change faq structure-->
+                                    </div>
                                     <div style="width: 750px; margin-left: -280px;" id="selection" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="faq-label" aria-hidden="true">
                                         <div class="modal-header" style="height:15px !important;">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> × </button>
@@ -1202,7 +1208,12 @@
                             <xsl:otherwise>ltr</xsl:otherwise>
                         </xsl:choose>
                     </xsl:attribute>
-                    <xsl:call-template name="langattr"/>
+                    <xsl:attribute name="lang">
+                        <xsl:value-of select="parent::t:desc/@xml:lang"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="xml:lang">
+                        <xsl:value-of select="parent::t:desc/@xml:lang"/>
+                    </xsl:attribute>
                     <xsl:apply-templates/>
                 </bdi>
                 <xsl:text>”</xsl:text>

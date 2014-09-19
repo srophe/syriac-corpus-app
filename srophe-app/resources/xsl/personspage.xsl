@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -120,7 +120,7 @@
                         <span class="get-syriac noprint">
                             <xsl:if test="//t:person/child::*[@xml:lang ='syr']">
                                 <a href="../documentation/view-syriac.html">
-                                    <img src="../resources/img/faq.png" alt="The Google Maps icon"/>&#160;Don't see Syriac?</a>
+                                    <img src="/exist/apps/srophe/resources/img/faq.png" alt="FAQ icon"/>&#160;Don't see Syriac?</a>
                             </xsl:if>
                         </span>
                     </h1>
@@ -229,12 +229,10 @@
                                 <xsl:call-template name="col1"/>
                                 <div style="margin-bottom:1em;">  
                                 <!-- Button to trigger modal -->
-                                    <!--<a href="#report-errors" role="button" class="btn" data-toggle="modal">Corrections/Additions?</a>-->
-                                    <a href="/geo/howtoadd.html" class="btn">Corrections/Additions?</a>
+                                    <a href="#report-errors" role="button" class="btn" data-toggle="modal">Corrections/Additions?</a>
+                                   <!-- <a href="/geo/howtoadd.html" class="btn">Corrections/Additions?</a>-->
                                     <xsl:text> </xsl:text>
                                     <a href="#selection" role="button" class="btn" data-toggle="modal">Is this record complete?</a>
-                                    
-                                <!-- Modal 
                                     <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -242,23 +240,34 @@
                                         </div>
                                         <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
                                             <div class="modal-body" id="modal-body">
-                                                <label>Name:</label>
-                                                <input type="text" name="name"/>
-                                                <label>e-mail address:</label>
-                                                <input type="text" name="email"/>
-                                                <label>Subject:</label>
-                                                <input type="text" name="subject"/>
-                                                <label>Comments:</label>
-                                                <textarea name="comments" id="comments" rows="8" class="span9"/>
+                                                <!--<label>Name:</label>-->
+                                                <input type="text" name="name" placeholder="Name"/>
+                                                <br/>
+                                                <!--<label>e-mail address:</label>-->
+                                                <input type="text" name="email" placeholder="email"/>
+                                                <br/>
+                                                <!--<label>Subject:</label>-->
+                                                <input type="text" name="subject" placeholder="subject"/>
+                                                <br/>
+                                                <textarea name="comments" id="comments" rows="5" class="span9" placeholder="Comments"/>
                                                 <input type="hidden" name="id" value="{$resource-id}"/>
-                                                <input type="hidden" name="person" value="{string(t:personName[1])}"/>
+                                                <input type="hidden" name="place" value="{string(t:persName[1])}"/>
+                                                <!-- start reCaptcha API-->
+                                                <script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia"/>
+                                                <noscript>
+                                                    <iframe src="http://api.recaptcha.net/noscript?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia" height="100" width="100" frameborder="0"/>
+                                                    <br/>
+                                                    <textarea name="recaptcha_challenge_field" rows="3" cols="40"/>
+                                                    <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+                                                </noscript>
                                             </div>
                                             <div class="modal-footer">
                                                 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
                                                 <input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
                                             </div>
                                         </form>
-                                    </div>-->
+                                    </div>
+                                    
                                     <!-- Modal for FAQ  NOT working, woul have to change faq structure-->
                                     <div style="width: 750px; margin-left: -280px;" id="selection" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="faq-label" aria-hidden="true">
                                         <div class="modal-header" style="height:15px !important;">
@@ -411,7 +420,8 @@
                                 attribution: 'Tiles: &lt;a href="http://pelagios-project.blogspot.com/2012/09/a-digital-map-of-roman-empire.html"&gt;Pelagios&lt;/a&gt;, 2012; Data: NASA, OSM, Pleiades, DARMC',
                                 maxZoom: 11 });
                                 
-                                <xsl:text>var placesgeo =</xsl:text> <xsl:value-of select="//*:div[@id='geojson']"/>
+                                <xsl:text>var placesgeo =</xsl:text>
+                                <xsl:value-of select="//*:div[@id='geojson']"/>
                                 <![CDATA[
                                 var sropheIcon = L.Icon.extend({
                                       options: {
@@ -428,9 +438,9 @@
                                             L.AwesomeMarkers.icon({
                                              markerColor: 'orange'
                                            }),
-                                        greenIcon = 
+                                        purpleIcon = 
                                          L.AwesomeMarkers.icon({
-                                             markerColor: 'green'
+                                             markerColor: 'purple'
                                            }),
                                         blueIcon =  L.AwesomeMarkers.icon({
                                              markerColor: 'blue'
@@ -444,7 +454,7 @@
                                             switch (feature.properties.relation) {
                                                 case 'born-at': return layer.setIcon(orangeIcon);
                                                 case 'died-at':   return layer.setIcon(redIcon);
-                                                case 'has-literary-connection-to-place':   return layer.setIcon(greenIcon);
+                                                case 'has-literary-connection-to-place':   return layer.setIcon(purpleIcon);
                                                 case 'has-relation-to-place':   return layer.setIcon(blueIcon);
                                             }
                                             
@@ -460,37 +470,47 @@
                                         "Imperium": imperium }).addTo(map);
                                         
                                 geojson.addTo(map);      
-                                ]]>
-                            </script>
+                                ]]></script>
                         </div> 
                         <!-- <xsl:copy-of select="//*:div[@id='map-data']"/>-->
                     </xsl:if>
-                    <ul class="unstyled">
+                    <dl class="dl-horizontal dl-srophe">
                         <xsl:for-each-group select="//../*:related-items/*:relation[contains(@uri,'place')]" group-by="@name">
-                            <li>
-                                <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
-                                <xsl:choose>
-                                    <xsl:when test="current-grouping-key() = 'born-at'">
-                                        <span class="sprite born-at">&#160;&#160;&#160;</span> 
-                                    </xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'died-at'">
-                                        <span class="sprite died-at">&#160;&#160;&#160;</span> 
-                                    </xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'has-literary-connection-to-place'">
-                                        <span class="sprite literary">&#160;&#160;&#160;</span> 
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <span class="sprite relation">&#160;&#160;&#160;</span> 
-                                    </xsl:otherwise>
-                                </xsl:choose>
+                            <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
+                            <xsl:choose>
+                                <xsl:when test="not(current-group()/descendant::*:geo)">
+                                    <dt>&#160;</dt>
+                                </xsl:when>
+                                <xsl:when test="current-grouping-key() = 'born-at'">
+                                    <dt>
+                                        <i class="srophe-marker born-at"/>
+                                    </dt>
+                                </xsl:when>
+                                <xsl:when test="current-grouping-key() = 'died-at'">
+                                    <dt>
+                                        <i class="srophe-marker died-at"/>
+                                    </dt>
+                                </xsl:when>
+                                <xsl:when test="current-grouping-key() = 'has-literary-connection-to-place'">
+                                    <dt>
+                                        <i class="srophe-marker literary"/>
+                                    </dt>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <dt>
+                                        <i class="srophe-marker relation"/>
+                                    </dt>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <dd>
                                 <xsl:value-of select="substring(*:desc,1,$desc-ln - 1)"/>:
-                                <xsl:for-each select="current-group()">
+                                  <xsl:for-each select="current-group()">
                                     <xsl:apply-templates select="." mode="relation"/>
-                                    <!--<xsl:if test="position() != last()">, </xsl:if>-->
+                                      <!--<xsl:if test="position() != last()">, </xsl:if>-->
                                 </xsl:for-each>
-                            </li>
+                            </dd>
                         </xsl:for-each-group>
-                    </ul>
+                    </dl>
                     <!-- List view option check with Nathan to see what he would like
                     <ul>
                         <xsl:for-each-group select="//../*:related-items/*:relation[contains(@uri,'place')]" group-by="@name">
@@ -550,7 +570,9 @@
                 </h4>
                 <ul>
                     <xsl:for-each select="current-group()[not(t:desc/@xml:lang = 'en-x-gedsh')]">
-                        <li><xsl:apply-templates select="."/></li>
+                        <li>
+                            <xsl:apply-templates select="."/>
+                        </li>
                     </xsl:for-each>
                 </ul>
             </xsl:for-each-group>
