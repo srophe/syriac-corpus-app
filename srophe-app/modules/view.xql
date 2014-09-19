@@ -18,9 +18,7 @@ import module namespace person="http://syriaca.org//person" at "person.xqm";
 import module namespace browse="http://syriaca.org//browse" at "browse.xqm";
 import module namespace search="http://syriaca.org//search" at "search/search.xqm";
 import module namespace metadata="http://syriaca.org//metadata" at "metadata.xqm";
-import module namespace admin="http://syriaca.org//admin" at "admin.xqm";
 import module namespace geo="http://syriaca.org//geojson" at "geojson.xqm";
-import module namespace search-form="http://syriaca.org//search-form" at "search-form.xqm";
 import module namespace nav="http://syriaca.org//nav" at "nav.xqm";
 
 declare option exist:serialize "method=html5 media-type=text/html enforce-xhtml=yes";
