@@ -29,6 +29,7 @@ declare variable $browse:type {request:get-parameter('type', '')};
 declare variable $browse:view {request:get-parameter('view', '')};
 declare variable $browse:sort {request:get-parameter('sort', '')};
 declare variable $browse:type-map {request:get-parameter('type-map', '')};
+declare variable $browse:date {request:get-parameter('date', '')};
 
 (:~
  : Build browse path for evaluation
@@ -127,7 +128,6 @@ declare function browse:get-pers-type($node as node(), $model as map(*)){
             if($browse:type = 'unknown') then $data[not(@ana)]
             else $data[@ana = concat('#',$browse:type)]
           else ()  
-(:    where matches($place-name/@type, $browse:type):)
     order by $browse-title
     return 
      <browse xmlns="http://www.tei-c.org/ns/1.0" xml:id="{$id}" type="{$type}" ana="{$ana}" sort-title="{$browse-title}">
@@ -139,6 +139,77 @@ declare function browse:get-pers-type($node as node(), $model as map(*)){
                 )
             }
         </browse>
+};
+
+(:~
+ : Returns a list persons by date
+ : @param $browse:type indicates language of browse list
+ : @param $browse:sort indicates letter for browse
+ : Uses browse:build-sort-string() to strip title of non sort characters
+ :)
+declare function browse:get-pers-date($node as node(), $model as map(*)){  
+    let $end :=
+        if($browse:date = 'BC dates') then  xs:date('0001-01-01')
+        else if($browse:date = '0-100') then xs:date('0100-01-01')
+        else if($browse:date = '100-200') then xs:date('0200-01-01')
+        else if($browse:date = '200-300') then xs:date('0300-01-01')
+        else if($browse:date = '300-400') then xs:date('0400-01-01')
+        else if($browse:date = '400-500') then xs:date('0500-01-01')
+        else if($browse:date = '500-600') then xs:date('0600-01-01')
+        else if($browse:date = '600-700') then xs:date('0700-01-01')
+        else if($browse:date = '700-800') then xs:date('0800-01-01')
+        else if($browse:date = '800-900') then xs:date('0900-01-01')
+        else if($browse:date = '900-1000') then xs:date('1000-01-01')
+        else if($browse:date = '1000-1100') then xs:date('1100-01-01')
+        else if($browse:date = '1100-1200') then xs:date('1200-01-01')
+        else if($browse:date = '1200-1300') then xs:date('1300-01-01')
+        else if($browse:date = '1300-1400') then xs:date('1400-01-01')
+        else if($browse:date = '1400-1500') then xs:date('1500-01-01')
+        else if($browse:date = '1500-1600') then xs:date('1600-01-01')
+        else if($browse:date = '1600-1700') then xs:date('1700-01-01')
+        else if($browse:date = '1700-1800') then xs:date('1800-01-01')
+        else if($browse:date = '1800-1900') then xs:date('1900-01-01')
+        else if($browse:date = '1900-2000') then xs:date('2000-01-01')
+        else if($browse:date = '2000-') then xs:date('2100-01-01')
+        else xs:date('0100-01-01')
+    let $start := 
+        if($browse:date = 'BC dates') then  xs:date('-2000-01-01')
+        else if($browse:date = '0-100') then xs:date('0001-01-01')
+        else if($browse:date = '100-200') then xs:date('0100-01-01')
+        else if($browse:date = '200-300') then xs:date('0200-01-01')
+        else if($browse:date = '300-400') then xs:date('0300-01-01')
+        else if($browse:date = '400-500') then xs:date('0400-01-01')
+        else if($browse:date = '500-600') then xs:date('0500-01-01')
+        else if($browse:date = '600-700') then xs:date('0600-01-01')
+        else if($browse:date = '700-800') then xs:date('0700-01-01')
+        else if($browse:date = '800-900') then xs:date('0800-01-01')
+        else if($browse:date = '900-1000') then xs:date('0900-01-01')
+        else if($browse:date = '1000-1100') then xs:date('1000-01-01')
+        else if($browse:date = '1100-1200') then xs:date('1100-01-01')
+        else if($browse:date = '1200-1300') then xs:date('1200-01-01')
+        else if($browse:date = '1300-1400') then xs:date('1300-01-01')
+        else if($browse:date = '1400-1500') then xs:date('1400-01-01')
+        else if($browse:date = '1500-1600') then xs:date('1500-01-01')
+        else if($browse:date = '1600-1700') then xs:date('1600-01-01')
+        else if($browse:date = '1700-1800') then xs:date('1700-01-01')
+        else if($browse:date = '1800-1900') then xs:date('1800-01-01')
+        else if($browse:date = '1900-2000') then xs:date('1900-01-01')
+        else if($browse:date = '2000-') then xs:date('2000-01-01')
+        else xs:date('0100-01-01')
+    for $data in $model('browse-data')[descendant::*/@syriaca-computed-start lt $end][descendant::*/@syriaca-computed-end gt $start]
+    let $id := string($data/@xml:id)
+    let $ana := string($data/@ana)
+    let $title := $data/tei:persName[1]
+    let $browse-title := browse:build-sort-string($title) 
+    order by $browse-title
+    return 
+        <browse xmlns="http://www.tei-c.org/ns/1.0" xml:id="{$id}" ana="{$ana}" sort-title="{$browse-title}" date="{$browse:date}">
+            {
+                for $browse-name in $data/child::*[@syriaca-tags="#syriaca-headword"]
+                return $browse-name
+            }
+        </browse>
+            
 };
 
 (:~
@@ -196,7 +267,6 @@ declare function browse:build-sort-string($titlestring){
     replace(replace(replace($titlestring,'^\s+',''),'^al-',''),'[‘ʻʿ]','')
 };
 
-
 (:~
  : Returns a count of all places with coordinates
 :)
@@ -249,9 +319,26 @@ if($browse:view = 'type') then
             }
         </ul>
     </div>    
-else ''    
+else if($browse:view = 'date') then browse:build-date-menu()
+else ()
 };
 
+declare function browse:build-date-menu(){
+    <div class="span4">
+        <ul class="nav nav-tabs nav-stacked pull-left type-nav">
+            {
+                let $all-dates := 'BC dates, 0-100, 100-200, 200-300, 300-400, 400-500, 500-600, 700-800, 800-900, 900-1000, 1100-1200, 1200-1300, 1300-1400, 1400-1500, 1500-1600, 1600-1700, 1700-1800, 1800-1900, 1900-2000, 2000-'
+                for $date in tokenize($all-dates,', ')
+                return
+                    <li>{if($browse:date = $date) then attribute class {'active'} else '' }
+                        <a href="?view=date&amp;date={$date}&amp;coll=persons">
+                            {$date}  <!--<span class="count"> ({count($types)})</span>-->
+                        </a>
+                    </li>
+            }
+        </ul>
+    </div>
+};
 declare function browse:build-tabs($node as node(), $model as map(*)){
 if($browse:coll = 'persons') then 
 <ul class="nav nav-tabs" id="nametabs">
@@ -268,6 +355,10 @@ if($browse:coll = 'persons') then
     <li>{if($browse:view = 'type') then 
             attribute class {'active'}
          else '' }<a href="browse.html?coll={$browse:coll}&amp;view=type">Type</a>
+    </li>
+    <li>{if($browse:view = 'date') then 
+            attribute class {'active'}
+         else '' }<a href="browse.html?view=date&amp;coll={$browse:coll}">Date</a>
     </li>
 </ul>
 else
@@ -320,6 +411,7 @@ declare %templates:wrap function browse:get-browse-names($node as node(), $model
                     else
                         browse:get-place-type($node, $model) 
                 else 'Type'
+             else if($browse:view = 'date') then browse:get-pers-date($node, $model)
              else browse:build-browse-results($node, $model)
             )
           }

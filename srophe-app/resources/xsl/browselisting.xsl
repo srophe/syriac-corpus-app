@@ -68,6 +68,9 @@
             <xsl:when test="/t:TEI/@browse-view = 'map'">
                 <xsl:call-template name="do-map"/>
             </xsl:when>
+            <xsl:when test="/t:TEI/@browse-view = 'date'">
+                <xsl:call-template name="do-list-date"/>
+            </xsl:when>
             <!-- @deprecated             
             <xsl:when test="/t:TEI/@browse-view = 'num'">
                 <xsl:call-template name="do-list-num"/>
@@ -367,8 +370,17 @@
             </div>
         </xsl:if>
     </xsl:template>
-   
-
+    <xsl:template name="do-list-date">
+        <div class="span8 well" style="background-color:white; margin:0; padding:.25em 1em;">
+            <h3>
+                <xsl:value-of select="/t:TEI//*:browse[1]/@date"/>
+            </h3>
+            <ul style="margin-left:4em; padding-top:1em;">
+                <!-- for each place build title and links -->
+                <xsl:call-template name="name-en"/>
+            </ul>
+        </div>
+    </xsl:template>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      named template: letter-menu-syr
      
