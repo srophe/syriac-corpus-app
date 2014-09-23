@@ -22,12 +22,10 @@ else if (ends-with($exist:path,"/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="index.html"/>
     </dispatch>
-    
-else if (contains($exist:path,'/api')) then
+else if (contains($exist:path,'/api/')) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <forward url="{concat('/restxq/srophe', $exist:path)}" absolute="yes"/>
     </dispatch>
-    
 else if (ends-with($exist:resource, ".html")) then
     (: the html page is run through view.xql to expand templates :)
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
