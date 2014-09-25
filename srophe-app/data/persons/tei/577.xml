@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -156,7 +160,10 @@
                     <persName xml:id="name577-7" corresp="#name577-6" xml:lang="syr-Syrn" source="#bib577-6">
                         <forename sort="1">ܝܘܿܣܝܼܦܘܿܣ</forename>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-577"/>
+                    <note type="abstract" xml:id="abstract-en-577">
+                        <Not_Useful/>
+                        <quote source="#bib577-1">Jewish historian.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/577</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|577</idno>
                     <idno type="URI">http://viaf.org/viaf/22143666</idno>
@@ -169,9 +176,11 @@
                     <idno type="URI">http://viaf.org/viaf/89641805</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=Josephus&amp;sT=keywords</idno>
                     <bibl xml:id="bib577-1">
+                        <author>S. P. Brock</author>
+                        <title level="a" xml:lang="en">Josephus</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">308</citedRange>
+                        <ptr target="http://syriaca.org/bibl/317"/>
+                        <citedRange unit="pp">232</citedRange>
                         <citedRange unit="pp">232</citedRange>
                     </bibl>
                     <bibl xml:id="bib577-2">

@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-07-31-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,6 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -165,7 +164,7 @@
                     <idno type="URI">http://viaf.org/viaf/70750647</idno>
                     <idno type="URI">http://viaf.org/viaf/98094820</idno>
                     <idno type="URI">http://viaf.org/viaf/234258526</idno>
-                    <floruit notBefore="0500" notAfter="0600" source="#bib56-2" syriaca-computed-end="0600-01-01" syriaca-computed-start="0500-01-01">6th century</floruit>
+                    <floruit notBefore="0500" notAfter="0600" source="#bib56-2">6th century</floruit>
                     <state type="office" role="count" source="#bib56-2">
                         <desc xml:lang="en">Count</desc>
                     </state>

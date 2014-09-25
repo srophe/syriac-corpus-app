@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -151,7 +155,9 @@
                     </persName>
                     <persName xml:id="name811-5" corresp="#name811-2 #name811-3 #name811-4" xml:lang="syr-Syrj" source="#bib811-4">
                         <addName type="untagged-title" sort="2">ܡܳܪܝ</addName>
-                        <forename sort="1">ܝܰܥܩܽܘܒ</forename> ܐܶܦܺܝܣܩܽܘܦܐ ܕܰܢܨܺܝܒܺܝܢ</persName>
+                        <forename sort="1">ܝܰܥܩܽܘܒ</forename>
+                        <addName type="untagged-title" sort="2">ܐܶܦܺܝܣܩܽܘܦܐ ܕܰܢܨܺܝܒܺܝܢ</addName>
+                    </persName>
                     <persName xml:id="name811-6" xml:lang="syr" resp="http://syriaca.org" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ܝܥܩܘܒ</forename>
                         <addName type="untagged-title" sort="2">ܕܢܨܝܒܝܢ</addName>
@@ -160,13 +166,15 @@
                         <forename sort="1">Jacob</forename>
                         <addName type="untagged-title" sort="2">of Nisibis</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-811"/>
+                    <note type="abstract" xml:id="abstract-en-811">
+                        <quote source="#bib811-1">First recorded bp. of Nisibis.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/811</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|811</idno>
                     <idno type="URI">http://viaf.org/viaf/73294780</idno>
                     <idno type="URI">http://viaf.org/viaf/73294780</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=Jacob of Nisibis&amp;sT=keywords</idno>
-                    <death notBefore="0337" notAfter="0338" source="#bib811-1" syriaca-computed-end="0338-01-01" syriaca-computed-start="0337-01-01">337/8</death>
+                    <death notBefore="0337" notAfter="0338" source="#bib811-1">337/8</death>
                     <state type="saint" role="saint" source="#bib811-2">
                         <desc xml:lang="en">St.</desc>
                     </state>
@@ -174,9 +182,11 @@
                         <desc xml:lang="en">bishop of Nisibin</desc>
                     </state>
                     <bibl xml:id="bib811-1">
+                        <author>J. P. Amar</author>
+                        <title level="a" xml:lang="en">Yaʿqub of Nisibis</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">583</citedRange>
+                        <ptr target="http://syriaca.org/bibl/592"/>
+                        <citedRange unit="pp">433</citedRange>
                         <citedRange unit="pp">433</citedRange>
                     </bibl>
                     <bibl xml:id="bib811-2">

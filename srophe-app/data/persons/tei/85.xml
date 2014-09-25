@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-07-31-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,6 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -165,7 +164,7 @@
                     <idno type="URI">http://syriaca.org/person/85</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|85</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qyriaqos of Amid&amp;sT=keywords</idno>
-                    <death when="0623" source="#bib85-2" syriaca-computed-start="0623-01-01">623</death>
+                    <death when="0623" source="#bib85-2">623</death>
                     <state type="office" role="metropolitan" source="#bib85-2">
                         <desc xml:lang="en">Metropolitan of Amid</desc>
                     </state>

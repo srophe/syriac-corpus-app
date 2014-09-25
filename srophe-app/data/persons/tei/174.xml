@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-07-31-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,6 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -170,7 +169,7 @@
                     <note type="abstract" xml:id="abstract-en-174"/>
                     <idno type="URI">http://syriaca.org/person/174</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|174</idno>
-                    <floruit when="0905" source="#bib174-2" syriaca-computed-start="0905-01-01">905</floruit>
+                    <floruit when="0905" source="#bib174-2">905</floruit>
                     <state type="office" role="metropolitan" source="#bib174-2">
                         <desc xml:lang="en">Metropolitan of Melitene</desc>
                     </state>

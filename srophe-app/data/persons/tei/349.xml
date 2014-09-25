@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -144,32 +148,45 @@
                         <forename sort="2">يوسف سمعان</forename>
                         <addName type="family" sort="1">السمعاني</addName>
                     </persName>
-                    <persName xml:id="name349-4" corresp="#name349-2 #name349-3 #name349-5" xml:lang="syr" source="#bib349-4">ܡܝܛܪܘܦܘܠܝܛܐ <forename sort="2">ܫܡܥܘܢ</forename>
-                        <forename sort="2">ܫܡܥܘܢ</forename>ܝܐ</persName>
+                    <persName xml:id="name349-4" corresp="#name349-2 #name349-3 #name349-5" xml:lang="syr" source="#bib349-4">
+                        <addName type="untagged-title" sort="2">ܡܝܛܪܘܦܘܠܝܛܐ</addName>
+                        <forename sort="2">ܫܡܥܘܢ</forename>
+                        <addName type="family" sort="1">ܫܡܥܘܢܝܐ</addName>
+                    </persName>
                     <persName xml:id="name349-5" corresp="#name349-2 #name349-3 #name349-4" xml:lang="syr-Syrj" source="#bib349-4">
                         <addName type="untagged-title" sort="2">ܡܝܛܪܘܦܘܠܝܛܐ</addName>
                         <forename sort="2">ܫܶܡܥܘܢ</forename>
-                        <forename sort="2">ܫܶܡܥܘܢ</forename>ܳܝܳܐ</persName>
+                        <addName type="family" sort="1">ܫܶܡܥܘܢܝܳܐ</addName>
+                    </persName>
                     <persName xml:id="name349-6" xml:lang="syr" resp="http://syriaca.org" syriaca-tags="#syriaca-headword">
                         <forename sort="2">ܫܡܥܘܢ</forename>
-                        <forename sort="2">ܫܡܥܘܢ</forename>ܝܐ</persName>
-                    <note type="abstract" xml:id="abstract-en-349"/>
+                        <addName type="family" sort="1">ܫܡܥܘܢܝܐ</addName>
+                    </persName>
+                    <persName xml:id="name349-6" xml:lang="en" source="#bib349-1">Giuseppe Simone Assemani</persName>
+                    <note type="abstract" xml:id="abstract-en-349">
+                        <quote source="#bib349-1">Maronite polymath, Custodian of the Vatican Library, and titular bp. of Tyre.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/349</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|349</idno>
                     <idno type="URI">http://viaf.org/viaf/9927564</idno>
                     <idno type="URI">http://worldcat.org/identities/lccn-n88-20882</idno>
                     <idno type="URI">http://viaf.org/viaf/238028405</idno>
                     <idno type="URI">http://viaf.org/viaf/216968498</idno>
-                    <birth when="1687" source="#bib349-1" syriaca-computed-start="1687-01-01">1687</birth>
-                    <death when="1768" source="#bib349-1" syriaca-computed-start="1768-01-01">1768</death>
+                    <birth when="1687" source="#bib349-1">1687</birth>
+                    <death when="1768" source="#bib349-1">1768</death>
                     <state type="office" role="metropolitan" source="#bib349-2">
                         <desc xml:lang="en">Metropolitan</desc>
                     </state>
+                    <state type="confession" source="#bib349-1">
+                        <desc>Maron.</desc>
+                    </state>
                     <bibl xml:id="bib349-1">
+                        <author>S. P. Brock</author>
+                        <title level="a" xml:lang="en">Assemani, Josephus Simonius</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">54</citedRange>
-                        <citedRange unit="pp">43</citedRange>
+                        <ptr target="http://syriaca.org/bibl/63"/>
+                        <citedRange unit="pp">43-44</citedRange>
+                        <citedRange unit="pp">43-44</citedRange>
                     </bibl>
                     <bibl xml:id="bib349-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

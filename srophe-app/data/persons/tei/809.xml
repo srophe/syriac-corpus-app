@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -59,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -111,7 +115,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -127,17 +131,26 @@
                         <forename sort="1">ܝܗܒܐܠܗܐ</forename>
                         <addName type="untagged-title" sort="2">ܩܕܡܝܐ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-809"/>
+                    <note type="abstract" xml:id="abstract-en-809">
+                        <quote source="#bib809-1">Bp. of Seleucia-Ctesiphon and Cath. When Yahbalaha was elected, the Christians in
+            the Persian Empire enjoyed the freedom accorded to them by <persName xmlns="" ref="#tempName-10">Emperor Yazdgard I</persName> and
+            formally laid down in the Synod of Isḥaq (410).</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/809</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|809</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Y&amp;sK=Yahbalaha I&amp;sT=keywords</idno>
-                    <state type="office" from="0415" to="0420" source="#bib809-1" syriaca-computed-end="0420-01-01" syriaca-computed-start="0415-01-01">
+                    <state type="office" from="0415" to="0420" source="#bib809-1">
                         <desc xml:lang="en-x-gedsh">415-420</desc>
                     </state>
+                    <state type="confession" source="#bib809-1">
+                        <desc>Ch. of E.</desc>
+                    </state>
                     <bibl xml:id="bib809-1">
+                        <author>L. Van Rompay</author>
+                        <title level="a" xml:lang="en">Yahbalaha I</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">577</citedRange>
+                        <ptr target="http://syriaca.org/bibl/586"/>
+                        <citedRange unit="pp">429</citedRange>
                         <citedRange unit="pp">429</citedRange>
                     </bibl>
                     <bibl xml:id="bib809-10">

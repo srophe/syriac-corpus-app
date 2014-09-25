@@ -4,6 +4,7 @@ module namespace api="http://syriaca.org/api";
 
 import module namespace geo="http://syriaca.org//geojson" at "geojson.xqm";
 import module namespace feed="http://syriaca.org//atom" at "atom.xqm";
+import module namespace templates="http://exist-db.org/xquery/templates";
 
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 
@@ -19,6 +20,37 @@ declare namespace rest = "http://exquery.org/ns/restxq";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
 declare namespace xmldb = "http://exist-db.org/xquery/xmldb";
+
+
+(:test with templating
+    <view>
+            <forward url="{$exist:controller}/modules/view.xql"/>
+        </view>
+:)
+
+declare
+    %rest:GET
+    %rest:path("/srophe/place/{$id}.html")
+    %output:media-type("text/html")
+    %output:method("html5")
+function api:get-place($id as xs:string) {
+    let $content := doc("/db/apps/srophe/geo/place.html?id=78")
+    let $config := map {
+        (: The following function will be called to look up template parameters :)
+        $templates:CONFIG_PARAM_RESOLVER := function($param as xs:string) as xs:string* {
+            req:parameter($param)
+        }
+    }
+    let $lookup := function($functionName as xs:string, $arity as xs:int) {
+        try {
+            function-lookup(xs:QName($functionName), $arity)
+        } catch * {
+            ()
+        }
+    }
+    return
+        templates:apply($content, $lookup, (), $config) 
+};
 
 (:~
   : Use resxq to format urls for geographic API
@@ -50,8 +82,7 @@ function api:get-geo-json($type as xs:string*, $output as xs:string*) {
   : @param $type string passed from uri see: http://syriaca.org/documentation/place-types.html 
   : for acceptable types 
   : @param $output passed to geojson.xqm to correctly serialize results
-  : Serialized as XML
-  : Can change mime type to: application/vnd.google-earth.kmz, however this forces file download.
+  : Serialized as KML
       %output:encoding("UTF-8")
 :)
 declare
@@ -59,7 +90,7 @@ declare
     %rest:path("/srophe/api/geo/kml")
     %rest:query-param("type", "{$type}", "")
     %rest:query-param("output", "{$output}", "kml")
-    %output:media-type("application/xml")
+    %output:media-type("application/vnd.google-earth.kmz")
     %output:method("xml")
 function api:get-geo-kml($type as xs:string*, $output as xs:string*) {
 (<rest:response> 
@@ -116,7 +147,6 @@ function api:get-atom-record($collection as xs:string, $id as xs:string){
 (:~
   : Return atom feed for syrica.org subcollection
   : @param $collection syriaca.org subcollection 
-  : @param $id record id
   : Serialized as XML
 :)
 declare 

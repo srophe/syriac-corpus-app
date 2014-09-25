@@ -55,6 +55,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -79,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -131,7 +135,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -165,18 +169,26 @@
                         <forename sort="1">ܝܘܣܦ</forename>
                         <addName type="untagged-title" sort="2">ܐܝܒܪܝܐ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-281"/>
+                    <persName xml:id="name281-6" xml:lang="en" source="#bib281-1">Gregory Joseph IV the Iberian</persName>
+                    <note type="abstract" xml:id="abstract-en-281">
+                        <quote source="#bib281-1">Minor author, scribe and bp. of <placeName xmlns="" ref="http://syriaca.org/place/2321">Jerusalem</placeName> (1510/12-1537).</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/281</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|281</idno>
-                    <death when="1537" source="#bib281-1" syriaca-computed-start="1537-01-01">1537</death>
-                    <state type="office" role="metropolitan" from="1510" to="1537" source="#bib281-1 #bib281-2" syriaca-computed-end="1537-01-01" syriaca-computed-start="1510-01-01">
+                    <death when="1537" source="#bib281-1">1537</death>
+                    <state type="office" role="metropolitan" from="1510" to="1537" source="#bib281-1 #bib281-2">
                         <desc xml:lang="en">Metropolitan of Jerusalem</desc>
                     </state>
+                    <state type="confession" source="#bib281-1">
+                        <desc>Syr. Orth.</desc>
+                    </state>
                     <bibl xml:id="bib281-1">
+                        <author>G. A. Kiraz </author>
+                        <title level="a" xml:lang="en">Grigorios Yawseph</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">240</citedRange>
-                        <citedRange unit="pp">183</citedRange>
+                        <ptr target="http://syriaca.org/bibl/249"/>
+                        <citedRange unit="pp">183-184</citedRange>
+                        <citedRange unit="pp">183-184</citedRange>
                     </bibl>
                     <bibl xml:id="bib281-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

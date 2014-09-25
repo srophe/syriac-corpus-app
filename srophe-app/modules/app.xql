@@ -18,6 +18,9 @@ declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare %templates:wrap function app:contact-form($node as node(), $model as map(*))
 {
     <div id="contact" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
+        <script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+        <script>
+        </script>
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h3 id="report-errors-label">Contact Us</h3>

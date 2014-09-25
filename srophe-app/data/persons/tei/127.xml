@@ -55,6 +55,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -79,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -131,7 +135,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -179,20 +183,28 @@
                         <addName type="untagged-title" sort="2">of Litarba</addName>
                     </persName>
                     <persName xml:id="name127-10" xml:lang="en" source="#bib127-10">John the Stylite (of Litharb)</persName>
-                    <note type="abstract" xml:id="abstract-en-127"/>
+                    <persName xml:id="name127-10" xml:lang="en" source="#bib127-1">Yuḥanon the Stylite</persName>
+                    <note type="abstract" xml:id="abstract-en-127">
+                        <quote source="#bib127-1">Monk, stylite, and author.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/127</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|127</idno>
                     <idno type="URI">http://worldcat.org/identities/lccn-n83-171513</idno>
                     <idno type="URI">http://viaf.org/viaf/6313778</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John the Stylite (of Litharb)&amp;sT=keywords</idno>
-                    <death notBefore="0737" notAfter="0738" source="#bib127-1" syriaca-computed-end="0738-01-01" syriaca-computed-start="0737-01-01">737/8</death>
+                    <death notBefore="0737" notAfter="0738" source="#bib127-1">737/8</death>
                     <state type="office" role="ascetic" source="#bib127-2">
                         <desc xml:lang="en">the Stylite</desc>
                     </state>
+                    <state type="confession" source="#bib127-1">
+                        <desc>Syr. Orth.</desc>
+                    </state>
                     <bibl xml:id="bib127-1">
+                        <author>L. Van Rompay</author>
+                        <title level="a" xml:lang="en">Yuḥanon of Litarba</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="pp">445</citedRange>
+                        <ptr target="http://syriaca.org/bibl/619"/>
+                        <citedRange unit="pp">445-446</citedRange>
                     </bibl>
                     <bibl xml:id="bib127-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

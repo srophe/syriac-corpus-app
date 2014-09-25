@@ -55,6 +55,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -79,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -131,7 +135,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -164,7 +168,10 @@
                         <roleName type="office" sort="2">(patr.)</roleName>
                     </persName>
                     <persName xml:id="name169-7" xml:lang="en" source="#bib169-10">Theodosius of Antioch</persName>
-                    <note type="abstract" xml:id="abstract-en-169"/>
+                    <persName xml:id="name169-7" xml:lang="en" source="#bib169-1">Romanos the physician</persName>
+                    <note type="abstract" xml:id="abstract-en-169">
+                        <quote source="#bib169-1">Patr. (887-896), author, and physician.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/169</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|169</idno>
                     <idno type="URI">http://worldcat.org/identities/np-theodosius$syriac orthodox patriarch of antioch$d 896</idno>
@@ -172,17 +179,22 @@
                     <idno type="URI">http://viaf.org/viaf/59824773</idno>
                     <idno type="URI">http://viaf.org/viaf/162473229</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Theodosius of Antioch&amp;sT=keywords</idno>
-                    <death when="0896" source="#bib169-1" syriaca-computed-start="0896-01-01">896</death>
-                    <state type="office" role="patriarch" from="0887" to="0896" source="#bib169-1" syriaca-computed-end="0896-01-01" syriaca-computed-start="0887-01-01">
+                    <death when="0896" source="#bib169-1">896</death>
+                    <state type="office" role="patriarch" from="0887" to="0896" source="#bib169-1">
                         <desc xml:lang="en-x-gedsh">(patr.)</desc>
                     </state>
-                    <state type="office" role="patriarch" from="0887" to="0896" source="#bib169-1 #bib169-2" syriaca-computed-end="0896-01-01" syriaca-computed-start="0887-01-01">
+                    <state type="office" role="patriarch" from="0887" to="0896" source="#bib169-1 #bib169-2">
                         <desc xml:lang="en">Patriarch</desc>
                     </state>
+                    <state type="confession" source="#bib169-1">
+                        <desc>Syr. Orth.</desc>
+                    </state>
                     <bibl xml:id="bib169-1">
+                        <author>L. Van Rompay</author>
+                        <title level="a" xml:lang="en">Theodosios (patr.)</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="pp">406</citedRange>
+                        <ptr target="http://syriaca.org/bibl/557"/>
+                        <citedRange unit="pp">406-407</citedRange>
                     </bibl>
                     <bibl xml:id="bib169-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

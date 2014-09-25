@@ -20,7 +20,10 @@ declare variable $output {request:get-parameter('output', '')};
 (:~
  : Calls geojson functions in geojson.xqm
  : Used by ajax call from browse maps in mapjson.js
+
 :)
+let $cache := 'test 4486'
+return 
 geo:json-wrapper((), $type, $output)
 
   

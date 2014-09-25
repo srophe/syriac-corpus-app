@@ -55,6 +55,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -79,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -131,7 +135,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
             <change type="planned">Is this the same person as "Joseph of Shushan" (http://viaf.org/viaf/98372064)?</change>
         </revisionDesc>
@@ -162,17 +166,28 @@
                         <addName type="family" sort="2">ܒܰܪ ܫܘܫܰܢ</addName>
                     </persName>
                     <persName xml:id="name193-6" xml:lang="en" source="#bib193-10">John X Barshushan</persName>
-                    <note type="abstract" xml:id="abstract-en-193"/>
+                    <persName xml:id="name193-6" xml:lang="en" source="#bib193-1">Yūḥannā Yūšaʿ b. Šūšān</persName>
+                    <note type="abstract" xml:id="abstract-en-193">
+                        <Not_Useful/>
+                        <quote source="#bib193-1">Following the death of Patr. Yuḥanon IX (1057), Yuḥanon was elected by the
+            Oriental bps. and consecrated in Amid, while simultaneously a different candidate was
+            elected and consecrated with broader support (Athanasios VI Ḥoye).</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/193</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|193</idno>
                     <idno type="URI">http://viaf.org/viaf/102598881</idno>
                     <idno type="URI">http://viaf.org/viaf/98372064</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John X Barshushan&amp;sT=keywords</idno>
-                    <death notBefore="1072" notAfter="1073" source="#bib193-1" syriaca-computed-end="1073-01-01" syriaca-computed-start="1072-01-01">1072 or 1073</death>
+                    <death notBefore="1072" notAfter="1073" source="#bib193-1">1072 or 1073</death>
+                    <state type="confession" source="#bib193-1">
+                        <desc>Syr. Orth.</desc>
+                    </state>
                     <bibl xml:id="bib193-1">
+                        <author>L. Van Rompay</author>
+                        <title level="a" xml:lang="en">Yuḥanon X, Ishoʿ bar Shushan</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="pp">443</citedRange>
+                        <ptr target="http://syriaca.org/bibl/614"/>
+                        <citedRange unit="pp">443-444</citedRange>
                     </bibl>
                     <bibl xml:id="bib193-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

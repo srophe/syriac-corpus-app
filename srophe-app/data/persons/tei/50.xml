@@ -55,6 +55,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -79,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -131,7 +135,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -168,21 +172,29 @@
                         <forename sort="1">ܝܘܚܢܢ</forename>
                         <addName type="untagged-title" sort="2">ܕܬܠܐ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-50"/>
+                    <persName xml:id="name50-6" xml:lang="en" source="#bib50-1">Yuḥanon bar Qursos</persName>
+                    <note type="abstract" xml:id="abstract-en-50">
+                        <quote source="#bib50-1">Bp. of Tella (d-Mawzlat) 519–21.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/50</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|50</idno>
                     <idno type="URI">http://worldcat.org/identities/np-john bar cursus of tella$d 538</idno>
                     <idno type="URI">http://viaf.org/viaf/34420966</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John of Tella&amp;sT=keywords</idno>
-                    <birth when="0482" source="#bib50-1" syriaca-computed-start="0482-01-01">482</birth>
-                    <death when="0538" source="#bib50-1" syriaca-computed-start="0538-01-01">538</death>
-                    <state type="office" from="0519" to="0521" source="#bib50-1" syriaca-computed-end="0521-01-01" syriaca-computed-start="0519-01-01">
+                    <birth when="0482" source="#bib50-1">482</birth>
+                    <death when="0538" source="#bib50-1">538</death>
+                    <state type="office" from="0519" to="0521" source="#bib50-1">
                         <desc xml:lang="en-x-gedsh">519-21</desc>
                     </state>
+                    <state type="confession" source="#bib50-1">
+                        <desc>Syr. Orth.</desc>
+                    </state>
                     <bibl xml:id="bib50-1">
+                        <author>V. Menze</author>
+                        <title level="a" xml:lang="en">Yuḥanon of Tella</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="pp">447</citedRange>
+                        <ptr target="http://syriaca.org/bibl/625"/>
+                        <citedRange unit="pp">447-448</citedRange>
                     </bibl>
                     <bibl xml:id="bib50-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

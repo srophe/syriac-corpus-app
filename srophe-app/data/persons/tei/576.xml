@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -151,7 +155,9 @@
                         <forename sort="1">ܝܘܚܰܢܳܢ</forename>
                         <addName type="untagged-title" sort="2">ܦܝܺܠܠܘܦܘܢܘܣ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-576"/>
+                    <note type="abstract" xml:id="abstract-en-576">
+                        <quote source="#bib576-1">Greek philosopher and lay theologian.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/576</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|576</idno>
                     <idno type="URI">http://viaf.org/viaf/98118283</idno>
@@ -165,12 +171,14 @@
                     <idno type="URI">http://viaf.org/viaf/130825410</idno>
                     <idno type="URI">http://viaf.org/viaf/78770156</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John Philoponus&amp;sT=keywords</idno>
-                    <birth notBefore="0475" notAfter="0505" source="#bib576-1" syriaca-computed-end="0505-01-01" syriaca-computed-start="0475-01-01">ca. 490</birth>
-                    <death notBefore="0560" notAfter="0590" source="#bib576-1" syriaca-computed-end="0590-01-01" syriaca-computed-start="0560-01-01">ca. 575</death>
+                    <birth notBefore="0475" notAfter="0505" source="#bib576-1">ca. 490</birth>
+                    <death notBefore="0560" notAfter="0590" source="#bib576-1">ca. 575</death>
                     <bibl xml:id="bib576-1">
+                        <author>S. P. Brock</author>
+                        <title level="a" xml:lang="en">John Philoponos</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">306</citedRange>
+                        <ptr target="http://syriaca.org/bibl/315"/>
+                        <citedRange unit="pp">231</citedRange>
                         <citedRange unit="pp">231</citedRange>
                     </bibl>
                     <bibl xml:id="bib576-2">

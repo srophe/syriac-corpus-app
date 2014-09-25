@@ -51,6 +51,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -75,7 +79,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +131,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -164,16 +168,25 @@
                         <addName type="family" sort="2">bar Ṣabbaʿe</addName>
                     </persName>
                     <persName xml:id="name9-8" xml:lang="en" source="#bib9-10">Simeon bar Sabbae</persName>
-                    <note type="abstract" xml:id="abstract-en-9"/>
+                    <note type="abstract" xml:id="abstract-en-9">
+                        <quote source="#bib9-1">Bp. of Seleucia-Ctesiphon and martyr. Shemʿon was probably the immediate successor
+            of Papa bar ʿAggai (d. between 327 and 335), but nothing is known about his tenure as
+            bp. prior to his arrest.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/9</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|9</idno>
                     <idno type="URI">http://viaf.org/viaf/98479047/#Simeon_Bar_Sabb%C4%81%27e_Bishop_of_Seleucia_and_Ctesiphon</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Simeon bar Sabbae&amp;sT=keywords</idno>
-                    <death notBefore="0341" notAfter="0344" source="#bib9-1" syriaca-computed-end="0344-01-01" syriaca-computed-start="0341-01-01">341 or 344</death>
+                    <death notBefore="0341" notAfter="0344" source="#bib9-1">341 or 344</death>
+                    <state type="confession" source="#bib9-1">
+                        <desc>Ch. of E.</desc>
+                    </state>
                     <bibl xml:id="bib9-1">
+                        <author>L. Van Rompay</author>
+                        <title level="a" xml:lang="en">Shemʿon bar Ṣabbaʿe</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="pp">373</citedRange>
+                        <ptr target="http://syriaca.org/bibl/508"/>
+                        <citedRange unit="pp">373-374</citedRange>
                     </bibl>
                     <bibl xml:id="bib9-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

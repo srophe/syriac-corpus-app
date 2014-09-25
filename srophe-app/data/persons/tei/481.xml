@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -168,22 +172,26 @@
                         <forename sort="1">ܐܶܘܣܶܒܝܳܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܚܶܡܨܳܝܳܐ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-481"/>
+                    <note type="abstract" xml:id="abstract-en-481">
+                        <quote source="#bib481-1">(ca. 300–ca. 360) Bishop of the Syrian city of Emesa (Ḥoms), author of homilies and biblical commentaries.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/481</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|481</idno>
                     <idno type="URI">http://viaf.org/viaf/267227527</idno>
                     <idno type="URI">http://viaf.org/viaf/209789673</idno>
                     <idno type="URI">http://viaf.org/viaf/214064739</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Eusebius of Emesa&amp;sT=keywords</idno>
-                    <birth notBefore="0275" notAfter="0325" source="#bib481-1" syriaca-computed-end="0325-01-01" syriaca-computed-start="0275-01-01">ca. 300</birth>
-                    <death notAfter="0358" source="#bib481-1" syriaca-computed-end="0358-01-01">before 359</death>
+                    <birth notBefore="0275" notAfter="0325" source="#bib481-1">ca. 300</birth>
+                    <death notAfter="0358" source="#bib481-1">before 359</death>
                     <state type="office" role="bishop" source="#bib481-2">
                         <desc xml:lang="en">bishop of Ḥomṣ</desc>
                     </state>
                     <bibl xml:id="bib481-1">
+                        <author>L. Van Rompay</author>
+                        <title level="a" xml:lang="en">Eusebius of Emesa</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">203</citedRange>
+                        <ptr target="http://syriaca.org/bibl/212"/>
+                        <citedRange unit="pp">155</citedRange>
                         <citedRange unit="pp">155</citedRange>
                     </bibl>
                     <bibl xml:id="bib481-2">

@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -147,19 +151,26 @@
                         <forename sort="1">ܦܶܛܪܽܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܐܺܝܒܰܪܳܝܐ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-680"/>
+                    <note type="abstract" xml:id="abstract-en-680">
+                        <Not_Useful/>
+                        <quote source="#bib680-1">The son of Bosmarios, king of Georgia (Iberia), he was brought up in
+            Constantinople as a political hostage at the court of the Emperor Theodosius
+            II.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/680</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|680</idno>
                     <idno type="URI">http://viaf.org/viaf/58176914</idno>
                     <idno type="URI">http://viaf.org/viaf/206070372</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=P&amp;sK=Peter the Iberian&amp;sT=keywords</idno>
-                    <birth notBefore="0402" notAfter="0432" source="#bib680-1" syriaca-computed-end="0432-01-01" syriaca-computed-start="0402-01-01">ca. 417</birth>
-                    <death when="0491" source="#bib680-1" syriaca-computed-start="0491-01-01">491</death>
+                    <birth notBefore="0402" notAfter="0432" source="#bib680-1">ca. 417</birth>
+                    <death when="0491" source="#bib680-1">491</death>
                     <bibl xml:id="bib680-1">
+                        <author>S. P. Brock</author>
+                        <title level="a" xml:lang="en">Peter the Iberian</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">426</citedRange>
-                        <citedRange unit="pp">331</citedRange>
+                        <ptr target="http://syriaca.org/bibl/435"/>
+                        <citedRange unit="pp">331-332</citedRange>
+                        <citedRange unit="pp">331-332</citedRange>
                     </bibl>
                     <bibl xml:id="bib680-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

@@ -55,6 +55,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -79,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -131,7 +135,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
             <change type="planned">Does http://viaf.org/viaf/216681907 refer to the same person?</change>
         </revisionDesc>
@@ -165,17 +169,24 @@
                     <persName xml:id="name63-7" xml:lang="en" resp="http://syriaca.org" syriaca-tags="#syriaca-anglicized">
                         <forename sort="1">Elijah</forename>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-63"/>
+                    <note type="abstract" xml:id="abstract-en-63">
+                        <quote source="#bib63-1">Author of the Life of Yuḥanon of Tella.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/63</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|63</idno>
-                    <floruit notBefore="0525" notAfter="0575" source="#bib63-1" syriaca-computed-end="0575-01-01" syriaca-computed-start="0525-01-01">mid-6th cent.</floruit>
+                    <floruit notBefore="0525" notAfter="0575" source="#bib63-1">mid-6th cent.</floruit>
                     <state type="office" role="monk" source="#bib63-2">
                         <desc xml:lang="en">the Monk</desc>
                     </state>
+                    <state type="confession" source="#bib63-1">
+                        <desc>Syr. Orth.</desc>
+                    </state>
                     <bibl xml:id="bib63-1">
+                        <author>L. Van Rompay</author>
+                        <title level="a" xml:lang="en">Eliya (mid-6th cent)</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">190</citedRange>
+                        <ptr target="http://syriaca.org/bibl/199"/>
+                        <citedRange unit="pp">142</citedRange>
                         <citedRange unit="pp">142</citedRange>
                     </bibl>
                     <bibl xml:id="bib63-2">

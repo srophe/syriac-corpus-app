@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-07-31-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,6 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -167,7 +166,7 @@
                     <idno type="URI">http://syriaca.org/person/247</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|247</idno>
                     <idno type="URI">http://en.wikipedia.org/wiki/Patriarch_Michael_II_of_Antioch</idno>
-                    <death when="1312" source="#bib247-2" syriaca-computed-start="1312-01-01">1312</death>
+                    <death when="1312" source="#bib247-2">1312</death>
                     <state type="office" role="patriarch" source="#bib247-2">
                         <desc xml:lang="en">Patriarch</desc>
                     </state>

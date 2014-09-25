@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
             <change type="planned">Did this Jan Pieter Nicolaas Land write about Benedict Spinoza? If not, are the viaf.org records conflated on this point?</change>
         </revisionDesc>
@@ -147,7 +151,9 @@
                     <persName xml:id="name594-5" corresp="#name594-2 #name594-3 #name594-4" xml:lang="syr-Syrj" source="#bib594-4">
                         <addName type="family" sort="1">ܠܐܰܢܕ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-594"/>
+                    <note type="abstract" xml:id="abstract-en-594">
+                        <quote source="#bib594-1">Syriac scholar; professor at the universities of Amsterdam and Leiden.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/594</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|594</idno>
                     <idno type="URI">http://viaf.org/viaf/44424387</idno>
@@ -157,13 +163,15 @@
                     <idno type="URI">http://viaf.org/viaf/77335190</idno>
                     <idno type="URI">http://viaf.org/viaf/200701764</idno>
                     <idno type="URI">http://viaf.org/viaf/210496074</idno>
-                    <birth when="1834" source="#bib594-1" syriaca-computed-start="1834-01-01">1834</birth>
-                    <death when="1897" source="#bib594-1" syriaca-computed-start="1897-01-01">1897</death>
+                    <birth when="1834" source="#bib594-1">1834</birth>
+                    <death when="1897" source="#bib594-1">1897</death>
                     <bibl xml:id="bib594-1">
+                        <author>L. Van Rompay</author>
+                        <title level="a" xml:lang="en">Land, Jan Pieter Nicolaas</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">326</citedRange>
-                        <citedRange unit="pp">246</citedRange>
+                        <ptr target="http://syriaca.org/bibl/335"/>
+                        <citedRange unit="pp">246-247</citedRange>
+                        <citedRange unit="pp">246-247</citedRange>
                     </bibl>
                     <bibl xml:id="bib594-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

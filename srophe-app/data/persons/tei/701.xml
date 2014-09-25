@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -158,20 +162,27 @@
                         <addName type="untagged-title" sort="2">ܬܪܝܢܐ</addName>
                         <addName type="family" sort="1">ܪܚܡܐܢܝ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-701"/>
+                    <note type="abstract" xml:id="abstract-en-701">
+                        <quote source="#bib701-1">Patr. (1898-1929), scholar, and liturgist.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/701</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|701</idno>
                     <idno type="URI">http://viaf.org/viaf/73844098</idno>
                     <idno type="URI">http://worldcat.org/identities/lccn-nr2006-11955</idno>
-                    <birth when="1848-11-07" source="#bib701-1" syriaca-computed-start="1848-11-07">11/7/1848</birth>
-                    <death when="1929" source="#bib701-1" syriaca-computed-start="1929-01-01">1929</death>
-                    <state type="office" role="patriarch" from="1898" to="1929" source="#bib701-1 #bib701-2" syriaca-computed-end="1929-01-01" syriaca-computed-start="1898-01-01">
+                    <birth when="1848-11-07" source="#bib701-1">11/7/1848</birth>
+                    <death when="1929" source="#bib701-1">1929</death>
+                    <state type="office" role="patriarch" from="1898" to="1929" source="#bib701-1 #bib701-2">
                         <desc xml:lang="en">Patriarch</desc>
                     </state>
+                    <state type="confession" source="#bib701-1">
+                        <desc>Syr. Cath.</desc>
+                    </state>
                     <bibl xml:id="bib701-1">
+                        <author>S. P. Brock and G. A. Kiraz </author>
+                        <title level="a" xml:lang="en">Raḥmani, Ignatius Ephrem II</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">453</citedRange>
+                        <ptr target="http://syriaca.org/bibl/462"/>
+                        <citedRange unit="pp">350</citedRange>
                         <citedRange unit="pp">350</citedRange>
                     </bibl>
                     <bibl xml:id="bib701-2">

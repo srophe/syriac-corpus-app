@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -144,7 +148,10 @@
                         <forename sort="1">ܐܰܚܝܩܰܪ</forename>
                     </persName>
                     <persName xml:id="name323-5" xml:lang="en" source="#bib323-10">Ahikar</persName>
-                    <note type="abstract" xml:id="abstract-en-323"/>
+                    <note type="abstract" xml:id="abstract-en-323">
+                        <quote source="#bib323-1">Aḥiqar, ‘the Aramean Sage’ who is mentioned in an Akkadian text, is the hero of a
+            narrative set in the Assyrian court.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/323</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|323</idno>
                     <idno type="URI">http://viaf.org/viaf/140711966</idno>
@@ -153,14 +160,16 @@
                     <idno type="URI">http://viaf.org/viaf/88966698</idno>
                     <idno type="URI">http://viaf.org/viaf/63528699</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Ahikar&amp;sT=keywords</idno>
-                    <state type="office" from="-0705" to="-0669" source="#bib323-1" syriaca-computed-end="-0669-01-01" syriaca-computed-start="-0705-01-01">
+                    <state type="office" from="-0705" to="-0669" source="#bib323-1">
                         <desc xml:lang="en-x-gedsh">705-669 BC </desc>
                     </state>
                     <bibl xml:id="bib323-1">
+                        <author>S. P. Brock</author>
+                        <title level="a" xml:lang="en">Aḥiqar</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">22</citedRange>
-                        <citedRange unit="pp">11</citedRange>
+                        <ptr target="http://syriaca.org/bibl/31"/>
+                        <citedRange unit="pp">11-12</citedRange>
+                        <citedRange unit="pp">11-12</citedRange>
                     </bibl>
                     <bibl xml:id="bib323-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

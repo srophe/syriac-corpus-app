@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
             <change type="planned">1. Does http://viaf.org/viaf/22544388 (Theodorus Alexandrinae) refer to this Theodosius or to the 5th cent. grammarian? 2. Do http://viaf.org/viaf/32386803 and http://viaf.org/viaf/217803904 and http://viaf.org/viaf/217971054 refer to this person? 3. Is this the same person to whom the Panegyric on John the Baptist is attributed (http://viaf.org/viaf/225359960)?</change>
         </revisionDesc>
@@ -155,7 +159,10 @@
                         <forename sort="1">ܬܐܘܕܘܣܝܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܐܠܟܣܢܕܪܝܐ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-784"/>
+                    <note type="abstract" xml:id="abstract-en-784">
+                        <quote source="#bib784-1">Patr. of <placeName xmlns="" xml:id="tempName-23" type="diocese" subtype="general">Alexandria</placeName>; leader of the Egyptian and Syrian
+            anti-Chalcedonians.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/784</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|784</idno>
                     <idno type="URI">http://viaf.org/viaf/19784428</idno>
@@ -171,15 +178,17 @@
                     <idno type="URI">http://viaf.org/viaf/217803904</idno>
                     <idno type="URI">http://viaf.org/viaf/225359960</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Theodosius of Alexandria&amp;sT=keywords</idno>
-                    <death when="0566" source="#bib784-1" syriaca-computed-start="0566-01-01">566</death>
+                    <death when="0566" source="#bib784-1">566</death>
                     <state type="office" role="patriarch" source="#bib784-2">
                         <desc xml:lang="en">Patriarch of Alexandria</desc>
                     </state>
                     <bibl xml:id="bib784-1">
+                        <author>L. Van Rompay</author>
+                        <title level="a" xml:lang="en">Theodosius of Alexandria</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">550</citedRange>
-                        <citedRange unit="pp">407</citedRange>
+                        <ptr target="http://syriaca.org/bibl/559"/>
+                        <citedRange unit="pp">407-408</citedRange>
+                        <citedRange unit="pp">407-408</citedRange>
                     </bibl>
                     <bibl xml:id="bib784-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

@@ -17,7 +17,7 @@ declare variable $comment {request:get-parameter('comment', '')};
  : attribute for searching. 
  :)                       
 declare function local:add-custom-dates(){
-   for $doc in collection('/db/apps/srophe/data/places/tei')//tei:place 
+   for $doc in collection('/db/apps/srophe/data/persons/tei')//tei:person 
    return 
     (local:notAfter($doc),local:notBefore($doc),local:to($doc),local:from($doc),local:when($doc),local:add-change-log($doc))                     
 };
@@ -252,7 +252,7 @@ declare function local:link-related-names(){
 declare function local:add-change-log($doc){
 (:/TEI/teiHeader/fileDesc/publicationStmt/date:)
        (update insert 
-            <change xmlns="http://www.tei-c.org/ns/1.0" who="http://syriaca.org/editors.xml#{$editor}" when="{current-date()}">
+            <change xmlns="http://www.tei-c.org/ns/1.0" who="http://syriaca.org/documentation/editors.xml#{$editor}" when="{current-date()}">
                 {$comment}
             </change>
           preceding $doc/ancestor::*//tei:teiHeader/tei:revisionDesc/tei:change[1],
@@ -280,7 +280,7 @@ declare function local:remove-mutual(){
 };
 
 declare function local:change-computed-dates(){
-for $doc in collection('/db/apps/srophe/data/places/tei')//tei:place[descendant-or-self::*/@when]
+for $doc in collection('/db/apps/srophe/data/persons/tei')//tei:person[descendant-or-self::*/@when]
 return local:add-change-log($doc)
     
 };
@@ -304,83 +304,6 @@ This one is run with paging because it is too memory intensive otherwise
 local:link-related-names()
 ADDED: relation element with shares-name-with attribute for all place headwords that share names
 :)
-return <div>{}: You can not run this data, ask Winona for permission</div> 
-(:
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <title>Data Admin</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="shortcut icon" href="/exist/apps/srophe/resources/images/favicon.ico"/>
-        <link rel="stylesheet" type="text/css" href="$shared/resources/css/bootstrap.min.css"/>
-        <link rel="stylesheet" type="text/css" href="$shared/resources/css/bootstrap-responsive.min.css"/>
-        <link rel="stylesheet" type="text/css" href="/exist/apps/srophe/resources/css/style.css"/>
-        <link rel="stylesheet" type="text/css" media="print" href="/exist/apps/srophe/resources/css/print.css"/>
-        <script type="text/javascript" src="$shared/resources/scripts/loadsource.js"/>
-        <script type="text/javascript" src="$shared/resources/scripts/bootstrap.min.js"/>
-        <script type="text/javascript" src="/exist/apps/srophe/resources/js/main.js"/>
-        <script type="text/javascript" src="/exist/apps/srophe/resources/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"/>
-        <script src="http://isawnyu.github.com/awld-js/lib/requirejs/require.min.js" type="text/javascript"/>
-        <script src="http://isawnyu.github.com/awld-js/awld.js?autoinit" type="text/javascript"/>
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css"/>
-    </head>
-    <body id="body">
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a data-template="config:app-title" class="brand" href="/exist/apps/srophe/places/index.html">The Syriac Gazetteer: Data Admin</a>
-                </div>
-            </div>
-        </div>
-        <div id="content">
-        <div class="row-fluid" style="margin:4em;">
-            <div class="span12">
-                <form>
-                    <button type="text" name="option" value="dates" class="btn btn-info">Run Syriac Computed Dates</button>
-                    <p class="text-info">
-                        Inserts Syriac computed dates into data for search by date function.</p>
-                   <div class="well" style="display:block; width:70%;font-size:.75em; margin:.5em 1em 1em; padding:.5em;">
-                        Adds @syriac-computed-start generated from @when, @from, and @notBefore<br/>
-                        Adds @syriac-computed-end generated from @to and @notAfter
-                    </div>
-                    <button type="text" name="option" value="pleiades-loc" class="btn btn-info">Insert Pleiades Location Data</button>
-                    <p class="text-info">
-                        Inserts Pleiades location data. Generated from /data/places/Pleiades-Grabber-Results-Edited.xml.</p>
-
-<pre style="display:block; width:70%;font-size:.7em; margin:.5em;padding:.5em;">   &lt;location type="gps" source="#bibPLACEID-BIBNO"&gt;
-        &lt;geo&gt;LAT LONG&lt;/geo&gt;
-    &lt;/location&gt;
-    &lt;bibl xml:id="bibPLACEID-BIBNO"&gt;
-        &lt;title&gt;http://pleiades.stoa.org/places/PLEIADESID&lt;/title&gt;
-        &lt;ptr target="http://pleiades.stoa.org/places/PLEIADESID"/&gt;
-    &lt;/bibl&gt;
-    &lt;change who="http://syriaca.org/editors.xml#EDITOR" when="CURRENT_DATE"&gt;
-        ADDED: latitude and longitude from Pleiades
-    &lt;/change&gt;
-</pre>
-
-                </form>
-                {
-                    if(exists($option) and $option = 'dates') then local:add-custom-dates()
-                    else if(exists($option) and $option = 'pleiades-loc') then local:update-locations()
-                    else ''
-                }            
-            </div>
-        </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span10 offset1 text-center">
-                    <p>
-                        <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">
-                            <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/80x15.png"/>
-                        </a>
-                        <br/>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a>.
-                        <br/>Copyright holding name(s) 2012.</p>.
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
-:)
+return  
+(:<div>You do not have permission to run this query</div>:)
+(xmldb:login('/db/apps/srophe/', 'admin', '', true()),local:add-custom-dates())

@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -157,7 +161,9 @@
                         <forename sort="2">ܐܣܛܝܦܐܢ ܥܘܐܕ</forename>
                         <addName type="family" sort="1">ܫܡܥܘܢܝܐ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-350"/>
+                    <note type="abstract" xml:id="abstract-en-350">
+                        <quote source="#bib350-1">Titular bp. of Apamea, Scriptor in the Vatican Library, Rome; nephew of J.S. Assemani, and cousin of J.A. Assemani.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/350</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|350</idno>
                     <idno type="URI">http://viaf.org/viaf/39731448</idno>
@@ -166,12 +172,17 @@
                     <idno type="URI">http://worldcat.org/identities/viaf-90100749</idno>
                     <idno type="URI">http://viaf.org/viaf/122337155</idno>
                     <idno type="URI">http://viaf.org/viaf/39731448</idno>
-                    <birth when="1711" source="#bib350-1" syriaca-computed-start="1711-01-01">1711</birth>
-                    <death when="1782" source="#bib350-1" syriaca-computed-start="1782-01-01">1782</death>
+                    <birth when="1711" source="#bib350-1">1711</birth>
+                    <death when="1782" source="#bib350-1">1782</death>
+                    <state type="confession" source="#bib350-1">
+                        <desc>Maron.</desc>
+                    </state>
                     <bibl xml:id="bib350-1">
+                        <author>S. P. Brock</author>
+                        <title level="a" xml:lang="en">Assemani, Stephanus Evodius</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">55</citedRange>
+                        <ptr target="http://syriaca.org/bibl/64"/>
+                        <citedRange unit="pp">44</citedRange>
                         <citedRange unit="pp">44</citedRange>
                     </bibl>
                     <bibl xml:id="bib350-2">

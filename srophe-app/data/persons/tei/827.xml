@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -59,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -111,7 +115,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -136,7 +140,10 @@
                         <addName type="untagged-title" sort="2">Iḥidaya</addName>
                     </persName>
                     <persName xml:id="name827-5" xml:lang="en" source="#bib827-10">John of Apamea</persName>
-                    <note type="abstract" xml:id="abstract-en-827"/>
+                    <persName xml:id="name827-5" xml:lang="en" source="#bib827-1">John the Solitary of Apamea</persName>
+                    <note type="abstract" xml:id="abstract-en-827">
+                        <quote source="#bib827-1">Theologian and theoretician of the spiritual life.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/827</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|827</idno>
                     <idno type="URI">http://viaf.org/viaf/101044787</idno>
@@ -144,11 +151,13 @@
                     <idno type="URI">http://viaf.org/viaf/251012934</idno>
                     <idno type="URI">http://viaf.org/viaf/192501563</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John of Apamea&amp;sT=keywords</idno>
-                    <floruit notBefore="0400" notAfter="0450" source="#bib827-1" syriaca-computed-end="0450-01-01" syriaca-computed-start="0400-01-01">first half of the 5th cent.</floruit>
+                    <floruit notBefore="0400" notAfter="0450" source="#bib827-1">first half of the 5th cent.</floruit>
                     <bibl xml:id="bib827-1">
+                        <author>R. A. Kitchen</author>
+                        <title level="a" xml:lang="en">Yoḥannan Iḥidaya</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">602</citedRange>
+                        <ptr target="http://syriaca.org/bibl/611"/>
+                        <citedRange unit="pp">442</citedRange>
                         <citedRange unit="pp">442</citedRange>
                     </bibl>
                     <bibl xml:id="bib827-6">

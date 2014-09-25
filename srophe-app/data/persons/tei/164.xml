@@ -79,7 +79,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-07-31-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -131,7 +131,6 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -180,7 +179,7 @@
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|164</idno>
                     <idno type="URI">http://viaf.org/viaf/91195598</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Severus the Monk&amp;sT=keywords</idno>
-                    <floruit notBefore="0800" notAfter="0900" source="#bib164-1" syriaca-computed-end="0900-01-01" syriaca-computed-start="0800-01-01">9th cent.</floruit>
+                    <floruit notBefore="0800" notAfter="0900" source="#bib164-1">9th cent.</floruit>
                     <state type="office" role="monk" source="#bib164-1">
                         <desc xml:lang="en-x-gedsh">the monk</desc>
                     </state>

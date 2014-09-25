@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -167,7 +171,10 @@
                         <forename sort="1">ܬܶܐܘܳܕܳܘܪܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܡܦܰܫܩܳܢܳܐ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-780"/>
+                    <note type="abstract" xml:id="abstract-en-780">
+                        <quote source="#bib780-1">Bp. of Mopsuestia, biblical commentator, author of theological works and
+            homilies.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/780</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|780</idno>
                     <idno type="URI">http://viaf.org/viaf/89539032</idno>
@@ -181,13 +188,15 @@
                     <idno type="URI">http://viaf.org/viaf/47161503</idno>
                     <idno type="URI">http://viaf.org/viaf/199509277</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Theodore of Mopsuestia&amp;sT=keywords</idno>
-                    <birth notBefore="0335" notAfter="0365" source="#bib780-1" syriaca-computed-end="0365-01-01" syriaca-computed-start="0335-01-01">ca. 350</birth>
-                    <death when="0428" source="#bib780-1" syriaca-computed-start="0428-01-01">428</death>
+                    <birth notBefore="0335" notAfter="0365" source="#bib780-1">ca. 350</birth>
+                    <death when="0428" source="#bib780-1">428</death>
                     <bibl xml:id="bib780-1">
+                        <author>L. Van Rompay </author>
+                        <title level="a" xml:lang="en">Theodore of Mopsuestia</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">543</citedRange>
-                        <citedRange unit="pp">401</citedRange>
+                        <ptr target="http://syriaca.org/bibl/552"/>
+                        <citedRange unit="pp">401-402</citedRange>
+                        <citedRange unit="pp">401-402</citedRange>
                     </bibl>
                     <bibl xml:id="bib780-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

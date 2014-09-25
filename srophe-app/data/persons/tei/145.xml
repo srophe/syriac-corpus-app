@@ -55,6 +55,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -79,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -131,7 +135,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -163,7 +167,13 @@
                     </persName>
                     <persName xml:id="name145-7" xml:lang="en" source="#bib145-10">Qyriaqos of Antioch</persName>
                     <persName xml:id="name145-8" xml:lang="en" source="#bib145-10">Qyriaqos of Tagrit</persName>
-                    <note type="abstract" xml:id="abstract-en-145"/>
+                    <persName xml:id="name145-8" xml:lang="en" source="#bib145-1">Kyriakos</persName>
+                    <note type="abstract" xml:id="abstract-en-145">
+                        <quote source="#bib145-1">Patr. of <placeName xmlns="" ref="http://syriaca.org/place/2546">Antioch</placeName>,
+            ordained on 17 Aug. 793 in Ḥarran, died in June or August 817 in <placeName xmlns="" ref="http://syriaca.org/place/139">Mosul</placeName> (the sources are
+            not unanimous); he came from Tagrit; before becoming Patr. he had been a monk in the
+            Monastery of Esṭona near Kallinikos.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/145</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|145</idno>
                     <idno type="URI">http://www.worldcat.org/title/die-syrische-liturgie-des-kyriakos-von-antiocheiathe-syrian-liturgy-of-the-kyriakos-of-antioch/oclc/695283220&amp;referer=brief_results</idno>
@@ -171,14 +181,19 @@
                     <idno type="URI">http://en.wikipedia.org/wiki/Quriaqos_of_Tagrit</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qyriaqos of Antioch&amp;sT=keywords</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qyriaqos of Tagrit&amp;sT=keywords</idno>
-                    <death when="0817" source="#bib145-1" syriaca-computed-start="0817-01-01">817</death>
-                    <state type="office" role="patriarch" from="0793" to="0817" source="#bib145-1 #bib145-2" syriaca-computed-end="0817-01-01" syriaca-computed-start="0793-01-01">
+                    <death when="0817" source="#bib145-1">817</death>
+                    <state type="office" role="patriarch" from="0793" to="0817" source="#bib145-1 #bib145-2">
                         <desc xml:lang="en">Patriarch of Antioch</desc>
                     </state>
+                    <state type="confession" source="#bib145-1">
+                        <desc>Syr. Orth.</desc>
+                    </state>
                     <bibl xml:id="bib145-1">
+                        <author>W. Witakowski </author>
+                        <title level="a" xml:lang="en">Quryaqos</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="pp">347</citedRange>
+                        <ptr target="http://syriaca.org/bibl/458"/>
+                        <citedRange unit="pp">347-348</citedRange>
                     </bibl>
                     <bibl xml:id="bib145-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

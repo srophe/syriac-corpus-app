@@ -3,8 +3,10 @@
     <div class="row-fluid">
         <div class="span3">
             <h3>Available APIs</h3>
-            <ul class="nav nav-tabs nav-stacked pull-left type-nav">   
-                <li><a href="#geo">Geographic API</a></li>
+            <ul class="nav nav-tabs nav-stacked pull-left type-nav">
+                <li>
+                    <a href="#geo">Geographic API</a>
+                </li>
             </ul>
         </div>
         <div class="span9">
@@ -13,7 +15,8 @@
                 <p>Note about API policies (if we have any)</p>
                 <hr/>
                 <h3 id="geo">Geographic API</h3>
-                <p>Base url: <pre>http://syriaca.org/api/geo</pre></p>
+                <p>Base url: <pre>http://syriaca.org/api/geo</pre>
+                </p>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -24,72 +27,80 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td><pre>/json</pre></td>
-                        <td>
-                            <strong>type</strong>
-                            <p>accepted values:</p>
-                            <ul>
-                                <li>building</li>
-                                <li>church</li>
-                                <li>diocese</li>
-                                <li>fortification</li>
-                                <li>island</li>
-                                <li>monastery</li>
-                                <li>mountain</li>
-                                <li>open-water</li>
-                                <li>parish</li>
-                                <li>province</li>
-                                <li>quarter</li>
-                                <li>region</li>
-                                <li>river</li>
-                                <li>settlement</li>
-                                <li>state</li>
-                                <li>temple</li>
-                                <li>unknown</li>
-                            </ul>
-                        </td>
-                        <td>
-                            <p>Provides geoJSON results for all places within the gazetteer with geographic data. Places can be filtered by place type.</p>
-                            <p>Example return all locations:<pre>http://syriaca.org/api/geo/json</pre></p>
-                            <p>Example return only churches:<pre>http://syriaca.org/api/geo/json?type=church</pre></p>
-                        </td>
-                        <td>GET</td>
-                    </tr>
-                    <tr>
-                        <td><pre>/kml</pre></td>
-                        <td>
-                            <strong>type</strong>
-                            <p>accepted values:</p>
-                            <ul>
-                                <li>building</li>
-                                <li>church</li>
-                                <li>diocese</li>
-                                <li>fortification</li>
-                                <li>island</li>
-                                <li>monastery</li>
-                                <li>mountain</li>
-                                <li>open-water</li>
-                                <li>parish</li>
-                                <li>province</li>
-                                <li>quarter</li>
-                                <li>region</li>
-                                <li>river</li>
-                                <li>settlement</li>
-                                <li>state</li>
-                                <li>temple</li>
-                                <li>unknown</li>
-                            </ul>
-                        </td>
-                        <td>
-                            <p>Provides KML results for all places within the gazetteer with geographic data. Places can be filtered by place type.</p>
-                            <p>Example return all locations:<pre>http://syriaca.org/api/geo/kml</pre></p>
-                            <p>Example return only churches:<pre>http://syriaca.org/api/geo/kml?type=church</pre></p>
-                        </td>
-                        <td>GET</td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <pre>/json</pre>
+                            </td>
+                            <td>
+                                <strong>type</strong>
+                                <p>accepted values:</p>
+                                <ul>
+                                    <li>building</li>
+                                    <li>church</li>
+                                    <li>diocese</li>
+                                    <li>fortification</li>
+                                    <li>island</li>
+                                    <li>monastery</li>
+                                    <li>mountain</li>
+                                    <li>open-water</li>
+                                    <li>parish</li>
+                                    <li>province</li>
+                                    <li>quarter</li>
+                                    <li>region</li>
+                                    <li>river</li>
+                                    <li>settlement</li>
+                                    <li>state</li>
+                                    <li>temple</li>
+                                    <li>unknown</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <p>Provides geoJSON results for all places within the gazetteer with geographic data. Places can be filtered by place type.</p>
+                                <p>Example return all locations:<pre>http://syriaca.org/api/geo/json</pre>
+                                </p>
+                                <p>Example return only churches:<pre>http://syriaca.org/api/geo/json?type=church</pre>
+                                </p>
+                            </td>
+                            <td>GET</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre>/kml</pre>
+                            </td>
+                            <td>
+                                <strong>type</strong>
+                                <p>accepted values:</p>
+                                <ul>
+                                    <li>building</li>
+                                    <li>church</li>
+                                    <li>diocese</li>
+                                    <li>fortification</li>
+                                    <li>island</li>
+                                    <li>monastery</li>
+                                    <li>mountain</li>
+                                    <li>open-water</li>
+                                    <li>parish</li>
+                                    <li>province</li>
+                                    <li>quarter</li>
+                                    <li>region</li>
+                                    <li>river</li>
+                                    <li>settlement</li>
+                                    <li>state</li>
+                                    <li>temple</li>
+                                    <li>unknown</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <p>Provides KML results for all places within the gazetteer with geographic data. Places can be filtered by place type.</p>
+                                <p>Example return all locations:<pre>http://syriaca.org/api/geo/kml</pre>
+                                </p>
+                                <p>Example return only churches:<pre>http://syriaca.org/api/geo/kml?type=church</pre>
+                                </p>
+                            </td>
+                            <td>GET</td>
+                        </tr>
                     </tbody>
-                </table>    
+                </table>
             </div>
         </div>
     </div>

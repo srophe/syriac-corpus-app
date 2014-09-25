@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-07-31-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,6 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -164,7 +163,7 @@
                     <idno type="URI">http://syriaca.org/person/213</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|213</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Athanasius Abu Ghalib&amp;sT=keywords</idno>
-                    <death when="1177" source="#bib213-2" syriaca-computed-start="1177-01-01">1177</death>
+                    <death when="1177" source="#bib213-2">1177</death>
                     <state type="office" role="bishop" source="#bib213-2">
                         <desc xml:lang="en">Bishop of Jīhān</desc>
                     </state>

@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -143,16 +147,21 @@
                     <persName xml:id="name482-4" corresp="#name482-1 #name482-2 #name482-3" xml:lang="syr-Syrj" source="#bib482-4">
                         <forename sort="1">ܐܰܘܛܽܘܟܶܐ</forename>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-482"/>
+                    <note type="abstract" xml:id="abstract-en-482">
+                        <Not_Useful/>
+                        <quote source="#bib482-1">His early life, of which hardly anything is known, was evidently as a monk, and then an archimandrite, in Constantinople where, by 448, he and his teaching evidently had an influential following.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/482</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|482</idno>
-                    <birth notBefore="0363" notAfter="0393" source="#bib482-1" syriaca-computed-end="0393-01-01" syriaca-computed-start="0363-01-01">ca. 378</birth>
-                    <death notBefore="0439" notAfter="0469" source="#bib482-1" syriaca-computed-end="0469-01-01" syriaca-computed-start="0439-01-01">ca. 454</death>
+                    <birth notBefore="0363" notAfter="0393" source="#bib482-1">ca. 378</birth>
+                    <death notBefore="0439" notAfter="0469" source="#bib482-1">ca. 454</death>
                     <bibl xml:id="bib482-1">
+                        <author>S. P. Brock</author>
+                        <title level="a" xml:lang="en">Eutyches</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">204</citedRange>
-                        <citedRange unit="pp">155</citedRange>
+                        <ptr target="http://syriaca.org/bibl/213"/>
+                        <citedRange unit="pp">155-156</citedRange>
+                        <citedRange unit="pp">155-156</citedRange>
                     </bibl>
                     <bibl xml:id="bib482-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

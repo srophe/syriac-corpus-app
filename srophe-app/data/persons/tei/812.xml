@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -59,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -111,7 +115,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
             <change type="planned">Fuller documentation needed for Syriac headword.</change>
         </revisionDesc>
@@ -140,17 +144,25 @@
                         <addName type="untagged-title" sort="2">I</addName>
                         <addName type="untagged-title" sort="2">of Seleucia-Ctesiphon</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-812"/>
+                    <note type="abstract" xml:id="abstract-en-812">
+                        <quote source="#bib812-1">Cath. (552-67), successor of Mar Aba I, in a period of tension between the Church
+            and the Persian authorities.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/812</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|812</idno>
-                    <death when="0570" source="#bib812-1" syriaca-computed-start="0570-01-01">570</death>
-                    <state type="office" from="0552" to="0567" source="#bib812-1" syriaca-computed-end="0567-01-01" syriaca-computed-start="0552-01-01">
+                    <death when="0570" source="#bib812-1">570</death>
+                    <state type="office" from="0552" to="0567" source="#bib812-1">
                         <desc xml:lang="en-x-gedsh">552-567</desc>
                     </state>
+                    <state type="confession" source="#bib812-1">
+                        <desc>Ch. of E.</desc>
+                    </state>
                     <bibl xml:id="bib812-1">
+                        <author>L. Van Rompay</author>
+                        <title level="a" xml:lang="en">Yawsep I of Seleucia-Ctesiphon</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">585</citedRange>
+                        <ptr target="http://syriaca.org/bibl/594"/>
+                        <citedRange unit="pp">435</citedRange>
                         <citedRange unit="pp">435</citedRange>
                     </bibl>
                     <bibl xml:id="bib812-6">

@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-07-31-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,6 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -161,13 +160,14 @@
                     </persName>
                     <persName xml:id="name224-6" xml:lang="en-x-gedsh" resp="http://syriaca.org" syriaca-tags="#syriaca-headword">
                         <forename sort="2">Yuḥanon</forename>
-                        <addName type="untagged-title" sort="2">XII</addName> (<addName type="untagged-title" sort="2">XI</addName>, <addName type="untagged-title" sort="2">XII</addName>I, or <addName type="untagged-title" sort="2">XI</addName>V) <forename sort="2">Yeshuʿ</forename>
+                        <addName type="untagged-title" sort="2">XII (XI, XIII, or XIV)</addName>
+                        <forename sort="2">Yeshuʿ</forename>
                         <addName type="untagged-title" sort="2">Kotubo</addName>
                     </persName>
                     <note type="abstract" xml:id="abstract-en-224"/>
                     <idno type="URI">http://syriaca.org/person/224</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|224</idno>
-                    <death when="1220" source="#bib224-2" syriaca-computed-start="1220-01-01">1220</death>
+                    <death when="1220" source="#bib224-2">1220</death>
                     <state type="office" role="patriarch" source="#bib224-2">
                         <desc xml:lang="en">Patriarch</desc>
                     </state>

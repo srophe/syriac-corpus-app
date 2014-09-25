@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -153,17 +157,24 @@
                         <addName type="family" sort="2">ܒܰܪ ܐܰܒܪܗܡ ܥܰܒܕܐܠܢܽܘܪ</addName>
                         <addName type="untagged-title" sort="2">ܚܳܠܒܳܝܐ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-375"/>
+                    <note type="abstract" xml:id="abstract-en-375">
+                        <quote source="#bib375-1">Scribe and bp. of al-Bsheriyyeh (1707-48).</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/375</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|375</idno>
-                    <death when="1748" source="#bib375-1" syriaca-computed-start="1748-01-01">1748</death>
-                    <state type="office" from="1707" to="1748" source="#bib375-1" syriaca-computed-end="1748-01-01" syriaca-computed-start="1707-01-01">
+                    <death when="1748" source="#bib375-1">1748</death>
+                    <state type="office" from="1707" to="1748" source="#bib375-1">
                         <desc xml:lang="en-x-gedsh">1707-1748</desc>
                     </state>
+                    <state type="confession" source="#bib375-1">
+                        <desc>Syr. Orth.</desc>
+                    </state>
                     <bibl xml:id="bib375-1">
+                        <author>G. A. Kiraz</author>
+                        <title level="a" xml:lang="en">Baselios Gewargis</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">86</citedRange>
+                        <ptr target="http://syriaca.org/bibl/95"/>
+                        <citedRange unit="pp">64</citedRange>
                         <citedRange unit="pp">64</citedRange>
                     </bibl>
                     <bibl xml:id="bib375-2">

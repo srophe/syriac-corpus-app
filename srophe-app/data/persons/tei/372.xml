@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -161,7 +165,9 @@
                         <addName type="untagged-title" sort="2">ܩܕܡܝܐ</addName>
                         <addName type="family" sort="1">ܕܒܝܬ ܒܪܨܘܡ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-372"/>
+                    <note type="abstract" xml:id="abstract-en-372">
+                        <quote source="#bib372-1">Patr. and scholar.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/372</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|372</idno>
                     <idno type="URI">http://viaf.org/viaf/4908928</idno>
@@ -184,12 +190,17 @@
                     <idno type="URI">http://viaf.org/viaf/31706450</idno>
                     <idno type="URI">http://viaf.org/viaf/62290708</idno>
                     <idno type="URI">http://viaf.org/viaf/88652628</idno>
-                    <birth when="1887" source="#bib372-1" syriaca-computed-start="1887-01-01">1887</birth>
-                    <death when="1957" source="#bib372-1" syriaca-computed-start="1957-01-01">1957</death>
+                    <birth when="1887" source="#bib372-1">1887</birth>
+                    <death when="1957" source="#bib372-1">1957</death>
+                    <state type="confession" source="#bib372-1">
+                        <desc>Syr. Orth.</desc>
+                    </state>
                     <bibl xml:id="bib372-1">
+                        <author>G. A. Kiraz</author>
+                        <title level="a" xml:lang="en">Barsoum, Ignatius Afram</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">83</citedRange>
+                        <ptr target="http://syriaca.org/bibl/92"/>
+                        <citedRange unit="pp">62</citedRange>
                         <citedRange unit="pp">62</citedRange>
                     </bibl>
                     <bibl xml:id="bib372-2">

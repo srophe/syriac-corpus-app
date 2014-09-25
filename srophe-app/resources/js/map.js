@@ -1,5 +1,5 @@
 /* Requires jquery.js and leaflet.js */
-
+/* Javascript for a single item on map */
 var terrain = L.tileLayer(
   'http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', 
   {attribution: "ISAW, 2012"});

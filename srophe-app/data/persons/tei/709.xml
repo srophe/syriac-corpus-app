@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -59,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -111,7 +115,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -128,15 +132,23 @@
                         <addName type="family" sort="2">ܒܪ ܦܘܠܘܣ</addName>
                     </persName>
                     <persName xml:id="name709-3" xml:lang="en" source="#bib709-10">Sabrisho bar Paulos</persName>
-                    <note type="abstract" xml:id="abstract-en-709"/>
+                    <persName xml:id="name709-3" xml:lang="en" source="#bib709-1">Sabrishoʿ of Mosul</persName>
+                    <note type="abstract" xml:id="abstract-en-709">
+                        <quote source="#bib709-1">Author of a hymn for Mid-Lent, preserved in the <title xmlns="" rend="italic" xml:lang="en-x-gedsh">Ktābā d-Wardā</title> (see Gewargis Warda) and published by Cardahi.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/709</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|709</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Sabrisho bar Paulos&amp;sT=keywords</idno>
-                    <floruit notBefore="1150" notAfter="1200" source="#bib709-1" syriaca-computed-end="1200-01-01" syriaca-computed-start="1150-01-01">late 12th cent.</floruit>
+                    <floruit notBefore="1150" notAfter="1200" source="#bib709-1">late 12th cent.</floruit>
+                    <state type="confession" source="#bib709-1">
+                        <desc>Ch. of E.</desc>
+                    </state>
                     <bibl xml:id="bib709-1">
+                        <author>L. Van Rompay</author>
+                        <title level="a" xml:lang="en">Sabrishoʿ bar Pawlos</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">461</citedRange>
+                        <ptr target="http://syriaca.org/bibl/470"/>
+                        <citedRange unit="pp">355</citedRange>
                         <citedRange unit="pp">355</citedRange>
                     </bibl>
                     <bibl xml:id="bib709-10">

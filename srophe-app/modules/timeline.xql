@@ -16,6 +16,7 @@ declare namespace xqi="http://xqueryinstitute.org/ns";
 declare option exist:serialize "method=json media-type=text/javascript encoding=UTF-8";
 
 declare variable $uri {request:get-parameter('uri', '')};
+declare variable $collection {request:get-parameter('collection', '')};
 (:
     NOTES on display,
     headline should be person names perhaps Events: PersName
@@ -48,6 +49,31 @@ declare function local:get-pers-rec(){
     
 };
 
+(:~
+ : Return all dates in a collection
+ : @param $uri matches record uri specified in tei:idno
+:)
+declare function local:get-all-recs(){
+    <json>
+        <timeline>
+            <headline>Browse by Date</headline>
+            <type>default</type>
+            <text></text>
+            <asset>
+                <media>syriaca.org</media>
+                <credit>Syriaca.org</credit>
+                <caption>Events for Persons</caption>
+            </asset>
+            {
+                for $rec in collection('/db/apps/srophe/data/persons/tei')//tei:body
+                let $person := $rec/descendant::tei:person
+                return
+                (local:get-pers-birth($person), local:get-pers-death($person), local:get-pers-floruit($person), local:get-pers-state($person), local:get-pers-events($person))
+            }
+         </timeline> 
+    </json>
+    
+};
 (:~
  : Build birth date ranges
  : @param $person as node
@@ -166,5 +192,6 @@ declare function local:get-pers-events($person as node()?) as node()*{
             </date>
     else ()   
 };
-       
-local:get-pers-rec()
+  
+if($collection != '') then  local:get-all-recs() 
+else local:get-pers-rec()

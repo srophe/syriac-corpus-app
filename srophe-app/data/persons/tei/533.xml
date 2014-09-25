@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -68,7 +72,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -120,7 +124,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -148,14 +152,21 @@
                         <forename sort="1">ܚܢܵܢܝܼܫܘܿܥ</forename>
                         <addName type="family" sort="2">ܒܲܪ ܣܪܘܿܫܘܿܝ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-533"/>
+                    <note type="abstract" xml:id="abstract-en-533">
+                        <quote source="#bib533-1">Bp. of Ḥirta; lexicographer and biblical interpreter.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/533</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|533</idno>
-                    <floruit notBefore="0825" notAfter="0925" source="#bib533-1" syriaca-computed-end="0925-01-01" syriaca-computed-start="0825-01-01">probably 2nd half of 9th cent.</floruit>
+                    <floruit notBefore="0825" notAfter="0925" source="#bib533-1">probably 2nd half of 9th cent.</floruit>
+                    <state type="confession" source="#bib533-1">
+                        <desc>Ch. of E.</desc>
+                    </state>
                     <bibl xml:id="bib533-1">
+                        <author>L. Van Rompay</author>
+                        <title level="a" xml:lang="en">Ḥenanishoʿ bar Seroshway</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">257</citedRange>
+                        <ptr target="http://syriaca.org/bibl/266"/>
+                        <citedRange unit="pp">195</citedRange>
                         <citedRange unit="pp">195</citedRange>
                     </bibl>
                     <bibl xml:id="bib533-2">

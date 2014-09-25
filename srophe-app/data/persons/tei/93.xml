@@ -55,6 +55,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -79,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -131,7 +135,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -162,16 +166,23 @@
                     </persName>
                     <note type="deprecation" xml:id="name93-5-deprecation">Dolabani's spelling of "Marutha" in Syriac should have an 'a' vowel instead of an 'e' vowel at the end: ܡܰܪܘܬܶܐ ܕܬܰܓܪܝܬ</note>
                     <link target="#name93-5 #name93-5-deprecation"/>
-                    <note type="abstract" xml:id="abstract-en-93"/>
+                    <note type="abstract" xml:id="abstract-en-93">
+                        <quote source="#bib93-1">Metropolitan of Tagrit.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/93</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|93</idno>
                     <idno type="URI">http://viaf.org/viaf/224478732</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Marutha of Tagrit&amp;sT=keywords</idno>
-                    <death when="0649" source="#bib93-1" syriaca-computed-start="0649-01-01">649</death>
+                    <death when="0649" source="#bib93-1">649</death>
+                    <state type="confession" source="#bib93-1">
+                        <desc>Syr. Orth.</desc>
+                    </state>
                     <bibl xml:id="bib93-1">
+                        <author>S. P. Brock </author>
+                        <title level="a" xml:lang="en">Marutha of Tagrit</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="pp">273</citedRange>
+                        <ptr target="http://syriaca.org/bibl/368"/>
+                        <citedRange unit="pp">273-274</citedRange>
                     </bibl>
                     <bibl xml:id="bib93-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

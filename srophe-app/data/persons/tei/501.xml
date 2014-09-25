@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -59,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -111,7 +115,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -139,14 +143,21 @@
                         <forename sort="1">George</forename>
                         <addName type="untagged-title" sort="2">I</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-501"/>
+                    <note type="abstract" xml:id="abstract-en-501">
+                        <quote source="#bib501-1">Metropolitan bp. of Adiabene and Cath. (from 660 or 658 until his death).</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/501</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|501</idno>
-                    <death notBefore="0680" notAfter="0681" source="#bib501-1" syriaca-computed-end="0681-01-01" syriaca-computed-start="0680-01-01">680/1</death>
+                    <death notBefore="0680" notAfter="0681" source="#bib501-1">680/1</death>
+                    <state type="confession" source="#bib501-1">
+                        <desc>Ch. of E.</desc>
+                    </state>
                     <bibl xml:id="bib501-1">
+                        <author>L. Van Rompay</author>
+                        <title level="a" xml:lang="en">Gewargis I</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">224</citedRange>
+                        <ptr target="http://syriaca.org/bibl/233"/>
+                        <citedRange unit="pp">175</citedRange>
                         <citedRange unit="pp">175</citedRange>
                     </bibl>
                     <bibl xml:id="bib501-6">

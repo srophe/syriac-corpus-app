@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -173,7 +177,10 @@
                         <forename sort="1">Timothy</forename>
                         <addName type="untagged-title" sort="2">I</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-790"/>
+                    <note type="abstract" xml:id="abstract-en-790">
+                        <quote source="#bib790-1">Cath. of the Ch. of E. Timotheos was born in the village of Ḥazza (near Arbela in
+            <placeName xmlns="" ref="#tempName-15">Iraq</placeName>).</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/790</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|790</idno>
                     <idno type="URI">http://viaf.org/viaf/9370634</idno>
@@ -192,16 +199,21 @@
                     <idno type="URI">http://viaf.org/viaf/45036504</idno>
                     <idno type="URI">http://viaf.org/viaf/185491906</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Timothy I&amp;sT=keywords</idno>
-                    <birth notBefore="0727" notAfter="0728" source="#bib790-1" syriaca-computed-end="0728-01-01" syriaca-computed-start="0727-01-01">727/8</birth>
-                    <death when="0823" source="#bib790-1" syriaca-computed-start="0823-01-01">823</death>
+                    <birth notBefore="0727" notAfter="0728" source="#bib790-1">727/8</birth>
+                    <death when="0823" source="#bib790-1">823</death>
                     <state type="office" role="catholicos" source="#bib790-2">
                         <desc xml:lang="en">Catholicos</desc>
                     </state>
+                    <state type="confession" source="#bib790-1">
+                        <desc>Ch. of E.</desc>
+                    </state>
                     <bibl xml:id="bib790-1">
+                        <author>D. Bundy </author>
+                        <title level="a" xml:lang="en">Timotheos I</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">556</citedRange>
-                        <citedRange unit="pp">414</citedRange>
+                        <ptr target="http://syriaca.org/bibl/565"/>
+                        <citedRange unit="pp">414-415</citedRange>
+                        <citedRange unit="pp">414-415</citedRange>
                     </bibl>
                     <bibl xml:id="bib790-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

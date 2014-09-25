@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -59,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -111,7 +115,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -126,7 +130,10 @@
                         <forename sort="2">ܐܬܢܐܣܝܘܣ ܝܫܘܥ</forename>
                         <addName type="family" sort="1">ܫܡܘܐܝܠ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-716"/>
+                    <note type="abstract" xml:id="abstract-en-716">
+                        <quote source="#bib716-1">Bp. of <placeName xmlns="" ref="http://syriaca.org/place/2321">Jerusalem</placeName>
+            (1947-48), and first bp. of the United States (1957-95).</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/716</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|716</idno>
                     <idno type="URI">http://viaf.org/viaf/2761272</idno>
@@ -136,16 +143,21 @@
                     <idno type="URI">http://viaf.org/viaf/121337437</idno>
                     <idno type="URI">http://viaf.org/viaf/241402270</idno>
                     <idno type="URI">http://viaf.org/viaf/201778152</idno>
-                    <birth when="1907" source="#bib716-1" syriaca-computed-start="1907-01-01">1907</birth>
-                    <death when="1995" source="#bib716-1" syriaca-computed-start="1995-01-01">1995</death>
-                    <state type="office" from="1957" to="1995" source="#bib716-1" syriaca-computed-end="1995-01-01" syriaca-computed-start="1957-01-01">
+                    <birth when="1907" source="#bib716-1">1907</birth>
+                    <death when="1995" source="#bib716-1">1995</death>
+                    <state type="office" from="1957" to="1995" source="#bib716-1">
                         <desc xml:lang="en-x-gedsh">1957-1995</desc>
                     </state>
+                    <state type="confession" source="#bib716-1">
+                        <desc>Syr. Orth.</desc>
+                    </state>
                     <bibl xml:id="bib716-1">
+                        <author>G. A. Kiraz</author>
+                        <title level="a" xml:lang="en">Samuel, Athanasios Yeshuʿ</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">469</citedRange>
-                        <citedRange unit="pp">358</citedRange>
+                        <ptr target="http://syriaca.org/bibl/478"/>
+                        <citedRange unit="pp">358-359</citedRange>
+                        <citedRange unit="pp">358-359</citedRange>
                     </bibl>
                 </person>
             </listPerson>

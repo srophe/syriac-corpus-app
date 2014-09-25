@@ -81,14 +81,12 @@ let $parameters :=  request:get-parameter-names()
 let $search-string: = 
         for $parameter in $parameters
         return request:get-parameter($parameter, '')
-        (:if($parameter = 'search' or starts-with($parameter,'start')) then ''
-               else search:clean-string(request:get-parameter($parameter, '')):)
 let $screen-friendly-string := replace(replace(string-join(search:search-string($collection),' '),'&amp;amp;','&amp;'), '&amp;apos;', '&apos;')
 let $pagination-links := 
         <div class="row-fluid" xmlns="http://www.w3.org/1999/xhtml">
             <div class="span5">
             <h4>Search results:</h4>
-                <p class="offset1">{$total-result-count} matches for {$screen-friendly-string}.
+                <p class="offset1">{$total-result-count} matches for {$screen-friendly-string}
                 <!-- for debugging xpath <br/>{persons:query-string()}-->
                 </p>
             </div>

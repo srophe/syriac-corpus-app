@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -166,7 +170,10 @@
                         <forename sort="1">ܐܝܺܘܰܐܢܢܺܝܣ</forename>
                         <addName type="untagged-title" sort="2">ܟܪܘܽܣܽܘܣܛܳܘܡܳܘܣ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-573"/>
+                    <note type="abstract" xml:id="abstract-en-573">
+                        <Not_Useful/>
+                        <quote source="#bib573-1">Bp. of Constantinople (398-404).</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/573</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|573</idno>
                     <idno type="URI">http://viaf.org/viaf/82340113</idno>
@@ -179,16 +186,18 @@
                     <idno type="URI">http://viaf.org/viaf/100910338</idno>
                     <idno type="URI">http://viaf.org/viaf/97111235</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John Chrysostom&amp;sT=keywords</idno>
-                    <birth notBefore="0332" notAfter="0362" source="#bib573-1" syriaca-computed-end="0362-01-01" syriaca-computed-start="0332-01-01">ca. 347</birth>
-                    <death when="0407" source="#bib573-1" syriaca-computed-start="0407-01-01">407</death>
-                    <state type="office" from="0398" to="0404" source="#bib573-1" syriaca-computed-end="0404-01-01" syriaca-computed-start="0398-01-01">
+                    <birth notBefore="0332" notAfter="0362" source="#bib573-1">ca. 347</birth>
+                    <death when="0407" source="#bib573-1">407</death>
+                    <state type="office" from="0398" to="0404" source="#bib573-1">
                         <desc xml:lang="en-x-gedsh">398-404</desc>
                     </state>
                     <bibl xml:id="bib573-1">
+                        <author>J. W. Childers </author>
+                        <title level="a" xml:lang="en">John Chrysostom</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">303</citedRange>
-                        <citedRange unit="pp">229</citedRange>
+                        <ptr target="http://syriaca.org/bibl/312"/>
+                        <citedRange unit="pp">229-230</citedRange>
+                        <citedRange unit="pp">229-230</citedRange>
                     </bibl>
                     <bibl xml:id="bib573-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

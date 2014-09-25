@@ -55,6 +55,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -79,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -131,7 +135,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -170,22 +174,29 @@
                         <addName type="untagged-title" sort="2">ܡܪܕܝܢܝܐ</addName>
                     </persName>
                     <persName xml:id="name256-7" xml:lang="en" source="#bib256-10">Daniel the Syrian</persName>
-                    <note type="abstract" xml:id="abstract-en-256"/>
+                    <note type="abstract" xml:id="abstract-en-256">
+                        <quote source="#bib256-1">Author.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/256</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|256</idno>
                     <idno type="URI">http://www.worldcat.org/oclc/41090169</idno>
                     <idno type="URI">http://www.worldcat.org/oclc/469863964</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=D&amp;sK=Daniel of Mardin&amp;sT=keywords</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=D&amp;sK=Daniel the Syrian&amp;sT=keywords</idno>
-                    <birth when="1327" source="#bib256-1" syriaca-computed-start="1327-01-01">1327</birth>
-                    <death notBefore="1382" source="#bib256-1" syriaca-computed-start="1382-01-01">after 1382</death>
-                    <floruit when="1382" source="#bib256-2" syriaca-computed-start="1382-01-01">1382</floruit>
+                    <birth when="1327" source="#bib256-1">1327</birth>
+                    <death notBefore="1382" source="#bib256-1">after 1382</death>
+                    <floruit when="1382" source="#bib256-2">1382</floruit>
                     <state type="office" role="monk" source="#bib256-2">
                         <desc xml:lang="en">the Monk</desc>
                     </state>
+                    <state type="confession" source="#bib256-1">
+                        <desc>Syr. Orth.</desc>
+                    </state>
                     <bibl xml:id="bib256-1">
+                        <author>S. P. Brock</author>
+                        <title level="a" xml:lang="en">Daniel of Mardin</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
+                        <ptr target="http://syriaca.org/bibl/162"/>
                         <citedRange unit="pp">114</citedRange>
                     </bibl>
                     <bibl xml:id="bib256-2">

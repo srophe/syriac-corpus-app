@@ -55,6 +55,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -79,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -131,7 +135,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -155,18 +159,23 @@
                         <addName type="family" sort="2">ܒܰܪ ܕܰܝܨܳܢ</addName>
                     </persName>
                     <persName xml:id="name3-6" xml:lang="en" source="#bib3-10">Bardesan</persName>
-                    <note type="abstract" xml:id="abstract-en-3"/>
+                    <note type="abstract" xml:id="abstract-en-3">
+                        <Not_Useful/>
+                        <quote source="#bib3-1">Earliest known Syriac author.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/3</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|3</idno>
                     <idno type="URI">http://viaf.org/viaf/9945909</idno>
                     <idno type="URI">http://worldcat.org/identities/lccn-n85-83848</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Bardesan&amp;sT=keywords</idno>
-                    <birth when="0154" source="#bib3-1" syriaca-computed-start="0154-01-01">154</birth>
-                    <death when="0222" source="#bib3-1" syriaca-computed-start="0222-01-01">222</death>
+                    <birth when="0154" source="#bib3-1">154</birth>
+                    <death when="0222" source="#bib3-1">222</death>
                     <bibl xml:id="bib3-1">
+                        <author>S. P. Brock</author>
+                        <title level="a" xml:lang="en">Bardaiṣan</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="pp">56</citedRange>
+                        <ptr target="http://syriaca.org/bibl/85"/>
+                        <citedRange unit="pp">56-57</citedRange>
                     </bibl>
                     <bibl xml:id="bib3-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

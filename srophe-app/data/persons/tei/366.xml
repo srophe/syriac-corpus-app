@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -59,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -111,7 +115,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -127,15 +131,22 @@
                         <forename sort="1">ܒܪ ܥܕܬܐ</forename>
                     </persName>
                     <persName xml:id="name366-3" xml:lang="en" source="#bib366-10">Bar Idta</persName>
-                    <note type="abstract" xml:id="abstract-en-366"/>
+                    <note type="abstract" xml:id="abstract-en-366">
+                        <quote source="#bib366-1">Disciple of Abraham of Kashkar; monastic leader.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/366</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|366</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Bar Idta&amp;sT=keywords</idno>
-                    <death when="0621" notBefore="0611" notAfter="0621" source="#bib366-1" syriaca-computed-end="0621-01-01" syriaca-computed-start="0621-01-01">611 or 621</death>
+                    <death when="0621" notBefore="0611" notAfter="0621" source="#bib366-1">611 or 621</death>
+                    <state type="confession" source="#bib366-1">
+                        <desc>Ch. of E.</desc>
+                    </state>
                     <bibl xml:id="bib366-1">
+                        <author>L. Van Rompay</author>
+                        <title level="a" xml:lang="en">Bar ʿEdta, Rabban</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">75</citedRange>
+                        <ptr target="http://syriaca.org/bibl/84"/>
+                        <citedRange unit="pp">56</citedRange>
                         <citedRange unit="pp">56</citedRange>
                     </bibl>
                     <bibl xml:id="bib366-10">

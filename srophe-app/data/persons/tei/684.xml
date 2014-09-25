@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -149,19 +153,23 @@
                     <note type="deprecation" xml:id="name684-3-deprecation">Dolabani's Syriac name erroneously back-transliterates from the Arabic rather then providing the Syriac form used earlier: ܒܪ ܦܝܪܘܣ ܒܰܪ ܦܺܝܪܘܣ</note>
                     <link target="#name684-3 #name684-3-deprecation"/>
                     <link target="#name684-4 #name684-3-deprecation"/>
-                    <note type="abstract" xml:id="abstract-en-684"/>
+                    <note type="abstract" xml:id="abstract-en-684">
+                        <quote source="#bib684-1">Greek author and Neoplatonist.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/684</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|684</idno>
                     <idno type="URI">http://viaf.org/viaf/64016141</idno>
                     <idno type="URI">http://viaf.org/viaf/167153312</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=P&amp;sK=Porphyry&amp;sT=keywords</idno>
-                    <birth notBefore="0217" notAfter="0252" source="#bib684-1" syriaca-computed-end="0252-01-01" syriaca-computed-start="0217-01-01">ca. 232</birth>
-                    <death notBefore="0290" notAfter="0320" source="#bib684-1" syriaca-computed-end="0320-01-01" syriaca-computed-start="0290-01-01">ca. 305</death>
+                    <birth notBefore="0217" notAfter="0252" source="#bib684-1">ca. 232</birth>
+                    <death notBefore="0290" notAfter="0320" source="#bib684-1">ca. 305</death>
                     <bibl xml:id="bib684-1">
+                        <author>S. P. Brock</author>
+                        <title level="a" xml:lang="en">Porphyry</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">433</citedRange>
-                        <citedRange unit="pp">337</citedRange>
+                        <ptr target="http://syriaca.org/bibl/442"/>
+                        <citedRange unit="pp">337-338</citedRange>
+                        <citedRange unit="pp">337-338</citedRange>
                     </bibl>
                     <bibl xml:id="bib684-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

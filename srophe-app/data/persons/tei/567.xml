@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -166,18 +170,25 @@
                     <persName xml:id="name567-7" xml:lang="en" resp="http://syriaca.org" syriaca-tags="#syriaca-anglicized">
                         <forename sort="1">John</forename>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-567"/>
+                    <note type="abstract" xml:id="abstract-en-567">
+                        <quote source="#bib567-1">Scribe and bp. for various dioceses. He was born Yuḥanon b. Shahīn b. Shamo of Amid, also nicknamed b. al-ʿAraqjanji 'son of the maker of <foreign xmlns="" rend="italic" xml:lang="en-x-gedsh">ʿarraqiyya</foreign> (a small cap worn under a turban to absorb sweat)'.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/567</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|567</idno>
-                    <death when="1755" source="#bib567-1" syriaca-computed-start="1755-01-01">1755</death>
+                    <death when="1755" source="#bib567-1">1755</death>
                     <state type="office" role="metropolitan" source="#bib567-2">
                         <desc xml:lang="en">Metropolitan</desc>
                     </state>
+                    <state type="confession" source="#bib567-1">
+                        <desc>Syr. Orth.</desc>
+                    </state>
                     <bibl xml:id="bib567-1">
+                        <author>G. A. Kiraz </author>
+                        <title level="a" xml:lang="en">Iwannis Yuḥanon</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">296</citedRange>
-                        <citedRange unit="pp">224</citedRange>
+                        <ptr target="http://syriaca.org/bibl/305"/>
+                        <citedRange unit="pp">224-225</citedRange>
+                        <citedRange unit="pp">224-225</citedRange>
                     </bibl>
                     <bibl xml:id="bib567-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

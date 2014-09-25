@@ -28,7 +28,7 @@ declare function geo:build-json($geo as xs:string,$id as xs:string, $rec-type as
         </geometry>
         <properties>
             <uri>{concat('http://syriaca.org/place/',substring-after($id,'place-'))}</uri>
-            <placeType>{if($rec-type='opne-water') then 'openWater' else $rec-type}</placeType>
+            <placeType>{if($rec-type='open-water') then 'openWater' else $rec-type}</placeType>
             {
               if($rec-rel != '') then 
                 <placeRelation>{$rec-rel}</placeRelation>

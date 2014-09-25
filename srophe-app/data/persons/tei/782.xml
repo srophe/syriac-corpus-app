@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -71,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +127,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -158,7 +162,9 @@
                     <persName xml:id="name782-7" xml:lang="en" source="#bib782-10">Theodore Abu Qurrah</persName>
                     <note type="deprecation" xml:id="name782-2-deprecation">The English translation of Barsoum's Scattered Pearls replaced "Abu" with "Ibn" in the name: Theodore Ibn Qurra</note>
                     <link target="#name782-2 #name782-2-deprecation"/>
-                    <note type="abstract" xml:id="abstract-en-782"/>
+                    <note type="abstract" xml:id="abstract-en-782">
+                        <quote source="#bib782-1">Author, bp. of Ḥarran.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/782</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|782</idno>
                     <idno type="URI">http://viaf.org/viaf/79150929</idno>
@@ -166,12 +172,17 @@
                     <idno type="URI">http://viaf.org/viaf/218644667</idno>
                     <idno type="URI">http://viaf.org/viaf/246896202</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Theodore Abu Qurrah&amp;sT=keywords</idno>
-                    <death notBefore="0804" source="#bib782-1" syriaca-computed-start="0804-01-01">probably after 829</death>
+                    <death notBefore="0804" source="#bib782-1">probably after 829</death>
+                    <state type="confession" source="#bib782-1">
+                        <desc>Melk.</desc>
+                    </state>
                     <bibl xml:id="bib782-1">
+                        <author>A. M. Butts</author>
+                        <title level="a" xml:lang="en">Theodoros Abū Qurra</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">545</citedRange>
-                        <citedRange unit="pp">403</citedRange>
+                        <ptr target="http://syriaca.org/bibl/554"/>
+                        <citedRange unit="pp">403-405</citedRange>
+                        <citedRange unit="pp">403-405</citedRange>
                     </bibl>
                     <bibl xml:id="bib782-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

@@ -47,6 +47,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -59,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -111,7 +115,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -126,15 +130,23 @@
                         <forename sort="2">ܐܝܓܢܛܝܘܣ</forename>
                         <addName type="family" sort="1">ܢܘܪܝ</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-662"/>
+                    <note type="abstract" xml:id="abstract-en-662">
+                        <quote source="#bib662-1">He was born in Mardin of Niʿmatallāh Nūrī and Katherine daughter of ʿAbdulmasīḥ
+Tarzi and was given the baptismal name Naṣrallāh.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/662</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|662</idno>
-                    <birth when="1857" source="#bib662-1" syriaca-computed-start="1857-01-01">1857</birth>
-                    <death when="1947" source="#bib662-1" syriaca-computed-start="1947-01-01">1947</death>
+                    <birth when="1857" source="#bib662-1">1857</birth>
+                    <death when="1947" source="#bib662-1">1947</death>
+                    <state type="confession" source="#bib662-1">
+                        <desc>Syr. Cath.</desc>
+                    </state>
                     <bibl xml:id="bib662-1">
+                        <author>G. A. Kiraz</author>
+                        <title level="a" xml:lang="en">Nūrī, Athanasios Ignatios</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">405</citedRange>
+                        <ptr target="http://syriaca.org/bibl/414"/>
+                        <citedRange unit="pp">314</citedRange>
                         <citedRange unit="pp">314</citedRange>
                     </bibl>
                 </person>

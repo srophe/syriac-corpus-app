@@ -46,6 +46,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -67,7 +71,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -119,7 +123,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -136,19 +140,23 @@
                     <persName xml:id="name517-3" corresp="#name517-2" xml:lang="ar" source="#bib517-3">
                         <addName type="family" sort="1">غويدي</addName>
                     </persName>
-                    <note type="abstract" xml:id="abstract-en-517"/>
+                    <note type="abstract" xml:id="abstract-en-517">
+                        <quote source="#bib517-1">Italian Syriac scholar. One of the most eminent scholars in the philology of Semitic and Eastern Christian literatures, he taught at the University of Rome from 1876 to 1919.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/517</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|517</idno>
                     <idno type="URI">http://viaf.org/viaf/44324096</idno>
                     <idno type="URI">http://worldcat.org/identities/lccn-nr88-3329</idno>
                     <idno type="URI">http://viaf.org/viaf/96998424</idno>
                     <idno type="URI">http://viaf.org/viaf/189228648</idno>
-                    <birth when="1844" source="#bib517-1" syriaca-computed-start="1844-01-01">1844</birth>
-                    <death when="1935" source="#bib517-1" syriaca-computed-start="1935-01-01">1935</death>
+                    <birth when="1844" source="#bib517-1">1844</birth>
+                    <death when="1935" source="#bib517-1">1935</death>
                     <bibl xml:id="bib517-1">
+                        <author>R. Contini</author>
+                        <title level="a" xml:lang="en">Guidi, Ignazio</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="entry">241</citedRange>
+                        <ptr target="http://syriaca.org/bibl/250"/>
+                        <citedRange unit="pp">184</citedRange>
                         <citedRange unit="pp">184</citedRange>
                     </bibl>
                     <bibl xml:id="bib517-2">

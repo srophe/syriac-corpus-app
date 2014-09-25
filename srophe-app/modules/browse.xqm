@@ -148,7 +148,12 @@ declare function browse:get-pers-type($node as node(), $model as map(*)){
  : Uses browse:build-sort-string() to strip title of non sort characters
  :)
 declare function browse:get-pers-date($node as node(), $model as map(*)){  
-    if($browse:date = 'BC dates') then  
+    if($browse:date = 'BC dates') then
+        browse:get-pers-date-bc($node, $model)
+    else browse:get-pers-date-ad($node, $model)
+};
+
+declare function browse:get-pers-date-bc($node as node(), $model as map(*)){  
         for $data in $model('browse-data')[starts-with(descendant::*/@notBefore,'-') or starts-with(descendant::*/@notAfter,'-')]
         let $id := string($data/@xml:id)
         let $ana := string($data/@ana)
@@ -162,7 +167,8 @@ declare function browse:get-pers-date($node as node(), $model as map(*)){
                     return $browse-name
                 }
             </browse>
-    else
+};
+declare function browse:get-pers-date-ad($node as node(), $model as map(*)){  
         let $end :=
             if($browse:date = '0-100') then xs:date('0100-01-01')
             else if($browse:date = '100-200') then xs:date('0200-01-01')

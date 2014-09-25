@@ -55,6 +55,10 @@
                     <resp>GEDSH and Barsoum English text entry and proofreading by</resp>
                     <name type="org" ref="http://syriaca.org/documentation/editors.xml#uasyriacresearchgroup">the Syriac Research Group, University of Alabama</name>
                 </respStmt>
+                <respStmt>
+                    <resp>Proofreading of GEDSH abstracts and addition of confessions and alternate names from GEDSH by</resp>
+                    <name type="person" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -79,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-09-24-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -131,7 +135,7 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -174,8 +178,12 @@
                     <persName xml:id="name239-7" xml:lang="en" resp="http://syriaca.org" syriaca-tags="#syriaca-anglicized">
                         <addName type="family" sort="1">Bar ʿEbroyo</addName>, <forename sort="2">Gregory</forename>
                     </persName>
-                    <persName xml:id="name239-8" xml:lang="en" source="#bib239-10">Barhebraeus</persName>
-                    <note type="abstract" xml:id="abstract-en-239"/>
+                    <persName xml:id="name239-8" xml:lang="en" source="#bib239-1">Barhebraeus</persName>
+                    <persName xml:id="name239-8" xml:lang="en" source="#bib239-1">Abū al-Faraj</persName>
+                    <persName xml:id="name239-9" xml:lang="en" source="#bib239-1">Barhebraeus</persName>
+                    <note type="abstract" xml:id="abstract-en-239">
+                        <quote source="#bib239-1">Maph. (since 1264) and polymath.</quote>
+                    </note>
                     <idno type="URI">http://syriaca.org/person/239</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|239</idno>
                     <idno type="URI">http://viaf.org/viaf/81959220</idno>
@@ -185,12 +193,17 @@
                     <idno type="URI">http://viaf.org/viaf/245087233</idno>
                     <idno type="URI">http://viaf.org/viaf/240917046</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Barhebraeus&amp;sT=keywords</idno>
-                    <birth notBefore="1225" notAfter="1226" source="#bib239-1" syriaca-computed-end="1226-01-01" syriaca-computed-start="1225-01-01">1225/6</birth>
-                    <death when="1286" source="#bib239-1" syriaca-computed-start="1286-01-01">1286</death>
+                    <birth notBefore="1225" notAfter="1226" source="#bib239-1">1225/6</birth>
+                    <death when="1286" source="#bib239-1">1286</death>
+                    <state type="confession" source="#bib239-1">
+                        <desc>Syr. Orth.</desc>
+                    </state>
                     <bibl xml:id="bib239-1">
+                        <author>H. Takahashi </author>
+                        <title level="a" xml:lang="en">Bar ʿEbroyo, Grigorios</title>
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
-                        <ptr target="http://syriaca.org/bibl/1"/>
-                        <citedRange unit="pp">54</citedRange>
+                        <ptr target="http://syriaca.org/bibl/83"/>
+                        <citedRange unit="pp">54-56</citedRange>
                     </bibl>
                     <bibl xml:id="bib239-2">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>

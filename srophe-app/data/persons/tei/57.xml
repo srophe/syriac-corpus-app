@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-08-19-04:00</date>
+                <date>2014-07-31-05:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,6 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-08-19-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -166,7 +165,7 @@
                     <note type="abstract" xml:id="abstract-en-57"/>
                     <idno type="URI">http://syriaca.org/person/57</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|57</idno>
-                    <death when="0542" source="#bib57-2" syriaca-computed-start="0542-01-01">542</death>
+                    <death when="0542" source="#bib57-2">542</death>
                     <state type="office" role="bishop" source="#bib57-2">
                         <desc xml:lang="en">bishop of Germanicia</desc>
                     </state>
