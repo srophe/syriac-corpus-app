@@ -198,7 +198,7 @@
                                     <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                            <h4 id="report-errors-label">Corrections/Additions?</h4>
+                                            <h2 id="report-errors-label">Corrections/Additions?</h2>
                                         </div>
                                         <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
                                             <div class="modal-body" id="modal-body">
