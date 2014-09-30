@@ -99,10 +99,10 @@ h4 {font-size: 1em; margin-top:1em;}
     
 }
 /* Browse page styles */
-.browse-alpha {border-bottom:1px solid #ccc; padding-left:2em; padding:0; margin-bottom:1em;}
+.browse-alpha {border-bottom:1px solid #ccc; padding-left:1em; padding:0; margin-bottom:1em;}
 .browse-alpha-syr {border-bottom:1px solid #ccc;}
 .browse-alpha li + li {
-    padding-left: 1.5em;
+    padding-left: 1em;
 }
 .nav-stacked > .active > a,
     .nav-stacked > .active > a:hover {
@@ -159,23 +159,29 @@ h4 {font-size: 1em; margin-top:1em;}
 	font-family: arial, sans-serif;
 }
 
-
 :lang(syr),:lang(syc) {
  font-family: "Estrangelo Edessa", Verdana, Arial, Helvetica, sans-serif;
-  font-size:larger;
+  /*font-size:large;*/
+  font-size:1.25em; 
+  line-height:1em;
 }
+
 :lang(syr-Syrj), :lang(syc-Syrj) {
  font-family: "Serto Batnan", Verdana, Arial, Helvetica, sans-serif;
-  font-size:larger;
+    font-size:1.25em; 
+  line-height:1em;
 }
 
 :lang(syr-Syre), :lang(syc-Syre) {
  font-family: "East Syriac Adiabene", Verdana, Arial, Helvetica, sans-serif;
-  font-size:larger;
+    font-size:1.25em; 
+  line-height:1em;
 }
 
 :lang(ar) {
  font-family: arial, sans-serif;
+   font-size:1.25em; 
+  line-height:1em;
 }
 
 .tab-pane {
@@ -398,21 +404,8 @@ label.error {
     text-decoration:none;
     line-height:36px;
 
+} 
+.modal {
+    width: 50% !important; /* respsonsive width */
+    margin-left:-25%; /* width/2) */ 
 }
-/*
-.fileUpload {
-	position: relative;
-	overflow: hidden;
-	margin: 10px;
-}
-.fileUpload input.upload {
-	position: absolute;
-	top: 0;
-	right: 0;
-	margin: 0;
-	padding: 0;
-	font-size: 20px;
-	cursor: pointer;
-	opacity: 0;
-	filter: alpha(opacity=0);
-}*/
