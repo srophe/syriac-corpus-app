@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -120,10 +120,8 @@
                 <div id="citation-note" class="well">
                     <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
                     <br/>
-                    <span class="pull-right">
-                        <a id="moreInfo">Show full citation information...</a>
-                    </span>
-                    <div id="citation">
+                    <button class="togglelink pull-right btn-link" data-text-swap="Hide citation">Show full citation information...</button>
+                    <div id="citation" class="hide toggle">
                         <div id="citation-bibliography">
                             <h4>Bibliography:</h4>
                             <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
@@ -139,31 +137,15 @@
                                 <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>.</p>
                             <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
                         </div>
-                        <span class="pull-right">
-                            <a id="lessInfo">Hide citation information...</a>
-                        </span>
                     </div>
                 </div>
-                <script type="text/javascript">
-                    // Toggle for citation
-                    $( "#moreInfo" ).click(function() {
-                        $( "#citation" ).toggle( "slow", function() {
-                            $( "#moreInfo" ).toggle();
-                        });
-                    });
-                    
-                    $( "#lessInfo" ).click(function() {
-                        $( "#citation" ).toggle( "slow", function() {
-                            $( "#moreInfo" ).toggle();
-                        });
-                    });
-                </script>
+                
             </div>
         </div>
         <xsl:if test="//t:geo">
             <script type="text/javascript" src="/exist/apps/srophe/resources/js/map.js"/>
         </xsl:if>
-        <script type="text/javascript" src="/exist/apps/srophe/resources/js/main.js"/>
+        <!--<script type="text/javascript" src="/exist/apps/srophe/resources/js/main.js"/>-->
         <!--<script type="text/javascript" src="/exist/apps/srophe/resources/js/jquery.validate.min.js"/>-->
     </xsl:template>
     
@@ -216,10 +198,30 @@
                                     <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                            <h3 id="report-errors-label">Corrections/Additions?</h3>
+                                            <h4 id="report-errors-label">Corrections/Additions?</h4>
                                         </div>
                                         <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
                                             <div class="modal-body" id="modal-body">
+                                                <div>
+                                                <button class="togglelink btn-link" data-text-swap="Hide Information">More Information</button> 
+                                                <div class="hide toggle">
+                                                    <h4>Notify the editors of a mistake</h4>
+                                                    <p>Using the following link, please inform us which page 
+                                                    URI the mistake is on, where on the page the mistake occurs,
+                                                    the content of the correction, 
+                                                    and a citation for the correct information 
+                                                    (except in the case of obvious corrections, 
+                                                    such as misspelled words). 
+                                                    Please also include your email address, 
+                                                    so that we can follow up with you regarding 
+                                                    anything which is unclear. We will publish your name,
+                                                    but not your contact information as the author of the 
+                                                    correction. The form to notify us of an error is here.
+                                                    </p>    
+                                                    <h4>Add data to an existing entry</h4>
+                                                    <p>The Syriac Gazetteer is an ever expanding resource created by and for users. The editors actively welcome additions to the gazetteer. If there is information which you would like to add to an existing place entry in The Syriac Gazetteer, please use the link below to inform us about the information, your (primary or scholarly) source(s) for the information, and your contact information so that we can credit you for the modification. For categories of information which The Syriac Gazetteer structure can support, please see the section headings on the entry for Edessa and specify in your submission which category or categories this new information falls into. At present this information should be entered into the email form here, although there is an additional delay in this process as the data needs to be encoded in the appropriate structured data format and assigned a URI. A structured form for submitting new entries is under development.</p>                                                
+                                                 </div>
+                                                </div>    
                                                 <!--<label>Name:</label>-->
                                                 <input type="text" name="name" placeholder="Name"/>
                                                 <br/>
@@ -261,7 +263,7 @@
                                     </div>
                                     <script>
                                         $('#selection').on('shown', function () {
-                                        $( "#popup" ).load( "../documentation/faq.html #selection" );
+                                            $( "#popup" ).load( "../documentation/faq.html #selection" );
                                         })
                                     </script>
                                 </div>
@@ -995,8 +997,8 @@
                         <xsl:sequence select="local:do-refs(child::*[1]/@source,@xml:lang)"/>
                     </xsl:if>
                     <!-- toggle to full list, grouped by type -->
-                    <a href="#" id="more-relation">(see list)</a>
-                    <dl id="toggle-relation">
+                    <button class="togglelink btn-link" data-text-swap="(hide list)">(see list)</button> 
+                    <dl class="hide toggle">
                         <xsl:for-each-group select="mutual" group-by="@type">
                             <xsl:sort select="count(current-group()/child::*)" order="descending"/>
                             <xsl:variable name="plural-type">
@@ -1035,10 +1037,6 @@
                                 </dd>
                             </xsl:for-each>
                         </xsl:for-each-group>
-                        <dt>
-                            <a href="#" id="less-relation">
-                                <i class="icon-chevron-up"/>hide list</a>
-                        </dt>
                     </dl>
                 </li>
             </xsl:when>

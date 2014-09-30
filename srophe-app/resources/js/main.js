@@ -1,3 +1,4 @@
+$(document).ready(function() {
 // Main javascript functions used by place pages
 // validate contact forms
 $.validator.setDefaults({
@@ -23,8 +24,8 @@ $.validator.setDefaults({
 	}
 });
 
-$().ready(function() {
-    $("#email").validate({
+
+$("#email").validate({
 		rules: {
 			recaptcha_challenge_field: "required",
 			name: "required",
@@ -51,28 +52,21 @@ $().ready(function() {
 });
 
 
-// Toggel for related places
-$( "#more-relation" ).click(function() {
-  $(this).text($(this).text() == '(see list)' ? '(hide list)' : '(see list)'); 
-  $( "#toggle-relation" ).show( "slow");
-});
-
-//hide related places
-$("#less-relation").click(function(){
-  $("#more-relation").text($("#more-relation").text() == '(hide list)' ? '(see list)' : '(hide list)');
-  $("#toggle-relation").hide("slow");
-});
-
 //more sophisticated toggle for mulitple show/hide
-$(".toggle").click(function() {
-    var $toggled = $(this).attr('href');
-    if ($.trim($(this).text()) === '(hide list)') {
-        $($toggled).hide( "slow");
-    } else {
-        $($toggled).show( "slow");       
-    }
-    return false;
-});
+
+$('.togglelink').click(function(e){
+    e.preventDefault();
+    var el = $(this);
+    $(this).next('.toggle').slideToggle();
+    if (el.text() == el.data("text-swap")) {
+          el.text(el.data("text-original"));
+        } else {
+          el.data("text-original", el.text());
+          el.text(el.data("text-swap"));
+        }
+});           
+
+
 
 if (navigator.appVersion.indexOf("Mac") > -1 || navigator.appVersion.indexOf("Linux") > -1) {
     $('.get-syriac').show();
