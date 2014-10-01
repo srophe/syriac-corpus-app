@@ -139,7 +139,6 @@
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>
         <xsl:if test="//t:geo">
@@ -203,24 +202,43 @@
                                         <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
                                             <div class="modal-body" id="modal-body">
                                                 <div>
-                                                <button class="togglelink btn-link" data-text-swap="Hide Information">More Information</button> 
-                                                <div class="hide toggle">
-                                                    <h4>Notify the editors of a mistake</h4>
-                                                    <p>Using the following link, please inform us which page 
-                                                    URI the mistake is on, where on the page the mistake occurs,
-                                                    the content of the correction, 
-                                                    and a citation for the correct information 
-                                                    (except in the case of obvious corrections, 
-                                                    such as misspelled words). 
-                                                    Please also include your email address, 
-                                                    so that we can follow up with you regarding 
-                                                    anything which is unclear. We will publish your name,
-                                                    but not your contact information as the author of the 
-                                                    correction. The form to notify us of an error is here.
-                                                    </p>    
-                                                    <h4>Add data to an existing entry</h4>
-                                                    <p>The Syriac Gazetteer is an ever expanding resource created by and for users. The editors actively welcome additions to the gazetteer. If there is information which you would like to add to an existing place entry in The Syriac Gazetteer, please use the link below to inform us about the information, your (primary or scholarly) source(s) for the information, and your contact information so that we can credit you for the modification. For categories of information which The Syriac Gazetteer structure can support, please see the section headings on the entry for Edessa and specify in your submission which category or categories this new information falls into. At present this information should be entered into the email form here, although there is an additional delay in this process as the data needs to be encoded in the appropriate structured data format and assigned a URI. A structured form for submitting new entries is under development.</p>                                                
-                                                 </div>
+                                                    <button class="togglelink btn-link" data-text-swap="Hide Information">More Information</button>
+                                                    <div class="hide toggle">
+                                                        <h4>Notify the editors of a mistake</h4>
+                                                        <p>Using the following form, please inform us which page 
+                                                        URI the mistake is on, where on the page the mistake occurs,
+                                                        the content of the correction, 
+                                                        and a citation for the correct information 
+                                                        (except in the case of obvious corrections, 
+                                                        such as misspelled words). 
+                                                        Please also include your email address, 
+                                                        so that we can follow up with you regarding 
+                                                        anything which is unclear. We will publish your name,
+                                                        but not your contact information as the author of the 
+                                                        correction.
+                                                        </p>
+                                                        <h4>Add data to an existing entry</h4>
+                                                        <p>The Syriac Gazetteer is an ever expanding resource 
+                                                            created by and for users. The editors actively 
+                                                            welcome additions to the gazetteer. If there is 
+                                                            information which you would like to add to an 
+                                                            existing place entry in The Syriac Gazetteer, 
+                                                            please use the link below to inform us about the 
+                                                            information, your (primary or scholarly) source(s) 
+                                                            for the information, and your contact information so
+                                                            that we can credit you for the modification. For 
+                                                            categories of information which 
+                                                            The Syriac Gazetteer structure can support, please 
+                                                            see the section headings on the entry for Edessa and 
+                                                            specify in your submission which category or 
+                                                            categories this new information falls into. 
+                                                            At present this information should be entered into 
+                                                            the email form here, although there is an additional 
+                                                            delay in this process as the data needs to be 
+                                                            encoded in the appropriate structured data format 
+                                                            and assigned a URI. A structured form for submitting 
+                                                            new entries is under development.</p>
+                                                    </div>
                                                 </div>    
                                                 <!--<label>Name:</label>-->
                                                 <input type="text" name="name" placeholder="Name"/>
@@ -997,7 +1015,7 @@
                         <xsl:sequence select="local:do-refs(child::*[1]/@source,@xml:lang)"/>
                     </xsl:if>
                     <!-- toggle to full list, grouped by type -->
-                    <button class="togglelink btn-link" data-text-swap="(hide list)">(see list)</button> 
+                    <button class="togglelink btn-link" data-text-swap="(hide list)">(see list)</button>
                     <dl class="hide toggle">
                         <xsl:for-each-group select="mutual" group-by="@type">
                             <xsl:sort select="count(current-group()/child::*)" order="descending"/>
@@ -1103,14 +1121,14 @@
     <!-- Descriptions for place abstract  added template for abstracts, handles quotes and references.-->
     <xsl:template match="t:desc[starts-with(@xml:id, 'abstract-en')]" mode="abstract">
         <p>
-            <xsl:apply-templates mode="cleanout"/>
+            <xsl:apply-templates/>
         </p>
     </xsl:template>
     
     <!-- General descriptions within the body of the place element, uses lists -->
     <xsl:template match="t:desc[not(starts-with(@xml:id, 'abstract-en'))]">
         <li>
-            <xsl:call-template name="langattr"/>
+           <xsl:call-template name="langattr"/>
             <xsl:apply-templates/>
         </li>
     </xsl:template>
@@ -1225,11 +1243,12 @@
         <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
     </xsl:template>
     <!-- NOTE: When persons are populated add back to this template for now, t:persName template, no link -->
-    <xsl:template match="t:placeName | t:region | t:settlement">
+    <xsl:template match="t:placeName | t:region | t:settlement | t:persName">
         <xsl:choose>
             <xsl:when test="@ref">
                 <xsl:choose>
                     <xsl:when test="string-length(@ref) &lt; 1"/>
+                   <!-- Unnecessary 
                     <xsl:when test="starts-with(@ref, $uribase)">
                         <xsl:text> </xsl:text>
                         <a class="placeName" href="/place/{substring-after(@ref, $uribase)}.html">
@@ -1237,6 +1256,7 @@
                             <xsl:apply-templates mode="cleanout"/>
                         </a>
                     </xsl:when>
+                    -->
                     <xsl:otherwise>
                         <xsl:text> </xsl:text>
                         <a class="placeName" href="{@ref}">
@@ -1274,10 +1294,12 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <!--
     <xsl:template match="t:persName">
         <xsl:call-template name="langattr"/>
         <xsl:apply-templates mode="cleanout"/>
     </xsl:template>
+    -->
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of the licence element in the tei header
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
