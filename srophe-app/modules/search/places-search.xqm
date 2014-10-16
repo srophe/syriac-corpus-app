@@ -1,5 +1,8 @@
 xquery version "3.0";
-
+(:~
+ : Builds search information for places sub-collection
+ : Search string is passed to search.xqm for processing.  
+ :)
 module namespace places="http://syriaca.org//places";
 import module namespace common="http://syriaca.org//common" at "common.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
@@ -387,66 +390,71 @@ declare function places:results-node($hit){
  : Builds advanced search form
  :)
 declare function places:search-form() {   
-<form method="get" action="search.html" style="margin-top:2em;">
+<form method="get" action="search.html" style="margin-top:2em;" class="form-horizontal" role="form">
+<h1>Advanced Search</h1>
     <div class="well well-small">
-        <div class="navbar-inner" style="margin:-.75em -.75em 1em;">
-            <h3>Advanced Search</h3>
-        </div>
         <div class="well well-small" style="background-color:white;">
-            <div class="row-fluid">
-                <div class="span8" style="border-right:1px solid #ccc;">
-                    <div class="row-fluid" style="margin-top:1em;">
-                    <div class="span3">Keyword: </div>
-                    <div class="span9"><input type="text" name="q"/></div>
+            <div class="row">
+                <div class="col-md-7" style="border-right:1px solid #ccc;">
+                <!-- Keyword -->
+                 <div class="form-group">
+                    <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
+                    <div class="col-sm-10 col-md-9 ">
+                        <input type="text" id="q" name="q" class="form-control"/>
                     </div>
+                  </div>
                     <!-- Place Name-->
-                    <div class="row-fluid">
-                        <div class="span3">Place Name: </div>
-                        <div class="span9"><input type="text" name="p"/></div>
+                  <div class="form-group">
+                    <label for="p" class="col-sm-2 col-md-3  control-label">Place Name: </label>
+                    <div class="col-sm-10 col-md-9 ">
+                        <input type="text" id="p" name="p" class="form-control"/>
                     </div>
-                    <!-- Location -->    
-                    <div class="row-fluid">
-                        <div class="span3">Location: </div>
-                        <div class="span9"><input type="text" name="loc"/></div>
-                        <!-- Will need to be worked out so a range can be searched 
-                                        <label>Coords: </label>
-                                        <input type="text" name="lat"/> - <input type="text" name="long"/> 
-                                        --> 
+                  </div>
+                    <!-- Location --> 
+                    <div class="form-group">
+                        <label for="loc" class="col-sm-2 col-md-3  control-label">Location: </label>
+                        <div class="col-sm-10 col-md-9 ">
+                            <input type="text" id="loc" name="loc" class="form-control"/>
+                        </div>
                     </div>
                     <hr/>
-                    <div class="row-fluid">
-                         <div class="span3">Events: </div>
-                         <div class="span9"><input type="text" name="e"/></div>
-                     </div>
-                     <div class="row-fluid">
-                         <div class="span3">Dates: </div>
-                         <div class="span9 form-inline">
-                             <input type="text" name="eds" placeholder="Start Date" class="input-small"/>&#160;
-                             <input type="text" name="ede" placeholder="End Date" class="input-small"/>
-                             <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
-                         </div>
-                     </div>
+                    <div class="form-group">
+                        <label for="e" class="col-sm-2 col-md-3  control-label">Events: </label>
+                        <div class="col-sm-10 col-md-9 ">
+                            <input type="text" id="e" name="e" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="eds" class="col-sm-2 col-md-3  control-label">Dates: </label>
+                        <div class="col-sm-10 col-md-9 form-inline">
+                            <input type="text" id="eds" name="eds" placeholder="Start Date" class="form-control"/>&#160;
+                            <input type="text" id="ede" name="ede" placeholder="End Date" class="form-control"/>
+                            <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
+                        </div>
+                    </div>
                      <hr/>
                      <!-- Attestations -->
-                     <div class="row-fluid">
-                         <div class="span3">Attestations: </div>
-                         <div class="span9"><input type="text" name="a"/></div>
-                     </div>
-                     <div class="row-fluid">
-                         <div class="span3">Dates: </div>
-                         <div class="span9 form-inline">
-                             <input type="text" name="ads" placeholder="Start Date" class="input-small"/>&#160;
-                             <input type="text" name="ade" placeholder="End Date" class="input-small"/>
-                             <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
-                         </div>
-                     </div>
+                     <div class="form-group">
+                        <label for="a" class="col-sm-2 col-md-3  control-label">Attestations: </label>
+                        <div class="col-sm-10 col-md-9 ">
+                            <input type="text" id="a" name="a" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ads" class="col-sm-2 col-md-3  control-label">Dates: </label>
+                        <div class="col-sm-10 col-md-9 form-inline">
+                            <input type="text" id="ads" name="ads" placeholder="Start Date" class="form-control"/>&#160;
+                            <input type="text" id="ade" name="ade" placeholder="End Date" class="form-control"/>
+                            <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
+                        </div>
+                    </div>
                      <hr/>
                      <!-- Confessions -->
-                     <div class="row-fluid">
-                         <div class="span3">Religious Communities: </div>
-                         <div class="span9">
-                         <select name="c">
-                            <option value="">-- Select --</option>
+                      <div class="form-group">
+                        <label for="c" class="col-sm-2 col-md-3 control-label">Religious Communities: </label>
+                        <div class="col-sm-10 col-md-9">
+                            <select type="text" id="c" name="c" class="form-control">
+                                <option value="">-- Select --</option>
                                 {for $confession in doc('/db/apps/srophe/documentation/confessions.xml')//tei:item
                                  return 
                                  <option value="{$confession/child::tei:label}">
@@ -456,39 +464,33 @@ declare function places:search-form() {
                                  }
                                  </option>
                                 }
-                                
-                        </select>
-                         </div>
-                     </div>
-                     <div class="row-fluid">
-                         <div class="span3">Dates: </div>
-                         <div class="span9 form-inline">    
-                             <input type="text" name="cds" placeholder="Start Date" class="input-small"/>&#160;
-                             <input type="text" name="cde" placeholder="End Date" class="input-small"/>
-                             <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
-                         </div>
-                     </div>
+                            </select>
+                        </div>
+                      </div>
+                    <div class="form-group">
+                        <label for="cds" class="col-sm-2 col-md-3 control-label">Dates: </label>
+                        <div class="col-sm-10 col-md-9 form-inline">
+                            <input type="text" id="cds" name="cds" placeholder="Start Date" class="form-control"/>&#160;
+                            <input type="text" id="cde" name="cde" placeholder="End Date" class="form-control"/>
+                            <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
+                        </div>
+                    </div>
                      <hr/>
                      <!-- Existence -->
-                     <div class="row-fluid">
-                        <div class="span3">Existence </div>
-                     </div>
-                     <div class="row-fluid">
-                         <div class="span3">Dates: </div>
-                         <div class="span9 form-inline">
-                             <input type="text" name="existds" placeholder="Start Date" class="input-small"/>&#160;
-                             <input type="text" name="existde" placeholder="End Date" class="input-small"/>
-                             <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
-                         </div>
-                     </div>
-                     
+                    <div class="form-group">
+                        <label for="existds" class="col-sm-2 col-md-3 control-label">Existence Dates: </label>
+                        <div class="col-sm-10 col-md-9 form-inline">
+                            <input type="text" id="existds" name="existds" placeholder="Start Date" class="form-control"/>&#160;
+                            <input type="text" id="existde" name="existde" placeholder="End Date" class="form-control"/>
+                            <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="span4">
+                <div class="col-md-5">
                       <!-- Place Type -->
                     <div style="margin-top:1em; padding-left:.5em;">
-                        <label>Place Type:</label>
-                            <!-- Values from controlled vocab in https://docs.google.com/spreadsheet/ccc?key=0AnhFTnX2Mw6YdGFieExCX0xIQ3Q0WnBOQmlnclo0WlE&usp=sharing#gid=1-->
-                            <select name="type" class="input-medium">
+                        <label class="control-label">Place Type: </label>
+                            <select name="type" id="type" class="input-medium form-control">
                                 <option value="">- Select -</option>
                                 <option value="building">building</option>
                                 <option value="church">church</option>
@@ -511,10 +513,10 @@ declare function places:search-form() {
                                 <option value="temple">temple</option>
                                 <option value="unknown">unknown</option>
                             </select>
-                    <hr/>
+                        <hr/>
                     <!-- Language -->
-                        <label>Language: </label>
-                        <div class="offset1">
+                       <label class="control-label">Language: </label>
+                        <div class="col-md-offset-1">
                             <input type="checkbox" name="en" value="en"/> English<br/>
                             <input type="checkbox" name="ar" value="ar"/> Arabic<br/>
                             <input type="checkbox" name="syr" value="syr"/> Syriac<br/>

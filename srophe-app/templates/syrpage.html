@@ -4,28 +4,25 @@
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title data-template="config:app-title2">The Syriac Gazetteer</title>
+        <title>Syriaca.org: The Syriac Reference Portal</title>
         <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"/>
         <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/"/>
-        <meta name="DC.subject" property="dc.subject" content="Geography, Ancient"/>
+        <!--<meta name="DC.subject" property="dc.subject" content="Geography, Ancient"/>-->
         <meta name="DC.type" property="dc.type" content="Text"/>
-        <meta name="DC.isPartOf" property="dc.ispartof" content="The Syriac Gazetteer"/>
-        <link rel="shortcut icon" href="/exist/apps/srophe/resources/img/gazetteer.ico"/>
+        <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org"/>
+        <link rel="shortcut icon" href="/exist/apps/srophe/resources/img/syriaca.ico"/>
         <link rel="stylesheet" type="text/css" href="/exist/apps/srophe/resources/css/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="/exist/apps/srophe/resources/css/main.css"/>
-        <link rel="stylesheet" type="text/css" href="/exist/apps/srophe/resources/css/geo.css"/>
+        <link rel="stylesheet" type="text/css" href="/exist/apps/srophe/resources/css/syriaca.css"/>
         <link rel="stylesheet" type="text/css" media="print" href="/exist/apps/srophe/resources/css/print.css"/>
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
-        <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2"/>
-        <script src="http://isawnyu.github.com/awld-js/lib/requirejs/require.min.js" type="text/javascript"/>
-        <script src="http://isawnyu.github.com/awld-js/awld.js?autoinit" type="text/javascript"/>
+        <!-- temporary until migrate to bootstrap 3.0 -->
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>
     </head>
     <body>
         <!--[if lt IE 7]>
                 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
             <![endif]-->
-        <!-- Fixed navbar  -->
+        <!-- Fixed navbar -->
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
@@ -35,32 +32,30 @@
                         <span class="icon-bar"/>
                         <span class="icon-bar"/>
                     </button>
-                    <a class="navbar-brand" href="/geo/index.html">
-                        <img src="/resources/img/icon-orange-text.png" alt="The Syriac Gazetteer"/>
+                    <a class="navbar-brand" href="index.html">
+                        <img alt="Syriac.org" src="/exist/apps/srophe/resources/img/syriaca-logo.png"/>
                     </a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="/geo/browse.html">index</a>
+                            <a href="/geo/index.html">gazetteer</a>
                         </li>
                         <li>
-                            <a href="/geo/about.html">about</a>
+                            <a href="/person/index.html">persons</a>
                         </li>
                         <li>
-                            <a href="/geo/help/index.html">help</a>
-                        </li>
-                        <li>
-                            <a href="/geo/howtoadd.html">add new place</a>
+                            <a href="/documentation/index.html">documentation</a>
                         </li>
                     </ul>
+                    <!-- Enable cross module searching
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a class="pull-right" href="/geo/search.html">advanced search</a>
+                            <a class="pull-right" href="search.html">advanced search</a>
                         </li>
                     </ul>
                     <div class="col-xs-5 col-sm-3 pull-right">
-                        <form class="navbar-form navbar-right" role="search" action="/geo/search.html" method="get">
+                        <form class="navbar-form navbar-right" role="search" action="search.html" method="get">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search" name="q" id="q"/>
                                 <div class="input-group-btn">
@@ -71,6 +66,7 @@
                             </div>
                         </form>
                     </div>
+                    -->
                 </div><!--/.nav-collapse -->
             </div>
         </div>
@@ -85,11 +81,12 @@
                 </a> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a>.
                 <br/>Copyright Vanderbilt University, Princeton University, and the Contributor(s), 2014.
             </div>
-        </footer>
-        
+        </footer>        
         <!-- Additional Javascript -->
         <script type="text/javascript" src="/exist/apps/srophe/resources/js/bootstrap.min.js"/>
         <script type="text/javascript" src="/exist/apps/srophe/resources/js/jquery.validate.min.js"/>
+        <script type="text/javascript" src="/exist/apps/srophe/resources/js/main.js"/>
+        <!-- Add google analytics code for production: UA-333143-26-->
         <script>
             var _gaq=[['_setAccount','UA-XXXX-XX'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];

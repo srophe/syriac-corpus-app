@@ -1,7 +1,7 @@
 xquery version "3.0";
 
 (:~
- : Provides html metadata. Passes data to page.html via config.xqm
+ : Provides html metadata. Passes data to page.html via config.xqm 
  :)
 module namespace metadata="http://syriaca.org//metadata";
 

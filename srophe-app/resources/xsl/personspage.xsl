@@ -50,7 +50,7 @@
  <!-- =================================================================== -->
  <!-- import component stylesheets for HTML page portions -->
  <!-- =================================================================== -->
-   <!-- NOTE: WS: should rename place-title-std to title-std used by place and persons-->
+   <!-- NOTE: WS: should rename place-title-std to title-std used by place and persons -->
     <xsl:import href="place-title-std.xsl"/>
     <xsl:import href="helper-functions.xsl"/>
     <xsl:import href="link-icons.xsl"/>
@@ -89,76 +89,68 @@
  <!-- |||| Root template matches tei root -->
  <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
     <xsl:template match="/">
-        <div class="row-fluid">
-            <div class="span12">
-    <!-- Start Title and link icons -->
-                <div class="row-fluid title">
-                    <h1 class="span8">
-                        <!-- Format title, calls template in place-title-std.xsl -->
-                        <xsl:call-template name="rec-title-std">
-                            <xsl:with-param name="rec" select="//t:person"/>
-                        </xsl:call-template>
-                        <!-- Add person type and dates to page heading -->
-                        <xsl:if test="//t:person/@ana or //t:death or t:birth">
-                            (<xsl:choose>
-                                <xsl:when test="contains(//t:person/@ana,'author') and contains(//t:person/@ana,'saint')">author, saint</xsl:when>
-                                <xsl:when test="contains(//t:person/@ana,'author')">author</xsl:when>
-                                <xsl:when test="contains(//t:person/@ana,'saint')">saint</xsl:when>
+        <div class="row title">
+            <h1 class="col-md-8">        
+                <!-- Format title, calls template in place-title-std.xsl -->
+                <xsl:call-template name="rec-title-std">
+                    <xsl:with-param name="rec" select="//t:person"/>
+                </xsl:call-template>
+                <!-- Add person type and dates to page heading -->
+                <xsl:if test="//t:person/@ana or //t:death or t:birth">
+                (<xsl:choose>
+                        <xsl:when test="contains(//t:person/@ana,'author') and contains(//t:person/@ana,'saint')">author, saint</xsl:when>
+                        <xsl:when test="contains(//t:person/@ana,'author')">author</xsl:when>
+                        <xsl:when test="contains(//t:person/@ana,'saint')">saint</xsl:when>
+                    </xsl:choose>
+                    <xsl:if test="//t:person/@ana and //t:death or //t:birth">, 
+                        <xsl:if test="not(//t:death)">b. </xsl:if>
+                        <xsl:value-of select="//t:birth/text()"/>
+                        <xsl:if test="//t:death">
+                            <xsl:choose>
+                                <xsl:when test="//t:birth"> - </xsl:when>
+                                <xsl:otherwise>d. </xsl:otherwise>
                             </xsl:choose>
-                            <xsl:if test="//t:person/@ana and //t:death or //t:birth">, 
-                                    <xsl:if test="not(//t:death)">b. </xsl:if>
-                                <xsl:value-of select="//t:birth/text()"/>
-                                <xsl:if test="//t:death">
-                                    <xsl:choose>
-                                        <xsl:when test="//t:birth"> - </xsl:when>
-                                        <xsl:otherwise>d. </xsl:otherwise>
-                                    </xsl:choose>
-                                    <xsl:value-of select="//t:death/text()"/>
-                                </xsl:if>
-                            </xsl:if>)
+                            <xsl:value-of select="//t:death/text()"/>
                         </xsl:if>
-                        <span class="get-syriac noprint">
-                            <xsl:if test="//t:person/child::*[@xml:lang ='syr']">
-                                <a href="../documentation/view-syriac.html">
-                                    <img src="/exist/apps/srophe/resources/img/faq.png" alt="FAQ icon"/>&#160;Don't see Syriac?</a>
-                            </xsl:if>
-                        </span>
-                    </h1>
-                    <xsl:call-template name="link-icons"/>  
-     <!-- End Title -->
-                </div>
-                <!-- Main persons page content -->
-                <xsl:apply-templates select="//t:person"/>
-            </div>
+                    </xsl:if>)
+                </xsl:if>
+                <span class="get-syriac noprint">
+                    <xsl:if test="//t:person/child::*[@xml:lang ='syr']">
+                        <a href="../documentation/view-syriac.html">
+                            <img src="/exist/apps/srophe/resources/img/faq.png" alt="FAQ icon"/>&#160;Don't see Syriac?</a>
+                    </xsl:if>
+                </span>
+            </h1>
+            <xsl:call-template name="link-icons"/>  
+        <!-- End Title -->
         </div>
+        <!-- Main persons page content -->
+        <xsl:apply-templates select="//t:person"/>
   <!-- End main content section -->
   <!-- Citations section -->
-        <div class="row-fluid">
-            <xsl:variable name="htmluri" select="concat('?id=',$resource-id)"/>
-            <div class="span12 citationinfo">
-                <h3>How to Cite This Entry</h3>
-                <div id="citation-note" class="well">
-                    <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
-                    <br/>
-                    <button class="togglelink pull-right btn-link" data-text-swap="Hide citation">Show full citation information...</button>
-                    <div id="citation" class="hide toggle">
-                        <div id="citation-bibliography">
-                            <h4>Bibliography:</h4>
-                            <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
-                        </div>
-                        <div id="about">
-                            <h3>About this Entry</h3>
-                            <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
-                        </div>
-                        <div id="license">
-                            <h3>Copyright and License for Reuse</h3>
-                            <p>
-                                <xsl:text>Except otherwise noted, this page is © </xsl:text>
-                                <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>.</p>
-                            <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
-                        </div>
+        <xsl:variable name="htmluri" select="concat('?id=',$resource-id)"/>
+        <div class="citationinfo">
+            <h3>How to Cite This Entry</h3>
+            <div id="citation-note" class="well">
+                <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
+                <div class="collapse" id="showcit">
+                    <div id="citation-bibliography">
+                        <h4>Bibliography:</h4>
+                        <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
+                    </div>
+                    <div id="about">
+                        <h3>About this Entry</h3>
+                        <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
+                    </div>
+                    <div id="license">
+                        <h3>Copyright and License for Reuse</h3>
+                        <p>
+                            <xsl:text>Except otherwise noted, this page is © </xsl:text>
+                            <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>.</p>
+                        <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
                     </div>
                 </div>
+                <a class="togglelink pull-right btn-link" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide citation">Show full citation information...</a>
             </div>
         </div>
     </xsl:template>
@@ -168,136 +160,129 @@
 <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
     <xsl:template match="t:person">
         <!-- Start person content -->
-        <div class="row-fluid">
-            <!-- Main content -->
-            <!-- Change to span10 when RDF is added back in -->
-            <div class="span12">
-                <div class="row-fluid">
-                    <div class="span12 main">
-                        <!-- Person URI and Abstract -->
-                        <div class="row-fluid">
-                            <div class="span12">
-                                <!-- emit person URI and associated help links -->
-                                <xsl:for-each select="t:idno[contains(.,'syriaca.org')]">
-                                    <div style="margin:0 1em 1em; color: #999999;">
-                                        <small>
-                                            <a href="../documentation/terms.html#person-uri" title="Click to read more about Person URIs" class="no-print-link">
-                                                <div class="helper circle noprint">
-                                                    <p>i</p>
-                                                </div>
-                                            </a>
-                                            <p>
-                                                <span class="srp-label">Person URI</span>
-                                                <xsl:text>: </xsl:text>
-                                                <xsl:value-of select="."/>
-                                            </p>
-                                        </small>
-                                    </div>
-                                </xsl:for-each>
-                                <!--
-                                    Moved to Identity section
-                                    <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']" mode="abstract"/>
-                                -->
-                            </div>
+        <!-- Main content -->
+        <!-- emit person URI and associated help links -->
+        <xsl:for-each select="t:idno[contains(.,'syriaca.org')]">
+            <div style="margin:0 1em 1em; color: #999999;">
+                <small>
+                    <a href="../documentation/terms.html#person-uri" title="Click to read more about Person URIs" class="no-print-link">
+                        <div class="helper circle noprint">
+                            <p>i</p>
                         </div>
-                        <!-- End abstract row -->
-                        <!-- Start of two column content -->
-                        <div class="row-fluid">
-                            <!-- Column 1 -->
-                            <div class="span8 column1">
-                                <xsl:call-template name="col1"/>
-                                <div style="margin-bottom:1em;">  
-                                <!-- Button to trigger modal -->
-                                    <a href="#report-errors" role="button" class="btn" data-toggle="modal">Corrections/Additions?</a>
-                                   <!-- <a href="/geo/howtoadd.html" class="btn">Corrections/Additions?</a>-->
-                                    <xsl:text> </xsl:text>
-                                    <a href="#selection" role="button" class="btn" data-toggle="modal">Is this record complete?</a>
-                                    <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                            <h2 id="report-errors-label">Corrections/Additions?</h2>
-                                        </div>
-                                        <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
-                                            <div class="modal-body" id="modal-body">
-                                                <div>
-                                                    <button class="togglelink btn-link" data-text-swap="Hide Information">More Information</button>
-                                                    <div class="hide toggle">
-                                                        <h4>Notify the editors of a mistake</h4>
-                                                        <p>Using the following link, please inform us which page 
-                                                            URI the mistake is on, where on the page the mistake occurs,
-                                                            the content of the correction, 
-                                                            and a citation for the correct information 
-                                                            (except in the case of obvious corrections, 
-                                                            such as misspelled words). 
-                                                            Please also include your email address, 
-                                                            so that we can follow up with you regarding 
-                                                            anything which is unclear. We will publish your name,
-                                                            but not your contact information as the author of the 
-                                                            correction. The form to notify us of an error is here.
-                                                        </p>
-                                                        <h4>Add data to an existing entry</h4>
-                                                        <p>The Syriac Gazetteer is an ever expanding resource created by and for users. The editors actively welcome additions to the gazetteer. If there is information which you would like to add to an existing place entry in The Syriac Gazetteer, please use the link below to inform us about the information, your (primary or scholarly) source(s) for the information, and your contact information so that we can credit you for the modification. For categories of information which The Syriac Gazetteer structure can support, please see the section headings on the entry for Edessa and specify in your submission which category or categories this new information falls into. At present this information should be entered into the email form here, although there is an additional delay in this process as the data needs to be encoded in the appropriate structured data format and assigned a URI. A structured form for submitting new entries is under development.</p>
-                                                    </div>
-                                                </div>
-                                                <input type="text" name="name" placeholder="Name"/>
-                                                <br/>
-                                                <input type="text" name="email" placeholder="email"/>
-                                                <br/>
-                                                <input type="text" name="subject" placeholder="subject"/>
-                                                <br/>
-                                                <textarea name="comments" id="comments" rows="5" class="span9" placeholder="Comments"/>
-                                                <input type="hidden" name="id" value="{$resource-id}"/>
-                                                <input type="hidden" name="place" value="{string(t:persName[1])}"/>
-                                                <!-- start reCaptcha API-->
-                                                <script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia"/>
-                                                <noscript>
-                                                    <iframe src="http://api.recaptcha.net/noscript?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia" height="100" width="100" frameborder="0"/>
-                                                    <br/>
-                                                    <textarea name="recaptcha_challenge_field" rows="3" cols="40"/>
-                                                    <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
-                                                </noscript>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                                                <input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    
-                                    <!-- Modal for FAQ  NOT working, woul have to change faq structure-->
-                                    <div style="width: 750px; margin-left: -280px;" id="selection" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="faq-label" aria-hidden="true">
-                                        <div class="modal-header" style="height:15px !important;">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> × </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <a class="btn" href="../documentation/faq.html" aria-hidden="true">See all FAQs</a>
-                                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                                        </div>
-                                    </div>
-                                    <script>
-                                        $('#selection').on('shown', function () {
-                                            $( "#popup" ).load( "../documentation/faq.html #selection" );
-                                        })
-                                    </script>
+                    </a>
+                    <p>
+                        <span class="srp-label">Person URI</span>
+                        <xsl:text>: </xsl:text>
+                        <xsl:value-of select="."/>
+                    </p>
+                </small>
+            </div>
+        </xsl:for-each>
+        
+        <!-- Start of two column content -->
+        <div class="row">
+            <!-- Column 1 -->
+            <div class="col-md-8 column1">
+                <xsl:call-template name="col1"/>
+                <div style="margin-bottom:1em;">  
+                    <!-- Button trigger corrections email modal -->
+                    <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
+                    <button class="btn btn-default" data-toggle="modal" data-target="#selection" id="showSection">Is this record complete?</button>
+                    <!-- Modal email form-->
+                    <div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-labelledby="feedbackLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true">x</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                    <h2 class="modal-title" id="feedbackLabel">Corrections/Additions?</h2>
                                 </div>
-                                <xsl:if test="not(exists(t:desc)) or string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &lt; 1">
-                                    <xsl:call-template name="sources"/>
-                                </xsl:if>
-                            </div>
-                            <!-- Column 2 -->
-                            <div class="span4 column2">
-                                <xsl:call-template name="col2"/>
+                                <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email" role="form">
+                                    <div class="modal-body" id="modal-body">
+                                        <!-- More information about submitting data from howtoadd.html -->
+                                        <p>
+                                            <strong>Notify the editors of a mistake:</strong>
+                                            <a class="btn btn-link togglelink" data-toggle="collapse" data-target="#viewdetails" data-text-swap="hide information">more information...</a>
+                                        </p>
+                                        <div class="section">
+                                            <div class="collapse" id="viewdetails">
+                                                <p>Using the following form, please inform us which page URI the mistake is on, where on the page the mistake occurs,
+                                                    the content of the correction, and a citation for the correct information (except in the case of obvious corrections, such as misspelled words). 
+                                                    Please also include your email address, so that we can follow up with you regarding 
+                                                    anything which is unclear. We will publish your name, but not your contact information as the author of the  correction.</p>
+                                                <h4>Add data to an existing entry</h4>
+                                                <p>The Syriac Gazetteer is an ever expanding resource  created by and for users. The editors actively welcome additions to the gazetteer. If there is information which you would like to add to an existing place entry in The Syriac Gazetteer, please use the link below to inform us about the information, your (primary or scholarly) source(s) 
+                                                    for the information, and your contact information so that we can credit you for the modification. For categories of information which  The Syriac Gazetteer structure can support, please see the section headings on the entry for Edessa and  specify in your submission which category or 
+                                                    categories this new information falls into.  At present this information should be entered into  the email form here, although there is an additional  delay in this process as the data needs to be encoded in the appropriate structured data format  and assigned a URI. A structured form for submitting  new entries is under development.</p>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="name" placeholder="Name" class="form-control" style="max-width:300px"/>
+                                        <br/>
+                                        <input type="text" name="email" placeholder="email" class="form-control" style="max-width:300px"/>
+                                        <br/>
+                                        <input type="text" name="subject" placeholder="subject" class="form-control" style="max-width:300px"/>
+                                        <br/>
+                                        <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
+                                        <input type="hidden" name="id" value="{$resource-id}"/>
+                                        <input type="hidden" name="place" value="{string(t:placeName[1])}"/>
+                                        <!-- start reCaptcha API-->
+                                        <script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia"/>
+                                        <noscript>
+                                            <iframe src="http://api.recaptcha.net/noscript?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia" height="100" width="100" frameborder="0"/>
+                                            <br/>
+                                            <textarea name="recaptcha_challenge_field" rows="3" cols="40"/>
+                                            <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+                                        </noscript>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
-                            <xsl:call-template name="sources"/>
-                        </xsl:if>
                     </div>
+                    
+                    <!-- Modal faq popup -->
+                    <div class="modal fade" id="selection" tabindex="-1" role="dialog" aria-labelledby="selectionLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true"> x </span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                    <h2 class="modal-title" id="selectionLabel">Is this record complete?</h2>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="btn" href="../documentation/faq.html" aria-hidden="true">See all FAQs</a>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        $('#showSection').click(function(){
+                            $('#popup').load( '../documentation/faq.html #selection',function(result){
+                            $('#selection').modal({show:true});
+                            });
+                        });
+                    </script>
                 </div>
             </div>
+            <!-- Column 2 -->
+            <div class="col-md-4 column2">
+                <xsl:call-template name="col2"/>
+            </div>
+        </div>
+        <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
+            <xsl:call-template name="sources"/>
+        </xsl:if>
             <!-- RDF Results -->
             <!--<div class="span2">
                 <h3>RDF Results</h3>
@@ -305,7 +290,6 @@
                     Results
                 </div>
             </div>-->
-        </div>
     </xsl:template>
     <!-- Person content is split into two columns -->
     <xsl:template name="col1">
@@ -316,31 +300,34 @@
                 <!--<xsl:apply-templates select="t:note[@type='abstract']"/>-->
             </xsl:if>
             <!-- NOTE: Need to add Identy description if it exists, When Nathan gets element back to me.  -->
-            <p>Names: 
+            <div class="clearfix">
+                <p>Names: 
                 <xsl:apply-templates select="t:persName[@syriaca-tags='#syriaca-headword' and starts-with(@xml:lang,'syr')]" mode="list">
-                    <xsl:sort lang="syr" select="."/>
-                </xsl:apply-templates>
-                <xsl:apply-templates select="t:persName[@syriaca-tags='#syriaca-headword' and starts-with(@xml:lang,'en')]" mode="list">
-                    <xsl:sort collation="{$mixed}" select="."/>
-                </xsl:apply-templates>
-                <xsl:apply-templates select="t:persName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and starts-with(@xml:lang, 'syr')]" mode="list">
-                    <xsl:sort lang="syr" select="."/>
-                </xsl:apply-templates>
-                <xsl:apply-templates select="t:persName[starts-with(@xml:lang, 'ar')]" mode="list">
-                    <xsl:sort lang="ar" select="."/>
-                </xsl:apply-templates>
-                <xsl:apply-templates select="t:persName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar'))]" mode="list">
-                    <xsl:sort collation="{$mixed}" select="."/>
-                </xsl:apply-templates>
-            </p>
+                        <xsl:sort lang="syr" select="."/>
+                    </xsl:apply-templates>
+                    <xsl:apply-templates select="t:persName[@syriaca-tags='#syriaca-headword' and starts-with(@xml:lang,'en')]" mode="list">
+                        <xsl:sort collation="{$mixed}" select="."/>
+                    </xsl:apply-templates>
+                    <xsl:apply-templates select="t:persName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and starts-with(@xml:lang, 'syr')]" mode="list">
+                        <xsl:sort lang="syr" select="."/>
+                    </xsl:apply-templates>
+                    <xsl:apply-templates select="t:persName[starts-with(@xml:lang, 'ar')]" mode="list">
+                        <xsl:sort lang="ar" select="."/>
+                    </xsl:apply-templates>
+                    <xsl:apply-templates select="t:persName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar'))]" mode="list">
+                        <xsl:sort collation="{$mixed}" select="."/>
+                    </xsl:apply-templates>
+                </p>
+            </div>
+            <br class="clearfix"/>
         </div>
       
         <!-- Timeline -->
         <xsl:choose>
             <xsl:when test="//t:death | //t:birth | //t:floruit | //t:state | //t:event">
                 <xsl:if test="//t:death | //t:birth | //t:floruit | //t:state | //t:event">
-                    <div class="row-fluid">
-                        <div class="span9">
+                    <div class="row">
+                        <div class="col-md-9">
                             <div class="timeline">
                                 <script type="text/javascript" src="http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js"/>
                                 <script type="text/javascript">
@@ -361,9 +348,9 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="span3">
+                        <div class="col-md-3">
                             <h4>Dates</h4>
-                            <ul class="unstyled">
+                            <ul class="list-unstyled">
                                 <xsl:for-each select="t:birth | t:death | t:floruit | //t:state[not(@type='attestation')][@when or @notBefore or @notAfter or @to or @from]">
                                     <li>
                                         <xsl:apply-templates select="."/>
@@ -400,7 +387,7 @@
                             <script src="http://isawnyu.github.com/awld-js/awld.js?autoinit" type="text/javascript"/>
                             <script type="text/javascript" src="/exist/apps/srophe/resources/leaflet/leaflet.awesome-markers.js"/>
                             <div id="map" style="height: 250px;"/>
-                            <div class="caveat">Places for which we don’t have coordinates are in the list below but not on the map above.</div>
+                            <div class="hint">Places for which we don’t have coordinates are in the list below but not on the map above.</div>
                             <script type="text/javascript">
                                 var terrain = L.tileLayer(
                                 'http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', 
@@ -418,7 +405,7 @@
                                 
                                 <xsl:text>var placesgeo =</xsl:text>
                                 <xsl:value-of select="//*:div[@id='geojson']"/>
-                                <![CDATA[
+                                
                                 var sropheIcon = L.Icon.extend({
                                       options: {
                                           iconSize:     [38, 38],
@@ -428,24 +415,28 @@
                                   });
                                   var redIcon =
                                          L.AwesomeMarkers.icon({
+                                            icon:'fa-circle',
                                              markerColor: 'red'
                                            }),
                                         orangeIcon =  
                                             L.AwesomeMarkers.icon({
+                                            icon:'fa-circle',
                                              markerColor: 'orange'
                                            }),
                                         purpleIcon = 
                                          L.AwesomeMarkers.icon({
+                                         icon:'fa-circle',
                                              markerColor: 'purple'
                                            }),
                                         blueIcon =  L.AwesomeMarkers.icon({
+                                        icon:'fa-circle',
                                              markerColor: 'blue'
                                            });
                                         
                                 var geojson = L.geoJson(placesgeo, {
                                         onEachFeature: function (feature, layer){
-                                            var popupContent = "<a href='" + feature.properties.uri + "'>" +
-                                            feature.properties.name + " - " + feature.properties.type + "</a>";
+                                            var popupContent = "&lt;a href='" + feature.properties.uri + "'&gt;" +
+                                            feature.properties.name + " - " + feature.properties.type + "&lt;/a&gt;";
                                             layer.bindPopup(popupContent);
                                             switch (feature.properties.relation) {
                                                 case 'born-at': return layer.setIcon(orangeIcon);
@@ -466,7 +457,7 @@
                                         "Imperium": imperium }).addTo(map);
                                         
                                 geojson.addTo(map);      
-                                ]]></script>
+                                </script>
                         </div> 
                         <!-- <xsl:copy-of select="//*:div[@id='map-data']"/>-->
                     </xsl:if>
@@ -507,37 +498,6 @@
                             </dd>
                         </xsl:for-each-group>
                     </dl>
-                    <!-- List view option check with Nathan to see what he would like
-                    <ul>
-                        <xsl:for-each-group select="//../*:related-items/*:relation[contains(@uri,'place')]" group-by="@name">
-                            <li>
-                                <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
-                                <xsl:choose>
-                                    <xsl:when test="count(current-group()) > 1">
-                                        <xsl:value-of select="substring-before(*:desc,'places')"/>  
-                                        <xsl:value-of select="count(current-group())"/> places <a href="#toggle-{current-grouping-key()}" class="toggle">(see list)</a>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:value-of select="substring(*:desc,1,$desc-ln - 1)"/>:
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                                <xsl:choose>
-                                    <xsl:when test="count(current-group()) > 1">
-                                        <ul id="toggle-{current-grouping-key()}" style="display:none;">
-                                            <xsl:for-each select="current-group()">
-                                                <li><xsl:apply-templates select="." mode="relation"/></li>
-                                            </xsl:for-each>
-                                            <span class="glyphicon glyphicon-chevron-up"></span><a href="#toggle-{current-grouping-key()}" class="toggle">(hide list)</a>
-                                        </ul>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:apply-templates select="." mode="relation"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>                                    
-                            </li>
-                        </xsl:for-each-group>
-                    </ul>
-                    -->
                 </div>
             </xsl:if>
             <xsl:if test="../*:related-items/*:relation[contains(@uri,'person')]">
@@ -585,31 +545,7 @@
                 </li>
             </ul>
         </xsl:for-each>
-        <xsl:if test="t:location[@type='gps'and t:geo]">
-            <div class="well">
-                <div class="row-fluid">
-                    <!-- The map widget -->
-                    <div class="span7">
-                        <!-- If map data exists generate location link for use by map.js -->
-                        <xsl:if test="t:location/t:geo[1]">
-                            <xsl:apply-templates select="t:location[t:geo][1]/t:geo[1]" mode="json-uri"/>
-                        </xsl:if>
-                        <div id="map" class="map-small"/>
-                    </div>
-                    <div class="span5" style="padding-left:1em;padding-top:.5em;">
-                        <xsl:if test="t:location">
-                            <div id="location">
-                                <h4>Location</h4>
-                                <ul style="margin-left:1.25em;margin-top:-.5em;padding:0;">
-                                    <xsl:apply-templates select="t:location"/>
-                                </ul>
-                            </div>
-                        </xsl:if>
-                    </div>
-                </div>
-            </div>
-        </xsl:if>
-        <div style="padding:.5em;">
+        <div>
             <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
                 <div id="description">
                     <h3>Brief Descriptions</h3>
@@ -667,7 +603,7 @@
         <xsl:if test="//*:div[@id = 'worldcat-refs']">
             <div id="worldcat-refs" class="well">
                 <h3>Catalog Search Results from WorldCat</h3>
-                <p class="caveat">Based on VIAF ID. May contain inaccuracies. Not curated by Syriaca.org.</p>
+                <p class="hint">Based on VIAF ID. May contain inaccuracies. Not curated by Syriaca.org.</p>
                 <xsl:for-each select="//*:div[@id = 'worldcat-refs']/*:ul">
                     <xsl:variable name="viaf-ref" select="@id"/>
                     <ul>

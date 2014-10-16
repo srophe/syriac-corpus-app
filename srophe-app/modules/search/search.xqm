@@ -20,28 +20,21 @@ declare variable $search:perpage {request:get-parameter('perpage', 1) cast as xs
 
 (:~
  : Builds search string and evaluates string.
- : Search stored in map for use by other functions
+ : Search stored in map for use by other functions 
  : @param $collection passed from search page templates to build correct sub-collection search string
 :)
 declare %templates:wrap function search:get-results($node as node(), $model as map(*), $collection as xs:string?){
     let $eval-string := 
                         if($collection = 'persons') then persons:query-string()
                         else if($collection = '') then places:query-string()
-                        else places:query-string()                        
+                        else places:query-string()
     return                         
     map {"hits" := 
-               (: let $hits := util:eval($eval-string)    
-                for $hit in $hits
-                group by $hit-parent := $hit/ancestor::tei:text
-                order by ft:score($hit-parent) descending
-                return $hit-parent:)
                 let $hits := util:eval($eval-string)    
                 for $hit in $hits
                 order by ft:score($hit) descending
                 return $hit
-                
-                
-    }
+         }
 };
 
 (:~
@@ -81,19 +74,18 @@ let $parameters :=  request:get-parameter-names()
 let $search-string: = 
         for $parameter in $parameters
         return request:get-parameter($parameter, '')
-let $screen-friendly-string := replace(replace(string-join(search:search-string($collection),' '),'&amp;amp;','&amp;'), '&amp;apos;', '&apos;')
+        (:if($parameter = 'search' or starts-with($parameter,'start')) then ''
+               else search:clean-string(request:get-parameter($parameter, '')):)
 let $pagination-links := 
-        <div class="row-fluid" xmlns="http://www.w3.org/1999/xhtml">
-            <div class="span5">
+        <div class="row" xmlns="http://www.w3.org/1999/xhtml">
+            <div class="col-sm-5">
             <h4>Search results:</h4>
-                <p class="offset1">{$total-result-count} matches for {$screen-friendly-string}
+                <p class="col-md-offset-1">{$total-result-count} matches for {search:search-string($collection)}.</p>
                 <!-- for debugging xpath <br/>{persons:query-string()}-->
-                </p>
             </div>
             {if(search:hit-count($node, $model) gt $perpage) then 
-              <div class="span7" style="text-align:right">
-                  <div class="pagination" >
-                      <ul style="margin-bottom:-2em; padding-bottom:0;">
+              <div class="col-md-7">
+                       <ul class="pagination  pull-right">
                           {
                           (: Show 'Previous' for all but the 1st page of results :)
                               if ($current-page = 1) then ()
@@ -132,17 +124,14 @@ let $pagination-links :=
                                   <li><a href="{concat('?', $url-params, '&amp;start=', $start + $perpage)}">Next</a></li>
                           }
                       </ul>
-                  </div>
               </div>
              else '' 
              }
         </div>    
 
 return 
-   ($pagination-links,
-   if(search:hit-count($node,$model) gt 0) then ''
-   else <div>{search:show-form($node,$model, $collection)}</div>
-   )
+   if(exists(request:get-parameter-names())) then $pagination-links
+   else ()
 };
 
 declare function search:build-geojson($node as node()*, $model as map(*)){
@@ -150,27 +139,39 @@ let $geo-hits := $model("hits")//tei:geo
 return
     if(count($geo-hits) gt 1) then
          (<div id="map" style="height: 250px;"/>,
-         <div>*{count($geo-hits)} of {search:hit-count($node,$model)} places have coordinates and are shown on this map. 
-         <a href="#map-selection" role="button"  data-toggle="modal">Read more...</a></div>,
-         <div style="width: 750px; margin-left: -280px;" id="map-selection" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="faq-label" aria-hidden="true">
-                <div class="modal-header" style="height:15px !important;">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> × </button>
+         <div class="pull-right">*{count($geo-hits)} of {search:hit-count($node,$model)} places have coordinates and are shown on this map. 
+         <button class="btn btn-link" data-toggle="modal" data-target="#map-selection" id="mapFAQ">Read more...</button>
+         </div>,
+         <div>
+            <div class="modal fade" id="map-selection" tabindex="-1" role="dialog" aria-labelledby="map-selectionLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true"> x </span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn" href="../documentation/faq.html" aria-hidden="true">See all FAQs</a>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
-                </div>
-                <div class="modal-footer">
-                    <a class="btn" href="../documentation/faq.html" aria-hidden="true">See all FAQs</a>
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                </div>
-            </div>,
-            <script>
-            <![CDATA[
-                $('#map-selection').on('shown', function () {
-                $( "#popup" ).load( "../documentation/faq.html #map-selection" );
-                })
-                ]]>
-            </script>,
+            </div>
+         </div>,
+         <script type="text/javascript">
+                <![CDATA[
+                    $('#mapFAQ').click(function(){
+                            $('#popup').load( '../documentation/faq.html #map-selection',function(result){
+                            $('#map-selection').modal({show:true});
+                        });
+                     });   
+                 ]]>
+        </script>,
          <script type="text/javascript">
              <![CDATA[
                     var terrain = L.tileLayer(
@@ -212,6 +213,7 @@ return
                         
                         geojson.addTo(map);
  
+                     
                         ]]>
                     </script>)
                else ''
@@ -239,13 +241,13 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
 {
     for $hit at $p in subsequence($model("hits"), $search:start, 20)
     return
-        <div class="row-fluid" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
-            <div class="span10 offset1">
+        <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
+            <div class="col-md-10 col-md-offset-1">
                 <div class="result">
-                  <div class="span1" style="margin-right:-1em;">
-                    <span class="label">{$search:start + $p - 1}</span>
+                  <div class="col-md-1" style="margin-right:-1em;">
+                    <span class="label label-default">{$search:start + $p - 1}</span>
                   </div>
-                  <div class="span9"> 
+                  <div class="col-md-9"> 
                     {if($collection = 'persons') then persons:results-node($hit) else places:results-node($hit)} 
                     <div style="margin-bottom:1em; margin-top:-1em; padding-left:1em;">
                         {$hit//tei:desc[starts-with(@xml:id,'abstract')]/descendant-or-self::text()}
@@ -262,6 +264,6 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
  : Checks to see if there are any parameters in the URL, if yes, runs search, if no displays search form. 
 :)
 declare %templates:wrap function search:build-page($node as node()*, $model as map(*), $collection as xs:string?) {
-    if(exists(request:get-parameter-names())) then (search:pageination($node,$model, $collection),search:show-hits($node, $model, $collection))
-    else ''
+    if(exists(request:get-parameter-names())) then search:show-hits($node, $model, $collection)
+    else ()
 };

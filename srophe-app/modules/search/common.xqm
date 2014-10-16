@@ -1,6 +1,6 @@
 xquery version "3.0";
 (:~
- : Shared functions for search modules 
+ : Shared functions for search modules   
  :)
 module namespace common="http://syriaca.org//common";
 

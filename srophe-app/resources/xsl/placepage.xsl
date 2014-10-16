@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -51,7 +51,7 @@
        ================================================================== -->
  <!-- =================================================================== -->
  <!-- import component stylesheets for HTML page portions -->
- <!-- =================================================================== -->
+ <!-- ===================================================================  -->
     <xsl:import href="place-title-std.xsl"/>
     <xsl:import href="helper-functions.xsl"/>
     <xsl:import href="link-icons.xsl"/>
@@ -89,63 +89,55 @@
  <!-- |||| Root template matches tei root -->
  <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
     <xsl:template match="/">
-        <div class="row-fluid">
-            <div class="span12">
     <!-- Start Title and link icons -->
-                <div class="row-fluid title">
-                    <h1 class="span8">
+        <div class="row title">
+            <h1 class="col-md-8">
                         <!-- Format title, calls template in place-title-std.xsl -->
-                        <xsl:call-template name="get-title"/>
-                        <span class="get-syriac noprint" style="font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none">
-                            <xsl:if test="//t:place/child::*[@xml:lang ='syr']">
-                                <a href="../documentation/view-syriac.html">
-                                    <img src="/exist/apps/srophe/resources/img/faq.png" alt="FAQ icon"/>&#160;Don't see Syriac?</a>
-                            </xsl:if>
-                        </span>
-                    </h1>
-                    <!-- Call link icons (located in link-icons.xsl) -->
-                    <xsl:call-template name="link-icons"/>   
+                <xsl:call-template name="get-title"/>
+                <span class="get-syriac noprint" style="font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none">
+                    <xsl:if test="//t:place/child::*[@xml:lang ='syr']">
+                        <a href="../documentation/view-syriac.html">
+                            <img src="/exist/apps/srophe/resources/img/faq.png" alt="FAQ icon"/>&#160;Don't see Syriac?</a>
+                    </xsl:if>
+                </span>
+            </h1>
+            <!-- Call link icons (located in link-icons.xsl) -->
+            <xsl:call-template name="link-icons"/>   
      <!-- End Title -->
-                </div>
-                <!-- Main place page content -->
-                <xsl:apply-templates select="//t:place"/>
-            </div>
         </div>
+     <!-- Main place page content -->
+        <xsl:apply-templates select="//t:place"/>
   <!-- End main content section -->
   <!-- Citations section -->
-        <div class="row-fluid">
-            <xsl:variable name="htmluri" select="concat('?id=',$resource-id)"/>
-            <div class="span12 citationinfo">
-                <h3>How to Cite This Entry</h3>
-                <div id="citation-note" class="well">
-                    <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
-                    <br/>
-                    <button class="togglelink pull-right btn-link" data-text-swap="Hide citation">Show full citation information...</button>
-                    <div id="citation" class="hide toggle">
-                        <div id="citation-bibliography">
-                            <h4>Bibliography:</h4>
-                            <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
-                        </div>
-                        <div id="about">
-                            <h3>About this Entry</h3>
-                            <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
-                        </div>
-                        <div id="license">
-                            <h3>Copyright and License for Reuse</h3>
-                            <p>
-                                <xsl:text>Except otherwise noted, this page is © </xsl:text>
-                                <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>.</p>
-                            <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
-                        </div>
+        <xsl:variable name="htmluri" select="concat('?id=',$resource-id)"/>
+        <div class="citationinfo">
+            <h3>How to Cite This Entry</h3>
+            <div id="citation-note" class="well">
+                <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
+                <div class="collapse" id="showcit">
+                    <div id="citation-bibliography">
+                        <h4>Bibliography:</h4>
+                        <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
+                    </div>
+                    <div id="about">
+                        <h3>About this Entry</h3>
+                        <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
+                    </div>
+                    <div id="license">
+                        <h3>Copyright and License for Reuse</h3>
+                        <p>
+                            <xsl:text>Except otherwise noted, this page is © </xsl:text>
+                            <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>.</p>
+                        <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
                     </div>
                 </div>
+                <a class="togglelink pull-right btn-link" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide citation">Show full citation information...</a>
             </div>
         </div>
         <xsl:if test="//t:geo">
             <script type="text/javascript" src="/exist/apps/srophe/resources/js/map.js"/>
         </xsl:if>
-        <!--<script type="text/javascript" src="/exist/apps/srophe/resources/js/main.js"/>-->
-        <!--<script type="text/javascript" src="/exist/apps/srophe/resources/js/jquery.validate.min.js"/>-->
+        <script type="text/javascript" src="/exist/apps/srophe/resources/js/main.js"/>
     </xsl:template>
     
 <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
@@ -153,178 +145,163 @@
 <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
     <xsl:template match="t:place">
         <!-- Start place content -->
-        <div class="row-fluid">
-            <!-- Main content -->
-            <!-- Change to span10 when RDF is added back in -->
-            <div class="span12">
-                <div class="row-fluid">
-                    <div class="span12 main">
-                        <!-- Place URI and Abstract -->
-                        <div class="row-fluid">
-                            <div class="span12">
-                                <!-- emit place URI and associated help links -->
-                                <xsl:for-each select="t:idno[contains(.,'syriaca.org')]">
-                                    <div style="margin:0 1em 1em; color: #999999;">
-                                        <small>
-                                            <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
-                                                <div class="helper circle noprint">
-                                                    <p>i</p>
-                                                </div>
-                                            </a>
-                                            <p>
-                                                <span class="srp-label">Place URI</span>
-                                                <xsl:text>: </xsl:text>
-                                                <xsl:value-of select="."/>
-                                            </p>
-                                        </small>
-                                    </div>
-                                </xsl:for-each>
-                                <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1]" mode="abstract"/>
-                            </div>
+        <!-- emit place URI and associated help links -->
+        <xsl:for-each select="t:idno[contains(.,'syriaca.org')]">
+            <div style="margin:0 1em 1em; color: #999999;">
+                <small>
+                    <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
+                        <div class="helper circle noprint">
+                            <p>i</p>
                         </div>
-                        <!-- End abstract row -->
-                        <!-- Start of two column content -->
-                        <div class="row-fluid">
-                            <!-- Column 1 -->
-                            <div class="span8 column1">
-                                <xsl:call-template name="col1"/>
-                                <div style="margin-bottom:1em;">  
-                                <!-- Button to trigger modal -->
-                                    <a href="#report-errors" role="button" class="btn" data-toggle="modal">Corrections/Additions?</a>
-                                    <!--<a href="/geo/howtoadd.html" class="btn">Corrections/Additions?</a>-->
-                                    <xsl:text> </xsl:text>
-                                    <a href="#selection" role="button" class="btn" data-toggle="modal">Is this record complete?</a>
-                                    <div id="report-errors" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                            <h2 id="report-errors-label">Corrections/Additions?</h2>
-                                        </div>
-                                        <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
-                                            <div class="modal-body" id="modal-body">
-                                                <div>
-                                                    <button class="togglelink btn-link" data-text-swap="Hide Information">More Information</button>
-                                                    <div class="hide toggle">
-                                                        <h4>Notify the editors of a mistake</h4>
-                                                        <p>Using the following form, please inform us which page 
-                                                        URI the mistake is on, where on the page the mistake occurs,
-                                                        the content of the correction, 
-                                                        and a citation for the correct information 
-                                                        (except in the case of obvious corrections, 
-                                                        such as misspelled words). 
-                                                        Please also include your email address, 
-                                                        so that we can follow up with you regarding 
-                                                        anything which is unclear. We will publish your name,
-                                                        but not your contact information as the author of the 
-                                                        correction.
-                                                        </p>
-                                                        <h4>Add data to an existing entry</h4>
-                                                        <p>The Syriac Gazetteer is an ever expanding resource 
-                                                            created by and for users. The editors actively 
-                                                            welcome additions to the gazetteer. If there is 
-                                                            information which you would like to add to an 
-                                                            existing place entry in The Syriac Gazetteer, 
-                                                            please use the link below to inform us about the 
-                                                            information, your (primary or scholarly) source(s) 
-                                                            for the information, and your contact information so
-                                                            that we can credit you for the modification. For 
-                                                            categories of information which 
-                                                            The Syriac Gazetteer structure can support, please 
-                                                            see the section headings on the entry for Edessa and 
-                                                            specify in your submission which category or 
-                                                            categories this new information falls into. 
-                                                            At present this information should be entered into 
-                                                            the email form here, although there is an additional 
-                                                            delay in this process as the data needs to be 
-                                                            encoded in the appropriate structured data format 
-                                                            and assigned a URI. A structured form for submitting 
-                                                            new entries is under development.</p>
-                                                    </div>
-                                                </div>    
-                                                <!--<label>Name:</label>-->
-                                                <input type="text" name="name" placeholder="Name"/>
-                                                <br/>
-                                                <!--<label>e-mail address:</label>-->
-                                                <input type="text" name="email" placeholder="email"/>
-                                                <br/>
-                                                <!--<label>Subject:</label>-->
-                                                <input type="text" name="subject" placeholder="subject"/>
-                                                <br/>
-                                                <textarea name="comments" id="comments" rows="5" class="span9" placeholder="Comments"/>
-                                                <input type="hidden" name="id" value="{$resource-id}"/>
-                                                <input type="hidden" name="place" value="{string(t:placeName[1])}"/>
-                                                <!-- start reCaptcha API-->
-                                                <script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia"/>
-                                                <noscript>
-                                                    <iframe src="http://api.recaptcha.net/noscript?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia" height="100" width="100" frameborder="0"/>
-                                                    <br/>
-                                                    <textarea name="recaptcha_challenge_field" rows="3" cols="40"/>
-                                                    <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
-                                                </noscript>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                                                <input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div style="width: 750px; margin-left: -280px;" id="selection" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="faq-label" aria-hidden="true">
-                                        <div class="modal-header" style="height:15px !important;">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> × </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <a class="btn" href="../documentation/faq.html" aria-hidden="true">See all FAQs</a>
-                                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                                        </div>
-                                    </div>
-                                    <script>
-                                        $('#selection').on('shown', function () {
-                                            $( "#popup" ).load( "../documentation/faq.html #selection" );
-                                        })
-                                    </script>
-                                </div>
-                                <xsl:if test="not(exists(t:desc)) or string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &lt; 1">
-                                    <xsl:call-template name="sources"/>
-                                </xsl:if>
-                            </div>
-                            <!-- Column 2 -->
-                            <div class="span4 column2">
-                                <xsl:call-template name="col2"/>
-                            </div>
-                        </div>
-                        <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
-                            <xsl:call-template name="sources"/>
-                        </xsl:if>
-                    </div>
-                </div>
+                    </a>
+                    <p>
+                        <span class="srp-label">Place URI</span>
+                        <xsl:text>: </xsl:text>
+                        <xsl:value-of select="."/>
+                    </p>
+                </small>
             </div>
-            <!-- RDF Results -->
-            <!--<div class="span2">
-                <h3>RDF Results</h3>
+        </xsl:for-each>
+        <!-- Abstract -->
+        <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1]" mode="abstract"/>
+        <!-- End abstract row -->
+        
+        <!-- Start of two column content -->
+        <div class="row">
+            <!-- Column 1 -->
+            <div class="col-md-8 column1">
+                <xsl:call-template name="col1"/>
+                <div style="margin-bottom:1em;">  
+                    <!-- Button trigger corrections email modal -->
+                    <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
+                    <button class="btn btn-default" data-toggle="modal" data-target="#selection" id="showSection">Is this record complete?</button>
+                    <!-- Modal email form-->
+                    <div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-labelledby="feedbackLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true">x</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                    <h2 class="modal-title" id="feedbackLabel">Corrections/Additions?</h2>
+                                </div>
+                                <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email" role="form">
+                                    <div class="modal-body" id="modal-body">
+                                        <!-- More information about submitting data from howtoadd.html -->
+                                        <p>
+                                            <strong>Notify the editors of a mistake:</strong>
+                                            <a class="btn btn-link togglelink" data-toggle="collapse" data-target="#viewdetails" data-text-swap="hide information">more information...</a>
+                                        </p>
+                                        <div class="section">
+                                            <div class="collapse" id="viewdetails">
+                                                <p>Using the following form, please inform us which page URI the mistake is on, where on the page the mistake occurs,
+                                                            the content of the correction, and a citation for the correct information (except in the case of obvious corrections, such as misspelled words). 
+                                                            Please also include your email address, so that we can follow up with you regarding 
+                                                            anything which is unclear. We will publish your name, but not your contact information as the author of the  correction.</p>
+                                                <h4>Add data to an existing entry</h4>
+                                                <p>The Syriac Gazetteer is an ever expanding resource  created by and for users. The editors actively welcome additions to the gazetteer. If there is information which you would like to add to an existing place entry in The Syriac Gazetteer, please use the link below to inform us about the information, your (primary or scholarly) source(s) 
+                                                            for the information, and your contact information so that we can credit you for the modification. For categories of information which  The Syriac Gazetteer structure can support, please see the section headings on the entry for Edessa and  specify in your submission which category or 
+                                                            categories this new information falls into.  At present this information should be entered into  the email form here, although there is an additional  delay in this process as the data needs to be encoded in the appropriate structured data format  and assigned a URI. A structured form for submitting  new entries is under development.</p>
+                                            </div>
+                                        </div>
+                                        <input type="text" name="name" placeholder="Name" class="form-control" style="max-width:300px"/>
+                                        <br/>
+                                        <input type="text" name="email" placeholder="email" class="form-control" style="max-width:300px"/>
+                                        <br/>
+                                        <input type="text" name="subject" placeholder="subject" class="form-control" style="max-width:300px"/>
+                                        <br/>
+                                        <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
+                                        <input type="hidden" name="id" value="{$resource-id}"/>
+                                        <input type="hidden" name="place" value="{string(t:placeName[1])}"/>
+                                        <!-- start reCaptcha API-->
+                                        <script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia"/>
+                                        <noscript>
+                                            <iframe src="http://api.recaptcha.net/noscript?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia" height="100" width="100" frameborder="0"/>
+                                            <br/>
+                                            <textarea name="recaptcha_challenge_field" rows="3" cols="40"/>
+                                            <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+                                        </noscript>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <!-- Modal faq popup -->
+                    <div class="modal fade" id="selection" tabindex="-1" role="dialog" aria-labelledby="selectionLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true"> x </span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                    <h2 class="modal-title" id="selectionLabel">Is this record complete?</h2>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="btn" href="../documentation/faq.html" aria-hidden="true">See all FAQs</a>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        $('#showSection').click(function(){
+                            $('#popup').load( '../documentation/faq.html #selection',function(result){
+                                $('#selection').modal({show:true});
+                             });
+                        });
+                    </script>
+                </div>
+                <!-- Sources -->
+                <xsl:if test="not(exists(t:desc)) or string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &lt; 1">
+                    <xsl:call-template name="sources"/>
+                </xsl:if>
+            </div>
+            
+            <!-- Column 2 -->
+            <div class="col-md-4 column2">
+                <xsl:call-template name="col2"/>
+            </div>
+        </div>
+        <!-- Sources -->
+        <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
+            <xsl:call-template name="sources"/>
+        </xsl:if>
+            
+        <!-- RDF Results -->
+        <!--<div class="span2">        
+        <h3>RDF Results</h3>
                 <div>
                     Results
                 </div>
             </div>-->
-        </div>
     </xsl:template>
+    
     <!-- Place content is split into two columns -->
     <xsl:template name="col1">
         <!-- NOTE, for map do well with map in half and type and location in other half, force better proportions -->
         <xsl:choose>
             <xsl:when test="t:location[@type='gps'and t:geo]">
                 <div class="well">
-                    <div class="row-fluid">
+                    <div class="row">
                         <!-- The map widget -->
-                        <div class="span7">
+                        <div class="col-md-7">
                             <!-- If map data exists generate location link for use by map.js -->
                             <xsl:if test="t:location/t:geo[1]">
                                 <xsl:apply-templates select="t:location[t:geo][1]/t:geo[1]" mode="json-uri"/>
                             </xsl:if>
-                            <div id="map" class="map-small"/>
+                            <div id="map" class="map"/>
                         </div>
-                        <div class="span5" style="padding-left:1em;padding-top:.5em;">
+                        <div class="col-md-5">
                             <div id="type">
                                 <!-- NOTE: may need to move this elsewhere -->
                                 <p>
@@ -337,7 +314,7 @@
                             <xsl:if test="t:location">
                                 <div id="location">
                                     <h4>Location</h4>
-                                    <ul style="margin-left:1.25em;margin-top:-.5em;padding:0;">
+                                    <ul>
                                         <xsl:apply-templates select="t:location"/>
                                     </ul>
                                 </div>
@@ -348,31 +325,28 @@
             </xsl:when>
             <xsl:otherwise>
                 <div class="well">
-                    <div class="row-fluid">
-                        <div class="span12" style="padding-left:1em;padding-top:.5em;">
-                            <div id="type">
-                                <!-- NOTE: may need to move this elsewhere -->
-                                <p>
-                                    <strong>Place Type: </strong>
-                                    <a href="../documentation/place-types.html#{normalize-space(@type)}" class="no-print-link">
-                                        <xsl:value-of select="@type"/>
-                                    </a>
-                                </p>
-                            </div>
-                            <xsl:if test="t:location">
-                                <div id="location">
-                                    <h4>Location</h4>
-                                    <ul style="margin-left:1.25em;margin-top:-.5em;padding:0;">
-                                        <xsl:apply-templates select="t:location"/>
-                                    </ul>
-                                </div>
-                            </xsl:if>
+                    <div>
+                        <div id="type">
+                            <p>
+                                <strong>Place Type: </strong>
+                                <a href="../documentation/place-types.html#{normalize-space(@type)}" class="no-print-link">
+                                    <xsl:value-of select="@type"/>
+                                </a>
+                            </p>
                         </div>
+                        <xsl:if test="t:location">
+                            <div id="location">
+                                <h4>Location</h4>
+                                <ul>
+                                    <xsl:apply-templates select="t:location"/>
+                                </ul>
+                            </div>
+                        </xsl:if>
                     </div>
                 </div>
             </xsl:otherwise>
         </xsl:choose>
-        <div style="padding:.5em;">
+        <div class="section">
             <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
                 <div id="description">
                     <h3>Brief Descriptions</h3>
@@ -1015,8 +989,8 @@
                         <xsl:sequence select="local:do-refs(child::*[1]/@source,@xml:lang)"/>
                     </xsl:if>
                     <!-- toggle to full list, grouped by type -->
-                    <button class="togglelink btn-link" data-text-swap="(hide list)">(see list)</button>
-                    <dl class="hide toggle">
+                    <a class="togglelink btn-link" data-toggle="collapse" data-target="#relatedlist" data-text-swap="(hide list)">(see list)</a>
+                    <dl class="collapse" id="relatedlist">
                         <xsl:for-each-group select="mutual" group-by="@type">
                             <xsl:sort select="count(current-group()/child::*)" order="descending"/>
                             <xsl:variable name="plural-type">
@@ -1128,7 +1102,7 @@
     <!-- General descriptions within the body of the place element, uses lists -->
     <xsl:template match="t:desc[not(starts-with(@xml:id, 'abstract-en'))]">
         <li>
-           <xsl:call-template name="langattr"/>
+            <xsl:call-template name="langattr"/>
             <xsl:apply-templates/>
         </li>
     </xsl:template>
@@ -1334,7 +1308,7 @@
         </xsl:choose>
     </xsl:template>
     
-    <!-- NOTE: where is this used? Seems to be an issue with syrac text-->
+    <!-- NOTE: where is this used? -->
     <xsl:template name="get-description-ele" as="element()*">
         <xsl:choose>
             <xsl:when test="./descendant-or-self::t:listPlace/t:place/t:desc[starts-with(@xml:id, 'abstract-en')]">

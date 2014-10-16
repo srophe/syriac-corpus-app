@@ -10,7 +10,7 @@ import module namespace config="http://syriaca.org//config" at "config.xqm";
 
 import module namespace req="http://exquery.org/ns/request";
 
-(: For output annotations :)
+(: For output annotations  :)
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
 
 (: For REST annotations :)

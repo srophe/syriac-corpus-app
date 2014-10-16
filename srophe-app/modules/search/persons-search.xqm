@@ -1,7 +1,7 @@
 xquery version "3.0";
 (:~
  : Builds search information for persons sub-collection
- : Search string is passed to search.xqm for processing.  
+ : Search string is passed to search.xqm for processing.   
  :)
 module namespace persons="http://syriaca.org//persons";
 import module namespace common="http://syriaca.org//common" at "common.xqm";
@@ -285,12 +285,12 @@ declare function persons:search-string() as xs:string*{
 :)
 declare function persons:results-node($hit){
     let $root := $hit//tei:person    
-    let $title-en := $root/tei:persName[@syriaca-tags='#syriaca-headword'][contains(@xml:lang,'en')]
+    let $title-en := string-join($root/tei:persName[@syriaca-tags='#syriaca-headword'][contains(@xml:lang,'en')]/child::*,' ')
     let $title-syr := 
                     if($root/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang='syr']) then 
                         (<bdi dir="ltr" lang="en" xml:lang="en"><span> -  </span></bdi>,
                             <bdi dir="rtl" lang="syr" xml:lang="syr">
-                                {$root/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang='syr']}
+                                {string-join($root/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang='syr']/child::*,' ')}
                             </bdi>)
                     else ''
     let $type := if($root/@ana) then  
@@ -299,7 +299,7 @@ declare function persons:results-node($hit){
     let $id := substring-after($root/@xml:id,'person-')                  
     return
         <p style="font-weight:bold padding:.5em;">
-            <!--<a href="/person/{$id}.html">-->
+            <!-- NOTE: switch when pushed to prod <a href="/person/{$id}.html">-->
             <a href="person.html?id={$id}">
                 <bdi dir="ltr" lang="en" xml:lang="en">{$title-en}</bdi>
                 {$type, $title-syr}
@@ -311,47 +311,45 @@ declare function persons:results-node($hit){
  : Builds advanced search form for persons
  :)
 declare function persons:search-form() {   
-<form method="get" action="search.html" id="search-form">
+<form method="get" action="search.html" class="form-horizontal" role="form">
+    <h1>Advanced Search</h1>
     <div class="well well-small">
-        <div class="navbar-inner search-header">
-            <h3>Advanced Search</h3>
-        </div>
         <div><p><em>Wild cards * and ? may be used to optimize search results.
         Wild cards may not be used at the beginning of a word, as it hinders search speed.</em></p></div>
-        <div class="well well-small search-inner">
-            <div class="row-fluid">
-                <div class="span12">
-                    <div class="row-fluid" style="margin-top:1em;">
-                        <div class="span2">Keyword: </div>
-                        <div class="span10"><input type="text" name="q"/></div>
-                    </div>
-                    
-                    <!-- Place Name-->
-                    <div class="row-fluid">
-                        <div class="span2">Person Name: </div>
-                        <div class="span10 form-inline">
-                            <input type="text" name="name"/>&#160;
-                            <!--<select name="name-type" class="input-medium">
+        <div class="well well-small search-inner well-white">
+        <!-- Keyword -->
+            <div class="form-group">            
+                <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
+                <div class="col-sm-10 col-md-6 ">
+                    <input type="text" id="q" name="q" class="form-control"/>
+                </div>
+            </div>
+            <!-- Person Name -->
+            <div class="form-group">            
+                <label for="name" class="col-sm-2 col-md-3  control-label">Person Name: </label>
+                <div class="col-sm-10 col-md-6">
+                    <input type="text" id="name" name="name" class="form-control"/>
+                    <!--<select name="name-type" class="input-medium">
                                 <option value="">- Select -</option>
                                 <option value="any">any</option>
                                 <option value="given">given</option>
                                 <option value="family">family</option>
                                 <option value="title">title</option>
                             </select>-->
-                        </div>
-                    </div>
-                    <hr/>
-                     <!-- Person Type-->
-                    <div class="row-fluid">
-                        <div class="span2">Person Type: </div>
-                        <div class="span10 form-inline">
-                        <select name="type" class="input-medium">
+                </div>
+            </div>
+            <hr/>
+            <!-- Person Type -->
+            <div class="form-group">            
+                <label for="type" class="col-sm-2 col-md-3  control-label">Person Type: </label>
+                <div class="col-sm-10 col-md-6">
+                    <select name="type" id="type" class="form-control">
                             <option value="any">any</option>
                             <option value="author">author</option>
                             <option value="saint">saint</option>
                         </select>
-                       </div> 
-                    </div>
+                </div>
+            </div>            
                 <!-- URI
                     <div class="row-fluid">
                         <div class="span2">URI: </div>
@@ -369,13 +367,13 @@ declare function persons:search-form() {
                         </div>
                     </div>
                     -->
-                    <!-- Date range-->
-                    <div class="row-fluid">
-                        <div class="span2">Date Range: </div>
-                        <div class="span10 form-inline">
-                             <input type="text" name="start-date" placeholder="Start Date" class="input-small"/>&#160;
-                             <input type="text" name="end-date" placeholder="End Date" class="input-small"/>&#160;
-                            <select name="date-type" class="input-medium">
+            <!-- Date range-->
+                <div class="form-group">
+                        <label for="start-date" class="col-sm-2 col-md-3  control-label">Date Range: </label>
+                        <div class="col-sm-10 col-md-6 form-inline">
+                            <input type="text" id="start-date" name="start-date" placeholder="Start Date" class="form-control"/>&#160;
+                            <input type="text" id="end-date" name="end-date" placeholder="End Date" class="form-control"/>&#160;
+                            <select name="date-type" class="form-control">
                                 <option value="">any</option>
                                 <option value="birth">birth</option>
                                 <option value="death">death</option>
@@ -383,44 +381,44 @@ declare function persons:search-form() {
                                 <option value="office">office</option>
                                 <option value="event">other event</option>
                             </select>
-                            <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
+                            <p class="hint">* Dates should be entered as YYYY or YYYY-MM-DD</p>
                         </div>
-                    </div>
-                    
-                    <!-- Associated Places-->
-                    <div class="row-fluid">
-                        <div class="span2">Associated Places: </div>
-                        <div class="span10 form-inline">
-                            <input type="text" name="related-place"/>&#160;
-                            <select name="place-type" class="input-medium">
-                                <option value="">any</option>
-                                <option value="birth">birth</option>
-                                <option value="death">death</option>
-                                <!--<option value="venerated">venerated</option>-->
-                                <option value="other">other</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <!-- Related persons-->
-                    <div class="row-fluid">
-                        <div class="span2">Related Persons: </div>
-                        <div class="span10"><input type="text" name="related-persons"/></div>
-                    </div>
-                    
-                    <!-- Mentioned in Source-->
-                    <div class="row-fluid">
-                        <div class="span2">Mentioned in Source: </div>
-                        <div class="span10"><input type="text" name="mentioned"/></div>
-                    </div>
-                </div>    
+                </div>                          
+            <!-- Associated Places-->
+            <div class="form-group">            
+                <label for="related-place" class="col-sm-2 col-md-3  control-label">Associated Places: </label>
+                <div class="col-sm-10 col-md-6 form-inline">
+                <input type="text" id="related-place" name="related-place" placeholder="Associated Places" class="form-control"/>&#160;
+                    <select name="place-type" id="place-type" class="form-control">
+                         <option value="">any</option>
+                         <option value="birth">birth</option>
+                         <option value="death">death</option>
+                         <!--<option value="venerated">venerated</option>-->
+                         <option value="other">other</option>
+                    </select>
+                </div>
             </div>
+            <!-- Related persons-->
+            <div class="form-group">            
+                <label for="related-persons" class="col-sm-2 col-md-3  control-label">Related Persons: </label>
+                <div class="col-sm-10 col-md-6">
+                    <input type="text" id="related-persons" name="related-persons" class="form-control"/>
+                    <p class="hint">* Enter syriaca uri. ex: http://syriaca.org/person/13</p>
+                </div>
+            </div>
+            <div class="form-group">            
+                <label for="mentioned" class="col-sm-2 col-md-3  control-label">Mentioned in Source: </label>
+                <div class="col-sm-10 col-md-6">
+                    <input type="text" id="mentioned" name="mentioned" class="form-control"/>
+                    <p class="hint">* Enter syriaca uri. ex: http://syriaca.org/bibl/3</p>
+                </div>
+            </div>        
         </div>
         <div class="pull-right">
             <button type="submit" class="btn btn-info">Search</button>&#160;
             <button type="reset" class="btn">Clear</button>
         </div>
         <br class="clearfix"/><br/>
-    </div>    
+    </div>
 </form>
 };

@@ -1,5 +1,5 @@
 (:~
- : Builds persons page and persons page functions
+ : Builds persons page and persons page functions 
  :)
 xquery version "3.0";
 
@@ -80,7 +80,7 @@ return
             <div id="geojson" count="{count($geo-hits)}">
                 {geo:json-transform($geo-hits,'','')}
             </div>
-       else ''
+       else ()
 };
 
 
@@ -115,7 +115,8 @@ else ()
  : Pull together persons page data   
  : Adds related persons and nested locations to full TEI document
  : Passes xml to persons page.xsl for html transformation
-:)
+ NOTE : add try catch? for worldcat so it fails gracefully.
+:) 
 declare %templates:wrap function person:get-persons-data($node as node(), $model as map(*)){
    for $rec in $model("persons-data")
    let $buildRec :=
@@ -129,7 +130,7 @@ declare %templates:wrap function person:get-persons-data($node as node(), $model
                        ($rec/child::*,person:get-related($rec),person:build-geojson($rec),person:worldcat-ref($rec))
                     }
                     </TEI>
-    let $cache :='Change value to force page refresh 09886'
+    let $cache :='Change value to force page refresh 087s6'
     return
       (:$buildRec:)
        transform:transform($buildRec, doc('../resources/xsl/personspage.xsl'),() )

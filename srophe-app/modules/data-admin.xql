@@ -14,7 +14,7 @@ declare variable $comment {request:get-parameter('comment', '')};
 (:~
  : Insert custom generated dates
  : Takes @notBefore, @notAfter, @to, @from, and @when and adds a syriaca computed date 
- : attribute for searching. 
+ : attribute for searching.  
  :)                       
 declare function local:add-custom-dates(){
    for $doc in collection('/db/apps/srophe/data/persons/tei')//tei:person 
@@ -260,12 +260,6 @@ declare function local:add-change-log($doc){
           )
 };
 
-(:test before running
- (update value tei:relation/@name with 'share-a-name', update value tei:relation/@mutual with $new-mutual
-     
-    )
-        <relation xmlns="http://www.tei-c.org/ns/1.0" name="share-a-name" mutual="{$new-mutual}"/>
-:)
 declare function local:remove-mutual(){
    for $doc in collection('/db/apps/srophe/data/places/tei')//tei:relation
    let $mutual := string($doc/@mutual)

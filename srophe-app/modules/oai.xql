@@ -1,16 +1,16 @@
-xquery version "1.0";
+xquery version "3.0";
 (:
  : Module Name: xqOAI
- : Module Version: 1.0
+ : Module Version: 1.3
  : Updated: Sept. 19, 2014
  : Date: September, 2007
  : Copyright: Michael J. Giarlo and Winona Salesky
- : Proprietary XQuery Extensions Used: X-Hive/DB 
+ : Proprietary XQuery Extensions Used: eXist-db
  : XQuery Specification: November 2005
  : Module Overview: Adapted from xqOAI to provide OAI-PMH data provider for 
- : TEI records. Output includes TEI, MODS, and DC records.
+ : TEI records. Output includes TEI, MADS, and RDF records.
  : NOTE: Should add a RDF option
- : NOTE: also add subcollection options?
+ : NOTE: also add subcollection options? 
  :)
 
 (:~
@@ -19,7 +19,7 @@ xquery version "1.0";
  : @author Michael J. Giarlo
  : @author Winona Salesky
  : @since April, 2010
- : @version 1.2
+ : @version 1.3
  :)
 
 (: declare namespaces for each metadata schema we care about :)
@@ -75,18 +75,6 @@ declare function local:oai-response-date() {
  :
  : @return XML
  :)
- (:
-declare function local:oai-request(){
-    <request verb="{if ($verb != '') then $verb else ''}" identifier="{if ($identifier != '') then $identifier else ''}"
-    metadataPrefix="{if ($metadataPrefix != '')  then $metadataPrefix   else ''}"
-    from="{if ($from != '') then $from  else ''}"
-    until="{if ($until != '') then $until else ''}"
-    set="{if ($set != '') then $set else ''}"
-    resumptionToken="{if ($resumptionToken != '') then $resumptionToken else ''}">
-    {$base-url}
-    </request>
-};
-:)
 declare function local:oai-request() {
    element request {
        (
@@ -167,17 +155,18 @@ declare function local:validate-dates() {
             if(matches($from, $date-pattern) and matches($until, $date-pattern)) then 'true' else 'false'
  };
 
-(:
-: Modifies dates extracted from METS records to be OAI compliant
+(:~
+  : Modifies dates extracted from TEI records to be OAI compliant
 :)
 
 declare function local:modDate(){    
-    let $date := string(mets:metsHdr/@LASTMODDATE)
+    let $date := string(tei:teiHeader/tei:publicationStmt/tei:date)
     let $shortDate :=  substring-before($date,'T')
     return if(exists($shortDate) and $shortDate != '') then $shortDate else '2006-01-01' 
 };
-(:
-:    Build xpath for selecting records based on date range or sets
+(:~
+ : Build xpath for selecting records based on date range or sets
+ : NOTE: srophe currently does not support sets
 :)
 declare function local:buildPath(){
    if(exists($from) and $from != '' and exists($until) and $until != '') then

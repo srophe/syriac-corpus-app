@@ -1,7 +1,7 @@
 xquery version "3.0";
 (:~
  : Builds browse page for Syriac.org sub-collections 
- : Alphabetical English and Syriac Browse lists
+ : Alphabetical English and Syriac Browse lists 
  : Results output as TEI xml and are transformed by /srophe/resources/xsl/browselisting.xsl
  :)
  

@@ -1,6 +1,6 @@
 xquery version "3.0";
 (:
- : Build atom feed for all srophe modules
+ : Build atom feed for all srophe modules 
  : @param $collection selects data collection for feed, if no collection parameter records from all collections will be returned. 
  : @param $id return single entry matching xml:id
  : @param $start start paged results

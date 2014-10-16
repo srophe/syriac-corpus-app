@@ -1,6 +1,6 @@
 xquery version "3.0";
 
-(:module namespace timeline="http://syriaca.org//timeline";:)
+(: module namespace timeline="http://syriaca.org//timeline"; :)
 
 (:~
  : Module to build timeline json passed to http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js widget
