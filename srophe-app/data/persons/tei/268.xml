@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,6 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -134,22 +137,22 @@
         <body>
             <listPerson>
                 <person xml:id="person-268" ana="#syriaca-author">
-                    <persName xml:id="name268-1" corresp="#name268-2 #name268-3 #name268-4" xml:lang="en" source="#bib268-2">
+                    <persName xml:id="name268-1" corresp="#name268-2 #name268-3 #name268-4" xml:lang="en" source="#bib268-1">
                         <roleName type="office" sort="2">Patriarch</roleName>
                         <forename sort="1">‛Aziz</forename>
                         <addName type="untagged-title" sort="2">(Bar Sobto)</addName>
                     </persName>
-                    <persName xml:id="name268-2" corresp="#name268-1 #name268-3 #name268-4" xml:lang="ar" source="#bib268-3">
+                    <persName xml:id="name268-2" corresp="#name268-1 #name268-3 #name268-4" xml:lang="ar" source="#bib268-2">
                         <addName type="untagged-title" sort="2">البطريرك</addName>
                         <forename sort="1">عزيز</forename>
                         <addName type="untagged-title" sort="2">ابن العجوز</addName>
                     </persName>
-                    <persName xml:id="name268-3" corresp="#name268-1 #name268-2 #name268-4" xml:lang="syr" source="#bib268-4">
+                    <persName xml:id="name268-3" corresp="#name268-1 #name268-2 #name268-4" xml:lang="syr" source="#bib268-3">
                         <addName type="untagged-title" sort="2">ܦܛܪܝܪܟܐ</addName>
                         <forename sort="1">ܥܙܝܙ</forename>
                         <addName type="family" sort="2">ܒܪ ܣܒܬܐ</addName>
                     </persName>
-                    <persName xml:id="name268-4" corresp="#name268-1 #name268-2 #name268-3" xml:lang="syr-Syrj" source="#bib268-4">
+                    <persName xml:id="name268-4" corresp="#name268-1 #name268-2 #name268-3" xml:lang="syr-Syrj" source="#bib268-3">
                         <addName type="untagged-title" sort="2">ܦܰܛܪܝܰܪܟܐ</addName>
                         <forename sort="1">ܥܰܙܝܙ</forename>
                         <addName type="family" sort="2">ܒܰܪ ܣܳܒܬܐ</addName>
@@ -162,32 +165,34 @@
                         <forename sort="1">Ignatius ʿAziz</forename>
                         <addName type="family" sort="2">bar Sobto</addName>
                     </persName>
-                    <persName xml:id="name268-7" xml:lang="en" source="#bib268-10">Aziz b. Sobto</persName>
+                    <persName xml:id="name268-7" xml:lang="en" source="#bib268-4">Aziz b. Sobto</persName>
+                    <persName xml:id="name268-8" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Ignatius Aziz bar Sobto</persName>
+                    <persName xml:id="name268-9" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Ignatius ‘Aziz bar Sobto</persName>
                     <note type="abstract" xml:id="abstract-en-268"/>
                     <idno type="URI">http://syriaca.org/person/268</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|268</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Aziz b. Sobto&amp;sT=keywords</idno>
-                    <death when="1481" source="#bib268-2">1481</death>
-                    <state type="office" role="patriarch" source="#bib268-2">
+                    <death when="1481" source="#bib268-1" syriaca-computed-start="1481-01-01">1481</death>
+                    <state type="office" role="patriarch" source="#bib268-1">
                         <desc xml:lang="en">Patriarch</desc>
                     </state>
-                    <bibl xml:id="bib268-2">
+                    <bibl xml:id="bib268-1">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="entry">261</citedRange>
                         <citedRange unit="pp">500</citedRange>
                     </bibl>
-                    <bibl xml:id="bib268-3">
+                    <bibl xml:id="bib268-2">
                         <title level="m" xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">448</citedRange>
                     </bibl>
-                    <bibl xml:id="bib268-4">
+                    <bibl xml:id="bib268-3">
                         <title level="m" xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">479</citedRange>
                     </bibl>
-                    <bibl xml:id="bib268-10">
+                    <bibl xml:id="bib268-4">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Aziz b. Sobto&amp;sT=keywords">Aziz b. Sobto</citedRange>

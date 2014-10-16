@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,6 +127,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -134,23 +136,23 @@
         <body>
             <listPerson>
                 <person xml:id="person-73" ana="#syriaca-author">
-                    <persName xml:id="name73-1" corresp="#name73-2 #name73-3 #name73-4" xml:lang="en" source="#bib73-2">
+                    <persName xml:id="name73-1" corresp="#name73-2 #name73-3 #name73-4" xml:lang="en" source="#bib73-1">
                         <roleName type="office" sort="2">The Priest</roleName>
                         <forename sort="1">Cyrus</forename>
                         <addName type="untagged-title" sort="2">of <placeName ref="http://syriaca.org/place/45">Baṭnan</placeName>
                         </addName>
                     </persName>
-                    <persName xml:id="name73-2" corresp="#name73-1 #name73-3 #name73-4" xml:lang="ar" source="#bib73-3">
+                    <persName xml:id="name73-2" corresp="#name73-1 #name73-3 #name73-4" xml:lang="ar" source="#bib73-2">
                         <addName type="untagged-title" sort="2">القس</addName>
                         <forename sort="1">قورا</forename>
                         <addName type="untagged-title" sort="2">البطناني</addName>
                     </persName>
-                    <persName xml:id="name73-3" corresp="#name73-1 #name73-2 #name73-4" xml:lang="syr" source="#bib73-4">
+                    <persName xml:id="name73-3" corresp="#name73-1 #name73-2 #name73-4" xml:lang="syr" source="#bib73-3">
                         <addName type="untagged-title" sort="2">ܩܫܝܫܐ</addName>
                         <forename sort="1">ܩܘܪܐ</forename>
                         <addName type="untagged-title" sort="2">ܕܒܛܢܢ</addName>
                     </persName>
-                    <persName xml:id="name73-4" corresp="#name73-1 #name73-2 #name73-3" xml:lang="syr-Syrj" source="#bib73-4">
+                    <persName xml:id="name73-4" corresp="#name73-1 #name73-2 #name73-3" xml:lang="syr-Syrj" source="#bib73-3">
                         <addName type="untagged-title" sort="2">ܩܰܫܝܫܳܐ</addName>
                         <forename sort="1">ܩܘܪܐ</forename>
                         <addName type="untagged-title" sort="2">ܕܒܰܛܢܳܢ</addName>
@@ -169,32 +171,32 @@
                         <addName type="untagged-title" sort="2">of <placeName ref="http://syriaca.org/place/45">Baṭnan</placeName>
                         </addName>
                     </persName>
-                    <persName xml:id="name73-8" xml:lang="en" source="#bib73-10">Cyrus of Batnae</persName>
+                    <persName xml:id="name73-8" xml:lang="en" source="#bib73-4">Cyrus of Batnae</persName>
                     <note type="abstract" xml:id="abstract-en-73"/>
                     <idno type="URI">http://syriaca.org/person/73</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|73</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=C&amp;sK=Cyrus of Batnae&amp;sT=keywords</idno>
-                    <floruit when="0582" source="#bib73-2">582</floruit>
-                    <state type="office" role="priest" source="#bib73-2">
+                    <floruit when="0582" source="#bib73-1" syriaca-computed-start="0582-01-01">582</floruit>
+                    <state type="office" role="priest" source="#bib73-1">
                         <desc xml:lang="en">the Priest</desc>
                     </state>
-                    <bibl xml:id="bib73-2">
+                    <bibl xml:id="bib73-1">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="entry">68</citedRange>
                         <citedRange unit="pp">303</citedRange>
                     </bibl>
-                    <bibl xml:id="bib73-3">
+                    <bibl xml:id="bib73-2">
                         <title level="m" xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">263</citedRange>
                     </bibl>
-                    <bibl xml:id="bib73-4">
+                    <bibl xml:id="bib73-3">
                         <title level="m" xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">289</citedRange>
                     </bibl>
-                    <bibl xml:id="bib73-10">
+                    <bibl xml:id="bib73-4">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=C&amp;sK=Cyrus of Batnae&amp;sT=keywords">Cyrus of Batnae</citedRange>

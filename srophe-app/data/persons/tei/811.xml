@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -162,10 +165,12 @@
                         <forename sort="1">ܝܥܩܘܒ</forename>
                         <addName type="untagged-title" sort="2">ܕܢܨܝܒܝܢ</addName>
                     </persName>
-                    <persName xml:id="name811-7" xml:lang="en" source="#bib811-10">
+                    <persName xml:id="name811-7" xml:lang="en" source="#bib811-5">
                         <forename sort="1">Jacob</forename>
                         <addName type="untagged-title" sort="2">of Nisibis</addName>
                     </persName>
+                    <persName xml:id="name811-8" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Yaqub of Nisibis</persName>
+                    <persName xml:id="name811-9" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Ya‘qub of Nisibis</persName>
                     <note type="abstract" xml:id="abstract-en-811">
                         <quote source="#bib811-1">First recorded bp. of Nisibis.</quote>
                     </note>
@@ -174,7 +179,7 @@
                     <idno type="URI">http://viaf.org/viaf/73294780</idno>
                     <idno type="URI">http://viaf.org/viaf/73294780</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=Jacob of Nisibis&amp;sT=keywords</idno>
-                    <death notBefore="0337" notAfter="0338" source="#bib811-1">337/8</death>
+                    <death notBefore="0337" notAfter="0338" source="#bib811-1" syriaca-computed-end="0338-01-01" syriaca-computed-start="0337-01-01">337/8</death>
                     <state type="saint" role="saint" source="#bib811-2">
                         <desc xml:lang="en">St.</desc>
                     </state>
@@ -204,7 +209,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">220</citedRange>
                     </bibl>
-                    <bibl xml:id="bib811-10">
+                    <bibl xml:id="bib811-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=Jacob of Nisibis&amp;sT=keywords">Jacob of Nisibis</citedRange>

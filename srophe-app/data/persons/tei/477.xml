@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -162,19 +164,19 @@
                         <forename sort="1">ܐܦܝܦܐܢܝܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܩܘܦܪܘܣ</addName>
                     </persName>
-                    <persName xml:id="name477-7" corresp="#name477-8 #name477-9 #name477-10" xml:lang="syr" source="#bib477-6">
+                    <persName xml:id="name477-7" corresp="#name477-8 #name477-9 #name477-10" xml:lang="syr" source="#bib477-5">
                         <forename sort="1">ܐܦܝܦܢܘܣ</forename>
                     </persName>
-                    <persName xml:id="name477-8" corresp="#name477-7 #name477-9 #name477-10" xml:lang="syr-Syrn" source="#bib477-6">
+                    <persName xml:id="name477-8" corresp="#name477-7 #name477-9 #name477-10" xml:lang="syr-Syrn" source="#bib477-5">
                         <forename sort="1">ܐܲܦܝܼܦܵܢܘܿܣ</forename>
                     </persName>
-                    <persName xml:id="name477-9" corresp="#name477-7 #name477-8 #name477-10" xml:lang="syr" source="#bib477-7">
+                    <persName xml:id="name477-9" corresp="#name477-7 #name477-8 #name477-10" xml:lang="syr" source="#bib477-6">
                         <forename sort="1">ܐܦܝܦܢܝܘܣ</forename>
                     </persName>
-                    <persName xml:id="name477-10" corresp="#name477-7 #name477-8 #name477-9" xml:lang="syr-Syrj" source="#bib477-7">
+                    <persName xml:id="name477-10" corresp="#name477-7 #name477-8 #name477-9" xml:lang="syr-Syrj" source="#bib477-6">
                         <forename sort="1">ܐܶܦܺܝܦܰܢܝܳܘܣ</forename>
                     </persName>
-                    <persName xml:id="name477-11" xml:lang="en" source="#bib477-10">Epiphanius</persName>
+                    <persName xml:id="name477-11" xml:lang="en" source="#bib477-7">Epiphanius</persName>
                     <note type="abstract" xml:id="abstract-en-477">
                         <quote source="#bib477-1">Bp. of Salamis (Cyprus) and Greek author.</quote>
                     </note>
@@ -188,7 +190,7 @@
                     <idno type="URI">http://viaf.org/viaf/201812013</idno>
                     <idno type="URI">http://viaf.org/viaf/188049327</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Epiphanius&amp;sT=keywords</idno>
-                    <death when="0403" source="#bib477-1">403</death>
+                    <death when="0403" source="#bib477-1" syriaca-computed-start="0403-01-01">403</death>
                     <state type="saint" role="saint" source="#bib477-2">
                         <desc xml:lang="en">St.</desc>
                     </state>
@@ -218,17 +220,17 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">103</citedRange>
                     </bibl>
-                    <bibl xml:id="bib477-6">
+                    <bibl xml:id="bib477-5">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">68</citedRange>
                     </bibl>
-                    <bibl xml:id="bib477-7">
+                    <bibl xml:id="bib477-6">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:42</citedRange>
                     </bibl>
-                    <bibl xml:id="bib477-10">
+                    <bibl xml:id="bib477-7">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Epiphanius&amp;sT=keywords">Epiphanius</citedRange>

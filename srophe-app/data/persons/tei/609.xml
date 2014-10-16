@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -155,8 +158,10 @@
                         <forename sort="2">ܝܰܥܩܘܒ ܐܰܘܓܝܢ</forename>
                         <addName type="family" sort="1">ܡܰܢܐ</addName>
                     </persName>
-                    <persName xml:id="name609-6" xml:lang="en" source="#bib609-10">Awgen Manna</persName>
-                    <persName xml:id="name609-6" xml:lang="en" source="#bib609-1">Jacques Eugène</persName>
+                    <persName xml:id="name609-6" xml:lang="en" source="#bib609-5">Awgen Manna</persName>
+                    <persName xml:id="name609-7" xml:lang="en" source="#bib609-1">Jacques Eugène</persName>
+                    <persName xml:id="name609-8" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Manna Yaqob Awgen</persName>
+                    <persName xml:id="name609-9" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Manna Ya‘qob Awgen</persName>
                     <note type="abstract" xml:id="abstract-en-609">
                         <quote source="#bib609-1">Bp. and scholar. </quote>
                     </note>
@@ -168,8 +173,8 @@
                     <idno type="URI">http://viaf.org/viaf/235981119</idno>
                     <idno type="URI">http://viaf.org/viaf/88935924</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Awgen Manna&amp;sT=keywords</idno>
-                    <birth when="1867" source="#bib609-1">1867</birth>
-                    <death when="1928" source="#bib609-1">1928</death>
+                    <birth when="1867" source="#bib609-1" syriaca-computed-start="1867-01-01">1867</birth>
+                    <death when="1928" source="#bib609-1" syriaca-computed-start="1928-01-01">1928</death>
                     <state type="confession" source="#bib609-1">
                         <desc>Chald.</desc>
                     </state>
@@ -196,7 +201,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">45</citedRange>
                     </bibl>
-                    <bibl xml:id="bib609-10">
+                    <bibl xml:id="bib609-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Awgen Manna&amp;sT=keywords">Awgen Manna</citedRange>

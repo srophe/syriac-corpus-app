@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,6 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -134,23 +137,23 @@
         <body>
             <listPerson>
                 <person xml:id="person-261" ana="#syriaca-author">
-                    <persName xml:id="name261-1" corresp="#name261-2 #name261-3 #name261-4" xml:lang="en" source="#bib261-2">
+                    <persName xml:id="name261-1" corresp="#name261-2 #name261-3 #name261-4" xml:lang="en" source="#bib261-1">
                         <roleName type="office" sort="2">The Priest</roleName>
                         <forename sort="1">Simon</forename>
                         <addName type="untagged-title" sort="2">of <placeName ref="http://syriaca.org/place/8">Amid</placeName>
                         </addName>
                     </persName>
-                    <persName xml:id="name261-2" corresp="#name261-1 #name261-3 #name261-4" xml:lang="ar" source="#bib261-3">
+                    <persName xml:id="name261-2" corresp="#name261-1 #name261-3 #name261-4" xml:lang="ar" source="#bib261-2">
                         <addName type="untagged-title" sort="2">القس</addName>
                         <forename sort="1">شمعون</forename>
                         <addName type="untagged-title" sort="2">الآمدي</addName>
                     </persName>
-                    <persName xml:id="name261-3" corresp="#name261-1 #name261-2 #name261-4" xml:lang="syr" source="#bib261-4">
+                    <persName xml:id="name261-3" corresp="#name261-1 #name261-2 #name261-4" xml:lang="syr" source="#bib261-3">
                         <addName type="untagged-title" sort="2">ܩܫܝܫܐ</addName>
                         <forename sort="1">ܫܡܥܘܢ</forename>
                         <addName type="untagged-title" sort="2">ܐܡܝܕܝܐ</addName>
                     </persName>
-                    <persName xml:id="name261-4" corresp="#name261-1 #name261-2 #name261-3" xml:lang="syr-Syrj" source="#bib261-4">
+                    <persName xml:id="name261-4" corresp="#name261-1 #name261-2 #name261-3" xml:lang="syr-Syrj" source="#bib261-3">
                         <addName type="untagged-title" sort="2">ܩܰܫܝܫܳܐ</addName>
                         <forename sort="1">ܫܶܡܥܘܢ</forename>
                         <addName type="untagged-title" sort="2">ܐܳܡܝܕܳܝܐ</addName>
@@ -169,25 +172,27 @@
                         <addName type="untagged-title" sort="2">of <placeName ref="http://syriaca.org/place/8">Amid</placeName>
                         </addName>
                     </persName>
+                    <persName xml:id="name261-8" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Shemun of Amid</persName>
+                    <persName xml:id="name261-9" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Shem‘un of Amid</persName>
                     <note type="abstract" xml:id="abstract-en-261"/>
                     <idno type="URI">http://syriaca.org/person/261</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|261</idno>
-                    <floruit when="1450" source="#bib261-2">1450</floruit>
-                    <state type="office" role="priest" source="#bib261-2">
+                    <floruit when="1450" source="#bib261-1" syriaca-computed-start="1450-01-01">1450</floruit>
+                    <state type="office" role="priest" source="#bib261-1">
                         <desc xml:lang="en">the Priest</desc>
                     </state>
-                    <bibl xml:id="bib261-2">
+                    <bibl xml:id="bib261-1">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="entry">256</citedRange>
                         <citedRange unit="pp">496</citedRange>
                     </bibl>
-                    <bibl xml:id="bib261-3">
+                    <bibl xml:id="bib261-2">
                         <title level="m" xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">445</citedRange>
                     </bibl>
-                    <bibl xml:id="bib261-4">
+                    <bibl xml:id="bib261-3">
                         <title level="m" xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">476</citedRange>

@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -168,7 +170,7 @@
                         <addName type="untagged-title" sort="2">ܩܰܕܡܳܝܐ</addName>
                         <addName type="untagged-title" sort="2">ܓܰܡܳܠܳܐ</addName>
                     </persName>
-                    <persName xml:id="name88-6" xml:lang="en" source="#bib88-10">Athanasius Gammala</persName>
+                    <persName xml:id="name88-6" xml:lang="en" source="#bib88-5">Athanasius Gammala</persName>
                     <note type="abstract" xml:id="abstract-en-88">
                         <quote source="#bib88-1">Long-serving Patr. of the Syr. Orth. Church in the late 6th and early 7th cent.</quote>
                     </note>
@@ -181,8 +183,8 @@
                     <idno type="URI">http://viaf.org/viaf/97635296</idno>
                     <idno type="URI">http://viaf.org/viaf/89600148</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Athanasius Gammala&amp;sT=keywords</idno>
-                    <death when="0631" source="#bib88-1">631</death>
-                    <floruit when="0631" source="#bib88-2">631</floruit>
+                    <death when="0631" source="#bib88-1" syriaca-computed-start="0631-01-01">631</death>
+                    <floruit when="0631" source="#bib88-2" syriaca-computed-start="0631-01-01">631</floruit>
                     <state type="confession" source="#bib88-1">
                         <desc>Syr. Orth.</desc>
                     </state>
@@ -209,7 +211,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">303</citedRange>
                     </bibl>
-                    <bibl xml:id="bib88-10">
+                    <bibl xml:id="bib88-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Athanasius Gammala&amp;sT=keywords">Athanasius Gammala</citedRange>

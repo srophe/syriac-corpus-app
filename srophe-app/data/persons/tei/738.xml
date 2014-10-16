@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,11 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -133,14 +137,18 @@
                     <persName xml:id="name738-3" xml:lang="en" resp="http://syriaca.org" syriaca-tags="#syriaca-anglicized">
                         <addName type="family" sort="1">Shaʿya</addName>, <forename sort="2">Elijah</forename>
                     </persName>
+                    <persName xml:id="name738-4" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Shaya Elias</persName>
+                    <persName xml:id="name738-5" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Sha‘ya Elias</persName>
+                    <persName xml:id="name738-6" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Shaya Elijah</persName>
+                    <persName xml:id="name738-7" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Sha‘ya Elijah</persName>
                     <note type="abstract" xml:id="abstract-en-738">
                         <quote source="#bib738-1">He was born in Barṭelle in 1895, ordained deacon by Athanasios Tumo Qaṣīr in 1928
             and then a priest for Sanjār by Ignatius Eliya III Shakir.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/738</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|738</idno>
-                    <birth when="1895" source="#bib738-1">1895</birth>
-                    <death when="1970" source="#bib738-1">1970</death>
+                    <birth when="1895" source="#bib738-1" syriaca-computed-start="1895-01-01">1895</birth>
+                    <death when="1970" source="#bib738-1" syriaca-computed-start="1970-01-01">1970</death>
                     <state type="confession" source="#bib738-1">
                         <desc>Syr. Orth.</desc>
                     </state>

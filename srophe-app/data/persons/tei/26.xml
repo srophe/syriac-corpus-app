@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -168,17 +170,17 @@
                         <forename sort="1">ܪܒܘܠܐ</forename>
                         <addName type="untagged-title" sort="2">ܕܐܘܪܗܝ</addName>
                     </persName>
-                    <persName xml:id="name26-7" xml:lang="en" source="#bib26-10">Rabbula</persName>
+                    <persName xml:id="name26-7" xml:lang="en" source="#bib26-5">Rabbula</persName>
                     <note type="abstract" xml:id="abstract-en-26">
                         <Not_Useful/>
-                        <quote source="#bib26-1">Bp. of <placeName xmlns="" ref="#tempName-12">Edessa</placeName> (411/2–435/6).</quote>
+                        <quote source="#bib26-1">Bp. of <placeName ref="#tempName-12">Edessa</placeName> (411/2–435/6).</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/26</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|26</idno>
                     <idno type="URI">http://viaf.org/viaf/89745298</idno>
                     <idno type="URI">http://worldcat.org/identities/lccn-no00-29838</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=R&amp;sK=Rabbula&amp;sT=keywords</idno>
-                    <death notBefore="0435" notAfter="0436" source="#bib26-1">435/6</death>
+                    <death notBefore="0435" notAfter="0436" source="#bib26-1" syriaca-computed-end="0436-01-01" syriaca-computed-start="0435-01-01">435/6</death>
                     <state type="office" role="metropolitan" source="#bib26-2">
                         <desc xml:lang="en">metropolitan of Edessa</desc>
                     </state>
@@ -205,7 +207,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">234</citedRange>
                     </bibl>
-                    <bibl xml:id="bib26-10">
+                    <bibl xml:id="bib26-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=R&amp;sK=Rabbula&amp;sT=keywords">Rabbula</citedRange>

@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,11 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -154,8 +158,12 @@
                         <forename sort="2">ܓܰܒܪܐܝܠ</forename>
                         <addName type="family" sort="1">ܩܰܪܕܚܐ</addName>
                     </persName>
-                    <persName xml:id="name406-5" xml:lang="en" source="#bib406-1">Gabriʾel Qardaḥe</persName>
-                    <persName xml:id="name406-6" xml:lang="en" source="#bib406-1">Jibrāʾīl al-Qardāḥī</persName>
+                    <persName xml:id="name406-6" xml:lang="en" source="#bib406-1">Gabriʾel Qardaḥe</persName>
+                    <persName xml:id="name406-7" xml:lang="en" source="#bib406-1">Jibrāʾīl al-Qardāḥī</persName>
+                    <persName xml:id="name406-8" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script"/>
+                    <persName xml:id="name406-9" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script"/>
+                    <persName xml:id="name406-10" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script"/>
+                    <persName xml:id="name406-11" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script"/>
                     <note type="deprecation" xml:id="name406-3-deprecation">Barsoum's Arabic of Cardahi transposed the alif and the ḥa: جبرائيل قرادحي</note>
                     <link target="#name406-3 #name406-3-deprecation"/>
                     <note type="abstract" xml:id="abstract-en-406">
@@ -168,8 +176,8 @@
                     <idno type="URI">http://viaf.org/viaf/248586593</idno>
                     <idno type="URI">http://viaf.org/viaf/228273396</idno>
                     <idno type="URI">http://viaf.org/viaf/4919510</idno>
-                    <birth when="1845" source="#bib406-1">1845</birth>
-                    <death when="1931" source="#bib406-1">1931</death>
+                    <birth when="1845" source="#bib406-1" syriaca-computed-start="1845-01-01">1845</birth>
+                    <death when="1931" source="#bib406-1" syriaca-computed-start="1931-01-01">1931</death>
                     <state type="confession" source="#bib406-1">
                         <desc>Maron.</desc>
                     </state>

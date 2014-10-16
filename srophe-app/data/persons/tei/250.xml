@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -175,6 +178,8 @@
                         <forename sort="1">Joshua</forename>
                         <addName type="family" sort="2">bar Khayrun</addName>
                     </persName>
+                    <persName xml:id="name250-8" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Yeshu bar Khayrun</persName>
+                    <persName xml:id="name250-9" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Yeshu‘ bar Khayrun</persName>
                     <note type="abstract" xml:id="abstract-en-250">
                         <Not_Useful/>
                         <quote source="#bib250-1">Author. He was born in 1275 in Ḥaḥ (Ṭur ʿAbdin) as the son of the teacher and
@@ -182,8 +187,8 @@
                     </note>
                     <idno type="URI">http://syriaca.org/person/250</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|250</idno>
-                    <birth when="1275" source="#bib250-1">1275</birth>
-                    <death when="1335" source="#bib250-1">1335</death>
+                    <birth when="1275" source="#bib250-1" syriaca-computed-start="1275-01-01">1275</birth>
+                    <death when="1335" source="#bib250-1" syriaca-computed-start="1335-01-01">1335</death>
                     <state type="office" role="monk" source="#bib250-2">
                         <desc xml:lang="en">the Monk</desc>
                     </state>

@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -176,7 +178,7 @@
                         <forename sort="1">Dionysius</forename>
                         <addName type="untagged-title" sort="2">of Tel Maḥre</addName>
                     </persName>
-                    <persName xml:id="name155-8" xml:lang="en" source="#bib155-10">Dionysius of Tel-Mahre</persName>
+                    <persName xml:id="name155-8" xml:lang="en" source="#bib155-5">Dionysius of Tel-Mahre</persName>
                     <note type="abstract" xml:id="abstract-en-155">
                         <quote source="#bib155-1">Patr. 818–845, historian.</quote>
                     </note>
@@ -197,8 +199,8 @@
                     <idno type="URI">http://viaf.org/viaf/228894097</idno>
                     <idno type="URI">http://viaf.org/viaf/246838872</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=D&amp;sK=Dionysius of Tel-Mahre&amp;sT=keywords</idno>
-                    <death when="0845" source="#bib155-1">845</death>
-                    <state type="office" from="0818" to="0845" source="#bib155-1">
+                    <death when="0845" source="#bib155-1" syriaca-computed-start="0845-01-01">845</death>
+                    <state type="office" from="0818" to="0845" source="#bib155-1" syriaca-computed-end="0845-01-01" syriaca-computed-start="0818-01-01">
                         <desc xml:lang="en-x-gedsh">818-845</desc>
                     </state>
                     <state type="confession" source="#bib155-1">
@@ -227,7 +229,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">367</citedRange>
                     </bibl>
-                    <bibl xml:id="bib155-10">
+                    <bibl xml:id="bib155-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=D&amp;sK=Dionysius of Tel-Mahre&amp;sT=keywords">Dionysius of Tel-Mahre</citedRange>

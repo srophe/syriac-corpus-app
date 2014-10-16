@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -168,7 +170,7 @@
                         <forename sort="1">Dionysius</forename>
                         <addName type="family" sort="2">bar Ṣalibi</addName>
                     </persName>
-                    <persName xml:id="name212-7" xml:lang="en" source="#bib212-10">Dionysius bar Salibhi</persName>
+                    <persName xml:id="name212-7" xml:lang="en" source="#bib212-5">Dionysius bar Salibhi</persName>
                     <note type="abstract" xml:id="abstract-en-212">
                         <quote source="#bib212-1">Metropolitan of Amid, and prolific Syr. Orth. author.</quote>
                     </note>
@@ -185,7 +187,7 @@
                     <idno type="URI">http://viaf.org/viaf/231414834</idno>
                     <idno type="URI">http://viaf.org/viaf/207870515</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=D&amp;sK=Dionysius bar Salibhi&amp;sT=keywords</idno>
-                    <death when="1171" source="#bib212-1">1171</death>
+                    <death when="1171" source="#bib212-1" syriaca-computed-start="1171-01-01">1171</death>
                     <state type="confession" source="#bib212-1">
                         <desc>Syr. Orth.</desc>
                     </state>
@@ -212,7 +214,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">413</citedRange>
                     </bibl>
-                    <bibl xml:id="bib212-10">
+                    <bibl xml:id="bib212-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=D&amp;sK=Dionysius bar Salibhi&amp;sT=keywords">Dionysius bar Salibhi</citedRange>

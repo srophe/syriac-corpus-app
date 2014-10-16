@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -127,30 +130,32 @@
                         <forename sort="1">Aḥob</forename>
                         <addName type="untagged-title" sort="2">Qaṭraya</addName>
                     </persName>
-                    <persName xml:id="name324-2" corresp="#name324-3 #name324-4 #name324-5" xml:lang="syr" source="#bib324-6" syriaca-tags="#syriaca-headword">
+                    <persName xml:id="name324-2" corresp="#name324-3 #name324-4 #name324-5" xml:lang="syr" source="#bib324-2" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ܐܚܘܒ</forename>
                         <addName type="untagged-title" sort="2">ܩܛܪܝܐ</addName>
                     </persName>
-                    <persName xml:id="name324-3" corresp="#name324-2 #name324-4 #name324-5" xml:lang="syr-Syrn" source="#bib324-6">
+                    <persName xml:id="name324-3" corresp="#name324-2 #name324-4 #name324-5" xml:lang="syr-Syrn" source="#bib324-2">
                         <forename sort="1">ܐܲܚܘܼܒ</forename>
                         <addName type="untagged-title" sort="2">ܩܸܛܪܵܝܵܐ</addName>
                     </persName>
-                    <persName xml:id="name324-4" corresp="#name324-2 #name324-3 #name324-5" xml:lang="syr" source="#bib324-7">
+                    <persName xml:id="name324-4" corresp="#name324-2 #name324-3 #name324-5" xml:lang="syr" source="#bib324-3">
                         <forename sort="1">ܐܝܘܒ</forename>
                         <addName type="untagged-title" sort="2">ܩܛܪܝܐ</addName>
                     </persName>
-                    <persName xml:id="name324-5" corresp="#name324-2 #name324-3 #name324-4" xml:lang="syr-Syrj" source="#bib324-7">
+                    <persName xml:id="name324-5" corresp="#name324-2 #name324-3 #name324-4" xml:lang="syr-Syrj" source="#bib324-3">
                         <forename sort="1">ܐܝܺܘܽܒ</forename>
                         <addName type="untagged-title" sort="2">ܩܰܛܪܳܝܳܐ</addName>
                     </persName>
-                    <persName xml:id="name324-6" xml:lang="en" source="#bib324-10">Ahob of Qatar</persName>
+                    <persName xml:id="name324-6" xml:lang="en" source="#bib324-4">Ahob of Qatar</persName>
+                    <persName xml:id="name324-7" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script"/>
+                    <persName xml:id="name324-8" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script"/>
                     <note type="abstract" xml:id="abstract-en-324">
-                        <quote source="#bib324-1">Exegete from <placeName xmlns="" ref="http://syriaca.org/place/37">Beth Qaṭraye</placeName> mentioned by <persName xmlns="" ref="http://syriaca.org/person/310">ʿAbdishoʿ bar Brikha</persName>.</quote>
+                        <quote source="#bib324-1">Exegete from <placeName ref="http://syriaca.org/place/37">Beth Qaṭraye</placeName> mentioned by <persName ref="http://syriaca.org/person/310">ʿAbdishoʿ bar Brikha</persName>.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/324</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|324</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Ahob of Qatar&amp;sT=keywords</idno>
-                    <floruit notBefore="0525" notAfter="0625" source="#bib324-1">Late 6th cent?</floruit>
+                    <floruit notBefore="0525" notAfter="0625" source="#bib324-1" syriaca-computed-end="0625-01-01" syriaca-computed-start="0525-01-01">Late 6th cent?</floruit>
                     <state type="confession" source="#bib324-1">
                         <desc>Ch. of E.</desc>
                     </state>
@@ -162,17 +167,17 @@
                         <citedRange unit="pp">12-13</citedRange>
                         <citedRange unit="pp">12-13</citedRange>
                     </bibl>
-                    <bibl xml:id="bib324-6">
+                    <bibl xml:id="bib324-2">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">76</citedRange>
                     </bibl>
-                    <bibl xml:id="bib324-7">
+                    <bibl xml:id="bib324-3">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:175</citedRange>
                     </bibl>
-                    <bibl xml:id="bib324-10">
+                    <bibl xml:id="bib324-4">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Ahob of Qatar&amp;sT=keywords">Ahob of Qatar</citedRange>

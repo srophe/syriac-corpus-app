@@ -60,7 +60,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -112,6 +112,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -119,12 +121,12 @@
         <body>
             <listPerson>
                 <person xml:id="person-5" ana="#syriaca-author">
-                    <persName xml:id="name5-1" corresp="#name5-2" xml:lang="syr" source="#bib5-4">
+                    <persName xml:id="name5-1" corresp="#name5-2" xml:lang="syr" source="#bib5-1">
                         <addName type="untagged-title" sort="2">ܒܪܬ ܩܝܡܐ</addName>
                         <forename sort="1">ܬܘܡܐܝܣ</forename>
                         <addName type="untagged-title" sort="2">ܢܨܝܒܝܢܝܐ</addName>
                     </persName>
-                    <persName xml:id="name5-2" corresp="#name5-1" xml:lang="syr-Syrj" source="#bib5-4">
+                    <persName xml:id="name5-2" corresp="#name5-1" xml:lang="syr-Syrj" source="#bib5-1">
                         <addName type="untagged-title" sort="2">ܒܰܪܬ ܩܝܳܡܐ</addName>
                         <forename sort="1">ܬܘܡܰܐܝܣ</forename>
                         <addName type="untagged-title" sort="2">ܢܨܝܒܝܢܝܳܐ</addName>
@@ -140,7 +142,7 @@
                     <note type="abstract" xml:id="abstract-en-5"/>
                     <idno type="URI">http://syriaca.org/person/5</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|5</idno>
-                    <bibl xml:id="bib5-4">
+                    <bibl xml:id="bib5-1">
                         <title level="m" xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">216</citedRange>

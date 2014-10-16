@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -146,8 +148,8 @@ vicinity of Khān Bālīq (Beijing).</quote>
                     <idno type="URI">http://worldcat.org/identities/np-yabhalaha$iii$patriarch of the nestorians$1244 1317</idno>
                     <idno type="URI">http://worldcat.org/identities/np-yaballaha$iii$patriarch of the nestorians$1281 1317</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Y&amp;sK=Yahbalaha III&amp;sT=keywords</idno>
-                    <birth notBefore="1230" notAfter="1260" source="#bib810-1">ca. 1245</birth>
-                    <death when="1317" source="#bib810-1">1317</death>
+                    <birth notBefore="1230" notAfter="1260" source="#bib810-1" syriaca-computed-end="1260-01-01" syriaca-computed-start="1230-01-01">ca. 1245</birth>
+                    <death when="1317" source="#bib810-1" syriaca-computed-start="1317-01-01">1317</death>
                     <state type="confession" source="#bib810-1">
                         <desc>Ch. of E.</desc>
                     </state>
@@ -159,7 +161,7 @@ vicinity of Khān Bālīq (Beijing).</quote>
                         <citedRange unit="pp">429</citedRange>
                         <citedRange unit="pp">429</citedRange>
                     </bibl>
-                    <bibl xml:id="bib810-10">
+                    <bibl xml:id="bib810-2">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Y&amp;sK=Yahbalaha III&amp;sT=keywords">Yahbalaha III</citedRange>

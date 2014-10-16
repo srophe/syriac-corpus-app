@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -153,8 +155,8 @@
                     </note>
                     <idno type="URI">http://syriaca.org/person/482</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|482</idno>
-                    <birth notBefore="0363" notAfter="0393" source="#bib482-1">ca. 378</birth>
-                    <death notBefore="0439" notAfter="0469" source="#bib482-1">ca. 454</death>
+                    <birth notBefore="0363" notAfter="0393" source="#bib482-1" syriaca-computed-end="0393-01-01" syriaca-computed-start="0363-01-01">ca. 378</birth>
+                    <death notBefore="0439" notAfter="0469" source="#bib482-1" syriaca-computed-end="0469-01-01" syriaca-computed-start="0439-01-01">ca. 454</death>
                     <bibl xml:id="bib482-1">
                         <author>S. P. Brock</author>
                         <title level="a" xml:lang="en">Eutyches</title>

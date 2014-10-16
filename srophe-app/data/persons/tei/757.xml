@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -129,9 +131,9 @@
                     <persName xml:id="name757-2" xml:lang="syr" resp="http://syriaca.org" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ܣܘܦܪܘܢܝܣ</forename>
                     </persName>
-                    <persName xml:id="name757-3" xml:lang="en" source="#bib757-10">Sophronius of Jerusalem</persName>
+                    <persName xml:id="name757-3" xml:lang="en" source="#bib757-2">Sophronius of Jerusalem</persName>
                     <note type="abstract" xml:id="abstract-en-757">
-                        <quote source="#bib757-1">Patr. of <placeName xmlns="" xml:id="tempName-7" type="diocese" subtype="general">Jerusalem</placeName> (from 634) and Greek
+                        <quote source="#bib757-1">Patr. of <placeName xml:id="tempName-7" type="diocese" subtype="general">Jerusalem</placeName> (from 634) and Greek
             author.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/757</idno>
@@ -142,7 +144,7 @@
                     <idno type="URI">http://viaf.org/viaf/250747918</idno>
                     <idno type="URI">http://viaf.org/viaf/245065534</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Sophronius of Jerusalem&amp;sT=keywords</idno>
-                    <death when="0638" source="#bib757-1">638</death>
+                    <death when="0638" source="#bib757-1" syriaca-computed-start="0638-01-01">638</death>
                     <bibl xml:id="bib757-1">
                         <author>S. P. Brock</author>
                         <title level="a" xml:lang="en">Sophronius</title>
@@ -151,7 +153,7 @@
                         <citedRange unit="pp">384</citedRange>
                         <citedRange unit="pp">384</citedRange>
                     </bibl>
-                    <bibl xml:id="bib757-10">
+                    <bibl xml:id="bib757-2">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Sophronius of Jerusalem&amp;sT=keywords">Sophronius of Jerusalem</citedRange>

@@ -62,7 +62,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -114,7 +114,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -126,7 +128,7 @@
                         <forename sort="1">Eli</forename>
                         <addName type="untagged-title" sort="2">of Qarṭmin</addName>
                     </persName>
-                    <persName xml:id="name465-2" xml:lang="en" source="#bib465-10">Elijah of Qartmin</persName>
+                    <persName xml:id="name465-2" xml:lang="en" source="#bib465-2">Elijah of Qartmin</persName>
                     <note type="abstract" xml:id="abstract-en-465">
                         <quote source="#bib465-1">Monastic author of a verse biography of Philoxenus of Mabbug (445–523), who had become the patron saint of the monastery of Qarṭmin (20 km. southeast of Midyat).</quote>
                     </note>
@@ -138,7 +140,7 @@
                     <idno type="URI">http://viaf.org/viaf/190551878</idno>
                     <idno type="URI">http://viaf.org/viaf/88911728</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Elijah of Qartmin&amp;sT=keywords</idno>
-                    <floruit notBefore="1150" notAfter="1350" source="#bib465-1">ca. 13th cent.</floruit>
+                    <floruit notBefore="1150" notAfter="1350" source="#bib465-1" syriaca-computed-end="1350-01-01" syriaca-computed-start="1150-01-01">ca. 13th cent.</floruit>
                     <state type="confession" source="#bib465-1">
                         <desc>Syr. Orth.</desc>
                     </state>
@@ -150,7 +152,7 @@
                         <citedRange unit="pp">140</citedRange>
                         <citedRange unit="pp">140</citedRange>
                     </bibl>
-                    <bibl xml:id="bib465-10">
+                    <bibl xml:id="bib465-2">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Elijah of Qartmin&amp;sT=keywords">Elijah of Qartmin</citedRange>

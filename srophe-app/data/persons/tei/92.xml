@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -167,9 +169,9 @@
                         <forename sort="1">John</forename>
                         <addName type="untagged-title" sort="2">of the Sedre</addName>
                     </persName>
-                    <persName xml:id="name92-7" xml:lang="en" source="#bib92-10">John I of Antioch</persName>
+                    <persName xml:id="name92-7" xml:lang="en" source="#bib92-5">John I of Antioch</persName>
                     <note type="abstract" xml:id="abstract-en-92">
-                        <quote source="#bib92-1">Former monk of the Monastery of Eusebona, he became the <foreign xmlns="" rend="italic" xml:lang="en-x-gedsh">synkellos</foreign> (secretary) of
+                        <quote source="#bib92-1">Former monk of the Monastery of Eusebona, he became the <foreign rend="italic" xml:lang="en-x-gedsh">synkellos</foreign> (secretary) of
             Patr. Athanasios I Gamolo, whom he succeeded in 630/1.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/92</idno>
@@ -180,7 +182,7 @@
                     <idno type="URI">http://viaf.org/viaf/199318976</idno>
                     <idno type="URI">http://viaf.org/viaf/177482483</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John I of Antioch&amp;sT=keywords</idno>
-                    <death when="0648" source="#bib92-1">648</death>
+                    <death when="0648" source="#bib92-1" syriaca-computed-start="0648-01-01">648</death>
                     <state type="confession" source="#bib92-1">
                         <desc>Syr. Orth.</desc>
                     </state>
@@ -207,7 +209,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">305</citedRange>
                     </bibl>
-                    <bibl xml:id="bib92-10">
+                    <bibl xml:id="bib92-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John I of Antioch&amp;sT=keywords">John I of Antioch</citedRange>

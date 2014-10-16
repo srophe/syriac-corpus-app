@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -131,11 +133,11 @@
                         <forename sort="1">ܝܘܚܢܢ</forename>
                         <addName type="untagged-title" sort="2">ܕܝܠܘܡܝܐ</addName>
                     </persName>
-                    <persName xml:id="name825-3" corresp="#name825-2" xml:lang="syr-Syrn" source="#bib825-6">
+                    <persName xml:id="name825-3" corresp="#name825-2" xml:lang="syr-Syrn" source="#bib825-2">
                         <forename sort="1">ܝܘܿܚܲܢܵܢ</forename>
                         <addName type="untagged-title" sort="2">ܕܝܼܠܘܿܡܵܝܵܐ</addName>
                     </persName>
-                    <persName xml:id="name825-4" xml:lang="en" source="#bib825-10">
+                    <persName xml:id="name825-4" xml:lang="en" source="#bib825-4">
                         <forename sort="1">John</forename>
                         <addName type="untagged-title" sort="2">of Dailam</addName>
                     </persName>
@@ -145,7 +147,7 @@
                     <idno type="URI">http://syriaca.org/person/825</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|825</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John of Dailam&amp;sT=keywords</idno>
-                    <death when="0738" source="#bib825-1">738</death>
+                    <death when="0738" source="#bib825-1" syriaca-computed-start="0738-01-01">738</death>
                     <state type="confession" source="#bib825-1">
                         <desc>Ch. of E.</desc>
                     </state>
@@ -157,17 +159,17 @@
                         <citedRange unit="pp">441</citedRange>
                         <citedRange unit="pp">441</citedRange>
                     </bibl>
-                    <bibl xml:id="bib825-6">
+                    <bibl xml:id="bib825-2">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">77</citedRange>
                     </bibl>
-                    <bibl xml:id="bib825-7">
+                    <bibl xml:id="bib825-3">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:182</citedRange>
                     </bibl>
-                    <bibl xml:id="bib825-10">
+                    <bibl xml:id="bib825-4">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John of Dailam&amp;sT=keywords">John of Dailam</citedRange>

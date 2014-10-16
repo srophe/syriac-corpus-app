@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -182,7 +184,7 @@
                     <idno type="URI">http://worldcat.org/identities/lccn-n2004-61708</idno>
                     <idno type="URI">http://viaf.org/viaf/98494363</idno>
                     <idno type="URI">http://worldcat.org/identities/viaf-98494363</idno>
-                    <floruit notBefore="0400" notAfter="0500" source="#bib33-1">5th cent.</floruit>
+                    <floruit notBefore="0400" notAfter="0500" source="#bib33-1" syriaca-computed-end="0500-01-01" syriaca-computed-start="0400-01-01">5th cent.</floruit>
                     <bibl xml:id="bib33-1">
                         <author>E. G. Mathews, Jr</author>
                         <title level="a" xml:lang="en">Isḥaq of Antioch</title>

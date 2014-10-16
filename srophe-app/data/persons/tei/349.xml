@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -162,7 +164,7 @@
                         <forename sort="2">ܫܡܥܘܢ</forename>
                         <addName type="family" sort="1">ܫܡܥܘܢܝܐ</addName>
                     </persName>
-                    <persName xml:id="name349-6" xml:lang="en" source="#bib349-1">Giuseppe Simone Assemani</persName>
+                    <persName xml:id="name349-7" xml:lang="en" source="#bib349-1">Giuseppe Simone Assemani</persName>
                     <note type="abstract" xml:id="abstract-en-349">
                         <quote source="#bib349-1">Maronite polymath, Custodian of the Vatican Library, and titular bp. of Tyre.</quote>
                     </note>
@@ -172,8 +174,8 @@
                     <idno type="URI">http://worldcat.org/identities/lccn-n88-20882</idno>
                     <idno type="URI">http://viaf.org/viaf/238028405</idno>
                     <idno type="URI">http://viaf.org/viaf/216968498</idno>
-                    <birth when="1687" source="#bib349-1">1687</birth>
-                    <death when="1768" source="#bib349-1">1768</death>
+                    <birth when="1687" source="#bib349-1" syriaca-computed-start="1687-01-01">1687</birth>
+                    <death when="1768" source="#bib349-1" syriaca-computed-start="1768-01-01">1768</death>
                     <state type="office" role="metropolitan" source="#bib349-2">
                         <desc xml:lang="en">Metropolitan</desc>
                     </state>

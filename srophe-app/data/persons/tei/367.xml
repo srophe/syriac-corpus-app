@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -131,13 +134,15 @@
                         <forename sort="1">ܒܪܚܕܒܫܒܐ</forename>
                         <addName type="untagged-title" sort="2">ܥܪܒܝܐ</addName>
                     </persName>
-                    <persName xml:id="name367-3" corresp="#name367-2" xml:lang="syr-Syrn" source="#bib367-6">
+                    <persName xml:id="name367-3" corresp="#name367-2" xml:lang="syr-Syrn" source="#bib367-2">
                         <forename sort="1">ܒܲܪܚܲܕܒܫܲܒܵܐ</forename>
                         <addName type="untagged-title" sort="2">ܥܲܪܒܵܝܵܐ</addName>
                     </persName>
-                    <persName xml:id="name367-4" xml:lang="en" source="#bib367-10">Barhadbeshabba Arbaya</persName>
+                    <persName xml:id="name367-4" xml:lang="en" source="#bib367-4">Barhadbeshabba Arbaya</persName>
+                    <persName xml:id="name367-5" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Barḥadbshabba Arbaya</persName>
+                    <persName xml:id="name367-6" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Barḥadbshabba ‘Arbaya</persName>
                     <note type="abstract" xml:id="abstract-en-367">
-                        <quote source="#bib367-1">A member of the <orgName xmlns="" ref="#tempName-2">School of <placeName ref="http://syriaca.org/place/142">Nisibis</placeName>
+                        <quote source="#bib367-1">A member of the <orgName xmlns="" ref="#tempName-2">School of <placeName xmlns="http://www.tei-c.org/ns/1.0" ref="http://syriaca.org/place/142">Nisibis</placeName>
                             </orgName> in the latter part of the 6th cent., who may have composed two of the most important sources for this institution: the Ecclesiastical History and the so-called 'Cause of the Foundation of the Schools'.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/367</idno>
@@ -149,7 +154,7 @@
                     <idno type="URI">http://viaf.org/viaf/213923084</idno>
                     <idno type="URI">http://viaf.org/viaf/237662328</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Barhadbeshabba Arbaya&amp;sT=keywords</idno>
-                    <floruit notBefore="0550" notAfter="0650" source="#bib367-1">late 6th / early 7th cent.</floruit>
+                    <floruit notBefore="0550" notAfter="0650" source="#bib367-1" syriaca-computed-end="0650-01-01" syriaca-computed-start="0550-01-01">late 6th / early 7th cent.</floruit>
                     <state type="confession" source="#bib367-1">
                         <desc>Ch. of E.</desc>
                     </state>
@@ -161,17 +166,17 @@
                         <citedRange unit="pp">57-58</citedRange>
                         <citedRange unit="pp">57-58</citedRange>
                     </bibl>
-                    <bibl xml:id="bib367-6">
+                    <bibl xml:id="bib367-2">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">75</citedRange>
                     </bibl>
-                    <bibl xml:id="bib367-7">
+                    <bibl xml:id="bib367-3">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:169</citedRange>
                     </bibl>
-                    <bibl xml:id="bib367-10">
+                    <bibl xml:id="bib367-4">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Barhadbeshabba Arbaya&amp;sT=keywords">Barhadbeshabba Arbaya</citedRange>

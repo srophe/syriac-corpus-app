@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -138,13 +140,13 @@
                     <persName xml:id="name724-1" xml:lang="en-x-gedsh" source="#bib724-1" syriaca-tags="#syriaca-headword">
                         <addName type="family" sort="1">Schulthess</addName>, <forename sort="2">Friedrich</forename>
                     </persName>
-                    <persName xml:id="name724-2" corresp="#name724-3 #name724-4" xml:lang="ar" source="#bib724-3">
+                    <persName xml:id="name724-2" corresp="#name724-3 #name724-4" xml:lang="ar" source="#bib724-2">
                         <addName type="family" sort="1">شولتيس</addName>
                     </persName>
-                    <persName xml:id="name724-3" corresp="#name724-2 #name724-4" xml:lang="syr" source="#bib724-4" syriaca-tags="#syriaca-headword">
+                    <persName xml:id="name724-3" corresp="#name724-2 #name724-4" xml:lang="syr" source="#bib724-3" syriaca-tags="#syriaca-headword">
                         <addName type="family" sort="1">ܫܘܠܬܝܙ</addName>
                     </persName>
-                    <persName xml:id="name724-4" corresp="#name724-2 #name724-3" xml:lang="syr-Syrj" source="#bib724-4">
+                    <persName xml:id="name724-4" corresp="#name724-2 #name724-3" xml:lang="syr-Syrj" source="#bib724-3">
                         <addName type="family" sort="1">ܫܳܘܠܬܝܙ</addName>
                     </persName>
                     <note type="abstract" xml:id="abstract-en-724">
@@ -158,8 +160,8 @@
                     <idno type="URI">http://viaf.org/viaf/20039003</idno>
                     <idno type="URI">http://worldcat.org/identities/viaf-20039003</idno>
                     <idno type="URI">http://viaf.org/viaf/191737326</idno>
-                    <birth when="1868" source="#bib724-1">1868</birth>
-                    <death when="1922" source="#bib724-1">1922</death>
+                    <birth when="1868" source="#bib724-1" syriaca-computed-start="1868-01-01">1868</birth>
+                    <death when="1922" source="#bib724-1" syriaca-computed-start="1922-01-01">1922</death>
                     <bibl xml:id="bib724-1">
                         <author>L. Van Rompay</author>
                         <title level="a" xml:lang="en">Schulthess, Friedrich</title>
@@ -168,12 +170,12 @@
                         <citedRange unit="pp">362-363</citedRange>
                         <citedRange unit="pp">362-363</citedRange>
                     </bibl>
-                    <bibl xml:id="bib724-3">
+                    <bibl xml:id="bib724-2">
                         <title level="m" xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">475</citedRange>
                     </bibl>
-                    <bibl xml:id="bib724-4">
+                    <bibl xml:id="bib724-3">
                         <title level="m" xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">507</citedRange>

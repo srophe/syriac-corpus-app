@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -175,7 +177,7 @@
                         <forename sort="1">Severus</forename>
                         <addName type="family" sort="2">bar Mashqo</addName>
                     </persName>
-                    <persName xml:id="name106-8" xml:lang="en" source="#bib106-10">Severus bar Mashqa</persName>
+                    <persName xml:id="name106-8" xml:lang="en" source="#bib106-5">Severus bar Mashqa</persName>
                     <note type="abstract" xml:id="abstract-en-106">
                         <quote source="#bib106-1">Patr. since 667/8. Severos was from Dayro da-Pgimto (see under
             Reshʿayna).</quote>
@@ -183,7 +185,7 @@
                     <idno type="URI">http://syriaca.org/person/106</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|106</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Severus bar Mashqa&amp;sT=keywords</idno>
-                    <death when="0684" source="#bib106-1">684</death>
+                    <death when="0684" source="#bib106-1" syriaca-computed-start="0684-01-01">684</death>
                     <state type="office" role="patriarch" source="#bib106-2">
                         <desc xml:lang="en">Patriarch</desc>
                     </state>
@@ -213,7 +215,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">314</citedRange>
                     </bibl>
-                    <bibl xml:id="bib106-10">
+                    <bibl xml:id="bib106-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Severus bar Mashqa&amp;sT=keywords">Severus bar Mashqa</citedRange>

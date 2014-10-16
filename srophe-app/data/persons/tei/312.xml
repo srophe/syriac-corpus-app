@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -132,13 +135,15 @@
                         <forename sort="1">ܥܒܕ ܠܠܗ</forename>
                         <addName type="untagged-title" sort="2">ܩܕܡܝܐ</addName>
                     </persName>
+                    <persName xml:id="name312-3" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Abdullāh I bar Sṭephanos</persName>
+                    <persName xml:id="name312-4" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">‘Abdullāh I bar Sṭephanos</persName>
                     <note type="abstract" xml:id="abstract-en-312">
                         <quote source="#bib312-1">Patr. (1521-57) and advocate for printing the first Syriac NT.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/312</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|312</idno>
-                    <death when="1557" source="#bib312-1">1557</death>
-                    <state type="office" from="1521" to="1557" source="#bib312-1">
+                    <death when="1557" source="#bib312-1" syriaca-computed-start="1557-01-01">1557</death>
+                    <state type="office" from="1521" to="1557" source="#bib312-1" syriaca-computed-end="1557-01-01" syriaca-computed-start="1521-01-01">
                         <desc xml:lang="en-x-gedsh">1521-1557</desc>
                     </state>
                     <state type="confession" source="#bib312-1">

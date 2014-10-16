@@ -62,7 +62,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -114,7 +114,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -127,15 +129,15 @@
                     </persName>
                     <note type="abstract" xml:id="abstract-en-770">
                         <Not_Useful/>
-                        <quote source="#bib770-1">He was born in <placeName xmlns="" ref="http://syriaca.org/place/139">Mosul</placeName> to a Syr. Cath. family on 3 Nov. 1879, and after his studies
+                        <quote source="#bib770-1">He was born in <placeName ref="http://syriaca.org/place/139">Mosul</placeName> to a Syr. Cath. family on 3 Nov. 1879, and after his studies
             in the local Seminary of St. John, he was ordained priest in 1903.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/770</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|770</idno>
                     <idno type="URI">http://worldcat.org/identities/np-tappunii, ignatius gabriel$patriarch$1879</idno>
                     <idno type="URI">http://viaf.org/viaf/212372730</idno>
-                    <birth when="1879-11-03" source="#bib770-1">11/3/1879</birth>
-                    <death when="1968-01-29" source="#bib770-1">1/29/1968</death>
+                    <birth when="1879-11-03" source="#bib770-1" syriaca-computed-start="1879-11-03">11/3/1879</birth>
+                    <death when="1968-01-29" source="#bib770-1" syriaca-computed-start="1968-01-29">1/29/1968</death>
                     <state type="confession" source="#bib770-1">
                         <desc>Syr. Cath.</desc>
                     </state>

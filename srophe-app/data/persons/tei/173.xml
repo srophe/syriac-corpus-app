@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -169,9 +171,9 @@
                         <forename sort="1">Moses</forename>
                         <addName type="family" sort="2">bar Kipho</addName>
                     </persName>
-                    <persName xml:id="name173-7" xml:lang="en" source="#bib173-10">Moses bar Kepha</persName>
+                    <persName xml:id="name173-7" xml:lang="en" source="#bib173-5">Moses bar Kepha</persName>
                     <note type="abstract" xml:id="abstract-en-173">
-                        <quote source="#bib173-1">Bp. of Beth Raman (north of Tagrit on the <placeName xmlns="" ref="http://syriaca.org/place/202">Tigris</placeName>), and writer.</quote>
+                        <quote source="#bib173-1">Bp. of Beth Raman (north of Tagrit on the <placeName ref="http://syriaca.org/place/202">Tigris</placeName>), and writer.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/173</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|173</idno>
@@ -183,9 +185,9 @@
                     <idno type="URI">http://viaf.org/viaf/201425597</idno>
                     <idno type="URI">http://worldcat.org/identities/np-muse bar kepa</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Moses bar Kepha&amp;sT=keywords</idno>
-                    <birth notBefore="0823" notAfter="0843" source="#bib173-1">ca. 833</birth>
-                    <death when="0903-02-12" source="#bib173-1">2/12/0903</death>
-                    <state type="office" from="0863" to="0903" source="#bib173-1">
+                    <birth notBefore="0823" notAfter="0843" source="#bib173-1" syriaca-computed-end="0843-01-01" syriaca-computed-start="0823-01-01">ca. 833</birth>
+                    <death when="0903-02-12" source="#bib173-1" syriaca-computed-start="0903-02-12">2/12/0903</death>
+                    <state type="office" from="0863" to="0903" source="#bib173-1" syriaca-computed-end="0903-01-01" syriaca-computed-start="0863-01-01">
                         <desc xml:lang="en-x-gedsh">ca. 863</desc>
                     </state>
                     <state type="confession" source="#bib173-1">
@@ -214,7 +216,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">378</citedRange>
                     </bibl>
-                    <bibl xml:id="bib173-10">
+                    <bibl xml:id="bib173-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Moses bar Kepha&amp;sT=keywords">Moses bar Kepha</citedRange>

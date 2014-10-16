@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -137,7 +139,7 @@
                         <forename sort="1">ܐܠܝܐ</forename>
                         <addName type="untagged-title" sort="2">ܩܕܡܝܐ</addName>
                     </persName>
-                    <persName xml:id="name468-4" corresp="#name468-3" xml:lang="syr-Syrn" source="#bib468-6">
+                    <persName xml:id="name468-4" corresp="#name468-3" xml:lang="syr-Syrn" source="#bib468-2">
                         <addName type="untagged-title" sort="2">ܡܵܪܝ</addName>
                         <forename sort="1">ܐܹܠܝܼܵܐ</forename>
                         <addName type="untagged-title" sort="2">ܩܲܕܡܵܝܵܐ</addName>
@@ -147,8 +149,8 @@
                         <addName type="untagged-title" sort="2">I</addName>
                         <addName type="untagged-title" sort="2">of Ṭirhan</addName>
                     </persName>
-                    <persName xml:id="name468-6" xml:lang="en" source="#bib468-10">Elijah I</persName>
-                    <persName xml:id="name468-7" xml:lang="en" source="#bib468-10">Elijah of Tirhan</persName>
+                    <persName xml:id="name468-6" xml:lang="en" source="#bib468-4">Elijah I</persName>
+                    <persName xml:id="name468-7" xml:lang="en" source="#bib468-4">Elijah of Tirhan</persName>
                     <note type="abstract" xml:id="abstract-en-468">
                         <quote source="#bib468-1">Bp. of Ṭirhan, Cath., author.</quote>
                     </note>
@@ -157,8 +159,8 @@
                     <idno type="URI">http://viaf.org/viaf/49040644</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Elijah I&amp;sT=keywords</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Elijah of Tirhan&amp;sT=keywords</idno>
-                    <death when="1049" source="#bib468-1">1049</death>
-                    <state type="office" from="1028" source="#bib468-1">
+                    <death when="1049" source="#bib468-1" syriaca-computed-start="1049-01-01">1049</death>
+                    <state type="office" from="1028" source="#bib468-1" syriaca-computed-start="1028-01-01">
                         <desc xml:lang="en-x-gedsh">1028</desc>
                     </state>
                     <state type="confession" source="#bib468-1">
@@ -172,17 +174,17 @@
                         <citedRange unit="pp">141</citedRange>
                         <citedRange unit="pp">141</citedRange>
                     </bibl>
-                    <bibl xml:id="bib468-6">
+                    <bibl xml:id="bib468-2">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">81</citedRange>
                     </bibl>
-                    <bibl xml:id="bib468-7">
+                    <bibl xml:id="bib468-3">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:262</citedRange>
                     </bibl>
-                    <bibl xml:id="bib468-10">
+                    <bibl xml:id="bib468-4">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Elijah I&amp;sT=keywords">Elijah I</citedRange>

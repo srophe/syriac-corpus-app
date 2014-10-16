@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -130,8 +133,10 @@
                         <forename sort="2">ܐܬܢܐܣܝܘܣ ܝܫܘܥ</forename>
                         <addName type="family" sort="1">ܫܡܘܐܝܠ</addName>
                     </persName>
+                    <persName xml:id="name716-3" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Samuel Athanasios Yeshu</persName>
+                    <persName xml:id="name716-4" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Samuel Athanasios Yeshu‘</persName>
                     <note type="abstract" xml:id="abstract-en-716">
-                        <quote source="#bib716-1">Bp. of <placeName xmlns="" ref="http://syriaca.org/place/2321">Jerusalem</placeName>
+                        <quote source="#bib716-1">Bp. of <placeName ref="http://syriaca.org/place/2321">Jerusalem</placeName>
             (1947-48), and first bp. of the United States (1957-95).</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/716</idno>
@@ -143,9 +148,9 @@
                     <idno type="URI">http://viaf.org/viaf/121337437</idno>
                     <idno type="URI">http://viaf.org/viaf/241402270</idno>
                     <idno type="URI">http://viaf.org/viaf/201778152</idno>
-                    <birth when="1907" source="#bib716-1">1907</birth>
-                    <death when="1995" source="#bib716-1">1995</death>
-                    <state type="office" from="1957" to="1995" source="#bib716-1">
+                    <birth when="1907" source="#bib716-1" syriaca-computed-start="1907-01-01">1907</birth>
+                    <death when="1995" source="#bib716-1" syriaca-computed-start="1995-01-01">1995</death>
+                    <state type="office" from="1957" to="1995" source="#bib716-1" syriaca-computed-end="1995-01-01" syriaca-computed-start="1957-01-01">
                         <desc xml:lang="en-x-gedsh">1957-1995</desc>
                     </state>
                     <state type="confession" source="#bib716-1">

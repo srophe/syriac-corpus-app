@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -168,11 +170,11 @@
                         <forename sort="1">ܡܪܘܬܐ</forename>
                         <addName type="untagged-title" sort="2">ܐܦܣܩܘܦܐ</addName>
                     </persName>
-                    <persName xml:id="name25-7" corresp="#name25-6" xml:lang="syr-Syrn" source="#bib25-6">
+                    <persName xml:id="name25-7" corresp="#name25-6" xml:lang="syr-Syrn" source="#bib25-5">
                         <forename sort="1">ܡܵܪܘܼܬܵܐ</forename>
                         <addName type="untagged-title" sort="2">ܐܲܦܸܣܩܘܿܦܵܐ</addName>
                     </persName>
-                    <persName xml:id="name25-8" xml:lang="en" source="#bib25-10">Marutha of Maipherqat</persName>
+                    <persName xml:id="name25-8" xml:lang="en" source="#bib25-7">Marutha of Maipherqat</persName>
                     <note type="abstract" xml:id="abstract-en-25">
                         <quote source="#bib25-1">Bp., doctor, and co-convenor of the Synod of Seleucia-Ctesiphon (410).</quote>
                     </note>
@@ -186,8 +188,8 @@
                     <idno type="URI">http://viaf.org/viaf/92779784</idno>
                     <idno type="URI">http://viaf.org/viaf/102326317</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Marutha of Maipherqat&amp;sT=keywords</idno>
-                    <death when="0421" source="#bib25-2">421</death>
-                    <floruit notBefore="0300" notAfter="0500" source="#bib25-1">4th/5th cent.</floruit>
+                    <death when="0421" source="#bib25-2" syriaca-computed-start="0421-01-01">421</death>
+                    <floruit notBefore="0300" notAfter="0500" source="#bib25-1" syriaca-computed-end="0500-01-01" syriaca-computed-start="0300-01-01">4th/5th cent.</floruit>
                     <bibl xml:id="bib25-1">
                         <author>S. P. Brock </author>
                         <title level="a" xml:lang="en">Marutha of Maypherqaṭ</title>
@@ -211,17 +213,17 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">233</citedRange>
                     </bibl>
-                    <bibl xml:id="bib25-6">
+                    <bibl xml:id="bib25-5">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">70</citedRange>
                     </bibl>
-                    <bibl xml:id="bib25-7">
+                    <bibl xml:id="bib25-6">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:73</citedRange>
                     </bibl>
-                    <bibl xml:id="bib25-10">
+                    <bibl xml:id="bib25-7">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Marutha of Maipherqat&amp;sT=keywords">Marutha of Maipherqat</citedRange>

@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -131,18 +134,20 @@
                         <forename sort="1">ܚܢܢܝܫܘܥ</forename>
                         <addName type="untagged-title" sort="2">ܚܓܝܪܐ</addName>
                     </persName>
-                    <persName xml:id="name531-3" corresp="#name531-2" xml:lang="syr-Syrn" source="#bib531-6">
+                    <persName xml:id="name531-3" corresp="#name531-2" xml:lang="syr-Syrn" source="#bib531-2">
                         <forename sort="1">ܚܢܵܢܝܼܫܘܿܥ</forename>
                         <addName type="untagged-title" sort="2">ܚܓܝܼܪܵܐ</addName>
                     </persName>
-                    <persName xml:id="name531-4" xml:lang="en" source="#bib531-10">Henanisho I</persName>
+                    <persName xml:id="name531-4" xml:lang="en" source="#bib531-4">Henanisho I</persName>
+                    <persName xml:id="name531-5" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Ḥenanisho I</persName>
+                    <persName xml:id="name531-6" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Ḥenanisho‘ I</persName>
                     <note type="abstract" xml:id="abstract-en-531">
                         <quote source="#bib531-1">Cath. since 685/6; author of a law book and of exegetical homilies.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/531</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|531</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=H&amp;sK=Henanisho I&amp;sT=keywords</idno>
-                    <death notBefore="0699" notAfter="0700" source="#bib531-1">699/700</death>
+                    <death notBefore="0699" notAfter="0700" source="#bib531-1" syriaca-computed-end="0700-01-01" syriaca-computed-start="0699-01-01">699/700</death>
                     <state type="confession" source="#bib531-1">
                         <desc>Ch. of E.</desc>
                     </state>
@@ -154,17 +159,17 @@
                         <citedRange unit="pp">194-195</citedRange>
                         <citedRange unit="pp">194-195</citedRange>
                     </bibl>
-                    <bibl xml:id="bib531-6">
+                    <bibl xml:id="bib531-2">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">74</citedRange>
                     </bibl>
-                    <bibl xml:id="bib531-7">
+                    <bibl xml:id="bib531-3">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:154</citedRange>
                     </bibl>
-                    <bibl xml:id="bib531-10">
+                    <bibl xml:id="bib531-4">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=H&amp;sK=Henanisho I&amp;sT=keywords">Henanisho I</citedRange>

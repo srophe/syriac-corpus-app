@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -147,7 +149,7 @@
                     <persName xml:id="name323-4" corresp="#name323-1 #name323-2 #name323-3" xml:lang="syr-Syrj" source="#bib323-4">
                         <forename sort="1">ܐܰܚܝܩܰܪ</forename>
                     </persName>
-                    <persName xml:id="name323-5" xml:lang="en" source="#bib323-10">Ahikar</persName>
+                    <persName xml:id="name323-5" xml:lang="en" source="#bib323-5">Ahikar</persName>
                     <note type="abstract" xml:id="abstract-en-323">
                         <quote source="#bib323-1">Aḥiqar, ‘the Aramean Sage’ who is mentioned in an Akkadian text, is the hero of a
             narrative set in the Assyrian court.</quote>
@@ -160,7 +162,7 @@
                     <idno type="URI">http://viaf.org/viaf/88966698</idno>
                     <idno type="URI">http://viaf.org/viaf/63528699</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Ahikar&amp;sT=keywords</idno>
-                    <state type="office" from="-0705" to="-0669" source="#bib323-1">
+                    <state type="office" from="-0705" to="-0669" source="#bib323-1" syriaca-computed-end="-0669-01-01" syriaca-computed-start="-0705-01-01">
                         <desc xml:lang="en-x-gedsh">705-669 BC </desc>
                     </state>
                     <bibl xml:id="bib323-1">
@@ -186,7 +188,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">27</citedRange>
                     </bibl>
-                    <bibl xml:id="bib323-10">
+                    <bibl xml:id="bib323-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Ahikar&amp;sT=keywords">Ahikar</citedRange>

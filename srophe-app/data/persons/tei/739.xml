@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -129,14 +132,16 @@
                     <persName xml:id="name739-2" xml:lang="syr" resp="http://syriaca.org" syriaca-tags="#syriaca-headword">
                         <forename sort="2">ܐܝܫܝ ܫܡܥܘܢ</forename>
                     </persName>
+                    <persName xml:id="name739-3" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Shemon Eshai</persName>
+                    <persName xml:id="name739-4" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Shem‘on Eshai</persName>
                     <note type="abstract" xml:id="abstract-en-739">
                         <Not_Useful/>
                         <quote source="#bib739-1">Patr. Eshai was consecrated as a boy of eleven after the death of his uncle Mar Shemʿon Pawlos.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/739</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|739</idno>
-                    <birth when="1909-06-20" source="#bib739-1">6/20/1909</birth>
-                    <death when="1975" source="#bib739-1">11/1975</death>
+                    <birth when="1909-06-20" source="#bib739-1" syriaca-computed-start="1909-06-20">6/20/1909</birth>
+                    <death when="1975" source="#bib739-1" syriaca-computed-start="1975-01-01">11/1975</death>
                     <state type="confession" source="#bib739-1">
                         <desc>Ch. of E.</desc>
                     </state>

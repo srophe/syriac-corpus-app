@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -134,7 +136,7 @@
                         <forename sort="1">ܥܡܢܘܐܝܠ</forename>
                         <addName type="untagged-title" sort="2">ܡܠܦܢܐ</addName>
                     </persName>
-                    <persName xml:id="name473-4" corresp="#name473-3" xml:lang="syr-Syrn" source="#bib473-6">
+                    <persName xml:id="name473-4" corresp="#name473-3" xml:lang="syr-Syrn" source="#bib473-2">
                         <forename sort="1">ܥܲܡܵܢܘܼܐܹܝܠ</forename>
                         <addName type="untagged-title" sort="2">ܡܲܠܦܵܢܵܐ</addName>
                     </persName>
@@ -143,12 +145,12 @@
                         <addName type="family" sort="2">bar Shahhare</addName>
                     </persName>
                     <note type="abstract" xml:id="abstract-en-473">
-                        <quote source="#bib473-1">Monk in the Upper Monastery (Dayra ʿellāytā) near <placeName xmlns="" ref="http://syriaca.org/place/139">Mosul</placeName>, author of a Hexaemeron, which still is unpublished.</quote>
+                        <quote source="#bib473-1">Monk in the Upper Monastery (Dayra ʿellāytā) near <placeName ref="http://syriaca.org/place/139">Mosul</placeName>, author of a Hexaemeron, which still is unpublished.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/473</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|473</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Emmanuel bar Shahhare&amp;sT=keywords</idno>
-                    <death when="0980" source="#bib473-1">980</death>
+                    <death when="0980" source="#bib473-1" syriaca-computed-start="0980-01-01">980</death>
                     <state type="confession" source="#bib473-1">
                         <desc>Ch. of E.</desc>
                     </state>
@@ -160,17 +162,17 @@
                         <citedRange unit="pp">143-144</citedRange>
                         <citedRange unit="pp">143-144</citedRange>
                     </bibl>
-                    <bibl xml:id="bib473-6">
+                    <bibl xml:id="bib473-2">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">82</citedRange>
                     </bibl>
-                    <bibl xml:id="bib473-7">
+                    <bibl xml:id="bib473-3">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:277</citedRange>
                     </bibl>
-                    <bibl xml:id="bib473-10">
+                    <bibl xml:id="bib473-4">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Emmanuel bar Shahhare&amp;sT=keywords">Emmanuel bar Shahhare</citedRange>

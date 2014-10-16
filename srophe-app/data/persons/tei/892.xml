@@ -42,7 +42,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -94,6 +94,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -105,7 +107,7 @@
                         <forename sort="1">ܝܘܚܢܢ</forename>
                         <addName type="untagged-title" sort="2">ܓܪܡܩܝܐ</addName>
                     </persName>
-                    <persName xml:id="name892-2" corresp="#name892-1" xml:lang="syr-Syrn" source="#bib892-6">
+                    <persName xml:id="name892-2" corresp="#name892-1" xml:lang="syr-Syrn" source="#bib892-1">
                         <forename sort="1">ܝܘܿܚܲܢܵܢ</forename>
                         <addName type="untagged-title" sort="2">ܓܲܪܡܵܝܵܐ</addName>
                     </persName>
@@ -117,22 +119,22 @@
                         <forename sort="1">John</forename>
                         <addName type="untagged-title" sort="2">Garmqaya</addName>
                     </persName>
-                    <persName xml:id="name892-5" xml:lang="en" source="#bib892-10">John of Bet Garmai</persName>
+                    <persName xml:id="name892-5" xml:lang="en" source="#bib892-3">John of Bet Garmai</persName>
                     <note type="abstract" xml:id="abstract-en-892"/>
                     <idno type="URI">http://syriaca.org/person/892</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|892</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John of Bet Garmai&amp;sT=keywords</idno>
-                    <bibl xml:id="bib892-6">
+                    <bibl xml:id="bib892-1">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">78</citedRange>
                     </bibl>
-                    <bibl xml:id="bib892-7">
+                    <bibl xml:id="bib892-2">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:203</citedRange>
                     </bibl>
-                    <bibl xml:id="bib892-10">
+                    <bibl xml:id="bib892-3">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John of Bet Garmai&amp;sT=keywords">John of Bet Garmai</citedRange>

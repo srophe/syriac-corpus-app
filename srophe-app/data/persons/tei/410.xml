@@ -71,7 +71,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -123,7 +123,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
             <change type="planned">Unsure whether Antonio Ceriano (http://viaf.org/viaf/194645387) and Maria Antonio Ceriani (http://viaf.org/viaf/218866555) are same person as this entry. Did not link these. --NG</change>
         </revisionDesc>
@@ -151,8 +153,8 @@
                     <idno type="URI">http://viaf.org/viaf/195514069</idno>
                     <idno type="URI">http://viaf.org/viaf/200527420</idno>
                     <idno type="URI">http://viaf.org/viaf/213724634</idno>
-                    <birth when="1828" source="#bib410-1">1828</birth>
-                    <death when="1907" source="#bib410-1">1907</death>
+                    <birth when="1828" source="#bib410-1" syriaca-computed-start="1828-01-01">1828</birth>
+                    <death when="1907" source="#bib410-1" syriaca-computed-start="1907-01-01">1907</death>
                     <bibl xml:id="bib410-1">
                         <author>L. Van Rompay</author>
                         <title level="a" xml:lang="en">Ceriani, Antonio Maria</title>

@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -168,20 +170,20 @@
                         <forename sort="1">ܦܘܠܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܐܘܪܗܝ</addName>
                     </persName>
-                    <persName xml:id="name84-7" xml:lang="en" source="#bib84-10">
+                    <persName xml:id="name84-7" xml:lang="en" source="#bib84-5">
                         <forename sort="1">Paul</forename>
                         <addName type="untagged-title" sort="2">of <placeName ref="http://syriaca.org/place/78">Edessa</placeName>
                         </addName>
                     </persName>
                     <note type="abstract" xml:id="abstract-en-84">
-                        <quote source="#bib84-1">Metropolitan of <placeName xmlns="" ref="#tempName-13">Edessa</placeName> and translator.</quote>
+                        <quote source="#bib84-1">Metropolitan of <placeName ref="#tempName-13">Edessa</placeName> and translator.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/84</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|84</idno>
                     <idno type="URI">http://viaf.org/viaf/227712673/</idno>
                     <idno type="URI">http://www.worldcat.org/oclc/1196066</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=P&amp;sK=Paul of Edessa&amp;sT=keywords</idno>
-                    <floruit notBefore="0600" notAfter="0650" source="#bib84-1">early 7th cent.</floruit>
+                    <floruit notBefore="0600" notAfter="0650" source="#bib84-1" syriaca-computed-end="0650-01-01" syriaca-computed-start="0600-01-01">early 7th cent.</floruit>
                     <state type="office" role="metropolitan" source="#bib84-2">
                         <desc xml:lang="en">Metropolitan of Edessa</desc>
                     </state>
@@ -211,7 +213,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">301</citedRange>
                     </bibl>
-                    <bibl xml:id="bib84-10">
+                    <bibl xml:id="bib84-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=P&amp;sK=Paul of Edessa&amp;sT=keywords">Paul of Edessa</citedRange>

@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -169,13 +172,15 @@
                         <forename sort="1">ܝܥܩܘܒ</forename>
                         <addName type="family" sort="2">ܒܪ ܫܟܟܐ</addName>
                     </persName>
-                    <persName xml:id="name231-7" xml:lang="en" source="#bib231-10" syriaca-tags="#syriaca-anglicized">
+                    <persName xml:id="name231-7" xml:lang="en" source="#bib231-5" syriaca-tags="#syriaca-anglicized">
                         <forename sort="1">Jacob</forename>
                         <addName type="family" sort="2">bar Shakko</addName>
                     </persName>
-                    <persName xml:id="name231-8" xml:lang="en" source="#bib231-10">Jacob of Bartelli</persName>
-                    <persName xml:id="name231-9" xml:lang="en" source="#bib231-10">Severus bar Shakko</persName>
-                    <persName xml:id="name231-9" xml:lang="en" source="#bib231-1">Severos bar Shakko</persName>
+                    <persName xml:id="name231-8" xml:lang="en" source="#bib231-5">Jacob of Bartelli</persName>
+                    <persName xml:id="name231-9" xml:lang="en" source="#bib231-5">Severus bar Shakko</persName>
+                    <persName xml:id="name231-10" xml:lang="en" source="#bib231-1">Severos bar Shakko</persName>
+                    <persName xml:id="name231-11" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Yaqub bar Shakko</persName>
+                    <persName xml:id="name231-12" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Ya‘qub bar Shakko</persName>
                     <note type="abstract" xml:id="abstract-en-231">
                         <quote source="#bib231-1">Bp. of Dayro d-Mor Matay and learned author. Born in Barṭelle, his baptismal name
             was probably Yaʿqub.</quote>
@@ -188,7 +193,7 @@
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=Jacob bar Shakko&amp;sT=keywords</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=Jacob of Bartelli&amp;sT=keywords</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Severus bar Shakko&amp;sT=keywords</idno>
-                    <death when="1241" source="#bib231-1">1241</death>
+                    <death when="1241" source="#bib231-1" syriaca-computed-start="1241-01-01">1241</death>
                     <state type="confession" source="#bib231-1">
                         <desc>Syr. Orth.</desc>
                     </state>
@@ -215,7 +220,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">435</citedRange>
                     </bibl>
-                    <bibl xml:id="bib231-10">
+                    <bibl xml:id="bib231-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=Jacob bar Shakko&amp;sT=keywords">Jacob bar Shakko</citedRange>

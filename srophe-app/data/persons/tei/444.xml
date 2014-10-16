@@ -59,7 +59,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -111,6 +111,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -121,23 +123,23 @@
                     <persName xml:id="name444-1" xml:lang="en-x-gedsh" source="#bib444-1" syriaca-tags="#syriaca-headword">
                         <forename sort="1">Denḥa</forename>
                     </persName>
-                    <persName xml:id="name444-2" corresp="#name444-3" xml:lang="syr" source="#bib444-6" syriaca-tags="#syriaca-headword">
+                    <persName xml:id="name444-2" corresp="#name444-3" xml:lang="syr" source="#bib444-2" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ܕܢܚܐ</forename>
                     </persName>
-                    <persName xml:id="name444-3" corresp="#name444-2" xml:lang="syr-Syrn" source="#bib444-6">
+                    <persName xml:id="name444-3" corresp="#name444-2" xml:lang="syr-Syrn" source="#bib444-2">
                         <forename sort="1">ܕܸܢܚܵܐ</forename>
                     </persName>
                     <note type="abstract" xml:id="abstract-en-444"/>
                     <idno type="URI">http://syriaca.org/person/444</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|444</idno>
-                    <floruit notBefore="0750" notAfter="0950" source="#bib444-1">9th cent.?</floruit>
+                    <floruit notBefore="0750" notAfter="0950" source="#bib444-1" syriaca-computed-end="0950-01-01" syriaca-computed-start="0750-01-01">9th cent.?</floruit>
                     <bibl xml:id="bib444-1">
                         <title level="m" xml:lang="en">The Gorgias Encyclopedic Dictionary of the Syriac Heritage</title>
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="entry">161</citedRange>
                         <citedRange unit="pp">118</citedRange>
                     </bibl>
-                    <bibl xml:id="bib444-6">
+                    <bibl xml:id="bib444-2">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">76</citedRange>

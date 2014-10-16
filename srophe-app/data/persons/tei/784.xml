@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
             <change type="planned">1. Does http://viaf.org/viaf/22544388 (Theodorus Alexandrinae) refer to this Theodosius or to the 5th cent. grammarian? 2. Do http://viaf.org/viaf/32386803 and http://viaf.org/viaf/217803904 and http://viaf.org/viaf/217971054 refer to this person? 3. Is this the same person to whom the Panegyric on John the Baptist is attributed (http://viaf.org/viaf/225359960)?</change>
         </revisionDesc>
@@ -160,7 +162,7 @@
                         <addName type="untagged-title" sort="2">ܕܐܠܟܣܢܕܪܝܐ</addName>
                     </persName>
                     <note type="abstract" xml:id="abstract-en-784">
-                        <quote source="#bib784-1">Patr. of <placeName xmlns="" xml:id="tempName-23" type="diocese" subtype="general">Alexandria</placeName>; leader of the Egyptian and Syrian
+                        <quote source="#bib784-1">Patr. of <placeName xml:id="tempName-23" type="diocese" subtype="general">Alexandria</placeName>; leader of the Egyptian and Syrian
             anti-Chalcedonians.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/784</idno>
@@ -178,7 +180,7 @@
                     <idno type="URI">http://viaf.org/viaf/217803904</idno>
                     <idno type="URI">http://viaf.org/viaf/225359960</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Theodosius of Alexandria&amp;sT=keywords</idno>
-                    <death when="0566" source="#bib784-1">566</death>
+                    <death when="0566" source="#bib784-1" syriaca-computed-start="0566-01-01">566</death>
                     <state type="office" role="patriarch" source="#bib784-2">
                         <desc xml:lang="en">Patriarch of Alexandria</desc>
                     </state>
@@ -205,7 +207,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">363</citedRange>
                     </bibl>
-                    <bibl xml:id="bib784-10">
+                    <bibl xml:id="bib784-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Theodosius of Alexandria&amp;sT=keywords">Theodosius of Alexandria</citedRange>

@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
             <change type="planned">Fuller documentation needed for Syriac headword.</change>
         </revisionDesc>
@@ -178,8 +180,8 @@
                     </note>
                     <idno type="URI">http://syriaca.org/person/243</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|243</idno>
-                    <death when="1300" source="#bib243-2">1300</death>
-                    <floruit notBefore="1200" notAfter="1400" source="#bib243-1">13th/14th cent.</floruit>
+                    <death when="1300" source="#bib243-2" syriaca-computed-start="1300-01-01">1300</death>
+                    <floruit notBefore="1200" notAfter="1400" source="#bib243-1" syriaca-computed-end="1400-01-01" syriaca-computed-start="1200-01-01">13th/14th cent.</floruit>
                     <state type="office" role="metropolitan" source="#bib243-2">
                         <desc xml:lang="en">Metropolitan</desc>
                     </state>

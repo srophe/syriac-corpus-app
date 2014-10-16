@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -155,20 +157,20 @@
                         <forename sort="1">ܐܺܝܓܢܰܐܛܺܝܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܢܘܽܪܳܢܐ</addName>
                     </persName>
-                    <persName xml:id="name544-6" corresp="#name544-7 #name544-8 #name544-9" xml:lang="syr" source="#bib544-6" syriaca-tags="#syriaca-headword">
+                    <persName xml:id="name544-6" corresp="#name544-7 #name544-8 #name544-9" xml:lang="syr" source="#bib544-5" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ܐܓܢܛܝܘܣ</forename>
                     </persName>
-                    <persName xml:id="name544-7" corresp="#name544-6 #name544-8 #name544-9" xml:lang="syr-Syrn" source="#bib544-6">
+                    <persName xml:id="name544-7" corresp="#name544-6 #name544-8 #name544-9" xml:lang="syr-Syrn" source="#bib544-5">
                         <forename sort="1">ܐܸܓܢܵܛܝܼܘܿܣ</forename>
                     </persName>
-                    <persName xml:id="name544-8" corresp="#name544-6 #name544-7 #name544-9" xml:lang="syr" source="#bib544-7">
+                    <persName xml:id="name544-8" corresp="#name544-6 #name544-7 #name544-9" xml:lang="syr" source="#bib544-6">
                         <forename sort="1">ܐܝܓܢܛܝܘܣ</forename>
                     </persName>
-                    <persName xml:id="name544-9" corresp="#name544-6 #name544-7 #name544-8" xml:lang="syr-Syrj" source="#bib544-7">
+                    <persName xml:id="name544-9" corresp="#name544-6 #name544-7 #name544-8" xml:lang="syr-Syrj" source="#bib544-6">
                         <forename sort="1">ܐܺܝܓܢܰܛܝܺܘܳܣ</forename>
                     </persName>
                     <note type="abstract" xml:id="abstract-en-544">
-                        <quote source="#bib544-1">Bp. of <placeName xmlns="" xml:id="tempName-26" type="diocese" subtype="general">Antioch</placeName>, martyred in Rome.</quote>
+                        <quote source="#bib544-1">Bp. of <placeName xml:id="tempName-26" type="diocese" subtype="general">Antioch</placeName>, martyred in Rome.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/544</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|544</idno>
@@ -184,7 +186,7 @@
                     <idno type="URI">http://viaf.org/viaf/84210612</idno>
                     <idno type="URI">http://viaf.org/viaf/107590442</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=I&amp;sK=Ignatius of Antioch&amp;sT=keywords</idno>
-                    <death notBefore="0092" notAfter="0122" source="#bib544-1">ca. 107</death>
+                    <death notBefore="0092" notAfter="0122" source="#bib544-1" syriaca-computed-end="0122-01-01" syriaca-computed-start="0092-01-01">ca. 107</death>
                     <bibl xml:id="bib544-1">
                         <author>S. P. Brock</author>
                         <title level="a" xml:lang="en">Ignatius of Antioch</title>
@@ -208,17 +210,17 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">193</citedRange>
                     </bibl>
-                    <bibl xml:id="bib544-6">
+                    <bibl xml:id="bib544-5">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">65</citedRange>
                     </bibl>
-                    <bibl xml:id="bib544-7">
+                    <bibl xml:id="bib544-6">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:16</citedRange>
                     </bibl>
-                    <bibl xml:id="bib544-10">
+                    <bibl xml:id="bib544-7">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=I&amp;sK=Ignatius of Antioch&amp;sT=keywords">Ignatius of Antioch</citedRange>

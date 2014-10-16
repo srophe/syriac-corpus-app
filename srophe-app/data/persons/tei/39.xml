@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -178,7 +180,7 @@
                     <idno type="URI">http://worldcat.org/identities/lccn-nr2003-23260</idno>
                     <idno type="URI">http://worldcat.org/identities/np-johannes rufus$gazaeus</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John Rufus&amp;sT=keywords</idno>
-                    <floruit notBefore="0425" notAfter="0525" source="#bib39-1">ca. 475</floruit>
+                    <floruit notBefore="0425" notAfter="0525" source="#bib39-1" syriaca-computed-end="0525-01-01" syriaca-computed-start="0425-01-01">ca. 475</floruit>
                     <state type="office" role="bishop" source="#bib39-2">
                         <desc xml:lang="en">bishop of Mayoma</desc>
                     </state>
@@ -205,7 +207,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">244</citedRange>
                     </bibl>
-                    <bibl xml:id="bib39-10">
+                    <bibl xml:id="bib39-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John Rufus&amp;sT=keywords">John Rufus</citedRange>

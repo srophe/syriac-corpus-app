@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,6 +127,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -134,20 +138,20 @@
         <body>
             <listPerson>
                 <person xml:id="person-172" ana="#syriaca-author">
-                    <persName xml:id="name172-1" corresp="#name172-2 #name172-3 #name172-4" xml:lang="en" source="#bib172-2">
+                    <persName xml:id="name172-1" corresp="#name172-2 #name172-3 #name172-4" xml:lang="en" source="#bib172-1">
                         <forename sort="1">Job</forename>
                         <addName type="untagged-title" sort="2">of <placeName ref="http://syriaca.org/place/243">Man‛im</placeName>
                         </addName>
                     </persName>
-                    <persName xml:id="name172-2" corresp="#name172-1 #name172-3 #name172-4" xml:lang="ar" source="#bib172-3">
+                    <persName xml:id="name172-2" corresp="#name172-1 #name172-3 #name172-4" xml:lang="ar" source="#bib172-2">
                         <forename sort="1">ايوب</forename>
                         <addName type="untagged-title" sort="2">المانعمي</addName>
                     </persName>
-                    <persName xml:id="name172-3" corresp="#name172-1 #name172-2 #name172-4" xml:lang="syr" source="#bib172-4" syriaca-tags="#syriaca-headword">
+                    <persName xml:id="name172-3" corresp="#name172-1 #name172-2 #name172-4" xml:lang="syr" source="#bib172-3" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ܐܝܘܒ</forename>
                         <addName type="untagged-title" sort="2">ܡܢܥܡܝܐ</addName>
                     </persName>
-                    <persName xml:id="name172-4" corresp="#name172-1 #name172-2 #name172-3" xml:lang="syr-Syrj" source="#bib172-4">
+                    <persName xml:id="name172-4" corresp="#name172-1 #name172-2 #name172-3" xml:lang="syr-Syrj" source="#bib172-3">
                         <forename sort="1">ܐܝܘܒ</forename>
                         <addName type="untagged-title" sort="2">ܡܰܢܥܡܳܝܐ</addName>
                     </persName>
@@ -159,22 +163,26 @@
                         <forename sort="1">Job</forename>
                         <addName type="untagged-title" sort="2">of Manʿem</addName>
                     </persName>
+                    <persName xml:id="name172-7" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Iyob of Manem</persName>
+                    <persName xml:id="name172-8" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Iyob of Man‘em</persName>
+                    <persName xml:id="name172-9" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Job of Manem</persName>
+                    <persName xml:id="name172-10" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Job of Man‘em</persName>
                     <note type="abstract" xml:id="abstract-en-172"/>
                     <idno type="URI">http://syriaca.org/person/172</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|172</idno>
-                    <floruit notBefore="0800" notAfter="0900" source="#bib172-2">9th century</floruit>
-                    <bibl xml:id="bib172-2">
+                    <floruit notBefore="0800" notAfter="0900" source="#bib172-1" syriaca-computed-end="0900-01-01" syriaca-computed-start="0800-01-01">9th century</floruit>
+                    <bibl xml:id="bib172-1">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="entry">171</citedRange>
                         <citedRange unit="pp">397</citedRange>
                     </bibl>
-                    <bibl xml:id="bib172-3">
+                    <bibl xml:id="bib172-2">
                         <title level="m" xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">349</citedRange>
                     </bibl>
-                    <bibl xml:id="bib172-4">
+                    <bibl xml:id="bib172-3">
                         <title level="m" xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">377</citedRange>

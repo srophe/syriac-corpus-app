@@ -46,7 +46,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -98,6 +98,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -113,7 +116,9 @@
                         <forename sort="1">ܝܫܘܥܝܗܒ</forename>
                         <addName type="family" sort="2">ܒܪ ܡܩܕܡ</addName>
                     </persName>
-                    <persName xml:id="name1034-3" xml:lang="en" source="#bib1034-10">Ishoyahb bar Mqadam</persName>
+                    <persName xml:id="name1034-3" xml:lang="en" source="#bib1034-2">Ishoyahb bar Mqadam</persName>
+                    <persName xml:id="name1034-4" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Ishoyahb bar Mqadam</persName>
+                    <persName xml:id="name1034-5" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Isho‘yahb bar Mqadam</persName>
                     <note type="abstract" xml:id="abstract-en-1034"/>
                     <idno type="URI">http://syriaca.org/person/1034</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|1034</idno>
@@ -123,7 +128,7 @@
                         <ptr target="http://syriaca.org/bibl/1"/>
                         <citedRange unit="pp">242</citedRange>
                     </bibl>
-                    <bibl xml:id="bib1034-10">
+                    <bibl xml:id="bib1034-2">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=I&amp;sK=Ishoyahb bar Mqadam&amp;sT=keywords">Ishoyahb bar Mqadam</citedRange>

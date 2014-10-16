@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -173,10 +176,12 @@
                         <forename sort="1">Lazarus</forename>
                         <addName type="family" sort="2">bar Sobtho</addName>
                     </persName>
-                    <persName xml:id="name149-8" xml:lang="en" source="#bib149-10">Lazar bar Sabta</persName>
-                    <persName xml:id="name149-8" xml:lang="en" source="#bib149-1">Lazarus</persName>
+                    <persName xml:id="name149-8" xml:lang="en" source="#bib149-5">Lazar bar Sabta</persName>
+                    <persName xml:id="name149-9" xml:lang="en" source="#bib149-1">Lazarus</persName>
+                    <persName xml:id="name149-10" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Loozar bar Sobtho</persName>
+                    <persName xml:id="name149-11" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Lo‘ozar bar Sobtho</persName>
                     <note type="abstract" xml:id="abstract-en-149">
-                        <quote source="#bib149-1">Bp. of <placeName xmlns="" xml:id="tempName-20" type="diocese" subtype="Syrian Orthodox">Baghdad</placeName>; author of an Anaphora as well as of liturgical and theological
+                        <quote source="#bib149-1">Bp. of <placeName xml:id="tempName-20" type="diocese" subtype="Syrian Orthodox">Baghdad</placeName>; author of an Anaphora as well as of liturgical and theological
             works.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/149</idno>
@@ -184,7 +189,7 @@
                     <idno type="URI">http://cat.inist.fr/?aModele=afficheN&amp;cpsidt=11961643</idno>
                     <idno type="URI">http://jts.oxfordjournals.org/content/38/2/431.citation</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=L&amp;sK=Lazar bar Sabta&amp;sT=keywords</idno>
-                    <floruit notBefore="0800" notAfter="0850" source="#bib149-1">early 9th cent.</floruit>
+                    <floruit notBefore="0800" notAfter="0850" source="#bib149-1" syriaca-computed-end="0850-01-01" syriaca-computed-start="0800-01-01">early 9th cent.</floruit>
                     <state type="confession" source="#bib149-1">
                         <desc>Syr. Orth.</desc>
                     </state>
@@ -211,7 +216,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">361</citedRange>
                     </bibl>
-                    <bibl xml:id="bib149-10">
+                    <bibl xml:id="bib149-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=L&amp;sK=Lazar bar Sabta&amp;sT=keywords">Lazar bar Sabta</citedRange>

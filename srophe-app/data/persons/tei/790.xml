@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -161,25 +163,25 @@
                         <forename sort="1">ܛܝܡܬܐܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܩܕܡܝܐ</addName>
                     </persName>
-                    <persName xml:id="name790-7" corresp="#name790-8 #name790-9 #name790-10" xml:lang="syr" source="#bib790-6">
+                    <persName xml:id="name790-7" corresp="#name790-8 #name790-9 #name790-10" xml:lang="syr" source="#bib790-5">
                         <forename sort="1">ܛܝܡܬܐܘܣ</forename>
                     </persName>
-                    <persName xml:id="name790-8" corresp="#name790-7 #name790-9 #name790-10" xml:lang="syr-Syrn" source="#bib790-6">
+                    <persName xml:id="name790-8" corresp="#name790-7 #name790-9 #name790-10" xml:lang="syr-Syrn" source="#bib790-5">
                         <forename sort="1">ܛܝܼܡܵܬܹܐܘܿܣ</forename>
                     </persName>
-                    <persName xml:id="name790-9" corresp="#name790-7 #name790-8 #name790-10" xml:lang="syr" source="#bib790-7">
+                    <persName xml:id="name790-9" corresp="#name790-7 #name790-8 #name790-10" xml:lang="syr" source="#bib790-6">
                         <forename sort="1">ܛܝܡܘܬܐܘܣ</forename>
                     </persName>
-                    <persName xml:id="name790-10" corresp="#name790-7 #name790-8 #name790-9" xml:lang="syr-Syrj" source="#bib790-7">
+                    <persName xml:id="name790-10" corresp="#name790-7 #name790-8 #name790-9" xml:lang="syr-Syrj" source="#bib790-6">
                         <forename sort="1">ܛܝܺܡܽܘܬܶܐܘܳܣ</forename>
                     </persName>
-                    <persName xml:id="name790-11" xml:lang="en" source="#bib790-10">
+                    <persName xml:id="name790-11" xml:lang="en" source="#bib790-7">
                         <forename sort="1">Timothy</forename>
                         <addName type="untagged-title" sort="2">I</addName>
                     </persName>
                     <note type="abstract" xml:id="abstract-en-790">
                         <quote source="#bib790-1">Cath. of the Ch. of E. Timotheos was born in the village of Ḥazza (near Arbela in
-            <placeName xmlns="" ref="#tempName-15">Iraq</placeName>).</quote>
+            <placeName ref="#tempName-15">Iraq</placeName>).</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/790</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|790</idno>
@@ -199,8 +201,8 @@
                     <idno type="URI">http://viaf.org/viaf/45036504</idno>
                     <idno type="URI">http://viaf.org/viaf/185491906</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Timothy I&amp;sT=keywords</idno>
-                    <birth notBefore="0727" notAfter="0728" source="#bib790-1">727/8</birth>
-                    <death when="0823" source="#bib790-1">823</death>
+                    <birth notBefore="0727" notAfter="0728" source="#bib790-1" syriaca-computed-end="0728-01-01" syriaca-computed-start="0727-01-01">727/8</birth>
+                    <death when="0823" source="#bib790-1" syriaca-computed-start="0823-01-01">823</death>
                     <state type="office" role="catholicos" source="#bib790-2">
                         <desc xml:lang="en">Catholicos</desc>
                     </state>
@@ -230,17 +232,17 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">300</citedRange>
                     </bibl>
-                    <bibl xml:id="bib790-6">
+                    <bibl xml:id="bib790-5">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">74</citedRange>
                     </bibl>
-                    <bibl xml:id="bib790-7">
+                    <bibl xml:id="bib790-6">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:158</citedRange>
                     </bibl>
-                    <bibl xml:id="bib790-10">
+                    <bibl xml:id="bib790-7">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Timothy I&amp;sT=keywords">Timothy I</citedRange>

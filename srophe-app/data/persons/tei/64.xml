@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -168,8 +170,8 @@
                         <forename sort="1">Moses</forename>
                         <addName type="untagged-title" sort="2">of Aggel</addName>
                     </persName>
-                    <persName xml:id="name64-7" xml:lang="en" source="#bib64-10">Moses of Inghilene</persName>
-                    <persName xml:id="name64-7" xml:lang="en" source="#bib64-1">Inghilene</persName>
+                    <persName xml:id="name64-7" xml:lang="en" source="#bib64-5">Moses of Inghilene</persName>
+                    <persName xml:id="name64-8" xml:lang="en" source="#bib64-1">Inghilene</persName>
                     <note type="abstract" xml:id="abstract-en-64">
                         <quote source="#bib64-1">Translator of Cyril of Alexandria’s Glaphyra and of the History of Joseph and
             Aseneth (incorporated into Pseudo-Zacharias’s Ecclesiastical History, I.6).</quote>
@@ -177,7 +179,7 @@
                     <idno type="URI">http://syriaca.org/person/64</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|64</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Moses of Inghilene&amp;sT=keywords</idno>
-                    <floruit notBefore="0500" notAfter="0600" source="#bib64-1">6th cent.</floruit>
+                    <floruit notBefore="0500" notAfter="0600" source="#bib64-1" syriaca-computed-end="0600-01-01" syriaca-computed-start="0500-01-01">6th cent.</floruit>
                     <state type="confession" source="#bib64-1">
                         <desc>Syr. Orth.</desc>
                     </state>
@@ -204,7 +206,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">284</citedRange>
                     </bibl>
-                    <bibl xml:id="bib64-10">
+                    <bibl xml:id="bib64-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Moses of Inghilene&amp;sT=keywords">Moses of Inghilene</citedRange>

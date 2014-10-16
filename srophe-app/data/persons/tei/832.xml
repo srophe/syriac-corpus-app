@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -154,10 +156,10 @@
                         <forename sort="1">ܝܘܚܰܢܢ</forename>
                         <addName type="untagged-title" sort="2">ܡܰܐܪܘܽܢ</addName>
                     </persName>
-                    <persName xml:id="name832-6" xml:lang="en" source="#bib832-10">John Maron</persName>
-                    <persName xml:id="name832-6" xml:lang="en" source="#bib832-1">Yuḥanon d-Marun</persName>
+                    <persName xml:id="name832-6" xml:lang="en" source="#bib832-5">John Maron</persName>
+                    <persName xml:id="name832-7" xml:lang="en" source="#bib832-1">Yuḥanon d-Marun</persName>
                     <note type="abstract" xml:id="abstract-en-832">
-                        <quote source="#bib832-1">Saint and first Patr. of the Syriac Maron. Church of <placeName xmlns="" ref="#tempName-25">Antioch</placeName>.</quote>
+                        <quote source="#bib832-1">Saint and first Patr. of the Syriac Maron. Church of <placeName ref="#tempName-25">Antioch</placeName>.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/832</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|832</idno>
@@ -168,7 +170,7 @@
                     <idno type="URI">http://viaf.org/viaf/22177088</idno>
                     <idno type="URI">http://viaf.org/viaf/210860424</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John Maron&amp;sT=keywords</idno>
-                    <floruit notBefore="0670" notAfter="0722" source="#bib832-1">ca. 685 - ca. 707</floruit>
+                    <floruit notBefore="0670" notAfter="0722" source="#bib832-1" syriaca-computed-end="0722-01-01" syriaca-computed-start="0670-01-01">ca. 685 - ca. 707</floruit>
                     <bibl xml:id="bib832-1">
                         <author>J. P. Amar</author>
                         <title level="a" xml:lang="en">Yuḥanon Maron</title>
@@ -192,7 +194,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">390</citedRange>
                     </bibl>
-                    <bibl xml:id="bib832-10">
+                    <bibl xml:id="bib832-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John Maron&amp;sT=keywords">John Maron</citedRange>

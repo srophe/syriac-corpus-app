@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,11 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -179,8 +183,12 @@
                         <addName type="family" sort="1">Bar ʿEbroyo</addName>, <forename sort="2">Gregory</forename>
                     </persName>
                     <persName xml:id="name239-8" xml:lang="en" source="#bib239-1">Barhebraeus</persName>
-                    <persName xml:id="name239-8" xml:lang="en" source="#bib239-1">Abū al-Faraj</persName>
-                    <persName xml:id="name239-9" xml:lang="en" source="#bib239-1">Barhebraeus</persName>
+                    <persName xml:id="name239-9" xml:lang="en" source="#bib239-1">Abū al-Faraj</persName>
+                    <persName xml:id="name239-10" xml:lang="en" source="#bib239-1">Barhebraeus</persName>
+                    <persName xml:id="name239-11" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Bar Ebroyo Grigorios</persName>
+                    <persName xml:id="name239-12" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Bar ‘Ebroyo Grigorios</persName>
+                    <persName xml:id="name239-13" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Bar Ebroyo Gregory</persName>
+                    <persName xml:id="name239-14" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Bar ‘Ebroyo Gregory</persName>
                     <note type="abstract" xml:id="abstract-en-239">
                         <quote source="#bib239-1">Maph. (since 1264) and polymath.</quote>
                     </note>
@@ -193,8 +201,8 @@
                     <idno type="URI">http://viaf.org/viaf/245087233</idno>
                     <idno type="URI">http://viaf.org/viaf/240917046</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Barhebraeus&amp;sT=keywords</idno>
-                    <birth notBefore="1225" notAfter="1226" source="#bib239-1">1225/6</birth>
-                    <death when="1286" source="#bib239-1">1286</death>
+                    <birth notBefore="1225" notAfter="1226" source="#bib239-1" syriaca-computed-end="1226-01-01" syriaca-computed-start="1225-01-01">1225/6</birth>
+                    <death when="1286" source="#bib239-1" syriaca-computed-start="1286-01-01">1286</death>
                     <state type="confession" source="#bib239-1">
                         <desc>Syr. Orth.</desc>
                     </state>
@@ -221,7 +229,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">443</citedRange>
                     </bibl>
-                    <bibl xml:id="bib239-10">
+                    <bibl xml:id="bib239-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Barhebraeus&amp;sT=keywords">Barhebraeus</citedRange>

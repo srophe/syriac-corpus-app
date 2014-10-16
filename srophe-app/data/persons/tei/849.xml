@@ -54,7 +54,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -106,6 +106,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -113,59 +115,59 @@
         <body>
             <listPerson>
                 <person xml:id="person-849" ana="#syriaca-author">
-                    <persName xml:id="name849-1" corresp="#name849-2 #name849-3 #name849-4" xml:lang="en" source="#bib849-2" syriaca-tags="#syriaca-headword">
+                    <persName xml:id="name849-1" corresp="#name849-2 #name849-3 #name849-4" xml:lang="en" source="#bib849-1" syriaca-tags="#syriaca-headword">
                         <forename sort="1">Socrates</forename>
                     </persName>
-                    <persName xml:id="name849-2" corresp="#name849-1 #name849-3 #name849-4" xml:lang="ar" source="#bib849-3">
+                    <persName xml:id="name849-2" corresp="#name849-1 #name849-3 #name849-4" xml:lang="ar" source="#bib849-2">
                         <forename sort="1">سقراط</forename>
                     </persName>
-                    <persName xml:id="name849-3" corresp="#name849-1 #name849-2 #name849-4" xml:lang="syr" source="#bib849-4">
+                    <persName xml:id="name849-3" corresp="#name849-1 #name849-2 #name849-4" xml:lang="syr" source="#bib849-3">
                         <forename sort="1">ܣܘܩܪܐܛ</forename>
                     </persName>
-                    <persName xml:id="name849-4" corresp="#name849-1 #name849-2 #name849-3" xml:lang="syr-Syrj" source="#bib849-4">
+                    <persName xml:id="name849-4" corresp="#name849-1 #name849-2 #name849-3" xml:lang="syr-Syrj" source="#bib849-3">
                         <forename sort="1">ܣܽܘܩܪܰܐܛ</forename>
                     </persName>
                     <persName xml:id="name849-5" corresp="#name849-6 #name849-7" xml:lang="syr" source="#bib849-6 #bib849-7" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ܣܘܩܪܛܝܣ</forename>
                     </persName>
-                    <persName xml:id="name849-6" corresp="#name849-5 #name849-7" xml:lang="syr-Syrn" source="#bib849-6">
+                    <persName xml:id="name849-6" corresp="#name849-5 #name849-7" xml:lang="syr-Syrn" source="#bib849-4">
                         <forename sort="1">ܣܘܼܩܪܵܛܝܼܣ</forename>
                     </persName>
-                    <persName xml:id="name849-7" corresp="#name849-5 #name849-6" xml:lang="syr-Syrj" source="#bib849-7">
+                    <persName xml:id="name849-7" corresp="#name849-5 #name849-6" xml:lang="syr-Syrj" source="#bib849-5">
                         <forename sort="1">ܣܽܘܩܪܰܛܝܺܣ</forename>
                     </persName>
-                    <persName xml:id="name849-8" xml:lang="en" source="#bib849-10">Socrates Scholasticus</persName>
+                    <persName xml:id="name849-8" xml:lang="en" source="#bib849-6">Socrates Scholasticus</persName>
                     <note type="abstract" xml:id="abstract-en-849"/>
                     <idno type="URI">http://syriaca.org/person/849</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|849</idno>
                     <idno type="URI">http://viaf.org/viaf/55571017</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Socrates Scholasticus&amp;sT=keywords</idno>
-                    <bibl xml:id="bib849-2">
+                    <bibl xml:id="bib849-1">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">144</citedRange>
                     </bibl>
-                    <bibl xml:id="bib849-3">
+                    <bibl xml:id="bib849-2">
                         <title level="m" xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">128</citedRange>
                     </bibl>
-                    <bibl xml:id="bib849-4">
+                    <bibl xml:id="bib849-3">
                         <title level="m" xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">148</citedRange>
                     </bibl>
-                    <bibl xml:id="bib849-6">
+                    <bibl xml:id="bib849-4">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">68</citedRange>
                     </bibl>
-                    <bibl xml:id="bib849-7">
+                    <bibl xml:id="bib849-5">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:41</citedRange>
                     </bibl>
-                    <bibl xml:id="bib849-10">
+                    <bibl xml:id="bib849-6">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Socrates Scholasticus&amp;sT=keywords">Socrates Scholasticus</citedRange>

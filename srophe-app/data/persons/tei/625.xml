@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -154,7 +156,7 @@
                         <forename sort="2">ܐܰܢܕܪܰܐܘܣ</forename>
                         <addName type="family" sort="1">ܡܰܐܣܝܘܣ</addName>
                     </persName>
-                    <persName xml:id="name625-6" xml:lang="en" source="#bib625-10">Masius</persName>
+                    <persName xml:id="name625-6" xml:lang="en" source="#bib625-5">Masius</persName>
                     <note type="abstract" xml:id="abstract-en-625">
                         <quote source="#bib625-1">Humanist, early scholar of Syriac. Born in the village of Lennik, near
             Brussels, Masius studied Hebrew, Greek, and Latin in Louvain. Throughout his life he combined his intellectual curiosity with his diplomatic skills, traveling through Europe, often in the service of ecclesiastical or political authorities.</quote>
@@ -165,8 +167,8 @@
                     <idno type="URI">http://worldcat.org/identities/viaf-64038233</idno>
                     <idno type="URI">http://viaf.org/viaf/195373971</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Masius&amp;sT=keywords</idno>
-                    <birth when="1514" source="#bib625-1">1514</birth>
-                    <death when="1573" source="#bib625-1">1573</death>
+                    <birth when="1514" source="#bib625-1" syriaca-computed-start="1514-01-01">1514</birth>
+                    <death when="1573" source="#bib625-1" syriaca-computed-start="1573-01-01">1573</death>
                     <bibl xml:id="bib625-1">
                         <author>L. Van Rompay </author>
                         <title level="a" xml:lang="en">Masius, Andreas</title>
@@ -190,7 +192,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">505</citedRange>
                     </bibl>
-                    <bibl xml:id="bib625-10">
+                    <bibl xml:id="bib625-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Masius&amp;sT=keywords">Masius</citedRange>

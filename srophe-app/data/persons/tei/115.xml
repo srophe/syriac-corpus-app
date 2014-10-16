@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,6 +127,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -134,22 +138,22 @@
         <body>
             <listPerson>
                 <person xml:id="person-115" ana="#syriaca-author">
-                    <persName xml:id="name115-1" corresp="#name115-2 #name115-3 #name115-4" xml:lang="en" source="#bib115-2">
+                    <persName xml:id="name115-1" corresp="#name115-2 #name115-3 #name115-4" xml:lang="en" source="#bib115-1">
                         <roleName type="office" sort="2">Presbyter</roleName>
                         <forename sort="1">Simon</forename>, <roleName type="office" sort="2">abbot of the <placeName ref="http://syriaca.org/place/369">Monastery of the Arabs</placeName>
                         </roleName>
                     </persName>
-                    <persName xml:id="name115-2" corresp="#name115-1 #name115-3 #name115-4" xml:lang="ar" source="#bib115-3">
+                    <persName xml:id="name115-2" corresp="#name115-1 #name115-3 #name115-4" xml:lang="ar" source="#bib115-2">
                         <addName type="untagged-title" sort="2">القس</addName>
                         <forename sort="1">شمعون</forename>
                         <addName type="untagged-title" sort="2">رئيس دير العرب</addName>
                     </persName>
-                    <persName xml:id="name115-3" corresp="#name115-1 #name115-2 #name115-4" xml:lang="syr" source="#bib115-4">
+                    <persName xml:id="name115-3" corresp="#name115-1 #name115-2 #name115-4" xml:lang="syr" source="#bib115-3">
                         <addName type="untagged-title" sort="2">ܩܫܝܫܐ</addName>
                         <forename sort="1">ܫܡܥܘܢ</forename>
                         <addName type="untagged-title" sort="2">ܪܝܫܕܝܪܐ ܕܕܝܪܐ ܕܥܪ̈ܒܝܐ</addName>
                     </persName>
-                    <persName xml:id="name115-4" corresp="#name115-1 #name115-2 #name115-3" xml:lang="syr-Syrj" source="#bib115-4">
+                    <persName xml:id="name115-4" corresp="#name115-1 #name115-2 #name115-3" xml:lang="syr-Syrj" source="#bib115-3">
                         <addName type="untagged-title" sort="2">ܩܰܫܝܫܳܐ</addName>
                         <forename sort="1">ܫܶܡܥܘܢ</forename>
                         <addName type="untagged-title" sort="2">ܪܺܝܫܕܰܝܪܐ ܕܕܰܝܪܐ ܕܥܰܪܰܒܝܐ</addName>
@@ -164,28 +168,32 @@
                     <persName xml:id="name115-7" xml:lang="en" resp="http://syriaca.org" syriaca-tags="#syriaca-anglicized">
                         <forename sort="1">Simon</forename>, <roleName type="office" sort="2">abbot of Dayro d-ʿAraboye</roleName>
                     </persName>
+                    <persName xml:id="name115-8" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Shemun abbot of Dayro d-Araboye</persName>
+                    <persName xml:id="name115-9" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Shem‘un abbot of Dayro d-‘Araboye</persName>
+                    <persName xml:id="name115-10" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Simon abbot of Dayro d-Araboye</persName>
+                    <persName xml:id="name115-11" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Simon abbot of Dayro d-‘Araboye</persName>
                     <note type="abstract" xml:id="abstract-en-115"/>
                     <idno type="URI">http://syriaca.org/person/115</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|115</idno>
-                    <floruit notBefore="0700" notAfter="0800" source="#bib115-2">8th century</floruit>
-                    <state type="office" role="priest" source="#bib115-2">
+                    <floruit notBefore="0700" notAfter="0800" source="#bib115-1" syriaca-computed-end="0800-01-01" syriaca-computed-start="0700-01-01">8th century</floruit>
+                    <state type="office" role="priest" source="#bib115-1">
                         <desc xml:lang="en">Presbyter</desc>
                     </state>
-                    <state type="office" role="abbot" source="#bib115-2">
+                    <state type="office" role="abbot" source="#bib115-1">
                         <desc xml:lang="en">Abbot of the Monastery of the Arabs</desc>
                     </state>
-                    <bibl xml:id="bib115-2">
+                    <bibl xml:id="bib115-1">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="entry">111</citedRange>
                         <citedRange unit="pp">351</citedRange>
                     </bibl>
-                    <bibl xml:id="bib115-3">
+                    <bibl xml:id="bib115-2">
                         <title level="m" xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">306</citedRange>
                     </bibl>
-                    <bibl xml:id="bib115-4">
+                    <bibl xml:id="bib115-3">
                         <title level="m" xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">334</citedRange>

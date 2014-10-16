@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -131,14 +134,16 @@
                         <forename sort="1">ܝܫܘܥܝܗܒ</forename>
                         <addName type="untagged-title" sort="2">ܐܪܙܘܢܝܐ</addName>
                     </persName>
-                    <persName xml:id="name559-3" corresp="#name559-2" xml:lang="syr-Syrn" source="#bib559-6">
+                    <persName xml:id="name559-3" corresp="#name559-2" xml:lang="syr-Syrn" source="#bib559-2">
                         <forename sort="1">ܝܑܼܫܘܿܥܝܲܗܒ</forename>
                         <addName type="untagged-title" sort="2">ܐܲܪܙܘܿܢܵܝܵܐ</addName>
                     </persName>
-                    <persName xml:id="name559-4" xml:lang="en" source="#bib559-10">Ishoyahb I</persName>
-                    <persName xml:id="name559-5" xml:lang="en" source="#bib559-10">Ishoyahb I of Arzon</persName>
+                    <persName xml:id="name559-4" xml:lang="en" source="#bib559-4">Ishoyahb I</persName>
+                    <persName xml:id="name559-5" xml:lang="en" source="#bib559-4">Ishoyahb I of Arzon</persName>
+                    <persName xml:id="name559-6" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Ishoyahb I</persName>
+                    <persName xml:id="name559-7" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Isho‘yahb I</persName>
                     <note type="abstract" xml:id="abstract-en-559">
-                        <quote source="#bib559-1">Cath. ca. 581/2-95. Originating from Beth ʿArbaye, he studied at the <orgName xmlns="" ref="#tempName-2">School of <placeName ref="http://syriaca.org/place/142">Nisibis</placeName>
+                        <quote source="#bib559-1">Cath. ca. 581/2-95. Originating from Beth ʿArbaye, he studied at the <orgName xmlns="" ref="#tempName-2">School of <placeName xmlns="http://www.tei-c.org/ns/1.0" ref="http://syriaca.org/place/142">Nisibis</placeName>
                             </orgName>, and was for two years its head, before becoming
             bp. of Arzon.</quote>
                     </note>
@@ -146,8 +151,8 @@
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|559</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=I&amp;sK=Ishoyahb I&amp;sT=keywords</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=I&amp;sK=Ishoyahb I of Arzon&amp;sT=keywords</idno>
-                    <death when="0595" source="#bib559-1">595</death>
-                    <state type="office" from="0581" to="0595" source="#bib559-1">
+                    <death when="0595" source="#bib559-1" syriaca-computed-start="0595-01-01">595</death>
+                    <state type="office" from="0581" to="0595" source="#bib559-1" syriaca-computed-end="0595-01-01" syriaca-computed-start="0581-01-01">
                         <desc xml:lang="en-x-gedsh">581/2 - 595</desc>
                     </state>
                     <state type="confession" source="#bib559-1">
@@ -161,17 +166,17 @@
                         <citedRange unit="pp">218</citedRange>
                         <citedRange unit="pp">218</citedRange>
                     </bibl>
-                    <bibl xml:id="bib559-6">
+                    <bibl xml:id="bib559-2">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">72</citedRange>
                     </bibl>
-                    <bibl xml:id="bib559-7">
+                    <bibl xml:id="bib559-3">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:108</citedRange>
                     </bibl>
-                    <bibl xml:id="bib559-10">
+                    <bibl xml:id="bib559-4">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=I&amp;sK=Ishoyahb I&amp;sT=keywords">Ishoyahb I</citedRange>

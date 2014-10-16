@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -147,19 +149,19 @@
                     <persName xml:id="name650-4" corresp="#name650-1 #name650-2 #name650-3" xml:lang="syr-Syrj" source="#bib650-4">
                         <forename sort="1">ܢܰܪܣܰܝ</forename>
                     </persName>
-                    <persName xml:id="name650-5" corresp="#name650-3 #name650-6" xml:lang="syr-Syrn" source="#bib650-6">
+                    <persName xml:id="name650-5" corresp="#name650-3 #name650-6" xml:lang="syr-Syrn" source="#bib650-5">
                         <forename sort="1">ܢܲܪܣܲܝ</forename>
                     </persName>
-                    <persName xml:id="name650-6" corresp="#name650-3 #name650-5" xml:lang="syr-Syrj" source="#bib650-7">
+                    <persName xml:id="name650-6" corresp="#name650-3 #name650-5" xml:lang="syr-Syrj" source="#bib650-6">
                         <forename sort="1">ܢܰܪܣܺܝ</forename>
                     </persName>
                     <note type="abstract" xml:id="abstract-en-650">
                         <quote source="#bib650-1">Poet and teacher of exegesis at the <orgName xmlns="" ref="#tempName-4">School of
-                    <placeName ref="http://syriaca.org/place/78">Edessa</placeName>
+                    <placeName xmlns="http://www.tei-c.org/ns/1.0" ref="http://syriaca.org/place/78">Edessa</placeName>
                             </orgName> and at
-            the <orgName xmlns="" ref="#tempName-2">School of <placeName ref="http://syriaca.org/place/142">Nisibis</placeName>
+            the <orgName xmlns="" ref="#tempName-2">School of <placeName xmlns="http://www.tei-c.org/ns/1.0" ref="http://syriaca.org/place/142">Nisibis</placeName>
                             </orgName>; author of popular verse homilies
-            (<foreign xmlns="" rend="italic" xml:lang="en-x-gedsh">memre</foreign>).</quote>
+            (<foreign rend="italic" xml:lang="en-x-gedsh">memre</foreign>).</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/650</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|650</idno>
@@ -172,7 +174,7 @@
                     <idno type="URI">http://viaf.org/viaf/216798531</idno>
                     <idno type="URI">http://viaf.org/viaf/235751470</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=N&amp;sK=Narsai&amp;sT=keywords</idno>
-                    <death notBefore="0485" notAfter="0515" source="#bib650-1">ca. 500</death>
+                    <death notBefore="0485" notAfter="0515" source="#bib650-1" syriaca-computed-end="0515-01-01" syriaca-computed-start="0485-01-01">ca. 500</death>
                     <state type="confession" source="#bib650-1">
                         <desc>Ch. of E.</desc>
                     </state>
@@ -199,17 +201,17 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">224</citedRange>
                     </bibl>
-                    <bibl xml:id="bib650-6">
+                    <bibl xml:id="bib650-5">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">69</citedRange>
                     </bibl>
-                    <bibl xml:id="bib650-7">
+                    <bibl xml:id="bib650-6">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:63</citedRange>
                     </bibl>
-                    <bibl xml:id="bib650-10">
+                    <bibl xml:id="bib650-7">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=N&amp;sK=Narsai&amp;sT=keywords">Narsai</citedRange>

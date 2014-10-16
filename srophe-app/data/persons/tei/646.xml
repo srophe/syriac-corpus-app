@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
             <change type="planned">Fuller documentation needed for Syriac headword.</change>
         </revisionDesc>
@@ -163,7 +165,7 @@
                         <forename sort="1">ܡܘܫܐ</forename>
                         <addName type="untagged-title" sort="2">ܕܡܪܕܝܢ</addName>
                     </persName>
-                    <persName xml:id="name646-7" xml:lang="en" source="#bib646-10">
+                    <persName xml:id="name646-7" xml:lang="en" source="#bib646-5">
                         <forename sort="1">Moses</forename>
                         <addName type="untagged-title" sort="2">of Mardin</addName>
                     </persName>
@@ -178,7 +180,7 @@
                     <idno type="URI">http://worldcat.org/identities/lccn-no00-9075</idno>
                     <idno type="URI">http://viaf.org/viaf/40276312</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Moses of Mardin&amp;sT=keywords</idno>
-                    <floruit notBefore="1500" notAfter="1600" source="#bib646-1">16th cent.</floruit>
+                    <floruit notBefore="1500" notAfter="1600" source="#bib646-1" syriaca-computed-end="1600-01-01" syriaca-computed-start="1500-01-01">16th cent.</floruit>
                     <state type="confession" source="#bib646-1">
                         <desc>Syr. Orth.</desc>
                     </state>
@@ -205,7 +207,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">505</citedRange>
                     </bibl>
-                    <bibl xml:id="bib646-10">
+                    <bibl xml:id="bib646-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Moses of Mardin&amp;sT=keywords">Moses of Mardin</citedRange>

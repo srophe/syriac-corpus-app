@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -171,11 +173,11 @@
                         <forename sort="1">John</forename>
                     </persName>
                     <note type="abstract" xml:id="abstract-en-567">
-                        <quote source="#bib567-1">Scribe and bp. for various dioceses. He was born Yuḥanon b. Shahīn b. Shamo of Amid, also nicknamed b. al-ʿAraqjanji 'son of the maker of <foreign xmlns="" rend="italic" xml:lang="en-x-gedsh">ʿarraqiyya</foreign> (a small cap worn under a turban to absorb sweat)'.</quote>
+                        <quote source="#bib567-1">Scribe and bp. for various dioceses. He was born Yuḥanon b. Shahīn b. Shamo of Amid, also nicknamed b. al-ʿAraqjanji 'son of the maker of <foreign rend="italic" xml:lang="en-x-gedsh">ʿarraqiyya</foreign> (a small cap worn under a turban to absorb sweat)'.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/567</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|567</idno>
-                    <death when="1755" source="#bib567-1">1755</death>
+                    <death when="1755" source="#bib567-1" syriaca-computed-start="1755-01-01">1755</death>
                     <state type="office" role="metropolitan" source="#bib567-2">
                         <desc xml:lang="en">Metropolitan</desc>
                     </state>

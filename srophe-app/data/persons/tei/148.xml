@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,6 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -134,23 +137,23 @@
         <body>
             <listPerson>
                 <person xml:id="person-148" ana="#syriaca-author">
-                    <persName xml:id="name148-1" corresp="#name148-2 #name148-3 #name148-4" xml:lang="en" source="#bib148-2">
+                    <persName xml:id="name148-1" corresp="#name148-2 #name148-3 #name148-4" xml:lang="en" source="#bib148-1">
                         <forename sort="1">Ḥabib</forename>
                         <addName type="family" sort="2">Abu Ra'iṭa</addName>
                         <addName type="untagged-title" sort="2">of <placeName ref="http://syriaca.org/place/193">Takrit</placeName>
                         </addName>
                     </persName>
-                    <persName xml:id="name148-2" corresp="#name148-1 #name148-3 #name148-4" xml:lang="ar" source="#bib148-3">
+                    <persName xml:id="name148-2" corresp="#name148-1 #name148-3 #name148-4" xml:lang="ar" source="#bib148-2">
                         <forename sort="1">حبيب</forename>
                         <addName type="family" sort="2">ابو رائطة</addName>
                         <addName type="untagged-title" sort="2">التكريتي</addName>
                     </persName>
-                    <persName xml:id="name148-3" corresp="#name148-1 #name148-2 #name148-4" xml:lang="syr" source="#bib148-4">
+                    <persName xml:id="name148-3" corresp="#name148-1 #name148-2 #name148-4" xml:lang="syr" source="#bib148-3">
                         <forename sort="1">ܚܒܝܒ</forename>
                         <addName type="family" sort="2">ܐܒܘ ܪܐܝܛܗ</addName>
                         <addName type="untagged-title" sort="2">ܬܓܪܝܬܝܐ</addName>
                     </persName>
-                    <persName xml:id="name148-4" corresp="#name148-1 #name148-2 #name148-3" xml:lang="syr-Syrj" source="#bib148-4">
+                    <persName xml:id="name148-4" corresp="#name148-1 #name148-2 #name148-3" xml:lang="syr-Syrj" source="#bib148-3">
                         <forename sort="1">ܚܰܒܝܒ</forename>
                         <addName type="family" sort="2">ܐܰܒܘ ܪܰܐܝܛܗ</addName>
                         <addName type="untagged-title" sort="2">ܬܰܓܪܝܬܳܝܳܐ</addName>
@@ -163,7 +166,9 @@
                         <forename sort="1">Ḥabīb</forename>
                         <addName type="family" sort="2">b. Khidma Abū Rāʾiṭa</addName>
                     </persName>
-                    <persName xml:id="name148-7" xml:lang="en" source="#bib148-10">Abu Raita</persName>
+                    <persName xml:id="name148-7" xml:lang="en" source="#bib148-4">Abu Raita</persName>
+                    <persName xml:id="name148-8" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Ḥabīb b. Khidma Abū Rāʾiṭa</persName>
+                    <persName xml:id="name148-9" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Ḥabīb b. Khidma Abū Rāʾiṭa</persName>
                     <note type="abstract" xml:id="abstract-en-148"/>
                     <idno type="URI">http://syriaca.org/person/148</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|148</idno>
@@ -172,24 +177,24 @@
                     <idno type="URI">http://viaf.org/viaf/34429345</idno>
                     <idno type="URI">http://viaf.org/viaf/209790048</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Abu Raita&amp;sT=keywords</idno>
-                    <floruit when="0828" source="#bib148-2">828</floruit>
-                    <bibl xml:id="bib148-2">
+                    <floruit when="0828" source="#bib148-1" syriaca-computed-start="0828-01-01">828</floruit>
+                    <bibl xml:id="bib148-1">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="entry">147</citedRange>
                         <citedRange unit="pp">379</citedRange>
                     </bibl>
-                    <bibl xml:id="bib148-3">
+                    <bibl xml:id="bib148-2">
                         <title level="m" xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">332</citedRange>
                     </bibl>
-                    <bibl xml:id="bib148-4">
+                    <bibl xml:id="bib148-3">
                         <title level="m" xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">360</citedRange>
                     </bibl>
-                    <bibl xml:id="bib148-10">
+                    <bibl xml:id="bib148-4">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Abu Raita&amp;sT=keywords">Abu Raita</citedRange>

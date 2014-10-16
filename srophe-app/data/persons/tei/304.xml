@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,13 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -168,7 +174,15 @@
                         <forename sort="2">ܢܥܘܡ</forename>
                         <addName type="family" sort="1">ܦܐܝܩ</addName>
                     </persName>
-                    <persName xml:id="name304-6" xml:lang="en" source="#bib304-1">Naoum Elias Palak</persName>
+                    <persName xml:id="name304-7" xml:lang="en" source="#bib304-1">Naoum Elias Palak</persName>
+                    <persName xml:id="name304-8" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Fāʾiq Naūm</persName>
+                    <persName xml:id="name304-9" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Fāʾiq Na‘‘ūm</persName>
+                    <persName xml:id="name304-10" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Fāʾiq Naūm</persName>
+                    <persName xml:id="name304-11" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Fāʾiq Na’’ūm</persName>
+                    <persName xml:id="name304-12" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script"/>
+                    <persName xml:id="name304-13" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script"/>
+                    <persName xml:id="name304-14" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script"/>
+                    <persName xml:id="name304-15" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script"/>
                     <note type="abstract" xml:id="abstract-en-304">
                         <Not_Useful/>
                         <quote source="#bib304-1">He was born in Diyarbakir (Amid) to Elias Jacob Palak and Saydeh Safar and was given the baptismal name Naʿʿūm (he gave himself the nickname Fāʾiq).</quote>
@@ -176,8 +190,8 @@
                     <idno type="URI">http://syriaca.org/person/304</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|304</idno>
                     <idno type="URI">http://viaf.org/viaf/16481545</idno>
-                    <birth notBefore="1853" notAfter="1883" source="#bib304-1">ca. 1868</birth>
-                    <death when="1930" source="#bib304-1">1930</death>
+                    <birth notBefore="1853" notAfter="1883" source="#bib304-1" syriaca-computed-end="1883-01-01" syriaca-computed-start="1853-01-01">ca. 1868</birth>
+                    <death when="1930" source="#bib304-1" syriaca-computed-start="1930-01-01">1930</death>
                     <state type="office" role="deacon" source="#bib304-2">
                         <desc xml:lang="en">Deacon</desc>
                     </state>

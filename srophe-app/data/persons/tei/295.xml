@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,6 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -134,22 +137,22 @@
         <body>
             <listPerson>
                 <person xml:id="person-295" ana="#syriaca-author">
-                    <persName xml:id="name295-1" corresp="#name295-2 #name295-3 #name295-4" xml:lang="en" source="#bib295-2">
+                    <persName xml:id="name295-1" corresp="#name295-2 #name295-3 #name295-4" xml:lang="en" source="#bib295-1">
                         <addName type="untagged-title" sort="2">Chorepiscopus</addName>
                         <forename sort="1">Jacob</forename>
                         <addName type="untagged-title" sort="2">of Quṭrubul</addName>
                     </persName>
-                    <persName xml:id="name295-2" corresp="#name295-1 #name295-3 #name295-4" xml:lang="ar" source="#bib295-3">
+                    <persName xml:id="name295-2" corresp="#name295-1 #name295-3 #name295-4" xml:lang="ar" source="#bib295-2">
                         <addName type="untagged-title" sort="2">الخوري</addName>
                         <forename sort="1">يعقوب</forename>
                         <addName type="untagged-title" sort="2">القطربلي</addName>
                     </persName>
-                    <persName xml:id="name295-3" corresp="#name295-1 #name295-2 #name295-4" xml:lang="syr" source="#bib295-4">
+                    <persName xml:id="name295-3" corresp="#name295-1 #name295-2 #name295-4" xml:lang="syr" source="#bib295-3">
                         <addName type="untagged-title" sort="2">ܟܘܪܝܐ</addName>
                         <forename sort="1">ܝܥܩܘܒ</forename>
                         <addName type="untagged-title" sort="2">ܩܛܪܒܠܝܐ</addName>
                     </persName>
-                    <persName xml:id="name295-4" corresp="#name295-1 #name295-2 #name295-3" xml:lang="syr-Syrj" source="#bib295-4">
+                    <persName xml:id="name295-4" corresp="#name295-1 #name295-2 #name295-3" xml:lang="syr-Syrj" source="#bib295-3">
                         <addName type="untagged-title" sort="2">ܟܘܪܳܝܐ</addName>
                         <forename sort="1">ܝܰܥܩܘܒ</forename>
                         <addName type="untagged-title" sort="2">ܩܛܰܪܒܠܳܝܐ</addName>
@@ -166,22 +169,24 @@
                         <forename sort="1">Jacob</forename>
                         <addName type="untagged-title" sort="2">of Quṭurbul</addName>
                     </persName>
+                    <persName xml:id="name295-8" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Yaqub of Quṭurbul</persName>
+                    <persName xml:id="name295-9" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Ya‘qub of Quṭurbul</persName>
                     <note type="abstract" xml:id="abstract-en-295"/>
                     <idno type="URI">http://syriaca.org/person/295</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|295</idno>
-                    <death when="1783" source="#bib295-2">1783</death>
-                    <bibl xml:id="bib295-2">
+                    <death when="1783" source="#bib295-1" syriaca-computed-start="1783-01-01">1783</death>
+                    <bibl xml:id="bib295-1">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="entry">285</citedRange>
                         <citedRange unit="pp">520</citedRange>
                     </bibl>
-                    <bibl xml:id="bib295-3">
+                    <bibl xml:id="bib295-2">
                         <title level="m" xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">466</citedRange>
                     </bibl>
-                    <bibl xml:id="bib295-4">
+                    <bibl xml:id="bib295-3">
                         <title level="m" xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">496</citedRange>

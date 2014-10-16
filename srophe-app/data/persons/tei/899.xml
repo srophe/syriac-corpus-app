@@ -42,7 +42,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -94,6 +94,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -101,37 +103,37 @@
         <body>
             <listPerson>
                 <person xml:id="person-899" ana="#syriaca-author">
-                    <persName xml:id="name899-1" corresp="#name899-2 #name899-3 #name899-4" xml:lang="syr" source="#bib899-6" syriaca-tags="#syriaca-headword">
+                    <persName xml:id="name899-1" corresp="#name899-2 #name899-3 #name899-4" xml:lang="syr" source="#bib899-1" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ܩܘܪܝܩܘܣ</forename>
                     </persName>
-                    <persName xml:id="name899-2" corresp="#name899-1 #name899-3 #name899-4" xml:lang="syr-Syrn" source="#bib899-6">
+                    <persName xml:id="name899-2" corresp="#name899-1 #name899-3 #name899-4" xml:lang="syr-Syrn" source="#bib899-1">
                         <forename sort="1">ܩܘܼܪܝܵܩܘܿܣ</forename>
                     </persName>
-                    <persName xml:id="name899-3" corresp="#name899-1 #name899-2 #name899-4" xml:lang="syr" source="#bib899-7">
+                    <persName xml:id="name899-3" corresp="#name899-1 #name899-2 #name899-4" xml:lang="syr" source="#bib899-2">
                         <forename sort="1">ܩܘܪܝܩܘܘܣ</forename>
                     </persName>
-                    <persName xml:id="name899-4" corresp="#name899-1 #name899-2 #name899-3" xml:lang="syr-Syrj" source="#bib899-7">
+                    <persName xml:id="name899-4" corresp="#name899-1 #name899-2 #name899-3" xml:lang="syr-Syrj" source="#bib899-2">
                         <forename sort="1">ܩܽܘܪܝܰܩܳܘܘܣ</forename>
                     </persName>
                     <persName xml:id="name899-5" xml:lang="en-x-gedsh" resp="http://syriaca.org" syriaca-tags="#syriaca-headword">
                         <forename sort="1">Quryaqos</forename>
                     </persName>
-                    <persName xml:id="name899-6" xml:lang="en" source="#bib899-10">Qyriaqos of Nisibis</persName>
+                    <persName xml:id="name899-6" xml:lang="en" source="#bib899-3">Qyriaqos of Nisibis</persName>
                     <note type="abstract" xml:id="abstract-en-899"/>
                     <idno type="URI">http://syriaca.org/person/899</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|899</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qyriaqos of Nisibis&amp;sT=keywords</idno>
-                    <bibl xml:id="bib899-6">
+                    <bibl xml:id="bib899-1">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">79</citedRange>
                     </bibl>
-                    <bibl xml:id="bib899-7">
+                    <bibl xml:id="bib899-2">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:215</citedRange>
                     </bibl>
-                    <bibl xml:id="bib899-10">
+                    <bibl xml:id="bib899-3">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qyriaqos of Nisibis&amp;sT=keywords">Qyriaqos of Nisibis</citedRange>

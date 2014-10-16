@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
             <change type="planned">Should viaf.org records referring to Ṣahārbūkht b. Māsarjīs in Arabic-Islamic tradition be matched with this one, as GEDSH suggests?</change>
         </revisionDesc>
@@ -132,16 +134,16 @@
                         <forename sort="1">ܨܗܪܒܘܟܬ</forename>
                         <addName type="family" sort="2">ܒܪ ܡܣܪܓܝܣ</addName>
                     </persName>
-                    <persName xml:id="name736-3" xml:lang="en" source="#bib736-10">Seharbokt</persName>
+                    <persName xml:id="name736-3" xml:lang="en" source="#bib736-2">Seharbokt</persName>
                     <note type="abstract" xml:id="abstract-en-736">
                         <quote source="#bib736-1">Scholar, probably active as a teacher in the theological school and perhaps also
-            in the Christian medical teaching institute (<foreign xmlns="" rend="italic" xml:lang="en-x-gedsh">beth mardutā</foreign>) of Beth Lapaṭ (Gondeshapur)
+            in the Christian medical teaching institute (<foreign rend="italic" xml:lang="en-x-gedsh">beth mardutā</foreign>) of Beth Lapaṭ (Gondeshapur)
             in Khuzistan.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/736</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|736</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Seharbokt&amp;sT=keywords</idno>
-                    <floruit notBefore="0800" notAfter="0900" source="#bib736-1">9th cent.</floruit>
+                    <floruit notBefore="0800" notAfter="0900" source="#bib736-1" syriaca-computed-end="0900-01-01" syriaca-computed-start="0800-01-01">9th cent.</floruit>
                     <state type="confession" source="#bib736-1">
                         <desc>Ch. of E.</desc>
                     </state>
@@ -153,7 +155,7 @@
                         <citedRange unit="pp">371</citedRange>
                         <citedRange unit="pp">371</citedRange>
                     </bibl>
-                    <bibl xml:id="bib736-10">
+                    <bibl xml:id="bib736-2">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Seharbokt&amp;sT=keywords">Seharbokt</citedRange>

@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -159,15 +161,15 @@
                         <forename sort="1">ܝܘܚܢܢ</forename>
                         <addName type="untagged-title" sort="2">ܕܕܠܝܬ̈ܗ</addName>
                     </persName>
-                    <persName xml:id="name826-7" corresp="#name826-6" xml:lang="syr-Syrn" source="#bib826-6">
+                    <persName xml:id="name826-7" corresp="#name826-6" xml:lang="syr-Syrn" source="#bib826-5">
                         <forename sort="1">ܝܘܿܚܲܢܵܢ</forename>
                         <addName type="untagged-title" sort="2">ܕܕܵܠܝܵܬܹ̈ܗ</addName>
                     </persName>
-                    <persName xml:id="name826-8" xml:lang="en" source="#bib826-10" syriaca-tags="#syriaca-anglicized">
+                    <persName xml:id="name826-8" xml:lang="en" source="#bib826-7" syriaca-tags="#syriaca-anglicized">
                         <forename sort="1">John</forename>
                         <addName type="untagged-title" sort="2">of Dalyatha</addName>
                     </persName>
-                    <persName xml:id="name826-9" xml:lang="en" source="#bib826-10">John Saba</persName>
+                    <persName xml:id="name826-9" xml:lang="en" source="#bib826-7">John Saba</persName>
                     <note type="abstract" xml:id="abstract-en-826">
                         <quote source="#bib826-1">Commonly known as Yoḥannan Saba (‘Elder’). An E.-Syr. monk, author of a Syriac
             collection of mystical discourses, letters, and maxims (‘chapters of
@@ -184,7 +186,7 @@
                     <idno type="URI">http://viaf.org/viaf/244947174</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John of Dalyatha&amp;sT=keywords</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John Saba&amp;sT=keywords</idno>
-                    <floruit notBefore="0700" notAfter="0800" source="#bib826-1">8th cent.</floruit>
+                    <floruit notBefore="0700" notAfter="0800" source="#bib826-1" syriaca-computed-end="0800-01-01" syriaca-computed-start="0700-01-01">8th cent.</floruit>
                     <state type="confession" source="#bib826-1">
                         <desc>Ch. of E.</desc>
                     </state>
@@ -211,17 +213,17 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">145</citedRange>
                     </bibl>
-                    <bibl xml:id="bib826-6">
+                    <bibl xml:id="bib826-5">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">72</citedRange>
                     </bibl>
-                    <bibl xml:id="bib826-7">
+                    <bibl xml:id="bib826-6">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:103</citedRange>
                     </bibl>
-                    <bibl xml:id="bib826-10">
+                    <bibl xml:id="bib826-7">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John of Dalyatha&amp;sT=keywords">John of Dalyatha</citedRange>

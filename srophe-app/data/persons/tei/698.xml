@@ -62,7 +62,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -114,7 +114,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -130,8 +132,8 @@
                     </note>
                     <idno type="URI">http://syriaca.org/person/698</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|698</idno>
-                    <birth when="1881-08" source="#bib698-1">08/1881</birth>
-                    <death when="1962" source="#bib698-1">1962</death>
+                    <birth when="1881-08" source="#bib698-1" syriaca-computed-start="1881-08-01">08/1881</birth>
+                    <death when="1962" source="#bib698-1" syriaca-computed-start="1962-01-01">1962</death>
                     <state type="confession" source="#bib698-1">
                         <desc>Syr. Orth.</desc>
                     </state>

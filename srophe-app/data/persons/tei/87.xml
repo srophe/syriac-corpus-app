@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -177,9 +179,9 @@
                     <idno type="URI">http://books.google.com/books?id=mHewpd0an9IC&amp;pg=PA120&amp;lpg=PA120&amp;dq=thomas+of+harkel+brock+bible+syriac&amp;source=bl&amp;ots=kAUMl9ne9i&amp;sig=_E0jwjKMMR24BXt2kXW5wL9nA_0&amp;hl=en&amp;sa=X&amp;ei=Szf_T7HOEKrA0QGVw_DgBg&amp;sqi=2&amp;ved=0CEcQ6AEwAw#v=onepage&amp;q=thomas%20of%20harkel&amp;f=false</idno>
                     <idno type="URI">http://www.worldcat.org/search?q=au%3AThomas+of+Harkel.&amp;qt=hot_author</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Thomas of Harkel&amp;sT=keywords</idno>
-                    <birth notBefore="0555" notAfter="0585" source="#bib87-1">ca. 570</birth>
-                    <death when="0640" source="#bib87-1">640</death>
-                    <floruit when="0627" source="#bib87-2">627</floruit>
+                    <birth notBefore="0555" notAfter="0585" source="#bib87-1" syriaca-computed-end="0585-01-01" syriaca-computed-start="0555-01-01">ca. 570</birth>
+                    <death when="0640" source="#bib87-1" syriaca-computed-start="0640-01-01">640</death>
+                    <floruit when="0627" source="#bib87-2" syriaca-computed-start="0627-01-01">627</floruit>
                     <state type="confession" source="#bib87-1">
                         <desc>Syr. Orth.</desc>
                     </state>
@@ -206,7 +208,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">302</citedRange>
                     </bibl>
-                    <bibl xml:id="bib87-10">
+                    <bibl xml:id="bib87-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Thomas of Harkel&amp;sT=keywords">Thomas of Harkel</citedRange>

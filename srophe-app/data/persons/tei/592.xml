@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -169,8 +171,8 @@
                     <idno type="URI">http://viaf.org/viaf/240424233</idno>
                     <idno type="URI">http://viaf.org/viaf/202897712</idno>
                     <idno type="URI">http://viaf.org/viaf/192532298</idno>
-                    <birth when="1827" source="#bib592-1">1827</birth>
-                    <death when="1891" source="#bib592-1">1891</death>
+                    <birth when="1827" source="#bib592-1" syriaca-computed-start="1827-01-01">1827</birth>
+                    <death when="1891" source="#bib592-1" syriaca-computed-start="1891-01-01">1891</death>
                     <bibl xml:id="bib592-1">
                         <author>L. Van Rompay</author>
                         <title level="a" xml:lang="en">de Lagarde, Paul Anton</title>

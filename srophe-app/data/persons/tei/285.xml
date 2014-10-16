@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -165,14 +168,16 @@
                     <persName xml:id="name285-6" xml:lang="syr" resp="http://syriaca.org" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ܢܥܡܗ̈ ܐܠܗ</forename>
                     </persName>
+                    <persName xml:id="name285-7" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Nimatullāh Ignatius</persName>
+                    <persName xml:id="name285-8" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Ni‘matullāh Ignatius</persName>
                     <note type="abstract" xml:id="abstract-en-285">
                         <quote source="#bib285-1">Scholar, astronomer, maph. (1555–7) and Patr. (1557–76).</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/285</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|285</idno>
-                    <birth notBefore="1500" notAfter="1530" source="#bib285-1">ca.1515?</birth>
-                    <death notBefore="1562" notAfter="1612" source="#bib285-1">ca.1587?</death>
-                    <state type="office" role="patriarch" from="1557" to="1576" source="#bib285-1 #bib285-2">
+                    <birth notBefore="1500" notAfter="1530" source="#bib285-1" syriaca-computed-end="1530-01-01" syriaca-computed-start="1500-01-01">ca.1515?</birth>
+                    <death notBefore="1562" notAfter="1612" source="#bib285-1" syriaca-computed-end="1612-01-01" syriaca-computed-start="1562-01-01">ca.1587?</death>
+                    <state type="office" role="patriarch" from="1557" to="1576" source="#bib285-1 #bib285-2" syriaca-computed-end="1576-01-01" syriaca-computed-start="1557-01-01">
                         <desc xml:lang="en">Patriarch</desc>
                     </state>
                     <state type="confession" source="#bib285-1">

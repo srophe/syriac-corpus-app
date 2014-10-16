@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -138,15 +140,15 @@
                     <persName xml:id="name661-1" xml:lang="en-x-gedsh" source="#bib661-1" syriaca-tags="#syriaca-headword">
                         <addName type="family" sort="1">Nöldeke</addName>, <forename sort="2">Theodor</forename>
                     </persName>
-                    <persName xml:id="name661-2" corresp="#name661-3 #name661-4" xml:lang="ar" source="#bib661-3">
+                    <persName xml:id="name661-2" corresp="#name661-3 #name661-4" xml:lang="ar" source="#bib661-2">
                         <forename sort="2">ثاودر</forename>
                         <addName type="family" sort="1">نلدكه</addName>
                     </persName>
-                    <persName xml:id="name661-3" corresp="#name661-2 #name661-4" xml:lang="syr" source="#bib661-4" syriaca-tags="#syriaca-headword">
+                    <persName xml:id="name661-3" corresp="#name661-2 #name661-4" xml:lang="syr" source="#bib661-3" syriaca-tags="#syriaca-headword">
                         <forename sort="2">ܬܐܘܕܘܪ</forename>
                         <addName type="family" sort="1">ܢܘܠܕܟܗ</addName>
                     </persName>
-                    <persName xml:id="name661-4" corresp="#name661-2 #name661-3" xml:lang="syr-Syrj" source="#bib661-4">
+                    <persName xml:id="name661-4" corresp="#name661-2 #name661-3" xml:lang="syr-Syrj" source="#bib661-3">
                         <forename sort="2">ܬܶܐܘܳܕܘܪ</forename>
                         <addName type="family" sort="1">ܢܳܘܠܕܰܟܶܗ</addName>
                     </persName>
@@ -160,8 +162,8 @@
                     <idno type="URI">http://syriaca.org/person/661</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|661</idno>
                     <idno type="URI">http://viaf.org/viaf/49253985</idno>
-                    <birth when="1836-03-02" source="#bib661-1">3/2/1836</birth>
-                    <death when="1930-12-25" source="#bib661-1">12/25/1930</death>
+                    <birth when="1836-03-02" source="#bib661-1" syriaca-computed-start="1836-03-02">3/2/1836</birth>
+                    <death when="1930-12-25" source="#bib661-1" syriaca-computed-start="1930-12-25">12/25/1930</death>
                     <bibl xml:id="bib661-1">
                         <author>H. Kaufhold </author>
                         <title level="a" xml:lang="en">Nöldeke, Theodor</title>
@@ -170,12 +172,12 @@
                         <citedRange unit="pp">312-313</citedRange>
                         <citedRange unit="pp">312-313</citedRange>
                     </bibl>
-                    <bibl xml:id="bib661-3">
+                    <bibl xml:id="bib661-2">
                         <title level="m" xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">474</citedRange>
                     </bibl>
-                    <bibl xml:id="bib661-4">
+                    <bibl xml:id="bib661-3">
                         <title level="m" xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">506</citedRange>

@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -151,19 +153,19 @@
                         <forename sort="1">ܐܽܘܣܰܐܒܺܝܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܩܶܣܰܪܝܐ</addName>
                     </persName>
-                    <persName xml:id="name480-5" corresp="#name480-6 #name480-7 #name480-8" xml:lang="syr" source="#bib480-6" syriaca-tags="#syriaca-headword">
+                    <persName xml:id="name480-5" corresp="#name480-6 #name480-7 #name480-8" xml:lang="syr" source="#bib480-5" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ܐܘܣܒܝܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܩܣܪܝܐ</addName>
                     </persName>
-                    <persName xml:id="name480-6" corresp="#name480-5 #name480-7 #name480-8" xml:lang="syr-Syrn" source="#bib480-6">
+                    <persName xml:id="name480-6" corresp="#name480-5 #name480-7 #name480-8" xml:lang="syr-Syrn" source="#bib480-5">
                         <forename sort="1">ܐܹܘܣܹܒܝܼܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܩܹܣܲܪܝܵܐ</addName>
                     </persName>
-                    <persName xml:id="name480-7" corresp="#name480-5 #name480-6 #name480-8" xml:lang="syr" source="#bib480-7">
+                    <persName xml:id="name480-7" corresp="#name480-5 #name480-6 #name480-8" xml:lang="syr" source="#bib480-6">
                         <forename sort="1">ܐܘܣܒܝܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܩܣܪܝܐ</addName>
                     </persName>
-                    <persName xml:id="name480-8" corresp="#name480-5 #name480-6 #name480-7" xml:lang="syr-Syrj" source="#bib480-7">
+                    <persName xml:id="name480-8" corresp="#name480-5 #name480-6 #name480-7" xml:lang="syr-Syrj" source="#bib480-6">
                         <forename sort="1">ܐܶܘܣܶܒܝܳܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܩܶܣܰܪܝܰܐ</addName>
                     </persName>
@@ -185,8 +187,8 @@
                     <idno type="URI">http://viaf.org/viaf/2857919</idno>
                     <idno type="URI">http://viaf.org/viaf/204551666</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Eusebius of Caesarea&amp;sT=keywords</idno>
-                    <birth notBefore="0245" notAfter="0275" source="#bib480-1">ca. 260</birth>
-                    <death notBefore="0325" notAfter="0365" source="#bib480-1">ca. 340</death>
+                    <birth notBefore="0245" notAfter="0275" source="#bib480-1" syriaca-computed-end="0275-01-01" syriaca-computed-start="0245-01-01">ca. 260</birth>
+                    <death notBefore="0325" notAfter="0365" source="#bib480-1" syriaca-computed-end="0365-01-01" syriaca-computed-start="0325-01-01">ca. 340</death>
                     <bibl xml:id="bib480-1">
                         <author>S. P. Brock</author>
                         <title level="a" xml:lang="en">Eusebius of Caesarea</title>
@@ -210,17 +212,17 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">194</citedRange>
                     </bibl>
-                    <bibl xml:id="bib480-6">
+                    <bibl xml:id="bib480-5">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">64</citedRange>
                     </bibl>
-                    <bibl xml:id="bib480-7">
+                    <bibl xml:id="bib480-6">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:18</citedRange>
                     </bibl>
-                    <bibl xml:id="bib480-10">
+                    <bibl xml:id="bib480-7">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=E&amp;sK=Eusebius of Caesarea&amp;sT=keywords">Eusebius of Caesarea</citedRange>

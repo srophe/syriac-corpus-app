@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -168,7 +170,7 @@
                     <persName xml:id="name35-7" xml:lang="en" resp="http://syriaca.org" syriaca-tags="#syriaca-anglicized">
                         <forename sort="1">Polycarp</forename>
                     </persName>
-                    <persName xml:id="name35-8" xml:lang="en" source="#bib35-10">Polycarpus the Chorepiscopus</persName>
+                    <persName xml:id="name35-8" xml:lang="en" source="#bib35-5">Polycarpus the Chorepiscopus</persName>
                     <note type="abstract" xml:id="abstract-en-35">
                         <quote source="#bib35-1">Chorepiscopus of the diocese of Mabbug, who was commissioned with the translation
             of the NT (and parts of the OT) by Philoxenos of Mabbug (the so-called Philoxenian
@@ -178,7 +180,7 @@
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|35</idno>
                     <idno type="URI">http://books.google.com/books?id=mHewpd0an9IC&amp;pg=PA35&amp;lpg=PA35&amp;dq=chorepiscopos+polycarp&amp;source=bl&amp;ots=kAULq7k7cm&amp;sig=5Ek4aMUiAklaMgo67JCrD9k4l2E&amp;hl=en&amp;sa=X&amp;ei=ujn3T5SsH-bG6wHo_oTvBg&amp;ved=0CFAQ6AEwBQ#v=onepage&amp;q=chorepiscopos%20polycarp&amp;f=false</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=P&amp;sK=Polycarpus the Chorepiscopus&amp;sT=keywords</idno>
-                    <floruit notBefore="0475" notAfter="0525" source="#bib35-1">ca. 500</floruit>
+                    <floruit notBefore="0475" notAfter="0525" source="#bib35-1" syriaca-computed-end="0525-01-01" syriaca-computed-start="0475-01-01">ca. 500</floruit>
                     <state type="confession" source="#bib35-1">
                         <desc>Syr. Orth.</desc>
                     </state>
@@ -205,7 +207,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">241</citedRange>
                     </bibl>
-                    <bibl xml:id="bib35-10">
+                    <bibl xml:id="bib35-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=P&amp;sK=Polycarpus the Chorepiscopus&amp;sT=keywords">Polycarpus the Chorepiscopus</citedRange>

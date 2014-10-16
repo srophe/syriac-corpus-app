@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -176,8 +178,8 @@
                         <forename sort="1">David</forename>
                         <addName type="untagged-title" sort="2">Puniqoyo</addName>
                     </persName>
-                    <persName xml:id="name273-8" xml:lang="en" source="#bib273-10">David Puniqaya</persName>
-                    <persName xml:id="name273-8" xml:lang="en" source="#bib273-1">Dāwūd al-Ḥimṣī</persName>
+                    <persName xml:id="name273-8" xml:lang="en" source="#bib273-5">David Puniqaya</persName>
+                    <persName xml:id="name273-9" xml:lang="en" source="#bib273-1">Dāwūd al-Ḥimṣī</persName>
                     <note type="abstract" xml:id="abstract-en-273">
                         <quote source="#bib273-1">Priest, author, and poet.</quote>
                     </note>
@@ -185,9 +187,9 @@
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|273</idno>
                     <idno type="URI">http://www.worldcat.org/oclc/503104091</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=D&amp;sK=David Puniqaya&amp;sT=keywords</idno>
-                    <birth notBefore="1416" notAfter="1446" source="#bib273-1">ca. 1431</birth>
-                    <death notBefore="1485" notAfter="1515" source="#bib273-1">ca. 1500</death>
-                    <floruit notBefore="1485" notAfter="1515" source="#bib273-2">1500?</floruit>
+                    <birth notBefore="1416" notAfter="1446" source="#bib273-1" syriaca-computed-end="1446-01-01" syriaca-computed-start="1416-01-01">ca. 1431</birth>
+                    <death notBefore="1485" notAfter="1515" source="#bib273-1" syriaca-computed-end="1515-01-01" syriaca-computed-start="1485-01-01">ca. 1500</death>
+                    <floruit notBefore="1485" notAfter="1515" source="#bib273-2" syriaca-computed-end="1515-01-01" syriaca-computed-start="1485-01-01">1500?</floruit>
                     <state type="office" role="monk" source="#bib273-2">
                         <desc xml:lang="en">the Monk</desc>
                     </state>
@@ -217,7 +219,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">483</citedRange>
                     </bibl>
-                    <bibl xml:id="bib273-10">
+                    <bibl xml:id="bib273-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=D&amp;sK=David Puniqaya&amp;sT=keywords">David Puniqaya</citedRange>

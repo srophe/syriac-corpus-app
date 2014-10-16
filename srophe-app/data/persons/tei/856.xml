@@ -51,7 +51,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -103,6 +103,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
             <change type="planned">Should this record be matched with http://viaf.org/hosted/syriac/32757/ or http://viaf.org/hosted/syriac/27999/ ?</change>
         </revisionDesc>
@@ -111,11 +113,11 @@
         <body>
             <listPerson>
                 <person xml:id="person-856" ana="#syriaca-author">
-                    <persName xml:id="name856-1" corresp="#name856-2" xml:lang="en" source="#bib856-2">
+                    <persName xml:id="name856-1" corresp="#name856-2" xml:lang="en" source="#bib856-1">
                         <forename sort="1">Macarius</forename>
                         <addName type="untagged-title" sort="2">the Great and Egyptian</addName>
                     </persName>
-                    <persName xml:id="name856-2" corresp="#name856-1" xml:lang="ar" source="#bib856-3">
+                    <persName xml:id="name856-2" corresp="#name856-1" xml:lang="ar" source="#bib856-2">
                         <forename sort="1">مقاريوس</forename>
                         <addName type="untagged-title" sort="2">المصري</addName>
                     </persName>
@@ -126,40 +128,40 @@
                         <forename sort="1">ܡܩܪܝܣ</forename>
                         <addName type="untagged-title" sort="2">ܐܚܪܢܐ</addName>
                     </persName>
-                    <persName xml:id="name856-5" corresp="#name856-4" xml:lang="syr-Syrn" source="#bib856-6">
+                    <persName xml:id="name856-5" corresp="#name856-4" xml:lang="syr-Syrn" source="#bib856-3">
                         <forename sort="1">ܡܲܩܵܪܝܼܣ</forename>
                         <addName type="untagged-title" sort="2">ܐܚܪܹܢܵܐ</addName>
                     </persName>
                     <persName xml:id="name856-6" xml:lang="en-x-gedsh" resp="http://syriaca.org" syriaca-tags="#syriaca-headword">
                         <forename sort="1">Macarius</forename>
                     </persName>
-                    <persName xml:id="name856-7" xml:lang="en" source="#bib856-10">Abba Macarius</persName>
+                    <persName xml:id="name856-7" xml:lang="en" source="#bib856-5">Abba Macarius</persName>
                     <note type="abstract" xml:id="abstract-en-856"/>
                     <idno type="URI">http://syriaca.org/person/856</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|856</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Abba Macarius&amp;sT=keywords</idno>
-                    <death when="0390" source="#bib856-2">390</death>
-                    <bibl xml:id="bib856-2">
+                    <death when="0390" source="#bib856-1" syriaca-computed-start="0390-01-01">390</death>
+                    <bibl xml:id="bib856-1">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">137</citedRange>
                     </bibl>
-                    <bibl xml:id="bib856-3">
+                    <bibl xml:id="bib856-2">
                         <title level="m" xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">122</citedRange>
                     </bibl>
-                    <bibl xml:id="bib856-6">
+                    <bibl xml:id="bib856-3">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">68</citedRange>
                     </bibl>
-                    <bibl xml:id="bib856-7">
+                    <bibl xml:id="bib856-4">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:47</citedRange>
                     </bibl>
-                    <bibl xml:id="bib856-10">
+                    <bibl xml:id="bib856-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Abba Macarius&amp;sT=keywords">Abba Macarius</citedRange>

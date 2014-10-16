@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -173,8 +175,8 @@
                     <idno type="URI">http://viaf.org/viaf/89163336</idno>
                     <idno type="URI">http://viaf.org/viaf/238648909</idno>
                     <idno type="URI">http://viaf.org/viaf/215849417</idno>
-                    <birth when="1843-04-16" source="#bib751-1">4/16/1843</birth>
-                    <death when="1926" source="#bib751-1">1926</death>
+                    <birth when="1843-04-16" source="#bib751-1" syriaca-computed-start="1843-04-16">4/16/1843</birth>
+                    <death when="1926" source="#bib751-1" syriaca-computed-start="1926-01-01">1926</death>
                     <bibl xml:id="bib751-1">
                         <author>S. P. Brock and G. A. Kiraz</author>
                         <title level="a" xml:lang="en">Smith, Agnes and Margaret</title>

@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -131,14 +134,16 @@
                         <forename sort="1">ܦܦܐ</forename>
                         <addName type="family" sort="2">ܒܪ ܥܓܝ</addName>
                     </persName>
-                    <persName xml:id="name669-3" xml:lang="en" source="#bib669-10">Papa of Seleucia</persName>
+                    <persName xml:id="name669-3" xml:lang="en" source="#bib669-2">Papa of Seleucia</persName>
+                    <persName xml:id="name669-4" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Papa bar Aggai</persName>
+                    <persName xml:id="name669-5" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Papa bar ‘Aggai</persName>
                     <note type="abstract" xml:id="abstract-en-669">
                         <quote source="#bib669-1">Bp. of Seleucia-Ctesiphon.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/669</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|669</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=P&amp;sK=Papa of Seleucia&amp;sT=keywords</idno>
-                    <death notBefore="0327" notAfter="0335" source="#bib669-1">between 327-335</death>
+                    <death notBefore="0327" notAfter="0335" source="#bib669-1" syriaca-computed-end="0335-01-01" syriaca-computed-start="0327-01-01">between 327-335</death>
                     <state type="confession" source="#bib669-1">
                         <desc>Ch. of E.</desc>
                     </state>
@@ -150,7 +155,7 @@
                         <citedRange unit="pp">320</citedRange>
                         <citedRange unit="pp">320</citedRange>
                     </bibl>
-                    <bibl xml:id="bib669-10">
+                    <bibl xml:id="bib669-2">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=P&amp;sK=Papa of Seleucia&amp;sT=keywords">Papa of Seleucia</citedRange>

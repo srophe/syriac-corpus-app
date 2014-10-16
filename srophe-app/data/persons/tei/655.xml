@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -150,19 +152,19 @@
                     <persName xml:id="name655-5" xml:lang="syr" resp="http://syriaca.org" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ܢܣܛܘܪܝܣ</forename>
                     </persName>
-                    <persName xml:id="name655-6" corresp="#name655-7 #name655-8 #name655-9" xml:lang="syr" source="#bib655-6">
+                    <persName xml:id="name655-6" corresp="#name655-7 #name655-8 #name655-9" xml:lang="syr" source="#bib655-5">
                         <forename sort="1">ܢܣܛܘܪܝܣ</forename>
                         <addName type="untagged-title" sort="2">ܦܛܪܝܪܟܐ</addName>
                     </persName>
-                    <persName xml:id="name655-7" corresp="#name655-6 #name655-8 #name655-9" xml:lang="syr-Syrn" source="#bib655-6">
+                    <persName xml:id="name655-7" corresp="#name655-6 #name655-8 #name655-9" xml:lang="syr-Syrn" source="#bib655-5">
                         <forename sort="1">ܢܸܣܛܘܿܪܝܼܣ</forename>
                         <addName type="untagged-title" sort="2">ܦܵܛܲܪܝܵܪܟܵܐ</addName>
                     </persName>
-                    <persName xml:id="name655-8" corresp="#name655-6 #name655-7 #name655-9" xml:lang="syr" source="#bib655-7">
+                    <persName xml:id="name655-8" corresp="#name655-6 #name655-7 #name655-9" xml:lang="syr" source="#bib655-6">
                         <forename sort="1">ܢܣܛܘܪܝܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܦܛܪܝܪܟܐ</addName>
                     </persName>
-                    <persName xml:id="name655-9" corresp="#name655-6 #name655-7 #name655-8" xml:lang="syr-Syrj" source="#bib655-7">
+                    <persName xml:id="name655-9" corresp="#name655-6 #name655-7 #name655-8" xml:lang="syr-Syrj" source="#bib655-6">
                         <forename sort="1">ܢܶܣܛܘܽܪܝܳܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܦܰܛܪܺܝܰܪܟܳܐ</addName>
                     </persName>
@@ -180,8 +182,8 @@
                     <idno type="URI">http://viaf.org/viaf/206777456</idno>
                     <idno type="URI">http://viaf.org/viaf/203443617</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=N&amp;sK=Nestorius&amp;sT=keywords</idno>
-                    <birth notBefore="0356" notAfter="0406" source="#bib655-1">ca. 381?</birth>
-                    <death notBefore="0435" notAfter="0465" source="#bib655-1">ca. 450</death>
+                    <birth notBefore="0356" notAfter="0406" source="#bib655-1" syriaca-computed-end="0406-01-01" syriaca-computed-start="0356-01-01">ca. 381?</birth>
+                    <death notBefore="0435" notAfter="0465" source="#bib655-1" syriaca-computed-end="0465-01-01" syriaca-computed-start="0435-01-01">ca. 450</death>
                     <bibl xml:id="bib655-1">
                         <author>G. A. Bevan </author>
                         <title level="a" xml:lang="en">Nestorius</title>
@@ -205,17 +207,17 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">255</citedRange>
                     </bibl>
-                    <bibl xml:id="bib655-6">
+                    <bibl xml:id="bib655-5">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">67</citedRange>
                     </bibl>
-                    <bibl xml:id="bib655-7">
+                    <bibl xml:id="bib655-6">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:35</citedRange>
                     </bibl>
-                    <bibl xml:id="bib655-10">
+                    <bibl xml:id="bib655-7">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=N&amp;sK=Nestorius&amp;sT=keywords">Nestorius</citedRange>

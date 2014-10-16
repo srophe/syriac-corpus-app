@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,6 +127,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -134,20 +136,20 @@
         <body>
             <listPerson>
                 <person xml:id="person-286" ana="#syriaca-author">
-                    <persName xml:id="name286-1" corresp="#name286-2 #name286-3 #name286-4" xml:lang="en" source="#bib286-2">
+                    <persName xml:id="name286-1" corresp="#name286-2 #name286-3 #name286-4" xml:lang="en" source="#bib286-1">
                         <forename sort="1">John</forename>
                         <addName type="untagged-title" sort="2">Wanki</addName>, <roleName type="office" sort="2">metropolitan of Cappadocia and Edessa</roleName>
                     </persName>
-                    <persName xml:id="name286-2" corresp="#name286-1 #name286-3 #name286-4" xml:lang="ar" source="#bib286-3">
+                    <persName xml:id="name286-2" corresp="#name286-1 #name286-3 #name286-4" xml:lang="ar" source="#bib286-2">
                         <forename sort="1">وانيس</forename>
                         <addName type="untagged-title" sort="2">الونكي</addName>
                         <addName type="untagged-title" sort="2">مطران قبادوقية و الرها</addName>
                     </persName>
-                    <persName xml:id="name286-3" corresp="#name286-1 #name286-2 #name286-4" xml:lang="syr" source="#bib286-4">
+                    <persName xml:id="name286-3" corresp="#name286-1 #name286-2 #name286-4" xml:lang="syr" source="#bib286-3">
                         <forename sort="1">ܐܝܘܐܢܝܣ</forename>
                         <addName type="untagged-title" sort="2">ܘܐܢܟܝܐ ܡܝܛܪܘܦܘܠܝܛܐ ܕܩܦܕܘܩܝܐ ܘܕܐܘܪܗܝ</addName>
                     </persName>
-                    <persName xml:id="name286-4" corresp="#name286-1 #name286-2 #name286-3" xml:lang="syr-Syrj" source="#bib286-4">
+                    <persName xml:id="name286-4" corresp="#name286-1 #name286-2 #name286-3" xml:lang="syr-Syrj" source="#bib286-3">
                         <forename sort="1">ܐܺܝܘܰܐܢܝܣ</forename>
                         <addName type="untagged-title" sort="2">ܘܰܐܢܟܳܝܐ ܡܝܛܪܘܦܘܠܝܛܐ ܕܩܰܦܰܕܘܩܳܝܐ ܘܕܐܽܘܪܗܳܝ</addName>
                     </persName>
@@ -166,22 +168,22 @@
                     <note type="abstract" xml:id="abstract-en-286"/>
                     <idno type="URI">http://syriaca.org/person/286</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|286</idno>
-                    <floruit when="1624" source="#bib286-2">1624</floruit>
-                    <state type="office" role="metropolitan" source="#bib286-2">
+                    <floruit when="1624" source="#bib286-1" syriaca-computed-start="1624-01-01">1624</floruit>
+                    <state type="office" role="metropolitan" source="#bib286-1">
                         <desc xml:lang="en">Metropolitan of Cappadocia and Edessa</desc>
                     </state>
-                    <bibl xml:id="bib286-2">
+                    <bibl xml:id="bib286-1">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="entry">276</citedRange>
                         <citedRange unit="pp">514</citedRange>
                     </bibl>
-                    <bibl xml:id="bib286-3">
+                    <bibl xml:id="bib286-2">
                         <title level="m" xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">460</citedRange>
                     </bibl>
-                    <bibl xml:id="bib286-4">
+                    <bibl xml:id="bib286-3">
                         <title level="m" xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">491</citedRange>

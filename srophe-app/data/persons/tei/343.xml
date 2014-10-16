@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -163,7 +165,7 @@
                     <persName xml:id="name343-7" xml:lang="en" resp="http://syriaca.org" syriaca-tags="#syriaca-anglicized">
                         <addName type="family" sort="1">Armalah</addName>, <forename sort="2">Isaac</forename>
                     </persName>
-                    <persName xml:id="name343-7" xml:lang="en" source="#bib343-1">Armalet, Isaac</persName>
+                    <persName xml:id="name343-8" xml:lang="en" source="#bib343-1">Armalet, Isaac</persName>
                     <note type="abstract" xml:id="abstract-en-343">
                         <quote source="#bib343-1">He was born to Saʿīd Armalah in Mardin and was given the baptismal name Eliās.</quote>
                     </note>
@@ -176,8 +178,8 @@
                     <idno type="URI">http://viaf.org/viaf/57032201</idno>
                     <idno type="URI">http://viaf.org/viaf/2650903</idno>
                     <idno type="URI">http://viaf.org/viaf/199049953</idno>
-                    <birth when="1879" source="#bib343-1">1879</birth>
-                    <death when="1954" source="#bib343-1">1954</death>
+                    <birth when="1879" source="#bib343-1" syriaca-computed-start="1879-01-01">1879</birth>
+                    <death when="1954" source="#bib343-1" syriaca-computed-start="1954-01-01">1954</death>
                     <state type="confession" source="#bib343-1">
                         <desc>Syr. Cath.</desc>
                     </state>

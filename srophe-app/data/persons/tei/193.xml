@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,11 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
             <change type="planned">Is this the same person as "Joseph of Shushan" (http://viaf.org/viaf/98372064)?</change>
         </revisionDesc>
@@ -165,8 +169,12 @@
                         <forename sort="1">ܝܘܚܰܢܢ</forename>
                         <addName type="family" sort="2">ܒܰܪ ܫܘܫܰܢ</addName>
                     </persName>
-                    <persName xml:id="name193-6" xml:lang="en" source="#bib193-10">John X Barshushan</persName>
-                    <persName xml:id="name193-6" xml:lang="en" source="#bib193-1">Yūḥannā Yūšaʿ b. Šūšān</persName>
+                    <persName xml:id="name193-6" xml:lang="en" source="#bib193-5">John X Barshushan</persName>
+                    <persName xml:id="name193-7" xml:lang="en" source="#bib193-1">Yūḥannā Yūšaʿ b. Šūšān</persName>
+                    <persName xml:id="name193-8" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Yuḥanon X Isho bar Shushan</persName>
+                    <persName xml:id="name193-9" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Yuḥanon X Isho‘ bar Shushan</persName>
+                    <persName xml:id="name193-10" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script"/>
+                    <persName xml:id="name193-11" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script"/>
                     <note type="abstract" xml:id="abstract-en-193">
                         <Not_Useful/>
                         <quote source="#bib193-1">Following the death of Patr. Yuḥanon IX (1057), Yuḥanon was elected by the
@@ -178,7 +186,7 @@
                     <idno type="URI">http://viaf.org/viaf/102598881</idno>
                     <idno type="URI">http://viaf.org/viaf/98372064</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John X Barshushan&amp;sT=keywords</idno>
-                    <death notBefore="1072" notAfter="1073" source="#bib193-1">1072 or 1073</death>
+                    <death notBefore="1072" notAfter="1073" source="#bib193-1" syriaca-computed-end="1073-01-01" syriaca-computed-start="1072-01-01">1072 or 1073</death>
                     <state type="confession" source="#bib193-1">
                         <desc>Syr. Orth.</desc>
                     </state>
@@ -205,7 +213,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">395</citedRange>
                     </bibl>
-                    <bibl xml:id="bib193-10">
+                    <bibl xml:id="bib193-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John X Barshushan&amp;sT=keywords">John X Barshushan</citedRange>

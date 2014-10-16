@@ -79,7 +79,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -131,7 +131,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -164,8 +166,8 @@
                         <addName type="untagged-title" sort="2">Rhetor</addName>
                     </persName>
                     <persName xml:id="name58-7" xml:lang="en" source="#bib58-1">Zacharias Scholasticus</persName>
-                    <persName xml:id="name58-7" xml:lang="en" source="#bib58-1">Zacharias Scholasticus</persName>
-                    <persName xml:id="name58-8" xml:lang="en" source="#bib58-1">Zacharias bp. of Mytilene</persName>
+                    <persName xml:id="name58-8" xml:lang="en" source="#bib58-1">Zacharias Scholasticus</persName>
+                    <persName xml:id="name58-9" xml:lang="en" source="#bib58-1">Zacharias bp. of Mytilene</persName>
                     <note type="abstract" xml:id="abstract-en-58">
                         <quote source="#bib58-1">Greek author and bp.</quote>
                     </note>
@@ -175,7 +177,7 @@
                     <idno type="URI">http://worldcat.org/identities/lccn-n79-83928</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Z&amp;sK=Zacharias Rhetor&amp;sT=keywords</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Z&amp;sK=Zacharias Scholasticus&amp;sT=keywords</idno>
-                    <floruit notBefore="0450" notAfter="0550" source="#bib58-1">late 5th/early 6th cent.</floruit>
+                    <floruit notBefore="0450" notAfter="0550" source="#bib58-1" syriaca-computed-end="0550-01-01" syriaca-computed-start="0450-01-01">late 5th/early 6th cent.</floruit>
                     <bibl xml:id="bib58-1">
                         <author>S. P. Brock</author>
                         <title level="a" xml:lang="en">Zacharias Rhetor</title>
@@ -199,7 +201,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">280</citedRange>
                     </bibl>
-                    <bibl xml:id="bib58-10">
+                    <bibl xml:id="bib58-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Z&amp;sK=Zacharias Rhetor&amp;sT=keywords">Zacharias Rhetor</citedRange>

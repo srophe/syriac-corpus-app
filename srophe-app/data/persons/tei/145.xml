@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -165,12 +167,12 @@
                     <persName xml:id="name145-6" xml:lang="syr" resp="http://syriaca.org" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ܩܘܪܝܐܩܘܣ</forename>
                     </persName>
-                    <persName xml:id="name145-7" xml:lang="en" source="#bib145-10">Qyriaqos of Antioch</persName>
-                    <persName xml:id="name145-8" xml:lang="en" source="#bib145-10">Qyriaqos of Tagrit</persName>
-                    <persName xml:id="name145-8" xml:lang="en" source="#bib145-1">Kyriakos</persName>
+                    <persName xml:id="name145-7" xml:lang="en" source="#bib145-5">Qyriaqos of Antioch</persName>
+                    <persName xml:id="name145-8" xml:lang="en" source="#bib145-5">Qyriaqos of Tagrit</persName>
+                    <persName xml:id="name145-9" xml:lang="en" source="#bib145-1">Kyriakos</persName>
                     <note type="abstract" xml:id="abstract-en-145">
-                        <quote source="#bib145-1">Patr. of <placeName xmlns="" ref="http://syriaca.org/place/2546">Antioch</placeName>,
-            ordained on 17 Aug. 793 in Ḥarran, died in June or August 817 in <placeName xmlns="" ref="http://syriaca.org/place/139">Mosul</placeName> (the sources are
+                        <quote source="#bib145-1">Patr. of <placeName ref="http://syriaca.org/place/2546">Antioch</placeName>,
+            ordained on 17 Aug. 793 in Ḥarran, died in June or August 817 in <placeName ref="http://syriaca.org/place/139">Mosul</placeName> (the sources are
             not unanimous); he came from Tagrit; before becoming Patr. he had been a monk in the
             Monastery of Esṭona near Kallinikos.</quote>
                     </note>
@@ -181,8 +183,8 @@
                     <idno type="URI">http://en.wikipedia.org/wiki/Quriaqos_of_Tagrit</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qyriaqos of Antioch&amp;sT=keywords</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qyriaqos of Tagrit&amp;sT=keywords</idno>
-                    <death when="0817" source="#bib145-1">817</death>
-                    <state type="office" role="patriarch" from="0793" to="0817" source="#bib145-1 #bib145-2">
+                    <death when="0817" source="#bib145-1" syriaca-computed-start="0817-01-01">817</death>
+                    <state type="office" role="patriarch" from="0793" to="0817" source="#bib145-1 #bib145-2" syriaca-computed-end="0817-01-01" syriaca-computed-start="0793-01-01">
                         <desc xml:lang="en">Patriarch of Antioch</desc>
                     </state>
                     <state type="confession" source="#bib145-1">
@@ -211,7 +213,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">358</citedRange>
                     </bibl>
-                    <bibl xml:id="bib145-10">
+                    <bibl xml:id="bib145-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=Q&amp;sK=Qyriaqos of Antioch&amp;sT=keywords">Qyriaqos of Antioch</citedRange>

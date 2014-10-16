@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -153,7 +155,7 @@
                     <note type="deprecation" xml:id="name677-3-deprecation">Barsoum transposed the ya and the alif in بيان سمث: بيان سمث which have ids name677-3</note>
                     <link target="#name677-3 #name677-3-deprecation"/>
                     <note type="abstract" xml:id="abstract-en-677">
-                        <quote source="#bib677-1">Syriac scholar and compiler of the <title xmlns="" rend="italic" xml:lang="la">Thesaurus Syriacus</title>.</quote>
+                        <quote source="#bib677-1">Syriac scholar and compiler of the <title rend="italic" xml:lang="la">Thesaurus Syriacus</title>.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/677</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|677</idno>
@@ -166,8 +168,8 @@
                     <idno type="URI">http://viaf.org/viaf/97007404</idno>
                     <idno type="URI">http://viaf.org/viaf/190188255</idno>
                     <idno type="URI">http://viaf.org/viaf/241392587</idno>
-                    <birth when="1818" source="#bib677-1">1818</birth>
-                    <death when="1895" source="#bib677-1">1895</death>
+                    <birth when="1818" source="#bib677-1" syriaca-computed-start="1818-01-01">1818</birth>
+                    <death when="1895" source="#bib677-1" syriaca-computed-start="1895-01-01">1895</death>
                     <bibl xml:id="bib677-1">
                         <author>S. P. Brock</author>
                         <title level="a" xml:lang="en">Payne Smith, Robert</title>

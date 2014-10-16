@@ -79,7 +79,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -131,6 +131,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -162,8 +164,8 @@
                     <idno type="URI">http://syriaca.org/person/119</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|119</idno>
                     <idno type="URI">http://viaf.org/viaf/36447341</idno>
-                    <death when="0729" source="#bib119-1">729</death>
-                    <state type="office" from="0709" to="0724" source="#bib119-1">
+                    <death when="0729" source="#bib119-1" syriaca-computed-start="0729-01-01">729</death>
+                    <state type="office" from="0709" to="0724" source="#bib119-1" syriaca-computed-end="0724-01-01" syriaca-computed-start="0709-01-01">
                         <desc xml:lang="en-x-gedsh">709 – 724</desc>
                     </state>
                     <bibl xml:id="bib119-1">

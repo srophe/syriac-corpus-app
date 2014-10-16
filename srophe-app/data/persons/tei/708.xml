@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -131,9 +134,11 @@
                         <forename sort="1">ܣܒܪܝܫܘܥ</forename>
                         <addName type="untagged-title" sort="2">ܩܕܡܝܐ</addName>
                     </persName>
-                    <persName xml:id="name708-3" xml:lang="en" source="#bib708-10">Sabrisho I</persName>
+                    <persName xml:id="name708-3" xml:lang="en" source="#bib708-2">Sabrisho I</persName>
+                    <persName xml:id="name708-4" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Sabrisho I</persName>
+                    <persName xml:id="name708-5" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Sabrisho‘ I</persName>
                     <note type="abstract" xml:id="abstract-en-708">
-                        <quote source="#bib708-1">Cath. (596-604). He originated from <placeName xmlns="" ref="http://syriaca.org/place/33">Beth Garmai</placeName> and was born ca. 525.</quote>
+                        <quote source="#bib708-1">Cath. (596-604). He originated from <placeName ref="http://syriaca.org/place/33">Beth Garmai</placeName> and was born ca. 525.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/708</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|708</idno>
@@ -141,9 +146,9 @@
                     <idno type="URI">http://viaf.org/viaf/232448981</idno>
                     <idno type="URI">http://viaf.org/viaf/13937952</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Sabrisho I&amp;sT=keywords</idno>
-                    <birth notBefore="0510" notAfter="0540" source="#bib708-1">ca. 525</birth>
-                    <death when="0604" source="#bib708-1">604</death>
-                    <state type="office" from="0596" to="0604" source="#bib708-1">
+                    <birth notBefore="0510" notAfter="0540" source="#bib708-1" syriaca-computed-end="0540-01-01" syriaca-computed-start="0510-01-01">ca. 525</birth>
+                    <death when="0604" source="#bib708-1" syriaca-computed-start="0604-01-01">604</death>
+                    <state type="office" from="0596" to="0604" source="#bib708-1" syriaca-computed-end="0604-01-01" syriaca-computed-start="0596-01-01">
                         <desc xml:lang="en-x-gedsh">596-604</desc>
                     </state>
                     <state type="confession" source="#bib708-1">
@@ -157,7 +162,7 @@
                         <citedRange unit="pp">355</citedRange>
                         <citedRange unit="pp">355</citedRange>
                     </bibl>
-                    <bibl xml:id="bib708-10">
+                    <bibl xml:id="bib708-2">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Sabrisho I&amp;sT=keywords">Sabrisho I</citedRange>

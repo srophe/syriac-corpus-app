@@ -68,7 +68,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -120,6 +120,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -127,11 +129,11 @@
         <body>
             <listPerson>
                 <person xml:id="person-153" ana="#syriaca-author">
-                    <persName xml:id="name153-1" corresp="#name153-2" xml:lang="en" source="#bib153-2">
+                    <persName xml:id="name153-1" corresp="#name153-2" xml:lang="en" source="#bib153-1">
                         <forename sort="1">Basilius</forename>, <roleName type="office" sort="2">bishop of <placeName ref="http://syriaca.org/place/178">Samosata</placeName>
                         </roleName>
                     </persName>
-                    <persName xml:id="name153-2" corresp="#name153-1" xml:lang="ar" source="#bib153-3">
+                    <persName xml:id="name153-2" corresp="#name153-1" xml:lang="ar" source="#bib153-2">
                         <forename sort="1">باسيليوس</forename>
                         <addName type="untagged-title" sort="2">اسقف سميساط</addName>
                     </persName>
@@ -152,17 +154,17 @@
                     <note type="abstract" xml:id="abstract-en-153"/>
                     <idno type="URI">http://syriaca.org/person/153</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|153</idno>
-                    <death when="0843" source="#bib153-2">843</death>
-                    <state type="office" role="bishop" source="#bib153-2">
+                    <death when="0843" source="#bib153-1" syriaca-computed-start="0843-01-01">843</death>
+                    <state type="office" role="bishop" source="#bib153-1">
                         <desc xml:lang="en">bishop of Samosata</desc>
                     </state>
-                    <bibl xml:id="bib153-2">
+                    <bibl xml:id="bib153-1">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="entry">152</citedRange>
                         <citedRange unit="pp">383</citedRange>
                     </bibl>
-                    <bibl xml:id="bib153-3">
+                    <bibl xml:id="bib153-2">
                         <title level="m" xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">335</citedRange>

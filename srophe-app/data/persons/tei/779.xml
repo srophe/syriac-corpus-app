@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
             <change type="planned">Does http://viaf.org/viaf/183991623 refer to the same person?</change>
         </revisionDesc>
@@ -156,7 +158,7 @@
                         <addName type="untagged-title" sort="2">ܡܰܠܟܬܐ</addName>
                         <forename sort="1">ܬܶܐܘܳܕܳܘܪܰܐ</forename>
                     </persName>
-                    <persName xml:id="name779-6" xml:lang="en" source="#bib779-10">Theodora</persName>
+                    <persName xml:id="name779-6" xml:lang="en" source="#bib779-5">Theodora</persName>
                     <note type="abstract" xml:id="abstract-en-779">
                         <Not_Useful/>
                         <quote source="#bib779-1">Raised as a child acrobat in the circus, Theodora married the future emperor
@@ -172,7 +174,7 @@
                     <idno type="URI">http://viaf.org/viaf/221767793</idno>
                     <idno type="URI">http://viaf.org/viaf/228961108</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Theodora&amp;sT=keywords</idno>
-                    <death when="0548" source="#bib779-1">548</death>
+                    <death when="0548" source="#bib779-1" syriaca-computed-start="0548-01-01">548</death>
                     <state type="office" role="empress" source="#bib779-1">
                         <desc xml:lang="en-x-gedsh">(Empress)</desc>
                     </state>
@@ -205,7 +207,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">287</citedRange>
                     </bibl>
-                    <bibl xml:id="bib779-10">
+                    <bibl xml:id="bib779-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Theodora&amp;sT=keywords">Theodora</citedRange>

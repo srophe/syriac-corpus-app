@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -172,7 +174,7 @@
                     <persName xml:id="name122-7" xml:lang="en" resp="http://syriaca.org" syriaca-tags="#syriaca-anglicized">
                         <forename sort="1">George</forename>, <roleName type="office" sort="2">bp. of the Arab tribes</roleName>
                     </persName>
-                    <persName xml:id="name122-8" xml:lang="en" source="#bib122-10">George, bishop of the Arabs</persName>
+                    <persName xml:id="name122-8" xml:lang="en" source="#bib122-5">George, bishop of the Arabs</persName>
                     <note type="abstract" xml:id="abstract-en-122">
                         <Not_Useful/>
                         <quote source="#bib122-1">Bp. and learned author.</quote>
@@ -183,7 +185,7 @@
                     <idno type="URI">http://viaf.org/viaf/88628511</idno>
                     <idno type="URI">http://viaf.org/viaf/205658491</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=G&amp;sK=George, bishop of the Arabs&amp;sT=keywords</idno>
-                    <death when="0724" source="#bib122-1">724</death>
+                    <death when="0724" source="#bib122-1" syriaca-computed-start="0724-01-01">724</death>
                     <state type="office" role="bishop" source="#bib122-1">
                         <desc xml:lang="en-x-gedsh">bp. of the Arab tribes</desc>
                     </state>
@@ -216,7 +218,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">337</citedRange>
                     </bibl>
-                    <bibl xml:id="bib122-10">
+                    <bibl xml:id="bib122-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=G&amp;sK=George, bishop of the Arabs&amp;sT=keywords">George, bishop of the Arabs</citedRange>

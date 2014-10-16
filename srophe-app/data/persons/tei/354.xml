@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
             <change type="planned">Does http://viaf.org/viaf/70834963 include conflations with Athanasius of Alexandria?</change>
         </revisionDesc>
@@ -152,24 +154,24 @@
                         <forename sort="1">ܐܰܬܰܢܰܐܣܺܝܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܰܐܠܟܣܰܢܕܪܝܰܐ</addName>
                     </persName>
-                    <persName xml:id="name354-5" corresp="#name354-6 #name354-7 #name354-8" xml:lang="syr" source="#bib354-6" syriaca-tags="#syriaca-headword">
+                    <persName xml:id="name354-5" corresp="#name354-6 #name354-7 #name354-8" xml:lang="syr" source="#bib354-5" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ܐܬܢܣܝܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܐܠܟܣܢܕܪܝܐ</addName>
                     </persName>
-                    <persName xml:id="name354-6" corresp="#name354-5 #name354-7 #name354-8" xml:lang="syr-Syrn" source="#bib354-6">
+                    <persName xml:id="name354-6" corresp="#name354-5 #name354-7 #name354-8" xml:lang="syr-Syrn" source="#bib354-5">
                         <forename sort="1">ܐܵܬܵܢܵܣܝܼܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܐܵܠܸܟܣܲܢܕܪܝܼܵܐ</addName>
                     </persName>
-                    <persName xml:id="name354-7" corresp="#name354-5 #name354-6 #name354-8" xml:lang="syr" source="#bib354-7">
+                    <persName xml:id="name354-7" corresp="#name354-5 #name354-6 #name354-8" xml:lang="syr" source="#bib354-6">
                         <forename sort="1">ܐܬܐܢܣܝܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܐܠܟܣܢܕܪܝܐ</addName>
                     </persName>
-                    <persName xml:id="name354-8" corresp="#name354-5 #name354-6 #name354-7" xml:lang="syr-Syrj" source="#bib354-7">
+                    <persName xml:id="name354-8" corresp="#name354-5 #name354-6 #name354-7" xml:lang="syr-Syrj" source="#bib354-6">
                         <forename sort="1">ܐܰܬܰܐܢܰܣܝܳܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܰܐܠܟܶܣܰܢܕܪܺܝܰܐ</addName>
                     </persName>
                     <note type="abstract" xml:id="abstract-en-354">
-                        <quote source="#bib354-1">Bp. of <placeName xmlns="" xml:id="tempName-22" type="diocese" subtype="general">Alexandria</placeName> and Greek author.</quote>
+                        <quote source="#bib354-1">Bp. of <placeName xml:id="tempName-22" type="diocese" subtype="general">Alexandria</placeName> and Greek author.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/354</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|354</idno>
@@ -184,9 +186,9 @@
                     <idno type="URI">http://viaf.org/viaf/89790373</idno>
                     <idno type="URI">http://viaf.org/viaf/90152004</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Athanasius of Alexandria&amp;sT=keywords</idno>
-                    <birth notBefore="0281" notAfter="0311" source="#bib354-1">ca. 296</birth>
-                    <death when="0373" source="#bib354-1">373</death>
-                    <state type="office" from="0328" source="#bib354-1">
+                    <birth notBefore="0281" notAfter="0311" source="#bib354-1" syriaca-computed-end="0311-01-01" syriaca-computed-start="0281-01-01">ca. 296</birth>
+                    <death when="0373" source="#bib354-1" syriaca-computed-start="0373-01-01">373</death>
+                    <state type="office" from="0328" source="#bib354-1" syriaca-computed-start="0328-01-01">
                         <desc xml:lang="en-x-gedsh">328</desc>
                     </state>
                     <bibl xml:id="bib354-1">
@@ -212,17 +214,17 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">166</citedRange>
                     </bibl>
-                    <bibl xml:id="bib354-6">
+                    <bibl xml:id="bib354-5">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">64</citedRange>
                     </bibl>
-                    <bibl xml:id="bib354-7">
+                    <bibl xml:id="bib354-6">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:19</citedRange>
                     </bibl>
-                    <bibl xml:id="bib354-10">
+                    <bibl xml:id="bib354-7">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Athanasius of Alexandria&amp;sT=keywords">Athanasius of Alexandria</citedRange>

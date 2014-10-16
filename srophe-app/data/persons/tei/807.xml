@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -168,8 +170,8 @@
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|807</idno>
                     <idno type="URI">http://viaf.org/viaf/54261122</idno>
                     <idno type="URI">http://worldcat.org/identities/lccn-n50-28685</idno>
-                    <birth when="1830" source="#bib807-1">1830</birth>
-                    <death when="1889" source="#bib807-1">1889</death>
+                    <birth when="1830" source="#bib807-1" syriaca-computed-start="1830-01-01">1830</birth>
+                    <death when="1889" source="#bib807-1" syriaca-computed-start="1889-01-01">1889</death>
                     <bibl xml:id="bib807-1">
                         <author>S. P. Brock</author>
                         <title level="a" xml:lang="en">Wright, William</title>

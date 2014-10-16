@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,11 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -175,7 +179,11 @@
                         <forename sort="1">John</forename>
                         <addName type="family" sort="2">bar Maʿdani</addName>
                     </persName>
-                    <persName xml:id="name236-8" xml:lang="en" source="#bib236-10">John bar Madani</persName>
+                    <persName xml:id="name236-8" xml:lang="en" source="#bib236-5">John bar Madani</persName>
+                    <persName xml:id="name236-9" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Yuḥanon bar Madani</persName>
+                    <persName xml:id="name236-10" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Yuḥanon bar Ma‘dani</persName>
+                    <persName xml:id="name236-11" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">John bar Madani</persName>
+                    <persName xml:id="name236-12" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">John bar Ma‘dani</persName>
                     <note type="abstract" xml:id="abstract-en-236">
                         <Not_Useful/>
                         <quote source="#bib236-1">Aaron bar Maʿdani received the name of Yuḥanon when he became Metropolitan of
@@ -184,7 +192,7 @@
                     <idno type="URI">http://syriaca.org/person/236</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|236</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John bar Madani&amp;sT=keywords</idno>
-                    <death when="1263" source="#bib236-1">1263</death>
+                    <death when="1263" source="#bib236-1" syriaca-computed-start="1263-01-01">1263</death>
                     <state type="office" role="patriarch" source="#bib236-2">
                         <desc xml:lang="en">Patriarch</desc>
                     </state>
@@ -214,7 +222,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">440</citedRange>
                     </bibl>
-                    <bibl xml:id="bib236-10">
+                    <bibl xml:id="bib236-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John bar Madani&amp;sT=keywords">John bar Madani</citedRange>

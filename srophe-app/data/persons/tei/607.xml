@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -157,16 +159,16 @@
                     <persName xml:id="name607-6" xml:lang="syr" resp="http://syriaca.org" syriaca-tags="#syriaca-headword">
                         <addName type="untagged-title" sort="2">ܓܒܪܐ ܕܐܠܗܐ</addName>
                     </persName>
-                    <persName xml:id="name607-6" xml:lang="en" source="#bib607-1">Alexius</persName>
+                    <persName xml:id="name607-7" xml:lang="en" source="#bib607-1">Alexius</persName>
                     <note type="abstract" xml:id="abstract-en-607">
                         <quote source="#bib607-1">This general title is given to the anonymous saintly protagonist of a narrative
-            set in <placeName xmlns="" ref="http://syriaca.org/place/78">Edessa</placeName> in the 5th cent. The core original story is found in 5
+            set in <placeName ref="http://syriaca.org/place/78">Edessa</placeName> in the 5th cent. The core original story is found in 5
             mss. In this account, the Man of God is the son of rich senatorial parents, living
             either in Rome or Constantinople. </quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/607</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|607</idno>
-                    <floruit notBefore="0400" notAfter="0500" source="#bib607-1">5th cent.</floruit>
+                    <floruit notBefore="0400" notAfter="0500" source="#bib607-1" syriaca-computed-end="0500-01-01" syriaca-computed-start="0400-01-01">5th cent.</floruit>
                     <bibl xml:id="bib607-1">
                         <author>R. Doran</author>
                         <title level="a" xml:lang="en">Man of God of Edessa</title>

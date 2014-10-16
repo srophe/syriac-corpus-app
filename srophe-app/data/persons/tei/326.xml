@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -129,15 +131,15 @@
                     <persName xml:id="name326-2" xml:lang="syr" resp="http://syriaca.org" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ܐܝܬܐܠܗܐ</forename>
                     </persName>
-                    <persName xml:id="name326-3" xml:lang="en" source="#bib326-10">Aithallah</persName>
+                    <persName xml:id="name326-3" xml:lang="en" source="#bib326-2">Aithallah</persName>
                     <note type="abstract" xml:id="abstract-en-326">
-                        <quote source="#bib326-1">Bp. of <placeName xmlns="" xml:id="tempName-12" type="diocese" subtype="general">Edessa</placeName> (324/5-345/6).</quote>
+                        <quote source="#bib326-1">Bp. of <placeName xml:id="tempName-12" type="diocese" subtype="general">Edessa</placeName> (324/5-345/6).</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/326</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|326</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Aithallah&amp;sT=keywords</idno>
-                    <floruit notBefore="0300" notAfter="0350" source="#bib326-1">first half of 4th cent.</floruit>
-                    <state type="office" from="0324" to="0346" source="#bib326-1">
+                    <floruit notBefore="0300" notAfter="0350" source="#bib326-1" syriaca-computed-end="0350-01-01" syriaca-computed-start="0300-01-01">first half of 4th cent.</floruit>
+                    <state type="office" from="0324" to="0346" source="#bib326-1" syriaca-computed-end="0346-01-01" syriaca-computed-start="0324-01-01">
                         <desc xml:lang="en-x-gedsh">324/5-345/6</desc>
                     </state>
                     <bibl xml:id="bib326-1">
@@ -148,7 +150,7 @@
                         <citedRange unit="pp">13</citedRange>
                         <citedRange unit="pp">13</citedRange>
                     </bibl>
-                    <bibl xml:id="bib326-10">
+                    <bibl xml:id="bib326-2">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Aithallah&amp;sT=keywords">Aithallah</citedRange>

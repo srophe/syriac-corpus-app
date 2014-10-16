@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -155,11 +157,11 @@
                         <forename sort="1">ܚܘܢܰܝܢ</forename>
                         <addName type="family" sort="2">ܒܰܪ ܐܝܣܚܳܩ</addName>
                     </persName>
-                    <persName xml:id="name542-6" corresp="#name542-4" xml:lang="syr-Syrn" source="#bib542-6">
+                    <persName xml:id="name542-6" corresp="#name542-4" xml:lang="syr-Syrn" source="#bib542-5">
                         <forename sort="1">ܚܘܼܢܲܝܢ</forename>
                         <addName type="family" sort="2">ܒܲܪ ܐܝܼܣܚܵܩ</addName>
                     </persName>
-                    <persName xml:id="name542-7" xml:lang="en" source="#bib542-10">Hunain ibn Ishaq</persName>
+                    <persName xml:id="name542-7" xml:lang="en" source="#bib542-7">Hunain ibn Ishaq</persName>
                     <note type="abstract" xml:id="abstract-en-542">
                         <quote source="#bib542-1">Physician, philosopher, theologian, and translator. His full name is Abū Zayd Ḥunayn b. Isḥāq b. Sulaymān b. Ayyūb al-ʿIbādī, and he was known in medieval Europe as Johannitius.</quote>
                     </note>
@@ -174,8 +176,8 @@
                     <idno type="URI">http://viaf.org/viaf/89028934</idno>
                     <idno type="URI">http://viaf.org/viaf/67281934</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=H&amp;sK=Hunain ibn Ishaq&amp;sT=keywords</idno>
-                    <birth when="0808" source="#bib542-1">808</birth>
-                    <death when="0873" source="#bib542-1">873</death>
+                    <birth when="0808" source="#bib542-1" syriaca-computed-start="0808-01-01">808</birth>
+                    <death when="0873" source="#bib542-1" syriaca-computed-start="0873-01-01">873</death>
                     <state type="confession" source="#bib542-1">
                         <desc>Ch. of E.</desc>
                     </state>
@@ -202,17 +204,17 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">45</citedRange>
                     </bibl>
-                    <bibl xml:id="bib542-6">
+                    <bibl xml:id="bib542-5">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">74</citedRange>
                     </bibl>
-                    <bibl xml:id="bib542-7">
+                    <bibl xml:id="bib542-6">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:164</citedRange>
                     </bibl>
-                    <bibl xml:id="bib542-10">
+                    <bibl xml:id="bib542-7">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=H&amp;sK=Hunain ibn Ishaq&amp;sT=keywords">Hunain ibn Ishaq</citedRange>

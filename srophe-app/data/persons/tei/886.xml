@@ -42,7 +42,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -94,6 +94,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -101,30 +104,32 @@
         <body>
             <listPerson>
                 <person xml:id="person-886" ana="#syriaca-author">
-                    <persName xml:id="name886-1" corresp="#name886-2 #name886-3 #name886-4" xml:lang="syr" source="#bib886-6" syriaca-tags="#syriaca-headword">
+                    <persName xml:id="name886-1" corresp="#name886-2 #name886-3 #name886-4" xml:lang="syr" source="#bib886-1" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ܥܩܒܫܡܐ</forename>
                     </persName>
-                    <persName xml:id="name886-2" corresp="#name886-1 #name886-3 #name886-4" xml:lang="syr-Syrn" source="#bib886-6">
+                    <persName xml:id="name886-2" corresp="#name886-1 #name886-3 #name886-4" xml:lang="syr-Syrn" source="#bib886-1">
                         <forename sort="1">ܥܩܸܒܫܡܵܐ</forename>
                     </persName>
-                    <persName xml:id="name886-3" corresp="#name886-1 #name886-2 #name886-4" xml:lang="syr" source="#bib886-7">
+                    <persName xml:id="name886-3" corresp="#name886-1 #name886-2 #name886-4" xml:lang="syr" source="#bib886-2">
                         <forename sort="1">ܥܒܕܝܫܘܥ</forename>
                     </persName>
-                    <persName xml:id="name886-4" corresp="#name886-1 #name886-2 #name886-3" xml:lang="syr-Syrj" source="#bib886-7">
+                    <persName xml:id="name886-4" corresp="#name886-1 #name886-2 #name886-3" xml:lang="syr-Syrj" source="#bib886-2">
                         <forename sort="1">ܥܒܶܕܝܶܫܽܘܥ</forename>
                     </persName>
                     <persName xml:id="name886-5" xml:lang="en-x-gedsh" resp="http://syriaca.org" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ʿEqebshma</forename>
                     </persName>
+                    <persName xml:id="name886-6" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Eqebshma</persName>
+                    <persName xml:id="name886-7" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">‘Eqebshma</persName>
                     <note type="abstract" xml:id="abstract-en-886"/>
                     <idno type="URI">http://syriaca.org/person/886</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|886</idno>
-                    <bibl xml:id="bib886-6">
+                    <bibl xml:id="bib886-1">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">77</citedRange>
                     </bibl>
-                    <bibl xml:id="bib886-7">
+                    <bibl xml:id="bib886-2">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:191</citedRange>

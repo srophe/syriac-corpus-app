@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -176,7 +179,9 @@
                         <forename sort="1">Isaiah</forename>
                         <addName type="untagged-title" sort="2">of Beth Sbirina</addName>
                     </persName>
-                    <persName xml:id="name259-8" xml:lang="en" source="#bib259-10">Ishaia of Beth Sebrina</persName>
+                    <persName xml:id="name259-8" xml:lang="en" source="#bib259-5">Ishaia of Beth Sebrina</persName>
+                    <persName xml:id="name259-9" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Ishaya of Beth Sbirina</persName>
+                    <persName xml:id="name259-10" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Isha‘ya of Beth Sbirina</persName>
                     <note type="abstract" xml:id="abstract-en-259">
                         <quote source="#bib259-1">Priest, son of Denḥo, and author of two poems on the ravages of Tamerlane in Ṭur           ʿAbdin (one, ed. Knos, also in <title xmlns="" rend="italic">Qolo Suryoyo</title> 73 [1990], 116-22; the other, ed.
             Cardahi).</quote>
@@ -184,7 +189,7 @@
                     <idno type="URI">http://syriaca.org/person/259</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|259</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=I&amp;sK=Ishaia of Beth Sebrina&amp;sT=keywords</idno>
-                    <death when="1425" source="#bib259-1">1425</death>
+                    <death when="1425" source="#bib259-1" syriaca-computed-start="1425-01-01">1425</death>
                     <state type="office" role="priest" source="#bib259-2">
                         <desc xml:lang="en">the Priest</desc>
                     </state>
@@ -214,7 +219,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">475</citedRange>
                     </bibl>
-                    <bibl xml:id="bib259-10">
+                    <bibl xml:id="bib259-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=I&amp;sK=Ishaia of Beth Sebrina&amp;sT=keywords">Ishaia of Beth Sebrina</citedRange>

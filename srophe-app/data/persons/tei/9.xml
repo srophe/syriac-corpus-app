@@ -79,7 +79,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -131,7 +131,11 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -159,7 +163,7 @@
                         <forename sort="1">ܫܶܡܥܘܢ</forename>
                         <addName type="family" sort="2">ܒܰܪ ܨܰܒܳܥ̈ܐ</addName>
                     </persName>
-                    <persName xml:id="name9-6" corresp="#name9-4" xml:lang="syr-Syrn" source="#bib9-6">
+                    <persName xml:id="name9-6" corresp="#name9-4" xml:lang="syr-Syrn" source="#bib9-5">
                         <forename sort="1">ܫܸܡܥܘܿܢ</forename>
                         <addName type="family" sort="2">ܒܲܪ ܨܲܒܵܥܹ̈ܐ</addName>
                     </persName>
@@ -167,7 +171,11 @@
                         <forename sort="1">Simon</forename>
                         <addName type="family" sort="2">bar Ṣabbaʿe</addName>
                     </persName>
-                    <persName xml:id="name9-8" xml:lang="en" source="#bib9-10">Simeon bar Sabbae</persName>
+                    <persName xml:id="name9-8" xml:lang="en" source="#bib9-7">Simeon bar Sabbae</persName>
+                    <persName xml:id="name9-9" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Shemon bar Ṣabbae</persName>
+                    <persName xml:id="name9-10" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Shem‘on bar Ṣabba‘e</persName>
+                    <persName xml:id="name9-11" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Simon bar Ṣabbae</persName>
+                    <persName xml:id="name9-12" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Simon bar Ṣabba‘e</persName>
                     <note type="abstract" xml:id="abstract-en-9">
                         <quote source="#bib9-1">Bp. of Seleucia-Ctesiphon and martyr. Shemʿon was probably the immediate successor
             of Papa bar ʿAggai (d. between 327 and 335), but nothing is known about his tenure as
@@ -177,7 +185,7 @@
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|9</idno>
                     <idno type="URI">http://viaf.org/viaf/98479047/#Simeon_Bar_Sabb%C4%81%27e_Bishop_of_Seleucia_and_Ctesiphon</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Simeon bar Sabbae&amp;sT=keywords</idno>
-                    <death notBefore="0341" notAfter="0344" source="#bib9-1">341 or 344</death>
+                    <death notBefore="0341" notAfter="0344" source="#bib9-1" syriaca-computed-end="0344-01-01" syriaca-computed-start="0341-01-01">341 or 344</death>
                     <state type="confession" source="#bib9-1">
                         <desc>Ch. of E.</desc>
                     </state>
@@ -204,17 +212,17 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">217</citedRange>
                     </bibl>
-                    <bibl xml:id="bib9-6">
+                    <bibl xml:id="bib9-5">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">69</citedRange>
                     </bibl>
-                    <bibl xml:id="bib9-7">
+                    <bibl xml:id="bib9-6">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:51</citedRange>
                     </bibl>
-                    <bibl xml:id="bib9-10">
+                    <bibl xml:id="bib9-7">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Simeon bar Sabbae&amp;sT=keywords">Simeon bar Sabbae</citedRange>

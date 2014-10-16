@@ -62,7 +62,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -114,7 +114,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -128,7 +131,9 @@
                     <persName xml:id="name570-2" xml:lang="en" resp="http://syriaca.org" syriaca-tags="#syriaca-anglicized">
                         <addName type="family" sort="1">Jamīl</addName>, <forename sort="2">Samuel</forename>
                     </persName>
-                    <persName xml:id="name570-2" xml:lang="en" source="#bib570-1">Samuel Giamil</persName>
+                    <persName xml:id="name570-3" xml:lang="en" source="#bib570-1">Samuel Giamil</persName>
+                    <persName xml:id="name570-4" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Jamīl Shmuʾel</persName>
+                    <persName xml:id="name570-5" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Jamīl Shmuʾel</persName>
                     <note type="abstract" xml:id="abstract-en-570">
                         <Not_Useful/>
                         <quote source="#bib570-1">He was born in Talkef of Shimʿun Jamīl and Farīdeh. In 1866 he joined the Monastery of Rabban Hormizd, whose Abbot then was Elishaʿ Tīshā.</quote>
@@ -139,8 +144,8 @@
                     <idno type="URI">http://viaf.org/viaf/207640598</idno>
                     <idno type="URI">http://viaf.org/viaf/176516316</idno>
                     <idno type="URI">http://viaf.org/viaf/88999567</idno>
-                    <birth when="1847" source="#bib570-1">1847</birth>
-                    <death when="1917" source="#bib570-1">1917</death>
+                    <birth when="1847" source="#bib570-1" syriaca-computed-start="1847-01-01">1847</birth>
+                    <death when="1917" source="#bib570-1" syriaca-computed-start="1917-01-01">1917</death>
                     <state type="confession" source="#bib570-1">
                         <desc>Chald.</desc>
                     </state>

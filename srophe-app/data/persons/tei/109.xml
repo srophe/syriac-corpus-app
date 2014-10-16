@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -168,7 +170,7 @@
                         <forename sort="1">ܐܰܬܰܢܐܣܝܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܰܬܪܶܝܢ ܒܳܠܳܕܳܝܐ</addName>
                     </persName>
-                    <persName xml:id="name109-6" xml:lang="en" source="#bib109-10">Athanasius II of Baladh</persName>
+                    <persName xml:id="name109-6" xml:lang="en" source="#bib109-5">Athanasius II of Baladh</persName>
                     <note type="abstract" xml:id="abstract-en-109">
                         <quote source="#bib109-1">Translator, scholar, Patr. (684-87).</quote>
                     </note>
@@ -177,8 +179,8 @@
                     <idno type="URI">http://worldcat.org/identities/np-de%20balad,%20athanasius</idno>
                     <idno type="URI">http://www.worldcat.org/title/athanasius-of-balad/oclc/727905749&amp;referer=brief_results</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Athanasius II of Baladh&amp;sT=keywords</idno>
-                    <death when="0687" source="#bib109-1">687</death>
-                    <state type="office" from="0684" to="0687" source="#bib109-1">
+                    <death when="0687" source="#bib109-1" syriaca-computed-start="0687-01-01">687</death>
+                    <state type="office" from="0684" to="0687" source="#bib109-1" syriaca-computed-end="0687-01-01" syriaca-computed-start="0684-01-01">
                         <desc xml:lang="en-x-gedsh">684-687</desc>
                     </state>
                     <state type="confession" source="#bib109-1">
@@ -207,7 +209,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">315</citedRange>
                     </bibl>
-                    <bibl xml:id="bib109-10">
+                    <bibl xml:id="bib109-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Athanasius II of Baladh&amp;sT=keywords">Athanasius II of Baladh</citedRange>

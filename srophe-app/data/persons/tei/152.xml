@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -169,13 +171,13 @@
                         <addName type="untagged-title" sort="2">ܕܐܘܪܗܝ</addName>
                     </persName>
                     <note type="abstract" xml:id="abstract-en-152">
-                        <quote source="#bib152-1">Metropolitan bp. of <placeName xmlns="" xml:id="tempName-13" type="diocese" subtype="Syrian Orthodox">Edessa</placeName>, professor of dogma, commentator on the homilies of Gregory of Nazianzus and on the works of <persName xmlns="" xml:id="tempName-28">Pseudo-Dionysius the Areopagite</persName>.</quote>
+                        <quote source="#bib152-1">Metropolitan bp. of <placeName xml:id="tempName-13" type="diocese" subtype="Syrian Orthodox">Edessa</placeName>, professor of dogma, commentator on the homilies of Gregory of Nazianzus and on the works of <persName xml:id="tempName-28">Pseudo-Dionysius the Areopagite</persName>.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/152</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|152</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Benjamin of Edessa&amp;sT=keywords</idno>
-                    <death when="0843" source="#bib152-2">843</death>
-                    <floruit notBefore="0800" notAfter="0850" source="#bib152-1">first half of the 9th cent.</floruit>
+                    <death when="0843" source="#bib152-2" syriaca-computed-start="0843-01-01">843</death>
+                    <floruit notBefore="0800" notAfter="0850" source="#bib152-1" syriaca-computed-end="0850-01-01" syriaca-computed-start="0800-01-01">first half of the 9th cent.</floruit>
                     <state type="office" role="metropolitan" source="#bib152-2">
                         <desc xml:lang="en">Metropolitan of Edessa</desc>
                     </state>
@@ -205,7 +207,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">363</citedRange>
                     </bibl>
-                    <bibl xml:id="bib152-10">
+                    <bibl xml:id="bib152-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=B&amp;sK=Benjamin of Edessa&amp;sT=keywords">Benjamin of Edessa</citedRange>

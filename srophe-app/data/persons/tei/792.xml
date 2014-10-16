@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
             <change type="planned">Should the following records be matched with this one? http://viaf.org/viaf/89685503 and http://viaf.org/viaf/191099348</change>
         </revisionDesc>
@@ -162,10 +164,10 @@
                         <addName type="untagged-title" sort="2">II</addName>
                         <addName type="untagged-title" sort="2">of Alexandria</addName>
                     </persName>
-                    <persName xml:id="name792-7" xml:lang="en" source="#bib792-10">Timothy Aelurus</persName>
-                    <persName xml:id="name792-7" xml:lang="en" source="#bib792-1">Timothy Ailouros</persName>
+                    <persName xml:id="name792-7" xml:lang="en" source="#bib792-5">Timothy Aelurus</persName>
+                    <persName xml:id="name792-8" xml:lang="en" source="#bib792-1">Timothy Ailouros</persName>
                     <note type="abstract" xml:id="abstract-en-792">
-                        <quote source="#bib792-1">Miaphysite Patr. of <placeName xmlns="" ref="#tempName-23">Alexandria</placeName> 457-60, 475-7.</quote>
+                        <quote source="#bib792-1">Miaphysite Patr. of <placeName ref="#tempName-23">Alexandria</placeName> 457-60, 475-7.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/792</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|792</idno>
@@ -174,7 +176,7 @@
                     <idno type="URI">http://viaf.org/viaf/89514875</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Timothy Aelurus&amp;sT=keywords</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Timothy of Alexandria&amp;sT=keywords</idno>
-                    <death when="0477" source="#bib792-1">477</death>
+                    <death when="0477" source="#bib792-1" syriaca-computed-start="0477-01-01">477</death>
                     <state type="confession" source="#bib792-1">
                         <desc>Miaphysite</desc>
                     </state>
@@ -201,7 +203,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">82</citedRange>
                     </bibl>
-                    <bibl xml:id="bib792-10">
+                    <bibl xml:id="bib792-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=T&amp;sK=Timothy Aelurus&amp;sT=keywords">Timothy Aelurus</citedRange>

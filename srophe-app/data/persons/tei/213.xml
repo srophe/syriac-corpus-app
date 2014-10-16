@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,6 +127,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -134,19 +136,19 @@
         <body>
             <listPerson>
                 <person xml:id="person-213" ana="#syriaca-author">
-                    <persName xml:id="name213-1" corresp="#name213-2 #name213-3 #name213-4" xml:lang="en" source="#bib213-2">
+                    <persName xml:id="name213-1" corresp="#name213-2 #name213-3 #name213-4" xml:lang="en" source="#bib213-1">
                         <forename sort="1">Abu Ghalib</forename>, <roleName type="office" sort="2">bishop of <placeName ref="http://syriaca.org/place/690">Jīhān</placeName>
                         </roleName>
                     </persName>
-                    <persName xml:id="name213-2" corresp="#name213-1 #name213-3 #name213-4" xml:lang="ar" source="#bib213-3">
+                    <persName xml:id="name213-2" corresp="#name213-1 #name213-3 #name213-4" xml:lang="ar" source="#bib213-2">
                         <forename sort="1">ابو غالب</forename>
                         <addName type="untagged-title" sort="2">اسقف جيحان</addName>
                     </persName>
-                    <persName xml:id="name213-3" corresp="#name213-1 #name213-2 #name213-4" xml:lang="syr" source="#bib213-4">
+                    <persName xml:id="name213-3" corresp="#name213-1 #name213-2 #name213-4" xml:lang="syr" source="#bib213-3">
                         <forename sort="1">ܐܒܘ ܓܐܠܒ</forename>
                         <addName type="untagged-title" sort="2">ܐܦܝܣܩܘܦܐ ܕܓܝܚܢ</addName>
                     </persName>
-                    <persName xml:id="name213-4" corresp="#name213-1 #name213-2 #name213-3" xml:lang="syr-Syrj" source="#bib213-4">
+                    <persName xml:id="name213-4" corresp="#name213-1 #name213-2 #name213-3" xml:lang="syr-Syrj" source="#bib213-3">
                         <forename sort="1">ܐܰܒܘ ܓܰܐܠܒ</forename>
                         <addName type="untagged-title" sort="2">ܐܶܦܝܣܩܘܦܳܐ ܕܓܝܚܳܢ</addName>
                     </persName>
@@ -158,32 +160,32 @@
                         <forename sort="1">Abū Ghālib</forename>
                         <addName type="untagged-title" sort="2">of Giḥun</addName>
                     </persName>
-                    <persName xml:id="name213-7" xml:lang="en" source="#bib213-10">Athanasius Abu Ghalib</persName>
+                    <persName xml:id="name213-7" xml:lang="en" source="#bib213-4">Athanasius Abu Ghalib</persName>
                     <note type="abstract" xml:id="abstract-en-213"/>
                     <idno type="URI">http://syriaca.org/person/213</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|213</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Athanasius Abu Ghalib&amp;sT=keywords</idno>
-                    <death when="1177" source="#bib213-2">1177</death>
-                    <state type="office" role="bishop" source="#bib213-2">
+                    <death when="1177" source="#bib213-1" syriaca-computed-start="1177-01-01">1177</death>
+                    <state type="office" role="bishop" source="#bib213-1">
                         <desc xml:lang="en">Bishop of Jīhān</desc>
                     </state>
-                    <bibl xml:id="bib213-2">
+                    <bibl xml:id="bib213-1">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="entry">210</citedRange>
                         <citedRange unit="pp">441</citedRange>
                     </bibl>
-                    <bibl xml:id="bib213-3">
+                    <bibl xml:id="bib213-2">
                         <title level="m" xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">391</citedRange>
                     </bibl>
-                    <bibl xml:id="bib213-4">
+                    <bibl xml:id="bib213-3">
                         <title level="m" xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">421</citedRange>
                     </bibl>
-                    <bibl xml:id="bib213-10">
+                    <bibl xml:id="bib213-4">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=A&amp;sK=Athanasius Abu Ghalib&amp;sT=keywords">Athanasius Abu Ghalib</citedRange>

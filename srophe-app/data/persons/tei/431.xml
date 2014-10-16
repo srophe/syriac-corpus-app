@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -152,7 +154,7 @@
                         <addName type="untagged-title" sort="2">ܕܐܘܪܶܫܠܡ</addName>
                     </persName>
                     <note type="abstract" xml:id="abstract-en-431">
-                        <quote source="#bib431-1">Bp. of <placeName xmlns="" xml:id="tempName-6" type="diocese" subtype="general">Jerusalem</placeName> and Greek Church Father.</quote>
+                        <quote source="#bib431-1">Bp. of <placeName xml:id="tempName-6" type="diocese" subtype="general">Jerusalem</placeName> and Greek Church Father.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/431</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|431</idno>
@@ -165,8 +167,8 @@
                     <idno type="URI">http://viaf.org/viaf/161840631</idno>
                     <idno type="URI">http://viaf.org/viaf/5745267</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=C&amp;sK=Cyril of Jerusalem&amp;sT=keywords</idno>
-                    <birth notBefore="0300" notAfter="0330" source="#bib431-1">ca. 315</birth>
-                    <death when="0387" source="#bib431-1">387</death>
+                    <birth notBefore="0300" notAfter="0330" source="#bib431-1" syriaca-computed-end="0330-01-01" syriaca-computed-start="0300-01-01">ca. 315</birth>
+                    <death when="0387" source="#bib431-1" syriaca-computed-start="0387-01-01">387</death>
                     <bibl xml:id="bib431-1">
                         <author>S. P. Brock</author>
                         <title level="a" xml:lang="en">Cyril of Jerusalem</title>
@@ -190,7 +192,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">80</citedRange>
                     </bibl>
-                    <bibl xml:id="bib431-10">
+                    <bibl xml:id="bib431-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=C&amp;sK=Cyril of Jerusalem&amp;sT=keywords">Cyril of Jerusalem</citedRange>

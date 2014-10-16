@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Add alternate names for search functionality.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -176,7 +179,9 @@
                         <addName type="untagged-title" sort="2">Quqoyo</addName>
                     </persName>
                     <persName xml:id="name37-8" xml:lang="en" source="#bib37-1">Simeon the Potter</persName>
-                    <persName xml:id="name37-8" xml:lang="en" source="#bib37-1">Simeon the Potter</persName>
+                    <persName xml:id="name37-9" xml:lang="en" source="#bib37-1">Simeon the Potter</persName>
+                    <persName xml:id="name37-10" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Shemun Quqoyo</persName>
+                    <persName xml:id="name37-11" xml:lang="en-xsrp1" syriaca-tags="#syriaca-simplified-script">Shem‘un Quqoyo</persName>
                     <note type="abstract" xml:id="abstract-en-37">
                         <quote source="#bib37-1">Author of nine short poems on the Nativity.</quote>
                     </note>
@@ -184,8 +189,8 @@
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|37</idno>
                     <idno type="URI">http://roger-pearse.com/wiki/index.php?title=Simeon_the_Potter</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Simeon the Potter&amp;sT=keywords</idno>
-                    <death when="0514" source="#bib37-2">514</death>
-                    <floruit notBefore="0400" notAfter="0600" source="#bib37-1">5th/6th cent.</floruit>
+                    <death when="0514" source="#bib37-2" syriaca-computed-start="0514-01-01">514</death>
+                    <floruit notBefore="0400" notAfter="0600" source="#bib37-1" syriaca-computed-end="0600-01-01" syriaca-computed-start="0400-01-01">5th/6th cent.</floruit>
                     <state type="office" role="deacon" source="#bib37-2">
                         <desc xml:lang="en">Deacon</desc>
                     </state>
@@ -215,7 +220,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">243</citedRange>
                     </bibl>
-                    <bibl xml:id="bib37-10">
+                    <bibl xml:id="bib37-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Simeon the Potter&amp;sT=keywords">Simeon the Potter</citedRange>

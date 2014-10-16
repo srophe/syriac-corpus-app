@@ -75,7 +75,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -127,7 +127,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -163,11 +165,11 @@
                         <forename sort="1">ܓܪܝܓܘܪܝܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܪܒܐ ܐܦܣܩܘܦܐ ܕܐܢܙܝܢܙܘ</addName>
                     </persName>
-                    <persName xml:id="name511-8" corresp="#name511-7 #name511-9" xml:lang="syr-Syrn" source="#bib511-6">
+                    <persName xml:id="name511-8" corresp="#name511-7 #name511-9" xml:lang="syr-Syrn" source="#bib511-5">
                         <forename sort="1">ܓܪܝܼܓܘܿܪܝܼܘܿܣ</forename>
                         <addName type="untagged-title" sort="2">ܪܲܒܵܐ ܐܲܦܸܣܩܘܿܦܵܐ ܕܐܵܢܙܝܵܢܙܘܼ</addName>
                     </persName>
-                    <persName xml:id="name511-9" corresp="#name511-7 #name511-8" xml:lang="syr-Syrj" source="#bib511-7">
+                    <persName xml:id="name511-9" corresp="#name511-7 #name511-8" xml:lang="syr-Syrj" source="#bib511-6">
                         <forename sort="1">ܓܪܺܝܓܘܽܪܝܺܘܳܣ</forename>
                         <addName type="untagged-title" sort="2">ܪܰܒܳܐ ܐܶܦܺܝܣܩܽܘܦܳܐ ܕܢܰܐܙܝܰܢܙܽܘ</addName>
                     </persName>
@@ -183,9 +185,9 @@
                     <idno type="URI">http://viaf.org/viaf/195599811</idno>
                     <idno type="URI">http://viaf.org/viaf/193556148</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=G&amp;sK=Gregory Nazianzen&amp;sT=keywords</idno>
-                    <birth when="0330" source="#bib511-1">330</birth>
-                    <death when="0390" source="#bib511-1">390</death>
-                    <state type="office" from="0381" source="#bib511-1">
+                    <birth when="0330" source="#bib511-1" syriaca-computed-start="0330-01-01">330</birth>
+                    <death when="0390" source="#bib511-1" syriaca-computed-start="0390-01-01">390</death>
+                    <state type="office" from="0381" source="#bib511-1" syriaca-computed-start="0381-01-01">
                         <desc xml:lang="en-x-gedsh">381</desc>
                     </state>
                     <bibl xml:id="bib511-1">
@@ -211,17 +213,17 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">169</citedRange>
                     </bibl>
-                    <bibl xml:id="bib511-6">
+                    <bibl xml:id="bib511-5">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">65</citedRange>
                     </bibl>
-                    <bibl xml:id="bib511-7">
+                    <bibl xml:id="bib511-6">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:23</citedRange>
                     </bibl>
-                    <bibl xml:id="bib511-10">
+                    <bibl xml:id="bib511-7">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=G&amp;sK=Gregory Nazianzen&amp;sT=keywords">Gregory Nazianzen</citedRange>

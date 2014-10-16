@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -172,7 +174,7 @@
                         <forename sort="1">ܡܝܟܐܝܠ</forename>
                         <addName type="untagged-title" sort="2">ܩܕܡܝܐ ܪܒܐ</addName>
                     </persName>
-                    <persName xml:id="name217-7" xml:lang="en" source="#bib217-10">Michael the Syrian</persName>
+                    <persName xml:id="name217-7" xml:lang="en" source="#bib217-5">Michael the Syrian</persName>
                     <note type="abstract" xml:id="abstract-en-217">
                         <quote source="#bib217-1">Patr. and historian, most notably of a World Chronicle. Michael I Rabo (1126-1199)
             was a distinguished Patr. and a dominant figure in the intellectual history of the Syr.
@@ -184,9 +186,9 @@
                     <idno type="URI">http://worldcat.org/identities/lccn-nr97-7289</idno>
                     <idno type="URI">http://worldcat.org/identities/np-michael$i syrus$1126 1199</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Michael the Syrian&amp;sT=keywords</idno>
-                    <birth when="1126" source="#bib217-1">1126</birth>
-                    <death when="1199" source="#bib217-1">1199</death>
-                    <state type="office" from="1166" to="1199" source="#bib217-1">
+                    <birth when="1126" source="#bib217-1" syriaca-computed-start="1126-01-01">1126</birth>
+                    <death when="1199" source="#bib217-1" syriaca-computed-start="1199-01-01">1199</death>
+                    <state type="office" from="1166" to="1199" source="#bib217-1" syriaca-computed-end="1199-01-01" syriaca-computed-start="1166-01-01">
                         <desc xml:lang="en-x-gedsh">1166-1199</desc>
                     </state>
                     <state type="confession" source="#bib217-1">
@@ -215,7 +217,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">425</citedRange>
                     </bibl>
-                    <bibl xml:id="bib217-10">
+                    <bibl xml:id="bib217-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=M&amp;sK=Michael the Syrian&amp;sT=keywords">Michael the Syrian</citedRange>

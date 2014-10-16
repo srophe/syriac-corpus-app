@@ -54,7 +54,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -106,6 +106,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -113,35 +115,35 @@
         <body>
             <listPerson>
                 <person xml:id="person-841" ana="#syriaca-author">
-                    <persName xml:id="name841-1" corresp="#name841-2 #name841-3 #name841-4" xml:lang="en" source="#bib841-2">
+                    <persName xml:id="name841-1" corresp="#name841-2 #name841-3 #name841-4" xml:lang="en" source="#bib841-1">
                         <forename sort="1">Damasus</forename>
                     </persName>
-                    <persName xml:id="name841-2" corresp="#name841-1 #name841-3 #name841-4" xml:lang="ar" source="#bib841-3">
+                    <persName xml:id="name841-2" corresp="#name841-1 #name841-3 #name841-4" xml:lang="ar" source="#bib841-2">
                         <forename sort="1">داماسوس</forename>
                     </persName>
-                    <persName xml:id="name841-3" corresp="#name841-1 #name841-2 #name841-4" xml:lang="syr" source="#bib841-4">
+                    <persName xml:id="name841-3" corresp="#name841-1 #name841-2 #name841-4" xml:lang="syr" source="#bib841-3">
                         <forename sort="1">ܕܐܡܐܣܘܣ</forename>
                     </persName>
-                    <persName xml:id="name841-4" corresp="#name841-1 #name841-2 #name841-3" xml:lang="syr-Syrj" source="#bib841-4">
+                    <persName xml:id="name841-4" corresp="#name841-1 #name841-2 #name841-3" xml:lang="syr-Syrj" source="#bib841-3">
                         <forename sort="1">ܕܰܐܡܰܐܣܘܣ</forename>
                     </persName>
                     <persName xml:id="name841-5" xml:lang="syr" resp="http://syriaca.org" syriaca-tags="#syriaca-headword">
                         <forename sort="1">ܕܡܣܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܪܗܘܡܐ</addName>
                     </persName>
-                    <persName xml:id="name841-6" corresp="#name841-7 #name841-8 #name841-9" xml:lang="syr" source="#bib841-6">
+                    <persName xml:id="name841-6" corresp="#name841-7 #name841-8 #name841-9" xml:lang="syr" source="#bib841-4">
                         <forename sort="1">ܕܡܣܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܐܦܣܩܘܦܐ ܕܪܗܘܡܐ</addName>
                     </persName>
-                    <persName xml:id="name841-7" corresp="#name841-6 #name841-8 #name841-9" xml:lang="syr-Syrn" source="#bib841-6">
+                    <persName xml:id="name841-7" corresp="#name841-6 #name841-8 #name841-9" xml:lang="syr-Syrn" source="#bib841-4">
                         <forename sort="1">ܕܵܡܵܣܘܿܣ</forename>
                         <addName type="untagged-title" sort="2">ܐܲܦܸܣܩܘܿܦܵܐ ܕܪܗܘܿܡܹܐ</addName>
                     </persName>
-                    <persName xml:id="name841-8" corresp="#name841-6 #name841-7 #name841-9" xml:lang="syr" source="#bib841-7">
+                    <persName xml:id="name841-8" corresp="#name841-6 #name841-7 #name841-9" xml:lang="syr" source="#bib841-5">
                         <forename sort="1">ܕܡܣܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܐܦܝܣܩܘܦܐ ܕܪܗܘܡܐ</addName>
                     </persName>
-                    <persName xml:id="name841-9" corresp="#name841-6 #name841-7 #name841-8" xml:lang="syr-Syrj" source="#bib841-7">
+                    <persName xml:id="name841-9" corresp="#name841-6 #name841-7 #name841-8" xml:lang="syr-Syrj" source="#bib841-5">
                         <forename sort="1">ܕܰܡܰܣܳܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܐܶܦܺܝܣܩܽܘܦܳܐ ܕܪܗܽܘܡܺܐ</addName>
                     </persName>
@@ -152,27 +154,27 @@
                     <note type="abstract" xml:id="abstract-en-841"/>
                     <idno type="URI">http://syriaca.org/person/841</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|841</idno>
-                    <bibl xml:id="bib841-2">
+                    <bibl xml:id="bib841-1">
                         <title level="m" xml:lang="en">The Scattered Pearls: A History of Syriac Literature and Sciences</title>
                         <ptr target="http://syriaca.org/bibl/4"/>
                         <citedRange unit="pp">131</citedRange>
                     </bibl>
-                    <bibl xml:id="bib841-3">
+                    <bibl xml:id="bib841-2">
                         <title level="m" xml:lang="ar">كتاب اللؤلؤ المنثور في تاريخ العلوم والأداب السريانية</title>
                         <ptr target="http://syriaca.org/bibl/2"/>
                         <citedRange unit="pp">117</citedRange>
                     </bibl>
-                    <bibl xml:id="bib841-4">
+                    <bibl xml:id="bib841-3">
                         <title level="m" xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">138</citedRange>
                     </bibl>
-                    <bibl xml:id="bib841-6">
+                    <bibl xml:id="bib841-4">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">64</citedRange>
                     </bibl>
-                    <bibl xml:id="bib841-7">
+                    <bibl xml:id="bib841-5">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:16</citedRange>

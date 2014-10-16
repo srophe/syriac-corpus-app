@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -180,12 +182,12 @@
                         <forename sort="1">ܕܘܝܕ</forename>
                         <addName type="untagged-title" sort="2">ܕܒܝܬ ܪܒܢ</addName>
                     </persName>
-                    <persName xml:id="name144-8" corresp="#name144-7 #name144-9" xml:lang="syr-Syrn" source="#bib144-6">
+                    <persName xml:id="name144-8" corresp="#name144-7 #name144-9" xml:lang="syr-Syrn" source="#bib144-5">
                         <addName type="untagged-title" sort="2">ܡܵܪܝ</addName>
                         <forename sort="1">ܕܵܘܝܼܕ</forename>
                         <addName type="untagged-title" sort="2">ܕܒܹܝܬ ܪܲܒܵܢ</addName>
                     </persName>
-                    <persName xml:id="name144-9" corresp="#name144-7 #name144-8" xml:lang="syr-Syrj" source="#bib144-7">
+                    <persName xml:id="name144-9" corresp="#name144-7 #name144-8" xml:lang="syr-Syrj" source="#bib144-6">
                         <addName type="untagged-title" sort="2">ܡܳܪܝ</addName>
                         <forename sort="1">ܕܰܘܝܺܕ</forename>
                         <addName type="untagged-title" sort="2">ܕܒܶܝܬ ܪܰܒܰܢ</addName>
@@ -194,8 +196,8 @@
                         <forename sort="1">David</forename>
                         <addName type="family" sort="2">bar Pawlos</addName>
                     </persName>
-                    <persName xml:id="name144-11" xml:lang="en" source="#bib144-10">David bar Paulos</persName>
-                    <persName xml:id="name144-12" xml:lang="en" source="#bib144-10">David de-Bet Rabban</persName>
+                    <persName xml:id="name144-11" xml:lang="en" source="#bib144-7">David bar Paulos</persName>
+                    <persName xml:id="name144-12" xml:lang="en" source="#bib144-7">David de-Bet Rabban</persName>
                     <note type="abstract" xml:id="abstract-en-144">
                         <Not_Useful/>
                         <quote source="#bib144-1">Author.</quote>
@@ -205,7 +207,7 @@
                     <idno type="URI">http://books.google.com/books?id=RSAYAAAAYAAJ&amp;pg=PR111&amp;lpg=PR111&amp;dq=Gottheil,+Richard+J.H.,+%27%27Dawidh+bar+Paulos,+a+Syriac+Grammarian%27%27&amp;source=bl&amp;ots=8eKWzLYVl4&amp;sig=2Dykp_UJ9fRnpFrcR2klVM23hOI&amp;hl=en&amp;sa=X&amp;ei=yosEUIfCE8Tb6wH-2rHyBg&amp;ved=0CEoQ6AEwBQ#v=onepage&amp;q=Gottheil%2C%20Richard%20J.H.%2C%20%27%27Dawidh%20bar%20Paulos%2C%20a%20Syriac%20Grammarian%27%27&amp;f=false</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=D&amp;sK=David bar Paulos&amp;sT=keywords</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=D&amp;sK=David de-Bet Rabban&amp;sT=keywords</idno>
-                    <floruit notBefore="0700" notAfter="0900" source="#bib144-1">8th/9th cent.</floruit>
+                    <floruit notBefore="0700" notAfter="0900" source="#bib144-1" syriaca-computed-end="0900-01-01" syriaca-computed-start="0700-01-01">8th/9th cent.</floruit>
                     <state type="confession" source="#bib144-1">
                         <desc>Syr. Orth.</desc>
                     </state>
@@ -232,17 +234,17 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">354</citedRange>
                     </bibl>
-                    <bibl xml:id="bib144-6">
+                    <bibl xml:id="bib144-5">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">81</citedRange>
                     </bibl>
-                    <bibl xml:id="bib144-7">
+                    <bibl xml:id="bib144-6">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:254</citedRange>
                     </bibl>
-                    <bibl xml:id="bib144-10">
+                    <bibl xml:id="bib144-7">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=D&amp;sK=David bar Paulos&amp;sT=keywords">David bar Paulos</citedRange>

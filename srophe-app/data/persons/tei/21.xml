@@ -76,7 +76,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -128,7 +128,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
             <change type="planned">6/7 C. Not sure if this is the same as Gregory the Persian martyr (d. 542, http://viaf.org/hosted/syriac/30696/)</change>
         </revisionDesc>
@@ -141,11 +143,11 @@
                         <forename sort="1">Grigorios</forename>
                         <addName type="untagged-title" sort="2">of Cyprus</addName>
                     </persName>
-                    <persName xml:id="name21-2" corresp="#name21-3" xml:lang="syr" source="#bib21-4">
+                    <persName xml:id="name21-2" corresp="#name21-3" xml:lang="syr" source="#bib21-2">
                         <forename sort="1">ܓܪܝܓܘܪܝܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܝܚܝܕܝܐ ܕܩܘܦܪܘܣ</addName>
                     </persName>
-                    <persName xml:id="name21-3" corresp="#name21-2" xml:lang="syr-Syrj" source="#bib21-4">
+                    <persName xml:id="name21-3" corresp="#name21-2" xml:lang="syr-Syrj" source="#bib21-2">
                         <forename sort="1">ܓܪܺܝܓܘܪܝܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܝܚܝܕܳܝܳܐ ܕܩܘܦܪܳܘܣ</addName>
                     </persName>
@@ -157,11 +159,11 @@
                         <forename sort="1">ܓܪܝܓܘܪܝܘܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܝܪܝܐ</addName>
                     </persName>
-                    <persName xml:id="name21-6" corresp="#name21-5" xml:lang="syr-Syrn" source="#bib21-6">
+                    <persName xml:id="name21-6" corresp="#name21-5" xml:lang="syr-Syrn" source="#bib21-3">
                         <forename sort="1">ܓܪܝܼܓܘܿܪܝܼܘܿܣ</forename>
                         <addName type="untagged-title" sort="2">ܕܲܝܪܵܝܵܐ</addName>
                     </persName>
-                    <persName xml:id="name21-7" xml:lang="en" source="#bib21-10">
+                    <persName xml:id="name21-7" xml:lang="en" source="#bib21-5">
                         <forename sort="1">Gregory</forename>
                         <addName type="untagged-title" sort="2">of Cyprus</addName>
                     </persName>
@@ -172,7 +174,7 @@
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|21</idno>
                     <idno type="URI">http://viaf.org/viaf/121999478</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=G&amp;sK=Gregory of Cyprus&amp;sT=keywords</idno>
-                    <floruit notBefore="0500" notAfter="0700" source="#bib21-1">6th/7th cent.</floruit>
+                    <floruit notBefore="0500" notAfter="0700" source="#bib21-1" syriaca-computed-end="0700-01-01" syriaca-computed-start="0500-01-01">6th/7th cent.</floruit>
                     <state type="confession" source="#bib21-1">
                         <desc>Ch. of the E.</desc>
                     </state>
@@ -184,22 +186,22 @@
                         <citedRange unit="pp">183</citedRange>
                         <citedRange unit="pp">183</citedRange>
                     </bibl>
-                    <bibl xml:id="bib21-4">
+                    <bibl xml:id="bib21-2">
                         <title level="m" xml:lang="syr">ܒܪ̈ܘܠܐ ܒܕܝܪ̈ܐ ܕܥܠ ܡܪܕܘܬ ܝܘܠܦܢ̈ܐ ܣܘܪ̈ܝܝܐ ܗܕܝܪ̈ܐ</title>
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">230</citedRange>
                     </bibl>
-                    <bibl xml:id="bib21-6">
+                    <bibl xml:id="bib21-3">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">77</citedRange>
                     </bibl>
-                    <bibl xml:id="bib21-7">
+                    <bibl xml:id="bib21-4">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:191</citedRange>
                     </bibl>
-                    <bibl xml:id="bib21-10">
+                    <bibl xml:id="bib21-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=G&amp;sK=Gregory of Cyprus&amp;sT=keywords">Gregory of Cyprus</citedRange>

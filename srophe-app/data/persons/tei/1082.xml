@@ -46,7 +46,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-07-31-05:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -98,6 +98,8 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -120,7 +122,7 @@
                     <note type="abstract" xml:id="abstract-en-1082"/>
                     <idno type="URI">http://syriaca.org/person/1082</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|1082</idno>
-                    <state type="office" from="1581" to="1596" source="#bib1082-1">
+                    <state type="office" from="1581" to="1596" source="#bib1082-1" syriaca-computed-end="1596-01-01" syriaca-computed-start="1581-01-01">
                         <desc xml:lang="en-x-gedsh">1581-1596</desc>
                     </state>
                     <bibl xml:id="bib1082-1">

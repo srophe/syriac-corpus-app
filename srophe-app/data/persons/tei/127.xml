@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -174,7 +176,7 @@
                         <forename sort="1">ܝܘܚܢܢ</forename>
                         <addName type="untagged-title" sort="2">ܐܣܛܘܢܝܐ</addName>
                     </persName>
-                    <persName xml:id="name127-8" corresp="#name127-7" xml:lang="syr-Syrn" source="#bib127-6">
+                    <persName xml:id="name127-8" corresp="#name127-7" xml:lang="syr-Syrn" source="#bib127-5">
                         <forename sort="1">ܝܘܿܚܲܢܵܢ</forename>
                         <addName type="untagged-title" sort="2">ܐܸܣܛܘܿܢܵܝܵܐ</addName>
                     </persName>
@@ -182,8 +184,8 @@
                         <forename sort="1">John</forename>
                         <addName type="untagged-title" sort="2">of Litarba</addName>
                     </persName>
-                    <persName xml:id="name127-10" xml:lang="en" source="#bib127-10">John the Stylite (of Litharb)</persName>
-                    <persName xml:id="name127-10" xml:lang="en" source="#bib127-1">Yuḥanon the Stylite</persName>
+                    <persName xml:id="name127-10" xml:lang="en" source="#bib127-7">John the Stylite (of Litharb)</persName>
+                    <persName xml:id="name127-11" xml:lang="en" source="#bib127-1">Yuḥanon the Stylite</persName>
                     <note type="abstract" xml:id="abstract-en-127">
                         <quote source="#bib127-1">Monk, stylite, and author.</quote>
                     </note>
@@ -192,7 +194,7 @@
                     <idno type="URI">http://worldcat.org/identities/lccn-n83-171513</idno>
                     <idno type="URI">http://viaf.org/viaf/6313778</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John the Stylite (of Litharb)&amp;sT=keywords</idno>
-                    <death notBefore="0737" notAfter="0738" source="#bib127-1">737/8</death>
+                    <death notBefore="0737" notAfter="0738" source="#bib127-1" syriaca-computed-end="0738-01-01" syriaca-computed-start="0737-01-01">737/8</death>
                     <state type="office" role="ascetic" source="#bib127-2">
                         <desc xml:lang="en">the Stylite</desc>
                     </state>
@@ -222,17 +224,17 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">343</citedRange>
                     </bibl>
-                    <bibl xml:id="bib127-6">
+                    <bibl xml:id="bib127-5">
                         <title level="m" xml:lang="syr-Syrn">ܟܬ̣ܵܒ̣ܵܐ ܕܡܸܬ̣ܩܪܸܐ ܡܪܓܢܝܬ̣ܐ ܕܥܲܠ ܫܪܵܪܵܐ ܕܲܟ̣ܪܸܣܛܝܵܢܘܼܬ̣ܵܐ</title>
                         <ptr target="http://syriaca.org/bibl/6"/>
                         <citedRange unit="pp">81</citedRange>
                     </bibl>
-                    <bibl xml:id="bib127-7">
+                    <bibl xml:id="bib127-6">
                         <title level="m" xml:lang="la">Bibliotheca Orientalis Clementino-Vaticana</title>
                         <ptr target="http://syriaca.org/bibl/7"/>
                         <citedRange unit="pp">III:256</citedRange>
                     </bibl>
-                    <bibl xml:id="bib127-10">
+                    <bibl xml:id="bib127-7">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John the Stylite (of Litharb)&amp;sT=keywords">John the Stylite (of Litharb)</citedRange>

@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -130,16 +132,16 @@
                         <forename sort="1">ܝܘܚܢܢ</forename>
                         <addName type="untagged-title" sort="2">ܣܘܠܩܐ</addName>
                     </persName>
-                    <persName xml:id="name829-3" xml:lang="en" source="#bib829-10">John Sulaqa</persName>
+                    <persName xml:id="name829-3" xml:lang="en" source="#bib829-2">John Sulaqa</persName>
                     <note type="abstract" xml:id="abstract-en-829">
-                        <quote source="#bib829-1">Born in <placeName xmlns="" ref="http://syriaca.org/place/139">Mosul</placeName>, he became monk and abbot of the Monastery of Rabban Hormizd near
+                        <quote source="#bib829-1">Born in <placeName ref="http://syriaca.org/place/139">Mosul</placeName>, he became monk and abbot of the Monastery of Rabban Hormizd near
             Alqosh.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/829</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|829</idno>
                     <idno type="URI">http://viaf.org/viaf/254678857</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John Sulaqa&amp;sT=keywords</idno>
-                    <floruit notBefore="1495" notAfter="1570" source="#bib829-1">around 1510-1555</floruit>
+                    <floruit notBefore="1495" notAfter="1570" source="#bib829-1" syriaca-computed-end="1570-01-01" syriaca-computed-start="1495-01-01">around 1510-1555</floruit>
                     <state type="confession" source="#bib829-1">
                         <desc>Ch. of E.</desc>
                     </state>
@@ -154,7 +156,7 @@
                         <citedRange unit="pp">443</citedRange>
                         <citedRange unit="pp">443</citedRange>
                     </bibl>
-                    <bibl xml:id="bib829-10">
+                    <bibl xml:id="bib829-2">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=John Sulaqa&amp;sT=keywords">John Sulaqa</citedRange>

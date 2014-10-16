@@ -63,7 +63,7 @@
                         <p>Distributed under a Creative Commons Attribution 3.0 Unported License.</p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -115,7 +115,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -131,7 +133,7 @@
                         <forename sort="1">ܝܘܣܦ</forename>
                         <addName type="untagged-title" sort="2">ܬܪܝܢܐ</addName>
                     </persName>
-                    <persName xml:id="name813-3" xml:lang="en" source="#bib813-10">
+                    <persName xml:id="name813-3" xml:lang="en" source="#bib813-2">
                         <forename sort="1">Joseph</forename>
                         <addName type="untagged-title" sort="2">II</addName>
                     </persName>
@@ -145,8 +147,8 @@
                     <idno type="URI">http://worldcat.org/identities/np-joseph$ii$chaldean patriarch$1667</idno>
                     <idno type="URI">http://viaf.org/viaf/35251193</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=Joseph II&amp;sT=keywords</idno>
-                    <birth when="1667" source="#bib813-1">1667</birth>
-                    <death when="1713" source="#bib813-1">1713</death>
+                    <birth when="1667" source="#bib813-1" syriaca-computed-start="1667-01-01">1667</birth>
+                    <death when="1713" source="#bib813-1" syriaca-computed-start="1713-01-01">1713</death>
                     <state type="confession" source="#bib813-1">
                         <desc>Chald.</desc>
                     </state>
@@ -158,7 +160,7 @@
                         <citedRange unit="pp">435-436</citedRange>
                         <citedRange unit="pp">435-436</citedRange>
                     </bibl>
-                    <bibl xml:id="bib813-10">
+                    <bibl xml:id="bib813-2">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=J&amp;sK=Joseph II&amp;sT=keywords">Joseph II</citedRange>

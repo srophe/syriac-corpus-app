@@ -83,7 +83,7 @@
                         </p>
                     </licence>
                 </availability>
-                <date>2014-09-24-04:00</date>
+                <date>2014-10-15-04:00</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -135,7 +135,9 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
-            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-09-24-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Renumbered bibl xml:id attributes and source references to be sequential.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: Abstracts, citation, additional names and confessions from GEDSH.</change>
+            <change who="http://syriaca.org/documentation/editors.xml#wsalesky" when="2014-10-15-04:00">ADDED: syriaca-computed-end for elements with date attributes</change>
             <change who="http://syriaca.org/documentation/editors.xml#tcarlson" n="1.0" when="2014-07-31-05:00"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
@@ -163,20 +165,20 @@
                         <forename sort="1">ܣܶܐܘܝܪܶܐ</forename>
                         <addName type="untagged-title" sort="2">ܣܰܐܒܘܟܬ</addName>
                     </persName>
-                    <persName xml:id="name99-6" xml:lang="en" source="#bib99-10">
+                    <persName xml:id="name99-6" xml:lang="en" source="#bib99-5">
                         <forename sort="1">Severus</forename>
                         <addName type="untagged-title" sort="2">Sebokht</addName>
                     </persName>
                     <note type="abstract" xml:id="abstract-en-99">
                         <quote source="#bib99-1">Scholar, astronomer, philosopher, mathematician, Bp. of Qenneshre (city south of
             Aleppo); or Bp. of the Monastery of Qenneshre on the east bank of the
-            <placeName xmlns="" ref="http://syriaca.org/place/82">Euphrates</placeName>.</quote>
+            <placeName ref="http://syriaca.org/place/82">Euphrates</placeName>.</quote>
                     </note>
                     <idno type="URI">http://syriaca.org/person/99</idno>
                     <idno type="URI">http://viaf.org/viaf/sourceID/SRP|99</idno>
                     <idno type="URI">http://viaf.org/viaf/47099010</idno>
                     <idno type="URI">http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Severus Sebokht&amp;sT=keywords</idno>
-                    <death notBefore="0666" notAfter="0667" source="#bib99-1">666/7</death>
+                    <death notBefore="0666" notAfter="0667" source="#bib99-1" syriaca-computed-end="0667-01-01" syriaca-computed-start="0666-01-01">666/7</death>
                     <state type="confession" source="#bib99-1">
                         <desc>Syr. Orth.</desc>
                     </state>
@@ -203,7 +205,7 @@
                         <ptr target="http://syriaca.org/bibl/3"/>
                         <citedRange unit="pp">310</citedRange>
                     </bibl>
-                    <bibl xml:id="bib99-10">
+                    <bibl xml:id="bib99-5">
                         <title level="m" xml:lang="en">A Comprehensive Bibliography on Syriac Christianity</title>
                         <ptr target="http://syriaca.org/bibl/5"/>
                         <citedRange unit="entry" target="http://www.csc.org.il/db/browse.aspx?db=SB&amp;sL=S&amp;sK=Severus Sebokht&amp;sT=keywords">Severus Sebokht</citedRange>
