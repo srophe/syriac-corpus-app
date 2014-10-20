@@ -280,9 +280,8 @@
                 <xsl:call-template name="col2"/>
             </div>
         </div>
-        <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
-            <xsl:call-template name="sources"/>
-        </xsl:if>
+        <xsl:call-template name="sources"/>
+        
             <!-- RDF Results -->
             <!--<div class="span2">
                 <h3>RDF Results</h3>
@@ -405,7 +404,7 @@
                                 
                                 <xsl:text>var placesgeo =</xsl:text>
                                 <xsl:value-of select="//*:div[@id='geojson']"/>
-                                
+                                <![CDATA[
                                 var sropheIcon = L.Icon.extend({
                                       options: {
                                           iconSize:     [38, 38],
@@ -435,8 +434,8 @@
                                         
                                 var geojson = L.geoJson(placesgeo, {
                                         onEachFeature: function (feature, layer){
-                                            var popupContent = "&lt;a href='" + feature.properties.uri + "'&gt;" +
-                                            feature.properties.name + " - " + feature.properties.type + "&lt;/a&gt;";
+                                            var popupContent = "<a href='" + feature.properties.uri + "'>" +
+                                            feature.properties.name + " - " + feature.properties.type + "</a>";
                                             layer.bindPopup(popupContent);
                                             switch (feature.properties.relation) {
                                                 case 'born-at': return layer.setIcon(orangeIcon);
@@ -457,7 +456,7 @@
                                         "Imperium": imperium }).addTo(map);
                                         
                                 geojson.addTo(map);      
-                                </script>
+                                ]]></script>
                         </div> 
                         <!-- <xsl:copy-of select="//*:div[@id='map-data']"/>-->
                     </xsl:if>

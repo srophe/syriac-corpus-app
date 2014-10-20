@@ -52,7 +52,7 @@
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      top-level logic and instructions for creating the browse listing page
-     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
+     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="/">
         <!-- Selects named template based on parameter passed by xquery into xml results -->
         <xsl:choose>
@@ -144,7 +144,7 @@
                         <xsl:choose>
                             <xsl:when test="t:persName">
                                 <xsl:variable name="persnum" select="substring-after(@xml:id,'person-')"/>
-                                <a href="person.html?id={$persnum}">
+                                <a href="/person/{$persnum}">
                                     <!-- Syriac name -->
                                     <bdi dir="rtl" lang="syr" xml:lang="syr">
                                         <xsl:value-of select="string-join(t:persName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']/child::*/text(),' ')"/>
@@ -196,7 +196,7 @@
                         <!-- Active link for production site
                             <a href="/person/{$persnum}.html">
                         -->
-                        <a href="person.html?id={$persnum}">
+                        <a href="/person/{$persnum}">
                             <!-- English name -->
                             <bdi dir="ltr" lang="en" xml:lang="en">
                                 <xsl:value-of select="string-join(t:persName[starts-with(@xml:lang,'en')][@syriaca-tags='#syriaca-headword']/descendant-or-self::*/text(),' ')"/>
@@ -324,13 +324,13 @@
                             </div>
                         </div>
                         <script type="text/javascript">
-                            
+                            <![CDATA[
                                 $('#mapFAQ').click(function(){
                                         $('#popup').load( '../documentation/faq.html #map-selection',function(result){
                                         $('#map-selection').modal({show:true});
                                     });
                                  });   
-                             </script>
+                             ]]></script>
                         <br style="clear-fix"/>
                     </div>
                     <xsl:variable name="geojson-uri">

@@ -1,7 +1,7 @@
 xquery version "3.0";
 (:~
  : Builds search information for persons sub-collection
- : Search string is passed to search.xqm for processing.   
+ : Search string is passed to search.xqm for processing.  
  :)
 module namespace persons="http://syriaca.org//persons";
 import module namespace common="http://syriaca.org//common" at "common.xqm";
@@ -300,7 +300,7 @@ declare function persons:results-node($hit){
     return
         <p style="font-weight:bold padding:.5em;">
             <!-- NOTE: switch when pushed to prod <a href="/person/{$id}.html">-->
-            <a href="person.html?id={$id}">
+            <a href="/person/{$id}">
                 <bdi dir="ltr" lang="en" xml:lang="en">{$title-en}</bdi>
                 {$type, $title-syr}
             </a>
