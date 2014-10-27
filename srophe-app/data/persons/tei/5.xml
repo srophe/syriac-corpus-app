@@ -128,9 +128,6 @@
          <change who="http://syriaca.org/documentation/editors.xml#tcarlson"
                  n="1.0"
                  when="2014-07-23-05:00"> CREATED: person </change>
-         <change who="http://syriaca.org/documentation/editors.xml#wsalesky"
-            n="1.0"
-            when="2014-07-23-05:00"> Update: testing xml uploads</change>
       </revisionDesc>
    </teiHeader>
    <text>
@@ -166,10 +163,6 @@
                          syriaca-tags="#syriaca-headword">
                   <forename sort="1">Tuma'is</forename> 
                   <addName type="untagged-title" sort="2">of Nisibis</addName>
-               </persName>
-               <persName xml:id="name5-5"
-                  xml:lang="en"
-                  resp="http://syriaca.org">Winona Salesky
                </persName>
                <note type="abstract" xml:id="abstract-en-5"/>
                <idno type="URI">http://syriaca.org/person/5</idno>
