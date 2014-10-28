@@ -138,7 +138,7 @@
                 <!-- VIAF -->
                 <xsl:for-each select="t:idno[contains(.,'http://viaf.org/')]">
                     <li>
-                        <a href="{normalize-space(.)}"> "<xsl:value-of select="substring-after(.,'http://viaf.org/viaf/')"/>" in VIAF</a>
+                        <a href="{normalize-space(.)}">VIAF</a>
                     </li>
                 </xsl:for-each>
                 <!-- Pleiades links -->
