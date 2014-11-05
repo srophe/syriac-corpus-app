@@ -59,7 +59,8 @@
                     <series><title xml:lang="en" level="s">Studies in Late Antiquity and Early Islam</title><biblScope unit="vol">6</biblScope></series>
                     <imprint>
                         <publisher xml:lang="en">The Darwin Press, Inc.</publisher>
-                        <pubPlace xml:lang="en" ref="http://syriaca.org/place/<!-- Need URI -->">Princeton, N.J.</pubPlace>
+                        <!-- Need URI -->
+                        <pubPlace xml:lang="en" ref="http://syriaca.org/place/">Princeton, N.J.</pubPlace>
                         <date>2004</date>
                     </imprint>
                 </monogr>
