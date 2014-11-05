@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div xmlns="http://www.w3.org/1999/xhtml" data-template="templates:surround" data-template-with="templates/syrpage.html" data-template-at="content">
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Available APIs </h3>
+            <ul class="nav nav-tabs nav-stacked pull-left type-nav">
+                <li>
+                    <a href="#geo">Geographic API</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div>
+                <h1>Syriaca.org API documentation</h1>
+                <p>Note about API policies (if we have any)</p>
+                <hr/>
+                <h3 id="geo">Geographic API</h3>
+                <p>Base url: <pre>http://syriaca.org/api/geo</pre>
+                </p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="span2">Path</th>
+                            <th class="span2">Parameters</th>
+                            <th class="span7">Description</th>
+                            <th class="span1">Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <pre>/json</pre>
+                            </td>
+                            <td>
+                                <strong>type</strong>
+                                <p>accepted values:</p>
+                                <ul>
+                                    <li>building</li>
+                                    <li>church</li>
+                                    <li>diocese</li>
+                                    <li>fortification</li>
+                                    <li>island</li>
+                                    <li>monastery</li>
+                                    <li>mountain</li>
+                                    <li>open-water</li>
+                                    <li>parish</li>
+                                    <li>province</li>
+                                    <li>quarter</li>
+                                    <li>region</li>
+                                    <li>river</li>
+                                    <li>settlement</li>
+                                    <li>state</li>
+                                    <li>temple</li>
+                                    <li>unknown</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <p>Provides geoJSON results for all places within the gazetteer with geographic data. Places can be filtered by place type.</p>
+                                <p>Example return all locations:<pre>http://syriaca.org/api/geo/json</pre>
+                                </p>
+                                <p>Example return only churches:<pre>http://syriaca.org/api/geo/json?type=church</pre>
+                                </p>
+                            </td>
+                            <td>GET</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <pre>/kml</pre>
+                            </td>
+                            <td>
+                                <strong>type</strong>
+                                <p>accepted values:</p>
+                                <ul>
+                                    <li>building</li>
+                                    <li>church</li>
+                                    <li>diocese</li>
+                                    <li>fortification</li>
+                                    <li>island</li>
+                                    <li>monastery</li>
+                                    <li>mountain</li>
+                                    <li>open-water</li>
+                                    <li>parish</li>
+                                    <li>province</li>
+                                    <li>quarter</li>
+                                    <li>region</li>
+                                    <li>river</li>
+                                    <li>settlement</li>
+                                    <li>state</li>
+                                    <li>temple</li>
+                                    <li>unknown</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <p>Provides KML results for all places within the gazetteer with geographic data. Places can be filtered by place type.</p>
+                                <p>Example return all locations:<pre>http://syriaca.org/api/geo/kml</pre>
+                                </p>
+                                <p>Example return only churches:<pre>http://syriaca.org/api/geo/kml?type=church</pre>
+                                </p>
+                            </td>
+                            <td>GET</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

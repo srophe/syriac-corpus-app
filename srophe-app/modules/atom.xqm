@@ -1,7 +1,7 @@
 xquery version "3.0";
 (:
  : Build atom feed for all syrica.org modules
- : Module is used by atom.xql and rest.xqm 
+ : Module is used by atom.xql and rest.xqm  
  : @param $collection selects data collection for feed 
  : @param $id return single entry matching xml:id
  : @param $start start paged results

@@ -1,6 +1,6 @@
 xquery version "3.0";
 (:~
- :  geojson output for leafletjs maps 
+ :  geojson output for leafletjs maps  
  :)
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 import module namespace geo="http://syriaca.org//geojson" at "geojson.xqm";
@@ -20,7 +20,10 @@ declare variable $output {request:get-parameter('output', '')};
 (:~
  : Calls geojson functions in geojson.xqm
  : Used by ajax call from browse maps in mapjson.js
+
 :)
+let $cache := 'test 4486'
+return 
 geo:json-wrapper((), $type, $output)
 
   

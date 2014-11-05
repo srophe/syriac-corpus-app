@@ -16,7 +16,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <!-- @depreciated -->
+    <!-- @depreciated  -->
     <xsl:template name="place-title-std">
         <xsl:param name="mode">preindexed</xsl:param>
         <xsl:param name="place" select="."/>
@@ -71,8 +71,8 @@
         <xsl:param name="secondlang">syr</xsl:param>
         <!--NOTE: hackish fix to unexpected lang tag in person. First name element is en-x-gedsh not en -->
         <xsl:choose>
-            <xsl:when test="$rec/t:placeName[starts-with(@xml:lang, $firstlang) and @syriaca-tags='#syriaca-headword'] | $rec/child::t:persName[starts-with(@xml:lang,$firstlang) and @syriaca-tags='#syriaca-headword']">
-                <xsl:apply-templates select="$rec/child::t:persName[starts-with(@xml:lang,$firstlang) and @syriaca-tags='#syriaca-headword'][1]" mode="std-title">
+            <xsl:when test="$rec/t:placeName[starts-with(@xml:lang, $firstlang) and @syriaca-tags='#syriaca-headword']                  | $rec/child::t:persName[starts-with(@xml:lang,$firstlang) and @syriaca-tags='#syriaca-headword']">
+                <xsl:apply-templates select="$rec/child::t:persName[starts-with(@xml:lang,$firstlang)                      and @syriaca-tags='#syriaca-headword'][1] | $rec/t:placeName[starts-with(@xml:lang, $firstlang) and @syriaca-tags='#syriaca-headword']" mode="std-title">
                     <xsl:with-param name="withbdi" select="$withbdi"/>
                     <xsl:with-param name="withtype" select="$withtype"/>
                 </xsl:apply-templates>
@@ -85,8 +85,8 @@
         </xsl:choose>
         <xsl:text> — </xsl:text>
         <xsl:choose>
-            <xsl:when test="$rec/t:placeName[starts-with(@xml:lang,$secondlang) and @syriaca-tags='#syriaca-headword'] | $rec/t:persName[starts-with(@xml:lang,$secondlang) and @syriaca-tags='#syriaca-headword']">
-                <xsl:apply-templates select="$rec/t:placeName[starts-with(@xml:lang,$secondlang) and @syriaca-tags='#syriaca-headword'][1] | $rec/t:persName[starts-with(@xml:lang,$secondlang) and @syriaca-tags='#syriaca-headword'][1]" mode="title">
+            <xsl:when test="$rec/t:placeName[starts-with(@xml:lang,$secondlang) and @syriaca-tags='#syriaca-headword']                  | $rec/t:persName[starts-with(@xml:lang,$secondlang) and @syriaca-tags='#syriaca-headword']">
+                <xsl:apply-templates select="$rec/t:placeName[starts-with(@xml:lang,$secondlang)                      and @syriaca-tags='#syriaca-headword'][1] |                      $rec/t:persName[starts-with(@xml:lang,$secondlang) and @syriaca-tags='#syriaca-headword'][1]" mode="title">
                     <xsl:with-param name="withbdi" select="$withbdi"/>
                     <xsl:with-param name="withtype">no</xsl:with-param>
                 </xsl:apply-templates>
@@ -96,6 +96,17 @@
                     <xsl:with-param name="withbdi" select="$withbdi"/>
                 </xsl:call-template>
             </xsl:otherwise>
+        </xsl:choose>
+        <xsl:choose>
+            <xsl:when test="$rec/child::t:persName">
+                <xsl:if test="$rec/child::t:persName/@ana">
+                    (<xsl:for-each select="tokenize($rec/child::t:persName/@ana,' ')">
+                        <xsl:value-of select="substring-after(.,'#syriaca-')"/>
+                        <!-- NOTE add comma for multiple values, FIND SAMPLE RECORD -->
+                    </xsl:for-each>)
+                </xsl:if>
+            </xsl:when>
+            <xsl:otherwise/>
         </xsl:choose>
     </xsl:template>
     
@@ -128,11 +139,11 @@
     </xsl:template>
     <xsl:template name="getdirection">
         <xsl:choose>
+            <xsl:when test="@xml:lang='en'">ltr</xsl:when>
+            <xsl:when test="@xml:lang='syr' or @xml:lang='ar' or @xml:lang='syc' or @xml:lang='syr-Syrj'">rtl</xsl:when>
             <xsl:when test="not(@xml:lang)">
                 <xsl:text/>
             </xsl:when>
-            <xsl:when test="@xml:lang='en'">ltr</xsl:when>
-            <xsl:when test="@xml:lang='syr' or @xml:lang='ar' or @xml:lang='syc' or @xml:lang='syr-Syrj'">rtl</xsl:when>
             <xsl:otherwise>
                 <xsl:text/>
             </xsl:otherwise>

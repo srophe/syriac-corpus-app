@@ -2,7 +2,7 @@ xquery version "3.0";
 
 module namespace app="http://syriaca.org//templates";
 (:~
- : General use xqueries for accross srophe app.
+ : General use xqueries for accross srophe app. 
 :)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org//config" at "config.xqm";
@@ -13,39 +13,49 @@ declare namespace xlink = "http://www.w3.org/1999/xlink";
 (:~
  : Generic contact form can be added to any page by calling:
  : <div data-template="app:contact-form"/>
- : with a link to open it that looks like this: <a href="#contact" data-toggle="modal">Link text</a>
+ : with a link to open it that looks like this: 
+ : <button class="btn btn-default" data-toggle="modal" data-target="#feedback">CLink text</button>&#160;
 :)
 declare %templates:wrap function app:contact-form($node as node(), $model as map(*))
 {
-    <div id="contact" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="report-errors-label" aria-hidden="true">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="report-errors-label">Contact Us</h3>
+    <div> 
+        <div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-labelledby="feedbackLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">x</span>
+                            <span class="sr-only">Close</span>  
+                        </button>
+                        <h2 class="modal-title" id="feedbackLabel">Corrections/Additions?</h2>
+                    </div>
+                    <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email" role="form">
+                        <div class="modal-body" id="modal-body">
+                            <input type="text" name="name" placeholder="Name" class="form-control" style="max-width:300px"/>
+                            <br/>
+                            <input type="text" name="email" placeholder="email" class="form-control" style="max-width:300px"/>
+                            <br/>
+                            <input type="text" name="subject" placeholder="subject" class="form-control" style="max-width:300px"/>
+                            <br/>
+                            <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
+                            <!-- start reCaptcha API-->
+                            <script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia"/>
+                            <noscript>
+                                <iframe src="http://api.recaptcha.net/noscript?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia" height="100" width="100" frameborder="0"/>
+                                <br/>
+                                <textarea name="recaptcha_challenge_field" rows="3" cols="40"/>
+                                <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+                            </noscript>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal">Close</button>
+                            <input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
+                        </div>
+                  </form>
+          </div>
+       </div>
         </div>
-        <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email">
-            <div class="modal-body" id="modal-body">
-                <!--<label>Name:</label>-->
-                <input type="text" name="name" placeholder="Name"/><br/>
-                <!--<label>e-mail address:</label>-->
-                <input type="text" name="email" placeholder="email"/><br/>
-                <!--<label>Subject:</label>--> 
-                <input type="text" name="subject" placeholder="subject"/><br/>
-                <textarea name="comments" id="comments" rows="5" class="span9" placeholder="Comments"/>
-                <!-- start reCaptcha API-->
-                <script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia"></script>
-                <noscript>
-                 <iframe src="http://api.recaptcha.net/noscript?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia"  height="100" width="100" frameborder="0"></iframe><br/>
-                    <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
-                    <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
-                </noscript>
-                <!-- end Client API reCaptcha code -->
-            </div>
-            <div class="modal-footer">
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                <input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
-            </div>
-        </form>
-    </div>
+   </div> 
 };
 
 (:~

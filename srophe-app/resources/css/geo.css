@@ -1,4 +1,3 @@
-/* Application styles could go here */
 /*
  * Colors:
  * Dark red: 753C28
@@ -11,29 +10,14 @@
  * Dark Grey #333
  * Light Grey (text): #999
  */
-body {
-    background-color:#753C28;
-}
+body {background-color:#753C28;}
 #main {background-color:#F5F2E9;}
-
-/* Main content blocks */
 .navbar {border-bottom:4px solid #753C28 !important;}
-.navbar-inner {border-bottom:.5em solid #753C28 !important;}
-.navbar-inner .nav > li > a:hover, .advanced-search > a:hover {
-        border-bottom: 4px solid #E69849 !important;  
-}
-.navbar-inner > .container > .nav > li.selected {border-bottom: 4px solid #E69849 !important; }
-.advanced-search > a {color:#999; text-decoration:none;}
-.transparent {
-    /* default fallback */
-    background: rgb(255, 255, 255) transparent;
-    /* nice browsers */
-    background: rgba(255, 255, 255, 0.8);
-    
-}
+/* Main content blocks */
 
 /* Typography */
-h1 {color:#E69849;}
+h1 {color:#E69849; padding-top:1em;}
 h2 {color:#753C28;}
 h3 {color:#333;}
 h3.underline {color:#999; border-bottom:3px solid #E69849;}
+#map {height: 180px;}

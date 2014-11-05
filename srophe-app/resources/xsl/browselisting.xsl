@@ -68,6 +68,9 @@
             <xsl:when test="/t:TEI/@browse-view = 'map'">
                 <xsl:call-template name="do-map"/>
             </xsl:when>
+            <xsl:when test="/t:TEI/@browse-view = 'date'">
+                <xsl:call-template name="do-list-date"/>
+            </xsl:when>
             <!-- @deprecated             
             <xsl:when test="/t:TEI/@browse-view = 'num'">
                 <xsl:call-template name="do-list-num"/>
@@ -87,7 +90,7 @@
      Builds place names with links to place pages.
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template name="do-list-en">
-        <div id="english" dir="ltr" class="span12">
+        <div id="english" dir="ltr" class="col-md-12">
                     <!-- Calls ABC menu for browsing. -->
             <div class="browse-alpha tabbable">
                 <xsl:call-template name="letter-menu-en"/>
@@ -116,9 +119,9 @@
      Builds place names with links to place pages.
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template name="do-list-syr">
-        <div id="syriac" dir="rtl" class="span12">
+        <div id="syriac" dir="rtl" class="col-md-12">
                     <!-- Calls ABC menu for browsing. -->
-            <div class="browse-alpha-syr tabbable" style="font-size:.75em">
+            <div class="browse-alpha-syr tabbable">
                 <xsl:call-template name="letter-menu-syr"/>
             </div>
                     <!-- Letter heading. Uses parameter passed from xquery, if no letter, default value is ܐ -->
@@ -141,7 +144,7 @@
                         <xsl:choose>
                             <xsl:when test="t:persName">
                                 <xsl:variable name="persnum" select="substring-after(@xml:id,'person-')"/>
-                                <a href="person.html?id={$persnum}">
+                                <a href="/person/{$persnum}">
                                     <!-- Syriac name -->
                                     <bdi dir="rtl" lang="syr" xml:lang="syr">
                                         <xsl:value-of select="string-join(t:persName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']/child::*/text(),' ')"/>
@@ -193,7 +196,7 @@
                         <!-- Active link for production site
                             <a href="/person/{$persnum}.html">
                         -->
-                        <a href="person.html?id={$persnum}">
+                        <a href="/person/{$persnum}">
                             <!-- English name -->
                             <bdi dir="ltr" lang="en" xml:lang="en">
                                 <xsl:value-of select="string-join(t:persName[starts-with(@xml:lang,'en')][@syriaca-tags='#syriaca-headword']/descendant-or-self::*/text(),' ')"/>
@@ -262,53 +265,79 @@
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template name="do-list-type">
         <xsl:if test="/t:TEI/@browse-type = ''">
-            <div class="span8 well" style="background-color:white; margin:0; padding:.25em 1em;">
-                <h3>Please select a type</h3>
+            <div class="col-md-8">
+                <div class="section">
+                    <h3>Please select a type</h3>
+                </div>
             </div>
         </xsl:if>
         <xsl:if test="/t:TEI/@browse-type != ''">
-            <div class="span8 well" style="background-color:white; margin:0; padding:.25em 1em;">
-                <h3>
-                    <xsl:value-of select="concat(upper-case(substring(/t:TEI/@browse-type,1,1)),substring(/t:TEI/@browse-type,2))"/>
-                </h3>
-                <xsl:if test="count(descendant::t:geo) &gt; 1">
-                    <a href="#" id="show-map-btn">View map</a>
-                </xsl:if>
-                <xsl:if test="count(//t:browse) = 0">
-                    <p>No places of this type yet. </p>
-                </xsl:if>
-                <div id="map-div" style="display:none;">
-                    <div id="map" class="map" style="height:400px"/>
-                    <div id="map-caveat" class="map pull-right caveat" style="margin-top:1em;">
-                        <xsl:value-of select="count(//t:browse[descendant::t:geo])"/> of 
+            <div class="col-md-8">
+                <div class="section type">
+                    <xsl:variable name="type">
+                        <xsl:choose>
+                            <xsl:when test="contains(/t:TEI/@browse-type,'syriaca-')">
+                                <xsl:value-of select="concat(upper-case(substring(substring-after(/t:TEI/@browse-type,'syriaca-'),1,1)),substring(substring-after(/t:TEI/@browse-type,'syriaca-'),2))"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="concat(upper-case(substring(/t:TEI/@browse-type,1,1)),substring(/t:TEI/@browse-type,2))"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:variable>
+                    <h3>
+                        <xsl:value-of select="$type"/>
+                    </h3>
+                    <xsl:if test="count(descendant::t:geo) &gt; 1">
+                        <a href="#" id="show-map-btn">View map</a>
+                    </xsl:if>
+                    <xsl:if test="count(//t:browse) = 0">
+                        <p>No places of this type yet. </p>
+                    </xsl:if>
+                    <div id="map-div" style="display:none;">
+                        <div id="map" class="map" style="height:400px"/>
+                        <div id="map-caveat" class="map pull-right caveat" style="margin-top:1em;">
+                            <xsl:value-of select="count(//t:browse[descendant::t:geo])"/> of 
                         <xsl:value-of select="count(//t:browse)"/> 
                         places have coordinates and are shown on this map. 
-                        <a href="#map-selection" role="button" data-toggle="modal">Read more...</a>
+                        
+                        <button class="btn btn-link" data-toggle="modal" data-target="#map-selection" id="mapFAQ">Read more...</button>
+                        </div>
+                        <div>
+                            <div class="modal fade" id="map-selection" tabindex="-1" role="dialog" aria-labelledby="map-selectionLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">
+                                                <span aria-hidden="true"> x </span>
+                                                <span class="sr-only">Close</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a class="btn" href="../documentation/faq.html" aria-hidden="true">See all FAQs</a>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            <![CDATA[
+                                $('#mapFAQ').click(function(){
+                                        $('#popup').load( '../documentation/faq.html #map-selection',function(result){
+                                        $('#map-selection').modal({show:true});
+                                    });
+                                 });   
+                             ]]></script>
+                        <br style="clear-fix"/>
                     </div>
-                    <div style="width: 750px; margin-left: -280px;" id="map-selection" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="faq-label" aria-hidden="true">
-                        <div class="modal-header" style="height:15px !important;">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> × </button>
-                        </div>
-                        <div class="modal-body">
-                            <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
-                        </div>
-                        <div class="modal-footer">
-                            <a class="btn" href="../documentation/faq.html" aria-hidden="true">See all FAQs</a>
-                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                        </div>
-                    </div>
+                    <xsl:variable name="geojson-uri">
+                        <xsl:text>/exist/apps/srophe/modules/geojson.xql?type=</xsl:text>
+                        <xsl:value-of select="/t:TEI/@browse-type"/>
+                    </xsl:variable>
                     <script>
-                        $('#map-selection').on('shown', function () {
-                            $( "#popup" ).load( "../documentation/faq.html #map-selection" );
-                        })
-                    </script>
-                    <br style="clear-fix"/>
-                </div>
-                <xsl:variable name="geojson-uri">
-                    <xsl:text>/exist/apps/srophe/modules/geojson.xql?type=</xsl:text>
-                    <xsl:value-of select="/t:TEI/@browse-type"/>
-                </xsl:variable>
-                <script>
                     var terrain = L.tileLayer(
                     'http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', 
                     {attribution: "ISAW, 2012"});
@@ -353,22 +382,37 @@
                         
                     });    
                 </script>
-                <xsl:choose>
-                    <xsl:when test="/t:TEI/@browse-type-map='true'">
-                        <xsl:call-template name="map"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <ul style="margin-left:4em; padding-top:1em;">
+                    <xsl:choose>
+                        <xsl:when test="/t:TEI/@browse-type-map='true'">
+                            <xsl:call-template name="map"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ul style="margin-left:4em; padding-top:1em;">
                             <!-- for each place build title and links -->
-                            <xsl:call-template name="name-en"/>
-                        </ul>
-                    </xsl:otherwise>
-                </xsl:choose>
+                                <xsl:call-template name="name-en"/>
+                            </ul>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </div>
             </div>
         </xsl:if>
     </xsl:template>
-   
-
+    <xsl:template name="do-list-date">
+        <div class="col-md-8 well" style="background-color:white; margin:0; padding:.25em 1em;">
+            <h3>
+                <xsl:choose>
+                    <xsl:when test="/t:TEI = 'Date'">Select a Date Range</xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="/t:TEI//*:browse[1]/@date"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </h3>
+            <ul style="margin-left:4em; padding-top:1em;">
+                <!-- for each place build title and links -->
+                <xsl:call-template name="name-en"/>
+            </ul>
+        </div>
+    </xsl:template>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      named template: letter-menu-syr
      
@@ -376,11 +420,11 @@
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template name="letter-menu-syr">
         <!-- Uses unique values passed from xquery into tei menu element as string -->
-        <ul class="inline" style="padding-right: 2em;">
+        <ul class="list-inline" style="padding-right: 2em;">
             <!-- Uses tokenize to split string and iterate through each character in the list below to check for matches with $letterBrowse variable -->
             <xsl:for-each select="tokenize('ܐ ܒ ܓ ܕ ܗ ܘ ܙ ܚ ܛ ܝ ܟ ܠ ܡ ܢ ܣ ܥ ܦ ܩ ܪ ܫ ܬ', ' ')">
                 <li lang="syr" dir="rtl">
-                    <a href="?view=syr&amp;sort={current()}{$collection-param}">
+                    <a href="?view=syr&amp;sort={current()}">
                         <xsl:value-of select="current()"/>
                     </a>
                 </li>
@@ -396,11 +440,11 @@
     <xsl:template name="letter-menu-en">
         <!-- Uses tokenize to split string and iterate through each character in the list below to check for matches with $letterBrowse variable -->
         <xsl:variable name="letterBrowse" select="/t:TEI/t:menu"/>
-        <ul class="inline">
+        <ul class="list-inline">
         <!-- For each character in the list below check for matches in $letterBrowse variable -->
             <xsl:for-each select="tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z', ' ')">
                 <li>
-                    <a href="?view=en&amp;sort={current()}{$collection-param}">
+                    <a href="?view=en&amp;sort={current()}">
                         <xsl:value-of select="current()"/>
                     </a>
                 </li>
@@ -414,8 +458,8 @@
      Builds english browse links 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template name="do-map">
-        <div id="map" class="span12">
-            <div class="tab-pane active">
+        <div id="map" class="col-md-10 col-md-offset-1">
+            <div class="section">
                 <div class="progress progress-striped active" align="center">
                     <div class="bar" style="width: 40%;"/>
                 </div>

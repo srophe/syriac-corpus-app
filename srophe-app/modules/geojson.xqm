@@ -3,7 +3,7 @@ xquery version "3.0";
 module namespace geo="http://syriaca.org//geojson";
 (:~
  : Module returns coordinates for leafletjs maps, or for API requests
- : @author Winona Salesky <wsalesky@gmail.com>
+ : @author Winona Salesky <wsalesky@gmail.com> 
  : @authored 2014-06-25
 :)
 import module namespace config="http://syriaca.org//config" at "config.xqm";
@@ -19,7 +19,7 @@ declare namespace transform="http://exist-db.org/xquery/transform";
  : @param $rec-type place type
  : @param $title place title
 :)
-declare function geo:build-json($geo as xs:string,$id as xs:string, $rec-type as xs:string, $title as xs:string) as element(features){
+declare function geo:build-json($geo as xs:string,$id as xs:string, $rec-type as xs:string, $title as xs:string, $rec-rel as xs:string?) as element(features){
     <features json:array="true">
         <type>Feature</type>
         <geometry type="Point">
@@ -28,7 +28,12 @@ declare function geo:build-json($geo as xs:string,$id as xs:string, $rec-type as
         </geometry>
         <properties>
             <uri>{concat('http://syriaca.org/place/',substring-after($id,'place-'))}</uri>
-            <placeType>{if($rec-type='opne-water') then 'openWater' else $rec-type}</placeType>
+            <placeType>{if($rec-type='open-water') then 'openWater' else $rec-type}</placeType>
+            {
+              if($rec-rel != '') then 
+                <placeRelation>{$rec-rel}</placeRelation>
+              else ()  
+            }
             <name>{$title} - {if($rec-type='open-water') then 'openWater' else $rec-type}</name>
         </properties>
     </features>
@@ -86,9 +91,10 @@ declare function geo:get-coordinates($geo-search as element()*, $type as xs:stri
     let $rec-type := string($place-name/ancestor::tei:place/@type)
     let $title := $place-name/ancestor::tei:place/tei:placeName[@xml:lang = 'en'][1]/text()
     let $geo := $place-name/text()
+    let $rel := string($place-name/ancestor::*:relation/@name)
     return
         if($output = 'kml') then geo:build-kml($geo,$id,$rec-type,$title)
-        else geo:build-json($geo,$id,$rec-type,$title)
+        else geo:build-json($geo,$id,$rec-type,$title,$rel)
 };
 
 (:~

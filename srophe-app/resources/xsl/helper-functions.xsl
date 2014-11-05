@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t" version="2.0">
     
-    <!-- 
+<!-- 
   Function to output dates in correct formats passes whole element to function, 
   function also uses trim-date to strip leading 0
  -->
@@ -78,7 +78,6 @@
             </xsl:if>
             <xsl:for-each select="tokenize($refs,' ')">
                 <span class="footnote-ref">
-                    <xsl:text> </xsl:text>
                     <a href="{.}">
                         <xsl:value-of select="substring-after(.,'-')"/>
                     </a>
@@ -86,6 +85,7 @@
                     </xsl:if>
                 </span>
             </xsl:for-each>
+            <xsl:text> </xsl:text>
         </bdi>
     </xsl:function>
     

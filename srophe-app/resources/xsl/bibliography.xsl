@@ -60,7 +60,7 @@
     <xsl:template match="t:bibl" mode="footnote">
         <xsl:param name="footnote-number">-1</xsl:param>
         <xsl:variable name="thisnum">
-            <!-- Isolates footnote number in @xml:id-->
+            <!-- Isolates footnote number in @xml:id -->
             <xsl:choose>
                 <xsl:when test="$footnote-number='-1'">
                     <xsl:value-of select="substring-after(@xml:id, '-')"/>
@@ -103,13 +103,11 @@
                             <xsl:apply-templates select="document($biblfilepath)/descendant::t:biblStruct[1]" mode="footnote"/>
                         </xsl:if>
                         <!-- Process all citedRange elements as footnotes -->
-                        <xsl:if test="t:citedRange">
+                        <xsl:if test="t:citedRange">, 
                             <xsl:for-each select="t:citedRange">
-                                <xsl:text>, </xsl:text>
                                 <xsl:apply-templates select="." mode="footnote"/>
                             </xsl:for-each>
                         </xsl:if>
-                        <xsl:text>.</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:apply-templates mode="footnote"/>
@@ -444,16 +442,25 @@
                 </xsl:when>
             </xsl:choose>
         </xsl:variable>
+        <xsl:text> </xsl:text>
         <xsl:value-of select="$prefix"/>
         <xsl:choose>
             <xsl:when test="@target">
                 <a href="{@target}">
                     <xsl:choose>
                         <xsl:when test="@unit='ff'">
+<<<<<<< HEAD
                             <xsl:text>, f. </xsl:text><xsl:apply-templates select="." mode="out-normal"/>
                         </xsl:when>
                         <xsl:otherwise>
                             <xsl:apply-templates select="." mode="out-normal"/>                        
+=======
+                            <xsl:text>, f. </xsl:text>
+                            <xsl:apply-templates select="." mode="out-normal"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="." mode="out-normal"/>
+>>>>>>> dev
                         </xsl:otherwise>
                     </xsl:choose>
                 </a>
@@ -461,14 +468,24 @@
             <xsl:otherwise>
                 <xsl:choose>
                     <xsl:when test="@unit='ff'">
+<<<<<<< HEAD
                         <xsl:text>, f. </xsl:text><xsl:apply-templates select="." mode="out-normal"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:apply-templates select="." mode="out-normal"/>                        
+=======
+                        <xsl:text>, f. </xsl:text>
+                        <xsl:apply-templates select="." mode="out-normal"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="." mode="out-normal"/>
+>>>>>>> dev
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="following-sibling::*">,</xsl:if>
+        <xsl:if test="not(following-sibling::*)">.</xsl:if>
         <xsl:value-of select="$suffix"/>
     </xsl:template>
 
