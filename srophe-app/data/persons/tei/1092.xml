@@ -122,7 +122,8 @@
                 <language ident="en">English</language>
                 <language ident="en-x-gedsh">Names or terms Romanized into English according to the standards
                     adopted by the Gorgias Encyclopedic Dictionary of the Syriac Heritage</language>
-                <language ident="fr-x-bhsyre<!-- This is Zanetti's system, we need to define it) -->">Names or terms Romanized into French according to the standards adopted by the Biblioteca Hagiographica Syriaca Electronica</language>
+                <!-- This is Zanetti's system, we need to define it) -->
+                <language ident="fr-x-bhsyre">Names or terms Romanized into French according to the standards adopted by the Biblioteca Hagiographica Syriaca Electronica</language>
                 <language ident="ar">Arabic</language>
                 <language ident="fr">French</language>
                 <language ident="de">German</language>
@@ -130,9 +131,10 @@
             </langUsage>
         </profileDesc>
         <revisionDesc>
+            <!-- date -->
             <change who="http://syriaca.org/documentation/editors.xml#dmichelson"
                 n="1.0"
-                when="<!-- date -->"> CREATED: person </change>
+                when="2014-05-11"> CREATED: person </change>
         </revisionDesc>
     </teiHeader>
     <text>
