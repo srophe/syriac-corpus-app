@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -308,7 +308,7 @@
             <!-- NOTE: Need to add Identy description if it exists, When Nathan gets element back to me.  -->
             <div class="clearfix">
                 <p>Names: 
-                <xsl:apply-templates select="t:persName[@syriaca-tags='#syriaca-headword' and starts-with(@xml:lang,'syr')]" mode="list">
+                    <xsl:apply-templates select="t:persName[@syriaca-tags='#syriaca-headword' and starts-with(@xml:lang,'syr')]" mode="list">
                         <xsl:sort lang="syr" select="."/>
                     </xsl:apply-templates>
                     <xsl:apply-templates select="t:persName[@syriaca-tags='#syriaca-headword' and starts-with(@xml:lang,'en')]" mode="list">
@@ -411,7 +411,7 @@
                                 
                                 <xsl:text>var placesgeo =</xsl:text>
                                 <xsl:value-of select="//*:div[@id='geojson']"/>
-                                <![CDATA[
+                                
                                 var sropheIcon = L.Icon.extend({
                                       options: {
                                           iconSize:     [38, 38],
@@ -441,8 +441,8 @@
                                         
                                 var geojson = L.geoJson(placesgeo, {
                                         onEachFeature: function (feature, layer){
-                                            var popupContent = "<a href='" + feature.properties.uri + "'>" +
-                                            feature.properties.name + " - " + feature.properties.type + "</a>";
+                                            var popupContent = "&lt;a href='" + feature.properties.uri + "'&gt;" +
+                                            feature.properties.name + " - " + feature.properties.type + "&lt;/a&gt;";
                                             layer.bindPopup(popupContent);
                                             switch (feature.properties.relation) {
                                                 case 'born-at': return layer.setIcon(orangeIcon);
@@ -463,7 +463,7 @@
                                         "Imperium": imperium }).addTo(map);
                                         
                                 geojson.addTo(map);      
-                                ]]></script>
+                                </script>
                         </div> 
                         <!-- <xsl:copy-of select="//*:div[@id='map-data']"/>-->
                     </xsl:if>
@@ -694,15 +694,15 @@
         <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
     </xsl:template>
     <xsl:template match="t:sex">
-            <span class="srp-label">Sex:</span>
-            <xsl:text> </xsl:text>
-            <xsl:apply-templates/>
-            <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
+        <span class="srp-label">Sex:</span>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates/>
+        <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
     </xsl:template>
     <xsl:template match="t:langKnowledge">
-            <span class="srp-label">langKnowledge:</span>
-            <xsl:text> </xsl:text>
-            <xsl:apply-templates/>
+        <span class="srp-label">langKnowledge:</span>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="t:langKnown">
         <xsl:apply-templates/>

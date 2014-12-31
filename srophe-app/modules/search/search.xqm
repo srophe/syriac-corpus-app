@@ -3,6 +3,7 @@ xquery version "3.0";
 module namespace search="http://syriaca.org//search";
 import module namespace persons="http://syriaca.org//persons" at "persons-search.xqm";
 import module namespace places="http://syriaca.org//places" at "places-search.xqm";
+import module namespace spears="http://syriaca.org//spears" at "spear-search.xqm";
 import module namespace common="http://syriaca.org//common" at "common.xqm";
 import module namespace geo="http://syriaca.org//geojson" at "../geojson.xqm";
 
@@ -20,12 +21,13 @@ declare variable $search:perpage {request:get-parameter('perpage', 1) cast as xs
 
 (:~
  : Builds search string and evaluates string.
- : Search stored in map for use by other functions 
+ : Search stored in map for use by other functions
  : @param $collection passed from search page templates to build correct sub-collection search string
 :)
 declare %templates:wrap function search:get-results($node as node(), $model as map(*), $collection as xs:string?){
     let $eval-string := 
                         if($collection = 'persons') then persons:query-string()
+                        else if($collection ='spear') then spears:query-string()
                         else if($collection = '') then places:query-string()
                         else places:query-string()
     return                         
@@ -43,6 +45,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
 :)
 declare function search:search-string($collection as xs:string?){
     if($collection = 'persons') then persons:search-string()
+    else if($collection ='spear') then spears:search-string()
     else places:search-string()
 };
 
@@ -227,6 +230,7 @@ declare %templates:wrap  function search:show-form($node as node()*, $model as m
     if(exists(request:get-parameter-names())) then ''
     else 
         if($collection = 'persons') then <div>{persons:search-form()}</div> 
+        else if($collection ='spear') then <div>{spears:search-form()}</div>
         else <div>{places:search-form()}</div>
 };
 
@@ -248,7 +252,10 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                     <span class="label label-default">{$search:start + $p - 1}</span>
                   </div>
                   <div class="col-md-9"> 
-                    {if($collection = 'persons') then persons:results-node($hit) else places:results-node($hit)} 
+                    {
+                    if($collection = 'persons') then persons:results-node($hit)
+                    else if($collection ='spear') then spears:results-node($hit)    
+                    else places:results-node($hit)} 
                     <div style="margin-bottom:1em; margin-top:-1em; padding-left:1em;">
                         {$hit//tei:desc[starts-with(@xml:id,'abstract')]/descendant-or-self::text()}
                     </div>

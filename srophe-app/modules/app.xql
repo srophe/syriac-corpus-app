@@ -2,13 +2,132 @@ xquery version "3.0";
 
 module namespace app="http://syriaca.org//templates";
 (:~
- : General use xqueries for accross srophe app. 
+ : General use xqueries for accross srophe app.
 :)
+import module namespace metadata="http://syriaca.org//metadata" at "metadata.xqm";
+import module namespace place="http://syriaca.org//place" at "place.xqm";
+
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
+
+(:~
+ : Transform tei to html
+ : @param $node data passed to transform
+:)
+declare function app:tei2html($nodes as node()*) {
+    transform:transform($nodes, doc('../resources/xsl/tei2html.xsl'),() )
+};
+
+(:~
+ : Builds page title
+ : Otherwise build based on page url
+ : @param $metadata:id gets place id from url
+ :)
+declare %templates:wrap function app:page-title($node, $model, $collection){
+    let $page := tokenize(request:get-uri(), '/')[last()]
+    let $title := place:get-place-title($node, $model)
+    return $title
+    (:
+     if($title != '') then place:get-place-title($node, $model)
+     else concat($collection,': ',substring-before($page,'.html'))
+     :)
+};
+
+(:~
+ : Builds Dublin Core metadata
+ : If id parameter is present use place data to generate metadata
+ : @param $metadata:id gets place id from url
+ :) 
+declare function app:get-dc-metadata(){
+    if(exists($id)) then 'get data'
+    else ()
+};
+(:
+ : @depreciated
+ : use tei2html.xslt
+ : Currently used by spear only
+:)
+declare function app:link-icons-inline($nodes, $resource-id){
+<div id="link-icons" class="col-md-4 text-right">
+   {
+    let $link-title := $nodes//tei:place/tei:placeName[@xml:lang='en'][1] | $nodes//tei:person/tei:persName[@xml:lang='en'][1]
+    let $resource-uri := 'place/'
+    return 
+        (
+        app:pleiades-links($nodes/descendant::tei:idno[contains(.,'pleiades')], $link-title,'inline'),
+        app:wikipedia-links($nodes/descendant::tei:idno[contains(.,'wikipedia')],'inline'),
+        app:google-map-links($nodes/descendant::tei:location[@type='gps']/tei:geo,$link-title,$resource-uri, $resource-id,'inline'),
+        <a href="{$resource-uri}/tei" rel="alternate" type="application/tei+xml"><img src="/exist/apps/srophe/resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/></a>,
+        <a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml"><img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/></a>,
+        <a href="javascript:window.print();"><img src="/exist/apps/srophe/resources/img/icons-print.png" alt="The Print format icon" title="click to send this page to the printer"/></a>
+        )    
+    }
+</div>
+};
+
+declare function app:link-icons-list($nodes, $resource-id){
+<div id="see-also" class="well">
+   <h3>See Also</h3>
+   {
+    let $link-title := $nodes//tei:place/tei:placeName[@xml:lang='en'][1] | $nodes//tei:person/tei:persName[@xml:lang='en'][1]
+    let $resource-uri := 'place/'
+    return
+        <ul>
+            {
+            (app:pleiades-links($nodes/descendant::tei:idno[contains(.,'pleiades')], $link-title, 'list'),
+            app:viaf-links($nodes/descendant::tei:idno[contains(.,'http://viaf.org/')]),
+            app:wikipedia-links($nodes/descendant::tei:idno[contains(.,'wikipedia')],'list'),
+            app:google-map-links($nodes/descendant::tei:location[@type='gps']/tei:geo, $link-title, $resource-uri, $resource-id,'list')
+            )
+            }
+            <li><a href="{$resource-uri}/tei" rel="alternate" type="application/tei+xml">TEI XML source data for this resource</a></li>
+            <li><a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml">Atom XML format</a></li>
+        </ul>   
+    }
+</div>
+};
+
+declare function app:viaf-links($nodes){
+for $node in $nodes
+return 
+   <li><a href="{normalize-space(.)}">VIAF</a></li>
+};
+
+declare function app:pleiades-links($nodes, $link-title, $mode){
+for $node in $nodes
+return 
+    if($mode = 'top') then 
+        <a href="{normalize-space(.)}"><img src="/exist/apps/srophe/resources/img/circle-pi-25.png" alt="Image of the Greek letter pi in blue; small icon of the Pleiades project" title="click to view {$link-title} in Pleiades"/></a>
+    else <li><a href="{normalize-space(.)}">{$link-title} in Pleiades</a></li>
+};
+
+declare function app:wikipedia-links($nodes, $mode){
+for $node in $nodes
+let $title := replace(tokenize(.,'/')[last()],'_',' ')
+return 
+    if($mode = 'top') then 
+        <a href="{normalize-space(.)}"><img src="/exist/apps/srophe/resources/img/Wikipedia-25.png" alt="The Wikipedia icon" title="click to view {$title} in Wikipedia"/></a>
+    else <li><a href="{normalize-space(.)}">{$title} in Wikipedia</a></li>        
+};
+
+declare function app:google-map-links($nodes, $link-title, $resource-uri, $resource-id, $mode){
+for $node in $nodes
+return
+    if($mode = 'top') then 
+        <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://syriaca.org/geo/atom.xql?id={$resource-id}">
+            <img src="/exist/apps/srophe/resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {$link-title} on Google Maps"/>
+        </a>
+    else 
+    <li>
+        <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://syriaca.org/geo/atom.xql?id={$resource-id}">
+            {$link-title} on Google Maps
+        </a>
+    </li> 
+};
+
 
 (:~
  : Generic contact form can be added to any page by calling:
@@ -81,7 +200,7 @@ declare function app:transform($nodes as node()*) as item()* {
     return 
         typeswitch($node)
             case text() return $node
-            case comment() return $node
+            case comment() return ()
             case element(tei:list) return element ul {app:transform($node/node())}
             case element(tei:item) return element li {app:transform($node/node())}
             case element(tei:label) return element span {app:transform($node/node())}

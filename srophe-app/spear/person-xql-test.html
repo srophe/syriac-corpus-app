@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div xmlns="http://www.w3.org/1999/xhtml" data-template="templates:surround" data-template-with="templates/persons.html" data-template-at="content">
+    <div data-template="spear:get-person-factoid">
+        <!-- Page title and resource links-->
+        <div class="row title">
+            <h1 class="col-md-8" data-template="spear:h1"/>
+            <div data-template="app:link-icons-inline"/>
+        </div>
+        <!-- Resource URI -->
+        <div class="uri">
+            <small>
+                <a href="/documentation/terms.html#person-uri" title="Click to read more about URIs" class="no-print-link">
+                    <div class="helper circle noprint">
+                        <p>i</p>
+                    </div>
+                </a>
+                <p>
+                    <span class="srp-label">Resoruce URI: </span>
+                    <span data-template="spear:uri"/>
+                </p>
+            </small>
+        </div>
+        <div class="row">
+            <!-- Column 1 -->
+            <div class="col-md-8 column1">
+                <div id="persnames" class="well">
+                    <div data-template="spear:names"/>
+                </div>
+                <!-- 
+                floruit, gender/sex, ethnic label, languages spoken, religious affiliation, and occupation/vocation/office
+                Personal dates offices etc. 
+                
+                ethnic label: <trait type=“ethnicity”>
+                languages spoken: <langKnown>
+                religious affiliation: <faith>
+                education: <education>
+                
+                Taken care in state
+                occupation: <state type=“occupation”>
+                vocation: <state type=“vocation”>
+                office: <state type=“office”>
+                -->
+                <div data-template="spear:dates"/>
+                <div data-template="spear:ethnicity"/>
+                <div data-template="spear:langKnown"/>
+                <div data-template="spear:faith"/>
+                <div data-template="spear:faith"/>
+                <div data-template="spear:education"/>
+                <div data-template="spear:state"/>
+                <!-- Events and event timeline options for timeline are events, personal should also accept a title?-->
+                <div data-template="spear:timeline" data-template-dates="events"/>
+                <div data-template="spear:events"/>
+            </div>
+            <!-- Column 2 -->
+            <div class="col-md-4 column2">
+                <div data-template="app:link-icons-list"/>
+            </div>
+        </div>
+        <!--<div data-template="spear:display-persons"/>-->
+    </div>
+</div>

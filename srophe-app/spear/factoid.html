@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<div xmlns="http://www.w3.org/1999/xhtml" data-template="templates:surround" data-template-with="templates/persons.html" data-template-at="content">
+    <div data-template="spear:get-spear-data" data-template-view="factoid">
+        <!-- Page title and resource links-->
+        <div data-template="spear:h1"/>
+        <!-- Resource URI -->
+        <!-- Should there be a resource URI? to the gazetter place?  -->
+        <!-- What will factoid uris look like? will they have URIs? -->
+        <div class="row">
+            <!-- Column 1 -->
+            <div class="col-md-8 column1">
+                <!-- NOTE: should not appear for place factoids? -->
+                <div id="persnames" class="well">
+                    <div data-template="spear:names"/>
+                </div>
+                <!-- 
+                floruit, gender/sex, ethnic label, languages spoken, religious affiliation, and occupation/vocation/office
+                Personal dates offices etc. 
+                
+                ethnic label: <trait type=“ethnicity”>
+                languages spoken: <langKnown>
+                religious affiliation: <faith>
+                education: <education>
+                
+                Taken care in state
+                occupation: <state type=“occupation”>
+                vocation: <state type=“vocation”>
+                office: <state type=“office”>
+                -->
+                <div data-template="spear:dates"/>
+                <div data-template="spear:ethnicity"/>
+                <div data-template="spear:langKnown"/>
+                <div data-template="spear:faith"/>
+                <div data-template="spear:faith"/>
+                <div data-template="spear:education"/>
+                <div data-template="spear:state"/>
+                
+                <!-- Events and event timeline options for timeline are events, personal should also accept a title?-->
+                <div data-template="spear:timeline" data-template-dates="events"/>
+                <!-- Events listing -->
+                <div class="panel panel-default">
+                    <div class="panel-heading clearfix">
+                        <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Events</h4>
+                        <!-- Sort options for events list -->
+                        <div class="btn-group pull-right">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                    Sort
+                                    <span class="caret"/>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="#" id="manuscript">Textual</a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a role="menuitem" tabindex="-1" href="#" id="date">Chronological</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div data-template="spear:events"/>
+                    </div>
+                </div>
+                <!-- Citation -->
+                <div data-template="spear:bibl"/>
+            </div>
+            <!-- Column 2 -->
+            <div class="col-md-4 column2">
+                <!-- Get related from Gazetteer or Persons db -->
+                <div data-template="spear:related-rec"/>
+                <div data-template="app:link-icons-list"/>
+            </div>
+        </div>
+        <div data-template="spear:citation"/>
+    </div>
+    <!-- Script for dynamically changing sort order -->
+    <script>
+        
+        $( function() {
+            var URL = $(location).attr('href');
+            $('#date').click( function() {
+                event.preventDefault();
+                $('#events-list').load(URL +  "&amp;sort=date #events-list");
+            });
+            $('#manuscript').click( function() {
+                event.preventDefault();
+                $('#events-list').load(URL + " #events-list");
+            });
+        } );
+        </script>
+</div>

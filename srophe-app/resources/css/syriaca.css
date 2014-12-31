@@ -1,3 +1,4 @@
+/* Application styles could go here */
 /*
  * Colors:
  * Dark red: 753C28
@@ -47,5 +48,3 @@ h3.syr{
     margin-top:.5em;
     float:right !important;
 }
-
-.srp-label {background-color:none; color:#999999; font-weight:bold;}

@@ -3,10 +3,12 @@ xquery version "3.0";
 module namespace geo="http://syriaca.org//geojson";
 (:~
  : Module returns coordinates for leafletjs maps, or for API requests
- : @author Winona Salesky <wsalesky@gmail.com> 
+ : @author Winona Salesky <wsalesky@gmail.com>
  : @authored 2014-06-25
 :)
+
 import module namespace config="http://syriaca.org//config" at "config.xqm";
+import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 
 declare namespace json = "http://www.json.org";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
@@ -19,24 +21,27 @@ declare namespace transform="http://exist-db.org/xquery/transform";
  : @param $rec-type place type
  : @param $title place title
 :)
-declare function geo:build-json($geo as xs:string,$id as xs:string, $rec-type as xs:string, $title as xs:string, $rec-rel as xs:string?) as element(features){
-    <features json:array="true">
-        <type>Feature</type>
-        <geometry type="Point">
-            <coordinates json:literal="true">{substring-after($geo,' ')}</coordinates>
-            <coordinates json:literal="true">{substring-before($geo,' ')}</coordinates>
-        </geometry>
-        <properties>
-            <uri>{concat('http://syriaca.org/place/',substring-after($id,'place-'))}</uri>
-            <placeType>{if($rec-type='open-water') then 'openWater' else $rec-type}</placeType>
+declare function geo:build-json($geo as xs:string,$id as xs:string, $rec-type as xs:string, $title as xs:string, $rec-rel as xs:string?) as element(features){    
+    <item type="object">
+        <pair name="type"  type="string">Feature</pair>
+        <pair name="geometry"  type="object">
+            <pair name="type"  type="string">Point</pair>
+            <pair name="coordinates"  type="array">
+                <item type="number">{substring-after($geo,' ')}</item>
+                <item type="number">{substring-before($geo,' ')}</item>
+            </pair>
+        </pair>
+        <pair name="properties"  type="object">
+            <pair name="uri"  type="string">{concat('http://syriaca.org/place/',substring-after($id,'place-'))}</pair>
+            <pair name="placeType"  type="string">{if($rec-type='open-water') then 'openWater' else $rec-type}</pair>
             {
               if($rec-rel != '') then 
-                <placeRelation>{$rec-rel}</placeRelation>
+                <pair name="relation"  type="string">{$rec-rel}</pair>
               else ()  
             }
-            <name>{$title} - {if($rec-type='open-water') then 'openWater' else $rec-type}</name>
-        </properties>
-    </features>
+            <pair name="name"  type="string">{$title} - {if($rec-type='open-water') then 'openWater' else $rec-type}</pair>
+        </pair>
+    </item>
 };
 
 (:~
@@ -118,8 +123,11 @@ declare function geo:kml-wrapper($geo-search as element()*, $type as xs:string*,
  : @param $output indicates json or kml
 :)
 declare function geo:json-wrapper($geo-search as element()*, $type as xs:string*, $output as xs:string*) as element()*{
-    <json type="FeatureCollection">
-        {geo:get-coordinates($geo-search,$type,$output)}
+    <json type="object">
+        <pair name="type"  type="string">FeatureCollection</pair>
+        <pair name="features"  type="array">
+            {geo:get-coordinates($geo-search,$type,$output)}
+        </pair>
     </json>
 };
 
@@ -130,5 +138,79 @@ declare function geo:json-wrapper($geo-search as element()*, $type as xs:string*
  : @param $output indicates json or kml
 :)
 declare function geo:json-transform($geo-search as node()*, $type as xs:string*, $output as xs:string*){
-    transform:transform(geo:json-wrapper($geo-search, $type, $output), doc('../resources/xsl/geojson.xsl'),() )  
+    (:transform:transform(geo:json-wrapper($geo-search, $type, $output), doc('../resources/xsl/geojson.xsl'),() ):)
+    xqjson:serialize-json(geo:json-wrapper($geo-search, $type, $output))
+    (:$geo-search:)
+};
+
+declare function geo:build-map($geo-search as node()*, $type as xs:string*, $output as xs:string*){
+    <div id="map-data" style="margin-bottom:1em;">
+        <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2"/>
+        <script src="http://isawnyu.github.com/awld-js/lib/requirejs/require.min.js" type="text/javascript"/>
+        <script src="http://isawnyu.github.com/awld-js/awld.js?autoinit" type="text/javascript"/>
+        <script type="text/javascript" src="/exist/apps/srophe/resources/leaflet/leaflet.awesome-markers.js"/>
+        <div id="map" style="height: 250px;"/>
+        <div class="hint">Not all places in the list below are represented on the map above.</div>
+        <script type="text/javascript">
+            <![CDATA[
+            var terrain = L.tileLayer('http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});
+                                
+            /* Not added by default, only through user control action */
+            var streets = L.tileLayer('http://api.tiles.mapbox.com/v3/sgillies.map-pmfv2yqx/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});
+                                
+            var imperium = L.tileLayer('http://pelagios.dme.ait.ac.at/tilesets/imperium//{z}/{x}/{y}.png', {attribution: 'Tiles: &lt;a href="http://pelagios-project.blogspot.com/2012/09/a-digital-map-of-roman-empire.html"&gt;Pelagios&lt;/a&gt;, 2012; Data: NASA, OSM, Pleiades, DARMC', maxZoom: 11 });
+                                
+            var placesgeo = ]]>{xqjson:serialize-json(geo:json-wrapper($geo-search, $type, $output))}
+            <![CDATA[                                
+            var sropheIcon = L.Icon.extend({
+                                            options: {
+                                                iconSize:     [38, 38],
+                                                iconAnchor:   [22, 94],
+                                                popupAnchor:  [-3, -76]
+                                                }
+                                            });
+                                            var redIcon =
+                                                L.AwesomeMarkers.icon({
+                                                    icon:'fa-circle',
+                                                    markerColor: 'red'
+                                                }),
+                                            orangeIcon =  
+                                                L.AwesomeMarkers.icon({
+                                                    icon:'fa-circle',
+                                                    markerColor: 'orange'
+                                                }),
+                                            purpleIcon = 
+                                                L.AwesomeMarkers.icon({
+                                                    icon:'fa-circle',
+                                                    markerColor: 'purple'
+                                                }),
+                                            blueIcon =  L.AwesomeMarkers.icon({
+                                                    icon:'fa-circle',
+                                                    markerColor: 'blue'
+                                                });
+                                        
+            var geojson = L.geoJson(placesgeo, {onEachFeature: function (feature, layer){
+                                            var popupContent = "<a href='" + feature.properties.uri + "'>" +
+                                            feature.properties.name + " - " + feature.properties.type + "</a>";
+                                            layer.bindPopup(popupContent);
+                                            switch (feature.properties.relation) {
+                                                case 'born-at': return layer.setIcon(orangeIcon);
+                                                case 'died-at':   return layer.setIcon(redIcon);
+                                                case 'has-literary-connection-to-place':   return layer.setIcon(purpleIcon);
+                                                case 'has-relation-to-place':   return layer.setIcon(blueIcon);
+                                            }
+                                            
+                                        }
+                                })
+        var map = L.map('map').fitBounds(geojson.getBounds(),{maxZoom: 5});     
+        terrain.addTo(map);
+                                        
+        L.control.layers({
+                        "Terrain (default)": terrain,
+                        "Streets": streets,
+                        "Imperium": imperium }).addTo(map);
+        geojson.addTo(map);     
+        ]]>
+        </script>
+    </div> 
 };

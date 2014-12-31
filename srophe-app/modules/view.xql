@@ -1,7 +1,7 @@
 (:~
  : This is the main XQuery which will (by default) be called by controller.xql
  : to process any URI ending with ".html". It receives the HTML from
- : the controller and passes it to the templating system. 
+ : the controller and passes it to the templating system.
  :)
 xquery version "3.0";
 
@@ -15,6 +15,8 @@ import module namespace config="http://syriaca.org//config" at "config.xqm";
 import module namespace app="http://syriaca.org//templates" at "app.xql";
 import module namespace place="http://syriaca.org//place" at "place.xqm";
 import module namespace person="http://syriaca.org//person" at "person.xqm";
+import module namespace spear="http://syriaca.org//spear" at "spear.xqm";
+import module namespace ms="http://syriaca.org//manuscripts" at "manuscripts.xqm";
 import module namespace browse="http://syriaca.org//browse" at "browse.xqm";
 import module namespace search="http://syriaca.org//search" at "search/search.xqm";
 import module namespace metadata="http://syriaca.org//metadata" at "metadata.xqm";

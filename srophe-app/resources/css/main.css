@@ -17,15 +17,13 @@
 body {font-family: arial, sans-serif; padding-top:50px;}
 /* This is the background color for geo */
 #main {margin: 0 auto; padding:0; border-top:1px solid #753C28;}
+
 /* all backgrounds */
 #content {margin:auto; padding-top:2em; background-color:white;}
 .navbar {border-bottom:4px solid #753C28 !important;}
-
 .navbar-brand {margin-top:-.5em; padding-left:0;}
 .navbar-brand img {padding-left:0;}
-
 footer {text-align:center; color:white;}
-
 
 /* Typography */
 h1 {font-size:1.5em; margin:0 0 .25em 0; color:#E69849; font-weight:500;}
@@ -89,7 +87,6 @@ h4 {font-size: 1em; margin-top:1em;}
     
     
 /* footnote styles */
-
 .footnote-refs, .footnote-tgt {
     font-size: .7em;
     line-height: 0.5em;
@@ -427,3 +424,5 @@ label.error {
 .citationinfo {padding:1em; color: #555; border-top:1px solid #666666; background-color:#eee; }
 #citation {display:none;}
 .hint{margin:.5em; color: grey; font-style:italic;}
+.uri {margin:0 1em 1em; color: #999999;}
+p.single-space{}
