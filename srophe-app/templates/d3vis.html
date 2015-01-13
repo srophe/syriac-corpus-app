@@ -8,8 +8,8 @@
         <link rel="stylesheet" type="text/css" href="/exist/apps/srophe/resources/css/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="/exist/apps/srophe/resources/css/main.css"/>
         <link rel="stylesheet" type="text/css" href="/exist/apps/srophe/resources/css/syriaca.css"/>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>
         <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"/>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>
         <style type="text/css">
                 .node {
                    stroke: #fff;
@@ -19,6 +19,34 @@
                      stroke: #999;
                      stroke-opacity: .6;
                  }
+                 body {
+              font: 10px sans-serif;
+            }
+              .chart {
+                font-family: Arial, sans-serif;
+                font-size: 10px;
+              }
+            
+              .axis path, .axis line {
+                fill: none;
+                stroke: #0000ff;
+                shape-rendering: crispEdges;
+              }
+            
+              .bar {
+                fill: steelblue;
+                z-index: 1000;
+              }
+              .grid .tick {
+                stroke: lightgrey;
+                opacity: 0.7;
+                z-index: -1000;
+            }
+            .grid path {
+                  stroke-width: 0;
+                  z-index: -1000;
+            
+            }
         </style>
     </head>
     <body>

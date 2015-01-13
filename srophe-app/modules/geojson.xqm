@@ -150,7 +150,7 @@ declare function geo:build-map($geo-search as node()*, $type as xs:string*, $out
         <script src="http://isawnyu.github.com/awld-js/awld.js?autoinit" type="text/javascript"/>
         <script type="text/javascript" src="/exist/apps/srophe/resources/leaflet/leaflet.awesome-markers.js"/>
         <div id="map" style="height: 250px;"/>
-        <div class="hint">Not all places in the list below are represented on the map above.</div>
+        <div class="hint map">Not all places in the list below are represented on the map above.</div>
         <script type="text/javascript">
             <![CDATA[
             var terrain = L.tileLayer('http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});

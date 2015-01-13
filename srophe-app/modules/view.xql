@@ -19,7 +19,6 @@ import module namespace spear="http://syriaca.org//spear" at "spear.xqm";
 import module namespace ms="http://syriaca.org//manuscripts" at "manuscripts.xqm";
 import module namespace browse="http://syriaca.org//browse" at "browse.xqm";
 import module namespace search="http://syriaca.org//search" at "search/search.xqm";
-import module namespace metadata="http://syriaca.org//metadata" at "metadata.xqm";
 import module namespace geo="http://syriaca.org//geojson" at "geojson.xqm";
 import module namespace nav="http://syriaca.org//nav" at "nav.xqm";
 

@@ -2,10 +2,9 @@ xquery version "3.0";
 
 (:~
  : A set of helper functions to access the application context from
- : within a module. 
+ : within a module.
  :)
 module namespace config="http://syriaca.org//config";
-import module namespace metadata="http://syriaca.org//metadata" at "metadata.xqm";
 
 declare namespace templates="http://exist-db.org/xquery/templates";
 
@@ -61,20 +60,15 @@ declare function config:expath-descriptor() as element(expath:package) {
     $config:expath-descriptor
 };
 
-declare %templates:wrap function config:app-title2($node as node(), $model as map(*)) {
-    metadata:get-title($node,$model)
-};
-
 declare %templates:wrap function config:app-title($node as node(), $model as map(*)) as text() {
     $config:expath-descriptor/expath:title/text()
 };
 
 declare function config:app-meta($node as node(), $model as map(*)) as element()* {
-    metadata:get-dc-metadata()
-    (:<meta xmlns="http://www.w3.org/1999/xhtml" name="description" content="{$config:repo-descriptor/repo:description/text()}"/>,
+    <meta xmlns="http://www.w3.org/1999/xhtml" name="description" content="{$config:repo-descriptor/repo:description/text()}"/>,
     for $author in $config:repo-descriptor/repo:author
     return
-        <meta xmlns="http://www.w3.org/1999/xhtml" name="creator" content="{$author/text()}"/>:)
+        <meta xmlns="http://www.w3.org/1999/xhtml" name="creator" content="{$author/text()}"/>
 };
 
 (:~

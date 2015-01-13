@@ -5,7 +5,7 @@ xquery version "3.0";
 
 module namespace spear="http://syriaca.org//spear";
 
-
+import module namespace app="http://syriaca.org//templates" at "app.xql";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 import module namespace geo="http://syriaca.org//geojson" at "geojson.xqm";
@@ -57,7 +57,7 @@ declare %templates:wrap function spear:h1($node as node(), $model as map(*)){
     let $title :=  
         if($rec-exists) then $rec-exists/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"]
         else $data/tei:listPerson/descendant::tei:persName[1] | $data/descendant::tei:placeName[1]
-    return spear:tei2html(
+    return app:tei2html(
                <body xmlns="http://www.tei-c.org/ns/1.0">
                     <srophe-title>
                         {$title}
@@ -67,21 +67,30 @@ declare %templates:wrap function spear:h1($node as node(), $model as map(*)){
 
 (:~
  : Checks link to related record
-             if(contains($spear:id,'person') then 'Persons databse' 
-            else 'The Syriac Gazetteer'
-
+    if(contains($spear:id,'person') then 'Persons databse' 
+    else 'The Syriac Gazetteer'
+    NOTE: wouldnt it be nice to pull map from person record here? , maybe even just with jquery... 
+             <div class="related">
+             <div id="related"></div>
+              <script>
+                <![CDATA[
+                $( "#related" ).load( "]]>{$spear:id}<![CDATA[ #placenames" );
+                ]]>
+             </script>
+             </div>
 :)
 declare %templates:wrap function spear:related-rec($node as node(), $model as map(*)){
     let $data := $model("spear-data")[1]
     let $rec-exists := spear:canonical-rec()  
     let $type := string($rec-exists/ancestor::tei:place/@type)
     let $geo := $rec-exists/ancestor::tei:body//tei:geo
+    let $abstract := $rec-exists/ancestor::tei:body//tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')] | $rec-exists/ancestor::tei:body//tei:note[@type='abstract']
     return
         if($rec-exists) then
             <div class="well">
              <h3>{if(contains($spear:id,'person')) then 'From Persons database' else 'From The Syriac Gazetteer' }</h3>
                 {
-                if($geo) then 
+                (if($geo) then 
                     <div>
                         <div>
                             {geo:build-map($geo,'','')}
@@ -99,7 +108,7 @@ declare %templates:wrap function spear:related-rec($node as node(), $model as ma
                                         <ul>
                                         {
                                             for $location in $data//tei:location
-                                            return spear:tei2html($location)
+                                            return app:tei2html($location)
                                         }
                                         </ul>
                                     </div>
@@ -107,9 +116,11 @@ declare %templates:wrap function spear:related-rec($node as node(), $model as ma
                                 }
                         </div>    
                     </div>
-                else ()      
+                else (),
+                app:tei2html($abstract)
+                )
                 }
-                        <p>View full entry in <a href="{$spear:id}">{if(contains($spear:id,'person')) then 'Persons database' else 'The Syriac Gazetteer' }</a></p>
+               <p><hr/>View full entry in <a href="{$spear:id}">{if(contains($spear:id,'person')) then 'Persons database' else 'The Syriac Gazetteer' }</a></p>
             </div> 
         else ()    
 };
@@ -117,7 +128,9 @@ declare %templates:wrap function spear:related-rec($node as node(), $model as ma
 declare %templates:wrap function spear:names($node as node(), $model as map(*)){
     for $persName in $model("spear-data")//tei:listPerson/tei:person/tei:persName
     return 
-    <span dir="ltr" class="label label-default pers-label">{spear:tei2html($persName)}</span>
+        if($persName/text() or $persName/child::*) then
+            <span dir="ltr" class="label label-default pers-label">{app:tei2html($persName)}</span>
+        else ()    
 };
 
 declare %templates:wrap function spear:timeline($node as node(), $model as map(*), $dates){
@@ -128,7 +141,7 @@ return
                 <div class="row">
                         <div class="col-md-9">
                             <div class="timeline">
-                                <div>TIMELINE will go here</div>
+                                <div>{timeline:timeline($data, 'Events Timeline')}</div>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -140,7 +153,7 @@ return
                                  $data//tei:floruit[@when] | $data//tei:floruit[@notBefore]| $data//tei:floruit[@notAfter] 
                                  | $data//tei:state[@when] | $data//tei:state[@notBefore] | $data//tei:state[@notAfter] | $data//tei:state[@from] | $data//tei:state[@to]
                                  return 
-                                    <li>{spear:tei2html($date)}</li>
+                                    <li>{app:tei2html($date)}</li>
                                 }
                             </ul>
                         </div>
@@ -164,7 +177,7 @@ return
             {
                 for $date in $data//tei:birth | $data//tei:death | $data//tei:floruit | $data//tei:state[@when or @notBefore or @notAfter or @to or @from]
                 return 
-                    <li>{spear:tei2html($date)}</li>
+                    <li>{app:tei2html($date)}</li>
                 }
             </ul>
         )
@@ -174,12 +187,12 @@ return
 
 declare %templates:wrap function spear:bibl($node as node(), $model as map(*)){
 let $sources := $model("spear-data")[1]
-return tei2:sources($sources)
+return app:tei2html($sources)
 };
 
 declare %templates:wrap function spear:citation($node as node(), $model as map(*)){
 let $citation := $model("spear-data")[1]
-return tei2:citation($citation)
+return app:tei2html($citation)
 }; 
 
 (:
@@ -191,30 +204,30 @@ let $data := $model("spear-data")
 return
     if($data//tei:state[not(@when) and not(@notBefore) and not(@notAfter) and not(@to) and not(@from)]) then 
         for $state in $data//tei:state[not(@when) and not(@notBefore) and not(@notAfter) and not(@to) and not(@from)]
-        return <p>{spear:tei2html($state)}</p>
+        return <p>{app:tei2html($state)}</p>
     else ()
 };
 
 declare %templates:wrap function spear:langKnown($node as node(), $model as map(*)){
 let $langKnown := $model("spear-data")//tei:langKnown
 return
-  spear:tei2html($langKnown)  
+  app:tei2html($langKnown)  
 };
 
 declare %templates:wrap function spear:ethnicity($node as node(), $model as map(*)){
 let $ethnicity := $model("spear-data")//tei:ethnicity
 return
-  spear:tei2html($ethnicity)  
+  app:tei2html($ethnicity)  
 };
 declare %templates:wrap function spear:faith($node as node(), $model as map(*)){
 let $faith := $model("spear-data")//tei:faith
 return
-  spear:tei2html($faith)  
+  app:tei2html($faith)  
 };
 declare %templates:wrap function spear:education($node as node(), $model as map(*)){
 let $education := $model("spear-data")//tei:education
 return
-  spear:tei2html($education)  
+  app:tei2html($education)  
 };
 (:
 : Events for persons and places are more complicated, group by @type attestation
@@ -245,7 +258,7 @@ declare %templates:wrap function spear:events($node as node(), $model as map(*))
                 <ul>
                     {
                         for $e in $event//tei:desc
-                        return spear:tei2html($e)
+                        return app:tei2html($e)
                     }
                 </ul>
             </li>
@@ -256,12 +269,22 @@ declare %templates:wrap function spear:events($node as node(), $model as map(*))
         {
             for $event in $data//tei:event
             for $e in $event//tei:desc
-            return spear:tei2html($e)
-
+            return app:tei2html($e)
          }
         </ul>
          }
 </div>
+};
+
+declare %templates:wrap function spear:link-icons-list($node as node(), $model as map(*)){
+let $data := $model("spear-data")
+let $links:=
+    <body xmlns="http://www.tei-c.org/ns/1.0">
+        <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
+            {$data//tei:person//tei:idno, $data//tei:person//tei:location}
+        </see-also>
+    </body>
+return app:tei2html($links)
 };
 
 declare %templates:wrap function spear:get-visualizations($node as node(), $model as map(*)){
@@ -276,7 +299,4 @@ return d3:relationships($data)
 };
 :)
 
-declare function spear:tei2html($nodes as node()*) {
-transform:transform($nodes, doc('../resources/xsl/tei2html.xsl'),() )
-};
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -243,7 +243,7 @@
         </xsl:if>
        
         <!-- Confessions/Religious Communities -->
-        <xsl:if test="t:state[@type='confession']">
+        <xsl:if test="t:confessions/t:state[@type='confession']">
             <div id="description">
                 <h3>Known Religious Communities</h3>
                 <p class="caveat">
@@ -873,18 +873,18 @@
     <!-- Named template to handle nested confessions -->
     <xsl:template name="confessions">
         <!-- Variable stores all confessions from confessions.xml -->
-        <xsl:variable name="confessions" select="/child::*/t:confessions/descendant::t:list"/>
-        <xsl:variable name="place-data" select="."/>
+        <xsl:variable name="confessions" select="/t:body/t:confessions/descendant::t:list"/>
+        <xsl:variable name="place-data" select="/t:body/t:confessions"/>
         <!-- Variable to store the value of the confessions of current place-->
         <xsl:variable name="current-confessions">
-            <xsl:for-each select="t:state[@type='confession']">
+            <xsl:for-each select="//t:state[@type='confession']">
                 <xsl:variable name="id" select="substring-after(@ref,'#')"/>
                 <!-- outputs current confessions as a space seperated list -->
                 <xsl:value-of select="concat($id,' ')"/>
             </xsl:for-each>
         </xsl:variable>
         <!-- Works through the tree structure in the confessions.xml to output only the relevant confessions -->
-        <xsl:for-each select="/child::*/t:confessions/descendant::t:list[1]">
+        <xsl:for-each select="/t:body/t:confessions/descendant::t:list[1]">
             <ul>
                 <!-- Checks for top level confessions that may have a match or a descendant with a match, supresses any that do not -->
                 <xsl:if test="descendant-or-self::t:item[contains($current-confessions,@xml:id)]">

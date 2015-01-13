@@ -22,12 +22,21 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 declare variable $person:id {request:get-parameter('id', '')};
 
 (:~
+ : Value passed through app:page-title() 
+:)
+declare function person:html-title(){
+    let $placeid := concat('place-',$place:id)
+    let $title := collection($config:app-root || "/data/places/tei")/id($placeid)/ancestor::tei:TEI//tei:titleStmt/tei:title[@level='a'][1]
+    return normalize-space($title)
+};
+
+(:~
  : Retrieve persons record
  : Adds persons data to map function
  : @param $id persons id
  :)
 declare function person:get-persons($node as node(), $model as map(*)){
-    let $personsid := concat('person-',$person:id)
+let $personsid := concat('person-',$person:id)
     for $recs in collection($config:app-root || "/data/persons/tei")/id($personsid)
     let $rec := $recs/ancestor::tei:TEI
     return map {"persons-data" := $rec}
@@ -67,7 +76,6 @@ declare %templates:wrap function person:names($node as node(), $model as map(*))
     return app:tei2html($nodes)  
 };
 
-
 declare %templates:wrap function person:timeline($node as node(), $model as map(*), $dates){
 let $data := $model("persons-data")
 return
@@ -102,7 +110,7 @@ return
      else ()
 };
 
-declare %templates:wrap function person:related-places($node as node(), $model as map(*), $dates){
+declare %templates:wrap function person:related-places($node as node(), $model as map(*)){
 let $data := $model("persons-data")
 let $geo-hits := person:get-related($data)//tei:geo
 return 
@@ -220,34 +228,6 @@ return
 
 
 (:
- : @depreciated
- : Use OCLC API to return VIAF records
- : limit to first 5 results
- : @param $rec
- : NOTE param should just be tei:idno as string
-:)
-declare function person:worldcat-ref($rec){
-if($rec//tei:idno[contains(.,'http://worldcat.org/identities/lccn-n')]) then 
-    <div id="worldcat-refs" class="well">
-        {
-            for $viaf-ref in $rec//tei:idno[contains(.,'http://worldcat.org/identities/lccn-n')]
-            let $build-request :=
-                     <http:request href="{$viaf-ref}" method="get"/>
-            let $results :=  http:send-request($build-request)//by 
-            let $total-works := string($results/ancestor::Identity//nameInfo/workCount)
-            return 
-              <ul id="{$viaf-ref}" count="{$total-works}">
-                    {
-                    for $citation in $results/citation[position() lt 5]
-                    return
-                        <li ref="{concat('http://www.worldcat.org/oclc/',substring-after($citation/oclcnum/text(),'ocn'))}">{$citation/title/text()}</li>
-                    }
-              </ul>
-        }  
-    </div>    
-else ()
-};
-(:
  : Return bibls for use in sources
 :)
 declare %templates:wrap function person:sources($node as node(), $model as map(*)){
@@ -283,30 +263,3 @@ let $links:=
     </body>
 return app:tei2html($links)
 };
-
-(:~ 
- : @depreciated
- : Pull together persons page data   
- : Adds related persons and nested locations to full TEI document
- : Passes xml to persons page.xsl for html transformation
- NOTE : add try catch? for worldcat so it fails gracefully.
-:) 
-declare %templates:wrap function person:get-persons-data($node as node(), $model as map(*)){
-   for $rec in $model("persons-data")
-   let $buildRec :=
-                <TEI
-                    xml:lang="en"
-                    xmlns:xi="http://www.w3.org/2001/XInclude"
-                    xmlns:svg="http://www.w3.org/2000/svg"
-                    xmlns:math="http://www.w3.org/1998/Math/MathML"
-                    xmlns="http://www.tei-c.org/ns/1.0">
-                    {
-                       ($rec/child::*,person:get-related($rec),person:build-geojson($rec),person:worldcat-ref($rec))
-                    }
-                    </TEI>
-    let $cache :='Change value to force page refresh 7643'
-    return
-      (:$buildRec:)
-       transform:transform($buildRec, doc('../resources/xsl/personspage.xsl'),() )
-};
- 
