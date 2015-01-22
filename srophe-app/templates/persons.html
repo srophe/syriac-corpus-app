@@ -4,7 +4,7 @@
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title data-template="app:page-title" data-template-collection="Persons">Persons</title>
+        <title data-template="config:app-title2">Persons</title>
         <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"/>
         <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/"/>
         <!--<meta name="DC.subject" property="dc.subject" content="Geography, Ancient"/>-->
@@ -68,23 +68,21 @@
                             <a href="about.html">about</a>
                         </li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a class="pull-right" href="search.html">advanced search</a>
-                        </li>
-                    </ul>
-                    <div class="col-xs-6 col-sm-6 col-md-3 pull-right">
-                        <form class="navbar-form navbar-right" role="search" action="search.html" method="get">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search" name="q" id="q"/>
-                                <div class="input-group-btn">
-                                    <button class="btn btn-default" type="submit">
-                                        <span class="glyphicon glyphicon-search"/>
-                                    </button>
-                                </div>
+                    <form class="navbar-form navbar-right navbar-input-group" role="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search" name="q" id="q"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <span class="glyphicon glyphicon-search"/>
+                                </button>
                             </div>
-                        </form>
-                    </div>
+                            <div class="input-group-btn">
+                                <span class="btn btn-default">
+                                    <a href="search.html" title="advanced search"><span class="glyphicon glyphicon-cog"/></a>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
                 </div><!--/.nav-collapse -->
             </div>
         </div>
