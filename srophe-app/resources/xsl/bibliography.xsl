@@ -70,51 +70,59 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <li id="{@xml:id}">
-            <span class="anchor"/>
-            <!-- Display footnote number -->
-            <span class="footnote-tgt">
-                <xsl:value-of select="$thisnum"/>
-            </span>
-            <xsl:text> </xsl:text>
-            <span class="footnote-content">
-                <!-- if there is an analytic title present, then we have a separately titled book section -->
-                <xsl:if test="t:title[@level='a']">
-                    <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-                    <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',3)"/>
-                    <xsl:if test="t:author">
-                        <xsl:text>, </xsl:text>
-                    </xsl:if>
-                    <xsl:text>“</xsl:text>
-                    <xsl:apply-templates select="t:title[@level='a'][1]" mode="footnote"/>
-                    <xsl:text>” in </xsl:text>
-                </xsl:if>
-                <!-- if the reference points at a master bibliographic record file, use it; otherwise, do 
+        <xsl:choose>
+            <xsl:when test="descendant::t:ptr[@target and starts-with(@target, '#')]">
+                <xsl:variable name="target" select="substring-after(descendant::t:ptr/@target,'#')"/>
+                <xsl:apply-templates select="/t:body/t:back/descendant::t:bibl[@xml:id = $target]" mode="footnote"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <li id="{@xml:id}">
+                    <span class="anchor"/>
+                    <!-- Display footnote number -->
+                    <span class="footnote-tgt">
+                        <xsl:value-of select="$thisnum"/>
+                    </span>
+                    <xsl:text> </xsl:text>
+                    <span class="footnote-content">
+                        <!-- if there is an analytic title present, then we have a separately titled book section -->
+                        <xsl:if test="t:title[@level='a']">
+                            <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
+                            <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',3)"/>
+                            <xsl:if test="t:author">
+                                <xsl:text>, </xsl:text>
+                            </xsl:if>
+                            <xsl:text>“</xsl:text>
+                            <xsl:apply-templates select="t:title[@level='a'][1]" mode="footnote"/>
+                            <xsl:text>” in </xsl:text>
+                        </xsl:if>
+                        <!-- if the reference points at a master bibliographic record file, use it; otherwise, do 
                 what you can with the contents of the present element -->
-                <xsl:choose>
-                    <xsl:when test="t:ptr[@target and starts-with(@target, 'http://syriaca.org/bibl/')]">
-                        <!-- Find file path for bibliographic record -->
-                        <xsl:variable name="biblfilepath">
-                            <xsl:value-of select="concat('/db/apps/srophe/data/bibl/tei/',substring-after(t:ptr/@target, 'http://syriaca.org/bibl/'),'.xml')"/>
-                        </xsl:variable>
-                        <!-- Check if record exists in db with doc-available function -->
-                        <xsl:if test="doc-available($biblfilepath)">
-                            <!-- Process record as a footnote -->
-                            <xsl:apply-templates select="document($biblfilepath)/descendant::t:biblStruct[1]" mode="footnote"/>
-                        </xsl:if>
-                        <!-- Process all citedRange elements as footnotes -->
-                        <xsl:if test="t:citedRange">, 
-                            <xsl:for-each select="t:citedRange">
-                                <xsl:apply-templates select="." mode="footnote"/>
-                            </xsl:for-each>
-                        </xsl:if>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:apply-templates mode="footnote"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </span>
-        </li>
+                        <xsl:choose>
+                            <xsl:when test="t:ptr[@target and starts-with(@target, 'http://syriaca.org/bibl/')]">
+                                <!-- Find file path for bibliographic record -->
+                                <xsl:variable name="biblfilepath">
+                                    <xsl:value-of select="concat('/db/apps/srophe/data/bibl/tei/',substring-after(t:ptr/@target, 'http://syriaca.org/bibl/'),'.xml')"/>
+                                </xsl:variable>
+                                <!-- Check if record exists in db with doc-available function -->
+                                <xsl:if test="doc-available($biblfilepath)">
+                                    <!-- Process record as a footnote -->
+                                    <xsl:apply-templates select="document($biblfilepath)/descendant::t:biblStruct[1]" mode="footnote"/>
+                                </xsl:if>
+                                <!-- Process all citedRange elements as footnotes -->
+                                <xsl:if test="t:citedRange">, 
+                                    <xsl:for-each select="t:citedRange">
+                                        <xsl:apply-templates select="." mode="footnote"/>
+                                    </xsl:for-each>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:otherwise> 
+                                <xsl:apply-templates mode="footnote"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </span>
+                </li>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -430,7 +438,9 @@
     <xsl:template match="t:citedRange[ancestor::t:bibl or ancestor::t:biblStruct]" mode="footnote" priority="1">
         <xsl:choose>
             <xsl:when test="@unit='ff'"/>
-            <xsl:otherwise><xsl:value-of select="concat(@unit,': ')"/></xsl:otherwise>
+            <xsl:otherwise>
+                <xsl:value-of select="concat(@unit,': ')"/>
+            </xsl:otherwise>
         </xsl:choose>
         <xsl:choose>
             <xsl:when test="@target">
@@ -458,8 +468,10 @@
                 </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test="following-sibling::*">,</xsl:if>
-        <xsl:if test="not(following-sibling::*)">.</xsl:if>
+        <xsl:choose>
+            <xsl:when test="following-sibling::*[not(self::t:ptr)]">, </xsl:when>
+            <xsl:otherwise>.</xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
