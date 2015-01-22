@@ -5,6 +5,7 @@ module namespace app="http://syriaca.org//templates";
  : General use xqueries for accross srophe app.
 :)
 import module namespace place="http://syriaca.org//place" at "place.xqm";
+import module namespace teiDocs="http://syriaca.org//teiDocs" at "teiDocs/teiDocs.xqm";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org//config" at "config.xqm";
@@ -12,6 +13,7 @@ import module namespace config="http://syriaca.org//config" at "config.xqm";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace expath="http://expath.org/ns/pkg";
+
 (:~
  : Transform tei to html
  : @param $node data passed to transform
@@ -20,6 +22,9 @@ declare function app:tei2html($nodes as node()*) {
     transform:transform($nodes, doc('../resources/xsl/tei2html.xsl'),() )
 };
 
+declare %templates:wrap function app:set-data($node as node(), $model as map(*), $doc as xs:string){
+    teiDocs:generate-docs('/db/apps/srophe/data/places/tei/78.xml')
+};
 
 (:~
  : Builds page title
@@ -41,7 +46,6 @@ declare  %templates:wrap function app:page-title($node, $model, $collection){
  : Generic contact form can be added to any page by calling:
  : <div data-template="app:contact-form"/>
  : with a link to open it that looks like this: 
- : <button class="btn btn-default" data-toggle="modal" data-target="#feedback">CLink text</button>&#160;
 :)
 declare %templates:wrap function app:contact-form($node as node(), $model as map(*))
 {

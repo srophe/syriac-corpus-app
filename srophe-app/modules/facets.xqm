@@ -7,75 +7,147 @@ xquery version "3.0";
  
 module namespace facets="http://syriaca.org//facets";
 
-import module namespace templates="http://syriaca.org//templates" at "templates.xql";
-import module namespace config="http://syriaca.org//config" at "config.xqm";
-
 import module namespace functx="http://www.functx.com";
-declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
-declare namespace xlink = "http://www.w3.org/1999/xlink";
-declare namespace transform="http://exist-db.org/xquery/transform";
-declare namespace util="http://exist-db.org/xquery/util";
+
+declare variable $facets:limit {request:get-parameter('limit', 5) cast as xs:integer};
+declare variable $facets:fq {request:get-parameter('fq', '') cast as xs:string};
 
 (:
 NOTES about facet module
-Would probably function best if passed facets (elements to be faceted on)
 Will have to have a special cases to handle the crazyness of @ref facets
-
+add facet parameters and functionality to browse.xm and search.xqm?
 :)
-declare function facets:facets($node as node()*) {
-    facets:pers-facet($node)
-};
-
-declare function facets:pers-facet($node as node()*) {
-    for $pers in $node//tei:persName
-    group by $persName := $pers/@ref
-    order by $pers[1] ascending
-    return 
-        let $person := $pers[1]
-        let $uri := string($person/@ref)
-        return <li><a href="person.html?id={$uri}">{string($person)}</a> ({count($pers)}) {$uri}</li> 
-};
-
-declare function facets:event(){
-    for $events in $node//tei:event
-    group by $eventName := $events/@ref
-    order by $events[1] ascending
-    return 
-        let $event := $events[1]
-        let $uri := string($event/@ref)
-        return <li><a href="person.html?id={$uri}">{string($event)}</a> ({count($events)}) {$uri}</li>
-};
 
 (:
-
-declare function local:facet-speaker($hits as element()*) as element()*{
-    for $speakers in $hits
-    group by $speaker := $speakers/tei:speaker/text()
-    order by count($speakers) descending
-    return 
-        <div count="{count($speakers)}">{$speaker}</div>
-};
-
- : Build drop down menu for controlled keywords
-declare function spears:keyword-menu(){
-for $keywordURI in 
-distinct-values(
-    for $keyword in collection('/db/apps/srophe/data/spear/')//@ref[contains(.,'/keyword/')]
-    return tokenize($keyword,' ')
-    )
-return
-    <option value="{$keywordURI}">{lower-case(functx:camel-case-to-words(substring-after($keywordURI,'/keyword/'),' '))}</option>
-};
+ : Filter by facets to be passed to browse or search function
 :)
-declare function facets:keyword-list($node){
-    for $keyword in $node//@ref[contains(.,'/keyword/')]
-    for $key in tokenize($keyword,' ')
-    return <p>{string($key)}</p>
+declare function facets:facet-filter(){
+    if($facets:fq != '') then
+        string-join(
+        for $facet in tokenize($facets:fq,'fq-')
+        let $facet-name := substring-before($facet,':')
+        let $facet-value := normalize-space(substring-after($facet,':'))
+        return 
+            if($facet-value != '') then 
+                concat('[descendant::tei:',$facet-name,'[normalize-space(.) = "',$facet-value,'"]]')
+            else(),'')    
+    else ()   
 };
 
-declare function facets:keyword($node){
-    for $k in facets:keyword-list($node)
+(:~
+ : Build facets menus from nodes passed by search or browse
+ : @param $facets nodes to facet on
+ : @param $facets:limit number of facets per catagory to display, defaults to 5
+:)
+declare function facets:facets($facets as node()*){
+<div>
+    <!--<div>{facets:facet-filter()}</div>-->
+    <span class="facets applied">
+    {
+        if($facets:fq) then facets:selected-facet-display()
+        else ()            
+    }
+  </span>
+    {
+        for $facet-group in $facets
+        group by $category := node-name($facet-group)
+        return 
+            <div class="category">
+                {
+                    if(string($category) = 'event') then 
+                        <div>
+                            <h4>Keyword</h4>
+                            {
+                                if($facets:limit) then 
+                                    for $facet-list at $l in subsequence(facets:keyword($facets),1,$facets:limit)
+                                    return $facet-list
+                                else facets:keyword($facets)  
+                            }
+                        </div>    
+                    else 
+                        <div>
+                            <h4>{string($category)}</h4>
+                            {
+                                if($facets:limit) then 
+                                    for $facet-list at $l in subsequence(facets:build-facet($facet-group,string($category)),1,$facets:limit)
+                                    return $facet-list
+                                else facets:build-facet($facet-group,string($category))   
+                            }
+                        </div>
+                }     
+            </div>
+    }
+</div>
+};
+
+declare function facets:url-params(){
+    string-join(for $param in request:get-parameter-names()
+                return 
+                    if($param = 'fq') then ()
+                    else if($param != '' and $param != ' ') then concat('&amp;',$param, '=',normalize-space(request:get-parameter($param, '')))
+                    else (),'')                    
+};
+
+(:~
+ : Display selected facets, and button to remove from results set
+:)
+declare function facets:selected-facet-display(){
+    for $facet in tokenize($facets:fq,' fq-')
+    let $title := substring-after($facet,':')
+    let $new-fq := 
+        string-join(for $facet-param in tokenize($facets:fq,' fq-') 
+                    return 
+                    if($facet-param = $facet) then ()
+                    else concat('fq-',$facet-param),' ')
+    let $href := concat('?fq=',$new-fq,facets:url-params())
+    return 
+        <span class="facet" title="Remove {$title}">
+            <span class="label label-facet" title="{$title}">{$title} 
+                <a href="{$href}" class="facet icon">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </a>
+            </span>
+        </span>
+};
+
+(:~
+ : Build individual facet lists for each facet category
+ : @param $nodes nodes to facet on
+:)
+declare function facets:build-facet($nodes, $category){
+    for $facet in $nodes
+    group by $facet-grp := $facet
+    order by count($facet) descending
+    return  
+        let $facet-val := $facet-grp[1]
+        let $facet-query := concat('fq-',$category,':',normalize-space($facet-val))
+        let $new-fq := 
+                if($facets:fq) then concat('fq=',$facets:fq,' ',$facet-query)
+                else concat('fq=',$facet-query)
+        let $uri := string($facet-val/@ref)
+        return 
+        <li><a href="?{$new-fq}{facets:url-params()}">{string($facet-val)}</a> ({count($facet)})</li>
+};
+
+(:~
+ : Special handling for keywords which are in attributes and must be tokenized
+ : @param $nodes nodes to build keyword list
+:)
+declare function facets:keyword-list($nodes){
+    (for $keyword in $nodes//@target[contains(.,'/keyword/')]
+    return <p>{tokenize($keyword,' ')}</p>,
+    for $keyword in $nodes//@ref[contains(.,'/keyword/')]
+    return <p>{tokenize($keyword,' ')}</p>)
+};
+
+(:~
+ : Special handling for keywords which are in attributes and must be tokenized
+ : Facets on keyword list generated from events nodes passed to facets:facet()
+ : @param $nodes nodes to build keyword list
+:)
+declare function facets:keyword($nodes){
+    for $k in facets:keyword-list($nodes)
     group by $k := $k
     order by count($k) descending
     return
@@ -85,14 +157,3 @@ declare function facets:keyword($node){
         <li><a href="{$khref}">{string($kpretty)}</a> [{count($k)}]</li>
 };
 
-declare function facets:display(
-  $href as xs:string,
-  $title as xs:string)
-{
-  <div class="facet" title="Remove {$title}">
-    <a href="{$href}" class="close">
-      <span class="close-icon"> X </span>
-    </a>
-    <div class="label" title="{$title}">{$title}</div>
-  </div>
-};

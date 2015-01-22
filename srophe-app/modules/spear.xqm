@@ -31,7 +31,9 @@ declare variable $spear:sort {request:get-parameter('sort', '') cast as xs:strin
  :)
 declare %templates:wrap function spear:get-spear-data($node as node(), $model as map(*), $view){
 if($view = 'factoid') then 
+    if(starts-with($spear:id,'http://')) then
     map {"spear-data" := collection($config:app-root || "/data/spear/tei")//tei:div[descendant::*[@ref=$spear:id]]}
+    else map {"spear-data" := collection($config:app-root || "/data/spear/tei")//id($spear:id)}
 else if($view = 'event') then
     map {"spear-data" := collection($config:app-root || "/data/spear/tei")//tei:div[tei:listEvent]}            
 else ()
@@ -56,6 +58,9 @@ declare %templates:wrap function spear:h1($node as node(), $model as map(*)){
     let $rec-exists := spear:canonical-rec()  
     let $title :=  
         if($rec-exists) then $rec-exists/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"]
+        else if($data/tei:listPerson) then $data/tei:listPerson/descendant::tei:persName[1]
+        else if($data/tei:placeName[1]) then $data/descendant::tei:placeName[1]
+        else if($data/tei:listEvent) then 'Event'
         else $data/tei:listPerson/descendant::tei:persName[1] | $data/descendant::tei:placeName[1]
     return app:tei2html(
                <body xmlns="http://www.tei-c.org/ns/1.0">
@@ -64,7 +69,47 @@ declare %templates:wrap function spear:h1($node as node(), $model as map(*)){
                     </srophe-title>
                 </body>)
 };
+(:
+ : Add related items to sidebar
+ : NOTE, when there is a title to grab from spear, make all events from $title dynamic
+:)
+declare %templates:wrap function spear:related($node as node(), $model as map(*)){
+    if(starts-with($spear:id,'http:')) then spear:related-rec($node, $model)
+    else 
+    <div class="well">
+        <h4>Related Events</h4>
+        <p><a href="event.html?title=spear">See all events from SPEAR</a></p>
+        <div>{spear:related-pers-place($node,$model)}</div>
+    </div>
+};
 
+declare function spear:related-pers-place($node as node(), $model as map(*)){
+    (
+    if($model("spear-data")[1]/descendant::tei:persName) then 
+        (<h4>Related Person(s)</h4>,
+            <ul class="list-unstyled">
+            {
+            for $persons in $model("spear-data")[1]/descendant::tei:persName
+            let $id := string($persons/@ref)
+            return
+                <li><a href="factoid.html?id={$id}">{$persons}</a></li>
+            }
+            </ul>
+            )
+            
+    else(),
+    if($model("spear-data")[1]/descendant::tei:placeName) then 
+        (<h4>Related Place(s)</h4>,
+            <ul class="list-unstyled">
+                {
+                for $place in $model("spear-data")[1]/descendant::tei:placeName
+                let $id := string($place/@ref)
+                return
+                    <li><a href="factoid.html?id={$id}">{$place}</a></li>
+                }
+            </ul>)
+    else())        
+};
 (:~
  : Checks link to related record
     if(contains($spear:id,'person') then 'Persons databse' 
@@ -126,11 +171,17 @@ declare %templates:wrap function spear:related-rec($node as node(), $model as ma
 };
 
 declare %templates:wrap function spear:names($node as node(), $model as map(*)){
+if($model("spear-data")//tei:listPerson/tei:person/tei:persName) then
+    <div id="persnames" class="well">
+    {
     for $persName in $model("spear-data")//tei:listPerson/tei:person/tei:persName
     return 
         if($persName/text() or $persName/child::*) then
             <span dir="ltr" class="label label-default pers-label">{app:tei2html($persName)}</span>
-        else ()    
+        else ()   
+    }
+    </div>
+else ()   
 };
 
 declare %templates:wrap function spear:timeline($node as node(), $model as map(*), $dates){
@@ -161,7 +212,6 @@ return
         else ()
      else if($dates = 'events') then
         <div class="timeline">
-            <h3>Events</h3>
             <div>{timeline:timeline($data//tei:event, 'Events Timeline')}</div>
         </div>
      else ()
@@ -184,16 +234,12 @@ return
     else ()
 };
 
-
 declare %templates:wrap function spear:bibl($node as node(), $model as map(*)){
 let $sources := $model("spear-data")[1]
-return app:tei2html($sources)
+let $bibl := $sources/descendant::tei:bibl
+let $back-info := $sources/ancestor::tei:text/tei:back
+return app:tei2html(<body xmlns="http://www.tei-c.org/ns/1.0">{($bibl, $back-info)}</body>)
 };
-
-declare %templates:wrap function spear:citation($node as node(), $model as map(*)){
-let $citation := $model("spear-data")[1]
-return app:tei2html($citation)
-}; 
 
 (:
 should make these specific to the main person, create new map with just main pers defs:
@@ -232,7 +278,7 @@ return
 (:
 : Events for persons and places are more complicated, group by @type attestation
 :)
-declare %templates:wrap function spear:events($node as node(), $model as map(*)){
+declare %templates:wrap function spear:events($node as node(), $model as map(*), $view as xs:string*){
 (:add if spear:date then sort, else no sort
 <span class="anchor"/>
 :)
@@ -257,8 +303,18 @@ declare %templates:wrap function spear:events($node as node(), $model as map(*))
                 </h4>
                 <ul>
                     {
-                        for $e in $event//tei:desc
-                        return app:tei2html($e)
+                        for $e in $event
+                        return 
+                         <li class="md-line-height">{app:tei2html($e)} 
+                            {
+                            if($view = 'event') then 
+                                <a href="factoid.html?id={string($e/ancestor::tei:div/@xml:id)}">
+                                    See event page 
+                                    <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
+                                </a>
+                            else ()
+                            }
+                        </li>
                     }
                 </ul>
             </li>
@@ -267,9 +323,19 @@ declare %templates:wrap function spear:events($node as node(), $model as map(*))
     else
         <ul>
         {
-            for $event in $data//tei:event
-            for $e in $event//tei:desc
-            return app:tei2html($e)
+            for $e in $data//tei:event
+            (:for $e in $event//tei:desc:)
+            return 
+            <li class="md-line-height">{app:tei2html($e)} 
+                {
+                if($view = 'event') then 
+                    <a href="factoid.html?id={string($e/ancestor::tei:div/@xml:id)}">
+                        See event page 
+                        <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
+                    </a>
+                else ()
+                }
+            </li>
          }
         </ul>
          }
@@ -298,5 +364,3 @@ let $data := let $data := $model("spear-data")
 return d3:relationships($data)
 };
 :)
-
-

@@ -4,7 +4,7 @@
         <!-- Page title and resource links-->
         <div class="row title">
             <h1 class="col-md-8">Event Timeline</h1>
-            <div data-template="app:link-icons-inline"/>
+            <!--<div data-template="app:link-icons-inline"/>-->
         </div>
         <!-- Resource URI -->
         <div class="uri">
@@ -52,6 +52,9 @@
                         <div data-template="spear:events"/>
                     </div>
                 </div>
+                
+                <!-- Citation -->
+                <div data-template="spear:bibl"/>
             </div>
             <!-- Column 2 
             <div class="col-md-4 column2">
@@ -66,14 +69,14 @@
     <!-- Script for dynamically changing sort order -->
     <script>
         $( function() {
-        $('#date').click( function() {
-        event.preventDefault();
-        $('#events-list').load( "event.html?sort=date #events-list");
-        });
-        $('#manuscript').click( function() {
-        event.preventDefault();
-        $('#events-list').load( "event.html #events-list");
-        });
+            $('#date').click( function() {
+                event.preventDefault();
+                $('#events-list').load( "event.html?sort=date #events-list");
+            });
+            $('#manuscript').click( function() {
+                event.preventDefault();
+                $('#events-list').load( "event.html #events-list");
+            });
         } );
     </script>
 </div>

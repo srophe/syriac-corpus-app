@@ -28,7 +28,10 @@
         <create qname="@passive" type="xs:string"/>
         <create qname="@name" type="xs:string"/>
         <create qname="tei:geo" type="xs:string"/>
+        <create qname="tei:persName" type="xs:string"/>
+        <create qname="tei:placeName" type="xs:string"/>
         <create qname="tei:relation" type="xs:string"/>
+        <create qname="tei:title" type="xs:string"/>
         <create qname="tei:idno" type="xs:string"/>
     </index>
     <triggers>

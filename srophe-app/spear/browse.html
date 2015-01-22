@@ -6,6 +6,13 @@
                 <h1 class="title about">SPEAR</h1>
                 <p style="margin:1em;">Listings of persons in SPEAR.</p>
                 <!-- Calls xquery functions -->
+                <!-- browse by:
+                    person
+                    keyword/type of event
+                    Place
+                    Primary Source
+                    Date
+                -->
                 <div data-template="browse:get-all" data-template-coll="spear">
                     <div class="tabbable">
                         <!--<div data-template="browse:build-tabs" data-template-coll="spear"/>-->
@@ -13,9 +20,11 @@
                             <div class="tab-pane active">
                                 <div class="row">
                                     <div data-template="browse:spear-facets" data-template-coll="spear"/>
-                                    <ul>
+                                   <!-- 
+                                       <ul>
                                         <div data-template="browse:spear-people" data-template-coll="spear"/>
-                                    </ul>
+                                       </ul>
+                                    -->
                                 </div>
                             </div>
                         </div>

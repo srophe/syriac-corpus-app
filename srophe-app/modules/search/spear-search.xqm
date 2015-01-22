@@ -11,13 +11,12 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 declare variable $spears:q {request:get-parameter('q', '')};
 declare variable $spears:name {request:get-parameter('name', '')};
+declare variable $spears:place {request:get-parameter('place', '')};
+declare variable $spears:event {request:get-parameter('event', '')};
 declare variable $spears:ref {request:get-parameter('ref', '')};
 declare variable $spears:keyword {request:get-parameter('keyword', '')};
 
 declare variable $spears:type {request:get-parameter('type', '')};
-
-
-
 
 (:~
  : Build full-text keyword search over all tei:place data
@@ -43,12 +42,22 @@ declare function spears:name() as xs:string? {
 };
 
 (:~
- : Search @ref
- : @param $ref
+ : Search Place
+ : @param $name search placeName
 :)
-declare function spears:name() as xs:string? {
-    if($spears:ref != '') then
-        concat("[tei:div::*[@ref = ]",$spears:ref)   
+declare function spears:place() as xs:string? {
+    if($spears:place != '') then
+        concat("[ft:query(descendant::tei:placeName,'",common:clean-string($spears:place),"',common:options())]")   
+    else ()
+};
+
+(:~
+ : Search Event
+ : @param $name search placeName
+:)
+declare function spears:event() as xs:string? {
+    if($spears:event != '') then
+        concat("[ft:query(descendant::tei:event,'",common:clean-string($spears:event),"',common:options())]")   
     else ()
 };
 
@@ -61,12 +70,19 @@ declare function spears:controlled-keyword-search(){
 };
 
 (:~
+ : Search by date
+ : NOTE: still thinking about this one
+:)
+
+(:~
  : Build query string to pass to search.xqm 
 :)
 declare function spears:query-string() as xs:string? {
  concat("collection('/db/apps/srophe/data/spear/tei')//tei:div",
     spears:keyword(),
     spears:name(),
+    spears:place(),
+    spears:event(),
     spears:controlled-keyword-search()
     )
 };
@@ -81,6 +97,12 @@ declare function spears:search-string() as xs:string*{
     let $name-string :=    if($spears:name != '') then
                                 (<span class="param">Name: </span>,<span class="match">{common:clean-string($spears:name)}&#160;</span>)
                            else ''
+    let $place-string :=    if($spears:place != '') then
+                                (<span class="param">Place Name: </span>,<span class="match">{common:clean-string($spears:place)}&#160;</span>)
+                           else ''      
+    let $event-string :=    if($spears:event != '') then
+                                (<span class="param">Event: </span>,<span class="match">{common:clean-string($spears:event)}&#160;</span>)
+                           else ''                                 
     let $controlled-keyword-string :=    if($spears:keyword != '') then
                                 (<span class="param">Keyword: </span>,
                                 <span class="match">
@@ -90,6 +112,8 @@ declare function spears:search-string() as xs:string*{
     return (
     $keyword-string,
     $name-string,
+    $place-string,
+    $event-string,
     $controlled-keyword-string
     
     )                                          
@@ -148,11 +172,25 @@ declare function spears:results-node($hit){
 declare function spears:keyword-menu(){
 for $keywordURI in 
 distinct-values(
+    (
+    for $keyword in collection('/db/apps/srophe/data/spear/')//@target[contains(.,'/keyword/')]
+    return tokenize($keyword,' '),
     for $keyword in collection('/db/apps/srophe/data/spear/')//@ref[contains(.,'/keyword/')]
     return tokenize($keyword,' ')
     )
+    )
+let $key := lower-case(functx:camel-case-to-words(substring-after($keywordURI,'/keyword/'),' '))    
+order by $key     
 return
-    <option value="{$keywordURI}">{lower-case(functx:camel-case-to-words(substring-after($keywordURI,'/keyword/'),' '))}</option>
+    <option value="{$keywordURI}">{$key}</option>
+};
+
+declare function spears:source-menu(){
+for $title in collection('/db/apps/srophe/data/spear/')//tei:titleStmt/tei:title[1]
+let $id := $title/ancestor::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type="URI"]
+order by $title  
+return
+    <option value="{$title}">{$title}</option>
 };
 
 (:~
@@ -181,6 +219,18 @@ declare function spears:search-form() {
                     <input type="text" id="name" name="name" class="form-control"/>
                 </div>
             </div>
+            <div class="form-group">            
+                <label for="place" class="col-sm-2 col-md-3  control-label">Place Name: </label>
+                <div class="col-sm-10 col-md-6">
+                    <input type="text" id="place" name="place" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">            
+                <label for="event" class="col-sm-2 col-md-3  control-label">Event: </label>
+                <div class="col-sm-10 col-md-6">
+                    <input type="text" id="event" name="event" class="form-control"/>
+                </div>
+            </div>
             
             <!-- Person gender 
             <div class="form-group">            
@@ -202,7 +252,16 @@ declare function spears:search-form() {
                         {spears:keyword-menu()}
                     </select>
                 </div>    
-            </div>        
+            </div>  
+            <div class="form-group">            
+                <label for="pim-src" class="col-sm-2 col-md-3  control-label">Primary Source</label>
+                <div class="col-sm-10 col-md-6">
+                    <select name="pim-src" id="pim-src" class="form-control">
+                        <option value="">- Select -</option>
+                        {spears:source-menu()}
+                    </select>
+                </div>    
+            </div> 
         </div>
         <div class="pull-right">
             <button type="submit" class="btn btn-info">Search</button>&#160;

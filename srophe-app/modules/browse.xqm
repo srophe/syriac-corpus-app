@@ -7,7 +7,8 @@ xquery version "3.0";
  
 module namespace browse="http://syriaca.org//browse";
 
-import module namespace templates="http://exist-db.org/xquery/templates" ;
+import module namespace facets="http://syriaca.org//facets" at "facets.xqm";
+import module namespace templates="http://syriaca.org//templates" at "templates.xql";
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
@@ -37,7 +38,8 @@ declare function browse:get-all($node as node(), $model as map(*), $coll as xs:s
 let $browse-path := 
     if(exists($coll)) then 
         if($coll = 'persons') then concat("collection('",$config:app-root,"/data/persons/tei')//tei:person",browse:get-syr()) 
-        else if($coll = 'places') then concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr()) 
+        else if($coll = 'places') then concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
+        else if($coll = 'spear') then concat("collection('",$config:app-root,"/data/spear/tei')//tei:div")
         else concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
     else concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
 return 
@@ -56,13 +58,15 @@ declare function browse:build-browse-results($node as node(), $model as map(*)){
     let $type := string($data/@type)
     let $ana := string($data/@ana)
     let $en-title := 
-        if($data/tei:persName[@syriaca-tags='#syriaca-headword']) then                 
-            $data/tei:persName[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/descendant::text()
+        if($data/tei:persName[@syriaca-tags='#syriaca-headword']) then 
+            if($data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang,'en'][1]/child::*) then
+                $data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang,'en'][1]/child::*[1]/text()
+            else $data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang,'en'][1]/text()
         else    
-            $data/tei:placeName[matches(@xml:lang,'^en')][1]/text() 
+            $data/tei:placeName[starts-with(@xml:lang,'en')][1]/text() 
     let $syr-title := 
         if($data/tei:persName[@syriaca-tags='#syriaca-headword']) then
-            $data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang='syr'][1]/descendant::text()
+            $data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang,'syr'][1]/child::*[1]/text()
         else $data/tei:placeName[@xml:lang = 'syr'][1]/text()
     let $title := 
         if($browse:view = 'syr') then $syr-title else $en-title
@@ -77,6 +81,27 @@ declare function browse:build-browse-results($node as node(), $model as map(*)){
         </browse>
 };
 
+declare %templates:wrap function browse:spear-people($node as node(), $model as map(*)){
+for $persons in $model('browse-data')//tei:person/tei:persName
+group by $persName := $persons/@ref
+order by $persons[1] ascending
+return 
+    let $person := $persons[1]
+    let $uri := string($person/@ref)
+    return <li><a href="factoid.html?id={$uri}">{string($person)}</a> ({count($persons)}) {$uri}</li>
+};
+
+
+declare %templates:wrap function browse:spear-facets($node as node(), $model as map(*)){
+    <div>
+     <h4>Facets</h4>
+     {
+        let $facet-nodes := $model('browse-data')
+        let $facets := $facet-nodes//tei:persName | $facet-nodes//tei:placeName | $facet-nodes//tei:event
+        return facets:facets($facets)
+     }
+    </div>
+};
 
 (:~
  : Returns a list places by type
@@ -118,8 +143,8 @@ declare function browse:get-pers-type($node as node(), $model as map(*)){
     let $type := string($data/@type)
     let $ana := string($data/@ana)
     let $title := 
-        if($browse:view = 'syr') then string($data/tei:persName[@syriaca-tags="#syriaca-headword"][@xml:lang = 'syr'][1])
-        else string($data/tei:persName[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')])
+        if($browse:view = 'syr') then $data/tei:placeName[@xml:lang = 'syr'][1]/text()
+        else $data/tei:placeName[1]/text()
     let $browse-title := browse:build-sort-string($title)
     where if($browse:type != '') then 
             if($browse:type = 'unknown') then $data[not(@ana)]
@@ -153,7 +178,7 @@ declare function browse:get-pers-date-bc($node as node(), $model as map(*)){
         for $data in $model('browse-data')[starts-with(descendant::*/@notBefore,'-') or starts-with(descendant::*/@notAfter,'-')]
         let $id := string($data/@xml:id)
         let $ana := string($data/@ana)
-        let $title := string($data/tei:persName[1])
+        let $title := $data/tei:persName[1]
         let $browse-title := browse:build-sort-string($title) 
         return 
             <browse xmlns="http://www.tei-c.org/ns/1.0" xml:id="{$id}" ana="{$ana}" sort-title="{$browse-title}" date="{$browse:date}">
@@ -213,7 +238,7 @@ declare function browse:get-pers-date-ad($node as node(), $model as map(*)){
         for $data in $model('browse-data')[descendant::*/@syriaca-computed-start lt $end][descendant::*/@syriaca-computed-end gt $start]
         let $id := string($data/@xml:id)
         let $ana := string($data/@ana)
-        let $title := string($data/tei:persName[1])
+        let $title := $data/tei:persName[1]
         let $browse-title := browse:build-sort-string($title) 
         return 
             <browse xmlns="http://www.tei-c.org/ns/1.0" xml:id="{$id}" ana="{$ana}" sort-title="{$browse-title}" date="{$browse:date}">
@@ -428,7 +453,8 @@ declare %templates:wrap function browse:get-browse-names($node as node(), $model
              else if($browse:view = 'date') then
                 if($browse:date = '') then 'Date'
                 else browse:get-pers-date($node, $model)
-             else browse:build-browse-results($node, $model)
+             else 
+                if($coll = 'spear') then browse:spear-people($node, $model) else browse:build-browse-results($node, $model)
             )
           }
      </tei:TEI>  

@@ -360,6 +360,13 @@
             <xsl:apply-templates/>
         </xsl:if>
     </xsl:template>
+    <!-- used by search pages -->
+    <xsl:template match="t:search">
+        <!-- Output elements without links -->
+        <xsl:apply-templates mode="title"/>
+    </xsl:template>
+    <!-- suppress bibl -->
+    <xsl:template match="t:bibl" mode="title"/>
     <xsl:template name="h1">
         <div class="row title">
             <h1 class="col-md-8">
@@ -497,6 +504,12 @@
         <xsl:if test="@source">
             <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
         </xsl:if>
+    </xsl:template>
+    <xsl:template match="t:choice">
+        <xsl:text> </xsl:text><xsl:apply-templates/>
+    </xsl:template>
+    <xsl:template match="t:orig">
+        <xsl:text> (</xsl:text><xsl:apply-templates/><xsl:text>) </xsl:text>
     </xsl:template>
     <xsl:template match="t:event" mode="event">
         <li>
@@ -666,7 +679,11 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+    <xsl:template match="t:note" mode="abstract">
+        <p>
+            <xsl:apply-templates/>
+        </p>
+    </xsl:template>
     <!-- Handles t:link elements for deperciated notes, pulls value from matching element, output element and footnotes -->
     <xsl:template match="t:link">
         <xsl:variable name="elementID" select="substring-after(substring-before(@target,' '),'#')"/>

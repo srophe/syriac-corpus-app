@@ -425,4 +425,7 @@ label.error {
 #citation {display:none;}
 .hint{margin:.5em; color: grey; font-style:italic;}
 .uri {margin:0 1em 1em; color: #999999;}
-p.single-space{}
+p.single-space{padding:.25em;}
+.teiDocs {padding:.25em; border-bottom:1px solid #eee;}
+.label-facet {background-color:#eee; color:#666; font-weight:normal; margin:.25em;}
+.facet .icon{margin-left:.25em;}
