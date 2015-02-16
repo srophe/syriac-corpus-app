@@ -7,6 +7,7 @@
             <!-- Should maybe not index placeName, location, state or event?-->
             <!-- changed tei:person/tei:place to tei:body -->
             <text qname="tei:body"/>
+            <text qname="tei:div"/>
             <text qname="tei:persName" boost="2.0"/>
             <text qname="tei:placeName" boost="2.0"/>
             <text qname="tei:location" boost=".5"/>
@@ -19,28 +20,24 @@
         <create qname="@syriaca-tags" type="xs:string"/>
         <create qname="@syriaca-computed-start" type="xs:date"/>
         <create qname="@syriaca-computed-end" type="xs:date"/>
-        <create qname="@when" type="xs:date"/>
+        <!-- When was coded as xs:data, must be converted to computed date  -->
+        <create qname="@when" type="xs:string"/>
         <create qname="@target" type="xs:string"/>
         <create qname="@who" type="xs:string"/>
         <create qname="@ref" type="xs:string"/>
+        <create qname="@uri" type="xs:string"/>
         <create qname="@where" type="xs:string"/>
         <create qname="@active" type="xs:string"/>
         <create qname="@passive" type="xs:string"/>
         <create qname="@name" type="xs:string"/>
         <create qname="tei:geo" type="xs:string"/>
-        <create qname="tei:persName" type="xs:string"/>
-        <create qname="tei:placeName" type="xs:string"/>
         <create qname="tei:relation" type="xs:string"/>
-        <create qname="tei:title" type="xs:string"/>
         <create qname="tei:idno" type="xs:string"/>
     </index>
     <triggers>
         <trigger class="org.exist.extensions.exquery.restxq.impl.RestXqTrigger"/>
         <trigger event="create" class="org.exist.collections.triggers.XQueryTrigger">
-            <parameter name="query" value="module namespace trigger='http://exist-db.org/xquery/trigger';
-                declare function trigger:after-create-document($uri as xs:anyURI)
-                {sm:chmod($uri, 'rwxr-xr-x')};"
-            />
+            <parameter name="query" value="module namespace trigger='http://exist-db.org/xquery/trigger';                  declare function trigger:after-create-document($uri as xs:anyURI)                                  {if(contains($uri,'/modules/')) then sm:chmod($uri, 'rwxr-xr-x') else ()};"/>
         </trigger>
     </triggers>
 </collection>
