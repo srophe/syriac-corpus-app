@@ -5,6 +5,8 @@ xquery version "3.0";
  :)
 module namespace spears="http://syriaca.org//spears";
 import module namespace functx="http://www.functx.com";
+import module namespace facets="http://syriaca.org//facets" at "../facets.xqm";
+import module namespace app="http://syriaca.org//templates" at "../app.xql";
 import module namespace common="http://syriaca.org//common" at "common.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -15,8 +17,8 @@ declare variable $spears:place {request:get-parameter('place', '')};
 declare variable $spears:event {request:get-parameter('event', '')};
 declare variable $spears:ref {request:get-parameter('ref', '')};
 declare variable $spears:keyword {request:get-parameter('keyword', '')};
-
 declare variable $spears:type {request:get-parameter('type', '')};
+declare variable $spears:title {request:get-parameter('title', '')};
 
 (:~
  : Build full-text keyword search over all tei:place data
@@ -66,7 +68,35 @@ declare function spears:event() as xs:string? {
  : @param keyword
 :)
 declare function spears:controlled-keyword-search(){
-    concat("[descendant::*[matches(@ref,'(^|\W)",$spears:keyword,"(\W|$)')]]")
+    if($spears:keyword !='') then 
+        concat("[descendant::*[matches(@ref,'(^|\W)",$spears:keyword,"(\W|$)')]]")
+    else ()
+};
+
+(:~
+ : Search keyword
+ : @param keyword
+:)
+declare function spears:title-search(){
+    if($spears:title != '') then 
+        concat("[ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[. = ",$spears:title,"]]")
+    else ()    
+};
+
+(:~
+ : Search keyword
+ : @param keyword
+:)
+declare function spears:type-search(){
+    if($spears:type != '') then 
+        if($spears:type = 'pers') then 
+            "[tei:listPerson]"
+        else if($spears:type = 'rel') then
+            "[tei:listRelation]"
+        else if($spears:type = 'event') then 
+            "[tei:listEvent]"
+        else ()
+    else ()    
 };
 
 (:~
@@ -79,10 +109,13 @@ declare function spears:controlled-keyword-search(){
 :)
 declare function spears:query-string() as xs:string? {
  concat("collection('/db/apps/srophe/data/spear/tei')//tei:div",
+    spears:type-search(),
+    facets:facet-filter(),
     spears:keyword(),
     spears:name(),
     spears:place(),
     spears:event(),
+    spears:title-search(),
     spears:controlled-keyword-search()
     )
 };
@@ -102,7 +135,10 @@ declare function spears:search-string() as xs:string*{
                            else ''      
     let $event-string :=    if($spears:event != '') then
                                 (<span class="param">Event: </span>,<span class="match">{common:clean-string($spears:event)}&#160;</span>)
-                           else ''                                 
+                           else ''
+    let $type-string :=    if($spears:type != '') then
+                                (<span class="param">Type: </span>,<span class="match">{$spears:type}&#160;</span>)
+                           else ''
     let $controlled-keyword-string :=    if($spears:keyword != '') then
                                 (<span class="param">Keyword: </span>,
                                 <span class="match">
@@ -124,46 +160,27 @@ declare function spears:search-string() as xs:string*{
  : Need a better uri for factoids, 
 :)
 declare function spears:results-node($hit){
-    let $root := $hit    
-    let $title := 
-        if($root/tei:listPerson) then string-join($root/tei:listPerson/descendant::text(),' ')
-        else if ($root/tei:listEvent) then string-join($root/tei:listEvent/tei:event/descendant::text(),' ')
-        else $root/child::*/text()
-    let $type :=  
-        if($root/tei:listPerson) then '(Person)'
-        else if ($root/tei:listEvent) then '(Event)'
-        else '(Other)'
+    let $root := $hit 
+    let $id := string($root/@uri)
+    let $alt-view :=
+        if($spears:type = 'pers' or $spears:name != '') then 
+            string($root/tei:listPerson/tei:person/tei:persName/@ref)
+        else if ($spears:place != '') then string($root/tei:listPerson/tei:person/tei:persName/@ref)
+        else ()
+    let $alt-view-type :=
+        if($spears:type = 'pers' or $spears:name != '') then 'Person'
+        else if ($spears:place != '') then 'Place'
+        else ()
     return 
-        if($root/tei:listPerson) then 
-            if($root/tei:listPerson/tei:person/tei:persName) then 
-                <p style="font-weight:bold padding:.5em;">
-                    <a href="person.html?id={string($root/tei:listPerson/tei:person/tei:persName/@ref)}">
-                        {$title, $type}
-                    </a>
-                </p>
-            else 
-                <p style="font-weight:bold padding:.5em;">
-                    <a href="person.html?id={string($root/tei:listPerson/descendant::tei:persName[1]/@ref)}">
-                        {$title, $type}
-                    </a>
-                </p>                
-        else if ($root/tei:listEvent) then 
-            <p style="font-weight:bold padding:.5em;">
-                {$title, $type} <br/>
-                <a href="person.html?id={string($root/descendant::tei:persName[1]/@ref)}">
-                    View in Person Factoid
-                </a> |
-                <a href="event.html#http://syriaca.org/keyword/decree">
-                    View in Event Timeline
-                </a>
-            </p>
-        else 
-            <p style="font-weight:bold padding:.5em;">
-                    <a href="person.html?id={string($root/tei:listPerson/tei:person/tei:persName/@ref)}">
-                        {$title, $type}
-                    </a>
-                </p>
-
+        <p style="font-weight:bold padding:.5em;">
+            {app:tei2html(<search xmlns="http://www.tei-c.org/ns/1.0">{$root}</search>)}<br/>
+            <a href="factoid.html?id={$id}">View Factoid</a>
+            {
+                if($alt-view != '') then 
+                    (' | ', <a href="factoid.html?id={$alt-view}">View {$alt-view-type}</a>)
+                else ()
+            }
+        </p>
 };
 
 (:~
@@ -242,8 +259,20 @@ declare function spears:search-form() {
                             <option value="F">F</option>
                     </select>
                 </div>
-            </div>     -->       
-                
+            </div>     -->   
+            <hr/>
+            <h4>Limit by</h4>
+            <div class="form-group">            
+                <label for="type" class="col-sm-2 col-md-3  control-label">Type</label>
+                <div class="col-sm-10 col-md-6">
+                    <select name="type" id="type" class="form-control">
+                        <option value="">- Select -</option>
+                        <option value="rel">Relation</option>
+                        <option value="pers">Person</option>
+                        <option value="event">Event</option>
+                    </select>
+                </div>    
+            </div>                 
             <div class="form-group">            
                 <label for="keyword" class="col-sm-2 col-md-3  control-label">Keyword</label>
                 <div class="col-sm-10 col-md-6">
@@ -254,9 +283,9 @@ declare function spears:search-form() {
                 </div>    
             </div>  
             <div class="form-group">            
-                <label for="pim-src" class="col-sm-2 col-md-3  control-label">Primary Source</label>
+                <label for="primary-src" class="col-sm-2 col-md-3  control-label">Primary Source</label>
                 <div class="col-sm-10 col-md-6">
-                    <select name="pim-src" id="pim-src" class="form-control">
+                    <select name="primary-src" id="primary-src" class="form-control">
                         <option value="">- Select -</option>
                         {spears:source-menu()}
                     </select>

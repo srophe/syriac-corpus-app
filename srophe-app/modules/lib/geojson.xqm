@@ -7,7 +7,7 @@ module namespace geo="http://syriaca.org//geojson";
  : @authored 2014-06-25
 :)
 
-import module namespace config="http://syriaca.org//config" at "config.xqm";
+import module namespace config="http://syriaca.org//config" at "../config.xqm";
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 
 declare namespace json = "http://www.json.org";
@@ -76,26 +76,24 @@ declare function geo:get-coordinates($geo-search as element()*, $type as xs:stri
             map{"geo-data" := $geo-search}
         else if(exists($type) and $type != '') then
             if(contains($type,',')) then
-                map{"geo-data" :=  
+               map{"geo-data" :=  
                 let $types := 
                     if(contains($type,',')) then 
-                            concat('(',
-                            string-join(for $type-string in tokenize($type,',')
-                                        return concat("'",$type-string,"'"),',')
-                            ,')')
+                        string-join(
+                            for $type-string in tokenize($type,',')
+                            return concat('"',$type-string,'"'),',')
                         else $type
-                let $path := concat("collection('/db/apps/srophe/data/places/tei')//tei:place[@type = ",$types,"]") 
-                let $person := util:eval($path) 
-                let $place := $person/tei:placeName[1]
-                return $place    
+                let $path := concat("collection('/db/apps/srophe/data/places/tei')//tei:place[@type = (",$types,")]//tei:geo") 
+                for $rec in util:eval($path) 
+                return $rec    
                 }
-            else  map{"geo-data" := collection($config:app-root || "/data/places/tei")//tei:geo[ancestor::tei:place[@type=$type]]} 
+            else  map{"geo-data" := collection($config:app-root || "/data/places/tei")//tei:place[@type=$type]//tei:geo} 
         else map{"geo-data" := collection($config:app-root || "/data/places/tei")//tei:geo} 
     for $place-name in map:get($geo-map, 'geo-data')
     let $id := string($place-name/ancestor::tei:place/@xml:id)
     let $rec-type := string($place-name/ancestor::tei:place/@type)
     let $title := $place-name/ancestor::tei:place/tei:placeName[@xml:lang = 'en'][1]/text()
-    let $geo := $place-name/text()
+    let $geo := $place-name
     let $rel := string($place-name/ancestor::*:relation/@name)
     return
         if($output = 'kml') then geo:build-kml($geo,$id,$rec-type,$title)
@@ -124,7 +122,7 @@ declare function geo:kml-wrapper($geo-search as element()*, $type as xs:string*,
 :)
 declare function geo:json-wrapper($geo-search as element()*, $type as xs:string*, $output as xs:string*) as element()*{
     <json type="object">
-        <pair name="type"  type="string">FeatureCollection</pair>
+        <pair name="type" type="string">FeatureCollection</pair>
         <pair name="features"  type="array">
             {geo:get-coordinates($geo-search,$type,$output)}
         </pair>

@@ -10,7 +10,7 @@ module namespace timeline="http://syriaca.org//timeline";
 import module namespace json="http://www.json.org";
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 
-import module namespace config="http://syriaca.org//config" at "config.xqm";
+import module namespace config="http://syriaca.org//config" at "../config.xqm";
 
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 

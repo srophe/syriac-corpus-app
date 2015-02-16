@@ -1,6 +1,6 @@
 xquery version "3.0";
 (:~
- :  geojson output for leafletjs maps  
+ :  geojson output for leafletjs maps 
  :)
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 import module namespace geo="http://syriaca.org//geojson" at "geojson.xqm";
@@ -12,7 +12,6 @@ declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace transform="http://exist-db.org/xquery/transform";
 declare namespace request="http://exist-db.org/xquery/request";
 declare namespace json="http://www.json.org";
-declare option exist:serialize "method=json media-type=text/javascript encoding=UTF-8";
 
 declare variable $type {request:get-parameter('type', '')};
 declare variable $output {request:get-parameter('output', '')};
@@ -24,6 +23,6 @@ declare variable $output {request:get-parameter('output', '')};
 :)
 let $cache := 'test 4486'
 return 
-geo:json-wrapper((), $type, $output)
+geo:json-transform((), $type, $output)
 
   

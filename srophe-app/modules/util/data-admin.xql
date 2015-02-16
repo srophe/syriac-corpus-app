@@ -14,10 +14,10 @@ declare variable $comment {request:get-parameter('comment', '')};
 (:~
  : Insert custom generated dates
  : Takes @notBefore, @notAfter, @to, @from, and @when and adds a syriaca computed date 
- : attribute for searching.  
+ : attribute for searching. 
  :)                       
 declare function local:add-custom-dates(){
-   for $doc in collection('/db/apps/srophe/data/persons/tei')//tei:person 
+   for $doc in collection('/db/apps/srophe/data/spear/tei')//tei:div 
    return 
     (local:notAfter($doc),local:notBefore($doc),local:to($doc),local:from($doc),local:when($doc),local:add-change-log($doc))                     
 };
@@ -274,7 +274,7 @@ declare function local:remove-mutual(){
 };
 
 declare function local:change-computed-dates(){
-for $doc in collection('/db/apps/srophe/data/persons/tei')//tei:person[descendant-or-self::*/@when]
+for $doc in collection('/db/apps/srophe/data/spear/tei')//tei:person[descendant-or-self::*/@when]
 return local:add-change-log($doc)
     
 };

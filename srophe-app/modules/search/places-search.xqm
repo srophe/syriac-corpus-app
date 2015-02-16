@@ -1,8 +1,5 @@
 xquery version "3.0";
-(:~
- : Builds search information for places sub-collection
- : Search string is passed to search.xqm for processing.  
- :)
+
 module namespace places="http://syriaca.org//places";
 import module namespace common="http://syriaca.org//common" at "common.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates" ;

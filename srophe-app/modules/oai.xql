@@ -10,7 +10,7 @@ xquery version "3.0";
  : Module Overview: Adapted from xqOAI to provide OAI-PMH data provider for 
  : TEI records. Output includes TEI, MADS, and RDF records.
  : NOTE: Should add a RDF option
- : NOTE: also add subcollection options? 
+ : NOTE: also add subcollection options?
  :)
 
 (:~

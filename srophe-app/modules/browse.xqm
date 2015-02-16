@@ -7,7 +7,6 @@ xquery version "3.0";
  
 module namespace browse="http://syriaca.org//browse";
 
-import module namespace facets="http://syriaca.org//facets" at "facets.xqm";
 import module namespace templates="http://syriaca.org//templates" at "templates.xql";
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 
@@ -30,6 +29,7 @@ declare variable $browse:view {request:get-parameter('view', '')};
 declare variable $browse:sort {request:get-parameter('sort', '')};
 declare variable $browse:type-map {request:get-parameter('type-map', '')};
 declare variable $browse:date {request:get-parameter('date', '')};
+declare variable $browse:fq {request:get-parameter('fq', '')};
 
 (:~
  : Build browse path for evaluation
@@ -39,7 +39,6 @@ let $browse-path :=
     if(exists($coll)) then 
         if($coll = 'persons') then concat("collection('",$config:app-root,"/data/persons/tei')//tei:person",browse:get-syr()) 
         else if($coll = 'places') then concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
-        else if($coll = 'spear') then concat("collection('",$config:app-root,"/data/spear/tei')//tei:div")
         else concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
     else concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
 return 
@@ -81,26 +80,8 @@ declare function browse:build-browse-results($node as node(), $model as map(*)){
         </browse>
 };
 
-declare %templates:wrap function browse:spear-people($node as node(), $model as map(*)){
-for $persons in $model('browse-data')//tei:person/tei:persName
-group by $persName := $persons/@ref
-order by $persons[1] ascending
-return 
-    let $person := $persons[1]
-    let $uri := string($person/@ref)
-    return <li><a href="factoid.html?id={$uri}">{string($person)}</a> ({count($persons)}) {$uri}</li>
-};
-
-
-declare %templates:wrap function browse:spear-facets($node as node(), $model as map(*)){
-    <div>
-     <h4>Facets</h4>
-     {
-        let $facet-nodes := $model('browse-data')
-        let $facets := $facet-nodes//tei:persName | $facet-nodes//tei:placeName | $facet-nodes//tei:event
-        return facets:facets($facets)
-     }
-    </div>
+declare %templates:wrap function browse:total($node as node(), $model as map(*)){
+    string(count($model('browse-data')))
 };
 
 (:~
@@ -454,7 +435,7 @@ declare %templates:wrap function browse:get-browse-names($node as node(), $model
                 if($browse:date = '') then 'Date'
                 else browse:get-pers-date($node, $model)
              else 
-                if($coll = 'spear') then browse:spear-people($node, $model) else browse:build-browse-results($node, $model)
+                browse:build-browse-results($node, $model)
             )
           }
      </tei:TEI>  

@@ -6,10 +6,10 @@ xquery version "3.0";
 module namespace person="http://syriaca.org//person";
 
 import module namespace app="http://syriaca.org//templates" at "app.xql";
-import module namespace timeline="http://syriaca.org//timeline" at "timeline.xqm";
+import module namespace timeline="http://syriaca.org//timeline" at "lib/timeline.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org//config" at "config.xqm";
-import module namespace geo="http://syriaca.org//geojson" at "geojson.xqm";
+import module namespace geo="http://syriaca.org//geojson" at "lib/geojson.xqm";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -48,8 +48,7 @@ let $personsid := concat('person-',$person:id)
 declare %templates:wrap function person:h1($node as node(), $model as map(*)){
     let $title := $model("persons-data")//tei:person
     let $title-nodes := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
-        <srophe-title ana="{$title/@ana}">
+        <srophe-title ana="{$title/@ana}" xmlns="http://www.tei-c.org/ns/1.0">
             {(
                 $title/descendant::tei:persName[@syriaca-tags='#syriaca-headword'],
                 $title/descendant::tei:birth,
@@ -57,7 +56,6 @@ declare %templates:wrap function person:h1($node as node(), $model as map(*)){
                 $title/descendant::tei:idno[contains(.,'syriaca.org')]
             )}
         </srophe-title>
-    </body>
     return app:tei2html($title-nodes)
 };
 
@@ -121,19 +119,29 @@ return
             {geo:build-map($geo-hits,'','')}
         </div>,
         <div>
-            {app:tei2html(person:get-related($data))}
+            {
+            app:tei2html(
+                <body xmlns="http://www.tei-c.org/ns/1.0">
+                    <related-items xmlns="http://www.tei-c.org/ns/1.0">
+                        {person:get-related($data)}
+                    </related-items>
+                </body>)
+            }
         </div>
         )
-     else if(count(person:get-related($data)) gt 0) then 
-        <div>
-            <h2>Related Places in the Syriac Gazetteer</h2>
-            {app:tei2html(person:get-related($data))}
-        </div>
+     else if(person:get-related($data/descendant::tei:relation/child::*)) then 
+            app:tei2html(
+                <body xmlns="http://www.tei-c.org/ns/1.0">
+                    <related-items xmlns="http://www.tei-c.org/ns/1.0">
+                        {person:get-related($data)}
+                    </related-items>
+                </body>)
+
      else ()
 };
 
 (:
- : Use OCLC API to return VIAF records
+ : Use OCLC API to return VIAF records 
  : limit to first 5 results
  : @param $rec
  : NOTE param should just be tei:idno as string
@@ -177,9 +185,6 @@ return
  : NOTE should be able to pass related items in as string?
 :)
 declare function person:get-related($rec as node()*){
-<body xmlns="http://www.tei-c.org/ns/1.0">
-    <related-items xmlns="http://www.tei-c.org/ns/1.0">
-        {
             for $related in $rec//tei:relation 
             let $item-uri := string($related/@passive)
             let $desc := $related/tei:desc
@@ -204,10 +209,7 @@ declare function person:get-related($rec as node()*){
                            ,
                            $desc
                        )}
-                    </relation>
-        }
-     </related-items>
-</body>     
+                    </relation>    
 };   
 
 (:
@@ -234,7 +236,7 @@ declare %templates:wrap function person:sources($node as node(), $model as map(*
     let $rec := $model("persons-data")
     let $sources := 
     <body xmlns="http://www.tei-c.org/ns/1.0">
-        {$rec//tei:bibl}
+        {$rec//tei:person/tei:bibl}
     </body>
     return app:tei2html($sources)
 };

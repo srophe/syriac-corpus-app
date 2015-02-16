@@ -4,7 +4,9 @@ module namespace api="http://syriaca.org/api";
 
 import module namespace geo="http://syriaca.org//geojson" at "geojson.xqm";
 import module namespace feed="http://syriaca.org//atom" at "atom.xqm";
+import module namespace search="http://syriaca.org//search" at "search/search.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates";
+import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 
@@ -26,6 +28,7 @@ declare
     %rest:path("/srophe/place/{$id}.html")
     %output:media-type("text/html")
     %output:method("html5")
+
 function api:get-place($id as xs:string) {
     let $content := doc("/db/apps/srophe/geo/place.html?id=78")
     let $config := map {
@@ -58,14 +61,14 @@ declare
     %rest:query-param("type", "{$type}", "")
     %rest:query-param("output", "{$output}", "")
     %output:media-type("application/json")
-    %output:method("json")
+    (:%output:method("json"):)
 function api:get-geo-json($type as xs:string*, $output as xs:string*) {
 (<rest:response> 
   <http:response status="200"> 
     <http:header name="Content-Type" value="application/json; charset=utf-8"/> 
   </http:response> 
 </rest:response>, 
-     geo:json-wrapper((), $type, $output) 
+     xqjson:serialize-json(geo:json-wrapper((), $type, $output))
 ) 
 
 };
@@ -95,6 +98,38 @@ function api:get-geo-kml($type as xs:string*, $output as xs:string*) {
 ) 
 };
 
+
+
+(:~
+  : Use resxq to format urls for a search API
+  : @param $q simple kewyord string passed from uri 
+  : @param $place limit search to tei:placeName
+  : @param $person limit search to  tei:persName
+  : @param $start where to start results list start
+  : @param $perpage number of results per page
+:)
+declare
+    %rest:GET
+    %rest:path("/srophe/api/search")
+    %rest:query-param("q", "{$q}", "")
+    %rest:query-param("place", "{$place}", "")
+    %rest:query-param("person", "{$person}", "")  
+function api:search-api($q as xs:string*, $place as xs:string*, $person as xs:string*) {
+(<rest:response> 
+  <http:response status="200"> 
+    <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
+  </http:response> 
+</rest:response>, 
+<div>
+    {
+        for $hit in collection('/db/apps/srophe/data')//tei:body[ft:query(.,'abgar')]
+        return $hit
+     }
+</div>     
+) 
+};
+
+
 (:~
   : Use resxq to format urls for tei
   : @param $collection syriaca.org subcollection 
@@ -115,6 +150,29 @@ function api:get-tei($collection as xs:string, $id as xs:string){
      api:get-tei-rec($collection, $id)
      )
 }; 
+
+(:~
+  : NOTE this does means the above no longer works...
+  : Use resxq to format urls for spear tei
+  : @param $collection syriaca.org subcollection 
+  : @param $id record id
+  : Serialized as XML
+
+declare 
+    %rest:GET
+    %rest:path("/spear/{$type}/{$id}/tei")
+    %output:media-type("text/xml")
+    %output:method("xml")
+function api:get-tei($type as xs:string, $id as xs:string){
+   (<rest:response> 
+      <http:response status="200"> 
+        <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
+      </http:response> 
+    </rest:response>, 
+     api:get-spear-tei($type, $id)
+     )
+}; 
+:)
 
 (:~
   : Return atom feed for single record
@@ -163,7 +221,40 @@ function api:get-atom-feed($collection as xs:string, $start as xs:integer*, $per
  : Returns tei record for syriaca.org subcollections
 :)
 declare function api:get-tei-rec($collection as xs:string, $id as xs:string) as node()*{
-    let $collection-name := if($collection = 'place') then 'places' else $collection
-    let $path := ($config:app-root || '/data/' || $collection || '/tei/' || $id ||'.xml')
-    return doc($path)
+    let $collection-name := 
+        if($collection = 'place') then 'places'
+        else if($collection = 'person') then 'persons'
+        else $collection
+    let $path := ($config:app-root || '/data/' || $collection-name || '/tei/' || $id ||'.xml')
+    return
+        if($collection='spear') then 
+            let $spear-id := concat('http://syriaca.org/spear/',$id)
+            return
+             <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">
+                {
+                    for $rec in collection($config:app-root || '/data/spear/tei')//tei:div[@uri=$spear-id]
+                    return $rec
+                }
+             </tei:TEI>
+        else doc($path)
+};
+
+(:~
+ : Returns tei record for syriaca.org subcollections
+:)
+
+declare function api:get-spear-tei($type as xs:string, $id as xs:string) as node()*{
+    let $spear-id := 
+        if($type = 'place') then 
+            concat('http://syriaca.org/place/',$id)
+        else if($type = 'person') then 
+            concat('http://syriaca.org/person/',$id)
+        else $type
+    return
+        <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">
+            {
+                for $rec in collection($config:app-root || '/data/spear/tei')//tei:div[descendant::*[@ref=$spear-id]]
+                return $rec
+            }
+        </tei:TEI>
 };

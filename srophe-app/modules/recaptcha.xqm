@@ -3,7 +3,7 @@ declare namespace httpclient = "http://exist-db.org/xquery/httpclient";
 declare variable $recap:VALIDATE_URI as xs:anyURI := xs:anyURI("http://api-verify.recaptcha.net/verify");
 
 (:~
-: Module for working with reCaptcha 
+: Module for working with reCaptcha
 :)
 declare function recap:validate($private-key as xs:string, $recaptcha-challenge 
 as xs:string, $recaptcha-response as xs:string) as xs:boolean

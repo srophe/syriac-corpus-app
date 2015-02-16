@@ -6,7 +6,7 @@ xquery version "3.0";
 module namespace place="http://syriaca.org//place";
 
 import module namespace app="http://syriaca.org//templates" at "app.xql";
-import module namespace geo="http://syriaca.org//geojson" at "geojson.xqm";
+import module namespace geo="http://syriaca.org//geojson" at "lib/geojson.xqm";
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
@@ -34,18 +34,24 @@ declare function place:get-place($node as node(), $model as map(*)){
     return map {"place-data" := $rec}
 };
 
+(:~
+ : Value passed through app:page-title() 
+:)
+declare function place:html-title(){
+    let $placeid := concat('place-',$place:id)
+    let $title := collection($config:app-root || "/data/places/tei")/id($placeid)/ancestor::tei:TEI//tei:titleStmt/tei:title[@level='a'][1]
+    return normalize-space($title)
+};
+
 (:
  : Pass necessary element to h1 xslt template
- : NOTE: trouble with syr lang helper icon
 :)
 declare %templates:wrap function place:h1($node as node(), $model as map(*)){
     let $title := $model("place-data")//tei:place
     let $title-nodes := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
-        <srophe-title>
+        <srophe-title xmlns="http://www.tei-c.org/ns/1.0">
             {($title//tei:placeName[@syriaca-tags='#syriaca-headword'],$title/descendant::tei:idno, $title/descendant::tei:location)}
         </srophe-title>
-    </body>
     return app:tei2html($title-nodes)
 };
 
@@ -59,11 +65,13 @@ declare %templates:wrap function place:abstract($node as node(), $model as map(*
 };
 
 declare function place:type-details($data, $type){
-   (<div id="type">
+<div class="clearfix">
+    <div id="type">
         <p><strong>Place Type: </strong>
             <a href="../documentation/place-types.html#{normalize-space($type)}" class="no-print-link">{$type}</a>
         </p>
-    </div>,
+    </div>
+    {
     if($data//tei:location) then
         <div id="location">
             <h4>Location</h4>
@@ -75,7 +83,8 @@ declare function place:type-details($data, $type){
             </ul>
         </div>
     else ()
-    )
+    }
+</div>
 };
 
 (:~
@@ -95,14 +104,11 @@ return
                 {place:type-details($data, $type)}
             </div>    
         </div>
-    else         
-        <div class="col-md-12">
-            {place:type-details($data, $type)}
-        </div>
+    else place:type-details($data, $type)
 };
 
 (:~
- : Add descriptions information
+ : Add descriptions information 
 :)
 declare %templates:wrap function place:description($node as node(), $model as map(*)){
     let $desc-nodes := 
@@ -141,61 +147,6 @@ declare %templates:wrap function place:events($node as node(), $model as map(*))
 };
 
 (:~
- : Retrieve place title for metadata function.
- : Function is called by metadata.xqm
- :)
-declare function place:get-place-title(){
-    'temp'
-    (:
-    let $title := string(place:get-place-rec()/child::*/tei:fileDesc/tei:titleStmt/tei:title[1])
-    return concat('The Syriac Gazetteer: ',$title)
-    :)
-};
-
-(:~
- : Retrieve place title for metadata function.
- : Function is called by metadata.xqm
- :)
-declare function place:get-place-title($node as node(), $model as map(*)){
-    let $title := $model("place-data")//tei:place
-    return 
-    string($title//tei:placeName[@syriaca-tags='#syriaca-headword'])
-
-    (:
-    let $title := string(place:get-place-rec()/child::*/tei:fileDesc/tei:titleStmt/tei:title[1])
-    return concat('The Syriac Gazetteer: ',$title)
-    :)
-};
-
-(:~
- : NOTE BROKEN, also , persons does not have metadata??
- : Builds Dublin Core metadata.
- : Function is called by metadata.xqm
- :)
-declare function place:get-metadata() {
-(:
-    for $rec in place:get-place()
-    let $description := if(exists($rec/descendant::tei:place/tei:desc[starts-with(@xml:id,'abstract')])) then
-                            <meta name="description" content="{$rec/descendant::tei:place/tei:desc[starts-with(@xml:id,'abstract')]/text()}" />
-                        else ''    
-    let $title :=  <meta name="DC.title" property="dc.title" lang="en" content="{string($rec/child::*/tei:fileDesc/tei:titleStmt/tei:title[1])}"/>                       
-    let $authors := let $author-name := distinct-values($rec/descendant::tei:titleStmt/tei:editor) 
-                    for $author in $author-name
-                    return <meta name="DC.creator" property="dc.creator" lang="en" content="{$author}" />
-    let $contributors := let $contrib-name := distinct-values($rec/descendant::tei:titleStmt/tei:respStmt/tei:name) 
-                         for $contributor in $contrib-name                        
-                         return    <meta name="DC.contributor" property="dc.contributor" lang="en" content="{$contributor}" />              
-                        
-    let $identifier := <meta name="DC.identifier" property="dc.identifier" content="http://syriaca.org/place/{$place:id}" />
-    let $rights := (<meta name="DC.rights" property="dc.rights" lang="en"  content="{normalize-space(string-join($rec/descendant::tei:publicationStmt/tei:availability/tei:licence/tei:p,' '))}"/>,
-                    <meta name="DCTERMS.license" property="dcterms.license" content="http://creativecommons.org/licenses/by/3.0/" />)
-    let $date :=     <meta name="DC.date" property="dc.date" lang="en" content="{$rec/descendant::tei:publicationStmt/tei:date}" />
-    return ($description,$title,$contributors,$authors,$identifier,$rights,$date)
- :)
- 'Temp'
-};
-
-(:~
  : Get nested locations
  : Pull all places records with @type="nested" and also references current place id in @ref
  :            <location type="nested" source="#bib110-3">
@@ -204,16 +155,19 @@ declare function place:get-metadata() {
 :)
 declare function place:nested-loc($node as node(), $model as map(*)){
     let $ref-id := concat('http://syriaca.org/place/',$place:id)
-    for $nested-loc in collection($config:app-root || "/data/places/tei")//tei:location[@type="nested"]/tei:*[@ref=$ref-id]
-    let $parent-name := $nested-loc//tei:placeName[1]
-    let $place-id := substring-after($nested-loc/ancestor::*/tei:place[1]/@xml:id,'place-')
-    let $place-type := $nested-loc/ancestor::*/tei:place[1]/@type
-    return app:tei2html(
-    <body xmlns="http://www.tei-c.org/ns/1.0">
-        <nested-place id="{$place-id}" type="{$place-type}">
-            {$nested-loc/ancestor::*/tei:placeName[1]}
-        </nested-place>
-    </body>)
+    return 
+        app:tei2html(<body xmlns="http://www.tei-c.org/ns/1.0">
+        {
+            for $nested-loc in collection($config:app-root || "/data/places/tei")//tei:location[@type="nested"]/tei:*[@ref=$ref-id]
+            let $parent-name := $nested-loc//tei:placeName[1]
+            let $place-id := substring-after($nested-loc/ancestor::*/tei:place[1]/@xml:id,'place-')
+            let $place-type := $nested-loc/ancestor::*/tei:place[1]/@type
+            return 
+                <nested-place id="{$place-id}" type="{$place-type}">
+                    {$nested-loc/ancestor::*/tei:placeName[1]}
+                </nested-place>
+          }      
+        </body>)
 };
 
 declare function place:confessions($node as node(), $model as map(*)){
@@ -237,83 +191,84 @@ declare function place:confessions($node as node(), $model as map(*)){
  };
  
 (:~
- : Get related place names    
+ : Get related place names     
  : <relation name="contained" active="http://syriaca.org/place/145 http://syriaca.org/place/166" passive="#place-78" source="#bib78-1" to="0363"/>
 :)
 declare function place:related-places($node as node(), $model as map(*)){
-    app:tei2html(
-    <body xmlns="http://www.tei-c.org/ns/1.0">
-    <tei:place>
+ let $rec := $model("place-data")
+ return 
+    app:tei2html(<body xmlns="http://www.tei-c.org/ns/1.0">
+        <tei:place>
         <div id="heading">
-        {$model("place-data")//tei:place/tei:placeName[1]}
+            {$model("place-data")//tei:place/tei:placeName[1]}
         </div>
-        <tei:related-places>
-        {
-            for $related in $model("place-data")//tei:relation
-            let $active := 
-                for $rel-item in tokenize($related/@active,' ')
-                let $item-id := tokenize($rel-item, '/')[last()]
-                let $item-uri := $rel-item
-                let $place-id := concat('place-',$item-id)
-                return
-                    <tei:relation id="{$item-id}" uri="{$item-uri}" varient="active">
-                    {
-                        (for $att in $related/@*
-                            return
-                                 attribute {name($att)} {$att},                      
-                        for $get-related in collection($config:app-root || "/data/places/tei")/id($place-id)
-                        return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
-                    }
-                    </tei:relation>
-            let $passive := 
-                for $rel-item in tokenize($related/@passive,' ')
-                let $item-id := tokenize($rel-item, '/')[last()]
-                let $item-uri := $rel-item
-                let $place-id := concat('place-',$item-id)
-                return
-                    <tei:relation id="{$item-id}" uri="{$item-uri}" varient="passive">
-                    {
-                        (for $att in $related/@*
-                            return
-                                 attribute {name($att)} {$att},                      
-                        for $get-related in collection($config:app-root || "/data/places/tei")/id($place-id)
-                        return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
-                    }
-                    </tei:relation>
-            let $mutual := 
-                    if($related/@mutual) then
-                    let $mutual-string := normalize-space($related/@mutual)
+         <tei:related-places>
+            {
+                for $related in $rec//tei:relation
+                let $active := 
+                    for $rel-item in tokenize($related/@active,' ')
+                    let $item-id := tokenize($rel-item, '/')[last()]
+                    let $item-uri := $rel-item
+                    let $place-id := concat('place-',$item-id)
                     return
-                        <tei:relation varient="mutual">
-                            {
-                                for $rel-item in tokenize($mutual-string,' ')
-                                let $item-id := tokenize($rel-item, '/')[last()]
-                                let $item-uri := $rel-item
-                                let $place-id := concat('place-',$item-id)
+                        <relation id="{$item-id}" uri="{$item-uri}" varient="active">
+                        {
+                            (for $att in $related/@*
                                 return
-                                    <tei:mutual id="{$item-id}">{
-                                    (for $att in $related/@*
+                                     attribute {name($att)} {$att},                      
+                            for $get-related in collection($config:app-root || "/data/places/tei")/id($place-id)
+                            return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
+                        }
+                        </relation>
+                let $passive := 
+                    for $rel-item in tokenize($related/@passive,' ')
+                    let $item-id := tokenize($rel-item, '/')[last()]
+                    let $item-uri := $rel-item
+                    let $place-id := concat('place-',$item-id)
+                    return
+                        <relation id="{$item-id}" uri="{$item-uri}" varient="passive">
+                        {
+                            (for $att in $related/@*
+                                return
+                                     attribute {name($att)} {$att},                      
+                            for $get-related in collection($config:app-root || "/data/places/tei")/id($place-id)
+                            return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
+                        }
+                        </relation>
+                let $mutual := 
+                        if($related/@mutual) then
+                        let $mutual-string := normalize-space($related/@mutual)
+                        return
+                            <relation varient="mutual">
+                                {
+                                    for $rel-item in tokenize($mutual-string,' ')
+                                    let $item-id := tokenize($rel-item, '/')[last()]
+                                    let $item-uri := $rel-item
+                                    let $place-id := concat('place-',$item-id)
                                     return
-                                         attribute {name($att)} {$att},                      
-                                    for $get-related in collection($config:app-root || "/data/places/tei")/id($place-id)
-                                    let $type := string($get-related/@type)
-                                    return 
-                                        (attribute type {$type}, $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en']))
-                                    }
-                                    </tei:mutual>
-                            }
-                        </tei:relation>
-                      else ''  
-
-            return ($active,$passive,$mutual)
-        }
+                                        <mutual id="{$item-id}">{
+                                        (for $att in $related/@*
+                                        return
+                                             attribute {name($att)} {$att},                      
+                                        for $get-related in collection($config:app-root || "/data/places/tei")/id($place-id)
+                                        let $type := string($get-related/@type)
+                                        return 
+                                            (attribute type {$type}, $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en']))
+                                        }
+                                        </mutual>
+                                }
+                            </relation>
+                          else ''  
+    
+                return ($active,$passive,$mutual)
+            }
         </tei:related-places>
-    </tei:place>
+        </tei:place>
     </body>)
 };
 
 (:
- : Return bibls for use in sources
+ : Return bibls for use in sources 
 :)
 declare %templates:wrap function place:sources($node as node(), $model as map(*)){
     let $rec := $model("place-data")
@@ -351,6 +306,20 @@ declare %templates:wrap function place:citation($node as node(), $model as map(*
     return app:tei2html($header)
 };
 
+(:~
+ : Prints link icons on left
+:)
+declare %templates:wrap function place:link-icons-list($node as node(), $model as map(*)){
+let $data := $model("place-data")
+let $links:=
+    <body xmlns="http://www.tei-c.org/ns/1.0">
+        <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
+            {$data//tei:place//tei:idno, $data//tei:place//tei:location}
+        </see-also>
+    </body>
+return app:tei2html($links)
+};
+
 (:~ 
  : Pull together place page data   
  : Adds related places and nested locations to full TEI document
@@ -376,3 +345,58 @@ declare %templates:wrap function place:get-place-data($node as node(), $model as
        transform:transform($buildRec, doc('../resources/xsl/placepage.xsl'),() )
 };
 
+(:~
+ : Add contact form for submitting corrections
+:)
+declare %templates:wrap function place:contact($node as node(), $model as map(*)){
+<div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-labelledby="feedbackLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+            <h2 class="modal-title" id="feedbackLabel">Corrections/Additions?</h2>
+        </div>
+        <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email" role="form">
+            <div class="modal-body" id="modal-body">
+                <!-- More information about submitting data from howtoadd.html -->
+                <p><strong>Notify the editors of a mistake:</strong>
+                <a class="btn btn-link togglelink" data-toggle="collapse" data-target="#viewdetails" data-text-swap="hide information">more information...</a>
+                </p>
+                <div class="section">
+                    <div class="collapse" id="viewdetails">
+                    <p>Using the following form, please inform us which page URI the mistake is on, where on the page the mistake occurs,
+                    the content of the correction, and a citation for the correct information (except in the case of obvious corrections, such as misspelled words). 
+                    Please also include your email address, so that we can follow up with you regarding 
+                    anything which is unclear. We will publish your name, but not your contact information as the author of the  correction.</p>
+                    <h4>Add data to an existing entry</h4>
+                    <p>The Syriac Gazetteer is an ever expanding resource  created by and for users. The editors actively welcome additions to the gazetteer. If there is information which you would like to add to an existing place entry in The Syriac Gazetteer, please use the link below to inform us about the information, your (primary or scholarly) source(s) 
+                    for the information, and your contact information so that we can credit you for the modification. For categories of information which  The Syriac Gazetteer structure can support, please see the section headings on the entry for Edessa and  specify in your submission which category or 
+                    categories this new information falls into.  At present this information should be entered into  the email form here, although there is an additional  delay in this process as the data needs to be encoded in the appropriate structured data format  and assigned a URI. A structured form for submitting  new entries is under development.</p>
+                    </div>
+                </div>
+                <input type="text" name="name" placeholder="Name" class="form-control" style="max-width:300px"/>
+                <br/>
+                <input type="text" name="email" placeholder="email" class="form-control" style="max-width:300px"/>
+                <br/>
+                <input type="text" name="subject" placeholder="subject" class="form-control" style="max-width:300px"/>
+                <br/>
+                <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
+                <input type="hidden" name="id" value="{$place:id}"/>
+                <input type="hidden" name="place" value="{string($model("place-data")//tei:place/tei:placeName[1])}"/>
+                <!-- start reCaptcha API-->
+                <script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia"/>
+                <noscript>
+                    <iframe src="http://api.recaptcha.net/noscript?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia" height="100" width="100" frameborder="0"/>
+                    <br/>
+                    <textarea name="recaptcha_challenge_field" rows="3" cols="40"/>
+                    <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+                </noscript>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Close</button><input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+};
