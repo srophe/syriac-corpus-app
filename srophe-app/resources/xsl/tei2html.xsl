@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -53,6 +53,7 @@
  <!-- =================================================================== -->
     <xsl:import href="helper-functions.xsl"/>
     <xsl:import href="link-icons.xsl"/>
+    <xsl:import href="manuscripts.xsl"/>
     <xsl:import href="citation.xsl"/>
     <xsl:import href="bibliography.xsl"/>
     <xsl:import href="json-uri.xsl"/>
@@ -98,11 +99,12 @@
     <xsl:template match="/">
         <xsl:apply-templates/>
     </xsl:template>
+    <!-- Template for page titles -->
+    <xsl:template match="t:srophe-title">
+        <xsl:call-template name="h1"/>
+    </xsl:template>
     <!-- Nodes passed from xquery will be matched against this template for formatting -->
     <xsl:template match="t:body">
-        <xsl:if test="t:srophe-title">
-            <xsl:call-template name="h1"/>
-        </xsl:if>
         <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
             <div id="description">
                 <h3>Brief Descriptions</h3>
@@ -172,74 +174,117 @@
                 <div id="relations" class="well">
                     <h3>Related Places</h3>
                     <ul>
-                        <xsl:apply-templates select="t:place/t:related-places/t:relation" mode="related-place"/>
+                        <xsl:apply-templates select="//t:relation" mode="related-place"/>
                     </ul>
                 </div>
             </xsl:if>
         </xsl:if>
-        <xsl:if test="t:related-items">
-            <xsl:if test="t:related-items/t:relation[contains(@uri,'place')]">
-                <div>
-                    <dl class="dl-horizontal dl-srophe">
-                        <xsl:for-each-group select="t:related-items/t:relation[contains(@uri,'place')]" group-by="@name">
-                            <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
-                            <xsl:choose>
-                                <xsl:when test="not(current-group()/descendant::*:geo)">
-                                    <dt>&#160;</dt>
-                                </xsl:when>
-                                <xsl:when test="current-grouping-key() = 'born-at'">
-                                    <dt>
-                                        <i class="srophe-marker born-at"/>
-                                    </dt>
-                                </xsl:when>
-                                <xsl:when test="current-grouping-key() = 'died-at'">
-                                    <dt>
-                                        <i class="srophe-marker died-at"/>
-                                    </dt>
-                                </xsl:when>
-                                <xsl:when test="current-grouping-key() = 'has-literary-connection-to-place'">
-                                    <dt>
-                                        <i class="srophe-marker literary"/>
-                                    </dt>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <dt>
-                                        <i class="srophe-marker relation"/>
-                                    </dt>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                            <dd>
-                                <xsl:value-of select="substring(t:desc,1,$desc-ln - 1)"/>:
-                                <xsl:for-each select="current-group()">
-                                    <xsl:apply-templates select="." mode="relation"/>
-                                    <!--<xsl:if test="position() != last()">, </xsl:if>-->
-                                </xsl:for-each>
-                            </dd>
-                        </xsl:for-each-group>
-                    </dl>
-                </div>
+        <xsl:if test="t:related-items/descendant::t:relation">
+            <xsl:if test="not(t:related-items/descendant::t:geo)">
+                <h2>Related Places in the Syriac Gazetteer</h2>
             </xsl:if>
-            <xsl:if test="t:related-items/t:relation[contains(@uri,'person')]">
-                <div id="relations" class="well">
-                    <h3>Related People</h3>
-                    <!-- NOTE: currently in list, changed to approved format, list or inline -->
-                    <ul>
-                        <xsl:for-each-group select="t:related-items/t:relation[contains(@uri,'person')]" group-by="@name">
-                            <li>
+            <div>
+                <xsl:if test="t:related-items/t:relation[contains(@uri,'place')]">
+                    <div>
+                        <dl class="dl-horizontal dl-srophe">
+                            <xsl:for-each-group select="t:related-items/t:relation[contains(@uri,'place')]" group-by="@name">
                                 <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
-                                <xsl:value-of select="substring(*:desc,1,$desc-ln - 1)"/>:
-                                <xsl:for-each select="current-group()">
-                                    <xsl:apply-templates select="." mode="relation"/>
-                                    <xsl:if test="position() != last()">, </xsl:if>
-                                </xsl:for-each>
-                            </li>
-                        </xsl:for-each-group>
-                    </ul>
-                </div>
-            </xsl:if>
+                                <xsl:choose>
+                                    <xsl:when test="not(current-group()/descendant::*:geo)">
+                                        <dt>&#160;</dt>
+                                    </xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'born-at'">
+                                        <dt>
+                                            <i class="srophe-marker born-at"/>
+                                        </dt>
+                                    </xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'died-at'">
+                                        <dt>
+                                            <i class="srophe-marker died-at"/>
+                                        </dt>
+                                    </xsl:when>
+                                    <xsl:when test="current-grouping-key() = 'has-literary-connection-to-place'">
+                                        <dt>
+                                            <i class="srophe-marker literary"/>
+                                        </dt>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <dt>
+                                            <i class="srophe-marker relation"/>
+                                        </dt>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <dd>
+                                    <xsl:value-of select="substring(t:desc,1,$desc-ln - 1)"/>:
+                                    <xsl:for-each select="current-group()">
+                                        <xsl:apply-templates select="." mode="relation"/>
+                                        <!--<xsl:if test="position() != last()">, </xsl:if>-->
+                                    </xsl:for-each>
+                                </dd>
+                            </xsl:for-each-group>
+                        </dl>
+                    </div>
+                </xsl:if>
+                <xsl:if test="t:related-items/t:relation[contains(@uri,'person')]">
+                    <div id="relations" class="well">
+                        <h3>Related People</h3>
+                        <!-- NOTE: currently in list, changed to approved format, list or inline -->
+                        <ul>
+                            <xsl:for-each-group select="t:related-items/t:relation[contains(@uri,'person')]" group-by="@name">
+                                <li>
+                                    <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
+                                    <xsl:value-of select="substring(*:desc,1,$desc-ln - 1)"/>:
+                                    <xsl:for-each select="current-group()">
+                                        <xsl:apply-templates select="." mode="relation"/>
+                                        <xsl:if test="position() != last()">, </xsl:if>
+                                    </xsl:for-each>
+                                </li>
+                            </xsl:for-each-group>
+                        </ul>
+                    </div>
+                </xsl:if>
+            </div>
         </xsl:if>
         <xsl:if test="t:related-places">
-            <xsl:apply-templates select="related-places"/>
+            <div>
+                <dl class="dl-horizontal dl-srophe">
+                    <xsl:for-each-group select="t:related-places/t:relation[contains(@uri,'place')]" group-by="@name">
+                        <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
+                        <xsl:choose>
+                            <xsl:when test="not(current-group()/descendant::*:geo)">
+                                <dt>&#160;</dt>
+                            </xsl:when>
+                            <xsl:when test="current-grouping-key() = 'born-at'">
+                                <dt>
+                                    <i class="srophe-marker born-at"/>
+                                </dt>
+                            </xsl:when>
+                            <xsl:when test="current-grouping-key() = 'died-at'">
+                                <dt>
+                                    <i class="srophe-marker died-at"/>
+                                </dt>
+                            </xsl:when>
+                            <xsl:when test="current-grouping-key() = 'has-literary-connection-to-place'">
+                                <dt>
+                                    <i class="srophe-marker literary"/>
+                                </dt>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <dt>
+                                    <i class="srophe-marker relation"/>
+                                </dt>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <dd>
+                            <xsl:value-of select="substring(t:desc,1,$desc-ln - 1)"/>:
+                            <xsl:for-each select="current-group()">
+                                <xsl:apply-templates select="." mode="relation"/>
+                                <!--<xsl:if test="position() != last()">, </xsl:if>-->
+                            </xsl:for-each>
+                        </dd>
+                    </xsl:for-each-group>
+                </dl>
+            </div>
         </xsl:if>
        
         <!-- Confessions/Religious Communities -->
@@ -317,7 +362,7 @@
             <xsl:call-template name="citationInfo"/>
         </xsl:if>
         <!-- Contains: -->
-        <xsl:if test="/child::*/t:nested-place">
+        <xsl:if test="//t:nested-place">
             <div id="contents">
                 <h3>Contains</h3>
                 <ul>
@@ -326,6 +371,7 @@
                         <li>
                             <a href="{concat('/place/',@id,'.html')}">
                                 <xsl:value-of select="."/>
+                                <xsl:value-of select="concat(' (',@type,')')"/>
                             </a>
                         </li>
                     </xsl:for-each>
@@ -354,13 +400,21 @@
                 </xsl:with-param>
             </xsl:call-template>
         </xsl:if>
-    
-    <!-- Manuscript templates -->
-        <xsl:if test="t:msIdentifier">
-            <xsl:apply-templates/>
+    <!-- Spear factoid, group persons -->
+        <xsl:if test="//t:listPerson">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Person Factoids</h4>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <xsl:apply-templates/>
+                    </ul>
+                </div>
+            </div>
         </xsl:if>
     </xsl:template>
-    <!-- used by search pages -->
+    <!-- used by search pages not real tei element -->
     <xsl:template match="t:search">
         <!-- Output elements without links -->
         <xsl:apply-templates mode="title"/>
@@ -383,8 +437,7 @@
             <xsl:call-template name="link-icons"/>   
             <!-- End Title -->
         </div>
-        <!-- NOTE: needs to be generalized -->
-        <!-- emit place URI and associated help links -->
+        <!-- emit record URI and associated help links -->
         <xsl:for-each select="//t:idno[contains(.,'syriaca.org')]">
             <div style="margin:0 1em 1em; color: #999999;">
                 <small>
@@ -406,12 +459,14 @@
         <xsl:choose>
             <xsl:when test="descendant::*[@syriaca-tags='#syriaca-headword']">
                 <bdi>
-                    <xsl:value-of select="string(descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1])"/> - 
+                    <xsl:apply-templates select="descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1]" mode="plain"/>
+                    <!--<xsl:value-of select="string(descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1])"/>--> - 
                 </bdi>
                 <xsl:choose>
                     <xsl:when test="descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'syr')]">
                         <bdi lang="syr">
-                            <xsl:value-of select="string(descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'syr')])"/>
+                            <xsl:apply-templates select="descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'syr')][1]" mode="plain"/>
+                            <!--<xsl:value-of select="string(descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'syr')])"/>-->
                         </bdi>
                     </xsl:when>
                     <xsl:otherwise>
@@ -419,12 +474,8 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
-            <!-- Test for manuscript -->
-            <xsl:when test="//t:repository">
-                <xsl:value-of select="concat(//t:repository,' ',//t:altIdentifier/t:idno[@type='BL-Shelfmark'])"/>
-            </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="descendant::*/text()"/>
+                <xsl:apply-templates select="descendant-or-self::*[not(self::t:idno)]/text()"/>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:if test="t:srophe-title[@ana] or t:srophe-title/t:birth or t:srophe-title/t:death">
@@ -495,6 +546,24 @@
             </div>
         </div>
     </xsl:template>
+    <xsl:template match="t:title">
+        <xsl:apply-templates/>
+        <xsl:if test="following-sibling::t:title">
+            <xsl:text>: </xsl:text>
+        </xsl:if>
+    </xsl:template>
+    <xsl:template match="t:foreign">
+        <xsl:choose>
+            <xsl:when test="starts-with(@xml:lang,'syr') or starts-with(@xml:lang,'ar')">
+                <bdi lang="syr">
+                    <xsl:value-of select="."/>
+                </bdi>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="."/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <xsl:template match="t:event">
             <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
         <xsl:apply-templates select="child::*" mode="plain"/>
@@ -526,7 +595,34 @@
             </xsl:if>
         </li>
     </xsl:template>
-    
+    <!-- Not real tei element -->
+    <xsl:template match="t:pers-group">
+        <h4>Person</h4>
+        <xsl:apply-templates select="*[not(t:listPerson/t:person/t:persName)]"/>
+    </xsl:template>
+    <xsl:template match="t:listPerson">
+        <xsl:choose>
+            <xsl:when test="/t:body/@type='person-factoid'">
+                <xsl:choose>
+                    <xsl:when test="t:person/t:persName"/>
+                    <xsl:otherwise>
+                        <li>
+                            <xsl:apply-templates/>
+                        </li>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <li>
+                    <xsl:apply-templates/>
+                </li>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template match="t:biblScope"/>
+    <xsl:template match="t:listRelation">
+        <xsl:apply-templates/>
+    </xsl:template>
     <!-- Template to print out confession section -->
     <xsl:template match="t:state[@type='confession']">
         <!-- Get all ancesors of current confession (but only once) -->
@@ -795,6 +891,9 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <xsl:template match="t:persName" mode="plain">
+        <xsl:apply-templates/>
+    </xsl:template>
     <xsl:template match="t:roleName">
         <xsl:apply-templates mode="out-normal"/>
         <xsl:text> </xsl:text>
@@ -835,7 +934,17 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
+    <xsl:template match="t:list">
+        <ul>
+            <xsl:apply-templates/>
+        </ul>
+    </xsl:template>
+    <xsl:template match="t:item">
+        <li>
+            <xsl:apply-templates/>
+        </li>
+    </xsl:template>
+    
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of the licence element in the tei header
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -1199,6 +1308,17 @@
                             </relation>                
                    </related-items> 
   
+          <tei:related-places>
+                                    <relation varient="mutual">
+                                        <mutual id="#place-139" name="share-a-name" mutual="#place-139  http://syriaca.org/place/722  http://syriaca.org/place/2346"></mutual>
+                                        <mutual id="722" name="share-a-name" mutual="#place-139  http://syriaca.org/place/722  http://syriaca.org/place/2346" type="region">
+                                            <placeName xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.tei-c.org/ns/1.0" xml:id="name722-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib722-1">Mosul</placeName>
+                                        </mutual>
+                                        <mutual id="2346" name="share-a-name" mutual="#place-139  http://syriaca.org/place/722  http://syriaca.org/place/2346" type="diocese">
+                                            <placeName xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.tei-c.org/ns/1.0" xml:id="name2346-1" xml:lang="en" syriaca-tags="#syriaca-headword" source="#bib2346-1">Mosul</placeName>
+                                        </mutual>
+                                    </relation>
+                                </tei:related-places>
     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:relation" mode="related-place">
         <xsl:variable name="name-string">
@@ -1212,9 +1332,8 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <xsl:variable name="currentPlace" select="//t:body/t:div/t:placeName[1]"/>
+        <xsl:variable name="currentPlace" select="//t:div[@id='heading']/t:placeName[1]/text()"/>
         <xsl:choose>
-            <xsl:when test="not(t:placeName)"/>
             <xsl:when test="@id=concat('#place-',$resource-id)"/>
             <xsl:when test="@varient='active'">
                 <li>
@@ -1257,7 +1376,7 @@
                     <!--                    <xsl:value-of select="$currentPlace"/> -->
                     <!-- Need to test number of groups and output only the first two -->
                     <xsl:variable name="group1-count">
-                        <xsl:for-each-group select="mutual" group-by="@type">
+                        <xsl:for-each-group select="t:mutual" group-by="@type">
                             <xsl:sort select="count(current-group()/child::*)" order="descending"/>
                             <xsl:if test="position()=1">
                                 <xsl:value-of select="count(current-group()/child::*)"/>
@@ -1265,15 +1384,15 @@
                         </xsl:for-each-group>
                     </xsl:variable>
                     <xsl:variable name="group2-count">
-                        <xsl:for-each-group select="mutual" group-by="@type">
+                        <xsl:for-each-group select="t:mutual" group-by="@type">
                             <xsl:sort select="count(current-group()/child::*)" order="descending"/>
                             <xsl:if test="position()=2">
                                 <xsl:value-of select="count(current-group()/child::*)"/>
                             </xsl:if>
                         </xsl:for-each-group>
                     </xsl:variable>
-                    <xsl:variable name="total-count" select="count(mutual/child::*)"/>
-                    <xsl:for-each-group select="mutual" group-by="@type">
+                    <xsl:variable name="total-count" select="count(t:mutual/child::*)"/>
+                    <xsl:for-each-group select="t:mutual" group-by="@type">
                         <xsl:sort select="count(current-group()/child::*)" order="descending"/>
                         <xsl:variable name="plural-type">
                             <xsl:choose>
@@ -1351,7 +1470,7 @@
                     <!-- toggle to full list, grouped by type -->
                     <a class="togglelink btn-link" data-toggle="collapse" data-target="#relatedlist" data-text-swap="(hide list)">(see list)</a>
                     <dl class="collapse" id="relatedlist">
-                        <xsl:for-each-group select="mutual" group-by="@type">
+                        <xsl:for-each-group select="t:mutual" group-by="@type">
                             <xsl:sort select="count(current-group()/child::*)" order="descending"/>
                             <xsl:variable name="plural-type">
                                 <xsl:choose>
@@ -1413,107 +1532,5 @@
         <xsl:if test="@source">
             <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
         </xsl:if>
-    </xsl:template>
-
-    <!-- Manuscript templates -->
-    <xsl:template match="t:history">
-        <xsl:if test="t:origin">
-            <xsl:for-each select="t:origin">
-                <xsl:if test="t:origDate">
-                    <p>
-                        <strong>Date of Origin: </strong>
-                        <xsl:apply-templates select="t:origDate"/>
-                    </p>
-                </xsl:if>
-                <xsl:if test="t:origPlace">
-                    <p>
-                        <strong>Place of Origin: </strong>
-                        <xsl:apply-templates select="t:origPlace"/>
-                    </p>
-                </xsl:if>
-            </xsl:for-each>
-        </xsl:if>
-    </xsl:template>
-    <xsl:template match="t:textLang[@mainLang]">
-        <xsl:if test="not(parent::*)">
-            <p>
-                <strong>Language: </strong>
-                <xsl:apply-templates/>
-            </p>
-        </xsl:if>
-    </xsl:template>
-    <xsl:template match="t:origPlace">
-        <xsl:choose>
-            <xsl:when test="string-length(.) &lt; 1">Not available</xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <xsl:template match="t:msAuthors"/>
-    <xsl:template match="t:msItem">
-        <li>
-            <h4 class="ms-title" style="font-size:1.25em; margin:0 0 .25em 0; color:#666666; font-weight:500;">
-                <xsl:apply-templates select="t:title[@type='supplied']"/>
-                <xsl:text> </xsl:text>
-                <xsl:apply-templates select="t:locus"/>
-            </h4>
-                <!-- Have to pull in author via xquery? or just doc? -->
-            <p>
-                <strong>Author: </strong>
-                <xsl:variable name="author" select="string(t:author/@ref)"/>
-                <a href="{$author}">
-                    <xsl:value-of select="string-join(/t:msAuthors/t:msAuthor[@id = $author][1],' ')"/>
-                </a>
-            </p>
-            <xsl:if test="t:rubric[@xml:lang='syr']">
-                <p>
-                    <strong>Syriac Title: </strong>
-                    <bdi lang="syr">
-                        <xsl:apply-templates select="t:rubric[@xml:lang='syr']"/>
-                    </bdi>
-                </p>
-            </xsl:if>
-            <xsl:if test="t:incipit[@xml:lang='syr']">
-                <p>
-                    <strong>Incipit: </strong>
-                    <bdi lang="syr">
-                        <xsl:apply-templates select="t:incipit[@xml:lang='syr']"/>
-                    </bdi>
-                </p>
-            </xsl:if>
-            <xsl:if test="t:finalRubric[@xml:lang='syr']">
-                <p>
-                    <strong>Desinit: </strong>
-                    <bdi lang="syr">
-                        <xsl:apply-templates select="t:finalRubric[@xml:lang='syr']"/>
-                    </bdi>
-                </p>
-            </xsl:if>
-            <xsl:if test="t:note">
-                <p>
-                    <strong>Note</strong>
-                    <br/>
-                    <xsl:apply-templates select="t:note" mode="plain"/>
-                </p>
-            </xsl:if>
-            <xsl:if test="t:listBibl">
-                <p>
-                    <strong>Bibliography: </strong>
-                    <xsl:apply-templates select="t:listBibl/t:bibl"/>
-                </p>
-            </xsl:if>
-            <xsl:if test="@defective='true'">
-                <p>
-                    <strong>Defective </strong>
-                </p>
-            </xsl:if>
-            <xsl:if test="t:msItem">
-                <h4>Subsections:</h4>
-                <ol>
-                    <xsl:apply-templates select="t:msItem"/>
-                </ol>
-            </xsl:if>
-        </li>
     </xsl:template>
 </xsl:stylesheet>

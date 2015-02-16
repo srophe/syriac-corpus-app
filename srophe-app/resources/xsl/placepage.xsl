@@ -485,9 +485,7 @@
                 <xsl:sort collation="{$mixed}" select="."/>
             </xsl:apply-templates>
         </div>
-        <!-- Build related places and people if they exist 
-            NOTE: complicated, persons uses map
-        -->
+        <!-- Build related places and people if they exist -->
         <xsl:if test="../t:relation">
             <div id="relations" class="well">
                 <h3>Related Places</h3>

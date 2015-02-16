@@ -48,7 +48,6 @@ let $personsid := concat('person-',$person:id)
 declare %templates:wrap function person:h1($node as node(), $model as map(*)){
     let $title := $model("persons-data")//tei:person
     let $title-nodes := 
-        <body xmlns="http://www.tei-c.org/ns/1.0">
             <srophe-title ana="{$title/@ana}" xmlns="http://www.tei-c.org/ns/1.0">
                 {(
                     $title/descendant::tei:persName[@syriaca-tags='#syriaca-headword'],
@@ -57,7 +56,6 @@ declare %templates:wrap function person:h1($node as node(), $model as map(*)){
                     $title/descendant::tei:idno[contains(.,'syriaca.org')]
                 )}
             </srophe-title>
-        </body>
     return app:tei2html($title-nodes)
 };
 

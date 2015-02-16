@@ -72,22 +72,21 @@
         <!--NOTE: hackish fix to unexpected lang tag in person. First name element is en-x-gedsh not en -->
         <xsl:choose>
             <xsl:when test="$rec/t:placeName[starts-with(@xml:lang, $firstlang) and @syriaca-tags='#syriaca-headword']                  | $rec/child::t:persName[starts-with(@xml:lang,$firstlang) and @syriaca-tags='#syriaca-headword']">
-                <xsl:apply-templates select="$rec/child::t:persName[starts-with(@xml:lang,$firstlang)                      and @syriaca-tags='#syriaca-headword'][1] | $rec/t:placeName[starts-with(@xml:lang, $firstlang)                     and @syriaca-tags='#syriaca-headword']" mode="std-title">
+                <xsl:apply-templates select="$rec/child::t:persName[starts-with(@xml:lang,$firstlang)                      and @syriaca-tags='#syriaca-headword'][1] | $rec/t:placeName[starts-with(@xml:lang, $firstlang) and @syriaca-tags='#syriaca-headword']" mode="std-title">
                     <xsl:with-param name="withbdi" select="$withbdi"/>
                     <xsl:with-param name="withtype" select="$withtype"/>
                 </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="$rec/child::t:persName[1]"/>
-                <!--<xsl:call-template name="not-avail">
+                <xsl:call-template name="not-avail">
                     <xsl:with-param name="withbdi" select="$withbdi"/>
-                </xsl:call-template>-->
+                </xsl:call-template>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:text> — </xsl:text>
         <xsl:choose>
             <xsl:when test="$rec/t:placeName[starts-with(@xml:lang,$secondlang) and @syriaca-tags='#syriaca-headword']                  | $rec/t:persName[starts-with(@xml:lang,$secondlang) and @syriaca-tags='#syriaca-headword']">
-                <xsl:apply-templates select="$rec/t:placeName[starts-with(@xml:lang,$secondlang)                                           and @syriaca-tags='#syriaca-headword'][1] |                                          $rec/t:persName[starts-with(@xml:lang,$secondlang)                      and @syriaca-tags='#syriaca-headword'][1]" mode="title">
+                <xsl:apply-templates select="$rec/t:placeName[starts-with(@xml:lang,$secondlang)                      and @syriaca-tags='#syriaca-headword'][1] |                      $rec/t:persName[starts-with(@xml:lang,$secondlang) and @syriaca-tags='#syriaca-headword'][1]" mode="title">
                     <xsl:with-param name="withbdi" select="$withbdi"/>
                     <xsl:with-param name="withtype">no</xsl:with-param>
                 </xsl:apply-templates>

@@ -115,7 +115,7 @@
                                     </xsl:for-each>
                                 </xsl:if>
                             </xsl:when>
-                            <xsl:otherwise> 
+                            <xsl:otherwise>
                                 <xsl:apply-templates mode="footnote"/>
                             </xsl:otherwise>
                         </xsl:choose>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t" version="2.0">
     
-<!-- 
+    <!-- 
   Function to output dates in correct formats passes whole element to function, 
   function also uses trim-date to strip leading 0
  -->
@@ -100,7 +100,7 @@
         <!-- count number of relevant persons -->
         <xsl:variable name="ccount">
             <xsl:value-of select="count($current-node)"/>
-        </xsl:variable>  
+        </xsl:variable> 
         <!-- process based on above parameters -->
         <xsl:choose>
             <xsl:when test="$ccount=1 and $moded='footnote'">

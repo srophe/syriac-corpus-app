@@ -74,14 +74,12 @@
     </xsl:variable>
     <xsl:template name="link-icons">
         <div id="link-icons" class="col-md-4 text-right">
-            
             <!-- Pleiades links -->
             <xsl:for-each select="//t:body/descendant::t:idno[contains(.,'pleiades')]">
                 <a href="{normalize-space(.)}">
                     <img src="/exist/apps/srophe/resources/img/circle-pi-25.png" alt="Image of the Greek letter pi in blue; small icon of the Pleiades project" title="click to view {link-title} in Pleiades"/>
                 </a>
             </xsl:for-each>
-            
             <!-- Wikipedia links -->
             <xsl:for-each select="//t:body/descendant::t:idno[contains(.,'wikipedia')]">
                 <xsl:variable name="get-title">
@@ -129,6 +127,12 @@
                 <xsl:for-each select="t:idno[contains(.,'csc.org.il')]">
                     <li>
                         <a href="{normalize-space(.)}"> "<xsl:value-of select="substring-before(substring-after(normalize-space(.),'sK='),'&amp;sT=')"/>" in the Comprehensive Bibliography on Syriac Christianity</a>
+                    </li>
+                </xsl:for-each>
+                <!--NOTE: TEMPORARY for demonstration -->
+                <xsl:for-each select="//t:idno[contains(.,'www.epigraphy.ca')]">
+                    <li>
+                        <a href="{normalize-space(.)}">1 Inscription from Mosul at the Canadian Centre for Epigraphic Documents</a>
                     </li>
                 </xsl:for-each>
                 <!-- WorldCat Identities -->

@@ -3,8 +3,8 @@
     <xsl:template name="langattr">
         <xsl:if test="@xml:lang">
             <xsl:copy-of select="@xml:lang"/>
-            <xsl:attribute name="lang">        
-                <xsl:value-of select="@xml:lang"/>        
+            <xsl:attribute name="lang">
+                <xsl:value-of select="@xml:lang"/>
             </xsl:attribute>
         </xsl:if>
     </xsl:template>

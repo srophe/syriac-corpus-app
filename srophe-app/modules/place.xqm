@@ -49,11 +49,9 @@ declare function place:html-title(){
 declare %templates:wrap function place:h1($node as node(), $model as map(*)){
     let $title := $model("place-data")//tei:place
     let $title-nodes := 
-        <body xmlns="http://www.tei-c.org/ns/1.0">
-            <srophe-title>
+            <srophe-title xmlns="http://www.tei-c.org/ns/1.0">
                 {($title//tei:placeName[@syriaca-tags='#syriaca-headword'],$title/descendant::tei:idno, $title/descendant::tei:location)}
             </srophe-title>
-        </body>
     return app:tei2html($title-nodes)
 };
 
