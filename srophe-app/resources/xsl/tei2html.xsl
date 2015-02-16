@@ -506,10 +506,13 @@
         </xsl:if>
     </xsl:template>
     <xsl:template match="t:choice">
-        <xsl:text> </xsl:text><xsl:apply-templates/>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="t:orig">
-        <xsl:text> (</xsl:text><xsl:apply-templates/><xsl:text>) </xsl:text>
+        <xsl:text> (</xsl:text>
+        <xsl:apply-templates/>
+        <xsl:text>) </xsl:text>
     </xsl:template>
     <xsl:template match="t:event" mode="event">
         <li>

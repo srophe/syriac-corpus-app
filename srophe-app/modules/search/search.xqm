@@ -7,7 +7,7 @@ import module namespace persons="http://syriaca.org//persons" at "persons-search
 import module namespace places="http://syriaca.org//places" at "places-search.xqm";
 import module namespace spears="http://syriaca.org//spears" at "spear-search.xqm";
 import module namespace common="http://syriaca.org//common" at "common.xqm";
-import module namespace geo="http://syriaca.org//geojson" at "../geojson.xqm";
+import module namespace geo="http://syriaca.org//geojson" at "../lib/geojson.xqm";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org//config" at "../config.xqm";

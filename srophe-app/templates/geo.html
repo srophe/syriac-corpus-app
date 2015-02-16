@@ -4,7 +4,7 @@
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title data-template="config:app-title">The Syriac Gazetteer</title>
+        <title>Syriaca.org: The Syriac Gazetteer</title>
         <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"/>
         <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/"/>
         <meta name="DC.subject" property="dc.subject" content="Geography, Ancient"/>
@@ -70,14 +70,10 @@
                             <a href="/geo/howtoadd.html">add new place</a>
                         </li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a class="pull-right" href="/geo/search.html">advanced search</a>
-                        </li>
-                    </ul>
                     <form class="navbar-form navbar-right navbar-input-group" role="search" action="/geo/search.html" method="get">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search" name="q" id="q"/>
+                            <input type="hidden" id="collection" value="places"/>
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit">
                                     <span class="glyphicon glyphicon-search"/>

@@ -95,9 +95,11 @@ declare %templates:wrap function spear:h1($node as node(), $model as map(*)){
         else $data/tei:listPerson/descendant::tei:persName[1] | $data/descendant::tei:placeName[1]
     let $id := <idno xmlns="http://www.tei-c.org/ns/1.0">{$spear:id}</idno>
     return app:tei2html(
-                    <srophe-title xmlns="http://www.tei-c.org/ns/1.0">
-                        {$title, $id}
-                    </srophe-title>)
+                    <body xmlns="http://www.tei-c.org/ns/1.0">
+                        <srophe-title xmlns="http://www.tei-c.org/ns/1.0">
+                            {$title, $id}
+                        </srophe-title>
+                    </body>)
 };
 
 (:

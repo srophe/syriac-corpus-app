@@ -2,8 +2,8 @@ xquery version "3.0";
 
 module namespace api="http://syriaca.org/api";
 
-import module namespace geo="http://syriaca.org//geojson" at "geojson.xqm";
-import module namespace feed="http://syriaca.org//atom" at "atom.xqm";
+import module namespace geo="http://syriaca.org//geojson" at "lib/geojson.xqm";
+import module namespace feed="http://syriaca.org//atom" at "lib/atom.xqm";
 import module namespace search="http://syriaca.org//search" at "search/search.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates";
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
