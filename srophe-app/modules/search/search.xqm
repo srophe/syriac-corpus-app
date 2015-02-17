@@ -1,7 +1,7 @@
 xquery version "3.0";
 
 module namespace search="http://syriaca.org//search";
-import module namespace facets="http://syriaca.org//facets" at "../facets.xqm";
+import module namespace facets="http://syriaca.org//facets" at "../lib/facets.xqm";
 import module namespace app="http://syriaca.org//templates" at "../app.xql";
 import module namespace persons="http://syriaca.org//persons" at "persons-search.xqm";
 import module namespace places="http://syriaca.org//places" at "places-search.xqm";
