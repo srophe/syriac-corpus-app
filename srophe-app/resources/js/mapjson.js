@@ -143,7 +143,7 @@
         $('.leaflet-control-layers-list').css({"-webkit-column-gap":"10px"});
         });
             
-            //resize
+        //resize
             $('#map').height(function(){
                 return $(window).height() * 0.7;
             });

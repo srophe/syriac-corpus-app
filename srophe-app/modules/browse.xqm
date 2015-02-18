@@ -29,6 +29,7 @@ declare variable $browse:view {request:get-parameter('view', '')};
 declare variable $browse:sort {request:get-parameter('sort', '')};
 declare variable $browse:type-map {request:get-parameter('type-map', '')};
 declare variable $browse:date {request:get-parameter('date', '')};
+declare variable $browse:fq {request:get-parameter('fq', '')};
 
 (:~
  : Build browse path for evaluation
@@ -37,7 +38,7 @@ declare function browse:get-all($node as node(), $model as map(*), $coll as xs:s
 let $browse-path := 
     if(exists($coll)) then 
         if($coll = 'persons') then concat("collection('",$config:app-root,"/data/persons/tei')//tei:person",browse:get-syr()) 
-        else if($coll = 'places') then concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr()) 
+        else if($coll = 'places') then concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
         else concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
     else concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
 return 
@@ -79,6 +80,9 @@ declare function browse:build-browse-results($node as node(), $model as map(*)){
         </browse>
 };
 
+declare %templates:wrap function browse:total($node as node(), $model as map(*)){
+    string(count($model('browse-data')))
+};
 
 (:~
  : Returns a list places by type
@@ -430,7 +434,8 @@ declare %templates:wrap function browse:get-browse-names($node as node(), $model
              else if($browse:view = 'date') then
                 if($browse:date = '') then 'Date'
                 else browse:get-pers-date($node, $model)
-             else browse:build-browse-results($node, $model)
+             else 
+                browse:build-browse-results($node, $model)
             )
           }
      </tei:TEI>  

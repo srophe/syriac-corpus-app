@@ -694,15 +694,15 @@
         <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
     </xsl:template>
     <xsl:template match="t:sex">
-            <span class="srp-label">Sex:</span>
-            <xsl:text> </xsl:text>
-            <xsl:apply-templates/>
-            <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
+        <span class="srp-label">Sex:</span>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates/>
+        <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
     </xsl:template>
     <xsl:template match="t:langKnowledge">
-            <span class="srp-label">langKnowledge:</span>
-            <xsl:text> </xsl:text>
-            <xsl:apply-templates/>
+        <span class="srp-label">langKnowledge:</span>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="t:langKnown">
         <xsl:apply-templates/>

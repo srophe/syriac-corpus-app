@@ -5,6 +5,9 @@
             <h3>Available APIs </h3>
             <ul class="nav nav-tabs nav-stacked pull-left type-nav">
                 <li>
+                    <a href="#search">Search API</a>
+                </li>
+                <li>
                     <a href="#geo">Geographic API</a>
                 </li>
             </ul>
@@ -12,7 +15,45 @@
         <div class="col-md-9">
             <div>
                 <h1>Syriaca.org API documentation</h1>
-                <p>Note about API policies (if we have any)</p>
+                <!--<p>Note about API policies (if we have any)</p>-->
+                <hr/>
+                <h3 id="search">Search API</h3>
+                <p>Base url: <pre>http://syriaca.org/api/search</pre>
+                </p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="span2">Path</th>
+                            <th class="span2">Parameters</th>
+                            <th class="span7">Description</th>
+                            <th class="span1">Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                none
+                            </td>
+                            <td>
+                                <strong>q</strong>
+                                <p>Accepts simple text string.</p>
+                                <strong>start</strong>
+                                <p>Default value is 1.</p>
+                                <strong>perpage</strong>
+                                <p>Number of results to return, default value is 25.</p>
+                            </td>
+                            <td>
+                                <p>Performs a simple keyword search across all Syriaca.org collections</p>
+                                <p>Provides results as atom.xml.</p>
+                                <p>Example:<pre>http://syriaca.org/api/search?q=Adana</pre>
+                                </p>
+                                <p>Example:<pre>http://syriaca.org/api/search?q=Adana&amp;start=1&amp;perpage=5</pre>
+                                </p>
+                            </td>
+                            <td>GET</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <hr/>
                 <h3 id="geo">Geographic API</h3>
                 <p>Base url: <pre>http://syriaca.org/api/geo</pre>
@@ -60,6 +101,8 @@
                                 </p>
                                 <p>Example return only churches:<pre>http://syriaca.org/api/geo/json?type=church</pre>
                                 </p>
+                                <p>Example return churches and rivers:<pre>http://syriaca.org/api/geo/json?type=church,river</pre>
+                                </p>
                             </td>
                             <td>GET</td>
                         </tr>
@@ -95,6 +138,8 @@
                                 <p>Example return all locations:<pre>http://syriaca.org/api/geo/kml</pre>
                                 </p>
                                 <p>Example return only churches:<pre>http://syriaca.org/api/geo/kml?type=church</pre>
+                                </p>
+                                <p>Example return churches and rivers:<pre>http://syriaca.org/api/geo/kml?type=church,river</pre>
                                 </p>
                             </td>
                             <td>GET</td>

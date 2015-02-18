@@ -1,10 +1,13 @@
 xquery version "3.0";
 
 module namespace search="http://syriaca.org//search";
+import module namespace facets="http://syriaca.org//facets" at "../lib/facets.xqm";
+import module namespace app="http://syriaca.org//templates" at "../app.xql";
 import module namespace persons="http://syriaca.org//persons" at "persons-search.xqm";
 import module namespace places="http://syriaca.org//places" at "places-search.xqm";
+import module namespace spears="http://syriaca.org//spears" at "spear-search.xqm";
 import module namespace common="http://syriaca.org//common" at "common.xqm";
-import module namespace geo="http://syriaca.org//geojson" at "../geojson.xqm";
+import module namespace geo="http://syriaca.org//geojson" at "../lib/geojson.xqm";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org//config" at "../config.xqm";
@@ -16,18 +19,21 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 :)
 declare variable $search:start {request:get-parameter('start', 1) cast as xs:integer};
 declare variable $search:perpage {request:get-parameter('perpage', 1) cast as xs:integer};
+declare variable $search:collection {request:get-parameter('collection', '') cast as xs:string};
 
 
 (:~
  : Builds search string and evaluates string.
- : Search stored in map for use by other functions 
+ : Search stored in map for use by other functions
  : @param $collection passed from search page templates to build correct sub-collection search string
 :)
 declare %templates:wrap function search:get-results($node as node(), $model as map(*), $collection as xs:string?){
+    let $coll := if($search:collection != '') then $search:collection else $collection
     let $eval-string := 
-                        if($collection = 'persons') then persons:query-string()
-                        else if($collection = '') then places:query-string()
-                        else places:query-string()
+                        if($coll = 'persons') then persons:query-string()
+                        else if($coll ='spear') then spears:query-string()
+                        else if($coll = 'places') then places:query-string()
+                        else search:query-string()
     return                         
     map {"hits" := 
                 let $hits := util:eval($eval-string)    
@@ -37,13 +43,52 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
          }
 };
 
+declare function search:search-api($q,$place,$person){
+let $coll := if($search:collection != '') then $search:collection else ()
+let $eval-string := 
+    if($coll = 'persons') then persons:query-string()
+    else if($coll ='spear') then spears:query-string()
+    else if($coll = 'places') then places:query-string()
+    else search:query-string()
+let $hits := util:eval($eval-string)    
+for $hit in $hits
+order by ft:score($hit) descending
+return 'test'
+};
+
+(:~
+ : Builds general search string from main syriaca.org page and search api.
+:)
+declare function search:query-string() as xs:string?{
+    concat("collection('/db/apps/srophe/data')//tei:body",
+    places:keyword(),
+    places:place-name(),
+    persons:name()
+    )
+};
+
 (:~
  : Display search string in browser friendly format for search results page
  : @param $collection passed from search page templates
 :)
 declare function search:search-string($collection as xs:string?){
     if($collection = 'persons') then persons:search-string()
+    else if($collection ='spear') then spears:search-string()
     else places:search-string()
+};
+
+declare %templates:wrap function search:spear-facets($node as node(), $model as map(*)){
+if(exists(request:get-parameter-names())) then 
+    <div>
+     <h4>Browse by</h4>
+     {
+        let $facet-nodes := $model('hits')
+        let $facets := $facet-nodes//tei:persName | $facet-nodes//tei:placeName | $facet-nodes//tei:event 
+        | $facet-nodes/ancestor::tei:TEI/descendant::tei:titleStmt[1]/tei:title[1]
+        return facets:facets($facets)
+     }
+    </div>
+else ()    
 };
 
 (:~ 
@@ -227,7 +272,24 @@ declare %templates:wrap  function search:show-form($node as node()*, $model as m
     if(exists(request:get-parameter-names())) then ''
     else 
         if($collection = 'persons') then <div>{persons:search-form()}</div> 
+        else if($collection ='spear') then <div>{spears:search-form()}</div>
         else <div>{places:search-form()}</div>
+};
+
+(:~
+ : Generic search output   
+:)
+declare function search:results-node($hit){
+    let $root := $hit    
+    let $title := $root/ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:title
+    let $id := 
+        if($hit//tei:idno[@type='URI'][starts-with(.,'http://syriaca.org/')]) then
+                string($hit//tei:idno[@type='URI'][starts-with(.,'http://syriaca.org/')][1])
+        else string($hit//tei:div[1]/@uri)    
+    return
+        <p style="font-weight:bold padding:.5em;">
+            <a href="{$id}">{app:tei2html($title)}</a>
+        </p>
 };
 
 (:~ 
@@ -248,7 +310,10 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                     <span class="label label-default">{$search:start + $p - 1}</span>
                   </div>
                   <div class="col-md-9"> 
-                    {if($collection = 'persons') then persons:results-node($hit) else places:results-node($hit)} 
+                    {
+                    if($collection = 'persons') then persons:results-node($hit)
+                    else if($collection ='spear') then spears:results-node($hit)    
+                    else search:results-node($hit)} 
                     <div style="margin-bottom:1em; margin-top:-1em; padding-left:1em;">
                         {$hit//tei:desc[starts-with(@xml:id,'abstract')]/descendant-or-self::text()}
                     </div>

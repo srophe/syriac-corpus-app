@@ -16,7 +16,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <!-- @depreciated  -->
+    <!-- @depreciated -->
     <xsl:template name="place-title-std">
         <xsl:param name="mode">preindexed</xsl:param>
         <xsl:param name="place" select="."/>

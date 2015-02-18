@@ -126,8 +126,12 @@
                 <br/>Copyright Vanderbilt University, Princeton University, and the Contributor(s), 2014.
             </div>
         </footer>
+        <script type="text/javascript" src="/exist/apps/srophe/resources/js/bootstrap.min.js"/>
+        <script type="text/javascript" src="/exist/apps/srophe/resources/js/jquery.validate.min.js"/>
+        <script type="text/javascript" src="/exist/apps/srophe/resources/js/main.js"/>
         <script type="text/javascript">
            $( document ).ready(function() {
+                $('#geo-nav').css("display","none");
                  var referrer =  document.referrer;
                  if(!referrer) return; //returns default header in xquery
                  else if(referrer.toLowerCase().indexOf("geo") !== -1){ //returns default (relative links) header for gazetteer
@@ -148,7 +152,7 @@
         </script>
         <!-- <link rel="stylesheet" type="text/css" href="/exist/apps/srophe/resources/css/syriaca.css"/> -->
         <script>
-            var _gaq=[['_setAccount','UA-333143-26'],['_trackPageview']];
+            var _gaq=[['_setAccount',''],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));

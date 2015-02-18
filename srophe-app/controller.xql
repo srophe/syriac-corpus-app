@@ -16,11 +16,19 @@ if ($exist:path eq '') then
 else if ($exist:resource eq '') then 
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="index.html"/>
-    </dispatch>   
+    </dispatch>
+else if (ends-with($exist:path,"/atom")) then
+    <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+        <forward url="{concat('/restxq', $exist:path)}" absolute="yes"/>
+    </dispatch>    
+else if (ends-with($exist:path,"/tei")) then
+    <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+        <forward url="{concat('/restxq', $exist:path)}" absolute="yes"/>
+    </dispatch>
 else if (ends-with($exist:path,"/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="index.html"/>
-    </dispatch>
+    </dispatch>    
 else if (contains($exist:path,'/api/')) then
   if (ends-with($exist:path,"/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
