@@ -85,7 +85,7 @@
             <!-- Google map links -->
             <xsl:for-each select="//descendant::t:location[@type='gps']/t:geo">
                 <!-- {$base}{$placeslevel}? -->
-                <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://syriaca.org/geo/atom.xql?id={$resource-id}">
+                <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://syriaca.org/geo/atom.xql?id={$id}">
                     <img src="/exist/apps/srophe/resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {$link-title} on Google Maps"/>
                 </a>
             </xsl:for-each>
