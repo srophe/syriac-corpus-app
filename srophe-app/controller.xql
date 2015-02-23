@@ -21,6 +21,28 @@ else if (ends-with($exist:path,"/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="index.html"/>
     </dispatch>
+else if(matches($exist:resource,"^[0-9]+$") or matches($exist:resource,"^(.[1-9])\.html")) then
+    let $id := 
+        if(matches($exist:resource,"^[0-9]+$")) then $exist:resource
+        else substring-before($exist:resource,'.html')
+    let $html-path :=
+        if(starts-with($exist:path, "/place/")) then '/geo/place.html'
+        else if(starts-with($exist:path, "/person/")) then '/person/person.html'
+        else if(starts-with($exist:path, "/spear/")) then '/spear/factoid.html'
+        else '/404.html'
+      return
+        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+            <forward url="{$exist:controller}{$html-path}"></forward>
+                <view>
+                    <forward url="{$exist:controller}/modules/view.xql">
+                        <add-parameter name="id" value="{$id}"/>
+                    </forward>
+                </view>
+                <error-handler>
+                    <forward url="{$exist:controller}/error-page.html" method="get"/>
+                    <forward url="{$exist:controller}/modules/view.xql"/>
+                </error-handler>
+         </dispatch>        
 else if (contains($exist:path,'/api/')) then
   if (ends-with($exist:path,"/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
