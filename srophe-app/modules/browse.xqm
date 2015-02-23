@@ -36,17 +36,29 @@ declare variable $browse:fq {request:get-parameter('fq', '')};
 :)
 declare function browse:get-all($node as node(), $model as map(*), $coll as xs:string?){
 let $browse-path := 
-    if(exists($coll)) then 
-        if($coll = 'persons') then concat("collection('",$config:app-root,"/data/persons/tei')//tei:person",browse:get-syr()) 
-        else if($coll = 'places') then concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
-        else concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
-    else concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
+    if(exists($coll)) then concat("collection('",$config:app-root,"/data/",$coll,"/tei')//tei:body",browse:get-syr())
+    else concat("collection('",$config:app-root,"/data')//tei:body",browse:get-syr())
 return 
     map{"browse-data" := util:eval($browse-path)}        
 };
 
 (:~
+ : Build default browse listings
+:)
+declare function browse:browse-results($node as node(), $model as map(*)){
+    for $data in $model('browse-data')
+    let $title := $data/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text()
+    let $id := $data/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org')][2]/text()
+    order by $title
+    return 
+    <li>
+        <a href="manuscript.html?id={$id}">{$title}</a>
+    </li>
+
+};    
+(:~
  : Build browse using supplied options
+ : @depreciated used for person and place, will be transitioning
  : @param $browse:type place type browse
  : @param $browse:view browse option, lang or map
  : @param $browse:sort place returned by first character in title
