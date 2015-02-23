@@ -5,6 +5,7 @@ module namespace api="http://syriaca.org/api";
 import module namespace geo="http://syriaca.org//geojson" at "lib/geojson.xqm";
 import module namespace feed="http://syriaca.org//atom" at "lib/atom.xqm";
 import module namespace search="http://syriaca.org//search" at "search/search.xqm";
+import module namespace common="http://syriaca.org//common" at "search/common.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates";
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 
@@ -22,31 +23,6 @@ declare namespace rest = "http://exquery.org/ns/restxq";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
 declare namespace xmldb = "http://exist-db.org/xquery/xmldb";
-
-declare
-    %rest:GET
-    %rest:path("/srophe/place/{$id}.html")
-    %output:media-type("text/html")
-    %output:method("html5")
-
-function api:get-place($id as xs:string) {
-    let $content := doc("/db/apps/srophe/geo/place.html?id=78")
-    let $config := map {
-        (: The following function will be called to look up template parameters :)
-        $templates:CONFIG_PARAM_RESOLVER := function($param as xs:string) as xs:string* {
-            req:parameter($param)
-        }
-    }
-    let $lookup := function($functionName as xs:string, $arity as xs:int) {
-        try {
-            function-lookup(xs:QName($functionName), $arity)
-        } catch * {
-            ()
-        }
-    }
-    return
-        templates:apply($content, $lookup, (), $config) 
-};
 
 (:~
   : Use resxq to format urls for geographic API
@@ -113,17 +89,19 @@ declare
     %rest:GET
     %rest:path("/srophe/api/search")
     %rest:query-param("q", "{$q}", "") 
+    %rest:query-param("place", "{$place}", "")
+    %rest:query-param("person", "{$person}", "")
     %rest:query-param("start", "{$start}", 1)
     %rest:query-param("perpage", "{$perpage}", 25)
     %output:media-type("text/xml")
     %output:method("xml")
-function api:search-api($q as xs:string*, $start as xs:integer*, $perpage as xs:integer*) {
+function api:search-api($q as xs:string*,$place as xs:string*,$person as xs:string*, $start as xs:integer*, $perpage as xs:integer*) {
 (<rest:response> 
   <http:response status="200"> 
     <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
   </http:response> 
-</rest:response>, 
-let $hits := collection($config:app-root || '/data')//tei:body[ft:query(.,$q)]
+</rest:response>,
+let $hits := util:eval(search:search-api($q,$place,$person))
 let $total := count($hits)
 return feed:build-atom-feed($hits, $start, $perpage, $q, $total)
 ) 

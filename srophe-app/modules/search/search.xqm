@@ -43,19 +43,6 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
          }
 };
 
-declare function search:search-api($q,$place,$person){
-let $coll := if($search:collection != '') then $search:collection else ()
-let $eval-string := 
-    if($coll = 'persons') then persons:query-string()
-    else if($coll ='spear') then spears:query-string()
-    else if($coll = 'places') then places:query-string()
-    else search:query-string()
-let $hits := util:eval($eval-string)    
-for $hit in $hits
-order by ft:score($hit) descending
-return 'test'
-};
-
 (:~
  : Builds general search string from main syriaca.org page and search api.
 :)
@@ -65,6 +52,22 @@ declare function search:query-string() as xs:string?{
     places:place-name(),
     persons:name()
     )
+};
+
+declare function search:search-api($q,$place,$person){
+let $keyword-string := 
+    if(exists($q) and $q != '') then concat("[ft:query(.,'",common:clean-string($q),"',common:options())]")
+    else ()    
+let $place-name := 
+    if(exists($place) and $place != '') then concat("[ft:query(descendant::tei:placeName,'",common:clean-string($place),"',common:options())]")
+    else ()
+let $pers-name := 
+    if(exists($person) and $person != '') then concat("[ft:query(descendant::tei:persName,'",common:clean-string($person),"',common:options())]")
+    else ()
+let $query-string := 
+    concat("collection('/db/apps/srophe/data')//tei:body",
+    $keyword-string,$pers-name,$place-name)
+return $query-string
 };
 
 (:~

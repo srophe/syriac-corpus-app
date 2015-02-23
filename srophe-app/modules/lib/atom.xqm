@@ -202,7 +202,7 @@ declare function feed:build-feed($collection as xs:string?, $start as xs:integer
 :)
 declare function feed:build-atom-feed($nodes as node()*, $start as xs:integer?, $perpage as xs:integer?, $q as xs:string*, $total as xs:integer?) as element(feed)?{
 let $self := 
-            if($q !='') then concat('http://syriaca.org/api/search?q=', $q) 
+            if($q != '') then concat('http://syriaca.org/api/search?q=', $q) 
             else 'http://syriaca.org/api/atom'
 let $next := 
             if($total gt $perpage) then 
@@ -221,10 +221,10 @@ let $title := if($q !='') then concat(':search.api.results.',$q)
             else ()
 return             
     <feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss"> 
-        <title>Syriaca.org</title>
+        <title>Syriaca.org: {$total} Results</title>
         <link href="http://syriaca.org/"/>
         <link rel="self" type="application/atom+xml" href="{$self}"/>
-        {($next, $last)}
+        {($next)}
         <id>tag:syriaca.org,2013{$title}</id>
         <updated xmlns="http://www.w3.org/2005/Atom">{feed:format-dates($nodes[1]//tei:publicationStmt[1]/tei:date[1])}</updated>
         <author>
