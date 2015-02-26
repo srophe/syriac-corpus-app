@@ -71,9 +71,11 @@ declare function local:oai-response-date() {
  : Build the OAI request element 
  :
  : @return XML
+  oai_dc
+ http://www.openarchives.org/OAI/2.0/oai_dc/
  :)
 declare function local:oai-request() {
-   element request {
+   element {xs:QName("oai_dc:request")} {
        (
        if ($metadataPrefix != '')  then attribute metadataPrefix {$metadataPrefix}   else (),
        if ($verb != '')           then attribute verb {$verb}                       else (),

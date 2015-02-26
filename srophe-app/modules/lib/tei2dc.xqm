@@ -39,7 +39,6 @@ xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.opena
        for $idno in $nodes/descendant::tei:availability
        return
            <dc:rights>{$idno/string()}</dc:rights>, 
-
        for $desc in $nodes/descendant::tei:desc
        return
            <dc:description>{$desc/string()}</dc:description>)        

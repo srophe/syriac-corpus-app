@@ -9,14 +9,16 @@ import module namespace login="http://exist-db.org/xquery/login" at "resource:or
 
 declare variable $syriaca-root := concat($exist:root,'/exist/apps/srophe/');
 
-if ($exist:path eq '') then
+if ($exist:path eq "") then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <forward url="{concat($syriaca-root, 'index.html')}" absolute="yes"/>
+        <redirect url="{concat(request:get-uri(), '/')}"/>
     </dispatch>
+(:    
 else if ($exist:resource eq '') then 
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="index.html"/>
-    </dispatch>   
+    </dispatch>
+    :)
 else if (ends-with($exist:path,"/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="index.html"/>

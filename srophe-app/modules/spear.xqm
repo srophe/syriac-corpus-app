@@ -299,9 +299,9 @@ declare %templates:wrap function spear:data($node as node(), $model as map(*)){
 let $data := $model("spear-data")
 return 
 app:tei2html(
-    <body xmlns="http://www.tei-c.org/ns/1.0" type="{$spear:item-type}">
+    <syr-custom xmlns="http://www.tei-c.org/ns/1.0" type="{$spear:item-type}">
         {$data[not(tei:listEvent)]}
-    </body>)
+    </syr-custom>)
 };
 
 declare %templates:wrap function spear:dates($node as node(), $model as map(*)){
@@ -328,7 +328,7 @@ declare %templates:wrap function spear:bibl($node as node(), $model as map(*)){
 let $sources := $model("spear-data")[1]
 let $bibl := $sources/descendant::tei:bibl
 let $back-info := $sources/ancestor::tei:text/tei:back
-return app:tei2html(<body xmlns="http://www.tei-c.org/ns/1.0">{($bibl, $back-info)}</body>)
+return app:tei2html(<syr-custom xmlns="http://www.tei-c.org/ns/1.0">{($bibl, $back-info)}</syr-custom>)
 };
 
 declare %templates:wrap function spear:citation($node as node(), $model as map(*)){
@@ -404,11 +404,11 @@ declare function spear:events($node as node(), $model as map(*)){
 declare %templates:wrap function spear:link-icons-list($node as node(), $model as map(*)){
 let $data := $model("spear-data")
 let $links:=
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
         <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
             {$data//tei:person//tei:idno, $data//tei:person//tei:location}
         </see-also>
-    </body>
+   </syr-custom>
 return app:tei2html($links)
 };
 

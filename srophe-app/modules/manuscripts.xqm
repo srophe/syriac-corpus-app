@@ -48,15 +48,15 @@ declare %templates:wrap function ms:h1($node as node(), $model as map(*)){
  : Pull together front matter  
 :)
 declare %templates:wrap function ms:front-matter($node as node(), $model as map(*)){
-let $rec := $model("data")/ancestor::tei:teiHeader//tei:sourceDesc/tei:msDesc
-let $history := $rec/descendant::tei:history
-let $lang := $rec/descendant::tei:textLang[@mainLang]
+let $rec := $model("data")/ancestor::tei:teiHeader/descendant::tei:sourceDesc/tei:msDesc
+let $history := $rec/child::tei:history
+let $lang := $rec/child::tei:textLang[@mainLang]
 return 
 <div>
     <div class="well">
         {app:tei2html(($rec/tei:msIdentifier,$lang))}
     </div>
-    <div class="well">
+    <div>
         {app:tei2html($rec/tei:physDesc)}
     </div>
      <div class="well">
@@ -66,11 +66,11 @@ return
 };
 
 (:~ 
- : Output msItems transformed via tei2html xslt   
+ : Output msItems transformed via tei2html xslt    
  : Pull in names from persons database for author information
 :)
 declare function ms:msItems($node as node(), $model as map(*)){
-let $rec := $model("data")/ancestor::tei:teiHeader//tei:sourceDesc/tei:msDesc/tei:msContents 
+let $rec := $model("data")/ancestor::tei:teiHeader/descendant::tei:msContents | $model("data")/ancestor::tei:teiHeader/descendant::tei:msPart 
 let $authors := 
     <tei:msAuthors xmlns="http://www.tei-c.org/ns/1.0">
     {

@@ -58,9 +58,9 @@ declare %templates:wrap function place:h1($node as node(), $model as map(*)){
 declare %templates:wrap function place:abstract($node as node(), $model as map(*)){
     let $abstract := $model("place-data")//tei:place/tei:desc[starts-with(@xml:id,'abstract')]
     let $abstract-nodes := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
             {$abstract}
-    </body>
+    </syr-custom>
     return app:tei2html($abstract)
 };
 
@@ -112,9 +112,9 @@ return
 :)
 declare %templates:wrap function place:description($node as node(), $model as map(*)){
     let $desc-nodes := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
             {for $desc in $model("place-data")//tei:place/tei:desc[not(starts-with(@xml:id,'abstract'))] return $desc}
-    </body>
+    </syr-custom>
     return app:tei2html($desc-nodes)
 };
 
@@ -123,12 +123,12 @@ declare %templates:wrap function place:description($node as node(), $model as ma
 :)
 declare %templates:wrap function place:notes($node as node(), $model as map(*)){
     let $notes-nodes := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
             {
                 for $note in $model("place-data")//tei:place/tei:note
                 return $note
             }
-    </body>
+    </syr-custom>
     return app:tei2html($notes-nodes)
 };
 
@@ -137,12 +137,12 @@ declare %templates:wrap function place:notes($node as node(), $model as map(*)){
 :)
 declare %templates:wrap function place:events($node as node(), $model as map(*)){
     let $events-nodes := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
             {
                 for $event in $model("place-data")//tei:place/tei:event
                 return $event
             }
-    </body>
+    </syr-custom>
     return app:tei2html($events-nodes)
 };
 
@@ -156,7 +156,7 @@ declare %templates:wrap function place:events($node as node(), $model as map(*))
 declare function place:nested-loc($node as node(), $model as map(*)){
     let $ref-id := concat('http://syriaca.org/place/',$place:id)
     return 
-        app:tei2html(<body xmlns="http://www.tei-c.org/ns/1.0">
+        app:tei2html(<syr-custom xmlns="http://www.tei-c.org/ns/1.0">
         {
             for $nested-loc in collection($config:app-root || "/data/places/tei")//tei:location[@type="nested"]/tei:*[@ref=$ref-id]
             let $parent-name := $nested-loc//tei:placeName[1]
@@ -167,7 +167,7 @@ declare function place:nested-loc($node as node(), $model as map(*)){
                     {$nested-loc/ancestor::*/tei:placeName[1]}
                 </nested-place>
           }      
-        </body>)
+        </syr-custom>)
 };
 
 declare function place:confessions($node as node(), $model as map(*)){
@@ -176,7 +176,7 @@ declare function place:confessions($node as node(), $model as map(*)){
         let $confessions := doc($config:app-root || "/documentation/confessions.xml")//tei:list
         return
         app:tei2html(
-        <body xmlns="http://www.tei-c.org/ns/1.0">
+        <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
             <confessions xmlns="http://www.tei-c.org/ns/1.0">
                {(
                 $confessions,
@@ -186,7 +186,7 @@ declare function place:confessions($node as node(), $model as map(*)){
                 return $state)
                 }
             </confessions>
-        </body>)
+        </syr-custom>)
      else ()   
  };
  
@@ -197,7 +197,7 @@ declare function place:confessions($node as node(), $model as map(*)){
 declare function place:related-places($node as node(), $model as map(*)){
  let $rec := $model("place-data")
  return 
-    app:tei2html(<body xmlns="http://www.tei-c.org/ns/1.0">
+    app:tei2html(<syr-custom xmlns="http://www.tei-c.org/ns/1.0">
         <tei:place>
         <div id="heading">
             {$model("place-data")//tei:place/tei:placeName[1]}
@@ -264,7 +264,7 @@ declare function place:related-places($node as node(), $model as map(*)){
             }
         </tei:related-places>
         </tei:place>
-    </body>)
+    </syr-custom>)
 };
 
 (:
@@ -273,9 +273,9 @@ declare function place:related-places($node as node(), $model as map(*)){
 declare %templates:wrap function place:sources($node as node(), $model as map(*)){
     let $rec := $model("place-data")
     let $sources := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
         {$rec//tei:place/tei:bibl}
-    </body>
+    </syr-custom>
     return app:tei2html($sources)
 };
 
@@ -284,11 +284,11 @@ declare %templates:wrap function place:sources($node as node(), $model as map(*)
 :)
 declare %templates:wrap function place:place-name($node as node(), $model as map(*)){
     let $names := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
         <place>
             {$model("place-data")//tei:place/tei:placeName}
         </place>
-    </body>
+    </syr-custom>
     return app:tei2html($names)
 };
 
@@ -298,11 +298,11 @@ declare %templates:wrap function place:place-name($node as node(), $model as map
 declare %templates:wrap function place:citation($node as node(), $model as map(*)){
     let $rec := $model("place-data")
     let $header := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
         <citation xmlns="http://www.tei-c.org/ns/1.0">
             {$rec//tei:teiHeader | $rec//tei:bibl}
         </citation> 
-    </body>
+    </syr-custom>
     return app:tei2html($header)
 };
 
@@ -312,11 +312,11 @@ declare %templates:wrap function place:citation($node as node(), $model as map(*
 declare %templates:wrap function place:link-icons-list($node as node(), $model as map(*)){
 let $data := $model("place-data")
 let $links:=
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
         <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
-            {$data//tei:place//tei:idno, $data//tei:place//tei:location}
+            {$data/descendant::tei:place/descendant::tei:idno, $data/descendant::tei:place/descendant::tei:location}
         </see-also>
-    </body>
+    </syr-custom>
 return app:tei2html($links)
 };
 

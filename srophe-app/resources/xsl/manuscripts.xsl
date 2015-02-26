@@ -100,6 +100,33 @@
     </xsl:template>
 
     <!-- Manuscript templates -->
+    <xsl:template match="t:msPart">
+        <div class="row">
+            <xsl:if test="t:msIdentifier">
+                <h3>
+                    <xsl:apply-templates select="t:altIdentifier"/>
+                </h3>
+                <h4>
+                    <xsl:apply-templates select="t:idno"/>
+                </h4>
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="t:physDesc">
+                    <div class="col-md-4">
+                        <xsl:apply-templates select="t:physDesc"/>
+                    </div>
+                    <div class="col-md-8">
+                        <xsl:apply-templates select="*[not(self::t:physDesc)]"/>
+                    </div>
+                </xsl:when>
+                <xsl:otherwise>
+                    <div class="col-md-12">
+                        <xsl:apply-templates/>
+                    </div>
+                </xsl:otherwise>
+            </xsl:choose>
+        </div>
+    </xsl:template>
     <xsl:template match="t:msIdentifier">
         <h4>Current location: </h4>
         <div class="msItem">
@@ -180,7 +207,7 @@
         </div>
     </xsl:template>
     <xsl:template match="t:physDesc">
-        <div>
+        <div class="well">
             <h3 class="srp-label">Physical Description</h3>
             <div style="margin-left:.5em;">
                 <xsl:apply-templates/>

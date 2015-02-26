@@ -32,11 +32,14 @@ declare variable $browse:date {request:get-parameter('date', '')};
 declare variable $browse:fq {request:get-parameter('fq', '')};
 
 (:~
- : Build browse path for evaluation
+ : Build browse path for evaluation 
+ : NOTE: causes problems for persons and places
 :)
 declare function browse:get-all($node as node(), $model as map(*), $coll as xs:string?){
 let $browse-path := 
-    if(exists($coll)) then concat("collection('",$config:app-root,"/data/",$coll,"/tei')//tei:body",browse:get-syr())
+    if($coll = 'persons') then concat("collection('",$config:app-root,"/data/persons/tei')//tei:person",browse:get-syr()) 
+    else if($coll = 'places') then concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
+    else if(exists($coll)) then concat("collection('",$config:app-root,"/data/",$coll,"/tei')//tei:body",browse:get-syr())
     else concat("collection('",$config:app-root,"/data')//tei:body",browse:get-syr())
 return 
     map{"browse-data" := util:eval($browse-path)}        

@@ -12,6 +12,22 @@ import module namespace config="http://syriaca.org//config" at "config.xqm";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 
+declare variable $app:id {request:get-parameter('id', '')}; 
+
+(:~ 
+ : Simple get record function, retrieves tei record based on idno
+:)
+declare function app:get-rec($node as node(), $model as map(*)) {
+    map {"data" := collection($config:app-root || "/data")//tei:idno[@type='URI'][. = $app:id]}
+};
+
+(:~ 
+ : Simple get record function, retrieves tei record based on idno
+:)
+declare %templates:wrap function app:rec-display($node as node(), $model as map(*)){
+    app:tei2html($model("data")/ancestor::tei:TEI)
+};
+
 (:~
  : Transform tei to html
  : @param $node data passed to transform
