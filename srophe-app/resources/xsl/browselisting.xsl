@@ -54,6 +54,9 @@
             <xsl:when test="$collection='persons'">
                 <xsl:text>person</xsl:text>
             </xsl:when>
+            <xsl:when test="$collection='saints'">
+                <xsl:text>saint</xsl:text>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="$collection"/>
             </xsl:otherwise>

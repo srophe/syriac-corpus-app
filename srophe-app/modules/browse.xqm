@@ -456,7 +456,7 @@ else
 };
 
 (:~
- : Builds tei node to be transformed by xslt  
+ : Builds tei node to be transformed by xslt 
  : Final results are passed to ../resources/xsl/browselisting.xsl
  :)
 declare %templates:wrap function browse:get-browse-names($node as node(), $model as map(*), $coll as xs:string?){

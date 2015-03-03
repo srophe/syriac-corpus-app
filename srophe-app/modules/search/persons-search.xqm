@@ -243,6 +243,19 @@ declare function persons:query-string() as xs:string? {
     )
 };
 
+declare function persons:saints-query-string() as xs:string? {
+ concat("collection('/db/apps/srophe/data/persons/tei')//tei:body",
+    persons:keyword(),
+    "[descendant::tei:person/@ana = '#syriaca-saint']",
+    persons:name(),
+    persons:uri(),
+    persons:date-range(),
+    persons:related-places(),
+    persons:related-persons(),
+    persons:mentioned()
+    )
+};
+
 (:~
  : Build a search string for search results page from search parameters
 :)
@@ -296,7 +309,7 @@ declare function persons:results-node($hit){
     let $type := if($root/@ana) then  
                     <bdi dir="ltr" lang="en" xml:lang="en"> ({replace($root/@ana,'#syriaca-','')})</bdi>
                   else ''  
-    let $id := substring-after($root/@xml:id,'person-')                  
+    let $id := substring-after($root/@xml:id,'-')                  
     return
         <p style="font-weight:bold padding:.5em;">
             <a href="/person/{$id}">
@@ -306,6 +319,28 @@ declare function persons:results-node($hit){
         </p>
 };
 
+declare function persons:saints-results-node($hit){
+    let $root := $hit//tei:person    
+    let $title-en := string-join($root/tei:persName[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'(^en)')]/descendant::text(),' ')
+    let $title-syr := 
+                    if($root/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang='syr']) then 
+                        (<bdi dir="ltr" lang="en" xml:lang="en"><span> -  </span></bdi>,
+                            <bdi dir="rtl" lang="syr" xml:lang="syr">
+                                {string-join($root/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang='syr']/descendant::text(),' ')}
+                            </bdi>)
+                    else ''
+    let $type := if($root/@ana) then  
+                    <bdi dir="ltr" lang="en" xml:lang="en"> ({replace($root/@ana,'#syriaca-','')})</bdi>
+                  else ''  
+    let $id := substring-after($root/@xml:id,'-')                  
+    return
+        <p style="font-weight:bold padding:.5em;">
+            <a href="/saint/{$id}">
+                <bdi dir="ltr" lang="en" xml:lang="en">{$title-en}</bdi>
+                {$type, $title-syr}
+            </a>
+        </p>
+};
 (:~
  : Builds advanced search form for persons
  :)

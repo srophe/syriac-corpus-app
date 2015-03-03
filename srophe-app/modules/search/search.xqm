@@ -32,6 +32,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
     let $coll := if($search:collection != '') then $search:collection else $collection
     let $eval-string := 
                         if($coll = 'persons') then persons:query-string()
+                        else if($coll ='saints') then persons:saints-query-string()
                         else if($coll ='spear') then spears:query-string()
                         else if($coll = 'places') then places:query-string()
                         else if($coll = 'manuscripts') then ms:query-string()
@@ -276,7 +277,8 @@ return
 declare %templates:wrap  function search:show-form($node as node()*, $model as map(*), $collection as xs:string?) {   
     if(exists(request:get-parameter-names())) then ''
     else 
-        if($collection = 'persons') then <div>{persons:search-form()}</div> 
+        if($collection = 'persons') then <div>{persons:search-form()}</div>
+        else if($collection = 'saints') then <div>{persons:search-form()}</div>
         else if($collection ='spear') then <div>{spears:search-form()}</div>
         else if($collection ='manuscripts') then <div>{ms:search-form()}</div>
         else <div>{places:search-form()}</div>
@@ -318,6 +320,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                   <div class="col-md-9"> 
                     {
                     if($collection = 'persons') then persons:results-node($hit)
+                    else if($collection = 'saints') then persons:saints-results-node($hit)
                     else if($collection ='spear') then spears:results-node($hit)
                     else if($collection ='manuscripts') then ms:results-node($hit)
                     else search:results-node($hit)} 

@@ -28,7 +28,7 @@ else if(matches($exist:resource,"^[0-9]+$") or matches($exist:resource,"^(.[1-9]
     let $html-path :=
         if(starts-with($exist:path, "/place/")) then '/geo/place.html'
         else if(starts-with($exist:path, "/person/")) then '/person/person.html'
-        else if(starts-with($exist:path, "/saints/")) then '/saints/saints.html'
+        else if(starts-with($exist:path, "/saint/")) then '/saint/saint.html'
         else if(starts-with($exist:path, "/spear/")) then '/spear/factoid.html'
         else '/404.html'
       return
