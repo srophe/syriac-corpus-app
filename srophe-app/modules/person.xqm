@@ -34,10 +34,14 @@ declare function person:html-title(){
  : Retrieve persons record
  : Adds persons data to map function
  : @param $id persons id
+ let $personsid := concat('person-',$person:id)
+    for $recs in collection($config:app-root || "/data/persons/tei")/id($personsid)
+    let $rec := $recs/ancestor::tei:TEI
+    return map {"persons-data" := $rec}
  :)
 declare function person:get-persons($node as node(), $model as map(*)){
-let $personsid := concat('person-',$person:id)
-    for $recs in collection($config:app-root || "/data/persons/tei")/id($personsid)
+let $personsid := concat('http://syriaca.org/person/',$person:id)
+    for $recs in collection($config:app-root || "/data/persons/tei")//tei:idno[@type='URI'][. = $personsid]
     let $rec := $recs/ancestor::tei:TEI
     return map {"persons-data" := $rec}
 };
@@ -63,14 +67,14 @@ declare %templates:wrap function person:names($node as node(), $model as map(*))
     let $names := $model("persons-data")//tei:person/tei:persName
     let $abstract := $model("persons-data")//tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')] | $model("persons-data")//tei:note[@type='abstract']
     let $nodes := 
-    <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
+    <body xmlns="http://www.tei-c.org/ns/1.0">
         <person>
             {(
                 $names,
                 $abstract
             )}
         </person>
-    </syr-custom>
+    </body>
     return app:tei2html($nodes)  
 };
 
@@ -121,21 +125,21 @@ return
         <div>
             {
             app:tei2html(
-                <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
+                <body xmlns="http://www.tei-c.org/ns/1.0">
                     <related-items xmlns="http://www.tei-c.org/ns/1.0">
                         {person:get-related($data)}
                     </related-items>
-                </syr-custom>)
+                </body>)
             }
         </div>
         )
      else if(person:get-related($data/descendant::tei:relation/child::*)) then 
             app:tei2html(
-                <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
+                <body xmlns="http://www.tei-c.org/ns/1.0">
                     <related-items xmlns="http://www.tei-c.org/ns/1.0">
                         {person:get-related($data)}
                     </related-items>
-                </syr-custom>)
+                </body>)
 
      else ()
 };
@@ -235,9 +239,9 @@ return
 declare %templates:wrap function person:sources($node as node(), $model as map(*)){
     let $rec := $model("persons-data")
     let $sources := 
-    <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
+    <body xmlns="http://www.tei-c.org/ns/1.0">
         {$rec//tei:person/tei:bibl}
-    </syr-custom>
+    </body>
     return app:tei2html($sources)
 };
 
@@ -247,21 +251,21 @@ declare %templates:wrap function person:sources($node as node(), $model as map(*
 declare %templates:wrap function person:citation($node as node(), $model as map(*)){
     let $rec := $model("persons-data")
     let $header := 
-    <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
+    <body xmlns="http://www.tei-c.org/ns/1.0">
         <citation xmlns="http://www.tei-c.org/ns/1.0">
             {$rec//tei:teiHeader | $rec//tei:bibl}
         </citation> 
-    </syr-custom>
+    </body>
     return app:tei2html($header)
 };
 
 declare %templates:wrap function person:link-icons-list($node as node(), $model as map(*)){
 let $data := $model("persons-data")
 let $links:=
-    <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
+    <body xmlns="http://www.tei-c.org/ns/1.0">
         <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
             {$data//tei:person//tei:idno, $data//tei:person//tei:location}
         </see-also>
-    </syr-custom>
+    </body>
 return app:tei2html($links)
 };
