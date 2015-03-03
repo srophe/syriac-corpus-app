@@ -49,7 +49,16 @@
     <xsl:param name="normalization">NFKC</xsl:param>
     <xsl:variable name="collection" select="/t:TEI/@browse-coll"/>
     <xsl:variable name="collection-param" select="concat('&amp;coll=',$collection)"/>
-    
+    <xsl:variable name="uri">
+        <xsl:choose>
+            <xsl:when test="$collection='persons'">
+                <xsl:text>person</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$collection"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      top-level logic and instructions for creating the browse listing page
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -143,15 +152,29 @@
                     <li>
                         <xsl:choose>
                             <xsl:when test="t:persName">
-                                <xsl:variable name="persnum" select="substring-after(@xml:id,'person-')"/>
-                                <a href="/person/{$persnum}">
+                                <xsl:variable name="recnum" select="substring-after(@xml:id,'-')"/>
+                                <a href="/{$uri}/{$recnum}">
                                     <!-- Syriac name -->
                                     <bdi dir="rtl" lang="syr" xml:lang="syr">
-                                        <xsl:value-of select="string-join(t:persName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']/child::*/text(),' ')"/>
+                                        <xsl:choose>
+                                            <xsl:when test="t:persName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']/child::*/text()">
+                                                <xsl:value-of select="string-join(t:persName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']/child::*/text(),' ')"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="string-join(t:persName[@xml:lang='syr'][@syriaca-tags='#syriaca-headword']/text(),' ')"/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </bdi> -   
                                     <!-- English name -->
                                     <bdi dir="ltr" lang="en" xml:lang="en">
-                                        <xsl:value-of select="string-join(t:persName[starts-with(@xml:lang,'en')][@syriaca-tags='#syriaca-headword']/child::*/text(),' ')"/>
+                                        <xsl:choose>
+                                            <xsl:when test="t:persName[starts-with(@xml:lang,'en')][@syriaca-tags='#syriaca-headword']/child::*/text()">
+                                                <xsl:value-of select="string-join(t:persName[starts-with(@xml:lang,'en')][@syriaca-tags='#syriaca-headword']/child::*/text(),' ')"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="string-join(t:persName[starts-with(@xml:lang,'en')][@syriaca-tags='#syriaca-headword']/text(),' ')"/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                         <!-- ana if exists -->
                                         <xsl:if test="@ana != ''">
                                             <bdi dir="ltr" lang="en" xml:lang="en"> (<xsl:value-of select="substring-after(@ana,'#syriaca-')"/>)</bdi>
@@ -192,11 +215,11 @@
             <li>
                 <xsl:choose>
                     <xsl:when test="t:persName">
-                        <xsl:variable name="persnum" select="substring-after(@xml:id,'person-')"/>
                         <!-- Active link for production site
                             <a href="/person/{$persnum}.html">
                         -->
-                        <a href="/person/{$persnum}">
+                        <xsl:variable name="recnum" select="substring-after(@xml:id,'-')"/>
+                        <a href="/{$uri}/{$recnum}">
                             <!-- English name -->
                             <bdi dir="ltr" lang="en" xml:lang="en">
                                 <xsl:value-of select="string-join(t:persName[starts-with(@xml:lang,'en')][@syriaca-tags='#syriaca-headword']/descendant-or-self::*/text(),' ')"/>
@@ -324,13 +347,13 @@
                             </div>
                         </div>
                         <script type="text/javascript">
-                            <![CDATA[
+                            
                                 $('#mapFAQ').click(function(){
                                         $('#popup').load( '../documentation/faq.html #map-selection',function(result){
                                         $('#map-selection').modal({show:true});
                                     });
                                  });   
-                             ]]></script>
+                             </script>
                         <br style="clear-fix"/>
                     </div>
                     <xsl:variable name="geojson-uri">

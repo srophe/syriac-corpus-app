@@ -38,8 +38,9 @@ declare variable $browse:fq {request:get-parameter('fq', '')};
 declare function browse:get-all($node as node(), $model as map(*), $coll as xs:string?){
 let $browse-path := 
     if($coll = 'persons') then concat("collection('",$config:app-root,"/data/persons/tei')//tei:person",browse:get-syr()) 
+    else if($coll = 'saints') then concat("collection('",$config:app-root,"/data/persons/tei/saints')//tei:person",browse:get-syr())
     else if($coll = 'places') then concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
-    else if(exists($coll)) then concat("collection('",$config:app-root,"/data/",$coll,"/tei')//tei:body",browse:get-syr())
+    else if(exists($coll)) then concat("collection('",$config:app-root,"/data/",xs:anyURI($coll),"/tei')//tei:body",browse:get-syr())
     else concat("collection('",$config:app-root,"/data')//tei:body",browse:get-syr())
 return 
     map{"browse-data" := util:eval($browse-path)}        
@@ -47,6 +48,7 @@ return
 
 (:~
  : Build default browse listings
+ : NOTE: add collection varaible here as well use it to build browse links
 :)
 declare function browse:browse-results($node as node(), $model as map(*)){
     for $data in $model('browse-data')
@@ -57,7 +59,6 @@ declare function browse:browse-results($node as node(), $model as map(*)){
     <li>
         <a href="manuscript.html?id={$id}">{$title}</a>
     </li>
-
 };    
 (:~
  : Build browse using supplied options
@@ -73,14 +74,17 @@ declare function browse:build-browse-results($node as node(), $model as map(*)){
     let $ana := string($data/@ana)
     let $en-title := 
         if($data/tei:persName[@syriaca-tags='#syriaca-headword']) then 
-            if($data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang,'en'][1]/child::*) then
-                $data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang,'en'][1]/child::*[1]/text()
-            else $data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang,'en'][1]/text()
+            if($data/tei:persName[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*) then
+                $data/tei:persName[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*[1]/text()
+            else $data/tei:persName[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text()
         else    
-            $data/tei:placeName[starts-with(@xml:lang,'en')][1]/text() 
+            $data/tei:placeName[matches(@xml:lang,'^en')][1]/text() 
     let $syr-title := 
         if($data/tei:persName[@syriaca-tags='#syriaca-headword']) then
-            $data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang,'syr'][1]/child::*[1]/text()
+            if($data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang,'syr'][1]/child::*) then
+                $data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang,'^syr'][1]/child::*[1]/text()
+            else $data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang,'syr'][1]/text()
+            (:$data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang,'syr'][1]/child::*[1]/text():)
         else $data/tei:placeName[@xml:lang = 'syr'][1]/text()
     let $title := 
         if($browse:view = 'syr') then $syr-title else $en-title
@@ -231,7 +235,7 @@ declare function browse:get-pers-date-ad($node as node(), $model as map(*)){
             else if($browse:date = '1900-2000') then xs:date('1900-01-01')
             else if($browse:date = '2000-') then xs:date('2000-01-01')
             else xs:date('0100-01-01')
-        for $data in $model('browse-data')[descendant::*/@syriaca-computed-start lt $end][descendant::*/@syriaca-computed-end gt $start]
+        for $data in $model('browse-data')[descendant::*/@syriaca-computed-start lt $end] | $model('browse-data')[descendant::*/@syriaca-computed-end gt $start]
         let $id := string($data/@xml:id)
         let $ana := string($data/@ana)
         let $title := $data/tei:persName[1]
@@ -244,6 +248,22 @@ declare function browse:get-pers-date-ad($node as node(), $model as map(*)){
                 }
             </browse>
 };
+
+declare function browse:get-date($node as node(), $model as map(*)){
+for $data in $model('browse-data')
+let $date := substring($data/descendant-or-self::tei:*[@syriaca-computed-start][1]/@syriaca-computed-start,1,2)
+group by $date
+order by $date ascending
+return 
+    <div>
+    {
+        if(starts-with($date,'-')) then concat('BC Dates ',count($data))
+        else if($date != '') then concat(substring-after($date,'0'),'00 ',count($data)) 
+        else concat('Date Unknown ',count($data))
+    }
+    </div>
+};
+
 
 (:~
  : Filter titles by syriac 
@@ -396,6 +416,23 @@ if($coll = 'persons') then
              else '' }<a href="browse.html?view=date">Date</a>
         </li>
     </ul>
+else if($coll = 'saints') then 
+    <ul class="nav nav-tabs" id="nametabs">
+        <li>{if(not($browse:view)) then 
+                attribute class {'active'} 
+             else if($browse:view = 'en') then 
+                attribute class {'active'} 
+             else '' }<a href="browse.html?view=en&amp;sort=A">English</a>
+        </li>
+        <li>{if($browse:view = 'syr') then 
+                attribute class {'active'} 
+             else '' }<a href="browse.html?view=syr&amp;sort=ܐ" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
+        </li>
+        <li>{if($browse:view = 'date') then 
+                attribute class {'active'}
+             else '' }<a href="browse.html?view=date">Date</a>
+        </li>
+    </ul>    
 else
     <ul class="nav nav-tabs" id="nametabs">
         <li>{if(not($browse:view)) then 
@@ -419,7 +456,7 @@ else
 };
 
 (:~
- : Builds tei node to be transformed by xslt
+ : Builds tei node to be transformed by xslt  
  : Final results are passed to ../resources/xsl/browselisting.xsl
  :)
 declare %templates:wrap function browse:get-browse-names($node as node(), $model as map(*), $coll as xs:string?){
