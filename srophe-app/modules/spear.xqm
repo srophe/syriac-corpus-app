@@ -322,13 +322,13 @@ return
 };
 
 (:~
- : Build bibliography  
+ : Build bibliography 
 :)
 declare %templates:wrap function spear:bibl($node as node(), $model as map(*)){
 let $sources := $model("spear-data")[1]
 let $bibl := $sources/descendant::tei:bibl
 let $back-info := $sources/ancestor::tei:text/tei:back
-return app:tei2html(<syr-custom xmlns="http://www.tei-c.org/ns/1.0">{($bibl, $back-info)}</syr-custom>)
+return app:tei2html(<body xmlns="http://www.tei-c.org/ns/1.0">{($bibl, $back-info)}</body>)
 };
 
 declare %templates:wrap function spear:citation($node as node(), $model as map(*)){
