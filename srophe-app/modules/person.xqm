@@ -23,10 +23,11 @@ declare variable $person:id {request:get-parameter('id', '')};
 
 (:~
  : Value passed through app:page-title() 
+ : @depreciated
 :)
 declare function person:html-title(){
     let $placeid := concat('place-',$place:id)
-    let $title := collection($config:app-root || "/data/places/tei")/id($placeid)/ancestor::tei:TEI//tei:titleStmt/tei:title[@level='a'][1]
+    let $title := collection($config:app-root || "/data/persons/tei")/id($placeid)/ancestor::tei:TEI//tei:titleStmt/tei:title[@level='a'][1]
     return normalize-space($title)
 };
 
@@ -47,7 +48,7 @@ let $personsid := concat('http://syriaca.org/person/',$person:id)
 };
 
 (:
- : Pass necessary element to h1 xslt template 
+ : Pass necessary element to h1 xslt template  
 :)
 declare %templates:wrap function person:h1($node as node(), $model as map(*)){
     let $title := $model("persons-data")//tei:person
@@ -66,23 +67,41 @@ declare %templates:wrap function person:h1($node as node(), $model as map(*)){
 declare %templates:wrap function person:names($node as node(), $model as map(*)){
     let $names := $model("persons-data")//tei:person/tei:persName
     let $abstract := $model("persons-data")//tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')] | $model("persons-data")//tei:note[@type='abstract']
+    let $sex := $model("persons-data")//tei:sex
     let $nodes := 
     <body xmlns="http://www.tei-c.org/ns/1.0">
         <person>
             {(
                 $names,
-                $abstract
+                $abstract,
+                $sex
             )}
         </person>
     </body>
-    return app:tei2html($nodes)  
+    return app:tei2html($nodes)
+};
+
+
+declare %templates:wrap function person:data($node as node(), $model as map(*)){
+    let $rec := $model("persons-data")//tei:person
+    let $nodes := 
+    <body xmlns="http://www.tei-c.org/ns/1.0" ana="{$rec/@ana/text()}">
+            {
+                for $data in $rec/child::*[not(self::tei:persName)][not(self::tei:bibl)][not(self::*[@type='abstract' or starts-with(@xml:id, 'abstract-en')])]
+                return $data
+            }
+    </body>
+    return app:tei2html($nodes)
 };
 
 declare %templates:wrap function person:timeline($node as node(), $model as map(*), $dates){
 let $data := $model("persons-data")
 return
     if($dates = 'personal') then 
-        if($data//tei:birth[@when or @notBefore or @notAfter] or $data//tei:death[@when or @notBefore or @notAfter] or $data//tei:state[@when or @notBefore or @notAfter or @to or @from]) then
+        if($data//tei:birth[@when or @notBefore or @notAfter] or 
+        $data//tei:death[@when or @notBefore or @notAfter] or 
+        $data//tei:state[@when or @notBefore or @notAfter or @to or @from] or 
+        $data//tei:floruit[@when or @notBefore or @notAfter or @to or @from]) then
                 <div class="row">
                         <div class="col-md-9">
                             <div class="timeline">
@@ -93,9 +112,9 @@ return
                             <h4>Dates</h4>
                             <ul class="list-unstyled">
                                 {
-                                 for $date in $data//tei:birth[@when] | $data//tei:birth[@notBefore] | $data//tei:birth[@notAfter] 
-                                 | $data//tei:death[@when] |$data//tei:death[@notBefore] |$data//tei:death[@notAfter]| 
-                                 $data//tei:floruit[@when] | $data//tei:floruit[@notBefore]| $data//tei:floruit[@notAfter] 
+                                 for $date in $data//tei:birth[@when] | $data//tei:birth[@notBefore] | $data//tei:birth[@notAfter] | $data//tei:birth[@to] | $data//tei:birth[@from] 
+                                 | $data//tei:death[@when] |$data//tei:death[@notBefore] |$data//tei:death[@notAfter] | $data//tei:death[@to] | $data//tei:death[@from] |
+                                 $data//tei:floruit[@when] | $data//tei:floruit[@notBefore]| $data//tei:floruit[@notAfter] | $data//tei:floruit[@to] | $data//tei:floruit[@from]
                                  | $data//tei:state[@when] | $data//tei:state[@notBefore] | $data//tei:state[@notAfter] | $data//tei:state[@from] | $data//tei:state[@to]
                                  return 
                                     <li>{app:tei2html($date)}</li>
@@ -143,6 +162,7 @@ return
 
      else ()
 };
+
 
 (:
  : Use OCLC API to return VIAF records 
@@ -259,6 +279,9 @@ declare %templates:wrap function person:citation($node as node(), $model as map(
     return app:tei2html($header)
 };
 
+(:~
+ : Build links
+:)
 declare %templates:wrap function person:link-icons-list($node as node(), $model as map(*)){
 let $data := $model("persons-data")
 let $links:=

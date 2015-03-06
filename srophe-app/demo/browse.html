@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" data-template="templates:surround" data-template-with="templates/persons.html" data-template-at="content">
     <div class="section">
-        <h1 class="title about">Index of Manuscripts</h1>
+        <h1 class="title about">Demo Browse Page</h1>
         <p/>
         <!-- Calls xquery functions -->
-        <div data-template="browse:get-all">
+        <div data-template="browse:get-all" data-template-coll="demo">
             <div class="tabbable">
-                <!--<div data-template="browse:build-tabs" data-template-coll="manuscripts"/>-->
+                <div data-template="browse:build-tabs" data-template-coll="demo"/>
                 <div class="tab-content">
                     <div class="tab-pane active">
                         <div class="row">
-                            <div data-template="browse:type-counts"/>
-                            <ul>
-                                <li data-template="browse:browse-results"/>
-                            </ul>
+                            <div data-template="browse:browse-abc-menu" data-template-coll="demo"/>
+                            <div data-template="browse:browse-maps" data-template-coll="demo"/>
+                            <div data-template="browse:browse-results" data-template-coll="demo"/>
                         </div>
                     </div>
                 </div>

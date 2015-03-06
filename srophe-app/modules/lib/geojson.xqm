@@ -130,7 +130,7 @@ declare function geo:json-wrapper($geo-search as element()*, $type as xs:string*
 };
 
 (:~
- : Transform results to json with xslt for inclusion in search page. 
+ : Transform results to json with xqjson function. 
  : @param $geo-search predefined results set passed from search.xqm
  : @param $type place type from predefined list: http://syriaca.org/documentation/place-types.html
  : @param $output indicates json or kml
@@ -141,6 +141,12 @@ declare function geo:json-transform($geo-search as node()*, $type as xs:string*,
     (:$geo-search:)
 };
 
+(:~
+ : Display results on a map. 
+ : @param $geo-search predefined results set passed from search.xqm
+ : @param $type place type from predefined list: http://syriaca.org/documentation/place-types.html
+ : @param $output indicates json or kml
+:)
 declare function geo:build-map($geo-search as node()*, $type as xs:string*, $output as xs:string*){
     <div id="map-data" style="margin-bottom:1em;">
         <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2"/>
