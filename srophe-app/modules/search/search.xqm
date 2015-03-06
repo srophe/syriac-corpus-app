@@ -321,6 +321,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                     {
                     if($collection = 'persons') then persons:results-node($hit)
                     else if($collection = 'saints') then persons:saints-results-node($hit)
+                    else if($collection = 'places') then places:results-node($hit)
                     else if($collection ='spear') then spears:results-node($hit)
                     else if($collection ='manuscripts') then ms:results-node($hit)
                     else search:results-node($hit)} 
