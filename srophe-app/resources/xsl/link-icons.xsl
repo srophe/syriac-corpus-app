@@ -99,10 +99,11 @@
             <a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml">
             Should be able to leave off /atom and /tei and do content negotiation in restxq, needs some testing
             -->
+            <!-- Atom format link -->
             <a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml">
                 <img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/>
             </a>
-            <!-- Atom format link -->
+            <!-- Print link -->
             <a href="javascript:window.print();">
                 <img src="/exist/apps/srophe/resources/img/icons-print.png" alt="The Print format icon" title="click to send this page to the printer"/>
             </a>
@@ -190,8 +191,9 @@
                 </li>
                 <!-- Atom format link -->
                 <li>
-                    <a href="/geo/atom.xql?id={$resource-id}" rel="alternate" type="application/atom+xml">
-                        <img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/> Atom XML format</a>
+                    <a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml">
+                        <img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/>
+                    </a>
                 </li>
                 <!-- Wikipedia links -->
                 <xsl:for-each select="t:idno[contains(.,'wikipedia')]">
@@ -260,9 +262,10 @@
                 </li>
                 <!-- Atom format link -->
                 <li>
-                    <a href="/geo/atom.xql?id={$resource-id}" rel="alternate" type="application/atom+xml">
-                        <img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/> Atom XML format</a>
-                </li>
+                    <a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml">
+                        <img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/>
+                    </a>
+                </li>   
                 <!-- Wikipedia links -->
                 <xsl:for-each select="//t:idno[contains(.,'wikipedia')]">
                     <xsl:variable name="get-title">
