@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -128,8 +128,8 @@
                     </div>
                 </xsl:if>
                <!-- NOTE: Need to add Identy description if it exists, When Nathan gets element back to me.  -->
-                <p>Names:    
-                    <xsl:apply-templates select="t:person/t:persName[@syriaca-tags='#syriaca-headword' and starts-with(@xml:lang,'syr')]" mode="list">
+                <p>Names: 
+                       <xsl:apply-templates select="t:person/t:persName[@syriaca-tags='#syriaca-headword' and starts-with(@xml:lang,'syr')]" mode="list">
                         <xsl:sort lang="syr" select="."/>
                     </xsl:apply-templates>
                     <xsl:apply-templates select="t:person/t:persName[@syriaca-tags='#syriaca-headword' and starts-with(@xml:lang,'en')]" mode="list">
@@ -581,15 +581,18 @@
             <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
         </xsl:if>
     </xsl:template>
+    
     <xsl:template match="t:choice">
         <xsl:text> </xsl:text>
-        <xsl:apply-templates/>
+        <xsl:apply-templates/>            
     </xsl:template>
-    <xsl:template match="t:orig">
+    
+    <xsl:template match="t:orig | t:sic">
         <xsl:text> (</xsl:text>
         <xsl:apply-templates/>
         <xsl:text>) </xsl:text>
     </xsl:template>
+    
     <xsl:template match="t:event" mode="event">
         <li>
         <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
