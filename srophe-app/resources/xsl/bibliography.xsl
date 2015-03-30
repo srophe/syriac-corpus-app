@@ -136,6 +136,9 @@
         <!-- count editors/authors  -->
         <xsl:variable name="rcount">
             <xsl:choose>
+                <xsl:when test="t:monogr/t:author">
+                    <xsl:value-of select="count(t:monogr/t:author)"/>
+                </xsl:when>
                 <xsl:when test="$edited">
                     <xsl:value-of select="count(t:monogr/t:editor[not(@role) or @role!='translator'])"/>
                 </xsl:when>
@@ -146,6 +149,9 @@
         </xsl:variable>
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
         <xsl:choose>
+            <xsl:when test="t:monogr/t:author">
+                <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:author,'footnote',3)"/>
+            </xsl:when>
             <xsl:when test="$edited">
                 <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:editor[not(@role) or @role!='translator'],'footnote',3)"/>
             </xsl:when>
@@ -153,15 +159,17 @@
                 <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:author,'footnote',3)"/>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test="$edited">
-            <xsl:choose>
-                <xsl:when test="$rcount = 1">
-                    <xsl:text> (ed.)</xsl:text>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:text> (eds.)</xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
+        <xsl:if test="not(t:monogr/t:author)">
+            <xsl:if test="$edited">
+                <xsl:choose>
+                    <xsl:when test="$rcount = 1">
+                        <xsl:text> (ed.)</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text> (eds.)</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
         </xsl:if>
         <xsl:text>, </xsl:text>
         
@@ -197,6 +205,9 @@
         <xsl:variable name="edited" select="if (t:monogr/t:editor[not(@role) or @role!='translator']) then true() else false()"/>
         <xsl:variable name="rcount">
             <xsl:choose>
+                <xsl:when test="t:monogr/t:author">
+                    <xsl:value-of select="count(t:monogr/t:author)"/>
+                </xsl:when>
                 <xsl:when test="$edited">
                     <xsl:value-of select="count(t:monogr/t:editor[not(@role) or @role!='translator'])"/>
                 </xsl:when>
@@ -207,6 +218,9 @@
         </xsl:variable>
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
         <xsl:choose>
+            <xsl:when test="t:monogr/t:author">
+                <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:author,'biblist',3)"/>
+            </xsl:when>
             <xsl:when test="$edited">
                 <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:editor[not(@role) or @role!='translator'],'biblist',3)"/>
             </xsl:when>
@@ -214,15 +228,17 @@
                 <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:author,'biblist',3)"/>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test="$edited">
-            <xsl:choose>
-                <xsl:when test="$rcount = 1">
-                    <xsl:text> (ed.)</xsl:text>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:text> (eds.)</xsl:text>
-                </xsl:otherwise>
-            </xsl:choose>
+        <xsl:if test="not(t:monogr/t:author)">
+            <xsl:if test="$edited">
+                <xsl:choose>
+                    <xsl:when test="$rcount = 1">
+                        <xsl:text> (ed.)</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text> (eds.)</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
         </xsl:if>
         <xsl:text>. </xsl:text>
         
