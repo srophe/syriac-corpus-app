@@ -317,7 +317,7 @@ let $data := $model("place-data")
 let $links:=
     <body xmlns="http://www.tei-c.org/ns/1.0">
         <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
-            {$data//tei:place//tei:idno, $data//tei:place//tei:location}
+            {$data//tei:place/tei:idno, $data//tei:place//tei:location}
         </see-also>
     </body>
 return app:tei2html($links)
