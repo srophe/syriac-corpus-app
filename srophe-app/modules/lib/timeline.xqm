@@ -83,9 +83,11 @@ declare function timeline:get-birth($data as node()*) as node()?{
     if($data/descendant-or-self::tei:birth) then
         let $birth-date := $data/descendant-or-self::tei:birth[1]
         let $start := if($birth-date/@when) then string($birth-date/@when)
+                      else if($birth-date/@from) then string($birth-date/@from)
                       else if($birth-date/@notBefore) then string($birth-date/@notBefore)
                       else ()
         let $end :=   if($birth-date/@when) then string($birth-date/@when)
+                      else if($birth-date/@to) then string($birth-date/@to)
                       else if($birth-date/@notAfter) then string($birth-date/@notAfter)
                       else ()                    
         return
@@ -115,9 +117,11 @@ declare function timeline:get-death($data as node()*) as node()?{
        if($data/descendant-or-self::tei:death) then 
         let $death-date := $data//tei:death[1]
         let $start := if($death-date/@when) then string($death-date/@when)
+                      else if($death-date/@from) then string($death-date/@from)
                       else if($death-date/@notBefore) then string($death-date/@notBefore)
                       else ()
         let $end :=   if($death-date/@when) then string($death-date/@when)
+                      else if($death-date/@to) then string($death-date/@to)
                       else if($death-date/@notAfter) then string($death-date/@notAfter)
                       else () 
         return
@@ -147,9 +151,11 @@ declare function timeline:get-floruit($data as node()*) as node()*{
    if($data/descendant-or-self::tei:floruit) then 
         for $floruit-date in $data//tei:floruit
         let $start := if($floruit-date/@when) then string($floruit-date/@when)
+                      else if($floruit-date/@from) then string($floruit-date/@from)
                       else if($floruit-date/@notBefore) then string($floruit-date/@notBefore)
                       else ()
         let $end :=   if($floruit-date/@when) then string($floruit-date/@when)
+                      else if($floruit-date/@to) then string($floruit-date/@to)
                       else if($floruit-date/@notAfter) then string($floruit-date/@notAfter)
                       else () 
         return
