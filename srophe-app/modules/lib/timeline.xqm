@@ -90,8 +90,18 @@ declare function timeline:get-birth($data as node()*) as node()?{
                       else ()                    
         return
             <pair type="object">
-                    <pair name="startDate" type="string">{$start}</pair>
-                    <pair name="endDate" type="string">{$end}</pair>
+                    <pair name="startDate" type="string">
+                    {
+                        if(starts-with($start,'-')) then concat('-',tokenize($start,'-')[2])
+                        else replace($start,'-',',')
+                        }
+                    </pair>
+                    <pair name="endDate" type="string">
+                    {
+                        if(starts-with($end,'-')) then concat('-',tokenize($end,'-')[2])
+                        else replace($end,'-',',')
+                    }
+                    </pair>
                     <pair name="headline" type="string">{$birth-date/text()} Birth</pair>
             </pair>
     else () 
@@ -112,8 +122,18 @@ declare function timeline:get-death($data as node()*) as node()?{
                       else () 
         return
             <pair type="object">
-                    <pair name="startDate" type="string">{$start}</pair>
-                    <pair name="endDate" type="string">{$end}</pair>
+                <pair name="startDate" type="string">
+                    {
+                        if(starts-with($start,'-')) then concat('-',tokenize($start,'-')[2])
+                        else replace($start,'-',',')
+                        }
+                    </pair>
+                    <pair name="endDate" type="string">
+                    {
+                        if(starts-with($end,'-')) then concat('-',tokenize($end,'-')[2])
+                        else replace($end,'-',',')
+                    }
+                    </pair>
                     <pair name="headline" type="string">{$death-date/text()} Death</pair>
             </pair>
     else () 
@@ -134,8 +154,18 @@ declare function timeline:get-floruit($data as node()*) as node()*{
                       else () 
         return
             <pair type="object">
-                    <pair name="startDate" type="string">{$start}</pair>
-                    <pair name="endDate" type="string">{$end}</pair>
+                    <pair name="startDate" type="string">
+                    {
+                        if(starts-with($start,'-')) then concat('-',tokenize($start,'-')[2])
+                        else replace($start,'-',',')
+                        }
+                    </pair>
+                    <pair name="endDate" type="string">
+                    {
+                        if(starts-with($end,'-')) then concat('-',tokenize($end,'-')[2])
+                        else replace($end,'-',',')
+                    }
+                    </pair>
                     <pair name="headline" type="string">{$floruit-date/text()} Floruit</pair>
             </pair>
     else () 
@@ -159,8 +189,18 @@ declare function timeline:get-state($data as node()*) as node()*{
         let $office := if($state-date/@role) then concat(' ',string($state-date/@role)) else concat(' ',string($state-date/@type))                 
         return
                 <pair type="object">
-                    <pair name="startDate" type="string">{$start}</pair>
-                    <pair name="endDate" type="string">{$end}</pair>
+                    <pair name="startDate" type="string">
+                    {
+                        if(starts-with($start,'-')) then concat('-',tokenize($start,'-')[2])
+                        else replace($start,'-',',')
+                        }
+                    </pair>
+                    <pair name="endDate" type="string">
+                    {
+                        if(starts-with($end,'-')) then concat('-',tokenize($end,'-')[2])
+                        else replace($end,'-',',')
+                    }
+                    </pair>
                     <pair name="headline" type="string">{$state-date/text()} {$office}</pair>
                 </pair>
     else () 
@@ -170,23 +210,34 @@ declare function timeline:get-state($data as node()*) as node()*{
  : Build events date ranges
  : @param $data as node
  : build end and start?
+ replace(string($event/descendant-or-self::*[@from][1]/@from),'-',',')
 :)
 declare function timeline:get-events($data as node()*) as node()*{
      if($data/descendant-or-self::tei:event) then 
         for $event in $data/descendant-or-self::tei:event
         let $event-content := normalize-space(string-join($event/descendant::*/text(),' '))
-        let $start := if($event/descendant-or-self::*/@when) then replace(string($event/descendant-or-self::*[@when][1]/@when),'-',',')
-                      else if($event/descendant-or-self::*/@notBefore) then replace(string($event/descendant-or-self::*[@notBefore][1]/@notBefore),'-',',')
-                      else if($event/descendant-or-self::*/@from) then replace(string($event/descendant-or-self::*[@from][1]/@from),'-',',')
+        let $start := if($event/descendant-or-self::*/@when) then $event/descendant-or-self::*[@when][1]/@when
+                      else if($event/descendant-or-self::*/@notBefore) then $event/descendant-or-self::*[@notBefore][1]/@notBefore
+                      else if($event/descendant-or-self::*/@from) then $event/descendant-or-self::*[@from][1]/@from
                       else ()
-        let $end :=   if($event/descendant-or-self::*/@when) then replace(string($event/descendant-or-self::*[@when][1]/@when),'-',',')
-                      else if($event/descendant-or-self::*/@notAfter) then replace(string($event/descendant-or-self::*[@notAfter][1]/@notAfter),'-',',')
-                      else if($event/descendant-or-self::*/@to) then replace(string($event/descendant-or-self::*[@to][1]/@to),'-',',')
+        let $end :=   if($event/descendant-or-self::*/@when) then $event/descendant-or-self::*[@when][1]/@when
+                      else if($event/descendant-or-self::*/@notAfter) then $event/descendant-or-self::*[@notAfter][1]/@notAfter
+                      else if($event/descendant-or-self::*/@to) then $event/descendant-or-self::*[@to][1]/@to
                       else ()         
         return
                 <pair type="object">
-                    <pair name="startDate" type="string">{$start}</pair>
-                    <pair name="endDate" type="string">{$end}</pair>
+                    <pair name="startDate" type="string">
+                    {
+                        if(starts-with($start,'-')) then concat('-',tokenize($start,'-')[2])
+                        else replace($start,'-',',')
+                        }
+                    </pair>
+                    <pair name="endDate" type="string">
+                    {
+                        if(starts-with($end,'-')) then concat('-',tokenize($end,'-')[2])
+                        else replace($end,'-',',')
+                    }
+                    </pair>
                     <pair name="headline" type="string">{concat(substring($event-content,1, 30),'...')}</pair>
                     <pair name="text" type="string">{$event-content}</pair>
                 </pair>
