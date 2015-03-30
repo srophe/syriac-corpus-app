@@ -324,7 +324,7 @@ return app:tei2html($links)
 };
 
 (:~ 
- : Pull together place page data
+ : Pull together place page data 
  : Adds related places and nested locations to full TEI document
  : Passes xml to placepage.xsl for html transformation 
 :)

@@ -154,7 +154,7 @@
                     <xsl:apply-templates select="t:place/t:placeName[starts-with(@xml:lang, 'ar')]" mode="list">
                         <xsl:sort lang="ar" select="."/>
                     </xsl:apply-templates>
-                    <xsl:apply-templates select="t:place/t:placeName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar'))]" mode="list">
+                    <xsl:apply-templates select="t:place/t:placeName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar')) and not(@syriaca-tags='#syriaca-simplified-script')]" mode="list">
                         <xsl:sort collation="{$mixed}" select="."/>
                     </xsl:apply-templates>
                 </div>
