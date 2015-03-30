@@ -235,7 +235,7 @@ declare function browse:get-pers-date-ad($node as node(), $model as map(*)){
             else if($browse:date = '1900-2000') then xs:date('1900-01-01')
             else if($browse:date = '2000-') then xs:date('2000-01-01')
             else xs:date('0100-01-01')
-        for $data in $model('browse-data')[descendant::*/@syriaca-computed-start lt $end] | $model('browse-data')[descendant::*/@syriaca-computed-end gt $start]
+        for $data in $model('browse-data')[descendant::*[@syriaca-computed-start lt $end and @syriaca-computed-start gt $start]] | $model('browse-data')[descendant::*[@syriaca-computed-end gt $start and @syriaca-computed-start lt $end]]
         let $id := string($data/@xml:id)
         let $ana := string($data/@ana)
         let $title := $data/tei:persName[1]
