@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -84,7 +84,7 @@
                 <xsl:value-of select="string(/*/@id)"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="starts-with(//idno[@URI],'http://syriaca.org/')"/>
+                <xsl:value-of select="starts-with(//idno[@type='URI'],'http://syriaca.org/')"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
@@ -128,8 +128,8 @@
                     </div>
                 </xsl:if>
                <!-- NOTE: Need to add Identy description if it exists, When Nathan gets element back to me.  -->
-                <p>Names: 
-                       <xsl:apply-templates select="t:person/t:persName[@syriaca-tags='#syriaca-headword' and starts-with(@xml:lang,'syr')]" mode="list">
+                <p>Names:    
+                    <xsl:apply-templates select="t:person/t:persName[@syriaca-tags='#syriaca-headword' and starts-with(@xml:lang,'syr')]" mode="list">
                         <xsl:sort lang="syr" select="."/>
                     </xsl:apply-templates>
                     <xsl:apply-templates select="t:person/t:persName[@syriaca-tags='#syriaca-headword' and starts-with(@xml:lang,'en')]" mode="list">
@@ -141,7 +141,7 @@
                     <xsl:apply-templates select="t:person/t:persName[starts-with(@xml:lang, 'ar')]" mode="list">
                         <xsl:sort lang="ar" select="."/>
                     </xsl:apply-templates>
-                    <xsl:apply-templates select="t:person/t:persName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar'))]" mode="list">
+                    <xsl:apply-templates select="t:person/t:persName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar')) and not(@syriaca-tags='#syriaca-simplified-script')]" mode="list">
                         <xsl:sort collation="{$mixed}" select="."/>
                     </xsl:apply-templates>
                 </p>
@@ -167,7 +167,7 @@
                     <xsl:apply-templates select="t:place/t:placeName[starts-with(@xml:lang, 'ar')]" mode="list">
                         <xsl:sort lang="ar" select="."/>
                     </xsl:apply-templates>
-                    <xsl:apply-templates select="t:place/t:placeName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar'))]" mode="list">
+                    <xsl:apply-templates select="t:place/t:placeName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar')) and not(@syriaca-tags='#syriaca-simplified-script')]" mode="list">
                         <xsl:sort collation="{$mixed}" select="."/>
                     </xsl:apply-templates>
                 </div>
@@ -319,7 +319,8 @@
         <!-- Events -->
         <xsl:if test="t:event[not(@type='attestation')]">
             <div id="event">
-                <h3>Event<xsl:if test="count(t:event[not(@type='attestation')]) &gt; 1">s</xsl:if></h3>
+                <h3>Event<xsl:if test="count(t:event[not(@type='attestation')]) &gt; 1">s</xsl:if>
+                </h3>
                 <ul>
                     <xsl:apply-templates select="t:event[not(@type='attestation')]" mode="event"/>
                 </ul>
@@ -329,7 +330,8 @@
         <!-- Events/attestation -->
         <xsl:if test="t:event[@type='attestation']">
             <div id="event">
-                <h3>Attestation<xsl:if test="count(t:event[@type='attestation']) &gt; 1">s</xsl:if></h3>
+                <h3>Attestation<xsl:if test="count(t:event[@type='attestation']) &gt; 1">s</xsl:if>
+                </h3>
                 <ul>
                     <!-- Sorts events on dates, checks first for @notBefore and if not present, uses @when -->
                     <xsl:for-each select="t:event[@type='attestation']">
@@ -362,7 +364,6 @@
                 </div>
             </xsl:for-each>
         </xsl:if>
-        
         <xsl:if test="t:bibl">
             <xsl:call-template name="sources"/>
         </xsl:if>
@@ -386,7 +387,6 @@
                 </ul>
             </div>
         </xsl:if>
-    
         <xsl:if test="@ana ='#syriaca-saint'">
             <div>
                 <h3>Lives</h3>
