@@ -95,7 +95,7 @@
                 <img src="/exist/apps/srophe/resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/>
             </a>
             <!-- NOTE: need to restructure geo? or just add atom to persons? -->
-            <!-- Atom format link --> 
+            <!-- Atom format link -->
             <a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml">
                 <img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/>
             </a>
@@ -186,9 +186,11 @@
                         <img src="/exist/apps/srophe/resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/> TEI XML source data</a>
                 </li>
                 <!-- Atom format link -->
-                <a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml">
-                    <img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/>
-                </a>
+                <li>
+                    <a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml">
+                        <img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/> ATOM XML format
+                    </a>
+                </li>
                 <!-- Wikipedia links -->
                 <xsl:for-each select="t:idno[contains(.,'wikipedia')]">
                     <xsl:variable name="get-title">
@@ -255,9 +257,11 @@
                         <img src="/exist/apps/srophe/resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/> TEI XML source data</a>
                 </li>
                 <!-- Atom format link -->
-                <a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml">
-                    <img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/>
-                </a>
+                <li>
+                    <a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml">
+                        <img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/> ATOM XML format
+                    </a>
+                </li>
                 <!-- Wikipedia links -->
                 <xsl:for-each select="//t:idno[contains(.,'wikipedia')]">
                     <xsl:variable name="get-title">
