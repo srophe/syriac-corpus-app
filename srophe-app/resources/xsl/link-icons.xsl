@@ -193,6 +193,7 @@
                 <li>
                     <a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml">
                         <img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/>
+                        Atom XML format
                     </a>
                 </li>
                 <!-- Wikipedia links -->
@@ -264,6 +265,7 @@
                 <li>
                     <a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml">
                         <img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/>
+                        Atom XML format
                     </a>
                 </li>   
                 <!-- Wikipedia links -->
