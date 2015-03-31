@@ -39,6 +39,20 @@ body {font-family: arial, sans-serif; padding-top:50px;}
 }
 .navbar-form{max-width: 250px;}
 
+/* Nav bar icons for submodules */
+.dropdown-menu li a{margin-left:.5em;}
+.nav-icons {
+    background-position: left center;
+    background-repeat: no-repeat;
+    text-indent:12px;
+}
+.geo-sm-icon {background-image: url(../img/icons-geo-sm.png);}
+.saints-sm-icon {background-image: url(../img/icons-saints-sm.png);}
+.persons-sm-icon {background-image: url(../img/icons-persons-sm.png);}
+.authors-sm-icon {background-image: url(../img/icons-authors-sm.png);}
+.spear-sm-icon {background-image: url(../img/icons-spear-sm.png);}
+.mss-sm-icon {background-image: url(../img/icons-mss-sm.png);}
+
 footer {text-align:center; color:white;}
 
 /* Typography */
