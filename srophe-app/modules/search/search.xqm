@@ -185,11 +185,16 @@ return
    else ()
 };
 
+(:~
+ : Build Map view of search results with coordinates
+ : @param $node search resuls with coords
+:)
 declare function search:build-geojson($node as node()*, $model as map(*)){
 let $geo-hits := $model("hits")//tei:geo
 return
     if(count($geo-hits) gt 1) then
-         (<div id="map" style="height: 250px;"/>,
+         (
+         geo:build-map($geo-hits, '', ''),
          <div class="pull-right">*{count($geo-hits)} of {search:hit-count($node,$model)} places have coordinates and are shown on this map. 
          <button class="btn btn-link" data-toggle="modal" data-target="#map-selection" id="mapFAQ">Read more...</button>
          </div>,
@@ -207,7 +212,7 @@ return
                             <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
                         </div>
                         <div class="modal-footer">
-                            <a class="btn" href="../documentation/faq.html" aria-hidden="true">See all FAQs</a>
+                            <a class="btn" href="/documentation/faq.html" aria-hidden="true">See all FAQs</a>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -215,59 +220,14 @@ return
             </div>
          </div>,
          <script type="text/javascript">
-                <![CDATA[
-                    $('#mapFAQ').click(function(){
-                            $('#popup').load( '../documentation/faq.html #map-selection',function(result){
-                            $('#map-selection').modal({show:true});
-                        });
-                     });   
-                 ]]>
-        </script>,
-         <script type="text/javascript">
-             <![CDATA[
-                    var terrain = L.tileLayer(
-                        'http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', 
-                        {attribution: "ISAW, 2012"});
-                        
-                        /* Not added by default, only through user control action */
-                    var streets = L.tileLayer(
-                        'http://api.tiles.mapbox.com/v3/sgillies.map-pmfv2yqx/{z}/{x}/{y}.png', 
-                        {attribution: "ISAW, 2012"});
-                        
-                    var imperium = L.tileLayer(
-                        'http://pelagios.dme.ait.ac.at/tilesets/imperium//{z}/{x}/{y}.png', {
-                        attribution: 'Tiles: &lt;a href="http://pelagios-project.blogspot.com/2012/09/a-digital-map-of-roman-empire.html"&gt;Pelagios&lt;/a&gt;, 2012; Data: NASA, OSM, Pleiades, DARMC',
-                        maxZoom: 11 });
-
-
-              		var placesgeo =]]>
-              		{geo:json-transform($geo-hits,'','')}
-                     <![CDATA[
-
-                        var geojson = L.geoJson(placesgeo, {
-                        onEachFeature: function (feature, layer){
-                        var popupContent = "<a href='" + feature.properties.uri + "'>" +
-                        feature.properties.name + " - " + feature.properties.type + "</a>";
-                        
-                        layer.bindPopup(popupContent);
-                        }
-                        }) 
-                        
-                        var map = L.map('map').fitBounds(geojson.getBounds(),{maxZoom: 4});
-                        
-                        terrain.addTo(map);
-                        
-                        L.control.layers({
-                        "Terrain (default)": terrain,
-                        "Streets": streets,
-                        "Imperium": imperium }).addTo(map);
-                        
-                        geojson.addTo(map);
- 
-                     
-                        ]]>
-                    </script>)
-               else ''
+         <![CDATA[
+            $('#mapFAQ').click(function(){
+                $('#popup').load( '../documentation/faq.html #map-selection',function(result){
+                    $('#map-selection').modal({show:true});
+                });
+             });]]>
+         </script>)
+    else ()         
 };
 
 (:~
