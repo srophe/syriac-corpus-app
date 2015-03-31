@@ -66,6 +66,20 @@
             </xsl:choose>
         </xsl:variable>
         <div id="link-icons" class="col-md-4 text-right">
+            <xsl:if test="//descendant::*[contains(@ana,'syriaca-saint')]">
+                <span class="dropdown inline">
+                    <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                        <img src="/exist/apps/srophe/resources/img/icons-saints-sm.png" alt="Saints icon" title="Also part of Saints Database" width="30px;"/> Saints<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#">Saints home</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Saints index</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Saints search</a></li>
+                    </ul>
+                </span>    
+            </xsl:if>
             <!-- Pleiades links -->
             <xsl:for-each select="//descendant::t:idno[contains(.,'pleiades')]">
                 <a href="{normalize-space(.)}">
@@ -261,7 +275,7 @@
                     <a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml">
                         <img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/> ATOM XML format
                     </a>
-                </li>
+                </li>   
                 <!-- Wikipedia links -->
                 <xsl:for-each select="//t:idno[contains(.,'wikipedia')]">
                     <xsl:variable name="get-title">
