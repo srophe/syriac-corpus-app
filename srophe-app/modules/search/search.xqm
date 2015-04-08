@@ -237,8 +237,8 @@ return
 declare %templates:wrap  function search:show-form($node as node()*, $model as map(*), $collection as xs:string?) {   
     if(exists(request:get-parameter-names())) then ''
     else 
-        if($collection = 'persons') then <div>{persons:search-form()}</div>
-        else if($collection = 'saints') then <div>{persons:search-form()}</div>
+        if($collection = 'persons') then <div>{persons:search-form('person')}</div>
+        else if($collection = 'saints') then <div>{persons:search-form('saint')}</div>
         else if($collection ='spear') then <div>{spears:search-form()}</div>
         else if($collection ='manuscripts') then <div>{ms:search-form()}</div>
         else <div>{places:search-form()}</div>

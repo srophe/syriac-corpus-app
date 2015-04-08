@@ -344,13 +344,48 @@ declare function persons:saints-results-node($hit){
 (:~
  : Builds advanced search form for persons
  :)
-declare function persons:search-form() {   
+declare function persons:search-form($coll) {   
 <form method="get" action="search.html" class="form-horizontal" role="form">
     <h1>Advanced Search</h1>
     <div class="well well-small">
         <div><p><em>Wild cards * and ? may be used to optimize search results.
         Wild cards may not be used at the beginning of a word, as it hinders search speed.</em></p></div>
         <div class="well well-small search-inner well-white">
+         <!-- Person Type -->
+           <div class="form-group">            
+                <label for="type" class="col-sm-2 col-md-3  control-label">Search in: </label>
+                <div class="col-sm-10 col-md-6">
+                    <select name="type" id="type" class="form-control">
+                            <option value="any">
+                            {
+                            if($coll = 'person') then attribute selected { "true" }
+                            else ()
+                            }
+                            All
+                            </option>
+                            <option value="any">
+                            {
+                            if($coll = 'person') then attribute selected { "true" }
+                            else ()
+                            }
+                            SBD
+                            </option>
+                            <option value="saint">
+                            {
+                            if($coll = 'saint') then attribute selected { "true" }
+                            else ()
+                            }
+                            Saints</option>
+                            <option value="author">
+                            {
+                            if($coll = 'author') then attribute selected { "true" }
+                            else ()
+                            }
+                            Authors</option>
+                        </select>
+                </div>
+            </div>
+            <hr/>
         <!-- Keyword -->
             <div class="form-group">            
                 <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
@@ -372,18 +407,7 @@ declare function persons:search-form() {
                             </select>-->
                 </div>
             </div>
-            <hr/>
-            <!-- Person Type -->
-            <div class="form-group">            
-                <label for="type" class="col-sm-2 col-md-3  control-label">Person Type: </label>
-                <div class="col-sm-10 col-md-6">
-                    <select name="type" id="type" class="form-control">
-                            <option value="any">any</option>
-                            <option value="author">author</option>
-                            <option value="saint">saint</option>
-                        </select>
-                </div>
-            </div>            
+            <hr/>            
                 <!-- URI
                     <div class="row-fluid">
                         <div class="span2">URI: </div>
