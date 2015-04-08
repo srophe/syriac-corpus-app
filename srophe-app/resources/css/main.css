@@ -320,6 +320,8 @@ div[id|=place] > div:last-of-type {
 
 /* Search styles */
 
+.page-bottom .hit-count {display:none;}
+
 .match {
     font-style:italic; color:blue;
 }

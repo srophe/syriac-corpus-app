@@ -127,8 +127,8 @@ let $search-string: =
 let $pagination-links := 
         <div class="row" xmlns="http://www.w3.org/1999/xhtml">
             <div class="col-sm-5">
-            <h4>Search results:</h4>
-                <p class="col-md-offset-1">{$total-result-count} matches for {search:search-string($collection)}.</p>
+            <h4 class="hit-count">Search results:</h4>
+                <p class="col-md-offset-1 hit-count">{$total-result-count} matches for {search:search-string($collection)}.</p>
                 <!-- for debugging xpath <br/>{persons:query-string()}-->
             </div>
             {if(search:hit-count($node, $model) gt $perpage) then 
