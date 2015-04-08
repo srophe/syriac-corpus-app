@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -429,6 +429,54 @@
     <!-- suppress bibl -->
     <xsl:template match="t:bibl" mode="title"/>
     <xsl:template name="h1">
+        <xsl:if test="//descendant::*[contains(@ana,'syriaca-saint')]">
+            <div style="margin-left:-2em; margin-top:-1em; padding-top:0;">
+                <span class="dropdown inline">
+                    <button class="btn btn-link dropdown-toggle" type="button" id="saintsMenu" data-toggle="dropdown" aria-expanded="true">
+                        <img alt="Syriac.org: Persons" src="/exist/apps/srophe/resources/img/icons-saints.png"/> <span class="caret"/>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="saintsMenu">
+                        <li>
+                            <a href="/saints/index.html">Saints home</a>
+                        </li>
+                        <li class="divider"/>
+                        <li>
+                            <a href="/saints/browse.html">Saints index</a>
+                        </li>
+                        <li class="divider"/>
+                        <li>
+                            <a href="/saints/search.html">Saints search</a>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+        </xsl:if>
+        
+        <xsl:if test="//descendant::*[contains(@ana,'syriaca-author')]">
+            <div style="margin-left:-2em; margin-top:-1em; padding-top:0;">
+                <span class="dropdown inline">
+                    <button class="btn btn-link dropdown-toggle" type="button" id="authorsMenu" data-toggle="dropdown" aria-expanded="true">
+                        <img alt="Syriac.org: Persons" src="/exist/apps/srophe/resources/img/icons-authors.png"/><span class="caret"/>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="authorsMenu">
+                        <li>
+                            <a href="/authors/index.html">Authors home</a>
+                        </li>
+                        <!--
+                    <li class="divider"/>
+                    <li>
+                        <a href="/authors/index.html">Saints index</a>
+                    </li>
+                    <li class="divider"/>
+                    <li>
+                        <a href="/authors/index.html">Saints search</a>
+                    </li>
+                    -->
+                    </ul>
+                </span>
+                
+            </div>
+        </xsl:if>
         <div class="row title">
             <h1 class="col-md-8">
                 <xsl:call-template name="title"/>
@@ -461,6 +509,7 @@
                 </small>
             </div>
         </xsl:for-each>
+
     </xsl:template>
     <xsl:template name="title">
         <xsl:choose>
@@ -581,18 +630,15 @@
             <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
         </xsl:if>
     </xsl:template>
-    
     <xsl:template match="t:choice">
         <xsl:text> </xsl:text>
-        <xsl:apply-templates/>            
+        <xsl:apply-templates/>
     </xsl:template>
-    
     <xsl:template match="t:orig | t:sic">
         <xsl:text> (</xsl:text>
         <xsl:apply-templates/>
         <xsl:text>) </xsl:text>
     </xsl:template>
-    
     <xsl:template match="t:event" mode="event">
         <li>
         <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
