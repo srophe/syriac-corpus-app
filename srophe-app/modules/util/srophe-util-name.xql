@@ -1,11 +1,12 @@
 xquery version "3.0";
-module namespace srophe-util="http://srophe.org/ns/srophe-util-name";
+module namespace sutil="http://srophe.org/ns/srophe-util";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
+
 (:~
  : Add alternate names for improved searching
 :)
-declare function srophe-util-name:left-half-ring-pers($recs){
+declare function sutil:left-half-ring-pers($recs){
     for $names in $recs//tei:persName[contains(.,'ʿ')]
     let $parent := $names/ancestor::tei:person
     let $rec-id := substring-after($parent/@xml:id,'-')
@@ -18,12 +19,12 @@ declare function srophe-util-name:left-half-ring-pers($recs){
     return 
         if($parent/tei:persName[@syriaca-tags="#syriaca-simplified-script"]) then 
             if($parent/tei:persName[@syriaca-tags="#syriaca-simplified-script"]/text() = replace($pers-name,'ʿ','')) then ()
-            else (update insert $new-name following $parent/tei:persName[last()],srophe-util-name:do-change-stmt($names))
+            else (update insert $new-name following $parent/tei:persName[last()],sutil:do-change-stmt($names))
         else
-           (update insert $new-name following $parent/tei:persName[last()],srophe-util-name:do-change-stmt($names))
+           (update insert $new-name following $parent/tei:persName[last()],sutil:do-change-stmt($names))
 };
 (:collection('/db/apps/srophe/data/persons/tei'):)
-declare function srophe-util-name:right-half-ring-pers($recs){
+declare function sutil:right-half-ring-pers($recs){
     for $names in $recs//tei:persName[contains(.,'ʾ')]
     let $parent := $names/ancestor::tei:person
     let $rec-id := substring-after($parent/@xml:id,'-')
@@ -36,13 +37,13 @@ declare function srophe-util-name:right-half-ring-pers($recs){
     return 
         if($parent/tei:persName[@syriaca-tags="#syriaca-simplified-script"]) then 
             if($parent/tei:persName[@syriaca-tags="#syriaca-simplified-script"]/text() = replace($pers-name,'ʿ','')) then ()
-            else (update insert $new-name following $parent/tei:persName[last()],srophe-util-name:do-change-stmt($names))
+            else (update insert $new-name following $parent/tei:persName[last()],sutil:do-change-stmt($names))
         else
-           (update insert $new-name following $parent/tei:persName[last()],srophe-util-name:do-change-stmt($names))
+           (update insert $new-name following $parent/tei:persName[last()],sutil:do-change-stmt($names))
 };
 
 (:collection('/db/apps/srophe/data/places/tei'):)
-declare function srophe-util-name:left-half-ring-place($recs){
+declare function sutil:left-half-ring-place($recs){
     for $names in $recs//tei:placeName[contains(.,'ʿ')]
     let $parent := $names/ancestor::tei:place
     let $rec-id := substring-after($parent/@xml:id,'-')
@@ -56,12 +57,12 @@ declare function srophe-util-name:left-half-ring-place($recs){
         if($parent/tei:placeName[@syriaca-tags="#syriaca-simplified-script"]) then 
             if($parent/tei:placeName[@syriaca-tags="#syriaca-simplified-script"]/text() = replace($place-name,'ʿ','')) then ()
             else
-                (update insert $new-name following $parent/tei:placeName[last()],srophe-util-name:do-change-stmt($names))
+                (update insert $new-name following $parent/tei:placeName[last()],sutil:do-change-stmt($names))
         else
-           (update insert $new-name following $parent/tei:placeName[last()],srophe-util-name:do-change-stmt($names))
+           (update insert $new-name following $parent/tei:placeName[last()],sutil:do-change-stmt($names))
 };
 
-declare function srophe-util-name:right-half-ring-place($recs){
+declare function sutil:right-half-ring-place($recs){
     for $names in $recs//tei:placeName[contains(.,'ʾ')]
     let $parent := $names/ancestor::tei:place
     let $rec-id := substring-after($parent/@xml:id,'-')
@@ -75,12 +76,12 @@ declare function srophe-util-name:right-half-ring-place($recs){
         if($parent/tei:placeName[@syriaca-tags="#syriaca-simplified-script"]) then 
             if($parent/tei:placeName[@syriaca-tags="#syriaca-simplified-script"]/text() = replace($place-name,'ʿ','')) then ()
             else
-                (update insert $new-name following $parent/tei:placeName[last()],srophe-util-name:do-change-stmt($names))
+                (update insert $new-name following $parent/tei:placeName[last()],sutil:do-change-stmt($names))
         else
-           (update insert $new-name following $parent/tei:placeName[last()],srophe-util-name:do-change-stmt($names))
+           (update insert $new-name following $parent/tei:placeName[last()],sutil:do-change-stmt($names))
 };
 
-declare function srophe-util-name:do-change-stmt($names){
+declare function sutil:do-change-stmt($names){
     let $change := 
         <change xmlns="http://www.tei-c.org/ns/1.0" who="http://syriaca.org/documentation/editors.xml#wsalesky" when="{current-date()}">ADDED: Add alternate names for search functionality.</change>
     return
@@ -89,7 +90,7 @@ declare function srophe-util-name:do-change-stmt($names){
          update value $names/ancestor::tei:TEI/tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:date with current-date())
 };
 
-declare function srophe-util-name:run-script-stmt($uri){
+declare function sutil:run-script-stmt($uri){
     let $recs :=     
         if(ends-with($uri, '.xml')) then doc($uri)/child::*
         else 
@@ -97,9 +98,9 @@ declare function srophe-util-name:run-script-stmt($uri){
             return $docs
     return             
         (
-            srophe-util-name:left-half-ring-pers($recs),
-            srophe-util-name:right-half-ring-pers($recs),
-            srophe-util-name:left-half-ring-place($recs),
-            srophe-util-name:right-half-ring-place($recs)
+            sutil:left-half-ring-pers($recs),
+            sutil:right-half-ring-pers($recs),
+            sutil:left-half-ring-place($recs),
+            sutil:right-half-ring-place($recs)
         )
 };

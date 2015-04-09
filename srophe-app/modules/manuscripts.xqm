@@ -10,7 +10,7 @@ import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 import module namespace geo="http://syriaca.org//geojson" at "lib/geojson.xqm";
 
-import module namespace timeline="http://syriaca.org//timeline" at "timeline.xqm";
+import module namespace timeline="http://syriaca.org//timeline" at "ib/timeline.xqm";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -27,7 +27,11 @@ declare variable $ms:id {request:get-parameter('id', '')};
  : @param $id persons URI
  :)
 declare %templates:wrap function ms:get-data($node as node(), $model as map(*), $view){
-    map {"data" := collection($config:app-root || "/data/manuscripts/tei")//tei:idno[@type='URI'][. = $ms:id]}            
+let $mssURI :=
+        if(contains($ms:id,'syriaca.org/')) then $ms:id 
+        else concat('http://syriaca.org/manuscript/',$ms:id)
+return 
+    map {"data" := collection($config:app-root || "/data/manuscripts/tei")//tei:idno[@type='URI'][. = $mssURI]}            
 };
 
 declare %templates:wrap function ms:uri($node as node(), $model as map(*)){
