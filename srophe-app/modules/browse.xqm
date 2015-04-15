@@ -37,8 +37,7 @@ declare variable $browse:fq {request:get-parameter('fq', '')};
 :)
 declare function browse:get-all($node as node(), $model as map(*), $coll as xs:string?){
 let $browse-path := 
-    if($coll = 'persons') then concat("collection('",$config:app-root,"/data/persons/tei')//tei:person",browse:get-syr()) 
-    else if($coll = 'saints') then concat("collection('",$config:app-root,"/data/persons/tei/saints')//tei:person",browse:get-syr())
+    if($coll = ('persons','authors','saints')) then concat("collection('",$config:app-root,"/data/persons/tei')//tei:person",browse:get-pers-coll($coll),browse:get-syr()) 
     else if($coll = 'places') then concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
     else if(exists($coll)) then concat("collection('",$config:app-root,"/data/",xs:anyURI($coll),"/tei')//tei:body",browse:get-syr())
     else concat("collection('",$config:app-root,"/data')//tei:body",browse:get-syr())
@@ -46,6 +45,18 @@ return
     map{"browse-data" := util:eval($browse-path)}        
 };
 
+(:~
+ : Filter titles by subcollection
+ : Used by persons as there are several subcollections within SBD
+ : @param $coll passed from html template
+:)
+declare function browse:get-pers-coll($coll) as xs:string?{
+if($coll = 'persons' or 'authors' or 'saints') then 
+    if($coll = 'authors') then '[contains(@ana,"#syriaca-author")]'
+    else if($coll = 'saints') then '[contains(@ana,"#syriaca-saint")]'
+    else ()
+else ()    
+};
 (:~
  : Build default browse listings
  : NOTE: add collection varaible here as well use it to build browse links
@@ -416,7 +427,7 @@ if($coll = 'persons') then
              else '' }<a href="browse.html?view=date">Date</a>
         </li>
     </ul>
-else if($coll = 'saints') then 
+else if($coll = ('saints','authors')) then 
     <ul class="nav nav-tabs" id="nametabs">
         <li>{if(not($browse:view)) then 
                 attribute class {'active'} 
