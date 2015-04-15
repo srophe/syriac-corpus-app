@@ -70,6 +70,7 @@ declare function spear:get-tei($id as xs:string){
         }
     </tei:TEI>
 };
+
 (:~
  : Checks for canonical record in Syriaca.org 
  : @param $spear:id 
@@ -287,21 +288,24 @@ declare function spear:build-events-panel($node as node(), $model as map(*)){
 
 declare %templates:wrap function spear:build-events-list($node as node(), $model as map(*)){
 if($model("spear-data")//tei:event) then 
-    if($spear:item-type = 'event-factoid') then spear:events($node,$model)
+    if($spear:item-type = 'event-factoid') then ()
     else spear:build-events-panel($node, $model)
 else ()    
 };
 
 (:  
  : Pass all additional data to html page
+  
 :)
 declare %templates:wrap function spear:data($node as node(), $model as map(*)){
 let $data := $model("spear-data")
-return 
+return
 app:tei2html(
-    <syr-custom xmlns="http://www.tei-c.org/ns/1.0" type="{$spear:item-type}">
-        {$data[not(tei:listEvent)]}
-    </syr-custom>)
+    <factoid xmlns="http://www.tei-c.org/ns/1.0" type="{$spear:item-type}">
+        {
+         if($spear:item-type = 'event-factoid') then $data
+        else $data[not(tei:listEvent)]}
+    </factoid>)
 };
 
 declare %templates:wrap function spear:dates($node as node(), $model as map(*)){
@@ -404,11 +408,11 @@ declare function spear:events($node as node(), $model as map(*)){
 declare %templates:wrap function spear:link-icons-list($node as node(), $model as map(*)){
 let $data := $model("spear-data")
 let $links:=
-    <syr-custom xmlns="http://www.tei-c.org/ns/1.0">
+    <body xmlns="http://www.tei-c.org/ns/1.0">
         <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
             {$data//tei:person//tei:idno, $data//tei:person//tei:location}
         </see-also>
-   </syr-custom>
+   </body>
 return app:tei2html($links)
 };
 

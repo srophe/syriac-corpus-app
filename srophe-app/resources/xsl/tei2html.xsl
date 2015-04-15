@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -426,6 +426,25 @@
         <!-- Output elements without links -->
         <xsl:apply-templates mode="title"/>
     </xsl:template>
+    <!-- used by spear pages not real tei element -->
+    <xsl:template match="t:factoid">
+        <xsl:if test="string-length(.) &gt; 1">
+            <!-- Output elements without links -->
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Factoid(s)</h4>
+                </div>
+                <div class="panel-body">
+                    <xsl:for-each select=".">
+                        <xsl:apply-templates/>
+                        <xsl:if test="/@type != 'event-factoid'">
+                            <a href="factoid.html?id={string(ancestor::tei:div/@uri)}">See factoid <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a>
+                        </xsl:if>                        
+                    </xsl:for-each>
+                </div>
+            </div>
+        </xsl:if>
+    </xsl:template>
     <!-- suppress bibl -->
     <xsl:template match="t:bibl" mode="title"/>
     <xsl:template name="h1">
@@ -433,7 +452,8 @@
             <div style="margin-left:-2em; margin-top:-1em; padding-top:0;">
                 <span class="dropdown inline">
                     <button class="btn btn-link dropdown-toggle" type="button" id="saintsMenu" data-toggle="dropdown" aria-expanded="true">
-                        <img alt="Syriac.org: Persons" src="/exist/apps/srophe/resources/img/icons-saints.png"/> <span class="caret"/>
+                        <img alt="Syriac.org: Persons" src="/exist/apps/srophe/resources/img/icons-saints.png"/>
+                        <span class="caret"/>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="saintsMenu">
                         <li>
@@ -451,12 +471,12 @@
                 </span>
             </div>
         </xsl:if>
-        
         <xsl:if test="//descendant::*[contains(@ana,'syriaca-author')]">
             <div style="margin-left:-2em; margin-top:-1em; padding-top:0;">
                 <span class="dropdown inline">
                     <button class="btn btn-link dropdown-toggle" type="button" id="authorsMenu" data-toggle="dropdown" aria-expanded="true">
-                        <img alt="Syriac.org: Persons" src="/exist/apps/srophe/resources/img/icons-authors.png"/><span class="caret"/>
+                        <img alt="Syriac.org: Persons" src="/exist/apps/srophe/resources/img/icons-authors.png"/>
+                        <span class="caret"/>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="authorsMenu">
                         <li>
@@ -474,7 +494,6 @@
                     -->
                     </ul>
                 </span>
-                
             </div>
         </xsl:if>
         <div class="row title">
@@ -509,7 +528,6 @@
                 </small>
             </div>
         </xsl:for-each>
-
     </xsl:template>
     <xsl:template name="title">
         <xsl:choose>
@@ -658,15 +676,16 @@
     </xsl:template>
     <xsl:template match="t:listPerson">
         <xsl:choose>
-            <xsl:when test="/t:body/@type='person-factoid'">
-                <xsl:choose>
-                    <xsl:when test="t:person/t:persName"/>
-                    <xsl:otherwise>
-                        <li>
-                            <xsl:apply-templates/>
-                        </li>
-                    </xsl:otherwise>
-                </xsl:choose>
+            <!-- Used by spear -->
+            <xsl:when test="/t:factoid">      
+                <li>
+                    <xsl:apply-templates/> 
+                    <xsl:if test="/t:factoid/@type != 'event-factoid'">
+                        <a href="factoid.html?id={string(ancestor::tei:div/@uri)}">
+                        See factoid <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
+                        </a>                                
+                    </xsl:if>    
+                </li> 
             </xsl:when>
             <xsl:otherwise>
                 <li>
