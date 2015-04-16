@@ -53,6 +53,7 @@ body {font-family: arial, sans-serif; padding-top:50px;}
 .authors-sm-icon {background-image: url(../img/icons-authors-sm.png);}
 .spear-sm-icon {background-image: url(../img/icons-spear-sm.png);}
 .mss-sm-icon {background-image: url(../img/icons-mss-sm.png);}
+.syriaca-sm-icon {background-image: url(../img/icons-syriaca-sm.png);}
 
 footer {text-align:center; color:white;}
 
@@ -477,3 +478,22 @@ p.single-space{padding:.25em;}
 /* Manuscripts */
 .msItem {margin:0 1em;}
 .msExtent {display:block; margin:0 1em;}
+
+/*API documentation */
+pre code {
+	line-height: 1.6em;
+	font-size: 11px;
+	}
+pre {
+	padding: 0.1em 0.5em 0.3em 0.7em;
+	border-left: 11px solid #ccc;
+	margin: 1.7em 0 1.7em 0.3em;
+	overflow: auto;
+	width: 93%;
+	max-width:inherit;
+	}
+	
+.api-path {width:15%}
+.api-param {width:20%}
+.api-desc {width:55%}
+.api-method {width:10%}

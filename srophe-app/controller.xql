@@ -27,8 +27,8 @@ else if(matches($exist:resource,"^[0-9]+$") or matches($exist:resource,"^(.[1-9]
         else substring-before($exist:resource,'.html')
     let $html-path :=
         if(starts-with($exist:path, "/place/")) then '/geo/place.html'
-        else if(starts-with($exist:path, "/person/")) then '/person/person.html'
-        else if(starts-with($exist:path, "/saint/")) then '/saint/saint.html'
+        else if(starts-with($exist:path, "/person/")) then '/persons/person.html'
+        else if(starts-with($exist:path, "/manuscript/")) then '/mss/manuscript.html'
         else if(starts-with($exist:path, "/spear/")) then '/spear/factoid.html'
         else '/404.html'
       return
@@ -48,11 +48,15 @@ else if (contains($exist:path,'/api/')) then
   if (ends-with($exist:path,"/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="/api-documentation/index.html"/>
-    </dispatch>
+    </dispatch> 
    else if($exist:resource = 'index.html') then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="/api-documentation/index.html"/>
     </dispatch>
+    else if($exist:resource = 'oai') then
+     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+        <forward url="{replace($exist:path,'/api/oai','/srophe/modules/oai.xql')}"/>
+     </dispatch>
     else
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <forward url="{concat('/restxq/srophe', $exist:path)}" absolute="yes"/>
