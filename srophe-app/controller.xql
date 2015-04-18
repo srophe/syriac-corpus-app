@@ -1,5 +1,6 @@
 xquery version "3.0";
 
+(: Controller.xql for Syriaca.org :)
 declare variable $exist:path external;
 declare variable $exist:resource external;
 declare variable $exist:controller external;
