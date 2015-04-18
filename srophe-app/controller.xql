@@ -38,6 +38,10 @@ else if (contains($exist:path,'/api/')) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="/api-documentation/index.html"/>
     </dispatch>
+   else if($exist:resource = 'oai') then
+     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+        <forward url="{replace($exist:path,'/api/oai','/srophe/modules/oai.xql')}"/>
+     </dispatch>
     else
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <forward url="{concat('/restxq/srophe', $exist:path)}" absolute="yes"/>
