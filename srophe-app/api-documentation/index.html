@@ -10,6 +10,9 @@
                 <li>
                     <a href="#geo">Geographic API</a>
                 </li>
+                <li>
+                    <a href="#oai">OAI-PMH Provider API</a>
+                </li>
             </ul>
         </div>
         <div class="col-md-9">
@@ -23,10 +26,10 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th class="span2">Path</th>
-                            <th class="span2">Parameters</th>
-                            <th class="span7">Description</th>
-                            <th class="span1">Method</th>
+                            <th class="api-path">Path</th>
+                            <th class="api-param">Parameters</th>
+                            <th class="api-desc">Description</th>
+                            <th class="api-method">Method</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,6 +40,10 @@
                             <td>
                                 <strong>q</strong>
                                 <p>Accepts simple text string.</p>
+                                <strong>place</strong>
+                                <p>Searches placeName elements.</p>
+                                <strong>person</strong>
+                                <p>Searches persName elements.</p>
                                 <strong>start</strong>
                                 <p>Default value is 1.</p>
                                 <strong>perpage</strong>
@@ -46,6 +53,10 @@
                                 <p>Performs a simple keyword search across all Syriaca.org collections</p>
                                 <p>Provides results as atom.xml.</p>
                                 <p>Example:<pre>http://syriaca.org/api/search?q=Adana</pre>
+                                </p>
+                                <p>Example:<pre>http://syriaca.org/api/search?place=edessa</pre>
+                                </p>
+                                <p>Example:<pre>http://syriaca.org/api/search?q=river&amp;place=edessa</pre>
                                 </p>
                                 <p>Example:<pre>http://syriaca.org/api/search?q=Adana&amp;start=1&amp;perpage=5</pre>
                                 </p>
@@ -61,10 +72,10 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th class="span2">Path</th>
-                            <th class="span2">Parameters</th>
-                            <th class="span7">Description</th>
-                            <th class="span1">Method</th>
+                            <th class="api-path">Path</th>
+                            <th class="api-param">Parameters</th>
+                            <th class="api-desc">Description</th>
+                            <th class="api-method">Method</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -146,6 +157,62 @@
                         </tr>
                     </tbody>
                 </table>
+                <h3 id="oai">OAI-PMH Provider API</h3>
+                <p>Base url: <pre>http://syriaca.org/api/oai</pre>
+                </p>
+                <p>Full OAI-PMH documentation can be found: <a href="http://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm">http://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm</a>
+                </p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="api-path">Path</th>
+                            <th class="api-param">Parameters</th>
+                            <th class="api-desc">Description</th>
+                            <th class="api-method">Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                none
+                            </td>
+                            <td>
+                                <strong>verb</strong>
+                                <p><em>OAI-PMH verb.</em></p>
+                                <strong>identifier</strong>
+                                <p><em>Syriaca.org record identifier. ex: http://syriaca.org/place/78</em></p>
+                                <strong>from</strong>
+                                <p><em>Date to start harvesting from. Uses publication/last modified date of record.</em></p>
+                                <strong>until</strong>
+                                <p><em>Date to end harvesting from. Uses publication/last modified date of record.</em></p>
+                                <strong>set</strong>
+                                <p><em>Syriaca.org sets are based on Syriaca.org submodules. Use verb=ListSets to view available sets.</em></p>
+                                <strong>metadataPrefix</strong>
+                                <p><em>What type of data to return.<br/>Syriaca.org currently supports OAI_DC and TEI. Use values: oai_dc or tei</em></p>
+                                <strong>resumptionToken</strong>
+                                <p><em>Start results list</em></p>
+                            </td>
+                            <td>
+                                <p></p>
+                                <p>Example, list records (Dublin Core):<pre>http://syriaca.org/api/oai?verb=ListRecords&amp;metadataPrefix=oai_dc</pre>
+                                </p>
+                                <p>Example, list records (TEI):<pre>http://syriaca.org/api/oai?verb=ListRecords&amp;metadataPrefix=tei</pre>
+                                </p>
+                                <p>Example, list identifiers:<pre>http://syriaca.org/oai?verb=ListIdentifiers&amp;metadataPrefix=oai_dc</pre>
+                                </p>
+                                <p>Example, get a single record:
+                                    <pre>http://syriaca.org/api/oai?verb=GetRecord&amp;identifier=http://syriaca.org/place/78</pre>
+                                </p>
+                                <p>Example, list Sets:<pre>http://syriaca.org/api/oai?verb=ListSets</pre>
+                                </p>
+                                <p>Example, get records in a set (The Syriac Gazetteer):<pre>http://syriaca.org/api/oai?verb=ListRecords&amp;metadataPrefix=oai_dc&amp;set=The%20Syriac%20Gazetteer</pre>
+                                </p>
+                            </td>
+                            <td>GET</td>
+                        </tr>
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </div>
