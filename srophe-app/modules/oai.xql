@@ -448,10 +448,7 @@ declare function local:oai-list-sets() {
         order by $set
         return
             <set>
-                <setSpec>{
-                let $setID := substring-before(substring-after($record[1]/descendant::tei:idno[starts-with(.,'http://syriaca.org/')][1],'http://syriaca.org/'),'/')
-                return $setID
-                }</setSpec>
+                <setSpec>{string($set)}</setSpec>
                 <setName>{string($set)}</setName>
             </set>
         }
