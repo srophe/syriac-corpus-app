@@ -110,12 +110,17 @@ h4 {font-size: 1em; margin-top:1em;}
 .section.type ul {padding-left:0;}
 
 /* Browse page styles */
-.browse-alpha {border-bottom:1px solid #ccc; padding-left:1em; padding:0; margin-bottom:1em;}
-.browse-alpha-syr {border-bottom:1px solid #ccc;}
+.syr-list{padding-right:7em; padding-top:2em;}
+.en-list{padding-left:5em; padding-top:2em;}
+.browse-alpha {border-bottom:1px solid #ccc; padding-left:1em; padding:0; margin-bottom:1em; text-align: justify;}
+
 .browse-alpha li + li {
     padding-left: 1em;
 }
 
+.browse-alpha li.syr-menu + li.syr-menu {
+    padding-left: .5em;
+}
 .nav-stacked > .active > a,
     .nav-stacked > .active > a:hover {
       color: #000;
@@ -123,7 +128,12 @@ h4 {font-size: 1em; margin-top:1em;}
       background-color: #eee;
       cursor: pointer;
     }
-    
+
+.browse-map {margin:0;}
+.inline-map {margin-left:-2em; margin-bottom:1em;}
+.map-lg #map {height:400px !important;}
+.map-md #map {height:300px !important;}
+.map-sm #map {height:250px !important;}
     
 /* footnote styles */
 .footnote-refs, .footnote-tgt {

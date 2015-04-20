@@ -2,11 +2,14 @@ xquery version "3.0";
 (:~
  : Builds browse page for Syriac.org sub-collections 
  : Alphabetical English and Syriac Browse lists
- : Results output as TEI xml and are transformed by /srophe/resources/xsl/browselisting.xsl
+ : Browse by type
+ :
+ : @see lib/geojson.xqm for map generation
  :)
- 
+
 module namespace browse="http://syriaca.org//browse";
 
+import module namespace geo="http://syriaca.org//geojson" at "lib/geojson.xqm";
 import module namespace templates="http://syriaca.org//templates" at "templates.xql";
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 
@@ -18,8 +21,8 @@ declare namespace util="http://exist-db.org/xquery/util";
 
 (:~ 
  : Parameters passed from the url
- : @param $browse:coll selects collection (persons/places ect) for browse display 
- : @param $browse:type selects doc type filter
+ : @param $browse:coll selects collection (persons/places ect) for browse.html 
+ : @param $browse:type selects doc type filter eg: place@type person@ana
  : @param $browse:view selects language for browse display
  : @param $browse:sort passes browse by letter for alphabetical browse lists
  :)
@@ -33,16 +36,43 @@ declare variable $browse:fq {request:get-parameter('fq', '')};
 
 (:~
  : Build browse path for evaluation 
- : NOTE: causes problems for persons and places
+ : Uses $coll to build path to appropriate data set 
+ : If no $coll parameter is present data and all subdirectories will be searched.
+ : @param $coll collection name passed from html, should match data subdirectory name
 :)
 declare function browse:get-all($node as node(), $model as map(*), $coll as xs:string?){
 let $browse-path := 
-    if($coll = ('persons','authors','saints')) then concat("collection('",$config:app-root,"/data/persons/tei')//tei:person",browse:get-pers-coll($coll),browse:get-syr()) 
+        if($coll = ('persons','authors','saints')) then concat("collection('",$config:app-root,"/data/persons/tei')//tei:person",browse:get-pers-coll($coll),browse:get-syr()) 
     else if($coll = 'places') then concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
-    else if(exists($coll)) then concat("collection('",$config:app-root,"/data/",xs:anyURI($coll),"/tei')//tei:body",browse:get-syr())
+    else if(exists($coll)) then concat("collection('",$config:app-root,"/data/",xs:anyURI($coll),"')//tei:body",browse:get-syr())
     else concat("collection('",$config:app-root,"/data')//tei:body",browse:get-syr())
 return 
     map{"browse-data" := util:eval($browse-path)}        
+};
+
+(:
+:testing xpath
+:)
+declare function browse:get-xpath($node as node(), $model as map(*), $coll as xs:string?){
+    (
+    if($coll = ('persons','authors','saints')) then concat("collection('",$config:app-root,"/data/persons/tei')//tei:person",browse:get-pers-coll($coll),browse:get-syr()) 
+    else if($coll = 'places') then concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
+    else if(exists($coll)) then concat("collection('",$config:app-root,"/data/",xs:anyURI($coll),"')//tei:body",browse:get-syr())
+    else concat("collection('",$config:app-root,"/data')//tei:body",browse:get-syr()),
+    concat(' ',$coll)
+    )
+
+};
+
+(:~
+ : Return only Syriac titles 
+ : Based on Syriac headwords 
+ : @param $browse:view
+:)
+declare function browse:get-syr() as xs:string?{
+    if($browse:view = 'syr') then
+        "[child::*[@xml:lang = 'syr'][@syriaca-tags='#syriaca-headword']]"
+    else ()    
 };
 
 (:~
@@ -57,256 +87,9 @@ if($coll = 'persons' or 'authors' or 'saints') then
     else ()
 else ()    
 };
-(:~
- : Build default browse listings
- : NOTE: add collection varaible here as well use it to build browse links
-:)
-declare function browse:browse-results($node as node(), $model as map(*)){
-    for $data in $model('browse-data')
-    let $title := $data/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text()
-    let $id := $data/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org')][2]/text()
-    order by $title
-    return 
-    <li>
-        <a href="manuscript.html?id={$id}">{$title}</a>
-    </li>
-};    
-(:~
- : Build browse using supplied options
- : @depreciated used for person and place, will be transitioning
- : @param $browse:type place type browse
- : @param $browse:view browse option, lang or map
- : @param $browse:sort place returned by first character in title
-:)
-declare function browse:build-browse-results($node as node(), $model as map(*)){  
-    for $data in $model('browse-data')
-    let $id := string($data/@xml:id)
-    let $type := string($data/@type)
-    let $ana := string($data/@ana)
-    let $en-title := 
-        if($data/tei:persName[@syriaca-tags='#syriaca-headword']) then 
-            if($data/tei:persName[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*) then
-                $data/tei:persName[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*[1]/text()
-            else $data/tei:persName[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text()
-        else    
-            $data/tei:placeName[matches(@xml:lang,'^en')][1]/text() 
-    let $syr-title := 
-        if($data/tei:persName[@syriaca-tags='#syriaca-headword']) then
-            if($data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang,'syr'][1]/child::*) then
-                $data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang,'^syr'][1]/child::*[1]/text()
-            else $data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang,'syr'][1]/text()
-            (:$data/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang,'syr'][1]/child::*[1]/text():)
-        else $data/tei:placeName[@xml:lang = 'syr'][1]/text()
-    let $title := 
-        if($browse:view = 'syr') then $syr-title else $en-title
-    let $browse-title := browse:build-sort-string($title)
-    where contains(browse:get-sort(), substring($browse-title,1,1))
-    return
-        <browse xmlns="http://www.tei-c.org/ns/1.0" xml:id="{$id}" type="{$type}" ana="{$ana}" sort-title="{$browse-title}">
-            {
-                for $browse-name in $data/child::*[@syriaca-tags="#syriaca-headword"]
-                return $browse-name
-            }
-        </browse>
-};
-
-declare %templates:wrap function browse:total($node as node(), $model as map(*)){
-    string(count($model('browse-data')))
-};
 
 (:~
- : Returns a list places by type
- : @param $browse:type indicates language of browse list
- : @param $browse:sort indicates letter for browse
- : Uses browse:build-sort-string() to strip title of non sort characters
-:)
-declare function browse:get-place-type($node as node(), $model as map(*)){
-    for $data in $model('browse-data')//self::*[@type = $browse:type]
-    let $id := string($data/@xml:id)
-    let $type := string($data/@type)
-    let $ana := string($data/@ana)
-    let $title := 
-        if($browse:view = 'syr') then $data/tei:placeName[@xml:lang = 'syr'][1]/text()
-        else $data/tei:placeName[1]/text()
-    let $browse-title := browse:build-sort-string($title)
-    let $geo := $data/descendant::*/tei:geo
-    return 
-     <browse xmlns="http://www.tei-c.org/ns/1.0" xml:id="{$id}" type="{$type}" ana="{$ana}" sort-title="{$browse-title}">
-            {
-                (
-                for $browse-name in $data/child::*[@syriaca-tags="#syriaca-headword"]
-                return $browse-name,
-                $geo
-                )
-            }
-        </browse>
-};
-
-(:~
- : Returns a list persons by type
- : @param $browse:type indicates language of browse list
- : @param $browse:sort indicates letter for browse
- : Uses browse:build-sort-string() to strip title of non sort characters
- :)
-declare function browse:get-pers-type($node as node(), $model as map(*)){
-    for $data in $model('browse-data')
-    let $id := string($data/@xml:id)
-    let $type := string($data/@type)
-    let $ana := string($data/@ana)
-    let $title := 
-        if($browse:view = 'syr') then $data/tei:placeName[@xml:lang = 'syr'][1]/text()
-        else $data/tei:placeName[1]/text()
-    let $browse-title := browse:build-sort-string($title)
-    where if($browse:type != '') then 
-            if($browse:type = 'unknown') then $data[not(@ana)]
-            else $data[@ana = concat('#',$browse:type)]
-          else ()  
-    return 
-     <browse xmlns="http://www.tei-c.org/ns/1.0" xml:id="{$id}" type="{$type}" ana="{$ana}" sort-title="{$browse-title}">
-            {
-                (
-                for $browse-name in $data/child::*[@syriaca-tags="#syriaca-headword"]
-                return $browse-name,
-                if($data/descendant::*/tei:geo) then $data/descendant::*/tei:geo else ()
-                )
-            }
-        </browse>
-};
-
-(:~
- : Returns a list persons by date
- : @param $browse:type indicates language of browse list
- : @param $browse:date indicates date for browse
- : Uses browse:build-sort-string() to strip title of non sort characters
- :)
-declare function browse:get-pers-date($node as node(), $model as map(*)){  
-    if($browse:date = 'BC dates') then
-        browse:get-pers-date-bc($node, $model)
-    else browse:get-pers-date-ad($node, $model)
-};
-
-declare function browse:get-pers-date-bc($node as node(), $model as map(*)){  
-        for $data in $model('browse-data')[starts-with(descendant::*/@notBefore,'-') or starts-with(descendant::*/@notAfter,'-')]
-        let $id := string($data/@xml:id)
-        let $ana := string($data/@ana)
-        let $title := $data/tei:persName[1]
-        let $browse-title := browse:build-sort-string($title) 
-        return 
-            <browse xmlns="http://www.tei-c.org/ns/1.0" xml:id="{$id}" ana="{$ana}" sort-title="{$browse-title}" date="{$browse:date}">
-                {
-                    for $browse-name in $data/child::*[@syriaca-tags="#syriaca-headword"]
-                    return $browse-name
-                }
-            </browse>
-};
-declare function browse:get-pers-date-ad($node as node(), $model as map(*)){  
-        let $end :=
-            if($browse:date = '0-100') then xs:date('0100-01-01')
-            else if($browse:date = '100-200') then xs:date('0200-01-01')
-            else if($browse:date = '200-300') then xs:date('0300-01-01')
-            else if($browse:date = '300-400') then xs:date('0400-01-01')
-            else if($browse:date = '400-500') then xs:date('0500-01-01')
-            else if($browse:date = '500-600') then xs:date('0600-01-01')
-            else if($browse:date = '600-700') then xs:date('0700-01-01')
-            else if($browse:date = '700-800') then xs:date('0800-01-01')
-            else if($browse:date = '800-900') then xs:date('0900-01-01')
-            else if($browse:date = '900-1000') then xs:date('1000-01-01')
-            else if($browse:date = '1000-1100') then xs:date('1100-01-01')
-            else if($browse:date = '1100-1200') then xs:date('1200-01-01')
-            else if($browse:date = '1200-1300') then xs:date('1300-01-01')
-            else if($browse:date = '1300-1400') then xs:date('1400-01-01')
-            else if($browse:date = '1400-1500') then xs:date('1500-01-01')
-            else if($browse:date = '1500-1600') then xs:date('1600-01-01')
-            else if($browse:date = '1600-1700') then xs:date('1700-01-01')
-            else if($browse:date = '1700-1800') then xs:date('1800-01-01')
-            else if($browse:date = '1800-1900') then xs:date('1900-01-01')
-            else if($browse:date = '1900-2000') then xs:date('2000-01-01')
-            else if($browse:date = '2000-') then xs:date('2100-01-01')
-            else xs:date('0100-01-01')
-        let $start := 
-            if($browse:date = '0-100') then xs:date('0001-01-01')
-            else if($browse:date = '100-200') then xs:date('0100-01-01')
-            else if($browse:date = '200-300') then xs:date('0200-01-01')
-            else if($browse:date = '300-400') then xs:date('0300-01-01')
-            else if($browse:date = '400-500') then xs:date('0400-01-01')
-            else if($browse:date = '500-600') then xs:date('0500-01-01')
-            else if($browse:date = '600-700') then xs:date('0600-01-01')
-            else if($browse:date = '700-800') then xs:date('0700-01-01')
-            else if($browse:date = '800-900') then xs:date('0800-01-01')
-            else if($browse:date = '900-1000') then xs:date('0900-01-01')
-            else if($browse:date = '1000-1100') then xs:date('1000-01-01')
-            else if($browse:date = '1100-1200') then xs:date('1100-01-01')
-            else if($browse:date = '1200-1300') then xs:date('1200-01-01')
-            else if($browse:date = '1300-1400') then xs:date('1300-01-01')
-            else if($browse:date = '1400-1500') then xs:date('1400-01-01')
-            else if($browse:date = '1500-1600') then xs:date('1500-01-01')
-            else if($browse:date = '1600-1700') then xs:date('1600-01-01')
-            else if($browse:date = '1700-1800') then xs:date('1700-01-01')
-            else if($browse:date = '1800-1900') then xs:date('1800-01-01')
-            else if($browse:date = '1900-2000') then xs:date('1900-01-01')
-            else if($browse:date = '2000-') then xs:date('2000-01-01')
-            else xs:date('0100-01-01')
-        for $data in $model('browse-data')[descendant::*[@syriaca-computed-start lt $end and @syriaca-computed-start gt $start]] | $model('browse-data')[descendant::*[@syriaca-computed-end gt $start and @syriaca-computed-start lt $end]]
-        let $id := string($data/@xml:id)
-        let $ana := string($data/@ana)
-        let $title := $data/tei:persName[1]
-        let $browse-title := browse:build-sort-string($title) 
-        return 
-            <browse xmlns="http://www.tei-c.org/ns/1.0" xml:id="{$id}" ana="{$ana}" sort-title="{$browse-title}" date="{$browse:date}">
-                {
-                    for $browse-name in $data/child::*[@syriaca-tags="#syriaca-headword"]
-                    return $browse-name
-                }
-            </browse>
-};
-
-declare function browse:get-date($node as node(), $model as map(*)){
-for $data in $model('browse-data')
-let $date := substring($data/descendant-or-self::tei:*[@syriaca-computed-start][1]/@syriaca-computed-start,1,2)
-group by $date
-order by $date ascending
-return 
-    <div>
-    {
-        if(starts-with($date,'-')) then concat('BC Dates ',count($data))
-        else if($date != '') then concat(substring-after($date,'0'),'00 ',count($data)) 
-        else concat('Date Unknown ',count($data))
-    }
-    </div>
-};
-
-
-(:~
- : Filter titles by syriac 
- : @param $browse:view
-:)
-declare function browse:get-syr(){
-    if($browse:view = 'syr') then
-        "[child::*[@xml:lang = 'syr'][@syriaca-tags='#syriaca-headword']]"
-    else ()    
-};
-
-(:~
- : Filter titles by type 
- : @param $browse:view
-:)
-declare function browse:get-type(){
-    if($browse:type != '') then
-        concat('[@type =', $browse:type,']')
-    else ()    
-};
-(:~
- : Builds collation for syriac results
- : @param $browse:view
-:)
-declare function browse:get-order(){
-    if($browse:view = 'syr') then
-        'collation "?view=syr"'
-    else ()
-};
-
-(:~
- : Matches English letters and thier equivalent letters as established by The Syriac Gazetteer
+ : Matches English letters and their equivalent letters as established by Syriaca.org
  : @param $browse:sort indicates letter for browse
  :)
 declare function browse:get-sort(){
@@ -325,184 +108,312 @@ declare function browse:get-sort(){
 };
 
 (:~
- : Strips english titles of non-sort characters as established by The Syriac Gazetteer
+ : Strips english titles of non-sort characters as established by Syriaca.org
+ : @param $titlestring 
  :)
-declare function browse:build-sort-string($titlestring){
+declare function browse:build-sort-string($titlestring as xs:string*) as xs:string* {
     replace(replace(replace($titlestring,'^\s+',''),'^al-',''),'[‘ʻʿ]','')
 };
 
-(:~
- : Returns a count of all places with coordinates
+(:
+ : Set up browse page, select correct results function based on URI params
+ : @param $coll passed from html 
 :)
-declare function browse:count-geo($node as node(), $model as map(*)){
-    count($model("browse-data")//self::*[descendant::*/tei:geo]) 
+declare function browse:results-panel($node as node(), $model as map(*),$coll){
+if($browse:view = 'type' or $browse:view = 'date') then
+    (<div class="col-md-4">{if($browse:view='type') then browse:browse-type($node,$model,$coll)  else browse:browse-date()}</div>,
+     <div class="col-md-8">{
+        if($browse:view='type') then
+            if($browse:type != '') then 
+                (<h3>{concat(upper-case(substring($browse:type,1,1)),substring($browse:type,2))}</h3>,
+                 <ul>{browse:get-data($node,$model,$coll)}</ul>)
+            else <h3>Select Type</h3>    
+        else if($browse:view='date') then 
+            if($browse:date !='') then 
+                (<h3>{$browse:date}</h3>,
+                 <ul>{browse:get-data($node,$model,$coll)}</ul>)
+            else <h3>Select Date</h3>  
+        else ()}</div>)
+else if($browse:view = 'map') then
+    <div class="col-md-12 map-lg">
+        {geo:build-map($model("browse-data")//tei:geo, '', '')}
+    </div>
+else 
+    <div class="col-md-12">
+        { (
+        if(($browse:view = 'syr')) then (attribute dir {"rtl"}) else(),
+        browse:browse-abc-menu(),
+        <h3>{(if(($browse:view = 'syr')) then (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) else attribute class {"label"},substring(browse:get-sort(),1,1))}</h3>,
+        <ul class="{if($browse:view = 'syr') then 'syr-list' else 'en-list'}">
+            {browse:get-data($node,$model,$coll)}
+        </ul>
+        )
+        }
+    </div>
 };
 
 (:~
- : Returns a count of all places
+ : Evaluates additional browse parameters; type and date
+ : Adds narrowed data set to new map
 :)
-declare function browse:count-all($node as node(), $model as map(*)){
-    count($model("browse-data")) 
+declare function browse:get-narrow($node as node(), $model as map(*),$coll){
+let $data := 
+   if($browse:view = 'type') then 
+        if($browse:type != '') then 
+            if($coll ='persons' or $coll = 'saints' or $coll = 'authors') then
+                if($browse:type != '') then 
+                    if($browse:type = 'unknown') then $model("browse-data")/self::*[not(@ana)]
+                    else $model("browse-data")/self::*[contains(@ana,concat('#',$browse:type))]
+                else ()
+            else   
+                if($browse:type != '') then 
+                    $model("browse-data")/self::*[contains(@type,$browse:type)]
+                else $model("browse-data")
+        else ()        
+    else if($browse:view = 'date') then 
+        if($browse:date != '') then 
+            if($browse:date = 'BC dates') then 
+                $model("browse-data")/self::*[starts-with(descendant::*/@syriaca-computed-start,"-") or starts-with(descendant::*/@syriaca-computed-end,"-")]
+            else
+            $model("browse-data")/self::*[descendant::*[@syriaca-computed-start lt browse:get-end-date() and @syriaca-computed-start gt  browse:get-start-date()]] 
+            | $model("browse-data")/self::*[descendant::*[@syriaca-computed-end gt browse:get-start-date() and @syriaca-computed-start lt browse:get-end-date()]]
+        else ()    
+    else if($browse:view = 'map') then $model("browse-data")
+    else if($browse:view = 'syr') then $model("browse-data")/self::*[matches($browse:sort, substring(string-join(descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/descendant-or-self::*/text(),' '),1,1))]
+    else $model("browse-data")/self::*[matches(browse:get-sort(), substring(browse:build-sort-string(string-join(descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/descendant-or-self::*/text(),' ')),1,1))]
+return
+    map{"browse-refine" := $data}
+};
+
+(:
+ : Sorts and outputs results set
+ : @param $coll from html template
+:)
+declare function browse:get-data($node as node(), $model as map(*),$coll){
+(
+    if($browse:view = 'type') then
+        if($model("browse-refine")//tei:geo) then
+            <div class="map-sm inline-map well">{geo:build-map($model("browse-refine")//tei:geo, '', '')}</div>
+        else ()
+    else (),
+    for $data in $model("browse-refine")
+    let $uri := string($data//tei:idno[@type='URI'][starts-with(.,'http://syriaca.org/')])
+    let $type := if($data/@ana) then replace($data/@ana,'#syriaca-',' ') else if($data/@type) then string($data/@type) else () 
+    let $en-title := 
+             if($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*) then 
+                 string-join($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*/text(),' ')
+             else string-join($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text(),' ')  
+    let $syr-title := 
+             if($data/child::*[@syriaca-tags='#syriaca-headword'][1]/child::*) then
+                 string-join($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/child::*/text(),' ')
+             else string-join($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/text(),' ')  
+    let $title := 
+             if($browse:view = 'syr') then $syr-title else $en-title
+    let $browse-title := browse:build-sort-string($title)
+    (:where  browse:conditions($data, $browse-title, $coll):)
+    order by $browse-title collation "?lang=en&lt;syr&amp;decomposition=full"             
+    return browse:format-list-items($en-title,$syr-title, $type,$uri))   
+};
+
+(:Dynamic where:)
+declare function browse:conditions($data, $browse-title, $coll){
+ if($browse:view ='en' or $browse:view = 'syr' or $browse:view ='') then 
+    contains(browse:get-sort(), substring($browse-title,1,1))
+ else if($browse:sort = 'all') then true()    
+ else true()
+};
+
+declare function browse:get-end-date(){
+if($browse:date = '0-100') then '0100-01-01'
+else if($browse:date = '100-200') then '0200-01-01'
+else if($browse:date = '200-300') then '0300-01-01'
+else if($browse:date = '300-400') then '0400-01-01'
+else if($browse:date = '400-500') then '0500-01-01'
+else if($browse:date = '500-600') then '0600-01-01'
+else if($browse:date = '600-700') then '0700-01-01'
+else if($browse:date = '700-800') then '0800-01-01'
+else if($browse:date = '800-900') then '0900-01-01'
+else if($browse:date = '900-1000') then '1000-01-01'
+else if($browse:date = '1000-1100') then '1100-01-01'
+else if($browse:date = '1100-1200') then '1200-01-01'
+else if($browse:date = '1200-1300') then '1300-01-01'
+else if($browse:date = '1300-1400') then '1400-01-01'
+else if($browse:date = '1400-1500') then '1500-01-01'
+else if($browse:date = '1500-1600') then '1600-01-01'
+else if($browse:date = '1600-1700') then '1700-01-01'
+else if($browse:date = '1700-1800') then '1800-01-01'
+else if($browse:date = '1800-1900') then '1900-01-01'
+else if($browse:date = '1900-2000') then '2000-01-01'
+else if($browse:date = '2000-') then '2100-01-01'
+else '0100-01-01'
+};
+
+declare function browse:get-start-date(){
+if($browse:date = '0-100') then '0001-01-01'
+else if($browse:date = '100-200') then '0100-01-01'
+else if($browse:date = '200-300') then '0200-01-01'
+else if($browse:date = '300-400') then '0300-01-01'
+else if($browse:date = '400-500') then '0400-01-01'
+else if($browse:date = '500-600') then '0500-01-01'
+else if($browse:date = '600-700') then '0600-01-01'
+else if($browse:date = '700-800') then '0700-01-01'
+else if($browse:date = '800-900') then '0800-01-01'
+else if($browse:date = '900-1000') then '0900-01-01'
+else if($browse:date = '1000-1100') then '1000-01-01'
+else if($browse:date = '1100-1200') then '1100-01-01'
+else if($browse:date = '1200-1300') then '1200-01-01'
+else if($browse:date = '1300-1400') then '1300-01-01'
+else if($browse:date = '1400-1500') then '1400-01-01'
+else if($browse:date = '1500-1600') then '1500-01-01'
+else if($browse:date = '1600-1700') then '1600-01-01'
+else if($browse:date = '1700-1800') then '1700-01-01'
+else if($browse:date = '1800-1900') then '1800-01-01'
+else if($browse:date = '1900-2000') then '1900-01-01'
+else if($browse:date = '2000-') then '2000-01-01'
+else '0100-01-01'
+};
+
+(:
+ : Format  browse list 
+:)
+declare function browse:format-list-items($en-title,$syr-title, $type,$uri){
+    if($browse:view = 'syr') then   
+            <li>
+                <a href="{replace($uri,'http://syriaca.org/','/')}">
+                    <bdi dir="rtl" lang="syr" xml:lang="syr">{$syr-title}</bdi> - 
+                    <bdi dir="ltr" lang="en" xml:lang="en">{($en-title, 
+                        if($type != '') then concat('(',$type,')') 
+                        else ())}
+                    </bdi>    
+                </a>
+            </li>
+     else 
+        <li>
+            <a href="{replace($uri,'http://syriaca.org/','/')}">{($en-title, 
+                if($type != '') then concat('(',$type,')')  
+                else () )} - 
+                {if($syr-title != '') then 
+                    <bdi dir="rtl" lang="syr" xml:lang="syr">{$syr-title}</bdi>
+                else ' [Syriac Not Available]'}
+            </a>
+        </li>
 };
 
 (:~
- : Build browse type menu with count for each type
+ : Browse Alphabetical Menus
 :)
-declare function browse:type-counts($node as node(), $model as map(*), $coll as xs:string?){
-if($browse:view = 'type') then 
-    if($coll = 'persons') then     
-    <div class="col-md-4 clearfix">
-        <ul class="nav nav-tabs nav-stacked">
-            {
-                for $types in $model("browse-data")
-                group by $pers-types := $types/@ana
-                order by $pers-types ascending
+declare function browse:browse-abc-menu(){
+    <div class="browse-alpha tabbable">
+        <ul class="list-inline">
+        {
+            if(($browse:view = 'en') or ($browse:view='')) then
+                for $letter in tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z', ' ')
                 return
-                    let $pers-types-labels := if($pers-types) then replace(string($pers-types),'#','') else 'unknown'
-                    return
-                    <li>{if($browse:type = $pers-types-labels) then attribute class {'active'} else '' }
-                        <a href="?view=type&amp;type={$pers-types-labels}">
-                        {if(string($pers-types) = '') then 'unknown' else replace(string($pers-types),'#syriaca-','')}  <span class="count"> ({count($types)})</span>
-                        </a>
-                    </li>
-            }
+                    <li><a href="?view={$browse:view}&amp;sort={$letter}">{$letter}</a></li>
+            else if(($browse:view = 'syr')) then  
+                for $letter in tokenize('ܐ ܒ ܓ ܕ ܗ ܘ ܙ ܚ ܛ ܝ ܟ ܠ ܡ ܢ ܣ ܥ ܦ ܩ ܪ ܫ ܬ', ' ')
+                return 
+                    <li class="syr-menu" lang="syr"><a href="?view={$browse:view}&amp;sort={$letter}">{$letter}</a></li>
+            else ()
+        }
         </ul>
     </div>
-    else
-    <div class="col-md-4 clearfix">
-        <ul class="nav nav-tabs nav-stacked">
-            {
-                for $types in $model("browse-data")
-                group by $place-types := $types/@type
-                order by $place-types ascending
-                return
-                    <li>{if($browse:type = replace(string($place-types),'#','')) then attribute class {'active'} else '' }
-                        <a href="?view=type&amp;type={$place-types}">
-                        {if(string($place-types) = '') then 'unknown' else replace(string($place-types),'#|-',' ')}  <span class="count"> ({count($types)})</span>
-                        </a>
-                    </li>
-            }
-        </ul>
-    </div>    
-else if($browse:view = 'date') then browse:build-date-menu()
-else ()
 };
 
-declare function browse:build-date-menu(){
-    <div class="col-md-4">
-        <ul class="nav nav-tabs nav-stacked pull-left type-nav">
-            {
-                let $all-dates := 'BC dates, 0-100, 100-200, 200-300, 300-400, 400-500, 500-600, 700-800, 800-900, 900-1000, 1100-1200, 1200-1300, 1300-1400, 1400-1500, 1500-1600, 1600-1700, 1700-1800, 1800-1900, 1900-2000, 2000-'
-                for $date in tokenize($all-dates,', ')
-                return
+declare function browse:browse-type($node as node(), $model as map(*), $coll){  
+    <ul class="nav nav-tabs nav-stacked">
+        {
+            if($coll = 'places') then 
+                for $types in $model("browse-data")
+                    group by $place-types := $types/@type
+                    order by $place-types ascending
+                    return
+                        <li>{if($browse:type = replace(string($place-types),'#','')) then attribute class {'active'} else '' }
+                            <a href="?view=type&amp;type={$place-types}">
+                            {if(string($place-types) = '') then 'unknown' else replace(string($place-types),'#|-',' ')}  <span class="count"> ({count($types)})</span>
+                            </a>
+                        </li>
+            else             
+                 for $types in $model("browse-data")
+                 group by $pers-types := $types/@ana
+                 order by $pers-types ascending
+                 return
+                     let $pers-types-labels := if($pers-types) then replace(string($pers-types),'#','') else 'unknown'
+                     return
+                         <li>{if($browse:type = $pers-types-labels) then attribute class {'active'} else '' }
+                             <a href="?view=type&amp;type={$pers-types-labels}">
+                             {if(string($pers-types) = '') then 'unknown' else replace(string($pers-types),'#syriaca-','')}  <span class="count"> ({count($types)})</span>
+                             </a>
+                         </li>
+        }
+    </ul>
+
+};
+
+(:
+ : Browse by date
+ : Precomputed values
+ : NOTE: would be nice to use facets, however, it is currently inefficient 
+:)
+declare function browse:browse-date(){
+    <ul class="nav nav-tabs nav-stacked pull-left type-nav">
+        {   
+            let $all-dates := 'BC dates, 0-100, 100-200, 200-300, 300-400, 400-500, 500-600, 700-800, 800-900, 900-1000, 1100-1200, 1200-1300, 1300-1400, 1400-1500, 1500-1600, 1600-1700, 1700-1800, 1800-1900, 1900-2000, 2000-'
+            for $date in tokenize($all-dates,', ')
+            return
                     <li>{if($browse:date = $date) then attribute class {'active'} else '' }
                         <a href="?view=date&amp;date={$date}">
                             {$date}  <!--<span class="count"> ({count($types)})</span>-->
                         </a>
                     </li>
             }
-        </ul>
-    </div>
-};
-
-declare function browse:build-tabs($node as node(), $model as map(*), $coll as xs:string?){
-if($coll = 'persons') then 
-    <ul class="nav nav-tabs" id="nametabs">
-        <li>{if(not($browse:view)) then 
-                attribute class {'active'} 
-             else if($browse:view = 'en') then 
-                attribute class {'active'} 
-             else '' }<a href="browse.html?view=en&amp;sort=A">English</a>
-        </li>
-        <li>{if($browse:view = 'syr') then 
-                attribute class {'active'} 
-             else '' }<a href="browse.html?view=syr&amp;sort=ܐ" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
-        </li>
-        <li>{if($browse:view = 'type') then 
-                attribute class {'active'}
-             else '' }<a href="browse.html?view=type">Type</a>
-        </li>
-        <li>{if($browse:view = 'date') then 
-                attribute class {'active'}
-             else '' }<a href="browse.html?view=date">Date</a>
-        </li>
-    </ul>
-else if($coll = ('saints','authors')) then 
-    <ul class="nav nav-tabs" id="nametabs">
-        <li>{if(not($browse:view)) then 
-                attribute class {'active'} 
-             else if($browse:view = 'en') then 
-                attribute class {'active'} 
-             else '' }<a href="browse.html?view=en&amp;sort=A">English</a>
-        </li>
-        <li>{if($browse:view = 'syr') then 
-                attribute class {'active'} 
-             else '' }<a href="browse.html?view=syr&amp;sort=ܐ" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
-        </li>
-        <li>{if($browse:view = 'date') then 
-                attribute class {'active'}
-             else '' }<a href="browse.html?view=date">Date</a>
-        </li>
-    </ul>    
-else
-    <ul class="nav nav-tabs" id="nametabs">
-        <li>{if(not($browse:view)) then 
-                attribute class {'active'} 
-            else if($browse:view = 'en') then 
-                attribute class {'active'} else '' }<a href="browse.html?view=en&amp;sort=A">English</a>
-        </li>
-        <li>{if($browse:view = 'syr') then 
-                attribute class {'active'} 
-             else '' }<a href="browse.html?view=syr&amp;sort=ܐ" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
-        </li>
-        <li>{if($browse:view = 'type') then 
-                attribute class {'active'}
-             else '' }<a href="browse.html?view=type">Type</a>
-        </li>
-        <li>{if($browse:view = 'map') then 
-                attribute class {'active'} 
-             else '' }<a href="browse.html?view=map">Map</a>
-        </li>
     </ul>
 };
 
 (:~
- : Builds tei node to be transformed by xslt 
- : Final results are passed to ../resources/xsl/browselisting.xsl
- :)
-declare %templates:wrap function browse:get-browse-names($node as node(), $model as map(*), $coll as xs:string?){
-    let $cache := 'change this value to force page refresh 28'
-    let $results := 
-     <tei:TEI xml:lang="en"
-        xmlns:xi="http://www.w3.org/2001/XInclude"
-        xmlns:svg="http://www.w3.org/2000/svg"
-        xmlns:math="http://www.w3.org/1998/Math/MathML"
-        xmlns="http://www.tei-c.org/ns/1.0" browse-coll="{$coll}" browse-view="{$browse:view}" browse-sort="{$browse:sort}" browse-type="{$browse:type}" browse-type-map="{$browse:type-map}">
-        {
-            (
-            if($browse:view = 'map') then 
-                <tei:count-geo>
-                *{browse:count-geo($node, $model)} of {browse:count-all($node, $model)} places have coordinates 
-                and are shown on this map. <a href="#map-selection" role="button"  data-toggle="modal">
-                Read more...</a>
-                </tei:count-geo>
-             else (),  
-             if($browse:view = 'type') then 
-                if($browse:type != '') then
-                    if($coll = 'persons') then 
-                        browse:get-pers-type($node, $model)
-                    else
-                        browse:get-place-type($node, $model) 
-                else 'Type'
-             else if($browse:view = 'date') then
-                if($browse:date = '') then 'Date'
-                else browse:get-pers-date($node, $model)
-             else 
-                browse:build-browse-results($node, $model)
-            )
-          }
-     </tei:TEI>  
-    return 
-    (:$results:)
-    transform:transform($results, doc('../resources/xsl/browselisting.xsl'),() )
+ : Browse Tabs - Eng
+ : Choose which functions to include with each browse. 
+ : Note: should this be done with javascript? possibly. 
+:)
+declare  %templates:wrap function browse:build-tabs-en($node, $model){
+    <li>{if(not($browse:view)) then attribute class {'active'} 
+         else if($browse:view = 'en') then attribute class {'active'} 
+         else '' }<a href="browse.html?view=en&amp;sort=A">English</a>
+    </li>   
+};
+
+(:~
+ : Browse Tabs - Syr
+:)
+declare  %templates:wrap function browse:build-tabs-syr($node, $model){
+    <li>{if($browse:view = 'syr') then attribute class {'active'} 
+         else '' }<a href="browse.html?view=syr&amp;sort=ܐ" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
+    </li>   
+};
+
+(:~
+ : Browse Tabs - Type  
+:)
+declare  %templates:wrap function browse:build-tabs-type($node, $model){
+    <li>{if($browse:view = 'type') then attribute class {'active'}
+         else '' }<a href="browse.html?view=type">Type</a>
+    </li>
+};
+
+(:~
+ : Browse Tabs - Map
+:)
+declare  %templates:wrap function browse:build-tabs-date($node, $model){
+    <li>{if($browse:view = 'date') then attribute class {'active'} 
+         else '' }<a href="browse.html?view=date">Date</a>
+    </li>
+};
+
+(:~
+ : Browse Tabs - Map
+:)
+declare  %templates:wrap function browse:build-tabs-map($node, $model){
+    <li>{if($browse:view = 'map') then attribute class {'active'} 
+         else '' }<a href="browse.html?view=map">Map</a>
+    </li>
 };

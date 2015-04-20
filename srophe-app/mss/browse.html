@@ -6,14 +6,16 @@
         <!-- Calls xquery functions -->
         <div data-template="browse:get-all" data-template-coll="manuscripts">
             <div class="tabbable">
-                <!--<div data-template="browse:build-tabs" data-template-coll="manuscripts"/>-->
-                <div class="tab-content">
+                <!-- Browse Tabs -->
+                <ul class="nav nav-tabs" id="nametabs">
+                    <li data-template="browse:build-tabs-en"/>
+                    <li data-template="browse:build-tabs-syr"/>  
+                </ul>
+                <!-- Browse Content -->
+                <div class="tab-content" data-template="browse:get-narrow" data-template-coll="manuscripts">
                     <div class="tab-pane active">
                         <div class="row">
-                            <div data-template="browse:type-counts" data-template-coll="manuscripts"/>
-                            <ul>
-                                <li data-template="browse:browse-results" data-template-coll="manuscripts"/>
-                            </ul>
+                            <div data-template="browse:results-panel" data-template-coll="manuscripts"/>
                         </div>
                     </div>
                 </div>

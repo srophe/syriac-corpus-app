@@ -5,12 +5,18 @@
         <!-- Calls xquery functions -->
         <div data-template="browse:get-all" data-template-coll="persons">
             <div class="tabbable">
-                <div data-template="browse:build-tabs" data-template-coll="persons"/>
-                <div class="tab-content">
+                <!-- Browse Tabs -->
+                <ul class="nav nav-tabs" id="nametabs">
+                    <li data-template="browse:build-tabs-en"/>
+                    <li data-template="browse:build-tabs-syr"/>
+                    <li data-template="browse:build-tabs-type"/>
+                    <li data-template="browse:build-tabs-date"/>     
+                </ul>
+                <!-- Browse Content -->
+                <div class="tab-content" data-template="browse:get-narrow" data-template-coll="persons">
                     <div class="tab-pane active">
                         <div class="row">
-                            <div data-template="browse:type-counts" data-template-coll="persons"/>
-                            <div data-template="browse:get-browse-names" data-template-coll="persons"/>
+                            <div data-template="browse:results-panel" data-template-coll="persons"/>
                         </div>
                     </div>
                 </div>
