@@ -130,7 +130,7 @@ declare function geo:json-wrapper($geo-search as element()*, $type as xs:string*
 };
 
 (:~
- : Transform results to json with xqjson function. 
+ : Transform results to json with xslt for inclusion in search page. 
  : @param $geo-search predefined results set passed from search.xqm
  : @param $type place type from predefined list: http://syriaca.org/documentation/place-types.html
  : @param $output indicates json or kml
@@ -141,12 +141,6 @@ declare function geo:json-transform($geo-search as node()*, $type as xs:string*,
     (:$geo-search:)
 };
 
-(:~
- : Display results on a map. 
- : @param $geo-search predefined results set passed from search.xqm
- : @param $type place type from predefined list: http://syriaca.org/documentation/place-types.html
- : @param $output indicates json or kml
-:)
 declare function geo:build-map($geo-search as node()*, $type as xs:string*, $output as xs:string*){
     <div id="map-data" style="margin-bottom:1em;">
         <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2"/>
@@ -154,7 +148,9 @@ declare function geo:build-map($geo-search as node()*, $type as xs:string*, $out
         <script src="http://isawnyu.github.com/awld-js/awld.js?autoinit" type="text/javascript"/>
         <script type="text/javascript" src="/exist/apps/srophe/resources/leaflet/leaflet.awesome-markers.js"/>
         <div id="map" style="height: 250px;"/>
-        <div class="hint map">Not all places in the list below are represented on the map above.</div>
+          <div class="hint map pull-right">* {count($geo-search)} have coordinates and are shown on this map. 
+             <button class="btn btn-link" data-toggle="modal" data-target="#map-selection" id="mapFAQ">Read more...</button>
+        </div>
         <script type="text/javascript">
             <![CDATA[
             var terrain = L.tileLayer('http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});
@@ -216,5 +212,35 @@ declare function geo:build-map($geo-search as node()*, $type as xs:string*, $out
         geojson.addTo(map);     
         ]]>
         </script>
+     <div>
+            <div class="modal fade" id="map-selection" tabindex="-1" role="dialog" aria-labelledby="map-selectionLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true"> x </span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn" href="/documentation/faq.html" aria-hidden="true">See all FAQs</a>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+         <script type="text/javascript">
+         <![CDATA[
+            $('#mapFAQ').click(function(){
+                $('#popup').load( '../documentation/faq.html #map-selection',function(result){
+                    $('#map-selection').modal({show:true});
+                });
+             });]]>
+         </script>
+    </div>
     </div> 
 };
