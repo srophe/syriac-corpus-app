@@ -197,15 +197,19 @@ declare function browse:get-data($node as node(), $model as map(*),$coll){
         else ()
     else (),
     for $data in $model("browse-refine")
-    let $uri := string($data//tei:idno[@type='URI'][starts-with(.,'http://syriaca.org/')])
+    let $uri := replace(string($data/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org/')][1]),'/tei|/source','')
     let $type := if($data/@ana) then replace($data/@ana,'#syriaca-',' ') else if($data/@type) then string($data/@type) else () 
     let $en-title := 
              if($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*) then 
                  string-join($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*/text(),' ')
+             else if(not($data/child::*[@syriaca-tags='#syriaca-headword'])) then 
+               $data/ancestor::tei:TEI/descendant::tei:title[1]/text()
              else string-join($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text(),' ')  
     let $syr-title := 
              if($data/child::*[@syriaca-tags='#syriaca-headword'][1]/child::*) then
                  string-join($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/child::*/text(),' ')
+             else if(not($data/child::*[@syriaca-tags='#syriaca-headword'])) then 
+               'NA'    
              else string-join($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/text(),' ')  
     let $title := 
              if($browse:view = 'syr') then $syr-title else $en-title
@@ -274,7 +278,11 @@ else '0100-01-01'
 };
 
 (:
- : Format  browse list 
+ : Format  names/titles for the browse list
+ : @param $en-title English title passed from browse:get-data() function
+ : @param $syr-title Syriac title passed from browse:get-data() function
+ : @param $type record type passed from browse:get-data() function
+ : @param $uri Syriaca.org id passed from browse:get-data() function
 :)
 declare function browse:format-list-items($en-title,$syr-title, $type,$uri){
     if($browse:view = 'syr') then   
@@ -291,10 +299,14 @@ declare function browse:format-list-items($en-title,$syr-title, $type,$uri){
         <li>
             <a href="{replace($uri,'http://syriaca.org/','/')}">{($en-title, 
                 if($type != '') then concat('(',$type,')')  
-                else () )} - 
-                {if($syr-title != '') then 
-                    <bdi dir="rtl" lang="syr" xml:lang="syr">{$syr-title}</bdi>
-                else ' [Syriac Not Available]'}
+                else () )}  
+                {
+                if($syr-title != '') then 
+                    if($syr-title = 'NA') then ()
+                    else
+                    (' - ',
+                    <bdi dir="rtl" lang="syr" xml:lang="syr">{$syr-title}</bdi>)
+                else ' - [Syriac Not Available]'}
             </a>
         </li>
 };

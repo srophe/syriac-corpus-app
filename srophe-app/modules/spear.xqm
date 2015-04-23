@@ -47,6 +47,17 @@ else if($spear:view = 'event') then collection($config:app-root || "/data/spear/
 else if($spear:view = 'all') then collection($config:app-root || "/data/spear/tei")//tei:div
 else util:eval(concat("collection('",$config:app-root,"/data/spear/tei')//tei:div",facets:facet-filter()))
 };
+
+(:~
+ : Holding place
+ : Value passed through metadata:page-title() 
+:)
+declare function spear:html-title(){
+    let $spearid := $spear:id
+    let $title := replace(collection($config:app-root || "/data/persons/tei")//tei:idno[@type='URI'][. = $spearid]/ancestor::tei:TEI//tei:titleStmt/tei:title[@level='a'][1],'— ','')
+    return normalize-space($title)
+};
+
 (:~
  : Build persons view
  : @param $id persons URI

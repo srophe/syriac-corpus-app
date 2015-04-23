@@ -3,7 +3,7 @@
  :)
 xquery version "3.0";
 
-module namespace ms="http://syriaca.org//manuscripts";
+module namespace mss="http://syriaca.org//manuscripts";
 
 import module namespace app="http://syriaca.org//templates" at "app.xql";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
@@ -20,38 +20,50 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 (:~ 
  : Parameters passed from the url 
  :)
-declare variable $ms:id {request:get-parameter('id', '')};
+declare variable $mss:id {request:get-parameter('id', '')};
 
 (:~
- : Build persons view
- : @param $id persons URI
+ : Holding place
+ : Value passed through metadata:page-title() 
+:)
+declare function mss:html-title(){
+    let $mssURI :=
+        if(contains($mss:id,'syriaca.org/')) then $mss:id 
+        else concat('http://syriaca.org/manuscript/',$mss:id)
+    let $title := collection($config:app-root || "/data/manuscripts/tei")//tei:idno[@type='URI'][. = $mssURI]/ancestor::tei:TEI/descendant::tei:title[1]
+    return normalize-space($title)
+};
+
+(:~
+ : Build manuscripts view
+ : @param $id mss URI
  :)
-declare %templates:wrap function ms:get-data($node as node(), $model as map(*), $view){
+declare %templates:wrap function mss:get-data($node as node(), $model as map(*)){
 let $mssURI :=
-        if(contains($ms:id,'syriaca.org/')) then $ms:id 
-        else concat('http://syriaca.org/manuscript/',$ms:id)
+        if(contains($mss:id,'syriaca.org/')) then $mss:id 
+        else concat('http://syriaca.org/manuscript/',$mss:id)
 return 
     map {"data" := collection($config:app-root || "/data/manuscripts/tei")//tei:idno[@type='URI'][. = $mssURI]}            
 };
 
-declare %templates:wrap function ms:uri($node as node(), $model as map(*)){
-    string($ms:id)
+declare %templates:wrap function mss:uri($node as node(), $model as map(*)){
+    string($mss:id)
 };
 
 (:~
  : Build Manuscript title
 :)
-declare %templates:wrap function ms:h1($node as node(), $model as map(*)){
+declare %templates:wrap function mss:h1($node as node(), $model as map(*)){
     let $rec := $model("data")/ancestor::tei:teiHeader
     let $title := $rec//tei:titleStmt/tei:title
-    let $id := $rec//tei:idno[@type="URI"][.=$ms:id]
+    let $id := $rec//tei:idno[@type="URI"][.=$mss:id]
     return app:tei2html(<srophe-title  xmlns="http://www.tei-c.org/ns/1.0">{($title,$id)}</srophe-title>)
 };
 
 (:~
  : Pull together front matter  
 :)
-declare %templates:wrap function ms:front-matter($node as node(), $model as map(*)){
+declare %templates:wrap function mss:front-matter($node as node(), $model as map(*)){
 let $rec := $model("data")/ancestor::tei:teiHeader/descendant::tei:sourceDesc/tei:msDesc
 let $history := $rec/child::tei:history
 let $lang := $rec/child::tei:textLang[@mainLang]
@@ -73,7 +85,7 @@ return
  : Output msItems transformed via tei2html xslt    
  : Pull in names from persons database for author information
 :)
-declare function ms:msItems($node as node(), $model as map(*)){
+declare function mss:msItems($node as node(), $model as map(*)){
 let $rec := $model("data")/ancestor::tei:teiHeader/descendant::tei:msContents | $model("data")/ancestor::tei:teiHeader/descendant::tei:msPart 
 let $authors := 
     <tei:msAuthors xmlns="http://www.tei-c.org/ns/1.0">

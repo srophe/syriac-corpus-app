@@ -1,5 +1,5 @@
 (:~
- : Builds persons page and persons page functions
+ : Builds persons page and persons page functions 
  :)
 xquery version "3.0";
 
@@ -22,12 +22,11 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 declare variable $person:id {request:get-parameter('id', '')};
 
 (:~
- : Value passed through app:page-title() 
- : @depreciated
+ : Value passed through metadata:page-title() 
 :)
 declare function person:html-title(){
-    let $placeid := concat('place-',$place:id)
-    let $title := collection($config:app-root || "/data/persons/tei")/id($placeid)/ancestor::tei:TEI//tei:titleStmt/tei:title[@level='a'][1]
+    let $personsid := concat('http://syriaca.org/person/',$person:id)
+    let $title := replace(collection($config:app-root || "/data/persons/tei")//tei:idno[@type='URI'][. = $personsid]/ancestor::tei:TEI//tei:titleStmt/tei:title[@level='a'][1]/text(),'— ','')
     return normalize-space($title)
 };
 
