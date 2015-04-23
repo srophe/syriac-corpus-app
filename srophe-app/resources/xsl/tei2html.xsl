@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -173,7 +173,7 @@
                 </div>
             </xsl:if>
             <!-- Related Places -->
-            <xsl:if test="t:place/t:related-places">
+            <xsl:if test="t:place/t:related-places/child::*">
                 <div id="relations" class="well">
                     <h3>Related Places</h3>
                     <ul>
@@ -438,8 +438,9 @@
                     <xsl:for-each select=".">
                         <xsl:apply-templates/>
                         <xsl:if test="/@type != 'event-factoid'">
-                            <a href="factoid.html?id={string(ancestor::tei:div/@uri)}">See factoid <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a>
-                        </xsl:if>                        
+                            <a href="factoid.html?id={string(ancestor::tei:div/@uri)}">See factoid <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
+                            </a>
+                        </xsl:if>
                     </xsl:for-each>
                 </div>
             </div>
@@ -677,15 +678,15 @@
     <xsl:template match="t:listPerson">
         <xsl:choose>
             <!-- Used by spear -->
-            <xsl:when test="/t:factoid">      
+            <xsl:when test="/t:factoid">
                 <li>
-                    <xsl:apply-templates/> 
+                    <xsl:apply-templates/>
                     <xsl:if test="/t:factoid/@type != 'event-factoid'">
                         <a href="factoid.html?id={string(ancestor::tei:div/@uri)}">
-                        See factoid <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
-                        </a>                                
-                    </xsl:if>    
-                </li> 
+                        See factoid <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
+                        </a>
+                    </xsl:if>
+                </li>
             </xsl:when>
             <xsl:otherwise>
                 <li>
