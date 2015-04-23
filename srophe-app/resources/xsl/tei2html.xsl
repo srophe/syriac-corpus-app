@@ -160,7 +160,7 @@
                 </div>
             </xsl:if>
             <!-- Related Places -->
-            <xsl:if test="t:place/t:related-places">
+            <xsl:if test="t:place/t:related-places/child::*">
                 <div id="relations" class="well">
                     <h3>Related Places</h3>
                     <ul>
