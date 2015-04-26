@@ -30,7 +30,7 @@ declare function mss:html-title(){
     let $mssURI :=
         if(contains($mss:id,'syriaca.org/')) then $mss:id 
         else concat('http://syriaca.org/manuscript/',$mss:id)
-    let $title := collection($config:app-root || "/data/manuscripts/tei")//tei:idno[@type='URI'][. = $mssURI]/ancestor::tei:TEI/descendant::tei:title[1]
+    let $title := collection($config:data-root || "/manuscripts/tei")//tei:idno[@type='URI'][. = $mssURI]/ancestor::tei:TEI/descendant::tei:title[1]
     return normalize-space($title)
 };
 
@@ -43,7 +43,7 @@ let $mssURI :=
         if(contains($mss:id,'syriaca.org/')) then $mss:id 
         else concat('http://syriaca.org/manuscript/',$mss:id)
 return 
-    map {"data" := collection($config:app-root || "/data/manuscripts/tei")//tei:idno[@type='URI'][. = $mssURI]}            
+    map {"data" := collection($config:data-root || "/manuscripts/tei")//tei:idno[@type='URI'][. = $mssURI]}            
 };
 
 declare %templates:wrap function mss:uri($node as node(), $model as map(*)){
@@ -92,7 +92,7 @@ let $authors :=
     {
     for $auth in  $rec//tei:author
     let $ref := string($auth/@ref)
-    let $author := collection($config:app-root || "/data/persons/tei")//tei:idno[@type='URI'][. = $ref]
+    let $author := collection($config:data-root || "/persons/tei")//tei:idno[@type='URI'][. = $ref]
     return
         <tei:msAuthor id="{$ref}">{$author/parent::*/tei:persName[@syriaca-tags='#syriaca-headword'][1]}</tei:msAuthor>
     }

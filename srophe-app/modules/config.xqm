@@ -5,8 +5,6 @@ xquery version "3.0";
  : within a module.
  :)
 module namespace config="http://syriaca.org//config";
-
-import module namespace metadata="http://syriaca.org//metadata" at "metadata.xqm";
 import module namespace place="http://syriaca.org//place" at "place.xqm";
 import module namespace person="http://syriaca.org//person" at "person.xqm";
 import module namespace mss="http://syriaca.org//manuscripts" at "manuscripts.xqm";
@@ -36,7 +34,8 @@ declare variable $config:app-root :=
         substring-before($modulePath, "/modules")
 ;
 
-declare variable $config:data-root := $config:app-root || "/data";
+(:declare variable $config:data-root := $config:app-root || "/data";:)
+declare variable $config:data-root :=  replace($config:app-root,'srophe','srophe-data') || "/data";
 
 declare variable $config:repo-descriptor := doc(concat($config:app-root, "/repo.xml"))/repo:meta;
 

@@ -303,7 +303,7 @@ declare function places:limit-by-lang-ar(){
  : Search stored in map for use by other functions
 :)
 declare function places:query-string() as xs:string?{
-    concat("collection('/db/apps/srophe/data/places/tei')//tei:body",
+    concat("collection('",$config:data-root,"/places/tei')//tei:body",
     places:keyword(),
     places:type(),
     places:place-name(),

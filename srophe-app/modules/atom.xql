@@ -78,8 +78,8 @@ declare function local:get-place-entry(){
                
 declare function local:get-feed(){
    let $collection := 
-        if($collection) then concat('/db/apps/srophe/data/',$collection,'/tei')
-        else "/db/apps/srophe/data"
+        if($collection) then concat($config:data-root,$collection,'/tei')
+        else $config:data-root
    for $recs in subsequence(collection($collection),$start, $perpage)
    let $date := $recs[1]//tei:publicationStmt[1]/tei:date[1]/text()
    order by $date descending

@@ -212,7 +212,7 @@ function api:get-atom-feed($start as xs:integer*, $perpage as xs:integer*){
         <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
       </http:response> 
     </rest:response>, 
-    let $feed := collection($config:app-root || '/data')//tei:TEI
+    let $feed := collection($config:data-root)//tei:TEI
     let $total := count($feed)
     return 
      feed:build-atom-feed($feed, $start, $perpage,'',$total)
@@ -237,7 +237,7 @@ function api:get-atom-feed($start as xs:integer*, $perpage as xs:integer*){
         <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
       </http:response> 
     </rest:response>, 
-    let $feed := collection($config:app-root || '/data')//tei:TEI
+    let $feed := collection($config:data-root)//tei:TEI
     let $total := count($feed)
     return 
      feed:build-atom-feed($feed, $start, $perpage,'',$total)
@@ -252,14 +252,14 @@ declare function api:get-tei-rec($collection as xs:string, $id as xs:string) as 
         if($collection = 'place') then 'places'
         else if($collection = 'person') then 'persons'
         else $collection
-    let $path := ($config:app-root || '/data/' || $collection-name || '/tei/' || $id ||'.xml')
+    let $path := ($config:data-root || $collection-name || '/tei/' || $id ||'.xml')
     return
         if($collection='spear') then 
             let $spear-id := concat('http://syriaca.org/spear/',$id)
             return
              <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">
                 {
-                    for $rec in collection($config:app-root || '/data/spear/tei')//tei:div[@uri=$spear-id]
+                    for $rec in collection($config:data-root || '/spear/tei')//tei:div[@uri=$spear-id]
                     return $rec
                 }
              </tei:TEI>

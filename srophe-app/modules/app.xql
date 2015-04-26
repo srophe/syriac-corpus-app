@@ -18,7 +18,7 @@ declare variable $app:id {request:get-parameter('id', '')};
  : Simple get record function, retrieves tei record based on idno
 :)
 declare function app:get-rec($node as node(), $model as map(*)) {
-    map {"data" := collection($config:app-root || "/data")//tei:idno[@type='URI'][. = $app:id]}
+    map {"data" := collection($config:data-root)//tei:idno[@type='URI'][. = $app:id]}
 };
 
 (:~ 
@@ -37,7 +37,7 @@ declare function app:tei2html($nodes as node()*) {
 };
 
 declare %templates:wrap function app:set-data($node as node(), $model as map(*), $doc as xs:string){
-    teiDocs:generate-docs('/db/apps/srophe/data/places/tei/78.xml')
+    teiDocs:generate-docs($config:data-root || '/places/tei/78.xml')
 };
 
 (:~
@@ -224,7 +224,7 @@ declare function app:transform($nodes as node()*) as item()* {
  : Pull confession data for confessions.html
 :)
 declare %templates:wrap function app:build-confessions($node as node(), $model as map(*)){
-    let $confession := doc('/db/apps/srophe/documentation/confessions.xml')//tei:body/child::*[1]
+    let $confession := doc($config:data-root || '/documentation/confessions.xml')//tei:body/child::*[1]
     return app:transform($confession)
 };
 
@@ -233,9 +233,9 @@ declare %templates:wrap function app:build-confessions($node as node(), $model a
 :)
 declare function app:get-editors(){
 distinct-values(
-    (for $editors in collection('/db/apps/srophe/data/places/tei')//tei:respStmt/tei:name/@ref
+    (for $editors in collection($config:data-root || '/places/tei')//tei:respStmt/tei:name/@ref
      return substring-after($editors,'#'),
-     for $editors-change in collection('/db/apps/srophe/data/places/tei')//tei:change/@who
+     for $editors-change in collection($config:data-root || '/places/tei')//tei:change/@who
      return substring-after($editors-change,'#'))
     )
 };
@@ -244,7 +244,7 @@ distinct-values(
  : Build editor list. Sort alphabeticaly
 :)
 declare %templates:wrap function app:build-editor-list($node as node(), $model as map(*)){
-    let $editors := doc('/db/apps/srophe/documentation/editors.xml')//tei:listPerson
+    let $editors := doc($config:app-root || '/documentation/editors.xml')//tei:listPerson
     for $editor in app:get-editors()
     let $name := 
         for $editor-name in $editors//tei:person[@xml:id = $editor]

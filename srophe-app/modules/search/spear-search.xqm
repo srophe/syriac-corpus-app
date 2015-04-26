@@ -108,7 +108,7 @@ declare function spears:type-search(){
  : Build query string to pass to search.xqm 
 :)
 declare function spears:query-string() as xs:string? {
- concat("collection('/db/apps/srophe/data/spear/tei')//tei:div",
+ concat("collection('",$config:data-root,"/spear/tei')//tei:div",
     spears:type-search(),
     facets:facet-filter(),
     spears:keyword(),
@@ -190,9 +190,9 @@ declare function spears:keyword-menu(){
 for $keywordURI in 
 distinct-values(
     (
-    for $keyword in collection('/db/apps/srophe/data/spear/')//@target[contains(.,'/keyword/')]
+    for $keyword in collection($config:data-root || '/spear/')//@target[contains(.,'/keyword/')]
     return tokenize($keyword,' '),
-    for $keyword in collection('/db/apps/srophe/data/spear/')//@ref[contains(.,'/keyword/')]
+    for $keyword in collection($config:data-root || '/spear/')//@ref[contains(.,'/keyword/')]
     return tokenize($keyword,' ')
     )
     )
@@ -203,7 +203,7 @@ return
 };
 
 declare function spears:source-menu(){
-for $title in collection('/db/apps/srophe/data/spear/')//tei:titleStmt/tei:title[1]
+for $title in collection($config:data-root || '/spear/')//tei:titleStmt/tei:title[1]
 let $id := $title/ancestor::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type="URI"]
 order by $title  
 return

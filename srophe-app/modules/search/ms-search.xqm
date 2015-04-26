@@ -29,7 +29,7 @@ declare function ms:keyword() as xs:string? {
  : Build query string to pass to search.xqm 
 :)
 declare function ms:query-string() as xs:string? {
- concat("collection('/db/apps/srophe/data/manuscripts/tei')//tei:msDesc",
+ concat("collection('",$config:data-root,"/manuscripts/tei')//tei:msDesc",
     ms:keyword()
     )
 };

@@ -20,7 +20,7 @@ declare function sutil:add-custom-dates(){
 };
 :)
 declare function sutil:custom-dates-coll($resource-uri, $comment, $editor){
-for $doc in collection('/db/apps/srophe/data/spear/tei')//tei:body 
+for $doc in collection($config:data-root)//tei:body 
 return 
     (
             sutil:notAfter($doc),

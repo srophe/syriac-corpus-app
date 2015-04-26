@@ -39,13 +39,13 @@ else 'all-events'
 declare function spear:build-doc-path(){ 
 if($spear:id != '') then 
     if(starts-with($spear:id,'http://syriaca.org/spear/')) then
-       collection($config:app-root || "/data/spear/tei")//tei:div[@uri = $spear:id]
-    else collection($config:app-root || "/data/spear/tei")//tei:div[descendant::*[@ref=$spear:id]]
-else if($spear:view = 'person') then collection($config:app-root || "/data/spear/tei")//tei:persName
-else if($spear:view = 'place') then collection($config:app-root || "/data/spear/tei")//tei:placeName
-else if($spear:view = 'event') then collection($config:app-root || "/data/spear/tei")//tei:div[tei:listEvent]
-else if($spear:view = 'all') then collection($config:app-root || "/data/spear/tei")//tei:div
-else util:eval(concat("collection('",$config:app-root,"/data/spear/tei')//tei:div",facets:facet-filter()))
+       collection($config:data-root || "/spear/tei")//tei:div[@uri = $spear:id]
+    else collection($config:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$spear:id]]
+else if($spear:view = 'person') then collection($config:data-root || "/spear/tei")//tei:persName
+else if($spear:view = 'place') then collection($config:data-root || "/spear/tei")//tei:placeName
+else if($spear:view = 'event') then collection($config:data-root || "/spear/tei")//tei:div[tei:listEvent]
+else if($spear:view = 'all') then collection($config:data-root || "/spear/tei")//tei:div
+else util:eval(concat("collection('",$config:data-root,"/spear/tei')//tei:div",facets:facet-filter()))
 };
 
 (:~
@@ -75,7 +75,7 @@ declare %templates:wrap function spear:uri($node as node(), $model as map(*)){
 declare function spear:get-tei($id as xs:string){
     <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">
         {
-            for $rec in collection($config:app-root || "/data/spear/tei")//tei:div[@uri = $spear:id]
+            for $rec in collection($config:data-root || "/spear/tei")//tei:div[@uri = $spear:id]
             return $rec
         }
     </tei:TEI>
@@ -86,7 +86,7 @@ declare function spear:get-tei($id as xs:string){
  : @param $spear:id 
 :)
 declare function spear:canonical-rec(){
-    collection($config:app-root || "/data/")//tei:idno[. = $spear:id]
+    collection($config:data-root)//tei:idno[. = $spear:id]
 };
 
 (:~
@@ -483,7 +483,7 @@ if($spear:view = 'person') then
             {
                 for $data in $model('spear-data')
                 let $id := normalize-space($data[1]/@ref)
-                let $connical := collection($config:app-root || "/data/")//tei:idno[. = $id]
+                let $connical := collection($config:data-root)//tei:idno[. = $id]
                 let $name := if($connical) then $connical/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"][@xml:lang='en'][1]
                              else tokenize($id,'/')[last()]
                 group by $person := $name
@@ -632,7 +632,7 @@ else
             {
                 for $data in $model('spear-data')
                 let $id := normalize-space($data[1]/@ref)
-                let $connical := collection($config:app-root || "/data/")//tei:idno[. = $id]
+                let $connical := collection($config:data-root)//tei:idno[. = $id]
                 let $name := if($connical) then $connical/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"][@xml:lang='en'][1]
                              else tokenize($id,'/')[last()]
                 group by $place := $name

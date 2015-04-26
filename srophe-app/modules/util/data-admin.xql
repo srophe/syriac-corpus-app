@@ -17,7 +17,7 @@ declare variable $comment {request:get-parameter('comment', '')};
  : attribute for searching. 
  :)                       
 declare function local:add-custom-dates(){
-   for $doc in collection('/db/apps/srophe/data/spear/tei')//tei:div 
+   for $doc in collection($config:data-root || '/spear/tei')//tei:div 
    return 
     (local:notAfter($doc),local:notBefore($doc),local:to($doc),local:from($doc),local:when($doc),local:add-change-log($doc))                     
 };
@@ -138,7 +138,7 @@ declare function local:when($doc){
  : Edit as needed, no public interface for this function 
 :)
 declare function local:remove-attributes(){
-   for $doc in collection('/db/apps/srophe/data/places/tei')//tei:place
+   for $doc in collection($config:data-root || '/places/tei')//tei:place
    return 
    (:add test for when-custom so I don't add it repeatedly:)
         for $date in $doc/descendant-or-self::*/@from-custom
@@ -150,7 +150,7 @@ declare function local:remove-attributes(){
  : No public interface for this function
 :)
 declare function local:test-dates(){
-   for $doc in collection('/db/apps/srophe/data/places/tei')//tei:place
+   for $doc in collection($config:data-root || '/places/tei')//tei:place
    return 
         for $date in $doc/descendant-or-self::tei:state[@type = "confession"]
         return 
@@ -173,10 +173,10 @@ declare function local:test-dates(){
         </div>
 :)
 declare function local:update-locations(){
-    for $places in doc('/db/apps/srophe/data/places/Pleiades-Grabber-Results-Edited.xml')//row[Match='UPDATED']
+    for $places in doc($config:data-root || '/places/Pleiades-Grabber-Results-Edited.xml')//row[Match='UPDATED']
     let $id := concat('place-',$places/Place_ID)
     return 
-        for $doc in collection('/db/apps/srophe/data/places/tei')/id($id)[1]
+        for $doc in collection($config:data-root || '/places/tei')/id($id)[1]
         let $doc-id := substring-after($id,'place-')
         let $bibNo := count($doc//tei:bibl) + 1
         let $lat := $places/Latitude
@@ -213,7 +213,7 @@ Checking list to make sure it is correct before adding to data Will need to upda
 :)
 
 declare function local:related-data($doc-id,$doc-name){
-    for $doc-rel in collection('/db/apps/srophe/data/places/tei')//tei:place[tei:placeName[@syriaca-tags='#syriaca-headword'] = $doc-name]
+    for $doc-rel in collection($config:data-root || '/places/tei')//tei:place[tei:placeName[@syriaca-tags='#syriaca-headword'] = $doc-name]
     let $doc-rel-id := $doc-rel/@xml:id
     let $doc-rel-name := $doc-rel/text()
     where not($doc-rel-id = $doc-id)
@@ -222,7 +222,7 @@ declare function local:related-data($doc-id,$doc-name){
 };
 
 declare function local:link-related-names(){
-    let $docs-all := for $docs in collection('/db/apps/srophe/data/places/tei')//tei:place[tei:placeName[@syriaca-tags='#syriaca-headword']] return $docs
+    let $docs-all := for $docs in collection($config:data-root || '/places/tei')//tei:place[tei:placeName[@syriaca-tags='#syriaca-headword']] return $docs
     for $doc at $p in subsequence($docs-all, 2600, 100)
     let $doc-name := $doc/tei:placeName[@syriaca-tags='#syriaca-headword'][1]/text()
     let $doc-id := $doc/@xml:id
@@ -261,7 +261,7 @@ declare function local:add-change-log($doc){
 };
 
 declare function local:remove-mutual(){
-   for $doc in collection('/db/apps/srophe/data/places/tei')//tei:relation
+   for $doc in collection($config:data-root || '/places/tei')//tei:relation
    let $mutual := string($doc/@mutual)
    let $new-mutual-end := substring-after($mutual,' ')
    let $new-mutual-beging := substring-before(substring-after($mutual,'place'),' ')
@@ -274,7 +274,7 @@ declare function local:remove-mutual(){
 };
 
 declare function local:change-computed-dates(){
-for $doc in collection('/db/apps/srophe/data/spear/tei')//tei:person[descendant-or-self::*/@when]
+for $doc in collection($config:data-root || '/spear/tei')//tei:person[descendant-or-self::*/@when]
 return local:add-change-log($doc)
     
 };

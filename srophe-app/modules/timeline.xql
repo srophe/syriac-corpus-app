@@ -65,7 +65,7 @@ declare function local:get-all-recs(){
                 <caption>Events for Persons</caption>
             </asset>
             {
-                for $rec in collection('/db/apps/srophe/data/persons/tei')//tei:body
+                for $rec in collection($config:data-root || '/persons/tei')//tei:body
                 let $person := $rec/descendant::tei:person
                 return
                 (local:get-pers-birth($person), local:get-pers-death($person), local:get-pers-floruit($person), local:get-pers-state($person), local:get-pers-events($person))

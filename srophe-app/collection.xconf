@@ -6,7 +6,7 @@
     </index>
     <triggers>
         <!-- Trigger restxq module for syriaca.org APIs -->
-        <trigger class="org.exist.extensions.exquery.restxq.impl.RestXqTrigger"/>
+        <!--<trigger class="org.exist.extensions.exquery.restxq.impl.RestXqTrigger"/>-->
         <!-- Make xqueries executable. -->
         <trigger event="create" class="org.exist.collections.triggers.XQueryTrigger">
             <parameter name="query" value="module namespace trigger='http://exist-db.org/xquery/trigger';                  

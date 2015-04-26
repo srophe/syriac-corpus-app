@@ -28,7 +28,7 @@ declare variable $place:status {request:get-parameter('status', '')};
 :)
 declare function place:html-title(){
     let $placeid := concat('http://syriaca.org/place/',$place:id)
-    let $title := replace(collection($config:app-root || "/data/places/tei")//tei:idno[@type='URI'][. = $placeid]/ancestor::tei:TEI//tei:titleStmt/tei:title[@level='a'][1]/text(),'— ','')
+    let $title := replace(collection($config:data-root || "/places/tei")//tei:idno[@type='URI'][. = $placeid]/ancestor::tei:TEI//tei:titleStmt/tei:title[@level='a'][1]/text(),'— ','')
     return normalize-space($title)
 };
 
@@ -38,7 +38,7 @@ declare function place:html-title(){
  :)
 declare function place:get-place($node as node(), $model as map(*)){
     let $placeid := concat('place-',$place:id)
-    for $recs in collection($config:app-root || "/data/places/tei")/id($placeid)
+    for $recs in collection($config:data-root || "/places/tei")/id($placeid)
     let $rec := $recs/ancestor::tei:TEI
     return map {"place-data" := $rec}
 };
@@ -158,7 +158,7 @@ declare function place:nested-loc($node as node(), $model as map(*)){
     return 
         app:tei2html(<body xmlns="http://www.tei-c.org/ns/1.0">
         {
-            for $nested-loc in collection($config:app-root || "/data/places/tei")//tei:location[@type="nested"]/tei:*[@ref=$ref-id]
+            for $nested-loc in collection($config:data-root || "/places/tei")//tei:location[@type="nested"]/tei:*[@ref=$ref-id]
             let $parent-name := $nested-loc//tei:placeName[1]
             let $place-id := substring-after($nested-loc/ancestor::*/tei:place[1]/@xml:id,'place-')
             let $place-type := $nested-loc/ancestor::*/tei:place[1]/@type
@@ -173,7 +173,7 @@ declare function place:nested-loc($node as node(), $model as map(*)){
 declare function place:confessions($node as node(), $model as map(*)){
     let $data := $model("place-data")//tei:place
     return if($data/tei:state[@type='confession']) then 
-        let $confessions := doc($config:app-root || "/documentation/confessions.xml")//tei:list
+        let $confessions := doc($config:data-root || "/documentation/confessions.xml")//tei:list
         return
         app:tei2html(
         <body xmlns="http://www.tei-c.org/ns/1.0">
@@ -216,7 +216,7 @@ declare function place:related-places($node as node(), $model as map(*)){
                             (for $att in $related/@*
                                 return
                                      attribute {name($att)} {$att},                      
-                            for $get-related in collection($config:app-root || "/data/places/tei")/id($place-id)
+                            for $get-related in collection($config:data-root || "/places/tei")/id($place-id)
                             return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
                         }
                         </relation>
@@ -231,7 +231,7 @@ declare function place:related-places($node as node(), $model as map(*)){
                             (for $att in $related/@*
                                 return
                                      attribute {name($att)} {$att},                      
-                            for $get-related in collection($config:app-root || "/data/places/tei")/id($place-id)
+                            for $get-related in collection($config:data-root || "/places/tei")/id($place-id)
                             return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
                         }
                         </relation>
@@ -250,7 +250,7 @@ declare function place:related-places($node as node(), $model as map(*)){
                                         (for $att in $related/@*
                                         return
                                              attribute {name($att)} {$att},                      
-                                        for $get-related in collection($config:app-root || "/data/places/tei")/id($place-id)
+                                        for $get-related in collection($config:data-root || "/places/tei")/id($place-id)
                                         let $type := string($get-related/@type)
                                         return 
                                             (attribute type {$type}, $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en']))

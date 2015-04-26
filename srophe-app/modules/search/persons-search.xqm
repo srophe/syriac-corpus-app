@@ -231,7 +231,7 @@ declare function persons:mentioned() as xs:string?{
  : Build query string to pass to search.xqm 
 :)
 declare function persons:query-string() as xs:string? {
- concat("collection('/db/apps/srophe/data/persons/tei')//tei:body",
+ concat("collection('",$config:data-root,"/persons/tei')//tei:body",
     persons:keyword(),
     persons:type(),
     persons:name(),
@@ -244,7 +244,7 @@ declare function persons:query-string() as xs:string? {
 };
 
 declare function persons:saints-query-string() as xs:string? {
- concat("collection('/db/apps/srophe/data/persons/tei')//tei:body",
+ concat("collection('",$config:data-root,"/persons/tei')//tei:body",
     persons:keyword(),
     "[descendant::tei:person/@ana = '#syriaca-saint']",
     persons:name(),

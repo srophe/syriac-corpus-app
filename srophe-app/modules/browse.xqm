@@ -42,10 +42,10 @@ declare variable $browse:fq {request:get-parameter('fq', '')};
 :)
 declare function browse:get-all($node as node(), $model as map(*), $coll as xs:string?){
 let $browse-path := 
-        if($coll = ('persons','authors','saints')) then concat("collection('",$config:app-root,"/data/persons/tei')//tei:person",browse:get-pers-coll($coll),browse:get-syr()) 
-    else if($coll = 'places') then concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
-    else if(exists($coll)) then concat("collection('",$config:app-root,"/data/",xs:anyURI($coll),"')//tei:body",browse:get-syr())
-    else concat("collection('",$config:app-root,"/data')//tei:body",browse:get-syr())
+        if($coll = ('persons','authors','saints')) then concat("collection('",$config:data-root,"/persons/tei')//tei:person",browse:get-pers-coll($coll),browse:get-syr()) 
+    else if($coll = 'places') then concat("collection('",$config:data-root,"/places/tei')//tei:place",browse:get-syr())
+    else if(exists($coll)) then concat("collection('",$config:data-root,xs:anyURI($coll),"')//tei:body",browse:get-syr())
+    else concat("collection('",$config:data-root,"')//tei:body",browse:get-syr())
 return 
     map{"browse-data" := util:eval($browse-path)}        
 };
@@ -55,10 +55,10 @@ return
 :)
 declare function browse:get-xpath($node as node(), $model as map(*), $coll as xs:string?){
     (
-    if($coll = ('persons','authors','saints')) then concat("collection('",$config:app-root,"/data/persons/tei')//tei:person",browse:get-pers-coll($coll),browse:get-syr()) 
-    else if($coll = 'places') then concat("collection('",$config:app-root,"/data/places/tei')//tei:place",browse:get-syr())
-    else if(exists($coll)) then concat("collection('",$config:app-root,"/data/",xs:anyURI($coll),"')//tei:body",browse:get-syr())
-    else concat("collection('",$config:app-root,"/data')//tei:body",browse:get-syr()),
+    if($coll = ('persons','authors','saints')) then concat("collection('",$config:data-root,"/persons/tei')//tei:person",browse:get-pers-coll($coll),browse:get-syr()) 
+    else if($coll = 'places') then concat("collection('",$config:data-root,"/places/tei')//tei:place",browse:get-syr())
+    else if(exists($coll)) then concat("collection('",$config:data-root,xs:anyURI($coll),"')//tei:body",browse:get-syr())
+    else concat("collection('",$config:data-root,"')//tei:body",browse:get-syr()),
     concat(' ',$coll)
     )
 

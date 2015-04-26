@@ -28,7 +28,7 @@ declare function feed:get-feed($collection as xs:string?) as node()*{
         if($collection != '') then 
             if($collection = 'place') then '/places' else ('/' || $collection)
          else '' 
-    let $path := ($config:app-root || '/data' || $collection-path) 
+    let $path := ($config:data-root || $collection-path) 
     for $feed in collection($path)/tei:TEI 
     let $date := $feed[1]//tei:publicationStmt[1]/tei:date[1]/text()
     order by $date descending
@@ -82,7 +82,7 @@ declare function feed:format-dates($date as xs:string?) as xs:string{
 declare function feed:get-entry($collection as xs:string, $id as xs:string?) as element(feed)?{
     let $collection-path :=  
         if($collection = 'place') then '/places' else ('/' || $collection || '/tei/') 
-    let $path := ($config:app-root || '/data' || $collection-path || $id || '.xml') 
+    let $path := ($config:data-root || $collection-path || $id || '.xml') 
     for $feed in doc($path)/tei:TEI
     let $date := $feed[1]//tei:publicationStmt[1]/tei:date[1]/text()
     return

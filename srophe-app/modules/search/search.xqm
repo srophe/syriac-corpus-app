@@ -50,7 +50,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
  : Builds general search string from main syriaca.org page and search api.
 :)
 declare function search:query-string($collection as xs:string?) as xs:string?{
-concat("collection('",$config:app-root,"/data/",$collection,"')//tei:body",
+concat("collection('",$config:data-root,$collection,"')//tei:body",
     places:keyword(),
     places:place-name(),
     persons:name()
@@ -68,7 +68,7 @@ let $pers-name :=
     if(exists($person) and $person != '') then concat("[ft:query(descendant::tei:persName,'",common:clean-string($person),"',common:options())]")
     else ()
 let $query-string := 
-    concat("collection('/db/apps/srophe/data')//tei:body",
+    concat("collection('",$config:data-root,"')//tei:body",
     $keyword-string,$pers-name,$place-name)
 return $query-string
 };

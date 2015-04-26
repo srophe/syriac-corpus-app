@@ -83,12 +83,12 @@ declare function geo:get-coordinates($geo-search as element()*, $type as xs:stri
                             for $type-string in tokenize($type,',')
                             return concat('"',$type-string,'"'),',')
                         else $type
-                let $path := concat("collection('/db/apps/srophe/data/places/tei')//tei:place[@type = (",$types,")]//tei:geo") 
+                let $path := concat("collection('",$config:data-root,"/places/tei')//tei:place[@type = (",$types,")]//tei:geo") 
                 for $rec in util:eval($path) 
                 return $rec    
                 }
-            else  map{"geo-data" := collection($config:app-root || "/data/places/tei")//tei:place[@type=$type]//tei:geo} 
-        else map{"geo-data" := collection($config:app-root || "/data/places/tei")//tei:geo} 
+            else  map{"geo-data" := collection($config:data-root || "/data/places/tei")//tei:place[@type=$type]//tei:geo} 
+        else map{"geo-data" := collection($config:data-root || "/data/places/tei")//tei:geo} 
     for $place-name in map:get($geo-map, 'geo-data')
     let $id := string($place-name/ancestor::tei:place/@xml:id)
     let $rec-type := string($place-name/ancestor::tei:place/@type)

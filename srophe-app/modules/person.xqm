@@ -26,7 +26,7 @@ declare variable $person:id {request:get-parameter('id', '')};
 :)
 declare function person:html-title(){
     let $personsid := concat('http://syriaca.org/person/',$person:id)
-    let $title := replace(collection($config:app-root || "/data/persons/tei")//tei:idno[@type='URI'][. = $personsid]/ancestor::tei:TEI//tei:titleStmt/tei:title[@level='a'][1]/text(),'— ','')
+    let $title := replace(collection($config:data-root || "/persons/tei")//tei:idno[@type='URI'][. = $personsid]/ancestor::tei:TEI//tei:titleStmt/tei:title[@level='a'][1]/text(),'— ','')
     return normalize-space($title)
 };
 
@@ -35,13 +35,13 @@ declare function person:html-title(){
  : Adds persons data to map function
  : @param $id persons id
  let $personsid := concat('person-',$person:id)
-    for $recs in collection($config:app-root || "/data/persons/tei")/id($personsid)
+    for $recs in collection($config:data-root || "/persons/tei")/id($personsid)
     let $rec := $recs/ancestor::tei:TEI
     return map {"persons-data" := $rec}
  :)
 declare function person:get-persons($node as node(), $model as map(*)){
 let $personsid := concat('http://syriaca.org/person/',$person:id)
-    for $recs in collection($config:app-root || "/data/persons/tei")//tei:idno[@type='URI'][. = $personsid]
+    for $recs in collection($config:data-root || "/persons/tei")//tei:idno[@type='URI'][. = $personsid]
     let $rec := $recs/ancestor::tei:TEI
     return map {"persons-data" := $rec}
 };
@@ -217,7 +217,7 @@ declare function person:get-related($rec as node()*){
                     <relation uri="{$rel-rec}" xmlns="http://www.tei-c.org/ns/1.0">
                         {(for $att in $related/@*
                           return attribute {name($att)} {$att},
-                          let $rec := collection($config:app-root || "/data")//tei:idno[. = $rel-rec] 
+                          let $rec := collection($config:data-root)//tei:idno[. = $rel-rec] 
                           let $geo := if($rec/ancestor::tei:TEI//tei:geo) then $rec/ancestor::tei:TEI//tei:geo
                                       else ()
                           let $title := if($rec/ancestor::tei:place) then 
