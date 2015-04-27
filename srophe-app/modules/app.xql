@@ -33,7 +33,12 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
  : @param $node data passed to transform
 :)
 declare function app:tei2html($nodes as node()*) {
-    transform:transform($nodes, doc('../resources/xsl/tei2html.xsl'),() )
+    transform:transform($nodes, doc('../resources/xsl/tei2html.xsl'), 
+    <parameters>
+        <param name="data-root" value="{$config:data-root}"/>
+        <param name="app-root" value="{$config:app-root}"/>
+    </parameters>
+    )
 };
 
 declare %templates:wrap function app:set-data($node as node(), $model as map(*), $doc as xs:string){
