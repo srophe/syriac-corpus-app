@@ -111,7 +111,6 @@
     <xsl:template match="t:body">
         <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
             <div id="description">
-                <xsl:value-of select="$app"/>
                 <h3>Brief Descriptions</h3>
                 <ul>
                     <xsl:for-each-group select="//t:desc" group-by="if (contains(@xml:lang, '-')=true()) then substring-before(@xml:lang, '-') else @xml:lang">
