@@ -173,7 +173,7 @@ declare function place:nested-loc($node as node(), $model as map(*)){
 declare function place:confessions($node as node(), $model as map(*)){
     let $data := $model("place-data")//tei:place
     return if($data/tei:state[@type='confession']) then 
-        let $confessions := doc($config:data-root || "/documentation/confessions.xml")//tei:list
+        let $confessions := doc($config:app-root || "/documentation/confessions.xml")//tei:list
         return
         app:tei2html(
         <body xmlns="http://www.tei-c.org/ns/1.0">
