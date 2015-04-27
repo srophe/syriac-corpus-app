@@ -10,7 +10,6 @@ import module namespace app="http://syriaca.org//templates" at "app.xql";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 import module namespace geo="http://syriaca.org//geojson" at "lib/geojson.xqm";
-import module namespace d3="http://syriaca.org//d3" at "d3.xqm";
 
 import module namespace timeline="http://syriaca.org//timeline" at "lib/timeline.xqm";
 
@@ -426,12 +425,6 @@ let $links:=
 return app:tei2html($links)
 };
 
-declare %templates:wrap function spear:get-visualizations($node as node(), $model as map(*)){
-let $relationships := $model("spear-data")
-return
-  d3:relationships($relationships)  
-};
-
 (:
  : Browse modules for spear
 :)
@@ -721,10 +714,3 @@ declare function spear:browse-tabs($node as node(), $model as map(*)){
         </li>
     </ul>
 };
-
-(:Places, Persons, Events, Keywords, Sources, Advanced Browse
-declare function spear:get-visualizations($node as node(), $model as map(*)){
-let $data := let $data := $model("spear-data")
-return d3:relationships($data)
-};
-:)

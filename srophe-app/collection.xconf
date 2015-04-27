@@ -7,11 +7,11 @@
     <triggers>
         <!-- Trigger restxq module for syriaca.org APIs -->
         <!--<trigger class="org.exist.extensions.exquery.restxq.impl.RestXqTrigger"/>-->
-        <!-- Make xqueries executable. -->
+        <!-- Make xqueries executable. Used in development for convenience. 
         <trigger event="create" class="org.exist.collections.triggers.XQueryTrigger">
             <parameter name="query" value="module namespace trigger='http://exist-db.org/xquery/trigger';                  
                 declare function trigger:after-create-document($uri as xs:anyURI)                                  
                 {if(contains($uri,'/modules/')) then sm:chmod($uri, 'rwxr-xr-x') else ()};"/>
-        </trigger>
+        </trigger>-->
     </triggers>
 </collection>
