@@ -1,7 +1,7 @@
-syriaca
+Syriaca.org
 =======
 
-Miscellaneous public respository for Syriaca.org: The Syriac Reference Portal
+Application data for Syriaca.org: The Syriac Reference Portal
 
-2/10/2014: This repository is deprecated.  Documentation for Syriaca.org has been moved
-to srophe-eXist-app/srophe-app/documentation.
+Data must be downloaded/added from the srophe/srophe-app-data repository. 
+
