@@ -9,5 +9,5 @@
     <type>application</type>
     <target>srophe</target>
     <prepare>pre-install.xql</prepare>
-    <finish/>
+    <finish>post-install.xql</finish>
 </meta>
