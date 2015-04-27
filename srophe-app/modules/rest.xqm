@@ -219,31 +219,6 @@ function api:get-atom-feed($start as xs:integer*, $perpage as xs:integer*){
      )
 };
 
-
-(:~
-  : Return oai-pmh results for syriaca.org  
-  : Serialized as XML Temprary testing oai_phm as a module pluged into restxq
-:)
-declare 
-    %rest:GET
-    %rest:path("/srophe/api/oai_pmh")
-    %rest:query-param("start", "{$start}", 1)
-    %rest:query-param("perpage", "{$perpage}", 25)
-    %output:media-type("application/atom+xml")
-    %output:method("xml")
-function api:get-atom-feed($start as xs:integer*, $perpage as xs:integer*){
-   (<rest:response> 
-      <http:response status="200"> 
-        <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
-      </http:response> 
-    </rest:response>, 
-    let $feed := collection($config:data-root)//tei:TEI
-    let $total := count($feed)
-    return 
-     feed:build-atom-feed($feed, $start, $perpage,'',$total)
-     )
-};
-
 (:~
  : Returns tei record for syriaca.org subcollections
 :)
@@ -252,8 +227,8 @@ declare function api:get-tei-rec($collection as xs:string, $id as xs:string) as 
         if($collection = 'place') then 'places'
         else if($collection = 'person') then 'persons'
         else $collection
-    let $path := ($config:data-root || $collection-name || '/tei/' || $id ||'.xml')
-    return
+    let $path := ($config:data-root || '/' || $collection-name || '/tei/' || $id ||'.xml')
+    return 
         if($collection='spear') then 
             let $spear-id := concat('http://syriaca.org/spear/',$id)
             return
