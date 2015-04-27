@@ -101,7 +101,7 @@
                             <xsl:when test="t:ptr[@target and starts-with(@target, 'http://syriaca.org/bibl/')]">
                                 <!-- Find file path for bibliographic record -->
                                 <xsl:variable name="biblfilepath">
-                                    <xsl:value-of select="concat('/db/apps/srophe/data/bibl/tei/',substring-after(t:ptr/@target, 'http://syriaca.org/bibl/'),'.xml')"/>
+                                    <xsl:value-of select="concat($data-root,'/bibl/tei/',substring-after(t:ptr/@target, 'http://syriaca.org/bibl/'),'.xml')"/>
                                 </xsl:variable>
                                 <!-- Check if record exists in db with doc-available function -->
                                 <xsl:if test="doc-available($biblfilepath)">
@@ -285,7 +285,7 @@
         </xsl:if>
         <xsl:if test="starts-with(@target, 'http://syriaca.org/bibl/')">
             <xsl:variable name="biblfilepath">
-                <xsl:value-of select="concat('/db/apps/srophe/data/bibl/tei/',substring-after(@target, 'syriaca.org/bibl/'),'.xml')"/>
+                <xsl:value-of select="concat($data-root,'/bibl/tei/',substring-after(@target, 'syriaca.org/bibl/'),'.xml')"/>
             </xsl:variable>
             <xsl:if test="doc-available($biblfilepath)">
                 <xsl:apply-templates select="document($biblfilepath)/descendant::t:biblStruct[1]" mode="biblist"/>

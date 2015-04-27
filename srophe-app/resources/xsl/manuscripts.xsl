@@ -48,56 +48,10 @@
           Endowment for the Humanities.
        
        ================================================================== -->
- <!-- =================================================================== -->
- <!-- import component stylesheets for HTML page portions -->
- <!-- =================================================================== -->
-    <xsl:import href="helper-functions.xsl"/>
-    <xsl:import href="link-icons.xsl"/>
-    <xsl:import href="citation.xsl"/>
-    <xsl:import href="bibliography.xsl"/>
-    <xsl:import href="json-uri.xsl"/>
-    <xsl:import href="langattr.xsl"/>
-    <xsl:import href="collations.xsl"/>
-    
- <!-- =================================================================== -->
- <!-- set output so we get (mostly) indented HTML -->
- <!-- =================================================================== -->
-    <xsl:output name="html" encoding="UTF-8" method="xhtml" indent="no"/>
-
- <!-- =================================================================== -->
- <!--  initialize top-level variables and transform parameters -->
- <!--  sourcedir: where to look for XML files to summarize/link to -->
- <!--  description: a meta description for the HTML page we will output -->
- <!--  name-app: name of the application (for use in head/title) -->
- <!--  name-page-short: short name of the page (for use in head/title) -->
- <!--  colquery: constructed variable with query for collection fn. -->
- <!-- =================================================================== -->
-    <xsl:param name="normalization">NFKC</xsl:param>
-    <!--<xsl:param name="xmlbase">/db/apps/srophe/data/places/tei/xml/</xsl:param>-->
-    <xsl:param name="editoruriprefix">http://syriaca.org/editors.xml#</xsl:param>
-    <xsl:variable name="editorssourcedoc">/db/apps/srophe/documentation/editors.xml</xsl:variable>
-    <!--<xsl:param name="uribase">http://syriaca.org/</xsl:param>-->
-    <xsl:variable name="resource-id">
-        <xsl:choose>
-            <xsl:when test="string(/*/@id)">
-                <xsl:value-of select="string(/*/@id)"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="starts-with(//idno[@URI],'http://syriaca.org/')"/>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:variable>
+ 
  <!-- =================================================================== -->
  <!-- TEMPLATES -->
  <!-- =================================================================== -->
-
-
- <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
- <!-- |||| Root template matches tei root -->
- <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-    <xsl:template match="/">
-        <xsl:apply-templates/>
-    </xsl:template>
 
     <!-- Manuscript templates -->
     <xsl:template match="t:msPart">
