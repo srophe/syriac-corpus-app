@@ -10,7 +10,7 @@ Syriaca.org TEI data for publications is available: [https://github.com/srophe/s
 The data must be packaged and deployed to your eXist instance in order to use the syriaca.org app. 
 
 #### Additional dependancies 
-Check that the following packges/libraries are deployed in eXist before deploying the srophe-eXist-app:
+Check that the following packages/libraries are deployed in eXist before deploying the srophe-eXist-app:
 * eXist-db Shared apps: http://exist-db.org/apps/shared
 * JSON Parser and Serializer for XQuery: http://xqilla.sourceforge.net/pkg/xqjson
 * Functx Library: http://www.functx.com
