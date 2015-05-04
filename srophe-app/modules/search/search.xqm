@@ -195,9 +195,6 @@ return
     if(count($geo-hits) gt 1) then
          (
          geo:build-map($geo-hits, '', ''),
-         <div class="pull-right">*{count($geo-hits)} of {search:hit-count($node,$model)} places have coordinates and are shown on this map. 
-         <button class="btn btn-link" data-toggle="modal" data-target="#map-selection" id="mapFAQ">Read more...</button>
-         </div>,
          <div>
             <div class="modal fade" id="map-selection" tabindex="-1" role="dialog" aria-labelledby="map-selectionLabel" aria-hidden="true">
                 <div class="modal-dialog">

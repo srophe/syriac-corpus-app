@@ -148,7 +148,7 @@ declare function geo:build-map($geo-search as node()*, $type as xs:string*, $out
         <script src="http://isawnyu.github.com/awld-js/awld.js?autoinit" type="text/javascript"/>
         <script type="text/javascript" src="/exist/apps/srophe/resources/leaflet/leaflet.awesome-markers.js"/>
         <div id="map"/>
-        <div class="hint map pull-right">* {count($geo-search)} have coordinates and are shown on this map. 
+        <div class="hint map pull-right">* {count($geo-search)} places have coordinates and are shown on this map. 
              <button class="btn btn-link" data-toggle="modal" data-target="#map-selection" id="mapFAQ">Read more...</button>
         </div>
         <script type="text/javascript">
