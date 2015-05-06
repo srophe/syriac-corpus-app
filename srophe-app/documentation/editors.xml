@@ -177,6 +177,23 @@
                         <surname>McCollum</surname>
                     </persName>
                 </person>
+                <person xml:id="fdickerson">
+                    <persName xml:lang="en">
+                        <forename>Febbie</forename>
+                        <addName>C.</addName>
+                        <surname>Dickerson</surname>
+                    </persName>
+                </person>
+                <person xml:id="schoi">
+                    <persName xml:lang="ko">
+                        <forename>성현</forename>
+                        <surname>최</surname>
+                    </persName>
+                    <persName xml:lang="en">
+                        <forename>Seonghyun</forename>
+                        <surname>Choi</surname>
+                    </persName>
+                </person>
                 <org xml:id="uasyriacresearchgroup">
                     <name xml:lang="en">The Syriac Research Group, University of Alabama</name>
                 </org>
