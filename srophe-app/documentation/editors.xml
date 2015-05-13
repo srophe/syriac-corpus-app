@@ -40,7 +40,9 @@
             </editorialDecl>
         </encodingDesc>
         <revisionDesc>
-            <change when="2015-05-12" who="http://syriaca.org/documentation/editors.xml#damichelson">ADDED: MSS editors list</change>
+            <change when="2015-05-12" who="http://syriaca.org/documentation/editors.xml#dmichelson">ADDED: More MSS editors list</change>
+            <change when="2015-05-12" who="http://syriaca.org/documentation/editors.xml#dmichelson">ADDED: MSS editors list</change>
+            <change when="2015-05-06" who="http://syriaca.org/documentation/editors.xml#dmichelson">ADDED: MSS editors list</change>
             <change when="2014-07-29" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Adam Carter McCollum</change>
             <change when="2014-07-18" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Luke Yarbrough</change>
             <change when="2013-03-25" who="http://syriaca.org/documentation/editors.xml#tcarlson">CREATED: editors list</change>
@@ -214,6 +216,13 @@
                         <forename>Justin</forename>
                         <addName>A.</addName>
                         <surname>Arnwine</surname>
+                    </persName>
+                </person>
+                <person xml:id="pgmiller">
+                    <persName xml:lang="en">
+                        <forename>Peter</forename>
+                        <addName>G.</addName>
+                        <surname>Miller</surname>
                     </persName>
                 </person>
                 <org xml:id="uasyriacresearchgroup">
