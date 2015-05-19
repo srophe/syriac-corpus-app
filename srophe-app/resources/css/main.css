@@ -11,7 +11,8 @@
  * Dark Grey #333
  * Light Grey (text): #999
  */
- 
+/* Import Font css */ 
+ @import url("syr-font-families.css");
 /* Main content blocks */
 /* This is the background color for geo */
 body {font-family: arial, sans-serif; padding-top:50px;}
@@ -181,22 +182,25 @@ h4 {font-size: 1em; margin-top:1em;}
 }
 
 :lang(syr),:lang(syc) {
- font-family: "Estrangelo Edessa", Verdana, Arial, Helvetica, sans-serif;
+ font-family: "EstrangeloEdessa", "Estrangelo Edessa", Verdana, Arial, Helvetica, sans-serif;
   /*font-size:large;*/
   font-size:1.25em; 
   line-height:1em;
+  display:inline-block;
 }
 
 :lang(syr-Syrj), :lang(syc-Syrj) {
- font-family: "Serto Batnan", Verdana, Arial, Helvetica, sans-serif;
+ font-family: "SertoBatnan", "Serto Batnan", Verdana, Arial, Helvetica, sans-serif;
     font-size:1.25em; 
   line-height:1em;
+  display:inline-block;
 }
 
 :lang(syr-Syre), :lang(syc-Syre) {
- font-family: "East Syriac Adiabene", Verdana, Arial, Helvetica, sans-serif;
+ font-family: "EastSyriacAdiabene", "East Syriac Adiabene", Verdana, Arial, Helvetica, sans-serif;
  font-size:1.25em; 
  line-height:1em;
+ display:inline-block;
 }
 
 :lang(ar) {
