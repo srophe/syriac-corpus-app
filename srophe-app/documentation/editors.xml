@@ -225,6 +225,12 @@
                         <surname>Miller</surname>
                     </persName>
                 </person>
+                <person xml:id="lcollins">
+                    <persName xml:lang="en">
+                        <forename>Lewis</forename>
+                        <surname>Collins</surname>
+                    </persName>
+                </person>
                 <org xml:id="uasyriacresearchgroup">
                     <name xml:lang="en">The Syriac Research Group, University of Alabama</name>
                 </org>
