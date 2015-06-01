@@ -126,9 +126,9 @@
     </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-     handle a footnote for a book
+     handle a footnote for a book  removed(and not(t:analytic))
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <xsl:template match="t:biblStruct[t:monogr and not(t:analytic)]" mode="footnote">
+    <xsl:template match="t:biblStruct[t:monogr]" mode="footnote">
         <!-- this is a monograph/book -->
         
         <!-- handle editors/authors and abbreviate as necessary -->
