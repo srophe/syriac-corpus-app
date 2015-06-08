@@ -17,7 +17,7 @@ declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace transform="http://exist-db.org/xquery/transform";
 
 (:~ 
- : Parameters passed from the url 
+ : Parameters passed from the url  
  :)
 declare variable $person:id {request:get-parameter('id', '')};
 
@@ -68,15 +68,13 @@ declare %templates:wrap function person:names($node as node(), $model as map(*))
     let $abstract := $model("persons-data")//tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')] | $model("persons-data")//tei:note[@type='abstract']
     let $sex := $model("persons-data")//tei:sex
     let $nodes := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
-        <person>
+        <person xmlns="http://www.tei-c.org/ns/1.0">
             {(
                 $names,
                 $abstract,
                 $sex
             )}
         </person>
-    </body>
     return app:tei2html($nodes)
 };
 
@@ -84,12 +82,12 @@ declare %templates:wrap function person:names($node as node(), $model as map(*))
 declare %templates:wrap function person:data($node as node(), $model as map(*)){
     let $rec := $model("persons-data")//tei:person
     let $nodes := 
-    <body xmlns="http://www.tei-c.org/ns/1.0" ana="{$rec/@ana/text()}">
+    <person xmlns="http://www.tei-c.org/ns/1.0" ana="{$rec/@ana/text()}">
             {
                 for $data in $rec/child::*[not(self::tei:persName)][not(self::tei:bibl)][not(self::*[@type='abstract' or starts-with(@xml:id, 'abstract-en')])]
                 return $data
             }
-    </body>
+    </person>
     return app:tei2html($nodes)
 };
 
@@ -143,21 +141,21 @@ return
         <div>
             {
             app:tei2html(
-                <body xmlns="http://www.tei-c.org/ns/1.0">
+                <person xmlns="http://www.tei-c.org/ns/1.0">
                     <related-items xmlns="http://www.tei-c.org/ns/1.0">
                         {person:get-related($data)}
                     </related-items>
-                </body>)
+                </person>)
             }
         </div>
         )
      else if(person:get-related($data/descendant::tei:relation/child::*)) then 
             app:tei2html(
-                <body xmlns="http://www.tei-c.org/ns/1.0">
+                <person xmlns="http://www.tei-c.org/ns/1.0">
                     <related-items xmlns="http://www.tei-c.org/ns/1.0">
                         {person:get-related($data)}
                     </related-items>
-                </body>)
+                </person>)
 
      else ()
 };
@@ -258,23 +256,23 @@ return
 declare %templates:wrap function person:sources($node as node(), $model as map(*)){
     let $rec := $model("persons-data")
     let $sources := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <person xmlns="http://www.tei-c.org/ns/1.0">
         {$rec//tei:person/tei:bibl}
-    </body>
+    </person>
     return app:tei2html($sources)
 };
 
-(:
+(: 
  : Return tieHeader info to be used in citation
 :)
 declare %templates:wrap function person:citation($node as node(), $model as map(*)){
     let $rec := $model("persons-data")
     let $header := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <person xmlns="http://www.tei-c.org/ns/1.0">
         <citation xmlns="http://www.tei-c.org/ns/1.0">
             {$rec//tei:teiHeader | $rec//tei:bibl}
         </citation> 
-    </body>
+    </person>
     return app:tei2html($header)
 };
 
@@ -284,10 +282,10 @@ declare %templates:wrap function person:citation($node as node(), $model as map(
 declare %templates:wrap function person:link-icons-list($node as node(), $model as map(*)){
 let $data := $model("persons-data")
 let $links:=
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <person xmlns="http://www.tei-c.org/ns/1.0">
         <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
             {$data//tei:person//tei:idno, $data//tei:person//tei:location}
         </see-also>
-    </body>
+    </person>
 return app:tei2html($links)
 };
