@@ -58,9 +58,9 @@ declare %templates:wrap function place:h1($node as node(), $model as map(*)){
 declare %templates:wrap function place:abstract($node as node(), $model as map(*)){
     let $abstract := $model("place-data")//tei:place/tei:desc[starts-with(@xml:id,'abstract')]
     let $abstract-nodes := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <place xmlns="http://www.tei-c.org/ns/1.0">
             {$abstract}
-    </body>
+    </place>
     return app:tei2html($abstract)
 };
 
@@ -112,9 +112,9 @@ return
 :)
 declare %templates:wrap function place:description($node as node(), $model as map(*)){
     let $desc-nodes := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <place xmlns="http://www.tei-c.org/ns/1.0">
             {for $desc in $model("place-data")//tei:place/tei:desc[not(starts-with(@xml:id,'abstract'))] return $desc}
-    </body>
+    </place>
     return app:tei2html($desc-nodes)
 };
 
@@ -123,12 +123,12 @@ declare %templates:wrap function place:description($node as node(), $model as ma
 :)
 declare %templates:wrap function place:notes($node as node(), $model as map(*)){
     let $notes-nodes := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <place xmlns="http://www.tei-c.org/ns/1.0">
             {
                 for $note in $model("place-data")//tei:place/tei:note
                 return $note
             }
-    </body>
+    </place>
     return app:tei2html($notes-nodes)
 };
 
@@ -137,12 +137,12 @@ declare %templates:wrap function place:notes($node as node(), $model as map(*)){
 :)
 declare %templates:wrap function place:events($node as node(), $model as map(*)){
     let $events-nodes := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <place xmlns="http://www.tei-c.org/ns/1.0">
             {
                 for $event in $model("place-data")//tei:place/tei:event
                 return $event
             }
-    </body>
+    </place>
     return app:tei2html($events-nodes)
 };
 
@@ -156,7 +156,7 @@ declare %templates:wrap function place:events($node as node(), $model as map(*))
 declare function place:nested-loc($node as node(), $model as map(*)){
     let $ref-id := concat('http://syriaca.org/place/',$place:id)
     return 
-        app:tei2html(<body xmlns="http://www.tei-c.org/ns/1.0">
+        app:tei2html(<place xmlns="http://www.tei-c.org/ns/1.0">
         {
             for $nested-loc in collection($config:data-root || "/places/tei")//tei:location[@type="nested"]/tei:*[@ref=$ref-id]
             let $parent-name := $nested-loc//tei:placeName[1]
@@ -167,16 +167,19 @@ declare function place:nested-loc($node as node(), $model as map(*)){
                     {$nested-loc/ancestor::*/tei:placeName[1]}
                 </nested-place>
           }      
-        </body>)
+        </place>)
 };
 
+(:~
+ : Confessions list built from refs in tei to /srophe/documentation/confessions.xml
+:)
 declare function place:confessions($node as node(), $model as map(*)){
     let $data := $model("place-data")//tei:place
     return if($data/tei:state[@type='confession']) then 
         let $confessions := doc($config:app-root || "/documentation/confessions.xml")//tei:list
         return
         app:tei2html(
-        <body xmlns="http://www.tei-c.org/ns/1.0">
+        <place xmlns="http://www.tei-c.org/ns/1.0">
             <confessions xmlns="http://www.tei-c.org/ns/1.0">
                {(
                 $confessions,
@@ -186,85 +189,82 @@ declare function place:confessions($node as node(), $model as map(*)){
                 return $state)
                 }
             </confessions>
-        </body>)
+        </place>)
      else ()   
  };
  
 (:~
- : Get related place names     
+ : Get related place names      
  : <relation name="contained" active="http://syriaca.org/place/145 http://syriaca.org/place/166" passive="#place-78" source="#bib78-1" to="0363"/>
 :)
 declare function place:related-places($node as node(), $model as map(*)){
  let $rec := $model("place-data")
  return 
-    app:tei2html(<body xmlns="http://www.tei-c.org/ns/1.0">
-        <tei:place>
-        <div id="heading">
-            {$model("place-data")//tei:place/tei:placeName[1]}
-        </div>
-         <tei:related-places>
-            {
-                for $related in $rec//tei:relation
-                let $active := 
-                    for $rel-item in tokenize($related/@active,' ')
-                    let $item-id := tokenize($rel-item, '/')[last()]
-                    let $item-uri := $rel-item
-                    let $place-id := concat('place-',$item-id)
-                    return
-                        <relation id="{$item-id}" uri="{$item-uri}" varient="active">
-                        {
-                            (for $att in $related/@*
-                                return
-                                     attribute {name($att)} {$att},                      
-                            for $get-related in collection($config:data-root || "/places/tei")/id($place-id)
-                            return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
-                        }
-                        </relation>
-                let $passive := 
-                    for $rel-item in tokenize($related/@passive,' ')
-                    let $item-id := tokenize($rel-item, '/')[last()]
-                    let $item-uri := $rel-item
-                    let $place-id := concat('place-',$item-id)
-                    return
-                        <relation id="{$item-id}" uri="{$item-uri}" varient="passive">
-                        {
-                            (for $att in $related/@*
-                                return
-                                     attribute {name($att)} {$att},                      
-                            for $get-related in collection($config:data-root || "/places/tei")/id($place-id)
-                            return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
-                        }
-                        </relation>
-                let $mutual := 
-                        if($related/@mutual) then
-                        let $mutual-string := normalize-space($related/@mutual)
+    app:tei2html(
+    <place xmlns="http://www.tei-c.org/ns/1.0">
+        <div id="heading">{$model("place-data")//tei:place/tei:placeName[1]}</div>
+        <tei:related-places>
+                {
+                    for $related in $rec//tei:relation
+                    let $active := 
+                        for $rel-item in tokenize($related/@active,' ')
+                        let $item-id := tokenize($rel-item, '/')[last()]
+                        let $item-uri := $rel-item
+                        let $place-id := concat('place-',$item-id)
                         return
-                            <relation varient="mutual">
-                                {
-                                    for $rel-item in tokenize($mutual-string,' ')
-                                    let $item-id := tokenize($rel-item, '/')[last()]
-                                    let $item-uri := $rel-item
-                                    let $place-id := concat('place-',$item-id)
+                            <relation id="{$item-id}" uri="{$item-uri}" varient="active">
+                            {
+                                (for $att in $related/@*
                                     return
-                                        <mutual id="{$item-id}">{
-                                        (for $att in $related/@*
-                                        return
-                                             attribute {name($att)} {$att},                      
-                                        for $get-related in collection($config:data-root || "/places/tei")/id($place-id)
-                                        let $type := string($get-related/@type)
-                                        return 
-                                            (attribute type {$type}, $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en']))
-                                        }
-                                        </mutual>
-                                }
+                                         attribute {name($att)} {$att},                      
+                                for $get-related in collection($config:data-root || "/places/tei")/id($place-id)
+                                return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
+                            }
                             </relation>
-                          else ''  
-    
-                return ($active,$passive,$mutual)
-            }
+                    let $passive := 
+                        for $rel-item in tokenize($related/@passive,' ')
+                        let $item-id := tokenize($rel-item, '/')[last()]
+                        let $item-uri := $rel-item
+                        let $place-id := concat('place-',$item-id)
+                        return
+                            <relation id="{$item-id}" uri="{$item-uri}" varient="passive">
+                            {
+                                (for $att in $related/@*
+                                    return
+                                         attribute {name($att)} {$att},                      
+                                for $get-related in collection($config:data-root || "/places/tei")/id($place-id)
+                                return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
+                            }
+                            </relation>
+                    let $mutual := 
+                            if($related/@mutual) then
+                            let $mutual-string := normalize-space($related/@mutual)
+                            return
+                                <relation varient="mutual">
+                                    {
+                                        for $rel-item in tokenize($mutual-string,' ')
+                                        let $item-id := tokenize($rel-item, '/')[last()]
+                                        let $item-uri := $rel-item
+                                        let $place-id := concat('place-',$item-id)
+                                        return
+                                            <mutual id="{$item-id}">{
+                                            (for $att in $related/@*
+                                            return
+                                                 attribute {name($att)} {$att},                      
+                                            for $get-related in collection($config:data-root || "/places/tei")/id($place-id)
+                                            let $type := string($get-related/@type)
+                                            return 
+                                                (attribute type {$type}, $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en']))
+                                            }
+                                            </mutual>
+                                    }
+                                </relation>
+                              else ''  
+        
+                    return ($active,$passive,$mutual)
+                }
         </tei:related-places>
-        </tei:place>
-    </body>)
+    </place>)
 };
 
 (:
@@ -273,9 +273,9 @@ declare function place:related-places($node as node(), $model as map(*)){
 declare %templates:wrap function place:sources($node as node(), $model as map(*)){
     let $rec := $model("place-data")
     let $sources := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <place xmlns="http://www.tei-c.org/ns/1.0">
         {$rec//tei:place/tei:bibl}
-    </body>
+    </place>
     return app:tei2html($sources)
 };
 
@@ -284,11 +284,9 @@ declare %templates:wrap function place:sources($node as node(), $model as map(*)
 :)
 declare %templates:wrap function place:place-name($node as node(), $model as map(*)){
     let $names := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
-        <place>
+    <place xmlns="http://www.tei-c.org/ns/1.0">
             {$model("place-data")//tei:place/tei:placeName}
-        </place>
-    </body>
+    </place>
     return app:tei2html($names)
 };
 
@@ -298,11 +296,11 @@ declare %templates:wrap function place:place-name($node as node(), $model as map
 declare %templates:wrap function place:citation($node as node(), $model as map(*)){
     let $rec := $model("place-data")
     let $header := 
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <place xmlns="http://www.tei-c.org/ns/1.0">
         <citation xmlns="http://www.tei-c.org/ns/1.0">
             {$rec//tei:teiHeader | $rec//tei:bibl}
         </citation> 
-    </body>
+    </place>
     return app:tei2html($header)
 };
 
@@ -312,15 +310,16 @@ declare %templates:wrap function place:citation($node as node(), $model as map(*
 declare %templates:wrap function place:link-icons-list($node as node(), $model as map(*)){
 let $data := $model("place-data")
 let $links:=
-    <body xmlns="http://www.tei-c.org/ns/1.0">
+    <place xmlns="http://www.tei-c.org/ns/1.0">
         <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
             {$data/descendant::tei:place/descendant::tei:idno, $data/descendant::tei:place/descendant::tei:location}
         </see-also>
-    </body>
+    </place>
 return app:tei2html($links)
 };
 
 (:~ 
+ : @depreciated 
  : Pull together place page data   
  : Adds related places and nested locations to full TEI document
  : Passes xml to placepage.xsl for html transformation
