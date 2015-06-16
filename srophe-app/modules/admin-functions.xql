@@ -1,8 +1,6 @@
 xquery version "3.0";
 (:~
- : @deprecated, use RESTXQ module instead
- : Returns tie xml record
- : @param $id record id
+ : Used for testing on production server.
  :)
 import module namespace config="http://syriaca.org//config" at "config.xqm";
 
@@ -16,7 +14,9 @@ declare namespace request="http://exist-db.org/xquery/request";
 declare variable $id {request:get-parameter('id', '')};
 
 declare option exist:serialize "method=xml media-type=text/xml omit-xml-declaration=no indent=yes";
-
+(:
 let $path-to-xq := '/db/apps/srophe/modules/get-place-rec.xql'
 return
     sm:chmod(xs:anyURI($path-to-xq), 'rwxr-xr-x')
+    :)
+    rest:resource-functions()
