@@ -84,8 +84,10 @@
             
             <!-- Google map links -->
             <xsl:for-each select="//descendant::t:location[@type='gps']/t:geo">
+                <xsl:variable name="lat" select="substring-before(.,' ')"/>
+                <xsl:variable name="long" select="substring-after(.,' ')"/>
                 <!-- {$base}{$placeslevel}? -->
-                <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://syriaca.org/place/{$id}/atom">
+                <a href="http://www.google.com/maps/place/{$lat},{$long}">
                     <img src="/exist/apps/srophe/resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {$link-title} on Google Maps"/>
                 </a>
             </xsl:for-each>
@@ -175,7 +177,10 @@
                             <xsl:text>, </xsl:text>
                             <xsl:value-of select="$coords[1]"/>
                         </xsl:variable>
-                        <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://syriaca.org/place/{$resource-id}/atom">
+                        <xsl:variable name="lat" select="substring-before(.,' ')"/>
+                        <xsl:variable name="long" select="substring-after(.,' ')"/>
+                        <!-- {$base}{$placeslevel}? -->
+                        <a href="http://www.google.com/maps/place/{$lat},{$long}">
                             <img src="/exist/apps/srophe/resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {$link-title} on Google Maps"/> View in Google Maps</a>
                     </li>
                 </xsl:for-each>
@@ -246,7 +251,10 @@
                             <xsl:text>, </xsl:text>
                             <xsl:value-of select="$coords[1]"/>
                         </xsl:variable>
-                        <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://syriaca.org/place/{$id}/atom">
+                        <xsl:variable name="lat" select="substring-before(.,' ')"/>
+                        <xsl:variable name="long" select="substring-after(.,' ')"/>
+                        <!-- {$base}{$placeslevel}? -->
+                        <a href="http://www.google.com/maps/place/{$lat},{$long}">
                             <img src="/exist/apps/srophe/resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {$title} on Google Maps"/> View in Google Maps</a>
                     </li>
                 </xsl:for-each>
