@@ -9,6 +9,7 @@ xquery version "3.0";
 
 module namespace browse="http://syriaca.org//browse";
 
+import module namespace common="http://syriaca.org//common" at "search/common.xqm";
 import module namespace geo="http://syriaca.org//geojson" at "lib/geojson.xqm";
 import module namespace templates="http://syriaca.org//templates" at "templates.xql";
 import module namespace config="http://syriaca.org//config" at "config.xqm";
@@ -214,11 +215,14 @@ declare function browse:get-data($node as node(), $model as map(*),$coll){
     let $title := 
              if($browse:view = 'syr') then $syr-title else $en-title
     let $browse-title := browse:build-sort-string($title)
+    let $desc :=
+        if($data/descendant::tei:desc[starts-with(@xml:id,'abstract')]/descendant-or-self::text()) then common:truncate-sentance($data/descendant::tei:desc[starts-with(@xml:id,'abstract')]/descendant-or-self::text())
+        else ()
     (:where  browse:conditions($data, $browse-title, $coll):)
     order by $browse-title collation "?lang=en&lt;syr&amp;decomposition=full"             
-    return browse:format-list-items($en-title,$syr-title, $type,$uri))   
+    return browse:format-list-items($en-title,$syr-title, $type,$uri,$desc))   
 };
-
+ 
 (:Dynamic where:)
 declare function browse:conditions($data, $browse-title, $coll){
  if($browse:view ='en' or $browse:view = 'syr' or $browse:view ='') then 
@@ -283,32 +287,34 @@ else '0100-01-01'
  : @param $syr-title Syriac title passed from browse:get-data() function
  : @param $type record type passed from browse:get-data() function
  : @param $uri Syriaca.org id passed from browse:get-data() function
+ : @param $desc Record description, truncated
 :)
-declare function browse:format-list-items($en-title,$syr-title, $type,$uri){
-    if($browse:view = 'syr') then   
-            <li>
-                <a href="{replace($uri,'http://syriaca.org/','/')}">
-                    <bdi dir="rtl" lang="syr" xml:lang="syr">{$syr-title}</bdi> - 
-                    <bdi dir="ltr" lang="en" xml:lang="en">{($en-title, 
-                        if($type != '') then concat('(',$type,')') 
-                        else ())}
-                    </bdi>    
-                </a>
-            </li>
-     else 
-        <li>
-            <a href="{replace($uri,'http://syriaca.org/','/')}">{($en-title, 
-                if($type != '') then concat('(',$type,')')  
-                else () )}  
-                {
-                if($syr-title != '') then 
-                    if($syr-title = 'NA') then ()
-                    else
-                    (' - ',
-                    <bdi dir="rtl" lang="syr" xml:lang="syr">{$syr-title}</bdi>)
-                else ' - [Syriac Not Available]'}
-            </a>
-        </li>
+declare function browse:format-list-items($en-title,$syr-title, $type,$uri,$desc){
+<li class="results-list">
+{(
+    if($browse:view = 'syr') then
+        <a href="{replace($uri,'http://syriaca.org/','/')}">
+            <bdi dir="rtl" lang="syr" xml:lang="syr">{$syr-title}</bdi> - 
+            <bdi dir="ltr" lang="en" xml:lang="en">{($en-title, 
+              if($type != '') then concat('(',$type,')') 
+              else ())}
+            </bdi>    
+        </a>
+    else    
+        <a href="{replace($uri,'http://syriaca.org/','/')}">
+            {($en-title, 
+            if($type != '') then concat('(',$type,')')  
+            else () )}  
+            {
+            if($syr-title != '') then 
+            if($syr-title = 'NA') then ()
+            else
+            (' - ',
+            <bdi dir="rtl" lang="syr" xml:lang="syr">{$syr-title}</bdi>)
+            else ' - [Syriac Not Available]'}
+        </a>,
+    if($desc != '') then <span class="results-list-desc" dir="ltr" lang="en">{$desc}</span> else())}
+    </li>
 };
 
 (:~

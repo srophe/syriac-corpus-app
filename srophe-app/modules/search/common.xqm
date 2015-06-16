@@ -74,3 +74,12 @@ let $date-format := if(string-length($date) eq 4) then concat(string($date),'-01
 let $final-date := xs:date($date-format) 
 return $final-date
 };
+
+(:
+ : Function to truncate description text after first 12 words
+ : @param $string
+:)
+declare function common:truncate-sentance($sentance as xs:string*) as xs:string? {
+let $string := string-join($sentance, ' ')
+return concat(string-join(for $word in tokenize($string, '\W+')[position() lt 10] return $word, ' '),'...')
+};
