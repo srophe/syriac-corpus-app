@@ -134,8 +134,9 @@ h4 {font-size: 1em; margin-top:1em;}
 .inline-map {margin-left:-2em; margin-bottom:1em;}
 .map-lg #map {height:400px !important;}
 .map-md #map {height:300px !important;}
-.map-sm #map {height:250px !important;}
-    
+.map-sm #map {height:250px !important;} 
+.results-list {margin-left: 25px; border-bottom:1px dotted #eee; padding-top:.5em}
+.results-list-desc{display:block;padding-left:1.5em;}
 /* footnote styles */
 .footnote-refs, .footnote-tgt {
     font-size: .7em;
