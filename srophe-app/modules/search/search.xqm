@@ -283,7 +283,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                     else if($collection ='manuscripts') then ms:results-node($hit)
                     else search:results-node($hit)} 
                     <div style="margin-bottom:1em; margin-top:-1em; padding-left:1em;">
-                        {if($hit//tei:desc[starts-with(@xml:id,'abstract')]/descendant-or-self::text()) then common:truncate-sentance($hit//tei:desc[starts-with(@xml:id,'abstract')]/descendant-or-self::text()) else ()}
+                        {if($hit/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text()) then common:truncate-sentance($hit/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text()) else ()}
                     </div>
                   </div>
                 </div>

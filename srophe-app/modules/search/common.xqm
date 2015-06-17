@@ -3,6 +3,7 @@ xquery version "3.0";
  : Shared functions for search modules 
  :)
 module namespace common="http://syriaca.org//common";
+declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 (:~
  : Cleans search parameters to replace bad/undesirable data in strings

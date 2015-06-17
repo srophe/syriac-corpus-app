@@ -216,11 +216,15 @@ declare function browse:get-data($node as node(), $model as map(*),$coll){
              if($browse:view = 'syr') then $syr-title else $en-title
     let $browse-title := browse:build-sort-string($title)
     let $desc :=
-        if($data/descendant::tei:desc[starts-with(@xml:id,'abstract')]/descendant-or-self::text()) then common:truncate-sentance($data/descendant::tei:desc[starts-with(@xml:id,'abstract')]/descendant-or-self::text())
+        if($data/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text()) then
+            common:truncate-sentance($data/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text())
         else ()
+    let $birth := if($data/@ana) then $data/tei:birth else()
+    let $death := if($data/@ana) then $data/tei:death else()
+    let $dates := concat(if($birth) then $birth/text() else(), if($birth and $death) then ' - ' else if($death) then 'd.' else(), if($death) then $death/text() else())
     (:where  browse:conditions($data, $browse-title, $coll):)
     order by $browse-title collation "?lang=en&lt;syr&amp;decomposition=full"             
-    return browse:format-list-items($en-title,$syr-title, $type,$uri,$desc))   
+    return browse:format-list-items($en-title,$syr-title, $type, $uri, $desc, $dates))   
 };
  
 (:Dynamic where:)
@@ -289,21 +293,21 @@ else '0100-01-01'
  : @param $uri Syriaca.org id passed from browse:get-data() function
  : @param $desc Record description, truncated
 :)
-declare function browse:format-list-items($en-title,$syr-title, $type,$uri,$desc){
+declare function browse:format-list-items($en-title,$syr-title, $type, $uri, $desc, $dates){
 <li class="results-list">
 {(
     if($browse:view = 'syr') then
         <a href="{replace($uri,'http://syriaca.org/','/')}">
             <bdi dir="rtl" lang="syr" xml:lang="syr">{$syr-title}</bdi> - 
             <bdi dir="ltr" lang="en" xml:lang="en">{($en-title, 
-              if($type != '') then concat('(',$type,')') 
+              if($type != '') then concat('(',$type, if($dates) then ', ' else(), $dates ,')') 
               else ())}
             </bdi>    
         </a>
     else    
         <a href="{replace($uri,'http://syriaca.org/','/')}">
             {($en-title, 
-            if($type != '') then concat('(',$type,')')  
+            if($type != '') then concat('(',$type, if($dates) then ', ' else(), $dates ,')')
             else () )}  
             {
             if($syr-title != '') then 
@@ -314,7 +318,7 @@ declare function browse:format-list-items($en-title,$syr-title, $type,$uri,$desc
             else ' - [Syriac Not Available]'}
         </a>,
     if($desc != '') then <span class="results-list-desc" dir="ltr" lang="en">{$desc}</span> else())}
-    </li>
+</li>
 };
 
 (:~

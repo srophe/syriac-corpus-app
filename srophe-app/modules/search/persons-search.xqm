@@ -306,9 +306,12 @@ declare function persons:results-node($hit){
                                 {string-join($root/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang='syr']/descendant::text(),' ')}
                             </bdi>)
                     else ''
+    let $birth := if($root/@ana) then $root/tei:birth else()
+    let $death := if($root/@ana) then $root/tei:death else()
+    let $dates := concat(if($birth) then $birth/text() else(), if($birth and $death) then ' - ' else if($death) then 'd.' else(), if($death) then $death/text() else())                    
     let $type := if($root/@ana) then  
-                    <bdi dir="ltr" lang="en" xml:lang="en"> ({replace($root/@ana,'#syriaca-','')})</bdi>
-                  else ''  
+                    <bdi dir="ltr" lang="en" xml:lang="en"> ({(replace($root/@ana,'#syriaca-',''),if($dates) then concat(', ',$dates) else())})</bdi>
+                  else ''                      
     let $id := substring-after($root/@xml:id,'-')                  
     return
         <p style="font-weight:bold padding:.5em;">
@@ -329,8 +332,11 @@ declare function persons:saints-results-node($hit){
                                 {string-join($root/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang='syr']/descendant::text(),' ')}
                             </bdi>)
                     else ''
+    let $birth := if($root/@ana) then $root/tei:birth else()
+    let $death := if($root/@ana) then $root/tei:death else()
+    let $dates := concat(if($birth) then $birth/text() else(), if($birth and $death) then ' - ' else if($death) then 'd.' else(), if($death) then $death/text() else())                    
     let $type := if($root/@ana) then  
-                    <bdi dir="ltr" lang="en" xml:lang="en"> ({replace($root/@ana,'#syriaca-','')})</bdi>
+                    <bdi dir="ltr" lang="en" xml:lang="en"> ({(replace($root/@ana,'#syriaca-',''),if($dates) then concat(', ',$dates) else())})</bdi>
                   else ''  
     let $id := substring-after($root/@xml:id,'-')                  
     return
