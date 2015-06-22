@@ -4,14 +4,11 @@ module namespace api="http://syriaca.org/api";
 
 import module namespace geo="http://syriaca.org//geojson" at "lib/geojson.xqm";
 import module namespace feed="http://syriaca.org//atom" at "lib/atom.xqm";
-import module namespace search="http://syriaca.org//search" at "search/search.xqm";
 import module namespace common="http://syriaca.org//common" at "search/common.xqm";
-import module namespace templates="http://exist-db.org/xquery/templates";
+(:import module namespace templates="http://exist-db.org/xquery/templates";:)
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 
 import module namespace config="http://syriaca.org//config" at "config.xqm";
-
-import module namespace req="http://exquery.org/ns/request";
 
 (: For output annotations  :)
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
@@ -21,8 +18,6 @@ declare namespace rest = "http://exquery.org/ns/restxq";
 
 (: For interacting with the TEI document :)
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
-
-declare namespace xmldb = "http://exist-db.org/xquery/xmldb";
 
 (:~
   : Use resxq to format urls for geographic API
@@ -35,7 +30,7 @@ declare
     %rest:GET
     %rest:path("/srophe/api/geo/json")
     %rest:query-param("type", "{$type}", "")
-    %rest:query-param("output", "{$output}", "")
+    %rest:query-param("output", "{$output}", "json")
     %output:media-type("application/json")
     (:%output:method("json"):)
 function api:get-geo-json($type as xs:string*, $output as xs:string*) {
@@ -44,7 +39,7 @@ function api:get-geo-json($type as xs:string*, $output as xs:string*) {
     <http:header name="Content-Type" value="application/json; charset=utf-8"/> 
   </http:response> 
 </rest:response>, 
-     xqjson:serialize-json(geo:json-wrapper((), $type, $output))
+     api:get-geojson-node($type,$output)
 ) 
 
 };
@@ -55,7 +50,6 @@ function api:get-geo-json($type as xs:string*, $output as xs:string*) {
   : for acceptable types 
   : @param $output passed to geojson.xqm to correctly serialize results
   : Serialized as KML
-      %output:encoding("UTF-8")
 :)
 declare
     %rest:GET
@@ -70,11 +64,9 @@ function api:get-geo-kml($type as xs:string*, $output as xs:string*) {
     <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
   </http:response> 
 </rest:response>, 
-     geo:kml-wrapper((), $type, $output) 
+     api:get-geojson-node($type,$output) 
 ) 
 };
-
-
 
 (:~
   : Use resxq to format urls for a search API
@@ -101,11 +93,22 @@ function api:search-api($q as xs:string*,$place as xs:string*,$person as xs:stri
     <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
   </http:response> 
 </rest:response>,
-let $hits := util:eval(search:search-api($q,$place,$person))
+let $keyword-string := 
+    if(exists($q) and $q != '') then concat("[ft:query(.,'",common:clean-string($q),"',common:options())]")
+    else ()    
+let $place-name := 
+    if(exists($place) and $place != '') then concat("[ft:query(descendant::tei:placeName,'",common:clean-string($place),"',common:options())]")
+    else ()
+let $pers-name := 
+    if(exists($person) and $person != '') then concat("[ft:query(descendant::tei:persName,'",common:clean-string($person),"',common:options())]")
+    else ()
+let $query-string := concat("collection('",$config:data-root,"')//tei:body",$keyword-string,$pers-name,$place-name)
+let $hits := util:eval($query-string)
 let $total := count($hits)
 return feed:build-atom-feed($hits, $start, $perpage, $q, $total)
 ) 
 };
+
 
 
 (:~
@@ -191,7 +194,10 @@ function api:get-atom-feed($collection as xs:string, $start as xs:integer*, $per
         <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
       </http:response> 
     </rest:response>, 
-     feed:build-feed($collection, $start, $perpage)
+    let $feed := collection(xs:anyURI($config:data-root || $collection ))//tei:TEI
+    let $total := count($feed)
+    return
+     feed:build-atom-feed($feed, $start, $perpage,'',$total)
      )
 }; 
 
@@ -239,4 +245,24 @@ declare function api:get-tei-rec($collection as xs:string, $id as xs:string) as 
                 }
              </tei:TEI>
         else doc($path)/child::*
+};
+
+(:~
+ : Build selects coordinates
+:)
+declare function api:get-geojson-node($type,$output){
+let $geo-map :=
+    if($type) then
+        if(contains($type,',')) then 
+            let $types := 
+                if(contains($type,',')) then  string-join(for $type-string in tokenize($type,',') return concat('"',$type-string,'"'),',')
+                else $type
+            let $path := concat("collection('",$config:data-root,"/places/tei')//tei:place[@type = (",$types,")]//tei:geo") 
+            for $recs in util:eval($path) 
+            return $recs 
+        else collection($config:data-root || "/places/tei")//tei:place[@type=$type]//tei:geo
+    else collection($config:data-root || "/places/tei")//tei:geo
+return
+    if($output = 'json') then xqjson:serialize-json(geo:json-wrapper(($geo-map), $type, $output))
+    else geo:kml-wrapper(($geo-map), $type, $output)
 };
