@@ -7,7 +7,6 @@ module namespace geo="http://syriaca.org//geojson";
  : @authored 2014-06-25
 :)
 
-import module namespace config="http://syriaca.org//config" at "../config.xqm";
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 
 declare namespace json = "http://www.json.org";
@@ -21,7 +20,7 @@ declare namespace transform="http://exist-db.org/xquery/transform";
  : @param $rec-type place type
  : @param $title place title
 :)
-declare function geo:build-json($geo as xs:string,$id as xs:string, $rec-type as xs:string, $title as xs:string, $rec-rel as xs:string?) as element(features){    
+declare function geo:build-json($geo as xs:string,$id as xs:string, $rec-type as xs:string, $title as xs:string, $rec-rel as xs:string) as element(features){    
     <item type="object">
         <pair name="type"  type="string">Feature</pair>
         <pair name="geometry"  type="object">
@@ -71,24 +70,7 @@ declare function geo:build-kml($geo as xs:string,$id as xs:string, $rec-type as 
  : @param $output indicates json or kml
 :)
 declare function geo:get-coordinates($geo-search as element()*, $type as xs:string*, $output as xs:string*) as element()*{
-    let $geo-map :=
-        if(not(empty($geo-search))) then 
-            map{"geo-data" := $geo-search}
-        else if(exists($type) and $type != '') then
-            if(contains($type,',')) then
-               map{"geo-data" :=  
-                let $types := 
-                    if(contains($type,',')) then 
-                        string-join(
-                            for $type-string in tokenize($type,',')
-                            return concat('"',$type-string,'"'),',')
-                        else $type
-                let $path := concat("collection('",$config:data-root,"/places/tei')//tei:place[@type = (",$types,")]//tei:geo") 
-                for $rec in util:eval($path) 
-                return $rec    
-                }
-            else  map{"geo-data" := collection($config:data-root || "/places/tei")//tei:place[@type=$type]//tei:geo} 
-        else map{"geo-data" := collection($config:data-root || "/places/tei")//tei:geo} 
+    let $geo-map :=  map{"geo-data" := $geo-search}        
     for $place-name in map:get($geo-map, 'geo-data')
     let $id := string($place-name/ancestor::tei:place/@xml:id)
     let $rec-type := string($place-name/ancestor::tei:place/@type)
