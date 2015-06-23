@@ -45,9 +45,9 @@ declare function browse:get-all($node as node(), $model as map(*), $coll as xs:s
 let $browse-path := 
     if($coll = ('persons','authors','saints')) then concat("collection('",$config:data-root,"/persons/tei')//tei:person",browse:get-pers-coll($coll),browse:get-syr()) 
     else if($coll = 'places') then concat("collection('",$config:data-root,"/places/tei')//tei:place",browse:get-syr())
-    else if($coll = 'saints-works') then concat("collection('",$config:data-root,"/works/tei')//tei:body/tei:bibl",browse:get-syr())
-    else if(exists($coll)) then concat("collection('",$config:data-root,xs:anyURI($coll),"')//tei:body",browse:get-syr())
-    else concat("collection('",$config:data-root,"')//tei:body",browse:get-syr())
+    else if($coll = 'saints-works') then concat("collection('",$config:data-root,"/works/tei')//tei:bibl[@ana]",browse:get-syr())
+    else if(exists($coll)) then concat("collection('",$config:data-root,'/',xs:anyURI($coll),"')//tei:body/child::*",browse:get-syr())
+    else concat("collection('",$config:data-root,"')//tei:body/child::*",browse:get-syr())
 return 
     map{"browse-data" := util:eval($browse-path)}        
 };
