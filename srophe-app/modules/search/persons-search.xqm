@@ -62,17 +62,6 @@ declare function persons:uri() as xs:string? {
     else ()
 };
 
-(:~
- : Search limit by person type. 
-:)
-declare function persons:type() as xs:string?{
-    if($persons:type != '') then
-        if($persons:type = 'any') then ()
-        else
-         concat("[descendant::tei:person[@ana = '#syriaca-",$persons:type,"']]")
-    else ()
-};
-
 declare function persons:date-birth() as xs:string?{
 if($persons:start-date !='' and $persons:end-date !='') then 
     concat("[descendant::tei:birth[(@syriaca-computed-start gt '",common:do-date($persons:start-date),"') and (@syriaca-computed-start lt '",common:do-date($persons:end-date),"')]]")
@@ -220,26 +209,23 @@ declare function persons:mentioned() as xs:string?{
     else ()
 };
 
+declare function persons:type($coll) as xs:string{
+if($coll != '') then
+    if($coll = 'authors') then 
+    "[descendant::tei:person/@ana = '#syriaca-author']"
+    else if($coll = 'saints') then 
+    "[descendant::tei:person/@ana = '#syriaca-saint']"
+    else ''
+else ''
+};
+
 (:~
  : Build query string to pass to search.xqm 
 :)
-declare function persons:query-string() as xs:string? {
+declare function persons:query-string($coll) as xs:string? {
  concat("collection('",$config:data-root,"/persons/tei')//tei:body",
+    persons:type($coll),
     persons:keyword(),
-    persons:type(),
-    persons:name(),
-    persons:uri(),
-    persons:date-range(),
-    persons:related-places(),
-    persons:related-persons(),
-    persons:mentioned()
-    )
-};
-
-declare function persons:saints-query-string() as xs:string? {
- concat("collection('",$config:data-root,"/persons/tei')//tei:body",
-    persons:keyword(),
-    "[descendant::tei:person/@ana = '#syriaca-saint']",
     persons:name(),
     persons:uri(),
     persons:date-range(),
@@ -355,32 +341,18 @@ declare function persons:search-form($coll) {
                 <label for="type" class="col-sm-2 col-md-3  control-label">Search in: </label>
                 <div class="col-sm-10 col-md-6">
                     <select name="type" id="type" class="form-control">
-                            <option value="any">
-                            {
-                            if($coll = 'person') then attribute selected { "true" }
-                            else ()
-                            }
-                            All
+                            <option value="any">{if($coll = 'persons') then attribute selected { "true" } else ()}
+                                All
                             </option>
-                            <option value="any">
-                            {
-                            if($coll = 'person') then attribute selected { "true" }
-                            else ()
-                            }
-                            SBD
+                            <option value="any">{if($coll = 'persons') then attribute selected { "true" } else ()}
+                                SBD
                             </option>
-                            <option value="saint">
-                            {
-                            if($coll = 'saint') then attribute selected { "true" }
-                            else ()
-                            }
-                            Saints</option>
-                            <option value="author">
-                            {
-                            if($coll = 'author') then attribute selected { "true" }
-                            else ()
-                            }
-                            Authors</option>
+                            <option value="saint">{if($coll = 'saints') then attribute selected { "true" } else ()}
+                                Saints
+                            </option>
+                            <option value="author">{if($coll = 'authors') then attribute selected { "true" } else ()}
+                                Authors
+                            </option>
                         </select>
                 </div>
             </div>
