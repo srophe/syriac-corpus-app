@@ -231,6 +231,12 @@
                         <surname>Collins</surname>
                     </persName>
                 </person>
+                <person xml:id="dboero">
+                    <persName xml:lang="en">
+                        <forename>Dina</forename>
+                        <surname>Boero</surname>
+                    </persName>
+                </person>
                 <org xml:id="uasyriacresearchgroup">
                     <name xml:lang="en">The Syriac Research Group, University of Alabama</name>
                 </org>
