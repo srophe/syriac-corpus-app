@@ -82,5 +82,58 @@ return $final-date
 :)
 declare function common:truncate-sentance($sentance as xs:string*) as xs:string? {
 let $string := string-join($sentance, ' ')
-return concat(string-join(for $word in tokenize($string, '\W+')[position() lt 10] return $word, ' '),'...')
+return 
+    if(count(tokenize($string, '\W+')[. != '']) gt 12) then concat(string-join(for $word in tokenize($string, '\W+')[position() lt 12] return $word, ' '),'...')
+    else $string
+};
+
+(:
+ : Formats search and browse results 
+ : Uses English and Syriac headwords if available, tei:teiHeader/tei:title if no headwords.
+ : Should handle all data types, and eliminate the need for 
+ : data type specific display functions eg: persons:saints-results-node()
+ : @param $node search/browse hits should be either tei:person, tei:place, or tei:body
+ : Used by search.xqm and browse.xqm
+:)
+declare function common:display-recs-short-view($node) as node()*{
+let $ana := if($node/descendant-or-self::tei:person/@ana) then replace($node/descendant-or-self::tei:person/@ana,'#syriaca-',' ') else ()
+let $type := if($node/descendant-or-self::tei:place/@type) then string($node/descendant-or-self::tei:place/@type) else ()
+let $uri := 
+        if($node//tei:idno[@type='URI'][starts-with(.,'http://syriaca.org/')]) then
+                string(replace($node//tei:idno[@type='URI'][starts-with(.,'http://syriaca.org/')][1],'/tei',''))
+        else string($node//tei:div[1]/@uri)
+let $en-title := 
+             if($node/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*) then 
+                 string-join($node/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*/text(),' ')
+             else if(string-join($node/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text())) then 
+                string-join($node/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text(),' ')   
+             else $node/ancestor::tei:TEI/descendant::tei:title[1]/text()       
+let $syr-title := 
+             if($node/descendant::*[@syriaca-tags='#syriaca-headword'][1]) then
+                if($node/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/child::*) then 
+                 string-join($node/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/child::*/text(),' ')
+                else string-join($node/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/text(),' ')
+             else 'NA' 
+let $birth := if($ana) then $node/descendant::tei:birth else()
+let $death := if($ana) then $node/descendant::tei:death else()
+let $dates := concat(if($birth) then $birth/text() else(), if($birth and $death) then ' - ' else if($death) then 'd.' else(), if($death) then $death/text() else())    
+let $desc :=
+        if($node/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text()) then
+            common:truncate-sentance($node/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text())
+        else ()
+return
+    <p class="results-list">
+       <a href="{replace($uri,'http://syriaca.org/','/exist/apps/srophe/')}">
+        {($en-title,
+          if($type) then concat('(',$type,')') else (),
+          if($syr-title) then 
+            if($syr-title = 'NA') then ()
+            else (' - ', <bdi dir="rtl" lang="syr" xml:lang="syr">{$syr-title}</bdi>)
+          else ' - [Syriac Not Available]')}   
+       </a>
+       {if($ana) then
+            <span class="results-list-desc" dir="ltr" lang="en">{concat('(',$ana, if($dates) then ', ' else(), $dates ,')')}</span>
+        else ()}
+     <span class="results-list-desc" dir="ltr" lang="en">{concat($desc,' ')}<span class="srp-label">URI: </span><a href="{$uri}">{$uri}</a></span>
+    </p>
 };
