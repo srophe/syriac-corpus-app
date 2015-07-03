@@ -23,6 +23,15 @@ replace(replace(replace($param-string, "(^|\W\*)|(^|\W\?)|[!@#$%^+=_]:", ""), '&
 };
 
 (:~
+ : Strips english titles of non-sort characters as established by Syriaca.org
+ : Used for sorting for browse and search modules
+ : @param $titlestring 
+ :)
+declare function common:build-sort-string($titlestring as xs:string*) as xs:string* {
+    replace(replace(replace(replace($titlestring,'^\s+',''),'^al-',''),'[‘ʻʿ]',''),'On ','')
+};
+
+(:~
  : Search options passed to ft:query functions
 :)
 declare function common:options(){

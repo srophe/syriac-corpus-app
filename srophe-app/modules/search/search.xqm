@@ -19,6 +19,7 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
  : Shared global parameters for building search paging function
 :)
 declare variable $search:start {request:get-parameter('start', 1) cast as xs:integer};
+declare variable $search:sort {request:get-parameter('sort', '') cast as xs:string};
 declare variable $search:perpage {request:get-parameter('perpage', 1) cast as xs:integer};
 declare variable $search:collection {request:get-parameter('collection', '') cast as xs:string};
 
@@ -31,7 +32,8 @@ declare variable $search:collection {request:get-parameter('collection', '') cas
 declare %templates:wrap function search:get-results($node as node(), $model as map(*), $collection as xs:string?){
     let $coll := if($search:collection != '') then $search:collection else $collection
     let $eval-string := 
-                        if($coll = 'persons' or 'authors' or 'saints') then persons:query-string($coll)
+                        if($coll = 'persons') then persons:query-string()
+                        else if($coll ='saints') then persons:saints-query-string()
                         else if($coll ='spear') then spears:query-string()
                         else if($coll = 'places') then places:query-string()
                         else if($coll = 'manuscripts') then ms:query-string()
@@ -40,11 +42,42 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
     map {"hits" := 
                 let $hits := util:eval($eval-string)    
                 for $hit in $hits
-                order by ft:score($hit) descending
+                let $en-title := 
+                             if($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*) then 
+                                 string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*/text(),' ')
+                             else if(string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text())) then 
+                                string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text(),' ')   
+                             else $hit/ancestor::tei:TEI/descendant::tei:title[1]/text()
+                let $date := 
+                            if($hit/descendant::tei:birth) then $hit/descendant::tei:birth/@syriaca-computed-start
+                            else if($hit/descendant::tei:death) then $hit/descendant::tei:death/@syriaca-computed-start
+                            else ()
+                let $sort := 
+                    if($search:sort = 'alpha') then common:build-sort-string($en-title) 
+                    else if($search:sort = 'date') then xs:date($date)
+                    else ft:score($hit)
+                order by $sort ascending
                 return $hit
          }
 };
+(:
+let $en-title := 
+             if($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*) then 
+                 string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*/text(),' ')
+             else if(string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text())) then 
+                string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text(),' ')   
+             else $hit/ancestor::tei:TEI/descendant::tei:title[1]/text()
+let $date := 
+            if($hit/descendant::tei:birth) then $hit/descendant::tei:birth/@syriaca-computed-start
+            else if($hit/descendant::tei:death) then $hit/descendant::tei:death/@syriaca-computed-start
+            else ()
+let $sort := 
+    if($search:sort = 'alpha') then common:build-sort-string($en-title) 
+    else if($search:sort = 'date') then $date
+    else ft:score($hit)
+order by $sort descending
 
+:)
 (:~
  : Builds general search string from main syriaca.org page and search api.
 :)
@@ -77,10 +110,9 @@ return $query-string
  : @param $collection passed from search page templates
 :)
 declare function search:search-string($collection as xs:string?){
-    if($collection = 'persons' or 'authors' or 'saints') then persons:search-string()
+    if($collection = 'persons') then persons:search-string()
     else if($collection ='spear') then spears:search-string()
-    else if($collection ='places') then places:search-string()
-    else search:query-string($collection)
+    else places:search-string()
 };
 
 declare %templates:wrap function search:spear-facets($node as node(), $model as map(*)){
@@ -122,11 +154,20 @@ let $current-page := xs:integer(($start + $perpage) div $perpage)
 (: get all parameters to pass to paging function:)
 let $url-params := replace(request:get-query-string(), '&amp;start=\d+', '')
 let $parameters :=  request:get-parameter-names()
-let $search-string: = 
-        for $parameter in $parameters
-        return request:get-parameter($parameter, '')
-        (:if($parameter = 'search' or starts-with($parameter,'start')) then ''
-               else search:clean-string(request:get-parameter($parameter, '')):)
+let $sort-options :=
+                <li class="pull-right">
+                    <div class="btn-group">
+                        <div class="dropdown"><button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">Sort <span class="caret"/></button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="{concat('?', replace($url-params,'&amp;sort=(\w+)', ''), '&amp;start=', $start,'&amp;sort=rel')}" id="rel">Relevance</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="{concat('?', replace($url-params,'&amp;sort=(\w+)', ''), '&amp;start=', $start,'&amp;sort=alpha')}" id="alpha">Alphabetical (Title)</a></li>
+                                {if($collection != 'places') then
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{concat('?', replace($url-params,'&amp;sort=(\w+)', ''), '&amp;start=', $start,'&amp;sort=date')}" id="date">Date</a></li>
+                                else()}
+                            </ul>
+                        </div>
+                    </div>
+                </li>
 let $pagination-links := 
         <div class="row" xmlns="http://www.w3.org/1999/xhtml">
             <div class="col-sm-5">
@@ -174,12 +215,17 @@ let $pagination-links :=
                               else
                                   <li><a href="{concat('?', $url-params, '&amp;start=', $start + $perpage)}">Next</a></li>
                           }
+                          {$sort-options}
                       </ul>
               </div>
-             else '' 
+             else 
+             <div class="col-md-7">
+                <ul class="pagination  pull-right">
+                   {$sort-options}
+                </ul>
+             </div>
              }
         </div>    
-
 return 
    if(exists(request:get-parameter-names())) then $pagination-links
    else ()
@@ -234,58 +280,11 @@ return
 declare %templates:wrap  function search:show-form($node as node()*, $model as map(*), $collection as xs:string?) {   
     if(exists(request:get-parameter-names())) then ''
     else 
-        if($collection = 'persons' or 'authors' or 'saints') then <div>{persons:search-form($collection)}</div>
+        if($collection = 'persons') then <div>{persons:search-form('person')}</div>
+        else if($collection = 'saints') then <div>{persons:search-form('saint')}</div>
         else if($collection ='spear') then <div>{spears:search-form()}</div>
         else if($collection ='manuscripts') then <div>{ms:search-form()}</div>
         else <div>{places:search-form()}</div>
-};
-
-(:~
- : Generic search output
- : Formats English and Syriac headwords if available
- : Uses tei:teiHeader//tei:title if no headwords.
- : Should handle all data types, and eliminate the need for 
- : data type specific display functions eg: persons:saints-results-node()
-:)
-declare function search:results-node($hit){
-    let $data := $hit  
-    let $type := if($data/descendant::tei:person/@ana) then replace($data/descendant::tei:person/@ana,'#syriaca-',' ') else if($data/descendant::tei:place/@type) then string($data/descendant::tei:place/@type) else ()
-    let $id := 
-        if($hit//tei:idno[@type='URI'][starts-with(.,'http://syriaca.org/')]) then
-                string(replace($hit//tei:idno[@type='URI'][starts-with(.,'http://syriaca.org/')][1],'/tei',''))
-        else string($hit//tei:div[1]/@uri)
-    let $en-title := 
-             if($data/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]) then
-                if($data/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*) then 
-                    string-join($data/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*/text(),' ')
-                else string($data/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text())  
-             else ()
-    let $syr-title := 
-             if($data/descendant::*[@syriaca-tags='#syriaca-headword'][1]) then
-                if($data/descendant::*[@syriaca-tags='#syriaca-headword'][1]/child::*) then
-                 string-join($data/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/child::*/text(),' ')
-                else string($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/text())   
-             else 'NA'
-    let $birth := if($data/descendant::*/@ana) then $data/descendant::tei:birth else()
-    let $death := if($data/descendant::*/@ana) then $data/descendant::tei:death else()
-    let $dates := concat(if($birth) then $birth/text() else(), if($birth and $death) then ' - ' else if($death) then 'd.' else(), if($death) then $death/text() else())
-    let $title := 
-            if($en-title) then 
-                <a href="{replace($id,'http://syriaca.org/','/exist/apps/srophe/')}">
-                    {($en-title, 
-                        if($type != '') then concat('(',$type, if($dates) then ', ' else(), $dates ,')')
-                        else () )}  
-                    {
-                        if($syr-title != '') then 
-                           if($syr-title = 'NA') then ()
-                           else (' - ', <bdi dir="rtl" lang="syr" xml:lang="syr">{$syr-title}</bdi>)
-                        else ' - [Syriac Not Available]'}
-                </a>
-            else <a href="{replace($id,'http://syriaca.org/','/')}">{$data/ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:title}</a>    
-    return
-        <p style="font-weight:bold padding:.5em;">
-           {$title}
-        </p>
 };
 
 (:~ 
@@ -306,13 +305,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                     <span class="label label-default">{$search:start + $p - 1}</span>
                   </div>
                   <div class="col-md-9" xml:lang="en"> 
-                    {search:results-node($hit)} 
-                    <div>
-                        {
-                        if($hit/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text()) then 
-                            <span class="results-list-desc" dir="ltr" lang="en">{common:truncate-sentance($hit/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text())}</span> 
-                        else()}
-                    </div>
+                    {common:display-recs-short-view($hit)} 
                   </div>
                 </div>
             </div>
