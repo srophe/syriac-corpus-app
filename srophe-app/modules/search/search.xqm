@@ -40,44 +40,31 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                         else search:query-string($collection)
     return                         
     map {"hits" := 
-                let $hits := util:eval($eval-string)    
-                for $hit in $hits
-                let $en-title := 
-                             if($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*) then 
-                                 string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*/text(),' ')
-                             else if(string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text())) then 
-                                string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text(),' ')   
-                             else $hit/ancestor::tei:TEI/descendant::tei:title[1]/text()
-                let $date := 
+                if($search:sort = 'alpha') then 
+                    for $hit in util:eval($eval-string)
+                    let $en-title := 
+                                 if($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*) then 
+                                     string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*/text(),' ')
+                                 else if(string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text())) then 
+                                    string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text(),' ')   
+                                 else $hit/ancestor::tei:TEI/descendant::tei:title[1]/text()
+                    order by common:build-sort-string($en-title) ascending
+                    return $hit                                                     
+                else if($search:sort = 'date') then 
+                    for $hit in util:eval($eval-string)
+                    let $date := 
                             if($hit/descendant::tei:birth) then $hit/descendant::tei:birth/@syriaca-computed-start
                             else if($hit/descendant::tei:death) then $hit/descendant::tei:death/@syriaca-computed-start
                             else ()
-                let $sort := 
-                    if($search:sort = 'alpha') then common:build-sort-string($en-title) 
-                    else if($search:sort = 'date') then xs:date($date)
-                    else ft:score($hit)
-                order by $sort ascending
-                return $hit
+                    order by xs:date($date) ascending
+                    return $hit 
+                else 
+                    for $hit in util:eval($eval-string)
+                    order by ft:score($hit) * count($hit/descendant::tei:bibl) descending
+                    return $hit
          }
 };
-(:
-let $en-title := 
-             if($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*) then 
-                 string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*/text(),' ')
-             else if(string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text())) then 
-                string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text(),' ')   
-             else $hit/ancestor::tei:TEI/descendant::tei:title[1]/text()
-let $date := 
-            if($hit/descendant::tei:birth) then $hit/descendant::tei:birth/@syriaca-computed-start
-            else if($hit/descendant::tei:death) then $hit/descendant::tei:death/@syriaca-computed-start
-            else ()
-let $sort := 
-    if($search:sort = 'alpha') then common:build-sort-string($en-title) 
-    else if($search:sort = 'date') then $date
-    else ft:score($hit)
-order by $sort descending
 
-:)
 (:~
  : Builds general search string from main syriaca.org page and search api.
 :)
