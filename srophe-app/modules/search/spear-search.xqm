@@ -7,6 +7,7 @@ module namespace spears="http://syriaca.org//spears";
 import module namespace functx="http://www.functx.com";
 import module namespace facets="http://syriaca.org//facets" at "../facets.xqm";
 import module namespace app="http://syriaca.org//templates" at "../app.xql";
+import module namespace config="http://syriaca.org//config" at "../config.xqm";
 import module namespace common="http://syriaca.org//common" at "common.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
