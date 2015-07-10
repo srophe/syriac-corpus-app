@@ -28,7 +28,7 @@
                         Distributed under a Creative Commons Attribution 3.0 Unported License
                     </licence>
                 </availability>
-                <date>2014-07-29</date>
+                <date>2015-07-10</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -40,6 +40,9 @@
             </editorialDecl>
         </encodingDesc>
         <revisionDesc>
+            <change type="reminder">Please be sure to update the publication date when changes are made here!</change>
+            <change when="2015-07-10" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Andrea Schmidt and Philip Forness as area editors</change>
+            <change when="2015-06-29" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Dina Boero as contributor</change>
             <change when="2015-05-12" who="http://syriaca.org/documentation/editors.xml#dmichelson">ADDED: More MSS editors list</change>
             <change when="2015-05-12" who="http://syriaca.org/documentation/editors.xml#dmichelson">ADDED: MSS editors list</change>
             <change when="2015-05-06" who="http://syriaca.org/documentation/editors.xml#dmichelson">ADDED: MSS editors list</change>
@@ -235,6 +238,18 @@
                     <persName xml:lang="en">
                         <forename>Dina</forename>
                         <surname>Boero</surname>
+                    </persName>
+                </person>
+                <person xml:id="aschmidt">
+                    <persName xml:lang="en">
+                        <forename>Andrea</forename>
+                        <surname>Schmidt</surname>
+                    </persName>
+                </person>
+                <person xml:id="pforness">
+                    <persName xml:lang="en">
+                        <forename>Philip</forename>
+                        <surname>Forness</surname>
                     </persName>
                 </person>
                 <org xml:id="uasyriacresearchgroup">
