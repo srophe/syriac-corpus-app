@@ -209,7 +209,20 @@ h4 {font-size: 1em; margin-top:1em;}
  font-size:1.25em; 
  line-height:1em;
 }
-
+/* CSS shim recommended by W3C http://www.w3.org/International/articles/inline-bidi-markup/#tightwrap*/
+[dir='ltr'], [dir='rtl'] { 
+	unicode-bidi: -webkit-isolate;
+	unicode-bidi: -moz-isolate;
+	unicode-bidi: -ms-isolate;
+	unicode-bidi: isolate;
+	} 
+bdo[dir='ltr'], bdo[dir='rtl'] {
+	unicode-bidi: bidi-override; 
+	unicode-bidi: -webkit-isolate-override; 
+	unicode-bidi: -moz-isolate-override; 
+	unicode-bidi: -ms-isolate-override; 
+	unicode-bidi: isolate-override;
+  	}
 /* Browse tabs and side menues */  	
 .tab-pane {
 	padding: 1em;

@@ -292,7 +292,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                     <span class="label label-default">{$search:start + $p - 1}</span>
                   </div>
                   <div class="col-md-9" xml:lang="en"> 
-                    {common:display-recs-short-view($hit)} 
+                    {if($collection = 'spear') then spears:results-node($hit) else common:display-recs-short-view($hit)} 
                   </div>
                 </div>
             </div>
