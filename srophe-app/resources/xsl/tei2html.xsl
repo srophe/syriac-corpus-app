@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:s="http://syriaca.org" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -423,7 +423,7 @@
                     <xsl:value-of select="concat(upper-case(substring(current-grouping-key(),1,1)),substring(current-grouping-key(),2))"/>
                 </h3>
                 <ul>
-                    <xsl:for-each select="current-group()">    
+                    <xsl:for-each select="current-group()">
                         <xsl:apply-templates select="self::*"/>
                     </xsl:for-each>
                 </ul>
@@ -561,12 +561,6 @@
             <h1 class="col-md-8">
                 <xsl:call-template name="title"/>
                 <!-- Format title, calls template in place-title-std.xsl -->
-                <span class="get-syriac noprint">
-                    <xsl:if test="//descendant-or-self::*[@xml:lang ='syr']">
-                        <a href="../documentation/view-syriac.html">
-                            <img src="/exist/apps/srophe/resources/img/faq.png" alt="FAQ icon"/>&#160;Don't see Syriac?</a>
-                    </xsl:if>
-                </span>
             </h1>
             <!-- Call link icons (located in link-icons.xsl) -->
             <xsl:call-template name="link-icons"/>   
@@ -591,19 +585,19 @@
     <xsl:template name="title">
         <xsl:choose>
             <xsl:when test="descendant::*[@syriaca-tags='#syriaca-headword']">
-                <bdi>
+                <span dir="ltr">
                     <xsl:apply-templates select="descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1]" mode="plain"/>
                     <!--<xsl:value-of select="string(descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1])"/>--> - 
-                </bdi>
+                </span>
                 <xsl:choose>
                     <xsl:when test="descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'syr')]">
-                        <bdi lang="syr">
+                        <span lang="syr" dir="rtl">
                             <xsl:apply-templates select="descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'syr')][1]" mode="plain"/>
                             <!--<xsl:value-of select="string(descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'syr')])"/>-->
-                        </bdi>
+                        </span>
                     </xsl:when>
                     <xsl:otherwise>
-                        <bdi dir="ltr">[ Syriac Not Available ]</bdi>
+                        <span dir="ltr">[ Syriac Not Available ]</span>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -689,9 +683,9 @@
     <xsl:template match="t:foreign">
         <xsl:choose>
             <xsl:when test="starts-with(@xml:lang,'syr') or starts-with(@xml:lang,'ar')">
-                <bdi lang="syr">
+                <span lang="syr" dir="rtl">
                     <xsl:value-of select="."/>
-                </bdi>
+                </span>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="."/>
@@ -944,18 +938,18 @@
         <xsl:choose>
             <xsl:when test="@xml:lang">
                 <xsl:text>“</xsl:text>
-                <bdi>
+                <span>
                     <xsl:attribute name="dir">
                         <xsl:call-template name="getdirection"/>
                     </xsl:attribute>
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
-                </bdi>
+                </span>
                 <xsl:text>”</xsl:text>
             </xsl:when>
             <xsl:when test="parent::t:desc/@xml:lang">
                 <xsl:text>“</xsl:text>
-                <bdi>
+                <span style="display:inline-block;">
                     <xsl:attribute name="dir">
                         <xsl:choose>
                             <xsl:when test="parent::t:desc[@xml:lang='en']">ltr</xsl:when>
@@ -970,7 +964,7 @@
                         <xsl:value-of select="parent::t:desc/@xml:lang"/>
                     </xsl:attribute>
                     <xsl:apply-templates/>
-                </bdi>
+                </span>
                 <xsl:text>”</xsl:text>
             </xsl:when>
             <xsl:otherwise>
