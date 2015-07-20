@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t" version="2.0">
     
     <!-- ================================================================== 
        Copyright 2013 New York University
@@ -93,7 +93,7 @@
                             </xsl:if>
                             <xsl:text>“</xsl:text>
                             <xsl:apply-templates select="t:title[@level='a'][1]" mode="footnote"/>
-                            <xsl:text>” in </xsl:text>
+                            <xsl:text>”</xsl:text>
                         </xsl:if>
                         <!-- if the reference points at a master bibliographic record file, use it; otherwise, do 
                 what you can with the contents of the present element -->
@@ -128,7 +128,7 @@
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle a footnote for a book  removed(and not(t:analytic))
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <xsl:template match="t:biblStruct[t:monogr]" mode="footnote">
+    <xsl:template match="t:biblStruct[t:monogr/t:title[@level!='j']]" mode="footnote">
         <!-- this is a monograph/book -->
         
         <!-- handle editors/authors and abbreviate as necessary -->
@@ -177,9 +177,11 @@
         <xsl:for-each select="t:monogr[1]">
             <xsl:choose>
                 <xsl:when test="t:title[starts-with(@xml:lang,'en')]">
+                    <xsl:if test="t:title[@level='m']"> in </xsl:if>
                     <xsl:apply-templates select="t:title[starts-with(@xml:lang,'en')]" mode="footnote"/>
                 </xsl:when>
                 <xsl:otherwise>
+                    <xsl:if test="t:title[@level='m']"> in </xsl:if>
                     <xsl:apply-templates select="t:title[1]" mode="footnote"/>
                 </xsl:otherwise>
             </xsl:choose>
@@ -195,6 +197,28 @@
         <xsl:apply-templates select="t:monogr/t:imprint" mode="footnote"/>
     </xsl:template>
     
+    <xsl:template match="t:biblStruct[t:monogr/t:title[@level='j']]" mode="footnote">
+        <!-- handle titles -->
+        <xsl:for-each select="t:monogr[1]">
+            <xsl:text> </xsl:text>
+            <xsl:choose>
+                <xsl:when test="t:title[starts-with(@xml:lang,'en')]">
+                    <em><xsl:apply-templates select="t:title[starts-with(@xml:lang,'en')]" mode="footnote"/></em>
+                </xsl:when>
+                <xsl:otherwise>
+                    <em><xsl:apply-templates select="t:title[1]" mode="footnote"/></em>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="t:biblScope[@unit='vol']/text()"/>
+            <xsl:if test="t:imprint/t:date">
+                <xsl:text> (</xsl:text>
+                <xsl:value-of select="t:imprint/t:date/text()"/>
+                <xsl:text>) </xsl:text>
+            </xsl:if>
+        </xsl:for-each>
+        
+    </xsl:template>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle a bibllist entry for a book
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
