@@ -76,18 +76,19 @@ function api:get-geo-kml($type as xs:string*, $output as xs:string*) {
   : @param $person limit search to  tei:persName
   : @param $start where to start results list start
   : @param $perpage number of results per page
+      %rest:query-param("place", "{$place}", "")
+    %rest:query-param("person", "{$person}", "")
+    $place as xs:string*,$person as xs:string*,
 :)
 declare
     %rest:GET
     %rest:path("/srophe/api/search")
     %rest:query-param("q", "{$q}", "") 
-    %rest:query-param("place", "{$place}", "")
-    %rest:query-param("person", "{$person}", "")
     %rest:query-param("start", "{$start}", 1)
     %rest:query-param("perpage", "{$perpage}", 25)
     %output:media-type("text/xml")
     %output:method("xml")
-function api:search-api($q as xs:string*,$place as xs:string*,$person as xs:string*, $start as xs:integer*, $perpage as xs:integer*) {
+function api:search-api($q as xs:string*, $start as xs:integer*, $perpage as xs:integer*) {
 (<rest:response> 
   <http:response status="200"> 
     <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
