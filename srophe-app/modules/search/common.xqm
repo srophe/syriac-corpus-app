@@ -89,10 +89,12 @@ return $final-date
  : Function to truncate description text after first 12 words
  : @param $string
 :)
-declare function common:truncate-sentance($sentance as xs:string*) as xs:string? {
-let $string := string-join($sentance, ' ')
+declare function common:truncate-string($str as xs:string*) as xs:string? {
+let $string := string-join($str, ' ')
 return 
-    if(count(tokenize($string, '\W+')[. != '']) gt 12) then concat(string-join(for $word in tokenize($string, '\W+')[position() lt 12] return $word, ' '),'...')
+    if(count(tokenize($string, '\W+')[. != '']) gt 12) then 
+        let $last-words := tokenize($string, '\W+')[position() = 14]
+        return concat(substring-before($string, $last-words),'...')
     else $string
 };
 
@@ -128,7 +130,7 @@ let $death := if($ana) then $node/descendant::tei:death else()
 let $dates := concat(if($birth) then $birth/text() else(), if($birth and $death) then ' - ' else if($death) then 'd.' else(), if($death) then $death/text() else())    
 let $desc :=
         if($node/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text()) then
-            common:truncate-sentance($node/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text())
+            common:truncate-string($node/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text())
         else ()
 return
     <p class="results-list">
@@ -143,6 +145,7 @@ return
        {if($ana) then
             <span class="results-list-desc" dir="ltr" lang="en">{concat('(',$ana, if($dates) then ', ' else(), $dates ,')')}</span>
         else ()}
-     <span class="results-list-desc" dir="ltr" lang="en">{concat($desc,' ')}<span class="srp-label">URI: </span><a href="{$uri}">{$uri}</a></span>
+     <span class="results-list-desc" dir="ltr" lang="en">{concat($desc,' ')}</span>
+     <span class="results-list-desc"><span class="srp-label">URI: </span><a href="{$uri}">{$uri}</a></span>
     </p>
 };
