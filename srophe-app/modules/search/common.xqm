@@ -146,6 +146,16 @@ return
             <span class="results-list-desc" dir="ltr" lang="en">{concat('(',$ana, if($dates) then ', ' else(), $dates ,')')}</span>
         else ()}
      <span class="results-list-desc" dir="ltr" lang="en">{concat($desc,' ')}</span>
+     {
+        if($ana) then 
+            <span class="results-list-desc" dir="ltr" lang="en">
+            {
+                for $names in $node/descendant::tei:persName[not(@syriaca-tags='#syriaca-headword')][not(matches(@xml:lang,'^syr'))][not(matches(@xml:lang,'^ar'))]
+                return $names
+            }
+            </span>
+        else()
+        }
      <span class="results-list-desc"><span class="srp-label">URI: </span><a href="{$uri}">{$uri}</a></span>
     </p>
 };

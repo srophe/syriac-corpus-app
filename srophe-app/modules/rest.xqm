@@ -94,18 +94,6 @@ function api:search-api($q as xs:string*, $start as xs:integer*, $perpage as xs:
     <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
   </http:response> 
 </rest:response>,
-(:let $keyword-string := 
-    if(exists($q) and $q != '') then concat("[ft:query(.,'",common:clean-string($q),"',common:options())]")
-    else ()    
-let $place-name := 
-    if(exists($place) and $place != '') then concat("[ft:query(descendant::tei:placeName,'",common:clean-string($place),"',common:options())]")
-    else ()
-let $pers-name := 
-    if(exists($person) and $person != '') then concat("[ft:query(descendant::tei:persName,'",common:clean-string($person),"',common:options())]")
-    else ()
-let $query-string := concat("collection('",$config:data-root,"')//tei:body",$keyword-string,$pers-name,$place-name)
-let $hits := util:eval($query-string)
-:)
 let $hits := collection($config:data-root)//tei:body[ft:query(.,$q,common:options())]
 let $total := count($hits)
 return feed:build-atom-feed($hits, $start, $perpage, $q, $total)

@@ -111,7 +111,7 @@ h4 {font-size: 1em; margin-top:1em;}
 .section.type ul {padding-left:0;}
 
 /* Browse page styles */
-.syr-list{padding-right:7em; padding-top:2em;}
+.syr-list{padding-right:7em; padding-top:2em; text-align: right;}
 .en-list{padding-left:5em; padding-top:2em;}
 .browse-alpha {border-bottom:1px solid #ccc; padding-left:1em; padding:0; margin-bottom:1em; text-align: justify;}
 
@@ -136,7 +136,7 @@ h4 {font-size: 1em; margin-top:1em;}
 .map-md #map {height:300px !important;}
 .map-sm #map {height:250px !important;} 
 .results-list {margin-left: 25px; border-bottom:1px dotted #eee; padding-top:.5em}
-.results-list-desc{display:block;padding-left:1.5em;}
+.results-list-desc{display:block;}
 /* footnote styles */
 .footnote-refs, .footnote-tgt {
     font-size: .7em;
@@ -187,42 +187,30 @@ h4 {font-size: 1em; margin-top:1em;}
   /*font-size:large;*/
   font-size:1.25em; 
   line-height:1em;
-  display:inline-block;
+  
 }
 
 :lang(syr-Syrj), :lang(syc-Syrj) {
  font-family: "SertoBatnan", "Serto Batnan", Verdana, Arial, Helvetica, sans-serif;
-    font-size:1.25em; 
+  font-size:1.25em; 
   line-height:1em;
-  display:inline-block;
+ 
 }
 
 :lang(syr-Syre), :lang(syc-Syre) {
  font-family: "EastSyriacAdiabene", "East Syriac Adiabene", Verdana, Arial, Helvetica, sans-serif;
  font-size:1.25em; 
  line-height:1em;
- display:inline-block;
+
 }
 
 :lang(ar) {
  font-family: arial, sans-serif;
  font-size:1.25em; 
  line-height:1em;
+ 
 }
-/* CSS shim recommended by W3C http://www.w3.org/International/articles/inline-bidi-markup/#tightwrap*/
-[dir='ltr'], [dir='rtl'] { 
-	unicode-bidi: -webkit-isolate;
-	unicode-bidi: -moz-isolate;
-	unicode-bidi: -ms-isolate;
-	unicode-bidi: isolate;
-	} 
-bdo[dir='ltr'], bdo[dir='rtl'] {
-	unicode-bidi: bidi-override; 
-	unicode-bidi: -webkit-isolate-override; 
-	unicode-bidi: -moz-isolate-override; 
-	unicode-bidi: -ms-isolate-override; 
-	unicode-bidi: isolate-override;
-  	}
+
 /* Browse tabs and side menues */  	
 .tab-pane {
 	padding: 1em;
