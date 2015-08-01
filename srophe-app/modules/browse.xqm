@@ -46,6 +46,7 @@ let $browse-path :=
         if($coll = ('persons','authors','saints')) then concat("collection('",$config:data-root,"/persons/tei')//tei:person",browse:get-pers-coll($coll),browse:get-syr()) 
     else if($coll = 'places') then concat("collection('",$config:data-root,"/places/tei')//tei:place",browse:get-syr())
     else if($coll = 'saints-works') then concat("collection('",$config:data-root,"/works/tei')//tei:body/tei:bibl",browse:get-syr())
+    else if($coll = 'manuscripts') then concat("collection('",$config:data-root,"/manuscripts/tei')//tei:teiHeader")
     else if(exists($coll)) then concat("collection('",$config:data-root,xs:anyURI($coll),"')//tei:body",browse:get-syr())
     else concat("collection('",$config:data-root,"')//tei:body",browse:get-syr())
 return 
@@ -111,6 +112,7 @@ declare function browse:get-sort(){
 };
 
 (:~
+ : @depreciated - use common:build-sort-string()
  : Strips english titles of non-sort characters as established by Syriaca.org
  : @param $titlestring 
  :)
@@ -216,7 +218,16 @@ let $title := if($browse:view = 'syr') then $syr-title else $en-title
 let $browse-title := browse:build-sort-string($title)
 (:where  browse:conditions($data, $browse-title, $coll):)
 order by $browse-title collation "?lang=en&lt;syr&amp;decomposition=full"             
-return common:display-recs-short-view($data)
+return 
+(: Temp patch for manuscripts :)
+    if($coll = "manuscripts") then 
+        let $title := $data/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text()
+        let $id := $data/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org')][2]/text()
+        return 
+        <li>
+            <a href="manuscript.html?id={$id}">{$title}</a>
+        </li>
+    else if($browse:view = 'syr') then common:display-recs-short-view($data,'syr') else common:display-recs-short-view($data,'')
 ) 
 };
  

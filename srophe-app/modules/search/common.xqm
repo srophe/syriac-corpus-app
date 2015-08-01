@@ -3,6 +3,7 @@ xquery version "3.0";
  : Shared functions for search modules 
  :)
 module namespace common="http://syriaca.org//common";
+import module namespace app="http://syriaca.org//templates" at "../app.xql";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 (:~
@@ -106,7 +107,7 @@ return
  : @param $node search/browse hits should be either tei:person, tei:place, or tei:body
  : Used by search.xqm and browse.xqm
 :)
-declare function common:display-recs-short-view($node) as node()*{
+declare function common:display-recs-short-view($node, $lang) as node()*{
 let $ana := if($node/descendant-or-self::tei:person/@ana) then replace($node/descendant-or-self::tei:person/@ana,'#syriaca-',' ') else ()
 let $type := if($node/descendant-or-self::tei:place/@type) then string($node/descendant-or-self::tei:place/@type) else ()
 let $uri := 
@@ -135,12 +136,18 @@ let $desc :=
 return
     <p class="results-list">
        <a href="{replace($uri,'http://syriaca.org/','/exist/apps/srophe/')}">
-        {($en-title,
+        {
+        if($lang = 'syr') then
+            (<span dir="rtl" lang="syr" xml:lang="syr">{$syr-title}</span>,' - ', $en-title,
+            if($type) then concat('(',$type,')') else ())
+        else
+        ($en-title,
           if($type) then concat('(',$type,')') else (),
-          if($syr-title) then 
-            if($syr-title = 'NA') then ()
-            else (' - ', <bdi dir="rtl" lang="syr" xml:lang="syr">{$syr-title}</bdi>)
-          else ' - [Syriac Not Available]')}   
+            if($syr-title) then 
+                if($syr-title = 'NA') then ()
+                else (' - ', <span dir="rtl" lang="syr" xml:lang="syr">{$syr-title}</span>)
+          else ' - [Syriac Not Available]')
+          }   
        </a>
        {if($ana) then
             <span class="results-list-desc" dir="ltr" lang="en">{concat('(',$ana, if($dates) then ', ' else(), $dates ,')')}</span>
@@ -148,10 +155,10 @@ return
      <span class="results-list-desc" dir="ltr" lang="en">{concat($desc,' ')}</span>
      {
         if($ana) then 
-            <span class="results-list-desc" dir="ltr" lang="en">
+            <span class="results-list-desc" dir="ltr" lang="en">Names: 
             {
-                for $names in $node/descendant::tei:persName[not(@syriaca-tags='#syriaca-headword')][not(matches(@xml:lang,'^syr'))][not(matches(@xml:lang,'^ar'))]
-                return $names
+                for $names in $node/descendant-or-self::tei:person/tei:persName[not(@syriaca-tags='#syriaca-headword')][not(matches(@xml:lang,'^syr'))][not(matches(@xml:lang,'^ar'))]
+                return <span class="pers-label badge">{app:tei2html($names)}</span>
             }
             </span>
         else()

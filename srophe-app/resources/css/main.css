@@ -137,6 +137,8 @@ h4 {font-size: 1em; margin-top:1em;}
 .map-sm #map {height:250px !important;} 
 .results-list {margin-left: 25px; border-bottom:1px dotted #eee; padding-top:.5em}
 .results-list-desc{display:block;}
+.results-list-desc .pers-label {background-color:#eee;}
+.results-list-desc .pers-label .footnote-refs {display:none;}
 /* footnote styles */
 .footnote-refs, .footnote-tgt {
     font-size: .7em;
