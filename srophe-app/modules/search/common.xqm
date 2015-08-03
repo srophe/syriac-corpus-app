@@ -10,13 +10,6 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
  : Cleans search parameters to replace bad/undesirable data in strings
  : @param-string parameter string to be cleaned
  : NOTE to self: Need to handle ' in full text search, currently stripped before sent to ft:query() function
- due to difficulties with util:eval;
-replace(replace($param-string, "^\*", ""),"'",'"')     
-replace(replace($param-string, "(^|\W\*)|(^|\W\?)|[&amp;!@#$%^+=_]:", ""),"'",'"')
- replace(replace($text, '&amp;', '&amp;amp;'), '''', '&amp;apos;')
- replace(replace($param-string, "(^|\W\*)|(^|\W\?)|[&amp;!@#$%^+=_]:", ""),"'","")
- 
- 
  :
 :)
 declare function common:clean-string($param-string){
@@ -157,7 +150,8 @@ return
         if($ana) then 
             <span class="results-list-desc" dir="ltr" lang="en">Names: 
             {
-                for $names in $node/descendant-or-self::tei:person/tei:persName[not(@syriaca-tags='#syriaca-headword')][not(matches(@xml:lang,'^syr'))][not(matches(@xml:lang,'^ar'))]
+                for $names in $node/descendant-or-self::tei:person/tei:persName[not(@syriaca-tags='#syriaca-headword')]
+                [not(starts-with(@xml:lang,'syr'))][not(starts-with(@xml:lang,'ar'))][not(@xml:lang ='en-xsrp1')]
                 return <span class="pers-label badge">{app:tei2html($names)}</span>
             }
             </span>
