@@ -45,7 +45,7 @@ declare variable $places:ar {request:get-parameter('ar', '')};
  
 :)
 declare function places:keyword(){
-    if(exists($places:q) and $places:q != '') then concat("[ft:query(.,'",common:clean-string($places:q),"',common:options()) or ft:query(descendant::tei:placeName,'",common:clean-string($places:q),"',common:options()) or ft:query(descendant::tei:persName,'",common:clean-string($places:q),"',common:options())]")
+    if(exists($places:q) and $places:q != '') then concat("[ft:query(.,'",common:clean-string($places:q),"',common:options()) or ft:query(descendant::tei:placeName,'",common:clean-string($places:q),"',common:options()) or ft:query(descendant::tei:persName,'",common:clean-string($places:q),"',common:options()) or ft:query(ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:title,'",common:clean-string($places:q),"',common:options()) or ft:query(descendant::tei:desc,'",common:clean-string($places:q),"',common:options())]")
     else ''    
 };
 

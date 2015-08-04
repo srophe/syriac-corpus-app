@@ -35,7 +35,7 @@ declare variable $persons:mentioned {request:get-parameter('mentioned', '')};
  common:build-query($pram-string)
 :)
 declare function persons:keyword() as xs:string? {
-    if($persons:q != '') then concat("[ft:query(.,'",common:clean-string($persons:q),"',common:options()) or ft:query(descendant::tei:persName,'",common:clean-string($persons:q),"',common:options()) or ft:query(descendant::tei:placeName,'",common:clean-string($persons:q),"',common:options())]")
+    if($persons:q != '') then concat("[ft:query(.,'",common:clean-string($persons:q),"',common:options()) or ft:query(descendant::tei:persName,'",common:clean-string($persons:q),"',common:options()) or ft:query(descendant::tei:placeName,'",common:clean-string($persons:q),"',common:options()) or ft:query(ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:title,'",common:clean-string($persons:q),"',common:options()) or ft:query(descendant::tei:desc,'",common:clean-string($persons:q),"',common:options())]")
     else ()    
 };
 
