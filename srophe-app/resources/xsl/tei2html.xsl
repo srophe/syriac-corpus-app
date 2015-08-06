@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -585,10 +585,8 @@
     <xsl:template name="title">
         <xsl:choose>
             <xsl:when test="descendant::*[@syriaca-tags='#syriaca-headword']">
-                <span dir="ltr">
-                    <xsl:apply-templates select="descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1]" mode="plain"/>
+                <xsl:apply-templates select="descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1]" mode="plain"/>
                     <!--<xsl:value-of select="string(descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1])"/>--> - 
-                </span>
                 <xsl:choose>
                     <xsl:when test="descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'syr')]">
                         <span lang="syr" dir="rtl">
@@ -597,7 +595,7 @@
                         </span>
                     </xsl:when>
                     <xsl:otherwise>
-                        <span dir="ltr">[ Syriac Not Available ]</span>
+                        [ Syriac Not Available ]
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -832,7 +830,6 @@
     <!-- General descriptions within the body of the place element, uses lists -->
     <xsl:template match="t:desc[not(starts-with(@xml:id, 'abstract-en'))]">
         <li>
-            <xsl:call-template name="langattr"/>
             <xsl:apply-templates/>
         </li>
     </xsl:template>
@@ -937,7 +934,9 @@
     <xsl:template match="t:quote">
         <xsl:choose>
             <xsl:when test="@xml:lang">
-                <xsl:text>“</xsl:text>
+                <span dir="ltr">
+                    <xsl:text> “</xsl:text>
+                </span>
                 <span>
                     <xsl:attribute name="dir">
                         <xsl:call-template name="getdirection"/>
@@ -945,11 +944,15 @@
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                 </span>
-                <xsl:text>”</xsl:text>
+                <span dir="ltr">
+                    <xsl:text>” </xsl:text>
+                </span>
             </xsl:when>
             <xsl:when test="parent::t:desc/@xml:lang">
-                <xsl:text>“</xsl:text>
-                <span style="display:inline-block;">
+                <span dir="ltr">
+                    <xsl:text> “</xsl:text>
+                </span>
+                <span class="langattr">
                     <xsl:attribute name="dir">
                         <xsl:choose>
                             <xsl:when test="parent::t:desc[@xml:lang='en']">ltr</xsl:when>
@@ -960,12 +963,16 @@
                     <xsl:attribute name="lang">
                         <xsl:value-of select="parent::t:desc/@xml:lang"/>
                     </xsl:attribute>
+                    <!--
                     <xsl:attribute name="xml:lang">
                         <xsl:value-of select="parent::t:desc/@xml:lang"/>
                     </xsl:attribute>
+                    -->
                     <xsl:apply-templates/>
                 </span>
-                <xsl:text>”</xsl:text>
+                <span dir="ltr">
+                    <xsl:text>” </xsl:text>
+                </span>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text>“</xsl:text>
@@ -973,14 +980,23 @@
                 <xsl:text>”</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:choose>
-            <xsl:when test="@source">
-                <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
-            </xsl:when>
-            <xsl:when test="parent::*/@source">
-                <xsl:sequence select="local:do-refs(parent::*/@source,ancestor::t:*[@xml:lang][1])"/>
-            </xsl:when>
-        </xsl:choose>
+        <span class="langattr">
+            <xsl:attribute name="dir">
+                <xsl:choose>
+                    <xsl:when test="parent::t:desc[@xml:lang='en']">ltr</xsl:when>
+                    <xsl:when test="parent::t:desc[@xml:lang='syr' or @xml:lang='ar' or @xml:lang='syc' or @xml:lang='syr-Syrj']">rtl</xsl:when>
+                    <xsl:otherwise>ltr</xsl:otherwise>
+                </xsl:choose>
+            </xsl:attribute>
+            <xsl:choose>
+                <xsl:when test="@source">
+                    <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
+                </xsl:when>
+                <xsl:when test="parent::*/@source">
+                    <xsl:sequence select="local:do-refs(parent::*/@source,ancestor::t:*[@xml:lang][1])"/>
+                </xsl:when>
+            </xsl:choose>
+        </span>
     </xsl:template>
     <xsl:template match="t:persName | t:region | t:settlement | t:placeName">
         <xsl:choose>
@@ -991,7 +1007,7 @@
                         <xsl:text> </xsl:text>
                         <a class="{local-name(.)}" href="{@ref}">
                             <xsl:call-template name="langattr"/>
-                            <xsl:apply-templates mode="cleanout"/>
+                            <xsl:apply-templates/>
                         </a>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -999,7 +1015,7 @@
             <xsl:otherwise>
                 <span class="{local-name(.)}">
                     <xsl:call-template name="langattr"/>
-                    <xsl:apply-templates mode="cleanout"/>
+                    <xsl:apply-templates/>
                     <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
                 </span>
             </xsl:otherwise>
