@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:s="http://syriaca.org" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" xmlns:x="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:s="http://syriaca.org" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -214,10 +214,17 @@
                         </xsl:apply-templates>
                     </ul>
                 </xsl:if>
-                <xsl:if test="t:idno">
+                <xsl:if test="t:idno[not(@type='URI')]">
                     <p>
                         <xsl:for-each select="t:idno[not(@type='URI')]">
-                            <xsl:value-of select="concat(@type,': ',.)"/>
+                            <xsl:choose>
+                                <xsl:when test="@type = 'BHSYRE'">
+                                    <xsl:value-of select="concat(replace(@type,'BHSYRE','BHS'),': ',.)"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="concat(@type,': ',.)"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
                             <xsl:if test="position() != last()">, </xsl:if>
                         </xsl:for-each>
                     </p>
@@ -509,7 +516,7 @@
     <!-- suppress bibl -->
     <xsl:template match="t:bibl" mode="title"/>
     <xsl:template name="h1">
-        <xsl:if test="descendant::t:person[contains(@ana,'syriaca-saint')]">
+        <xsl:if test="descendant-or-self::tei:srophe-title[contains(@ana,'syriaca-saint')]">
             <div style="margin-left:-2em; margin-top:-1em; padding-top:0;">
                 <span class="dropdown inline">
                     <button class="btn btn-link dropdown-toggle" type="button" id="saintsMenu" data-toggle="dropdown" aria-expanded="true">
@@ -532,7 +539,7 @@
                 </span>
             </div>
         </xsl:if>
-        <xsl:if test="descendant::t:person[contains(@ana,'syriaca-author')]">
+        <xsl:if test="descendant::tei:srophe-title[contains(@ana,'syriaca-author')]">
             <div style="margin-left:-2em; margin-top:-1em; padding-top:0;">
                 <span class="dropdown inline">
                     <button class="btn btn-link dropdown-toggle" type="button" id="authorsMenu" data-toggle="dropdown" aria-expanded="true">

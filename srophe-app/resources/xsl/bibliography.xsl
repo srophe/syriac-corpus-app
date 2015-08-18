@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t" version="2.0">
     
     <!-- ================================================================== 
        Copyright 2013 New York University
@@ -157,7 +157,9 @@
             </xsl:if>
             <xsl:text>, </xsl:text>
             <xsl:for-each select="t:analytic/t:title">
-                <xsl:text>"</xsl:text><xsl:apply-templates select="." mode="footnote"/><xsl:text>"</xsl:text>
+                <xsl:text>"</xsl:text>
+                <xsl:apply-templates select="." mode="footnote"/>
+                <xsl:text>"</xsl:text>
             </xsl:for-each>
             <xsl:text> in </xsl:text>
         </xsl:if>
@@ -340,6 +342,9 @@
      levels)
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:date | t:publisher | t:pubPlace | t:placeName | t:foreign" mode="footnote" priority="1">
+        <xsl:if test="preceding-sibling::*">
+            <xsl:text> </xsl:text>
+        </xsl:if>
         <span class="{local-name()}">
             <xsl:call-template name="langattr"/>
             <xsl:apply-templates mode="footnote"/>
@@ -405,6 +410,7 @@
                             <xsl:apply-templates mode="footnote"/>
                         </xsl:otherwise>
                     </xsl:choose>
+                    <xsl:text> </xsl:text>
                 </span>
             </xsl:otherwise>
         </xsl:choose>
