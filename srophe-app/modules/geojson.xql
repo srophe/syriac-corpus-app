@@ -2,7 +2,7 @@ xquery version "3.0";
 (:~
  :  geojson output for leafletjs maps 
  :)
-import module namespace config="http://syriaca.org//config" at "config.xqm";
+
 import module namespace geo="http://syriaca.org//geojson" at "lib/geojson.xqm";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";

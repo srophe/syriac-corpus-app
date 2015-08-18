@@ -12,7 +12,7 @@ module namespace browse="http://syriaca.org//browse";
 import module namespace common="http://syriaca.org//common" at "search/common.xqm";
 import module namespace geo="http://syriaca.org//geojson" at "lib/geojson.xqm";
 import module namespace templates="http://syriaca.org//templates" at "templates.xql";
-import module namespace config="http://syriaca.org//config" at "config.xqm";
+import module namespace global="http://syriaca.org//global" at "global.xqm";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -43,12 +43,12 @@ declare variable $browse:fq {request:get-parameter('fq', '')};
 :)
 declare function browse:get-all($node as node(), $model as map(*), $coll as xs:string?){
 let $browse-path := 
-        if($coll = ('persons','authors','saints')) then concat("collection('",$config:data-root,"/persons/tei')//tei:person",browse:get-pers-coll($coll),browse:get-syr()) 
-    else if($coll = 'places') then concat("collection('",$config:data-root,"/places/tei')//tei:place",browse:get-syr())
-    else if($coll = 'saints-works') then concat("collection('",$config:data-root,"/works/tei')//tei:body/tei:bibl",browse:get-syr())
-    else if($coll = 'manuscripts') then concat("collection('",$config:data-root,"/manuscripts/tei')//tei:teiHeader")
-    else if(exists($coll)) then concat("collection('",$config:data-root,xs:anyURI($coll),"')//tei:body",browse:get-syr())
-    else concat("collection('",$config:data-root,"')//tei:body",browse:get-syr())
+        if($coll = ('persons','authors','saints')) then concat("collection('",$global:data-root,"/persons/tei')//tei:person",browse:get-pers-coll($coll),browse:get-syr()) 
+    else if($coll = 'places') then concat("collection('",$global:data-root,"/places/tei')//tei:place",browse:get-syr())
+    else if($coll = 'bhse') then concat("collection('",$global:data-root,"/works/tei')//tei:body/tei:bibl",browse:get-syr())
+    else if($coll = 'manuscripts') then concat("collection('",$global:data-root,"/manuscripts/tei')//tei:teiHeader")
+    else if(exists($coll)) then concat("collection('",$global:data-root,xs:anyURI($coll),"')//tei:body",browse:get-syr())
+    else concat("collection('",$global:data-root,"')//tei:body",browse:get-syr())
 return 
     map{"browse-data" := util:eval($browse-path)}        
 };

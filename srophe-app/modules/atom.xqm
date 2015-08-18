@@ -1,5 +1,6 @@
 xquery version "3.0";
 (:
+ : @depreciated - use atom.xqm in lib directory
  : Build atom feed for all syrica.org modules
  : Module is used by atom.xql and rest.xqm 
  : @param $collection selects data collection for feed 

@@ -3,7 +3,7 @@ xquery version "3.0";
  : Builds search information for spear sub-collection
  : Search string is passed to search.xqm for processing.  
  :)
-module namespace ms="http://syriaca.org//ms";
+module namespace bhses="http://syriaca.org//bhses";
 import module namespace functx="http://www.functx.com";
 import module namespace facets="http://syriaca.org//facets" at "../facets.xqm";
 import module namespace app="http://syriaca.org//templates" at "../app.xql";
@@ -14,16 +14,14 @@ import module namespace global="http://syriaca.org//global" at "../global.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
-declare variable $ms:q {request:get-parameter('q', '')};
+declare variable $bhses:q {request:get-parameter('q', '')};
 
 (:~
  : Build full-text keyword search over all tei:place data
  : @param $q query string
- descendant-or-self::* or . testing which is most correct
- common:build-query($pram-string)
 :)
-declare function ms:keyword() as xs:string? {
-    if($ms:q != '') then concat("[ft:query(.,'",common:clean-string($ms:q),"',common:options())]")
+declare function bhses:keyword() as xs:string? {
+    if($bhses:q != '') then concat("[ft:query(.,'",common:clean-string($bhses:q),"',common:options()) or ft:query(descendant::tei:persName,'",common:clean-string($bhses:q),"',common:options()) or ft:query(descendant::tei:placeName,'",common:clean-string($bhses:q),"',common:options()) or ft:query(ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:title,'",common:clean-string($bhses:q),"',common:options()) or ft:query(descendant::tei:desc,'",common:clean-string($bhses:q),"',common:options())]")
     else ()    
 };
 
@@ -31,18 +29,18 @@ declare function ms:keyword() as xs:string? {
 (:~
  : Build query string to pass to search.xqm 
 :)
-declare function ms:query-string() as xs:string? {
- concat("collection('",$global:data-root,"/manuscripts/tei')//tei:msDesc",
-    ms:keyword()
+declare function bhses:query-string() as xs:string? {
+ concat("collection('",$global:data-root,"/works/tei')//tei:body",
+    bhses:keyword()
     )
 };
 
 (:~
  : Build a search string for search results page from search parameters
 :)
-declare function ms:search-string() as xs:string*{
-    let $keyword-string := if($ms:q != '') then 
-                                (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($ms:q)}&#160;</span>)
+declare function bhses:search-string() as xs:string*{
+    let $keyword-string := if($bhses:q != '') then 
+                                (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($bhses:q)}&#160;</span>)
                            else ''                          
     return $keyword-string                  
 };
@@ -51,7 +49,7 @@ declare function ms:search-string() as xs:string*{
  : Format search results
  : Need a better uri for factoids, 
 :)
-declare function ms:results-node($hit){
+declare function bhses:results-node($hit){
     let $root := $hit 
     let $title := $root/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title/text()
     let $id := $root/ancestor::tei:TEI/descendant::tei:idno[starts-with(.,'http://syriaca.org')][1]/text()
@@ -65,7 +63,7 @@ declare function ms:results-node($hit){
 (:~
  : Builds advanced search form for persons
  :)
-declare function ms:search-form() {   
+declare function bhses:search-form() {   
 <form method="get" action="search.html" class="form-horizontal" role="form">
     <h1>Advanced Search</h1>
     <div class="well well-small">

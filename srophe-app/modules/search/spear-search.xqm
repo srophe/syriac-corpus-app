@@ -7,7 +7,7 @@ module namespace spears="http://syriaca.org//spears";
 import module namespace functx="http://www.functx.com";
 import module namespace facets="http://syriaca.org//facets" at "../facets.xqm";
 import module namespace app="http://syriaca.org//templates" at "../app.xql";
-import module namespace config="http://syriaca.org//config" at "../config.xqm";
+import module namespace global="http://syriaca.org//global" at "../global.xqm";
 import module namespace common="http://syriaca.org//common" at "common.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -109,7 +109,7 @@ declare function spears:type-search(){
  : Build query string to pass to search.xqm 
 :)
 declare function spears:query-string() as xs:string? {
- concat("collection('",$config:data-root,"/spear/tei')//tei:div",
+ concat("collection('",$global:data-root,"/spear/tei')//tei:div",
     spears:type-search(),
     facets:facet-filter(),
     spears:keyword(),
@@ -191,9 +191,9 @@ declare function spears:keyword-menu(){
 for $keywordURI in 
 distinct-values(
     (
-    for $keyword in collection($config:data-root || '/spear/')//@target[contains(.,'/keyword/')]
+    for $keyword in collection($global:data-root || '/spear/')//@target[contains(.,'/keyword/')]
     return tokenize($keyword,' '),
-    for $keyword in collection($config:data-root || '/spear/')//@ref[contains(.,'/keyword/')]
+    for $keyword in collection($global:data-root || '/spear/')//@ref[contains(.,'/keyword/')]
     return tokenize($keyword,' ')
     )
     )
@@ -204,7 +204,7 @@ return
 };
 
 declare function spears:source-menu(){
-for $title in collection($config:data-root || '/spear/')//tei:titleStmt/tei:title[1]
+for $title in collection($global:data-root || '/spear/')//tei:titleStmt/tei:title[1]
 let $id := $title/ancestor::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type="URI"]
 order by $title  
 return

@@ -7,7 +7,7 @@ module namespace persons="http://syriaca.org//persons";
 import module namespace common="http://syriaca.org//common" at "common.xqm";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
-import module namespace config="http://syriaca.org//config" at "../config.xqm";
+import module namespace global="http://syriaca.org//global" at "../global.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
@@ -230,7 +230,7 @@ declare function persons:mentioned() as xs:string?{
  : Build query string to pass to search.xqm 
 :)
 declare function persons:query-string() as xs:string? {
- concat("collection('",$config:data-root,"/persons/tei')//tei:body",
+ concat("collection('",$global:data-root,"/persons/tei')//tei:body",
     persons:keyword(),
     persons:type(),
     persons:name(),
@@ -243,7 +243,7 @@ declare function persons:query-string() as xs:string? {
 };
 
 declare function persons:saints-query-string() as xs:string? {
- concat("collection('",$config:data-root,"/persons/tei')//tei:body",
+ concat("collection('",$global:data-root,"/persons/tei')//tei:body",
     persons:keyword(),
     "[descendant::tei:person/@ana = '#syriaca-saint']",
     persons:name(),
