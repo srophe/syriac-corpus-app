@@ -3,7 +3,7 @@ xquery version "3.0";
 module namespace places="http://syriaca.org//places";
 import module namespace common="http://syriaca.org//common" at "common.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
-import module namespace config="http://syriaca.org//config" at "../config.xqm";
+import module namespace global="http://syriaca.org//global" at "../global.xqm";
 
 import module namespace kwic="http://exist-db.org/xquery/kwic" at "resource:org/exist/xquery/lib/kwic.xql";
 declare namespace util="http://exist-db.org/xquery/util";
@@ -303,7 +303,7 @@ declare function places:limit-by-lang-ar(){
  : Search stored in map for use by other functions
 :)
 declare function places:query-string() as xs:string?{
-    concat("collection('",$config:data-root,"/places/tei')//tei:body",
+    concat("collection('",$global:data-root,"/places/tei')//tei:body",
     places:keyword(),
     places:type(),
     places:place-name(),

@@ -4,7 +4,7 @@ xquery version "3.0";
  : Returns tie xml record
  : @param $id record id
  :)
-import module namespace config="http://syriaca.org//config" at "config.xqm";
+import module namespace global="http://syriaca.org//global" at "global.xqm";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -17,6 +17,6 @@ declare variable $id {request:get-parameter('id', '')};
 
 declare option exist:serialize "method=xml media-type=text/xml omit-xml-declaration=no indent=yes";
 
-for $recs in collection($config:data-root || "/places/tei")/id(concat('place-',$id))
+for $recs in collection($global:data-root || "/places/tei")/id(concat('place-',$id))
 let $rec := $recs/ancestor::tei:TEI
 return $rec

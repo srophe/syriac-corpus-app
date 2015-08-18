@@ -92,7 +92,7 @@ return
     else $string
 };
 
-(:
+(: 
  : Formats search and browse results 
  : Uses English and Syriac headwords if available, tei:teiHeader/tei:title if no headwords.
  : Should handle all data types, and eliminate the need for 
@@ -148,13 +148,15 @@ return
      <span class="results-list-desc" dir="ltr" lang="en">{concat($desc,' ')}</span>
      {
         if($ana) then 
-            <span class="results-list-desc" dir="ltr" lang="en">Names: 
-            {
-                for $names in $node/descendant-or-self::tei:person/tei:persName[not(@syriaca-tags='#syriaca-headword')]
-                [not(starts-with(@xml:lang,'syr'))][not(starts-with(@xml:lang,'ar'))][not(@xml:lang ='en-xsrp1')]
-                return <span class="pers-label badge">{app:tei2html($names)}</span>
-            }
-            </span>
+            if($node/descendant-or-self::tei:person/tei:persName[not(@syriaca-tags='#syriaca-headword')]) then 
+                <span class="results-list-desc" dir="ltr" lang="en">Names: 
+                {
+                    for $names in $node/descendant-or-self::tei:person/tei:persName[not(@syriaca-tags='#syriaca-headword')]
+                    [not(starts-with(@xml:lang,'syr'))][not(starts-with(@xml:lang,'ar'))][not(@xml:lang ='en-xsrp1')]
+                    return <span class="pers-label badge">{app:tei2html($names)}</span>
+                }
+                </span>
+            else() 
         else()
         }
      <span class="results-list-desc"><span class="srp-label">URI: </span><a href="{$uri}">{$uri}</a></span>

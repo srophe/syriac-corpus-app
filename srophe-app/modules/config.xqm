@@ -5,11 +5,6 @@ xquery version "3.0";
  : within a module.
  :)
 module namespace config="http://syriaca.org//config";
-import module namespace place="http://syriaca.org//place" at "place.xqm";
-import module namespace person="http://syriaca.org//person" at "person.xqm";
-import module namespace mss="http://syriaca.org//manuscripts" at "manuscripts.xqm";
-import module namespace spear="http://syriaca.org//spear" at "spear.xqm";
-
 declare namespace templates="http://exist-db.org/xquery/templates";
 
 declare namespace repo="http://exist-db.org/xquery/repo";
@@ -33,9 +28,6 @@ declare variable $config:app-root :=
     return
         substring-before($modulePath, "/modules")
 ;
-
-(:declare variable $config:data-root := $config:app-root || "/data";:)
-declare variable $config:data-root :=  replace($config:app-root,'srophe','srophe-data') || "/data";
 
 declare variable $config:repo-descriptor := doc(concat($config:app-root, "/repo.xml"))/repo:meta;
 
@@ -68,24 +60,7 @@ declare function config:expath-descriptor() as element(expath:package) {
 
 
 declare %templates:wrap function config:app-title($node as node(), $model as map(*)) {
-(:There are problems with view.xql, not passing params? or template params? Not working with shortend uris:)
-    if(contains(request:get-uri(),'/geo/')) then 
-        if(request:get-parameter('id', '')) then place:html-title() else 'Syriaca.org: The Syriac Gazetteer'
-    else if(contains(request:get-uri(),'/place/')) then 
-        if(request:get-parameter('id', '')) then place:html-title() else 'Syriaca.org: The Syriac Gazetteer'
-    else if(contains(request:get-uri(),'/persons/')) then 
-        if(request:get-parameter('id', '')) then person:html-title() else 'Syriaca.org: The Syriac Prosopography'
-    else if(contains(request:get-uri(),'/person/')) then 
-        if(request:get-parameter('id', '')) then person:html-title() else 'Syriaca.org: The Syriac Prosopography'        
-    else if(contains(request:get-uri(),'/mss/')) then 
-        if(request:get-parameter('id', '')) then mss:html-title() else 'Syriaca.org: A Digital Catalogue of Syriac Manuscripts in the British Library'
-    else if(contains(request:get-uri(),'/manuscript/')) then 
-        if(request:get-parameter('id', '')) then mss:html-title() else 'Syriaca.org: A Digital Catalogue of Syriac Manuscripts in the British Library'
-    else if(contains(request:get-uri(),'/spear/')) then
-        if(request:get-parameter('id', '')) then spear:html-title() else 'Syriaca.org: SPEAR'
-    else if(contains(request:get-uri(),'/saints/')) then 'Syriaca.org: Qadishē: Guide to the Syriac Saints'
-    else if(contains(request:get-uri(),'/authors/')) then 'Syriaca.org: A Guide to Syriac Authors'
-    else 'Syriaca.org: The Syriac Reference Portal'
+    doc('../config.xml')//title/text()
 };
 
 declare function config:app-meta($node as node(), $model as map(*)) as element()* {
