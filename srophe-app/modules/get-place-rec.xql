@@ -4,7 +4,7 @@ xquery version "3.0";
  : Returns tie xml record
  : @param $id record id
  :)
-import module namespace global="http://syriaca.org//global" at "global.xqm";
+import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";

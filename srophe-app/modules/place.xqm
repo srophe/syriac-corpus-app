@@ -3,14 +3,13 @@
  :)
 xquery version "3.0";
 
-module namespace place="http://syriaca.org//place";
+module namespace place="http://syriaca.org/place";
 
-import module namespace app="http://syriaca.org//templates" at "app.xql";
-import module namespace geo="http://syriaca.org//geojson" at "lib/geojson.xqm";
+import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
+import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
-import module namespace config="http://syriaca.org//config" at "config.xqm";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -23,45 +22,50 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 declare variable $place:id {request:get-parameter('id', '')};
 declare variable $place:status {request:get-parameter('status', '')};
 
-(:~
- : Value passed through metadata:page-title() 
+(:~ 
+ : Simple get record function, retrieves tei record based on idno
+ : @param $place:id syriaca.org uri 
 :)
-declare function place:html-title(){
-    let $placeid := concat('http://syriaca.org/place/',$place:id)
-    let $title := replace(collection($config:data-root || "/places/tei")//tei:idno[@type='URI'][. = $placeid]/ancestor::tei:TEI//tei:titleStmt/tei:title[@level='a'][1]/text(),'— ','')
-    return normalize-space($title)
+declare function place:get-rec($node as node(), $model as map(*)) {
+if($place:id) then 
+    let $id :=
+        if(contains(request:get-uri(),'http://syriaca.org/')) then $place:id
+        else if(contains(request:get-uri(),'/geo/') or contains(request:get-uri(),'/place/')) then concat('http://syriaca.org/place/',$place:id) 
+        else $place:id
+    return map {"data" := collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}
+else map {"data" := 'Page data'} 
 };
 
 (:~
- : Retrieve place record
- : @param $id place id
- :)
-declare function place:get-place($node as node(), $model as map(*)){
-    let $placeid := concat('place-',$place:id)
-    for $recs in collection($config:data-root || "/places/tei")/id($placeid)
-    let $rec := $recs/ancestor::tei:TEI
-    return map {"place-data" := $rec}
-};
+ : Dynamically build html title based on TEI record and/or sub-module. 
+ : @param $place:id if id is present find TEI title, otherwise use title of sub-module
+:)
+declare %templates:wrap function place:app-title($node as node(), $model as map(*)){
+if($place:id) then
+   global:tei2html($model("data")/descendant::tei:placeName[1]/text())
+else 'The Syriac Gazetteer' 
+};  
+
 
 (:
  : Pass necessary element to h1 xslt template
 :)
 declare %templates:wrap function place:h1($node as node(), $model as map(*)){
-    let $title := $model("place-data")//tei:place
+    let $title := $model("data")//tei:place
     let $title-nodes := 
             <srophe-title xmlns="http://www.tei-c.org/ns/1.0">
                 {($title//tei:placeName[@syriaca-tags='#syriaca-headword'],$title/descendant::tei:idno, $title/descendant::tei:location)}
             </srophe-title>
-    return app:tei2html($title-nodes)
+    return global:tei2html($title-nodes)
 };
 
 declare %templates:wrap function place:abstract($node as node(), $model as map(*)){
-    let $abstract := $model("place-data")//tei:place/tei:desc[starts-with(@xml:id,'abstract')]
+    let $abstract := $model("data")//tei:place/tei:desc[starts-with(@xml:id,'abstract')]
     let $abstract-nodes := 
     <place xmlns="http://www.tei-c.org/ns/1.0">
             {$abstract}
     </place>
-    return app:tei2html($abstract)
+    return global:tei2html($abstract)
 };
 
 declare function place:type-details($data, $type){
@@ -78,7 +82,7 @@ declare function place:type-details($data, $type){
             <ul>
             {
                 for $location in $data//tei:location
-                return app:tei2html($location)
+                return global:tei2html($location)
             }
             </ul>
         </div>
@@ -91,8 +95,8 @@ declare function place:type-details($data, $type){
  : Add map and location information
 :)
 declare %templates:wrap function place:location-details($node as node(), $model as map(*)){
-let $data := $model("place-data")
-let $type := string($model("place-data")//tei:place/@type)
+let $data := $model("data")
+let $type := string($model("data")//tei:place/@type)
 let $geo := $data//tei:geo[1]
 return 
     if($data//tei:geo) then 
@@ -113,9 +117,9 @@ return
 declare %templates:wrap function place:description($node as node(), $model as map(*)){
     let $desc-nodes := 
     <place xmlns="http://www.tei-c.org/ns/1.0">
-            {for $desc in $model("place-data")//tei:place/tei:desc[not(starts-with(@xml:id,'abstract'))] return $desc}
+            {for $desc in $model("data")//tei:place/tei:desc[not(starts-with(@xml:id,'abstract'))] return $desc}
     </place>
-    return app:tei2html($desc-nodes)
+    return global:tei2html($desc-nodes)
 };
 
 (:~
@@ -125,11 +129,11 @@ declare %templates:wrap function place:notes($node as node(), $model as map(*)){
     let $notes-nodes := 
     <place xmlns="http://www.tei-c.org/ns/1.0">
             {
-                for $note in $model("place-data")//tei:place/tei:note
+                for $note in $model("data")//tei:place/tei:note
                 return $note
             }
     </place>
-    return app:tei2html($notes-nodes)
+    return global:tei2html($notes-nodes)
 };
 
 (:~
@@ -139,11 +143,11 @@ declare %templates:wrap function place:events($node as node(), $model as map(*))
     let $events-nodes := 
     <place xmlns="http://www.tei-c.org/ns/1.0">
             {
-                for $event in $model("place-data")//tei:place/tei:event
+                for $event in $model("data")//tei:place/tei:event
                 return $event
             }
     </place>
-    return app:tei2html($events-nodes)
+    return global:tei2html($events-nodes)
 };
 
 (:~
@@ -156,9 +160,9 @@ declare %templates:wrap function place:events($node as node(), $model as map(*))
 declare function place:nested-loc($node as node(), $model as map(*)){
     let $ref-id := concat('http://syriaca.org/place/',$place:id)
     return 
-        app:tei2html(<place xmlns="http://www.tei-c.org/ns/1.0">
+        global:tei2html(<place xmlns="http://www.tei-c.org/ns/1.0">
         {
-            for $nested-loc in collection($config:data-root || "/places/tei")//tei:location[@type="nested"]/tei:*[@ref=$ref-id]
+            for $nested-loc in collection($global:data-root || "/places/tei")//tei:location[@type="nested"]/tei:*[@ref=$ref-id]
             let $parent-name := $nested-loc//tei:placeName[1]
             let $place-id := substring-after($nested-loc/ancestor::*/tei:place[1]/@xml:id,'place-')
             let $place-type := $nested-loc/ancestor::*/tei:place[1]/@type
@@ -174,11 +178,11 @@ declare function place:nested-loc($node as node(), $model as map(*)){
  : Confessions list built from refs in tei to /srophe/documentation/confessions.xml
 :)
 declare function place:confessions($node as node(), $model as map(*)){
-    let $data := $model("place-data")//tei:place
+    let $data := $model("data")//tei:place
     return if($data/tei:state[@type='confession']) then 
-        let $confessions := doc($config:app-root || "/documentation/confessions.xml")//tei:list
+        let $confessions := doc($global:app-root || "/documentation/confessions.xml")//tei:list
         return
-        app:tei2html(
+        global:tei2html(
         <place xmlns="http://www.tei-c.org/ns/1.0">
             <confessions xmlns="http://www.tei-c.org/ns/1.0">
                {(
@@ -198,11 +202,11 @@ declare function place:confessions($node as node(), $model as map(*)){
  : <relation name="contained" active="http://syriaca.org/place/145 http://syriaca.org/place/166" passive="#place-78" source="#bib78-1" to="0363"/>
 :)
 declare function place:related-places($node as node(), $model as map(*)){
- let $rec := $model("place-data")
+ let $rec := $model("data")
  return 
-    app:tei2html(
+    global:tei2html(
     <place xmlns="http://www.tei-c.org/ns/1.0">
-        <div id="heading">{$model("place-data")//tei:place/tei:placeName[1]}</div>
+        <div id="heading">{$model("data")//tei:place/tei:placeName[1]}</div>
         <tei:related-places>
                 {
                     for $related in $rec//tei:relation
@@ -217,7 +221,7 @@ declare function place:related-places($node as node(), $model as map(*)){
                                 (for $att in $related/@*
                                     return
                                          attribute {name($att)} {$att},                      
-                                for $get-related in collection($config:data-root || "/places/tei")/id($place-id)
+                                for $get-related in collection($global:data-root || "/places/tei")/id($place-id)
                                 return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
                             }
                             </relation>
@@ -232,7 +236,7 @@ declare function place:related-places($node as node(), $model as map(*)){
                                 (for $att in $related/@*
                                     return
                                          attribute {name($att)} {$att},                      
-                                for $get-related in collection($config:data-root || "/places/tei")/id($place-id)
+                                for $get-related in collection($global:data-root || "/places/tei")/id($place-id)
                                 return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
                             }
                             </relation>
@@ -251,7 +255,7 @@ declare function place:related-places($node as node(), $model as map(*)){
                                             (for $att in $related/@*
                                             return
                                                  attribute {name($att)} {$att},                      
-                                            for $get-related in collection($config:data-root || "/places/tei")/id($place-id)
+                                            for $get-related in collection($global:data-root || "/places/tei")/id($place-id)
                                             let $type := string($get-related/@type)
                                             return 
                                                 (attribute type {$type}, $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en']))
@@ -271,12 +275,12 @@ declare function place:related-places($node as node(), $model as map(*)){
  : Return bibls for use in sources 
 :)
 declare %templates:wrap function place:sources($node as node(), $model as map(*)){
-    let $rec := $model("place-data")
+    let $rec := $model("data")
     let $sources := 
     <place xmlns="http://www.tei-c.org/ns/1.0">
         {$rec//tei:place/tei:bibl}
     </place>
-    return app:tei2html($sources)
+    return global:tei2html($sources)
 };
 
 (:
@@ -285,64 +289,40 @@ declare %templates:wrap function place:sources($node as node(), $model as map(*)
 declare %templates:wrap function place:place-name($node as node(), $model as map(*)){
     let $names := 
     <place xmlns="http://www.tei-c.org/ns/1.0">
-            {$model("place-data")//tei:place/tei:placeName}
+            {$model("data")//tei:place/tei:placeName}
     </place>
-    return app:tei2html($names)
+    return global:tei2html($names)
 };
 
 (:
  : Return tieHeader info to be used in citation
 :)
 declare %templates:wrap function place:citation($node as node(), $model as map(*)){
-    let $rec := $model("place-data")
+    let $rec := $model("data")
     let $header := 
     <place xmlns="http://www.tei-c.org/ns/1.0">
         <citation xmlns="http://www.tei-c.org/ns/1.0">
             {$rec//tei:teiHeader | $rec//tei:bibl}
         </citation> 
     </place>
-    return app:tei2html($header)
+    return global:tei2html($header)
 };
 
 (:~
  : Prints link icons on left
 :)
 declare %templates:wrap function place:link-icons-list($node as node(), $model as map(*)){
-let $data := $model("place-data")
+let $data := $model("data")
 let $links:=
     <place xmlns="http://www.tei-c.org/ns/1.0">
         <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
             {$data/descendant::tei:place/descendant::tei:idno, $data/descendant::tei:place/descendant::tei:location}
         </see-also>
     </place>
-return app:tei2html($links)
+return global:tei2html($links)
 };
 
-(:~ 
- : @depreciated 
- : Pull together place page data   
- : Adds related places and nested locations to full TEI document
- : Passes xml to placepage.xsl for html transformation
-:)
-declare %templates:wrap function place:get-place-data($node as node(), $model as map(*)){
-   for $rec in $model("place-data")
-   let $buildRec :=
-                <TEI
-                    xml:lang="en"
-                    xmlns:xi="http://www.w3.org/2001/XInclude"
-                    xmlns:svg="http://www.w3.org/2000/svg"
-                    xmlns:math="http://www.w3.org/1998/Math/MathML"
-                    xmlns="http://www.tei-c.org/ns/1.0">
-                    {
-                        ($rec/child::*, place:related-places($node, $model),
-                        place:nested-loc($node, $model),place:confessions($node, $model))
-                    }
-                    </TEI>
-    let $cache :='Change value to force page refresh 5936'
-    return
-       (: $buildRec:) 
-       transform:transform($buildRec, doc('../resources/xsl/placepage.xsl'),() )
-};
+
 
 (:~
  : Add contact form for submitting corrections
@@ -381,7 +361,7 @@ declare %templates:wrap function place:contact($node as node(), $model as map(*)
                 <br/>
                 <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
                 <input type="hidden" name="id" value="{$place:id}"/>
-                <input type="hidden" name="place" value="{string($model("place-data")//tei:place/tei:placeName[1])}"/>
+                <input type="hidden" name="place" value="{string($model("data")//tei:place/tei:placeName[1])}"/>
                 <!-- start reCaptcha API-->
                 <script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia"/>
                 <noscript>

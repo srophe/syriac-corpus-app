@@ -1,13 +1,13 @@
 xquery version "3.0";
 
-(:module namespace timeline="http://syriaca.org//timeline";:)
+(:module namespace timeline="http://syriaca.org/timeline";:)
 
 (:~
  : Module to build timeline json passed to http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js widget
  : @author Winona Salesky <wsalesky@gmail.com>
  : @authored 2014-08-05
 :)
-import module namespace config="http://syriaca.org//config" at "config.xqm";
+import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 
 declare namespace json = "http://www.json.org";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
@@ -65,7 +65,7 @@ declare function local:get-all-recs(){
                 <caption>Events for Persons</caption>
             </asset>
             {
-                for $rec in collection($config:data-root || '/persons/tei')//tei:body
+                for $rec in collection($global:data-root || '/persons/tei')//tei:body
                 let $person := $rec/descendant::tei:person
                 return
                 (local:get-pers-birth($person), local:get-pers-death($person), local:get-pers-floruit($person), local:get-pers-state($person), local:get-pers-events($person))

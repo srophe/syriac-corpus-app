@@ -6,21 +6,23 @@
 xquery version "3.0";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
-
 (: 
  : The following modules provide functions which will be called by the 
  : templating.
  :)
-import module namespace config="http://syriaca.org//config" at "config.xqm";
-import module namespace app="http://syriaca.org//templates" at "app.xql";
-import module namespace place="http://syriaca.org//place" at "place.xqm";
-import module namespace person="http://syriaca.org//person" at "person.xqm";
-import module namespace spear="http://syriaca.org//spear" at "spear.xqm";
-import module namespace mss="http://syriaca.org//manuscripts" at "manuscripts.xqm";
-import module namespace browse="http://syriaca.org//browse" at "browse.xqm";
-import module namespace search="http://syriaca.org//search" at "search/search.xqm";
+import module namespace config="http://syriaca.org/config" at "config.xqm";
+import module namespace app="http://syriaca.org/templates" at "app.xql";
+import module namespace place="http://syriaca.org/place" at "place.xqm";
+import module namespace person="http://syriaca.org/person" at "person.xqm";
+import module namespace spear="http://syriaca.org/spear" at "spear.xqm";
+import module namespace mss="http://syriaca.org/manuscripts" at "manuscripts.xqm";
+import module namespace browse="http://syriaca.org/browse" at "browse.xqm";
+import module namespace search="http://syriaca.org/search" at "search/search.xqm";
 
-declare option exist:serialize "method=html5 media-type=text/html enforce-xhtml=yes";
+declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
+
+declare option output:method "html5";
+declare option output:media-type "text/html";
 
 let $config := map {
     $templates:CONFIG_APP_ROOT := $config:app-root,

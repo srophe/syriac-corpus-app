@@ -4,12 +4,12 @@ xquery version "3.0";
  : A set of helper functions to access the application context from
  : within a module.
  :)
-module namespace config="http://syriaca.org//config";
+module namespace config="http://syriaca.org/config";
+
 declare namespace templates="http://exist-db.org/xquery/templates";
 
 declare namespace repo="http://exist-db.org/xquery/repo";
 declare namespace expath="http://expath.org/ns/pkg";
-declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 (: 
     Determine the application root collection from the current module load path.
@@ -28,6 +28,8 @@ declare variable $config:app-root :=
     return
         substring-before($modulePath, "/modules")
 ;
+
+declare variable $config:data-root := $config:app-root || "/data";
 
 declare variable $config:repo-descriptor := doc(concat($config:app-root, "/repo.xml"))/repo:meta;
 
@@ -58,9 +60,8 @@ declare function config:expath-descriptor() as element(expath:package) {
     $config:expath-descriptor
 };
 
-
-declare %templates:wrap function config:app-title($node as node(), $model as map(*)) {
-    doc('../config.xml')//title/text()
+declare %templates:wrap function config:app-title($node as node(), $model as map(*)) as text() {
+    $config:expath-descriptor/expath:title/text()
 };
 
 declare function config:app-meta($node as node(), $model as map(*)) as element()* {

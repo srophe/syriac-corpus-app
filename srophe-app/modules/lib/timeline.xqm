@@ -1,6 +1,6 @@
 xquery version "3.0";
 
-module namespace timeline="http://syriaca.org//timeline";
+module namespace timeline="http://syriaca.org/timeline";
 
 (:~
  : Module to build timeline json passed to http://cdn.knightlab.com/libs/timeline/latest/js/storyjs-embed.js widget
@@ -9,8 +9,6 @@ module namespace timeline="http://syriaca.org//timeline";
 :)
 import module namespace json="http://www.json.org";
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
-
-import module namespace config="http://syriaca.org//config" at "../config.xqm";
 
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
