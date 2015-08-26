@@ -3,14 +3,12 @@ xquery version "3.0";
  : Builds search information for spear sub-collection
  : Search string is passed to search.xqm for processing.  
  :)
-module namespace bhses="http://syriaca.org//bhses";
+module namespace bhses="http://syriaca.org/bhses";
 import module namespace functx="http://www.functx.com";
-import module namespace facets="http://syriaca.org//facets" at "../facets.xqm";
-import module namespace app="http://syriaca.org//templates" at "../app.xql";
-import module namespace common="http://syriaca.org//common" at "common.xqm";
+import module namespace common="http://syriaca.org/common" at "common.xqm";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
-import module namespace global="http://syriaca.org//global" at "../global.xqm";
+import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 

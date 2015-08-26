@@ -2,13 +2,13 @@ xquery version "3.0";
 
 module namespace api="http://syriaca.org/api";
 
-import module namespace geo="http://syriaca.org//geojson" at "lib/geojson.xqm";
-import module namespace feed="http://syriaca.org//atom" at "lib/atom.xqm";
-import module namespace common="http://syriaca.org//common" at "search/common.xqm";
+import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
+import module namespace feed="http://syriaca.org/atom" at "lib/atom.xqm";
+import module namespace common="http://syriaca.org/common" at "search/common.xqm";
 (:import module namespace templates="http://exist-db.org/xquery/templates";:)
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 
-import module namespace config="http://syriaca.org//config" at "config.xqm";
+import module namespace config="http://syriaca.org/config" at "config.xqm";
 
 (: For output annotations  :)
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";

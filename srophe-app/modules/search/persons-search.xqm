@@ -3,11 +3,11 @@ xquery version "3.0";
  : Builds search information for persons sub-collection
  : Search string is passed to search.xqm for processing.  
  :)
-module namespace persons="http://syriaca.org//persons";
-import module namespace common="http://syriaca.org//common" at "common.xqm";
+module namespace persons="http://syriaca.org/persons";
+import module namespace common="http://syriaca.org/common" at "common.xqm";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
-import module namespace global="http://syriaca.org//global" at "../global.xqm";
+import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 

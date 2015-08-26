@@ -7,12 +7,12 @@ xquery version "3.0";
  : @see lib/geojson.xqm for map generation
  :)
 
-module namespace browse="http://syriaca.org//browse";
+module namespace browse="http://syriaca.org/browse";
 
-import module namespace common="http://syriaca.org//common" at "search/common.xqm";
-import module namespace geo="http://syriaca.org//geojson" at "lib/geojson.xqm";
-import module namespace templates="http://syriaca.org//templates" at "templates.xql";
-import module namespace global="http://syriaca.org//global" at "global.xqm";
+import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
+import module namespace common="http://syriaca.org/common" at "search/common.xqm";
+import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
+import module namespace templates="http://exist-db.org/xquery/templates";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";

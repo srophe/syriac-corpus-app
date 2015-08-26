@@ -1,6 +1,6 @@
 xquery version "3.0";
 
-module namespace geo="http://syriaca.org//geojson";
+module namespace geo="http://syriaca.org/geojson";
 (:~
  : Module returns coordinates for leafletjs maps, or for API requests
  : @author Winona Salesky <wsalesky@gmail.com>

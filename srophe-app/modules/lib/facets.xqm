@@ -5,7 +5,7 @@ xquery version "3.0";
  : Results output as TEI xml and are transformed by /srophe/resources/xsl/browselisting.xsl
  :)
  
-module namespace facets="http://syriaca.org//facets";
+module namespace facets="http://syriaca.org/facets";
 
 import module namespace functx="http://www.functx.com";
 declare namespace xslt="http://exist-db.org/xquery/transform";

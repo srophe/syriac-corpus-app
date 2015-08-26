@@ -1,18 +1,18 @@
 xquery version "3.0";
 
-module namespace search="http://syriaca.org//search";
-import module namespace facets="http://syriaca.org//facets" at "../lib/facets.xqm";
-import module namespace app="http://syriaca.org//templates" at "../app.xql";
-import module namespace persons="http://syriaca.org//persons" at "persons-search.xqm";
-import module namespace places="http://syriaca.org//places" at "places-search.xqm";
-import module namespace spears="http://syriaca.org//spears" at "spear-search.xqm";
-import module namespace bhses="http://syriaca.org//bhses" at "bhse-search.xqm";
-import module namespace ms="http://syriaca.org//ms" at "ms-search.xqm";
-import module namespace common="http://syriaca.org//common" at "common.xqm";
-import module namespace geo="http://syriaca.org//geojson" at "../lib/geojson.xqm";
+module namespace search="http://syriaca.org/search";
+import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
+import module namespace persons="http://syriaca.org/persons" at "persons-search.xqm";
+import module namespace places="http://syriaca.org/places" at "places-search.xqm";
+import module namespace spears="http://syriaca.org/spears" at "spear-search.xqm";
+import module namespace bhses="http://syriaca.org/bhses" at "bhse-search.xqm";
+import module namespace ms="http://syriaca.org/ms" at "ms-search.xqm";
+import module namespace common="http://syriaca.org/common" at "common.xqm";
+import module namespace geo="http://syriaca.org/geojson" at "../lib/geojson.xqm";
+import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
-import module namespace global="http://syriaca.org//global" at "../global.xqm";
+
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 

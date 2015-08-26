@@ -1,6 +1,6 @@
 xquery version "3.0";
 
-module namespace global="http://syriaca.org//global";
+module namespace global="http://syriaca.org/global";
 
 declare variable $global:app-root := 
     let $rawPath := system:get-module-load-path()

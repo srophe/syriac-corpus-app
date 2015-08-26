@@ -3,12 +3,11 @@ xquery version "3.0";
  : Builds search information for spear sub-collection
  : Search string is passed to search.xqm for processing.  
  :)
-module namespace spears="http://syriaca.org//spears";
+module namespace spears="http://syriaca.org/spears";
 import module namespace functx="http://www.functx.com";
-import module namespace facets="http://syriaca.org//facets" at "../facets.xqm";
-import module namespace app="http://syriaca.org//templates" at "../app.xql";
-import module namespace global="http://syriaca.org//global" at "../global.xqm";
-import module namespace common="http://syriaca.org//common" at "common.xqm";
+import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
+import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
+import module namespace common="http://syriaca.org/common" at "common.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
@@ -174,7 +173,7 @@ declare function spears:results-node($hit){
         else ()
     return 
         <p style="font-weight:bold padding:.5em;">
-            {app:tei2html(<search xmlns="http://www.tei-c.org/ns/1.0">{$root}</search>)}<br/>
+            {global:tei2html(<search xmlns="http://www.tei-c.org/ns/1.0">{$root}</search>)}<br/>
             <a href="factoid.html?id={$id}">View Factoid</a>
             {
                 if($alt-view != '') then 

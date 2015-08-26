@@ -2,8 +2,8 @@ xquery version "3.0";
 (:~
  : Shared functions for search modules 
  :)
-module namespace common="http://syriaca.org//common";
-import module namespace app="http://syriaca.org//templates" at "../app.xql";
+module namespace common="http://syriaca.org/common";
+import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 (:~
@@ -153,7 +153,7 @@ return
                 {
                     for $names in $node/descendant-or-self::tei:person/tei:persName[not(@syriaca-tags='#syriaca-headword')]
                     [not(starts-with(@xml:lang,'syr'))][not(starts-with(@xml:lang,'ar'))][not(@xml:lang ='en-xsrp1')]
-                    return <span class="pers-label badge">{app:tei2html($names)}</span>
+                    return <span class="pers-label badge">{global:tei2html($names)}</span>
                 }
                 </span>
             else() 

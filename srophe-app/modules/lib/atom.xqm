@@ -7,7 +7,7 @@ xquery version "3.0";
  : @param $start start paged results
  : @param $perpage default set to 25 can be changed via perpage param
 :)
-module namespace feed="http://syriaca.org//atom";
+module namespace feed="http://syriaca.org/atom";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace atom="http://www.w3.org/2005/Atom";

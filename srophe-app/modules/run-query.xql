@@ -3,7 +3,7 @@ xquery version "3.0";
  : Run modules as needed
 :)
 
-import module namespace rdfq="http://syriaca.org//rdfq" at "lib/tei2rdf.xqm";
+import module namespace rdfq="http://syriaca.org/rdfq" at "lib/tei2rdf.xqm";
 
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 declare namespace cito = "http://purl.org/spar/cito";
