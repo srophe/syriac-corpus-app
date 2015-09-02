@@ -6,11 +6,10 @@ declare variable $exist:controller external;
 declare variable $exist:prefix external;
 declare variable $exist:root external;
 
-declare variable $syriaca-root := concat($exist:root,'/exist/apps/srophe/');
 
 if ($exist:path eq '') then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <forward url="{concat($syriaca-root, 'index.html')}" absolute="yes"/>
+        <forward url="{concat($exist:controller, 'index.html')}" absolute="yes"/>
     </dispatch>
 else if ($exist:resource eq '') then 
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
@@ -78,10 +77,10 @@ else if (ends-with($exist:resource, ".html")) then
 			<forward url="{$exist:controller}/modules/view.xql"/>
 		</error-handler>
     </dispatch>
-(: Resource paths starting with $app-shared are loaded from the shared-resources app :)
-else if (contains($exist:path, "$app-shared/")) then
+(: Resource paths starting with $app-root are resolved relative to app :)
+else if (contains($exist:path, "/$app-root/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <forward url="{concat($syriaca-root, substring-after($exist:path, '$app-shared/'))}" absolute="yes">
+        <forward url="{concat($exist:controller,'/', substring-after($exist:path, '/$app-root/'))}">
             <set-header name="Cache-Control" value="max-age=3600, must-revalidate"/>
         </forward>
     </dispatch>
