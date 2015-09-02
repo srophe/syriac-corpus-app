@@ -8,7 +8,6 @@
     <url>http://syriaca.org/</url>
     <app-root>srophe</app-root>
     <data-root>srophe-data</data-root>
-    <type_series>http://nomisma.org/id/ric</type_series>
     <base_uri>http://syriaca.org/</base_uri>
     <maps>
         <option>google</option>
