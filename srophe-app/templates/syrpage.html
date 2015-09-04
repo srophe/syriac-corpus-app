@@ -10,11 +10,11 @@
         <!--<meta name="DC.subject" property="dc.subject" content="Geography, Ancient"/>-->
         <meta name="DC.type" property="dc.type" content="Text"/>
         <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org"/>
-        <link rel="shortcut icon" href="/exist/apps/srophe/resources/img/syriaca.ico"/>
-        <link rel="stylesheet" type="text/css" href="/exist/apps/srophe/resources/css/bootstrap.min.css"/>
-        <link rel="stylesheet" type="text/css" href="/exist/apps/srophe/resources/css/main.css"/>
-        <link rel="stylesheet" type="text/css" href="/exist/apps/srophe/resources/css/syriaca.css"/>
-        <link rel="stylesheet" type="text/css" media="print" href="/exist/apps/srophe/resources/css/print.css"/>
+        <link rel="shortcut icon" href="$app-root/resources/img/syriaca.ico"/>
+        <link rel="stylesheet" type="text/css" href="$app-root/resources/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="$app-root/resources/css/main.css"/>
+        <link rel="stylesheet" type="text/css" href="$app-root/resources/css/syriaca.css"/>
+        <link rel="stylesheet" type="text/css" media="print" href="$app-root/resources/css/print.css"/>
         <!-- temporary until migrate to bootstrap 3.0 -->
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>
     </head>
@@ -33,7 +33,7 @@
                         <span class="icon-bar"/>
                     </button>
                     <a class="navbar-brand" href="/index.html">
-                        <img alt="Syriac.org" src="/exist/apps/srophe/resources/img/syriaca-logo.png"/>
+                        <img alt="Syriac.org" src="/exist/apps/srophe/resources/img/syriaca-logo.png"/> Draft
                     </a>
                 </div>
                 <div class="navbar-collapse collapse pull-right">
@@ -42,13 +42,38 @@
                             <a href="/geo/index.html" class="geo-sm-icon nav-icons">Gazetteer</a>
                         </li>
                         <li>
-                            <a href="/persons/index.html" class="persons-sm-icon nav-icons">SBD</a>
+                            <a href="#" class="persons-sm-icon nav-icons dropdown-toggle" data-toggle="dropdown">SBD <b class="caret"/>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/persons/index.html" class="persons-sm-icon nav-icons">SBD</a>
+                                </li>
+                                <li role="presentation" class="divider"/>
+                                <li>
+                                    <a href="/authors/index.html" class="authors-sm-icon nav-icons">Authors</a>
+                                </li>
+                                <li role="presentation" class="divider"/>
+                                <li>
+                                    <a href="/saints/index.html" class="saints-sm-icon nav-icons">Saints</a>
+                                </li>
+                            </ul>
                         </li>
                         <li>
-                            <a href="/authors/index.html" class="authors-sm-icon nav-icons">Authors</a>
-                        </li>
-                        <li>
-                            <a href="/saints/index.html" class="saints-sm-icon nav-icons">Saints</a>
+                            <a href="#" class="saints-sm-icon nav-icons dropdown-toggle" data-toggle="dropdown">Saints <b class="caret"/>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/q/index.html" class="saints-sm-icon nav-icons">Saints</a>
+                                </li>
+                                <li role="presentation" class="divider"/>
+                                <li>
+                                    <a href="/saints/index.html" class="saints-sm-icon nav-icons">Persons</a>
+                                </li>
+                                <li role="presentation" class="divider"/>
+                                <li>
+                                    <a href="/bhse/index.html" class="bhse-sm-icon nav-icons">Works</a>
+                                </li>
+                            </ul>
                         </li>
                         <li>
                             <a href="/spear/index.html" class="spear-sm-icon nav-icons">SPEAR</a>
@@ -94,9 +119,9 @@
             </div>
         </footer>        
         <!-- Additional Javascript -->
-        <script type="text/javascript" src="/exist/apps/srophe/resources/js/bootstrap.min.js"/>
-        <script type="text/javascript" src="/exist/apps/srophe/resources/js/jquery.validate.min.js"/>
-        <script type="text/javascript" src="/exist/apps/srophe/resources/js/main.js"/>
+        <script type="text/javascript" src="$app-root/resources/js/bootstrap.min.js"/>
+        <script type="text/javascript" src="$app-root/resources/js/jquery.validate.min.js"/>
+        <script type="text/javascript" src="$app-root/resources/js/main.js"/>
         <script>
             var _gaq=[['_setAccount',''],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];

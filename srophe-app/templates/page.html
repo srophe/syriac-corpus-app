@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" data-template="app:get-rec">
     <head>
-        <title data-template="app:app-title">App Title</title>
-        <link rel="shortcut icon" href="/exist/apps/srophe/resources/img/syriaca.ico"/>
-        <link rel="stylesheet" type="text/css" href="$shared/resources/css/bootstrap.min.css"/>
-        <link rel="stylesheet" type="text/css" href="$shared/resources/css/bootstrap-responsive.min.css"/>
-        <link rel="stylesheet" type="text/css" href="/exist/apps/srophe/resources/css/main.css"/>
-        <link rel="stylesheet" type="text/css" media="print" href="/exist/apps/srophe/resources/css/print.css"/>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title data-template="app:app-title">Syriaca.org: The Syriac Reference Portal</title>
+        <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"/>
+        <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/"/>
+        <!--<meta name="DC.subject" property="dc.subject" content="Geography, Ancient"/>-->
+        <meta name="DC.type" property="dc.type" content="Text"/>
+        <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org"/>
+        <link rel="shortcut icon" href="$app-root/resources/img/syriaca.ico"/>
+        <link rel="stylesheet" type="text/css" href="$app-root/resources/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="$app-root/resources/css/main.css"/>
+        <link rel="stylesheet" type="text/css" href="$app-root/resources/css/syriaca.css"/>
+        <link rel="stylesheet" type="text/css" media="print" href="$app-root/resources/css/print.css"/>
+        <!-- temporary until migrate to bootstrap 3.0 -->
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>
-        <script type="text/javascript" src="$shared/resources/scripts/loadsource.js"/>
-        <script type="text/javascript" src="/exist/apps/srophe/resources/js/plugins.js"/>
-        <script type="text/javascript" src="/exist/apps/srophe/resources/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"/>
     </head>
-    <body id="body">
+    <body>
         <!--[if lt IE 7]>
                 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
             <![endif]-->
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">&gt;
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -26,31 +33,56 @@
                         <span class="icon-bar"/>
                     </button>
                     <a class="navbar-brand" href="/index.html">
-                        <img alt="Syriac.org" src="/exist/apps/srophe/resources/img/syriaca-logo.png"/>
+                        <img alt="Syriac.org" src="/exist/apps/srophe/resources/img/syriaca-logo.png"/> Draft
                     </a>
                 </div>
                 <div class="navbar-collapse collapse pull-right">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="/geo/index.html" class="geo-sm-icon nav-icons">Gazetteer</a>
+                            <a href="$app-root/geo/index.html" class="geo-sm-icon nav-icons">Gazetteer</a>
                         </li>
                         <li>
-                            <a href="/persons/index.html" class="persons-sm-icon nav-icons">SBD</a>
+                            <a href="#" class="persons-sm-icon nav-icons dropdown-toggle" data-toggle="dropdown">SBD <b class="caret"/>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="$app-root/persons/index.html" class="persons-sm-icon nav-icons">SBD</a>
+                                </li>
+                                <li role="presentation" class="divider"/>
+                                <li>
+                                    <a href="$app-root/authors/index.html" class="authors-sm-icon nav-icons">Authors</a>
+                                </li>
+                                <li role="presentation" class="divider"/>
+                                <li>
+                                    <a href="$app-root/saints/index.html" class="saints-sm-icon nav-icons">Saints</a>
+                                </li>
+                            </ul>
                         </li>
                         <li>
-                            <a href="/authors/index.html" class="authors-sm-icon nav-icons">Authors</a>
+                            <a href="#" class="saints-sm-icon nav-icons dropdown-toggle" data-toggle="dropdown">Saints <b class="caret"/>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="$app-root/q/index.html" class="saints-sm-icon nav-icons">Saints</a>
+                                </li>
+                                <li role="presentation" class="divider"/>
+                                <li>
+                                    <a href="$app-root/saints/index.html" class="saints-sm-icon nav-icons">Persons</a>
+                                </li>
+                                <li role="presentation" class="divider"/>
+                                <li>
+                                    <a href="$app-root/bhse/index.html" class="bhse-sm-icon nav-icons">Works</a>
+                                </li>
+                            </ul>
                         </li>
                         <li>
-                            <a href="/saints/index.html" class="saints-sm-icon nav-icons">Saints</a>
+                            <a href="$app-root/spear/index.html" class="spear-sm-icon nav-icons">SPEAR</a>
                         </li>
                         <li>
-                            <a href="/spear/index.html" class="spear-sm-icon nav-icons">SPEAR</a>
+                            <a href="$app-root/mss/index.html" class="mss-sm-icon nav-icons">MSS</a>
                         </li>
                         <li>
-                            <a href="/mss/index.html" class="mss-sm-icon nav-icons">MSS</a>
-                        </li>
-                        <li>
-                            <a href="/documentation/index.html">Documentation</a>
+                            <a href="$app-root/documentation/index.html">Documentation</a>
                         </li>
                     </ul>
                     <!-- Enable cross module searching 
@@ -75,25 +107,23 @@
             </div>
         </div>
         <div id="main">
-            <div id="content" class="container-fluid well well-small"/>
+            <div id="content" class="container well well-white"/>
         </div>
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span12 text-center" style="color:white;">
-                    <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">
-                        <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/80x15.png"/>
-                    </a> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a>.
-                    <br/>Copyright Vanderbilt University, Princeton University, and the Contributor(s), 2014.
-                </div>
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">
+                    <img alt="Creative Commons License" style="border-width:0" src="/exist/apps/srophe/resources/img/cc.png" height="18px"/>
+                </a> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a>.
+                <br/>Copyright Vanderbilt University, Princeton University, and the Contributor(s), 2014.
             </div>
-        </div>
+        </footer>        
         <!-- Additional Javascript -->
-        <script type="text/javascript" src="/exist/apps/srophe/resources/js/bootstrap.min.js"/>
-        <script type="text/javascript" src="/exist/apps/srophe/resources/js/jquery.validate.min.js"/>
-        <script type="text/javascript" src="/exist/apps/srophe/resources/js/main.js"/>
-        <!-- Add google analytics code for production: UA-333143-26-->
+        <script type="text/javascript" src="$app-root/resources/js/bootstrap.min.js"/>
+        <script type="text/javascript" src="$app-root/resources/js/jquery.validate.min.js"/>
+        <script type="text/javascript" src="$app-root/resources/js/main.js"/>
         <script>
-            var _gaq=[['_setAccount','UA-333143-26'],['_trackPageview']];
+            var _gaq=[['_setAccount',''],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
