@@ -426,8 +426,15 @@
         <!-- NOTE: need to handle abstract notes -->
         <xsl:if test="t:note[not(@type='abstract')]">
             <xsl:for-each-group select="t:note[not(@type='abstract')][exists(@type)]" group-by="@type">
+                <xsl:variable name="label">
+                    <xsl:choose>
+                        <xsl:when test="current-grouping-key() = 'ancientVersion'">Ancient Versions</xsl:when>
+                        <xsl:when test="current-grouping-key() = 'modernTranslation'">Modern Translations</xsl:when>
+                        <xsl:otherwise><xsl:value-of select="current-grouping-key()"/></xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
                 <h3>
-                    <xsl:value-of select="concat(upper-case(substring(current-grouping-key(),1,1)),substring(current-grouping-key(),2))"/>
+                    <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
                 </h3>
                 <ul>
                     <xsl:for-each select="current-group()">
@@ -887,29 +894,57 @@
             <!-- Adds definition list for depreciated names -->
             <xsl:when test="@type='deprecation'">
                 <li>
-                    <xsl:apply-templates select="../t:link[contains(@target,$xmlid)]"/>:
-                        <xsl:apply-templates/>
-                        <!-- Check for ending punctuation, if none, add . -->
-                    <xsl:if test="not(ends-with(.,'.'))">
-                        <xsl:text>.</xsl:text>
-                    </xsl:if>
+                    <span>
+                        <xsl:apply-templates select="../t:link[contains(@target,$xmlid)]"/>:
+                            <xsl:apply-templates/>
+                            <!-- Check for ending punctuation, if none, add . -->
+                        <xsl:if test="not(ends-with(.,'.'))">
+                            <xsl:text>.</xsl:text>
+                        </xsl:if>
+                    </span>
                 </li>
             </xsl:when>
             <xsl:when test="@type='corrigenda' or @type='incerta' or @type ='errata'">
                 <li>
+                    <span>
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
+                    </span>
+                </li>
+            </xsl:when>
+            <xsl:when test="@type='ancientVersion'">
+                <li>
+                    <span>
+                    <xsl:call-template name="langattr"/>
+                    <!-- Note this could be a helper function local:expand lang -->
+                        <xsl:choose>
+                            <xsl:when test="@xml:lang='la'">Latin: </xsl:when>
+                            <xsl:when test="@xml:lang='grc'">Greek: </xsl:when>
+                            <xsl:when test="@xml:lang='ar'">Arabic: </xsl:when>
+                            <xsl:when test="@xml:lang='hy'">Armenian: </xsl:when>
+                            <xsl:when test="@xml:lang='ka'">Georgian: </xsl:when>
+                            <xsl:when test="@xml:lang='sog'">Soghdian: </xsl:when>
+                            <xsl:when test="@xml:lang='cu'">Slavic: </xsl:when>
+                            <xsl:when test="@xml:lang='cop'">Coptic: </xsl:when>
+                            <xsl:when test="@xml:lang='gez'">Ethiopic: </xsl:when>
+                            <xsl:when test="@xml:lang='syr-pal'">Syro-Palestinian: </xsl:when>
+                            <xsl:when test="@xml:lang='ar-syr'">Karshuni: </xsl:when>
+                        </xsl:choose>
+                        <xsl:apply-templates/>
+                    </span>    
                 </li>
             </xsl:when>
             <xsl:otherwise>
-                <p>
+                <li>
+                    <span>
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                     <!-- Check for ending punctuation, if none, add . -->
                     <xsl:if test="not(ends-with(.,'.'))">
                         <xsl:text>.</xsl:text>
                     </xsl:if>
-                </p>
+                    </span>
+                </li>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
