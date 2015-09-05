@@ -5,7 +5,15 @@ declare variable $exist:resource external;
 declare variable $exist:controller external;
 declare variable $exist:prefix external;
 declare variable $exist:root external;
-
+(:
+<div>
+    <p>$exist:path: {$exist:path}</p>
+    <p>$exist:resource: {$exist:resource}</p>
+    <p>$exist:controller: {$exist:controller}</p>
+    <p>$exist:prefix: {$exist:prefix}</p>
+    <p>$exist:root: {$exist:root}</p>
+</div>
+:)
 
 if ($exist:path eq '') then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
@@ -79,11 +87,11 @@ else if (ends-with($exist:resource, ".html")) then
     </dispatch>
 (: Resource paths starting with $app-root are resolved relative to app :)
 else if (contains($exist:path, "/$app-root/")) then
-    <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <forward url="{concat($exist:controller,'/', substring-after($exist:path, '/$app-root/'))}">
-            <set-header name="Cache-Control" value="max-age=3600, must-revalidate"/>
-        </forward>
-    </dispatch>
+        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+            <forward url="{concat($exist:controller,'/', substring-after($exist:path, '/$app-root/'))}">
+                <set-header name="Cache-Control" value="max-age=3600, must-revalidate"/>
+            </forward>
+        </dispatch>        
 (: Resource paths starting with $shared are loaded from the shared-resources app :)
 else if (contains($exist:path, "/$shared/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
