@@ -128,7 +128,7 @@ let $desc :=
         else ()
 return
     <p class="results-list">
-       <a href="{replace($uri,'http://syriaca.org/','/exist/apps/srophe/')}">
+       <a href="{replace($uri,$global:base-uri,$global:nav-base)}">
         {
         if($lang = 'syr') then
             (<span dir="rtl" lang="syr" xml:lang="syr">{$syr-title}</span>,' - ', $en-title,
@@ -159,6 +159,6 @@ return
             else() 
         else()
         }
-     <span class="results-list-desc"><span class="srp-label">URI: </span><a href="{$uri}">{$uri}</a></span>
+     <span class="results-list-desc"><span class="srp-label">URI: </span><a href="{replace($uri,$global:base-uri,$global:nav-base)}">{$uri}</a></span>
     </p>
 };

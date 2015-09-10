@@ -124,10 +124,7 @@ if($browse:view = 'type' or $browse:view = 'date') then
                  <ul>{browse:get-data($node,$model,$coll)}</ul>)
             else <h3>Select Date</h3>  
         else ()}</div>)
-else if($browse:view = 'map') then
-    <div class="col-md-12 map-lg">
-        {geo:build-map($model("browse-data")//tei:geo, '', '')}
-    </div>
+else if($browse:view = 'map') then browse:get-map($node, $model)
 else 
     <div class="col-md-12">
         { (
@@ -139,6 +136,12 @@ else
         </div>
         )
         }
+    </div>
+};
+
+declare function browse:get-map($node as node(), $model as map(*)){
+    <div class="col-md-12 map-lg">
+        {geo:build-google-map($model("browse-data")//tei:geo, '', '')}
     </div>
 };
 
