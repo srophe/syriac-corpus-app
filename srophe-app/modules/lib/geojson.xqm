@@ -8,6 +8,7 @@ module namespace geo="http://syriaca.org/geojson";
 :)
 
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
+import module namespace global="http://syriaca.org/global" at "global.xqm";
 
 declare namespace json = "http://www.json.org";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
@@ -20,7 +21,7 @@ declare namespace transform="http://exist-db.org/xquery/transform";
  : @param $rec-type place type
  : @param $title place title
 :)
-declare function geo:build-json($geo as xs:string,$id as xs:string, $rec-type as xs:string, $title as xs:string, $rec-rel as xs:string) as element(features){    
+declare function geo:build-json($geo as xs:string, $id as xs:string, $rec-type as xs:string, $title as xs:string, $rec-rel as xs:string) as element(features){    
     <item type="object">
         <pair name="type"  type="string">Feature</pair>
         <pair name="geometry"  type="object">
@@ -31,7 +32,7 @@ declare function geo:build-json($geo as xs:string,$id as xs:string, $rec-type as
             </pair>
         </pair>
         <pair name="properties"  type="object">
-            <pair name="uri"  type="string">{concat('http://syriaca.org/place/',substring-after($id,'place-'))}</pair>
+            <pair name="uri"  type="string">{replace($id,$global:base-uri,$global:nav-base)}</pair>
             <pair name="placeType"  type="string">{if($rec-type='open-water') then 'openWater' else $rec-type}</pair>
             {
               if($rec-rel != '') then 
@@ -54,8 +55,7 @@ declare function geo:build-kml($geo as xs:string,$id as xs:string, $rec-type as 
     <kml xmlns="http://www.opengis.net/kml/2.2">
         <Placemark>
             <name>{$title} - {if($rec-type='open-water') then 'openWater' else $rec-type}</name>
-            <description>{concat('http://syriaca.org/place/',substring-after($id,'place-'))}
-            </description>
+            <description>{replace($id,$global:base-uri,$global:nav-base)}</description>
             <Point>
                 <coordinates>{replace($geo,' ',',')}</coordinates>
             </Point>
@@ -72,7 +72,7 @@ declare function geo:build-kml($geo as xs:string,$id as xs:string, $rec-type as 
 declare function geo:get-coordinates($geo-search as element()*, $type as xs:string*, $output as xs:string*) as element()*{
     let $geo-map :=  map{"geo-data" := $geo-search}        
     for $place-name in map:get($geo-map, 'geo-data')
-    let $id := string($place-name/ancestor::tei:place/@xml:id)
+    let $id := string($place-name/ancestor::tei:place/tei:idno[@type='URI'][starts-with(.,$global:base-uri)])
     let $rec-type := string($place-name/ancestor::tei:place/@type)
     let $title := $place-name/ancestor::tei:place/tei:placeName[@xml:lang = 'en'][1]/text()
     let $geo := $place-name
@@ -123,7 +123,15 @@ declare function geo:json-transform($geo-search as node()*, $type as xs:string*,
     (:$geo-search:)
 };
 
+(:~
+ : Selects map rendering based on config.xml entry
+:)
 declare function geo:build-map($geo-search as node()*, $type as xs:string*, $output as xs:string*){
+if($global:app-map-option = 'google') then geo:build-google-map($geo-search, $type, $output)
+else geo:build-leaflet-map($geo-search, $type, $output)
+};
+
+declare function geo:build-leaflet-map($geo-search as node()*, $type as xs:string*, $output as xs:string*){
     <div id="map-data" style="margin-bottom:3em;">
         <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2"/>
         <script src="http://isawnyu.github.com/awld-js/lib/requirejs/require.min.js" type="text/javascript"/>
@@ -192,6 +200,100 @@ declare function geo:build-map($geo-search as node()*, $type as xs:string*, $out
                         "Streets": streets,
                         "Imperium": imperium }).addTo(map);
         geojson.addTo(map);     
+        ]]>
+        </script>
+         <div>
+            <div class="modal fade" id="map-selection" tabindex="-1" role="dialog" aria-labelledby="map-selectionLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true"> x </span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="popup" style="border:none; margin:0;padding:0;margin-top:-2em;"/>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn" href="/documentation/faq.html" aria-hidden="true">See all FAQs</a>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+         <script type="text/javascript">
+         <![CDATA[
+            $('#mapFAQ').click(function(){
+                $('#popup').load( '../documentation/faq.html #map-selection',function(result){
+                    $('#map-selection').modal({show:true});
+                });
+             });]]>
+         </script>
+    </div> 
+};
+
+
+(:~
+ : Pass geojson to google maps
+ : @param $geo-search predefined results set passed from search.xqm
+ : @param $type place type from predefined list: http://syriaca.org/documentation/place-types.html
+ : @param $output indicates json or kml
+:)
+declare function geo:build-google-map($geo-search as node()*, $type as xs:string*, $output as xs:string*){
+    <div id="map-data" style="margin-bottom:3em;">
+        <script src="http://maps.googleapis.com/maps/api/js">//</script>
+        <div id="map"/>
+        <div class="hint map pull-right">* {count($geo-search)} have coordinates and are shown on this map. 
+             <button class="btn btn-link" data-toggle="modal" data-target="#map-selection" id="mapFAQ">Read more...</button>
+        </div>
+    
+        <script type="text/javascript">
+            <![CDATA[
+            var map;
+                            
+            var bounds = new google.maps.LatLngBounds();
+            
+            function initialize(){
+                map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 2,
+                    center: new google.maps.LatLng(0,0),
+                    mapTypeId: google.maps.MapTypeId.TERRAIN
+                });
+
+                var placesgeo = ]]>{xqjson:serialize-json(geo:json-wrapper($geo-search, $type, $output))}
+                <![CDATA[ 
+                
+                var infoWindow = new google.maps.InfoWindow();
+                
+                for(var i = 0, length = placesgeo.features.length; i < length; i++) {
+                    var data = placesgeo.features[i]
+                    var coords = data.geometry.coordinates;
+                    var latLng = new google.maps.LatLng(coords[1],coords[0]);
+                    var marker = new google.maps.Marker({
+                        position: latLng,
+                        map:map
+                    });
+                    
+                    // Creating a closure to retain the correct data, notice how I pass the current data in the loop into the closure (marker, data)
+         			(function(marker, data) {
+         
+         				// Attaching a click event to the current marker
+         				google.maps.event.addListener(marker, "click", function(e) {
+         					infoWindow.setContent("<a href='" + data.properties.uri + "'>" + data.properties.name + " - " + data.properties.type + "</a>");
+         					infoWindow.open(map, marker);
+         				});
+         
+         
+         			})(marker, data);
+                    bounds.extend(latLng);
+                }
+                map.fitBounds(bounds);
+            }
+
+            google.maps.event.addDomListener(window, 'load', initialize)
+
         ]]>
         </script>
          <div>
