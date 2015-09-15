@@ -34,6 +34,14 @@ declare function mss:html-title(){
 };
 
 (:~
+ : Traverse main nav and "fix" links based on values in config.xml 
+:)
+declare
+    %templates:wrap
+function mss:fix-links($node as node(), $model as map(*)) {
+    templates:process(global:fix-links($node/node()), $model)
+};
+(:~
  : Build manuscripts view
  : @param $id mss URI
  :)

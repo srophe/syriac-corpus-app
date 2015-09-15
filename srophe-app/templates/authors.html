@@ -19,9 +19,6 @@
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
         <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>
         <!-- temporary until migrate to bootstrap 3.0 -->
-        <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2"/>
-        <script src="http://isawnyu.github.com/awld-js/lib/requirejs/require.min.js" type="text/javascript"/>
-        <script src="http://isawnyu.github.com/awld-js/awld.js?autoinit" type="text/javascript"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>
     </head>
     <body>
@@ -29,7 +26,7 @@
                 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
             <![endif]-->
         <!-- Fixed navbar -->
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="person:fix-links">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -38,19 +35,19 @@
                         <span class="icon-bar"/>
                         <span class="icon-bar"/>
                     </button>
-                    <a class="navbar-brand" href="index.html">
-                        <img alt="Syriac.org: Persons" src="/exist/apps/srophe/resources/img/icons-authors.png"/>
+                    <a class="navbar-brand" href="$app-root/index.html">
+                        <img alt="Syriac.org: Persons" src="$app-root/resources/img/icons-authors.png"/>
                     </a>
                 </div>
                 <div class="navbar-collapse collapse pull-right">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                Home <b class="caret"/>
+                                home <b class="caret"/>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="/geo/index.html" class="geo-sm-icon nav-icons">Gazetteer</a>
+                                    <a href="$app-root/geo/index.html" class="geo-sm-icon nav-icons">Gazetteer</a>
                                 </li>
                                 <li role="presentation" class="divider"/>
                                 <li class="dropdown-submenu">
@@ -58,15 +55,15 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="/persons/index.html" class="saints-sm-icon nav-icons">SBD</a>
+                                            <a href="$app-root/persons/index.html" class="saints-sm-icon nav-icons">SBD</a>
                                         </li>
                                         <li role="presentation" class="divider"/>
                                         <li>
-                                            <a href="/authors/index.html" class="authors-sm-icon nav-icons">Authors</a>
+                                            <a href="$app-root/authors/index.html" class="authors-sm-icon nav-icons">Authors</a>
                                         </li>
                                         <li role="presentation" class="divider"/>
                                         <li>
-                                            <a href="/saints/index.html" class="saints-sm-icon nav-icons">Saints</a>
+                                            <a href="$app-root/saints/index.html" class="saints-sm-icon nav-icons">Saints</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -76,41 +73,41 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="/q/index.html" class="saints-sm-icon nav-icons">Saints</a>
+                                            <a href="$app-root/q/index.html" class="saints-sm-icon nav-icons">Saints</a>
                                         </li>
                                         <li role="presentation" class="divider"/>
                                         <li>
-                                            <a href="/saints/index.html" class="saints-sm-icon nav-icons">Persons</a>
+                                            <a href="$app-root/saints/index.html" class="saints-sm-icon nav-icons">Persons</a>
                                         </li>
                                         <li role="presentation" class="divider"/>
                                         <li>
-                                            <a href="/bhse/index.html" class="bhse-sm-icon nav-icons">Works</a>
+                                            <a href="$app-root/bhse/index.html" class="bhse-sm-icon nav-icons">Works</a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li role="presentation" class="divider"/>
                                 <li>
-                                    <a href="/spear/index.html" class="spear-sm-icon nav-icons">SPEAR</a>
+                                    <a href="$app-root/spear/index.html" class="spear-sm-icon nav-icons">SPEAR</a>
                                 </li>
                                 <li role="presentation" class="divider"/>
                                 <li>
-                                    <a href="/mss/index.html" class="mss-sm-icon nav-icons">MSS</a>
+                                    <a href="$app-root/mss/index.html" class="mss-sm-icon nav-icons">MSS</a>
                                 </li>
                                 <li role="presentation" class="divider"/>
                                 <li>
-                                    <a href="/index.html" class="syriaca-sm-icon nav-icons">Syriaca.org</a>
+                                    <a href="$app-root/index.html" class="syriaca-sm-icon nav-icons">Syriaca.org</a>
                                 </li>
                                 <li role="presentation" class="divider"/>
                                 <li>
-                                    <a href="/documentation/index.html">Documentation</a>
+                                    <a href="$app-root/documentation/index.html">Documentation</a>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="browse.html">Index</a>
+                            <a href="$app-root/authors/browse.html">index</a>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-right navbar-input-group" role="search" action="search.html" method="get">
+                    <form class="navbar-form navbar-right navbar-input-group" role="search" action="$app-root/authors/search.html" method="get">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search" name="q" id="q"/>
                             <input type="hidden" id="collection" value="authors"/>
@@ -121,7 +118,7 @@
                             </div>
                             <div class="input-group-btn">
                                 <span class="btn btn-default">
-                                    <a href="search.html" title="advanced search">
+                                    <a href="$app-root/authors/search.html" title="advanced search">
                                         <span class="glyphicon glyphicon-cog"/>
                                     </a>
                                 </span>
@@ -138,7 +135,7 @@
         <footer>
             <div class="container">
                 <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">
-                    <img alt="Creative Commons License" style="border-width:0" src="/exist/apps/srophe/resources/img/cc.png" height="18px"/>
+                    <img alt="Creative Commons License" style="border-width:0" src="$app-root/resources/img/cc.png" height="18px"/>
                 </a> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a>.
                 <br/>Copyright Vanderbilt University, Princeton University, and the Contributor(s), 2014.
             </div>

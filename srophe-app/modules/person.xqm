@@ -35,6 +35,15 @@ else map {"data" := 'Page data'}
 };
 
 (:~
+ : Traverse main nav and "fix" links based on values in config.xml 
+:)
+declare
+    %templates:wrap
+function person:fix-links($node as node(), $model as map(*)) {
+    templates:process(global:fix-links($node/node()), $model)
+};
+
+(:~
  : Dynamically build html title based on TEI record and/or sub-module. 
  : @param $person:id if id is present find TEI title, otherwise use title of sub-module
 :)
