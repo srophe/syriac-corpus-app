@@ -9,13 +9,46 @@ import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 
-(:~
+(:~         
  : Syriaca.org URI for retrieving TEI records 
 :)
 declare variable $app:id {request:get-parameter('id', '')}; 
 
-(:~ 
- : Simple get record function, retrieves tei record based on idno
+(:~
+ : Traverse main nav and "fix" links based on values in config.xml 
+:)
+declare
+    %templates:wrap
+function app:fix-links($node as node(), $model as map(*)) {
+    templates:process(app:fix-links($node/node()), $model)
+};
+
+declare function app:fix-links($nodes as node()*) {
+    for $node in $nodes
+    return
+        typeswitch($node)
+            case element(a) return
+                let $href := replace($node/@href, "\$app", concat("/exist/apps/",$global:app-root))
+                return
+                    <a href="{$href}">
+                        {$node/@* except $node/@href, $node/node()}
+                    </a>
+            case element() return
+                element { node-name($node) } {
+                    $node/@*, app:fix-links($node/node())
+                }
+            default return
+                $node
+};
+
+(:
+subnav.xml
+:)
+declare %templates:wrap function app:get-nav($node as node(), $model as map(*)){
+ doc($global:data-root || 'templates/subnav.xml')/child::*
+};
+(:~  
+ : Simple get record function, get tei record based on idno
  : @param $app:id syriaca.org uri 
 :)
 declare function app:get-rec($node as node(), $model as map(*), $coll as xs:string?) {

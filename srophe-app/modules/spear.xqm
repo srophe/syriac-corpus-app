@@ -26,12 +26,22 @@ declare variable $spear:date {request:get-parameter('date', '')};
 declare variable $spear:fq {request:get-parameter('fq', '')};
 declare variable $spear:sort {request:get-parameter('sort', 'all') cast as xs:string};
 
+
 declare variable $spear:item-type {
 if($spear:id != '') then 
     if(contains($spear:id, '/place')) then 'place-factoid'
     else if(contains($spear:id, '/person')) then 'person-factoid'
     else 'event-factoid'
 else 'all-events'
+};
+
+(:~
+ : Traverse main nav and "fix" links based on values in config.xml 
+:)
+declare
+    %templates:wrap
+function spear:fix-links($node as node(), $model as map(*)) {
+    templates:process(global:fix-links($node/node()), $model)
 };
 
 declare function spear:build-doc-path(){ 

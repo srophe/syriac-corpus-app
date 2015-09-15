@@ -16,11 +16,42 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 declare namespace transform="http://exist-db.org/xquery/transform";
 
-(:~ 
+(:~   
  : Parameters passed from the url 
  :)
 declare variable $place:id {request:get-parameter('id', '')};
 declare variable $place:status {request:get-parameter('status', '')};
+
+(:~
+ : Traverse main nav and "fix" links based on values in config.xml 
+:)
+declare
+    %templates:wrap
+function place:fix-links($node as node(), $model as map(*)) {
+    templates:process(global:fix-links($node/node()), $model)
+};
+
+declare function place:fix-links($nodes as node()*) {
+    for $node in $nodes
+    return
+        typeswitch($node)
+            case element(a) return
+                let $href := replace($node/@href, "\$app-root", concat("/exist/apps/",$global:app-root))
+                return
+                    <a href="{$href}">
+                        {$node/@* except $node/@href, $node/node()}
+                    </a>
+            case element() return
+                element { node-name($node) } {
+                    $node/@*, place:fix-links($node/node())
+                }
+            default return
+                $node
+};
+
+declare function place:get-nav($node as node(), $model as map(*)){
+ doc($global:data-root || '/templates/subnav.xml')/child::*[1]
+};
 
 (:~ 
  : Simple get record function, retrieves tei record based on idno
