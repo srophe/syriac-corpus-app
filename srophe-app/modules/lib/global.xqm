@@ -37,6 +37,10 @@ declare variable $global:nav-base :=
 (: Base URI used in tei:idno :)
 declare variable $global:base-uri := $global:get-config//base_uri/text();
 
+declare variable $global:app-title := $global:get-config//title/text();
+
+declare variable $global:app-url := $global:get-config//url/text();
+
 (: Name of logo, not currently used dynamically :)
 declare variable $global:app-logo := $global:get-config//logo/text();
 
@@ -61,8 +65,8 @@ declare function global:fix-links($nodes as node()*) {
                 let $action := replace($node/@action, "\$app-root", $global:nav-base)
                 return
                     <form action="{$action}">
-                        {$node/@* except $node/@action, $node/node()}
-                    </form> 
+                        {$node/@* except $node/@action, global:fix-links($node/node())}
+                    </form>      
             case element() return
                 element { node-name($node) } {
                     $node/@*, global:fix-links($node/node())
