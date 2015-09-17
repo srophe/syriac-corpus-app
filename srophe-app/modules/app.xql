@@ -20,25 +20,7 @@ declare variable $app:id {request:get-parameter('id', '')};
 declare
     %templates:wrap
 function app:fix-links($node as node(), $model as map(*)) {
-    templates:process(app:fix-links($node/node()), $model)
-};
-
-declare function app:fix-links($nodes as node()*) {
-    for $node in $nodes
-    return
-        typeswitch($node)
-            case element(a) return
-                let $href := replace($node/@href, "\$app", concat("/exist/apps/",$global:app-root))
-                return
-                    <a href="{$href}">
-                        {$node/@* except $node/@href, $node/node()}
-                    </a>
-            case element() return
-                element { node-name($node) } {
-                    $node/@*, app:fix-links($node/node())
-                }
-            default return
-                $node
+    templates:process(global:fix-links($node/node()), $model)
 };
 
 (:
