@@ -47,7 +47,7 @@ function mss:fix-links($node as node(), $model as map(*)) {
  :)
 declare %templates:wrap function mss:get-data($node as node(), $model as map(*)){
 let $mssURI :=
-        if(contains($mss:id,'syriaca.org/')) then $mss:id 
+        if(contains($mss:id,$global:base-uri)) then $mss:id 
         else concat('http://syriaca.org/manuscript/',$mss:id)
 return 
     map {"data" := collection($global:data-root || "/manuscripts/tei")//tei:idno[@type='URI'][. = $mssURI]}            

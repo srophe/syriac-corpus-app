@@ -31,28 +31,6 @@ function place:fix-links($node as node(), $model as map(*)) {
     templates:process(global:fix-links($node/node()), $model)
 };
 
-declare function place:fix-links($nodes as node()*) {
-    for $node in $nodes
-    return
-        typeswitch($node)
-            case element(a) return
-                let $href := replace($node/@href, "\$app-root", concat("/exist/apps/",$global:app-root))
-                return
-                    <a href="{$href}">
-                        {$node/@* except $node/@href, $node/node()}
-                    </a>
-            case element() return
-                element { node-name($node) } {
-                    $node/@*, place:fix-links($node/node())
-                }
-            default return
-                $node
-};
-
-declare function place:get-nav($node as node(), $model as map(*)){
- doc($global:data-root || '/templates/subnav.xml')/child::*[1]
-};
-
 (:~ 
  : Simple get record function, retrieves tei record based on idno
  : @param $place:id syriaca.org uri 
@@ -60,7 +38,7 @@ declare function place:get-nav($node as node(), $model as map(*)){
 declare function place:get-rec($node as node(), $model as map(*)) {
 if($place:id) then 
     let $id :=
-        if(contains(request:get-uri(),'http://syriaca.org/')) then $place:id
+        if(contains(request:get-uri(),$global:base-uri)) then $place:id
         else if(contains(request:get-uri(),'/geo/') or contains(request:get-uri(),'/place/')) then concat('http://syriaca.org/place/',$place:id) 
         else $place:id
     return map {"data" := collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}

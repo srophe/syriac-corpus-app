@@ -27,7 +27,7 @@ declare variable $person:id {request:get-parameter('id', '')};
 declare function person:get-rec($node as node(), $model as map(*)) {
 if($person:id) then 
     let $id :=
-        if(contains(request:get-uri(),'http://syriaca.org/')) then $person:id
+        if(contains(request:get-uri(),$global:base-uri)) then $person:id
         else if(contains(request:get-uri(),'/persons/') or contains(request:get-uri(),'/person/') or contains(request:get-uri(),'/saints/')) then concat('http://syriaca.org/person/',$person:id) 
         else $person:id
     return map {"data" := collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}
