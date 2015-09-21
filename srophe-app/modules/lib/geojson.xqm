@@ -118,9 +118,7 @@ declare function geo:json-wrapper($geo-search as element()*, $type as xs:string*
  : @param $output indicates json or kml
 :)
 declare function geo:json-transform($geo-search as node()*, $type as xs:string*, $output as xs:string*){
-    (:transform:transform(geo:json-wrapper($geo-search, $type, $output), doc('../resources/xsl/geojson.xsl'),() ):)
     xqjson:serialize-json(geo:json-wrapper($geo-search, $type, $output))
-    (:$geo-search:)
 };
 
 (:~

@@ -12,7 +12,7 @@
     <!-- Web Site URL -->
     <url>http://syriaca.org/</url>
     <!-- Root of app for building dynamic links. Default is eXist app root -->
-    <nav-base>/exist/apps/geo</nav-base>
+    <nav-base>/exist/apps/srophe</nav-base>
     <!-- eXist app root for app deployment-->
     <app-root>srophe</app-root>
     <!-- eXist data app root for gazetteer data -->
@@ -37,5 +37,5 @@
             <br/>Copyright Vanderbilt University, Princeton University, and the Contributor(s), 2014.
         </div>
     </footer>
-    -->    
+    -->
 </config>

@@ -39,7 +39,7 @@ declare function place:get-rec($node as node(), $model as map(*)) {
 if($place:id) then 
     let $id :=
         if(contains(request:get-uri(),$global:base-uri)) then $place:id
-        else if(contains(request:get-uri(),'/geo/') or contains(request:get-uri(),'/place/')) then concat('http://syriaca.org/place/',$place:id) 
+        else if(contains(request:get-uri(),'/geo/') or contains(request:get-uri(),'/place/')) then concat($global:base-uri,'/place/',$place:id) 
         else $place:id
     return map {"data" := collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}
 else map {"data" := 'Page data'} 
@@ -167,7 +167,7 @@ declare %templates:wrap function place:events($node as node(), $model as map(*))
  :           </location>       
 :)
 declare function place:nested-loc($node as node(), $model as map(*)){
-    let $ref-id := concat('http://syriaca.org/place/',$place:id)
+    let $ref-id := concat($global:base-uri,'/place/',$place:id)
     return 
         global:tei2html(<place xmlns="http://www.tei-c.org/ns/1.0">
         {
@@ -208,7 +208,7 @@ declare function place:confessions($node as node(), $model as map(*)){
  
 (:~
  : Get related place names      
- : <relation name="contained" active="http://syriaca.org/place/145 http://syriaca.org/place/166" passive="#place-78" source="#bib78-1" to="0363"/>
+ : ex: <relation name="contained" active="http://syriaca.org/place/145 http://syriaca.org/place/166" passive="#place-78" source="#bib78-1" to="0363"/>
 :)
 declare function place:related-places($node as node(), $model as map(*)){
  let $rec := $model("data")

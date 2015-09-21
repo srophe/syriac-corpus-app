@@ -50,7 +50,7 @@ declare function bhses:search-string() as xs:string*{
 declare function bhses:results-node($hit){
     let $root := $hit 
     let $title := $root/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title/text()
-    let $id := $root/ancestor::tei:TEI/descendant::tei:idno[starts-with(.,'http://syriaca.org')][1]/text()
+    let $id := $root/ancestor::tei:TEI/descendant::tei:idno[starts-with(.,$global:base-uri)][1]/text()
     return 
         <p style="font-weight:bold padding:.5em;">
             <a href="manuscript.html?id={$id}">{$title}</a>

@@ -28,7 +28,7 @@ declare function person:get-rec($node as node(), $model as map(*)) {
 if($person:id) then 
     let $id :=
         if(contains(request:get-uri(),$global:base-uri)) then $person:id
-        else if(contains(request:get-uri(),'/persons/') or contains(request:get-uri(),'/person/') or contains(request:get-uri(),'/saints/')) then concat('http://syriaca.org/person/',$person:id) 
+        else if(contains(request:get-uri(),'/persons/') or contains(request:get-uri(),'/person/') or contains(request:get-uri(),'/saints/')) then concat($global:base-uri,'/person/',$person:id) 
         else $person:id
     return map {"data" := collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}
 else map {"data" := 'Page data'} 
@@ -67,7 +67,7 @@ declare %templates:wrap function person:h1($node as node(), $model as map(*)){
                     $title/descendant::tei:persName[@syriaca-tags='#syriaca-headword'],
                     $title/descendant::tei:birth,
                     $title/descendant::tei:death,
-                    $title/descendant::tei:idno[contains(.,'syriaca.org')]
+                    $title/descendant::tei:idno[contains(.,$global:base-uri)]
                 )}
             </srophe-title>
     return global:tei2html($title-nodes)
