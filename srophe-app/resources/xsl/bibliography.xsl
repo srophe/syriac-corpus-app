@@ -132,33 +132,37 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
-            <xsl:choose>
-                <xsl:when test="t:analytic/t:author">
-                    <xsl:sequence select="local:emit-responsible-persons(t:analytic/t:author,'footnote',3)"/>
-                </xsl:when>
-                <xsl:when test="$edited">
-                    <xsl:sequence select="local:emit-responsible-persons(t:analytic/t:editor[not(@role) or @role!='translator'],'footnote',3)"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:sequence select="local:emit-responsible-persons(t:analytic/t:author,'footnote',3)"/>
-                </xsl:otherwise>
-            </xsl:choose>
-            <xsl:if test="not(t:analytic/t:author)">
-                <xsl:if test="$edited">
-                    <xsl:choose>
-                        <xsl:when test="$rcount = 1">
-                            <xsl:text> (ed.)</xsl:text>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:text> (eds.)</xsl:text>
-                        </xsl:otherwise>
-                    </xsl:choose>
+            <xsl:variable name="auth">
+                <xsl:choose>
+                    <xsl:when test="t:analytic/t:author">
+                        <xsl:sequence select="local:emit-responsible-persons(t:analytic/t:author,'footnote',3)"/>
+                    </xsl:when>
+                    <xsl:when test="$edited">
+                        <xsl:sequence select="local:emit-responsible-persons(t:analytic/t:editor[not(@role) or @role!='translator'],'footnote',3)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:sequence select="local:emit-responsible-persons(t:analytic/t:author,'footnote',3)"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:if test="not(t:analytic/t:author)">
+                    <xsl:if test="$edited">
+                        <xsl:choose>
+                            <xsl:when test="$rcount = 1">
+                                <xsl:text> (ed.)</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text> (eds.)</xsl:text>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:if>
                 </xsl:if>
-            </xsl:if>
+            </xsl:variable>
+            <xsl:value-of select="normalize-space($auth)"/>
             <xsl:text>, </xsl:text>
             <xsl:for-each select="t:analytic/t:title">
                 <xsl:text>"</xsl:text>
                 <xsl:apply-templates select="." mode="footnote"/>
+                <xsl:if test="not(ends-with(.,'.|:|,'))">,</xsl:if>
                 <xsl:text>"</xsl:text>
             </xsl:for-each>
             <xsl:text> in </xsl:text>
@@ -179,32 +183,36 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-        <xsl:choose>
-            <xsl:when test="t:monogr/t:author">
-                <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:author,'footnote',3)"/>
-            </xsl:when>
-            <xsl:when test="$edited">
-                <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:editor[not(@role) or @role!='translator'],'footnote',3)"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:author,'footnote',3)"/>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:if test="not(t:monogr/t:author)">
-            <xsl:if test="$edited">
-                <xsl:choose>
-                    <xsl:when test="$rcount = 1">
-                        <xsl:text> (ed.)</xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text> (eds.)</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:if>
+        <xsl:variable name="bookAuth">
+            <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
+            <xsl:choose>
+                <xsl:when test="t:monogr/t:author">
+                    <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:author,'footnote',3)"/>
+                </xsl:when>
+                <xsl:when test="$edited">
+                    <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:editor[not(@role) or @role!='translator'],'footnote',3)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:author,'footnote',3)"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:if test="not(t:monogr/t:author)">
+                <xsl:if test="$edited">
+                    <xsl:choose>
+                        <xsl:when test="$rcount = 1">
+                            <xsl:text> (ed.)</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text> (eds.)</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:if>
+            </xsl:if>    
+        </xsl:variable>
+        <xsl:value-of select="normalize-space($bookAuth)"/>
+        <xsl:if test="$bookAuth != ''">
+            <xsl:text>, </xsl:text>            
         </xsl:if>
-        <xsl:text>, </xsl:text>
-        
         <!-- handle titles -->
         <xsl:for-each select="t:monogr[1]">
             <xsl:choose>
