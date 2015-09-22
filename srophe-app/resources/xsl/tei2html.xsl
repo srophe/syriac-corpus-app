@@ -894,6 +894,14 @@
     <xsl:template match="t:note">
         <xsl:variable name="xmlid" select="@xml:id"/>
         <xsl:choose>
+            <xsl:when test="ancestor::t:choice">
+                <xsl:text> (</xsl:text>
+                    <span>
+                        <xsl:call-template name="langattr"/>
+                        <xsl:apply-templates/>
+                    </span>
+                <xsl:text>) </xsl:text>
+            </xsl:when>
             <!-- Adds definition list for depreciated names -->
             <xsl:when test="@type='deprecation'">
                 <li>
@@ -904,14 +912,6 @@
                         <xsl:if test="not(ends-with(.,'.'))">
                             <xsl:text>.</xsl:text>
                         </xsl:if>
-                    </span>
-                </li>
-            </xsl:when>
-            <xsl:when test="@type='corrigenda' or @type='incerta' or @type ='errata'">
-                <li>
-                    <span>
-                        <xsl:call-template name="langattr"/>
-                        <xsl:apply-templates/>
                     </span>
                 </li>
             </xsl:when>
