@@ -426,11 +426,14 @@
         <!-- NOTE: need to handle abstract notes -->
         <xsl:if test="t:note[not(@type='abstract')]">
             <xsl:for-each-group select="t:note[not(@type='abstract')][exists(@type)]" group-by="@type">
+                <xsl:sort select="@xml:lang"/>
                 <xsl:variable name="label">
                     <xsl:choose>
                         <xsl:when test="current-grouping-key() = 'ancientVersion'">Ancient Versions</xsl:when>
                         <xsl:when test="current-grouping-key() = 'modernTranslation'">Modern Translations</xsl:when>
-                        <xsl:otherwise><xsl:value-of select="current-grouping-key()"/></xsl:otherwise>
+                        <xsl:otherwise>
+                            <xsl:value-of select="current-grouping-key()"/>
+                        </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
                 <h3>
@@ -907,15 +910,15 @@
             <xsl:when test="@type='corrigenda' or @type='incerta' or @type ='errata'">
                 <li>
                     <span>
-                    <xsl:call-template name="langattr"/>
-                    <xsl:apply-templates/>
+                        <xsl:call-template name="langattr"/>
+                        <xsl:apply-templates/>
                     </span>
                 </li>
             </xsl:when>
             <xsl:when test="@type='ancientVersion'">
                 <li>
                     <span>
-                    <xsl:call-template name="langattr"/>
+                        <xsl:call-template name="langattr"/>
                     <!-- Note this could be a helper function local:expand lang -->
                         <xsl:choose>
                             <xsl:when test="@xml:lang='la'">Latin: </xsl:when>
@@ -931,18 +934,18 @@
                             <xsl:when test="@xml:lang='ar-syr'">Karshuni: </xsl:when>
                         </xsl:choose>
                         <xsl:apply-templates/>
-                    </span>    
+                    </span>
                 </li>
             </xsl:when>
             <xsl:otherwise>
                 <li>
                     <span>
-                    <xsl:call-template name="langattr"/>
-                    <xsl:apply-templates/>
+                        <xsl:call-template name="langattr"/>
+                        <xsl:apply-templates/>
                     <!-- Check for ending punctuation, if none, add . -->
-                    <xsl:if test="not(ends-with(.,'.'))">
-                        <xsl:text>.</xsl:text>
-                    </xsl:if>
+                        <xsl:if test="not(ends-with(.,'.'))">
+                            <xsl:text>.</xsl:text>
+                        </xsl:if>
                     </span>
                 </li>
             </xsl:otherwise>
