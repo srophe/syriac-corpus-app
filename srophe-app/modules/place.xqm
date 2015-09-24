@@ -1,4 +1,4 @@
-(:~
+(:~  
  : Builds place page and place page functions
  :)
 xquery version "3.0";
@@ -55,6 +55,22 @@ if($place:id) then
 else 'The Syriac Gazetteer' 
 };  
 
+(: Dashboard functions 
+count(distinct-values(for $contributors in collection('/db/apps/srophe-data/data/places/tei')//tei:respStmt/tei:name
+return $contributors))
+:)
+declare %templates:wrap function place:dashboard($node as node(), $model as map(*),$rec-text,$contrib-text,$data-text){
+let $data := collection(concat($global:data-root,'/places/tei'))
+let $rec-head := 'Places'
+let $rec-text := 
+    <p>This number represents the count of places currently described in the <i>Syriac Gazetteer</i> as of {current-date()}.</p>
+let $contrib-text := 
+    <p>This number represents the count of contributors who have authored or revised an entry in the <i>Syriac Gazetteer</i> as of {current-date()}.</p>
+let $data-text := 
+    <p>This number is an approximation of the entire data, based on a count of XML text nodes in the body of each 
+    TEI XML document in the <i>Syriac Gazetteer</i> as of {current-date()}.</p>
+return global:srophe-dashboard($data, $rec-head, $rec-text, $contrib-text, $data-text)
+};
 
 (:
  : Pass necessary element to h1 xslt template
