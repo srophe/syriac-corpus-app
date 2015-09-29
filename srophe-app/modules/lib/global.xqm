@@ -184,8 +184,11 @@ declare function global:tei2html($nodes as node()*) {
     <parameters>
         <param name="data-root" value="{$global:data-root}"/>
         <param name="app-root" value="{$global:app-root}"/>
+        <param name="nav-base" value="{$global:nav-base}"/>
+        <param name="base-uri" value="{$global:base-uri}"/>
     </parameters>
     )
 };
+
 
 

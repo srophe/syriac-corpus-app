@@ -1,10 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t" version="2.0">
     
+    <!-- Function to tranlate xml:lang attributes to full lang label -->
+    <xsl:function name="local:expand-lang">
+        <xsl:param name="lang" as="xs:string"/>
+        <xsl:param name="type" as="xs:string"/>
+        <xsl:choose>
+            <xsl:when test="$lang='la'">
+                <xsl:text>Latin</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='grc'">
+                <xsl:text>Greek</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='ar'">
+                <xsl:text>Arabic</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='hy'">
+                <xsl:text>Armenian</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='ka'">
+                <xsl:text>Georgian</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='sog'">
+                <xsl:text>Soghdian</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='cu'">
+                <xsl:text>Slavic</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='cop'">
+                <xsl:text>Coptic</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='gez'">
+                <xsl:text>Ethiopic</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='syr-pal'">
+                <xsl:text>Syro-Palestinian</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='ar-syr'">
+                <xsl:text>Karshuni</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='de'">
+                <xsl:text>German</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='fr'">
+                <xsl:text>French</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='en'">
+                <xsl:text>English</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='it'">
+                <xsl:text>Italian</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='pt'">
+                <xsl:text>Portugese</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='ru'">
+                <xsl:text>Russian</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='nl'">
+                <xsl:text>Dutch</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='ar'">
+                <xsl:text>Arabic</xsl:text>
+            </xsl:when>
+            <xsl:when test="$lang='es'">
+                <xsl:text>Spanish</xsl:text>
+            </xsl:when>
+            <xsl:otherwise/>
+        </xsl:choose>    
+    </xsl:function>
     <!-- 
-  Function to output dates in correct formats passes whole element to function, 
-  function also uses trim-date to strip leading 0
- -->
+     Function to output dates in correct formats passes whole element to function, 
+     function also uses trim-date to strip leading 0
+    -->
     <xsl:function name="local:do-dates">
         <xsl:param name="element" as="node()"/>
         <xsl:if test="$element/@when or $element/@notBefore or $element/@notAfter or $element/@from or $element/@to">

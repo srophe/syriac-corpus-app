@@ -77,17 +77,18 @@
     <!-- Parameters passed from app.xql default values if params are empty -->
     <xsl:param name="data-root" select="'/db/apps/srophe-data'"/>
     <xsl:param name="app-root" select="'/db/apps/srophe'"/>
+    <xsl:param name="nav-base" select="'/db/apps/srophe'"/>
+    <xsl:param name="base-uri" select="'/db/apps/srophe'"/>
     <xsl:param name="normalization">NFKC</xsl:param>
     <xsl:param name="editoruriprefix">http://syriaca.org/editors.xml#</xsl:param>
     <xsl:variable name="editorssourcedoc" select="concat($app-root,'/documentation/editors.xml')"/>
-    <!--<xsl:param name="uribase">http://syriaca.org/</xsl:param>-->
     <xsl:variable name="resource-id">
         <xsl:choose>
             <xsl:when test="string(/*/@id)">
                 <xsl:value-of select="string(/*/@id)"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="replace(/descendant::t:idno[@type='URI'][starts-with(.,'http://syriaca.org/')][1],'/tei','')"/>
+                <xsl:value-of select="replace(/descendant::t:idno[@type='URI'][starts-with(.,$base-uri)][1],'/tei','')"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
@@ -432,7 +433,6 @@
         <!-- NOTE: need to handle abstract notes -->
         <xsl:if test="t:note[not(@type='abstract')]">
             <xsl:for-each-group select="t:note[not(@type='abstract')][exists(@type)]" group-by="@type">
-                <xsl:sort select="@xml:lang"/>
                 <xsl:variable name="label">
                     <xsl:choose>
                         <xsl:when test="current-grouping-key() = 'ancientVersion'">Ancient Versions</xsl:when>
@@ -447,6 +447,8 @@
                 </h3>
                 <ul>
                     <xsl:for-each select="current-group()">
+                        <xsl:sort select="if(@xml:lang) then local:expand-lang(@xml:lang,$label) else ."/>
+                        <!--<xsl:sort select="local:expand-lang(self::*/@xml:lang)"/>-->
                         <xsl:apply-templates select="self::*"/>
                     </xsl:for-each>
                 </ul>
@@ -923,22 +925,24 @@
             </xsl:when>
             <xsl:when test="@type='ancientVersion'">
                 <li>
+                    <span class="srp-label">
+                        <xsl:value-of select="local:expand-lang(@xml:lang,'ancientVersion')"/>: 
+                    </span>
                     <span>
                         <xsl:call-template name="langattr"/>
+                        <xsl:apply-templates/>
+                    </span>
+                </li>
+            </xsl:when>
+            <xsl:when test="@type='modernTranslation'">
+                <li>
                     <!-- Note this could be a helper function local:expand lang -->
-                        <xsl:choose>
-                            <xsl:when test="@xml:lang='la'">Latin: </xsl:when>
-                            <xsl:when test="@xml:lang='grc'">Greek: </xsl:when>
-                            <xsl:when test="@xml:lang='ar'">Arabic: </xsl:when>
-                            <xsl:when test="@xml:lang='hy'">Armenian: </xsl:when>
-                            <xsl:when test="@xml:lang='ka'">Georgian: </xsl:when>
-                            <xsl:when test="@xml:lang='sog'">Soghdian: </xsl:when>
-                            <xsl:when test="@xml:lang='cu'">Slavic: </xsl:when>
-                            <xsl:when test="@xml:lang='cop'">Coptic: </xsl:when>
-                            <xsl:when test="@xml:lang='gez'">Ethiopic: </xsl:when>
-                            <xsl:when test="@xml:lang='syr-pal'">Syro-Palestinian: </xsl:when>
-                            <xsl:when test="@xml:lang='ar-syr'">Karshuni: </xsl:when>
-                        </xsl:choose>
+                    <span class="srp-label">
+                        <xsl:value-of select="local:expand-lang(@xml:lang,'modernTranslation')"/>: 
+                    </span>
+                    <span>
+                        <xsl:call-template name="langattr"/>
+
                         <xsl:apply-templates/>
                     </span>
                 </li>
