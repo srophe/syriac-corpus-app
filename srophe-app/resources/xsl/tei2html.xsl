@@ -211,10 +211,10 @@
                         </xsl:apply-templates>
                     </ul>
                 </xsl:if>
-                <xsl:if test="t:author">
+                <xsl:if test="t:author | t:editor">
                     <h4>Authors</h4>
                     <ul>
-                        <xsl:for-each select="t:author">
+                        <xsl:for-each select="t:author | t:editor">
                             <li><xsl:apply-templates/></li>
                         </xsl:for-each>
                     </ul>
