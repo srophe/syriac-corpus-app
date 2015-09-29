@@ -190,10 +190,6 @@
         </xsl:if>
         <xsl:if test="self::t:bibl">
             <div class="well">
-                <xsl:if test="string-length(t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']) &gt; 1">
-                    <h3>Abstract</h3>
-                    <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']" mode="abstract"/>
-                </xsl:if>
                 <xsl:if test="t:title">
                     <h3>Titles:</h3>
                     <ul>
@@ -214,10 +210,20 @@
                         </xsl:apply-templates>
                     </ul>
                 </xsl:if>
-                <xsl:if test="t:idno[not(@type='URI')]">
+                <xsl:if test="string-length(t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']) &gt; 1">
+                    <h4>Abstract</h4>
+                    <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']" mode="abstract"/>
+                </xsl:if>
+                <xsl:if test="t:idno">
+                    <h4>Reference Numbers</h4>
                     <p>
-                        <xsl:for-each select="t:idno[not(@type='URI')]">
+                        <xsl:for-each select="t:idno">
                             <xsl:choose>
+                                <xsl:when test="@type='URI'">
+                                    <a href="{.}">
+                                        <xsl:value-of select="."/>
+                                    </a>
+                                </xsl:when>
                                 <xsl:when test="@type = 'BHSYRE'">
                                     <xsl:value-of select="concat(replace(@type,'BHSYRE','BHS'),': ',.)"/>
                                 </xsl:when>
@@ -225,7 +231,7 @@
                                     <xsl:value-of select="concat(@type,': ',.)"/>
                                 </xsl:otherwise>
                             </xsl:choose>
-                            <xsl:if test="position() != last()">, </xsl:if>
+                            <xsl:if test="position() != last()"> = </xsl:if>
                         </xsl:for-each>
                     </p>
                 </xsl:if>
@@ -896,10 +902,10 @@
         <xsl:choose>
             <xsl:when test="ancestor::t:choice">
                 <xsl:text> (</xsl:text>
-                    <span>
-                        <xsl:call-template name="langattr"/>
-                        <xsl:apply-templates/>
-                    </span>
+                <span>
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </span>
                 <xsl:text>) </xsl:text>
             </xsl:when>
             <!-- Adds definition list for depreciated names -->
