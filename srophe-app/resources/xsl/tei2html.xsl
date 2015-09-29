@@ -211,6 +211,14 @@
                         </xsl:apply-templates>
                     </ul>
                 </xsl:if>
+                <xsl:if test="t:author">
+                    <h4>Authors</h4>
+                    <ul>
+                        <xsl:for-each select="t:author">
+                            <li><xsl:apply-templates/></li>
+                        </xsl:for-each>
+                    </ul>
+                </xsl:if>
                 <xsl:if test="string-length(t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']) &gt; 1">
                     <h4>Abstract</h4>
                     <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']" mode="abstract"/>
@@ -432,7 +440,11 @@
         <!-- Notes -->
         <!-- NOTE: need to handle abstract notes -->
         <xsl:if test="t:note[not(@type='abstract')]">
+            <!-- Please list Prologues, Incipits, Explicits before Editions on the page. -->
+            <xsl:variable name="rules" select="'&lt; modernTranslation &lt; prologues &lt; explicits &lt; incipits &lt; mss &lt; editions &lt; ancientVersion &lt; modernTranslation'" />
             <xsl:for-each-group select="t:note[not(@type='abstract')][exists(@type)]" group-by="@type">
+                <xsl:sort select="current-grouping-key()" collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)};ignore-case=yes;ignore-modifiers=yes;ignore-symbols=yes)" order="descending"/>
+                <!--<xsl:sort select="current-grouping-key()" order="descending"/>-->
                 <xsl:variable name="label">
                     <xsl:choose>
                         <xsl:when test="current-grouping-key() = 'MSS'">Manuscripts</xsl:when>
