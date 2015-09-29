@@ -435,6 +435,9 @@
             <xsl:for-each-group select="t:note[not(@type='abstract')][exists(@type)]" group-by="@type">
                 <xsl:variable name="label">
                     <xsl:choose>
+                        <xsl:when test="current-grouping-key() = 'MSS'">Manuscripts</xsl:when>
+                        <xsl:when test="current-grouping-key() = 'incipit'">Incipit (Opening Line)</xsl:when>
+                        <xsl:when test="current-grouping-key() = 'explicit'">Explicit (Closing Line)</xsl:when>
                         <xsl:when test="current-grouping-key() = 'ancientVersion'">Ancient Versions</xsl:when>
                         <xsl:when test="current-grouping-key() = 'modernTranslation'">Modern Translations</xsl:when>
                         <xsl:otherwise>
