@@ -215,7 +215,9 @@
                     <h4>Authors</h4>
                     <ul>
                         <xsl:for-each select="t:author | t:editor">
-                            <li><xsl:apply-templates/></li>
+                            <li>
+                                <xsl:apply-templates/>
+                            </li>
                         </xsl:for-each>
                     </ul>
                 </xsl:if>
@@ -440,10 +442,9 @@
         <!-- Notes -->
         <!-- NOTE: need to handle abstract notes -->
         <xsl:if test="t:note[not(@type='abstract')]">
-            <!-- Please list Prologues, Incipits, Explicits before Editions on the page. -->
-            <xsl:variable name="rules" select="'&lt; modernTranslation &lt; prologues &lt; explicits &lt; incipits &lt; mss &lt; editions &lt; ancientVersion &lt; modernTranslation'" />
+            <xsl:variable name="rules" select="'&lt; prologue &lt; incipit &lt; explicit &lt; editions &lt; modernTranslation &lt; ancientVersion &lt; MSS'"/>
             <xsl:for-each-group select="t:note[not(@type='abstract')][exists(@type)]" group-by="@type">
-                <xsl:sort select="current-grouping-key()" collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)};ignore-case=yes;ignore-modifiers=yes;ignore-symbols=yes)" order="descending"/>
+                <xsl:sort select="current-grouping-key()" collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)};ignore-case=yes;ignore-modifiers=yes;ignore-symbols=yes)" order="ascending"/>
                 <!--<xsl:sort select="current-grouping-key()" order="descending"/>-->
                 <xsl:variable name="label">
                     <xsl:choose>
@@ -957,7 +958,6 @@
                     </span>
                     <span>
                         <xsl:call-template name="langattr"/>
-
                         <xsl:apply-templates/>
                     </span>
                 </li>
