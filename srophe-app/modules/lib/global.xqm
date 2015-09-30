@@ -76,7 +76,8 @@ declare function global:fix-links($nodes as node()*) {
                 $node
 };
 
-declare function global:srophe-dashboard($data, $rec-head as xs:string?, $rec-text as node()?,$contrib-text as node()?,$data-text as node()?){
+declare function global:srophe-dashboard($data, $collection-title as xs:string?, $data-dir as xs:string?){
+let $data-type := if($data-dir) then $data-dir else 'data'
 let $rec-num := count($data)
 let $contributors := for $contrib in distinct-values(for $contributors in $data//tei:respStmt/tei:name return $contributors) return <li>{$contrib}</li>
 let $contrib-num := count($contributors)
@@ -87,7 +88,7 @@ return
         <div class="panel-heading" role="tab" id="dashboardOne">
             <h4 class="panel-title">
                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    <i class="glyphicon glyphicon-dashboard"></i> The Syriac Gazetteer Dashboard
+                    <i class="glyphicon glyphicon-dashboard"></i> {concat(' ',$collection-title,' ')} Dashboard
                 </a>
             </h4>
         </div>
@@ -99,11 +100,13 @@ return
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3"><i class="glyphicon glyphicon-file"></i></div>
-                                    <div class="col-xs-9 text-right"><div class="huge">{$rec-num}</div><div>{$rec-head}</div></div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">{$rec-num}</div><div>{$data-dir}</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="collapse panel-body" id="recCount">
-                                {$rec-text} 
+                                <p>This number represents the count of {$data-dir} currently described in <i>{$collection-title}</i> as of {current-date()}.</p>
                                 <span><a href="browse.html"> See records <i class="glyphicon glyphicon-circle-arrow-right"></i></a></span>
                             </div>
                             <a role="button" 
@@ -128,7 +131,8 @@ return
                                 </div>
                             </div>
                             <div class="panel-body collapse" id="contribCount">
-                                {($contrib-text,
+                                {(
+                                <p>This number represents the count of contributors who have authored or revised an entry in <i>{$collection-title}</i> as of {current-date()}.</p>,
                                 <ul style="padding-left: 1em;">{$contributors}</ul>)} 
                                 
                             </div>
@@ -154,7 +158,7 @@ return
                                 </div>
                             </div>
                             <div id="dataPoints" class="panel-body collapse">
-                                {$data-text}  
+                                <p>This number is an approximation of the entire data, based on a count of XML text nodes in the body of each TEI XML document in the <i>{$collection-title}</i> as of {current-date()}.</p>  
                             </div>
                             <a role="button" 
                             data-toggle="collapse" 

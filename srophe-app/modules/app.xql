@@ -23,6 +23,12 @@ function app:fix-links($node as node(), $model as map(*)) {
     templates:process(global:fix-links($node/node()), $model)
 };
 
+(: Dashboard functions :)
+declare %templates:wrap function app:dashboard($node as node(), $model as map(*), $collection-title, $data-dir){
+let $data := collection(concat($global:data-root,'/',$data-dir,'/tei'))
+return global:srophe-dashboard($data, $collection-title, $data-dir)
+};
+
 (:
 subnav.xml
 :)
@@ -270,7 +276,7 @@ declare %templates:wrap function app:build-confessions($node as node(), $model a
     return app:transform($confession)
 };
 
-(:~
+(:~   
  : get editors as distinct values
 :)
 declare function app:get-editors(){
