@@ -2,13 +2,12 @@ xquery version "3.0";
 
 module namespace api="http://syriaca.org/api";
 
+import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
+import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
+import module namespace rdfq="http://syriaca.org/rdfq" at "lib/tei2rdf.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace feed="http://syriaca.org/atom" at "lib/atom.xqm";
 import module namespace common="http://syriaca.org/common" at "search/common.xqm";
-(:import module namespace templates="http://exist-db.org/xquery/templates";:)
-import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
-
-import module namespace config="http://syriaca.org/config" at "config.xqm";
 
 (: For output annotations  :)
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
@@ -94,7 +93,7 @@ function api:search-api($q as xs:string*, $start as xs:integer*, $perpage as xs:
     <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
   </http:response> 
 </rest:response>,
-let $hits := collection($config:data-root)//tei:body[ft:query(.,$q,common:options())]
+let $hits := collection($global:data-root)//tei:body[ft:query(.,$q,common:options())]
 let $total := count($hits)
 return feed:build-atom-feed($hits, $start, $perpage, $q, $total)
 ) 
@@ -168,6 +167,28 @@ function api:get-atom-record($collection as xs:string, $id as xs:string){
 }; 
 
 (:~
+  : Return atom feed for single record
+  : @param $collection syriaca.org subcollection 
+  : @param $id record id
+  : Serialized as XML
+:)
+(:
+declare 
+    %rest:GET
+    %rest:path("/{$collection}/{$id}/rdf")
+    %output:media-type("application/rdf+xml")
+    %output:method("xml")
+function api:get-atom-record($collection as xs:string, $id as xs:string){
+   (<rest:response> 
+      <http:response status="200"> 
+        <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
+      </http:response> 
+    </rest:response>, 
+     rdfq:get-rdf(api:get-tei-rec($collection, $id),'')
+    )
+}; 
+:)
+(:~
   : Return atom feed for syrica.org subcollection
   : @param $collection syriaca.org subcollection 
   : Serialized as XML
@@ -185,7 +206,7 @@ function api:get-atom-feed($collection as xs:string, $start as xs:integer*, $per
         <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
       </http:response> 
     </rest:response>, 
-    let $feed := collection(xs:anyURI($config:data-root || $collection ))//tei:TEI
+    let $feed := collection(xs:anyURI($global:data-root || $collection ))//tei:TEI
     let $total := count($feed)
     return
      feed:build-atom-feed($feed, $start, $perpage,'',$total)
@@ -209,7 +230,7 @@ function api:get-atom-feed($start as xs:integer*, $perpage as xs:integer*){
         <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
       </http:response> 
     </rest:response>, 
-    let $feed := collection(xs:anyURI($config:data-root))//tei:TEI
+    let $feed := collection(xs:anyURI($global:data-root))//tei:TEI
     let $total := count($feed)
     return 
      feed:build-atom-feed($feed, $start, $perpage,'',$total)
@@ -223,15 +244,16 @@ declare function api:get-tei-rec($collection as xs:string, $id as xs:string) as 
     let $collection-name := 
         if($collection = 'place') then 'places'
         else if($collection = 'person') then 'persons'
+        else if($collection = 'work') then 'works'
         else $collection
-    let $path := (xs:anyURI($config:data-root) || '/' || $collection-name || '/tei/' || $id ||'.xml')
+    let $path := (xs:anyURI($global:data-root) || '/' || $collection-name || '/tei/' || $id ||'.xml')
     return 
         if($collection='spear') then 
             let $spear-id := concat('http://syriaca.org/spear/',$id)
             return
              <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">
                 {
-                    for $rec in collection(xs:anyURI($config:data-root) || '/spear/tei')//tei:div[@uri=$spear-id]
+                    for $rec in collection(xs:anyURI($global:data-root) || '/spear/tei')//tei:div[@uri=$spear-id]
                     return $rec
                 }
              </tei:TEI>
@@ -248,11 +270,11 @@ let $geo-map :=
             let $types := 
                 if(contains($type,',')) then  string-join(for $type-string in tokenize($type,',') return concat('"',$type-string,'"'),',')
                 else $type
-            let $path := concat("collection('",$config:data-root,"/places/tei')//tei:place[@type = (",$types,")]//tei:geo") 
+            let $path := concat("collection('",$global:data-root,"/places/tei')//tei:place[@type = (",$types,")]//tei:geo") 
             for $recs in util:eval($path) 
             return $recs 
-        else collection($config:data-root || "/places/tei")//tei:place[@type=$type]//tei:geo
-    else collection($config:data-root || "/places/tei")//tei:geo
+        else collection($global:data-root || "/places/tei")//tei:place[@type=$type]//tei:geo
+    else collection($global:data-root || "/places/tei")//tei:geo
 return
     if($output = 'json') then xqjson:serialize-json(geo:json-wrapper(($geo-map), $type, $output))
     else geo:kml-wrapper(($geo-map), $type, $output)
