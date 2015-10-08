@@ -35,7 +35,8 @@ declare
 function api:get-geo-json($type as xs:string*, $output as xs:string*) {
 (<rest:response> 
   <http:response status="200"> 
-    <http:header name="Content-Type" value="application/json; charset=utf-8"/> 
+    <http:header name="Content-Type" value="application/json; charset=utf-8"/>
+    <http:header name="Access-Control-Allow-Origin" value="application/json; charset=utf-8"/>
   </http:response> 
 </rest:response>, 
      api:get-geojson-node($type,$output)
@@ -246,7 +247,7 @@ declare function api:get-tei-rec($collection as xs:string, $id as xs:string) as 
         else if($collection = 'person') then 'persons'
         else if($collection = 'work') then 'works'
         else $collection
-    let $path := (xs:anyURI($global:data-root) || '/' || $collection-name || '/tei/' || $id ||'.xml')
+    let $uri := concat($global:base-uri,'/',$collection, '/', $id)
     return 
         if($collection='spear') then 
             let $spear-id := concat('http://syriaca.org/spear/',$id)
@@ -257,7 +258,9 @@ declare function api:get-tei-rec($collection as xs:string, $id as xs:string) as 
                     return $rec
                 }
              </tei:TEI>
-        else doc($path)/child::*
+        else 
+            for $rec in collection('/db/apps/srophe-data/data')//tei:idno[@type='URI'][. = $uri]/ancestor::tei:TEI
+            return $rec
 };
 
 (:~
