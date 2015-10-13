@@ -280,6 +280,7 @@ declare %templates:wrap  function search:show-form($node as node()*, $model as m
         else if($collection = 'saints') then <div>{persons:search-form('saint')}</div>
         else if($collection ='spear') then <div>{spears:search-form()}</div>
         else if($collection ='manuscripts') then <div>{ms:search-form()}</div>
+        else if($collection ='bhse') then <div>{bhses:search-form()}</div>
         else <div>{places:search-form()}</div>
 };
 

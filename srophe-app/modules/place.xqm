@@ -1,4 +1,4 @@
-(:~
+(:~  
  : Builds place page and place page functions
  :)
 xquery version "3.0";
@@ -55,6 +55,14 @@ if($place:id) then
 else 'The Syriac Gazetteer' 
 };  
 
+(: Dashboard functions 
+count(distinct-values(for $contributors in collection('/db/apps/srophe-data/data/places/tei')//tei:respStmt/tei:name
+return $contributors))
+:)
+declare %templates:wrap function place:dashboard($node as node(), $model as map(*), $collection-title, $data-dir){
+let $data := collection(concat($global:data-root,'/',$data-dir,'/tei'))
+return global:srophe-dashboard($data, $collection-title, $data-dir)
+};
 
 (:
  : Pass necessary element to h1 xslt template

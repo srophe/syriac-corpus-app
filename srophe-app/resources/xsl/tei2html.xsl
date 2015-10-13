@@ -77,17 +77,18 @@
     <!-- Parameters passed from app.xql default values if params are empty -->
     <xsl:param name="data-root" select="'/db/apps/srophe-data'"/>
     <xsl:param name="app-root" select="'/db/apps/srophe'"/>
+    <xsl:param name="nav-base" select="'/db/apps/srophe'"/>
+    <xsl:param name="base-uri" select="'/db/apps/srophe'"/>
     <xsl:param name="normalization">NFKC</xsl:param>
     <xsl:param name="editoruriprefix">http://syriaca.org/editors.xml#</xsl:param>
     <xsl:variable name="editorssourcedoc" select="concat($app-root,'/documentation/editors.xml')"/>
-    <!--<xsl:param name="uribase">http://syriaca.org/</xsl:param>-->
     <xsl:variable name="resource-id">
         <xsl:choose>
             <xsl:when test="string(/*/@id)">
                 <xsl:value-of select="string(/*/@id)"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="replace(/descendant::t:idno[@type='URI'][starts-with(.,'http://syriaca.org/')][1],'/tei','')"/>
+                <xsl:value-of select="replace(/descendant::t:idno[@type='URI'][starts-with(.,$base-uri)][1],'/tei','')"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
@@ -190,10 +191,6 @@
         </xsl:if>
         <xsl:if test="self::t:bibl">
             <div class="well">
-                <xsl:if test="string-length(t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']) &gt; 1">
-                    <h3>Abstract</h3>
-                    <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']" mode="abstract"/>
-                </xsl:if>
                 <xsl:if test="t:title">
                     <h3>Titles:</h3>
                     <ul>
@@ -214,10 +211,30 @@
                         </xsl:apply-templates>
                     </ul>
                 </xsl:if>
-                <xsl:if test="t:idno[not(@type='URI')]">
+                <xsl:if test="t:author | t:editor">
+                    <h4>Authors</h4>
+                    <ul>
+                        <xsl:for-each select="t:author | t:editor">
+                            <li>
+                                <xsl:apply-templates/>
+                            </li>
+                        </xsl:for-each>
+                    </ul>
+                </xsl:if>
+                <xsl:if test="string-length(t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']) &gt; 1">
+                    <h4>Abstract</h4>
+                    <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']" mode="abstract"/>
+                </xsl:if>
+                <xsl:if test="t:idno">
+                    <h4>Reference Numbers</h4>
                     <p>
-                        <xsl:for-each select="t:idno[not(@type='URI')]">
+                        <xsl:for-each select="t:idno">
                             <xsl:choose>
+                                <xsl:when test="@type='URI'">
+                                    <a href="{.}">
+                                        <xsl:value-of select="."/>
+                                    </a>
+                                </xsl:when>
                                 <xsl:when test="@type = 'BHSYRE'">
                                     <xsl:value-of select="concat(replace(@type,'BHSYRE','BHS'),': ',.)"/>
                                 </xsl:when>
@@ -225,7 +242,7 @@
                                     <xsl:value-of select="concat(@type,': ',.)"/>
                                 </xsl:otherwise>
                             </xsl:choose>
-                            <xsl:if test="position() != last()">, </xsl:if>
+                            <xsl:if test="position() != last()"> = </xsl:if>
                         </xsl:for-each>
                     </p>
                 </xsl:if>
@@ -425,12 +442,20 @@
         <!-- Notes -->
         <!-- NOTE: need to handle abstract notes -->
         <xsl:if test="t:note[not(@type='abstract')]">
+            <xsl:variable name="rules" select="'&lt; prologue &lt; incipit &lt; explicit &lt; editions &lt; modernTranslation &lt; ancientVersion &lt; MSS'"/>
             <xsl:for-each-group select="t:note[not(@type='abstract')][exists(@type)]" group-by="@type">
+                <xsl:sort select="current-grouping-key()" collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)};ignore-case=yes;ignore-modifiers=yes;ignore-symbols=yes)" order="ascending"/>
+                <!--<xsl:sort select="current-grouping-key()" order="descending"/>-->
                 <xsl:variable name="label">
                     <xsl:choose>
+                        <xsl:when test="current-grouping-key() = 'MSS'">Manuscripts</xsl:when>
+                        <xsl:when test="current-grouping-key() = 'incipit'">Incipit (Opening Line)</xsl:when>
+                        <xsl:when test="current-grouping-key() = 'explicit'">Explicit (Closing Line)</xsl:when>
                         <xsl:when test="current-grouping-key() = 'ancientVersion'">Ancient Versions</xsl:when>
                         <xsl:when test="current-grouping-key() = 'modernTranslation'">Modern Translations</xsl:when>
-                        <xsl:otherwise><xsl:value-of select="current-grouping-key()"/></xsl:otherwise>
+                        <xsl:otherwise>
+                            <xsl:value-of select="current-grouping-key()"/>
+                        </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
                 <h3>
@@ -438,6 +463,8 @@
                 </h3>
                 <ul>
                     <xsl:for-each select="current-group()">
+                        <xsl:sort select="if(@xml:lang) then local:expand-lang(@xml:lang,$label) else ."/>
+                        <!--<xsl:sort select="local:expand-lang(self::*/@xml:lang)"/>-->
                         <xsl:apply-templates select="self::*"/>
                     </xsl:for-each>
                 </ul>
@@ -891,6 +918,14 @@
     <xsl:template match="t:note">
         <xsl:variable name="xmlid" select="@xml:id"/>
         <xsl:choose>
+            <xsl:when test="ancestor::t:choice">
+                <xsl:text> (</xsl:text>
+                <span>
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </span>
+                <xsl:text>) </xsl:text>
+            </xsl:when>
             <!-- Adds definition list for depreciated names -->
             <xsl:when test="@type='deprecation'">
                 <li>
@@ -904,45 +939,38 @@
                     </span>
                 </li>
             </xsl:when>
-            <xsl:when test="@type='corrigenda' or @type='incerta' or @type ='errata'">
+            <xsl:when test="@type='ancientVersion'">
                 <li>
+                    <span class="srp-label">
+                        <xsl:value-of select="local:expand-lang(@xml:lang,'ancientVersion')"/>: 
+                    </span>
                     <span>
-                    <xsl:call-template name="langattr"/>
-                    <xsl:apply-templates/>
+                        <xsl:call-template name="langattr"/>
+                        <xsl:apply-templates/>
                     </span>
                 </li>
             </xsl:when>
-            <xsl:when test="@type='ancientVersion'">
+            <xsl:when test="@type='modernTranslation'">
                 <li>
-                    <span>
-                    <xsl:call-template name="langattr"/>
                     <!-- Note this could be a helper function local:expand lang -->
-                        <xsl:choose>
-                            <xsl:when test="@xml:lang='la'">Latin: </xsl:when>
-                            <xsl:when test="@xml:lang='grc'">Greek: </xsl:when>
-                            <xsl:when test="@xml:lang='ar'">Arabic: </xsl:when>
-                            <xsl:when test="@xml:lang='hy'">Armenian: </xsl:when>
-                            <xsl:when test="@xml:lang='ka'">Georgian: </xsl:when>
-                            <xsl:when test="@xml:lang='sog'">Soghdian: </xsl:when>
-                            <xsl:when test="@xml:lang='cu'">Slavic: </xsl:when>
-                            <xsl:when test="@xml:lang='cop'">Coptic: </xsl:when>
-                            <xsl:when test="@xml:lang='gez'">Ethiopic: </xsl:when>
-                            <xsl:when test="@xml:lang='syr-pal'">Syro-Palestinian: </xsl:when>
-                            <xsl:when test="@xml:lang='ar-syr'">Karshuni: </xsl:when>
-                        </xsl:choose>
+                    <span class="srp-label">
+                        <xsl:value-of select="local:expand-lang(@xml:lang,'modernTranslation')"/>: 
+                    </span>
+                    <span>
+                        <xsl:call-template name="langattr"/>
                         <xsl:apply-templates/>
-                    </span>    
+                    </span>
                 </li>
             </xsl:when>
             <xsl:otherwise>
                 <li>
                     <span>
-                    <xsl:call-template name="langattr"/>
-                    <xsl:apply-templates/>
+                        <xsl:call-template name="langattr"/>
+                        <xsl:apply-templates/>
                     <!-- Check for ending punctuation, if none, add . -->
-                    <xsl:if test="not(ends-with(.,'.'))">
-                        <xsl:text>.</xsl:text>
-                    </xsl:if>
+                        <xsl:if test="not(ends-with(.,'.'))">
+                            <xsl:text>.</xsl:text>
+                        </xsl:if>
                     </span>
                 </li>
             </xsl:otherwise>
