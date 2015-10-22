@@ -5,6 +5,7 @@ module namespace app="http://syriaca.org/templates";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace teiDocs="http://syriaca.org/teiDocs" at "teiDocs/teiDocs.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
+import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
@@ -50,7 +51,7 @@ if($app:id) then
         else if($coll = 'spear') then concat('http://syriaca.org/spear/',$app:id)
         else if($coll = 'mss') then concat('http://syriaca.org/manuscript/',$app:id)
         else $app:id
-    return map {"data" := global:get-rec($id)}
+    return map {"data" := collection($global:data-root)//tei:idno[@type='URI'][. = $id]}
 else map {"data" := 'Page data'}    
 };
 
@@ -75,14 +76,49 @@ else 'Syriaca.org: The Syriac Reference Portal '
  : Default title display, used if no sub-module title function. 
 :)
 declare function app:h1($node as node(), $model as map(*)){
-   global:tei2html($model("data")/ancestor::tei:TEI/descendant::tei:title[1])
+    if(($model("data")/ancestor::tei:TEI/descendant::*[contains(@syriaca-tags,'#syriaca-headword')])) then
+        let $rec := $model("data")/ancestor::tei:TEI/descendant::tei:body
+        let $title-nodes := 
+            <srophe-title xmlns="http://www.tei-c.org/ns/1.0">
+                {($rec/descendant::*[contains(@syriaca-tags,'#syriaca-headword')], $rec/descendant::tei:idno, $rec/descendant::tei:location)}
+            </srophe-title>
+        return global:tei2html($title-nodes)
+    else global:tei2html($model("data")/ancestor::tei:TEI/descendant::tei:title[1])
 }; 
 
 (:~ 
  : Default record display, used if no sub-module functions. 
 :)
 declare %templates:wrap function app:rec-display($node as node(), $model as map(*), $coll as xs:string?){
-    global:tei2html($model("data")/ancestor::tei:TEI)
+    if($model("data")/ancestor::tei:TEI//tei:listRelation) then 
+        <div class="row">
+            <div class="col-md-8 column1">
+                {global:tei2html($model("data")/ancestor::tei:TEI/descendant::tei:body)} 
+            </div>
+            <div class="col-md-4 column2">
+                {rel:build-relationships($model("data")/ancestor::tei:TEI//tei:listRelation)}  
+            </div>
+        </div>
+    else 
+    <div class="row">
+        <div class="col-md-12 column1">
+            {global:tei2html($model("data")/ancestor::tei:TEI/descendant::tei:body)}
+        </div>
+    </div>
+};
+
+(:
+ : Return tieHeader info to be used in citation
+:)
+declare %templates:wrap function app:citation($node as node(), $model as map(*)){
+    let $rec := $model("data")/ancestor::tei:TEI
+    let $header := 
+    <place xmlns="http://www.tei-c.org/ns/1.0">
+        <citation xmlns="http://www.tei-c.org/ns/1.0">
+            {$rec//tei:teiHeader | $rec//tei:bibl}
+        </citation> 
+    </place>
+    return global:tei2html($header)
 };
 
 declare %templates:wrap function app:set-data($node as node(), $model as map(*), $doc as xs:string){
