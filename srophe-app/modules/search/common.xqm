@@ -128,7 +128,7 @@ let $desc :=
         else ()
 return
     <p class="results-list">
-       <a href="{replace($uri,$global:base-uri,$global:nav-base)}">
+       <a href="{global:internal-links($uri)}">
         {
         if($lang = 'syr') then
             (<span dir="rtl" lang="syr" xml:lang="syr">{$syr-title}</span>,' - ',
@@ -161,6 +161,6 @@ return
             else() 
         else()
         }
-     <span class="results-list-desc"><span class="srp-label">URI: </span><a href="{replace($uri,$global:base-uri,$global:nav-base)}">{$uri}</a></span>
+     <span class="results-list-desc"><span class="srp-label">URI: </span><a href="{global:internal-links($uri)}">{$uri}</a></span>
     </p>
 };

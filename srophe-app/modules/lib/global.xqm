@@ -48,6 +48,10 @@ declare variable $global:app-logo := $global:get-config//logo/text();
 (: Map rendering, google or leaflet :)
 declare variable $global:app-map-option := $global:get-config//maps/option[@selected='true']/text();
 
+(: Sub in relative paths based on base-url variable :)
+declare function global:internal-links($uri){
+    replace($uri,$global:base-uri,$global:nav-base)
+};
 (:
  : Addapted from https://github.com/eXistSolutions/hsg-shell
  : Recurse through menu output absolute urls based on config.xml values. 
@@ -76,6 +80,12 @@ declare function global:fix-links($nodes as node()*) {
                 $node
 };
 
+(:
+ : Dashboard function outputs collection statistics. 
+ : $data collection data
+ : $collection-title title of sub-module/collection
+ : $data-dir 
+:)
 declare function global:srophe-dashboard($data, $collection-title as xs:string?, $data-dir as xs:string?){
 let $data-type := if($data-dir) then $data-dir else 'data'
 let $rec-num := count($data)
@@ -179,6 +189,7 @@ return
     </div>
 </div>
 };
+
 (:~
  : Transform tei to html via xslt
  : @param $node data passed to transform
@@ -194,5 +205,10 @@ declare function global:tei2html($nodes as node()*) {
     )
 };
 
-
-
+(:
+ : Generic get record function
+:)
+declare function global:get-rec($id as xs:string){
+    for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI
+    return $rec
+};
