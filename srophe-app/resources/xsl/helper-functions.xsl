@@ -67,7 +67,7 @@
                 <xsl:text>Spanish</xsl:text>
             </xsl:when>
             <xsl:otherwise/>
-        </xsl:choose>    
+        </xsl:choose>
     </xsl:function>
     <!-- 
      Function to output dates in correct formats passes whole element to function, 
@@ -135,11 +135,7 @@
     <xsl:function name="local:do-refs" as="node()">
         <xsl:param name="refs"/>
         <xsl:param name="lang"/>
-        <!-- 
-           <bdi class="footnote-refs" dir="ltr"> <span class="footnote-ref"><a href="#bib78-5">5</a></span></bdi>
-           NOTE: check to see if this is the real rule accross footnotes, otherwise it will need to get more complicated.
-          -->
-        <bdi class="footnote-refs" dir="ltr">
+        <span class="footnote-refs" dir="ltr">
             <xsl:if test="$lang != 'en'">
                 <xsl:attribute name="lang">en</xsl:attribute>
                 <xsl:attribute name="xml:lang">en</xsl:attribute>
@@ -154,7 +150,7 @@
                 </span>
             </xsl:for-each>
             <xsl:text> </xsl:text>
-        </bdi>
+        </span>
     </xsl:function>
     
     <!-- Process names editors/authors ect -->
@@ -276,9 +272,9 @@
         <xsl:variable name="thislang" select="ancestor-or-self::*[@xml:lang][1]/@xml:lang"/>
         <xsl:choose>
             <xsl:when test="starts-with($thislang, 'syr') or starts-with($thislang, 'syc') or starts-with($thislang, 'ar')">
-                <bdi dir="rtl">
+                <span dir="rtl">
                     <xsl:apply-templates select="." mode="text-normal"/>
-                </bdi>
+                </span>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="." mode="text-normal"/>
