@@ -993,14 +993,21 @@
             </xsl:when>
             <xsl:otherwise>
                 <li>
-                    <span>
-                        <xsl:call-template name="langattr"/>
-                        <xsl:apply-templates/>
-                    <!-- Check for ending punctuation, if none, add . -->
-                        <xsl:if test="not(ends-with(.,'.'))">
-                            <xsl:text>.</xsl:text>
-                        </xsl:if>
-                    </span>
+                    <xsl:choose>
+                        <xsl:when test="t:quote">
+                            <xsl:apply-templates/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <span>
+                                <xsl:call-template name="langattr"/>
+                                <xsl:apply-templates/>
+                                <!-- Check for ending punctuation, if none, add . -->
+                                <xsl:if test="not(ends-with(.,'.'))">
+                                    <xsl:text>.</xsl:text>
+                                </xsl:if>
+                            </span>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </li>
             </xsl:otherwise>
         </xsl:choose>
@@ -1033,43 +1040,30 @@
     <xsl:template match="t:quote">
         <xsl:choose>
             <xsl:when test="@xml:lang">
-                <span dir="ltr">
-                    <xsl:text> “</xsl:text>
-                </span>
                 <span>
                     <xsl:attribute name="dir">
                         <xsl:call-template name="getdirection"/>
                     </xsl:attribute>
                     <xsl:call-template name="langattr"/>
+                    <xsl:text> “</xsl:text>
                     <xsl:apply-templates/>
-                </span>
-                <span dir="ltr">
                     <xsl:text>” </xsl:text>
                 </span>
             </xsl:when>
-            <xsl:when test="parent::t:desc/@xml:lang">
-                <span dir="ltr">
-                    <xsl:text> “</xsl:text>
-                </span>
+            <xsl:when test="parent::*/@xml:lang">
                 <span class="langattr">
                     <xsl:attribute name="dir">
                         <xsl:choose>
-                            <xsl:when test="parent::t:desc[@xml:lang='en']">ltr</xsl:when>
-                            <xsl:when test="parent::t:desc[@xml:lang='syr' or @xml:lang='ar' or @xml:lang='syc' or @xml:lang='syr-Syrj']">rtl</xsl:when>
+                            <xsl:when test="parent::*[@xml:lang='en']">ltr</xsl:when>
+                            <xsl:when test="parent::*[@xml:lang='syr' or @xml:lang='ar' or @xml:lang='syc' or @xml:lang='syr-Syrj']">rtl</xsl:when>
                             <xsl:otherwise>ltr</xsl:otherwise>
                         </xsl:choose>
                     </xsl:attribute>
                     <xsl:attribute name="lang">
-                        <xsl:value-of select="parent::t:desc/@xml:lang"/>
+                        <xsl:value-of select="parent::*/@xml:lang"/>
                     </xsl:attribute>
-                    <!--
-                    <xsl:attribute name="xml:lang">
-                        <xsl:value-of select="parent::t:desc/@xml:lang"/>
-                    </xsl:attribute>
-                    -->
+                    <xsl:text> “</xsl:text>
                     <xsl:apply-templates/>
-                </span>
-                <span dir="ltr">
                     <xsl:text>” </xsl:text>
                 </span>
             </xsl:when>
@@ -1079,6 +1073,7 @@
                 <xsl:text>”</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="@source or parent::*/@source">
         <span class="langattr">
             <xsl:attribute name="dir">
                 <xsl:choose>
@@ -1096,6 +1091,7 @@
                 </xsl:when>
             </xsl:choose>
         </span>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="t:persName | t:region | t:settlement | t:placeName">
         <xsl:choose>
