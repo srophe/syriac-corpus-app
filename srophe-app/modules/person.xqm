@@ -90,11 +90,13 @@ declare %templates:wrap function person:names($node as node(), $model as map(*))
     let $names := $model("data")//tei:person/tei:persName
     let $abstract := $model("data")//tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')] | $model("data")//tei:note[@type='abstract']
     let $sex := $model("data")//tei:sex
+    let $martyr := $model("data")//tei:state[@type='martyr']
     let $nodes := 
         <person xmlns="http://www.tei-c.org/ns/1.0">
             {(
                 $names,
                 $abstract,
+                $martyr,
                 $sex
             )}
         </person>
@@ -107,7 +109,7 @@ declare %templates:wrap function person:data($node as node(), $model as map(*)){
     let $nodes := 
     <person xmlns="http://www.tei-c.org/ns/1.0" ana="{$rec/@ana/text()}">
             {
-                for $data in $rec/child::*[not(self::tei:persName)][not(self::tei:bibl)][not(self::*[@type='abstract' or starts-with(@xml:id, 'abstract-en')])]
+                for $data in $rec/child::*[not(self::tei:persName)][not(self::tei:bibl)][not(self::*[@type='abstract' or starts-with(@xml:id, 'abstract-en')])][not(self::tei:state[@type='martyr'])][not(self::tei:sex)]
                 return $data
             }
     </person>

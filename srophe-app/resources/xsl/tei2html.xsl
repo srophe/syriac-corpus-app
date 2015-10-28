@@ -157,7 +157,7 @@
         </xsl:if>
         <xsl:if test="self::t:person">
             <div id="persnames">
-                <xsl:if test="string-length(t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']) &gt; 1">
+                <xsl:if test="string-length(t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract'][1]) &gt; 1">
                     <div style="margin-bottom:1em;">
                         <h4>Identity</h4>
                         <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']" mode="abstract"/>
@@ -185,6 +185,7 @@
                 <br class="clearfix"/>
                 <div>
                     <xsl:apply-templates select="t:sex"/>
+                    <xsl:apply-templates select="t:state[@type='martyr']"/>
                 </div>
             </div>
         </xsl:if>
@@ -398,7 +399,7 @@
         </xsl:if>
         
         <!-- State for persons? NEEDS WORK -->
-        <xsl:if test="t:state[not(@type='confession')]">
+        <xsl:if test="t:state[not(@type='confession')][not(@type='martyr')]">
             <xsl:for-each-group select="//t:state[not(@when) and not(@notBefore) and not(@notAfter) and not(@to) and not(@from)]" group-by="@type">
                 <h4>
                     <xsl:value-of select="concat(upper-case(substring(current-grouping-key(),1,1)),substring(current-grouping-key(),2))"/>
@@ -406,7 +407,7 @@
                 <ul>
                     <xsl:for-each select="current-group()[not(t:desc/@xml:lang = 'en-x-gedsh')]">
                         <li>
-                            <xsl:apply-templates select="."/>
+                            <xsl:apply-templates mode="plain"/>
                         </li>
                     </xsl:for-each>
                 </ul>
@@ -617,7 +618,9 @@
                 <p>
                     <span class="srp-label">URI</span>
                     <xsl:text>: </xsl:text>
-                    <xsl:value-of select="$resource-id"/>
+                    <span id="syriaca-id">
+                        <xsl:value-of select="$resource-id"/>
+                    </span>
                 </p>
             </small>
         </div>
@@ -713,7 +716,16 @@
         </div>
     </xsl:template>
     <xsl:template match="t:title">
-        <xsl:apply-templates/>
+        <xsl:choose>
+            <xsl:when test="@ref">
+                <a href="{@ref}">
+                    <xsl:apply-templates/>
+                </a>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates/>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:if test="following-sibling::t:title">
             <xsl:text>: </xsl:text>
         </xsl:if>
@@ -1074,23 +1086,23 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:if test="@source or parent::*/@source">
-        <span class="langattr">
-            <xsl:attribute name="dir">
+            <span class="langattr">
+                <xsl:attribute name="dir">
+                    <xsl:choose>
+                        <xsl:when test="parent::t:desc[@xml:lang='en']">ltr</xsl:when>
+                        <xsl:when test="parent::t:desc[@xml:lang='syr' or @xml:lang='ar' or @xml:lang='syc' or @xml:lang='syr-Syrj']">rtl</xsl:when>
+                        <xsl:otherwise>ltr</xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>
                 <xsl:choose>
-                    <xsl:when test="parent::t:desc[@xml:lang='en']">ltr</xsl:when>
-                    <xsl:when test="parent::t:desc[@xml:lang='syr' or @xml:lang='ar' or @xml:lang='syc' or @xml:lang='syr-Syrj']">rtl</xsl:when>
-                    <xsl:otherwise>ltr</xsl:otherwise>
+                    <xsl:when test="@source">
+                        <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
+                    </xsl:when>
+                    <xsl:when test="parent::*/@source">
+                        <xsl:sequence select="local:do-refs(parent::*/@source,ancestor::t:*[@xml:lang][1])"/>
+                    </xsl:when>
                 </xsl:choose>
-            </xsl:attribute>
-            <xsl:choose>
-                <xsl:when test="@source">
-                    <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
-                </xsl:when>
-                <xsl:when test="parent::*/@source">
-                    <xsl:sequence select="local:do-refs(parent::*/@source,ancestor::t:*[@xml:lang][1])"/>
-                </xsl:when>
-            </xsl:choose>
-        </span>
+            </span>
         </xsl:if>
     </xsl:template>
     <xsl:template match="t:persName | t:region | t:settlement | t:placeName">
@@ -1105,8 +1117,11 @@
                                 <xsl:otherwise>ref</xsl:otherwise>
                             </xsl:choose>
                         </xsl:variable>
+                        <xsl:variable name="resource-id">
+                            <xsl:value-of select="concat(local-name(.),count(ancestor::node()))"/>
+                        </xsl:variable>
                         <xsl:text> </xsl:text>
-                        <a class="{concat(local-name(.),' ', $link-class)}" href="{@ref}">
+                        <a class="{concat(local-name(.),' ', $link-class)}" href="{@ref}" data-element-name="{local-name(.)}" resource="{$resource-id}">
                             <xsl:call-template name="langattr"/>
                             <xsl:apply-templates/>
                         </a>
@@ -1225,6 +1240,9 @@
     <!-- NOTE: would really like to get rid of mode=cleanout -->
     <xsl:template match="t:placeName[local-name(..)='desc']" mode="cleanout">
         <xsl:apply-templates select="."/>
+    </xsl:template>
+    <xsl:template match="t:*" mode="plain">
+        <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="text()" mode="cleanout">
         <xsl:value-of select="."/>
