@@ -720,6 +720,7 @@
             <xsl:when test="@ref">
                 <a href="{@ref}">
                     <xsl:apply-templates/>
+                    [<xsl:value-of select="@ref"/>]
                 </a>
             </xsl:when>
             <xsl:otherwise>
