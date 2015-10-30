@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml" data-template="app:get-rec">
+<html xmlns="http://www.w3.org/1999/xhtml" data-template="person:get-rec" coll="saints">
     <head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>Gateway to the Syriac Saints</title>
+        <title data-template="person:app-title" coll="saints">Qadishē: Guide to the Syriac Saints</title>
         <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"/>
         <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/"/>
         <!--<meta name="DC.subject" property="dc.subject" content="Geography, Ancient"/>-->
@@ -17,11 +17,8 @@
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/main.css"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/saints.css"/>
         <link rel="stylesheet" type="text/css" media="print" href="$app-root/resources/css/print.css"/>
-        <!-- Leaflet css -->
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
         <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>
-        <!-- temporary until migrate to bootstrap 3.0 -->
-        <!-- JQuery -->
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>
     </head>
     <body>
@@ -29,7 +26,7 @@
                 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
             <![endif]-->
         <!-- Fixed navbar -->
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="person:fix-links">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -38,8 +35,8 @@
                         <span class="icon-bar"/>
                         <span class="icon-bar"/>
                     </button>
-                    <a class="navbar-brand" href="$app-root/q/index.html">
-                        <img alt="Syriac.org: Persons" src="$app-root/resources/img/icons-q.png"/>
+                    <a class="navbar-brand" href="$app-root/saints/index.html">
+                        <img alt="Syriac.org: Persons" src="$app-root/resources/img/icons-saints.png"/>
                     </a>
                 </div>
                 <div class="navbar-collapse collapse pull-right">
@@ -58,7 +55,7 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="$app-root/persons/index.html" class="saints-sm-icon nav-icons">SBD</a>
+                                            <a href="$app-root/persons/index.html" class="persons-sm-icon nav-icons">SBD</a>
                                         </li>
                                         <li role="presentation" class="divider"/>
                                         <li>
@@ -66,7 +63,7 @@
                                         </li>
                                         <li role="presentation" class="divider"/>
                                         <li>
-                                            <a href="$app-root/saints/index.html" class="saints-sm-icon nav-icons">Saints</a>
+                                            <a href="$app-root/q/index.html" class="saints-sm-icon nav-icons">Saints</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -76,11 +73,11 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="$app-root/q/index.html" class="saints-sm-icon nav-icons">Saints</a>
+                                            <a href="$app-root/saints/index.html" class="saints-sm-icon nav-icons">Saints</a>
                                         </li>
                                         <li role="presentation" class="divider"/>
                                         <li>
-                                            <a href="$app-root/saints/index.html" class="saints-sm-icon nav-icons">Persons</a>
+                                            <a href="$app-root/q/index.html" class="saints-sm-icon nav-icons">Persons</a>
                                         </li>
                                         <li role="presentation" class="divider"/>
                                         <li>
@@ -107,14 +104,10 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="$app-root/saints/index.html" class="saints-sm-icon nav-icons">persons</a>
-                        </li>
-                        <li>
-                            <a href="$app-root/bhse/index.html" class="bhse-sm-icon nav-icons">works</a>
+                            <a href="$app-root/saints/browse.html">index</a>
                         </li>
                     </ul>
-                    <!--
-                    <form class="navbar-form navbar-right navbar-input-group" role="search" action="search.html" method="get">
+                    <form class="navbar-form navbar-right navbar-input-group" role="search" action="$app-root/saints/search.html" method="get">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search" name="q" id="q"/>
                             <input type="hidden" id="collection" value="saints"/>
@@ -125,14 +118,13 @@
                             </div>
                             <div class="input-group-btn">
                                 <span class="btn btn-default">
-                                    <a href="search.html" title="advanced search">
+                                    <a href="$app-root/saints/search.html" title="advanced search">
                                         <span class="glyphicon glyphicon-cog"/>
                                     </a>
                                 </span>
                             </div>
                         </div>
                     </form>
-                    -->
                 </div><!--/.nav-collapse -->
             </div>
         </div>
