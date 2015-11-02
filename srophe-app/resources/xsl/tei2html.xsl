@@ -463,8 +463,20 @@
                 </h3>
                 <ol>
                     <xsl:for-each select="current-group()">
-                        <xsl:sort select="                             if(current-grouping-key() = 'MSS') then                                 substring-after(t:bibl/@xml:id,'witness')                             else if(current-grouping-key() = 'editions') then                                 substring-after(t:bibl/@corresp,'witness')                             else if(@xml:lang) then local:expand-lang(@xml:lang,$label)                              else ."/>
-                        <!--<xsl:sort select="local:expand-lang(self::*/@xml:lang)"/>-->
+                        <xsl:sort select="                             
+                            if(current-grouping-key() = 'MSS') then 
+                            substring-after(t:bibl/@xml:id,'witness') = ''
+                            else if(current-grouping-key() = 'editions') then  
+                            substring-after(t:bibl/@corresp,'witness') = ''
+                            else if(@xml:lang) then local:expand-lang(@xml:lang,$label)
+                            else ." order="ascending"/>
+                        <xsl:sort select="                             
+                            if(current-grouping-key() = 'MSS') then 
+                            substring-after(t:bibl/@xml:id,'witness') != '' 
+                            else if(current-grouping-key() = 'editions') then  
+                            substring-after(t:bibl/@corresp,'witness') != ''
+                            else if(@xml:lang) then local:expand-lang(@xml:lang,$label)
+                            else ." order="ascending"/>
                         <xsl:apply-templates select="self::*"/>
                     </xsl:for-each>
                 </ol>
