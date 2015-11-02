@@ -14,18 +14,14 @@ import module namespace recap = "http://www.exist-db.org/xquery/util/recapture" 
 declare option exist:serialize "method=xml media-type=text/xml indent=yes";
 
 declare function local:recaptcha(){
-let $recapture-private-key := "6Lf1uvESAAAAANlfEgUXBpEU95Bh83BoVtEz8gZE" 
+let $recapture-private-key := "6Lc8sQ4TAAAAALsZFuT6UWGtHNygEDMGZgQAryxe"
 return 
-    recap:validate($recapture-private-key, 
-    request:get-parameter("recaptcha_challenge_field", ()), 
-    request:get-parameter("recaptcha_response_field",()))
+    recap:validate($recapture-private-key, request:get-parameter("g-recaptcha-response",()))
 };
 
-
-
 declare function local:build-message(){
-let $place := if(request:get-parameter('id','')) then concat('for ',request:get-parameter('id','')) else ''
-let $place-uri := if(request:get-parameter('id','')) then concat('Place: http://syriaca.org/place/',request:get-parameter('id','')) else ''
+let $place := if(request:get-parameter('id','')) then concat(' for ',request:get-parameter('id','')) else ''
+let $place-uri := if(request:get-parameter('id','')) then concat(' Place: http://syriaca.org/place/',request:get-parameter('id','')) else ''
 return
   <mail>
     <from>Syriaca.org &lt;david.a.michelson@vanderbilt.edu&gt;</from>

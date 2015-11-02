@@ -12,7 +12,14 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 declare namespace request="http://exist-db.org/xquery/request";
 
 declare option exist:serialize "method=xml media-type=text/xml omit-xml-declaration=no indent=yes";
-'temp'
+<div>
+{
+(xmldb:login('/db/apps/srophe/', 'admin', 'R0ck0n!', true()),
+<div>
+    <p>Available vars:  {available-environment-variables()}</p>
+    <p>Github: {environment-variable('VUTOKEN')}</p>
+</div>)
+}</div>
 (:
 let $path-to-xq := '/db/apps/srophe/modules/get-place-rec.xql'
 return
@@ -21,5 +28,5 @@ return
     exrest:deregister-module(xs:anyURI('/db/apps/srophe/modules/rest.xqm'))
     :)
     (:exrest:deregister-module(xs:anyURI('/db/apps/srophe/modules/rest.xqm')):)
-    rest:resource-functions()
+    (:rest:resource-functions():)
     (:xrest:register-module(xs:anyURI('/db/apps/srophe/modules/rest.xqm')):)
