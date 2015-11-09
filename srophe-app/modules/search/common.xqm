@@ -108,17 +108,13 @@ let $uri :=
                 string(replace($node//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
         else string($node//tei:div[1]/@uri)
 let $en-title := 
-             if($node/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*) then 
-                 string-join($node/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*/text(),' ')
-             else if(string-join($node/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text())) then 
-                string-join($node/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text(),' ')   
-             else $node/ancestor::tei:TEI/descendant::tei:title[1]/text()       
+             if($node/child::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]) then 
+                 string-join($node/child::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]//text(),' ')
+             else $node/ancestor::tei:TEI/descendant::tei:title[1]/text()               
 let $syr-title := 
-             if($node/descendant::*[@syriaca-tags='#syriaca-headword'][1]) then
-                if($node/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/child::*) then 
-                 string-join($node/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/child::*/text(),' ')
-                else string-join($node/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/text(),' ')
-             else 'NA' 
+             if($node/child::*[contains(@syriaca-tags,'#syriaca-headword')][1]) then
+                string-join($node/child::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')
+             else 'NA'  
 let $birth := if($ana) then $node/descendant::tei:birth else()
 let $death := if($ana) then $node/descendant::tei:death else()
 let $dates := concat(if($birth) then $birth/text() else(), if($birth and $death) then ' - ' else if($death) then 'd.' else(), if($death) then $death/text() else())    

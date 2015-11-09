@@ -43,7 +43,7 @@ declare variable $browse:fq {request:get-parameter('fq', '')};
 :)
 declare function browse:get-all($node as node(), $model as map(*), $coll as xs:string?){
 let $browse-path := 
-        if($coll = ('persons','authors','saints')) then concat("collection('",$global:data-root,"/persons/tei')//tei:person",browse:get-pers-coll($coll),browse:get-syr()) 
+    if($coll = ('persons','authors','saints')) then concat("collection('",$global:data-root,"/persons/tei')//tei:person",browse:get-pers-coll($coll),browse:get-syr()) 
     else if($coll = 'places') then concat("collection('",$global:data-root,"/places/tei')//tei:place",browse:get-syr())
     else if($coll = 'bhse') then concat("collection('",$global:data-root,"/works/tei')//tei:body/tei:bibl",browse:get-syr())
     else if($coll = 'manuscripts') then concat("collection('",$global:data-root,"/manuscripts/tei')//tei:teiHeader")
@@ -60,7 +60,7 @@ return
 :)
 declare function browse:get-syr() as xs:string?{
     if($browse:view = 'syr') then
-        "[child::*[@xml:lang = 'syr'][@syriaca-tags='#syriaca-headword']]"
+        "[child::*[contains(@syriaca-tags,'#syriaca-headword')][@xml:lang = 'syr']]"
     else ()    
 };
 
@@ -173,8 +173,8 @@ let $data :=
             | $model("browse-data")/self::*[descendant::*[@syriaca-computed-end gt browse:get-start-date() and @syriaca-computed-start lt browse:get-end-date()]]
         else ()    
     else if($browse:view = 'map') then $model("browse-data")
-    else if($browse:view = 'syr') then $model("browse-data")/self::*[contains($browse:sort, substring(string-join(descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/descendant-or-self::*/text(),' '),1,1))]
-    else $model("browse-data")/self::*[contains(browse:get-sort(), substring(browse:build-sort-string(string-join(descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/descendant-or-self::text(),' ')),1,1))]
+    else if($browse:view = 'syr') then $model("browse-data")/self::*[contains($browse:sort, substring(string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]/descendant-or-self::*/text(),' '),1,1))]
+    else $model("browse-data")/self::*[contains(browse:get-sort(), substring(browse:build-sort-string(string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]/descendant-or-self::text(),' ')),1,1))]
 return
     map{"browse-refine" := $data}
 };
@@ -193,17 +193,13 @@ else (),
 for $data in $model("browse-refine")
 let $rec-id := tokenize(replace($data/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei|/source',''),'/')[last()]
 let $en-title := 
-             if($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*) then 
-                 string-join($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*/text(),' ')
-             else if(string-join($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text())) then 
-                string-join($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text(),' ')   
+             if($data/child::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]) then 
+                 string-join($data/child::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]//text(),' ')
              else $data/ancestor::tei:TEI/descendant::tei:title[1]/text()               
 let $syr-title := 
-             if($data/child::*[@syriaca-tags='#syriaca-headword'][1]) then
-                if($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/child::*) then 
-                 string-join($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/child::*/text(),' ')
-                else string-join($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^syr')][1]/text(),' ')
-             else 'NA'  
+             if($data/child::*[contains(@syriaca-tags,'#syriaca-headword')][1]) then
+                string-join($data/child::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')
+             else 'NA'
 let $title := if($browse:view = 'syr') then $syr-title else $en-title
 let $browse-title := browse:build-sort-string($title)
 order by 
