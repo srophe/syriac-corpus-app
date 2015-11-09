@@ -2,7 +2,8 @@ xquery version "3.0";
 
 module namespace geo="http://syriaca.org/geojson";
 (:~
- : Module returns coordinates for leafletjs maps, or for API requests
+ : Module returns coordinates for leafletjs maps, Google maps, or for API requests
+ : Formats include geoJSON and KML
  : @author Winona Salesky <wsalesky@gmail.com>
  : @authored 2014-06-25
 :)
@@ -74,7 +75,7 @@ declare function geo:get-coordinates($geo-search as element()*, $type as xs:stri
     for $place-name in map:get($geo-map, 'geo-data')
     let $id := string($place-name/ancestor::tei:place/tei:idno[@type='URI'][starts-with(.,$global:base-uri)])
     let $rec-type := string($place-name/ancestor::tei:place/@type)
-    let $title := $place-name/ancestor::tei:place/tei:placeName[@xml:lang = 'en'][1]/text()
+    let $title := $place-name/ancestor::tei:TEI/descendant::tei:title[1]/text()
     let $geo := $place-name
     let $rel := string($place-name/ancestor::*:relation/@name)
     return
@@ -255,7 +256,6 @@ declare function geo:build-google-map($geo-search as node()*, $type as xs:string
             
             function initialize(){
                 map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 2,
                     center: new google.maps.LatLng(0,0),
                     mapTypeId: google.maps.MapTypeId.TERRAIN
                 });
@@ -287,7 +287,14 @@ declare function geo:build-google-map($geo-search as node()*, $type as xs:string
          			})(marker, data);
                     bounds.extend(latLng);
                 }
+                
                 map.fitBounds(bounds);
+                // Adjusts zoom for single items on the map
+                google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
+                  if (this.getZoom() > 10) {
+                    this.setZoom(10);
+                  }
+                });
             }
 
             google.maps.event.addDomListener(window, 'load', initialize)

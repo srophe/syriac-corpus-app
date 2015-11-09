@@ -53,8 +53,6 @@
      emit the link icons div and its contents
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  -->
     <xsl:template name="link-icons">
-        <xsl:variable name="resource-uri" select="//t:idno[contains(.,'syriaca.org')][1]"/>
-        <xsl:variable name="id" select="tokenize(replace($resource-uri[1],'/tei',''),'/')[last()]"/>
         <xsl:variable name="link-title">
             <xsl:choose>
                 <xsl:when test="//t:place">
@@ -69,7 +67,7 @@
             <!-- Pleiades links -->
             <xsl:for-each select="//descendant::t:idno[contains(.,'pleiades')]">
                 <a href="{normalize-space(.)}">
-                    <img src="/exist/apps/srophe/resources/img/circle-pi-25.png" alt="Image of the Greek letter pi in blue; small icon of the Pleiades project" title="click to view {link-title} in Pleiades"/>
+                    <img src="{$nav-base}/resources/img/circle-pi-25.png" alt="Image of the Greek letter pi in blue; small icon of the Pleiades project" title="click to view {link-title} in Pleiades"/>
                 </a>
             </xsl:for-each>
             <!-- Wikipedia links -->
@@ -78,30 +76,35 @@
                     <xsl:value-of select="replace(tokenize(.,'/')[last()],'_',' ')"/>
                 </xsl:variable>
                 <a href="{normalize-space(.)}">
-                    <img src="/exist/apps/srophe/resources/img/Wikipedia-25.png" alt="The Wikipedia icon" title="click to view {$get-title} in Wikipedia"/>
+                    <img src="{$nav-base}/resources/img/Wikipedia-25.png" alt="The Wikipedia icon" title="click to view {$get-title} in Wikipedia"/>
                 </a>
             </xsl:for-each>
             
             <!-- Google map links -->
             <xsl:for-each select="//descendant::t:location[@type='gps']/t:geo">
-                <!-- {$base}{$placeslevel}? -->
-                <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://syriaca.org/place/{$id}/atom">
-                    <img src="/exist/apps/srophe/resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {$link-title} on Google Maps"/>
+                <xsl:variable name="geoRef">
+                    <xsl:variable name="coords" select="tokenize(normalize-space(.), '\s+')"/>
+                    <xsl:value-of select="$coords[1]"/>
+                    <xsl:text>, </xsl:text>
+                    <xsl:value-of select="$coords[2]"/>
+                </xsl:variable>
+                <a href="https://maps.google.com/maps?q={$geoRef}+(name)&amp;z=10&amp;ll={$geoRef}">
+                    <img src="{$nav-base}/resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {$link-title} on Google Maps"/>
                 </a>
             </xsl:for-each>
             
             <!-- TEI source link -->
-            <a href="{$resource-uri}/tei" rel="alternate" type="application/tei+xml">
-                <img src="/exist/apps/srophe/resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/>
+            <a href="{replace($resource-id,$base-uri,$nav-base)}/tei" rel="alternate" type="application/tei+xml">
+                <img src="{$nav-base}/resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/>
             </a>
             <!-- NOTE: need to restructure geo? or just add atom to persons? -->
             <!-- Atom format link -->
-            <a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml">
-                <img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/>
+            <a href="{replace($resource-id,$base-uri,$nav-base)}/atom" rel="alternate" type="application/atom+xml">
+                <img src="{$nav-base}/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/>
             </a>
             <!-- Print link -->
             <a href="javascript:window.print();">
-                <img src="/exist/apps/srophe/resources/img/icons-print.png" alt="The Print format icon" title="click to send this page to the printer"/>
+                <img src="{$nav-base}/resources/img/icons-print.png" alt="The Print format icon" title="click to send this page to the printer"/>
             </a>
         </div>
     </xsl:template>
@@ -162,33 +165,31 @@
                 <xsl:for-each select="t:idno[contains(.,'pleiades')]">
                     <li>
                         <a href="{normalize-space(.)}">
-                            <img src="/exist/apps/srophe/resources/img/circle-pi-25.png" alt="Image of the Greek letter pi in blue; small icon of the Pleiades project" title="click to view {$link-title} in Pleiades"/> View in Pleiades</a>
+                            <img src="{$nav-base}/resources/img/circle-pi-25.png" alt="Image of the Greek letter pi in blue; small icon of the Pleiades project" title="click to view {$link-title} in Pleiades"/> View in Pleiades</a>
                     </li>
                 </xsl:for-each>
                 <!-- Google map links -->
-                <xsl:for-each select="t:location[@type='gps']/t:geo">
-                    <!-- {$base}{$placeslevel} -->
-                    <li>
-                        <xsl:variable name="geoRef">
-                            <xsl:variable name="coords" select="tokenize(normalize-space(.), '\s+')"/>
-                            <xsl:value-of select="$coords[2]"/>
-                            <xsl:text>, </xsl:text>
-                            <xsl:value-of select="$coords[1]"/>
-                        </xsl:variable>
-                        <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://syriaca.org/place/{$resource-id}/atom">
-                            <img src="/exist/apps/srophe/resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {$link-title} on Google Maps"/> View in Google Maps</a>
-                    </li>
+                <xsl:for-each select="//descendant::t:location[@type='gps']/t:geo">
+                    <xsl:variable name="geoRef">
+                        <xsl:variable name="coords" select="tokenize(normalize-space(.), '\s+')"/>
+                        <xsl:value-of select="$coords[1]"/>
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="$coords[2]"/>
+                    </xsl:variable>
+                    <a href="https://maps.google.com/maps?q={$geoRef}+(name)&amp;z=10&amp;ll={$geoRef}">
+                        <img src="{$nav-base}/resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {$link-title} on Google Maps"/>View in Google Maps
+                    </a>
                 </xsl:for-each>
                 
                 <!-- TEI source link -->
                 <li>
-                    <a href="{$resource-uri}/tei" rel="alternate" type="application/tei+xml">
-                        <img src="/exist/apps/srophe/resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/> TEI XML source data</a>
+                    <a href="{replace($resource-id,$base-uri,$nav-base)}/tei" rel="alternate" type="application/tei+xml">
+                        <img src="{$nav-base}/resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/> TEI XML source data</a>
                 </li>
                 <!-- Atom format link -->
                 <li>
-                    <a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml">
-                        <img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/> ATOM XML format
+                    <a href="{replace($resource-id,$base-uri,$nav-base)}/atom" rel="alternate" type="application/atom+xml">
+                        <img src="{$nav-base}/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/> ATOM XML format
                     </a>
                 </li>
                 <!-- Wikipedia links -->
@@ -198,7 +199,7 @@
                     </xsl:variable>
                     <li>
                         <a href="{.}">
-                            <img src="/exist/apps/srophe/resources/img/Wikipedia-25.png" alt="The Wikipedia icon" title="click to view {$link-title} in Wikipedia"/> "<xsl:value-of select="$get-title"/>" in Wikipedia</a>
+                            <img src="{$nav-base}/resources/img/Wikipedia-25.png" alt="The Wikipedia icon" title="click to view {$link-title} in Wikipedia"/> "<xsl:value-of select="$get-title"/>" in Wikipedia</a>
                     </li>
                 </xsl:for-each>
             </ul>
@@ -206,8 +207,6 @@
     </xsl:template>
     <xsl:template name="link-icons-list">
         <xsl:param name="title"/>
-        <xsl:variable name="resource-uri" select="replace(//t:idno[contains(.,'syriaca.org')][1],'/tei','')"/>
-        <xsl:variable name="id" select="tokenize($resource-uri,'/')[last()]"/>
         <div id="see-also" class="well">
             <h3>See Also</h3>
             <ul>
@@ -233,33 +232,31 @@
                 <xsl:for-each select="//t:idno[contains(.,'pleiades')]">
                     <li>
                         <a href="{normalize-space(.)}">
-                            <img src="/exist/apps/srophe/resources/img/circle-pi-25.png" alt="Image of the Greek letter pi in blue; small icon of the Pleiades project" title="click to view {$title} in Pleiades"/> View in Pleiades</a>
+                            <img src="{$nav-base}/resources/img/circle-pi-25.png" alt="Image of the Greek letter pi in blue; small icon of the Pleiades project" title="click to view {$title} in Pleiades"/> View in Pleiades</a>
                     </li>
                 </xsl:for-each>
                 <!-- Google map links -->
-                <xsl:for-each select="//t:location[@type='gps']/t:geo">
-                    <!-- {$base}{$placeslevel} -->
-                    <li>
-                        <xsl:variable name="geoRef">
-                            <xsl:variable name="coords" select="tokenize(normalize-space(.), '\s+')"/>
-                            <xsl:value-of select="$coords[2]"/>
-                            <xsl:text>, </xsl:text>
-                            <xsl:value-of select="$coords[1]"/>
-                        </xsl:variable>
-                        <a href="https://maps.google.com/maps?f=q&amp;hl=en&amp;z=4&amp;q=http://syriaca.org/place/{$id}/atom">
-                            <img src="/exist/apps/srophe/resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {$title} on Google Maps"/> View in Google Maps</a>
-                    </li>
+                <xsl:for-each select="//descendant::t:location[@type='gps']/t:geo">
+                    <xsl:variable name="geoRef">
+                        <xsl:variable name="coords" select="tokenize(normalize-space(.), '\s+')"/>
+                        <xsl:value-of select="$coords[1]"/>
+                        <xsl:text>, </xsl:text>
+                        <xsl:value-of select="$coords[2]"/>
+                    </xsl:variable>
+                    <a href="https://maps.google.com/maps?q={$geoRef}+(name)&amp;z=10&amp;ll={$geoRef}">
+                        <img src="{$nav-base}/resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {$title} on Google Maps"/>View in Google Maps
+                    </a>
                 </xsl:for-each>
                 
                 <!-- TEI source link -->
                 <li>
-                    <a href="{$resource-uri}/tei" rel="alternate" type="application/tei+xml">
-                        <img src="/exist/apps/srophe/resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/> TEI XML source data</a>
+                    <a href="{replace($resource-id,$base-uri,$nav-base)}/tei" rel="alternate" type="application/tei+xml">
+                        <img src="{$nav-base}/resources/img/tei-25.png" alt="The Text Encoding Initiative icon" title="click to view the TEI XML source data for this place"/> TEI XML source data</a>
                 </li>
                 <!-- Atom format link -->
                 <li>
-                    <a href="{$resource-uri}/atom" rel="alternate" type="application/atom+xml">
-                        <img src="/exist/apps/srophe/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/> ATOM XML format
+                    <a href="{replace($resource-id,$base-uri,$nav-base)}/atom" rel="alternate" type="application/atom+xml">
+                        <img src="{$nav-base}/resources/img/atom-25.png" alt="The Atom format icon" title="click to view this data in Atom XML format"/> ATOM XML format
                     </a>
                 </li>   
                 <!-- Wikipedia links -->
@@ -269,7 +266,7 @@
                     </xsl:variable>
                     <li>
                         <a href="{.}">
-                            <img src="/exist/apps/srophe/resources/img/Wikipedia-25.png" alt="The Wikipedia icon" title="click to view {$get-title} in Wikipedia"/> "<xsl:value-of select="$get-title"/>" in Wikipedia</a>
+                            <img src="{$nav-base}/resources/img/Wikipedia-25.png" alt="The Wikipedia icon" title="click to view {$get-title} in Wikipedia"/> "<xsl:value-of select="$get-title"/>" in Wikipedia</a>
                     </li>
                 </xsl:for-each>
             </ul>
