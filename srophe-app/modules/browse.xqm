@@ -151,7 +151,8 @@ declare function browse:get-map($node as node(), $model as map(*)){
 :)
 declare function browse:get-narrow($node as node(), $model as map(*),$coll){
 let $data := 
-   if($browse:view = 'type') then 
+    if($browse:view='numeric') then $model("browse-data")
+    else if($browse:view = 'type') then 
         if($browse:type != '') then 
             if($coll ='persons' or $coll = 'saints' or $coll = 'authors') then
                 if($browse:type != '') then 
@@ -190,6 +191,7 @@ if($browse:view = 'type') then
         else ()
 else (),
 for $data in $model("browse-refine")
+let $rec-id := tokenize(replace($data/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei|/source',''),'/')[last()]
 let $en-title := 
              if($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*) then 
                  string-join($data/child::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*/text(),' ')
@@ -204,7 +206,9 @@ let $syr-title :=
              else 'NA'  
 let $title := if($browse:view = 'syr') then $syr-title else $en-title
 let $browse-title := browse:build-sort-string($title)
-order by $browse-title collation "?lang=en&lt;syr&amp;decomposition=full"             
+order by 
+    if($browse:view = 'numeric') then xs:integer($rec-id) 
+    else $browse-title collation "?lang=en&lt;syr&amp;decomposition=full"             
 return 
 (: Temp patch for manuscripts :)
     if($coll = "manuscripts") then 
