@@ -108,20 +108,18 @@
                     </ul>
                     <form class="navbar-form navbar-right navbar-input-group" role="search" action="$app-root/spear/search.html" method="get">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search" name="q" id="q"/>
+                            <input type="text" class="form-control" placeholder="search" name="q" id="q"/>
                             <input type="hidden" id="collection" value="spear"/>
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit">
-                                    <span class="glyphicon glyphicon-search"/>
+                                    &#160; <span class="glyphicon glyphicon-search"></span>
                                 </button>
-                            </div>
-                            <div class="input-group-btn">
-                                <span class="btn btn-default">
+                                <button type="button" class="btn btn-default">
                                     <a href="$app-root/spear/search.html" title="advanced search">
-                                        <span class="glyphicon glyphicon-cog"/>
-                                    </a>
-                                </span>
-                            </div>
+                                        &#160; <span class="glyphicon glyphicon-cog"></span>
+                                    </a>    
+                                </button>
+                            </div><!-- /btn-group -->
                         </div>
                     </form>
                 </div><!--/.nav-collapse -->

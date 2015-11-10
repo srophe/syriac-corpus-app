@@ -107,22 +107,20 @@
                             <a href="$app-root/saints/browse.html">index</a>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-right navbar-input-group" role="search" action="$app-root/saints/search.html" method="get">
+                    <form class="navbar-form navbar-right navbar-input-group" role="search" action="$app-root/q/search.html" method="get">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search" name="q" id="q"/>
+                            <input type="text" class="form-control" placeholder="search" name="q" id="q"/>
                             <input type="hidden" id="collection" value="saints"/>
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit">
-                                    <span class="glyphicon glyphicon-search"/>
+                                    &#160; <span class="glyphicon glyphicon-search"></span>
                                 </button>
-                            </div>
-                            <div class="input-group-btn">
-                                <span class="btn btn-default">
-                                    <a href="$app-root/saints/search.html" title="advanced search">
-                                        <span class="glyphicon glyphicon-cog"/>
-                                    </a>
-                                </span>
-                            </div>
+                                <button type="button" class="btn btn-default">
+                                    <a href="$app-root/q/search.html" title="advanced search">
+                                        &#160; <span class="glyphicon glyphicon-cog"></span>
+                                    </a>    
+                                </button>
+                            </div><!-- /btn-group -->
                         </div>
                     </form>
                 </div><!--/.nav-collapse -->
