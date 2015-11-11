@@ -45,10 +45,8 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                 if($search:sort = 'alpha') then 
                     for $hit in util:eval($eval-string)
                     let $en-title := 
-                                 if($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*) then 
-                                     string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/child::*/text(),' ')
-                                 else if(string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text())) then 
-                                    string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]/text(),' ')   
+                                 if($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]) then 
+                                     string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]//text(),' ')   
                                  else $hit/ancestor::tei:TEI/descendant::tei:title[1]/text()
                     order by common:build-sort-string($en-title) ascending
                     return $hit                                                     
@@ -108,6 +106,9 @@ return $query-string
 declare function search:search-string($collection as xs:string?){
     if($collection = 'persons') then persons:search-string()
     else if($collection ='spear') then spears:search-string()
+    else if($collection = 'places') then places:search-string()
+    else if($collection = 'bhse') then bhses:search-string()
+    else if($collection = 'manuscripts') then ms:search-string()
     else places:search-string()
 };
 

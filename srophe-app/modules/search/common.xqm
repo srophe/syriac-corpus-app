@@ -108,12 +108,12 @@ let $uri :=
                 string(replace($node//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
         else string($node//tei:div[1]/@uri)
 let $en-title := 
-             if($node/child::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]) then 
-                 string-join($node/child::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]//text(),' ')
-             else $node/ancestor::tei:TEI/descendant::tei:title[1]/text()               
+             if($node/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]) then 
+                 string-join($node/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]//text(),' ')
+             else $node/descendant::tei:TEI/descendant::tei:title[1]/text()               
 let $syr-title := 
-             if($node/child::*[contains(@syriaca-tags,'#syriaca-headword')][1]) then
-                string-join($node/child::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')
+             if($node/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][1]) then
+                string-join($node/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')
              else 'NA'  
 let $birth := if($ana) then $node/descendant::tei:birth else()
 let $death := if($ana) then $node/descendant::tei:death else()
