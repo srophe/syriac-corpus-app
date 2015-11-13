@@ -463,20 +463,8 @@
                 </h3>
                 <ol>
                     <xsl:for-each select="current-group()">
-                        <xsl:sort select="                             
-                            if(current-grouping-key() = 'MSS') then 
-                            substring-after(t:bibl/@xml:id,'witness') = ''
-                            else if(current-grouping-key() = 'editions') then  
-                            substring-after(t:bibl/@corresp,'witness') = ''
-                            else if(@xml:lang) then local:expand-lang(@xml:lang,$label)
-                            else ." order="ascending"/>
-                        <xsl:sort select="                             
-                            if(current-grouping-key() = 'MSS') then 
-                            substring-after(t:bibl/@xml:id,'witness') != '' 
-                            else if(current-grouping-key() = 'editions') then  
-                            substring-after(t:bibl/@corresp,'witness') != ''
-                            else if(@xml:lang) then local:expand-lang(@xml:lang,$label)
-                            else ." order="ascending"/>
+                        <xsl:sort select="                                                          if(current-grouping-key() = 'MSS') then                              substring-after(t:bibl/@xml:id,'-') = ''                             else if(current-grouping-key() = 'editions') then                               substring-after(t:bibl/@corresp,'-') = ''                             else if(@xml:lang) then local:expand-lang(@xml:lang,$label)                             else ." order="ascending"/>
+                        <xsl:sort select="                                                          if(current-grouping-key() = 'MSS') then                              substring-after(t:bibl/@xml:id,'-') != ''                              else if(current-grouping-key() = 'editions') then                               substring-after(t:bibl/@corresp,'-') != ''                             else if(@xml:lang) then local:expand-lang(@xml:lang,$label)                             else ." order="ascending"/>
                         <xsl:apply-templates select="self::*"/>
                     </xsl:for-each>
                 </ol>
@@ -937,6 +925,9 @@
     </xsl:template>
     <xsl:template match="t:bibl">
         <xsl:apply-templates mode="footnote"/>
+        <xsl:if test="@source">
+            <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
+        </xsl:if>
     </xsl:template>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of a note element 
@@ -993,26 +984,28 @@
                     <span>
                         <xsl:call-template name="langattr"/>
                         <xsl:apply-templates/>
-                        <xsl:text> (</xsl:text>
-                        <xsl:choose>
-                            <xsl:when test="@ana='partialTranslation'">Partial edition</xsl:when>
-                            <xsl:otherwise>Edition</xsl:otherwise>
-                        </xsl:choose>
-                        <xsl:text> from manuscript </xsl:text>
-                        <xsl:choose>
-                            <xsl:when test="contains(t:bibl/@corresp,' ')">
-                                <xsl:text>witnesses </xsl:text>
-                                <xsl:for-each select="tokenize(t:bibl/@corresp,' ')">
-                                    <xsl:value-of select="substring-after(.,'witness')"/>
-                                    <xsl:if test="position() != last()">, </xsl:if>
-                                </xsl:for-each>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text>witness </xsl:text>
-                                <xsl:value-of select="substring-after(t:bibl/@corresp,'witness')"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <xsl:text>. See below.)</xsl:text>
+                        <xsl:if test="t:bibl/@corresp">
+                            <xsl:text> (</xsl:text>
+                            <xsl:choose>
+                                <xsl:when test="@ana='partialTranslation'">Partial edition</xsl:when>
+                                <xsl:otherwise>Edition</xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:text> from manuscript </xsl:text>
+                            <xsl:choose>
+                                <xsl:when test="contains(t:bibl/@corresp,' ')">
+                                    <xsl:text>witnesses </xsl:text>
+                                    <xsl:for-each select="tokenize(t:bibl/@corresp,' ')">
+                                        <xsl:value-of select="substring-after(.,'-')"/>
+                                        <xsl:if test="position() != last()">, </xsl:if>
+                                    </xsl:for-each>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>witness </xsl:text>
+                                    <xsl:value-of select="substring-after(t:bibl/@corresp,'-')"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:text>. See below.)</xsl:text>                            
+                        </xsl:if>
                     </span>
                 </li>
             </xsl:when>
