@@ -463,8 +463,8 @@
                 </h3>
                 <ol>
                     <xsl:for-each select="current-group()">
-                        <xsl:sort select="                                                          if(current-grouping-key() = 'MSS') then                              substring-after(t:bibl/@xml:id,'-') = ''                             else if(current-grouping-key() = 'editions') then                               substring-after(t:bibl/@corresp,'-') = ''                             else if(@xml:lang) then local:expand-lang(@xml:lang,$label)                             else ." order="ascending"/>
-                        <xsl:sort select="                                                          if(current-grouping-key() = 'MSS') then                              substring-after(t:bibl/@xml:id,'-') != ''                              else if(current-grouping-key() = 'editions') then                               substring-after(t:bibl/@corresp,'-') != ''                             else if(@xml:lang) then local:expand-lang(@xml:lang,$label)                             else ." order="ascending"/>
+                        <xsl:sort select="                                                                                       if(current-grouping-key() = 'MSS') then                                                               substring-after(t:bibl/@xml:id,'-') = ''                                                         else if(current-grouping-key() = 'editions') then                                                                substring-after(t:bibl/@corresp,'-') = ''                                                         else if(@xml:lang) then local:expand-lang(@xml:lang,$label)                                                          else ." order="ascending"/>
+                        <xsl:sort select="                                                                                       if(current-grouping-key() = 'MSS') then                                                              xs:integer(substring-after(t:bibl/@xml:id,'-'))                                                                                      else if(@xml:lang) then local:expand-lang(@xml:lang,$label)                                        else ." order="ascending"/>
                         <xsl:apply-templates select="self::*"/>
                     </xsl:for-each>
                 </ol>
@@ -942,6 +942,9 @@
                     <xsl:apply-templates/>
                 </span>
                 <xsl:text>) </xsl:text>
+                <xsl:if test="@source">
+                    <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
+                </xsl:if>
             </xsl:when>
             <!-- Adds definition list for depreciated names -->
             <xsl:when test="@type='deprecation'">
@@ -954,6 +957,9 @@
                             <xsl:text>.</xsl:text>
                         </xsl:if>
                     </span>
+                    <xsl:if test="@source">
+                        <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
+                    </xsl:if>
                 </li>
             </xsl:when>
             <xsl:when test="@type='ancientVersion'">
@@ -965,6 +971,9 @@
                         <xsl:call-template name="langattr"/>
                         <xsl:apply-templates/>
                     </span>
+                    <xsl:if test="@source">
+                        <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
+                    </xsl:if>
                 </li>
             </xsl:when>
             <xsl:when test="@type='modernTranslation'">
@@ -977,6 +986,9 @@
                         <xsl:call-template name="langattr"/>
                         <xsl:apply-templates/>
                     </span>
+                    <xsl:if test="@source">
+                        <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
+                    </xsl:if>
                 </li>
             </xsl:when>
             <xsl:when test="@type='editions'">
@@ -1004,9 +1016,12 @@
                                     <xsl:value-of select="substring-after(t:bibl/@corresp,'-')"/>
                                 </xsl:otherwise>
                             </xsl:choose>
-                            <xsl:text>. See below.)</xsl:text>                            
+                            <xsl:text>. See below.)</xsl:text>
                         </xsl:if>
                     </span>
+                    <xsl:if test="@source">
+                        <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
+                    </xsl:if>
                 </li>
             </xsl:when>
             <xsl:otherwise>
@@ -1026,6 +1041,9 @@
                             </span>
                         </xsl:otherwise>
                     </xsl:choose>
+                    <xsl:if test="@source">
+                        <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
+                    </xsl:if>
                 </li>
             </xsl:otherwise>
         </xsl:choose>
