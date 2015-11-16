@@ -14,6 +14,16 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 declare variable $bhses:q {request:get-parameter('q', '')};
 declare variable $bhses:title {request:get-parameter('title', '')};
+declare variable $bhses:author {request:get-parameter('author', '')};
+declare variable $bhses:prologue {request:get-parameter('prologue', '')};
+declare variable $bhses:incipit {request:get-parameter('incipit', '')};
+declare variable $bhses:explicit {request:get-parameter('explicit', '')};
+declare variable $bhses:editions {request:get-parameter('editions', '')};
+declare variable $bhses:modern {request:get-parameter('modern', '')};
+declare variable $bhses:ancient {request:get-parameter('ancient', '')};
+declare variable $bhses:mss {request:get-parameter('mss', '')};
+declare variable $bhses:sources {request:get-parameter('sources', '')};
+declare variable $bhses:related-pers {request:get-parameter('related-pers', '')};
 declare variable $bhses:idno {request:get-parameter('idno', '')};
 declare variable $bhses:id-type {request:get-parameter('id-type', '')};
 
@@ -31,6 +41,51 @@ declare function bhses:title() as xs:string? {
     else ()    
 };
 
+declare function bhses:author() as xs:string? {
+    if($bhses:author != '') then concat("[ft:query(tei:bibl/tei:author,'",common:clean-string($bhses:author),"',common:options())]")
+    else ()    
+};
+
+declare function bhses:prologue() as xs:string? {
+    if($bhses:prologue != '') then concat("[ft:query(tei:bibl/tei:note[@type='prologue'],'",common:clean-string($bhses:prologue),"',common:options())]")
+    else ()    
+};
+
+declare function bhses:incipit() as xs:string? {
+    if($bhses:incipit != '') then concat("[ft:query(tei:bibl/tei:note[@type='incipit'],'",common:clean-string($bhses:incipit),"',common:options())]")
+    else ()    
+};
+
+declare function bhses:explicit() as xs:string? {
+    if($bhses:explicit != '') then concat("[ft:query(tei:bibl/tei:note[@type='explicit'],'",common:clean-string($bhses:explicit),"',common:options())]")
+    else ()    
+};
+
+declare function bhses:editions() as xs:string? {
+    if($bhses:editions != '') then concat("[ft:query(tei:bibl/tei:note[@type='editions'],'",common:clean-string($bhses:editions),"',common:options())]")
+    else ()    
+};
+
+declare function bhses:modern() as xs:string? {
+    if($bhses:modern != '') then concat("[ft:query(tei:bibl/tei:note[@type='modernTranslation'],'",common:clean-string($bhses:modern),"',common:options())]")
+    else ()    
+};
+
+declare function bhses:ancient() as xs:string? {
+    if($bhses:ancient != '') then concat("[ft:query(tei:bibl/tei:note[@type='ancientVersion'],'",common:clean-string($bhses:ancient),"',common:options())]")
+    else ()    
+};
+
+declare function bhses:mss() as xs:string? {
+    if($bhses:mss != '') then concat("[ft:query(tei:bibl/tei:note[@type='MSS'],'",common:clean-string($bhses:mss),"',common:options())]")
+    else ()    
+};
+
+declare function bhses:sources() as xs:string? {
+    if($bhses:sources != '') then concat("[ft:query(tei:bibl/tei:bibl,'",common:clean-string($bhses:sources),"',common:options())]")
+    else ()    
+};
+
 declare function bhses:idno() as xs:string? {
     if($bhses:idno != '') then 
         if($bhses:id-type != '') then concat("[descendant::tei:idno[@type='",$bhses:id-type,"'][normalize-space(.) = '",$bhses:idno,"']]")
@@ -38,44 +93,49 @@ declare function bhses:idno() as xs:string? {
     else ()    
 };
 
-
+declare function bhses:related-persons() as xs:string?{
+    if($bhses:related-pers != '') then 
+        let $ids := 
+            string-join(
+                for $name in collection('/db/apps/srophe-data/data/persons')//tei:persName[ft:query(.,$bhses:related-pers)]
+                let $id := $name/parent::*/descendant::tei:idno[starts-with(.,'http://syriaca.org')]
+                return $id/text(),'|')
+        return concat("[descendant::tei:relation[@passive[matches(.,'",$ids,"')] or @active[matches(.,'",$ids,"')]]]")
+    else ()  
+};
 (:~
  : Build query string to pass to search.xqm 
 :)
 declare function bhses:query-string() as xs:string? {
  concat("collection('",$global:data-root,"/works/tei')//tei:body",
-    bhses:keyword(),bhses:title(),bhses:idno()
+    bhses:keyword(),bhses:title(),bhses:author(),bhses:prologue(),
+    bhses:incipit(),bhses:explicit(),bhses:editions(),
+    bhses:modern(),bhses:ancient(),bhses:mss(),
+    bhses:sources(),bhses:related-persons(),
+    bhses:idno()
     )
 };
 
 (:~
  : Build a search string for search results page from search parameters
 :)
-declare function bhses:search-string() as xs:string*{
-    let $keyword-string := if($bhses:q != '') then 
-                                (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($bhses:q)}&#160;</span>)
-                           else ''  
-    let $title-string :=   if($bhses:title != '') then 
-                                (<span class="param">Title: </span>,<span class="match">{common:clean-string($bhses:title)}&#160;</span>)
-                           else ''           
-    let $idno-string :=   if($bhses:idno != '') then 
-                                (<span class="param">ID: </span>,<span class="match">{common:clean-string($bhses:idno)}&#160;</span>)
-                           else ''                             
-    return ($keyword-string, $title-string, $idno-string)                  
-};
-
-(:~
- : Format search results
- : Need a better uri for factoids, 
-:)
-declare function bhses:results-node($hit){
-    let $root := $hit 
-    let $title := $root/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title/text()
-    let $id := $root/ancestor::tei:TEI/descendant::tei:idno[starts-with(.,$global:base-uri)][1]/text()
+declare function bhses:search-string(){
+let $parameters :=  request:get-parameter-names()
+for  $parameter in $parameters
     return 
-        <p style="font-weight:bold padding:.5em;">
-            <a href="manuscript.html?id={$id}">{$title}</a>
-        </p>
+        if(request:get-parameter($parameter, '') != '') then
+            if($parameter = 'q') then 
+                (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($bhses:q)}</span>)
+            else if($parameter = 'related-pers') then 
+                (<span class="param">Related Persons: </span>,<span class="match">{common:clean-string($bhses:related-pers)}</span>)
+            else if($parameter = 'modern') then 
+                (<span class="param">Modern Translations: </span>,<span class="match">{common:clean-string($bhses:modern)}</span>)
+            else if($parameter = 'ancient') then 
+                (<span class="param">Ancient Versions: </span>,<span class="match">{common:clean-string($bhses:ancient)}</span>)
+            else if($parameter = 'mss') then 
+                (<span class="param">Manuscript: </span>,<span class="match">{common:clean-string($bhses:mss)}</span>)            
+            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
+        else ()               
 };
 
 
@@ -90,30 +150,122 @@ declare function bhses:search-form() {
         <div class="well well-small search-inner well-white">
         <!-- Keyword -->
             <div class="form-group">            
-                <label for="q" class="col-sm-2 col-md-3  control-label">Full-text: </label>
+                <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
                 <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="q" name="q" class="form-control"/>
+                    <input type="text" id="q" name="q" class="form-control" placeholder="(English, French, Syriac)"/>
                 </div>
             </div> 
+            <hr/>         
             <div class="form-group">            
-                <label for="q" class="col-sm-2 col-md-3  control-label">Title: </label>
+                <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
                 <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="title" name="title" class="form-control"/>
+                    <input type="text" id="title" name="title" class="form-control"  placeholder="(English, French, Syriac)"/>
                 </div>
             </div>
             <div class="form-group">            
-                <label for="q" class="col-sm-2 col-md-3  control-label">Id number: </label>
+                <label for="author" class="col-sm-2 col-md-3  control-label">Author: </label>
+                <div class="col-sm-10 col-md-6 ">
+                    <input type="text" id="author" name="author" class="form-control" placeholder="(English, French, Syriac)"/>
+                </div>
+            </div>
+            <div class="form-group">            
+                <label for="related-pers" class="col-sm-2 col-md-3  control-label">Related Persons: </label>
+                <div class="col-sm-10 col-md-6 ">
+                    <input type="text" id="related-pers" name="related-pers" class="form-control" placeholder="(English, French, Syriac)"/>
+                </div>
+            </div>              
+            <!-- Build from documentation when it is ready -->
+            <!--
+            <div class="form-group">            
+                <label for="q" class="col-sm-2 col-md-3  control-label">Related Persons: </label>
                 <div class="col-sm-10 col-md-3 ">
                     <input type="text" id="idno" name="idno" class="form-control"/>
                 </div>
                 <div class="col-sm-10 col-md-3 ">
+                    <label for="q" class="control-label">Relationship: </label>                   
                     <select type="text" id="id-type" name="id-type" class="form-control">
-                        <option value="">-- ID Type --</option>
+                        <option value="">- ID Type -</option>
                         <option value="URI">Syriaca.org URI</option>
                         <option value="BHS">BHS</option>
                         <option value="BHO">BHO</option>
                         <option value="CPG">CPG</option>
                     </select>
+                </div>
+            </div> 
+            -->
+            
+            <hr/>         
+            <div class="form-group">            
+                <label for="prologue" class="col-sm-2 col-md-3  control-label">Prologue: </label>
+                <div class="col-sm-10 col-md-6 ">
+                    <input type="text" id="prologue" name="prologue" class="form-control" placeholder="(French, Syriac)"/>
+                </div>
+            </div> 
+            <div class="form-group">            
+                <label for="incipit" class="col-sm-2 col-md-3  control-label">Incipit: </label>
+                <div class="col-sm-10 col-md-6 ">
+                    <input type="text" id="incipit" name="incipit" class="form-control" placeholder="(French, Syriac)"/>
+                </div>
+            </div> 
+            <div class="form-group">            
+                <label for="explicit" class="col-sm-2 col-md-3  control-label">Explicit: </label>
+                <div class="col-sm-10 col-md-6 ">
+                    <input type="text" id="explicit" name="explicit" class="form-control" placeholder="(French, Syriac)"/>
+                </div>
+            </div>
+            <div class="form-group">            
+                <label for="editions" class="col-sm-2 col-md-3  control-label">Editions: </label>
+                <div class="col-sm-10 col-md-6 ">
+                    <input type="text" id="editions" name="editions" class="form-control" placeholder="(French, Syriac)"/>
+                </div>
+            </div> 
+            <div class="form-group">            
+                <label for="modern" class="col-sm-2 col-md-3  control-label">Modern Translations: </label>
+                <div class="col-sm-10 col-md-6 ">
+                    <input type="text" id="modern" name="modern" class="form-control" placeholder="Keyword"/>
+                </div>
+            </div> 
+            <div class="form-group">            
+                <label for="ancient" class="col-sm-2 col-md-3  control-label">Ancient Versions: </label>
+                <div class="col-sm-10 col-md-6 ">
+                    <input type="text" id="ancient" name="ancient" class="form-control" placeholder="Keyword"/>
+                </div>
+            </div>
+            
+            <div class="form-group">            
+                <label for="mss" class="col-sm-2 col-md-3  control-label">Manuscripts: </label>
+                <div class="col-sm-10 col-md-6 ">
+                    <input type="text" id="mss" name="mss" class="form-control" placeholder="Keyword"/>
+                </div>
+            </div>
+            <div class="form-group">            
+                <label for="sources" class="col-sm-2 col-md-3  control-label">Sources: </label>
+                <div class="col-sm-10 col-md-6 ">
+                    <input type="text" id="sources" name="sources" class="form-control" placeholder="Keyword"/>
+                </div>
+            </div>
+            <hr/>
+            <div class="form-group">            
+                <label for="q" class="col-sm-2 col-md-3  control-label">Id number: </label>
+                <div class="col-sm-4 col-md-2 ">
+                    <input type="text" id="idno" name="idno" class="form-control"  placeholder="Ex: http://syriaca.org/work/270"/>
+                </div>
+                <div class="col-sm-6 col-md-5 ">
+                <label class="checkbox-inline">
+                    <input type="radio" name="group1" value="" checked="checked" aria-label="Any" /> Any
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="group1" value="URI" aria-label="Syriaca.org URI"/> Syriaca.org URI
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="group1" value="BHS" aria-label="BHS"/> BHS
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="group1" value="BHO" aria-label="BHO"/> BHO
+                </label>
+                <label class="checkbox-inline">
+                    <input type="radio" name="group1" value="CPG" aria-label="CPG"/> CPG
+                </label>    
                 </div>
             </div> 
         </div>

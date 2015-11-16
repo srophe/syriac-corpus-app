@@ -155,7 +155,7 @@ let $sort-options :=
                 <li class="pull-right">
                     <div class="btn-group">
                         <div class="dropdown"><button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">Sort <span class="caret"/></button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{concat('?', replace($url-params,'&amp;sort=(\w+)', ''), '&amp;start=', $start,'&amp;sort=rel')}" id="rel">Relevance</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{concat('?', replace($url-params,'&amp;sort=(\w+)', ''), '&amp;start=', $start,'&amp;sort=alpha')}" id="alpha">Alphabetical (Title)</a></li>
                                 {if($collection != 'places') then
