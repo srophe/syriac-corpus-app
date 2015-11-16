@@ -1,26 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" data-template="templates:surround" data-template-with="templates/bhse.html" data-template-at="content">
-    <div class="row row-centered">
-        <div class="col-md-12">
-            <h1>Welcome to <i>Gateway to the Syriac Saints: Volume I: Bibliotheca Hagiographica Syriaca Electronica</i>
-            </h1>
-            <p>General Editors: Jeanne-Nicole Mellon Saint-Laurent, Marquette University and David A. Michelson, Vanderbilt University</p>
-            <p>Publication Status: <i>Forthcoming</i>
-            </p>
-            <p>
-                <i>Bibliotheca Hagiographica Syriaca Electronica</i> describes texts written about saints and includes information about different versions and data such as the title, prologue, and epilogue of the saint's life, along with the hagiographer. The database notes if there are ancient or modern translations of the texts, the critical edition of the text, the MSS containing the Vita, and relevant secondary literature. This reference work is derived from the earlier <i>Biblioteca Hagiographica Syriaca</i> (<i>BHS</i>) project that was created by Fr. Ugo Zanetti and Dr. Claude Detienne but never published.</p>
-            <p>Sample entries for saints' lives from <i>Volume I: Bibliotheca Hagiographica Syriaca Electronica</i>:</p>
+    <div class="bhse-top full-page hide-search"/>
+    <div class="saints-banner">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <form role="search" id="site_search_form" method="GET" class="col-xs-12 col-sm-offset-2 col-sm-8" action="../bhse/search.html" style="">
+                    <div class="input-group">
+                        <input id="homepage_search_input " type="text" class="form-control input-lg transparent-input" placeholder="Search for Texts" name="keyword"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default input-lg" type="submit">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"/>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2"/>
+        </div>
+    </div>
+    <div class="row grey">
+        <div class="col-md-8 content-block">
+            <div class="container">
+                <h3>General Editors:</h3>
+                <p class="indent">Jeanne-Nicole Mellon Saint-Laurent, Marquette University and David A. Michelson, Vanderbilt University</p>
+                <h2>
+                    <i>Volume II: Bibliotheca Hagiographica Syriaca Electronica</i>
+                </h2>
+                <p>
+                    <i>Bibliotheca Hagiographica Syriaca Electronica</i> describes texts written about saints and includes information about different versions and data such as the title, prologue, and epilogue of the saint's life, along with the hagiographer. The database notes if there are ancient or modern translations of the texts, the critical edition of the text, the MSS containing the Vita, and relevant secondary literature. This reference work is derived from the earlier <i>Biblioteca Hagiographica Syriaca</i> (<i>BHS</i>) project that was created by Fr. Ugo Zanetti and Dr. Claude Detienne but never published.</p>
+                <p>Another volume in this same series, <i>Volume II: Qadishe</i> contains information on persons relevant to the study of Syriac hagiography include the saints themselves (such as St. Simeon the Stylite) as well as their associates and the authors who narrated their lives or wrote homilies and hymns about them. This reference work may be found <a href="http://wwwb.library.vanderbilt.edu/exist/apps/srophe/saints/index.html">here</a>.</p>
+                <hr/>
+                <ul class="list-inline funding" style="margin-left:2em;">
+                    <li>
+                        <a href="http://www.balzan.org/en" style="display:block; border:1px solid #eee; padding:0 .5em;">
+                            <img src="../resources/img/marchioBALZANblu_bianco.png" alt="Fondazione Internazionale Balzan"/> Fondazione Internazionale
+                            Balzan </a>
+                    </li>
+                    <li>
+                        <a href="http://www.neh.gov/">
+                            <img src="../resources/img/neh_logo_horizontal_rgb.jpg" alt="NEH"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.vanderbilt.edu/">
+                            <img src="../resources/img/vu07b.gif" alt="Vanderbilt University"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.library.vanderbilt.edu/">
+                            <img src="../resources/img/HeardLogo_b.gif" alt="Jean and Alexander Heard Library, Vanderbilt University" width="70%"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.princeton.edu/main/">
+                            <img src="../resources/img/princeton_university.gif" alt="Princeton University"/>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.marquette.edu/">
+                            Marquette University
+                            <!--<img src="resources/img/dhc-header.png" alt="University of Alabama" width="75%"/>-->
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4 supplement-block">
+            <h2>Sample entries for saints' lives </h2>
             <ul>
                 <li>
                     <a href="http://wwwb.library.vanderbilt.edu/work/270">
                         <i>Miles, Aboursam and Sinay</i>
                     </a>
-                </li><li>
+                </li>
+                <li>
                     <a href="http://wwwb.library.vanderbilt.edu/work/250">
                         <i>The Children of Ephesus</i>
                     </a>
                 </li>
-                
                 <li>
                     <a href="http://wwwb.library.vanderbilt.edu/work/694">
                         <i>Abraham of the High Mountain</i>
@@ -32,8 +89,11 @@
                     </a>
                 </li>
             </ul>
-            <p>Another volume in this same series, <i>Volume II: Qadishe</i> contains information on persons relevant to the study of Syriac hagiography include the saints themselves (such as St. Simeon the Stylite) as well as their associates and the authors who narrated their lives or wrote homilies and hymns about them. This reference work may be found <a href="http://wwwb.library.vanderbilt.edu/exist/apps/srophe/saints/index.html">here</a>.</p>
-            <div data-template="app:dashboard" data-template-collection-title="Gateway to the Syriac Saints: Volume I: Bibliotheca Hagiographica Syriaca Electronica" data-template-data-dir="works"/>
+            <p class="indent">
+                <a href="browse.html">Browse all texts <i class="glyphicon glyphicon-circle-arrow-right"/>
+                </a>
+            </p>
         </div>
     </div>
+    <div class="bhse-bottom"/>
 </div>
