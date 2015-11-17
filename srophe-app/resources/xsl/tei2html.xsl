@@ -551,10 +551,10 @@
     <xsl:template match="t:bibl" mode="title"/>
     <xsl:template name="h1">
         <xsl:if test="descendant-or-self::tei:srophe-title[contains(@ana,'syriaca-saint')]">
-            <div style="margin-left:-2em; margin-top:-1em; padding-top:0;">
+            <div style="margin-left:-2em; margin-top:1em; padding-top:0;">
                 <span class="dropdown inline">
                     <button class="btn btn-link dropdown-toggle" type="button" id="saintsMenu" data-toggle="dropdown" aria-expanded="true">
-                        <img alt="Syriac.org: Persons" src="/exist/apps/srophe/resources/img/icons-saints.png"/>
+                        <img alt="Syriac.org: Qadishe" src="/exist/apps/srophe/resources/img/icons-q.png"/>
                         <span class="caret"/>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="saintsMenu">
