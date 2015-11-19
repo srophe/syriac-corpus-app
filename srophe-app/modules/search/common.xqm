@@ -4,6 +4,7 @@ xquery version "3.0";
  :)
 module namespace common="http://syriaca.org/common";
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
+import module namespace functx="http://www.functx.com";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 (:~
@@ -13,7 +14,23 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
  :
 :)
 declare function common:clean-string($param-string){
-replace(replace(replace($param-string, "(^|\W\*)|(^|\W\?)|[!@#$%^+=_]:", ""), '&amp;', '&amp;amp;'), '''', '&amp;apos;')
+let $query-string := $param-string
+let $query-string := replace($query-string, "'", "''") (:escape apostrophes:)
+let $query-string := 
+	   if (functx:number-of-matches($query-string, '"') mod 2) then 
+	       replace($query-string, '"', ' ')
+	   else $query-string   (:if there is an uneven number of quotation marks, delete all quotation marks.:)
+let $query-string := 
+	   if ((functx:number-of-matches($query-string, '\(') + functx:number-of-matches($query-string, '\)')) mod 2 eq 0) 
+	   then $query-string
+	   else translate($query-string, '()', ' ') (:if there is an uneven number of parentheses, delete all parentheses.:)
+let $query-string := 
+	   if ((functx:number-of-matches($query-string, '\[') + functx:number-of-matches($query-string, '\]')) mod 2 eq 0) 
+	   then $query-string
+	   else translate($query-string, '[]', ' ') (:if there is an uneven number of brackets, delete all brackets.:)   
+return 
+    if(matches($param-string,"(^\*$)|(^\?$)")) then 'BAD STRING'
+    else replace(replace(replace($param-string, '(^\*)|(^\?)|\{|\}|<|>|@', ''),'&amp;', '&amp;amp;'),'''', '&amp;apos;')
 };
 
 (:~

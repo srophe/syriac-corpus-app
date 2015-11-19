@@ -13,7 +13,6 @@ import module namespace global="http://syriaca.org/global" at "../lib/global.xqm
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 
-
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 (:~
