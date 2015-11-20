@@ -16,11 +16,15 @@
                         <form role="search" id="site_search_form" method="GET" class="col-xs-12 col-sm-offset-2 col-sm-8" action="../q/search.html" style="">
                             <div class="input-group">
                                 <input id="homepage_search_input " type="text" class="form-control input-lg transparent-input" placeholder="Search for Saints" name="keyword"/>
-                                <span class="input-group-btn">
+                                <input type="hidden" id="collection" value="saints"/>
+                                <div class="input-group-btn">
                                     <button class="btn btn-default input-lg" type="submit">
-                                        <span class="glyphicon glyphicon-search" aria-hidden="true"/>
+                                        &#160; <span class="glyphicon glyphicon-search"/>
                                     </button>
-                                </span>
+                                    <a href="../q/search.html" title="advanced search" class="btn btn-default input-lg" style="padding-top:.75em;">
+                                        &#160; <span class="glyphicon glyphicon-cog"/>
+                                    </a>
+                                </div>    
                             </div>
                         </form>
                     </div>
@@ -45,11 +49,15 @@
                         <form role="search" id="site_search_form" method="GET" class="col-xs-12 col-sm-offset-2 col-sm-8" action="/records/" style="">
                             <div class="input-group">
                                 <input id="homepage_search_input " type="text" class="form-control input-lg transparent-input" placeholder="Search for Texts" name="keyword"/>
-                                <span class="input-group-btn">
+                                <input type="hidden" id="collection" value="bhse"/>
+                                <div class="input-group-btn">
                                     <button class="btn btn-default input-lg" type="submit">
-                                        <span class="glyphicon glyphicon-search" aria-hidden="true"/>
+                                        &#160; <span class="glyphicon glyphicon-search"/>
                                     </button>
-                                </span>
+                                    <a href="../bhse/search.html" title="advanced search" class="btn btn-default input-lg" style="padding-top:.75em;">
+                                        &#160; <span class="glyphicon glyphicon-cog"/>
+                                    </a>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -114,7 +122,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="http://www.marquette.edu/"> 
+                            <a href="http://www.marquette.edu/">
                                 <img src="../resources/img/MU-Logo.jpg" alt="Marquette University"/>
                             </a>
                         </li>
