@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml" data-template="app:get-rec" coll="nhsl">
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:xi="http://www.w3.org/2001/XInclude" data-template="app:get-rec" coll="nhsl">
     <head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -38,15 +38,33 @@
                 </div>
                 <div class="navbar-collapse collapse pull-right">
                     <ul class="nav navbar-nav">
-                        <!-- 
-                        browse about help contribute Logo/Qadishe Logo/Syriaca.org 
-                        -->
-                        <li>
-                            <a href="$app-root/nhsl/browse.html">Browse</a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Browse<b class="caret"/>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <a href="$app-root/nhsl/browse.html" class="q-sm-icon nav-icons">Browse NHSL</a>
+                                </li>
+                                <li role="presentation" class="divider"/>
+                                <li>
+                                    <a href="$app-root/bhse/browse.html" class="authors-sm-icon nav-icons">Browse BHSE</a>
+                                </li>
+                            </ul>
                         </li>
-                        <li>
-                            <a href="$app-root/nhsl/about.html">About</a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> About<b class="caret"/>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <a href="$app-root/nhsl/about.html" class="persons-sm-icon nav-icons">About NHSL</a>
+                                </li>
+                                <li role="presentation" class="divider"/>
+                                <li>
+                                    <a href="$app-root/bhse/about.html" class="q-sm-icon nav-icons">About BHSE</a>
+                                </li>
+                            </ul>
                         </li>
+                        
                         <li>
                             <a href="$app-root/nhsl/help.html">Help</a>
                         </li>
@@ -56,56 +74,8 @@
                         <li>
                             <a href="$app-root/index.html" class="syriaca-sm-icon nav-icons"> Syriaca.org</a>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle lonely-caret" data-toggle="dropdown">
-                                &#160;<b class="caret"/>
-                            </a>
-                            <ul class="dropdown-menu pull-right">
-                                <li>
-                                    <a href="$app-root/index.html" class="syriaca-sm-icon nav-icons">Syriaca.org</a>
-                                </li>
-                                <li role="presentation" class="divider"/>
-                                <li>
-                                    <a href="$app-root/geo/index.html" class="geo-sm-icon nav-icons">Gazetteer</a>
-                                </li>
-                                <li role="presentation" class="divider"/>
-                                <li>
-                                    <a href="$app-root/persons/index.html" class="persons-sm-icon nav-icons">SBD</a>
-                                </li>
-                                <li role="presentation" class="divider"/>
-                                <li>
-                                    <a href="$app-root/authors/index.html" class="authors-sm-icon nav-icons">Authors</a>
-                                </li>
-                                <li role="presentation" class="divider"/>
-                                <li>
-                                    <a href="$app-root/saints/index.html" class="saints-sm-icon nav-icons">Gateway to the Saints</a>
-                                </li>
-                                <li role="presentation" class="divider"/>
-                                <li>
-                                    <a href="$app-root/q/index.html" class="q-sm-icon nav-icons">Qadishe</a>
-                                </li>
-                                <li role="presentation" class="divider"/>
-                                <li>
-                                    <a href="$app-root/bhse/index.html" class="bhse-sm-icon nav-icons">BHSE</a>
-                                </li>
-                                <li role="presentation" class="divider"/>
-                                <li>
-                                    <a href="$app-root/nhsl/index.html" class="nhsl-sm-icon nav-icons">NHSL</a>
-                                </li>
-                                <li role="presentation" class="divider"/>
-                                <li>
-                                    <a href="$app-root/spear/index.html" class="spear-sm-icon nav-icons">SPEAR</a>
-                                </li>
-                                <li role="presentation" class="divider"/>
-                                <li>
-                                    <a href="$app-root/mss/index.html" class="mss-sm-icon nav-icons">MSS</a>
-                                </li>
-                                <li role="presentation" class="divider"/>
-                                <li>
-                                    <a href="$app-root/documentation/index.html">Documentation</a>
-                                </li>
-                            </ul>
-                        </li>
+                        <!-- Shared drop-down menu of all submodules -->
+                        <li data-template="app:shared-links"></li>
                     </ul>
                     <form class="navbar-form navbar-right navbar-input-group nav-search" role="search" action="$app-root/nhsl/search.html" method="get">
                         <div class="input-group">
@@ -116,7 +86,7 @@
                                     &#160; <span class="glyphicon glyphicon-search"/>
                                 </button>
                                 <a href="$app-root/nhsl/search.html" title="advanced search" class="btn btn-default">
-                                &#160; <span class="glyphicon glyphicon-cog"/>
+                                    &#160; <span class="glyphicon glyphicon-cog"/>
                                 </a>
                             </div><!-- /btn-group -->
                         </div>
