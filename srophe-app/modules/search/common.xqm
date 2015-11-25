@@ -4,6 +4,7 @@ xquery version "3.0";
  :)
 module namespace common="http://syriaca.org/common";
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
+import module namespace kwic="http://exist-db.org/xquery/kwic" at "resource:org/exist/xquery/lib/kwic.xql";
 import module namespace functx="http://www.functx.com";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
@@ -29,7 +30,7 @@ let $query-string :=
 	   then $query-string
 	   else translate($query-string, '[]', ' ') (:if there is an uneven number of brackets, delete all brackets.:)   
 return 
-    if(matches($param-string,"(^\*$)|(^\?$)")) then 'BAD STRING'
+    if(matches($param-string,"(^\*$)|(^\?$)")) then 'Invalid Search String, please try again.'
     else replace(replace(replace($param-string, '(^\*)|(^\?)|\{|\}|<|>|@', ''),'&amp;', '&amp;amp;'),'''', '&amp;apos;')
 };
 
@@ -140,7 +141,7 @@ let $desc :=
             common:truncate-string($node/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text())
         else ()
 return
-    <p class="results-list">
+    <div class="results-list">
        <a href="{global:internal-links($uri)}">
         {
         if($lang = 'syr') then
@@ -160,8 +161,14 @@ return
        {if($ana) then
             <span class="results-list-desc" dir="ltr" lang="en">{concat('(',$ana, if($dates) then ', ' else(), $dates ,')')}</span>
         else ()}
-     <span class="results-list-desc" dir="ltr" lang="en">{concat($desc,' ')}</span>
-     {
+           <span class="results-list-desc">
+              {
+                 if(request:get-parameter('q', '')) then 
+                      kwic:summarize($node, <config width="40"/>)
+                 else concat($desc,' ')
+              }
+           </span>
+        {
         if($ana) then 
             if($node/descendant-or-self::tei:person/tei:persName[not(@syriaca-tags='#syriaca-headword')]) then 
                 <span class="results-list-desc" dir="ltr" lang="en">Names: 
@@ -175,5 +182,5 @@ return
         else()
         }
      <span class="results-list-desc"><span class="srp-label">URI: </span><a href="{global:internal-links($uri)}">{$uri}</a></span>
-    </p>
+    </div>
 };
