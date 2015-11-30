@@ -11,18 +11,38 @@
  * Dark Grey #333
  * Light Grey (text): #999
  */
-/* Import Font css */ 
+ 
+/* Import Fonts CSS */ 
  @import url("syr-font-families.css");
 /* Main content blocks */
-/* This is the background color for geo */
-body {font-family: arial, sans-serif; padding-top:50px;}
-/* This is the background color for geo */
-#main {margin: 0 auto; padding:0; border-top:1px solid #753C28;}
+body {font-family: arial, sans-serif; }
+/*#main {margin: 0 auto; padding:0; border-top:1px solid #753C28;}*/
+#content{background-color:white; padding-top: 50px;}
+/* Removed extra padding introduced by Bootstrap for rows. Was causing issues with background images */
+.row { margin-left: 0px; margin-right: 0px;}
 
-/* all backgrounds */
-#content {margin:auto; padding-top:2em; background-color:white;}
+.container{width:95%; padding:0;}
+/* Adds a little extra padding around interior content, useful when using full width background image banners. */
+.interior-content {padding:1em 2em;}
+/* NOTE: check for usage */
+.record {padding-top:2em; background-color:white;}
+/* NOTE: check for usage */
+.content-block {padding:1em 2em 4em 2em; background-color:white;}
+/* NOTE: check for usage */
+.content-block h2 {font-size: 1.5em;}
+/* NOTE: check for usage */
+.supplement-block {padding:1em 2em 4em 2em;}
+
+/* Simple background color styles */
+.grey {background-color:#eee;}
+.grey-dark {background-color:#ccc;}
+.white{background-color:white;}
+
+/*.full-page{border:1px solid blue; padding: 0 15px;}*/
+
+/* Navbar styles*/
 .navbar {border-bottom:4px solid #753C28 !important;}
-.navbar-brand {margin-top:-.5em; padding-left:0;}
+.navbar-brand {margin-top:-.5em; padding-left:0; margin-left:0;}
 .navbar-brand img {padding-left:0;}
 .navbar .advanced-search{margin-top:-.5em;}
 .navbar-form {overflow:hidden;}
@@ -41,9 +61,7 @@ body {font-family: arial, sans-serif; padding-top:50px;}
 .navbar-form{max-width: 250px;}
 
 /* Nav submenus*/
-.dropdown-submenu {
-  position: relative;
-}
+.dropdown-submenu {position: relative;}
 .dropdown-submenu > .dropdown-menu {
   top: 0;
   left: 100%;
@@ -63,20 +81,22 @@ body {font-family: arial, sans-serif; padding-top:50px;}
   left: -100%;
   margin-left: 10px;
 }
+
 /* Nav bar icons for submodules */
 .dropdown-menu li a{margin-left:.5em;}
+
+/* Used for dropdowns next to syriaca.org icon, so both icon and caret are "clickable" */
+.lonely-caret {margin-left:-2em; padding-left:0;}
 
 .nav-icons {
     background-position: left center;
     background-repeat: no-repeat;
-    text-indent:12px;
+    text-indent:14px;
 }
 
-/*.sub-menu {background-color:#F8F8F8; margin:0; padding:0;}*/
-.sub-menu .nav-icons{margin-left:2em; }
-/*.sub-menu li{line-height:.75em;}*/
+.sub-menu .nav-icons{margin-left:2em;}
 
-/* Small icons for submodules in nav menus */
+/* Small Syrica.org icons for submodules in nav menus */
 .geo-sm-icon {background-image: url(../img/icons-geo-sm.png);}
 .saints-sm-icon {background-image: url(../img/icons-saints-sm.png);}
 .persons-sm-icon {background-image: url(../img/icons-persons-sm.png);}
@@ -84,31 +104,40 @@ body {font-family: arial, sans-serif; padding-top:50px;}
 .spear-sm-icon {background-image: url(../img/icons-spear-sm.png);}
 .mss-sm-icon {background-image: url(../img/icons-mss-sm.png);}
 .bhse-sm-icon {background-image: url(../img/icons-bhse-sm.png);}
+.nhsl-sm-icon {background-image: url(../img/icons-nhsl-sm.png);}
+.q-sm-icon {background-image: url(../img/icons-q-sm.png);}
 .syriaca-sm-icon {background-image: url(../img/icons-syriaca-sm.png);}
 
+/* Footer styles */
 footer {text-align:center; color:white;}
 
 /* Typography */
 h1 {font-size:1.5em; margin:0 0 .25em 0; color:#E69849; font-weight:500;}
-/*h2 {font-size:1.5em; margin:0 -1em; padding-left:8px; color:#E69849; font-weight:500;}*/
 h2 {font-size: 1.25em; margin:1em 0 .25em 0; padding-bottom:0; color:#753C28; font-weight:500;}
-h3 {font-size: 1.2em; margin:1em 0 .25em 0; padding-bottom:0; color:#333; font-weight:500; border-bottom:1px solid #999; padding-bottom:0; margin-bottom:1em;}
+h3 {font-size: 1.2em; margin:1em 0 .25em 0; padding-bottom:0; color:#333; font-weight:500;  padding-bottom:0; margin-bottom:1em;}
 h3.underline {color:#999; border-bottom:3px solid #E69849; padding-bottom:-.75em; margin-bottom:1em; margin-top:1em;}
 h4 {font-size: 1em; margin:0 0 .25em 0; padding-bottom:0; font-weight:bold;}
-
 h3.label {
     background-color:#ccc;
     line-height: 1.2em;
     font-size: 2em;
     float:left;
 }
-
 h3.syr{
     margin-right:.75em;
     margin-top:.5em;
     float:right !important;
 }
 h4 {font-size: 1em; margin-top:1em;}
+
+.hi {background-color:yellow;}
+
+.white-link{color:white;}
+
+.white-link:focus, .white-link:active:focus, .white-link.active:focus {
+    outline: 0 none;
+    color:white;
+}
 
 /* Lables */
 .get-syriac {font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none}
@@ -135,7 +164,7 @@ h4 {font-size: 1em; margin-top:1em;}
 .top-padding{padding-top:1em;}
 .right-padding{padding-right:1em;}
 .bottom-padding{padding-bottom:1em;}
-
+.indent{padding-left:1em;}
 /*.section ul {padding-left:0;}*/
 .section.type ul {padding-left:0;}
 
@@ -166,7 +195,7 @@ h4 {font-size: 1em; margin-top:1em;}
 .map-sm #map {height:250px !important;} 
 .results-list {margin-left: 25px; border-bottom:1px dotted #eee; padding-top:.5em}
 .results-list-desc{display:block;}
-.results-list-desc .pers-label {background-color:#eee;}
+.results-list-desc .pers-label {background-color:#999;  font-weight:400; margin-right:4px;}
 .results-list-desc .pers-label .footnote-refs {display:none;}
 /* footnote styles */
 .footnote-refs, .footnote-tgt {
@@ -408,7 +437,7 @@ div[id|=place] > div:last-of-type {
 .match {
     font-style:italic; color:blue;
 }
-.param {font-weight:bold;}
+.param {font-weight:600; color:#666; padding-left:.5em;}
 
 .spinner {
   display: inline-block;
@@ -517,6 +546,7 @@ label.error {
 .uri {margin:0 1em 1em; color: #999999;}
 p.single-space{padding:.25em;}
 .teiDocs {padding:.25em; border-bottom:1px solid #eee;}
+
 /* Facet styles */
 .label-facet {background-color:#eee; color:#666; font-weight:normal; margin:.25em; display:inline-block;}
 .facet-label {margin-left:.5em; display:block;}
@@ -526,7 +556,7 @@ p.single-space{padding:.25em;}
 .msItem {margin:0 1em;}
 .msExtent {display:block; margin:0 1em;}
 
-/*API documentation */
+/* API documentation */
 pre code {
 	line-height: 1.6em;
 	font-size: 11px;
@@ -545,3 +575,7 @@ pre {
 .api-desc {width:55%}
 .api-method {width:10%}
 
+/* Dashboard styles */
+.huge {font-size:2.5em;}
+.dashboard  .panel-heading .glyphicon{font-size:3em; padding-top: .25em;}
+#dashboardOne h4.panel-title {color:#666; font-weight:500; font-size:1.25em;}

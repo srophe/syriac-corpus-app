@@ -16,7 +16,6 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 :)
 declare function common:clean-string($param-string){
 let $query-string := $param-string
-let $query-string := replace($query-string, "'", "''") (:escape apostrophes:)
 let $query-string := 
 	   if (functx:number-of-matches($query-string, '"') mod 2) then 
 	       replace($query-string, '"', ' ')
@@ -30,8 +29,8 @@ let $query-string :=
 	   then $query-string
 	   else translate($query-string, '[]', ' ') (:if there is an uneven number of brackets, delete all brackets.:)   
 return 
-    if(matches($param-string,"(^\*$)|(^\?$)")) then 'Invalid Search String, please try again.'
-    else replace(replace(replace($param-string, '(^\*)|(^\?)|\{|\}|<|>|@', ''),'&amp;', '&amp;amp;'),'''', '&amp;apos;')
+    if(matches($param-string,"(^\*$)|(^\?$)")) then 'Invalid Search String, please try again.' (: Must enter some text with wildcard searches:)
+    else replace(replace(replace($param-string, '(^\*)|(^\?)|\{|\}|<|>|@', ''),'&amp;', '&amp;amp;'),'''', '&amp;apos;') (: Replace starting wildcards brackets and ampesands.:)
 };
 
 (:~
