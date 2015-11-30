@@ -37,7 +37,7 @@ h3.label {background-color:#ccc;}
 /* BHSE banner internal pages */
 .bhse-top-interior {
     position:relative;
-    margin-top:-4em;
+    /*margin-top:-4em;*/
     padding-top:0;
     border-bottom:4px solid #861719;
 	background-image:url('/exist/apps/srophe/resources/img/bhse-banner-top.jpg');
@@ -102,8 +102,8 @@ h3.label {background-color:#ccc;}
     padding:0;
 	background-image:url('/exist/apps/srophe/resources/img/q-banner-top.jpg');
 	background-size:cover;
-	background-position:bottom center;
-	height:150px;
+	background-position:top center;
+	height:175px;
     width:100%;
 }
 /* Q image banner bottom, home page*/
