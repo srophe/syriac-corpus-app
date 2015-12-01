@@ -120,7 +120,7 @@ h4 {font-size: 1em; margin-top:1em;}
 .caption{text-align:center; font-size:.75em;color:grey;}
 .funding {margin:1em;}
 .no-logo {font-size:1.25em; font-weight:600; font-family:serif; color:#333; margin:1em;}
-.about-tables {width:90% !important;border-collapse:collapse; font-size:1em;}
+.about-tables {width:90% !important;border-collapse:collapse;}
 .about-tables td {
     vertical-align:top;
     padding-bottom:.75em;
