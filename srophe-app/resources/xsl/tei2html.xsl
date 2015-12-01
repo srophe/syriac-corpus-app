@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:s="http://syriaca.org" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:s="http://syriaca.org" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -157,7 +157,7 @@
         </xsl:if>
         <xsl:if test="self::t:person">
             <div id="persnames">
-                <xsl:if test="string-length(t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract'][1]) &gt; 1">
+                <xsl:if test="string-length(t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']) &gt; 1">
                     <div style="margin-bottom:1em;">
                         <h4>Identity</h4>
                         <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']" mode="abstract"/>
@@ -923,12 +923,7 @@
             </xsl:for-each>
         </ul>
     </xsl:template>
-    <xsl:template match="t:bibl">
-        <xsl:apply-templates mode="footnote"/>
-        <xsl:if test="@source">
-            <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
-        </xsl:if>
-    </xsl:template>
+    
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of a note element 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -1130,17 +1125,8 @@
                 <xsl:choose>
                     <xsl:when test="string-length(@ref) &lt; 1"/>
                     <xsl:otherwise>
-                        <xsl:variable name="link-class">
-                            <xsl:choose>
-                                <xsl:when test="contains(@ref,' ')">ref-conflict</xsl:when>
-                                <xsl:otherwise>ref</xsl:otherwise>
-                            </xsl:choose>
-                        </xsl:variable>
-                        <xsl:variable name="resource-id">
-                            <xsl:value-of select="concat(local-name(.),count(ancestor::node()))"/>
-                        </xsl:variable>
                         <xsl:text> </xsl:text>
-                        <a class="{concat(local-name(.),' ', $link-class)}" href="{@ref}" data-element-name="{local-name(.)}" resource="{$resource-id}">
+                        <a class="{local-name(.)}" href="{@ref}">
                             <xsl:call-template name="langattr"/>
                             <xsl:apply-templates/>
                         </a>
