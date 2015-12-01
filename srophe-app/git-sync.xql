@@ -202,7 +202,7 @@ if(not(empty($post-data))) then
             if(request:get-header('X-GitHub-Event') = 'push') then 
                 let $signiture := request:get-header('X-Hub-Signature')
                 let $expected-result := <expected-result>{request:get-header('X-Hub-Signature')}</expected-result>
-                let $private-key := 'b150e86899151ec8471d221214aa84b7136dd519' (:string(environment-variable('GIT_TOKEN')):) 
+                let $private-key := '' (:string(environment-variable('GIT_TOKEN')):) 
                 let $actual-result :=
                     <actual-result>
                         {concat('sha1=',crypto:hmac($payload, $private-key, "HMAC-SHA-1", "hex"))}
@@ -212,7 +212,7 @@ if(not(empty($post-data))) then
                     if ($condition) then
                         (:<response status="fail"><message>Function disabled</message></response>:)
                         (
-                        (: ADD headers response:set-header( "Authorization", 'c3702dd8e00b8004d3b8d9d0fcbabe0a17a7a107'), :)
+                        (: ADD headers response:set-header( "Authorization", ''), :)
                         
                             xmldb:login('/db/apps/srophe/', 'admin', '', true()),
                             local:parse-request($json-data)
