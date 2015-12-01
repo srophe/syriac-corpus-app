@@ -4,7 +4,6 @@ module namespace api="http://syriaca.org/api";
 
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
-import module namespace rdfq="http://syriaca.org/rdfq" at "lib/tei2rdf.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace feed="http://syriaca.org/atom" at "lib/atom.xqm";
 import module namespace common="http://syriaca.org/common" at "search/common.xqm";
@@ -167,28 +166,6 @@ function api:get-atom-record($collection as xs:string, $id as xs:string){
     )
 }; 
 
-(:~
-  : Return atom feed for single record
-  : @param $collection syriaca.org subcollection 
-  : @param $id record id
-  : Serialized as XML
-:)
-(:
-declare 
-    %rest:GET
-    %rest:path("/{$collection}/{$id}/rdf")
-    %output:media-type("application/rdf+xml")
-    %output:method("xml")
-function api:get-atom-record($collection as xs:string, $id as xs:string){
-   (<rest:response> 
-      <http:response status="200"> 
-        <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
-      </http:response> 
-    </rest:response>, 
-     rdfq:get-rdf(api:get-tei-rec($collection, $id),'')
-    )
-}; 
-:)
 (:~
   : Return atom feed for syrica.org subcollection
   : @param $collection syriaca.org subcollection 
