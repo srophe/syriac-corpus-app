@@ -15,6 +15,7 @@
 /* Import Fonts CSS */ 
  @import url("syr-font-families.css");
 /* Main content blocks */
+
 body {font-family: arial, sans-serif; }
 /*#main {margin: 0 auto; padding:0; border-top:1px solid #753C28;}*/
 #content{background-color:white; padding-top: 50px;}
@@ -138,6 +139,22 @@ h4 {font-size: 1em; margin-top:1em;}
     outline: 0 none;
     color:white;
 }
+/* Table styles*/
+table {width:98% !important;border-collapse:collapse; font-size:1em; margin-top:1.5em;}
+th {
+    vertical-align:top;
+    padding-bottom:.25em;
+    padding-top:.25em;
+    padding-left:.5em;
+    padding-right:.5em;
+}
+td {
+    vertical-align:top;
+    padding-bottom:.75em;
+    padding-top:.75em;
+    padding-left:.5em;
+    padding-right:1.25em;
+}
 
 /* Lables */
 .get-syriac {font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none}
@@ -149,12 +166,8 @@ h4 {font-size: 1em; margin-top:1em;}
 .caption{text-align:center; font-size:.75em;color:grey;}
 .funding {margin:1em;}
 .no-logo {font-size:1.25em; font-weight:600; font-family:serif; color:#333; margin:1em;}
-.about-tables {width:90% !important;border-collapse:collapse;}
+
 .about-tables td {
-    vertical-align:top;
-    padding-bottom:.75em;
-    padding-top:.75em;
-    padding-right:1.25em;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     
