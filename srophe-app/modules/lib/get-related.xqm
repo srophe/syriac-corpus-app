@@ -1,6 +1,7 @@
 xquery version "3.0";
 (: Build relationships. :)
 module namespace rel="http://syriaca.org/related";
+import module namespace rec="http://syriaca.org/short-rec-view" at "short-rec-view.xqm";
 import module namespace global="http://syriaca.org/global" at "global.xqm";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
@@ -10,9 +11,11 @@ declare namespace html="http://www.w3.org/1999/xhtml";
 declare function rel:get-names($uris as xs:string?) as element(a)*{
     for $uri in tokenize($uris,' ')
     let $rec :=  global:get-rec($uri)
-    let $name := string-join($rec/descendant::*[starts-with(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]//text(),' ')
+    let $names := $rec/descendant::tei:body
+    (:let $name := string-join($rec/descendant::*[starts-with(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]//text(),' '):)
     return 
-        <a href="{global:internal-links($uri)}">{$name}</a>
+        rec:display-recs-short-view($names, '')
+        (:<a href="{global:internal-links($uri)}">{$name}</a>:)
 };
 
 (: Build list with appropriate punctuation :)
