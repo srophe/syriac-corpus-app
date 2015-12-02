@@ -128,13 +128,8 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
                             <br/>
                             <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
                             <!-- start reCaptcha API-->
-                            <script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia"/>
-                            <noscript>
-                                <iframe src="http://api.recaptcha.net/noscript?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia" height="100" width="100" frameborder="0"/>
-                                <br/>
-                                <textarea name="recaptcha_challenge_field" rows="3" cols="40"/>
-                                <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
-                            </noscript>
+                            <script src='https://www.google.com/recaptcha/api.js'></script>
+                            <div class="g-recaptcha" data-sitekey="6Lc8sQ4TAAAAAEDR5b52CLAsLnqZSQ1wzVPdl0rO"></div>
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-default" data-dismiss="modal">Close</button>

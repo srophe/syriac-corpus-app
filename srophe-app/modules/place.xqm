@@ -380,13 +380,8 @@ declare %templates:wrap function place:contact($node as node(), $model as map(*)
                 <input type="hidden" name="id" value="{$place:id}"/>
                 <input type="hidden" name="place" value="{string($model("data")//tei:place/tei:placeName[1])}"/>
                 <!-- start reCaptcha API-->
-                <script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia"/>
-                <noscript>
-                    <iframe src="http://api.recaptcha.net/noscript?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia" height="100" width="100" frameborder="0"/>
-                    <br/>
-                    <textarea name="recaptcha_challenge_field" rows="3" cols="40"/>
-                    <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
-                </noscript>
+                <script src='https://www.google.com/recaptcha/api.js'></script>
+                <div class="g-recaptcha" data-sitekey="6Lc8sQ4TAAAAAEDR5b52CLAsLnqZSQ1wzVPdl0rO"></div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal">Close</button><input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
