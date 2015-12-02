@@ -45,11 +45,11 @@
                     </div>
                 </div>
                 <script>
-                        $('#showSection').click(function(){
-                            $('#popup').load( '../documentation/faq.html #selection',function(result){
-                                $('#selection').modal({show:true});
-                            });
+                    $('#showSection').click(function(){
+                        $('#popup').load( '../documentation/faq.html #selection',function(result){
+                            $('#selection').modal('show', {backdrop: 'static'});
                         });
+                    });
                     </script>
             </div>
                 <!-- Citation -->
