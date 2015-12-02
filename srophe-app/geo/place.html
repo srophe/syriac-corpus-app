@@ -17,9 +17,9 @@
                 
                 <!-- Contact forms -->
             <div style="margin-bottom:1em;">  
-                    <!-- Button trigger corrections email modal -->
+                <!-- Button trigger corrections email modal -->
                 <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
-                    <button class="btn btn-default" data-toggle="modal" data-target="#selection" id="showSection">Is this record complete?</button>
+                <button class="btn btn-default" data-toggle="modal" data-target="#selection" id="showSection">Is this record complete?</button>
                     <!-- Modal email form-->
                 <div data-template="place:contact"/>
                     
@@ -45,12 +45,12 @@
                     </div>
                 </div>
                 <script>
-                        $('#showSection').click(function(){
-                            $('#popup').load( '../documentation/faq.html #selection',function(result){
-                                $('#selection').modal({show:true});
-                            });
+                    $('#showSection').click(function(){
+                        $('#popup').load( '../documentation/faq.html #selection',function(result){
+                            $('#selection').modal('show', {backdrop: 'static'});
                         });
-                    </script>
+                    });
+                </script>
             </div>
                 <!-- Citation -->
             <div data-template="place:sources"/>
