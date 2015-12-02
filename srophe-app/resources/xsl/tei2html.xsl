@@ -1114,7 +1114,7 @@
                     </xsl:choose>
                 </xsl:attribute>
                 <xsl:if test="@source">
-                    <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>    
+                    <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
                 </xsl:if>
             </span>
         </xsl:if>

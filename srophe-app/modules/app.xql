@@ -1,4 +1,4 @@
-xquery version "3.0";
+xquery version "3.0"; 
 
 module namespace app="http://syriaca.org/templates";
 
@@ -22,6 +22,14 @@ declare
     %templates:wrap
 function app:fix-links($node as node(), $model as map(*)) {
     templates:process(global:fix-links($node/node()), $model)
+};
+
+
+
+(: Builds top nav dropdown menu for all submodules.  :)
+declare function app:shared-links($node as node(), $model as map(*)){
+    let $links := doc($global:app-root || '/templates/shared-links.html')
+    return templates:process(global:fix-links($links/node()), $model)
 };
 
 (: Dashboard functions :)

@@ -52,6 +52,7 @@ declare variable $global:app-map-option := $global:get-config//maps/option[@sele
 declare function global:internal-links($uri){
     replace($uri,$global:base-uri,$global:nav-base)
 };
+
 (:
  : Addapted from https://github.com/eXistSolutions/hsg-shell
  : Recurse through menu output absolute urls based on config.xml values. 
