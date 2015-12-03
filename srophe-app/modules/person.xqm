@@ -6,6 +6,7 @@ xquery version "3.0";
 module namespace person="http://syriaca.org/person";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
+import module namespace app="http://syriaca.org/global" at "app.xql";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
@@ -47,14 +48,6 @@ return global:srophe-dashboard($data,$collection-title, $data-dir)
 
 };
 
-(:~
- : Traverse main nav and "fix" links based on values in config.xml 
-:)
-declare
-    %templates:wrap
-function person:fix-links($node as node(), $model as map(*)) {
-    templates:process(global:fix-links($node/node()), $model)
-};
 
 (:~
  : Dynamically build html title based on TEI record and/or sub-module. 
