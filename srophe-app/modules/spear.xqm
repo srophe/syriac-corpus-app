@@ -44,11 +44,6 @@ function spear:fix-links($node as node(), $model as map(*)) {
     templates:process(global:fix-links($node/node()), $model)
 };
 
-(: Dashboard functions :)
-declare %templates:wrap function spear:dashboard($node as node(), $model as map(*), $collection-title, $data-dir){
-let $data := collection(concat($global:data-root,'/spear/tei'))
-return global:srophe-dashboard($data,$collection-title, 'Factoids')
-};
 
 declare function spear:build-doc-path(){ 
 if($spear:id != '') then 

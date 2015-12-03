@@ -6,6 +6,7 @@ xquery version "3.0";
 module namespace place="http://syriaca.org/place";
 
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
+import module namespace app="http://syriaca.org/global" at "app.xql";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 
@@ -21,15 +22,6 @@ declare namespace transform="http://exist-db.org/xquery/transform";
  :)
 declare variable $place:id {request:get-parameter('id', '')};
 declare variable $place:status {request:get-parameter('status', '')};
-
-(:~
- : Traverse main nav and "fix" links based on values in config.xml 
-:)
-declare
-    %templates:wrap
-function place:fix-links($node as node(), $model as map(*)) {
-    templates:process(global:fix-links($node/node()), $model)
-};
 
 (:~ 
  : Simple get record function, retrieves tei record based on idno
@@ -54,15 +46,6 @@ if($place:id) then
    global:tei2html($model("data")/descendant::tei:placeName[1]/text())
 else 'The Syriac Gazetteer' 
 };  
-
-(: Dashboard functions 
-count(distinct-values(for $contributors in collection('/db/apps/srophe-data/data/places/tei')//tei:respStmt/tei:name
-return $contributors))
-:)
-declare %templates:wrap function place:dashboard($node as node(), $model as map(*), $collection-title, $data-dir){
-let $data := collection(concat($global:data-root,'/',$data-dir,'/tei'))
-return global:srophe-dashboard($data, $collection-title, $data-dir)
-};
 
 (:
  : Pass necessary element to h1 xslt template

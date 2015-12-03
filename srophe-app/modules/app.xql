@@ -1,4 +1,4 @@
-xquery version "3.0"; 
+xquery version "3.0";
 
 module namespace app="http://syriaca.org/templates";
 
@@ -24,18 +24,167 @@ function app:fix-links($node as node(), $model as map(*)) {
     templates:process(global:fix-links($node/node()), $model)
 };
 
+declare function app:rel-links($node as node(), $model as map(*)) {
+    if($app:id) then 
+    (
+    (: some rdf examples
+    <link type="application/rdf+xml" href="/entity/work/data/341546529.rdf" rel="alternate"/>
+    <link type="text/turtle" href="/entity/work/data/341546529.ttl" rel="alternate"/>
+    <link type="text/plain" href="/entity/work/data/341546529.nt" rel="alternate"/>
+    <link type="application/json+ld" href="/entity/work/data/341546529.jsonld" rel="alternate"/>
+    <link type="text/html" href="/entity/work/data/341546529.html" rel="alternate"/>
+    :)
+    <link xmlns="http://www.w3.org/1999/xhtml" type="text/html" href="{$app:id}.html" rel="alternate"/>,
+    <link xmlns="http://www.w3.org/1999/xhtml" type="text/xml" href="{$app:id}/tei" rel="alternate"/>,
+    <link xmlns="http://www.w3.org/1999/xhtml" type="application/atom+xml" href="{$app:id}/atom" rel="alternate"/>
+    )
+    else ()
+};
 
+declare
+    %templates:wrap
+function app:dc-header($node as node(), $model as map(*)) {
+    if($app:id) then 
+    (
+    <link type="text/html" href="{$app:id}.html" rel="alternate"/>,
+    <link type="text/xml" href="{$app:id}/tei" rel="alternate"/>,
+    <link type="application/atom+xml" href="{$app:id}/atom" rel="alternate"/>
+    )
+    else ()
+};
 
-(: Builds top nav dropdown menu for all submodules.  :)
-declare function app:shared-links($node as node(), $model as map(*)){
-    let $links := doc($global:app-root || '/templates/shared-links.html')
+(:~ 
+ : Enables shared content with template expansion.  
+ : @param $node
+ : @param $model
+ : @param $path path to html content file, relative to app root. 
+:)
+declare function app:shared-content($node as node(), $model as map(*), $path as xs:string){
+    let $links := doc($global:app-root || $path)
     return templates:process(global:fix-links($links/node()), $model)
 };
 
-(: Dashboard functions :)
+(:~ 
+ : Adds google analytics from config.xml
+ : @param $node
+ : @param $model
+ : @param $path path to html content file, relative to app root. 
+:)
+declare  
+    %templates:wrap 
+function app:google-analytics($node as node(), $model as map(*)){
+   $global:get-config//google_analytics/text() 
+};
+
+(:~
+ : Dashboard function outputs collection statistics. 
+ : $data collection data
+ : $collection-title title of sub-module/collection
+ : $data-dir 
+:)
 declare %templates:wrap function app:dashboard($node as node(), $model as map(*), $collection-title, $data-dir){
     let $data := collection(concat($global:data-root,'/',$data-dir,'/tei'))
-    return global:srophe-dashboard($data, $collection-title, $data-dir)
+    let $data-type := if($data-dir) then $data-dir else 'data'
+    let $rec-num := count($data)
+    let $contributors := for $contrib in distinct-values(for $contributors in $data//tei:respStmt/tei:name return $contributors) return <li>{$contrib}</li>
+    let $contrib-num := count($contributors)
+    let $data-points := count($data//tei:body/descendant::text())
+    return
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="dashboardOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <i class="glyphicon glyphicon-dashboard"></i> {concat(' ',$collection-title,' ')} Dashboard
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="dashboardOne">
+                <div class="panel-body dashboard">
+                    <div class="row" style="padding:2em;">
+                        <div class="col-md-4">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3"><i class="glyphicon glyphicon-file"></i></div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge">{$rec-num}</div><div>{$data-dir}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="collapse panel-body" id="recCount">
+                                    <p>This number represents the count of {$data-dir} currently described in <i>{$collection-title}</i> as of {current-date()}.</p>
+                                    <span><a href="browse.html"> See records <i class="glyphicon glyphicon-circle-arrow-right"></i></a></span>
+                                </div>
+                                <a role="button" 
+                                    data-toggle="collapse" 
+                                    href="#recCount" 
+                                    aria-expanded="false" 
+                                    aria-controls="recCount">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">View Details</span>
+                                        <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3"><i class="glyphicon glyphicon-user"></i></div>
+                                        <div class="col-xs-9 text-right"><div class="huge">{$contrib-num}</div><div>Contributors</div></div>
+                                    </div>
+                                </div>
+                                <div class="panel-body collapse" id="contribCount">
+                                    {(
+                                    <p>This number represents the count of contributors who have authored or revised an entry in <i>{$collection-title}</i> as of {current-date()}.</p>,
+                                    <ul style="padding-left: 1em;">{$contributors}</ul>)} 
+                                    
+                                </div>
+                                <a role="button" 
+                                    data-toggle="collapse" 
+                                    href="#contribCount" 
+                                    aria-expanded="false" 
+                                    aria-controls="contribCount">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">View Details</span>
+                                        <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3"><i class="glyphicon glyphicon-stats"></i></div>
+                                        <div class="col-xs-9 text-right"><div class="huge"> {$data-points}</div><div>Data points</div></div>
+                                    </div>
+                                </div>
+                                <div id="dataPoints" class="panel-body collapse">
+                                    <p>This number is an approximation of the entire data, based on a count of XML text nodes in the body of each TEI XML document in the <i>{$collection-title}</i> as of {current-date()}.</p>  
+                                </div>
+                                <a role="button" 
+                                data-toggle="collapse" 
+                                href="#dataPoints" 
+                                aria-expanded="false" 
+                                aria-controls="dataPoints">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">View Details</span>
+                                        <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 };
 
 (:
@@ -99,7 +248,7 @@ declare function app:h1($node as node(), $model as map(*)){
 :)
 declare %templates:wrap function app:rec-display($node as node(), $model as map(*), $coll as xs:string?){
     if($model("data")/ancestor::tei:TEI//tei:listRelation) then 
-        <div class="row">
+       <div class="row">
             <div class="col-md-8 column1">
                 {global:tei2html($model("data")/ancestor::tei:TEI/descendant::tei:body)} 
             </div>
@@ -108,11 +257,11 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
             </div>
         </div>
     else 
-    <div class="row">
-        <div class="col-md-12 column1">
-            {global:tei2html($model("data")/ancestor::tei:TEI/descendant::tei:body)}
+        <div class="row">
+            <div class="col-md-12 column1">
+                {global:tei2html($model("data")/ancestor::tei:TEI/descendant::tei:body)}
+            </div>
         </div>
-    </div>
 };
 
 (:

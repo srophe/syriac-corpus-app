@@ -35,19 +35,6 @@ if($person:id) then
 else map {"data" := 'Page data'} 
 };
 
-(: Dashboard functions 
-count(distinct-values(for $contributors in collection('/db/apps/srophe-data/data/places/tei')//tei:respStmt/tei:name
-return $contributors))
-:)
-declare %templates:wrap function person:dashboard($node as node(), $model as map(*), $collection-title, $data-dir){
-let $data := 
-    if($data-dir = 'saints') then collection(concat($global:data-root,'/persons/tei'))//tei:person[contains(@ana,"#syriaca-saint")]/ancestor::tei:TEI
-    else if($data-dir = 'authors') then collection(concat($global:data-root,'/persons/tei'))//tei:person[contains(@ana,"#syriaca-author")]/ancestor::tei:TEI
-    else collection(concat($global:data-root,'/persons/tei'))
-return global:srophe-dashboard($data,$collection-title, $data-dir)
-
-};
-
 
 (:~
  : Dynamically build html title based on TEI record and/or sub-module. 
