@@ -12,19 +12,19 @@ declare function rel:get-names($uris as xs:string?) as element(a)*{
     for $uri in tokenize($uris,' ')
     let $rec :=  global:get-rec($uri)
     let $names := $rec/descendant::tei:body
-    (:let $name := string-join($rec/descendant::*[starts-with(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]//text(),' '):)
     return 
         rec:display-recs-short-view($names, '')
-        (:<a href="{global:internal-links($uri)}">{$name}</a>:)
 };
 
 (: Build list with appropriate punctuation :)
 declare function rel:list-names($uris as xs:string?){
+(:
 if(count(rel:get-names($uris)) gt 2) then
     (rel:get-names($uris)[1], ', ', rel:get-names($uris)[position() gt 1 and position() != last()], ', and ', rel:get-names($uris)[last()])
 else if(count(rel:get-names($uris)) = 2) then
     (rel:get-names($uris)[1], ' and ', rel:get-names($uris)[last()])
-else rel:get-names($uris)
+else rel:get-names($uris):)
+rel:get-names($uris)
 };
 
 (: Subject type, based on uri of @passive uris:)
@@ -63,6 +63,7 @@ declare function rel:build-relationships($node){
     {   
         for $related in $node//tei:relation 
         let $desc := $related/tei:desc
+        group by $relationship := $related/@name
         return 
             <div>{rel:construct-relation-text($related)}</div>
         }
