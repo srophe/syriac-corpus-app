@@ -11,6 +11,7 @@ module namespace browse="http://syriaca.org/browse";
 
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace common="http://syriaca.org/common" at "search/common.xqm";
+import module namespace rec="http://syriaca.org/short-rec-view" at "short-rec-view.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates";
 
@@ -214,7 +215,7 @@ return
         <li>
             <a href="manuscript.html?id={$id}">{$title}</a>
         </li>
-    else if($browse:view = 'syr') then common:display-recs-short-view($data,'syr') else common:display-recs-short-view($data,'')
+    else if($browse:view = 'syr') then rec:display-recs-short-view($data,'syr') else rec:display-recs-short-view($data,'')
 ) 
 };
  

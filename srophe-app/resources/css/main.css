@@ -24,7 +24,7 @@ body {font-family: arial, sans-serif; }
 
 .container{width:95%; padding:0;}
 /* Adds a little extra padding around interior content, useful when for when nav wraps. */
-.interior-content {padding:1em 2em; padding-top: 50px;}
+.interior-content {padding:0; padding-top: 50px;}
 /* NOTE: check for usage */
 .record {padding-top:2em; background-color:white;}
 /* NOTE: check for usage */

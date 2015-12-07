@@ -22,17 +22,17 @@ return
     else $string
 };
 
-
 (: 
  : Formats search and browse results 
  : Uses English and Syriac headwords if available, tei:teiHeader/tei:title if no headwords.
  : Should handle all data types, and eliminate the need for 
  : data type specific display functions eg: persons:saints-results-node()
  : @param $node search/browse hits should be either tei:person, tei:place, or tei:body
- : Used by search.xqm and browse.xqm
+ : Used by search.xqm, browse.xqm and get-related.xqm
 :)
 declare function rec:display-recs-short-view($node, $lang) as node()*{
-let $ana := if($node/descendant-or-self::tei:person/@ana) then replace($node/descendant-or-self::tei:person/@ana,'#syriaca-','') else ()
+(:Need better type handling:)
+let $ana := if($node/descendant-or-self::tei:person/@ana) then () else ()
 let $type := if($node/descendant-or-self::tei:place/@type) then string($node/descendant-or-self::tei:place/@type) else ()
 let $uri := 
         if($node//tei:idno[@type='URI'][starts-with(.,$global:base-uri)]) then

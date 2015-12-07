@@ -1,6 +1,7 @@
 xquery version "3.0";
 
 module namespace search="http://syriaca.org/search";
+import module namespace rec="http://syriaca.org/short-rec-view" at "short-rec-view.xqm";
 import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
 import module namespace persons="http://syriaca.org/persons" at "persons-search.xqm";
 import module namespace places="http://syriaca.org/places" at "places-search.xqm";
@@ -302,7 +303,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                     <span class="label label-default">{$search:start + $p - 1}</span>
                   </div>
                   <div class="col-md-9" xml:lang="en"> 
-                    {if($collection = 'spear') then spears:results-node($hit) else common:display-recs-short-view($hit,'')} 
+                    {if($collection = 'spear') then spears:results-node($hit) else rec:display-recs-short-view($hit,'')} 
                   </div>
                 </div>
             </div>
