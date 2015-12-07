@@ -111,7 +111,7 @@ declare function bhses:related-persons() as xs:string?{
                     for $name in collection('/db/apps/srophe-data/data/persons')//tei:person[ft:query(tei:persName,$bhses:related-pers)]
                     let $id := $name/parent::*/descendant::tei:idno[starts-with(.,'http://syriaca.org')]
                     return concat($id/text(),'(\s|$)')),'|')
-            return concat("[descendant::tei:relation[@passive[matches(.,'",$ids,"')] or @active[matches(.,'",$ids,"')]]]")
+            return concat("[descendant::tei:relation[@passive[matches(@passive,'",$ids,"')] or @active[matches(@passive,'",$ids,"')]]]")
     else ()  
 };
 (:~

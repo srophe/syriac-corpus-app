@@ -32,8 +32,8 @@ declare variable $search:collection {request:get-parameter('collection', '') cas
 declare %templates:wrap function search:get-results($node as node(), $model as map(*), $collection as xs:string?){
     let $coll := if($search:collection != '') then $search:collection else $collection
     let $eval-string := 
-                        if($coll = 'persons') then persons:query-string()
-                        else if($coll ='saints') then persons:saints-query-string()
+                        if($coll = 'sbd') then persons:query-string('')
+                        else if($coll ='q') then persons:query-string('q')
                         else if($coll ='spear') then spears:query-string()
                         else if($coll = 'places') then places:query-string()
                         else if($coll = 'bhse') then bhses:query-string()
@@ -103,7 +103,7 @@ return $query-string
  : @param $collection passed from search page templates
 :)
 declare function search:search-string($collection as xs:string?){
-    if($collection = 'persons') then persons:search-string()
+    if($collection = 'bhse' or $collection = 'q' or $collection = 'authors') then persons:search-string()
     else if($collection ='spear') then spears:search-string()
     else if($collection = 'places') then places:search-string()
     else if($collection = 'bhse') then bhses:search-string()
@@ -276,8 +276,8 @@ return
 declare %templates:wrap  function search:show-form($node as node()*, $model as map(*), $collection as xs:string?) {   
     if(exists(request:get-parameter-names())) then ''
     else 
-        if($collection = 'persons') then <div>{persons:search-form('person')}</div>
-        else if($collection = 'saints') then <div>{persons:search-form('saint')}</div>
+        if($collection = 'bhse') then <div>{persons:search-form('bhse')}</div>
+        else if($collection = 'q') then <div>{persons:search-form('q')}</div>
         else if($collection ='spear') then <div>{spears:search-form()}</div>
         else if($collection ='manuscripts') then <div>{ms:search-form()}</div>
         else if($collection ='bhse') then <div>{bhses:search-form()}</div>
