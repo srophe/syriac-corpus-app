@@ -12,7 +12,6 @@
         <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org: The Syriac Reference Portal"/>
         <meta name="DC.isPartOf" property="dc.ispartof" content="The Syriac Prosopography"/>
         <meta name="DC.isPartOf" property="dc.ispartof" content="Qadishē: Guide to the Syriac Saints"/>
-        <link data-template="app:rel-links"/>
         <link rel="shortcut icon" href="$app-root/resources/img/syriaca.ico"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/main.css"/>
@@ -34,7 +33,7 @@
                         <span class="icon-bar"/>
                         <span class="icon-bar"/>
                     </button>
-                    <a class="navbar-brand" href="$app-root/bhse/index.html">
+                    <a class="navbar-brand" href="$app-root/q/index.html">
                         <img class="img-responsive" alt="Qadishē: Guide to the Syriac Saints" src="$app-root/resources/img/icons-q.png"/>
                     </a>
                 </div>
@@ -62,17 +61,17 @@
                             <a href="$app-root/index.html" class="syriaca-sm-icon nav-icons"> Syriaca.org</a>
                         </li>
                         <!-- Shared drop-down menu of all submodules -->
-                        <li data-template="app:shared-content" data-template-path="/templates/shared-links.html"/>
+                        <li data-template="app:shared-links"/>
                     </ul>
-                    <form class="navbar-form navbar-right navbar-input-group nav-search" role="search" action="$app-root/bhse/search.html" method="get">
+                    <form class="navbar-form navbar-right navbar-input-group nav-search" role="search" action="$app-root/q/search.html" method="get">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="search" name="q" id="q"/>
-                            <input type="hidden" id="collection" value="bhse"/>
+                            <input type="hidden" id="collection" value="q"/>
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit">
                                     &#160; <span class="glyphicon glyphicon-search"/>
                                 </button>
-                                <a href="$app-root/bhse/search.html" title="advanced search" class="btn btn-default">
+                                <a href="$app-root/q/search.html" title="advanced search" class="btn btn-default">
                                     &#160; <span class="glyphicon glyphicon-cog"/>
                                 </a>
                             </div><!-- /btn-group -->
@@ -85,13 +84,24 @@
             <div id="content"/>
         </div>
         <!-- Footer -->
-        <footer data-template="app:shared-content" data-template-path="/templates/footer.html"/>
+        <footer>
+            <div class="container">
+                <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">
+                    <img alt="Creative Commons License" style="border-width:0" src="$app-root/resources/img/cc.png" height="18px"/>
+                </a> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a>.
+                <br/>Copyright Vanderbilt University, Princeton University, and the Contributor(s), 2014.
+            </div>
+        </footer>
         
         <!-- Additional Javascript -->
         <script type="text/javascript" src="$app-root/resources/js/bootstrap.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/jquery.validate.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/main.js"/>
-        <!-- Google analytics. Values pulled from config.xml -->
-        <script data-template="app:google-analytics"/>
+        <script>
+            var _gaq=[['_setAccount',''],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
     </body>
 </html>
