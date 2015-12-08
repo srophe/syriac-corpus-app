@@ -99,17 +99,17 @@ declare %templates:wrap function app:get-nav($node as node(), $model as map(*)){
  : Builds uri from simple ids.
  : @param $app:id syriaca.org uri 
 :)
-declare function app:get-rec($node as node(), $model as map(*), $coll as xs:string?) {
+declare function app:get-rec($node as node(), $model as map(*), $collection as xs:string?) {
 if($app:id) then 
     let $id :=
         if(contains(request:get-uri(),'http://syriaca.org/')) then $app:id
-        else if($coll = 'places') then concat('http://syriaca.org/place/',$app:id) 
-        else if(($coll = 'persons') or ($coll = 'saints') or ($coll = 'authors')  or ($coll = 'q')) then concat('http://syriaca.org/person/',$app:id)
-        else if($coll = 'bhse') then concat('http://syriaca.org/work/',$app:id)
-        else if($coll = 'spear') then concat('http://syriaca.org/spear/',$app:id)
-        else if($coll = 'mss') then concat('http://syriaca.org/manuscript/',$app:id)
+        else if($collection = 'places') then concat('http://syriaca.org/place/',$app:id) 
+        else if(($collection = 'persons') or ($collection = 'saints') or ($collection = 'authors')  or ($collection = 'q')) then concat('http://syriaca.org/person/',$app:id)
+        else if($collection = 'bhse') then concat('http://syriaca.org/work/',$app:id)
+        else if($collection = 'spear') then concat('http://syriaca.org/spear/',$app:id)
+        else if($collection = 'mss') then concat('http://syriaca.org/manuscript/',$app:id)
         else $app:id
-        return map {"data" := collection($global:data-root)//tei:idno[. = $id]}
+    return map {"data" := collection($global:data-root)//tei:idno[. = $id]}
 else map {"data" := 'Page data'}    
 };
 
@@ -117,16 +117,16 @@ else map {"data" := 'Page data'}
  : Dynamically build html title based on TEI record and/or sub-module. 
  : @param $app:id if id is present find TEI title, otherwise use title of sub-module
 :)
-declare %templates:wrap function app:app-title($node as node(), $model as map(*), $coll as xs:string?){
+declare %templates:wrap function app:app-title($node as node(), $model as map(*), $collection as xs:string?){
 if($app:id) then
    global:tei2html($model("data")/ancestor::tei:TEI/descendant::tei:title[1]/text())
-else if($coll = 'places') then 'The Syriac Gazetteer'  
-else if($coll = 'persons') then 'The Syriac Biographical Dictionary'
-else if($coll = 'saints')then 'Gateway to the Syriac Saints'
-else if($coll = 'q') then 'Gateway to the Syriac Saints: Volume II: Qadishe'
-else if($coll = 'bhse') then 'Gateway to the Syriac Saints: Volume I: Bibliotheca Hagiographica Syriaca Electronica'
-else if($coll = 'spear') then 'A Digital Catalogue of Syriac Manuscripts in the British Library'
-else if($coll = 'mss') then concat('http://syriaca.org/manuscript/',$app:id)
+else if($collection = 'places') then 'The Syriac Gazetteer'  
+else if($collection = 'persons') then 'The Syriac Biographical Dictionary'
+else if($collection = 'saints')then 'Gateway to the Syriac Saints'
+else if($collection = 'q') then 'Gateway to the Syriac Saints: Volume II: Qadishe'
+else if($collection = 'bhse') then 'Gateway to the Syriac Saints: Volume I: Bibliotheca Hagiographica Syriaca Electronica'
+else if($collection = 'spear') then 'A Digital Catalogue of Syriac Manuscripts in the British Library'
+else if($collection = 'mss') then concat('http://syriaca.org/manuscript/',$app:id)
 else 'Syriaca.org: The Syriac Reference Portal '
 };  
 
@@ -148,7 +148,7 @@ declare function app:h1($node as node(), $model as map(*)){
 (:~ 
  : Default record display, used if no sub-module functions. 
 :)
-declare %templates:wrap function app:rec-display($node as node(), $model as map(*), $coll as xs:string?){
+declare %templates:wrap function app:rec-display($node as node(), $model as map(*)){
     if($model("data")/ancestor::tei:TEI//tei:listRelation) then 
        <div class="row">
             <div class="col-md-8 column1">

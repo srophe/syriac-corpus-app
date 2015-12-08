@@ -27,13 +27,15 @@ declare variable $place:status {request:get-parameter('status', '')};
  : Simple get record function, retrieves tei record based on idno
  : @param $place:id syriaca.org uri 
 :)
-declare function place:get-rec($node as node(), $model as map(*)) {
+declare 
+    %templates:wrap 
+function place:get-rec($node as node(), $model as map(*)) {
 if($place:id) then 
     let $id :=
         if(contains(request:get-uri(),$global:base-uri)) then $place:id
         else if(contains(request:get-uri(),'/geo/') or contains(request:get-uri(),'/place/')) then concat($global:base-uri,'/place/',$place:id) 
         else $place:id
-    return map {"data" := collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}
+    return map {"data" := collection($global:data-root)//tei:idno[. = $id]/ancestor::tei:TEI}
 else map {"data" := 'Page data'} 
 };
 
@@ -69,7 +71,7 @@ declare %templates:wrap function place:abstract($node as node(), $model as map(*
 };
 
 declare function place:type-details($data, $type){
-<div class="clearfix">
+<div class="clearfix" xmlns="http://www.w3.org/1999/xhtml">
     <div id="type">
         <p><strong>Place Type: </strong>
             <a href="../documentation/place-types.html#{normalize-space($type)}" class="no-print-link">{$type}</a>
@@ -77,7 +79,7 @@ declare function place:type-details($data, $type){
     </div>
     {
     if($data//tei:location) then
-        <div id="location">
+        <div id="location" xmlns="http://www.w3.org/1999/xhtml">
             <h4>Location</h4>
             <ul>
             {
@@ -100,7 +102,7 @@ let $type := string($model("data")//tei:place/@type)
 let $geo := $data//tei:geo[1]
 return 
     if($data//tei:geo) then 
-        <div class="row">
+        <div class="row" xmlns="http://www.w3.org/1999/xhtml">
             <div class="col-md-7">
                 {geo:build-map($geo,'','')}
             </div>
@@ -328,7 +330,7 @@ return global:tei2html($links)
  : Add contact form for submitting corrections
 :)
 declare %templates:wrap function place:contact($node as node(), $model as map(*)){
-<div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-labelledby="feedbackLabel" aria-hidden="true">
+<div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-labelledby="feedbackLabel" aria-hidden="true" xmlns="http://www.w3.org/1999/xhtml">
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">

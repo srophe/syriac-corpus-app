@@ -25,7 +25,9 @@ declare variable $person:id {request:get-parameter('id', '')};
  : Simple get record function, retrieves tei record based on idno
  : @param $person:id syriaca.org uri 
 :)
-declare function person:get-rec($node as node(), $model as map(*)) {
+declare 
+    %templates:wrap 
+function person:get-rec($node as node(), $model as map(*)) {
 if($person:id) then 
     let $id :=
         if(contains(request:get-uri(),$global:base-uri)) then $person:id
