@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:s="http://syriaca.org" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+    xmlns:t="http://www.tei-c.org/ns/1.0" 
+    xmlns:x="http://www.w3.org/1999/xhtml" 
+    xmlns:saxon="http://saxon.sf.net/" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -252,6 +257,7 @@
             <xsl:if test="t:placeName">
                 <div id="placenames" class="well">
                     <h3>Names</h3>
+                    <ul>
                     <xsl:apply-templates select="t:placeName[@syriaca-tags='#syriaca-headword' and @xml:lang='syr']" mode="list">
                         <xsl:sort lang="syr" select="."/>
                     </xsl:apply-templates>
@@ -267,6 +273,7 @@
                     <xsl:apply-templates select="t:placeName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar')) and not(@syriaca-tags='#syriaca-simplified-script')]" mode="list">
                         <xsl:sort collation="{$mixed}" select="."/>
                     </xsl:apply-templates>
+                    </ul>
                 </div>
             </xsl:if>
             <!-- Related Places -->
@@ -539,7 +546,7 @@
                     <xsl:for-each select=".">
                         <xsl:apply-templates/>
                         <xsl:if test="@type != 'event-factoid'">
-                            <a href="factoid.html?id={string(ancestor::tei:div/@uri)}">See factoid <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
+                            <a href="factoid.html?id={string(ancestor::t:div/@uri)}">See factoid <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                             </a>
                         </xsl:if>
                     </xsl:for-each>
@@ -550,7 +557,7 @@
     <!-- suppress bibl -->
     <xsl:template match="t:bibl" mode="title"/>
     <xsl:template name="h1">
-        <xsl:if test="descendant-or-self::tei:srophe-title[contains(@ana,'syriaca-saint')]">
+        <xsl:if test="descendant-or-self::t:srophe-title[contains(@ana,'syriaca-saint')]">
             <div style="margin-left:-2em; margin-top:1em; padding-top:0;">
                 <span class="dropdown inline">
                     <button class="btn btn-link dropdown-toggle" type="button" id="saintsMenu" data-toggle="dropdown" aria-expanded="true">
@@ -573,7 +580,7 @@
                 </span>
             </div>
         </xsl:if>
-        <xsl:if test="descendant::tei:srophe-title[contains(@ana,'syriaca-author')]">
+        <xsl:if test="descendant::t:srophe-title[contains(@ana,'syriaca-author')]">
             <div style="margin-left:-2em; margin-top:-1em; padding-top:0;">
                 <span class="dropdown inline">
                     <button class="btn btn-link dropdown-toggle" type="button" id="authorsMenu" data-toggle="dropdown" aria-expanded="true">
@@ -611,9 +618,9 @@
         <div style="margin:0 1em 1em; color: #999999;">
             <small>
                 <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
-                    <div class="helper circle noprint">
+                    <span class="helper circle noprint">
                         <p>i</p>
-                    </div>
+                    </span>
                 </a>
                 <p>
                     <span class="srp-label">URI</span>
@@ -682,7 +689,7 @@
                     </div>
                     <div id="license">
                         <h3>Copyright and License for Reuse</h3>
-                        <p>
+                        <div>
                             <xsl:text>Except otherwise noted, this page is © </xsl:text>
                             <xsl:choose>
                                 <xsl:when test="//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
@@ -691,7 +698,8 @@
                                 <xsl:otherwise>
                                     <xsl:value-of select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]"/>
                                 </xsl:otherwise>
-                            </xsl:choose>.</p>
+                            </xsl:choose>.
+                        </div>
                         <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
                     </div>
                 </div>
@@ -786,7 +794,7 @@
                 <li>
                     <xsl:apply-templates/>
                     <xsl:if test="/t:factoid/@type != 'event-factoid'">
-                        <a href="factoid.html?id={string(ancestor::tei:div/@uri)}">
+                        <a href="factoid.html?id={string(ancestor::t:div/@uri)}">
                         See factoid <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                         </a>
                     </xsl:if>
