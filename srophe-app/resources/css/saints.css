@@ -151,14 +151,14 @@ h3.label {background-color:#ccc;}
 .transparent-input:-ms-input-placeholder { color: white; font-size:large;font-weight:500; }
 
 /* BHSE solid color banner */
-.saints-banner-interior {background-color:#861719; margin:0; padding:0; color:white; margin-bottom:1em;}
+.saints-banner-interior {background-color:#861719; margin:1em 0; padding:0; color:white; margin-bottom:1em;}
 .saints-banner-interior h1 {color:white; margin-bottom:0; padding:1em 0;}
 /* Q solid color banner */
-.q-banner {background-color:#A5744B;margin:-2.5em 0 0 0;padding:1em 4em; color:white; border-top:4px solid #2F4C60;}
+.q-banner {background-color:#A5744B;margin:0;padding:1em 4em; color:white; border-top:4px solid #2F4C60;}
 .q-banner-interior {background-color:#A5744B; margin:0; padding:0; color:white; margin-bottom:1em; border-top:4px solid #2F4C60;}
 .q-banner-interior h1{color:white; margin-bottom:0; padding:1em 0;}
 /* Gateway to the saints solid color banner */
-.saints-banner {background-color:#861719;margin:-2.5em 0 0 0; padding:3em 4em; color:white; border-top:4px solid #861719;}
+.saints-banner {background-color:#861719;margin:0; padding:3em 4em; color:white; border-top:4px solid #861719;}
 .saints-banner h1{font-size: 24px;color:white; margin-bottom:2em;}
 .saints-banner h3{color:white;}
 .saints-banner .container,  .q-banner .container{margin-top:1em; margin-bottom:1em;}
