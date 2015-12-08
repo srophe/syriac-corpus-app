@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:s="http://syriaca.org" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+    xmlns:t="http://www.tei-c.org/ns/1.0" 
+    xmlns:x="http://www.w3.org/1999/xhtml" 
+    xmlns:saxon="http://saxon.sf.net/" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
     <xsl:output method="text" encoding="UTF-8" media-type="text/plain"/>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-     top-level logic and instructions for creating the browse listing page
+     deprecated
     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="/">
         <xsl:if test="count(//features) &gt; 1">
