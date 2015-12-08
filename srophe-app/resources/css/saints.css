@@ -151,10 +151,10 @@ h3.label {background-color:#ccc;}
 .transparent-input:-ms-input-placeholder { color: white; font-size:large;font-weight:500; }
 
 /* BHSE solid color banner */
-.saints-banner-interior {background-color:#861719; margin:1em 0; padding:0; color:white; margin-bottom:1em;}
+.saints-banner-interior {background-color:#861719; padding:0; color:white; margin-bottom:1em;}
 .saints-banner-interior h1 {color:white; margin-bottom:0; padding:1em 0;}
 /* Q solid color banner */
-.q-banner {background-color:#A5744B;margin:0;padding:1em 4em; color:white; border-top:4px solid #2F4C60;}
+.q-banner {background-color:#A5744B;margin:0; padding:1em 4em; color:white; border-top:4px solid #2F4C60;}
 .q-banner-interior {background-color:#A5744B; margin:0; padding:0; color:white; margin-bottom:1em; border-top:4px solid #2F4C60;}
 .q-banner-interior h1{color:white; margin-bottom:0; padding:1em 0;}
 /* Gateway to the saints solid color banner */
@@ -183,4 +183,4 @@ h3.label {background-color:#ccc;}
     height: 100%;
     width: 100%;
 }
-.supplement-block h2 {color:#666;}
+.content-block h2 {color:#666;}
