@@ -38,22 +38,40 @@ declare variable $browse:fq {request:get-parameter('fq', '')};
 
 (:~
  : Build browse path for evaluation 
- : Uses $coll to build path to appropriate data set 
- : If no $coll parameter is present data and all subdirectories will be searched.
- : @param $coll collection name passed from html, should match data subdirectory name
+ : Uses $collection to build path to appropriate data set 
+ : If no $collection parameter is present data and all subdirectories will be searched.
+ : @param $collection collection name passed from html, should match data subdirectory name
 :)
-declare function browse:get-all($node as node(), $model as map(*), $coll as xs:string?){
+declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string?){
 let $browse-path := 
-    if($coll = ('persons','authors','saints')) then concat("collection('",$global:data-root,"/persons/tei')//tei:person",browse:get-pers-coll($coll),browse:get-syr()) 
-    else if($coll = 'places') then concat("collection('",$global:data-root,"/places/tei')//tei:place",browse:get-syr())
-    else if($coll = 'bhse') then concat("collection('",$global:data-root,"/works/tei')//tei:body/tei:bibl",browse:get-syr())
-    else if($coll = 'manuscripts') then concat("collection('",$global:data-root,"/manuscripts/tei')//tei:teiHeader")
-    else if(exists($coll)) then concat("collection('",$global:data-root,xs:anyURI($coll),"')//tei:body",browse:get-syr())
+    if($collection = ('persons','authors','saints','sbd','q')) then concat("collection('",$global:data-root,"/persons/tei')",browse:get-coll($collection),browse:get-syr()) 
+    else if($collection = 'places') then concat("collection('",$global:data-root,"/places/tei')",browse:get-coll($collection),browse:get-syr())
+    else if($collection = 'bhse') then concat("collection('",$global:data-root,"/works/tei')//tei:body/tei:bibl",browse:get-syr())
+    else if($collection = 'manuscripts') then concat("collection('",$global:data-root,"/manuscripts/tei')//tei:teiHeader")
+    else if(exists($collection)) then concat("collection('",$global:data-root,xs:anyURI($collection),"')//tei:body",browse:get-syr())
     else concat("collection('",$global:data-root,"')//tei:body",browse:get-syr())
 return 
     map{"browse-data" := util:eval($browse-path)}        
 };
 
+declare function browse:parse-collections($collection as xs:string?) {
+    if($collection != ('persons','sbd')) then 'The Syriac Biographical Dictionary'
+    else if($collection = ('saints','q')) then 'Qadishe: A Guide to the Syriac Saints'
+    else if($collection = 'authors' ) then 'A Guide to Syriac Authors'
+    else if($collection = ('places','The Syriac Gazetteer')) then 'The Syriac Gazetteer'
+    else if($collection = 'authors' ) then 'A Guide to Syriac Authors'
+    else if($collection != '' ) then $collection
+    else ()
+};
+
+(:~
+ : Filter titles by subcollection
+ : Used by persons as there are several subcollections within SBD
+ : @param $collection passed from html template
+:)
+declare function browse:get-coll($collection) as xs:string?{
+    concat("//tei:title[. = '",browse:parse-collections($collection),"']/ancestor::tei:TEI/descendant::tei:body")
+};
 (:~
  : Return only Syriac titles 
  : Based on Syriac headwords 
@@ -61,21 +79,8 @@ return
 :)
 declare function browse:get-syr() as xs:string?{
     if($browse:view = 'syr') then
-        "[child::*[contains(@syriaca-tags,'#syriaca-headword')][@xml:lang = 'syr']]"
+        "[descendant::*[contains(@syriaca-tags,'#syriaca-headword')][@xml:lang = 'syr']]"
     else ()    
-};
-
-(:~
- : Filter titles by subcollection
- : Used by persons as there are several subcollections within SBD
- : @param $coll passed from html template
-:)
-declare function browse:get-pers-coll($coll) as xs:string?{
-if($coll = 'persons' or 'authors' or 'saints') then 
-    if($coll = 'authors') then '[contains(@ana,"#syriaca-author")]'
-    else if($coll = 'saints') then '[contains(@ana,"#syriaca-saint")]'
-    else ()
-else ()    
 };
 
 (:~
@@ -108,21 +113,21 @@ declare function browse:build-sort-string($titlestring as xs:string*) as xs:stri
 
 (:
  : Set up browse page, select correct results function based on URI params
- : @param $coll passed from html 
+ : @param $collection passed from html 
 :)
-declare function browse:results-panel($node as node(), $model as map(*),$coll){
+declare function browse:results-panel($node as node(), $model as map(*),$collection){
 if($browse:view = 'type' or $browse:view = 'date') then
-    (<div class="col-md-4">{if($browse:view='type') then browse:browse-type($node,$model,$coll)  else browse:browse-date()}</div>,
+    (<div class="col-md-4">{if($browse:view='type') then browse:browse-type($node,$model,$collection)  else browse:browse-date()}</div>,
      <div class="col-md-8">{
         if($browse:view='type') then
             if($browse:type != '') then 
                 (<h3>{concat(upper-case(substring($browse:type,1,1)),substring($browse:type,2))}</h3>,
-                 <ul>{browse:get-data($node,$model,$coll)}</ul>)
+                 <ul>{browse:get-data($node,$model,$collection)}</ul>)
             else <h3>Select Type</h3>    
         else if($browse:view='date') then 
             if($browse:date !='') then 
                 (<h3>{$browse:date}</h3>,
-                 <ul>{browse:get-data($node,$model,$coll)}</ul>)
+                 <ul>{browse:get-data($node,$model,$collection)}</ul>)
             else <h3>Select Date</h3>  
         else ()}</div>)
 else if($browse:view = 'map') then browse:get-map($node, $model)
@@ -133,7 +138,7 @@ else
         browse:browse-abc-menu(),
         <h3>{(if(($browse:view = 'syr')) then (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) else attribute class {"label"},substring(browse:get-sort(),1,1))}</h3>,
         <div class="{if($browse:view = 'syr') then 'syr-list' else 'en-list'}">
-            {browse:get-data($node,$model,$coll)}
+            {browse:get-data($node,$model,$collection)}
         </div>
         )
         }
@@ -150,12 +155,12 @@ declare function browse:get-map($node as node(), $model as map(*)){
  : Evaluates additional browse parameters; type and date
  : Adds narrowed data set to new map
 :)
-declare function browse:get-narrow($node as node(), $model as map(*),$coll){
+declare function browse:get-narrow($node as node(), $model as map(*),$collection){
 let $data := 
     if($browse:view='numeric') then $model("browse-data")
     else if($browse:view = 'type') then 
         if($browse:type != '') then 
-            if($coll ='persons' or $coll = 'saints' or $coll = 'authors') then
+            if($collection = ('persons','saints','authors')) then
                 if($browse:type != '') then 
                     if($browse:type = 'unknown') then $model("browse-data")/self::*[not(@ana)]
                     else $model("browse-data")/self::*[contains(@ana,concat('#',$browse:type))]
@@ -184,7 +189,7 @@ return
  : Sorts and outputs results set
  : @param $coll from html template
 :)
-declare function browse:get-data($node as node(), $model as map(*), $coll as xs:string*) as node()*{
+declare function browse:get-data($node as node(), $model as map(*), $collection as xs:string*) as node()*{
 (
 if($browse:view = 'type') then
         if($model("browse-refine")//tei:geo) then
@@ -194,21 +199,22 @@ else (),
 for $data in $model("browse-refine")
 let $rec-id := tokenize(replace($data/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei|/source',''),'/')[last()]
 let $en-title := 
-             if($data/child::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]) then 
-                 string-join($data/child::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]//text(),' ')
+             if($data/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]) then 
+                 string-join($data/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]//text(),' ')
              else $data/ancestor::tei:TEI/descendant::tei:title[1]/text()               
 let $syr-title := 
-             if($data/child::*[contains(@syriaca-tags,'#syriaca-headword')][1]) then
-                string-join($data/child::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')
+             if($data/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]) then
+                string-join($data/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')
              else 'NA'
 let $title := if($browse:view = 'syr') then $syr-title else $en-title
 let $browse-title := browse:build-sort-string($title)
 order by 
     if($browse:view = 'numeric') then xs:integer($rec-id) 
     else $browse-title collation "?lang=en&lt;syr&amp;decomposition=full"             
-return 
+return
 (: Temp patch for manuscripts :)
-    if($coll = "manuscripts") then 
+
+    if($collection = "manuscripts") then 
         let $title := $data/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text()
         let $id := $data/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org')][2]/text()
         return 
@@ -216,11 +222,13 @@ return
             <a href="manuscript.html?id={$id}">{$title}</a>
         </li>
     else if($browse:view = 'syr') then rec:display-recs-short-view($data,'syr') else rec:display-recs-short-view($data,'')
+
 ) 
+
 };
  
 (:Dynamic where:)
-declare function browse:conditions($data, $browse-title, $coll){
+declare function browse:conditions($data, $browse-title, $collection){
  if($browse:view ='en' or $browse:view = 'syr' or $browse:view ='') then 
     contains(browse:get-sort(), substring($browse-title,1,1))
  else if($browse:sort = 'all') then true()    
@@ -298,10 +306,10 @@ declare function browse:browse-abc-menu(){
     </div>
 };
 
-declare function browse:browse-type($node as node(), $model as map(*), $coll){  
+declare function browse:browse-type($node as node(), $model as map(*), $collection){  
     <ul class="nav nav-tabs nav-stacked">
         {
-            if($coll = 'places') then 
+            if($collection = 'places') then 
                 for $types in $model("browse-data")
                     group by $place-types := $types/@type
                     order by $place-types ascending
