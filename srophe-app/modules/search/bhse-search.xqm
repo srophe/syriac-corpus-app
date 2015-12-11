@@ -131,22 +131,22 @@ declare function bhses:query-string() as xs:string? {
  : Build a search string for search results page from search parameters
 :)
 declare function bhses:search-string(){
-let $parameters :=  request:get-parameter-names()
-for  $parameter in $parameters
-    return 
-        if(request:get-parameter($parameter, '') != '') then
-            if($parameter = 'q') then 
-                (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($bhses:q)}</span>)
-            else if($parameter = 'related-pers') then 
-                (<span class="param">Related Persons: </span>,<span class="match">{common:clean-string($bhses:related-pers)}</span>)
-            else if($parameter = 'modern') then 
-                (<span class="param">Modern Translations: </span>,<span class="match">{common:clean-string($bhses:modern)}</span>)
-            else if($parameter = 'ancient') then 
-                (<span class="param">Ancient Versions: </span>,<span class="match">{common:clean-string($bhses:ancient)}</span>)
-            else if($parameter = 'mss') then 
-                (<span class="param">Manuscript: </span>,<span class="match">{common:clean-string($bhses:mss)}</span>)            
-            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
-        else ()               
+    let $parameters :=  request:get-parameter-names()
+    for  $parameter in $parameters
+        return 
+            if(request:get-parameter($parameter, '') != '') then
+                if($parameter = 'q') then 
+                    (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($bhses:q)}</span>)
+                else if($parameter = 'related-pers') then 
+                    (<span class="param">Related Persons: </span>,<span class="match">{common:clean-string($bhses:related-pers)}</span>)
+                else if($parameter = 'modern') then 
+                    (<span class="param">Modern Translations: </span>,<span class="match">{common:clean-string($bhses:modern)}</span>)
+                else if($parameter = 'ancient') then 
+                    (<span class="param">Ancient Versions: </span>,<span class="match">{common:clean-string($bhses:ancient)}</span>)
+                else if($parameter = 'mss') then 
+                    (<span class="param">Manuscript: </span>,<span class="match">{common:clean-string($bhses:mss)}</span>)            
+                else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
+            else ()               
 };
 
 

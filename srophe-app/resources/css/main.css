@@ -113,7 +113,7 @@ body {font-family: arial, sans-serif; }
 footer {text-align:center; color:white;}
 
 /* Typography */
-h1 {font-size:1.5em; margin:0 0 .25em 0; color:#E69849; font-weight:500;}
+h1 {font-size:1.5em; margin:.25em 0 .25em 0; color:#E69849; font-weight:500;}
 h2 {font-size: 1.25em; margin:1em 0 .25em 0; padding-bottom:0; color:#753C28; font-weight:500;}
 h3 {font-size: 1.2em; margin:1em 0 .25em 0; padding-bottom:0; color:#333; font-weight:500;  padding-bottom:0; margin-bottom:1em;}
 h3.underline {color:#999; border-bottom:3px solid #E69849; padding-bottom:-.75em; margin-bottom:1em; margin-top:1em;}
@@ -453,7 +453,7 @@ div[id|=place] > div:last-of-type {
 .page-bottom .hit-count {display:none;}
 
 .match {
-    font-style:italic; color:blue;
+    font-style:italic; color:gray;
 }
 .param {font-weight:600; color:#666; padding-left:.5em;}
 

@@ -33,8 +33,7 @@ declare variable $search:collection {request:get-parameter('collection', '') cas
 declare %templates:wrap function search:get-results($node as node(), $model as map(*), $collection as xs:string?){
     let $coll := if($search:collection != '') then $search:collection else $collection
     let $eval-string := 
-                        if($coll = 'sbd') then persons:query-string('')
-                        else if($coll ='q') then persons:query-string('q')
+                        if($coll = ('sbd','q','authors','saints','persons')) then persons:query-string($coll)
                         else if($coll ='spear') then spears:query-string()
                         else if($coll = 'places') then places:query-string()
                         else if($coll = 'bhse') then bhses:query-string()
@@ -104,7 +103,7 @@ return $query-string
  : @param $collection passed from search page templates
 :)
 declare function search:search-string($collection as xs:string?){
-    if($collection = 'bhse' or $collection = 'q' or $collection = 'authors') then persons:search-string()
+    if($collection = ('persons','authors','saints','sbd','q')) then persons:search-string()
     else if($collection ='spear') then spears:search-string()
     else if($collection = 'places') then places:search-string()
     else if($collection = 'bhse') then bhses:search-string()
@@ -152,7 +151,7 @@ let $current-page := xs:integer(($start + $perpage) div $perpage)
 let $url-params := replace(request:get-query-string(), '&amp;start=\d+', '')
 let $parameters :=  request:get-parameter-names()
 let $sort-options :=
-                <li class="pull-right">
+                <li xmlns="http://www.w3.org/1999/xhtml">
                     <div class="btn-group">
                         <div class="dropdown"><button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">Sort <span class="caret"/></button>
                             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
@@ -170,11 +169,10 @@ let $pagination-links :=
             <div class="col-sm-5">
             <h4 class="hit-count">Search results:</h4>
                 <p class="col-md-offset-1 hit-count">{$total-result-count} matches for {search:search-string($collection)}.</p>
-                <!-- for debugging xpath <br/>{persons:query-string()}-->
             </div>
             {if(search:hit-count($node, $model) gt $perpage) then 
-              <div class="col-md-7">
-                       <ul class="pagination  pull-right">
+              <div class="col-md-7" xmlns="http://www.w3.org/1999/xhtml">
+                       <ul class="pagination pull-right">
                           {
                           (: Show 'Previous' for all but the 1st page of results :)
                               if ($current-page = 1) then ()
@@ -213,12 +211,14 @@ let $pagination-links :=
                                   <li><a href="{concat('?', $url-params, '&amp;start=', $start + $perpage)}">Next</a></li>
                           }
                           {$sort-options}
+                          <li class="pull-right"><a href="search.html"><span class="glyphicon glyphicon-search"/> New</a></li>
                       </ul>
               </div>
              else 
-             <div class="col-md-7">
-                <ul class="pagination  pull-right">
+             <div class="col-md-7" xmlns="http://www.w3.org/1999/xhtml">
+                <ul class="pagination pull-right">
                    {$sort-options}
+                    <li class="pull-right"><a href="search.html"><span class="glyphicon glyphicon-search"/> New</a></li>
                 </ul>
              </div>
              }
@@ -277,8 +277,7 @@ return
 declare %templates:wrap  function search:show-form($node as node()*, $model as map(*), $collection as xs:string?) {   
     if(exists(request:get-parameter-names())) then ''
     else 
-        if($collection = 'bhse') then <div>{persons:search-form('bhse')}</div>
-        else if($collection = 'q') then <div>{persons:search-form('q')}</div>
+        if($collection = ('persons','sbd','authors','q','saints')) then <div>{persons:search-form($collection)}</div>
         else if($collection ='spear') then <div>{spears:search-form()}</div>
         else if($collection ='manuscripts') then <div>{ms:search-form()}</div>
         else if($collection ='bhse') then <div>{bhses:search-form()}</div>

@@ -45,7 +45,7 @@ declare variable $browse:fq {request:get-parameter('fq', '')};
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string?){
 let $browse-path := 
     if($collection = ('persons','authors','saints','sbd','q')) then concat("collection('",$global:data-root,"/persons/tei')",browse:get-coll($collection),browse:get-syr()) 
-    else if($collection = 'places') then concat("collection('",$global:data-root,"/places/tei')",browse:get-coll($collection),browse:get-syr())
+    else if($collection = 'places') then concat("collection('",$global:data-root,"/places/tei')//tei:body",browse:get-syr())
     else if($collection = 'bhse') then concat("collection('",$global:data-root,"/works/tei')//tei:body/tei:bibl",browse:get-syr())
     else if($collection = 'manuscripts') then concat("collection('",$global:data-root,"/manuscripts/tei')//tei:teiHeader")
     else if(exists($collection)) then concat("collection('",$global:data-root,xs:anyURI($collection),"')//tei:body",browse:get-syr())

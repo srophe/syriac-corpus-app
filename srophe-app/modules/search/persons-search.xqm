@@ -39,7 +39,7 @@ declare variable $persons:mentioned {request:get-parameter('mentioned', '')};
  common:build-query($pram-string)
 :)
 declare function persons:keyword() as xs:string? {
-    if($persons:q != '') then concat("[ft:query(.,'",common:clean-string($persons:q),"',common:options()) or ft:query(descendant::tei:persName,'",common:clean-string($persons:q),"',common:options()) or ft:query(descendant::tei:placeName,'",common:clean-string($persons:q),"',common:options()) or ft:query(ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:title,'",common:clean-string($persons:q),"',common:options()) or ft:query(descendant::tei:desc,'",common:clean-string($persons:q),"',common:options())]")
+    if($persons:q != '') then concat("[ft:query(.,'",common:clean-string($persons:q),"',common:options()) | ft:query(descendant::tei:persName,'",common:clean-string($persons:q),"',common:options()) | ft:query(descendant::tei:placeName,'",common:clean-string($persons:q),"',common:options()) | ft:query(ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:title,'",common:clean-string($persons:q),"',common:options()) | ft:query(descendant::tei:desc,'",common:clean-string($persons:q),"',common:options())]")
     else ()    
 };
 
@@ -60,21 +60,21 @@ declare function persons:name() as xs:string? {
  : Accepts a URI  
  : NOT used
 :)
+
 declare function persons:uri() as xs:string? { 
     if($persons:uri != '') then    
         concat("[descendant::tei:person/tei:idno[matches(.,'",$persons:uri,"')]]")
     else ()
 };
 
-
 (:~
  : Search limit by submodule. 
 :)
 declare function persons:coll($coll as xs:string?) as xs:string?{
-let $collection := if($persons:coll = 'sbd' ) then 'The Syriac Prosopography'
+let $collection := if($persons:coll = 'sbd' ) then 'The Syriac Biographical Dictionary'
                    else if($persons:coll = 'q' ) then 'Qadishe: A Guide to the Syriac Saints'
                    else if($persons:coll = 'authors' ) then 'A Guide to Syriac Authors'
-                   else if($coll = 'sbd' ) then 'The Syriac Prosopography'
+                   else if($coll = 'sbd' ) then 'The Syriac Biographical Dictionary'
                    else if($coll = 'q' ) then 'Qadishe: A Guide to the Syriac Saints'
                    else if($coll = 'authors' ) then 'A Guide to Syriac Authors'
                    else ()
@@ -304,9 +304,9 @@ declare function persons:mentioned() as xs:string?{
 (:~
  : Build query string to pass to search.xqm 
 :)
-declare function persons:query-string($coll as xs:string?) as xs:string? {
+declare function persons:query-string($collection as xs:string?) as xs:string? {
  concat("collection('",$global:data-root,"/persons/tei')//tei:body",
-    persons:coll($coll),
+    persons:coll($collection),
     persons:type(),
     persons:gender(),
     persons:state(),
@@ -324,7 +324,7 @@ declare function persons:query-string($coll as xs:string?) as xs:string? {
 (:~
  : Build a search string for search results page from search parameters
 :)
-declare function persons:search-string() as xs:string*{
+declare function persons:search-string() as node()*{
     let $parameters :=  request:get-parameter-names()
     for  $parameter in $parameters
     return 
@@ -341,7 +341,7 @@ declare function persons:search-string() as xs:string*{
             else if($parameter = 'gender') then 
                 (<span class="param">Sex or Gender: </span>,<span class="match">{common:clean-string($persons:gender)}</span>)
             else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
-        else () 
+        else ()
 };
 
 (:~

@@ -318,12 +318,12 @@ declare %templates:wrap function app:build-editor-list($node as node(), $model a
  : $data-dir 
 :)
 declare %templates:wrap function app:dashboard($node as node(), $model as map(*), $collection-title, $data-dir){
-    let $data := collection(concat($global:data-root,'/',$data-dir,'/tei'))
+    let $data := collection(concat($global:data-root,'/',$data-dir,'/tei'))//tei:title[. = $collection-title]
     let $data-type := if($data-dir) then $data-dir else 'data'
     let $rec-num := count($data)
-    let $contributors := for $contrib in distinct-values(for $contributors in $data//tei:respStmt/tei:name return $contributors) return <li>{$contrib}</li>
+    let $contributors := for $contrib in distinct-values(for $contributors in $data/ancestor::tei:TEI/descendant::tei:respStmt/tei:name return $contributors) return <li>{$contrib}</li>
     let $contrib-num := count($contributors)
-    let $data-points := count($data//tei:body/descendant::text())
+    let $data-points := count($data/ancestor::tei:TEI/descendant::tei:body/descendant::text())
     return
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">

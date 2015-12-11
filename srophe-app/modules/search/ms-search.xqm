@@ -26,7 +26,6 @@ declare function ms:keyword() as xs:string? {
     else ()    
 };
 
-
 (:~
  : Build query string to pass to search.xqm 
 :)
@@ -40,10 +39,14 @@ declare function ms:query-string() as xs:string? {
  : Build a search string for search results page from search parameters
 :)
 declare function ms:search-string() as xs:string*{
-    let $keyword-string := if($ms:q != '') then 
-                                (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($ms:q)}&#160;</span>)
-                           else ''                          
-    return $keyword-string                  
+    let $parameters :=  request:get-parameter-names()
+    for  $parameter in $parameters
+    return 
+        if(request:get-parameter($parameter, '') != '') then
+            if($parameter = 'q') then 
+                (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($ms:q)}&#160;</span>)
+            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
+        else ()            
 };
 
 (:~
@@ -59,7 +62,6 @@ declare function ms:results-node($hit){
             <a href="manuscript.html?id={$id}">{$title}</a>
         </p>
 };
-
 
 (:~
  : Builds advanced search form for persons

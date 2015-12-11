@@ -69,7 +69,7 @@ declare function spears:event() as xs:string? {
 :)
 declare function spears:controlled-keyword-search(){
     if($spears:keyword !='') then 
-        concat("[descendant::*[matches(@ref,'(^|\W)",$spears:keyword,"(\W|$)')]]")
+        concat("[descendant::*[matches(@ref,'(^|\W)",$spears:keyword,"(\W|$)')] | descendant::*[matches(@target,'(^|\W)",$spears:keyword,"(\W|$)')]]")
     else ()
 };
 
@@ -124,35 +124,16 @@ declare function spears:query-string() as xs:string? {
  : Build a search string for search results page from search parameters
 :)
 declare function spears:search-string() as xs:string*{
-    let $keyword-string := if($spears:q != '') then 
-                                (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($spears:q)}&#160;</span>)
-                           else ''
-    let $name-string :=    if($spears:name != '') then
-                                (<span class="param">Name: </span>,<span class="match">{common:clean-string($spears:name)}&#160;</span>)
-                           else ''
-    let $place-string :=    if($spears:place != '') then
-                                (<span class="param">Place Name: </span>,<span class="match">{common:clean-string($spears:place)}&#160;</span>)
-                           else ''      
-    let $event-string :=    if($spears:event != '') then
-                                (<span class="param">Event: </span>,<span class="match">{common:clean-string($spears:event)}&#160;</span>)
-                           else ''
-    let $type-string :=    if($spears:type != '') then
-                                (<span class="param">Type: </span>,<span class="match">{$spears:type}&#160;</span>)
-                           else ''
-    let $controlled-keyword-string :=    if($spears:keyword != '') then
-                                (<span class="param">Keyword: </span>,
-                                <span class="match">
-                                    {lower-case(functx:camel-case-to-words(substring-after($spears:keyword,'/keyword/'),' '))}&#160;
-                                </span>)
-                           else ''                           
-    return (
-    $keyword-string,
-    $name-string,
-    $place-string,
-    $event-string,
-    $controlled-keyword-string
-    
-    )                                          
+    let $parameters :=  request:get-parameter-names()
+    for $parameter in $parameters
+    return 
+        if(request:get-parameter($parameter, '') != '') then
+            if($parameter = 'q') then 
+                (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($spears:q)}&#160;</span>)
+            else if($parameter = 'keyword') then 
+                (<span class="param">Controlled Keyword: </span>,<span class="match">{lower-case(functx:camel-case-to-words(substring-after($spears:keyword,'/keyword/'),' '))}</span>)
+            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
+        else ()
 };
 
 (:~
