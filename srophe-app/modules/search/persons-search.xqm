@@ -274,31 +274,17 @@ declare function persons:related-persons() as xs:string?{
 (:~
  : Search related texts 
  : Uses regex to match on word boundries
-:)
-declare function persons:related-texts() as xs:string?{
-      if($persons:related-text != '') then 
-        if(matches($persons:related-text,'^http://syriaca.org/')) then 
-            let $id := normalize-space($persons:related-text)
-            return concat("[descendant::tei:relation[@passive[matches(.,'",$id,"')] or @active[matches(.,'",$id,"')]]]")
-        else 
-            let $ids := 
-                string-join(distinct-values(
-                    for $name in collection($global:data-root || '/works')//tei:person[ft:query(tei:persName,$persons:related-text)]
-                    let $id := $name/parent::*/descendant::tei:idno[starts-with(.,'http://syriaca.org')]
-                    return concat($id/text(),'(\s|$)')),'|')
-            return concat("[descendant::tei:relation[@passive[matches(@passive,'",$ids,"(\W|$)')] or @active[matches(@passive,'",$ids,"')]]]")
-    else ()  
-};
-
-(:~
- : Search citations 
+ ref="http://syriaca.org/work/939"
+ <title ref="http://syriaca.org/work/939">Aaron (text)</title>
 :)
 declare function persons:mentioned() as xs:string?{
-    if($persons:mentioned  != '') then
-        let $mentioned-uri := if(ends-with($persons:mentioned,'.html')) then substring-before($persons:mentioned,'.html') else $persons:mentioned
-        return
-         concat("[descendant::tei:person/tei:bibl/tei:ptr[@target = '",$mentioned-uri,"']]")
-    else ()
+      if($persons:mentioned != '') then 
+        if(matches($persons:mentioned,'^http://syriaca.org/')) then 
+            let $id := normalize-space($persons:mentioned)
+            return concat("[descendant::*[@ref[matches(.,'",$id,"')]]]")
+        else 
+            concat("[descendant::*[ft:query(tei:title,'",common:clean-string($persons:mentioned),"',common:options())]]")
+    else ()  
 };
 
 (:~
@@ -325,6 +311,8 @@ declare function persons:query-string($collection as xs:string?) as xs:string? {
  : Build a search string for search results page from search parameters
 :)
 declare function persons:search-string() as node()*{
+<span>
+    {
     let $parameters :=  request:get-parameter-names()
     for  $parameter in $parameters
     return 
@@ -342,6 +330,8 @@ declare function persons:search-string() as node()*{
                 (<span class="param">Sex or Gender: </span>,<span class="match">{common:clean-string($persons:gender)}</span>)
             else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
         else ()
+        }
+</span>
 };
 
 (:~
@@ -554,10 +544,10 @@ declare function persons:search-form($collection) {
             </div>
             <!--Associated Texts:-->
             <div class="form-group">            
-                <label for="related-persons" class="col-sm-2 col-md-3  control-label">Associated Texts: </label>
+                <label for="mentioned" class="col-sm-2 col-md-3  control-label">Associated Texts: </label>
                 <div class="col-sm-10 col-md-6">
-                    <input type="text" id="related-text" name="related-text" class="form-control"/>
-                    <p class="hint">* Enter syriaca uri. ex: http://syriaca.org/work/13</p>
+                    <input type="text" id="mentioned" name="mentioned" class="form-control"/>
+                    <p class="hint">* Enter syriaca uri. ex: http://syriaca.org/work/429</p>
                 </div>
             </div> 
         </div>
