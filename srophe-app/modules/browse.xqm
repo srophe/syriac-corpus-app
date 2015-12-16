@@ -44,22 +44,22 @@ declare variable $browse:fq {request:get-parameter('fq', '')};
 :)
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string?){
 let $browse-path := 
-    if($collection = ('persons','authors','saints','sbd','q')) then concat("collection('",$global:data-root,"/persons/tei')",browse:get-coll($collection),browse:get-syr()) 
+    if($collection = ('persons','sbd','saints','q','authors')) then concat("collection('",$global:data-root,"/persons/tei')",browse:get-coll($collection),browse:get-syr())
+(:    if($collection = ('persons','authors','saints','sbd','q')) then concat("collection('",$global:data-root,"/persons/tei')",browse:get-coll($collection),browse:get-syr()):)
     else if($collection = 'places') then concat("collection('",$global:data-root,"/places/tei')//tei:body",browse:get-syr())
     else if($collection = 'bhse') then concat("collection('",$global:data-root,"/works/tei')//tei:body/tei:bibl",browse:get-syr())
     else if($collection = 'manuscripts') then concat("collection('",$global:data-root,"/manuscripts/tei')//tei:teiHeader")
     else if(exists($collection)) then concat("collection('",$global:data-root,xs:anyURI($collection),"')//tei:body",browse:get-syr())
     else concat("collection('",$global:data-root,"')//tei:body",browse:get-syr())
 return 
-    map{"browse-data" := util:eval($browse-path)}        
+    map{"browse-data" := util:eval($browse-path)}      
 };
 
 declare function browse:parse-collections($collection as xs:string?) {
-    if($collection != ('persons','sbd')) then 'The Syriac Biographical Dictionary'
+    if($collection = ('persons','sbd')) then 'The Syriac Biographical Dictionary'
     else if($collection = ('saints','q')) then 'Qadishe: A Guide to the Syriac Saints'
     else if($collection = 'authors' ) then 'A Guide to Syriac Authors'
     else if($collection = ('places','The Syriac Gazetteer')) then 'The Syriac Gazetteer'
-    else if($collection = 'authors' ) then 'A Guide to Syriac Authors'
     else if($collection != '' ) then $collection
     else ()
 };
@@ -72,6 +72,7 @@ declare function browse:parse-collections($collection as xs:string?) {
 declare function browse:get-coll($collection) as xs:string?{
     concat("//tei:title[. = '",browse:parse-collections($collection),"']/ancestor::tei:TEI/descendant::tei:body")
 };
+
 (:~
  : Return only Syriac titles 
  : Based on Syriac headwords 
@@ -115,7 +116,7 @@ declare function browse:build-sort-string($titlestring as xs:string*) as xs:stri
  : Set up browse page, select correct results function based on URI params
  : @param $collection passed from html 
 :)
-declare function browse:results-panel($node as node(), $model as map(*),$collection){
+declare function browse:results-panel($node as node(), $model as map(*), $collection){
 if($browse:view = 'type' or $browse:view = 'date') then
     (<div class="col-md-4">{if($browse:view='type') then browse:browse-type($node,$model,$collection)  else browse:browse-date()}</div>,
      <div class="col-md-8">{
