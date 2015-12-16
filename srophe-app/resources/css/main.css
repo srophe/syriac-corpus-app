@@ -561,7 +561,7 @@ label.error {
 .citationinfo {padding:1em; color: #555; border-top:1px solid #666666; background-color:#eee; }
 #citation {display:none;}
 .hint{margin:.5em; color: grey; font-style:italic;}
-.uri {margin:0 1em 1em; color: #999999;}
+.uri {margin:0 0 1em; color: #999999;}
 p.single-space{padding:.25em;}
 .teiDocs {padding:.25em; border-bottom:1px solid #eee;}
 
