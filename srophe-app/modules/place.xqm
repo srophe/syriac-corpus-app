@@ -35,7 +35,9 @@ function place:fix-links($node as node(), $model as map(*)) {
  : Simple get record function, retrieves tei record based on idno
  : @param $place:id syriaca.org uri 
 :)
-declare function place:get-rec($node as node(), $model as map(*)) {
+declare 
+    %templates:wrap 
+function place:get-rec($node as node(), $model as map(*)) {
 if($place:id) then 
     let $id :=
         if(contains(request:get-uri(),$global:base-uri)) then $place:id
