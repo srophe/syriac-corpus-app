@@ -46,19 +46,21 @@ declare %templates:wrap function person:app-title($node as node(), $model as map
 if($person:id) then
    substring-before(global:tei2html($model("data")/descendant::tei:title[1]/text())," — ")
 else if($coll = 'persons') then 'The Syriac Biographical Dictionary'
-else if($coll = 'q')then 'Gateway to the Syriac Saints'
-else if($coll = 'saints') then 'Gateway to the Syriac Saints: Volume II: Qadishe'
+else if($coll = 'saints')then 'Gateway to the Syriac Saints'
+else if($coll = 'q') then 'Gateway to the Syriac Saints: Volume II: Qadishe'
+else if($coll = 'authors') then 'A Guide to Syriac Authors'
 else 'The Syriac Biographical Dictionary' 
 };  
 
 (:
- : Pass necessary element to h1 xslt template    
+ : Pass necessary element to h1 xslt template     
 :)
 declare %templates:wrap function person:h1($node as node(), $model as map(*)){
     let $title := $model("data")//tei:person
     let $title-nodes := 
             <srophe-title ana="{$title/@ana}" xmlns="http://www.tei-c.org/ns/1.0">
                 {(
+                    $title/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title,
                     $title/descendant::tei:persName[@syriaca-tags='#syriaca-headword'],
                     $title/descendant::tei:birth,
                     $title/descendant::tei:death,
