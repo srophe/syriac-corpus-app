@@ -31,8 +31,19 @@ return
  : Used by search.xqm, browse.xqm and get-related.xqm
 :)
 declare function rec:display-recs-short-view($node, $lang) as node()*{
-(:Need better type handling:)
-let $ana := if($node/descendant-or-self::tei:person/@ana) then () else ()
+let $ana := 
+            for $series in $node/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[@level='m' or @level='s']
+            return
+                (switch ($series) 
+                    case "A Guide to Syriac Authors" return 
+                        <a href="{$global:nav-base}/authors/index.html"><img src="{$global:nav-base}/resources/img/icons-authors-sm.png" alt="A Guide to Syriac Authors"/>author</a>
+                    case "Qadishe: A Guide to the Syriac Saints" return 
+                        <a href="{$global:nav-base}/q/index.html"><img src="{$global:nav-base}/resources/img/icons-q-sm.png" alt="Qadishe: A Guide to the Syriac Saints"/>saint</a>
+                    default return (),
+                    if($series/following-sibling::*/text() = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')) 
+                        then ', ' 
+                    else () 
+                 )
 let $type := if($node/descendant-or-self::tei:place/@type) then string($node/descendant-or-self::tei:place/@type) else ()
 let $uri := 
         if($node//tei:idno[@type='URI'][starts-with(.,$global:base-uri)]) then
@@ -46,8 +57,8 @@ let $syr-title :=
              if($node/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][1]) then
                 string-join($node/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')
              else 'NA'  
-let $birth := if($ana) then $node/descendant::tei:birth else()
-let $death := if($ana) then $node/descendant::tei:death else()
+let $birth := if($ana != '') then $node/descendant::tei:birth else()
+let $death := if($ana != '') then $node/descendant::tei:death else()
 let $dates := concat(if($birth) then $birth/text() else(), if($birth and $death) then ' - ' else if($death) then 'd.' else(), if($death) then $death/text() else())    
 let $desc :=
         if($node/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text()) then
@@ -71,8 +82,13 @@ return
           else ' - [Syriac Not Available]')
           }   
        </a>
-       {if($ana) then
-            <span class="results-list-desc type" dir="ltr" lang="en">{concat('(',$ana, if($dates) then ', ' else(), $dates ,')')}</span>
+       {if($ana != '') then
+            <span class="results-list-desc type" dir="ltr" lang="en">
+            (
+            {$ana}
+            {if($dates) then ', ' else(), $dates}
+            )
+            </span>
         else ()}
            <span class="results-list-desc desc">
               {
@@ -82,12 +98,11 @@ return
               }
            </span>
         {
-        if($ana) then 
-            if($node/descendant-or-self::tei:person/tei:persName[not(@syriaca-tags='#syriaca-headword')]) then 
+        if($ana != '') then 
+            if($node/descendant-or-self::tei:person/tei:persName[not(@syriaca-tags='#syriaca-headword')] | $node/descendant-or-self::tei:place/tei:placeName[not(@syriaca-tags='#syriaca-headword')]) then 
                 <span class="results-list-desc names" dir="ltr" lang="en">Names: 
                 {
-                    for $names in $node/descendant-or-self::tei:person/tei:persName[not(@syriaca-tags='#syriaca-headword')]
-                    [not(starts-with(@xml:lang,'syr'))][not(starts-with(@xml:lang,'ar'))][not(@xml:lang ='en-xsrp1')]
+                    for $names in $node/descendant-or-self::tei:person/tei:persName[not(@syriaca-tags='#syriaca-headword')][not(starts-with(@xml:lang,'syr'))][not(starts-with(@xml:lang,'ar'))][not(@xml:lang ='en-xsrp1')] | $node/descendant-or-self::tei:place/tei:placeName[not(@syriaca-tags='#syriaca-headword')][not(starts-with(@xml:lang,'syr'))][not(starts-with(@xml:lang,'ar'))][not(@xml:lang ='en-xsrp1')]                    
                     return <span class="pers-label badge">{global:tei2html($names)}</span>
                 }
                 </span>
