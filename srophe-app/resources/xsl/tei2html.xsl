@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:t="http://www.tei-c.org/ns/1.0" 
-    xmlns:x="http://www.w3.org/1999/xhtml" 
-    xmlns:saxon="http://saxon.sf.net/" 
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -258,21 +253,21 @@
                 <div id="placenames" class="well">
                     <h3>Names</h3>
                     <ul>
-                    <xsl:apply-templates select="t:placeName[@syriaca-tags='#syriaca-headword' and @xml:lang='syr']" mode="list">
-                        <xsl:sort lang="syr" select="."/>
-                    </xsl:apply-templates>
-                    <xsl:apply-templates select="t:placeName[@syriaca-tags='#syriaca-headword' and @xml:lang='en']" mode="list">
-                        <xsl:sort collation="{$mixed}" select="."/>
-                    </xsl:apply-templates>
-                    <xsl:apply-templates select="t:placeName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and starts-with(@xml:lang, 'syr')]" mode="list">
-                        <xsl:sort lang="syr" select="."/>
-                    </xsl:apply-templates>
-                    <xsl:apply-templates select="t:placeName[starts-with(@xml:lang, 'ar')]" mode="list">
-                        <xsl:sort lang="ar" select="."/>
-                    </xsl:apply-templates>
-                    <xsl:apply-templates select="t:placeName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar')) and not(@syriaca-tags='#syriaca-simplified-script')]" mode="list">
-                        <xsl:sort collation="{$mixed}" select="."/>
-                    </xsl:apply-templates>
+                        <xsl:apply-templates select="t:placeName[@syriaca-tags='#syriaca-headword' and @xml:lang='syr']" mode="list">
+                            <xsl:sort lang="syr" select="."/>
+                        </xsl:apply-templates>
+                        <xsl:apply-templates select="t:placeName[@syriaca-tags='#syriaca-headword' and @xml:lang='en']" mode="list">
+                            <xsl:sort collation="{$mixed}" select="."/>
+                        </xsl:apply-templates>
+                        <xsl:apply-templates select="t:placeName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and starts-with(@xml:lang, 'syr')]" mode="list">
+                            <xsl:sort lang="syr" select="."/>
+                        </xsl:apply-templates>
+                        <xsl:apply-templates select="t:placeName[starts-with(@xml:lang, 'ar')]" mode="list">
+                            <xsl:sort lang="ar" select="."/>
+                        </xsl:apply-templates>
+                        <xsl:apply-templates select="t:placeName[(not(@syriaca-tags) or @syriaca-tags!='#syriaca-headword') and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar')) and not(@syriaca-tags='#syriaca-simplified-script')]" mode="list">
+                            <xsl:sort collation="{$mixed}" select="."/>
+                        </xsl:apply-templates>
                     </ul>
                 </div>
             </xsl:if>
@@ -557,6 +552,7 @@
     <!-- suppress bibl -->
     <xsl:template match="t:bibl" mode="title"/>
     <xsl:template name="h1">
+        <!--
         <xsl:if test="descendant-or-self::t:srophe-title[contains(@ana,'syriaca-saint')]">
             <div style="margin-left:-2em; margin-top:1em; padding-top:0;">
                 <span class="dropdown inline">
@@ -580,6 +576,7 @@
                 </span>
             </div>
         </xsl:if>
+        
         <xsl:if test="descendant::t:srophe-title[contains(@ana,'syriaca-author')]">
             <div style="margin-left:-2em; margin-top:-1em; padding-top:0;">
                 <span class="dropdown inline">
@@ -591,20 +588,11 @@
                         <li>
                             <a href="/authors/index.html">Authors home</a>
                         </li>
-                        <!--
-                    <li class="divider"/>
-                    <li>
-                        <a href="/authors/index.html">Saints index</a>
-                    </li>
-                    <li class="divider"/>
-                    <li>
-                        <a href="/authors/index.html">Saints search</a>
-                    </li>
-                    -->
                     </ul>
                 </span>
             </div>
         </xsl:if>
+        -->
         <div class="row title">
             <h1 class="col-md-8">
                 <xsl:call-template name="title"/>
@@ -653,24 +641,38 @@
                 <xsl:apply-templates select="descendant-or-self::*[not(self::t:idno)]/text()"/>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test="t:srophe-title[@ana] or t:srophe-title/t:birth or t:srophe-title/t:death">
-            (
+        <xsl:if test="t:title[@level='m' or @level='s'] or t:birth or t:death">
+            <span lang="en" class="type" style="padding-left:1em;"><xsl:text>(</xsl:text>
+            <xsl:for-each select="t:title[@level='m' or @level='s']">
+                <xsl:choose>
+                    <xsl:when test=". = 'A Guide to Syriac Authors'">
+                        <a href="{$nav-base}/authors/index.html"><img src="{$nav-base}/resources/img/icons-authors-sm.png" alt="A Guide to Syriac Authors"/>author</a>
+                    </xsl:when>
+                    <xsl:when test=". = 'Qadishe: A Guide to the Syriac Saints'">
+                        <a href="{$nav-base}/q/index.html"><img src="{$nav-base}/resources/img/icons-q-sm.png" alt="Qadishe: A Guide to the Syriac Saints"/>saint</a>
+                    </xsl:when>
+                </xsl:choose>
+                <xsl:if test="following-sibling::*/text() = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')">, </xsl:if>
+            </xsl:for-each> 
+            
             <xsl:for-each select="tokenize(t:srophe-title/@ana,' ')">
                 <xsl:value-of select="substring-after(.,'#syriaca-')"/>
                 <xsl:if test="position() != last()">, </xsl:if>
             </xsl:for-each>
-            <xsl:if test="t:srophe-title/@ana and t:srophe-title/t:death or t:srophe-title/t:birth">, 
-                <xsl:if test="not(t:srophe-title/t:death)">b. </xsl:if>
-                <xsl:value-of select="t:srophe-title/t:birth/text()"/>
-                <xsl:if test="t:srophe-title/t:death">
+            
+            <xsl:if test="t:title[@level='m' or @level='s'] and t:death or t:birth">, 
+                <xsl:if test="not(t:death)">b. </xsl:if>
+                <xsl:value-of select="t:birth/text()"/>
+                <xsl:if test="t:death">
                     <xsl:choose>
-                        <xsl:when test="t:srophe-title/t:birth"> - </xsl:when>
+                        <xsl:when test="t:birth"> - </xsl:when>
                         <xsl:otherwise>d. </xsl:otherwise>
                     </xsl:choose>
-                    <xsl:value-of select="t:srophe-title/t:death/text()"/>
+                    <xsl:value-of select="t:death/text()"/>
                 </xsl:if>
             </xsl:if>
-            )
+            <xsl:text>) </xsl:text>
+            </span>
         </xsl:if>
     </xsl:template>
     <xsl:template name="citationInfo">
