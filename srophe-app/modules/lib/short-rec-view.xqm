@@ -44,7 +44,7 @@ let $ana :=
                         then ', ' 
                     else () 
                  )
-let $type := if($node/descendant-or-self::tei:place/@type) then string($node/descendant-or-self::tei:place/@type) else ()
+let $type := string($node/descendant-or-self::tei:place/@type)
 let $uri := 
         if($node//tei:idno[@type='URI'][starts-with(.,$global:base-uri)]) then
                 string(replace($node//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
@@ -60,10 +60,7 @@ let $syr-title :=
 let $birth := if($ana != '') then $node/descendant::tei:birth else()
 let $death := if($ana != '') then $node/descendant::tei:death else()
 let $dates := concat(if($birth) then $birth/text() else(), if($birth and $death) then ' - ' else if($death) then 'd.' else(), if($death) then $death/text() else())    
-let $desc :=
-        if($node/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text()) then
-            rec:truncate-string($node/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text())
-        else ()
+let $desc := rec:truncate-string($node/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text())
 return
     <div class="results-list">
        <a href="{global:internal-links($uri)}">
@@ -90,25 +87,29 @@ return
             )
             </span>
         else ()}
-           <span class="results-list-desc desc">
+                {
+            if($node/descendant-or-self::tei:person/tei:persName[not(@syriaca-tags='#syriaca-headword')][not(starts-with(@xml:lang,('syr','ar'))) and not(@xml:lang ='en-xsrp1')] 
+            | $node/descendant-or-self::tei:place/tei:placeName[not(@syriaca-tags='#syriaca-headword')][not(starts-with(@xml:lang,('syr','ar'))) and not(@xml:lang ='en-xsrp1')]) then 
+                <span class="results-list-desc names" dir="ltr" lang="en">Names: 
+                {
+                    for $names in $node/descendant-or-self::tei:person/tei:persName[not(@syriaca-tags='#syriaca-headword')]
+                    [not(starts-with(@xml:lang,('syr','ar'))) and not(@xml:lang ='en-xsrp1')] 
+                    | $node/descendant-or-self::tei:place/tei:placeName[not(@syriaca-tags='#syriaca-headword')][not(starts-with(@xml:lang,('syr','ar'))) and not(@xml:lang ='en-xsrp1')]                    
+                    return <span class="pers-label badge">{global:tei2html($names)}</span>
+                }
+                </span>
+            else() 
+        }
+        {
+        if($desc != '') then 
+           <span class="results-list-desc desc" dir="ltr" lang="en">
               {
                  if(request:get-parameter('q', '')) then 
                       kwic:summarize($node, <config width="40"/>)
                  else concat($desc,' ')
               }
            </span>
-        {
-        if($ana != '') then 
-            if($node/descendant-or-self::tei:person/tei:persName[not(@syriaca-tags='#syriaca-headword')] | $node/descendant-or-self::tei:place/tei:placeName[not(@syriaca-tags='#syriaca-headword')]) then 
-                <span class="results-list-desc names" dir="ltr" lang="en">Names: 
-                {
-                    for $names in $node/descendant-or-self::tei:person/tei:persName[not(@syriaca-tags='#syriaca-headword')][not(starts-with(@xml:lang,'syr'))][not(starts-with(@xml:lang,'ar'))][not(@xml:lang ='en-xsrp1')] | $node/descendant-or-self::tei:place/tei:placeName[not(@syriaca-tags='#syriaca-headword')][not(starts-with(@xml:lang,'syr'))][not(starts-with(@xml:lang,'ar'))][not(@xml:lang ='en-xsrp1')]                    
-                    return <span class="pers-label badge">{global:tei2html($names)}</span>
-                }
-                </span>
-            else() 
-        else()
-        }
+       else ()}   
      <span class="results-list-desc uri"><span class="srp-label">URI: </span><a href="{global:internal-links($uri)}">{$uri}</a></span>
     </div>
 };
