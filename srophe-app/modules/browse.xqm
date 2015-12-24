@@ -45,7 +45,6 @@ declare variable $browse:fq {request:get-parameter('fq', '')};
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string?){
 let $browse-path := 
     if($collection = ('persons','sbd','saints','q','authors')) then concat("collection('",$global:data-root,"/persons/tei')",browse:get-coll($collection),browse:get-syr())
-(:    if($collection = ('persons','authors','saints','sbd','q')) then concat("collection('",$global:data-root,"/persons/tei')",browse:get-coll($collection),browse:get-syr()):)
     else if($collection = 'places') then concat("collection('",$global:data-root,"/places/tei')//tei:body",browse:get-syr())
     else if($collection = 'bhse') then concat("collection('",$global:data-root,"/works/tei')//tei:body/tei:bibl",browse:get-syr())
     else if($collection = 'manuscripts') then concat("collection('",$global:data-root,"/manuscripts/tei')//tei:teiHeader")
@@ -152,6 +151,12 @@ declare function browse:get-map($node as node(), $model as map(*)){
     </div>
 };
 
+declare function browse:browse-pers-types(){
+    if($browse:type = 'saint') then 'Qadishe: A Guide to the Syriac Saints'
+    else if($browse:type = ('author')) then 'A Guide to Syriac Authors'
+    else ()
+};
+
 (:~
  : Evaluates additional browse parameters; type and date
  : Adds narrowed data set to new map
@@ -163,12 +168,12 @@ let $data :=
         if($browse:type != '') then 
             if($collection = ('persons','saints','authors')) then
                 if($browse:type != '') then 
-                    if($browse:type = 'unknown') then $model("browse-data")/self::*[not(@ana)]
-                    else $model("browse-data")/self::*[contains(@ana,concat('#',$browse:type))]
+                    if($browse:type = 'unknown') then $model("browse-data")//tei:person[not(ancestor::tei:TEI/descendant::tei:title[@level='m'][. = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')])]
+                    else $model("browse-data")//tei:person[ancestor::tei:TEI/descendant::tei:title[@level='m'][. = browse:browse-pers-types()]]
                 else ()
             else   
                 if($browse:type != '') then 
-                    $model("browse-data")/self::*[contains(@type,$browse:type)]
+                    $model("browse-data")//tei:place[contains(@type,$browse:type)]
                 else $model("browse-data")
         else ()        
     else if($browse:view = 'date') then 
@@ -180,8 +185,8 @@ let $data :=
             | $model("browse-data")/self::*[descendant::*[@syriaca-computed-end gt browse:get-start-date() and @syriaca-computed-start lt browse:get-end-date()]]
         else ()    
     else if($browse:view = 'map') then $model("browse-data")
-    else if($browse:view = 'syr') then $model("browse-data")/self::*[contains($browse:sort, substring(string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]/descendant-or-self::*/text(),' '),1,1))]
-    else $model("browse-data")/self::*[contains(browse:get-sort(), substring(browse:build-sort-string(string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]/descendant-or-self::text(),' ')),1,1))]
+    else if($browse:view = 'syr') then $model("browse-data")/self::*[contains($browse:sort, substring(string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')][1]/descendant-or-self::*/text(),' '),1,1))]
+    else $model("browse-data")/self::*[contains(browse:get-sort(), substring(browse:build-sort-string(string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]/descendant-or-self::text(),' ')),1,1))]
 return
     map{"browse-refine" := $data}
 };
@@ -192,7 +197,7 @@ return
 :)
 declare function browse:get-data($node as node(), $model as map(*), $collection as xs:string*) as node()*{
 (
-if($browse:view = 'type') then
+if($browse:view = 'map') then
         if($model("browse-refine")//tei:geo) then
             <div class="map-sm inline-map well">{geo:build-map($model("browse-refine")//tei:geo, '', '')}</div>
         else ()
@@ -200,12 +205,12 @@ else (),
 for $data in $model("browse-refine")
 let $rec-id := tokenize(replace($data/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei|/source',''),'/')[last()]
 let $en-title := 
-             if($data/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]) then 
-                 string-join($data/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]//text(),' ')
+             if($data/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]) then 
+                 string-join($data/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]//text(),' ')
              else $data/ancestor::tei:TEI/descendant::tei:title[1]/text()               
 let $syr-title := 
-             if($data/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]) then
-                string-join($data/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')
+             if($data/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')][1]) then
+                string-join($data/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')][1]//text(),' ')
              else 'NA'
 let $title := if($browse:view = 'syr') then $syr-title else $en-title
 let $browse-title := browse:build-sort-string($title)
@@ -214,7 +219,6 @@ order by
     else $browse-title collation "?lang=en&lt;syr&amp;decomposition=full"             
 return
 (: Temp patch for manuscripts :)
-
     if($collection = "manuscripts") then 
         let $title := $data/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text()
         let $id := $data/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org')][2]/text()
@@ -223,9 +227,7 @@ return
             <a href="manuscript.html?id={$id}">{$title}</a>
         </li>
     else if($browse:view = 'syr') then rec:display-recs-short-view($data,'syr') else rec:display-recs-short-view($data,'')
-
 ) 
-
 };
  
 (:Dynamic where:)
@@ -310,22 +312,22 @@ declare function browse:browse-abc-menu(){
 declare function browse:browse-type($node as node(), $model as map(*), $collection){  
     <ul class="nav nav-tabs nav-stacked">
         {
-            if($collection = 'places') then 
-                for $types in $model("browse-data")
+            if($collection = ('places','geo')) then 
+                for $types in $model("browse-data")//tei:place
                     group by $place-types := $types/@type
                     order by $place-types ascending
                     return
-                        <li>{if($browse:type = replace(string($place-types),'#','')) then attribute class {'active'} else '' }
+                        <li> {if($browse:type = replace(string($place-types),'#','')) then attribute class {'active'} else '' }
                             <a href="?view=type&amp;type={$place-types}">
                             {if(string($place-types) = '') then 'unknown' else replace(string($place-types),'#|-',' ')}  <span class="count"> ({count($types)})</span>
-                            </a>
+                            </a> 
                         </li>
             else             
-                 for $types in $model("browse-data")
+                 for $types in $model("browse-data")//tei:person
                  group by $pers-types := $types/@ana
                  order by $pers-types ascending
                  return
-                     let $pers-types-labels := if($pers-types) then replace(string($pers-types),'#','') else 'unknown'
+                     let $pers-types-labels := if($pers-types) then replace(string($pers-types),'#syriaca-','') else 'unknown'
                      return
                          <li>{if($browse:type = $pers-types-labels) then attribute class {'active'} else '' }
                              <a href="?view=type&amp;type={$pers-types-labels}">
