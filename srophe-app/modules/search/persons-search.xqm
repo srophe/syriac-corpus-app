@@ -305,7 +305,7 @@ declare function persons:query-string($collection as xs:string?) as xs:string? {
     persons:date-range(),
     persons:related-places(),
     persons:related-persons(),
-    persons:mentioned()
+    persons:mentioned(),"/ancestor::tei:TEI"
     )
 };
 
@@ -314,7 +314,7 @@ declare function persons:query-string($collection as xs:string?) as xs:string? {
 :)
 declare function persons:search-string() as node()*{
 <div>
-{
+{(
     let $parameters :=  request:get-parameter-names()
     for  $parameter in $parameters
     return 
@@ -331,7 +331,7 @@ declare function persons:search-string() as node()*{
             else if($parameter = 'gender') then 
                 (<span class="param">Sex or Gender: </span>,<span class="match">{common:clean-string($persons:gender)}</span>)
             else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
-        else ()
+        else (),persons:query-string('q'))
         }
       </div>
 };

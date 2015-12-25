@@ -123,7 +123,7 @@ declare function bhses:query-string() as xs:string? {
     bhses:incipit(),bhses:explicit(),bhses:editions(),
     bhses:modern(),bhses:ancient(),bhses:mss(),
     bhses:refs(),bhses:related-persons(),
-    bhses:idno()
+    bhses:idno(), "/ancestor::tei:TEI"
     )
 };
 

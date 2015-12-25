@@ -45,11 +45,11 @@ declare variable $browse:fq {request:get-parameter('fq', '')};
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string?){
 let $browse-path := 
     if($collection = ('persons','sbd','saints','q','authors')) then concat("collection('",$global:data-root,"/persons/tei')",browse:get-coll($collection),browse:get-syr())
-    else if($collection = 'places') then concat("collection('",$global:data-root,"/places/tei')//tei:body",browse:get-syr())
-    else if($collection = 'bhse') then concat("collection('",$global:data-root,"/works/tei')//tei:body/tei:bibl",browse:get-syr())
-    else if($collection = 'manuscripts') then concat("collection('",$global:data-root,"/manuscripts/tei')//tei:teiHeader")
-    else if(exists($collection)) then concat("collection('",$global:data-root,xs:anyURI($collection),"')//tei:body",browse:get-syr())
-    else concat("collection('",$global:data-root,"')//tei:body",browse:get-syr())
+    else if($collection = 'places') then concat("collection('",$global:data-root,"/places/tei')",browse:get-coll($collection),browse:get-syr())
+    else if($collection = 'bhse') then concat("collection('",$global:data-root,"/works/tei')",browse:get-coll($collection),browse:get-syr())
+    else if($collection = 'manuscripts') then concat("collection('",$global:data-root,"/manuscripts/tei')",browse:get-coll($collection))
+    else if(exists($collection)) then concat("collection('",$global:data-root,xs:anyURI($collection),"')",browse:get-coll($collection),browse:get-syr())
+    else concat("collection('",$global:data-root,"')",browse:get-coll($collection),browse:get-syr())
 return 
     map{"browse-data" := util:eval($browse-path)}      
 };
@@ -69,7 +69,9 @@ declare function browse:parse-collections($collection as xs:string?) {
  : @param $collection passed from html template
 :)
 declare function browse:get-coll($collection) as xs:string?{
-    concat("//tei:title[. = '",browse:parse-collections($collection),"']/ancestor::tei:TEI/descendant::tei:body")
+if($collection) then
+    concat("//tei:title[. = '",browse:parse-collections($collection),"']/ancestor::tei:TEI")
+else '/tei:TEI'    
 };
 
 (:~
@@ -122,12 +124,12 @@ if($browse:view = 'type' or $browse:view = 'date') then
         if($browse:view='type') then
             if($browse:type != '') then 
                 (<h3>{concat(upper-case(substring($browse:type,1,1)),substring($browse:type,2))}</h3>,
-                 <ul>{browse:get-data($node,$model,$collection)}</ul>)
+                 <div>{browse:get-data($node,$model,$collection)}</div>)
             else <h3>Select Type</h3>    
         else if($browse:view='date') then 
             if($browse:date !='') then 
                 (<h3>{$browse:date}</h3>,
-                 <ul>{browse:get-data($node,$model,$collection)}</ul>)
+                 <div>{browse:get-data($node,$model,$collection)}</div>)
             else <h3>Select Date</h3>  
         else ()}</div>)
 else if($browse:view = 'map') then browse:get-map($node, $model)
@@ -181,14 +183,14 @@ let $data :=
             if($browse:date = 'BC dates') then 
                 $model("browse-data")/self::*[starts-with(descendant::*/@syriaca-computed-start,"-") or starts-with(descendant::*/@syriaca-computed-end,"-")]
             else
-            $model("browse-data")/self::*[descendant::*[@syriaca-computed-start lt browse:get-end-date() and @syriaca-computed-start gt  browse:get-start-date()]] 
-            | $model("browse-data")/self::*[descendant::*[@syriaca-computed-end gt browse:get-start-date() and @syriaca-computed-start lt browse:get-end-date()]]
+            $model("browse-data")//tei:body[descendant::*[@syriaca-computed-start lt browse:get-end-date() and @syriaca-computed-start gt  browse:get-start-date()]] 
+            | $model("browse-data")//tei:body[descendant::*[@syriaca-computed-end gt browse:get-start-date() and @syriaca-computed-start lt browse:get-end-date()]]
         else ()    
     else if($browse:view = 'map') then $model("browse-data")
-    else if($browse:view = 'syr') then $model("browse-data")/self::*[contains($browse:sort, substring(string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')][1]/descendant-or-self::*/text(),' '),1,1))]
-    else $model("browse-data")/self::*[contains(browse:get-sort(), substring(browse:build-sort-string(string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]/descendant-or-self::text(),' ')),1,1))]
+    else if($browse:view = 'syr') then $model("browse-data")//tei:body[contains($browse:sort, substring(string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')][1]/descendant-or-self::*/text(),' '),1,1))]
+    else $model("browse-data")//tei:body[contains(browse:get-sort(), substring(browse:build-sort-string(string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]/descendant-or-self::text(),' ')),1,1))]
 return
-    map{"browse-refine" := $data}
+    map{"browse-refine" := $data/ancestor::tei:TEI}
 };
 
 (:
@@ -223,9 +225,9 @@ return
         let $title := $data/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text()
         let $id := $data/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org')][2]/text()
         return 
-        <li>
-            <a href="manuscript.html?id={$id}">{$title}</a>
-        </li>
+            <span>
+                <a href="manuscript.html?id={$id}">{$title}</a>
+            </span>
     else if($browse:view = 'syr') then rec:display-recs-short-view($data,'syr') else rec:display-recs-short-view($data,'')
 ) 
 };

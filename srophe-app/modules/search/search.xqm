@@ -78,7 +78,7 @@ declare function search:query-string($collection as xs:string?) as xs:string?{
 concat("collection('",$global:data-root,$collection,"')//tei:body",
     places:keyword(),
     places:place-name(),
-    persons:name()
+    persons:name(),"/ancestor::tei:TEI"
     )
 };
 
@@ -94,7 +94,7 @@ let $pers-name :=
     else ()
 let $query-string := 
     concat("collection('",$global:data-root,"')//tei:body",
-    $keyword-string,$pers-name,$place-name)
+    $keyword-string,$pers-name,$place-name,"/ancestor::tei:TEI")
 return $query-string
 };
 
@@ -294,6 +294,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
 <div>{search:build-geojson($node,$model)}</div>
 {
     for $hit at $p in subsequence($model("hits"), $search:start, 20)
+    let $expanded := util:expand($hit, "expand-xincludes=no")
     return
         <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
             <div class="col-md-10 col-md-offset-1">
@@ -302,7 +303,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                     <span class="label label-default">{$search:start + $p - 1}</span>
                   </div>
                   <div class="col-md-9" xml:lang="en"> 
-                    {if($collection = 'spear') then spears:results-node($hit) else rec:display-recs-short-view($hit,'')} 
+                    {if($collection = 'spear') then spears:results-node($hit) else rec:display-recs-short-view($expanded,'')} 
                   </div>
                 </div>
             </div>

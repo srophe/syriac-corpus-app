@@ -312,7 +312,7 @@ declare function places:query-string() as xs:string?{
     places:attestation(), places:attestation-dates(), 
     places:existence(),places:existence-dates(),
     places:confession(),
-    places:limit-by-lang-en(),places:limit-by-lang-syr(),places:limit-by-lang-ar()
+    places:limit-by-lang-en(),places:limit-by-lang-syr(),places:limit-by-lang-ar(),"/ancestor::tei:TEI"
     )
 };
 
