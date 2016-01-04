@@ -331,7 +331,7 @@ declare function persons:search-string() as node()*{
             else if($parameter = 'gender') then 
                 (<span class="param">Sex or Gender: </span>,<span class="match">{common:clean-string($persons:gender)}</span>)
             else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
-        else (),persons:query-string('q'))
+        else ())
         }
       </div>
 };
