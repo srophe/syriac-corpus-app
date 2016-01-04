@@ -305,7 +305,7 @@ declare function persons:query-string($collection as xs:string?) as xs:string? {
     persons:date-range(),
     persons:related-places(),
     persons:related-persons(),
-    persons:mentioned(),"/ancestor::tei:TEI"
+    persons:mentioned()
     )
 };
 
@@ -313,7 +313,7 @@ declare function persons:query-string($collection as xs:string?) as xs:string? {
  : Build a search string for search results page from search parameters
 :)
 declare function persons:search-string() as node()*{
-<div>
+<span xmlns="http://www.w3.org/1999/xhtml">
 {(
     let $parameters :=  request:get-parameter-names()
     for  $parameter in $parameters
@@ -333,7 +333,7 @@ declare function persons:search-string() as node()*{
             else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
         else ())
         }
-      </div>
+      </span>
 };
 
 (:~

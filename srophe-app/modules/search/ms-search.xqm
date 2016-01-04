@@ -31,7 +31,7 @@ declare function ms:keyword() as xs:string? {
 :)
 declare function ms:query-string() as xs:string? {
  concat("collection('",$global:data-root,"/manuscripts/tei')//tei:msDesc",
-    ms:keyword(),"/ancestor::tei:TEI"
+    ms:keyword()
     )
 };
 

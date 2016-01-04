@@ -116,7 +116,7 @@ declare function spears:query-string() as xs:string? {
     spears:place(),
     spears:event(),
     spears:title-search(),
-    spears:controlled-keyword-search(),"/ancestor::tei:TEI"
+    spears:controlled-keyword-search()
     )
 };
 

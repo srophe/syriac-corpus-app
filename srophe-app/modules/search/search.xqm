@@ -59,8 +59,11 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                     return $hit 
                 else 
                     for $hit in util:eval($eval-string)
-                    order by ft:score($hit) + count($hit/descendant::tei:bibl) descending
-                    return $hit
+                    let $expanded := util:expand($hit/ancestor::tei:TEI, "expand-xincludes=no")
+                    let $headword := count($expanded/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][descendant::*:match])
+                    let $headword := if($headword gt 0) then $headword + 15 else 0
+                    order by ft:score($hit) + (count($expanded/descendant::tei:bibl) div 2) + $headword descending
+                    return $expanded
          }
 };
 
@@ -294,7 +297,6 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
 <div>{search:build-geojson($node,$model)}</div>
 {
     for $hit at $p in subsequence($model("hits"), $search:start, 20)
-    let $expanded := util:expand($hit, "expand-xincludes=no")
     return
         <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
             <div class="col-md-10 col-md-offset-1">
@@ -302,8 +304,8 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                   <div class="col-md-1" style="margin-right:-1em;">
                     <span class="label label-default">{$search:start + $p - 1}</span>
                   </div>
-                  <div class="col-md-9" xml:lang="en"> 
-                    {if($collection = 'spear') then spears:results-node($hit) else rec:display-recs-short-view($expanded,'')} 
+                  <div class="col-md-9" xml:lang="en">
+                    {if($collection = 'spear') then spears:results-node($hit) else rec:display-recs-short-view($hit,'')} 
                   </div>
                 </div>
             </div>
