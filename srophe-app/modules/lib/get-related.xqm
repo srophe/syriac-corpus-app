@@ -11,7 +11,7 @@ declare namespace html="http://www.w3.org/1999/xhtml";
 declare function rel:get-names($uris as xs:string?) as element(a)*{
     for $uri in tokenize($uris,' ')
     let $rec :=  global:get-rec($uri)
-    let $names := $rec/descendant::tei:body
+    let $names := $rec
     return 
         rec:display-recs-short-view($names, '')
 };
