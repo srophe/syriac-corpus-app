@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:t="http://www.tei-c.org/ns/1.0" 
-    xmlns:x="http://www.w3.org/1999/xhtml" 
-    xmlns:saxon="http://saxon.sf.net/" 
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
     
     <!-- ================================================================== 
        Copyright 2013 New York University
@@ -41,7 +36,8 @@
           template (-it) option set to "do-index" (i.e., there is no 
           single input file)
         
-       code by: 
+       code by:
+        + Winona Salesky (http://www.wsalesky.com) 
         + Tom Elliott (http://www.paregorios.org) 
           for the Institute for the Study of the Ancient World, New York
           University, under contract to Vanderbilt University for the
@@ -75,11 +71,14 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
+        <!-- When ptr is available, use full bibl record (indicated by ptr) -->
         <xsl:choose>
+            <!-- NOTE: unclear what use case this handles.  -->
             <xsl:when test="descendant::t:ptr[@target and starts-with(@target, '#')]">
                 <xsl:variable name="target" select="substring-after(descendant::t:ptr/@target,'#')"/>
                 <xsl:apply-templates select="/t:body/t:back/descendant::t:bibl[@xml:id = $target]" mode="footnote"/>
             </xsl:when>
+            <!-- Main footnote display, used by "Sources" portion of Syriaca.org pages -->
             <xsl:otherwise>
                 <li id="{@xml:id}">
                     <span class="anchor"/>
@@ -90,10 +89,10 @@
                     <xsl:text> </xsl:text>
                     <span class="footnote-content">
                         <xsl:choose>
-                            <xsl:when test="t:ptr[@target and starts-with(@target, 'http://syriaca.org/bibl/')]">
+                            <xsl:when test="t:ptr[@target and starts-with(@target, concat($base-uri,'/bibl/'))]">
                                 <!-- Find file path for bibliographic record -->
                                 <xsl:variable name="biblfilepath">
-                                    <xsl:value-of select="concat($data-root,'/bibl/tei/',substring-after(t:ptr/@target, 'http://syriaca.org/bibl/'),'.xml')"/>
+                                    <xsl:value-of select="concat($data-root,'/bibl/tei/',substring-after(t:ptr/@target, concat($base-uri,'/bibl/')),'.xml')"/>
                                 </xsl:variable>
                                 <!-- Check if record exists in db with doc-available function -->
                                 <xsl:if test="doc-available($biblfilepath)">
@@ -118,90 +117,116 @@
     </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-     handle a footnote for a book  removed(and not(t:analytic))
+     Main footnote templates.  
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:biblStruct" mode="footnote">
-        <!-- this is a monograph/book -->
-        <xsl:if test="t:analytic">
-            <xsl:variable name="edited" select="if (t:analytic/t:editor[not(@role) or @role!='translator']) then true() else false()"/>
-            <xsl:variable name="rcount">
-                <xsl:choose>
-                    <xsl:when test="t:analytic/t:author">
-                        <xsl:value-of select="count(t:analytic/t:author)"/>
-                    </xsl:when>
-                    <xsl:when test="$edited">
-                        <xsl:value-of select="count(t:analytic/t:editor[not(@role) or @role!='translator'])"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="count(t:analytic/t:author)"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
-            <xsl:variable name="auth">
-                <xsl:choose>
-                    <xsl:when test="t:analytic/t:author">
-                        <xsl:sequence select="local:emit-responsible-persons(t:analytic/t:author,'footnote',3)"/>
-                    </xsl:when>
-                    <xsl:when test="$edited">
-                        <xsl:sequence select="local:emit-responsible-persons(t:analytic/t:editor[not(@role) or @role!='translator'],'footnote',3)"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:sequence select="local:emit-responsible-persons(t:analytic/t:author,'footnote',3)"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-                <xsl:if test="not(t:analytic/t:author)">
-                    <xsl:if test="$edited">
-                        <xsl:choose>
-                            <xsl:when test="$rcount = 1">
-                                <xsl:text> (ed.)</xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text> (eds.)</xsl:text>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:if>
-                </xsl:if>
-            </xsl:variable>
-            <xsl:value-of select="normalize-space($auth)"/>
-            <xsl:text>, </xsl:text>
-            <xsl:for-each select="t:analytic/t:title">
-                <xsl:text>"</xsl:text>
-                <xsl:apply-templates select="." mode="footnote"/>
-                <xsl:if test="not(ends-with(.,'.|:|,'))">,</xsl:if>
-                <xsl:text>"</xsl:text>
-            </xsl:for-each>
-            <xsl:text> in </xsl:text>
+        <xsl:apply-templates mode="footnote"/>
+    </xsl:template>
+    
+    <!-- Structure of analytic section.  -->
+    <xsl:template match="t:analytic" mode="footnote">
+        <!-- Display authors/editors -->
+        <xsl:call-template name="persons"/>
+        <!-- Analytic title(s) -->
+        <xsl:apply-templates select="t:title" mode="footnote"/>
+        
+        <!-- If monograph is level='m' include 'in' -->
+        <xsl:if test="following-sibling::t:monogr/t:title[1][@level='m']">
+            <xsl:text> in</xsl:text>
         </xsl:if>
-        <!-- handle editors/authors and abbreviate as necessary -->
-        <xsl:variable name="edited" select="if (t:monogr/t:editor[not(@role) or @role!='translator']) then true() else false()"/>
+        <!-- Space if followed by monograph -->
+        <xsl:if test="following-sibling::t:monogr">
+            <xsl:text> </xsl:text>
+        </xsl:if>
+    </xsl:template>
+    
+    <!-- Structure of monograph section.  -->
+    <xsl:template match="t:monogr" mode="footnote">
+        <!-- Display authors/editors -->
+        <xsl:call-template name="persons"/>
+        
+        <!-- Titles -->
+        <xsl:apply-templates select="t:title" mode="footnote"/>
+        <!-- NOTE: work on titles  -->
+        <!-- handle titles??
+        <xsl:for-each select="t:monogr[1]">
+            <xsl:choose>
+                <xsl:when test="t:title[starts-with(@xml:lang,'en')]">
+                    <xsl:apply-templates select="t:title[starts-with(@xml:lang,'en')]" mode="footnote"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="t:title[1]" mode="footnote"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:for-each>
+        -->
+        
+        <!-- handle translator, if present -->
+        <xsl:if test="count(t:editor[@role='translator']) &gt; 0">
+            <xsl:text>, trans. </xsl:text>
+            <!-- Process translator using local function in helper-functions.xsl local:emit-responsible-persons -->
+            <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='translator'],'footnote',3)"/>
+        </xsl:if>
+        <xsl:text> </xsl:text>
+        <!-- Add volumn  -->
+        <xsl:if test="t:biblScope[@unit='vol']">
+            <xsl:text> </xsl:text>
+            <xsl:apply-templates select="t:biblScope[@unit='vol']" mode="footnote"/>
+            <xsl:text> </xsl:text>
+        </xsl:if>
+        <xsl:apply-templates select="t:imprint" mode="footnote"/>
+    </xsl:template>
+    
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+     handle a bibllist entry for a book
+     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <xsl:template match="t:series" mode="footnote">
+        <xsl:text> (</xsl:text>
+        <xsl:apply-templates select="t:title" mode="footnote"/>
+        <xsl:if test="t:biblScope">
+            <xsl:text>, </xsl:text>
+            <xsl:for-each select="t:biblScope[@unit='series'] | t:biblScope[@unit='vol']">
+                <xsl:apply-templates select="." mode="footnote"/>
+                <xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+            </xsl:for-each>
+        </xsl:if>
+        <xsl:text>)</xsl:text>
+    </xsl:template>
+    
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+     Template ouputs authors and editors for analytic and monograph sections
+     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <xsl:template name="persons">
+        <!-- If edited -->
+        <xsl:variable name="edited" select="if (t:editor[not(@role) or @role!='translator']) then true() else false()"/>
         <!-- count editors/authors  -->
         <xsl:variable name="rcount">
             <xsl:choose>
-                <xsl:when test="t:monogr/t:author">
-                    <xsl:value-of select="count(t:monogr/t:author)"/>
+                <xsl:when test="t:author">
+                    <xsl:value-of select="count(t:author)"/>
                 </xsl:when>
                 <xsl:when test="$edited">
-                    <xsl:value-of select="count(t:monogr/t:editor[not(@role) or @role!='translator'])"/>
+                    <xsl:value-of select="count(t:editor[not(@role) or @role!='translator'])"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:value-of select="count(t:monogr/t:author)"/>
+                    <xsl:value-of select="count(t:author)"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="bookAuth">
             <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
             <xsl:choose>
-                <xsl:when test="t:monogr/t:author">
-                    <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:author,'footnote',3)"/>
+                <xsl:when test="t:author">
+                    <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',3)"/>
                 </xsl:when>
                 <xsl:when test="$edited">
-                    <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:editor[not(@role) or @role!='translator'],'footnote',3)"/>
+                    <xsl:sequence select="local:emit-responsible-persons(t:editor[not(@role) or @role!='translator'],'footnote',3)"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:author,'footnote',3)"/>
+                    <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',3)"/>
                 </xsl:otherwise>
             </xsl:choose>
-            <xsl:if test="not(t:monogr/t:author)">
+            <xsl:if test="not(t:author)">
                 <xsl:if test="$edited">
                     <xsl:choose>
                         <xsl:when test="$rcount = 1">
@@ -215,29 +240,14 @@
             </xsl:if>
         </xsl:variable>
         <xsl:value-of select="normalize-space($bookAuth)"/>
-        <xsl:if test="$bookAuth != ''">
-            <xsl:text>, </xsl:text>
-        </xsl:if>
-        <!-- handle titles -->
-        <xsl:for-each select="t:monogr[1]">
-            <xsl:choose>
-                <xsl:when test="t:title[starts-with(@xml:lang,'en')]">
-                    <xsl:apply-templates select="t:title[starts-with(@xml:lang,'en')]" mode="footnote"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates select="t:title[1]" mode="footnote"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:for-each>
-        
-        <!-- handle translator, if present -->
-        <xsl:if test="count(t:monogr[1]/t:editor[@role='translator']) &gt; 0">
-            <xsl:text>, trans. </xsl:text>
-            <!-- Process translator using local function in helper-functions.xsl local:emit-responsible-persons -->
-            <xsl:sequence select="local:emit-responsible-persons(t:monogr[1]/t:editor[@role='translator'],'footnote',3)"/>
-        </xsl:if>
-        <xsl:text> </xsl:text>
-        <xsl:apply-templates select="t:monogr/t:imprint" mode="footnote"/>
+        <xsl:choose>
+            <xsl:when test="self::t:monogr and not(preceding-sibling::t:analytic)">
+                <xsl:text>. </xsl:text>
+            </xsl:when>
+            <xsl:when test="$bookAuth != ''">
+                <xsl:text>, </xsl:text>
+            </xsl:when>
+        </xsl:choose>
     </xsl:template>
 
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -245,63 +255,8 @@
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:biblStruct[t:monogr and not(t:analytic)]" mode="biblist">
         <!-- this is a monograph/book -->
-        
-        <!-- handle editors/authors and abbreviate as necessary -->
-        <xsl:variable name="edited" select="if (t:monogr/t:editor[not(@role) or @role!='translator']) then true() else false()"/>
-        <xsl:variable name="rcount">
-            <xsl:choose>
-                <xsl:when test="t:monogr/t:author">
-                    <xsl:value-of select="count(t:monogr/t:author)"/>
-                </xsl:when>
-                <xsl:when test="$edited">
-                    <xsl:value-of select="count(t:monogr/t:editor[not(@role) or @role!='translator'])"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="count(t:monogr/t:author)"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:variable>
-        <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-        <xsl:choose>
-            <xsl:when test="t:monogr/t:author">
-                <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:author,'biblist',3)"/>
-            </xsl:when>
-            <xsl:when test="$edited">
-                <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:editor[not(@role) or @role!='translator'],'biblist',3)"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:author,'biblist',3)"/>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:if test="not(t:monogr/t:author)">
-            <xsl:if test="$edited">
-                <xsl:choose>
-                    <xsl:when test="$rcount = 1">
-                        <xsl:text> (ed.)</xsl:text>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:text> (eds.)</xsl:text>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:if>
-        </xsl:if>
-        <xsl:text>. </xsl:text>
-        
-        <!-- handle titles -->
-        <xsl:for-each select="t:monogr[1]">
-            <xsl:choose>
-                <xsl:when test="t:title[starts-with(@xml:lang,'en')]">
-                    <xsl:apply-templates select="t:title[starts-with(@xml:lang,'en')]" mode="biblist"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates select="t:title[1]" mode="biblist"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:for-each>
-        <xsl:text> </xsl:text>
-        <xsl:apply-templates select="t:monogr/t:imprint" mode="biblist"/>
+        <xsl:apply-templates select="t:monogr" mode="footnote"/>
     </xsl:template>
-    
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      generate a bibl list entry for the matched bibl; if it contains a 
@@ -328,9 +283,9 @@
             <xsl:variable name="thistarget" select="substring-after(@target, '#')"/>
             <xsl:apply-templates select="/descendant::t:bibl[@xml:id=$thistarget]" mode="biblist"/>
         </xsl:if>
-        <xsl:if test="starts-with(@target, 'http://syriaca.org/bibl/')">
+        <xsl:if test="starts-with(@target, concat($base-uri,'/bibl/'))">
             <xsl:variable name="biblfilepath">
-                <xsl:value-of select="concat($data-root,'/bibl/tei/',substring-after(@target, 'syriaca.org/bibl/'),'.xml')"/>
+                <xsl:value-of select="concat($data-root,'/bibl/tei/',substring-after(@target, concat($base-uri,'/bibl/')),'.xml')"/>
             </xsl:variable>
             <xsl:if test="doc-available($biblfilepath)">
                 <xsl:apply-templates select="document($biblfilepath)/descendant::t:biblStruct[1]" mode="biblist"/>
@@ -456,6 +411,19 @@
         </xsl:choose>
     </xsl:template>
     
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+     handle the imprint component of a biblScope
+     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <xsl:template match="t:biblScope" mode="footnote">
+        <xsl:choose>
+            <xsl:when test="matches(text(),'^\d')">
+                <xsl:value-of select="concat(@unit,' ',text())"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="text()"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle the imprint component of a biblStruct
@@ -469,11 +437,10 @@
             <xsl:when test="t:pubPlace">
                 <xsl:apply-templates select="t:pubPlace[1]" mode="footnote"/>
             </xsl:when>
-            <xsl:otherwise>
-                <abbr title="no place of publication">n.p.</abbr>
-            </xsl:otherwise>
         </xsl:choose>
-        <xsl:text>: </xsl:text>
+        <xsl:if test="t:pubPlace and t:publisher">
+            <xsl:text>: </xsl:text>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="t:publisher[starts-with(@xml:lang,'en')]">
                 <xsl:apply-templates select="t:publisher[starts-with(@xml:lang,'en')]" mode="footnote"/>
@@ -481,10 +448,10 @@
             <xsl:when test="t:publisher">
                 <xsl:apply-templates select="t:publisher[1]" mode="footnote"/>
             </xsl:when>
-            <xsl:otherwise>
-                <abbr title="no publisher">n.p.</abbr>
-            </xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="not(t:pubPlace) and not(t:publisher)">
+            <abbr title="no publisher">n.p.</abbr>
+        </xsl:if>
         <xsl:text>, </xsl:text>
         <xsl:choose>
             <xsl:when test="t:date">
@@ -494,7 +461,10 @@
                 <abbr title="no date of publication">n.d.</abbr>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:text>)</xsl:text>
+        <xsl:if test="following-sibling::t:biblScope[@unit='series']">
+           <xsl:text>, </xsl:text> <xsl:apply-templates select="../t:biblScope[@unit='series']" mode="footnote"/>
+        </xsl:if>
+        <xsl:text>) </xsl:text>
     </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -533,72 +503,14 @@
                 </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
+        <xsl:for-each select="t:note[not(@type='flag')]">
+            <xsl:text> (</xsl:text>
+            <xsl:value-of select="."/>
+            <xsl:text>) </xsl:text>
+        </xsl:for-each>
         <xsl:choose>
             <xsl:when test="following-sibling::*[not(self::t:ptr)]">, </xsl:when>
             <xsl:otherwise>.</xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-
-    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-        depreciated, use local:emit-responsible-persons function, ex:
-        <xsl:sequence select="local:emit-responsible-persons(t:monogr/t:editor[not(@role) or @role!='translator'],'footnote',2)"/>
-        handle creators for type footnote
-     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <xsl:template name="emit-responsible-persons">
-        <xsl:param name="perss"/>
-        <xsl:param name="moded">footnote</xsl:param>
-        <xsl:param name="maxauthorsfootnote">2</xsl:param>
-        <xsl:param name="maxauthorsbiblist">2</xsl:param>
-        <xsl:variable name="ccount" select="count($perss/t:*)"/>
-        <xsl:choose>
-            <!-- When the author is included in the bibl element on the place page there is no child element -->
-            <xsl:when test="$ccount &lt; 1">
-                <xsl:apply-templates select="$perss" mode="footnote"/>
-            </xsl:when>
-            <xsl:when test="$ccount=1 and $moded='footnote'">
-                <xsl:apply-templates select="$perss/t:*[1]" mode="footnote"/>
-            </xsl:when>
-            <xsl:when test="$ccount=1 and $moded='biblist'">
-                <xsl:apply-templates select="$perss/t:*[1]" mode="lastname-first"/>
-            </xsl:when>
-            <xsl:when test="$ccount &gt; $maxauthorsfootnote and $moded='footnote'">
-                <xsl:apply-templates select="$perss/t:*[1]" mode="footnote"/>
-                <xsl:text> et al.</xsl:text>
-            </xsl:when>
-            <xsl:when test="$ccount &gt; $maxauthorsbiblist and $moded='biblist'">
-                <xsl:apply-templates select="$perss/t:*[1]" mode="lastname-first"/>
-                <xsl:text> et al.</xsl:text>
-            </xsl:when>
-            <xsl:when test="$ccount = 2 and $moded='footnote'">
-                <xsl:apply-templates select="$perss/t:*[1]" mode="footnote"/>
-                <xsl:text> and </xsl:text>
-                <xsl:apply-templates select="$perss/t:*[2]" mode="footnote"/>
-            </xsl:when>
-            <xsl:when test="$ccount = 2 and $moded='biblist'">
-                <xsl:apply-templates select="$perss/t:*[1]" mode="lastname-first"/>
-                <xsl:text> and </xsl:text>
-                <xsl:apply-templates select="$perss/t:*[2]" mode="biblist"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:for-each select="$perss/t:*[position() &lt; $maxauthorsfootnote+1]">
-                    <xsl:choose>
-                        <xsl:when test="position() = $maxauthorsfootnote">
-                            <xsl:text> and </xsl:text>
-                        </xsl:when>
-                        <xsl:when test="position() &gt; 1">
-                            <xsl:text>, </xsl:text>
-                        </xsl:when>
-                    </xsl:choose>
-                    <xsl:choose>
-                        <xsl:when test="$moded='footnote'">
-                            <xsl:apply-templates select="." mode="footnote"/>
-                        </xsl:when>
-                        <xsl:when test="$moded='biblist'">
-                            <xsl:apply-templates select="." mode="biblist"/>
-                        </xsl:when>
-                    </xsl:choose>
-                </xsl:for-each>
-            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
@@ -607,41 +519,50 @@
      handle bibliographic titles in the context of a footnote
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:title" mode="footnote biblist allbib" priority="1">
-        <span>
-            <xsl:attribute name="class">
-                <xsl:text>title</xsl:text>
-                <xsl:choose>
-                    <xsl:when test="@level='a'">
-                        <xsl:text>-analytic</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="@level='m'">
-                        <xsl:text>-monographic</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="@level='j'">
-                        <xsl:text>-journal</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="@level='s'">
-                        <xsl:text>-series</xsl:text>
-                    </xsl:when>
-                    <xsl:when test="@level='u'">
-                        <xsl:text>-unpublished</xsl:text>
-                    </xsl:when>
-                </xsl:choose>
-            </xsl:attribute>
-            <xsl:for-each select="./node()">
-                <xsl:if test="not(self::text()) or string-length(normalize-space(.))&gt;0 or count(following-sibling::node())=0">
-                    <bdi>
-                        <xsl:for-each select="ancestor-or-self::t:*[@xml:lang][1]">
-                            <xsl:attribute name="dir">
-                                <xsl:call-template name="getdirection"/>
-                            </xsl:attribute>
-                            <xsl:call-template name="langattr"/>
-                        </xsl:for-each>
-                        <xsl:apply-templates select="." mode="text-normal"/>
-                    </bdi>
-                </xsl:if>
-            </xsl:for-each>
-        </span>
+        <xsl:if test="not(contains(@xml:lang,'Latn-'))">
+            <xsl:if test="parent::t:analytic">
+                <xsl:text>"</xsl:text>
+            </xsl:if>
+            <span>
+                <xsl:attribute name="class">
+                    <xsl:text>title</xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="@level='a'">
+                            <xsl:text>-analytic</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="@level='m'">
+                            <xsl:text>-monographic</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="@level='j'">
+                            <xsl:text>-journal</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="@level='s'">
+                            <xsl:text>-series</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="@level='u'">
+                            <xsl:text>-unpublished</xsl:text>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:attribute>
+                <xsl:for-each select="./node()">
+                    <xsl:if test="not(self::text()) or string-length(normalize-space(.))&gt;0 or count(following-sibling::node())=0">
+                        <bdi>
+                            <xsl:for-each select="ancestor-or-self::t:*[@xml:lang][1]">
+                                <xsl:attribute name="dir">
+                                    <xsl:call-template name="getdirection"/>
+                                </xsl:attribute>
+                                <xsl:call-template name="langattr"/>
+                            </xsl:for-each>
+                            <xsl:apply-templates select="." mode="text-normal"/>
+                        </bdi>
+                    </xsl:if>
+                </xsl:for-each>
+            </span>
+            <xsl:if test="parent::t:analytic">
+                <xsl:if test="not(ends-with(.,'.|:|,'))">,</xsl:if>
+                <xsl:text>"</xsl:text>
+            </xsl:if>
+        </xsl:if>
     </xsl:template>
 
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
