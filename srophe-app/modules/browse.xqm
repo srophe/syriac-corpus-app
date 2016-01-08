@@ -47,7 +47,7 @@ let $browse-path :=
     if($collection = ('persons','sbd','saints','q','authors')) then concat("collection('",$global:data-root,"/persons/tei')",browse:get-coll($collection),browse:get-syr())
     else if($collection = 'places') then concat("collection('",$global:data-root,"/places/tei')",browse:get-coll($collection),browse:get-syr())
     else if($collection = 'bhse') then concat("collection('",$global:data-root,"/works/tei')",browse:get-coll($collection),browse:get-syr())
-    else if($collection = 'manuscripts') then concat("collection('",$global:data-root,"/manuscripts/tei')",browse:get-coll($collection))
+    else if($collection = 'manuscripts') then concat("collection('",$global:data-root,"/manuscripts/tei')//tei:TEI")
     else if(exists($collection)) then concat("collection('",$global:data-root,xs:anyURI($collection),"')",browse:get-coll($collection),browse:get-syr())
     else concat("collection('",$global:data-root,"')",browse:get-coll($collection),browse:get-syr())
 return 
@@ -58,6 +58,7 @@ declare function browse:parse-collections($collection as xs:string?) {
     if($collection = ('persons','sbd')) then 'The Syriac Biographical Dictionary'
     else if($collection = ('saints','q')) then 'Qadishe: A Guide to the Syriac Saints'
     else if($collection = 'authors' ) then 'A Guide to Syriac Authors'
+    else if($collection = 'bhse' ) then 'Bibliotheca Hagiographica Syriaca Electronica'
     else if($collection = ('places','The Syriac Gazetteer')) then 'The Syriac Gazetteer'
     else if($collection != '' ) then $collection
     else ()
@@ -69,9 +70,9 @@ declare function browse:parse-collections($collection as xs:string?) {
  : @param $collection passed from html template
 :)
 declare function browse:get-coll($collection) as xs:string?{
-if($collection) then
-    concat("//tei:title[. = '",browse:parse-collections($collection),"']/ancestor::tei:TEI")
-else '/tei:TEI'    
+if(not(empty($collection))) then
+    concat("//tei:title[. = '",browse:parse-collections($collection),"']/ancestor::tei:TEI")    
+else '//tei:TEI'    
 };
 
 (:~
@@ -222,12 +223,12 @@ order by
 return
 (: Temp patch for manuscripts :)
     if($collection = "manuscripts") then 
-        let $title := $data/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text()
-        let $id := $data/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org')][2]/text()
+        let $title := $data/descendant::tei:titleStmt/tei:title[1]/text()
+        let $id := $data/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org')][2]/text()
         return 
-            <span>
+            <div>
                 <a href="manuscript.html?id={$id}">{$title}</a>
-            </span>
+            </div>
     else if($browse:view = 'syr') then rec:display-recs-short-view($data,'syr') else rec:display-recs-short-view($data,'')
 ) 
 };
