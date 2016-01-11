@@ -126,7 +126,7 @@ if($persons:date-type != '') then
                 and @syriaca-computed-start <= 
                 '",common:do-date($persons:end-date),"'
                 )]]") 
-         else if($persons:start-date != ''  and $persons:end-date = '') then 
+         else if($persons:start-date != '' and $persons:end-date = '') then 
              concat("[descendant::tei:birth[@syriaca-computed-start >= '",common:do-date($persons:start-date),"' or @syriaca-computed-end >= '",common:do-date($persons:start-date),"']]")
          else if($persons:end-date != ''  and $persons:start-date = '') then
             concat("[descendant::tei:birth[@syriaca-computed-end <= '",common:do-date($persons:end-date),"' or @syriaca-computed-start <= '",common:do-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
@@ -162,9 +162,9 @@ if($persons:date-type != '') then
          else ''      
    else if($persons:date-type = 'office') then 
         if($persons:start-date != '' and $persons:end-date != '') then concat("[descendant::tei:state[@type='office'][(
-            @syriaca-computed-start <= 
+            @syriaca-computed-start >= 
                 '",common:do-date($persons:start-date),"' 
-                and @syriaca-computed-end >= 
+                and @syriaca-computed-end <= 
                 '",common:do-date($persons:end-date),"'
                 ) or (
                     @syriaca-computed-start >= 
