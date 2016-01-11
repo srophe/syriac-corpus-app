@@ -28,7 +28,7 @@ let $query-string :=
 	   else translate($query-string, '[]', ' ') (:if there is an uneven number of brackets, delete all brackets.:)   
 return 
     if(matches($param-string,"(^\*$)|(^\?$)")) then 'Invalid Search String, please try again.' (: Must enter some text with wildcard searches:)
-    else replace(replace($param-string,'(^\*)|(^\?)|<|>|@',''), '(\.|\[|\]|\\|\||\-|\^|\$|\?|\*|\+|\{|\}|\(|\))','\\$1') (: Escape special characters. Fixes error, but does not return correct results on URIs see: http://viaf.org/viaf/sourceID/SRP|person_308 :)
+    else replace(replace($param-string,'(^\*)|(^\?)|<|>|@',''), '(\.|\[|\]|\\|\||\-|\^|\$|\+|\{|\}|\(|\))','\\$1') (: Escape special characters. Fixes error, but does not return correct results on URIs see: http://viaf.org/viaf/sourceID/SRP|person_308 :)
 };
 
 (:~
@@ -64,9 +64,8 @@ let $date-format := if(string-length($date) eq 4) then concat(string($date),'-01
                     else if(string-length($date) eq 3) then concat('0',string($date),'-01-01')
                     else if(string-length($date) eq 2) then concat('00',string($date),'-01-01')
                     else if(string-length($date) eq 1) then concat('000',string($date),'-01-01')
-                    else string($date)
-let $final-date := xs:date($date-format) 
-return $final-date
+                    else string($date) 
+return xs:date($date-format)
 };
 
 (:
