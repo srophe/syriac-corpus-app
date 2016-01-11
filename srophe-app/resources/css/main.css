@@ -16,7 +16,7 @@
  @import url("syr-font-families.css");
 /* Main content blocks */
 
-body {font-family: arial, sans-serif; }
+body {font-family: arial, sans-serif;}
 /*#main {margin: 0 auto; padding:0; border-top:1px solid #753C28;}*/
 #content{background-color:white; padding-top: 50px;}
 /* Removed extra padding introduced by Bootstrap for rows. Was causing issues with background images */
@@ -229,6 +229,7 @@ td {
     padding-right:.5em;    
 }
 
+.bibl li{line-height: 1.5em;padding-bottom:.5em;}
 .anchor { 
     position: relative; 
     top:-75px !important;
@@ -564,6 +565,9 @@ label.error {
 .uri {margin:0 0 1em; color: #999999;}
 p.single-space{padding:.25em;}
 .teiDocs {padding:.25em; border-bottom:1px solid #eee;}
+
+/* Citation styles */
+.title-journal {font-style:italic;}
 
 /* Facet styles */
 .label-facet {background-color:#eee; color:#666; font-weight:normal; margin:.25em; display:inline-block;}
