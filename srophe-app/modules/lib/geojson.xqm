@@ -22,7 +22,7 @@ declare namespace transform="http://exist-db.org/xquery/transform";
  : @param $rec-type place type
  : @param $title place title
 :)
-declare function geo:build-json($geo as xs:string, $id as xs:string, $rec-type as xs:string, $title as xs:string, $rec-rel as xs:string) as element(features){    
+declare function geo:build-json($geo as xs:string, $id as xs:string*, $rec-type as xs:string*, $title as xs:string*, $rec-rel as xs:string*) as element(features){    
     <item type="object">
         <pair name="type"  type="string">Feature</pair>
         <pair name="geometry"  type="object">
@@ -52,7 +52,7 @@ declare function geo:build-json($geo as xs:string, $id as xs:string, $rec-type a
  : @param $rec-type place type
  : @param $title place title
 :)
-declare function geo:build-kml($geo as xs:string,$id as xs:string, $rec-type as xs:string, $title as xs:string) as element(features){
+declare function geo:build-kml($geo as xs:string, $id as xs:string*, $rec-type as xs:string*, $title as xs:string*) as element(features){
     <kml xmlns="http://www.opengis.net/kml/2.2">
         <Placemark>
             <name>{$title} - {if($rec-type='open-water') then 'openWater' else $rec-type}</name>

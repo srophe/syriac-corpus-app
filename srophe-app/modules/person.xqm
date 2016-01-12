@@ -1,4 +1,4 @@
-(:~
+(:~ 
  : Builds persons page and persons page functions  
  :)
 xquery version "3.0";
@@ -180,34 +180,31 @@ declare %templates:wrap function person:worldcat($node as node(), $model as map(
 let $rec := $model("data")
 return 
     if($rec//tei:idno[contains(.,'http://worldcat.org/identities/lccn-n')]) then 
-       <div id="worldcat-refs" class="well">
-            <h3>Catalog Search Results from WorldCat</h3>
-            <p class="hint">Based on VIAF ID. May contain inaccuracies. Not curated by Syriaca.org.</p>
-            <div>
-            {
-                for $viaf-ref in $rec//tei:idno[contains(.,'http://worldcat.org/identities/lccn-n')]
-                let $build-request :=
-                         <http:request href="{$viaf-ref}" method="get"/>
-                let $results :=  http:send-request($build-request)//by 
-                let $total-works := string($results/ancestor::Identity//nameInfo/workCount)
-                return 
-                  (<ul id="{$viaf-ref}" count="{$total-works}">
-                        {
-                        for $citation in $results/citation[position() lt 5]
-                        return
-                            <li>
-                                <a href="{concat('http://www.worldcat.org/oclc/',substring-after($citation/oclcnum/text(),'ocn'))}">{$citation/title/text()}</a>
-                            </li>
+        for $viaf-ref in $rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')]/text()
+        let $build-request := <http:request href="{$viaf-ref}" method="get"/>
+        return 
+            <div id="worldcat-refs" class="well">
+                <h3>Catalog Search Results from WorldCat</h3>
+                <p class="hint">Based on VIAF ID. May contain inaccuracies. Not curated by Syriaca.org.</p>
+                <div>{try {
+                        let $results :=  http:send-request($build-request)//by 
+                        let $total-works := string($results/ancestor::Identity//nameInfo/workCount)
+                        return 
+                            (<ul id="{$viaf-ref}" count="{$total-works}">
+                                {
+                                    for $citation in $results/citation[position() lt 5]
+                                    return
+                                        <li><a href="{concat('http://www.worldcat.org/oclc/',substring-after($citation/oclcnum/text(),'ocn'))}">{$citation/title/text()}</a></li>
+                                 }
+                             </ul>,
+                             <span class="pull-right"><a href="{$viaf-ref}">See all {$total-works} titles from WorldCat</a></span>)  
+                        } catch * {
+                            <error>Caught error {$err:code}: {$err:description}</error>
                         }
-                  </ul>,
-                  <span class="pull-right">
-                        <a href="{$viaf-ref}">See all {$total-works} titles from WorldCat</a>
-                  </span>)
-                }  
-            </div>    
-
-        </div>
-    else ()    
+                       } 
+                    </div>
+                </div>                         
+    else () 
 };
 
 (:~
