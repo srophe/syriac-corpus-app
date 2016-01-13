@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:t="http://www.tei-c.org/ns/1.0" 
-    xmlns:x="http://www.w3.org/1999/xhtml" 
-    xmlns:saxon="http://saxon.sf.net/" 
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
     
+    <!-- Function to add correct ordinal suffix to numbers used in citation creation.  -->
+    <xsl:function name="local:ordinal">
+        <xsl:param name="num" as="xs:string"/>
+        <xsl:choose>
+            <xsl:when test="xs:integer($num)">
+                <xsl:choose>
+                    <xsl:when test="ends-with($num,'1') and not($num = '11')"><xsl:value-of select="concat($num, 'st ed.')"/></xsl:when>
+                    <xsl:when test="ends-with($num,'2') and not($num = '12')"><xsl:value-of select="concat($num, 'nd ed.')"/></xsl:when>
+                    <xsl:when test="ends-with($num,'3') and not($num = '13')"><xsl:value-of select="concat($num, 'rd ed.')"/></xsl:when>
+                    <xsl:otherwise><xsl:value-of select="concat($num, 'th ed.')"></xsl:value-of></xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise><xsl:value-of select="$num"/></xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
     <!-- Function to tranlate xml:lang attributes to full lang label -->
     <xsl:function name="local:expand-lang">
         <xsl:param name="lang" as="xs:string"/>
@@ -74,6 +84,7 @@
             <xsl:otherwise/>
         </xsl:choose>
     </xsl:function>
+    
     <!-- 
      Function to output dates in correct formats passes whole element to function, 
      function also uses trim-date to strip leading 0

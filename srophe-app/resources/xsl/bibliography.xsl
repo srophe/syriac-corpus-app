@@ -123,6 +123,14 @@
         <xsl:apply-templates mode="footnote"/>
     </xsl:template>
     
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+     handle a bibllist entry for a book
+     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <xsl:template match="t:biblStruct[t:monogr and not(t:analytic)]" mode="biblist">
+        <!-- this is a monograph/book -->
+        <xsl:apply-templates select="t:monogr" mode="footnote"/>
+    </xsl:template>
+    
     <!-- Structure of analytic section.  -->
     <xsl:template match="t:analytic" mode="footnote">
         <!-- Display authors/editors -->
@@ -143,8 +151,22 @@
     <!-- Structure of monograph section.  -->
     <xsl:template match="t:monogr" mode="footnote">
         <!-- Display authors/editors -->
-        <xsl:call-template name="persons"/>
-        
+        <!-- Suppress duplicate authors for records with multiple t:monogr elements -->
+        <xsl:choose>
+            <xsl:when test="preceding-sibling::t:monogr">
+                <xsl:choose>
+                    <xsl:when test="deep-equal(t:editor | t:author, preceding-sibling::t:monogr/t:editor | preceding-sibling::t:monogr/t:author )"/>
+                    <xsl:otherwise> 
+                        <xsl:call-template name="persons"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <!-- Check authors against preceding, suppress if equivalent -->
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="persons"/>
+            </xsl:otherwise>
+        </xsl:choose>
+
         <!-- Titles -->
         <xsl:apply-templates select="t:title" mode="footnote"/>
         <!-- NOTE: work on titles  -->
@@ -168,6 +190,12 @@
             <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='translator'],'footnote',3)"/>
         </xsl:if>
         <xsl:text> </xsl:text>
+        <!-- Add edition  -->
+        <xsl:if test="t:edition">
+            <xsl:text> </xsl:text>
+            <xsl:apply-templates select="t:edition" mode="footnote"/>
+            <xsl:text> </xsl:text>
+        </xsl:if>
         <!-- Add volumn  -->
         <xsl:if test="t:biblScope[@unit='vol']">
             <xsl:text> </xsl:text>
@@ -175,19 +203,25 @@
             <xsl:text> </xsl:text>
         </xsl:if>
         <xsl:apply-templates select="t:imprint" mode="footnote"/>
+        <xsl:if test="following-sibling::t:monogr"><xsl:text>, </xsl:text></xsl:if>    
     </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-     handle a bibllist entry for a book
+     Series output
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:series" mode="footnote">
         <xsl:text> (</xsl:text>
+        <xsl:if test="preceding-sibling::t:monogr/t:title[@level='j']">
+            <xsl:text>=</xsl:text>
+        </xsl:if>
         <xsl:apply-templates select="t:title" mode="footnote"/>
         <xsl:if test="t:biblScope">
             <xsl:text>, </xsl:text>
             <xsl:for-each select="t:biblScope[@unit='series'] | t:biblScope[@unit='vol']">
                 <xsl:apply-templates select="." mode="footnote"/>
-                <xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+                <xsl:if test="position() != last()">
+                    <xsl:text>, </xsl:text>
+                </xsl:if>
             </xsl:for-each>
         </xsl:if>
         <xsl:text>)</xsl:text>
@@ -250,14 +284,6 @@
         </xsl:choose>
     </xsl:template>
 
-    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-     handle a bibllist entry for a book
-     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <xsl:template match="t:biblStruct[t:monogr and not(t:analytic)]" mode="biblist">
-        <!-- this is a monograph/book -->
-        <xsl:apply-templates select="t:monogr" mode="footnote"/>
-    </xsl:template>
-    
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      generate a bibl list entry for the matched bibl; if it contains a 
      pointer, try to look up the master bibliography file and use that
@@ -414,10 +440,31 @@
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle the imprint component of a biblScope
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <xsl:template match="t:edition" mode="footnote">
+        <xsl:text>(</xsl:text>
+        <xsl:value-of select="local:ordinal(.)"/>
+        <xsl:text>)</xsl:text>
+    </xsl:template>
+    
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+     handle the imprint component of a biblScope
+     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:biblScope" mode="footnote">
+        <xsl:variable name="unit">
+            <xsl:choose>
+                <xsl:when test="@unit = 'vol'"><xsl:value-of select="concat(@unit,'.')"/></xsl:when>
+                <xsl:otherwise><xsl:value-of select="@unit"/></xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
         <xsl:choose>
             <xsl:when test="matches(text(),'^\d')">
-                <xsl:value-of select="concat(@unit,' ',text())"/>
+                <xsl:value-of select="concat($unit,' ',text())"/>
+            </xsl:when>
+            <xsl:when test="not(text()) and (@to or @from)">
+                <xsl:choose>
+                    <xsl:when test="@to = @from"><xsl:value-of select="concat($unit,' ',@to)"/></xsl:when>
+                    <xsl:otherwise><xsl:value-of select="concat($unit,' ',@from,' - ',@to)"/></xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="text()"/>
@@ -449,10 +496,13 @@
                 <xsl:apply-templates select="t:publisher[1]" mode="footnote"/>
             </xsl:when>
         </xsl:choose>
-        <xsl:if test="not(t:pubPlace) and not(t:publisher)">
+        <!-- For Monographs only -->
+        <xsl:if test="not(t:pubPlace) and not(t:publisher) and t:title[@level='m']">
             <abbr title="no publisher">n.p.</abbr>
         </xsl:if>
-        <xsl:text>, </xsl:text>
+        <xsl:if test="t:date/preceding-sibling::*">
+            <xsl:text>, </xsl:text>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="t:date">
                 <xsl:apply-templates select="t:date" mode="footnote"/>
@@ -462,10 +512,12 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:if test="following-sibling::t:biblScope[@unit='series']">
-           <xsl:text>, </xsl:text> <xsl:apply-templates select="../t:biblScope[@unit='series']" mode="footnote"/>
+            <xsl:text>, </xsl:text>
+            <xsl:apply-templates select="../t:biblScope[@unit='series']" mode="footnote"/>
         </xsl:if>
-        <xsl:text>) </xsl:text>
+        <xsl:text>)</xsl:text>
     </xsl:template>
+    
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle cited ranges in the context of a footnote
