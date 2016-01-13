@@ -64,6 +64,7 @@ declare %templates:wrap function person:h1($node as node(), $model as map(*)){
                     $title/descendant::tei:persName[@syriaca-tags='#syriaca-headword'],
                     $title/descendant::tei:birth,
                     $title/descendant::tei:death,
+                    $title/descendant::tei:floruit,
                     $title/descendant::tei:idno[contains(.,$global:base-uri)]
                 )}
             </srophe-title>

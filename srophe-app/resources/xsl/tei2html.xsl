@@ -75,9 +75,13 @@
  <!-- =================================================================== -->
     
     <!-- Parameters passed from global.xqm (set in config.xml) default values if params are empty -->
+    <!-- eXist data app root for gazetteer data -->
     <xsl:param name="data-root" select="'/db/apps/srophe-data'"/>
+    <!-- eXist app root for app deployment-->
     <xsl:param name="app-root" select="'/db/apps/srophe'"/>
+    <!-- Root of app for building dynamic links. Default is eXist app root -->
     <xsl:param name="nav-base" select="'/db/apps/srophe'"/>
+    <!-- Base URI for identifiers in app data -->
     <xsl:param name="base-uri" select="'/db/apps/srophe'"/>
     <!-- Hard coded values-->
     <xsl:param name="normalization">NFKC</xsl:param>
@@ -642,36 +646,41 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:if test="t:title[@level='m' or @level='s'] or t:birth or t:death">
-            <span lang="en" class="type" style="padding-left:1em;"><xsl:text>(</xsl:text>
-            <xsl:for-each select="t:title[@level='m' or @level='s']">
-                <xsl:choose>
-                    <xsl:when test=". = 'A Guide to Syriac Authors'">
-                        <a href="{$nav-base}/authors/index.html"><img src="{$nav-base}/resources/img/icons-authors-sm.png" alt="A Guide to Syriac Authors"/>author</a>
-                    </xsl:when>
-                    <xsl:when test=". = 'Qadishe: A Guide to the Syriac Saints'">
-                        <a href="{$nav-base}/q/index.html"><img src="{$nav-base}/resources/img/icons-q-sm.png" alt="Qadishe: A Guide to the Syriac Saints"/>saint</a>
-                    </xsl:when>
-                </xsl:choose>
-                <xsl:if test="following-sibling::*/text() = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')">, </xsl:if>
-            </xsl:for-each> 
-            
-            <xsl:for-each select="tokenize(t:srophe-title/@ana,' ')">
-                <xsl:value-of select="substring-after(.,'#syriaca-')"/>
-                <xsl:if test="position() != last()">, </xsl:if>
-            </xsl:for-each>
-            
-            <xsl:if test="t:title[@level='m' or @level='s'] and t:death or t:birth">, 
-                <xsl:if test="not(t:death)">b. </xsl:if>
-                <xsl:value-of select="t:birth/text()"/>
-                <xsl:if test="t:death">
+            <span lang="en" class="type" style="padding-left:1em;">
+                <xsl:text>(</xsl:text>
+                <xsl:for-each select="t:title[@level='m' or @level='s']">
                     <xsl:choose>
-                        <xsl:when test="t:birth"> - </xsl:when>
-                        <xsl:otherwise>d. </xsl:otherwise>
+                        <xsl:when test=". = 'A Guide to Syriac Authors'">
+                            <a href="{$nav-base}/authors/index.html">
+                                <img src="{$nav-base}/resources/img/icons-authors-sm.png" alt="A Guide to Syriac Authors"/>author</a>
+                        </xsl:when>
+                        <xsl:when test=". = 'Qadishe: A Guide to the Syriac Saints'">
+                            <a href="{$nav-base}/q/index.html">
+                                <img src="{$nav-base}/resources/img/icons-q-sm.png" alt="Qadishe: A Guide to the Syriac Saints"/>saint</a>
+                        </xsl:when>
                     </xsl:choose>
-                    <xsl:value-of select="t:death/text()"/>
+                    <xsl:if test="following-sibling::*/text() = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')">, </xsl:if>
+                </xsl:for-each>
+                <xsl:for-each select="tokenize(t:srophe-title/@ana,' ')">
+                    <xsl:value-of select="substring-after(.,'#syriaca-')"/>
+                    <xsl:if test="position() != last()">, </xsl:if>
+                </xsl:for-each>
+                <xsl:if test="t:title[@level='m' or @level='s'] and t:death or t:birth">, 
+                <xsl:if test="not(t:death)">b. </xsl:if>
+                    <xsl:value-of select="t:birth/text()"/>
+                    <xsl:if test="t:death">
+                        <xsl:choose>
+                            <xsl:when test="t:birth"> - </xsl:when>
+                            <xsl:otherwise>d. </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:value-of select="t:death/text()"/>
+                    </xsl:if>
                 </xsl:if>
-            </xsl:if>
-            <xsl:text>) </xsl:text>
+                <xsl:if test="t:floruit/text()">
+                    <xsl:text>, </xsl:text>
+                    <xsl:value-of select="t:floruit/text()"/>
+                </xsl:if>
+                <xsl:text>) </xsl:text>
             </span>
         </xsl:if>
     </xsl:template>

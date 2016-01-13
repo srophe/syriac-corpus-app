@@ -134,6 +134,11 @@
                 <xsl:value-of select="descendant::t:death/text()"/>
             </xsl:if>
         </xsl:variable>
+        <xsl:variable name="floruit">
+            <xsl:if test="descendant-or-self::t:floruit/text()">
+                <xsl:value-of select="concat('active ',descendant-or-self::t:floruit/text())"/>
+            </xsl:if>
+        </xsl:variable>
         <xsl:variable name="dates">
             <xsl:if test="$birth != ''">
                 <xsl:value-of select="$birth"/>
@@ -145,7 +150,12 @@
                 <xsl:text>d. </xsl:text>
                 <xsl:value-of select="$death"/>
             </xsl:if>
+            <xsl:if test="$floruit != ''">
+                <xsl:if test="$birth != '' or $death != ''"><xsl:text>, </xsl:text></xsl:if>
+                <xsl:value-of select="$floruit"/>
+            </xsl:if>
         </xsl:variable>    
+ 
         <!--let $desc := rec:truncate-string($node/descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::text())-->
         <div class="results-list">
             <a href="{replace($uri,$base-uri,$nav-base)}">
@@ -222,7 +232,8 @@
                     <xsl:if test="position() lt 8">
                         <span class="results-list-desc container">
                             <span class="srp-label">
-                                <xsl:value-of select="concat(position(),'. (', name(parent::*[1]),') ')"/></span>
+                                <xsl:value-of select="concat(position(),'. (', name(parent::*[1]),') ')"/>
+                            </span>
                             <xsl:apply-templates select="parent::*[1]" mode="plain"/>
                         </span>
                     </xsl:if>
