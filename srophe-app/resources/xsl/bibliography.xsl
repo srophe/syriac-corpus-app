@@ -156,7 +156,7 @@
             <xsl:when test="preceding-sibling::t:monogr">
                 <xsl:choose>
                     <xsl:when test="deep-equal(t:editor | t:author, preceding-sibling::t:monogr/t:editor | preceding-sibling::t:monogr/t:author )"/>
-                    <xsl:otherwise> 
+                    <xsl:otherwise>
                         <xsl:call-template name="persons"/>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -203,7 +203,9 @@
             <xsl:text> </xsl:text>
         </xsl:if>
         <xsl:apply-templates select="t:imprint" mode="footnote"/>
-        <xsl:if test="following-sibling::t:monogr"><xsl:text>, </xsl:text></xsl:if>    
+        <xsl:if test="following-sibling::t:monogr">
+            <xsl:text>, </xsl:text>
+        </xsl:if>
     </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -442,7 +444,7 @@
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:edition" mode="footnote">
         <xsl:text>(</xsl:text>
-        <xsl:value-of select="local:ordinal(.)"/>
+        <xsl:value-of select="local:ordinal(text())"/>
         <xsl:text>)</xsl:text>
     </xsl:template>
     
@@ -452,8 +454,12 @@
     <xsl:template match="t:biblScope" mode="footnote">
         <xsl:variable name="unit">
             <xsl:choose>
-                <xsl:when test="@unit = 'vol'"><xsl:value-of select="concat(@unit,'.')"/></xsl:when>
-                <xsl:otherwise><xsl:value-of select="@unit"/></xsl:otherwise>
+                <xsl:when test="@unit = 'vol'">
+                    <xsl:value-of select="concat(@unit,'.')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="@unit"/>
+                </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
         <xsl:choose>
@@ -462,8 +468,12 @@
             </xsl:when>
             <xsl:when test="not(text()) and (@to or @from)">
                 <xsl:choose>
-                    <xsl:when test="@to = @from"><xsl:value-of select="concat($unit,' ',@to)"/></xsl:when>
-                    <xsl:otherwise><xsl:value-of select="concat($unit,' ',@from,' - ',@to)"/></xsl:otherwise>
+                    <xsl:when test="@to = @from">
+                        <xsl:value-of select="concat($unit,' ',@to)"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="concat($unit,' ',@from,' - ',@to)"/>
+                    </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>

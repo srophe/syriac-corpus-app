@@ -5,15 +5,25 @@
     <xsl:function name="local:ordinal">
         <xsl:param name="num" as="xs:string"/>
         <xsl:choose>
-            <xsl:when test="xs:integer($num)">
+            <xsl:when test="number($num) = number($num)">
                 <xsl:choose>
-                    <xsl:when test="ends-with($num,'1') and not($num = '11')"><xsl:value-of select="concat($num, 'st ed.')"/></xsl:when>
-                    <xsl:when test="ends-with($num,'2') and not($num = '12')"><xsl:value-of select="concat($num, 'nd ed.')"/></xsl:when>
-                    <xsl:when test="ends-with($num,'3') and not($num = '13')"><xsl:value-of select="concat($num, 'rd ed.')"/></xsl:when>
-                    <xsl:otherwise><xsl:value-of select="concat($num, 'th ed.')"></xsl:value-of></xsl:otherwise>
+                    <xsl:when test="ends-with($num,'1') and not($num = '11')">
+                        <xsl:value-of select="concat($num, 'st ed.')"/>
+                    </xsl:when>
+                    <xsl:when test="ends-with($num,'2') and not($num = '12')">
+                        <xsl:value-of select="concat($num, 'nd ed.')"/>
+                    </xsl:when>
+                    <xsl:when test="ends-with($num,'3') and not($num = '13')">
+                        <xsl:value-of select="concat($num, 'rd ed.')"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="concat($num, 'th ed.')"/>
+                    </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
-            <xsl:otherwise><xsl:value-of select="$num"/></xsl:otherwise>
+            <xsl:otherwise>
+                <xsl:value-of select="$num"/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
     <!-- Function to tranlate xml:lang attributes to full lang label -->
