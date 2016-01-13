@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:exist="http://exist-db.org" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local exist" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:exist="http://exist-db.org" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local exist" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2015 Syriaca.org
@@ -120,14 +120,9 @@
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="syr-title">
-            <xsl:choose>
-                <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]">
-                    <xsl:value-of select="string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="'NA'"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:if test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]">
+                <xsl:value-of select="string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')"/>
+            </xsl:if>
         </xsl:variable>
         <xsl:variable name="birth">
             <xsl:if test="$ana != ''">
@@ -174,14 +169,13 @@
                         </xsl:if>
                         <xsl:text> - </xsl:text>
                         <xsl:choose>
-                            <xsl:when test="$syr-title = 'NA'"/>
-                            <xsl:when test="$syr-title = ''">
-                                <xsl:text> [Syriac Not Available]</xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
+                            <xsl:when test="$syr-title != ''">
                                 <span dir="rtl" lang="syr" xml:lang="syr">
                                     <xsl:value-of select="$syr-title"/>
                                 </span>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:text> [Syriac Not Available]</xsl:text>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>
@@ -228,7 +222,7 @@
                     <xsl:if test="position() lt 8">
                         <span class="results-list-desc container">
                             <span class="srp-label">
-                                <xsl:value-of select="position()"/>. </span>
+                                <xsl:value-of select="concat(position(),'. (', name(parent::*[1]),') ')"/></span>
                             <xsl:apply-templates select="parent::*[1]" mode="plain"/>
                         </span>
                     </xsl:if>
