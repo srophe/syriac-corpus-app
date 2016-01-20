@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -469,8 +469,8 @@
                 </h3>
                 <ol>
                     <xsl:for-each select="current-group()">
-                        <xsl:sort select="if(current-grouping-key() = 'MSS') then substring-after(t:bibl/@xml:id,'-') = '' else if(current-grouping-key() = 'editions') then                                                                substring-after(t:bibl/@corresp,'-') = '' else if(@xml:lang) then local:expand-lang(@xml:lang,$label) else ." order="ascending"/>
-                        <xsl:sort select="if(current-grouping-key() = 'MSS' and (substring-after(t:bibl/@xml:id,'-')castable as xs:integer)) then xs:integer(substring-after(t:bibl/@xml:id,'-')) else if(@xml:lang) then local:expand-lang(@xml:lang,$label) else ." order="ascending"/>
+                        <xsl:sort select="if(current-grouping-key() = 'MSS') then substring-after(t:bibl/@xml:id,'-') = '' else if(current-grouping-key() = 'editions') then substring-after(t:bibl/@corresp,'-') = '' else if(@xml:lang) then local:expand-lang(@xml:lang,$label) else ." order="ascending"/>
+                        <xsl:sort select="if(current-grouping-key() = 'MSS' and (substring-after(t:bibl/@xml:id,'-') castable as xs:integer)) then xs:integer(substring-after(t:bibl/@xml:id,'-')) else if(@xml:lang) then local:expand-lang(@xml:lang,$label) else ()" order="ascending"/>
                         <xsl:apply-templates select="self::*"/>
                     </xsl:for-each>
                 </ol>
@@ -793,6 +793,16 @@
             </xsl:if>
         </li>
     </xsl:template>
+    <xsl:template match="t:bibl">
+        <xsl:choose>
+            <xsl:when test="child::*">
+                <xsl:apply-templates select="child::*" mode="footnote"/>                
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!-- Not real tei element -->
     <xsl:template match="t:pers-group">
         <h4>Person</h4>
@@ -1011,6 +1021,7 @@
                         <xsl:call-template name="langattr"/>
                         <xsl:apply-templates/>
                         <xsl:if test="t:bibl/@corresp">
+                            <xsl:variable name="mss" select="../t:note[@type='MSS']"/>
                             <xsl:text> (</xsl:text>
                             <xsl:choose>
                                 <xsl:when test="@ana='partialTranslation'">Partial edition</xsl:when>
@@ -1021,13 +1032,23 @@
                                 <xsl:when test="contains(t:bibl/@corresp,' ')">
                                     <xsl:text>witnesses </xsl:text>
                                     <xsl:for-each select="tokenize(t:bibl/@corresp,' ')">
-                                        <xsl:value-of select="substring-after(.,'-')"/>
+                                        <xsl:variable name="corresp" select="."/>
+                                        <xsl:for-each select="$mss/t:bibl">
+                                            <xsl:if test="@xml:id = $corresp">
+                                                <xsl:value-of select="position()"/>
+                                            </xsl:if>
+                                        </xsl:for-each>
                                         <xsl:if test="position() != last()">, </xsl:if>
                                     </xsl:for-each>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:text>witness </xsl:text>
-                                    <xsl:value-of select="substring-after(t:bibl/@corresp,'-')"/>
+                                    <xsl:variable name="corresp" select="substring-after(t:bibl/@corresp,'#')"/>
+                                    <xsl:text>witness </xsl:text>                                        
+                                    <xsl:for-each select="$mss/t:bibl">
+                                        <xsl:if test="@xml:id = $corresp">
+                                            <xsl:value-of select="position()"/>
+                                        </xsl:if>
+                                    </xsl:for-each>
                                 </xsl:otherwise>
                             </xsl:choose>
                             <xsl:text>. See below.)</xsl:text>

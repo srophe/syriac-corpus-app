@@ -100,7 +100,8 @@
                                     <xsl:apply-templates select="document($biblfilepath)/descendant::t:biblStruct[1]" mode="footnote"/>
                                 </xsl:if>
                                 <!-- Process all citedRange elements as footnotes -->
-                                <xsl:if test="t:citedRange">, 
+                                <xsl:if test="t:citedRange">
+                                    <xsl:text>, </xsl:text>
                                     <xsl:for-each select="t:citedRange">
                                         <xsl:apply-templates select="." mode="footnote"/>
                                     </xsl:for-each>
@@ -166,30 +167,14 @@
                 <xsl:call-template name="persons"/>
             </xsl:otherwise>
         </xsl:choose>
-
         <!-- Titles -->
         <xsl:apply-templates select="t:title" mode="footnote"/>
-        <!-- NOTE: work on titles  -->
-        <!-- handle titles??
-        <xsl:for-each select="t:monogr[1]">
-            <xsl:choose>
-                <xsl:when test="t:title[starts-with(@xml:lang,'en')]">
-                    <xsl:apply-templates select="t:title[starts-with(@xml:lang,'en')]" mode="footnote"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates select="t:title[1]" mode="footnote"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:for-each>
-        -->
-        
         <!-- handle translator, if present -->
         <xsl:if test="count(t:editor[@role='translator']) &gt; 0">
             <xsl:text>, trans. </xsl:text>
             <!-- Process translator using local function in helper-functions.xsl local:emit-responsible-persons -->
             <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='translator'],'footnote',3)"/>
         </xsl:if>
-        <xsl:text> </xsl:text>
         <!-- Add edition  -->
         <xsl:if test="t:edition">
             <xsl:text> </xsl:text>
