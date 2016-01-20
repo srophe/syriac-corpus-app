@@ -7,9 +7,9 @@ xquery version "3.0";
  : @param $start start paged results
  : @param $perpage default set to 25 can be changed via perpage param
 :)
-module namespace rdfq="http://syriaca.org//rdfq";
+module namespace rdfq="http://syriaca.org/rdfq";
 
-import module namespace config="http://syriaca.org//config" at "../config.xqm";
+import module namespace config="http://syriaca.org/config" at "../config.xqm";
 
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 declare namespace cito = "http://purl.org/spar/cito";
