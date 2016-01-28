@@ -35,31 +35,66 @@
                     <tbody>
                         <tr>
                             <td>
-                                none
+                                <pre>/persName</pre>
+                                <pre>/placeName</pre>
+                                <pre>/title</pre>
+                                <pre>/author</pre>
+                                <pre>/desc</pre>
+                                <pre>/note</pre>
+                                <pre>/event</pre>
+                                <pre>/body</pre>
                             </td>
                             <td>
                                 <strong>q</strong>
                                 <p>Accepts simple text string.</p>
-                                <strong>place</strong>
-                                <p>Searches placeName elements.</p>
-                                <strong>person</strong>
-                                <p>Searches persName elements.</p>
-                                <strong>start</strong>
-                                <p>Default value is 1.</p>
-                                <strong>perpage</strong>
-                                <p>Number of results to return, default value is 25.</p>
+                                <strong>collection</strong>
+                                <p>Limits by collection.</p>
+                                <ul>
+                                    <li>Gateway to the Syriac Saints</li>
+                                    <li>The Syriac Biographical Dictionary</li>
+                                    <li>A Guide to Syriac Authors</li>
+                                    <li>Qadishe: A Guide to the Syriac Saints</li>
+                                    <li>The Syriac Gazetteer</li>
+                                    <li>Bibliotheca Hagiographica Syriaca Electronica</li>
+                                    <li>SPEAR: Syriac Persons, Events, and Relations</li>
+                                </ul>
+                                <strong>lang</strong>
+                                <p>Limits by xml:lang attribute.</p>
+                                <ul><li></li></ul>
+                                <strong>author</strong>
+                                <p>Accepts simple text string. Used only with '/title' search.</p>
                             </td>
                             <td>
-                                <p>Performs a simple keyword search across all Syriaca.org collections</p>
-                                <p>Provides results as atom.xml.</p>
-                                <p>Example:<pre>http://syriaca.org/api/search?q=Adana</pre>
+                                <p>Performs a simple keyword search across all Syriaca.org collections.</p>
+                                <p>Provides results as JSON.</p>
+                                <p>Example:<pre>/api/search/persName?q=aaron&amp;collection=The Syriac Biographical Dictionary</pre>
                                 </p>
-                                <p>Example:<pre>http://syriaca.org/api/search?place=edessa</pre>
+                                <p>Example:<pre>/api/search/placeName?q=edessa</pre>
                                 </p>
-                                <p>Example:<pre>http://syriaca.org/api/search?q=river&amp;place=edessa</pre>
+                                <p>Example:<pre>/api/title?q=mary&amp;author=ephrem</pre>
                                 </p>
-                                <p>Example:<pre>http://syriaca.org/api/search?q=Adana&amp;start=1&amp;perpage=5</pre>
+                                <p>Example:<pre>/api/search/title?q=mari&amp;lang=fr</pre>
                                 </p>
+                                <p>Example results for:</p>
+                                <pre>/api/search/title?q=mary
+&amp;collection=Bibliotheca Hagiographica Syriaca Electronica
+&amp;lang=en&amp;author=ephrem</pre>
+                                <pre>
+[
+    {
+        "id": "http://syriaca.org/work/1002",
+        "title": "Mary Mother of God (text)"
+    },
+    {
+        "id": "http://syriaca.org/work/1001",
+        "title": "Mary Mother of God (text)"
+    },
+    {
+        "id": "http://syriaca.org/work/1000",
+        "title": "Mary Mother of God (text)"
+    }
+]
+                                </pre>
                             </td>
                             <td>GET</td>
                         </tr>

@@ -8,7 +8,7 @@ import module namespace rdfq="http://syriaca.org/rdfq" at "lib/tei2rdf.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace feed="http://syriaca.org/atom" at "lib/atom.xqm";
 import module namespace common="http://syriaca.org/common" at "search/common.xqm";
-
+declare namespace json="http://www.json.org";
 (: For output annotations  :)
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
 
@@ -69,38 +69,103 @@ function api:get-geo-kml($type as xs:string*, $output as xs:string*) {
 };
 
 (:~
-  : Use resxq to format urls for a search API
-  : Results are output as atom
-  : @param $q simple kewyord string passed from uri 
-  : @param $place limit search to tei:placeName
-  : @param $person limit search to  tei:persName
-  : @param $start where to start results list start
-  : @param $perpage number of results per page
-      %rest:query-param("place", "{$place}", "")
-    %rest:query-param("person", "{$person}", "")
-    $place as xs:string*,$person as xs:string*,
+ Search API, returns JSON
+ @param $element element to be searched. Accepts:
+    persName
+    placeName
+    title
+    author
+    note
+    event
+    desc
+    location
+ @param $collection accepts:
+    Gateway to the Syriac Saints
+    The Syriac Biographical Dictionary
+    The Gorgias Encyclopedic Dictionary of the Syriac Heritage
+    The Syriac Gazetteer
+    Bibliotheca Hagiographica Syriaca Electronica
+    SPEAR: Syriac Persons, Events, and Relations
+    Qadishe: A Guide to the Syriac Saints
+    A Guide to Syriac Authors
+    A Guide to the Syriac Saints
+  @param $lang accepts:
+    en, syr, ar, syr-Syrj, grc, la, 
+    fr, en-x-gedsh, de, fr-x-bhs, it, syr-Syrn, 
+    el, ar-Syrc, eng, ara-syrc, lat, fr-x-zanetti,
+    fr-x-fiey, fr-x-bhsyre, syr-Syrc, cop, es, 
+    nl, hy, ka, cu, gez, ru, ru-Latn-iso9r95, syr-pal, 
+    pt, sog, pl, el-Latn-iso843
+  @param $author accepts string value. May only be used when $element = 'title'    
+:)
+(: 
+    Still to do: 
+    add disabmiguation information (dates for persNames)
+    Add addtional format options? OAI,ATOM,TEI?
+    Add general search option for all tei (body)
+    NOTE make lang and collection accept multiple values. (rework xpath fo accept multiple values.) 
 :)
 declare
     %rest:GET
-    %rest:path("/srophe/api/search")
-    %rest:query-param("q", "{$q}", "") 
-    %rest:query-param("start", "{$start}", 1)
-    %rest:query-param("perpage", "{$perpage}", 25)
-    %output:media-type("text/xml")
-    %output:method("xml")
-function api:search-api($q as xs:string*, $start as xs:integer*, $perpage as xs:integer*) {
-(<rest:response> 
-  <http:response status="200"> 
-    <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
-  </http:response> 
-</rest:response>,
-let $hits := collection($global:data-root)//tei:body[ft:query(.,$q,common:options())]
-let $total := count($hits)
-return feed:build-atom-feed($hits, $start, $perpage, $q, $total)
-) 
+    %rest:path("/srophe/api/search/{$element}")
+    %rest:query-param("q", "{$q}", "")
+    %rest:query-param("collection", "{$collection}", "")
+    %rest:query-param("lang", "{$lang}", "")
+    %rest:query-param("author", "{$author}", "")
+    %output:method("json")
+function api:search-element($element as xs:string?, $q as xs:string*, $collection as xs:string*, $lang as xs:string*,$author as xs:string*){
+    let $collection := if($collection != '') then
+                            if($collection = ('Gateway to the Syriac Saints',
+                            'The Syriac Biographical Dictionary',
+                            'The Gorgias Encyclopedic Dictionary of the Syriac Heritage',
+                            'The Syriac Gazetteer',
+                            'Bibliotheca Hagiographica Syriaca Electronica',
+                            'SPEAR: Syriac Persons, Events, and Relations',
+                            'Qadishe: A Guide to the Syriac Saints',
+                            'A Guide to Syriac Authors',
+                            'A Guide to the Syriac Saints')) then 
+                                concat("[ancestor::tei:TEI/descendant::tei:titleStmt/tei:title/text() = '",$collection,"']")
+                            else ()
+                        else ()
+    let $lang := if($lang != '') then concat("[@xml:lang = '",$lang,"']") 
+                 else ()
+    let $author := if($author != '') then 
+                    if($element = 'title') then concat("[following-sibling::*[self::tei:author][ft:query(.,'",$author,"*')]]")
+                    else ()
+                 else ()                       
+    let $eval-string := concat("collection('",$global:data-root,"')//tei:"
+                        ,$element,"[ft:query(.,'",$q,"*',common:options())]",$lang,$collection,$author)
+    let $hits := util:eval($eval-string)
+    return 
+        if(count($hits) gt 0) then 
+            <json:value>
+               {
+                for $hit in $hits
+                let $id := $hit/ancestor::tei:body/descendant::tei:idno[starts-with(.,$global:base-uri)][1]/text()
+                let $dates := 
+                    if($element = 'persName') then 
+                        string-join($hit/ancestor::tei:body/descendant::tei:birth/text() 
+                        | $hit/ancestor::tei:body/descendant::tei:death/text() | 
+                        $hit/ancestor::tei:body/descendant::tei:floruit/text(),' ')
+                    else ()
+                return
+                        <json:value json:array="true">
+                            <id>{$id}</id>
+                            {element {xs:QName($element)} { normalize-space(string-join($hit//text(),' ')) }}
+                            {if($dates != '') then <dates>{$dates}</dates> else ()}
+                        </json:value>
+                }
+            </json:value>
+        else   
+            <json:value>
+                <json:value json:array="true">
+                    <id>0</id>
+                    <action>1</action>
+                    <info>No results</info>
+                    <start>1</start>
+                </json:value>
+            </json:value>
 };
-
-
 
 (:~
   : Use resxq to format urls for tei
@@ -124,29 +189,6 @@ function api:get-tei($collection as xs:string, $id as xs:string){
 }; 
 
 (:~
-  : NOTE this does means the above no longer works...
-  : Use resxq to format urls for spear tei
-  : @param $collection syriaca.org subcollection 
-  : @param $id record id
-  : Serialized as XML
-
-declare 
-    %rest:GET
-    %rest:path("/spear/{$type}/{$id}/tei")
-    %output:media-type("text/xml")
-    %output:method("xml")
-function api:get-tei($type as xs:string, $id as xs:string){
-   (<rest:response> 
-      <http:response status="200"> 
-        <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
-      </http:response> 
-    </rest:response>, 
-     api:get-spear-tei($type, $id)
-     )
-}; 
-:)
-
-(:~
   : Return atom feed for single record
   : @param $collection syriaca.org subcollection 
   : @param $id record id
@@ -167,28 +209,6 @@ function api:get-atom-record($collection as xs:string, $id as xs:string){
     )
 }; 
 
-(:~
-  : Return atom feed for single record
-  : @param $collection syriaca.org subcollection 
-  : @param $id record id
-  : Serialized as XML
-:)
-(:
-declare 
-    %rest:GET
-    %rest:path("/{$collection}/{$id}/rdf")
-    %output:media-type("application/rdf+xml")
-    %output:method("xml")
-function api:get-atom-record($collection as xs:string, $id as xs:string){
-   (<rest:response> 
-      <http:response status="200"> 
-        <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
-      </http:response> 
-    </rest:response>, 
-     rdfq:get-rdf(api:get-tei-rec($collection, $id),'')
-    )
-}; 
-:)
 (:~
   : Return atom feed for syrica.org subcollection
   : @param $collection syriaca.org subcollection 
