@@ -608,6 +608,11 @@
         </div>
         <!-- emit record URI and associated help links -->
         <div style="margin:0 1em 1em; color: #999999;">
+            <xsl:variable name="current-id" select="tokenize($resource-id,'/')[last()]"/>
+            <xsl:variable name="next-id" select="xs:integer($current-id) + 1"/>
+            <xsl:variable name="prev-id" select="xs:integer($current-id) - 1"/>
+            <xsl:variable name="next-uri" select="replace($resource-id,$current-id,string($next-id))"/>
+            <xsl:variable name="prev-uri" select="replace($resource-id,$current-id,string($prev-id))"/>
             <small>
                 <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
                     <span class="helper circle noprint">
@@ -615,11 +620,18 @@
                     </span>
                 </a>
                 <p>
+                    <xsl:if test="starts-with($nav-base,'/exist/apps')">
+                        <a href="{replace($prev-uri,$base-uri,$nav-base)}"><span class="glyphicon glyphicon-backward" aria-hidden="true"/></a> 
+                    </xsl:if> <xsl:text> </xsl:text>
                     <span class="srp-label">URI</span>
                     <xsl:text>: </xsl:text>
                     <span id="syriaca-id">
                         <xsl:value-of select="$resource-id"/>
                     </span>
+                    <xsl:text> </xsl:text>
+                    <xsl:if test="starts-with($nav-base,'/exist/apps')">
+                        <a href="{replace($next-uri,$base-uri,$nav-base)}"><span class="glyphicon glyphicon-forward" aria-hidden="true"/></a>
+                    </xsl:if>
                 </p>
             </small>
         </div>
@@ -796,7 +808,7 @@
     <xsl:template match="t:bibl">
         <xsl:choose>
             <xsl:when test="child::*">
-                <xsl:apply-templates select="child::*" mode="footnote"/>                
+                <xsl:apply-templates select="child::*" mode="footnote"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates/>
@@ -1043,7 +1055,7 @@
                                 </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:variable name="corresp" select="substring-after(t:bibl/@corresp,'#')"/>
-                                    <xsl:text>witness </xsl:text>                                        
+                                    <xsl:text>witness </xsl:text>
                                     <xsl:for-each select="$mss/t:bibl">
                                         <xsl:if test="@xml:id = $corresp">
                                             <xsl:value-of select="position()"/>
