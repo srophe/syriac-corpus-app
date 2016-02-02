@@ -187,10 +187,23 @@
             <xsl:apply-templates select="t:biblScope[@unit='vol']" mode="footnote"/>
             <xsl:text> </xsl:text>
         </xsl:if>
-        <xsl:apply-templates select="t:imprint" mode="footnote"/>
-        <xsl:if test="following-sibling::t:monogr">
-            <xsl:text>, </xsl:text>
-        </xsl:if>
+        <xsl:choose>
+            <xsl:when test="following-sibling::t:series">
+                <xsl:apply-templates select="t:series" mode="footnote"/>
+            </xsl:when>
+            <xsl:when test="following-sibling::t:monogr">
+                <xsl:text>, </xsl:text>
+            </xsl:when>
+            <xsl:when test="preceding-sibling::t:monogr">
+                <xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="t:imprint" mode="footnote"/>
+                <xsl:if test="following-sibling::t:monogr">
+                    <xsl:text>, </xsl:text>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -210,6 +223,11 @@
                     <xsl:text>, </xsl:text>
                 </xsl:if>
             </xsl:for-each>
+        </xsl:if>
+        <xsl:if test="preceding-sibling::t:monogr/t:imprint">
+            <xsl:variable name="impring-string"><xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/></xsl:variable>
+            <xsl:text>; </xsl:text>
+            <xsl:value-of select="substring-before(substring-after($impring-string,'('),')')"/>
         </xsl:if>
         <xsl:text>)</xsl:text>
     </xsl:template>
@@ -238,13 +256,34 @@
             <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
             <xsl:choose>
                 <xsl:when test="t:author">
-                    <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',3)"/>
+                    <xsl:choose>
+                        <xsl:when test="t:author/t:persName">
+                            <xsl:sequence select="local:emit-responsible-persons(t:author/t:persName[not(contains(@xml:lang,'Latn-iso9r95'))],'footnote',3)"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',3)"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:when>
                 <xsl:when test="$edited">
-                    <xsl:sequence select="local:emit-responsible-persons(t:editor[not(@role) or @role!='translator'],'footnote',3)"/>
+                    <xsl:choose>
+                        <xsl:when test="t:editor[not(@role) or @role!='translator']/t:persName">
+                            <xsl:sequence select="local:emit-responsible-persons(t:editor[not(@role) or @role!='translator']/t:persName[not(contains(@xml:lang,'Latn-iso9r95'))],'footnote',3)"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:sequence select="local:emit-responsible-persons(t:editor[not(@role) or @role!='translator'],'footnote',3)"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',3)"/>
+                    <xsl:choose>
+                        <xsl:when test="t:author/t:persName">
+                            <xsl:sequence select="local:emit-responsible-persons(t:author/t:persName[not(contains(@xml:lang,'Latn-iso9r95'))],'footnote',3)"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',3)"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:if test="not(t:author)">
@@ -471,6 +510,9 @@
      handle the imprint component of a biblStruct
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:imprint" mode="footnote biblist" priority="1">
+        <xsl:if test="preceding-sibling::t:title">
+            <xsl:text> </xsl:text>
+        </xsl:if>
         <xsl:text>(</xsl:text>
         <xsl:choose>
             <xsl:when test="t:pubPlace[starts-with(@xml:lang,'en')]">
@@ -519,6 +561,7 @@
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:citedRange[ancestor::t:bibl or ancestor::t:biblStruct]" mode="footnote" priority="1">
         <xsl:choose>
+            <xsl:when test="@unit = preceding-sibling::*/@unit"/>
             <xsl:when test="@unit='ff'"/>
             <xsl:otherwise>
                 <xsl:value-of select="concat(@unit,': ')"/>
