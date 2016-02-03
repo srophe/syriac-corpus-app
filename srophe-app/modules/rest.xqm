@@ -104,6 +104,7 @@ function api:get-geo-kml($type as xs:string*, $output as xs:string*) {
     Add addtional format options? OAI,ATOM,TEI?
     Add general search option for all tei (body)
     NOTE make lang and collection accept multiple values. (rework xpath fo accept multiple values.) 
+    May need to add distinct values
 :)
 declare
     %rest:GET
