@@ -142,7 +142,7 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
             <json:value>
                {
                 for $hit in $hits
-                let $id := $hit/ancestor::tei:body/descendant::tei:idno[starts-with(.,$global:base-uri)][1]/text()
+                let $id := replace($hit/ancestor::tei:TEI/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei','')
                 let $dates := 
                     if($element = 'persName') then 
                         string-join($hit/ancestor::tei:body/descendant::tei:birth/text() 
