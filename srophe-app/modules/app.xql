@@ -10,7 +10,7 @@ import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 
-(:~             
+(:~                
  : Syriaca.org URI for retrieving TEI records 
 :)
 declare variable $app:id {request:get-parameter('id', '')}; 
@@ -108,6 +108,7 @@ if($app:id) then
         else if($collection = 'bhse') then concat('http://syriaca.org/work/',$app:id)
         else if($collection = 'spear') then concat('http://syriaca.org/spear/',$app:id)
         else if($collection = 'mss') then concat('http://syriaca.org/manuscript/',$app:id)
+        else if($collection = 'bibl') then concat('http://syriaca.org/bibl/',$app:id)
         else $app:id
     return map {"data" := collection($global:data-root)//tei:idno[. = $id]}
 else map {"data" := 'Page data'}    
@@ -131,7 +132,7 @@ else 'Syriaca.org: The Syriac Reference Portal '
 };  
 
 
-(:~
+(:~  
  : Default title display, used if no sub-module title function. 
 :)
 declare function app:h1($node as node(), $model as map(*)){
@@ -142,7 +143,7 @@ declare function app:h1($node as node(), $model as map(*)){
                 {($rec/descendant::*[contains(@syriaca-tags,'#syriaca-headword')], $rec/descendant::tei:idno, $rec/descendant::tei:location)}
             </srophe-title>
         return global:tei2html($title-nodes)
-    else global:tei2html($model("data")/ancestor::tei:TEI/descendant::tei:title[1])
+    else global:tei2html(($model("data")/ancestor::tei:TEI/descendant::tei:titleStmt[1], $model("data")/ancestor::tei:TEI/descendant::tei:idno))
 }; 
 
 (:~ 

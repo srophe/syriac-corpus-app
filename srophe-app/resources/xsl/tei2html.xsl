@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -621,8 +621,11 @@
                 </a>
                 <p>
                     <xsl:if test="starts-with($nav-base,'/exist/apps')">
-                        <a href="{replace($prev-uri,$base-uri,$nav-base)}"><span class="glyphicon glyphicon-backward" aria-hidden="true"/></a> 
-                    </xsl:if> <xsl:text> </xsl:text>
+                        <a href="{replace($prev-uri,$base-uri,$nav-base)}">
+                            <span class="glyphicon glyphicon-backward" aria-hidden="true"/>
+                        </a>
+                    </xsl:if>
+                    <xsl:text> </xsl:text>
                     <span class="srp-label">URI</span>
                     <xsl:text>: </xsl:text>
                     <span id="syriaca-id">
@@ -630,7 +633,9 @@
                     </span>
                     <xsl:text> </xsl:text>
                     <xsl:if test="starts-with($nav-base,'/exist/apps')">
-                        <a href="{replace($next-uri,$base-uri,$nav-base)}"><span class="glyphicon glyphicon-forward" aria-hidden="true"/></a>
+                        <a href="{replace($next-uri,$base-uri,$nav-base)}">
+                            <span class="glyphicon glyphicon-forward" aria-hidden="true"/>
+                        </a>
                     </xsl:if>
                 </p>
             </small>
@@ -652,6 +657,9 @@
                         [ Syriac Not Available ]
                     </xsl:otherwise>
                 </xsl:choose>
+            </xsl:when>
+            <xsl:when test="self::t:titleStmt">
+                <xsl:apply-templates select="descendant::t:title[@level='a']"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="descendant-or-self::*[not(self::t:idno)]/text()"/>
@@ -841,6 +849,11 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="t:biblScope"/>
+    <xsl:template match="t:biblStruct">
+        <span class="section indent">
+            <xsl:apply-templates mode="footnote"/>            
+        </span>
+    </xsl:template>
     <xsl:template match="t:listRelation">
         <xsl:apply-templates/>
     </xsl:template>
