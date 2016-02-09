@@ -28,7 +28,7 @@
        rec-short-view.xsl
        
        This XSLT transforms tei.xml to a concise view, title, type, dates, 
-       alternate names and truncated description.
+       alternate names and a truncated description.
        
        code by: 
         + Winona Salesky (wsalesky@gmail.com)
@@ -151,7 +151,9 @@
                 <xsl:value-of select="$death"/>
             </xsl:if>
             <xsl:if test="$floruit != ''">
-                <xsl:if test="$birth != '' or $death != ''"><xsl:text>, </xsl:text></xsl:if>
+                <xsl:if test="$birth != '' or $death != ''">
+                    <xsl:text>, </xsl:text>
+                </xsl:if>
                 <xsl:value-of select="$floruit"/>
             </xsl:if>
         </xsl:variable>    
@@ -206,9 +208,11 @@
                 <span class="results-list-desc names" dir="ltr" lang="en">
                     <xsl:text>Names: </xsl:text>
                     <xsl:for-each select="descendant::t:person/t:persName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))] | descendant::t:place/t:placeName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))]">
+                        <xsl:if test="position() &lt; 8">
                         <span class="pers-label badge">
                             <xsl:apply-templates/>
                         </span>
+                        </xsl:if>
                     </xsl:for-each>
                 </span>
             </xsl:if>

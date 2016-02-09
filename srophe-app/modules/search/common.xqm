@@ -80,3 +80,16 @@ return
         return concat(substring-before($string, $last-words),'...')
     else $string
 };
+
+declare function common:keyword($q){
+    if(exists($q) and $q != '') then 
+        concat("[ft:query(.,'",common:clean-string($q),"',common:options())]")
+    else '' 
+};
+
+declare function common:element-search($element, $query){
+    if(exists($element) and $element != '') then 
+        for $e in $element
+        return concat("[ft:query(descendant::tei:",$element,",'",common:clean-string($query),"',common:options())]") 
+    else '' 
+};

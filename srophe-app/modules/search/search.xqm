@@ -16,14 +16,19 @@ import module namespace templates="http://exist-db.org/xquery/templates" ;
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
-(:~
+(:~ 
  : Shared global parameters for building search paging function
 :)
+declare variable $search:q {request:get-parameter('q', '') cast as xs:string};
+declare variable $search:persName {request:get-parameter('persName', '') cast as xs:string};
+declare variable $search:placeName {request:get-parameter('placeName', '') cast as xs:string};
+declare variable $search:title {request:get-parameter('title', '') cast as xs:string};
+declare variable $search:bibl {request:get-parameter('title', '') cast as xs:string};
+declare variable $search:idno {request:get-parameter('title', '') cast as xs:string};
 declare variable $search:start {request:get-parameter('start', 1) cast as xs:integer};
 declare variable $search:sort {request:get-parameter('sort', '') cast as xs:string};
 declare variable $search:perpage {request:get-parameter('perpage', 1) cast as xs:integer};
 declare variable $search:collection {request:get-parameter('collection', '') cast as xs:string};
-
 
 (:~
  : Builds search string and evaluates string.
@@ -68,37 +73,62 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
 };
 
 (:~
- : Uses element types to weight results
-
-declare function search:score-results(){
-    
-};
-:)
-(:~
  : Builds general search string from main syriaca.org page and search api.
 :)
 declare function search:query-string($collection as xs:string?) as xs:string?{
-concat("collection('",$global:data-root,$collection,"')//tei:body",
-    places:keyword(),
-    places:place-name(),
-    persons:name(),"/ancestor::tei:TEI"
-    )
+concat("collection('",$global:data-root,"')//tei:body",
+common:keyword($search:q),
+search:persName(),
+search:placeName(), 
+search:title(),
+search:bibl(),
+search:idno()
+)
 };
 
-declare function search:search-api($q,$place,$person){
-let $keyword-string := 
-    if(exists($q) and $q != '') then concat("[ft:query(.,'",common:clean-string($q),"',common:options())]")
-    else ()    
-let $place-name := 
-    if(exists($place) and $place != '') then concat("[ft:query(descendant::tei:placeName,'",common:clean-string($place),"',common:options())]")
-    else ()
-let $pers-name := 
-    if(exists($person) and $person != '') then concat("[ft:query(descendant::tei:persName,'",common:clean-string($person),"',common:options())]")
-    else ()
-let $query-string := 
-    concat("collection('",$global:data-root,"')//tei:body",
-    $keyword-string,$pers-name,$place-name,"/ancestor::tei:TEI")
-return $query-string
+declare function search:persName(){
+    if($search:persName != '') then 
+        common:element-search('persName',$search:persName) 
+    else '' 
+};
+
+declare function search:placeName(){
+    if($search:placeName != '') then 
+        common:element-search('placeName',$search:placeName) 
+    else '' 
+};
+
+declare function search:title(){
+    if($search:title != '') then 
+        common:element-search('placeName',$search:title) 
+    else '' 
+};
+
+declare function search:bibl(){
+    if($search:bibl != '') then 
+        common:element-search('placeName',$search:bibl) 
+    else '' 
+};
+
+declare function search:idno(){
+    if($search:idno != '') then 
+        common:element-search('placeName',$search:idno) 
+    else '' 
+};
+
+declare function search:search-string(){
+<span xmlns="http://www.w3.org/1999/xhtml">
+{(
+    let $parameters :=  request:get-parameter-names()
+    for  $parameter in $parameters
+    return 
+        if(request:get-parameter($parameter, '') != '') then
+            if($parameter = 'q') then 
+                (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($search:q)}&#160;</span>)
+            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
+        else ())
+        }
+</span>
 };
 
 (:~
@@ -111,7 +141,7 @@ declare function search:search-string($collection as xs:string?){
     else if($collection = 'places') then places:search-string()
     else if($collection = 'bhse') then bhses:search-string()
     else if($collection = 'manuscripts') then ms:search-string()
-    else places:search-string()
+    else search:search-string()
 };
 
 declare %templates:wrap function search:spear-facets($node as node(), $model as map(*)){
@@ -284,7 +314,7 @@ declare %templates:wrap  function search:show-form($node as node()*, $model as m
         else if($collection ='spear') then <div>{spears:search-form()}</div>
         else if($collection ='manuscripts') then <div>{ms:search-form()}</div>
         else if($collection ='bhse') then <div>{bhses:search-form()}</div>
-        else <div>{places:search-form()}</div>
+        else <div>{search:search-form()}</div>
 };
 
 (:~ 
@@ -320,4 +350,64 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
 declare %templates:wrap function search:build-page($node as node()*, $model as map(*), $collection as xs:string?) {
     if(exists(request:get-parameter-names())) then search:show-hits($node, $model, $collection)
     else ()
+};
+
+(:~
+ : Builds advanced search form
+ :)
+declare function search:search-form() {   
+<form method="get" action="search.html" style="margin-top:2em;" class="form-horizontal" role="form">
+<h1>Advanced Search</h1>
+    <div class="well well-small">
+        <div class="well well-small" style="background-color:white;">
+            <div class="row">
+                <div class="col-md-7">
+                <!-- Keyword -->
+                 <div class="form-group">
+                    <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
+                    <div class="col-sm-10 col-md-9 ">
+                        <input type="text" id="q" name="q" class="form-control"/>
+                    </div>
+                  </div>
+                    <!-- Place Name-->
+                  <div class="form-group">
+                    <label for="placeName" class="col-sm-2 col-md-3  control-label">Place Name: </label>
+                    <div class="col-sm-10 col-md-9 ">
+                        <input type="text" id="placeName" name="placeName" class="form-control"/>
+                    </div>
+                  </div>
+                <div class="form-group">
+                    <label for="persName" class="col-sm-2 col-md-3  control-label">Person Name: </label>
+                    <div class="col-sm-10 col-md-9 ">
+                        <input type="text" id="persName" name="persName" class="form-control"/>
+                    </div>
+                  </div>
+                <div class="form-group">
+                    <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
+                    <div class="col-sm-10 col-md-9 ">
+                        <input type="text" id="title" name="title" class="form-control"/>
+                    </div>
+                  </div> 
+                <div class="form-group">
+                    <label for="bibl" class="col-sm-2 col-md-3  control-label">Citation: </label>
+                    <div class="col-sm-10 col-md-9 ">
+                        <input type="text" id="bibl" name="bibl" class="form-control"/>
+                    </div>
+               </div> 
+                <div class="form-group">
+                    <label for="uri" class="col-sm-2 col-md-3  control-label">Syriaca.org URI: </label>
+                    <div class="col-sm-10 col-md-9 ">
+                        <input type="text" id="uri" name="uri" class="form-control"/>
+                    </div>
+               </div> 
+               </div>
+            </div>    
+        </div>
+        <div class="pull-right">
+            <button type="submit" class="btn btn-info">Search</button>&#160;
+            <button type="reset" class="btn">Clear</button>
+        </div>
+        <br class="clearfix"/><br/>
+    </div>    
+</form>
 };
