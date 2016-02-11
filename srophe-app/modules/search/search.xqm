@@ -46,29 +46,31 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                         else search:query-string($collection)
     return                         
     map {"hits" := 
-                if($search:sort = 'alpha') then 
-                    for $hit in util:eval($eval-string)
-                    let $en-title := 
-                                 if($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]) then 
-                                     string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]//text(),' ')   
-                                 else $hit/ancestor::tei:TEI/descendant::tei:title[1]/text()
-                    order by common:build-sort-string($en-title) ascending
-                    return $hit                                                     
-                else if($search:sort = 'date') then 
-                    for $hit in util:eval($eval-string)
-                    let $date := 
-                            if($hit/descendant::tei:birth) then $hit/descendant::tei:birth/@syriaca-computed-start
-                            else if($hit/descendant::tei:death) then $hit/descendant::tei:death/@syriaca-computed-start
-                            else ()
-                    order by xs:date($date) ascending
-                    return $hit 
-                else 
-                    for $hit in util:eval($eval-string)
-                    let $expanded := util:expand($hit/ancestor::tei:TEI, "expand-xincludes=no")
-                    let $headword := count($expanded/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][descendant::*:match])
-                    let $headword := if($headword gt 0) then $headword + 15 else 0
-                    order by ft:score($hit) + (count($expanded/descendant::tei:bibl) div 2) + $headword descending
-                    return $expanded
+                if(exists(request:get-parameter-names())) then 
+                    if($search:sort = 'alpha') then 
+                        for $hit in util:eval($eval-string)
+                        let $en-title := 
+                                     if($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]) then 
+                                         string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]//text(),' ')   
+                                     else $hit/ancestor::tei:TEI/descendant::tei:title[1]/text()
+                        order by common:build-sort-string($en-title) ascending
+                        return $hit                                                     
+                    else if($search:sort = 'date') then 
+                        for $hit in util:eval($eval-string)
+                        let $date := 
+                                if($hit/descendant::tei:birth) then $hit/descendant::tei:birth/@syriaca-computed-start
+                                else if($hit/descendant::tei:death) then $hit/descendant::tei:death/@syriaca-computed-start
+                                else ()
+                        order by xs:date($date) ascending
+                        return $hit 
+                    else 
+                        for $hit in util:eval($eval-string)
+                        let $expanded := util:expand($hit, "expand-xincludes=no")
+                        let $headword := count($expanded/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][descendant::*:match])
+                        let $headword := if($headword gt 0) then $headword + 15 else 0
+                        order by ft:score($hit) + (count($expanded/descendant::tei:bibl) div 2) + $headword descending
+                        return $expanded
+                else ()                        
          }
 };
 
@@ -335,7 +337,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                     <span class="label label-default">{$search:start + $p - 1}</span>
                   </div>
                   <div class="col-md-9" xml:lang="en">
-                    {if($collection = 'spear') then spears:results-node($hit) else rec:display-recs-short-view($hit,'')} 
+                    {rec:display-recs-short-view($hit,'')} 
                   </div>
                 </div>
             </div>
@@ -344,7 +346,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
 </div>
 };
 
-(:~
+(:~ 
  : Checks to see if there are any parameters in the URL, if yes, runs search, if no displays search form. 
 :)
 declare %templates:wrap function search:build-page($node as node()*, $model as map(*), $collection as xs:string?) {

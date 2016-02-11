@@ -27,9 +27,9 @@ else if (ends-with($exist:path,"/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="index.html"/>
     </dispatch>
-else if(matches($exist:resource,"^[0-9]+$") or matches($exist:resource,"^(.[1-9])\.html")) then
+else if(matches($exist:resource,"^[0-9]+(-[0-9]+)+$") or matches($exist:resource,"^(.[1-9])\.html")) then
     let $id := 
-        if(matches($exist:resource,"^[0-9]+$")) then $exist:resource
+        if(matches($exist:resource,"^[0-9]+(-[0-9]+)+$")) then $exist:resource
         else substring-before($exist:resource,'.html')
     let $html-path :=
         if(starts-with($exist:path, "/place/")) then '/geo/place.html'

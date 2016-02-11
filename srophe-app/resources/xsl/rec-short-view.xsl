@@ -80,9 +80,9 @@
  <!-- |||| Root template matches tei root -->
  <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
     <xsl:template match="/">
-        <xsl:apply-templates/>
+        <xsl:call-template name="shortview"/>
     </xsl:template>
-    <xsl:template match="t:TEI">
+    <xsl:template name="shortview">
         <xsl:variable name="uri">
             <xsl:choose>
                 <xsl:when test="descendant::t:idno[@type='URI'][starts-with(.,$base-uri)]">
@@ -114,15 +114,21 @@
                 <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]">
                     <xsl:value-of select="string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]//text(),' ')"/>
                 </xsl:when>
+                <xsl:when test="descendant-or-self::t:titleStmt">
+                    <xsl:apply-templates select="descendant::t:title[@level='a']"/>
+                </xsl:when>
                 <xsl:otherwise>
-                    <xsl:value-of select="descendant::t:titleStmt/t:title[1]/text()"/>
+                    <xsl:apply-templates select="descendant-or-self::*[not(self::t:idno)]/text()"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="syr-title">
-            <xsl:if test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]">
-                <xsl:value-of select="string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')"/>
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]">
+                    <xsl:value-of select="string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')"/>
+                </xsl:when>
+                <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')]">[Syriac Not Available]</xsl:when>
+            </xsl:choose>
         </xsl:variable>
         <xsl:variable name="birth">
             <xsl:if test="$ana != ''">
@@ -179,16 +185,18 @@
                         <xsl:if test="$type != ''">
                             <xsl:value-of select="concat(' (',$type,')')"/>
                         </xsl:if>
-                        <xsl:text> - </xsl:text>
+                        
                         <xsl:choose>
+                            <xsl:when test="$syr-title = '[Syriac Not Available]'">
+                                <xsl:text> - </xsl:text>
+                                <xsl:text> [Syriac Not Available]</xsl:text>
+                            </xsl:when>
                             <xsl:when test="$syr-title != ''">
+                                <xsl:text> - </xsl:text>
                                 <span dir="rtl" lang="syr" xml:lang="syr">
                                     <xsl:value-of select="$syr-title"/>
                                 </span>
                             </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:text> [Syriac Not Available]</xsl:text>
-                            </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -209,9 +217,9 @@
                     <xsl:text>Names: </xsl:text>
                     <xsl:for-each select="descendant::t:person/t:persName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))] | descendant::t:place/t:placeName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))]">
                         <xsl:if test="position() &lt; 8">
-                        <span class="pers-label badge">
-                            <xsl:apply-templates/>
-                        </span>
+                            <span class="pers-label badge">
+                                <xsl:apply-templates/>
+                            </span>
                         </xsl:if>
                     </xsl:for-each>
                 </span>

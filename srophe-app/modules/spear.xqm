@@ -49,7 +49,12 @@ declare function spear:build-doc-path(){
 if($spear:id != '') then 
     if(starts-with($spear:id,'http://syriaca.org/spear/')) then
        collection($global:data-root || "/spear/tei")//tei:div[@uri = $spear:id]
-    else collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$spear:id]]
+    else if(starts-with($spear:id,'http://syriaca.org')) then  
+        collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$spear:id]]
+    else
+        let $id := concat('http://syriaca.org/spear/',$spear:id)
+        return
+        collection($global:data-root || "/spear/tei")//tei:div[@uri = $id]
 else if($spear:view = 'person') then collection($global:data-root || "/spear/tei")//tei:persName
 else if($spear:view = 'place') then collection($global:data-root || "/spear/tei")//tei:placeName
 else if($spear:view = 'event') then collection($global:data-root || "/spear/tei")//tei:div[tei:listEvent]

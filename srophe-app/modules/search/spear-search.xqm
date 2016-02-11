@@ -108,7 +108,7 @@ declare function spears:type-search(){
  : Build query string to pass to search.xqm 
 :)
 declare function spears:query-string() as xs:string? {
- concat("collection('",$global:data-root,"/spear/tei')//tei:div",
+ concat("collection('",$global:data-root,"/spear/tei')//tei:div[parent::tei:body]",
     spears:type-search(),
     facets:facet-filter(),
     spears:keyword(),
@@ -124,8 +124,10 @@ declare function spears:query-string() as xs:string? {
  : Build a search string for search results page from search parameters
 :)
 declare function spears:search-string() as xs:string*{
+<span xmlns="http://www.w3.org/1999/xhtml">
+{(
     let $parameters :=  request:get-parameter-names()
-    for $parameter in $parameters
+    for  $parameter in $parameters
     return 
         if(request:get-parameter($parameter, '') != '') then
             if($parameter = 'q') then 
@@ -133,7 +135,9 @@ declare function spears:search-string() as xs:string*{
             else if($parameter = 'keyword') then 
                 (<span class="param">Controlled Keyword: </span>,<span class="match">{lower-case(functx:camel-case-to-words(substring-after($spears:keyword,'/keyword/'),' '))}</span>)
             else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
-        else ()
+        else ())
+        }
+</span>
 };
 
 (:~
