@@ -63,7 +63,7 @@
  <!-- =================================================================== -->
  <!-- set output so we get (mostly) indented HTML -->
  <!-- =================================================================== -->
-    <xsl:output name="html" encoding="UTF-8" method="xhtml" indent="no"/>
+    <xsl:output name="html" encoding="UTF-8" method="xhtml" indent="no" omit-xml-declaration="yes"/>/>
 
  <!-- =================================================================== -->
  <!--  initialize top-level variables and transform parameters -->
@@ -93,8 +93,12 @@
             <xsl:when test="string(/*/@id)">
                 <xsl:value-of select="string(/*/@id)"/>
             </xsl:when>
-            <xsl:otherwise>
+            <xsl:when test="/descendant::t:idno[@type='URI'][starts-with(.,$base-uri)]">
                 <xsl:value-of select="replace(/descendant::t:idno[@type='URI'][starts-with(.,$base-uri)][1],'/tei','')"/>
+            </xsl:when>
+            <!-- Temporary fix for SPEAR -->
+            <xsl:otherwise>
+                <xsl:text>http://syriaca.org/0000</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
@@ -561,7 +565,7 @@
             <div style="margin-left:-2em; margin-top:1em; padding-top:0;">
                 <span class="dropdown inline">
                     <button class="btn btn-link dropdown-toggle" type="button" id="saintsMenu" data-toggle="dropdown" aria-expanded="true">
-                        <img alt="Syriac.org: Qadishe" src="/exist/apps/srophe/resources/img/icons-q.png"/>
+                        <img alt="Syriac.org: Qadishe" src="{$nav-base}/resources/img/icons-q.png"/>
                         <span class="caret"/>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="saintsMenu">
@@ -585,7 +589,7 @@
             <div style="margin-left:-2em; margin-top:-1em; padding-top:0;">
                 <span class="dropdown inline">
                     <button class="btn btn-link dropdown-toggle" type="button" id="authorsMenu" data-toggle="dropdown" aria-expanded="true">
-                        <img alt="Syriac.org: Persons" src="/exist/apps/srophe/resources/img/icons-authors.png"/>
+                        <img alt="Syriac.org: Persons" src="{$nav-base}/resources/img/icons-authors.png"/>
                         <span class="caret"/>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="authorsMenu">
@@ -851,7 +855,7 @@
     <xsl:template match="t:biblScope"/>
     <xsl:template match="t:biblStruct">
         <span class="section indent">
-            <xsl:apply-templates mode="footnote"/>            
+            <xsl:apply-templates mode="footnote"/>
         </span>
     </xsl:template>
     <xsl:template match="t:listRelation">
@@ -1291,7 +1295,7 @@
     <xsl:template match="t:licence">
         <xsl:if test="@target">
             <a rel="license" href="{@target}">
-                <img alt="Creative Commons License" style="border-width:0" src="/exist/apps/srophe/resources/img/cc.png" height="18px"/>
+                <img alt="Creative Commons License" style="border-width:0" src="{$nav-base}/resources/img/cc.png" height="18px"/>
             </a>
         </xsl:if>
         <xsl:apply-templates/>
