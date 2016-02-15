@@ -63,7 +63,7 @@
  <!-- =================================================================== -->
  <!-- set output so we get (mostly) indented HTML -->
  <!-- =================================================================== -->
-    <xsl:output name="html" encoding="UTF-8" method="xhtml" indent="no"/>
+    <xsl:output  encoding="UTF-8" method="xhtml" indent="no" omit-xml-declaration="yes"/>
 
  <!-- =================================================================== -->
  <!--  initialize top-level variables and transform parameters -->
@@ -553,7 +553,7 @@
             <div style="margin-left:-2em; margin-top:-1em; padding-top:0;">
                 <span class="dropdown inline">
                     <button class="btn btn-link dropdown-toggle" type="button" id="saintsMenu" data-toggle="dropdown" aria-expanded="true">
-                        <img alt="Syriac.org: Persons" src="/exist/apps/srophe/resources/img/icons-saints.png"/>
+                        <img alt="Syriac.org: Persons" src="{$base-uri}/apps/srophe/resources/img/icons-saints.png"/>
                         <span class="caret"/>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="saintsMenu">
@@ -576,7 +576,7 @@
             <div style="margin-left:-2em; margin-top:-1em; padding-top:0;">
                 <span class="dropdown inline">
                     <button class="btn btn-link dropdown-toggle" type="button" id="authorsMenu" data-toggle="dropdown" aria-expanded="true">
-                        <img alt="Syriac.org: Persons" src="/exist/apps/srophe/resources/img/icons-authors.png"/>
+                        <img alt="Syriac.org: Persons" src="{$base-uri}/apps/srophe/resources/img/icons-authors.png"/>
                         <span class="caret"/>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="authorsMenu">
@@ -609,7 +609,7 @@
         <!-- emit record URI and associated help links -->
         <div style="margin:0 1em 1em; color: #999999;">
             <small>
-                <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
+                <a href="{$base-uri}/documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
                     <div class="helper circle noprint">
                         <p>i</p>
                     </div>
@@ -1182,7 +1182,7 @@
     <xsl:template match="t:licence">
         <xsl:if test="@target">
             <a rel="license" href="{@target}">
-                <img alt="Creative Commons License" style="border-width:0" src="/exist/apps/srophe/resources/img/cc.png" height="18px"/>
+                <img alt="Creative Commons License" style="border-width:0" src="{$base-uri}/resources/img/cc.png" height="18px"/>
             </a>
         </xsl:if>
         <xsl:apply-templates/>
