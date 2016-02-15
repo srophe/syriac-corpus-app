@@ -63,7 +63,7 @@
  <!-- =================================================================== -->
  <!-- set output so we get (mostly) indented HTML -->
  <!-- =================================================================== -->
-    <xsl:output name="html" encoding="UTF-8" method="xhtml" indent="no" omit-xml-declaration="yes"/>/>
+    <xsl:output name="html" encoding="UTF-8" method="xhtml" indent="no" omit-xml-declaration="yes"/>
 
  <!-- =================================================================== -->
  <!--  initialize top-level variables and transform parameters -->
