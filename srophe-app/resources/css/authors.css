@@ -1,7 +1,7 @@
 /* Application styles could go here */
 /*
  * Colors:
- * Violet: BCA7C4
+ * Blue: 333399
  * light grey: cccccc
  * Dark Grey #333
  * Light Grey (text): #999
@@ -12,6 +12,23 @@ body {background-color:#666;}
 /* Main content blocks */
 .navbar {border-bottom:4px solid #333399 !important;}
 .advanced-search > a {color:#999; text-decoration:none;}
+
+
+/* Banner styles SPEAR */
+.banner-index {
+	background-image:url('/exist/apps/srophe/resources/img/authors-banner.png');
+	
+}
+
+/* BHSE banner internal pages */
+.banner-interior {
+    border-bottom:4px solid #16347C;
+	background-image:url('/exist/apps/srophe/resources/img/authors-banner.png');
+    height:175px;
+}
+
+.banner-solid{ background-color:#243E90; border-top:4px solid #16347C;}
+
 
 /* Typography */
 h1 {color:#666; padding-top:1em;}
