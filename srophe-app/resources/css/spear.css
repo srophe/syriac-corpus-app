@@ -1,7 +1,8 @@
 /* Application styles could go here */
 /*
  * Colors:
- * Violet: BCA7C4
+ * Dark green: 2A492A
+ * Mid green : 315431
  * light grey: cccccc
  * Dark Grey #333
  * Light Grey (text): #999
@@ -10,8 +11,22 @@ body {background-color:#666;}
 #main {background-color:#cccccc;}
 
 /* Main content blocks */
-.navbar {border-bottom:4px solid #336633 !important;}
+.navbar {border-bottom:4px solid #315431 !important;}
 .advanced-search > a {color:#999; text-decoration:none;}
+
+/* Banner styles SPEAR */
+.banner-index {
+	background-image:url('/exist/apps/srophe/resources/img/andarin_stone.jpg');
+	
+}
+
+/* BHSE banner internal pages */
+.banner-interior {
+    border-bottom:4px solid #2A492A;
+	background-image:url('/exist/apps/srophe/resources/img/andarin_stone.jpg');
+}
+
+.banner-solid{ background-color:#315431; border-top:4px solid #2A492A;}
 
 /* Typography */
 h1 {color:#666; padding-top:1em;}

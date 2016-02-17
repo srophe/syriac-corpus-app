@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<div xmlns="http://www.w3.org/1999/xhtml" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+    <div class="banner-index full-page hide-search">
+        <span class="img-credit">
+            <label>Photo Credit:</label> Dan Schwartz [Full citation needed].
+            <button class="btn btn-link white-link" data-toggle="collapse" data-target="#img-rights">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"/>
+            </button>
+            <span id="img-rights" class="collapse"/>
+        </span>
+    </div>
+    <div class="banner-solid">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <form role="search" id="site_search_form" method="GET" class="col-xs-12 col-sm-offset-2 col-sm-8" action="search.html" style="">
+                    <div class="input-group">
+                        <input type="text" class="homepage_search_input form-control input-lg transparent-input" placeholder="Search for Texts" name="q" id="q"/>
+                        <input type="hidden" id="collection" value="spear"/>
+                        <div class="input-group-btn">
+                            <button class="btn btn-default input-lg" type="submit">
+                                &#160; <span class="glyphicon glyphicon-search"/>
+                            </button>
+                            <a href="search.html" title="advanced search" class="btn btn-default input-lg" style="padding-top:.75em;">
+                                &#160; <span class="glyphicon glyphicon-cog"/>
+                            </a>
+                        </div><!-- /btn-group -->
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2"/>
+        </div>
+    </div>
     <div class="row top-padding">
         <div class="col-md-8">
+            <div class="container">
             <p>
                 <i>Syriaca.org: The Syriac Reference Portal</i> is a collaborative research project
                 publishing online reference works concerning the culture, history, and literature
@@ -42,31 +73,66 @@
                 <b>Forthcoming:</b>
             </p>
             <ul>
-                <li><a href="persons/index.html"><i>The Syriac Biographical Dictionary</i></a> (SBD, eds. David Michelson, Nathan Gibson, Thomas Carlson, and Jeanne-Nicole Mellon Saint-Laurent) is a reference work and
+                <li>
+                    <a href="persons/index.html">
+                        <i>The Syriac Biographical Dictionary</i>
+                    </a> (SBD, eds. David Michelson, Nathan Gibson, Thomas Carlson, and Jeanne-Nicole Mellon Saint-Laurent) is a reference work and
                     authority file which aims to create <a href="documentation/terms.html">URIs</a>
                     for all persons of interest as linked data for Syriac studies. While the <i>SBD</i> is not itself a prosopography in the tradition sense, in combination with its sibling publication, <i>SPEAR: Syriac Persons Events and Relations</i>, it forms the core of Syriaca.org's prosopographical database.  When complete <i>SBD</i> will have three volumes:  <i>Qadishe: A Guide to the Syriac Saints</i> (Vol. 1), <i>A Guide to Syriac Authors</i> (Vol. 2), and <i>Miscellaneous Syriac Persons</i> (Vol. 3). More information on the first two volumes is given below.
-                    <ul><li><a href="q/index.html"><i>Volume 1: Qadishe: A Guide to the Syriac Saints</i></a> (edited by Jeanne-Nicole Mellon Saint-Laurent and David Michelson) is the most extensive reference work ever published on saints in the Syriac religious traditions. <i>Qadishe</i> contains information on nearly 650 persons relevant to the study of Syriac hagiography including the saints themselves (such as St. Simeon the Stylite) as well as their associates and the authors who narrated their lives or wrote homilies and hymns about them. </li>
-                        <li><a href="authors/index.html"><i>Volume 2: A Guide to Syriac Authors</i></a> (edited by David Michelson, Thomas Carlson, and Nathan Gibson)  is the most extensive reference work ever published on authors in the Syriac traditions. Forthcoming in 2016, this resource has also been serialized as part of <a href="http://viaf.org/viaf/search?query=local.names+all+%22ephrem%22+and+local.sources+any+%22srp%22&amp;sortKeys=holdingscount"><i>The Virtual International Authority File</i></a>. It contains entries on over 1000 authors. </li></ul></li>
-                <li><i>A New Handbook of Syriac Literature</i> (eds. Nathan Gibson, David Michelson, and Jeanne-Nicole Mellon Saint-Laurent) is a
+                    <ul>
+                        <li>
+                            <a href="q/index.html">
+                                <i>Volume 1: Qadishe: A Guide to the Syriac Saints</i>
+                            </a> (edited by Jeanne-Nicole Mellon Saint-Laurent and David Michelson) is the most extensive reference work ever published on saints in the Syriac religious traditions. <i>Qadishe</i> contains information on nearly 650 persons relevant to the study of Syriac hagiography including the saints themselves (such as St. Simeon the Stylite) as well as their associates and the authors who narrated their lives or wrote homilies and hymns about them. </li>
+                        <li>
+                            <a href="authors/index.html">
+                                <i>Volume 2: A Guide to Syriac Authors</i>
+                            </a> (edited by David Michelson, Thomas Carlson, and Nathan Gibson)  is the most extensive reference work ever published on authors in the Syriac traditions. Forthcoming in 2016, this resource has also been serialized as part of <a href="http://viaf.org/viaf/search?query=local.names+all+%22ephrem%22+and+local.sources+any+%22srp%22&amp;sortKeys=holdingscount">
+                                <i>The Virtual International Authority File</i>
+                            </a>. It contains entries on over 1000 authors. </li>
+                    </ul>
+                </li>
+                <li>
+                    <i>A New Handbook of Syriac Literature</i> (eds. Nathan Gibson, David Michelson, and Jeanne-Nicole Mellon Saint-Laurent) is a
                     multi-volume reference guide to Syriac literature. This work aims to be the most extensive reference work ever published on Syriac literature from antiquity to the early modern period. The first volume, <i>Bibliotheca Hagiographica Syriaca Electronica</i> is nearing publication as a new guide to the lives of the Syriac saints. Further information is below.
-                    <ul><li><a href="bhse/index.html"><i>Volume 1: Bibliotheca Hagiographica Syriaca Electronica</i></a> (eds. Jeanne-Nicole Saint-Laurent, David A. Michelson, Ugo Zanetti, and Claude Detienne). This work describes hagiographic texts written about saints and includes information about different
+                    <ul>
+                        <li>
+                            <a href="bhse/index.html">
+                                <i>Volume 1: Bibliotheca Hagiographica Syriaca Electronica</i>
+                            </a> (eds. Jeanne-Nicole Saint-Laurent, David A. Michelson, Ugo Zanetti, and Claude Detienne). This work describes hagiographic texts written about saints and includes information about different
                         versions and data such as the title, prologue, and epilogue of the saint's life,
                         along with the hagiographer. With publication scheduled for 2016. The draft of
-                        this work contains entries on over 1800 texts about Syriac saints.</li></ul></li>
-                <li><a href="saints/index.html"><i>Gateway to the Syriac Saints</i></a> (eds. Jeanne-Nicole Mellon Saint-Laurent and David A. Michelson) is a reference site specifically for the study of Syriac saints. It uses linked open data to combine <i>Qadishe: A Guide to the Syriac Saints</i> and <i>Bibliotheca Hagiographica Syriaca Electronica</i> as a single search site.</li>
-                <li><a href="spear/index.html"><i>SPEAR: Syriac Persons Events and Relations</i></a> (ed. Daniel Schwartz) is a
-                    factoid-based prosopographical tool similar to the <a href="http://www.pase.ac.uk"><i>The Prosopography of Anglo-Saxon England (PASE)</i></a>. <i>SPEAR</i> is designed to provide information about persons and their
+                        this work contains entries on over 1800 texts about Syriac saints.</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="saints/index.html">
+                        <i>Gateway to the Syriac Saints</i>
+                    </a> (eds. Jeanne-Nicole Mellon Saint-Laurent and David A. Michelson) is a reference site specifically for the study of Syriac saints. It uses linked open data to combine <i>Qadishe: A Guide to the Syriac Saints</i> and <i>Bibliotheca Hagiographica Syriaca Electronica</i> as a single search site.</li>
+                <li>
+                    <a href="spear/index.html">
+                        <i>SPEAR: Syriac Persons Events and Relations</i>
+                    </a> (ed. Daniel Schwartz) is a
+                    factoid-based prosopographical tool similar to the <a href="http://www.pase.ac.uk">
+                        <i>The Prosopography of Anglo-Saxon England (PASE)</i>
+                    </a>. <i>SPEAR</i> is designed to provide information about persons and their
                     relationships within the context of historical events. This online prosopography
                     will be the first ever created with a specific focus on Syriac texts.
                     <i>SPEAR</i> will contain new data about people in Syriac texts (their name
                     or names, dates, important events, possessions they bought, sold, or owned,
                     ethnic identity, language, education, people to whom they wrote letters,
                     religion, vocation, etc.).</li>
-                <li><a href="mss/index.html"><i>Digital Catalogue of Syriac Manuscripts in the British Library</i></a> (ed. David
+                <li>
+                    <a href="mss/index.html">
+                        <i>Digital Catalogue of Syriac Manuscripts in the British Library</i>
+                    </a> (ed. David
                     Michelson) is a digital catalogue of Syriac manuscripts using the <a href="http://jtei.revues.org/372">TEI XML standards</a> for manuscript
                     cataloguing.</li>
-                <li><i>A Union Catalogue of Syriac Manuscripts</i> (ed. David Michelson) is digital
-                    catalogue of Syriac manuscripts following the model of the <a href="http://www.fihrist.org.uk/"><i>Fihrist</i></a> union catalogue.</li>
+                <li>
+                    <i>A Union Catalogue of Syriac Manuscripts</i> (ed. David Michelson) is digital
+                    catalogue of Syriac manuscripts following the model of the <a href="http://www.fihrist.org.uk/">
+                        <i>Fihrist</i>
+                    </a> union catalogue.</li>
             </ul>
             <p>All publications of <i>Syriaca.org</i> are made available online in a free and open
                 format using the <a href="http://creativecommons.org">Creative Commons</a> licenses.
@@ -119,6 +185,7 @@
             <p class="caveat">Any views, findings, conclusions, or recommendations expressed in this
                 publication do not necessarily reflect those of the National Endowment for the
                 Humanities or any of the other sponsors.</p>
+            </div>    
         </div>
         <div class="col-md-4">
             <h3 class="underline">More Information</h3>
