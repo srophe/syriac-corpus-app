@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<div xmlns="http://www.w3.org/1999/xhtml" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
-    <div class="row">
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+    <xi:include href="../banner.html"/>
+    <div class="row container top-padding">
         <div class="col-md-3">
             <h3>Available APIs </h3>
             <ul class="nav nav-tabs nav-stacked pull-left type-nav">
@@ -60,7 +61,9 @@
                                 </ul>
                                 <strong>lang</strong>
                                 <p>Limits by xml:lang attribute.</p>
-                                <ul><li></li></ul>
+                                <ul>
+                                    <li/>
+                                </ul>
                                 <strong>author</strong>
                                 <p>Accepts simple text string. Used only with '/title' search.</p>
                             </td>

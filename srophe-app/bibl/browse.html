@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/persons.html" data-template-at="content">
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
     <xi:include href="../banner.html"/>
     <div class="container top-padding">
-        <h1 class="title about">Index of Persons</h1>
+        <h1 class="title about">Bibliography</h1>
         <!-- Calls xquery functions -->
-        <div data-template="browse:get-all" data-template-collection="persons">
+        <div data-template="browse:get-all" data-template-collection="bibl">
             <div class="tabbable">
                 <!-- Browse Tabs -->
                 <ul class="nav nav-tabs" id="nametabs">
                     <li data-template="browse:build-tabs-en"/>
                     <li data-template="browse:build-tabs-syr"/>
-                    <li data-template="browse:build-tabs-type"/>
-                    <li data-template="browse:build-tabs-date"/>
                 </ul>
                 <!-- Browse Content -->
-                <div class="tab-content" data-template="browse:get-narrow" data-template-collection="persons">
+                <div class="tab-content" data-template="browse:get-narrow" data-template-collection="bibl">
                     <div class="tab-pane active">
                         <div class="row">
-                            <div data-template="browse:results-panel" data-template-collection="persons"/>
+                            <div data-template="browse:results-panel" data-template-collection="bibl"/>
                         </div>
                     </div>
                 </div>

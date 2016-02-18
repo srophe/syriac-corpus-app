@@ -16,14 +16,14 @@ body {background-color:#666;}
 
 /* Banner styles SPEAR */
 .banner-index {
-	background-image:url('/exist/apps/srophe/resources/img/authors-banner.png');
+	background-image:url('/exist/apps/srophe/resources/img/authors-banner.jpg');
 	
 }
 
 /* BHSE banner internal pages */
 .banner-interior {
     border-bottom:4px solid #16347C;
-	background-image:url('/exist/apps/srophe/resources/img/authors-banner.png');
+	background-image:url('/exist/apps/srophe/resources/img/authors-banner.jpg');
     height:175px;
 }
 
