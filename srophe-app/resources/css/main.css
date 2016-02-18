@@ -4,15 +4,18 @@
  * Bllue: 456889
  */
 /* Import Fonts CSS */ 
- @import url("syr-font-families.css");
+
+@import url("syr-font-families.css");
 
 /* Main content blocks */
-body {font-family: arial, sans-serif;}
-#main { padding: 0;}
+body {font-family: arial, sans-serif; background-color:#385978;}
+#main { padding: 0; background-color:#999; }
 #content{background-color:white; padding-top: 50px;}
+
 /* Removed extra padding introduced by Bootstrap for rows. Was causing issues with background images */
 .row { margin-left: 0px; margin-right: 0px;}
 .container{width:95%; padding:0;}
+
 /* Adds a little extra padding around interior content, useful when for when nav wraps. */
 .interior-content {padding:0; padding-top: 50px;}
 .full-page {margin-top:0;}
@@ -26,8 +29,20 @@ body {font-family: arial, sans-serif;}
 
 /* Navbar styles*/
 .navbar {border-bottom:4px solid #456889 !important;}
+.navbar-inner {border-bottom:.5em solid #456889 !important;}
+.navbar-inner .container{height: 45px !important; padding-top:.5em; margin-left:.5em;}
 .navbar-brand {margin-top:-.75em; padding-left:0; margin-left:0; margin-right:-2em;}
 .navbar-brand img {padding:0; margin:0; }
+
+.brand {margin-top:-.75em; margin-left:40px;padding-left:0;}
+.brand img {margin-left:1.5em;padding-left:0;}
+
+.navbar-inner .nav > li > a:hover, .advanced-search > a:hover {
+        border-bottom: 4px solid #DDEAF1 !important;  
+}
+.navbar-inner > .container > .nav > li.selected {border-bottom: 4px solid #E69849 !important; }
+.advanced-search > a {color:#999; text-decoration:none;}
+
 .navbar .advanced-search{margin-top:-.5em;}
 .navbar-form {overflow:hidden;}
 .navbar-input-group {
@@ -158,10 +173,10 @@ body {font-family: arial, sans-serif;}
 footer {text-align:center; color:white;}
 
 /* Typography */
-h1 {font-size:1.5em; margin:.25em 0 .25em 0; color:#E69849; font-weight:500;}
-h2 {font-size: 1.25em; margin:1em 0 .25em 0; padding-bottom:0; color:#753C28; font-weight:500;}
+h1 {font-size:1.5em; margin:.25em 0 .25em 0; color:#456889; font-weight:500;}
+h2 {font-size: 1.25em; margin:1em 0 .25em 0; padding-bottom:0; color:#999; font-weight:500;}
 h3 {font-size: 1.2em; margin:1em 0 .25em 0; padding-bottom:0; color:#333; font-weight:500;  padding-bottom:0; margin-bottom:1em;}
-h3.underline {color:#999; border-bottom:3px solid #E69849; padding-bottom:-.75em; margin-bottom:1em; margin-top:1em;}
+h3.underline {color:#999; border-bottom:3px solid #456889; padding-bottom:-.75em; margin-bottom:1em; margin-top:1em;}
 h4 {font-size: 1em; margin:0 0 .25em 0; padding-bottom:0; font-weight:bold;}
 h3.label {
     background-color:#ccc;
@@ -183,6 +198,14 @@ h4 {font-size: 1em; margin-top:1em;}
 .white-link:focus, .white-link:active:focus, .white-link.active:focus {
     outline: 0 none;
     color:white;
+}
+
+.transparent {
+    /* default fallback */
+    background: rgb(255, 255, 255) transparent;
+    /* nice browsers */
+    background: rgba(255, 255, 255, 0.8);
+    
 }
 /* Table styles*/
 table {width:98% !important;border-collapse:collapse; font-size:1em; margin-top:1.5em;}

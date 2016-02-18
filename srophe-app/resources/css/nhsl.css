@@ -1,0 +1,25 @@
+/* Application styles could go here */
+/*
+ * Colors:
+ * Dark green: 2A492A
+ * Mid green : 315431
+ * light grey: cccccc
+ * Dark Grey #333
+ * Light Grey (text): #999
+ */
+body {background-color:#666;}
+#main {background-color:#cccccc;}
+
+/* Banner styles SPEAR */
+.banner-index {
+	background-image:url('/exist/apps/srophe/resources/img/book-banner.png');
+	background-position:bottom center;
+}
+
+/* BHSE banner internal pages */
+.banner-interior {
+	background-image:url('/exist/apps/srophe/resources/img/book-banner.png');
+    background-position:bottom center;
+}
+
+/*.banner-solid{ background-color:#315431; border-top:4px solid #2A492A;}*/
