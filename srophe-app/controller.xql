@@ -99,6 +99,11 @@ else if (contains($exist:path, "/$shared/")) then
             <set-header name="Cache-Control" value="max-age=3600, must-revalidate"/>
         </forward>
     </dispatch>
+(: Redirects paths with directory, and no trailing slash to index.html in that directory :)    
+else if (matches($exist:resource, "^([^.]+)$")) then
+    <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+        <redirect url="{concat($exist:path,'/index.html')}"/>
+    </dispatch>         
 else
     (: everything else is passed through :)
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
