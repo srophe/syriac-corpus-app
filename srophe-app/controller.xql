@@ -75,7 +75,7 @@ else if (contains($exist:path,'/api/')) then
 else if (ends-with($exist:path, "/atom") or ends-with($exist:path, "/tei")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <forward url="{concat('/restxq', $exist:path)}" absolute="yes"/>
-    </dispatch>
+    </dispatch>   
 else if (ends-with($exist:resource, ".html")) then
     (: the html page is run through view.xql to expand templates :)
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
@@ -101,6 +101,11 @@ else if (contains($exist:path, "/$shared/")) then
             <set-header name="Cache-Control" value="max-age=3600, must-revalidate"/>
         </forward>
     </dispatch>
+(: Redirects paths with directory, and no trailing slash to index.html in that directory :)    
+else if (matches($exist:resource, "^([^.]+)$")) then
+    <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+        <redirect url="{concat($exist:path,'/index.html')}"/>
+    </dispatch>     
 else
     (: everything else is passed through :)
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
