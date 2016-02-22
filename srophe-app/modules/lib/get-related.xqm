@@ -16,15 +16,28 @@ declare function rel:get-names($uris as xs:string?) as element(a)*{
         rec:display-recs-short-view($names, '')
 };
 
+(: Get names/titles for each uri :)
+declare function rel:get-names-json($uris as xs:string?) as node()*{
+    for $uri in tokenize($uris,' ')
+    let $rec :=  global:get-rec($uri)
+    let $name := 
+                if(contains($uris,'/spear/')) then
+                    let $string := normalize-space(string-join($rec/descendant::text(),' '))
+                    let $last-words := tokenize($string, '\W+')[position() = 5]
+                    return concat(substring-before($string, $last-words),'...')
+                else replace($rec/descendant::tei:titleStmt/tei:title[1]/text(),'—',' ')
+    return <name>{$name}</name>
+         
+};
+
+declare function rel:make-rel-string($relationships as xs:string*) as xs:string*{
+    for $r in  $relationships
+    return concat(substring-after($r,':'),' ')
+};
+
 (: Build list with appropriate punctuation :)
 declare function rel:list-names($uris as xs:string?){
-(:
-if(count(rel:get-names($uris)) gt 2) then
-    (rel:get-names($uris)[1], ', ', rel:get-names($uris)[position() gt 1 and position() != last()], ', and ', rel:get-names($uris)[last()])
-else if(count(rel:get-names($uris)) = 2) then
-    (rel:get-names($uris)[1], ' and ', rel:get-names($uris)[last()])
-else rel:get-names($uris):)
-rel:get-names($uris)
+    rel:get-names($uris)
 };
 
 (: Subject type, based on uri of @passive uris:)
@@ -36,7 +49,7 @@ else ()
 };
 
 (: Translate relationships into readable strings :)
-declare function rel:decode-relatiohship($name as xs:string*, $passive as xs:string*){
+declare function rel:decode-relatiohship($name as xs:string*, $passive as xs:string*, $mutual as xs:string*){
 if($name = 'dcterms:subject') then
     concat(rel:get-subject-type($passive), ' highlighted: ')
 else if($name = 'syriaca:commemorated') then
@@ -48,7 +61,7 @@ else concat(rel:get-subject-type($passive),' ', replace($name,'-|:',' '),' ')
 declare function rel:construct-relation-text($related){
     <span class="relation">
           {(
-            rel:decode-relatiohship($related/@name/string(),$related/@passive/string()),
+            rel:decode-relatiohship($related/@name/string(),$related/@passive/string(),$related/@mutual/string()),
             rel:list-names($related/@passive/string())
             (:rel:list-names($related/@active/string()):)
             )}       
