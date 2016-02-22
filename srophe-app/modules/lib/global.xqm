@@ -100,6 +100,10 @@ declare function global:tei2html($nodes as node()*) {
  : Generic get record function
 :)
 declare function global:get-rec($id as xs:string){
-    for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI
-    return $rec
+    if(contains($id,'/spear/')) then 
+        for $rec in collection($global:data-root)//tei:div[@uri = $id]
+        return $rec
+    else 
+        for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI
+        return $rec  
 };
