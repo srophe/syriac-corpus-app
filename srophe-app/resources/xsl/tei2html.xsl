@@ -398,13 +398,25 @@
         </xsl:if>
         
         <!-- Confessions/Religious Communities -->
-        <xsl:if test="t:confessions/t:state[@type='confession']">
-            <div id="description">
+        <xsl:if test="t:confessions/t:state[@type='confession'] | t:state[@type='confession']">
+            <div>
                 <h3>Known Religious Communities</h3>
                 <p class="caveat">
                     <em>This list is not necessarily exhaustive, and the order does not represent importance or proportion of the population. Dates do not represent starting or ending dates of a group's presence, but rather when they are attested. Instead, the list only represents groups for which Syriaca.org has source(s) and dates.</em>
                 </p>
-                <xsl:call-template name="confessions"/>
+                <xsl:choose>
+                    <xsl:when test="t:confessions/t:state[@type='confession']">
+                        <xsl:call-template name="confessions"/>                        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <ul>
+                            <xsl:for-each select="t:state[@type='confession']">
+                                <li><xsl:apply-templates mode="plain"/></li>
+                            </xsl:for-each>
+                        </ul>
+                    </xsl:otherwise>
+                </xsl:choose>
+
             </div>
         </xsl:if>
         
