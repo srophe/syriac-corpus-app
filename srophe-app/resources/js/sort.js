@@ -7,6 +7,6 @@ $( document ).ready(function() {
     });
     $('#manuscript').click( function(event) {
         event.preventDefault();
-        $('#events-list').load(URL + " #events-list");
+        $('#events-list').load(URL + "&sort=manuscript #events-list");
     });
 });
