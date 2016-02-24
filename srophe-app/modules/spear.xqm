@@ -6,7 +6,7 @@ xquery version "3.0";
 module namespace spear="http://syriaca.org/spear";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
-
+import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
 import module namespace facets="http://syriaca.org/facets" at "lib/facets.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
@@ -62,6 +62,7 @@ else if($spear:view = 'all') then collection($global:data-root || "/spear/tei")/
 else util:eval(concat("collection('",$global:data-root,"/spear/tei')//tei:div",facets:facet-filter()))
 };
 
+
 (:~
  : Holding place
  : Value passed through metadata:page-title() 
@@ -77,6 +78,18 @@ declare function spear:html-title(){
  :)
 declare %templates:wrap function spear:get-spear-data($node as node(), $model as map(*)){
      map {"spear-data" := spear:build-doc-path()}
+};
+
+declare %templates:wrap function spear:get-event-data($node as node(), $model as map(*)){
+let $events :=  collection($global:data-root || "/spear/tei")//tei:event[parent::tei:listEvent]
+return 
+     map {"spear-data" := $events}
+};
+
+declare %templates:wrap function spear:build-event-timeline($node as node(), $model as map(*)){
+let $events := $model("spear-data")
+return
+    ev:build-timeline($events,'events')
 };
 
 declare %templates:wrap function spear:uri($node as node(), $model as map(*)){
@@ -255,7 +268,7 @@ else spear:build-timeline($node, $model, $dates)
 (:~ 
  : Include timeline and events list view in xql to adjust for event/person/place view
 :)
-declare function spear:build-timeline($node as node(), $model as map(*), $dates){
+declare function spear:build-timeline($node as node()*, $model as map(*), $dates){
 let $data := $model("spear-data")
     return
      if($dates = 'personal') then 
@@ -460,36 +473,59 @@ declare %templates:wrap function spear:browse-facets($node as node(), $model as 
     </div>
 };
 
+declare function spear:browse-filter-options($node as node(), $model as map(*)){
+<div>
+    <h4>Narrow by Source Text</h4>
+    <span class="facets applied">
+        {   
+            if($facets:fq) then facets:selected-facet-display()
+            else ()            
+        }
+    </span>
+    <ul class="nav nav-tabs nav-stacked" style="margin-left:-1em;">
+         {
+            let $facet-nodes := $model('spear-data')
+            let $facets := $facet-nodes/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[@level='a']
+            return 
+            <li>{facets:title($facets)}</li>
+         }
+    </ul>
+</div>
+};
 (:
  : SPEAR Browse options
 :)
 declare %templates:wrap function spear:browse-spear($node as node(), $model as map(*)){
-if($spear:view = 'person') then 
+if($spear:view = 'sources' or $spear:view = '') then 
 <div class="row">
     <div class="col-md-3">
-        <div style="margin:1em;">
-         <h4>Narrow by Source Text</h4>
-         <span class="facets applied">
-                {
-                    if($facets:fq) then facets:selected-facet-display()
-                    else ()            
-                }
-         </span>
-         <ul class="nav nav-tabs nav-stacked" style="margin-left:-1em;">
-         {
-            let $facet-nodes := $model('spear-data')
-            let $facets := $facet-nodes/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title
-            return 
-            <li>{facets:title($facets)}</li>
-         }
-         </ul>
-        </div>
+        {spear:browse-filter-options($node, $model)}
+    </div>
+    <div class="col-md-9">
+        {
+            if($spear:fq !='') then 
+                for $data in $model('spear-data')
+                let $id := $data/@uri
+                return 
+                <div class="md-line-height">
+                    {$data/child::*[not(self::tei:bibl)]}  <a href="factoid.html?id={string($data/@uri)}">See event page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a>
+                </div>
+            else <h3>Select a Source </h3> 
+        }
+    </div>
+</div>
+else if($spear:view = 'person') then 
+<div class="row">
+    <div class="col-md-3">
+        {spear:browse-filter-options($node, $model)}
     </div>
     <div class="col-md-9">
         <h3>{$spear:sort}</h3>
         <ul class="left-padding top-padding">
             {
-                for $data in $model('spear-data')
+            if($spear:fq !='') then 
+                let $d := util:eval(concat('$model("spear-data")//tei:persName[parent::tei:person]',facets:facet-filter()))
+                for $data in $d
                 let $id := normalize-space($data[1]/@ref)
                 let $connical := collection($global:data-root)//tei:idno[. = $id]
                 let $name := if($connical) then $connical/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"][@xml:lang='en'][1]
@@ -500,16 +536,17 @@ if($spear:view = 'person') then
                     if($spear:sort = 'all' or empty($spear:sort)) then 
                         for $pers-data in $person[1] 
                         return 
-                        <li>
+                        <div>
                             <a href="factoid.html?id={$id}">{$data[1]}</a>
-                        </li>
+                        </div>
                     else
                         for $pers-data in $person[1]
                         where contains(spear:get-sort(), substring($name,1,1)) 
                         return 
-                        <li>
+                        <div>
                             <a href="factoid.html?id={$id}">{$data[1]}</a>
-                        </li>            
+                        </div>
+            else <h3>Select a Source </h3>                        
             }
         </ul>
     </div>
@@ -575,40 +612,7 @@ else if($spear:view = 'keywords') then
         </div>
     </div>
 </div>
-else if($spear:view = 'sources') then
-<div class="row">
-    <div class="col-md-3">
-        <div style="margin:1em;">
-         <h4>Narrow by Source Text</h4>
-         <span class="facets applied">
-                {
-                    if($facets:fq) then facets:selected-facet-display()
-                    else ()            
-                }
-         </span>
-         <ul class="nav nav-tabs nav-stacked" style="margin-left:-1em;">
-         {
-            let $facet-nodes := $model('spear-data')
-            let $facets := $facet-nodes/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title
-            return 
-            <li>{facets:title($facets)}</li>
-         }
-         </ul>
-        </div>
-    </div>
-    <div class="col-md-9 top-padding">
-        <div class="top-padding" >
-        {
-            for $data in $model('spear-data')
-            let $id := $data/@uri
-            return 
-            <li class="md-line-height">
-                {$data/child::*[not(self::tei:bibl)]}  <a href="factoid.html?id={string($data/@uri)}">See event page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a>
-            </li>
-        }
-        </div>
-    </div>
-</div>
+
 else if($spear:view = 'advanced') then
 <div>
  <h4>Advanced browse options: <a href="search.html?q=">see advanced search</a></h4>
@@ -699,33 +703,40 @@ if(($spear:view = 'person') or ($spear:view='place')) then
 else ()        
 };
 
+(: Browse tabs for spear :)
+(:S ources, Persons, Events, Relations, Places, Keywords, Advanced :)
 declare function spear:browse-tabs($node as node(), $model as map(*)){
     <ul class="nav nav-tabs" id="nametabs">
         <li>{if(not($spear:view)) then 
                 attribute class {'active'} 
-             else if($spear:view = 'place') then 
-                attribute class {'active'} 
-             else '' }<a href="browse.html?view=place&amp;sort=all">Places</a>
+          else if($spear:view = 'sources') then 
+                attribute class {'active'}
+          else '' }<a href="browse.html?view=sources">Sources</a>
         </li>
         <li>{if($spear:view = 'person') then 
-                attribute class {'active'} 
-             else '' }<a href="browse.html?view=person&amp;sort=all">Persons</a>
+                    attribute class {'active'} 
+            else '' }<a href="browse.html?view=person&amp;sort=all">Persons</a>
         </li>
         <li>{if($spear:view = 'event') then 
-                attribute class {'active'}
-             else '' }<a href="browse.html?view=event">Events</a>
+                    attribute class {'active'}
+                 else '' }<a href="browse.html?view=event">Events</a>
+        </li>
+        <li>{
+                 if($spear:view = 'relations') then 
+                    attribute class {'active'} 
+                 else '' }<a href="browse.html?view=relations">Relations</a>
+        </li>,
+        <li>{if($spear:view = 'place') then 
+                    attribute class {'active'} 
+                 else '' }<a href="browse.html?view=place&amp;sort=all">Places</a>
         </li>
         <li>{if($spear:view = 'keywords') then 
-                attribute class {'active'}
-             else '' }<a href="browse.html?view=keywords">Keywords</a>
-        </li>
-        <li>{if($spear:view = 'sources') then 
-                attribute class {'active'}
-             else '' }<a href="browse.html?view=sources">Sources</a>
+                    attribute class {'active'}
+                 else '' }<a href="browse.html?view=keywords">Keywords</a>
         </li>
         <li>{if($spear:view = 'advanced') then 
-                attribute class {'active'}
-             else '' }<a href="browse.html?view=advanced">Advanced Browse</a>
+                    attribute class {'active'}
+                 else '' }<a href="browse.html?view=advanced">Advanced Browse</a>
         </li>
     </ul>
 };

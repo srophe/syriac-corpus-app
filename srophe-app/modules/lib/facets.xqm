@@ -35,7 +35,7 @@ declare function facets:facet-filter(){
         return 
             if($facet-value != '') then 
                 if($facet-name = 'title') then 
-                    concat("[ancestor::tei:TEI/descendant::tei:titleStmt[1]/tei:title[1][. = '",$facet-value,"']]")
+                    concat("[ancestor::tei:TEI/descendant::tei:titleStmt[1]/tei:title[@level='a'][1][. = '",$facet-value,"']]")
                 else if($facet-name = 'keyword') then 
                     concat("[descendant::*[matches(@ref,'(^|\W)",$facet-value,"(\W|$)') | matches(@target,'(^|\W)",$facet-value,"(\W|$)')]]")    
                 else
@@ -138,12 +138,12 @@ declare function facets:facets($facets as node()*){
 };
 
 declare function facets:url-params(){
-    for $param in request:get-parameter-names()
+    string-join(for $param in request:get-parameter-names()
     return 
         if($param = 'fq') then ()
         else if(request:get-parameter($param, '') = ' ') then ()
         else if(request:get-parameter($param, '') = '') then ()
-        else concat('&amp;',$param, '=',request:get-parameter($param, ''))
+        else concat('&amp;',$param, '=',request:get-parameter($param, '')),'')
 };
 
 (:~
@@ -193,15 +193,19 @@ declare function facets:build-facet($nodes, $category){
 :)
 declare function facets:title($nodes){
     for $facet in $nodes
-    group by $facet-grp := $facet/ancestor::tei:TEI/descendant::tei:titleStmt[1]/tei:title[1]
-    order by count($facet/ancestor::tei:TEI//tei:div) descending
+    group by $facet-grp := $facet/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[@level='a']/text()
+    order by count($facet) descending
     return  
-        let $facet-val := $facet[1]
+        let $facet-val := $facet-grp[1]
         let $facet-query := concat('fq-title:',normalize-space($facet-val))
         let $new-fq := 
                 if($facets:fq) then concat('fq=',$facets:fq,' ',$facet-query)
                 else concat('fq=',$facet-query)
-        return <a href="?{$new-fq}{facets:url-params()}" class="facet-label">{string($facet/ancestor::tei:TEI/descendant::tei:titleStmt[1]/tei:title[1])} <span class="count">  ({count($facet/ancestor::tei:TEI//tei:div)})</span></a>
+        return 
+            <a href="?{$new-fq}{facets:url-params()}" class="facet-label">
+                {string($facet-val)} 
+                <span class="count">  ({count($facet)})</span>
+            </a>
 };
 (:~
  : Special handling for keywords which are in attributes and must be tokenized
