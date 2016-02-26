@@ -35,7 +35,7 @@ declare function facets:facet-filter(){
         return 
             if($facet-value != '') then 
                 if($facet-name = 'title') then 
-                    concat("[ancestor::tei:TEI/descendant::tei:titleStmt[1]/tei:title[@level='a'][1][. = '",$facet-value,"']]")
+                    concat("[ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[@level='a'][. = '",$facet-value,"']]")
                 else if($facet-name = 'keyword') then 
                     concat("[descendant::*[matches(@ref,'(^|\W)",$facet-value,"(\W|$)') | matches(@target,'(^|\W)",$facet-value,"(\W|$)')]]")    
                 else

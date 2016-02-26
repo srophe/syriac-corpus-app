@@ -8,7 +8,7 @@ xquery version "3.0";
  :)
 
 module namespace browse="http://syriaca.org/browse";
-
+import module namespace bs="http://syriaca.org/bs" at "browse-spear.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace common="http://syriaca.org/common" at "search/common.xqm";
 import module namespace facets="http://syriaca.org/facets" at "lib/facets.xqm";
@@ -52,7 +52,7 @@ let $browse-path :=
     else if($collection = 'places') then concat("collection('",$global:data-root,"/places/tei')",browse:get-coll($collection),browse:get-syr())
     else if($collection = 'bhse') then concat("collection('",$global:data-root,"/works/tei')",browse:get-coll($collection),browse:get-syr())
     else if($collection = 'bibl') then concat("collection('",$global:data-root,"/bibl/tei')",browse:get-syr())
-    else if($collection = 'spear') then concat("collection('",$global:data-root,"/spear/tei')//tei:div",facets:facet-filter())
+    else if($collection = 'spear') then concat("collection('",$global:data-root,"/spear/tei')")
     else if($collection = 'manuscripts') then concat("collection('",$global:data-root,"/manuscripts/tei')//tei:TEI")
     else if(exists($collection)) then concat("collection('",$global:data-root,xs:anyURI($collection),"')",browse:get-coll($collection),browse:get-syr())
     else concat("collection('",$global:data-root,"')",browse:get-coll($collection),browse:get-syr())
@@ -134,7 +134,7 @@ declare function browse:syr-title-filter($node as node(), $model as map(*)){
     $model("browse-data")//tei:body[contains($browse:sort, substring(string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')][1]/descendant-or-self::*/text(),' '),1,1))]
 };
 
-(: NOTE, pare-collections alread does this, just pass in $browse:type:)
+(: NOTE, parse-collections alread does this, just pass in $browse:type:)
 declare function browse:browse-pers-types(){
     if($browse:type = 'saint') then 'Qadishe: A Guide to the Syriac Saints'
     else if($browse:type = ('author')) then 'A Guide to Syriac Authors'
@@ -190,68 +190,14 @@ declare function browse:narrow-by-date($node as node(), $model as map(*)){
     else () 
 };
 
-declare function browse:spear-person($node as node(), $model as map(*)){
-$model("browse-data")//tei:persName
- 
-  (:for $data in $model("browse-data")//tei:persName
-  let $id := normalize-space($data[1]/@ref)
-  let $connical := collection($global:data-root)//tei:idno[. = $id]
-  let $name := if($connical) then $connical/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"][@xml:lang='en'][1]
-                else if($data/text()) then $data/text()[1]
-                else tokenize($id,'/')[last()]
-  group by $person := $name
-  order by $person
-  return 
-    for $pers-data in $person[1] 
-    return ($data[1]):)
-};
-
-declare function browse:spear-place($node as node(), $model as map(*)){
-  for $data in $model("browse-data")//tei:placeName
-  let $id := normalize-space($data[1]/@ref)
-  let $connical := collection($global:data-root)//tei:idno[. = $id]
-  let $name := if($connical) then $connical/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"][@xml:lang='en'][1]
-                else if($data/text()) then $data/text()[1]
-                else tokenize($id,'/')[last()]
-  group by $person := $name
-  order by $person
-  return 
-    for $pers-data in $person[1] 
-    return $data[1]
-};
-
-declare function browse:spear-event($node as node(), $model as map(*)){
-  for $data in $model("browse-data")//tei:event[parent::tei:listEvent]
-  return $data
-  (:(spear:build-timeline($node,$model,'events'),spear:build-events-panel($node,$model):)
-};
-
-declare function browse:spear-keyword($node as node(), $model as map(*)){
-  for $data in $model("browse-data")//tei:event[parent::tei:listEvent]
-  return $data
-};
-
-declare function browse:narrow-spear($node as node(), $model as map(*)){
-let $data :=
-    if($browse:view = 'person') then 
-        browse:spear-person($node, $model)
-    else if($browse:view = 'place') then 
-        browse:spear-place($node, $model)
-    else if($browse:view = 'event') then 
-        browse:spear-event($node, $model)
-    else if($browse:view = 'keyword') then   
-        browse:spear-keyword($node, $model)
-    else $model("browse-data")
-return map{"browse-refine" := $data}
-};
-
 (:~
  : Evaluates additional browse parameters; type, date, abc, etc. 
  : Adds narrowed data set to new map
 :)
 declare function browse:get-narrow($node as node(), $model as map(*),$collection as xs:string*){
 let $data := 
-        if($browse:view='numeric') then $model("browse-data")
+        if($collection = 'spear') then bs:narrow-spear($node,$model)
+        else if($browse:view='numeric') then $model("browse-data")
         else if($browse:view = 'type') then browse:narrow-by-type($node, $model, $collection)   
         else if($browse:view = 'date') then browse:narrow-by-date($node, $model)
         else if($browse:view = 'map') then $model("browse-data")
@@ -266,7 +212,7 @@ return
  : @param $collection passed from html 
 :)
 declare function browse:results-panel($node as node(), $model as map(*), $collection){
-if($collection = 'spear') then  browse:spear-results-panel($node, $model)
+if($collection = 'spear') then bs:spear-results-panel($node, $model)
 else if($browse:view = 'type' or $browse:view = 'date') then
     (<div class="col-md-4">{if($browse:view='type') then browse:browse-type($node,$model,$collection)  else browse:browse-date()}</div>,
      <div class="col-md-8">{
@@ -300,68 +246,6 @@ else
     </div>
 };
 
-declare function browse:spear-results-panel($node as node(), $model as map(*)){
- (
-    if($browse:view = 'person' or $browse:view = 'place') then browse:browse-abc-menu() else(),
-    if($browse:view = 'relations') then 
-        <div class="col-md-12">
-            <h3>Explore SPEAR Relationships</h3>
-            <iframe id="iframe" src="../modules/d3xquery/build-html.xqm" width="100%" height="30000" scrolling="auto" frameborder="0" seamless="true"/>
-        </div>
-    else                 
-    <div class="col-md-3">
-        {
-            if($browse:view = 'advanced') then () 
-            else
-                <div>
-                    <h4>Narrow by Source Text</h4>
-                    <span class="facets applied">
-                        {
-                            if($facets:fq) then facets:selected-facet-display()
-                            else ()            
-                        }
-                    </span>
-                    <ul class="nav nav-tabs nav-stacked" style="margin-left:-1em;">
-                        <!-- BUILD into facets -->
-                        <!--<li><a href="?filter=all" class="facet-label">All <span class="count">  ({count($model("browse-refine"))})</span></a></li>-->
-                       {
-                           let $facet-nodes := $model('browse-refine')
-                           return 
-                           <li>{facets:title($facet-nodes)}</li>
-                       }
-                    </ul>
-                    {
-                    if($browse:view = 'keywords') then 
-                       (<h4>Narrow by Keyword</h4>,
-                        <ul class="nav nav-tabs nav-stacked" style="margin-left:-1em;">
-                            {
-                               let $facet-nodes := $model('browse-refine')
-                               let $facets := $facet-nodes//tei:event
-                               return 
-                               <li>{facets:keyword($facets)}</li>
-                            }
-                       </ul>)
-                    else ()
-                    }
-                </div>
-        }
-          
-    </div>,
-     <div class="col-md-8">
-        {
-            if($browse:view = 'advanced') then
-                <div class="container">
-                    <h4>Advanced browse options: <a href="search.html?q=">see advanced search</a></h4>
-                </div>      
-            else if($browse:view = 'keyword') then 
-                (<h3>Browse Factoids by Keywords</h3>,
-                    <h4>Select a Source </h4>)
-            else 
-                browse:display-spear($node,$model) 
-        }
-    </div>)
-};
-
 declare function browse:get-map($node as node(), $model as map(*)){
     <div class="col-md-12 map-lg">
         {geo:build-google-map($model("browse-data")//tei:geo, '', '')}
@@ -380,8 +264,7 @@ if($browse:view = 'map' or $browse:view = 'type') then
         else ()        
 else (),
 for $data in $model("browse-refine")
-let $rec-id := if($collection = 'spear') then 
-    string($data/@uri) else tokenize(replace($data/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei|/source',''),'/')[last()]
+let $rec-id := tokenize(replace($data/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei|/source',''),'/')[last()]
 let $en-title := 
              if($data/self::tei:title) then $data/text()
              else if($data/self::tei:div) then $data/text()
@@ -412,50 +295,6 @@ return
             rec:display-recs-short-view($data,'syr') 
         else rec:display-recs-short-view($data/ancestor::tei:TEI,'')
 ) 
-};
-
-declare function browse:spear-person($nodes){
-let $ids := distinct-values($nodes/@ref)
-return
-<div>
-    <h3>Factoids ({count($ids)})</h3>
-    {
-                for $data in $nodes
-                let $id := normalize-space($data[1]/@ref)
-                let $connical := collection($global:data-root)//tei:idno[. = $id]
-                let $name := if($connical) then $connical/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"][@xml:lang='en'][1]
-                             else tokenize($id,'/')[last()]
-                group by $person := $name
-                order by $person
-                return  
-                        for $pers-data in $person[1] 
-                        return 
-                        <div>
-                            <a href="factoid.html?id={$id}">{$data[1]}</a>
-                        </div>
-    }
-</div>
-};
-
-(: add paging 
-<h3>{if($browse:view) then $browse:view else 'Factoids'} ({count($data)})</h3>
-:)
-declare function browse:display-spear($node as node(), $model as map(*)){
-let $data := $model("browse-refine")
-return 
-<div>
-    <div>
-        {
-            if($browse:view = 'event') then 
-                (ev:build-timeline($data,'events'), ev:build-events-panel($data))
-            else if($browse:view = 'person' or $browse:view = 'place') then 
-                browse:spear-person($data)
-            else 
-            for $d in $data
-            return rec:display-recs-short-view($d,'')
-        }
-    </div>
-</div>
 };
 
 (:~
@@ -581,35 +420,5 @@ declare  %templates:wrap function browse:build-tabs-map($node, $model){
  : Browse Tabs - SPEAR
 :)
 declare  %templates:wrap function browse:build-tabs-spear($node, $model){    
-    (<li>{if(not($browse:view)) then 
-                attribute class {'active'} 
-          else if($browse:view = 'sources') then 
-                attribute class {'active'}
-          else '' }<a href="browse.html?view=sources">Sources</a>
-    </li>,
-    <li>{if($browse:view = 'person') then 
-                attribute class {'active'} 
-        else '' }<a href="browse.html?view=person&amp;sort=all">Persons</a>
-    </li>,
-    <li>{if($browse:view = 'event') then 
-                attribute class {'active'}
-             else '' }<a href="browse.html?view=event">Events</a>
-    </li>,
-    <li>{
-             if($browse:view = 'relations') then 
-                attribute class {'active'} 
-             else '' }<a href="browse.html?view=relations">Relations</a>
-    </li>,
-    <li>{if($browse:view = 'place') then 
-                attribute class {'active'} 
-             else '' }<a href="browse.html?view=place&amp;sort=all">Places</a>
-    </li>,
-    <li>{if($browse:view = 'keywords') then 
-                attribute class {'active'}
-             else '' }<a href="browse.html?view=keywords">Keywords</a>
-    </li>,
-    <li>{if($browse:view = 'advanced') then 
-                attribute class {'active'}
-             else '' }<a href="browse.html?view=advanced">Advanced Browse</a>
-    </li>)
+    bs:build-tabs-spear($node, $model)
 };
