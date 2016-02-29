@@ -187,12 +187,13 @@ if($rel) then
     if($rel = 'event') then
         if($event != '' and $event !='all') then
             local:get-events($event)
-        else local:get-events('')
+        else util:base64-decode(util:binary-doc('spear-events.json')) 
+        (:local:get-events(''):)
     else 
         if($uri != '') then local:get-relationships($uri,'')
         else if($rel) then local:get-relationships('',$reltype)
-        else local:get-relationships('','')
-else local:get-relationships('','')
+        else (:local:get-relationships('',''):)util:base64-decode(util:binary-doc('spear-relationships.json'))
+else (:local:get-relationships('',''):)util:base64-decode(util:binary-doc('spear-relationships.json'))
 
 (:local:get-relationships(''):)
 (:local:get-events('birth'):)

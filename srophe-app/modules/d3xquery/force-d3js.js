@@ -19,15 +19,13 @@ d3xquery.query = function(endpoint, rel, event, uri, reltype, callback) {
   d3.xhr(url, mime, function(data) {
     var json = data.responseText //o.source === d || o.target === d ? 1 : opacity;
     //Test for successful query 
-    if( JSON.parse(json).nodes != null ) {
-        return  callback(JSON.parse(json)) 
-    }
-    else{
-        $( "#graph" ).html('<h2 class="label label-danger">No relationship data. Please try another query.</h2>')
-        //alert('No relationship data. Please try another query. ')
-        
-    };
-   // callback(JSON.parse(json))
+    //if( JSON.parse(json).nodes != null ) {
+    //    return  callback(JSON.parse(json)) 
+    //}
+    //else{
+    //    $( "#graph" ).html('<h2 class="label label-danger">No relationship data. Please try another query.</h2>')
+    //};
+   callback(JSON.parse(json))
   })
 };
 
