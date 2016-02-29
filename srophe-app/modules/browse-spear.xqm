@@ -81,13 +81,13 @@ declare function bs:spear-facet-groups($nodes, $category){
 (:,facets:facet-filter() :)
 declare function bs:narrow-spear($node as node(), $model as map(*)){
 let $data :=
-    if($bs:view = 'person') then 
+    if($bs:view = 'persons') then 
         bs:spear-person($node, $model)
-    else if($bs:view = 'place') then 
-        $model("browse-data")//tei:placeName
-    else if($bs:view = 'event') then 
+    else if($bs:view = 'places') then 
+        bs:spear-place($node, $model)
+    else if($bs:view = 'events') then 
         bs:spear-event($node, $model)
-    else if($bs:view = 'keyword') then   
+    else if($bs:view = 'keywords') then   
         bs:spear-event($node, $model)
     else if($bs:view = 'advanced') then 
         util:eval(concat('$model("browse-data")//tei:div',facets:facet-filter()))
@@ -223,7 +223,7 @@ declare function bs:display-spear($data){
                 bs:spear-places($data)                
             else 
                 for $d in $data
-                return rec:display-recs-short-view($d,'')
+                return bs:display-recs-short-view($d,'')
         }
     </div>
 </div>
@@ -256,8 +256,8 @@ return
     else
      <div class="results-list">
         <span class="srp-label">Name: {$name} </span>
-        <span class="results-list-desc uri"><span class="srp-label">URI:</span> {$id}</span>
-        <span class="results-list-desc uri"><span class="srp-label">SPEAR:</span> <a href="factoid.html?id={$id}"> http://syriaca.org/spear/factoid.html?id={$id}</a></span>
+        <span class="results-list-desc uri"><span class="srp-label">URI: </span> {$id}</span>
+        <span class="results-list-desc uri"><span class="srp-label">SPEAR: </span> <a href="factoid.html?id={$id}"> http://syriaca.org/spear/factoid.html?id={$id}</a></span>
     </div>
 };
 
@@ -279,8 +279,8 @@ return
     else
      <div class="results-list">
         <span class="srp-label">Name: {$name} </span>
-        <span class="results-list-desc uri"><span class="srp-label">URI:</span> {$id}</span>
-        <span class="results-list-desc uri"><span class="srp-label">SPEAR:</span> <a href="factoid.html?id={$id}"> http://syriaca.org/spear/factoid.html?id={$id}</a></span>
+        <span class="results-list-desc uri"><span class="srp-label">URI: </span> {$id}</span>
+        <span class="results-list-desc uri"><span class="srp-label">SPEAR: </span> <a href="factoid.html?id={$id}"> http://syriaca.org/spear/factoid.html?id={$id}</a></span>
     </div>
 };
 
