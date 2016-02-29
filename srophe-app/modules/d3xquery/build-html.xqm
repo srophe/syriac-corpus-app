@@ -32,7 +32,8 @@ declare function local:html(){
                     var rel = d3.select("#rel").property("value")
                     var event = d3.select("#event").property("value")
                     var uri = d3.select("#uri").property("value")
-                    d3xquery.query(endpoint, rel, event, uri, render)   
+                    var reltype = d3.select("#reltype").property("value")
+                    d3xquery.query(endpoint, rel, event, uri, reltype, render)   
                 }
                 
 
@@ -48,14 +49,23 @@ declare function local:html(){
                     d3xquery.forcegraph(json, config)
                   }
                   
-                 $('#rel').change(function() {    
-                     if ($(this).val('event') <0){
-                         $('#eventGrp').removeClass('hidden')
-                     }    
-                     else{
-                     }
-                 });
-
+                $(document).ready(function () { 
+                    toggleFields(); //call this first so we start out with the correct visibility depending on the selected form values
+                    $("#rel").change(function () {
+                        toggleFields();
+                    });
+                });
+               function toggleFields() {
+                   if ($("#rel").val() === "event")
+                       $("#eventGrp").show();
+                   else
+                       $("#eventGrp").hide();
+                       
+                   if ($("#rel").val() === "relationship")
+                       $("#relGrp").show();                       
+                   else
+                       $("#relGrp").hide();
+               }
             ]]>
             </script>
 
@@ -83,6 +93,7 @@ declare function local:html(){
                             <label for="rel" class="col-sm-2 control-label">Type</label>
                             <div class="col-sm-10">
                                 <select id="rel" class="form-control">
+                                    <option value="all">-- Select Graph --</option>
                                     <option value="event">Event</option>
                                     <option value="relationship">Relationship</option>
                                 </select>
@@ -92,8 +103,17 @@ declare function local:html(){
                             <label for="event" class="col-sm-2 control-label">Events </label>
                             <div class="col-sm-10">
                                 <select id="event" class="form-control">
-                                    <option value="all">All</option>
+                                    <option value="all">All Events</option>
                                     {local:get-events()}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="relGrp" >
+                            <label for="reltype" class="col-sm-2 control-label">Relationships </label>
+                            <div class="col-sm-10">
+                                <select id="reltype" class="form-control">
+                                    <option value="all">All Relationships</option>
+                                    {local:get-rels()}
                                 </select>
                             </div>
                         </div>
@@ -104,8 +124,8 @@ declare function local:html(){
                             </div>
                         </div>
                         <input id="endpoint" class="span5" value="get-relationships.xql" type="hidden"/>
-                        <button type="button" class="btn btn-primary" onclick="exec()">Query</button> 
-                        <button type="button" class="btn btn-primary" onclick="window.location.reload();">Reset</button>
+                        <button type="button" class="btn btn-primary" onclick="exec()">Query</button> &#160;
+                        <input class="btn btn-warning" type="reset" value="Reset"/>
                         </div>
                     </form>
                     </div>
@@ -141,4 +161,13 @@ declare function local:get-events(){
     <option value="{$e}">{$e}</option>
 };
 
+(: Get all relationships for drop down menu :)
+(: Eventually add collection filter :)
+declare function local:get-rels(){
+    let $rels := distinct-values(for $rel in collection($global:data-root || '/spear/tei')//tei:relation/@name
+                    return replace($rel,'^(.*?):','')[last()])
+    for $r in $rels
+    return 
+    <option value="{$r}">{$r}</option>
+};
 local:html()
