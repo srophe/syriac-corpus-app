@@ -75,13 +75,18 @@ concat("[ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[@level='a'][1][. 
  : For browsing by element type 
 :)
 declare function bs:spear-facet-groups($nodes, $category){
-    <li><a href="?view=sources&amp;type={$category}&amp;fq={$facets:fq}" class="facet-label"> {$category} factoids <span class="count">({count($nodes)})</span></a></li>
+
+    <li><a href="?view=sources&amp;type={$category}&amp;fq={$facets:fq}" class="facet-label"> {$category} factoids 
+    <span class="count">({
+        if($category = 'persons') then count(distinct-values($nodes/descendant::tei:persName[1]/@ref)) 
+        else count($nodes)
+    })</span></a></li>
 };
 
 (:,facets:facet-filter() :)
 declare function bs:narrow-spear($node as node(), $model as map(*)){
 let $data :=
-    if($bs:view = 'persons') then 
+    if($bs:view = 'persons' or ($bs:view='sources' and $bs:type = 'persons')) then 
         bs:spear-person($node, $model)
     else if($bs:view = 'places') then 
         bs:spear-place($node, $model)
@@ -217,7 +222,7 @@ declare function bs:display-spear($data){
         {
             if($bs:view = 'events') then 
                 (ev:build-timeline($data,'events'), ev:build-events-panel($data))
-            else if($bs:view = 'persons') then 
+            else if($bs:view = 'persons' or ($bs:view='sources' and $bs:type = 'persons')) then 
                 bs:spear-person($data)
             else if($bs:view = 'places') then 
                 bs:spear-places($data)                
@@ -246,10 +251,10 @@ declare function bs:spear-person($nodes){
 for $d in $nodes
 let $id := string($d/descendant::tei:persName[1]/@ref)
 let $connical := collection($global:data-root)//tei:idno[. = $id]
-let $name := if($connical) then $connical/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"][@xml:lang='en'][1]
+let $name := if($connical) then string($connical/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text())
                 else if($d/text()) then $d/text()[1]
                 else tokenize($id,'/')[last()]
-order by $name
+order by $name collation "?lang=en&lt;syr&amp;decomposition=full"
 return 
     if($connical) then 
             bs:display-recs-short-view($connical/ancestor::tei:TEI,'')
@@ -265,14 +270,14 @@ declare function bs:spear-places($nodes){
 for $d in $nodes
 let $id := string($d/descendant::tei:placeName[1]/@ref)
 let $connical := collection($global:data-root)//tei:idno[. = $id]
-let $name := if($connical) then $connical/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"][@xml:lang='en'][1]
+let $name := if($connical) then string($connical/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text())
              else if(empty($d/descendant::tei:placeName[1])) then tokenize($id,'/')[last()]
              else normalize-space($d/descendant::tei:placeName[1]/text())
              (:else if($d/text()) then $d/text()
              else if($d/child::*/text()) then $d/child::*[1]/text()
              else tokenize($id,'/')[last()]:)
 (:where $d/descendant::tei:placeName/@ref:)
-order by $name
+order by $name collation "?lang=en&lt;syr&amp;decomposition=full"
 return 
     if($connical) then 
             bs:display-recs-short-view($connical/ancestor::tei:TEI,'')
