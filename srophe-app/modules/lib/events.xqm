@@ -110,7 +110,7 @@ declare function ev:events($nodes as node()*){
             return 
                     <li class="md-line-height">{global:tei2html($e)} 
                                  {
-                                     <a href="factoid.html?id={string($e/ancestor::tei:div/@uri)}">
+                                     <a href="factoid.html?id={string($e/@uri)}">
                                          See event page 
                                          <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
                                      </a>
@@ -140,7 +140,7 @@ declare function ev:events($nodes as node()*){
                         return 
                             <li class="md-line-height">{global:tei2html($e)} 
                                  {(: test :)
-                                     <a href="factoid.html?id={string($e/ancestor::tei:div/@uri)}">
+                                     <a href="factoid.html?id={string($e/@uri)}">
                                          See event page 
                                          <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
                                      </a>
