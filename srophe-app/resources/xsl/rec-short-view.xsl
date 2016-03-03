@@ -119,7 +119,7 @@
                     <xsl:apply-templates select="descendant::t:title[@level='a']"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="descendant-or-self::*[not(self::t:idno)][not(self::t:bibl)][not(self::t:biblScope)]/text()"/>
+                    <xsl:apply-templates select="descendant-or-self::*[not(self::t:idno)][not(self::t:bibl)][not(self::t:biblScope)][not(self::t:note)]/text()"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -254,26 +254,20 @@
                             </xsl:if>
                         </xsl:for-each>
                     </xsl:if>
-                    <xsl:if test="descendant-or-self::t:div[1]/@ref != ''">
-                        <span class="results-list-desc uri">
-                            <span class="srp-label">Ref: </span>
-                            <a href="{replace($uri,$base-uri,$nav-base)}">
-                                <xsl:value-of select="@ref"/>
-                            </a>
-                        </span>
-                    </xsl:if>
                     <span class="results-list-desc uri">
                         <span class="srp-label">URI: </span>
                         <a href="{replace($uri,$base-uri,$nav-base)}">
                             <xsl:value-of select="$uri"/>
                         </a>
                     </span>
+                    <!--
                     <span class="results-list-desc uri">
                         <span class="srp-label">SPEAR: </span>
                         <a href="factoid.html?id={$uri}">
                             http://syriaca.org/spear/factoid.html?id=<xsl:value-of select="$uri"/>
                         </a>
                     </span>
+                    -->
                 </div>
             </xsl:when>
             <xsl:otherwise>
@@ -364,14 +358,6 @@
                                 <span class="results-list-desc container">more ...</span>
                             </xsl:if>
                         </xsl:for-each>
-                    </xsl:if>
-                    <xsl:if test="descendant-or-self::t:div[1]/@ref != ''">
-                        <span class="results-list-desc uri">
-                            <span class="srp-label">Ref: </span>
-                            <a href="{replace($uri,$base-uri,$nav-base)}">
-                                <xsl:value-of select="@ref"/>
-                            </a>
-                        </span>
                     </xsl:if>
                     <span class="results-list-desc uri">
                         <span class="srp-label">URI: </span>

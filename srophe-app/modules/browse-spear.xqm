@@ -14,7 +14,6 @@ import module namespace common="http://syriaca.org/common" at "search/common.xqm
 import module namespace facets="http://syriaca.org/facets" at "lib/facets.xqm";
 import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
-import module namespace rec="http://syriaca.org/short-rec-view" at "short-rec-view.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates";
 
