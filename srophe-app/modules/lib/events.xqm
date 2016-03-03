@@ -107,9 +107,15 @@ declare function ev:events($nodes as node()*){
        <ul>
         {
             for $e in $data
-            (:for $e in $event//tei:desc:)
             return 
-            <li class="md-line-height">{ev:display-recs-short-view($e,'')} </li>
+                    <li class="md-line-height">{global:tei2html($e)} 
+                                 {
+                                     <a href="factoid.html?id={string($e/ancestor::tei:div/@uri)}">
+                                         See event page 
+                                         <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
+                                     </a>
+                                 }
+                            </li>
          }
         </ul>
     else
@@ -132,7 +138,14 @@ declare function ev:events($nodes as node()*){
                     {
                         for $e in $event
                         return 
-                         <li class="md-line-height">{ev:display-recs-short-view($e,'')} </li>
+                            <li class="md-line-height">{global:tei2html($e)} 
+                                 {(: test :)
+                                     <a href="factoid.html?id={string($e/ancestor::tei:div/@uri)}">
+                                         See event page 
+                                         <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
+                                     </a>
+                                 }
+                            </li>
                     }
                 </ul>
             </li>

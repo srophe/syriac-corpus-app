@@ -406,17 +406,18 @@
                 </p>
                 <xsl:choose>
                     <xsl:when test="t:confessions/t:state[@type='confession']">
-                        <xsl:call-template name="confessions"/>                        
+                        <xsl:call-template name="confessions"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <ul>
                             <xsl:for-each select="t:state[@type='confession']">
-                                <li><xsl:apply-templates mode="plain"/></li>
+                                <li>
+                                    <xsl:apply-templates mode="plain"/>
+                                </li>
                             </xsl:for-each>
                         </ul>
                     </xsl:otherwise>
                 </xsl:choose>
-
             </div>
         </xsl:if>
         
@@ -1327,6 +1328,10 @@
     <xsl:template match="t:placeName[local-name(..)='desc']" mode="cleanout">
         <xsl:apply-templates select="."/>
     </xsl:template>
+    <!-- NOTE: For SPEAR, could cause issues in the future.  -->
+    <xsl:template match="t:div">
+        <xsl:apply-templates select="*[not(self::t:bibl)]"/>
+    </xsl:template>
     <xsl:template match="t:*" mode="plain">
         <xsl:apply-templates/>
     </xsl:template>
@@ -1348,7 +1353,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
     <!-- |||| match=t:*: suppress all TEI elements not otherwise handled -->
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
