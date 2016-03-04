@@ -550,7 +550,8 @@
         <!-- Output elements without links -->
         <xsl:apply-templates mode="title"/>
     </xsl:template>
-    <!-- used by spear pages not real tei element -->
+    
+    <!-- Used by SPEAR pages not real tei element -->
     <xsl:template match="t:factoid">
         <xsl:if test="string-length(.) &gt; 1">
             <!-- Output elements without links -->
@@ -559,16 +560,21 @@
                     <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Factoid(s)</h4>
                 </div>
                 <div class="panel-body">
-                    <xsl:for-each select=".">
-                        <xsl:apply-templates/>
-                        <xsl:if test="@type != 'event-factoid'">
-                            <a href="factoid.html?id={string(ancestor::t:div/@uri)}">See factoid <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
-                            </a>
-                        </xsl:if>
+                    <xsl:apply-templates select="//t:listPerson" mode="spear"/>
+                    <xsl:for-each select="t:listRelation">
+                        <p>In process</p>
                     </xsl:for-each>
                 </div>
             </div>
         </xsl:if>
+    </xsl:template>
+    <xsl:template match="t:person" mode="spear">
+        <xsl:choose>
+            <xsl:when test="t:sex or t:state">
+                <span class="factoid" style="display:block;"><xsl:apply-templates/></span>
+            </xsl:when>
+            <xsl:otherwise/>
+        </xsl:choose>
     </xsl:template>
     <!-- suppress bibl -->
     <xsl:template match="t:bibl" mode="title"/>
@@ -851,11 +857,13 @@
             <xsl:when test="/t:factoid">
                 <li>
                     <xsl:apply-templates/>
+                    <!--
                     <xsl:if test="/t:factoid/@type != 'event-factoid'">
                         <a href="factoid.html?id={string(ancestor::t:div/@uri)}">
                         See factoid <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                         </a>
                     </xsl:if>
+                    -->
                 </li>
             </xsl:when>
             <xsl:otherwise>
