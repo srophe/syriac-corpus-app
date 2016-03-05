@@ -23,9 +23,9 @@ d3xquery.query = function(endpoint, rel, event, uri, reltype, callback) {
     //    return  callback(JSON.parse(json)) 
     //}
     //else{
-    //    $( "#graph" ).html('<h2 class="label label-danger">No relationship data. Please try another query.</h2>')
+    //     $( "#graph" ).html('<h2 class="label label-danger">No relationship data. Please try another query.</h2>')
     //};
-   callback(JSON.parse(json))
+    callback(JSON.parse(json))
   })
 };
 
@@ -192,6 +192,10 @@ d3xquery.forcegraph = function(json, config) {
                 return o.source === d || o.target === d ? 1 : opacity;
             });
             
+            edgelabels.style("fill-opacity", opacity).style("fill-opacity", function(o) {
+                return o.source === d || o.target === d ? 1 : opacity;
+            });            
+            
         };
     };
     
@@ -291,6 +295,11 @@ d3xquery.forcegraph = function(json, config) {
     function filterGraph(aType, aVisibility) {
             // change the visibility of the connection path
             link.style("visibility", function (o) {
+                var lOriginalVisibility = $(this).css("visibility");
+                return o.type === aType ? aVisibility : lOriginalVisibility;
+            });
+            
+            edgelabels.style("visibility", function (o) {
                 var lOriginalVisibility = $(this).css("visibility");
                 return o.type === aType ? aVisibility : lOriginalVisibility;
             });
