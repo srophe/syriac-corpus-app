@@ -119,7 +119,7 @@
                     <xsl:apply-templates select="descendant::t:title[@level='a']"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="descendant-or-self::*[not(self::t:idno)][not(self::t:bibl)][not(self::t:biblScope)][not(self::t:note)]/text()"/>
+                    <xsl:apply-templates select="descendant-or-self::*[not(self::t:idno)][not(self::t:bibl)][not(self::t:biblScope)][not(self::t:note)][not(self::t:orig)][not(self::t:sic)]/text()"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -329,9 +329,18 @@
                             </xsl:for-each>
                         </span>
                     </xsl:if>
-                    <xsl:if test="descendant::*[starts-with(@xml:id,'abstract')]">
+                    <xsl:if test="descendant::*[starts-with(@xml:id,'abstract')]| descendant::*[@type = 'abstract']">
                         <span class="results-list-desc desc" dir="ltr" lang="en">
-                            <xsl:variable name="string" select="string-join(descendant::*[starts-with(@xml:id,'abstract')]/descendant::text(),' ')"/>
+                            <xsl:variable name="string">
+                                <xsl:choose>
+                                    <xsl:when test="descendant::*[starts-with(@xml:id,'abstract')]">
+                                        <xsl:value-of select="string-join(descendant::*[starts-with(@xml:id,'abstract')]/descendant::text(),' ')"/>
+                                    </xsl:when>
+                                    <xsl:when test="descendant::*[@type = 'abstract']">
+                                        <xsl:value-of select="string-join(descendant::*[@type = 'abstract']/descendant::text(),' ')"/>
+                                    </xsl:when>
+                                </xsl:choose>
+                            </xsl:variable>
                             <xsl:variable name="last-words" select="tokenize($string, '\W+')[position() = 14]"/>
                             <xsl:choose>
                                 <xsl:when test="count(tokenize($string, '\W+')[. != '']) gt 12">
@@ -368,6 +377,9 @@
                 </div>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <xsl:template match="t:choice">[1]
+        <xsl:apply-templates select="child::*[1]"/>
     </xsl:template>
     <xsl:template match="*:match">
         <span class="match" style="background-color:yellow; padding:0 .25em;">
