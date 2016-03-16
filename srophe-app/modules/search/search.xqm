@@ -78,14 +78,24 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
  : Builds general search string from main syriaca.org page and search api.
 :)
 declare function search:query-string($collection as xs:string?) as xs:string?{
+if($collection !='') then 
+    concat("collection('",$global:data-root,"/",$collection,"')//tei:body",
+    common:keyword($search:q),
+    search:persName(),
+    search:placeName(), 
+    search:title(),
+    search:bibl(),
+    search:idno()
+    )
+else 
 concat("collection('",$global:data-root,"')//tei:body",
-common:keyword($search:q),
-search:persName(),
-search:placeName(), 
-search:title(),
-search:bibl(),
-search:idno()
-)
+    common:keyword($search:q),
+    search:persName(),
+    search:placeName(), 
+    search:title(),
+    search:bibl(),
+    search:idno()
+    )
 };
 
 declare function search:persName(){
@@ -146,14 +156,18 @@ declare function search:search-string($collection as xs:string?){
     else search:search-string()
 };
 
-declare %templates:wrap function search:spear-facets($node as node(), $model as map(*)){
+(:~
+ : Call facets on search results
+ : NOTE: need better template integration
+:)
+declare %templates:wrap function search:spear-facets($hits){
 if(exists(request:get-parameter-names())) then 
     <div>
      <h4>Browse by</h4>
      {
-        let $facet-nodes := $model('hits')
+        let $facet-nodes := $hits
         let $facets := $facet-nodes//tei:persName | $facet-nodes//tei:placeName | $facet-nodes//tei:event 
-        | $facet-nodes/ancestor::tei:TEI/descendant::tei:titleStmt[1]/tei:title[1]
+        | $facet-nodes/ancestor::tei:TEI/descendant::tei:title[@level='a'][parent::tei:titleStmt]
         return facets:facets($facets)
      }
     </div>
@@ -321,28 +335,37 @@ declare %templates:wrap  function search:show-form($node as node()*, $model as m
 
 (:~ 
  : Builds results output
+
 :)
 declare 
     %templates:default("start", 1)
 function search:show-hits($node as node()*, $model as map(*), $collection as xs:string?) {
-<div class="well" style="background-color:white;">
-<div>{search:build-geojson($node,$model)}</div>
-{
-    for $hit at $p in subsequence($model("hits"), $search:start, 20)
-    return
-        <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="result">
-                  <div class="col-md-1" style="margin-right:-1em;">
-                    <span class="label label-default">{$search:start + $p - 1}</span>
-                  </div>
-                  <div class="col-md-9" xml:lang="en">
-                    {rec:display-recs-short-view($hit,'')} 
-                  </div>
-                </div>
-            </div>
-        </div>
-   }
+<div class="row">
+    <div class="col-md-2">
+     {
+        if($collection = 'spear') then search:spear-facets($model("hits"))
+        else ()     
+    }
+    </div>
+   <div class="col-md-10" style="background-color:white;">
+   <div>{search:build-geojson($node,$model)}</div>
+   {
+       for $hit at $p in subsequence($model("hits"), $search:start, 20)
+       return
+           <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
+               <div class="col-md-10 col-md-offset-1">
+                   <div class="result">
+                     <div class="col-md-1" style="margin-right:-1em;">
+                       <span class="label label-default">{$search:start + $p - 1}</span>
+                     </div>
+                     <div class="col-md-9" xml:lang="en">
+                       {rec:display-recs-short-view($hit,'')} 
+                     </div>
+                   </div>
+               </div>
+           </div>
+      }
+   </div>   
 </div>
 };
 

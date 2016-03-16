@@ -10,7 +10,7 @@ import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 
-(:~                
+(:~           
  : Syriaca.org URI for retrieving TEI records 
 :)
 declare variable $app:id {request:get-parameter('id', '')}; 
@@ -100,7 +100,7 @@ declare %templates:wrap function app:get-nav($node as node(), $model as map(*)){
  : @param $app:id syriaca.org uri 
 :)
 declare function app:get-rec($node as node(), $model as map(*), $collection as xs:string?) {
-if($app:id) then 
+if($app:id != '') then 
     let $id :=
         if(contains(request:get-uri(),'http://syriaca.org/')) then $app:id
         else if($collection = 'places') then concat('http://syriaca.org/place/',$app:id) 
@@ -143,7 +143,7 @@ declare function app:h1($node as node(), $model as map(*)){
                 {($rec/descendant::*[contains(@syriaca-tags,'#syriaca-headword')], $rec/descendant::tei:idno, $rec/descendant::tei:location)}
             </srophe-title>
         return global:tei2html($title-nodes)
-    else global:tei2html(($model("data")/ancestor::tei:TEI/descendant::tei:titleStmt[1], $model("data")/ancestor::tei:TEI/descendant::tei:idno))
+    else global:tei2html(<srophe-title xmlns="http://www.tei-c.org/ns/1.0">{($model("data")/ancestor::tei:TEI/descendant::tei:titleStmt[1]/tei:title[1], $model("data")/ancestor::tei:TEI/descendant::tei:idno[1])}</srophe-title>)
 }; 
 
 (:~ 
@@ -319,7 +319,11 @@ declare %templates:wrap function app:build-editor-list($node as node(), $model a
  : $data-dir 
 :)
 declare %templates:wrap function app:dashboard($node as node(), $model as map(*), $collection-title, $data-dir){
-    let $data := collection(concat($global:data-root,'/',$data-dir,'/tei'))//tei:title[. = $collection-title]
+    let $data := 
+        if($collection-title != '') then 
+            collection(concat($global:data-root,'/',$data-dir,'/tei'))//tei:title[. = $collection-title][parent::tei:titleStmt]
+        else collection(concat($global:data-root,'/',$data-dir,'/tei'))//tei:title[@level='a'][parent::tei:titleStmt] 
+            
     let $data-type := if($data-dir) then $data-dir else 'data'
     let $rec-num := count($data)
     let $contributors := for $contrib in distinct-values(for $contributors in $data/ancestor::tei:TEI/descendant::tei:respStmt/tei:name return $contributors) return <li>{$contrib}</li>
