@@ -25,10 +25,11 @@ let $query-string :=
 let $query-string := 
 	   if ((functx:number-of-matches($query-string, '\[') + functx:number-of-matches($query-string, '\]')) mod 2 eq 0) 
 	   then $query-string
-	   else translate($query-string, '[]', ' ') (:if there is an uneven number of brackets, delete all brackets.:)   
+	   else translate($query-string, '[]', ' ') (:if there is an uneven number of brackets, delete all brackets.:)
+let $query-string := replace($param-string,"'","''")	   
 return 
-    if(matches($param-string,"(^\*$)|(^\?$)")) then 'Invalid Search String, please try again.' (: Must enter some text with wildcard searches:)
-    else replace(replace($param-string,'<|>|@',''), '(\.|\[|\]|\\|\||\-|\^|\$|\+|\{|\}|\(|\)|(/))','\\$1') (: Escape special characters. Fixes error, but does not return correct results on URIs see: http://viaf.org/viaf/sourceID/SRP|person_308 :)
+    if(matches($query-string,"(^\*$)|(^\?$)")) then 'Invalid Search String, please try again.' (: Must enter some text with wildcard searches:)
+    else replace(replace($query-string,'<|>|@',''), '(\.|\[|\]|\\|\||\-|\^|\$|\+|\{|\}|\(|\)|(/))','\\$1') (: Escape special characters. Fixes error, but does not return correct results on URIs see: http://viaf.org/viaf/sourceID/SRP|person_308 :)
 };
 
 (:~
