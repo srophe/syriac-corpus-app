@@ -3,6 +3,8 @@ xquery version "3.0";
 import module namespace rel="http://syriaca.org/related" at "../lib/get-related.xqm";
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
+declare namespace snap="http://syriaca.org/snap";
+declare namespace syriaca="http://syriaca.org/syriaca";
 declare namespace json="http://www.json.org";
 
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
@@ -10,10 +12,9 @@ declare option output:method "json";
 declare option output:media-type "application/json";
 
 declare variable $collection {request:get-parameter('collection', '')};
-declare variable $rel {request:get-parameter('rel', '')};
-declare variable $uri {request:get-parameter('uri', '')};
-declare variable $event {request:get-parameter('event', '')};
-declare variable $reltype {request:get-parameter('reltype', '')};
+declare variable $uri {request:get-parameter('itemURI', '')};
+declare variable $event {request:get-parameter('eventType', '')};
+declare variable $reltype {request:get-parameter('relType', '')};
 declare variable $graphType {request:get-parameter('graphType', '')};
 
 declare function local:get-events($event as xs:string*){
@@ -76,7 +77,6 @@ return
             }
         </links>
     </root> 
-
 };
 (:
 : Note: issues with json serialization, if only one link, not serialized as an array, if used this: it becomes a nested array <links json:array="true">
@@ -182,18 +182,67 @@ return
     </root>                        
 };
 
+declare function local:bubble-relationships(){
+let $relationships := collection('/db/apps/srophe-data/data/spear/tei')//tei:relation
+return 
+   <root>
+        <data>
+        <children>
+            {
+                let $uris := distinct-values(for $r in $relationships return $r/@name)
+                for $uri in $uris
+                return 
+                <json:value>
+                   <id>{substring-after(tokenize($uri,'/')[last()],':')}</id>
+                   <name>{substring-after(tokenize($uri,'/')[last()],':')}</name>
+                   <radius>
+                    {
+                        count(util:eval(concat("collection('/db/apps/srophe-data/data/spear/tei')//tei:relation[@name = '",$uri,"']")))
+                    }
+                   </radius>
+                   <type>rel</type>
+                </json:value>
+              }
+        </children>
+        </data>
+    </root>
+};
 
-if($rel) then
-    if($rel = 'event') then
-        if($event != '' and $event !='all') then
-            local:get-events($event)
-        else util:base64-decode(util:binary-doc('spear-events.json')) 
-        (:local:get-events(''):)
-    else 
-        if($uri != '') then local:get-relationships($uri,'')
-        else if($rel) then local:get-relationships('',$reltype)
-        else (:local:get-relationships('',''):)util:base64-decode(util:binary-doc('spear-relationships.json'))
-else (:local:get-relationships('',''):)util:base64-decode(util:binary-doc('spear-relationships.json'))
+declare function local:bubble-events(){
+let $relationships := collection('/db/apps/srophe-data/data/spear/tei')//tei:event[@ref][parent::tei:listEvent]
+return 
+   <root>
+        <data>
+        <children>
+            {
+                let $uris := distinct-values(for $r in $relationships return tokenize($r/@ref,' '))
+                for $uri in $uris
+                return 
+                <json:value>
+                   <id>{tokenize($uri,'/')[last()]}</id>
+                   <name>{tokenize($uri,'/')[last()]}</name>
+                   <radius>
+                    {
+                        count(util:eval(concat("collection('/db/apps/srophe-data/data/spear/tei')//tei:event[@ref[matches(.,'(^|\W)",$uri,"(\W|$)')]][parent::tei:listEvent]")))
+                    }
+                   </radius>
+                   <type>event</type>
+                </json:value>
+              }
+        </children>
+        </data>
+    </root>
+};
+
+if($graphType = 'event') then
+    if($event = 'all') then local:bubble-events()
+    else if($event != '') then local:get-events($event)
+    else local:bubble-events() 
+else 
+    if($uri != '') then local:get-relationships($uri,'')
+    else if($reltype = 'all') then local:bubble-relationships()
+    else if($reltype != '') then local:get-relationships('',$reltype)
+    else local:bubble-relationships()
 
 (:local:get-relationships(''):)
 (:local:get-events('birth'):)

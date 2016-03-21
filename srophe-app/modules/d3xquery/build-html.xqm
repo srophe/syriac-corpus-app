@@ -5,6 +5,7 @@ import module namespace global="http://syriaca.org/global" at "../lib/global.xqm
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 declare option exist:serialize "method=html5 media-type=text/html omit-xml-declaration=yes indent=yes";
 
+declare variable $graph {request:get-parameter('graph', '')};
 (: Build HTML for force Graph, will add additional graphs later on. :)
 declare function local:html(){
 <html>
@@ -23,52 +24,43 @@ declare function local:html(){
             <link rel="stylesheet" href="$app-root/modules/d3xquery/pygment_trac.css"/>
             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
             <script type='text/javascript' src="http://d3js.org/d3.v3.js"></script>
-            <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.8.0/d3-legend.js"></script>
+            <!--<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.8.0/d3-legend.js"></script>-->
             <script src="$app-root/modules/d3xquery/force-d3js.js"></script>
             <script>
             <![CDATA[ 
                 function exec(){
-                    var endpoint = d3.select("#endpoint").property("value")
-                    var rel = d3.select("#rel").property("value")
-                    var event = d3.select("#event").property("value")
-                    var uri = d3.select("#uri").property("value")
-                    var reltype = d3.select("#reltype").property("value")
-                    d3xquery.query(endpoint, rel, event, uri, reltype, render)   
+                    endpoint = d3.select("#endpoint").property("value")
+                    graphType = d3.select("#graphType").property("value")
+                    eventType = d3.select("#eventType").property("value")
+                    itemURI = d3.select("#itemURI").property("value")
+                    relType = d3.select("#relType").property("value")
+                    d3xquery.query(endpoint, graphType, eventType, itemURI, relType, render)  
                 }
-                
-
-                
+                 
                 function render(json) {
-                    var config = {
-                      "charge": -500,
-                      "distance": 50,
-                      "width": 1000,
-                      "height": 750,
-                      "selector": "#grpah"
-                    }
-                    d3xquery.forcegraph(json, config)
-                  }
-                  
+                    d3xquery.initialGraph(json)
+                } 
+                
                 $(document).ready(function () { 
                     toggleFields(); //call this first so we start out with the correct visibility depending on the selected form values
-                    $("#rel").change(function () {
+                    $("#graphType").change(function () {
                         toggleFields();
                     });
                 });
+                
                function toggleFields() {
-                   if ($("#rel").val() === "event")
+                   if ($("#graphType").val() === "event")
                        $("#eventGrp").show();
                    else
                        $("#eventGrp").hide();
                        
-                   if ($("#rel").val() === "relationship")
+                   if ($("#graphType").val() === "relationship")
                        $("#relGrp").show();                       
                    else
                        $("#relGrp").hide();
                }
             ]]>
             </script>
-
     </head>
     <body class="white">
         <div class="row">
@@ -90,37 +82,39 @@ declare function local:html(){
                         </h4>
                         <div id="showForm" class="collapse in">
                         <div class="form-group">
-                            <label for="rel" class="col-sm-2 control-label">Type</label>
+                            <label for="graphType" class="col-sm-2 control-label">Type</label>
                             <div class="col-sm-10">
-                                <select id="rel" class="form-control">
-                                    <option value="all">-- Select Graph --</option>
+                                <select id="graphType" class="form-control">
+                                    <option value="">-- Select Graph --</option>
                                     <option value="event">Event</option>
                                     <option value="relationship">Relationship</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group" id="eventGrp" >
-                            <label for="event" class="col-sm-2 control-label">Events </label>
+                            <label for="eventType" class="col-sm-2 control-label">Events </label>
                             <div class="col-sm-10">
-                                <select id="event" class="form-control">
+                                <select id="eventType" class="form-control">
+                                    <option value="">-- Select Event --</option>
                                     <option value="all">All Events</option>
                                     {local:get-events()}
                                 </select>
                             </div>
                         </div>
                         <div class="form-group" id="relGrp" >
-                            <label for="reltype" class="col-sm-2 control-label">Relationships </label>
+                            <label for="relType" class="col-sm-2 control-label">Relationships </label>
                             <div class="col-sm-10">
-                                <select id="reltype" class="form-control">
+                                <select id="relType" class="form-control">
+                                    <option value="">-- Select Relationships --</option>
                                     <option value="all">All Relationships</option>
                                     {local:get-rels()}
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="uri" class="col-sm-2 control-label">Record </label>
+                            <label for="itemURI" class="col-sm-2 control-label">Record </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="uri" placeholder="Example: http://syriaca.org/person/51"/>
+                                <input type="text" class="form-control" id="itemURI" placeholder="Example: http://syriaca.org/person/51"/>
                             </div>
                         </div>
                         <input id="endpoint" class="span5" value="get-relationships.xql" type="hidden"/>
@@ -151,6 +145,7 @@ declare function local:html(){
 </html>
 };
 
+
 (: Get all events for drop down menu :)
 (: Eventually add collection filter :)
 declare function local:get-events(){
@@ -170,4 +165,5 @@ declare function local:get-rels(){
     return 
     <option value="{$r}">{$r}</option>
 };
+
 local:html()
