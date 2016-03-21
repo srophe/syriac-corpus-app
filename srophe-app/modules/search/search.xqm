@@ -94,7 +94,7 @@ concat("collection('",$global:data-root,"')//tei:body",
     search:placeName(), 
     search:title(),
     search:bibl(),
-    search:idno()
+    search:idno(),"/ancestor::tei:TEI"
     )
 };
 
@@ -369,7 +369,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
 </div>
 };
 
-(:~ 
+(:~     
  : Checks to see if there are any parameters in the URL, if yes, runs search, if no displays search form. 
 :)
 declare %templates:wrap function search:build-page($node as node()*, $model as map(*), $collection as xs:string?) {
