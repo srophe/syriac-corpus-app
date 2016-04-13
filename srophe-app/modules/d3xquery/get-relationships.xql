@@ -78,6 +78,7 @@ return
         </links>
     </root> 
 };
+
 (:
 : Note: issues with json serialization, if only one link, not serialized as an array, if used this: it becomes a nested array <links json:array="true">
 :)
@@ -88,7 +89,7 @@ let $relationships :=
         util:eval(concat("collection('/db/apps/srophe-data/data/spear/tei')//tei:relation[@passive[matches(.,'",$uri,"(\W|$)')] or @active[matches(.,'",$uri,"')] or @mutual[matches(.,'",$uri,"')]]
         "))
     else if($reltype != '') then    
-        util:eval(concat("collection('/db/apps/srophe-data/data/spear/tei')//tei:relation[@name[replace(.,'^(.*?):','') = '",$reltype,"']]"))
+       util:eval(concat("collection('/db/apps/srophe-data/data/spear/tei')//tei:relation[@name[matches(replace(.,'^(.*?):',''),'",$reltype,"')]]"))
     else collection('/db/apps/srophe-data/data/spear/tei')//tei:relation
 return 
         <root>

@@ -25,7 +25,7 @@ declare function rel:get-names-json($uris as xs:string?) as node()*{
                     let $string := normalize-space(string-join($rec/descendant::text(),' '))
                     let $last-words := tokenize($string, '\W+')[position() = 5]
                     return concat(substring-before($string, $last-words),'...')
-                else replace($rec/descendant::tei:titleStmt/tei:title[1]/text(),'—',' ')
+                else replace(string-join($rec/descendant::tei:titleStmt/tei:title[1]/text(),' '),'—',' ')
     return <name>{$name}</name>
          
 };

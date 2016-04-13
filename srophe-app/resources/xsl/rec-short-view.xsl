@@ -118,8 +118,11 @@
                 <xsl:when test="descendant-or-self::t:titleStmt">
                     <xsl:apply-templates select="descendant::t:title[@level='a']"/>
                 </xsl:when>
+                <xsl:when test="ancestor::t:TEI/descendant::t:titleStmt">
+                    <xsl:apply-templates select="ancestor::t:TEI/descendant::t:titleStmt/t:title[@level='a']"/>
+                </xsl:when>
                 <xsl:otherwise>
-                    <xsl:apply-templates select="descendant-or-self::*[not(self::t:idno)][not(self::t:bibl)][not(self::t:biblScope)][not(self::t:note)][not(self::t:orig)][not(self::t:sic)]/text()"/>
+                    <xsl:value-of select="substring(string-join(descendant-or-self::*[not(self::t:idno)][not(self::t:bibl)][not(self::t:biblScope)][not(self::t:note)][not(self::t:orig)][not(self::t:sic)]/text(),' '),1,550)"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
@@ -143,7 +146,9 @@
         </xsl:variable>
         <xsl:variable name="floruit">
             <xsl:if test="descendant-or-self::t:floruit/text()">
-                <xsl:value-of select="concat('active ',descendant-or-self::t:floruit/text())"/>
+                <xsl:for-each select="descendant-or-self::t:floruit">
+                    <xsl:value-of select="concat('active ',descendant-or-self::t:floruit/text())"/>
+                </xsl:for-each>
             </xsl:if>
         </xsl:variable>
         <xsl:variable name="dates">
