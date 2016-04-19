@@ -231,10 +231,10 @@
                     </xsl:if>
                     <xsl:if test="descendant::*[starts-with(@xml:id,'abstract')]">
                         <span class="results-list-desc desc" dir="ltr" lang="en">
-                            <xsl:variable name="string" select="string-join(descendant::*[starts-with(@xml:id,'abstract')]/descendant::text(),' ')"/>
+                            <xsl:variable name="string" select="string-join(descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::*,' ')"/>
                             <xsl:variable name="last-words" select="tokenize($string, '\W+')[position() = 14]"/>
                             <xsl:choose>
-                                <xsl:when test="count(tokenize($string, '\W+')[. != '']) gt 12">
+                                <xsl:when test="count(tokenize($string, '\W+')[. != '']) gt 13">
                                     <xsl:value-of select="concat(substring-before($string, $last-words),'...')"/>
                                 </xsl:when>
                                 <xsl:otherwise>
@@ -339,16 +339,16 @@
                             <xsl:variable name="string">
                                 <xsl:choose>
                                     <xsl:when test="descendant::*[starts-with(@xml:id,'abstract')]">
-                                        <xsl:value-of select="string-join(descendant::*[starts-with(@xml:id,'abstract')]/descendant::text(),' ')"/>
+                                        <xsl:value-of select="string-join(descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::*/text(),' ')"/>
                                     </xsl:when>
                                     <xsl:when test="descendant::*[@type = 'abstract']">
-                                        <xsl:value-of select="string-join(descendant::*[@type = 'abstract']/descendant::text(),' ')"/>
+                                        <xsl:value-of select="string-join(descendant::*[@type = 'abstract']/descendant-or-self::*/text(),' ')"/>
                                     </xsl:when>
                                 </xsl:choose>
                             </xsl:variable>
-                            <xsl:variable name="last-words" select="tokenize($string, '\W+')[position() = 14]"/>
+                            <xsl:variable name="last-words" select="tokenize($string, '\W+')[position() = 25]"/>
                             <xsl:choose>
-                                <xsl:when test="count(tokenize($string, '\W+')[. != '']) gt 12">
+                                <xsl:when test="count(tokenize($string, '\W+')[. != '']) gt 25">
                                     <xsl:value-of select="concat(substring-before($string, $last-words),'...')"/>
                                 </xsl:when>
                                 <xsl:otherwise>
