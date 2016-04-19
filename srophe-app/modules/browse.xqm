@@ -32,7 +32,8 @@ declare namespace util="http://exist-db.org/xquery/util";
  : @param $browse:sort passes browse by letter for alphabetical browse lists
  :)
 declare variable $browse:coll {request:get-parameter('coll', '')};
-declare variable $browse:type {request:get-parameter('type', '')}; 
+declare variable $browse:type {request:get-parameter('type', '')};
+declare variable $browse:lang {request:get-parameter('lang', '')};
 declare variable $browse:view {request:get-parameter('view', '')};
 declare variable $browse:sort {request:get-parameter('sort', '')};
 declare variable $browse:date {request:get-parameter('date', '')};
@@ -48,13 +49,13 @@ declare variable $browse:perpage {request:get-parameter('perpage', 25) cast as x
 :)
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string?){
 let $browse-path := 
-    if($collection = ('persons','sbd','saints','q','authors')) then concat("collection('",$global:data-root,"/persons/tei')",browse:get-coll($collection),browse:get-syr())
-    else if($collection = 'places') then concat("collection('",$global:data-root,"/places/tei')",browse:get-coll($collection),browse:get-syr())
-    else if($collection = 'bhse') then concat("collection('",$global:data-root,"/works/tei')",browse:get-coll($collection),browse:get-syr())
-    else if($collection = 'bibl') then concat("collection('",$global:data-root,"/bibl/tei')",browse:get-syr())
+    if($collection = ('persons','sbd','saints','q','authors')) then concat("collection('",$global:data-root,"/persons/tei')",browse:get-coll($collection),browse:get-syr(),browse:lang($collection))
+    else if($collection = 'places') then concat("collection('",$global:data-root,"/places/tei')",browse:get-coll($collection),browse:get-syr(),browse:lang($collection))
+    else if($collection = 'bhse') then concat("collection('",$global:data-root,"/works/tei')",browse:get-coll($collection),browse:get-syr(),browse:lang($collection))
+    else if($collection = 'bibl') then concat("collection('",$global:data-root,"/bibl/tei')",browse:get-syr(),browse:lang($collection))
     else if($collection = 'spear') then concat("collection('",$global:data-root,"/spear/tei')")
     else if($collection = 'manuscripts') then concat("collection('",$global:data-root,"/manuscripts/tei')//tei:TEI")
-    else if(exists($collection)) then concat("collection('",$global:data-root,xs:anyURI($collection),"')",browse:get-coll($collection),browse:get-syr())
+    else if(exists($collection)) then concat("collection('",$global:data-root,xs:anyURI($collection),"')",browse:get-coll($collection),browse:get-syr(),browse:lang($collection))
     else concat("collection('",$global:data-root,"')",browse:get-coll($collection),browse:get-syr())
 return 
     map{"browse-data" := util:eval($browse-path)}      
@@ -91,6 +92,17 @@ declare function browse:get-syr() as xs:string?{
     if($browse:view = 'syr') then
         "[descendant::*[contains(@syriaca-tags,'#syriaca-headword')][@xml:lang = 'syr']]"
     else ()    
+};
+
+declare function browse:lang($collection as xs:string?) as xs:string?{
+    if($browse:lang != '') then
+        if($collection = ('persons','sbd','saints','q','authors')) then 
+            concat("[descendant::tei:person/tei:persName[@xml:lang = '",$browse:lang,"']]")
+        else if($collection = 'places') then 
+            concat("[descendant::tei:place/tei:placeName[@xml:lang = '",$browse:lang,"']]")
+        else 
+            concat("[descendant::tei:title[@xml:lang = '",$browse:lang,"']]")
+    else ()   
 };
 
 (:~
@@ -248,7 +260,7 @@ else
 
 declare function browse:get-map($node as node(), $model as map(*)){
     <div class="col-md-12 map-lg">
-        {geo:build-google-map($model("browse-data")//tei:geo, '', '')}
+        {geo:build-map($model("browse-data")//tei:geo, '', '')}
     </div>
 };
 
