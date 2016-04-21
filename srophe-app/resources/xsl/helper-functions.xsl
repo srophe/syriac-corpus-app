@@ -158,25 +158,27 @@
     <!-- To be made: Date function to pretty print dates as Month Day, Year -->
     
     <!-- Function for adding footnotes -->
-    <xsl:function name="local:do-refs" as="node()">
+    <xsl:function name="local:do-refs">
         <xsl:param name="refs"/>
         <xsl:param name="lang"/>
-        <span class="footnote-refs" dir="ltr">
-            <xsl:if test="$lang != 'en'">
-                <xsl:attribute name="lang">en</xsl:attribute>
-                <xsl:attribute name="xml:lang">en</xsl:attribute>
-            </xsl:if>
-            <xsl:for-each select="tokenize($refs,' ')">
-                <span class="footnote-ref">
-                    <a href="{.}">
-                        <xsl:value-of select="substring-after(.,'-')"/>
-                    </a>
-                    <xsl:if test="position() != last()">,<xsl:text> </xsl:text>
-                    </xsl:if>
-                </span>
-            </xsl:for-each>
-            <xsl:text> </xsl:text>
-        </span>
+        <xsl:if test="$refs != ''">
+            <span class="footnote-refs" dir="ltr">
+                <xsl:if test="$lang != 'en'">
+                    <xsl:attribute name="lang">en</xsl:attribute>
+                    <xsl:attribute name="xml:lang">en</xsl:attribute>
+                </xsl:if>
+                <xsl:for-each select="tokenize($refs,' ')">
+                    <span class="footnote-ref">
+                        <a href="{.}">
+                            <xsl:value-of select="substring-after(.,'-')"/>
+                        </a>
+                        <xsl:if test="position() != last()">,<xsl:text> </xsl:text>
+                        </xsl:if>
+                    </span>
+                </xsl:for-each>
+                <xsl:text> </xsl:text>
+            </span>
+        </xsl:if>
     </xsl:function>
     
     <!-- Process names editors/authors ect -->
