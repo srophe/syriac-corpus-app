@@ -224,7 +224,7 @@
                     <ul>
                         <xsl:for-each select="t:author | t:editor">
                             <li>
-                                <xsl:apply-templates/>
+                                <xsl:apply-templates select="."/>
                             </li>
                         </xsl:for-each>
                     </ul>
@@ -700,22 +700,22 @@
                             <a href="{$nav-base}/q/index.html">
                                 <img src="{$nav-base}/resources/img/icons-q-sm.png" alt="Qadishe: A Guide to the Syriac Saints"/>saint</a>
                         </xsl:when>
-                        <xsl:otherwise><xsl:value-of select="t:title[@level='m' or @level='s']"/></xsl:otherwise>
+                        <xsl:otherwise>
+                            <xsl:value-of select="t:title[@level='m' or @level='s']"/>
+                        </xsl:otherwise>
                     </xsl:choose>
-                    
                     <xsl:if test="following-sibling::*/text() = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')">, </xsl:if>
-                    
                 </xsl:for-each>
                 <xsl:if test="t:title[@level='m' or @level='s'][not(. = 'The Syriac Biographical Dictionary')] and t:death or t:birth">,  
                     <xsl:if test="not(t:death)">b. </xsl:if>
                     <xsl:value-of select="t:birth/text()"/>
                     <xsl:if test="t:death">
-                            <xsl:choose>
-                                <xsl:when test="t:birth"> - </xsl:when>
-                                <xsl:otherwise>d. </xsl:otherwise>
-                            </xsl:choose>
-                            <xsl:value-of select="t:death/text()"/>
-                     </xsl:if>
+                        <xsl:choose>
+                            <xsl:when test="t:birth"> - </xsl:when>
+                            <xsl:otherwise>d. </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:value-of select="t:death/text()"/>
+                    </xsl:if>
                 </xsl:if>
                 <xsl:if test="t:floruit/text()">
                     <xsl:if test="t:title[@level='m' or @level='s'][not(. = 'The Syriac Biographical Dictionary')] or t:death or t:birth">
@@ -1209,7 +1209,7 @@
             </span>
         </xsl:if>
     </xsl:template>
-    <xsl:template match="t:persName | t:region | t:settlement | t:placeName">
+    <xsl:template match="t:persName | t:region | t:settlement | t:placeName | t:author | t:editor">
         <xsl:choose>
             <xsl:when test="@ref">
                 <xsl:choose>
@@ -1268,18 +1268,24 @@
             <xsl:text> </xsl:text>
         </xsl:if>
         <xsl:apply-templates mode="out-normal"/>
-        <xsl:text> </xsl:text>
+        <xsl:if test="following-sibling::*">
+            <xsl:text> </xsl:text>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="t:roleName" mode="text-normal">
         <xsl:apply-templates mode="out-normal"/>
-        <xsl:text> </xsl:text>
+        <xsl:if test="following-sibling::*">
+            <xsl:text> </xsl:text>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="t:forename | t:addName" mode="text-normal">
         <xsl:if test="preceding-sibling::*">
             <xsl:text> </xsl:text>
         </xsl:if>
         <xsl:apply-templates mode="out-normal"/>
-        <xsl:text> </xsl:text>
+        <xsl:if test="following-sibling::*">
+            <xsl:text> </xsl:text>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="t:placeName | t:title" mode="list">
         <xsl:variable name="nameID" select="concat('#',@xml:id)"/>
