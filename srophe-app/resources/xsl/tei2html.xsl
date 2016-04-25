@@ -130,13 +130,6 @@
         <!-- Body -->
         <xsl:apply-templates select="t:text/t:body/child::*"/>
         
-        <!-- Sources 
-        <xsl:if test="t:text/t:body/child::*/child::*/t:bibl">
-            <xsl:call-template name="sources">
-                <xsl:with-param name="node" select="t:text/t:body/child::*/child::*"/>
-            </xsl:call-template>
-        </xsl:if>
-        -->
         <!-- Citation Information -->        
         <!-- Citations -->
         <xsl:call-template name="citationInfo"/>
@@ -621,8 +614,8 @@
         -->
         <div class="row title">
             <h1 class="col-md-8">
-                <xsl:call-template name="title"/>
                 <!-- Format title, calls template in place-title-std.xsl -->
+                <xsl:call-template name="title"/>
             </h1>
             <!-- Call link icons (located in link-icons.xsl) -->
             <xsl:call-template name="link-icons"/>   
@@ -664,29 +657,8 @@
         </div>
     </xsl:template>
     <xsl:template name="title">
-        <xsl:choose>
-            <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')]">
-                <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]" mode="plain"/>
-                <xsl:text> - </xsl:text> 
-                <xsl:choose>
-                    <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')]">
-                        <span lang="syr" dir="rtl">
-                            <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')][1]" mode="plain"/>
-                        </span>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        [ Syriac Not Available ]
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:when>
-            <xsl:when test="self::t:titleStmt">
-                <xsl:apply-templates select="descendant::t:title[@level='a']"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="descendant-or-self::*[not(self::t:idno)]/text()"/>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:if test="t:title[@level='m'] or t:birth or t:death">
+        <xsl:apply-templates select="t:title[@level='a']" mode="h1"/>
+        <xsl:if test="t:title[@level='m'] or t:birth or t:death or t:floruit">
             <span lang="en" class="type" style="padding-left:1em;">
                 <xsl:text>(</xsl:text>
                 <xsl:for-each select="t:title[@level='m' or @level='s']">
@@ -792,6 +764,9 @@
         <xsl:if test="following-sibling::t:title">
             <xsl:text>: </xsl:text>
         </xsl:if>
+    </xsl:template>
+    <xsl:template match="t:title" mode="h1">        
+        <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="t:foreign">
         <xsl:choose>
@@ -1257,7 +1232,10 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="t:persName" mode="plain">
-        <xsl:apply-templates/>
+        <span class="persName">
+            <xsl:call-template name="langattr"/>
+            <xsl:apply-templates mode="out-normal"/>
+        </span>
     </xsl:template>
     <xsl:template match="t:roleName">
         <xsl:apply-templates mode="out-normal"/>
