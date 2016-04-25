@@ -667,12 +667,11 @@
         <xsl:choose>
             <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')]">
                 <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]" mode="plain"/>
-                    <!--<xsl:value-of select="string(descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1])"/>--> - 
+                <xsl:text> - </xsl:text> 
                 <xsl:choose>
                     <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')]">
                         <span lang="syr" dir="rtl">
                             <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')][1]" mode="plain"/>
-                            <!--<xsl:value-of select="string(descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'syr')])"/>-->
                         </span>
                     </xsl:when>
                     <xsl:otherwise>
@@ -687,7 +686,7 @@
                 <xsl:apply-templates select="descendant-or-self::*[not(self::t:idno)]/text()"/>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test="t:title[@level='m' or @level='s'] or t:birth or t:death">
+        <xsl:if test="t:title[@level='m'] or t:birth or t:death">
             <span lang="en" class="type" style="padding-left:1em;">
                 <xsl:text>(</xsl:text>
                 <xsl:for-each select="t:title[@level='m' or @level='s']">
@@ -704,9 +703,10 @@
                             <xsl:value-of select="t:title[@level='m' or @level='s']"/>
                         </xsl:otherwise>
                     </xsl:choose>
-                    <xsl:if test="following-sibling::*/text() = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')">, </xsl:if>
+                    <xsl:if test="following-sibling::*/text() = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')">, TEST2</xsl:if>
                 </xsl:for-each>
-                <xsl:if test="t:title[@level='m' or @level='s'][not(. = 'The Syriac Biographical Dictionary')] and t:death or t:birth">,  
+                <xsl:if test="t:title[@level='m'] and (t:death or t:birth)">,  </xsl:if>
+                <xsl:if test="t:death or t:birth">
                     <xsl:if test="not(t:death)">b. </xsl:if>
                     <xsl:value-of select="t:birth/text()"/>
                     <xsl:if test="t:death">
