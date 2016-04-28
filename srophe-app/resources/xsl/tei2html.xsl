@@ -657,7 +657,7 @@
         </div>
     </xsl:template>
     <xsl:template name="title">
-        <xsl:apply-templates select="t:title[@level='a']" mode="h1"/>
+        <xsl:apply-templates select="t:title[@level='a']"/>
         <xsl:if test="t:title[@level='m'] or t:birth or t:death or t:floruit">
             <span lang="en" class="type" style="padding-left:1em;">
                 <xsl:text>(</xsl:text>
@@ -761,12 +761,9 @@
                 <xsl:apply-templates/>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test="following-sibling::t:title">
+        <xsl:if test="following-sibling::t:title and not(parent::t:srophe-title)">
             <xsl:text>: </xsl:text>
         </xsl:if>
-    </xsl:template>
-    <xsl:template match="t:title[@level='a']" mode="h1">
-        <xsl:apply-templates select="."/>
     </xsl:template>
     <xsl:template match="t:foreign">
         <xsl:choose>
