@@ -10,12 +10,12 @@ import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 
-(:~           
+(:~         
  : Syriaca.org URI for retrieving TEI records 
 :)
 declare variable $app:id {request:get-parameter('id', '')}; 
 
-(:~ 
+(:~      
  : Traverse main nav and "fix" links based on values in config.xml
  : Replaces $app-root with vaule defined in config.xml. 
  : This allows for more flexible deployment for dev and production environments.   
@@ -97,7 +97,7 @@ declare %templates:wrap function app:get-nav($node as node(), $model as map(*)){
 (:~  
  : Simple get record function, get tei record based on idno
  : Builds uri from simple ids.
- : @param $app:id syriaca.org uri 
+ : @param $app:id syriaca.org uri   
 :)
 declare function app:get-rec($node as node(), $model as map(*), $collection as xs:string?) {
 if($app:id != '') then 
@@ -110,7 +110,9 @@ if($app:id != '') then
         else if($collection = 'mss') then concat('http://syriaca.org/manuscript/',$app:id)
         else if($collection = 'bibl') then concat('http://syriaca.org/bibl/',$app:id)
         else $app:id
-    return map {"data" := collection($global:data-root)//tei:idno[. = $id]}
+    return 
+         map {"data" := collection($global:data-root)//tei:idno[@type='URI'][. = $id]}
+       
 else map {"data" := 'Page data'}    
 };
 
@@ -136,14 +138,8 @@ else 'Syriaca.org: The Syriac Reference Portal '
  : Default title display, used if no sub-module title function. 
 :)
 declare function app:h1($node as node(), $model as map(*)){
-    if(($model("data")/ancestor::tei:TEI/descendant::*[contains(@syriaca-tags,'#syriaca-headword')])) then
-        let $rec := $model("data")/ancestor::tei:TEI/descendant::tei:body
-        let $title-nodes := 
-            <srophe-title xmlns="http://www.tei-c.org/ns/1.0">
-                {($rec/descendant::*[contains(@syriaca-tags,'#syriaca-headword')], $rec/descendant::tei:idno, $rec/descendant::tei:location)}
-            </srophe-title>
-        return global:tei2html($title-nodes)
-    else global:tei2html(<srophe-title xmlns="http://www.tei-c.org/ns/1.0">{($model("data")/ancestor::tei:TEI/descendant::tei:titleStmt[1]/tei:title[1], $model("data")/ancestor::tei:TEI/descendant::tei:idno[1])}</srophe-title>)
+ global:tei2html(<srophe-title xmlns="http://www.tei-c.org/ns/1.0">{($model("data")/ancestor::tei:TEI/descendant::tei:titleStmt[1]/tei:title[1], $model("data")/ancestor::tei:TEI/descendant::tei:idno[1])}</srophe-title>)
+ 
 }; 
 
 (:~ 
