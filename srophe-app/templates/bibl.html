@@ -33,50 +33,14 @@
                         <span class="icon-bar"/>
                     </button>
                     <a class="navbar-brand" href="$app-root/bibl/index.html">
-                        <img class="img-responsive" alt="Syriac.org: Bibl" src="$app-root/resources/img/icons-persons.png"/>
+                        <img class="img-responsive" alt="Syriac.org: Bibl" src="$app-root/resources/img/icons-syriaca.png"/>
                     </a>
                 </div>
                 <div class="navbar-collapse collapse pull-right">
                     <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Browse<b class="caret"/>
-                            </a>
-                            <ul class="dropdown-menu pull-right">
-                                <li>
-                                    <a href="$app-root/persons/browse.html" class="persons-sm-icon nav-icons">Browse SBD</a>
-                                </li>
-                                <li role="presentation" class="divider"/>
-                                <li>
-                                    <a href="$app-root/q/browse.html" class="q-sm-icon nav-icons">Browse Qadishe</a>
-                                </li>
-                                <li role="presentation" class="divider"/>
-                                <li>
-                                    <a href="$app-root/authors/browse.html" class="authors-sm-icon nav-icons">Browse Authors</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> About<b class="caret"/>
-                            </a>
-                            <ul class="dropdown-menu pull-right">
-                                <li>
-                                    <a href="$app-root/persons/about.html" class="persons-sm-icon nav-icons">About SBD</a>
-                                </li>
-                                <li role="presentation" class="divider"/>
-                                <li>
-                                    <a href="$app-root/q/about.html" class="q-sm-icon nav-icons">About Qadishe</a>
-                                </li>
-                                <li role="presentation" class="divider"/>
-                                <li>
-                                    <a href="$app-root/authors/about.html" class="authors-sm-icon nav-icons">About Authors</a>
-                                </li>
-                            </ul>
-                        </li>
+                        <li class="dropdown"><a href="$app-root/bibl/browse.html">Browse </a></li>
                         <li>
                             <a href="$app-root/documentation.html">Help</a>
-                        </li>
-                        <li>
-                            <a href="$app-root/persons/contribute.html">Contribute</a>
                         </li>
                         <li>
                             <a href="$app-root/index.html" class="syriaca-sm-icon nav-icons"> Syriaca.org</a>
@@ -84,15 +48,15 @@
                         <!-- Shared drop-down menu of all submodules -->
                         <li data-template="app:shared-content" data-template-path="/templates/shared-links.html"/>
                     </ul>
-                    <form class="navbar-form navbar-right navbar-input-group" role="search" action="$app-root/persons/search.html" method="get">
+                    <form class="navbar-form navbar-right navbar-input-group" role="search" action="$app-root/bibl/search.html" method="get">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="search" name="q" id="q"/>
-                            <input type="hidden" id="collection" value="persons"/>
+                            <input type="hidden" id="collection" value="bibl"/>
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit">
                                     &#160; <span class="glyphicon glyphicon-search"/>
                                 </button>
-                                <a href="$app-root/persons/search.html" title="advanced search" class="btn btn-default">
+                                <a href="$app-root/bibl/search.html" title="advanced search" class="btn btn-default">
                                     &#160; <span class="glyphicon glyphicon-cog"/>
                                 </a>
                             </div><!-- /btn-group -->
