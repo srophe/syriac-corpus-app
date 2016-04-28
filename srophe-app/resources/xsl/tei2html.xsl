@@ -94,7 +94,7 @@
                 <xsl:value-of select="string(/*/@id)"/>
             </xsl:when>
             <xsl:when test="/descendant::t:idno[@type='URI'][starts-with(.,$base-uri)]">
-                <xsl:value-of select="replace(/descendant::t:idno[@type='URI'][starts-with(.,$base-uri)][1],'/tei','')"/>
+                <xsl:value-of select="replace(replace(/descendant::t:idno[@type='URI'][starts-with(.,$base-uri)][1],'/tei',''),'/source','')"/>
             </xsl:when>
             <!-- Temporary fix for SPEAR -->
             <xsl:otherwise>
@@ -765,8 +765,8 @@
             <xsl:text>: </xsl:text>
         </xsl:if>
     </xsl:template>
-    <xsl:template match="t:title" mode="h1">        
-        <xsl:apply-templates/>
+    <xsl:template match="t:title[@level='a']" mode="h1">
+        <xsl:apply-templates select="."/>
     </xsl:template>
     <xsl:template match="t:foreign">
         <xsl:choose>
@@ -850,9 +850,23 @@
     </xsl:template>
     <xsl:template match="t:biblScope"/>
     <xsl:template match="t:biblStruct">
-        <span class="section indent">
-            <xsl:apply-templates mode="footnote"/>
-        </span>
+        <xsl:choose>
+            <xsl:when test="parent::t:body">
+                <div class="well">
+                    <h4>Prefered Citation</h4>
+                    <xsl:apply-templates mode="footnote"/>
+                </div>
+                <h3>Full Citation Information</h3>
+                <div class="section indent">
+                    <xsl:apply-templates mode="full"/>
+                </div>
+            </xsl:when>
+            <xsl:otherwise>
+                <span class="section indent">
+                    <xsl:apply-templates mode="footnote"/>
+                </span>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="t:listRelation">
         <xsl:apply-templates/>
@@ -1185,6 +1199,11 @@
         </xsl:if>
     </xsl:template>
     <xsl:template match="t:persName | t:region | t:settlement | t:placeName | t:author | t:editor">
+        <xsl:if test="@role">
+            <span class="srp-label">
+                <xsl:value-of select="concat(upper-case(substring(@role,1,1)),substring(@role,2))"/>: 
+            </span>
+        </xsl:if>
         <xsl:choose>
             <xsl:when test="@ref">
                 <xsl:choose>
