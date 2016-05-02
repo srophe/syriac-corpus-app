@@ -818,10 +818,17 @@
                         </a>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:apply-templates select="child::*" mode="footnote"/>
+                        <xsl:choose>
+                            <xsl:when test="child::*">
+                                <xsl:apply-templates select="child::*" mode="footnote"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:apply-templates/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
-            </xsl:when>            
+            </xsl:when>
             <xsl:when test="child::*">
                 <xsl:apply-templates select="child::*" mode="footnote"/>
             </xsl:when>
