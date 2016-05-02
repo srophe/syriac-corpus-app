@@ -1,4 +1,4 @@
-(:~ 
+(:~      
  : Builds persons page and persons page functions  
  :)
 xquery version "3.0";
@@ -15,13 +15,14 @@ declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace transform="http://exist-db.org/xquery/transform";
-
+declare namespace schema = "http://schema.org/";
+declare namespace rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 (:~ 
  : Parameters passed from the url  
  :)
 declare variable $person:id {request:get-parameter('id', '')};
 
-(:~ 
+(:~  
  : Simple get record function, retrieves tei record based on idno
  : @param $person:id syriaca.org uri 
 :)
@@ -87,7 +88,6 @@ declare %templates:wrap function person:names($node as node(), $model as map(*))
         </person>
     return global:tei2html($nodes)
 };
-
 
 declare %templates:wrap function person:data($node as node(), $model as map(*)){
     let $rec := $model("data")//tei:person
@@ -180,31 +180,47 @@ return
 declare %templates:wrap function person:worldcat($node as node(), $model as map(*)){
 let $rec := $model("data")
 return 
-    if($rec//tei:idno[contains(.,'http://worldcat.org/identities/lccn-n')]) then 
-        for $viaf-ref in $rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')]/text()
-        let $build-request := <http:request href="{$viaf-ref}" method="get"/>
-        return 
-            <div id="worldcat-refs" class="well">
-                <h3>Catalog Search Results from WorldCat</h3>
-                <p class="hint">Based on VIAF ID. May contain inaccuracies. Not curated by Syriaca.org.</p>
-                <div>{try {
-                        let $results :=  http:send-request($build-request)//by 
-                        let $total-works := string($results/ancestor::Identity//nameInfo/workCount)
-                        return 
-                            (<ul id="{$viaf-ref}" count="{$total-works}">
-                                {
-                                    for $citation in $results/citation[position() lt 5]
-                                    return
-                                        <li><a href="{concat('http://www.worldcat.org/oclc/',substring-after($citation/oclcnum/text(),'ocn'))}">{$citation/title/text()}</a></li>
-                                 }
-                             </ul>,
-                             <span class="pull-right"><a href="{$viaf-ref}">See all {$total-works} titles from WorldCat</a></span>)  
-                        } catch * {
-                            <error>Caught error {$err:code}: {$err:description}</error>
-                        }
-                       } 
-                    </div>
-                </div>                         
+    if($rec//tei:idno[starts-with(.,'http://worldcat.org/identities/lccn-n')] or $rec//tei:idno[starts-with(.,'http://viaf.org/viaf')]) then
+        <div id="worldcat-refs" class="well">
+            <h3>Catalog Search Results from WorldCat</h3>
+            <p class="hint">Based on VIAF ID. May contain inaccuracies. Not curated by Syriaca.org.</p>
+            <div>
+                {    
+                    for $viaf-ref in $rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')][1]/text() | $rec/descendant::tei:idno[@type='URI'][contains(.,'http://viaf.org/viaf')][not(contains(.,'sourceID/SRP'))][1]/text()
+                    let $uri := if(starts-with($viaf-ref,'http://viaf.org/viaf')) then 
+                                    let $rdf := http:send-request(<http:request href="{concat($viaf-ref,'/rdf.xml')}" method="get"/>)[2]//schema:sameAs/child::*/@rdf:about[starts-with(.,'http://id.loc.gov/')]
+                                    let $lcc := tokenize($rdf,'/')[last()]
+                                    return concat('http://worldcat.org/identities/lccn-',$lcc)
+                                else $viaf-ref
+                    let $build-request :=  <http:request href="{$uri}" method="get"/>
+                    return 
+                            <div class="top-bottom">
+                                {try {
+                                    let $results :=  http:send-request($build-request)//by 
+                                    let $total-works := string($results/ancestor::Identity//nameInfo/workCount)
+                                    return 
+                                        if($total-works != '0') then 
+                                         (
+                                         <h4>{$viaf-ref}</h4>,
+                                         <ul id="{$viaf-ref}" count="{$total-works}">
+                                            {
+                                                for $citation in $results/citation[position() lt 5]
+                                                return
+                                                    <li><a href="{concat('http://www.worldcat.org/oclc/',substring-after($citation/oclcnum/text(),'ocn'))}">{$citation/title/text()}</a></li>
+                                             }
+                                         </ul>,
+                                         <span class="pull-right"><a href="{$uri}">See all {$total-works} titles from WorldCat</a></span>,<br/>)
+                                        else ()
+      
+                                    } catch * {
+                                        <error>Caught error {$err:code}: {$err:description}</error>
+                                        }
+                                } 
+                            </div>
+
+                    }
+            </div>
+         </div>   
     else () 
 };
 
