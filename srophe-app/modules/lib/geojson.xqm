@@ -24,23 +24,30 @@ declare namespace transform="http://exist-db.org/xquery/transform";
 :)
 declare function geo:build-json($geo as xs:string, $id as xs:string*, $rec-type as xs:string*, $title as xs:string*, $rec-rel as xs:string*) as element(features){    
     <item type="object">
-        <pair name="type"  type="string">Feature</pair>
-        <pair name="geometry"  type="object">
-            <pair name="type"  type="string">Point</pair>
+        <pair name="type" type="string">Feature</pair>
+        <pair name="geometry" type="object">
+            <pair name="type" type="string">Point</pair>
             <pair name="coordinates"  type="array">
                 <item type="number">{substring-after($geo,' ')}</item>
                 <item type="number">{substring-before($geo,' ')}</item>
             </pair>
         </pair>
         <pair name="properties"  type="object">
-            <pair name="uri"  type="string">{replace($id,$global:base-uri,$global:nav-base)}</pair>
-            <pair name="placeType"  type="string">{if($rec-type='open-water') then 'openWater' else $rec-type}</pair>
-            {
-              if($rec-rel != '') then 
-                <pair name="relation"  type="string">{$rec-rel}</pair>
-              else ()  
+            <pair name="uri" type="string">{replace($id,$global:base-uri,$global:nav-base)}</pair>
+            {(if($rec-type != '') then 
+                <pair name="placeType" type="string">{if($rec-type='open-water') then 'openWater' else $rec-type}</pair>            
+            else (),
+            if($rec-rel != '') then 
+                <pair name="relation" type="string">{$rec-rel}</pair>
+              else ())  
             }
-            <pair name="name"  type="string">{$title} - {if($rec-type='open-water') then 'openWater' else $rec-type}</pair>
+            <pair name="name" type="string">
+                {(string($title),
+                if($rec-type != '') then 
+                  if($rec-type='open-water') then '- openWater' else concat(' - ',$rec-type)
+                else ())  
+                }
+            </pair>
         </pair>
     </item>
 };
@@ -75,7 +82,10 @@ declare function geo:get-coordinates($geo-search as element()*, $type as xs:stri
     for $place-name in map:get($geo-map, 'geo-data')
     let $id := string($place-name/ancestor::tei:place/tei:idno[@type='URI'][starts-with(.,$global:base-uri)])
     let $rec-type := string($place-name/ancestor::tei:place/@type)
-    let $title := $place-name/ancestor::tei:TEI/descendant::tei:title[1]/text()
+    let $title := 
+        if($place-name/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]) then 
+            normalize-space(replace($place-name/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text(),'—',''))
+        else $place-name/ancestor::tei:body/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]/text()
     let $geo := $place-name
     let $rel := string($place-name/ancestor::*:relation/@name)
     return
@@ -180,7 +190,7 @@ declare function geo:build-leaflet-map($geo-search as node()*, $type as xs:strin
                                         
             var geojson = L.geoJson(placesgeo, {onEachFeature: function (feature, layer){
                                             var popupContent = "<a href='" + feature.properties.uri + "'>" +
-                                            feature.properties.name + " - " + feature.properties.type + "</a>";
+                                            feature.properties.name + "</a>";
                                             layer.bindPopup(popupContent);
                                             switch (feature.properties.relation) {
                                                 case 'born-at': return layer.setIcon(orangeIcon);
