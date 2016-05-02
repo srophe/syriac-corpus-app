@@ -810,6 +810,18 @@
     </xsl:template>
     <xsl:template match="t:bibl">
         <xsl:choose>
+            <xsl:when test="parent::t:note">
+                <xsl:choose>
+                    <xsl:when test="t:ptr">
+                        <a href="{string(t:ptr/@target)}">
+                            <xsl:apply-templates/>
+                        </a>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="child::*" mode="footnote"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>            
             <xsl:when test="child::*">
                 <xsl:apply-templates select="child::*" mode="footnote"/>
             </xsl:when>
