@@ -186,7 +186,9 @@ return
             <p class="hint">Based on VIAF ID. May contain inaccuracies. Not curated by Syriaca.org.</p>
             <div>
                 {    
-                    for $viaf-ref in $rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')][1]/text() | $rec/descendant::tei:idno[@type='URI'][contains(.,'http://viaf.org/viaf')][not(contains(.,'sourceID/SRP'))][1]/text()
+                    let $viaf-ref := if($rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')]) then 
+                                        $rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')][1]/text()
+                                     else $rec/descendant::tei:idno[@type='URI'][contains(.,'http://viaf.org/viaf')][not(contains(.,'sourceID/SRP'))][1]/text()
                     let $uri := if(starts-with($viaf-ref,'http://viaf.org/viaf')) then 
                                     let $rdf := http:send-request(<http:request href="{concat($viaf-ref,'/rdf.xml')}" method="get"/>)[2]//schema:sameAs/child::*/@rdf:about[starts-with(.,'http://id.loc.gov/')]
                                     let $lcc := tokenize($rdf,'/')[last()]
@@ -201,7 +203,6 @@ return
                                     return 
                                         if($total-works != '0') then 
                                          (
-                                         <h4>{$viaf-ref}</h4>,
                                          <ul id="{$viaf-ref}" count="{$total-works}">
                                             {
                                                 for $citation in $results/citation[position() lt 5]
