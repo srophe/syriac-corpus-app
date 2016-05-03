@@ -44,6 +44,7 @@
             </editorialDecl>
             <classDecl>
                 <taxonomy xml:lang="en">
+                    <desc>A taxonomy of place types referenced by The Syriac Gazetteer.</desc>
                     <category xml:id="building">
                         <catDesc>A construction for which there is no narrower category, such as a <term ref="#church">church</term> or <term ref="#mosque">mosque</term>.  Examples of this type include palaces and named city gates.</catDesc>
                     </category>
@@ -114,8 +115,7 @@
     <text>
         <body xml:lang="en">
             <head>Place Types used in <title>The Syriac Gazetteer</title></head>
-            <p><bibl><title>The Syriac Gazetteer</title><ptr target="http://syriaca.org/geo"/></bibl> categorizes places using a controlled vocabulary of types. 
-                The definition of each type is given here:</p>
+            <p><bibl><title>The Syriac Gazetteer</title><ptr target="http://syriaca.org/geo"/></bibl> categorizes places using a controlled vocabulary of types, which is defined here.</p>
         </body>
     </text>
 </TEI>
