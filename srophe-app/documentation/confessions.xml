@@ -226,6 +226,7 @@
     </teiHeader>
     <text>
         <body xml:lang="en">
+            <head>Religious Communities</head>
             <p>
                 <bibl><title>The Syriac Gazetteer</title><ptr target="http://syriaca.org/geo"/></bibl> refers to religious communities using a nested controlled vocabulary.  These terms are used according
                 to scholarly convention and for scholars' convenience, without asserting that members of these groups would have called themselves by these labels.
