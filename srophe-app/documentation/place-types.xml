@@ -112,7 +112,7 @@
         </revisionDesc>
     </teiHeader>
     <text>
-        <body>
+        <body xml:lang="en">
             <head>Place Types used in <title>The Syriac Gazetteer</title></head>
             <p><bibl><title>The Syriac Gazetteer</title><ptr target="http://syriaca.org/geo"/></bibl> categorizes places using a controlled vocabulary of types. 
                 The definition of each type is given here:</p>
