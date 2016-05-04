@@ -761,9 +761,11 @@
                 <xsl:apply-templates/>
             </xsl:otherwise>
         </xsl:choose>
+        <!--
         <xsl:if test="following-sibling::t:title and not(parent::t:srophe-title)">
             <xsl:text>: </xsl:text>
         </xsl:if>
+        -->
     </xsl:template>
     <xsl:template match="t:foreign">
         <xsl:choose>

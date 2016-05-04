@@ -167,8 +167,6 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 .banner-solid h1{font-size: 24px; color:white; margin:0; padding:0 0 1em 0;}
 .banner-solid h3{color:white;}
 
-
-
 /* Footer styles */
 footer {text-align:center; color:white;}
 
@@ -226,7 +224,8 @@ td {
 
 /* Lables */
 .get-syriac {font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none}
-.srp-label {background-color:none; color:#999999; font-weight:bold;}
+.srp-label {background-color:none; color:#666; font-weight:500;}
+.sort-title {background-color:none; color:#666; font-weight:500; display:block; }
 .textBox {display:block;}
 .caveat {font-size: .785em; font-style:italic; margin-top:-.5em; padding-top:0;}
 .title {border-bottom:2px solid #666666;margin-bottom:1em; margin-top:0;padding:0;}

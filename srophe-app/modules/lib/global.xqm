@@ -96,6 +96,25 @@ declare function global:tei2html($nodes as node()*) {
     )
 };
 
+(: 
+ : Formats search and browse results 
+ : Uses English and Syriac headwords if available, tei:teiHeader/tei:title if no headwords.
+ : Should handle all data types, and eliminate the need for 
+ : data type specific display functions eg: persons:saints-results-node()
+ : @param $node search/browse hits should be either tei:person, tei:place, or tei:body
+ : Used by search.xqm, browse.xqm and get-related.xqm
+:)
+declare function global:display-recs-short-view($node, $lang) as node()*{
+  transform:transform($node, doc($global:app-root || '/resources/xsl/rec-short-view.xsl'), 
+    <parameters>
+        <param name="data-root" value="{$global:data-root}"/>
+        <param name="app-root" value="{$global:app-root}"/>
+        <param name="nav-base" value="{$global:nav-base}"/>
+        <param name="base-uri" value="{$global:base-uri}"/>
+        <param name="lang" value="{$lang}"/>
+    </parameters>
+    )
+};
 (:
  : Generic get record function
 :)
