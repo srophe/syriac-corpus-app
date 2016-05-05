@@ -56,19 +56,19 @@ declare function bibls:idno() as xs:string? {
 
 declare function bibls:pub-place() as xs:string? {
     if($bibls:pub-place != '') then 
-        concat("[ft:query(descendant/tei:imprint/tei:pubPlace,'",common:clean-string($bibls:pub-place),"',common:options())]")
+        concat("[ft:query(descendant::tei:imprint/tei:pubPlace,'",common:clean-string($bibls:pub-place),"',common:options())]")
     else ()  
 };
 
 declare function bibls:publisher() as xs:string? {
     if($bibls:publisher != '') then 
-        concat("[ft:query(descendant/tei:imprint/tei:publisher,'",common:clean-string($bibls:publisher),"',common:options())]")
+        concat("[ft:query(descendant::tei:imprint/tei:publisher,'",common:clean-string($bibls:publisher),"',common:options())]")
     else ()  
 };
 
 declare function bibls:date() as xs:string? {
     if($bibls:publisher != '') then 
-        concat("[ft:query(descendant/tei:imprint/tei:date,'",common:clean-string($bibls:date),"',common:options())]")
+        concat("[ft:query(descendant::tei:imprint/tei:date,'",common:clean-string($bibls:date),"',common:options())]")
     else ()  
 };
 
@@ -77,7 +77,7 @@ declare function bibls:date() as xs:string? {
 :)
 declare function bibls:query-string() as xs:string? {
  concat("collection('",$global:data-root,"/bibl/tei')//tei:body",
-    bibls:keyword(),bibls:title(),bibls:author(),bibls:idno()
+    bibls:keyword(),bibls:title(),bibls:author(),bibls:pub-place(),bibls:publisher(),bibls:date(),bibls:idno()
     )
 };
 
