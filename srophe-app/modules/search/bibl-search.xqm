@@ -111,38 +111,38 @@ declare function bibls:search-form() {
             <div class="form-group">            
                 <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
                 <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="q" name="q" class="form-control" placeholder="English, French, Syriac"/>
+                    <input type="text" id="q" name="q" class="form-control" placeholder="Any word in citation"/>
                 </div>
             </div> 
             <hr/>         
             <div class="form-group">            
                 <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
                 <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="title" name="title" class="form-control"  placeholder="English, French, Syriac"/>
+                    <input type="text" id="title" name="title" class="form-control"  placeholder="Title of article, journal, book, or series"/>
                 </div>
             </div>
             <div class="form-group">            
                 <label for="author" class="col-sm-2 col-md-3  control-label">Author/Editor: </label>
                 <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="author" name="author" class="form-control" placeholder="English, French, Syriac"/>
+                    <input type="text" id="author" name="author" class="form-control" placeholder="First Last or Last, First"/>
                 </div>
             </div>  
             <div class="form-group">            
                 <label for="pub-place" class="col-sm-2 col-md-3  control-label">Publication Place: </label>
                 <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="pub-place" name="pub-place" class="form-control" placeholder="English, French, Syriac"/>
+                    <input type="text" id="pub-place" name="pub-place" class="form-control" placeholder="First Last or Last, First"/>
                 </div>
             </div>
             <div class="form-group">            
                 <label for="publisher" class="col-sm-2 col-md-3  control-label">Publisher: </label>
                 <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="publisher" name="publisher" class="form-control" placeholder=""/>
+                    <input type="text" id="publisher" name="publisher" class="form-control" placeholder="Publisher Name"/>
                 </div>
             </div>   
             <div class="form-group">            
                 <label for="date" class="col-sm-2 col-md-3  control-label">Date: </label>
                 <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="date" name="date" class="form-control" placeholder=""/>
+                    <input type="text" id="date" name="date" class="form-control" placeholder="Year as YYYY"/>
                 </div>
             </div>   
             <hr/>
