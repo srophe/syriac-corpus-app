@@ -44,10 +44,8 @@
             </editorialDecl>
             <classDecl>
                 <taxonomy xml:lang="en">
-                    <desc>This vocabulary defines the values allowed for the <att>role</att> attribute 
-                    on <tag>author</tag> and <tag>editor</tag> tags on Syriaca.org pages.</desc>
                     
-                    <category xml:id="contribution-claim">
+                    <category xml:id="claimed">
                         <catDesc>A person whose authorship or editing of the work has been claimed, whether by herself/himself or by others. 
                         (This role indicates the Syriaca.org editors have either not attempted or not found it possible to label the person's role 
                         with a more precise categorization. This role or its sub-roles may be used on either an <tag>author</tag> or an 
