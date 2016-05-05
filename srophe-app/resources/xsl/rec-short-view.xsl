@@ -109,8 +109,32 @@
                 <xsl:if test="following-sibling::*/text() = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')">, </xsl:if>
             </xsl:for-each>
         </xsl:variable>
-        <xsl:variable name="type" select="descendant::t:place/@type"/> 
-        <xsl:variable name="sort-title">    
+        <xsl:variable name="type" select="descendant::t:place/@type"/>
+        <xsl:variable name="main-title">
+            <xsl:choose>
+                <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]">
+                    <xsl:value-of select="string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]//text(),' ')"/>
+                </xsl:when>
+                <xsl:when test="ancestor::t:TEI/descendant::t:titleStmt">
+                    <xsl:apply-templates select="ancestor::t:TEI/descendant::t:titleStmt/t:title[1]"/>
+                </xsl:when>
+                <xsl:when test="descendant::t:title">
+                    <xsl:apply-templates select="descendant::t:title[1]"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="substring(string-join(descendant-or-self::*[not(self::t:idno)][not(self::t:bibl)][not(self::t:biblScope)][not(self::t:note)][not(self::t:orig)][not(self::t:sic)]/text(),' '),1,550)"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="syr-title">
+            <xsl:choose>
+                <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]">
+                    <xsl:value-of select="string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')"/>
+                </xsl:when>
+                <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')]">[Syriac Not Available]</xsl:when>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="sort-title">
             <xsl:if test="$lang != 'en' and $lang != ''">
                 <xsl:value-of select="//t:body/child::*[1]/child::*/child::*[@xml:lang = $lang][1]"/>
             </xsl:if>
@@ -128,7 +152,7 @@
         <xsl:variable name="floruit">
             <xsl:if test="descendant-or-self::t:floruit/text()">
                 <xsl:for-each select="descendant-or-self::t:floruit">
-                    <xsl:value-of select="concat('active ',descendant-or-self::t:floruit/text())"/>
+                    <xsl:value-of select="concat('active ',string-join(self::text(),' '))"/>
                 </xsl:for-each>
             </xsl:if>
         </xsl:variable>
@@ -236,22 +260,21 @@
                 <div class="results-list">
                     <xsl:choose>
                         <xsl:when test="$lang != '' and $lang != 'en' and $lang != 'syr'">
-                            <span class="sort-title">        
+                            <span class="sort-title">
                                 <xsl:value-of select="$sort-title"/>
                             </span>
                         </xsl:when>
                     </xsl:choose>
-                    <a href="{replace($uri,$base-uri,$nav-base)}" dir="ltr"> 
-                        <xsl:choose>
-                            <xsl:when test="descendant-or-self::t:titleStmt">
-                                <xsl:apply-templates select="descendant-or-self::t:titleStmt/t:title[1]"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="substring(string-join(descendant-or-self::*[not(self::t:idno)][not(self::t:bibl)][not(self::t:biblScope)][not(self::t:note)][not(self::t:orig)][not(self::t:sic)]/text(),' '),1,550)"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
+                    <a href="{replace($uri,$base-uri,$nav-base)}" dir="ltr">
+                        <xsl:value-of select="$main-title"/>
                         <xsl:if test="$type != ''">
-                            <xsl:value-of select="concat(' (',$type,')')"/>
+                            <xsl:value-of select="concat(' (',string-join($type,' '),')')"/>
+                        </xsl:if>
+                        <xsl:if test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')]">
+                            <xsl:text> - </xsl:text>
+                            <span xml:lang='syr' lang="syr" dir="rtl">
+                                <xsl:value-of select="$syr-title"/>                                
+                            </span>
                         </xsl:if>
                     </a>
                     <xsl:if test="$ana != ''">
