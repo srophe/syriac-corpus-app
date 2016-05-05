@@ -7,6 +7,7 @@ import module namespace persons="http://syriaca.org/persons" at "persons-search.
 import module namespace places="http://syriaca.org/places" at "places-search.xqm";
 import module namespace spears="http://syriaca.org/spears" at "spear-search.xqm";
 import module namespace bhses="http://syriaca.org/bhses" at "bhse-search.xqm";
+import module namespace bibls="http://syriaca.org/bibls" at "bibl-search.xqm";
 import module namespace ms="http://syriaca.org/ms" at "ms-search.xqm";
 import module namespace common="http://syriaca.org/common" at "common.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "../lib/geojson.xqm";
@@ -42,6 +43,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                         else if($coll ='spear') then spears:query-string()
                         else if($coll = 'places') then places:query-string()
                         else if($coll = 'bhse') then bhses:query-string()
+                        else if($coll = 'bibl') then bibls:query-string()
                         else if($coll = 'manuscripts') then ms:query-string()
                         else search:query-string($collection)
     return                         
@@ -152,6 +154,7 @@ declare function search:search-string($collection as xs:string?){
     else if($collection ='spear') then spears:search-string()
     else if($collection = 'places') then places:search-string()
     else if($collection = 'bhse') then bhses:search-string()
+    else if($collection = 'bibl') then bibls:search-string()
     else if($collection = 'manuscripts') then ms:search-string()
     else search:search-string()
 };
@@ -284,9 +287,9 @@ return
 declare function search:build-geojson($node as node()*, $model as map(*)){
 let $geo-hits := $model("hits")//tei:geo
 return
-    if(count($geo-hits) gt 1) then
+    if(count($geo-hits) gt 0) then
          (
-         geo:build-map($geo-hits, '', ''),
+         geo:build-map($model("hits")//tei:geo, '', ''),
          <div>
             <div class="modal fade" id="map-selection" tabindex="-1" role="dialog" aria-labelledby="map-selectionLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -330,6 +333,7 @@ declare %templates:wrap  function search:show-form($node as node()*, $model as m
         else if($collection ='spear') then <div>{spears:search-form()}</div>
         else if($collection ='manuscripts') then <div>{ms:search-form()}</div>
         else if($collection ='bhse') then <div>{bhses:search-form()}</div>
+        else if($collection ='bibl') then <div>{bibls:search-form()}</div>
         else <div>{search:search-form()}</div>
 };
 
@@ -369,7 +373,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
 </div>
 };
 
-(:~     
+(:~        
  : Checks to see if there are any parameters in the URL, if yes, runs search, if no displays search form. 
 :)
 declare %templates:wrap function search:build-page($node as node()*, $model as map(*), $collection as xs:string?) {

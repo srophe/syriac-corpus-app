@@ -657,7 +657,7 @@
         </div>
     </xsl:template>
     <xsl:template name="title">
-        <xsl:apply-templates select="t:title[@level='a']"/>
+        <xsl:apply-templates select="t:title[1]"/>
         <xsl:if test="t:title[@level='m'] or t:birth or t:death or t:floruit">
             <span lang="en" class="type" style="padding-left:1em;">
                 <xsl:text>(</xsl:text>

@@ -86,6 +86,9 @@
     <xsl:template name="shortview">
         <xsl:variable name="uri">
             <xsl:choose>
+                <xsl:when test="descendant::t:biblStruct/t:idno[@type='URI'][starts-with(.,$base-uri)]">
+                    <xsl:value-of select="replace(descendant::t:biblStruct/t:idno[@type='URI'][starts-with(.,$base-uri)][1],'/tei','')"/>
+                </xsl:when>
                 <xsl:when test="descendant::t:idno[@type='URI'][starts-with(.,$base-uri)]">
                     <xsl:value-of select="replace(descendant::t:idno[@type='URI'][starts-with(.,$base-uri)][1],'/tei','')"/>
                 </xsl:when>
