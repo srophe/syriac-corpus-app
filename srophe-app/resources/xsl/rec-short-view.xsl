@@ -132,7 +132,10 @@
         <xsl:variable name="syr-title">
             <xsl:choose>
                 <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]">
-                    <xsl:value-of select="string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')"/>
+                    <span xml:lang="syr" lang="syr" dir="rtl">
+                        <xsl:value-of select="string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^syr')][1]//text(),' ')"/>
+                    </span>
+                    
                 </xsl:when>
                 <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')]">[Syriac Not Available]</xsl:when>
             </xsl:choose>
@@ -275,9 +278,7 @@
                         </xsl:if>
                         <xsl:if test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')]">
                             <xsl:text> - </xsl:text>
-                            <span xml:lang='syr' lang="syr" dir="rtl">
-                                <xsl:value-of select="$syr-title"/>                                
-                            </span>
+                                <xsl:value-of select="$syr-title"/>
                         </xsl:if>
                     </a>
                     <xsl:if test="$ana != ''">

@@ -6,7 +6,7 @@ xquery version "3.0";
 module namespace mss="http://syriaca.org/manuscripts";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
-
+import module namespace app="http://syriaca.org/templates" at "app.xql";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
@@ -45,12 +45,15 @@ function mss:fix-links($node as node(), $model as map(*)) {
  : Build manuscripts view
  : @param $id mss URI
  :)
-declare %templates:wrap function mss:get-data($node as node(), $model as map(*)){
+declare %templates:wrap function mss:get-data($node as node(), $model as map(*), $collection as xs:string?){
+app:get-rec($node, $model, $collection)
+(:
 let $mssURI :=
         if(contains($mss:id,$global:base-uri)) then $mss:id 
         else concat($global:base-uri,'/manuscript/',$mss:id)
 return 
-    map {"data" := collection($global:data-root || "/manuscripts/tei")//tei:idno[@type='URI'][. = $mssURI]}            
+    map {"data" := collection($global:data-root || "/manuscripts/tei")//tei:idno[@type='URI'][. = $mssURI]}
+    :)
 };
 
 declare %templates:wrap function mss:uri($node as node(), $model as map(*)){

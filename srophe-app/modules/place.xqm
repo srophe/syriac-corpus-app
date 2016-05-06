@@ -6,7 +6,7 @@ xquery version "3.0";
 module namespace place="http://syriaca.org/place";
 
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
-import module namespace app="http://syriaca.org/global" at "app.xql";
+import module namespace app="http://syriaca.org/templates" at "app.xql";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 
@@ -29,7 +29,9 @@ declare variable $place:status {request:get-parameter('status', '')};
 :)
 declare 
     %templates:wrap 
-function place:get-rec($node as node(), $model as map(*)) {
+function place:get-rec($node as node(), $model as map(*), $collection) {
+    app:get-rec($node, $model, $collection)
+(:
 if($place:id) then 
     let $id :=
         if(contains(request:get-uri(),$global:base-uri)) then $place:id
@@ -37,28 +39,22 @@ if($place:id) then
         else $place:id
     return map {"data" := collection($global:data-root)//tei:idno[. = $id]/ancestor::tei:TEI}
 else map {"data" := 'Page data'} 
+:)
 };
 
 (:~
  : Dynamically build html title based on TEI record and/or sub-module. 
  : @param $place:id if id is present find TEI title, otherwise use title of sub-module
 :)
-declare %templates:wrap function place:app-title($node as node(), $model as map(*)){
-if($place:id) then
-   global:tei2html($model("data")/descendant::tei:placeName[1]/text())
-else 'The Syriac Gazetteer' 
+declare %templates:wrap function place:app-title($node as node(), $model as map(*), $coll){
+    app:app-title($node, $model, $coll)
 };  
 
 (:
  : Pass necessary element to h1 xslt template
 :)
 declare %templates:wrap function place:h1($node as node(), $model as map(*)){
-    let $title := $model("data")//tei:place
-    let $title-nodes := 
-            <srophe-title xmlns="http://www.tei-c.org/ns/1.0">
-                {($title//tei:placeName[@syriaca-tags='#syriaca-headword'],$title/descendant::tei:idno, $title/descendant::tei:location)}
-            </srophe-title>
-    return global:tei2html($title-nodes)
+    app:h1($node,$model)
 };
 
 declare %templates:wrap function place:abstract($node as node(), $model as map(*)){

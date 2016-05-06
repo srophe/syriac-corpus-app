@@ -6,7 +6,7 @@ xquery version "3.0";
 module namespace person="http://syriaca.org/person";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
-import module namespace app="http://syriaca.org/global" at "app.xql";
+import module namespace app="http://syriaca.org/templates" at "app.xql";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
@@ -28,14 +28,8 @@ declare variable $person:id {request:get-parameter('id', '')};
 :)
 declare 
     %templates:wrap 
-function person:get-rec($node as node(), $model as map(*)) {
-if($person:id) then 
-    let $id :=
-        if(contains(request:get-uri(),$global:base-uri)) then $person:id
-        else if(contains(request:get-uri(),'/persons/') or contains(request:get-uri(),'/person/') or contains(request:get-uri(),'/saints/')) then concat($global:base-uri,'/person/',$person:id) 
-        else $person:id
-    return map {"data" := collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}
-else map {"data" := 'Page data'} 
+function person:get-rec($node as node(), $model as map(*),$collection as xs:string?) {
+    app:get-rec($node, $model, $collection)
 };
 
 
@@ -44,35 +38,18 @@ else map {"data" := 'Page data'}
  : @param $person:id if id is present find TEI title, otherwise use title of sub-module
 :)
 declare %templates:wrap function person:app-title($node as node(), $model as map(*), $coll as xs:string?){
-if($person:id) then
-   substring-before(global:tei2html($model("data")/descendant::tei:title[1]/text())," — ")
-else if($coll = 'persons') then 'The Syriac Biographical Dictionary'
-else if($coll = 'saints')then 'Gateway to the Syriac Saints'
-else if($coll = 'q') then 'Gateway to the Syriac Saints: Volume II: Qadishe'
-else if($coll = 'authors') then 'A Guide to Syriac Authors'
-else 'The Syriac Biographical Dictionary' 
+  app:app-title($node, $model, $coll)
 };  
 
 (:
  : Pass necessary element to h1 xslt template     
 :)
 declare %templates:wrap function person:h1($node as node(), $model as map(*)){
-    let $title := $model("data")//tei:person
-    let $title-nodes := 
-            <srophe-title ana="{$title/@ana}" xmlns="http://www.tei-c.org/ns/1.0">
-                {(
-                    $title/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title,
-                    $title/descendant::tei:persName[@syriaca-tags='#syriaca-headword'],
-                    $title/descendant::tei:birth,
-                    $title/descendant::tei:death,
-                    $title/descendant::tei:floruit,
-                    $title/descendant::tei:idno[contains(.,$global:base-uri)]
-                )}
-            </srophe-title>
-    return global:tei2html($title-nodes)
+    app:h1($node,$model)
 };
 
 declare %templates:wrap function person:names($node as node(), $model as map(*)){
+try {
     let $names := $model("data")//tei:person/tei:persName
     let $abstract := $model("data")//tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')] | $model("data")//tei:note[@type='abstract']
     let $sex := $model("data")//tei:sex
@@ -87,18 +64,22 @@ declare %templates:wrap function person:names($node as node(), $model as map(*))
             )}
         </person>
     return global:tei2html($nodes)
+   } catch * { <error>No Data {$err:code}: {$err:description}</error>}
+   
 };
 
 declare %templates:wrap function person:data($node as node(), $model as map(*)){
-    let $rec := $model("data")//tei:person
-    let $nodes := 
-    <person xmlns="http://www.tei-c.org/ns/1.0" ana="{$rec/@ana/text()}">
-            {
-                for $data in $rec/child::*[not(self::tei:persName)][not(self::tei:bibl)][not(self::*[@type='abstract' or starts-with(@xml:id, 'abstract-en')])][not(self::tei:state[@type='martyr'])][not(self::tei:sex)]
-                return $data
-            }
-    </person>
-    return global:tei2html($nodes)
+    try {
+     let $rec := $model("data")//tei:person
+     let $nodes := 
+         <person xmlns="http://www.tei-c.org/ns/1.0" ana="{$rec/@ana/text()}">
+                 {
+                     for $data in $rec/child::*[not(self::tei:persName)][not(self::tei:bibl)][not(self::*[@type='abstract' or starts-with(@xml:id, 'abstract-en')])][not(self::tei:state[@type='martyr'])][not(self::tei:sex)]
+                     return $data
+                 }
+         </person>
+     return global:tei2html($nodes)        
+    } catch * { <error>No Data {$err:code}: {$err:description}</error>}
 };
 
 declare %templates:wrap function person:timeline($node as node(), $model as map(*), $dates){
