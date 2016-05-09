@@ -45,9 +45,7 @@ else if(matches($exist:resource,"^[0-9]+(-[0-9]+)+$") or (matches($exist:resourc
             <forward url="{$exist:controller}{$html-path}"></forward>
                 <view>
                     <forward url="{$exist:controller}/modules/view.xql">
-                        {if(starts-with($exist:path, "/work/")) then <add-parameter name="id" value="{concat('http://syriaca.org/work/',$id)}"/>
-                         else <add-parameter name="id" value="{$id}"/>
-                        }
+                        <add-parameter name="id" value="{$id}"/>
                     </forward>
                 </view>
                 <error-handler>

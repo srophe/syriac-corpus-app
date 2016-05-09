@@ -93,7 +93,9 @@ function app:google-analytics($node as node(), $model as map(*)){
 declare %templates:wrap function app:get-nav($node as node(), $model as map(*)){
  doc($global:data-root || 'templates/subnav.xml')/child::*
 };
-
+(:
+http://syriaca.org/work/ http://syriaca.org/work/488
+:)
 (:~  
  : Simple get record function, get tei record based on idno
  : Builds uri from simple ids.
@@ -102,7 +104,7 @@ declare %templates:wrap function app:get-nav($node as node(), $model as map(*)){
 declare function app:get-rec($node as node(), $model as map(*), $collection as xs:string?) { 
 if($app:id != '') then 
     let $id :=
-        if(contains(request:get-uri(),'http://syriaca.org/')) then $app:id
+        if(contains(request:get-uri(),$global:base-uri)) then $app:id
         else if($collection = 'places') then concat('http://syriaca.org/place/',$app:id) 
         else if(($collection = 'persons') or ($collection = 'saints') or ($collection = 'authors')  or ($collection = 'q')) then concat('http://syriaca.org/person/',$app:id)
         else if(($collection = 'bhse') or ($collection = 'mss')) then concat('http://syriaca.org/work/',$app:id)
@@ -111,6 +113,8 @@ if($app:id != '') then
         else if($collection = 'bibl') then concat('http://syriaca.org/bibl/',$app:id,'/tei')
         else $app:id
     return 
+    (:map {"data" :=  collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}:)
+    
         if($collection = 'spear') then 
             if(starts-with($app:id,'http://syriaca.org/spear/')) then
                    map {"data" :=  collection($global:data-root || "/spear/tei")//tei:div[@uri = $app:id]}
@@ -120,9 +124,11 @@ if($app:id != '') then
                 let $id := concat('http://syriaca.org/spear/',$app:id)
                 return
                        map {"data" :=   collection($global:data-root || "/spear/tei")//tei:div[@uri = $id]}
-        else if(not(empty(collection($global:data-root)//tei:idno[@type='URI'][. = $id]))) then
+        else if(collection($global:data-root)//tei:idno[@type='URI'][. = $id]) then 
             map {"data" :=  collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}
-        else response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html')))   
+        else response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html'))) 
+        (: DEBUGGING: concat('id: ', $id, ' app id :', $app:id, ' collection', $collection):)
+        
 else map {"data" := 'Page data'}    
 };
 
