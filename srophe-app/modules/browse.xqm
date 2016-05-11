@@ -320,6 +320,14 @@ declare function browse:browse-abc-menu(){
                 for $letter in tokenize('ܐ ܒ ܓ ܕ ܗ ܘ ܙ ܚ ܛ ܝ ܟ ܠ ܡ ܢ ܣ ܥ ܦ ܩ ܪ ܫ ܬ', ' ')
                 return 
                     <li class="syr-menu" lang="syr"><a href="?lang={$browse:lang}&amp;sort={$letter}">{$letter}</a></li>
+            else if(($browse:lang = 'ar')) then  
+                for $letter in tokenize('ٱ ٮ ة ث ج ح  خ  د  ذ  ر  ز  س  ش  ص  ض  ط  ظ  ع  غ  ڡ  ٯ  ك لى ھ ں ں  م ۈ', ' ')
+                return 
+                    <li class="ar-menu" lang="ar"><a href="?lang={$browse:lang}&amp;sort={$letter}">{$letter}</a></li>
+            else if($browse:lang = 'ru') then 
+                for $letter in tokenize('А Б В Г Д Е Ё Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я',' ')
+                return 
+                <li><a href="?lang={$browse:lang}&amp;sort={$letter}">{$letter}</a></li>
             else                
                 for $letter in tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z', ' ')
                 return
