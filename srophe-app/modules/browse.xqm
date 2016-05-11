@@ -321,7 +321,7 @@ declare function browse:browse-abc-menu(){
                 return 
                     <li class="syr-menu" lang="syr"><a href="?lang={$browse:lang}&amp;sort={$letter}">{$letter}</a></li>
             else if(($browse:lang = 'ar')) then  
-                for $letter in tokenize('ٱ ٮ ة ث ج ح  خ  د  ذ  ر  ز  س  ش  ص  ض  ط  ظ  ع  غ  ڡ  ٯ  ك لى ھ ں ں  م ۈ', ' ')
+                for $letter in tokenize('ا ب ت ث ج ح  خ  د  ذ  ر  ز  س  ش  ص  ض  ط  ظ  ع  غ  ف  ق  ك ل م ن ه و ي', ' ')
                 return 
                     <li class="ar-menu" lang="ar"><a href="?lang={$browse:lang}&amp;sort={$letter}">{$letter}</a></li>
             else if($browse:lang = 'ru') then 
