@@ -161,7 +161,7 @@ return
 declare %templates:wrap function person:worldcat($node as node(), $model as map(*)){
 let $rec := $model("data")
 return 
-    if($rec//tei:idno[starts-with(.,'http://worldcat.org/identities/lccn-n')] or $rec//tei:idno[starts-with(.,'http://viaf.org/viaf')]) then
+    if($rec//tei:idno[starts-with(.,'http://worldcat.org/identities/lccn-n')] or $rec//tei:idno[starts-with(.,'http://viaf.org/viaf')][not(contains(.,'sourceID'))]) then
         <div id="worldcat-refs" class="well">
             <h3>Catalog Search Results from WorldCat</h3>
             <p class="hint">Based on VIAF ID. May contain inaccuracies. Not curated by Syriaca.org.</p>
