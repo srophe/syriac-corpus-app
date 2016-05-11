@@ -1143,6 +1143,9 @@
     <xsl:template match="t:note" mode="abstract">
         <p>
             <xsl:apply-templates/>
+            <xsl:if test="@source">
+                <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
+            </xsl:if>
         </p>
     </xsl:template>
     <!-- Handles t:link elements for deperciated notes, pulls value from matching element, output element and footnotes -->
