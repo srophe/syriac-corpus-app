@@ -769,13 +769,20 @@
     </xsl:template>
     <xsl:template match="t:foreign">
         <xsl:choose>
-            <xsl:when test="starts-with(@xml:lang,'syr') or starts-with(@xml:lang,'ar')">
+            <xsl:when test="starts-with(@xml:lang,'syr')">
                 <span lang="syr" dir="rtl">
                     <xsl:value-of select="."/>
                 </span>
             </xsl:when>
+            <xsl:when test="starts-with(@xml:lang,'ar')">
+                <span lang="ar" dir="rtl">
+                    <xsl:value-of select="."/>
+                </span>
+            </xsl:when>
             <xsl:otherwise>
+                <span lang="{@xml:lang}">
                 <xsl:value-of select="."/>
+                </span>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
