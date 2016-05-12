@@ -7,7 +7,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2016-05-12T08:46:39Z. .
+# Schema generated from ODD source 2016-05-12T09:16:00Z. .
 # TEI Edition: Version 3.0.0. Last updated on
 #	29th March 2016, revision 89ba24e
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.0.0/
@@ -585,7 +585,6 @@ tei_att.global.attributes =
   tei_att.global.attribute.syriaca-computed-start,
   tei_att.global.attribute.syriaca-computed-end,
   tei_att.global.attribute.syriaca-tags,
-  tei_att.global.attribute.source,
   tei_att.global.attribute.xmlid,
   tei_att.global.attribute.n,
   tei_att.global.attribute.xmllang,
@@ -603,10 +602,6 @@ tei_att.global.attribute.syriaca-tags =
   
   ## tags usable
   attribute syriaca-tags { text }?
-tei_att.global.attribute.source =
-  
-  ## provides a pointer to the bibliographical source from which a quotation or citation is drawn.
-  attribute source { text }?
 tei_att.global.attribute.xmlid =
   
   ## (identifier) provides a unique identifier for the element bearing the attribute.
