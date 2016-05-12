@@ -115,25 +115,52 @@ declare function browse:lang($collection as xs:string?) as xs:string?{
  :)
 declare function browse:get-sort(){
     if(exists($browse:sort) and $browse:sort != '') then
-        if($browse:sort = 'A') then '(A|a|ẵ|Ẵ|ằ|Ằ|ā|Ā)'
-        else if($browse:sort = 'D') then '(D|d|đ|Đ)'
-        else if($browse:sort = 'S') then '(S|s|š|Š|ṣ|Ṣ)'
-        else if($browse:sort = 'E') then '(E|e|ễ|Ễ)'
-        else if($browse:sort = 'U') then '(U|u|ū|Ū)'
-        else if($browse:sort = 'H') then '(H|h|ḥ|Ḥ)'
-        else if($browse:sort = 'T') then '(T|t|ṭ|Ṭ)'
-        else if($browse:sort = 'I') then '(I|i|ī|Ī)'
-        else if($browse:sort = 'O') then '(O|Ō|o|Œ|œ)'
-        else $browse:sort
+        if($browse:lang = 'ar') then
+            browse:ar-sort()
+        else
+            if($browse:sort = 'A') then '(A|a|ẵ|Ẵ|ằ|Ằ|ā|Ā)'
+            else if($browse:sort = 'D') then '(D|d|đ|Đ)'
+            else if($browse:sort = 'S') then '(S|s|š|Š|ṣ|Ṣ)'
+            else if($browse:sort = 'E') then '(E|e|ễ|Ễ)'
+            else if($browse:sort = 'U') then '(U|u|ū|Ū)'
+            else if($browse:sort = 'H') then '(H|h|ḥ|Ḥ)'
+            else if($browse:sort = 'T') then '(T|t|ṭ|Ṭ)'
+            else if($browse:sort = 'I') then '(I|i|ī|Ī)'
+            else if($browse:sort = 'O') then '(O|Ō|o|Œ|œ)'
+            else $browse:sort
     else '(A|a|ẵ|Ẵ|ằ|Ằ|ā|Ā)'
 };
 
+declare function browse:ar-sort(){
+    if($browse:sort = 'ٱ') then '(ٱ|ا|آ|أ|إ)'
+        else if($browse:sort = 'ٮ') then '(ٮ|ب)'
+        else if($browse:sort = 'ة') then '(ة|ت)'
+        else if($browse:sort = 'ڡ') then '(ڡ|ف)'
+        else if($browse:sort = 'ٯ') then '(ٯ|ق)'
+        else if($browse:sort = 'ں') then '(ں|ن)'
+        else if($browse:sort = 'ھ') then '(ھ|ه)'
+        else if($browse:sort = 'ۈ') then '(ۈ|ۇ|ٷ|ؤ|و)'
+        else if($browse:sort = 'ى') then '(ى|ئ|ي)'
+        else $browse:sort
+(: ignore for persnames        
+ابن
+:)
+};
 (:~
  : Strips english titles of non-sort characters as established by Syriaca.org
  : @param $titlestring 
  :)
 declare function browse:build-sort-string($titlestring as xs:string?) as xs:string* {
-    replace(replace(replace(replace($titlestring,'^\s+',''),'^al-',''),'[‘ʻʿ]',''),'On ','')
+    if($browse:lang = 'ar') then browse:ar-sort-string($titlestring)
+    else replace(replace(replace(replace($titlestring,'^\s+',''),'^al-',''),'[‘ʻʿ]',''),'On ','')
+};
+
+(:~
+ : Strips Arabic titles of non-sort characters as established by Syriaca.org
+ : @param $titlestring 
+ :)
+declare function browse:ar-sort-string($titlestring as xs:string?) as xs:string* {
+    replace(replace(replace(replace($titlestring,'^\s+',''),'^(\sابن|\sإبن|\sبن)',''),'(ال|أل|ٱل)',''),'^[U064B - U0656]','')
 };
 
 (:~
@@ -141,7 +168,7 @@ declare function browse:build-sort-string($titlestring as xs:string?) as xs:stri
 :)
 declare function browse:lang-filter($node as node(), $model as map(*)){
     if($browse:lang != '' and $browse:lang != 'en') then 
-       $model("browse-data")//tei:body/child::*[1]/child::*[1][child::*[@xml:lang = $browse:lang][1][matches(substring(browse:build-sort-string(string-join(text(),' ')),1,1),browse:get-sort(),'i')]]
+       $model("browse-data")//tei:body/child::*[1]/child::*[1][child::*[@xml:lang = $browse:lang][1][matches(substring(browse:build-sort-string(string-join(descendant-or-self::*/text(),' ')),1,1),browse:get-sort(),'i')]]
     else $model("browse-data")//tei:title[@level='a'][parent::tei:titleStmt][matches(substring(browse:build-sort-string(string-join(text(),' ')),1,1),browse:get-sort(),'i')]        
 };
 
@@ -321,7 +348,7 @@ declare function browse:browse-abc-menu(){
                 return 
                     <li class="syr-menu" lang="syr"><a href="?lang={$browse:lang}&amp;sort={$letter}">{$letter}</a></li>
             else if(($browse:lang = 'ar')) then  
-                for $letter in tokenize('ا ب ت ث ج ح  خ  د  ذ  ر  ز  س  ش  ص  ض  ط  ظ  ع  غ  ف  ق  ك ل م ن ه و ي', ' ')
+                for $letter in tokenize('ٱ ٮ ة ث ج ح  خ  د  ذ  ر  ز  س  ش  ص  ض  ط  ظ  ع  غ  ڡ  ٯ  ك لى ھ ں ں  م ۈ', ' ')
                 return 
                     <li class="ar-menu" lang="ar"><a href="?lang={$browse:lang}&amp;sort={$letter}">{$letter}</a></li>
             else if($browse:lang = 'ru') then 
