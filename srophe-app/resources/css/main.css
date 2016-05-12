@@ -262,6 +262,9 @@ td {
 .browse-alpha li.syr-menu + li.syr-menu {
     padding-left: .5em;
 }
+.browse-alpha li.ar-menu + li.ar-menu {
+    padding-left: .15em;
+}
 .nav-stacked > .active > a,
     .nav-stacked > .active > a:hover {
       color: #000;
