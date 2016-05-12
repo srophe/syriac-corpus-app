@@ -169,6 +169,15 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                 {rel:build-relationships($model("data")//tei:listRelation)}  
             </div>
         </div>
+    else if($model("data")//tei:body/tei:biblStruct) then
+        <div class="row">
+            <div class="col-md-8 column1">
+                {global:tei2html($model("data")/descendant::tei:body)} 
+            </div>
+            <div class="col-md-4 column2">
+                {rel:cited($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')])}  
+            </div>
+        </div>        
     else 
         <div class="row">
             <div class="col-md-12 column1">

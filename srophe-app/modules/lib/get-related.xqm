@@ -68,6 +68,22 @@ declare function rel:construct-relation-text($related){
     </span>
 };
 
+declare function rel:cited($idno){
+<div><h4>Cited by:</h4>
+{
+    let $hits := collection($global:data-root)//tei:ptr[@target=replace($idno,'/tei','')]
+    return 
+    (<span class="caveat">{count($hits)} records cite this work.</span>,
+    for $recs in subsequence($hits,1,5)
+    let $parent := $recs/ancestor::tei:TEI
+    return global:display-recs-short-view($parent,''),
+    
+    <span><a href="#">See All</a></span>
+    )
+    }
+</div>    
+};
+
 (: Main div for HTML display :)
 declare function rel:build-relationships($node){ 
 <div class="relation well">
