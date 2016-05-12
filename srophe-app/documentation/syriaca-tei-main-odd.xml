@@ -54,9 +54,20 @@
                         </attDef>
                     </attList>
                 </classSpec>
+                <!-- If the TEI organization makes "@source" global, this change may be removed. -->
+                <classSpec ident="att.global" mode="change" module="tei" type="atts">
+                    <attList>
+                        <attDef ident="source" mode="replace">
+                            <desc>provides a pointer to the bibliographical source from which a quotation or citation is drawn.</desc>
+                            <datatype maxOccurs="unbounded" minOccurs="1">
+                                <rng:text xmlns:rng="http://relaxng.org/ns/structure/1.0"/>
+                            </datatype>
+                        </attDef>
+                    </attList>
+                </classSpec>
                 <moduleRef except="binaryObject cit distinct email emph gb headItem headLabel index measureGrp media meeting mentioned num postBox postCode rs said soCalled sp speaker stage street teiCorpus term time" key="core"/>
                 <moduleRef key="tei"/>
-                <moduleRef except="abstract appInfo application att.patternReplacement biblFull cRefPattern calendar calendarDesc correction creation distributor hyphenation listChange listPrefixDef namespace normalization notesStmt prefixDef quotation refState refsDecl samplingDecl scriptNote segmentation seriesStmt stdVals styleDefDecl tagUsage tagsDecl typeNote rendition" key="header"/>
+                <moduleRef except="abstract appInfo application att.patternReplacement biblFull cRefPattern calendar calendarDesc correction creation distributor hyphenation listChange listPrefixDef namespace normalization notesStmt prefixDef quotation refState refsDecl samplingDecl scriptNote segmentation stdVals styleDefDecl tagUsage tagsDecl typeNote rendition" key="header"/>
                 <moduleRef except="cell row table notatedMusic" key="figures"/>
                 <moduleRef key="gaiji"/>
                 <moduleRef except="alt altGrp join joinGrp linkGrp timeline when" key="linking"/>
