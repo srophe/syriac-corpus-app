@@ -291,7 +291,7 @@ declare function browse:get-map($node as node(), $model as map(*)){
 declare function browse:parse-persName($persName){
 if($persName/child::*) then 
     string-join(for $namePart in $persName/child::*
-    order by $namePart/@sort
+    order by $namePart/@sort ascending, $namePart/text() descending
     return $namePart/text(),' ')
 else $persName/text()
 };
