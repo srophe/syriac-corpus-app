@@ -165,7 +165,7 @@ declare function browse:ar-sort-string($titlestring as xs:string?) as xs:string*
 :)
 declare function browse:lang-filter($node as node(), $model as map(*)){
     if($browse:lang != '' and $browse:lang != 'en') then 
-       $model("browse-data")//tei:body/child::*[1]/child::*[1][child::*[@xml:lang = $browse:lang][1][matches(substring(browse:build-sort-string(string-join(descendant-or-self::*/text(),' ')),1,1),browse:get-sort(),'i')]]
+       $model("browse-data")//tei:body/child::*[1]/child::*[1][child::*[@xml:lang = $browse:lang][1][matches(substring(browse:build-sort-string(browse:parse-persName(.)),1,1),browse:get-sort(),'i')]]
     else $model("browse-data")//tei:title[@level='a'][parent::tei:titleStmt][matches(substring(browse:build-sort-string(string-join(text(),' ')),1,1),browse:get-sort(),'i')]        
 };
 
