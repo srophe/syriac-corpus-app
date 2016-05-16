@@ -339,6 +339,11 @@
                             </xsl:choose>
                         </span>
                     </xsl:if>
+                    <xsl:if test="descendant::t:biblStruct">
+                        <span class="results-list-desc desc" dir="ltr" lang="en">
+                            <xsl:apply-templates select="descendant::t:biblStruct" mode="footnote"/>
+                        </span>
+                    </xsl:if>
                     <xsl:if test="//*:match">
                         <span class="results-list-desc srp-label">Matches:</span>
                         <xsl:for-each select="//*:match">
