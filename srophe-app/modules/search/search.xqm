@@ -271,7 +271,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
        for $hit at $p in subsequence($model("hits"), $search:start, 20)
        return
            <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
-               <div class="col-md-10 col-md-offset-1">
+               <div class="col-md-12">
                    <div class="result">
                      <div class="col-md-1" style="margin-right:-1em;">
                        <span class="label label-default">{$search:start + $p - 1}</span>
