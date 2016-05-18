@@ -75,8 +75,8 @@ let $count := count($hits)
 return
     if(exists($hits)) then 
         <div class="well relation">
-            <h4>Cited by:</h4>
-            <span class="caveat">{$count} record(s) cite this work. per page {$perpage}</span> 
+            <h4>Cited in:</h4>
+            <span class="caveat">{$count} record(s) cite this work.</span> 
             {
                 for $recs in subsequence($hits,$start,$perpage)
                 let $parent := $recs/ancestor::tei:TEI
