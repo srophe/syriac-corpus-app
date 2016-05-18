@@ -44,7 +44,7 @@
                 <p>A taxonomy of known religious communities referenced by Syriaca.org.</p>
             </editorialDecl>
             <classDecl>
-                <taxonomy>
+                <taxonomy xml:id="confessions-taxonomy">
                     <category xml:id="christians">
                         <catDesc>Christians</catDesc>
                             <category xml:id="syriac">
