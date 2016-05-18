@@ -772,7 +772,14 @@
                     <xsl:otherwise>Other ID Number: </xsl:otherwise>
                 </xsl:choose>
             </span>
-            <xsl:apply-templates mode="full"/>
+            <xsl:choose>
+                <xsl:when test="@type='URI'">
+                    <a href="{text()}"><xsl:value-of select="text()"/></a>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates/>
+                </xsl:otherwise>
+            </xsl:choose>
         </p>
     </xsl:template>
     <xsl:template match="t:imprint" mode="full">
@@ -816,6 +823,17 @@
                 <xsl:apply-templates mode="full"/>
             </p>    
     </xsl:template>
+    <xsl:template match="t:ref" mode="full">
+        <p class="indent">
+            <span class="srp-label">See Also: </span>
+            <a href="@target">
+                <xsl:choose>
+                    <xsl:when test="text()"><xsl:value-of select="text()"/></xsl:when>
+                    <xsl:otherwise><xsl:value-of select="@target"/></xsl:otherwise>
+                </xsl:choose>
+            </a>
+        </p>    
+    </xsl:template>
     <!-- Templates for full bibl display -->
     <xsl:template match="t:biblStruct" mode="full">
         <xsl:apply-templates mode="full"/>
@@ -835,20 +853,7 @@
         <xsl:apply-templates select="t:title" mode="full"/>
         <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
     </xsl:template>
-    <xsl:template match="t:ref" mode="full">
-        <p class="indent">
-            <span class="srp-label">
-                <xsl:value-of select="concat(upper-case(substring(name(.),1,1)),substring(name(.),2))"/>: </span>
-            <xsl:choose>
-                <xsl:when test="@target">
-                    <xsl:value-of select="@target"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:apply-templates mode="footnote"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </p>
-    </xsl:template>
+
     <xsl:template match="*" mode="full">
         <p class="indent">
             <span class="srp-label">
