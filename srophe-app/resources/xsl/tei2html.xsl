@@ -878,7 +878,7 @@
         <xsl:choose>
             <xsl:when test="parent::t:body">
                 <div class="well">
-                    <h4>Prefered Citation</h4>
+                    <h4>Preferred Citation</h4>
                     <xsl:apply-templates mode="footnote"/>
                 </div>
                 <h3>Full Citation Information</h3>

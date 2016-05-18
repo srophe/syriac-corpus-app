@@ -120,7 +120,7 @@
                                 <xsl:apply-templates mode="footnote"/>
                             </xsl:otherwise>
                         </xsl:choose>
-                    </span> 
+                    </span>
                 </li>
             </xsl:otherwise>
         </xsl:choose>
@@ -190,7 +190,7 @@
             <xsl:apply-templates select="t:edition" mode="footnote"/>
             <xsl:text> </xsl:text>
         </xsl:if>
-        <!-- Add volumn  -->
+        <!-- Add vol  -->
         <xsl:if test="t:biblScope[@unit='vol']">
             <xsl:text> </xsl:text>
             <xsl:apply-templates select="t:biblScope[@unit='vol']" mode="footnote"/>
@@ -373,7 +373,7 @@
      levels)
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:date | t:publisher | t:pubPlace | t:placeName | t:foreign" mode="footnote" priority="1">
-        <xsl:if test="preceding-sibling::*">
+        <xsl:if test="preceding-sibling::* and not(self::t:pubPlace)">
             <xsl:text> </xsl:text>
         </xsl:if>
         <span class="{local-name()}">
@@ -511,7 +511,7 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
-            <xsl:otherwise>
+            <xsl:otherwise>TEST
                 <xsl:value-of select="text()"/>
             </xsl:otherwise>
         </xsl:choose>
@@ -667,36 +667,49 @@
     </xsl:template>
     
     <!-- Templates for adding links and icons to uris -->
-    
-    <xsl:template match="t:idno | t:ref" mode="links"> 
+    <xsl:template match="t:idno | t:ref" mode="links">
         <xsl:variable name="ref">
             <xsl:choose>
-                <xsl:when test="self::t:ref"><xsl:value-of select="@target"/></xsl:when>
-                <xsl:otherwise><xsl:value-of select="text()"/></xsl:otherwise>
+                <xsl:when test="self::t:ref">
+                    <xsl:value-of select="@target"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="text()"/>
+                </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
         <span class="footnote-icon">
             <xsl:choose>
                 <xsl:when test="@type='zotero'"/>
                 <xsl:when test="starts-with($ref,$base-uri)">
-                    <a href="{replace($ref,$base-uri,$nav-base)}" title="Link to Syriaca.org Bibliographic Record" data-toggle="tooltip" data-placement="top" ><img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record"/></a>
+                    <a href="{replace($ref,$base-uri,$nav-base)}" title="Link to Syriaca.org Bibliographic Record" data-toggle="tooltip" data-placement="top">
+                        <img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record"/>
+                    </a>
                 </xsl:when>
                 <!-- glyphicon glyphicon-book -->
                 <xsl:when test="starts-with($ref,'http://www.worldcat.org/')">
-                    <a href="{$ref}" title="Link to Worldcat Bibliographic record" data-toggle="tooltip" data-placement="top" ><span class="glyphicon glyphicon-book" aria-hidden="true"></span></a>
+                    <a href="{$ref}" title="Link to Worldcat Bibliographic record" data-toggle="tooltip" data-placement="top">
+                        <span class="glyphicon glyphicon-book" aria-hidden="true"/>
+                    </a>
                 </xsl:when>
                 <xsl:when test="starts-with($ref,'http://catalog.hathitrust.org/')">
-                    <a href="{$ref}" title="Link to HathiTrust Bibliographic record" data-toggle="tooltip" data-placement="top" ><span class="glyphicon glyphicon-book" aria-hidden="true"></span></a>
+                    <a href="{$ref}" title="Link to HathiTrust Bibliographic record" data-toggle="tooltip" data-placement="top">
+                        <span class="glyphicon glyphicon-book" aria-hidden="true"/>
+                    </a>
                 </xsl:when>
                 <xsl:when test="starts-with($ref,'http://digitale-sammlungen.ulb.uni-bonn.de')">
-                    <a href="{$ref}" title="Link to UniversitätBonn Bibliographic record" data-toggle="tooltip" data-placement="top" ><span class="glyphicon glyphicon-book" aria-hidden="true"></span></a>
+                    <a href="{$ref}" title="Link to UniversitätBonn Bibliographic record" data-toggle="tooltip" data-placement="top">
+                        <span class="glyphicon glyphicon-book" aria-hidden="true"/>
+                    </a>
                 </xsl:when>
                 <xsl:when test="starts-with($ref,'https://archive.org')">
-                    <a href="{$ref}" title="Link to Archive.org Bibliographic record" data-toggle="tooltip" data-placement="top" ><span class="glyphicon glyphicon-book" aria-hidden="true"></span></a>
+                    <a href="{$ref}" title="Link to Archive.org Bibliographic record" data-toggle="tooltip" data-placement="top">
+                        <span class="glyphicon glyphicon-book" aria-hidden="true"/>
+                    </a>
                 </xsl:when>
                 <xsl:otherwise>
                     <a href="{$ref}" data-toggle="tooltip" data-placement="top" title="{$ref}">
-                        <span class="glyphicon glyphicon-book"></span>
+                        <span class="glyphicon glyphicon-book"/>
                     </a>
                 </xsl:otherwise>
             </xsl:choose>
