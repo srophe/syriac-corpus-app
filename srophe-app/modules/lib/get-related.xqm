@@ -1,7 +1,7 @@
 xquery version "3.0";
 (: Build relationships. :)
 module namespace rel="http://syriaca.org/related";
-import module namespace rec="http://syriaca.org/short-rec-view" at "short-rec-view.xqm";
+import module namespace page="http://syriaca.org/page" at "paging.xqm";
 import module namespace global="http://syriaca.org/global" at "global.xqm";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
@@ -13,7 +13,7 @@ declare function rel:get-names($uris as xs:string?) as element(a)*{
     let $rec :=  global:get-rec($uri)
     let $names := $rec
     return 
-        rec:display-recs-short-view($names, '')
+        global:display-recs-short-view($names, '')
 };
 
 (: Get names/titles for each uri :)
@@ -68,20 +68,30 @@ declare function rel:construct-relation-text($related){
     </span>
 };
 
-declare function rel:cited($idno){
-<div><h4>Cited by:</h4>
-{
-    let $hits := collection($global:data-root)//tei:ptr[@target=replace($idno,'/tei','')]
-    return 
-    (<span class="caveat">{count($hits)} records cite this work.</span>,
-    for $recs in subsequence($hits,1,5)
-    let $parent := $recs/ancestor::tei:TEI
-    return global:display-recs-short-view($parent,''),
+declare function rel:cited($idno, $start,$perpage){
+let $perpage := if($perpage) then $perpage else 5
+let $hits := collection($global:data-root)//tei:ptr[@target=replace($idno,'/tei','')]
+let $count := count($hits)
+return
+    if(exists($hits)) then 
+        <div class="well relation">
+            <h4>Cited by:</h4>
+            <span class="caveat">{$count} record(s) cite this work. per page {$perpage}</span> 
+            {
+                for $recs in subsequence($hits,$start,$perpage)
+                let $parent := $recs/ancestor::tei:TEI
+                return global:display-recs-short-view($parent,'')
+            }
+            {
+                 if($count gt 5) then 
+                    <div class="row">
+                        <div class="col-sm-12">{page:pageination($hits, $start, $perpage, false())}</div>
+                    </div>
+                 else ()
+             }
+        </div>
+    else ()
     
-    <span><a href="#">See All</a></span>
-    )
-    }
-</div>    
 };
 
 (: Main div for HTML display :)

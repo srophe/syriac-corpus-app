@@ -142,9 +142,6 @@ declare function browse:ar-sort(){
         else if($browse:sort = 'ۈ') then '(ۈ|ۇ|ٷ|ؤ|و)'
         else if($browse:sort = 'ى') then '(ى|ئ|ي)'
         else $browse:sort
-(: ignore for persnames        
-ابن
-:)
 };
 (:~
  : Strips english titles of non-sort characters as established by Syriaca.org
@@ -168,7 +165,7 @@ declare function browse:ar-sort-string($titlestring as xs:string?) as xs:string*
 :)
 declare function browse:lang-filter($node as node(), $model as map(*)){
     if($browse:lang != '' and $browse:lang != 'en') then 
-       $model("browse-data")//tei:body/child::*[1]/child::*[1][child::*[@xml:lang = $browse:lang][1][matches(substring(browse:build-sort-string(string-join(descendant-or-self::*/text(),' ')),1,1),browse:get-sort(),'i')]]
+       $model("browse-data")//tei:body/child::*[1]/child::*[1][child::*[@xml:lang = $browse:lang][1][matches(substring(browse:build-sort-string(browse:parse-persName(.)),1,1),browse:get-sort(),'i')]]
     else $model("browse-data")//tei:title[@level='a'][parent::tei:titleStmt][matches(substring(browse:build-sort-string(string-join(text(),' ')),1,1),browse:get-sort(),'i')]        
 };
 
@@ -291,6 +288,13 @@ declare function browse:get-map($node as node(), $model as map(*)){
     </div>
 };
 
+declare function browse:parse-persName($persName){
+if($persName/child::*) then 
+    string-join(for $namePart in $persName/child::*
+    order by $namePart/@sort ascending, $namePart/text() descending
+    return $namePart/text(),' ')
+else $persName/text()
+};
 (:
  : Sorts and outputs results set
  : @param $coll from html template
@@ -306,7 +310,7 @@ for $data in $model("browse-refine")
 let $rec-id := tokenize(replace($data/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei|/source',''),'/')[last()]
 let $title := if($browse:lang != '' and $browse:lang != 'en') then 
                      if($collection = ('persons','sbd','saints','q','authors')) then 
-                        string-join($data/ancestor::tei:TEI/descendant::tei:person/tei:persName[@xml:lang = $browse:lang][1]/text(),' ')
+                        browse:parse-persName($data/ancestor::tei:TEI/descendant::tei:person/tei:persName[@xml:lang = $browse:lang][1])
                      else if($collection = 'places') then 
                         string-join($data/ancestor::tei:TEI/descendant::tei:place/tei:placeName[@xml:lang = $browse:lang][1]/text(),' ')
                      else 
@@ -318,8 +322,8 @@ let $title := if($browse:lang != '' and $browse:lang != 'en') then
 let $browse-title := browse:build-sort-string($title)
 order by 
     if($browse:view = 'numeric') then xs:integer($rec-id) 
-    else $browse-title collation "?lang=en&lt;syr&amp;decomposition=full"
-   
+    else 
+        $browse-title collation "?lang=en&lt;syr&amp;decomposition=full"   
 return 
     if($collection = "manuscripts") then 
         let $title := $data/descendant::tei:titleStmt/tei:title[1]/text()

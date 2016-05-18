@@ -1,7 +1,7 @@
 xquery version "3.0";
 
 module namespace search="http://syriaca.org/search";
-import module namespace rec="http://syriaca.org/short-rec-view" at "short-rec-view.xqm";
+import module namespace page="http://syriaca.org/page" at "../lib/paging.xqm";
 import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
 import module namespace persons="http://syriaca.org/persons" at "persons-search.xqm";
 import module namespace places="http://syriaca.org/places" at "places-search.xqm";
@@ -28,7 +28,7 @@ declare variable $search:bibl {request:get-parameter('title', '') cast as xs:str
 declare variable $search:idno {request:get-parameter('title', '') cast as xs:string};
 declare variable $search:start {request:get-parameter('start', 1) cast as xs:integer};
 declare variable $search:sort {request:get-parameter('sort', '') cast as xs:string};
-declare variable $search:perpage {request:get-parameter('perpage', 1) cast as xs:integer};
+declare variable $search:perpage {request:get-parameter('perpage', 20) cast as xs:integer};
 declare variable $search:collection {request:get-parameter('collection', '') cast as xs:string};
 
 (:~
@@ -189,94 +189,8 @@ declare  %templates:wrap function search:hit-count($node as node()*, $model as m
  : If 0 results show search form
 :)
 declare  %templates:wrap function search:pageination($node as node()*, $model as map(*), $collection as xs:string?){
-let $perpage := 20
-let $start := if($search:start) then $search:start else 1
-let $total-result-count := search:hit-count($node, $model)
-let $end := 
-    if ($total-result-count lt $perpage) then 
-        $total-result-count
-    else 
-        $start + $perpage
-let $number-of-pages :=  xs:integer(ceiling($total-result-count div $perpage))
-let $current-page := xs:integer(($start + $perpage) div $perpage)
-(: get all parameters to pass to paging function:)
-let $url-params := replace(request:get-query-string(), '&amp;start=\d+', '')
-let $parameters :=  request:get-parameter-names()
-let $sort-options :=
-                <li xmlns="http://www.w3.org/1999/xhtml">
-                    <div class="btn-group">
-                        <div class="dropdown"><button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">Sort <span class="caret"/></button>
-                            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="{concat('?', replace($url-params,'&amp;sort=(\w+)', ''), '&amp;start=', $start,'&amp;sort=rel')}" id="rel">Relevance</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="{concat('?', replace($url-params,'&amp;sort=(\w+)', ''), '&amp;start=', $start,'&amp;sort=alpha')}" id="alpha">Alphabetical (Title)</a></li>
-                                {if($collection != 'places') then
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{concat('?', replace($url-params,'&amp;sort=(\w+)', ''), '&amp;start=', $start,'&amp;sort=date')}" id="date">Date</a></li>
-                                else()}
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-let $pagination-links := 
-        <div class="row" xmlns="http://www.w3.org/1999/xhtml">
-            <div class="col-sm-5">
-            <h4 class="hit-count">Search results:</h4>
-                <p class="col-md-offset-1 hit-count">{$total-result-count} matches for {search:search-string($collection)}.</p>
-            </div>
-            {if(search:hit-count($node, $model) gt $perpage) then 
-              <div class="col-md-7" xmlns="http://www.w3.org/1999/xhtml">
-                       <ul class="pagination pull-right">
-                          {
-                          (: Show 'Previous' for all but the 1st page of results :)
-                              if ($current-page = 1) then ()
-                              else
-                                  <li><a href="{concat('?', $url-params, '&amp;start=', $perpage * ($current-page - 2)) }">Prev</a></li>
-                          }
-                          {
-                          (: Show links to each page of results :)
-                              let $max-pages-to-show := 8
-                              let $padding := xs:integer(round($max-pages-to-show div 2))
-                              let $start-page := 
-                                  if ($current-page le ($padding + 1)) then
-                                      1
-                                  else $current-page - $padding
-                              let $end-page := 
-                                  if ($number-of-pages le ($current-page + $padding)) then
-                                      $number-of-pages
-                                  else $current-page + $padding - 1
-                              for $page in ($start-page to $end-page)
-                              let $newstart := 
-                                  if($page = 1) then 1 
-                                  else $perpage * ($page - 1)
-                              return
-                                  (
-                                  if ($newstart eq $start) then 
-                                      (<li class="active"><a href="#" >{$page}</a></li>)
-                                  else
-                                      <li><a href="{concat('?', $url-params, '&amp;start=', $newstart)}">{$page}</a></li>
-                                  )
-                          }
-           
-                          {
-                          (: Shows 'Next' for all but the last page of results :)
-                              if ($start + $perpage ge $total-result-count) then ()
-                              else
-                                  <li><a href="{concat('?', $url-params, '&amp;start=', $start + $perpage)}">Next</a></li>
-                          }
-                          {$sort-options}
-                          <li class="pull-right"><a href="search.html"><span class="glyphicon glyphicon-search"/> New</a></li>
-                      </ul>
-              </div>
-             else 
-             <div class="col-md-7" xmlns="http://www.w3.org/1999/xhtml">
-                <ul class="pagination pull-right">
-                   {$sort-options}
-                    <li class="pull-right"><a href="search.html"><span class="glyphicon glyphicon-search"/> New</a></li>
-                </ul>
-             </div>
-             }
-        </div>    
-return 
-   if(exists(request:get-parameter-names())) then $pagination-links
+   if(exists(request:get-parameter-names())) then 
+        page:pageination($model("hits"), $search:start, $search:perpage, true(), $collection, search:search-string($collection))
    else ()
 };
 
@@ -357,13 +271,13 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
        for $hit at $p in subsequence($model("hits"), $search:start, 20)
        return
            <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
-               <div class="col-md-10 col-md-offset-1">
+               <div class="col-md-12">
                    <div class="result">
                      <div class="col-md-1" style="margin-right:-1em;">
                        <span class="label label-default">{$search:start + $p - 1}</span>
                      </div>
                      <div class="col-md-9" xml:lang="en">
-                       {rec:display-recs-short-view($hit,'')} 
+                       {global:display-recs-short-view($hit,'')} 
                      </div>
                    </div>
                </div>

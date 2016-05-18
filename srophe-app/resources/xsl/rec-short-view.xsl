@@ -141,7 +141,19 @@
         </xsl:variable>
         <xsl:variable name="sort-title">
             <xsl:if test="$lang != 'en' and $lang != ''">
-                <xsl:value-of select="//t:body/child::*[1]/child::*/child::*[@xml:lang = $lang][1]"/>
+                <xsl:for-each select="//t:body/child::*[1]/child::*/child::*[@xml:lang = $lang][1]">
+                    <xsl:choose>
+                        <xsl:when test="child::*">
+                            <xsl:for-each select="child::*">
+                                <xsl:sort select="@sort"/>
+                                <xsl:value-of select="."/>
+                                <xsl:if test="following-sibling::*"><xsl:text> </xsl:text></xsl:if>
+                            </xsl:for-each>
+                        </xsl:when>
+                        <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+                <!--<xsl:value-of select="//t:body/child::*[1]/child::*/child::*[@xml:lang = $lang][1]"/>-->
             </xsl:if>
         </xsl:variable>
         <xsl:variable name="birth">
@@ -265,7 +277,8 @@
                 <div class="results-list">
                     <xsl:choose>
                         <xsl:when test="$lang != '' and $lang != 'en' and $lang != 'syr'">
-                            <span class="sort-title">
+                            <span class="sort-title" lang="{$lang}" xml:lang="{$lang}">
+                                <xsl:if test="$lang='ar'"><xsl:attribute name="dir"><xsl:text>rtl</xsl:text></xsl:attribute></xsl:if>
                                 <xsl:value-of select="$sort-title"/>
                             </span>
                         </xsl:when>
@@ -324,6 +337,11 @@
                                     <xsl:value-of select="$string"/>
                                 </xsl:otherwise>
                             </xsl:choose>
+                        </span>
+                    </xsl:if>
+                    <xsl:if test="descendant::t:biblStruct">
+                        <span class="results-list-desc desc" dir="ltr" lang="en">
+                            <xsl:apply-templates select="descendant::t:biblStruct" mode="footnote"/>
                         </span>
                     </xsl:if>
                     <xsl:if test="//*:match">

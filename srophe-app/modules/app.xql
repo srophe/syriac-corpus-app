@@ -13,7 +13,9 @@ declare namespace xlink = "http://www.w3.org/1999/xlink";
 (:~         
  : Syriaca.org URI for retrieving TEI records 
 :)
-declare variable $app:id {request:get-parameter('id', '')}; 
+declare variable $app:id {request:get-parameter('id', '')};
+declare variable $app:start {request:get-parameter('start', 1) cast as xs:integer};
+declare variable $app:perpage {request:get-parameter('perpage', 5) cast as xs:integer};
 
 (:~      
  : Traverse main nav and "fix" links based on values in config.xml
@@ -175,7 +177,7 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                 {global:tei2html($model("data")/descendant::tei:body)} 
             </div>
             <div class="col-md-4 column2">
-                {rel:cited($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')])}  
+                {rel:cited($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')], $app:start,$app:perpage)}  
             </div>
         </div>        
     else 
