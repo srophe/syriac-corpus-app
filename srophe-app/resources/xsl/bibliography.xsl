@@ -94,16 +94,25 @@
                                 <xsl:variable name="biblfilepath">
                                     <xsl:value-of select="concat($data-root,'/bibl/tei/',substring-after(t:ptr/@target, concat($base-uri,'/bibl/')),'.xml')"/>
                                 </xsl:variable>
+                                <xsl:variable name="citedRange">
+                                    <xsl:if test="t:citedRange">
+                                        <xsl:text>, </xsl:text>
+                                        <xsl:for-each select="t:citedRange">
+                                            <xsl:apply-templates select="." mode="footnote"/>
+                                        </xsl:for-each>
+                                    </xsl:if>
+                                </xsl:variable>
                                 <!-- Check if record exists in db with doc-available function -->
                                 <xsl:if test="doc-available($biblfilepath)">
                                     <!-- Process record as a footnote -->
-                                    <xsl:apply-templates select="document($biblfilepath)/descendant::t:biblStruct[1]" mode="footnote"/>
-                                </xsl:if>
-                                <!-- Process all citedRange elements as footnotes -->
-                                <xsl:if test="t:citedRange">
-                                    <xsl:text>, </xsl:text>
-                                    <xsl:for-each select="t:citedRange">
-                                        <xsl:apply-templates select="." mode="footnote"/>
+                                    <xsl:for-each select="document($biblfilepath)/descendant::t:biblStruct[1]">
+                                        <xsl:apply-templates mode="footnote"/>
+                                        <!-- Process all citedRange elements as footnotes -->
+                                        <xsl:sequence select="$citedRange"/>
+                                        <span class="footnote-links">
+                                            <xsl:apply-templates select="descendant::t:idno" mode="links"/>
+                                            <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
+                                        </span>
                                     </xsl:for-each>
                                 </xsl:if>
                             </xsl:when>
@@ -111,7 +120,7 @@
                                 <xsl:apply-templates mode="footnote"/>
                             </xsl:otherwise>
                         </xsl:choose>
-                    </span>
+                    </span> 
                 </li>
             </xsl:otherwise>
         </xsl:choose>
@@ -123,7 +132,7 @@
     <xsl:template match="t:biblStruct" mode="footnote">
         <xsl:apply-templates mode="footnote"/>
     </xsl:template>
-    
+
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle a bibllist entry for a book
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -225,7 +234,9 @@
             </xsl:for-each>
         </xsl:if>
         <xsl:if test="preceding-sibling::t:monogr/t:imprint">
-            <xsl:variable name="impring-string"><xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/></xsl:variable>
+            <xsl:variable name="impring-string">
+                <xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/>
+            </xsl:variable>
             <xsl:text>; </xsl:text>
             <xsl:value-of select="substring-before(substring-after($impring-string,'('),')')"/>
         </xsl:if>
@@ -654,7 +665,83 @@
             </xsl:if>
         </xsl:if>
     </xsl:template>
-
+    
+    <!-- Templates for adding links and icons to uris -->
+    
+    <xsl:template match="t:idno | t:ref" mode="links"> 
+        <xsl:variable name="ref">
+            <xsl:choose>
+                <xsl:when test="self::t:ref"><xsl:value-of select="@target"/></xsl:when>
+                <xsl:otherwise><xsl:value-of select="text()"/></xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <span class="footnote-icon">
+            <xsl:choose>
+                <xsl:when test="@type='zotero'"/>
+                <xsl:when test="starts-with($ref,$base-uri)">
+                    <a href="{replace($ref,$base-uri,$nav-base)}" title="Link to Syriaca.org Bibliographic Record" data-toggle="tooltip" data-placement="top" ><img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record"/></a>
+                </xsl:when>
+                <!-- glyphicon glyphicon-book -->
+                <xsl:when test="starts-with($ref,'http://www.worldcat.org/')">
+                    <a href="{$ref}" title="Link to Worldcat Bibliographic record" data-toggle="tooltip" data-placement="top" ><span class="glyphicon glyphicon-book" aria-hidden="true"></span></a>
+                </xsl:when>
+                <xsl:when test="starts-with($ref,'http://catalog.hathitrust.org/')">
+                    <a href="{$ref}" title="Link to HathiTrust Bibliographic record" data-toggle="tooltip" data-placement="top" ><span class="glyphicon glyphicon-book" aria-hidden="true"></span></a>
+                </xsl:when>
+                <xsl:when test="starts-with($ref,'http://digitale-sammlungen.ulb.uni-bonn.de')">
+                    <a href="{$ref}" title="Link to UniversitätBonn Bibliographic record" data-toggle="tooltip" data-placement="top" ><span class="glyphicon glyphicon-book" aria-hidden="true"></span></a>
+                </xsl:when>
+                <xsl:when test="starts-with($ref,'https://archive.org')">
+                    <a href="{$ref}" title="Link to Archive.org Bibliographic record" data-toggle="tooltip" data-placement="top" ><span class="glyphicon glyphicon-book" aria-hidden="true"></span></a>
+                </xsl:when>
+                <xsl:otherwise>
+                    <a href="{$ref}" data-toggle="tooltip" data-placement="top" title="{$ref}">
+                        <span class="glyphicon glyphicon-book"></span>
+                    </a>
+                </xsl:otherwise>
+            </xsl:choose>
+        </span>
+    </xsl:template>
+    
+    <!-- Templates for full bibl display -->
+    <xsl:template match="t:biblStruct" mode="full">
+        <xsl:apply-templates mode="full"/>
+    </xsl:template>
+    <xsl:template match="t:analytic" mode="full">
+        <h4>Article</h4>
+        <xsl:apply-templates mode="full"/>
+    </xsl:template>
+    <xsl:template match="t:monogr" mode="full">
+        <h4>Monograph/Journal</h4>
+        <xsl:apply-templates mode="full"/>
+    </xsl:template>
+    <xsl:template match="t:series" mode="full">
+        <h4>Series</h4>
+        <xsl:apply-templates mode="full"/>
+    </xsl:template>
+    <xsl:template match="t:ref" mode="full">
+        <p class="indent">
+            <span class="srp-label">
+                <xsl:value-of select="concat(upper-case(substring(name(.),1,1)),substring(name(.),2))"/>: </span>
+            <xsl:choose>
+                <xsl:when test="@target">
+                    <xsl:value-of select="@target"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates mode="footnote"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </p>
+    </xsl:template>
+    <xsl:template match="*" mode="full">
+        <p class="indent">
+            <span class="srp-label">
+                <xsl:value-of select="concat(upper-case(substring(name(.),1,1)),substring(name(.),2))"/>: </span>
+            <xsl:apply-templates mode="footnote"/>
+        </p>
+    </xsl:template>
+    
+    
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      suppress otherwise unhandled descendent nodes and attibutes of bibl or 
      biblStruct in the context of a footnote 

@@ -250,6 +250,7 @@ td {
 /*.section ul {padding-left:0;}*/
 .section.type ul {padding-left:0;}
 
+
 /* Browse page styles */
 .syr-list{padding-right:7em; padding-top:2em; text-align: right;}
 .en-list{padding-left:5em; padding-top:2em;}
@@ -299,6 +300,9 @@ td {
     margin-left:-1.5em;
     padding-right:.5em;    
 }
+
+.footnote-links {line-hieght: 18px;}
+.footnote-icon {padding-left:1em; font-size:18px;}
 
 .bibl li{line-height: 1.5em;padding-bottom:.5em;}
 .anchor { 
