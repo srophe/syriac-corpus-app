@@ -666,6 +666,54 @@
         </xsl:if>
     </xsl:template>
     
+    <xsl:template match="t:title" mode="full">
+        <p class="indent">
+            <span class="srp-label">Title: </span>
+            <xsl:if test="parent::t:analytic">
+                <xsl:text>"</xsl:text>
+            </xsl:if>
+            <span>
+                <xsl:attribute name="class">
+                    <xsl:text>title</xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="@level='a'">
+                            <xsl:text>-analytic</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="@level='m'">
+                            <xsl:text>-monographic</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="@level='j'">
+                            <xsl:text>-journal</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="@level='s'">
+                            <xsl:text>-series</xsl:text>
+                        </xsl:when>
+                        <xsl:when test="@level='u'">
+                            <xsl:text>-unpublished</xsl:text>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:attribute>
+                <xsl:for-each select="./node()">
+                    <xsl:if test="not(self::text()) or string-length(normalize-space(.))&gt;0 or count(following-sibling::node())=0">
+                        <bdi>
+                            <xsl:for-each select="ancestor-or-self::t:*[@xml:lang][1]">
+                                <xsl:attribute name="dir">
+                                    <xsl:call-template name="getdirection"/>
+                                </xsl:attribute>
+                                <xsl:call-template name="langattr"/>
+                            </xsl:for-each>
+                            <xsl:apply-templates select="." mode="text-normal"/>
+                        </bdi>
+                    </xsl:if>
+                </xsl:for-each>
+            </span>
+            <xsl:if test="parent::t:analytic">
+                <!--<xsl:if test="not(ends-with(.,'.|:|,'))">,</xsl:if>-->
+                <xsl:text>"</xsl:text>
+            </xsl:if>
+        </p>
+    </xsl:template>
+    
     <!-- Templates for adding links and icons to uris -->
     <xsl:template match="t:idno | t:ref" mode="links">
         <xsl:variable name="ref">
@@ -716,21 +764,76 @@
         </span>
     </xsl:template>
     
+    <xsl:template match="t:idno" mode="full">
+        <p class="indent">
+            <span class="srp-label">
+                <xsl:choose>
+                    <xsl:when test="@type='URI'">URI: </xsl:when>
+                    <xsl:otherwise>Other ID Number: </xsl:otherwise>
+                </xsl:choose>
+            </span>
+            <xsl:apply-templates mode="full"/>
+        </p>
+    </xsl:template>
+    <xsl:template match="t:imprint" mode="full">
+        <xsl:for-each select="child::*">
+            <p class="indent">
+                <span class="srp-label">
+                    <xsl:choose>
+                        <xsl:when test="self::t:publisher">Publisher: </xsl:when>
+                        <xsl:when test="self::t:pubPlace">Place of Publication: </xsl:when>
+                        <xsl:when test="self::t:date">Date of Publication: </xsl:when>
+                    </xsl:choose>
+                </span>
+                <xsl:choose>
+                    <xsl:when test="@ref">
+                        <a href="{@ref}"><xsl:apply-templates/></a>
+                    </xsl:when>
+                    <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
+                </xsl:choose>
+            </p>    
+        </xsl:for-each>
+    </xsl:template>
+    <xsl:template match="t:biblScope" mode="full">
+            <p class="indent">
+                <span class="srp-label">
+                    <xsl:choose>
+                        <xsl:when test="@unit = 'pp'">Pages: </xsl:when>
+                        <xsl:when test="@unit = 'vol'">Volume: </xsl:when>
+                        <xsl:when test="@unit = 'entry'">Entry: </xsl:when>
+                        <xsl:when test="@unit = 'col' or @unit = 'column'">Column: </xsl:when>
+                        <xsl:when test="@unit = 'part'">Part: </xsl:when>
+                        <xsl:when test="@unit = 'series'">Series: </xsl:when>
+                        <xsl:when test="@unit = 'issue'">Issue: </xsl:when>
+                        <xsl:when test="@unit = 'tomus'">Tome: </xsl:when>
+                        <xsl:when test="@unit = 'fasc'">Pages: </xsl:when>
+                        <xsl:when test="@unit = 'pp'">Fasicule: </xsl:when>
+                        <xsl:when test="@type = 'vol'">Volume: </xsl:when>
+                        <xsl:when test="@type = 'page'">Pages: </xsl:when>
+                        <xsl:otherwise><xsl:value-of select="@unit"/></xsl:otherwise>
+                    </xsl:choose>
+                </span>
+                <xsl:apply-templates mode="full"/>
+            </p>    
+    </xsl:template>
     <!-- Templates for full bibl display -->
     <xsl:template match="t:biblStruct" mode="full">
         <xsl:apply-templates mode="full"/>
     </xsl:template>
     <xsl:template match="t:analytic" mode="full">
         <h4>Article</h4>
-        <xsl:apply-templates mode="full"/>
+        <xsl:apply-templates select="t:title" mode="full"/>
+        <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
     </xsl:template>
     <xsl:template match="t:monogr" mode="full">
-        <h4>Monograph/Journal</h4>
-        <xsl:apply-templates mode="full"/>
+        <h4>Publication</h4>
+        <xsl:apply-templates select="t:title" mode="full"/>
+        <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
     </xsl:template>
     <xsl:template match="t:series" mode="full">
         <h4>Series</h4>
-        <xsl:apply-templates mode="full"/>
+        <xsl:apply-templates select="t:title" mode="full"/>
+        <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
     </xsl:template>
     <xsl:template match="t:ref" mode="full">
         <p class="indent">
