@@ -10,7 +10,7 @@ import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 
-(:~         
+(:~ 
  : Syriaca.org URI for retrieving TEI records 
 :)
 declare variable $app:id {request:get-parameter('id', '')};
@@ -28,7 +28,7 @@ function app:fix-links($node as node(), $model as map(*)) {
     templates:process(global:fix-links($node/node()), $model)
 };
 
-(:~
+(:~ 
  : Add header links for alternative formats. 
 :)
 declare function app:rel-links($node as node(), $model as map(*)) {
@@ -187,8 +187,18 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
             </div>
         </div>
 };
-
-(:
+(:~      
+ : Return teiHeader info to be used in citation
+:)
+declare %templates:wrap function app:about($node as node(), $model as map(*)){
+    let $rec := $model("data")
+    let $header := 
+        <srophe-about xmlns="http://www.tei-c.org/ns/1.0">
+            {$rec//tei:teiHeader}
+        </srophe-about>
+    return global:tei2html($header)
+};
+(:~    
  : Return teiHeader info to be used in citation
 :)
 declare %templates:wrap function app:citation($node as node(), $model as map(*)){
@@ -196,7 +206,9 @@ declare %templates:wrap function app:citation($node as node(), $model as map(*))
     let $header := 
     <place xmlns="http://www.tei-c.org/ns/1.0">
         <citation xmlns="http://www.tei-c.org/ns/1.0">
-            {$rec//tei:teiHeader | $rec//tei:bibl}
+            {if($rec/descendant::tei:body/tei:biblStruct) then 
+                $rec//tei:teiHeader
+            else $rec//tei:teiHeader | $rec//tei:bibl}
         </citation> 
     </place>
     return global:tei2html($header)

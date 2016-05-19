@@ -118,6 +118,9 @@
                 <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]">
                     <xsl:value-of select="string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]//text(),' ')"/>
                 </xsl:when>
+                <xsl:when test="descendant::t:biblStruct">
+                    <xsl:apply-templates select="descendant::t:biblStruct/descendant::t:title[1]" mode="full"/>
+                </xsl:when>
                 <xsl:when test="ancestor::t:TEI/descendant::t:titleStmt">
                     <xsl:apply-templates select="ancestor::t:TEI/descendant::t:titleStmt/t:title[1]"/>
                 </xsl:when>
@@ -147,10 +150,14 @@
                             <xsl:for-each select="child::*">
                                 <xsl:sort select="@sort"/>
                                 <xsl:value-of select="."/>
-                                <xsl:if test="following-sibling::*"><xsl:text> </xsl:text></xsl:if>
+                                <xsl:if test="following-sibling::*">
+                                    <xsl:text> </xsl:text>
+                                </xsl:if>
                             </xsl:for-each>
                         </xsl:when>
-                        <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+                        <xsl:otherwise>
+                            <xsl:value-of select="."/>
+                        </xsl:otherwise>
                     </xsl:choose>
                 </xsl:for-each>
                 <!--<xsl:value-of select="//t:body/child::*[1]/child::*/child::*[@xml:lang = $lang][1]"/>-->
@@ -278,13 +285,17 @@
                     <xsl:choose>
                         <xsl:when test="$lang != '' and $lang != 'en' and $lang != 'syr'">
                             <span class="sort-title" lang="{$lang}" xml:lang="{$lang}">
-                                <xsl:if test="$lang='ar'"><xsl:attribute name="dir"><xsl:text>rtl</xsl:text></xsl:attribute></xsl:if>
+                                <xsl:if test="$lang='ar'">
+                                    <xsl:attribute name="dir">
+                                        <xsl:text>rtl</xsl:text>
+                                    </xsl:attribute>
+                                </xsl:if>
                                 <xsl:value-of select="$sort-title"/>
                             </span>
                         </xsl:when>
                     </xsl:choose>
                     <a href="{replace($uri,$base-uri,$nav-base)}" dir="ltr">
-                        <xsl:value-of select="$main-title"/>
+                        <xsl:sequence select="$main-title"/>
                         <xsl:if test="$type != ''">
                             <xsl:value-of select="concat(' (',string-join($type,' '),')')"/>
                         </xsl:if>

@@ -86,7 +86,7 @@
     <!-- Hard coded values-->
     <xsl:param name="normalization">NFKC</xsl:param>
     <xsl:param name="editoruriprefix">http://syriaca.org/editors.xml#</xsl:param>
-    <xsl:variable name="editorssourcedoc" select="concat($nav-base,'/documentation/editors.xml')"/>
+    <xsl:variable name="editorssourcedoc" select="concat($app-root,'/documentation/editors.xml')"/>
     <!-- Resource id -->
     <xsl:variable name="resource-id">
         <xsl:choose>
@@ -128,7 +128,7 @@
         </xsl:choose>
         
         <!-- Body -->
-        <xsl:apply-templates select="t:text/t:body/child::*"/>
+        <xsl:apply-templates select="descendant::t:body/child::*"/>
         
         <!-- Citation Information -->        
         <!-- Citations -->
@@ -495,9 +495,6 @@
         <xsl:if test="t:bibl">
             <xsl:call-template name="sources"/>
         </xsl:if>
-        <xsl:if test="t:srophe-citation">
-            <xsl:call-template name="citationInfo"/>
-        </xsl:if>
         <!-- Contains: -->
         <xsl:if test="t:nested-place">
             <div id="contents">
@@ -525,7 +522,7 @@
         </xsl:if>
         
         <!-- Build citation -->
-        <xsl:if test="t:citation">
+        <xsl:if test="t:citation | t:srophe-citation ">
             <xsl:call-template name="citationInfo"/>
         </xsl:if>
         <!-- Build see also -->
@@ -571,47 +568,6 @@
     <!-- suppress bibl -->
     <xsl:template match="t:bibl" mode="title"/>
     <xsl:template name="h1">
-        <!--
-        <xsl:if test="descendant-or-self::t:srophe-title[contains(@ana,'syriaca-saint')]">
-            <div style="margin-left:-2em; margin-top:1em; padding-top:0;">
-                <span class="dropdown inline">
-                    <button class="btn btn-link dropdown-toggle" type="button" id="saintsMenu" data-toggle="dropdown" aria-expanded="true">
-                        <img alt="Syriac.org: Qadishe" src="{$nav-base}/resources/img/icons-q.png"/>
-                        <span class="caret"/>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="saintsMenu">
-                        <li>
-                            <a href="/saints/index.html">Saints home</a>
-                        </li>
-                        <li class="divider"/>
-                        <li>
-                            <a href="/saints/browse.html">Saints index</a>
-                        </li>
-                        <li class="divider"/>
-                        <li>
-                            <a href="/saints/search.html">Saints search</a>
-                        </li>
-                    </ul>
-                </span>
-            </div>
-        </xsl:if>
-        
-        <xsl:if test="descendant::t:srophe-title[contains(@ana,'syriaca-author')]">
-            <div style="margin-left:-2em; margin-top:-1em; padding-top:0;">
-                <span class="dropdown inline">
-                    <button class="btn btn-link dropdown-toggle" type="button" id="authorsMenu" data-toggle="dropdown" aria-expanded="true">
-                        <img alt="Syriac.org: Persons" src="{$nav-base}/resources/img/icons-authors.png"/>
-                        <span class="caret"/>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="authorsMenu">
-                        <li>
-                            <a href="/authors/index.html">Authors home</a>
-                        </li>
-                    </ul>
-                </span>
-            </div>
-        </xsl:if>
-        -->
         <div class="row title">
             <h1 class="col-md-8">
                 <!-- Format title, calls template in place-title-std.xsl -->
@@ -658,7 +614,7 @@
     </xsl:template>
     <xsl:template name="title">
         <xsl:apply-templates select="t:title[1]"/>
-        <xsl:if test="t:title[@level='m'] or t:birth or t:death or t:floruit">
+        <xsl:if test="t:title[@level='m'][not(position()=1)] or t:birth or t:death or t:floruit">
             <span lang="en" class="type" style="padding-left:1em;">
                 <xsl:text>(</xsl:text>
                 <xsl:for-each select="t:title[@level='m' or @level='s']">
@@ -703,16 +659,14 @@
         <div class="citationinfo">
             <h3>How to Cite This Entry</h3>
             <div id="citation-note" class="well">
-                <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
+               <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
                 <div class="collapse" id="showcit">
                     <div id="citation-bibliography">
                         <h4>Bibliography:</h4>
+                        <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt"/>
                         <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
                     </div>
-                    <div id="about">
-                        <h3>About this Entry</h3>
-                        <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
-                    </div>
+                    <xsl:call-template name="aboutEntry"/>
                     <div id="license">
                         <h3>Copyright and License for Reuse</h3>
                         <div>
@@ -731,6 +685,17 @@
                 </div>
                 <a class="togglelink pull-right btn-link" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide citation">Show full citation information...</a>
             </div>
+        </div>
+    </xsl:template>
+    <xsl:template match="t:srophe-about">
+        <div id="citation-note" class="well">
+        <xsl:call-template name="aboutEntry"/>
+        </div>
+    </xsl:template>
+    <xsl:template name="aboutEntry">
+        <div id="about">
+            <h3>About this Entry</h3>
+            <xsl:apply-templates select="/descendant::t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
         </div>
     </xsl:template>
     <xsl:template name="sources">
@@ -885,6 +850,7 @@
                 <div class="section indent">
                     <xsl:apply-templates mode="full"/>
                 </div>
+                <!--<xsl:call-template name="aboutEntry"/>-->
             </xsl:when>
             <xsl:otherwise>
                 <span class="section indent">

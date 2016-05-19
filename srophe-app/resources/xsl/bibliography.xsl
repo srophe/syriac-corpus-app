@@ -426,10 +426,13 @@
         <xsl:choose>
             <xsl:when test="@ref and starts-with(@ref, $editoruriprefix)">
                 <xsl:variable name="sought" select="substring-after(@ref, $editoruriprefix)"/>
-                <xsl:apply-templates select="document($editorssourcedoc)/descendant::t:body/t:listPerson[1]/t:person[@xml:id=$sought][1]" mode="footnote"/>
+                <xsl:if test="doc-available($editorssourcedoc)">
+                    <xsl:apply-templates select="document($editorssourcedoc)/descendant::t:body/t:listPerson[1]/t:person[@xml:id=$sought][1]" mode="footnote"/>
+                </xsl:if>
             </xsl:when>
             <xsl:otherwise>
-                <span class="{local-name()}">
+                <!--<span class="{local-name(replace($editorssourcedoc,$base-uri,$nav-base))}">-->
+                <span>
                     <xsl:choose>
                         <xsl:when test="t:persName[starts-with(@xml:lang,'en')]">
                             <xsl:apply-templates select="t:persName[starts-with(@xml:lang,'en')][1]" mode="footnote"/>
@@ -456,7 +459,9 @@
             <xsl:when test="@ref and starts-with(@ref, $editoruriprefix)">
                 <xsl:variable name="sought" select="substring-after(@ref, $editoruriprefix)"/>
                 <!-- grab editors.xml and process appropriate elements based in ref # -->
-                <xsl:apply-templates select="document($editorssourcedoc)/descendant::t:body/t:listPerson[1]/t:person[@xml:id=$sought][1]" mode="lastname-first"/>
+                <xsl:if test="doc-available($editorssourcedoc)">
+                    <xsl:apply-templates select="document($editorssourcedoc)/descendant::t:body/t:listPerson[1]/t:person[@xml:id=$sought][1]" mode="lastname-first"/>
+                </xsl:if>
             </xsl:when>
             <!-- otherwise processes name as exists in place page -->
             <xsl:otherwise>
@@ -665,9 +670,8 @@
             </xsl:if>
         </xsl:if>
     </xsl:template>
-    
     <xsl:template match="t:title" mode="full">
-        <p class="indent">
+        <p>
             <span class="srp-label">Title: </span>
             <xsl:if test="parent::t:analytic">
                 <xsl:text>"</xsl:text>
@@ -763,9 +767,8 @@
             </xsl:choose>
         </span>
     </xsl:template>
-    
     <xsl:template match="t:idno" mode="full">
-        <p class="indent">
+        <p>
             <span class="srp-label">
                 <xsl:choose>
                     <xsl:when test="@type='URI'">URI: </xsl:when>
@@ -774,7 +777,9 @@
             </span>
             <xsl:choose>
                 <xsl:when test="@type='URI'">
-                    <a href="{text()}"><xsl:value-of select="text()"/></a>
+                    <a href="{text()}">
+                        <xsl:value-of select="text()"/>
+                    </a>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates/>
@@ -784,7 +789,7 @@
     </xsl:template>
     <xsl:template match="t:imprint" mode="full">
         <xsl:for-each select="child::*">
-            <p class="indent">
+            <p>
                 <span class="srp-label">
                     <xsl:choose>
                         <xsl:when test="self::t:publisher">Publisher: </xsl:when>
@@ -794,45 +799,55 @@
                 </span>
                 <xsl:choose>
                     <xsl:when test="@ref">
-                        <a href="{@ref}"><xsl:apply-templates/></a>
+                        <a href="{@ref}">
+                            <xsl:apply-templates/>
+                        </a>
                     </xsl:when>
-                    <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
+                    <xsl:otherwise>
+                        <xsl:apply-templates/>
+                    </xsl:otherwise>
                 </xsl:choose>
-            </p>    
+            </p>
         </xsl:for-each>
     </xsl:template>
     <xsl:template match="t:biblScope" mode="full">
-            <p class="indent">
-                <span class="srp-label">
-                    <xsl:choose>
-                        <xsl:when test="@unit = 'pp'">Pages: </xsl:when>
-                        <xsl:when test="@unit = 'vol'">Volume: </xsl:when>
-                        <xsl:when test="@unit = 'entry'">Entry: </xsl:when>
-                        <xsl:when test="@unit = 'col' or @unit = 'column'">Column: </xsl:when>
-                        <xsl:when test="@unit = 'part'">Part: </xsl:when>
-                        <xsl:when test="@unit = 'series'">Series: </xsl:when>
-                        <xsl:when test="@unit = 'issue'">Issue: </xsl:when>
-                        <xsl:when test="@unit = 'tomus'">Tome: </xsl:when>
-                        <xsl:when test="@unit = 'fasc'">Pages: </xsl:when>
-                        <xsl:when test="@unit = 'pp'">Fasicule: </xsl:when>
-                        <xsl:when test="@type = 'vol'">Volume: </xsl:when>
-                        <xsl:when test="@type = 'page'">Pages: </xsl:when>
-                        <xsl:otherwise><xsl:value-of select="@unit"/></xsl:otherwise>
-                    </xsl:choose>
-                </span>
-                <xsl:apply-templates mode="full"/>
-            </p>    
+        <p>
+            <span class="srp-label">
+                <xsl:choose>
+                    <xsl:when test="@unit = 'pp'">Pages: </xsl:when>
+                    <xsl:when test="@unit = 'vol'">Volume: </xsl:when>
+                    <xsl:when test="@unit = 'entry'">Entry: </xsl:when>
+                    <xsl:when test="@unit = 'col' or @unit = 'column'">Column: </xsl:when>
+                    <xsl:when test="@unit = 'part'">Part: </xsl:when>
+                    <xsl:when test="@unit = 'series'">Series: </xsl:when>
+                    <xsl:when test="@unit = 'issue'">Issue: </xsl:when>
+                    <xsl:when test="@unit = 'tomus'">Tome: </xsl:when>
+                    <xsl:when test="@unit = 'fasc'">Pages: </xsl:when>
+                    <xsl:when test="@unit = 'pp'">Fasicule: </xsl:when>
+                    <xsl:when test="@type = 'vol'">Volume: </xsl:when>
+                    <xsl:when test="@type = 'page'">Pages: </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@unit"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </span>
+            <xsl:apply-templates mode="full"/>
+        </p>
     </xsl:template>
     <xsl:template match="t:ref" mode="full">
-        <p class="indent">
+        <p>
             <span class="srp-label">See Also: </span>
             <a href="@target">
                 <xsl:choose>
-                    <xsl:when test="text()"><xsl:value-of select="text()"/></xsl:when>
-                    <xsl:otherwise><xsl:value-of select="@target"/></xsl:otherwise>
+                    <xsl:when test="text()">
+                        <xsl:value-of select="text()"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@target"/>
+                    </xsl:otherwise>
                 </xsl:choose>
             </a>
-        </p>    
+        </p>
     </xsl:template>
     <!-- Templates for full bibl display -->
     <xsl:template match="t:biblStruct" mode="full">
@@ -840,22 +855,27 @@
     </xsl:template>
     <xsl:template match="t:analytic" mode="full">
         <h4>Article</h4>
-        <xsl:apply-templates select="t:title" mode="full"/>
-        <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
+        <div class="indent">
+            <xsl:apply-templates select="t:title" mode="full"/>
+            <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>            
+        </div>
     </xsl:template>
     <xsl:template match="t:monogr" mode="full">
         <h4>Publication</h4>
+        <div class="indent">
         <xsl:apply-templates select="t:title" mode="full"/>
         <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
+        </div>
     </xsl:template>
     <xsl:template match="t:series" mode="full">
         <h4>Series</h4>
+        <div class="indent">
         <xsl:apply-templates select="t:title" mode="full"/>
         <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
+        </div>
     </xsl:template>
-
     <xsl:template match="*" mode="full">
-        <p class="indent">
+        <p>
             <span class="srp-label">
                 <xsl:value-of select="concat(upper-case(substring(name(.),1,1)),substring(name(.),2))"/>: </span>
             <xsl:apply-templates mode="footnote"/>
