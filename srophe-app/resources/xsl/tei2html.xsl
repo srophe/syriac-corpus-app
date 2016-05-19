@@ -565,8 +565,6 @@
     <xsl:template match="t:person[ancestor::t:factoid]">
         <xsl:apply-templates/>
     </xsl:template>
-    <!-- suppress bibl -->
-    <xsl:template match="t:bibl" mode="title"/>
     <xsl:template name="h1">
         <div class="row title">
             <h1 class="col-md-8">
@@ -782,6 +780,8 @@
             </xsl:if>
         </li>
     </xsl:template>
+    <!-- suppress bibl -->
+    <xsl:template match="t:bibl" mode="title"/>
     <xsl:template match="t:bibl">
         <xsl:choose>
             <xsl:when test="parent::t:note">
@@ -844,7 +844,7 @@
             <xsl:when test="parent::t:body">
                 <div class="well">
                     <h4>Preferred Citation</h4>
-                    <xsl:apply-templates mode="footnote"/>
+                    <xsl:apply-templates mode="footnote"/>.
                 </div>
                 <h3>Full Citation Information</h3>
                 <div class="section indent">
