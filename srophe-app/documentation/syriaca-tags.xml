@@ -17,11 +17,11 @@
                 <editor role="creator" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</editor>
                 <respStmt>
                     <resp>Taxonomy conceptualization by</resp>
-                    <name ref="http://syriaca.org/editors.xml#dmichelson">David A. Michelson</name>
+                    <name ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</name>
                 </respStmt>
                 <respStmt>
                     <resp>Taxonomy editing, implementation, and XML encoding by</resp>
-                    <name ref="http://syriaca.org/editors.xml#ngibson">Nathan P. Gibson</name>
+                    <name ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
                 </respStmt>
             </titleStmt>
             <editionStmt>
@@ -78,7 +78,7 @@
             </classDecl>
         </encodingDesc>
         <revisionDesc>
-            <change when="2016-05-18" who="http://syriaca.org/editors.xml#ngibson">CREATED: syriaca-tags.xml</change>
+            <change when="2016-05-18" who="http://syriaca.org/documentation/editors.xml#ngibson">CREATED: syriaca-tags.xml</change>
         </revisionDesc>
     </teiHeader>
     <text>

@@ -319,7 +319,7 @@
     <xsl:param name="data-root" select="'/db/apps/srophe-data'"/>
     <xsl:param name="app-root" select="'/db/apps/srophe'"/>
     <xsl:param name="normalization">NFKC</xsl:param>
-    <xsl:param name="editoruriprefix">http://syriaca.org/editors.xml#</xsl:param>
+    <xsl:param name="editoruriprefix">http://syriaca.org/documentation/editors.xml#</xsl:param>
     <xsl:variable name="editorssourcedoc" select="concat($app-root,'/documentation/editors.xml')"/>
     <xsl:variable name="resource-id">
         <xsl:choose>
