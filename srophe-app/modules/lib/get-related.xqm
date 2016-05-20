@@ -109,7 +109,7 @@ return
                 let $subject-idno := replace($parent/descendant::tei:idno[1],'/tei','')
                 order by $sort collation "?lang=en&lt;syr&amp;decomposition=full"
                 return 
-                   <span class="sh" style="font-weight:normal; padding-right:.5em;">{global:tei2html($headword)}</span>
+                   <span class="sh pers-label badge">{global:tei2html($headword)}</span>
                 (:
                     <a href="{replace($idno,$global:base-uri,$global:app-root)}">{
                     (:global:tei2html($headword):)

@@ -317,10 +317,6 @@ td {
   height: 0px;
 }
 
-.title-monographic {
-	font-style: italic;
-}
-
 .heading-inline {
 	font-weight: bold;
 }
@@ -329,7 +325,10 @@ td {
 .placeName {
  font-weight: bold;
 }
-
+/* Subject headings */
+.sh {margin-right:.5em; margin-bottom: .5em; line-height:14px; font-weight:normal;}
+.sh .placeName, .sh .pers-label {font-weight:normal;}
+.sh .footnote-refs{display:none;}
 /* styles for languages and scripts */
 
 :lang(en) {
@@ -642,7 +641,15 @@ p.single-space{padding:.25em;}
 .teiDocs {padding:.25em; border-bottom:1px solid #eee;}
 
 /* Citation styles */
-.title-journal {font-style:italic;}
+/*
+analytic
+monographic
+journal
+series
+unpublished
+*/
+.title-journal, .title-monographic{font-style:italic;}
+
 
 /* Facet styles */
 .label-facet {background-color:#eee; color:#666; font-weight:normal; margin:.25em; display:inline-block;}
