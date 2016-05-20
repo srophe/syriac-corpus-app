@@ -132,7 +132,7 @@ declare function global:get-rec($id as xs:string){
 declare function global:parse-name($name){
 if($name/child::*) then 
     string-join(for $part in $name/child::*
-    order by $part/@sort ascending, $part/text() descending
+    order by $part/@sort ascending, string-join($part/descendant-or-self::text(),' ') descending
     return $part/text(),' ')
 else $name/text()
 };
