@@ -778,7 +778,7 @@
             <xsl:choose>
                 <xsl:when test="@type='URI'">
                     <a href="{text()}">
-                        <xsl:value-of select="text()"/>
+                        <xsl:value-of select="text()"/>&#160;<span class="glyphicon glyphicon-book" aria-hidden="true"/>
                     </a>
                 </xsl:when>
                 <xsl:otherwise>
@@ -837,7 +837,7 @@
     <xsl:template match="t:ref" mode="full">
         <p>
             <span class="srp-label">See Also: </span>
-            <a href="@target">
+            <a href="@target"> 
                 <xsl:choose>
                     <xsl:when test="text()">
                         <xsl:value-of select="text()"/>
@@ -846,6 +846,7 @@
                         <xsl:value-of select="@target"/>
                     </xsl:otherwise>
                 </xsl:choose>
+                &#160;<span class="glyphicon glyphicon-book" aria-hidden="true"/>
             </a>
         </p>
     </xsl:template>
@@ -857,21 +858,21 @@
         <h4>Article</h4>
         <div class="indent">
             <xsl:apply-templates select="t:title" mode="full"/>
-            <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>            
+            <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
         </div>
     </xsl:template>
     <xsl:template match="t:monogr" mode="full">
         <h4>Publication</h4>
         <div class="indent">
-        <xsl:apply-templates select="t:title" mode="full"/>
-        <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
+            <xsl:apply-templates select="t:title" mode="full"/>
+            <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
         </div>
     </xsl:template>
     <xsl:template match="t:series" mode="full">
         <h4>Series</h4>
         <div class="indent">
-        <xsl:apply-templates select="t:title" mode="full"/>
-        <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
+            <xsl:apply-templates select="t:title" mode="full"/>
+            <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
         </div>
     </xsl:template>
     <xsl:template match="*" mode="full">
