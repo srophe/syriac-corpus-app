@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" 
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" 
-    exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
   
   <!-- ================================================================== 
        Copyright 2013 New York University
@@ -52,7 +49,8 @@
           Endowment for the Humanities.
        
        ================================================================== -->
-    <xsl:variable name="uri" select="substring-before(//t:publicationStmt/t:idno[@type='URI'],'/tei')"/>
+    <xsl:variable name="uri" select="replace(//t:publicationStmt/t:idno[@type='URI'][1],'/tei','')"/>
+    
 <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      generate a footnote for the matched titleStmt element
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -167,7 +165,7 @@
         <p>
             <span class="heading-inline">Entry Title:</span>
             <xsl:text> </xsl:text>
-            <xsl:apply-templates select="t:title[@level='a'][1]" mode="footnote"/>
+            <xsl:apply-templates select="t:title[1]" mode="footnote"/>
         </p>
         <!--
         <p>
