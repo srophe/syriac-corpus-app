@@ -115,6 +115,7 @@ declare function global:display-recs-short-view($node, $lang) as node()*{
     </parameters>
     )
 };
+
 (:
  : Generic get record function
 :)
@@ -125,4 +126,30 @@ declare function global:get-rec($id as xs:string){
     else 
         for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI
         return $rec  
+};
+
+(: Browse and search sort functions :)
+declare function global:parse-name($name){
+if($name/child::*) then 
+    string-join(for $part in $name/child::*
+    order by $part/@sort ascending, $part/text() descending
+    return $part/text(),' ')
+else $name/text()
+};
+
+(:~
+ : Strips english titles of non-sort characters as established by Syriaca.org
+ : @param $titlestring 
+ :)
+declare function global:build-sort-string($titlestring as xs:string?, $lang as xs:string?) as xs:string* {
+    if($lang = 'ar') then global:ar-sort-string($titlestring)
+    else replace(replace(replace(replace($titlestring,'^\s+',''),'^al-',''),'[‘ʻʿ]',''),'On ','')
+};
+
+(:~
+ : Strips Arabic titles of non-sort characters as established by Syriaca.org
+ : @param $titlestring 
+ :)
+declare function global:ar-sort-string($titlestring as xs:string?) as xs:string* {
+    replace(replace(replace(replace($titlestring,'^\s+',''),'^(\sابن|\sإبن|\sبن)',''),'(ال|أل|ٱل)',''),'^[U064B - U0656]','')
 };

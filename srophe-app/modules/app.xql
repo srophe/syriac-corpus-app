@@ -177,7 +177,10 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                 {global:tei2html($model("data")/descendant::tei:body)} 
             </div>
             <div class="col-md-4 column2">
-                {rel:cited($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')], $app:start,$app:perpage)}  
+                {(
+                rel:subject-headings($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')]),
+                rel:cited($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')], $app:start,$app:perpage)
+                )}  
             </div>
         </div>        
     else 
