@@ -9,17 +9,17 @@
                 <funder>The National Endowment for the Humanities</funder>
                 <funder>The International Balzan Prize Foundation</funder>
                 <principal>David A. Michelson</principal>
-                <editor role="general" ref="http://syriaca.org/editors.xml#tcarlson">Thomas A. Carlson</editor>
-                <editor role="general" ref="http://syriaca.org/editors.xml#dmichelson">David A. Michelson</editor>
-                <editor role="general" ref="http://syriaca.org/editors.xml#ngibson">Nathan P. Gibson</editor>
-                <editor role="creator" ref="http://syriaca.org/editors.xml#tcarlson">Thomas A. Carlson</editor>
+                <editor role="general" ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</editor>
+                <editor role="general" ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</editor>
+                <editor role="general" ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</editor>
+                <editor role="creator" ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</editor>
                 <respStmt>
                     <resp>Taxonomy compiled by</resp>
-                    <name ref="http://syriaca.org/editors.xml#tcarlson">Thomas A. Carlson</name>
+                    <name ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</name>
                 </respStmt>
                 <respStmt>
                     <resp>Taxonomy format conversion by</resp>
-                    <name ref="http://syriaca.org/editors.xml#ngibson">Nathan P. Gibson</name>
+                    <name ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
                 </respStmt>
             </titleStmt>
             <editionStmt>
@@ -225,8 +225,8 @@
             </classDecl>
         </encodingDesc>
         <revisionDesc>
-            <change when="2016-05-03" who="http://syriaca.org/editors.xml#ngibson">Converted from category format in body to taxonomy format in header.</change>
-            <change when="2013-11-06" who="http://syriaca.org/editors.xml#tcarlson">CREATED: confessions.xml</change>
+            <change when="2016-05-03" who="http://syriaca.org/documentation/editors.xml#ngibson">Converted from category format in body to taxonomy format in header.</change>
+            <change when="2013-11-06" who="http://syriaca.org/documentation/editors.xml#tcarlson">CREATED: confessions.xml</change>
         </revisionDesc>
     </teiHeader>
     <text>

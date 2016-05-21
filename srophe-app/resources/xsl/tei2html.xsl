@@ -85,7 +85,7 @@
     <xsl:param name="base-uri" select="'/db/apps/srophe'"/>
     <!-- Hard coded values-->
     <xsl:param name="normalization">NFKC</xsl:param>
-    <xsl:param name="editoruriprefix">http://syriaca.org/editors.xml#</xsl:param>
+    <xsl:param name="editoruriprefix">http://syriaca.org/documentation/editors.xml#</xsl:param>
     <xsl:variable name="editorssourcedoc" select="concat($app-root,'/documentation/editors.xml')"/>
     <!-- Resource id -->
     <xsl:variable name="resource-id">
