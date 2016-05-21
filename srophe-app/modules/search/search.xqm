@@ -76,7 +76,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
          }
 };
 
-(:~
+(:~   
  : Builds general search string from main syriaca.org page and search api.
 :)
 declare function search:query-string($collection as xs:string?) as xs:string?{
@@ -99,6 +99,7 @@ concat("collection('",$global:data-root,"')//tei:body",
     search:idno(),"/ancestor::tei:TEI"
     )
 };
+
 
 declare function search:persName(){
     if($search:persName != '') then 

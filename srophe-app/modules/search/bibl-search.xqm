@@ -16,6 +16,7 @@ declare variable $bibls:q {request:get-parameter('q', '')};
 declare variable $bibls:title {request:get-parameter('title', '')};
 declare variable $bibls:author {request:get-parameter('author', '')};
 declare variable $bibls:idno {request:get-parameter('idno', '')};
+declare variable $bibls:subject {request:get-parameter('subject', '')};
 declare variable $bibls:id-type {request:get-parameter('id-type', '')};
 declare variable $bibls:pub-place {request:get-parameter('pub-place', '')};
 declare variable $bibls:publisher {request:get-parameter('publisher', '')};
@@ -72,12 +73,26 @@ declare function bibls:date() as xs:string? {
     else ()  
 };
 
-(:~
+declare function bibls:subject() as xs:string?{
+    if($bibls:subject != '') then 
+        concat("collection('",$global:data-root,"')//tei:idno[.='",$bibls:subject,"']/ancestor::tei:person/descendant::tei:bibl[child::tei:ptr]")
+    else ()  
+};
+
+(:~     
  : Build query string to pass to search.xqm 
 :)
-declare function bibls:query-string() as xs:string? {
+declare function bibls:query-string() as xs:string? { 
+if($bibls:subject != '') then bibls:subject()
+else
  concat("collection('",$global:data-root,"/bibl/tei')//tei:body",
-    bibls:keyword(),bibls:title(),bibls:author(),bibls:pub-place(),bibls:publisher(),bibls:date(),bibls:idno()
+    bibls:keyword(),
+    bibls:title(),
+    bibls:author(),
+    bibls:pub-place(),
+    bibls:publisher(),
+    bibls:date(),
+    bibls:idno()
     )
 };
 

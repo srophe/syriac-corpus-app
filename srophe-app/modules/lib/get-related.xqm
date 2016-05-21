@@ -68,9 +68,19 @@ declare function rel:construct-relation-text($related){
     </span>
 };
 
+declare function rel:get-cited($idno){
+for $recs in collection($global:data-root)//tei:ptr[@target=replace($idno,'/tei','')]
+let $parent := $recs/ancestor::tei:TEI
+let $headword := $parent/descendant::tei:body/descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')]
+let $sort := global:parse-name($headword)
+let $sort := global:build-sort-string($sort,'')
+order by $sort collation "?lang=en&lt;syr&amp;decomposition=full"
+return $recs
+};
+
 declare function rel:cited($idno, $start,$perpage){
 let $perpage := if($perpage) then $perpage else 5
-let $hits := collection($global:data-root)//tei:ptr[@target=replace($idno,'/tei','')]
+let $hits := rel:get-cited($idno)
 let $count := count($hits)
 return
     if(exists($hits)) then 
@@ -95,14 +105,7 @@ return
 };
 
 declare function rel:subject-headings($idno){
-let $hits := 
-          for $recs in collection($global:data-root)//tei:ptr[@target=replace($idno,'/tei','')]
-          let $parent := $recs/ancestor::tei:TEI
-          let $headword := $parent/descendant::tei:body/descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')]
-          let $sort := global:parse-name($headword)
-          let $sort := global:build-sort-string($sort,'')
-          order by $sort collation "?lang=en&lt;syr&amp;decomposition=full"
-          return $recs
+let $hits := rel:get-cited($idno)
 let $total := count($hits)
 return 
     if(exists($hits)) then 
@@ -116,7 +119,7 @@ return
                 let $headword := $parent/descendant::tei:body/descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')]
                 let $subject-idno := replace($parent/descendant::tei:idno[1],'/tei','')
                 return 
-                   <span class="sh pers-label badge">{global:tei2html($headword)}</span>,
+                   <span class="sh pers-label badge">{global:tei2html($headword)} <a href="search.html?subject={$subject-idno}" class="sh-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></span>,
                 if($total gt 20) then 
                     <div>
                         
@@ -127,7 +130,7 @@ return
                             let $headword := $parent/descendant::tei:body/descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')]
                             let $subject-idno := replace($parent/descendant::tei:idno[1],'/tei','')
                             return 
-                               <span class="sh pers-label badge">{global:tei2html($headword)}</span>
+                               <span class="sh pers-label badge">{global:tei2html($headword)} <a href="search.html?subject={$subject-idno}" class="sh-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></span>
                             }
                         </div>
                         <a class="togglelink pull-right btn-link" data-toggle="collapse" data-target="#showAllSH" data-text-swap="Hide"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Show All </a>

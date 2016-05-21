@@ -92,6 +92,9 @@
                 <xsl:when test="descendant::t:idno[@type='URI'][starts-with(.,$base-uri)]">
                     <xsl:value-of select="replace(descendant::t:idno[@type='URI'][starts-with(.,$base-uri)][1],'/tei','')"/>
                 </xsl:when>
+                <xsl:when test="child::t:bibl or self::t:bibl">
+                    <xsl:value-of select="replace(descendant::t:ptr/@target,$base-uri,$nav-base)"/>
+                </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="descendant-or-self::t:div[1]/@uri"/>
                 </xsl:otherwise>
@@ -371,12 +374,14 @@
                             </xsl:if>
                         </xsl:for-each>
                     </xsl:if>
-                    <span class="results-list-desc uri">
-                        <span class="srp-label">URI: </span>
-                        <a href="{replace($uri,$base-uri,$nav-base)}">
-                            <xsl:value-of select="$uri"/>
-                        </a>
-                    </span>
+                    <xsl:if test="$uri != ''">
+                        <span class="results-list-desc uri">
+                            <span class="srp-label">URI: </span>
+                            <a href="{replace($uri,$base-uri,$nav-base)}">
+                                <xsl:value-of select="$uri"/>
+                            </a>
+                        </span>
+                    </xsl:if>
                 </div>
             </xsl:otherwise>
         </xsl:choose>

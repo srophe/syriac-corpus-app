@@ -327,6 +327,7 @@ td {
 }
 /* Subject headings */
 .sh {margin-right:.5em; margin-bottom: .5em; line-height:14px; font-weight:normal;}
+.sh-search {text-decoration:none; color:white; margin-left:.5em;}
 .sh .placeName, .sh .pers-label {font-weight:normal;}
 .sh .footnote-refs{display:none;}
 /* styles for languages and scripts */
