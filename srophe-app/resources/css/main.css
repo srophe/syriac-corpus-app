@@ -282,7 +282,7 @@ td {
 
 .results-list {margin-left: 25px; border-bottom:1px dotted #eee; padding-top:.5em}
 .results-list-desc{display:block;}
-.results-list-desc .pers-label {background-color:#999;  font-weight:400; margin-right:4px;}
+.pers-label {background-color:#999;  font-weight:400; margin-right:4px;}
 .results-list-desc .pers-label .footnote-refs {display:none;}
 /* Styles for record short view under relation div*/
 .relation .results-list-desc.uri{margin-left:0;}

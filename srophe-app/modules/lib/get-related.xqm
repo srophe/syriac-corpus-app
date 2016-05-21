@@ -95,21 +95,48 @@ return
 };
 
 declare function rel:subject-headings($idno){
-let $hits := collection($global:data-root)//tei:ptr[@target=replace($idno,'/tei','')]
+let $hits := 
+          for $recs in collection($global:data-root)//tei:ptr[@target=replace($idno,'/tei','')]
+          let $parent := $recs/ancestor::tei:TEI
+          let $headword := $parent/descendant::tei:body/descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')]
+          let $sort := global:parse-name($headword)
+          let $sort := global:build-sort-string($sort,'')
+          order by $sort collation "?lang=en&lt;syr&amp;decomposition=full"
+          return $recs
+let $total := count($hits)
 return 
     if(exists($hits)) then 
         <div class="well relation">
             <h4>Subject Headings:</h4> 
             {
-                for $recs in $hits
+                <div>
+                {(
+                for $recs in subsequence($hits,1,20)
                 let $parent := $recs/ancestor::tei:TEI
                 let $headword := $parent/descendant::tei:body/descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')]
-                let $sort := global:parse-name($headword)
-                let $sort := global:build-sort-string($sort,'')
                 let $subject-idno := replace($parent/descendant::tei:idno[1],'/tei','')
-                order by $sort collation "?lang=en&lt;syr&amp;decomposition=full"
                 return 
-                   <span class="sh pers-label badge">{global:tei2html($headword)}</span>
+                   <span class="sh pers-label badge">{global:tei2html($headword)}</span>,
+                if($total gt 20) then 
+                    <div>
+                        
+                        <div class="collapse" id="showAllSH">
+                            {
+                            for $recs in subsequence($hits,20,$total)
+                            let $parent := $recs/ancestor::tei:TEI
+                            let $headword := $parent/descendant::tei:body/descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')]
+                            let $subject-idno := replace($parent/descendant::tei:idno[1],'/tei','')
+                            return 
+                               <span class="sh pers-label badge">{global:tei2html($headword)}</span>
+                            }
+                        </div>
+                        <a class="togglelink pull-right btn-link" data-toggle="collapse" data-target="#showAllSH" data-text-swap="Hide"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Show All </a>
+                    </div>                  
+                  else ()
+                  )}
+                 </div>
+                  
+
                 (:
                     <a href="{replace($idno,$global:base-uri,$global:app-root)}">{
                     (:global:tei2html($headword):)
