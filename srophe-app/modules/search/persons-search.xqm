@@ -78,7 +78,7 @@ let $collection := if($persons:coll = 'sbd' ) then 'The Syriac Biographical Dict
                    else if($coll = 'authors' ) then 'A Guide to Syriac Authors'
                    else ()
 return                    
-    if($collection != '') then concat("[ancestor::tei:TEI/descendant::tei:titleStmt/tei:title/text() = '",$collection,"']")
+    if($collection != '') then concat("[ancestor::tei:TEI/descendant::tei:title/text() = '",$collection,"']")
     else ()
 };
 
