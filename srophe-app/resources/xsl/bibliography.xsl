@@ -837,7 +837,7 @@
     <xsl:template match="t:ref" mode="full">
         <p>
             <span class="srp-label">See Also: </span>
-            <a href="@target"> 
+            <a href="{@target}">
                 <xsl:choose>
                     <xsl:when test="text()">
                         <xsl:value-of select="text()"/>
