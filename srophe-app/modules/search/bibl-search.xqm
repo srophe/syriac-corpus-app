@@ -75,7 +75,7 @@ declare function bibls:date() as xs:string? {
 
 declare function bibls:subject() as xs:string?{
     if($bibls:subject != '') then 
-        concat("collection('",$global:data-root,"')//tei:idno[.='",$bibls:subject,"']/ancestor::tei:person/descendant::tei:bibl[child::tei:ptr]")
+        concat("collection('",$global:data-root,"')//tei:idno[.='",$bibls:subject,"']/ancestor::tei:body/descendant::tei:bibl[child::tei:ptr]")
     else ()  
 };
 
