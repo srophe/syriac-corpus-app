@@ -657,7 +657,7 @@
         <div class="citationinfo">
             <h3>How to Cite This Entry</h3>
             <div id="citation-note" class="well">
-               <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
+                <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
                 <div class="collapse" id="showcit">
                     <div id="citation-bibliography">
                         <h4>Bibliography:</h4>
@@ -687,12 +687,19 @@
     </xsl:template>
     <xsl:template match="t:srophe-about">
         <div id="citation-note" class="well">
-        <xsl:call-template name="aboutEntry"/>
+            <xsl:call-template name="aboutEntry"/>
         </div>
     </xsl:template>
     <xsl:template name="aboutEntry">
         <div id="about">
-            <h3>About this Entry</h3>
+            <xsl:choose>
+                <xsl:when test="/descendant::t:idno[contains(.,'/bibl/')]">
+                    <h3>Credit for this Entry</h3>
+                </xsl:when>
+                <xsl:otherwise>
+                    <h3>About this Entry</h3>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:apply-templates select="/descendant::t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
         </div>
     </xsl:template>
@@ -744,7 +751,7 @@
             </xsl:when>
             <xsl:otherwise>
                 <span lang="{@xml:lang}">
-                <xsl:value-of select="."/>
+                    <xsl:value-of select="."/>
                 </span>
             </xsl:otherwise>
         </xsl:choose>

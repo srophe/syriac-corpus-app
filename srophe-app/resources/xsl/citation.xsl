@@ -175,7 +175,14 @@
         </p>
         -->
         <p>
-            <span class="heading-inline">Publication Date:</span>
+            <xsl:choose>
+                <xsl:when test="/descendant::t:idno[contains(.,'/bibl/')]">
+                    <span class="heading-inline">Date Entry Added: </span>
+                </xsl:when>
+                <xsl:otherwise>
+                    <span class="heading-inline">Publication Date: </span>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:text> </xsl:text>
             <xsl:for-each select="../t:publicationStmt/t:date[1]">
                 <xsl:choose>
