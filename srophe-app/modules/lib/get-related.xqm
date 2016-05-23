@@ -3,15 +3,17 @@ xquery version "3.0";
 module namespace rel="http://syriaca.org/related";
 import module namespace page="http://syriaca.org/page" at "paging.xqm";
 import module namespace global="http://syriaca.org/global" at "global.xqm";
+import module namespace functx="http://www.functx.com";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
 
 
 (: Get names/titles for each uri :)
-declare function rel:get-names($uris as xs:string*) as element(a)*{
+declare function rel:get-names($uris as xs:string*, $idno) as element(a)*{
     for $uri in tokenize($uris,' ')
     let $rec :=  global:get-rec($uri)
     let $names := $rec
+    where $uri != $idno
     return 
        global:display-recs-short-view($names, '')
 };
@@ -31,13 +33,13 @@ declare function rel:get-names-json($uris as xs:string?) as node()*{
 };
 
 declare function rel:make-rel-string($relationships as xs:string*) as xs:string*{
-    for $r in  $relationships
+    for $r in $relationships
     return concat(substring-after($r,':'),' ')
 };
 
 (: Build list with appropriate punctuation :)
-declare function rel:list-names($uris as xs:string*){
-    rel:get-names($uris)
+declare function rel:list-names($uris as xs:string*, $idno as xs:string?){
+    rel:get-names($uris, $idno)
 };
 
 (: Subject type, based on uri of @passive uris:)
@@ -58,12 +60,12 @@ else concat(rel:get-subject-type($passive),' ', replace($name,'-|:',' '),' ')
 };
 
 (: Subject (passive) predicate (name) object(active) :)
-declare function rel:construct-relation-text($related){
+declare function rel:construct-relation-text($related,$idno){
     <span class="relation">
           {(
             rel:decode-relatiohship($related/@name/string(),$related/@passive/string(),$related/@mutual/string()),
-            rel:list-names(($related/@active/string(),$related/@passive/string(),$related/@mutual/string()))
-            )}       
+            rel:list-names(string-join(($related/@active/string(),$related/@passive/string(),$related/@mutual/string()),' '),$idno)
+            )}
     </span>
 };
 
@@ -162,7 +164,26 @@ declare function rel:build-relationships($node){
         group by $relationship := $related/@name
         return 
             <div>{(
-                rel:construct-relation-text($related),
+                rel:construct-relation-text($related,''),
+                <span class="results-list-desc">{$desc}</span>
+            )}</div>
+        }
+    </div>
+</div>
+};
+
+(: Main div for HTML display :)
+declare function rel:build-relationships($node,$idno){ 
+<div class="relation well">
+    <h3>Relationships</h3>
+    <div>
+    {   
+        for $related in $node/descendant-or-self::tei:relation 
+        let $desc := $related/tei:desc
+        group by $relationship := $related/@name
+        return 
+            <div>{(
+                rel:construct-relation-text($related,$idno),
                 <span class="results-list-desc">{$desc}</span>
             )}</div>
         }

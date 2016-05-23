@@ -244,7 +244,8 @@ declare function person:get-related($rec as node()*){
 :)
 declare %templates:wrap function person:relations($node as node(), $model as map(*)){
 if($model("data")//tei:relation) then 
-    rel:build-relationships($model("data")//tei:relation)
+    let $idno := replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+    return rel:build-relationships($model("data")//tei:relation, $idno)
 else ()
 };
 
