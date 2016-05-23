@@ -8,12 +8,12 @@ declare namespace html="http://www.w3.org/1999/xhtml";
 
 
 (: Get names/titles for each uri :)
-declare function rel:get-names($uris as xs:string?) as element(a)*{
+declare function rel:get-names($uris as xs:string*) as element(a)*{
     for $uri in tokenize($uris,' ')
     let $rec :=  global:get-rec($uri)
     let $names := $rec
     return 
-        global:display-recs-short-view($names, '')
+       global:display-recs-short-view($names, '')
 };
 
 (: Get names/titles for each uri :)
@@ -36,7 +36,7 @@ declare function rel:make-rel-string($relationships as xs:string*) as xs:string*
 };
 
 (: Build list with appropriate punctuation :)
-declare function rel:list-names($uris as xs:string?){
+declare function rel:list-names($uris as xs:string*){
     rel:get-names($uris)
 };
 
@@ -62,8 +62,7 @@ declare function rel:construct-relation-text($related){
     <span class="relation">
           {(
             rel:decode-relatiohship($related/@name/string(),$related/@passive/string(),$related/@mutual/string()),
-            rel:list-names($related/@passive/string())
-            (:rel:list-names($related/@active/string()):)
+            rel:list-names(($related/@active/string(),$related/@passive/string(),$related/@mutual/string()))
             )}       
     </span>
 };
@@ -151,17 +150,21 @@ return
     else ()
 
 };
+
 (: Main div for HTML display :)
 declare function rel:build-relationships($node){ 
 <div class="relation well">
     <h3>Relationships</h3>
     <div>
     {   
-        for $related in $node//tei:relation 
+        for $related in $node/descendant-or-self::tei:relation 
         let $desc := $related/tei:desc
         group by $relationship := $related/@name
         return 
-            <div>{rel:construct-relation-text($related)}</div>
+            <div>{(
+                rel:construct-relation-text($related),
+                <span class="results-list-desc">{$desc}</span>
+            )}</div>
         }
     </div>
 </div>

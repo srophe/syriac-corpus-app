@@ -7,6 +7,7 @@ module namespace person="http://syriaca.org/person";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace app="http://syriaca.org/templates" at "app.xql";
+import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
@@ -147,7 +148,6 @@ return
                         {person:get-related($data)}
                     </related-items>
                 </person>)
-
      else ()
 };
 
@@ -238,7 +238,17 @@ declare function person:get-related($rec as node()*){
                     </relation>    
 };   
 
-(:
+(: 
+ : Get relations 
+ : NOTE need to untangle get-related and get-related places. 
+:)
+declare %templates:wrap function person:relations($node as node(), $model as map(*)){
+if($model("data")//tei:relation) then 
+    rel:build-relationships($model("data")//tei:relation)
+else ()
+};
+
+(:~
  : Build map widget for realted places passed from person:get-related-places
  : @param $rec
  : Passes tei:geo data to geojson.xqm for correct geojson formatting.
