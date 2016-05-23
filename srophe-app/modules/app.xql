@@ -125,7 +125,7 @@ if($app:id != '') then
                        map {"data" :=   collection($global:data-root || "/spear/tei")//tei:div[@uri = $id]}
         else if(collection($global:data-root)//tei:idno[@type='URI'][. = $id]) then 
             if(collection($global:data-root)//tei:idno[@type='URI'][. = $id]/parent::*/descendant::tei:idno[@type='redirect']) then
-                let $redirect := replace(collection($global:data-root)//tei:idno[@type='URI'][. = $id]/parent::*/descendant::tei:idno[@type='redirect'][1]/text(),'/tei','')
+                let $redirect := replace(replace(collection($global:data-root)//tei:idno[@type='URI'][. = $id]/parent::*/descendant::tei:idno[@type='redirect'][1]/text(),'/tei',''),$global:base-uri,$global:nav-base)
                 return response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
             else map {"data" :=  collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}
         else response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html'))) 
