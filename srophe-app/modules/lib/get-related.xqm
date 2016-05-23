@@ -52,6 +52,8 @@ else ()
 
 (: Translate relationships into readable strings :)
 declare function rel:decode-relatiohship($name as xs:string*, $passive as xs:string*, $mutual as xs:string*){
+for $name in $name
+return
 if($name = 'dcterms:subject') then
     concat(rel:get-subject-type($passive), ' highlighted: ')
 else if($name = 'syriaca:commemorated') then
