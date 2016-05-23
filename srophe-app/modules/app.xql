@@ -114,7 +114,6 @@ if($app:id != '') then
         else if($collection = 'bibl') then concat('http://syriaca.org/bibl/',$app:id,'/tei')
         else $app:id
     return 
-    (:map {"data" :=  collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}:)
         if($collection = 'spear') then 
             if(starts-with($app:id,'http://syriaca.org/spear/')) then
                    map {"data" :=  collection($global:data-root || "/spear/tei")//tei:div[@uri = $app:id]}
@@ -126,11 +125,10 @@ if($app:id != '') then
                        map {"data" :=   collection($global:data-root || "/spear/tei")//tei:div[@uri = $id]}
         else if(collection($global:data-root)//tei:idno[@type='URI'][. = $id]) then 
             if(collection($global:data-root)//tei:idno[@type='URI'][. = $id]/parent::*/descendant::tei:idno[@type='redirect']) then
-                response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',collection($global:data-root)//tei:idno[@type='URI'][. = $id]/parent::*/descendant::tei:idno[@type='redirect']/text())))
+                let $redirect := replace(collection($global:data-root)//tei:idno[@type='URI'][. = $id]/parent::*/descendant::tei:idno[@type='redirect'][1]/text(),'/tei','')
+                return response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
             else map {"data" :=  collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}
         else response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html'))) 
-        (: DEBUGGING: concat('id: ', $id, ' app id :', $app:id, ' collection', $collection):)
-        
 else map {"data" := 'Page data'}    
 };
 
