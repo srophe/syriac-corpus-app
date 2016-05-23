@@ -3,7 +3,15 @@
     <index xmlns:tei="http://www.tei-c.org/ns/1.0">
         <fulltext default="none" attributes="no"/>
         <!-- Full text search configuration  -->
-        <lucene diacritics="no">
+        <lucene>
+            <analyzer class="org.exist.indexing.lucene.analyzers.NoDiacriticsStandardAnalyzer">
+                <param name="stopwords" type="org.apache.lucene.analysis.util.CharArraySet">
+                    <value>this</value>
+                    <value>and</value>
+                    <value>that</value>
+                </param>
+            </analyzer>
+            
             <!-- Does not currently search tei header info, other then title -->
             <!-- Should maybe not index placeName, location, state or event?-->
             <text qname="tei:body">
