@@ -28,8 +28,8 @@ let $end :=
 let $number-of-pages :=  xs:integer(ceiling($total-result-count div $perpage))
 let $current-page := xs:integer(($start + $perpage) div $perpage)
 (: get all parameters to pass to paging function, strip start parameter :)
-let $url-params := (replace(request:get-query-string(), '&amp;start=\d+', ''),'start=\d+','')
-let $param-string := if(empty($url-params)) then concat('?',$url-params,'&amp;start=') else '?start='        
+let $url-params := string-join(replace(replace(request:get-query-string(), '&amp;start=\d+', ''),'start=\d+',''),'')
+let $param-string := if($url-params != '') then concat('?',$url-params,'&amp;start=') else '?start='        
 let $pagination-links := 
     <div xmlns="http://www.w3.org/1999/xhtml">
         {

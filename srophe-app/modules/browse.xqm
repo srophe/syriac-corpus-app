@@ -1,5 +1,5 @@
 xquery version "3.0";
-(:~
+(:~  
  : Builds browse page for Syriac.org sub-collections 
  : Alphabetical English and Syriac Browse lists
  : Browse by type
@@ -10,6 +10,7 @@ xquery version "3.0";
 module namespace browse="http://syriaca.org/browse";
 import module namespace bs="http://syriaca.org/bs" at "browse-spear.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
+import module namespace page="http://syriaca.org/page" at "paging.xqm";
 import module namespace common="http://syriaca.org/common" at "search/common.xqm";
 import module namespace facets="http://syriaca.org/facets" at "lib/facets.xqm";
 import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
@@ -37,6 +38,7 @@ declare variable $browse:lang {request:get-parameter('lang', '')};
 declare variable $browse:view {request:get-parameter('view', '')};
 declare variable $browse:sort {request:get-parameter('sort', '')};
 declare variable $browse:date {request:get-parameter('date', '')};
+declare variable $browse:cited {request:get-parameter('date', '')};
 declare variable $browse:fq {request:get-parameter('fq', '')};
 declare variable $browse:start {request:get-parameter('start', 1) cast as xs:integer};
 declare variable $browse:perpage {request:get-parameter('perpage', 25) cast as xs:integer};
@@ -63,7 +65,13 @@ declare function browse:build-path($collection as xs:string?){
  : @param $collection collection name passed from html, should match data subdirectory name or tei series name
 :)
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string?){
-    map{"browse-data" := util:eval(browse:build-path($collection))}      
+    map{"browse-data" := 
+                        if($browse:view = 'all') then 
+                            for $hit in util:eval(browse:build-path($collection))
+                            let $title := $hit/descendant::tei:titleStmt/tei:title[1]/text()
+                            order by browse:build-sort-string($title) collation "?lang=en&lt;syr&amp;decomposition=full"
+                            return $hit                                                    
+                        else util:eval(browse:build-path($collection))}      
 };
 
 (:~
@@ -149,7 +157,8 @@ declare function browse:ar-sort(){
  :)
 declare function browse:build-sort-string($titlestring as xs:string?) as xs:string* {
     if($browse:lang = 'ar') then browse:ar-sort-string($titlestring)
-    else replace(replace(replace(replace($titlestring,'^\s+',''),'^al-',''),'[‘ʻʿ]',''),'On ','')
+    else replace($titlestring,'^\s+|^al-|[‘ʻʿ]|^On |^The |^A ','')
+    (:replace(replace(replace(replace(replace($titlestring,'^\s+',''),'^al-',''),'[‘ʻʿ]',''),'On ',''),'The ',''):)
 };
 
 (:~
@@ -238,6 +247,7 @@ let $data :=
         else if($browse:view = 'type') then browse:narrow-by-type($node, $model, $collection)   
         else if($browse:view = 'date') then browse:narrow-by-date($node, $model)
         else if($browse:view = 'map') then $model("browse-data")
+        else if($browse:view = 'all') then $model("browse-data")
         else browse:lang-filter($node, $model)
 return
     map{"browse-refine" := $data}
@@ -264,11 +274,27 @@ else if($browse:view = 'type' or $browse:view = 'date') then
             else <h3>Select Date</h3>  
         else ()}</div>)
 else if($browse:view = 'map') then browse:get-map($node, $model)
+else if($browse:view = 'all') then 
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-sm-12">{page:pageination($model("browse-refine"), $browse:start, $browse:perpage, false())}</div>
+        </div>
+        <div>
+            {
+                for $data in subsequence($model("browse-refine"), $browse:start,$browse:perpage)
+                return rec:display-recs-short-view($data, $browse:lang)
+            }
+        </div>
+    </div>
 else 
     <div class="col-md-12">
         { (
         if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),
-        browse:browse-abc-menu(),
+        if($browse:view = 'all') then 
+            <div class="row">
+                <div class="col-sm-12">{page:pageination($model("browse-refine"), $browse:start, $browse:perpage, false())}</div>
+            </div>
+        else browse:browse-abc-menu(),
         <h3>{(
             if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then 
                 (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) 
@@ -451,7 +477,7 @@ declare  %templates:wrap function browse:build-tabs-en($node, $model){
     </li>   
 };
 
-(:~
+(:~   
  : Browse Tabs - Syr
 :)
 declare  %templates:wrap function browse:build-tabs-syr($node, $model){
