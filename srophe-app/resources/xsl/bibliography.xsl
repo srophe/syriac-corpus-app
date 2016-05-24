@@ -444,7 +444,7 @@
                             <xsl:apply-templates mode="footnote"/>
                         </xsl:otherwise>
                     </xsl:choose>
-                    <xsl:text> </xsl:text>
+                    <!--<xsl:text> </xsl:text>-->
                 </span>
             </xsl:otherwise>
         </xsl:choose>
@@ -722,7 +722,7 @@
     <xsl:template match="t:idno | t:ref" mode="links">
         <xsl:variable name="ref">
             <xsl:choose>
-                <xsl:when test="self::t:ref">
+                <xsl:when test="self::t:ref/@target">
                     <xsl:value-of select="@target"/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -734,29 +734,30 @@
             <xsl:choose>
                 <xsl:when test="@type='zotero'"/>
                 <xsl:when test="starts-with($ref,$base-uri)">
-                    <a href="{replace($ref,$base-uri,$nav-base)}" title="Link to Syriaca.org Bibliographic Record" data-toggle="tooltip" data-placement="top">
+                    <a href="{replace($ref,$base-uri,$nav-base)}" title="Link to Syriaca.org Bibliographic Record" data-toggle="tooltip" data-placement="top" class="bibl-links">
                         <img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record"/>
                     </a>
                 </xsl:when>
                 <!-- glyphicon glyphicon-book -->
                 <xsl:when test="starts-with($ref,'http://www.worldcat.org/')">
-                    <a href="{$ref}" title="Link to Worldcat Bibliographic record" data-toggle="tooltip" data-placement="top">
-                        <span class="glyphicon glyphicon-book" aria-hidden="true"/>
+                    <a href="{$ref}" title="Link to Worldcat Bibliographic record" data-toggle="tooltip" data-placement="top" class="bibl-links">
+                        <!--<span class="glyphicon glyphicon-book" aria-hidden="true"/>-->
+                        <img src="{$nav-base}/resources/img/worldCat-logo.jpg" alt="Link to Worldcat Bibliographic record"/>
                     </a>
                 </xsl:when>
                 <xsl:when test="starts-with($ref,'http://catalog.hathitrust.org/')">
-                    <a href="{$ref}" title="Link to HathiTrust Bibliographic record" data-toggle="tooltip" data-placement="top">
-                        <span class="glyphicon glyphicon-book" aria-hidden="true"/>
+                    <a href="{$ref}" title="Link to HathiTrust Bibliographic record" data-toggle="tooltip" data-placement="top" class="bibl-links">
+                        <img src="{$nav-base}/resources/img/htrc_logo.jpg" alt="Link to HathiTrust Bibliographic record"/>
                     </a>
                 </xsl:when>
                 <xsl:when test="starts-with($ref,'http://digitale-sammlungen.ulb.uni-bonn.de')">
-                    <a href="{$ref}" title="Link to UniversitätBonn Bibliographic record" data-toggle="tooltip" data-placement="top">
+                    <a href="{$ref}" title="Link to UniversitätBonn Bibliographic record" data-toggle="tooltip" data-placement="top" class="bibl-links">
                         <span class="glyphicon glyphicon-book" aria-hidden="true"/>
                     </a>
                 </xsl:when>
                 <xsl:when test="starts-with($ref,'https://archive.org')">
-                    <a href="{$ref}" title="Link to Archive.org Bibliographic record" data-toggle="tooltip" data-placement="top">
-                        <span class="glyphicon glyphicon-book" aria-hidden="true"/>
+                    <a href="{$ref}" title="Link to Archive.org Bibliographic record" data-toggle="tooltip" data-placement="top" class="bibl-links">
+                        <img src="{$nav-base}/resources/img/ialogo.jpg" alt="Link to Archive.org Bibliographic record"/>
                     </a>
                 </xsl:when>
                 <xsl:otherwise>

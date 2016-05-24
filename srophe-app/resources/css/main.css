@@ -283,7 +283,7 @@ td {
 .results-list {margin-left: 25px; border-bottom:1px dotted #eee; padding-top:.5em}
 .results-list-desc{display:block;}
 .pers-label {background-color:#999;  font-weight:400; margin-right:4px;}
-.results-list-desc .pers-label .footnote-refs {display:none;}
+.results-list-desc .pers-label .footnote-refs,.results-list .footnote-refs, .relation .footnote-refs {display:none;}
 /* Styles for record short view under relation div*/
 .relation .results-list-desc.uri{margin-left:0;}
 
@@ -305,6 +305,7 @@ td {
 .footnote-icon {padding-left:1em; font-size:18px;}
 
 .bibl li{line-height: 1.5em;padding-bottom:.5em;}
+.bibl-links {padding:.25em; width:25px;}
 .anchor { 
     position: relative; 
     top:-75px !important;

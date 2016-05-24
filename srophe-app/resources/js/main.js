@@ -70,4 +70,8 @@ if (navigator.appVersion.indexOf("Mac") > -1 || navigator.appVersion.indexOf("Li
     $('.get-syriac').show();
 }
 
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
 });
