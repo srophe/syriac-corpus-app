@@ -119,7 +119,7 @@
         <xsl:variable name="main-title">
             <xsl:choose>
                 <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]">
-                    <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]"/>
+                    <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]" mode="title"/>
                 </xsl:when>
                 <xsl:when test="descendant::t:biblStruct">
                     <xsl:apply-templates select="descendant::t:biblStruct/descendant::t:title[1]" mode="full"/>
