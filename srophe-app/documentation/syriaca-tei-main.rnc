@@ -7,7 +7,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2016-05-12T09:16:00Z. .
+# Schema generated from ODD source 2016-05-24T13:59:08Z. .
 # TEI Edition: Version 3.0.0. Last updated on
 #	29th March 2016, revision 89ba24e
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.0.0/
@@ -583,6 +583,7 @@ tei_att.global.attributes =
   tei_att.global.change.attributes,
   tei_att.global.responsibility.attributes,
   tei_att.global.attribute.syriaca-computed-start,
+  tei_att.global.attribute.source,
   tei_att.global.attribute.syriaca-computed-end,
   tei_att.global.attribute.syriaca-tags,
   tei_att.global.attribute.xmlid,
@@ -594,6 +595,10 @@ tei_att.global.attribute.syriaca-computed-start =
   
   ## start date
   attribute syriaca-computed-start { text }?
+tei_att.global.attribute.source =
+  
+  ## Global source attribute. 
+  attribute source { text }?
 tei_att.global.attribute.syriaca-computed-end =
   
   ## End date
@@ -984,11 +989,7 @@ tei_att.pointing.attribute.evaluate =
       ## no further evaluation of targets is carried out beyond that needed to find the element specified in the pointer's target.
       "none"
   }?
-tei_att.readFrom.attributes = tei_att.readFrom.attribute.source
-tei_att.readFrom.attribute.source =
-  
-  ## specifies the source from which declarations and definitions for the components of the object being defined may be obtained.
-  attribute source { xsd:anyURI }?
+tei_att.readFrom.attributes = empty
 tei_att.scoping.attributes =
   tei_att.scoping.attribute.target, tei_att.scoping.attribute.match
 tei_att.scoping.attribute.target =
@@ -1732,13 +1733,7 @@ tei_model.correspContextPart =
   tei_model.ptrLike | tei_model.pLike | tei_note
 tei_model.correspDescPart =
   tei_note | tei_correspAction | tei_correspContext
-tei_att.source.attributes = tei_att.source.attribute.source
-tei_att.source.attribute.source =
-  
-  ## provides a pointer to the bibliographical source from which a quotation or citation is drawn.
-  attribute source {
-    list { xsd:anyURI+ }
-  }?
+tei_att.source.attributes = empty
 tei_model.resourceLike = tei_facsimile | tei_text
 tei_att.personal.attributes =
   tei_att.naming.attributes,
@@ -2862,7 +2857,7 @@ tei_fileDesc =
       tei_editionStmt?,
       tei_extent?,
       tei_publicationStmt,
-      tei_seriesStmt?),
+      tei_seriesStmt+),
      tei_sourceDesc+),
     tei_att.global.attributes,
     empty
