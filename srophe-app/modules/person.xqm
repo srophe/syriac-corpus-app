@@ -33,7 +33,7 @@ function person:get-rec($node as node(), $model as map(*),$collection as xs:stri
     app:get-rec($node, $model, $collection)
 };
 
-
+ 
 (:~
  : Dynamically build html title based on TEI record and/or sub-module. 
  : @param $person:id if id is present find TEI title, otherwise use title of sub-module
@@ -82,7 +82,7 @@ declare %templates:wrap function person:data($node as node(), $model as map(*)){
      return global:tei2html($nodes)        
     } catch * { <error>No Data {$err:code}: {$err:description}</error>}
 };
-
+    
 declare %templates:wrap function person:timeline($node as node(), $model as map(*), $dates){
 let $data := $model("data")
 return
@@ -90,7 +90,7 @@ return
         if($data//tei:birth[@when or @notBefore or @notAfter] or 
         $data//tei:death[@when or @notBefore or @notAfter] or 
         $data//tei:state[@when or @notBefore or @notAfter or @to or @from] or 
-        $data//tei:floruit[@when or @notBefore or @notAfter or @to or @from]) then
+        $data//tei:floruit[@when or @notBefore or @notAfter or @to or @from] or $data//tei:date[@when or @notBefore or @notAfter or @to or @from]) then
                 <div class="row">
                         <div class="col-md-9">
                             <div class="timeline">
@@ -101,15 +101,15 @@ return
                             <h4>Dates</h4>
                             <ul class="list-unstyled">
                                 {
-                                 for $date in $data//tei:birth[@when] | $data//tei:birth[@notBefore] | $data//tei:birth[@notAfter] | $data//tei:birth[@to] | $data//tei:birth[@from] 
-                                 | $data//tei:death[@when] |$data//tei:death[@notBefore] |$data//tei:death[@notAfter] | $data//tei:death[@to] | $data//tei:death[@from] |
-                                 $data//tei:floruit[@when] | $data//tei:floruit[@notBefore]| $data//tei:floruit[@notAfter] | $data//tei:floruit[@to] | $data//tei:floruit[@from]
-                                 | $data//tei:state[@when] | $data//tei:state[@notBefore] | $data//tei:state[@notAfter] | $data//tei:state[@from] | $data//tei:state[@to]
+                                 for $date in $data//tei:birth[@when or @notBefore or @notAfter] | $data//tei:birth[tei:date[@when or @notBefore or @notAfter]] |
+                                 $data//tei:death[@when or @notBefore or @notAfter] | $data//tei:death[tei:date[@when or @notBefore or @notAfter]] |
+                                 $data//tei:state[@when or @notBefore or @notAfter or @to or @from] | $data//tei:state[tei:date[@when or @notBefore or @notAfter]] |
+                                 $data//tei:floruit[@when or @notBefore or @notAfter or @to or @from] | $data//tei:floruit[tei:date[@when or @notBefore or @notAfter]] 
                                  return 
                                     <li>{global:tei2html($date)}</li>
                                 }
                             </ul>
-                        </div>
+                        </div> 
                     </div>
         else ()
      else if($dates = 'events') then

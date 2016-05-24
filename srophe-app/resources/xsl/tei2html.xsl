@@ -969,7 +969,18 @@
             </xsl:choose>
         </span>
         <xsl:text> </xsl:text>
-        <xsl:apply-templates mode="plain"/>
+        <xsl:choose>
+            <xsl:when test="count(t:date) &gt; 1">
+                <xsl:for-each select="t:date">
+                    <xsl:apply-templates/>
+                    <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
+                    <xsl:if test="position() != last()"> or </xsl:if>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates mode="plain"/>                
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
     </xsl:template>
     <xsl:template match="t:langKnown">
