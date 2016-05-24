@@ -119,7 +119,7 @@
         <xsl:variable name="main-title">
             <xsl:choose>
                 <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]">
-                    <xsl:value-of select="string-join(descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]//text(),' ')"/>
+                    <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]"/>
                 </xsl:when>
                 <xsl:when test="descendant::t:biblStruct">
                     <xsl:apply-templates select="descendant::t:biblStruct/descendant::t:title[1]" mode="full"/>
@@ -360,13 +360,13 @@
                     </xsl:if>
                     <xsl:if test="//*:match">
                         <span class="results-list-desc srp-label">Matches:</span>
-                        <xsl:for-each select="//*:match">
+                        <xsl:for-each select="//*:match/parent::*">
                             <xsl:if test="position() lt 8">
                                 <span class="results-list-desc container">
                                     <span class="srp-label">
-                                        <xsl:value-of select="concat(position(),'. (', name(parent::*[1]),') ')"/>
+                                        <xsl:value-of select="concat(position(),'. (', name(.),') ')"/>
                                     </span>
-                                    <xsl:apply-templates select="parent::*[1]" mode="plain"/>
+                                    <xsl:apply-templates select="."/>
                                 </span>
                             </xsl:if>
                             <xsl:if test="position() = 8">
