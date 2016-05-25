@@ -142,7 +142,7 @@
     
     <!-- Main page modules for syriaca.org display -->
     <xsl:template match="t:place | t:person | t:spear | t:bibl[starts-with(@xml:id,'work-')]">
-        <xsl:if test="string-length(t:desc[not(starts-with(@xml:id,'abstract'))][1]) &gt; 1">
+        <xsl:if test="not(empty(t:desc[not(starts-with(@xml:id,'abstract'))][1]))">
             <div id="description">
                 <h3>Brief Descriptions</h3>
                 <ul>
@@ -158,7 +158,7 @@
         </xsl:if>
         <xsl:if test="self::t:person">
             <div id="persnames">
-                <xsl:if test="string-length(t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']) &gt; 1">
+                <xsl:if test="t:desc[@type='abstract'] | t:desc[starts-with(@xml:id, 'abstract-en')] | t:note[@type='abstract']">
                     <div style="margin-bottom:1em;">
                         <h4>Identity</h4>
                         <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']" mode="abstract"/>
@@ -222,7 +222,7 @@
                         </xsl:for-each>
                     </ul>
                 </xsl:if>
-                <xsl:if test="string-length(t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']) &gt; 1">
+                <xsl:if test="not(empty(t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']))">
                     <h3>Abstract</h3>
                     <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']" mode="abstract"/>
                 </xsl:if>
@@ -542,7 +542,7 @@
     </xsl:template>
     <!-- used by spear pages not real tei element -->
     <xsl:template match="t:factoid">
-        <xsl:if test="string-length(.) &gt; 1">
+        <xsl:if test="not(empty(.))">
             <!-- Output elements without links -->
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
@@ -978,7 +978,7 @@
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates mode="plain"/>                
+                <xsl:apply-templates mode="plain"/>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>

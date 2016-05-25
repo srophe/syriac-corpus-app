@@ -101,7 +101,7 @@ http://syriaca.org/work/ http://syriaca.org/work/488
  : Simple get record function, get tei record based on idno
  : Builds uri from simple ids.
  : @param $app:id syriaca.org uri   
-:)
+:) 
 declare function app:get-rec($node as node(), $model as map(*), $collection as xs:string?) { 
 if($app:id != '') then 
     let $id :=
@@ -125,7 +125,8 @@ if($app:id != '') then
                        map {"data" :=   collection($global:data-root || "/spear/tei")//tei:div[@uri = $id]}
         else if(collection($global:data-root)//tei:idno[@type='URI'][. = $id]) then 
             if(collection($global:data-root)//tei:idno[@type='URI'][. = $id]/parent::*/descendant::tei:idno[@type='redirect']) then
-                let $redirect := replace(replace(collection($global:data-root)//tei:idno[@type='URI'][. = $id]/parent::*/descendant::tei:idno[@type='redirect'][1]/text(),'/tei',''),$global:base-uri,$global:nav-base)
+                let $rec := collection($global:data-root)//tei:idno[@type='URI'][. = $id]
+                let $redirect := replace(replace($rec/parent::*/descendant::tei:idno[@type='redirect'][1]/text(),'/tei',''),$global:base-uri,$global:nav-base)
                 return response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
             else map {"data" :=  collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}
         else response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html'))) 
