@@ -301,17 +301,27 @@ declare function app:transform($nodes as node()*) as item()* {
         typeswitch($node)
             case text() return $node
             case comment() return ()
-            case element(tei:list) return element ul {app:transform($node/node())}
-            case element(tei:item) return element li {app:transform($node/node())}
+            case element(tei:category) return element ul {app:transform($node/node())}
+            case element(tei:catDesc) return element li {app:transform($node/node())}
             case element(tei:label) return element span {app:transform($node/node())}
             default return app:transform($node/node())
 };
 
 (:~
+ : Output documentation from xml
+ : @param $doc as string
+:)
+declare %templates:wrap function app:build-documentation($node as node(), $model as map(*), $doc as xs:string?){
+    let $doc := doc($global:app-root || '/documentation/' || $doc)//tei:encodingDesc
+    return app:transform($doc)
+};
+
+(:~
+ : @depreciated Use app:build-documentation
  : Pull confession data for confessions.html
 :)
 declare %templates:wrap function app:build-confessions($node as node(), $model as map(*)){
-    let $confession := doc($global:data-root || '/documentation/confessions.xml')//tei:body/child::*[1]
+    let $confession := doc($global:app-root || '/documentation/confessions.xml')//tei:encodingDesc
     return app:transform($confession)
 };
 
