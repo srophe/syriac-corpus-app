@@ -176,7 +176,7 @@ declare function app:transform($nodes as node()*) as item()* {
  : Pull confession data for confessions.html
 :)
 declare %templates:wrap function app:build-confessions($node as node(), $model as map(*)){
-    let $confession := doc($global:data-root || '/documentation/confessions.xml')//tei:body/child::*[1]
+    let $confession := doc($global:app-root || '/documentation/confessions.xml')//tei:body/child::*[1]
     return app:transform($confession)
 };
 
