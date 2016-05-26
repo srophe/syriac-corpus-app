@@ -157,7 +157,7 @@ declare function browse:ar-sort(){
  :)
 declare function browse:build-sort-string($titlestring as xs:string?) as xs:string* {
     if($browse:lang = 'ar') then browse:ar-sort-string($titlestring)
-    else replace($titlestring,'^\s+|^al-|[‘ʻʿ]|^On |^The |^A ','')
+    else replace($titlestring,'^\s+|^al-|[«‘ʻʿ»]|^On |^The |^A ','')
     (:replace(replace(replace(replace(replace($titlestring,'^\s+',''),'^al-',''),'[‘ʻʿ]',''),'On ',''),'The ',''):)
 };
 
@@ -450,51 +450,31 @@ declare function browse:browse-date(){
  : @param $language from template
  : @param $sort-letter from template
 :)
-declare %templates:wrap function browse:tabs($node as node(), $model as map(*), $value as xs:string?, $language as xs:string?, $sort-letter as xs:string?){
-let $s := if($sort-letter != '') then $sort-letter else 'A'
+declare function browse:tabs($node as node(), $model as map(*), $text as xs:string?, $param as xs:string?, $value as xs:string?, $sort as xs:string?){
+let $s := if($sort != '') then $sort else 'A'
 return
-    <li>{
-        if($language = $browse:lang) then attribute class {'active'}
-        else if($browse:lang = '' and $browse:view = '' and $language = 'en') then attribute class {'active'}
+    <li xmlns="http://www.w3.org/1999/xhtml" test="{$value}">{
+        if($value = $browse:lang) then attribute class {'active'}
+        else if($browse:lang = '' and $browse:view = '' and $value = 'en') then attribute class {'active'}
+        else if($value = $browse:view) then attribute class {'active'}
         else ()
         }
-        <a href="browse.html?lang={$language}&amp;sort={$sort-letter}">
-        {if($language = 'syr' or $language = 'ar') then (attribute lang {$language},attribute dir {'ltr'}) else ()}
-        {$value}</a>
+        <a href="browse.html?{$param}={$value}&amp;sort={$sort}">
+        {if($value = 'syr' or $value = 'ar') then (attribute lang {$value},attribute dir {'ltr'}) else ()}
+        {$text}</a>
     </li> 
 };
-(:~
- : @depreciated
- : Browse Tabs - Eng
- : Choose which functions to include with each browse. 
- : Note: should this be done with javascript? possibly. 
-:)
-declare  %templates:wrap function browse:build-tabs-en($node, $model){
-    <li>{if(not($browse:view) and not($browse:lang)) then attribute class {'active'} 
-         else if($browse:lang = 'en') then attribute class {'active'} 
-         else '' }
-         <a href="browse.html?lang=en&amp;sort=A">English</a>
-    </li>   
-};
 
-(:~   
- : Browse Tabs - Syr
-:)
-declare  %templates:wrap function browse:build-tabs-syr($node, $model){
-    <li>{if($browse:view = 'syr') then attribute class {'active'} 
-         else '' }<a href="browse.html?lang=syr&amp;sort=ܐ" xml:lang="syr" lang="syr" dir="ltr" title="syriac">ܠܫܢܐ ܣܘܪܝܝܐ</a>
-    </li>   
+(:
+declare function browse:tabs($node as node(), $model as map(*), $text as xs:string?, $param as xs:string?, $value as xs:string?){
+    <li xmlns="http://www.w3.org/1999/xhtml">{
+        if($value = $browse:view) then attribute class {'active'}
+        else ()
+        }
+        <a href="browse.html?{$param}={$value}">{$text}</a>TEST2
+    </li> 
 };
-
-(:~
- : Browse Tabs - Transliteration
 :)
-declare  %templates:wrap function browse:build-tabs-transliteration($node, $model){
-    <li>{if($browse:lang = 'en-x-gedsh') then attribute class {'active'} 
-         else '' }<a href="browse.html?lang=en-x-gedsh&amp;sort=A">Transliteration</a>
-    </li>   
-};
-
 (:~
  : Browse Tabs - Type  
 :)
