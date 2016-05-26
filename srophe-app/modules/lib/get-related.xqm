@@ -58,14 +58,21 @@ if($name = 'dcterms:subject') then
     concat(rel:get-subject-type($passive), ' highlighted: ')
 else if($name = 'syriaca:commemorated') then
     concat(rel:get-subject-type($passive),' commemorated:  ')    
-else concat(rel:get-subject-type($passive),' ', replace($name,'-|:',' '),' ')
+else replace($name,'-|:',' ')
+};
+
+declare function rel:decode-name($name as xs:string*){
+for $name in $name[1]
+return 
+    string-join(for $w in tokenize(replace($name,'-|:',' '),' ')
+    return functx:capitalize-first($w),' ')
 };
 
 (: Subject (passive) predicate (name) object(active) :)
 declare function rel:construct-relation-text($related,$idno){
     <span class="relation">
           {(
-            rel:decode-relatiohship($related/@name/string(),$related/@passive/string(),$related/@mutual/string()),
+            (:rel:decode-relatiohship($related/@name/string(),$related/@passive/string(),$related/@mutual/string()),:)
             rel:list-names(string-join(($related/@active/string(),$related/@passive/string(),$related/@mutual/string()),' '),$idno)
             )}
     </span>
@@ -74,7 +81,7 @@ declare function rel:construct-relation-text($related,$idno){
 declare function rel:get-cited($idno){
 for $recs in collection($global:data-root)//tei:ptr[@target=replace($idno,'/tei','')]
 let $parent := $recs/ancestor::tei:TEI
-let $headword := $parent/descendant::tei:body/descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')]
+let $headword := $parent/descendant::tei:body/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]
 let $sort := global:parse-name($headword)
 let $sort := global:build-sort-string($sort,'')
 order by $sort collation "?lang=en&lt;syr&amp;decomposition=full"
@@ -119,10 +126,10 @@ return
                 {(
                 for $recs in subsequence($hits,1,20)
                 let $parent := $recs/ancestor::tei:TEI
-                let $headword := $parent/descendant::tei:body/descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')]
+                let $headword := $parent/descendant::tei:body/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]
                 let $subject-idno := replace($parent/descendant::tei:idno[1],'/tei','')
                 return 
-                   <span class="sh pers-label badge">{global:tei2html($headword)} <a href="search.html?subject={$subject-idno}" class="sh-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></span>,
+                   <span class="sh pers-label badge">{string($headword)} <a href="search.html?subject={$subject-idno}" class="sh-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></span>,
                 if($total gt 20) then 
                     <div>
                         
@@ -174,6 +181,7 @@ declare function rel:build-relationships($node){
 </div>
 };
 
+(: Need to put descriptions somewhere else... :)
 (: Main div for HTML display :)
 declare function rel:build-relationships($node,$idno){ 
 <div class="relation well">
@@ -184,10 +192,11 @@ declare function rel:build-relationships($node,$idno){
         let $desc := $related/tei:desc
         group by $relationship := $related/@name
         return 
+            (<h4>{rel:decode-name($related/@name)}</h4>,
             <div>{(
                 rel:construct-relation-text($related,$idno),
-                <span class="results-list-desc">{$desc}</span>
-            )}</div>
+                                <span class="relation">{$desc}</span>
+            )}</div>)
         }
     </div>
 </div>
