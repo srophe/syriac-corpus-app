@@ -535,11 +535,13 @@
         </xsl:if>
     </xsl:template>
     
+    <!-- NOTE: May not be used anymore?? -->
     <!-- used by search pages not real tei element -->
     <xsl:template match="t:search">
         <!-- Output elements without links -->
         <xsl:apply-templates mode="title"/>
     </xsl:template>
+    
     <!-- used by spear pages not real tei element -->
     <xsl:template match="t:factoid">
         <xsl:if test="not(empty(.))">
@@ -692,15 +694,16 @@
     </xsl:template>
     <xsl:template name="aboutEntry">
         <div id="about">
-            <xsl:choose>
-                <xsl:when test="/descendant::t:idno[contains(.,'/bibl/')]">
-                    <h3>Credit for this Entry</h3>
-                </xsl:when>
-                <xsl:otherwise>
-                    <h3>About this Entry</h3>
-                </xsl:otherwise>
-            </xsl:choose>
-            <xsl:apply-templates select="/descendant::t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
+        <xsl:choose>
+            <xsl:when test="/descendant::t:idno[contains(.,'/bibl/')]">
+                <h3>Credit for this Entry</h3>
+                <xsl:apply-templates select="/descendant::t:teiHeader/t:fileDesc/t:titleStmt" mode="about-bibl"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <h3>About this Entry</h3>
+                <xsl:apply-templates select="/descendant::t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
+            </xsl:otherwise>
+        </xsl:choose>
         </div>
     </xsl:template>
     <xsl:template name="sources">
@@ -857,7 +860,6 @@
                 <div class="section indent">
                     <xsl:apply-templates mode="full"/>
                 </div>
-                <!--<xsl:call-template name="aboutEntry"/>-->
             </xsl:when>
             <xsl:otherwise>
                 <span class="section indent">
@@ -1240,8 +1242,8 @@
     </xsl:template>
     <xsl:template match="t:persName" mode="title">
         <span class="persName">
-            <xsl:call-template name="langattr"/>
-            <xsl:apply-templates mode="text-normal"/>
+            <xsl:call-template name="langattr"/>            
+            <xsl:apply-templates/>
         </span>
     </xsl:template>
     <xsl:template match="t:persName" mode="list">
@@ -1281,13 +1283,14 @@
             <xsl:text> </xsl:text>
         </xsl:if>
     </xsl:template>
+    <!--
     <xsl:template match="t:roleName" mode="text-normal">
         <xsl:apply-templates mode="out-normal"/>
         <xsl:if test="following-sibling::*">
             <xsl:text> </xsl:text>
         </xsl:if>
     </xsl:template>
-    <xsl:template match="t:forename | t:addName" mode="text-normal">
+    <xsl:template match="t:forename | t:addName " mode="text-normal">
         <xsl:if test="preceding-sibling::*">
             <xsl:text> </xsl:text>
         </xsl:if>
@@ -1296,6 +1299,7 @@
             <xsl:text> </xsl:text>
         </xsl:if>
     </xsl:template>
+-->
     <xsl:template match="t:placeName | t:title" mode="list">
         <xsl:variable name="nameID" select="concat('#',@xml:id)"/>
         <xsl:choose>
