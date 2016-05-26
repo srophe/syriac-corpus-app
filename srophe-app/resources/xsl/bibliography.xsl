@@ -773,6 +773,7 @@
             <span class="srp-label">
                 <xsl:choose>
                     <xsl:when test="@type='URI'">URI: </xsl:when>
+                    <xsl:when test="@type != ''"><xsl:value-of select="concat(upper-case(substring(@type,1,1)),substring(@type,2))"/>: </xsl:when>
                     <xsl:otherwise>Other ID Number: </xsl:otherwise>
                 </xsl:choose>
             </span>
