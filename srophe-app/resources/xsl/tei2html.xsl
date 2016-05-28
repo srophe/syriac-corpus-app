@@ -694,16 +694,16 @@
     </xsl:template>
     <xsl:template name="aboutEntry">
         <div id="about">
-        <xsl:choose>
-            <xsl:when test="/descendant::t:idno[contains(.,'/bibl/')]">
-                <h3>Credit for this Entry</h3>
-                <xsl:apply-templates select="/descendant::t:teiHeader/t:fileDesc/t:titleStmt" mode="about-bibl"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <h3>About this Entry</h3>
-                <xsl:apply-templates select="/descendant::t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
-            </xsl:otherwise>
-        </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="/descendant::t:idno[contains(.,'/bibl/')]">
+                    <h3>About this Online Entry</h3>
+                    <xsl:apply-templates select="/descendant::t:teiHeader/t:fileDesc/t:titleStmt" mode="about-bibl"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <h3>About this Entry</h3>
+                    <xsl:apply-templates select="/descendant::t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
+                </xsl:otherwise>
+            </xsl:choose>
         </div>
     </xsl:template>
     <xsl:template name="sources">
@@ -1242,7 +1242,7 @@
     </xsl:template>
     <xsl:template match="t:persName" mode="title">
         <span class="persName">
-            <xsl:call-template name="langattr"/>            
+            <xsl:call-template name="langattr"/>
             <xsl:apply-templates/>
         </span>
     </xsl:template>
