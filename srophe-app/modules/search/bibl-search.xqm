@@ -46,12 +46,17 @@ declare function bibls:author() as xs:string? {
  : Thinking of how this should be enabled. 
 :)
 declare function bibls:idno() as xs:string? {
-    if($bibls:idno != '') then 
+    if($bibls:idno != '') then  
+            if($bibls:id-type != '') then concat("[descendant::tei:idno[@type='",$bibls:id-type,"'][matches(.,'",$bibls:idno,"$')]]")
+            else concat("[descendant::tei:idno[matches(.,'",$bibls:idno,"$')]]")
+
+    (:
         let $id := replace($bibls:idno,'[^\d\s]','')
         let $syr-id := concat('http://syriaca.org/bibl/',$id)
         return 
             if($bibls:id-type != '') then concat("[descendant::tei:idno[@type='",$bibls:id-type,"'][normalize-space(.) = '",$id,"']]")
             else concat("[descendant::tei:idno[normalize-space(.) = '",$id,"' or .= '",$syr-id,"']]")
+    :)            
     else ()    
 };
 
@@ -105,10 +110,10 @@ declare function bibls:search-string(){
         return 
             if(request:get-parameter($parameter, '') != '') then
                 if($parameter = 'q') then 
-                    (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($bibls:q)}</span>)
+                    (<span class="param">Keyword: </span>,<span class="match">{$bibls:q}</span>)
                 else if ($parameter = 'author') then 
-                    (<span class="param">Author/Editor: </span>,<span class="match">{common:clean-string($bibls:author)}</span>)
-                else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
+                    (<span class="param">Author/Editor: </span>,<span class="match">{$bibls:author}</span>)
+                else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}</span>)    
             else ()               
 };
 
