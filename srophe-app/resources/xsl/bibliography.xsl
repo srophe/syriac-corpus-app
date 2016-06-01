@@ -625,6 +625,7 @@
      handle bibliographic titles in the context of a footnote
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:title" mode="footnote biblist allbib" priority="1">
+        <xsl:if test="preceding-sibling::*"><xsl:text> </xsl:text></xsl:if>
         <xsl:if test="not(contains(@xml:lang,'Latn-'))">
             <xsl:if test="parent::t:analytic">
                 <xsl:text>"</xsl:text>
@@ -773,7 +774,8 @@
             <span class="srp-label">
                 <xsl:choose>
                     <xsl:when test="@type='URI'">URI: </xsl:when>
-                    <xsl:when test="@type != ''"><xsl:value-of select="concat(upper-case(substring(@type,1,1)),substring(@type,2))"/>: </xsl:when>
+                    <xsl:when test="@type != ''">
+                        <xsl:value-of select="concat(upper-case(substring(@type,1,1)),substring(@type,2))"/>: </xsl:when>
                     <xsl:otherwise>Other ID Number: </xsl:otherwise>
                 </xsl:choose>
             </span>
