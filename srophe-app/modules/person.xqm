@@ -1,4 +1,4 @@
-(:~       
+(:~    
  : Builds persons page and persons page functions  
  :)
 xquery version "3.0";
@@ -164,47 +164,40 @@ declare %templates:wrap function person:worldcat($node as node(), $model as map(
 let $rec := $model("data")
 return 
     if($rec//tei:idno[starts-with(.,'http://worldcat.org/identities/lccn-n')] or $rec//tei:idno[starts-with(.,'http://viaf.org/viaf')][not(contains(.,'sourceID'))]) then
-        <div id="worldcat-refs" class="well">
-            <h3>Catalog Search Results from WorldCat</h3>
-            <p class="hint">Based on VIAF ID. May contain inaccuracies. Not curated by Syriaca.org.</p>
-            <div>
-                {    
-                    let $viaf-ref := if($rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')]) then 
+            let $viaf-ref := if($rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')]) then 
                                         $rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')][1]/text()
                                      else $rec/descendant::tei:idno[@type='URI'][contains(.,'http://viaf.org/viaf')][not(contains(.,'sourceID/SRP'))][1]/text()
-                    let $uri := if(starts-with($viaf-ref,'http://viaf.org/viaf')) then 
+            let $uri := if(starts-with($viaf-ref,'http://viaf.org/viaf')) then 
                                     let $rdf := http:send-request(<http:request href="{concat($viaf-ref,'/rdf.xml')}" method="get"/>)[2]//schema:sameAs/child::*/@rdf:about[starts-with(.,'http://id.loc.gov/')]
                                     let $lcc := tokenize($rdf,'/')[last()]
                                     return concat('http://worldcat.org/identities/lccn-',$lcc)
                                 else $viaf-ref
-                    let $build-request :=  <http:request href="{$uri}" method="get"/>
+            let $build-request :=  <http:request href="{$uri}" method="get"/>
+            return 
+                try {
+                    let $results :=  http:send-request($build-request)//by 
+                    let $total-works := string($results/ancestor::Identity//nameInfo/workCount)
                     return 
-                            <div class="top-bottom">
-                                {try {
-                                    let $results :=  http:send-request($build-request)//by 
-                                    let $total-works := string($results/ancestor::Identity//nameInfo/workCount)
-                                    return 
-                                        if($total-works != '0') then 
-                                         (
+                        if(not(empty($results)) and  $total-works != '0') then 
+                                <div id="worldcat-refs" class="well">
+                                    <h3>{$total-works} Catalog Search Results from WorldCat</h3>
+                                    <p class="hint">Based on VIAF ID. May contain inaccuracies. Not curated by Syriaca.org.</p>
+                                    <div>
                                          <ul id="{$viaf-ref}" count="{$total-works}">
                                             {
                                                 for $citation in $results/citation[position() lt 5]
                                                 return
                                                     <li><a href="{concat('http://www.worldcat.org/oclc/',substring-after($citation/oclcnum/text(),'ocn'))}">{$citation/title/text()}</a></li>
                                              }
-                                         </ul>,
-                                         <span class="pull-right"><a href="{$uri}">See all {$total-works} titles from WorldCat</a></span>,<br/>)
-                                        else ()
-      
-                                    } catch * {
-                                        <error>Caught error {$err:code}: {$err:description}</error>
-                                        }
-                                } 
-                            </div>
-
-                    }
-            </div>
-         </div>   
+                                         </ul>
+                                         <span class="pull-right"><a href="{$uri}">See all {$total-works} titles from WorldCat</a></span>,<br/>
+                                    </div>
+                                </div>    
+                                         
+                        else ()
+                } catch * {
+                    <error>Caught error {$err:code}: {$err:description}</error>
+                } 
     else () 
 };
 
