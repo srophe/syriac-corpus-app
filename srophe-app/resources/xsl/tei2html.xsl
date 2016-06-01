@@ -184,10 +184,9 @@
                     </p>
                 </xsl:if>
                 <br class="clearfix"/>
-                <div>
+                <p>
                     <xsl:apply-templates select="t:sex"/>
-                    <xsl:apply-templates select="t:state[@type='martyr']"/>
-                </div>
+                </p>
             </div>
         </xsl:if>
         <xsl:if test="self::t:bibl">
@@ -391,7 +390,7 @@
         </xsl:if>
         
         <!-- Confessions/Religious Communities -->
-        <xsl:if test="t:confessions/t:state[@type='confession'] | t:state[@type='confession']">
+        <xsl:if test="t:confessions/t:state[@type='confession'][parent::t:place] | t:state[@type='confession'][parent::t:place]">
             <div>
                 <h3>Known Religious Communities</h3>
                 <p class="caveat">
@@ -415,7 +414,7 @@
         </xsl:if>
         
         <!-- State for persons? NEEDS WORK -->
-        <xsl:if test="t:state[not(@type='confession')][not(@type='martyr')]">
+        <xsl:if test="t:state">
             <xsl:for-each-group select="//t:state[not(@when) and not(@notBefore) and not(@notAfter) and not(@to) and not(@from)]" group-by="@type">
                 <h4>
                     <xsl:value-of select="concat(upper-case(substring(current-grouping-key(),1,1)),substring(current-grouping-key(),2))"/>
@@ -424,16 +423,19 @@
                     <xsl:for-each select="current-group()[not(t:desc/@xml:lang = 'en-x-gedsh')]">
                         <li>
                             <xsl:apply-templates mode="plain"/>
+                            <xsl:if test="@source">
+                                <xsl:sequence select="local:do-refs(self::*/@source,'')"/>
+                            </xsl:if>
                         </li>
                     </xsl:for-each>
                 </ul>
             </xsl:for-each-group>
         </xsl:if>
+        
         <!-- Events -->
         <xsl:if test="t:event[not(@type='attestation')]">
             <div id="event">
-                <h3>Event<xsl:if test="count(t:event[not(@type='attestation')]) &gt; 1">s</xsl:if>
-                </h3>
+                <h3>Event<xsl:if test="count(t:event[not(@type='attestation')]) &gt; 1">s</xsl:if></h3>
                 <ul>
                     <xsl:apply-templates select="t:event[not(@type='attestation')]" mode="event"/>
                 </ul>
