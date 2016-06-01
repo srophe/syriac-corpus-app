@@ -44,8 +44,8 @@ declare function ms:search-string() as xs:string*{
     return 
         if(request:get-parameter($parameter, '') != '') then
             if($parameter = 'q') then 
-                (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($ms:q)}&#160;</span>)
-            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
+                (<span class="param">Keyword: </span>,<span class="match">{$ms:q}&#160;</span>)
+            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}</span>)    
         else ()            
 };
 

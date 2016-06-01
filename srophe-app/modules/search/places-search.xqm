@@ -320,35 +320,35 @@ declare function places:query-string() as xs:string?{
  : Build search parameter string for search results page
 :)
 declare function places:search-string(){
-    let $q-string := if(exists($places:q) and $places:q != '') then (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($places:q)}&#160;</span>)
+    let $q-string := if(exists($places:q) and $places:q != '') then (<span class="param">Keyword: </span>,<span class="match">{$places:q}&#160;</span>)
                      else ''
-    let $p-string := if(exists($places:p) and $places:p != '') then (<span class="param">Place Name: </span>,<span class="match">{common:clean-string($places:p)} &#160;</span>)
+    let $p-string := if(exists($places:p) and $places:p != '') then (<span class="param">Place Name: </span>,<span class="match">{$places:p} &#160;</span>)
                         else ''                            
-    let $type-string := if(exists($places:type) and $places:type != '') then (<span class="param">Type: </span>,<span class="match">{common:clean-string($places:type)} &#160;</span>)
+    let $type-string := if(exists($places:type) and $places:type != '') then (<span class="param">Type: </span>,<span class="match">{$places:type} &#160;</span>)
                         else ''     
-    let $loc-string := if(exists($places:loc) and $places:loc != '') then (<span class="param">Location: </span>,<span class="match">{common:clean-string($places:loc)} &#160;</span>)
+    let $loc-string := if(exists($places:loc) and $places:loc != '') then (<span class="param">Location: </span>,<span class="match">{$places:loc} &#160;</span>)
                         else ''     
-    let $e-string := if(exists($places:e) and $places:e != '') then (<span class="param">Event: </span>, <span class="match">{common:clean-string($places:e)} &#160;</span>)
+    let $e-string := if(exists($places:e) and $places:e != '') then (<span class="param">Event: </span>, <span class="match">{$places:e} &#160;</span>)
                      else ''                             
-    let $eds-string := if(exists($places:eds) and $places:eds != '') then (<span class="param">Event Start Date: </span>, <span class="match">{common:clean-string($places:eds)} &#160;</span>)
+    let $eds-string := if(exists($places:eds) and $places:eds != '') then (<span class="param">Event Start Date: </span>, <span class="match">{$places:eds} &#160;</span>)
                      else ''     
-    let $ede-string := if(exists($places:ede) and $places:ede != '') then (<span class="param">Event End Date: </span>, <span class="match">{common:clean-string($places:ede)} &#160;</span>)
+    let $ede-string := if(exists($places:ede) and $places:ede != '') then (<span class="param">Event End Date: </span>, <span class="match">{$places:ede} &#160;</span>)
                      else ''                   
-    let $a-string := if(exists($places:a) and $places:a != '') then (<span class="param">Attestations: </span>, <span class="match">{common:clean-string($places:a)}&#160; </span>)
+    let $a-string := if(exists($places:a) and $places:a != '') then (<span class="param">Attestations: </span>, <span class="match">{$places:a}&#160; </span>)
                      else ''     
-    let $ads-string := if(exists($places:ads) and $places:ads != '') then (<span class="param">Attestations Start Date: </span>, <span class="match">{common:clean-string($places:ads)}&#160;</span>)
+    let $ads-string := if(exists($places:ads) and $places:ads != '') then (<span class="param">Attestations Start Date: </span>, <span class="match">{$places:ads}&#160;</span>)
                      else ''     
-    let $ade-string := if(exists($places:ade) and $places:ade != '') then (<span class="param">Attestations End Date: </span>, <span class="match">{common:clean-string($places:ade)} &#160;</span>)
+    let $ade-string := if(exists($places:ade) and $places:ade != '') then (<span class="param">Attestations End Date: </span>, <span class="match">{$places:ade} &#160;</span>)
                      else ''                   
-    let $c-string := if(exists($places:c) and $places:c != '') then (<span class="param">Religious Communities: </span>, <span class="match">{common:clean-string($places:c)} &#160;</span>)
+    let $c-string := if(exists($places:c) and $places:c != '') then (<span class="param">Religious Communities: </span>, <span class="match">{$places:c} &#160;</span>)
                      else ''     
-    let $cds-string := if(exists($places:cds) and $places:cds != '') then (<span class="param">Religious Communities Start Date: </span>, <span class="match">{common:clean-string($places:cds)} &#160;</span>)
+    let $cds-string := if(exists($places:cds) and $places:cds != '') then (<span class="param">Religious Communities Start Date: </span>, <span class="match">{$places:cds} &#160;</span>)
                      else ''     
-    let $cde-string := if(exists($places:cde) and $places:cde != '') then (<span class="param">Religious Communities End Date: </span>, <span class="match">{common:clean-string($places:cde)} &#160;</span>)
+    let $cde-string := if(exists($places:cde) and $places:cde != '') then (<span class="param">Religious Communities End Date: </span>, <span class="match">{$places:cde} &#160;</span>)
                      else ''                       
-    let $existds-string := if(exists($places:existds) and $places:existds != '') then (<span class="param">Existence Start Date: </span>, <span class="match">{common:clean-string($places:existds)}&#160; </span>)
+    let $existds-string := if(exists($places:existds) and $places:existds != '') then (<span class="param">Existence Start Date: </span>, <span class="match">{$places:existds}&#160; </span>)
                      else ''     
-    let $existde-string := if(exists($places:existde) and $places:existde != '') then (<span class="param">Existence End Date: </span>, <span class="match">{common:clean-string($places:existde)}&#160; </span>)
+    let $existde-string := if(exists($places:existde) and $places:existde != '') then (<span class="param">Existence End Date: </span>, <span class="match">{$places:existde}&#160; </span>)
                      else ''                    
     let $en-lang-string := if(exists($places:en) and $places:en != '') then <span class="param">English </span>
                      else ''

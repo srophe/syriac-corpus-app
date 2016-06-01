@@ -132,10 +132,10 @@ declare function spears:search-string() as xs:string*{
         if(request:get-parameter($parameter, '') != '') then
             if($parameter = 'fq') then ()
             else if($parameter = 'q') then 
-                (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($spears:q)}&#160;</span>)
+                (<span class="param">Keyword: </span>,<span class="match">{$spears:q}&#160;</span>)
             else if($parameter = 'keyword') then 
                 (<span class="param">Controlled Keyword: </span>,<span class="match">{lower-case(functx:camel-case-to-words(substring-after($spears:keyword,'/keyword/'),' '))}</span>)
-            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
+            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}</span>)    
         else ())
         }
 </span>

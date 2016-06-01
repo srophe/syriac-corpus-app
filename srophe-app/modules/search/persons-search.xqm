@@ -320,17 +320,17 @@ declare function persons:search-string() as node()*{
     return 
         if(request:get-parameter($parameter, '') != '') then
             if($parameter = 'q') then 
-                (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($persons:q)}&#160;</span>)
+                (<span class="param">Keyword: </span>,<span class="match">{$persons:q}&#160;</span>)
             else if($parameter = 'coll') then 
                 (<span class="param">Resource: </span>,<span class="match">{
                     if($persons:coll = 'sbd' ) then '"The Syriac Prosopography"'
                     else if($persons:coll = 'q' ) then '"Qadishe: A Guide to the Syriac Saints"'
                     else if($persons:coll = 'authors' ) then '"A Guide to Syriac Authors"'
-                    else common:clean-string($persons:coll)
+                    else $persons:coll
                 }</span>)
             else if($parameter = 'gender') then 
-                (<span class="param">Sex or Gender: </span>,<span class="match">{common:clean-string($persons:gender)}</span>)
-            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
+                (<span class="param">Sex or Gender: </span>,<span class="match">{$persons:gender}</span>)
+            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}</span>)    
         else ())
         }
       </span>
