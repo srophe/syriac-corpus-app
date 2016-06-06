@@ -4,8 +4,8 @@ module namespace api="http://syriaca.org/api";
 
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
-import module namespace rdfq="http://syriaca.org/rdfq" at "lib/tei2rdf.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
+import module namespace tei2ttl="http://syriaca.org/tei2ttl" at "lib/tei2ttl.xqm";
 import module namespace feed="http://syriaca.org/atom" at "lib/atom.xqm";
 import module namespace common="http://syriaca.org/common" at "search/common.xqm";
 declare namespace json="http://www.json.org";
@@ -167,6 +167,27 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
                 </json:value>
             </json:value>
 };
+
+(:~
+  : Use resxq to format urls for tei
+  : @param $collection syriaca.org subcollection 
+  : @param $id record id
+  : Serialized as XML
+:)
+declare 
+    %rest:GET
+    %rest:path("/{$collection}/{$id}/ttl")
+    %output:media-type("text/turtle")
+    %output:method("text")
+function api:get-ttl($collection as xs:string, $id as xs:string){
+   (<rest:response> 
+      <http:response status="200"> 
+        <http:header name="Content-Type" value="text/turtle; charset=utf-8"/> 
+      </http:response> 
+    </rest:response>, 
+    tei2ttl:make-triples(api:get-tei-rec($collection, $id))
+     )
+}; 
 
 (:~
   : Use resxq to format urls for tei

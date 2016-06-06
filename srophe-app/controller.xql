@@ -70,7 +70,7 @@ else if (contains($exist:path,'/api/')) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <forward url="{concat('/restxq/srophe', $exist:path)}" absolute="yes"/>
     </dispatch>
-else if (ends-with($exist:path, "/atom") or ends-with($exist:path, "/tei")) then
+else if (ends-with($exist:path, "/atom") or ends-with($exist:path, "/tei")  or ends-with($exist:path, "/ttl") ) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <forward url="{concat('/restxq', $exist:path)}" absolute="yes"/>
     </dispatch>   
