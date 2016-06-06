@@ -70,7 +70,27 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
                             for $hit in util:eval(browse:build-path($collection))
                             let $title := $hit/descendant::tei:titleStmt/tei:title[1]/text()
                             order by browse:build-sort-string($title) collation "?lang=en&lt;syr&amp;decomposition=full"
-                            return $hit                                                    
+                            return $hit     
+                        else if($browse:view = 'A-Z') then
+                            for $hit in util:eval(browse:build-path($collection))//tei:title[parent::tei:titleStmt][1][matches(substring(browse:build-sort-string(.),1,1),'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')]/ancestor::tei:TEI
+                            let $title := $hit/descendant::tei:titleStmt/tei:title[1]/text()
+                            order by browse:build-sort-string($title) collation "?lang=en&lt;syr&amp;decomposition=full"
+                            return $hit
+                        else if($browse:view = 'ܐ-ܬ') then
+                            for $hit in util:eval(browse:build-path($collection))//tei:title[parent::tei:titleStmt][1][matches(substring(browse:build-sort-string(.),1,1),'\p{IsSyriac}','i')]/ancestor::tei:TEI
+                            let $title := $hit/descendant::tei:titleStmt/tei:title[1]/text()
+                            order by browse:build-sort-string($title) collation "?lang=en&lt;syr&amp;decomposition=full"
+                            return $hit                            
+                        else if($browse:view = 'ا-ي') then
+                            for $hit in util:eval(browse:build-path($collection))//tei:title[parent::tei:titleStmt][1][matches(substring(browse:build-sort-string(.),1,1),'\p{IsArabic}','i')]/ancestor::tei:TEI
+                            let $title := $hit/descendant::tei:titleStmt/tei:title[1]/text()
+                            order by browse:build-sort-string($title) collation "?lang=en&lt;syr&amp;decomposition=full"
+                            return $hit 
+                        else if($browse:view = 'other') then
+                            for $hit in util:eval(browse:build-path($collection))//tei:title[parent::tei:titleStmt][1][not(matches(substring(browse:build-sort-string(.),1,1),'\p{IsSyriac}|\p{IsArabic}|\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}|\p{IsLatinExtendedAdditional}','i'))]/ancestor::tei:TEI
+                            let $title := $hit/descendant::tei:titleStmt/tei:title[1]/text()
+                            order by browse:build-sort-string($title) collation "?lang=en&lt;syr&amp;decomposition=full"
+                            return $hit                             
                         else util:eval(browse:build-path($collection))}      
 };
 
@@ -236,6 +256,7 @@ declare function browse:narrow-by-date($node as node(), $model as map(*)){
     else () 
 };
 
+
 (:~
  : Evaluates additional browse parameters; type, date, abc, etc. 
  : Adds narrowed data set to new map
@@ -246,8 +267,8 @@ let $data :=
         else if($browse:view='numeric') then $model("browse-data")
         else if($browse:view = 'type') then browse:narrow-by-type($node, $model, $collection)   
         else if($browse:view = 'date') then browse:narrow-by-date($node, $model)
-        else if($browse:view = 'map') then $model("browse-data")
-        else if($browse:view = 'all') then $model("browse-data")
+        else if($browse:view = 'map' or $browse:view = 'all' or $browse:view = 'A-Z' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then $model("browse-data")
+        (: else if($browse:view = 'A-Z' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then browse:narrow-by-unicode-range($node, $model):)
         else browse:lang-filter($node, $model)
 return
     map{"browse-refine" := $data}
@@ -274,7 +295,7 @@ else if($browse:view = 'type' or $browse:view = 'date') then
             else <h3>Select Date</h3>  
         else ()}</div>)
 else if($browse:view = 'map') then browse:get-map($node, $model)
-else if($browse:view = 'all') then 
+else if($browse:view = 'all' or $browse:view = 'A-Z' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then 
     <div class="col-md-12">
         <div class="row">
             <div class="col-sm-12">{page:pageination($model("browse-refine"), $browse:start, $browse:perpage, false())}</div>
