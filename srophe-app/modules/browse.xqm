@@ -79,12 +79,12 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
                         else if($browse:view = 'ܐ-ܬ') then
                             for $hit in util:eval(browse:build-path($collection))//tei:title[parent::tei:titleStmt][1][matches(substring(browse:build-sort-string(.),1,1),'\p{IsSyriac}','i')]/ancestor::tei:TEI
                             let $title := $hit/descendant::tei:titleStmt/tei:title[1]/text()
-                            order by browse:build-sort-string($title) collation "?lang=en&lt;syr&amp;decomposition=full"
+                            order by browse:build-sort-string($title) collation "?lang=syr&amp;decomposition=full"
                             return $hit                            
                         else if($browse:view = 'ا-ي') then
                             for $hit in util:eval(browse:build-path($collection))//tei:title[parent::tei:titleStmt][1][matches(substring(browse:build-sort-string(.),1,1),'\p{IsArabic}','i')]/ancestor::tei:TEI
                             let $title := $hit/descendant::tei:titleStmt/tei:title[1]/text()
-                            order by browse:build-sort-string($title) collation "?lang=en&lt;syr&amp;decomposition=full"
+                            order by browse:build-sort-string($title) collation "?lang=ar&amp;decomposition=full"
                             return $hit 
                         else if($browse:view = 'other') then
                             for $hit in util:eval(browse:build-path($collection))//tei:title[parent::tei:titleStmt][1][not(matches(substring(browse:build-sort-string(.),1,1),'\p{IsSyriac}|\p{IsArabic}|\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}|\p{IsLatinExtendedAdditional}','i'))]/ancestor::tei:TEI
