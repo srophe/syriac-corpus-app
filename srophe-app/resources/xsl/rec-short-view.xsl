@@ -389,9 +389,9 @@
     <xsl:template match="t:choice">[1]
         <xsl:apply-templates select="child::*[1]"/>
     </xsl:template>
-    <xsl:template match="*:match">
+    <xsl:template match="*:match" mode="#all">
         <span class="match" style="background-color:yellow; padding:0 .25em;">
-            <xsl:value-of select="."/>
+            <xsl:text> </xsl:text><xsl:value-of select="."/>
         </span>
     </xsl:template>
 </xsl:stylesheet>
