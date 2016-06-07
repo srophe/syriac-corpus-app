@@ -125,7 +125,51 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+    <xsl:template match="t:bibl" mode="inline">
+        <!-- When ptr is available, use full bibl record (indicated by ptr) -->
+        <xsl:choose>
+            <!-- NOTE: unclear what use case this handles.  -->
+                <xsl:when test="t:ptr[@target and starts-with(@target, concat($base-uri,'/bibl/'))]">
+                    <!-- Find file path for bibliographic record -->
+                    <xsl:variable name="biblfilepath">
+                        <xsl:value-of select="concat($data-root,'/bibl/tei/',substring-after(t:ptr/@target, concat($base-uri,'/bibl/')),'.xml')"/>
+                    </xsl:variable>
+                    <xsl:variable name="citedRange">
+                        <xsl:if test="t:citedRange">
+                            <xsl:text>, </xsl:text>
+                            <xsl:for-each select="t:citedRange">
+                                <xsl:apply-templates select="." mode="footnote"/>
+                            </xsl:for-each>
+                        </xsl:if>
+                    </xsl:variable>
+                    <!-- Check if record exists in db with doc-available function -->
+                    <xsl:choose>
+                        <xsl:when test="doc-available($biblfilepath)">
+                            <!-- Process record as a footnote -->
+                            <xsl:for-each select="document($biblfilepath)/descendant::t:biblStruct[1]">
+                                <xsl:apply-templates mode="footnote"/>
+                                <!-- Process all citedRange elements as footnotes -->
+                                <xsl:sequence select="$citedRange"/>
+                                <span class="footnote-links">
+                                    <a href="{replace(t:ptr/@target,$base-uri,$nav-base)}" title="Link to Syriaca.org Bibliographic Record" data-toggle="tooltip" data-placement="top" class="bibl-links">
+                                        <img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record"/>    
+                                    </a>
+                                </span>
+                            </xsl:for-each>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates mode="footnote"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+            <!-- Main footnote display, used by "Sources" portion of Syriaca.org pages -->
+                <xsl:otherwise>
+                    <span class="footnote-content">
+                        <xsl:apply-templates mode="footnote"/>
+                    </span>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      Main footnote templates.  
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -355,7 +399,15 @@
             </xsl:if>
         </xsl:if>
     </xsl:template>
-    
+    <!--
+    <xsl:template match="t:ptr" mode="footnote">
+        <xsl:if test="starts-with(@target,$base-uri)">
+            <a href="{replace(@target,$base-uri,$nav-base)}" title="Link to Syriaca.org Bibliographic Record" data-toggle="tooltip" data-placement="top" class="bibl-links">
+                <img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record"/>
+            </a>
+        </xsl:if>
+    </xsl:template>
+    -->
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle name components in the context of a footnote
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -516,7 +568,7 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
-            <xsl:otherwise>TEST
+            <xsl:otherwise>
                 <xsl:value-of select="text()"/>
             </xsl:otherwise>
         </xsl:choose>
@@ -625,7 +677,9 @@
      handle bibliographic titles in the context of a footnote
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:title" mode="footnote biblist allbib" priority="1">
-        <xsl:if test="preceding-sibling::*"><xsl:text> </xsl:text></xsl:if>
+        <xsl:if test="preceding-sibling::*">
+            <xsl:text> </xsl:text>
+        </xsl:if>
         <xsl:if test="not(contains(@xml:lang,'Latn-'))">
             <xsl:if test="parent::t:analytic">
                 <xsl:text>"</xsl:text>
