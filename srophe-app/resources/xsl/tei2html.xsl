@@ -666,7 +666,6 @@
                 <div class="collapse" id="showcit">
                     <div id="citation-bibliography">
                         <h4>Bibliography:</h4>
-                        <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt"/>
                         <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
                     </div>
                     <xsl:call-template name="aboutEntry"/>
@@ -815,7 +814,7 @@
                 </xsl:choose>
             </xsl:when>
             <xsl:when test="child::*">
-                <xsl:apply-templates mode="footnote"/>                    
+                <xsl:apply-templates mode="footnote"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates/>
