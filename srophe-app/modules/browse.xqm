@@ -1,22 +1,19 @@
 xquery version "3.0";
 (:~  
- : Builds browse page for Syriac.org sub-collections 
- : Alphabetical English and Syriac Browse lists
- : Browse by type
+ : Builds browse pages for Syriac.org sub-collections 
+ : Alphabetical English and Syriac Browse lists, browse by type, browse by date, map browse. 
  :
+ : @see lib/global.xqm for global variables
+ : @see lib/paging.xqm for paging functionality
  : @see lib/geojson.xqm for map generation
+ : @see browse-spear.xqm for additional SPEAR browse functions 
  :)
 
 module namespace browse="http://syriaca.org/browse";
-import module namespace bs="http://syriaca.org/bs" at "browse-spear.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
-import module namespace page="http://syriaca.org/page" at "paging.xqm";
-import module namespace common="http://syriaca.org/common" at "search/common.xqm";
-import module namespace facets="http://syriaca.org/facets" at "lib/facets.xqm";
-import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
-import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
-import module namespace rec="http://syriaca.org/short-rec-view" at "short-rec-view.xqm";
+import module namespace page="http://syriaca.org/page" at "lib/paging.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
+import module namespace bs="http://syriaca.org/bs" at "browse-spear.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
@@ -27,9 +24,10 @@ declare namespace util="http://exist-db.org/xquery/util";
 
 (:~ 
  : Parameters passed from the url
- : @param $browse:coll selects collection (persons/places ect) for browse.html 
- : @param $browse:type selects doc type filter eg: place@type person@ana
+ : @param $browse:coll selects collection (persons/places ect) from browse.html 
+ : @param $browse:type selects doc type filter eg: place@type
  : @param $browse:view selects language for browse display
+ : @param $browse:date selects doc by date
  : @param $browse:sort passes browse by letter for alphabetical browse lists
  :)
 declare variable $browse:coll {request:get-parameter('coll', '')};
@@ -38,8 +36,6 @@ declare variable $browse:lang {request:get-parameter('lang', '')};
 declare variable $browse:view {request:get-parameter('view', '')};
 declare variable $browse:sort {request:get-parameter('sort', '')};
 declare variable $browse:date {request:get-parameter('date', '')};
-declare variable $browse:cited {request:get-parameter('date', '')};
-declare variable $browse:fq {request:get-parameter('fq', '')};
 declare variable $browse:start {request:get-parameter('start', 1) cast as xs:integer};
 declare variable $browse:perpage {request:get-parameter('perpage', 25) cast as xs:integer};
 
@@ -61,7 +57,7 @@ declare function browse:build-path($collection as xs:string?){
 };
 
 (:~
- : Add initial browse results to map function to be passed to display and refine functions
+ : Add initial browse results function to be passed to display and refine functions
  : @param $collection collection name passed from html, should match data subdirectory name or tei series name
 :)
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string?){
@@ -72,25 +68,24 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
                             order by browse:build-sort-string($title) collation "?lang=en&lt;syr&amp;decomposition=full"
                             return $hit     
                         else if($browse:view = 'A-Z') then
-                            for $hit in util:eval(browse:build-path($collection))//tei:title[parent::tei:titleStmt][1][matches(substring(browse:build-sort-string(.),1,1),'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')]/ancestor::tei:TEI
-                            let $title := $hit/descendant::tei:titleStmt/tei:title[1]/text()
-                            order by browse:build-sort-string($title) collation "?lang=en&lt;syr&amp;decomposition=full"
-                            return $hit
+                            for $hit in util:eval(browse:build-path($collection))//tei:titleStmt/tei:title[1]
+                            [matches(.,'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')]
+                            order by browse:build-sort-string($hit) collation "?lang=en&lt;syr&amp;decomposition=full"
+                            return $hit/ancestor::tei:TEI
                         else if($browse:view = 'ܐ-ܬ') then
-                            for $hit in util:eval(browse:build-path($collection))//tei:title[parent::tei:titleStmt][1][matches(substring(browse:build-sort-string(.),1,1),'\p{IsSyriac}','i')]/ancestor::tei:TEI
-                            let $title := $hit/descendant::tei:titleStmt/tei:title[1]/text()
-                            order by browse:build-sort-string($title) collation "?lang=syr&amp;decomposition=full"
-                            return $hit                            
+                            for $hit in util:eval(browse:build-path($collection))//tei:titleStmt/tei:title[1]
+                            [matches(.,'\p{IsSyriac}','i')]
+                            order by browse:build-sort-string($hit) collation "?lang=syr&amp;decomposition=full"
+                            return $hit/ancestor::tei:TEI                            
                         else if($browse:view = 'ا-ي') then
-                            for $hit in util:eval(browse:build-path($collection))//tei:title[parent::tei:titleStmt][1][matches(substring(browse:build-sort-string(.),1,1),'\p{IsArabic}','i')]/ancestor::tei:TEI
-                            let $title := $hit/descendant::tei:titleStmt/tei:title[1]/text()
-                            order by browse:build-sort-string($title) collation "?lang=ar&amp;decomposition=full"
-                            return $hit 
+                            for $hit in util:eval(browse:build-path($collection))//tei:titleStmt/tei:title[1]
+                            [matches(.,'\p{IsArabic}','i')]
+                            order by browse:ar-sort-string($hit) collation "?lang=ar&amp;decomposition=full"
+                            return $hit/ancestor::tei:TEI 
                         else if($browse:view = 'other') then
-                            for $hit in util:eval(browse:build-path($collection))//tei:title[parent::tei:titleStmt][1][not(matches(substring(browse:build-sort-string(.),1,1),'\p{IsSyriac}|\p{IsArabic}|\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}|\p{IsLatinExtendedAdditional}','i'))]/ancestor::tei:TEI
-                            let $title := $hit/descendant::tei:titleStmt/tei:title[1]/text()
-                            order by browse:build-sort-string($title) collation "?lang=en&lt;syr&amp;decomposition=full"
-                            return $hit                             
+                            for $hit in util:eval(browse:build-path($collection))//tei:title[parent::tei:titleStmt][1][not(matches(substring(browse:build-sort-string(.),1,1),'\p{IsSyriac}|\p{IsArabic}|\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}|\p{IsLatinExtendedAdditional}','i'))]
+                            order by browse:build-sort-string($hit) collation "?lang=en&lt;syr&lt;ar&amp;decomposition=full"
+                            return $hit/ancestor::tei:TEI                             
                         else util:eval(browse:build-path($collection))}      
 };
 
@@ -178,7 +173,6 @@ declare function browse:ar-sort(){
 declare function browse:build-sort-string($titlestring as xs:string?) as xs:string* {
     if($browse:lang = 'ar') then browse:ar-sort-string($titlestring)
     else replace($titlestring,'^\s+|^al-|[«‘ʻʿ»]|^On |^The |^A ','')
-    (:replace(replace(replace(replace(replace($titlestring,'^\s+',''),'^al-',''),'[‘ʻʿ]',''),'On ',''),'The ',''):)
 };
 
 (:~
@@ -196,15 +190,6 @@ declare function browse:lang-filter($node as node(), $model as map(*)){
     if($browse:lang != '' and $browse:lang != 'en') then 
        $model("browse-data")//tei:body/child::*[1]/child::*[1][child::*[@xml:lang = $browse:lang][1][matches(substring(browse:build-sort-string(browse:parse-persName(.)),1,1),browse:get-sort(),'i')]]
     else $model("browse-data")//tei:title[@level='a'][parent::tei:titleStmt][matches(substring(browse:build-sort-string(string-join(text(),' ')),1,1),browse:get-sort(),'i')]        
-};
-
-(: 
- : @deprecated use parse-collections()
- NOTE, parse-collections alread does this, just pass in $browse:type:)
-declare function browse:browse-pers-types(){
-    if($browse:type = 'saint') then 'Qadishe: A Guide to the Syriac Saints'
-    else if($browse:type = ('author')) then 'A Guide to Syriac Authors'
-    else ()
 };
 
 (: Formats end dates queries for searching :)
@@ -237,7 +222,7 @@ declare function browse:narrow-by-type($node as node(), $model as map(*), $colle
         if($collection = ('persons','saints','authors')) then
             if($browse:type != '') then 
                 if($browse:type = 'unknown') then $model("browse-data")//tei:person[not(ancestor::tei:TEI/descendant::tei:title[@level='m'][. = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')])]
-                    else $model("browse-data")//tei:person[ancestor::tei:TEI/descendant::tei:title[@level='m'][. = browse:browse-pers-types()]]
+                    else $model("browse-data")//tei:person[ancestor::tei:TEI/descendant::tei:title[@level='m'][. = browse:parse-collections($browse:type)]]
                 else ()
             else   
                 if($browse:type != '') then 
@@ -256,7 +241,6 @@ declare function browse:narrow-by-date($node as node(), $model as map(*)){
     else () 
 };
 
-
 (:~
  : Evaluates additional browse parameters; type, date, abc, etc. 
  : Adds narrowed data set to new map
@@ -268,7 +252,6 @@ let $data :=
         else if($browse:view = 'type') then browse:narrow-by-type($node, $model, $collection)   
         else if($browse:view = 'date') then browse:narrow-by-date($node, $model)
         else if($browse:view = 'map' or $browse:view = 'all' or $browse:view = 'A-Z' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then $model("browse-data")
-        (: else if($browse:view = 'A-Z' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then browse:narrow-by-unicode-range($node, $model):)
         else browse:lang-filter($node, $model)
 return
     map{"browse-refine" := $data}
@@ -303,7 +286,7 @@ else if($browse:view = 'all' or $browse:view = 'A-Z' or $browse:view = 'ܐ-ܬ' o
         <div>
             {
                 for $data in subsequence($model("browse-refine"), $browse:start,$browse:perpage)
-                return rec:display-recs-short-view($data, $browse:lang)
+                return global:display-recs-short-view($data, $browse:lang)
             }
         </div>
     </div>
@@ -329,12 +312,14 @@ else
     </div>
 };
 
+(: Display map :)
 declare function browse:get-map($node as node(), $model as map(*)){
     <div class="col-md-12 map-lg">
         {geo:build-map($model("browse-data")//tei:geo, '', '')}
     </div>
 };
 
+(: Parse persName elements into text string :)
 declare function browse:parse-persName($persName){
 if($persName/child::*) then 
     string-join(for $namePart in $persName/child::*
@@ -342,6 +327,7 @@ if($persName/child::*) then
     return $namePart/text(),' ')
 else $persName/text()
 };
+
 (:
  : Sorts and outputs results set
  : @param $coll from html template
@@ -380,10 +366,10 @@ return
                 <a href="manuscript.html?id={$id}">{$title}</a>
             </div>
     else 
-        if($collection = 'spear') then $data (:rec:display-recs-short-view($data,''):) 
+        if($collection = 'spear') then $data (:global:display-recs-short-view($data,''):) 
         else if($browse:view = 'syr') then 
-            rec:display-recs-short-view($data,'syr') 
-        else rec:display-recs-short-view($data/ancestor::tei:TEI, $browse:lang)      
+            global:display-recs-short-view($data,'syr') 
+        else global:display-recs-short-view($data/ancestor::tei:TEI, $browse:lang)      
 ) 
 };
 
@@ -469,10 +455,10 @@ declare function browse:browse-date(){
  : Build Language Tabs dynamically.
  : @param $value from template
  : @param $language from template
- : @param $sort-letter from template
+ : @param $sort-value from template
 :)
-declare function browse:tabs($node as node(), $model as map(*), $text as xs:string?, $param as xs:string?, $value as xs:string?, $sort as xs:string?){
-let $s := if($sort != '') then $sort else 'A'
+declare function browse:tabs($node as node(), $model as map(*), $text as xs:string?, $param as xs:string?, $value as xs:string?, $sort-value as xs:string?){
+let $s := if($sort-value != '') then $sort-value else if($browse:sort != '') then $browse:sort else 'A'
 return
     <li xmlns="http://www.w3.org/1999/xhtml" test="{$value}">{
         if($value = $browse:lang) then attribute class {'active'}
@@ -480,24 +466,16 @@ return
         else if($value = $browse:view) then attribute class {'active'}
         else ()
         }
-        <a href="browse.html?{$param}={$value}&amp;sort={$sort}">
+        <a href="browse.html?{$param}={$value}&amp;sort={$s}">
         {if($value = 'syr' or $value = 'ar') then (attribute lang {$value},attribute dir {'ltr'}) else ()}
-        {$text}</a>
+        {$text}
+        </a>
     </li> 
 };
 
-(:
-declare function browse:tabs($node as node(), $model as map(*), $text as xs:string?, $param as xs:string?, $value as xs:string?){
-    <li xmlns="http://www.w3.org/1999/xhtml">{
-        if($value = $browse:view) then attribute class {'active'}
-        else ()
-        }
-        <a href="browse.html?{$param}={$value}">{$text}</a>TEST2
-    </li> 
-};
-:)
 (:~
  : Browse Tabs - Type  
+ : @depreciated use browse:tabs()
 :)
 declare  %templates:wrap function browse:build-tabs-type($node, $model){
     <li>{if($browse:view = 'type') then attribute class {'active'}
@@ -506,7 +484,8 @@ declare  %templates:wrap function browse:build-tabs-type($node, $model){
 };
 
 (:~
- : Browse Tabs - Map
+ : Browse Tabs - date
+ : @depreciated use browse:tabs()
 :)
 declare  %templates:wrap function browse:build-tabs-date($node, $model){
     <li>{if($browse:view = 'date') then attribute class {'active'} 
@@ -516,6 +495,7 @@ declare  %templates:wrap function browse:build-tabs-date($node, $model){
 
 (:~
  : Browse Tabs - Map
+ : @depreciated use browse:tabs()
 :)
 declare  %templates:wrap function browse:build-tabs-map($node, $model){
     <li>{if($browse:view = 'map') then attribute class {'active'} 
