@@ -284,25 +284,12 @@ function api:get-atom-feed($start as xs:integer*, $perpage as xs:integer*){
  : Returns tei record for syriaca.org subcollections
 :)
 declare function api:get-tei-rec($collection as xs:string, $id as xs:string) as node()*{
-    let $collection-name := 
-        if($collection = 'place') then 'places'
-        else if($collection = 'person') then 'persons'
-        else if($collection = 'work') then 'works'
-        else $collection
     let $uri := concat($global:base-uri,'/',$collection, '/', $id)
     return 
         if($collection='spear') then 
             let $spear-id := concat('http://syriaca.org/spear/',$id)
-            return
-             <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">
-                {
-                    for $rec in collection(xs:anyURI($global:data-root) || '/spear/tei')//tei:div[@uri=$spear-id]
-                    return $rec
-                }
-             </tei:TEI>
-        else 
-            for $rec in collection('/db/apps/srophe-data/data')//tei:idno[@type='URI'][. = $uri]/ancestor::tei:TEI
-            return $rec
+            return global:get-rec($spear-id)
+        else global:get-rec($uri)
 };
 
 (:~

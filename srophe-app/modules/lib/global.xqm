@@ -119,13 +119,14 @@ declare function global:display-recs-short-view($node, $lang) as node()*{
 (:
  : Generic get record function
 :)
-declare function global:get-rec($id as xs:string){
+declare function global:get-rec($id as xs:string){  
     if(contains($id,'/spear/')) then 
         for $rec in collection($global:data-root)//tei:div[@uri = $id]
-        return $rec
+        return 
+            <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec}</tei:TEI>
     else 
-        for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI
-        return $rec  
+        for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = concat($id,'/tei')]/ancestor::tei:TEI
+        return $rec 
 };
 
 (: Browse and search sort functions :)
