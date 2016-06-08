@@ -153,7 +153,9 @@
                                 <xsl:when test="t:citedRange">
                                     <xsl:sequence select="$citedRange"/>
                                 </xsl:when>
-                                <xsl:otherwise><xsl:text>.</xsl:text></xsl:otherwise>
+                                <xsl:otherwise>
+                                    <xsl:text>.</xsl:text>
+                                </xsl:otherwise>
                             </xsl:choose>
                             <span class="footnote-links">
                                 <xsl:apply-templates select="descendant::t:idno" mode="links"/>
@@ -167,7 +169,9 @@
                             <xsl:when test="t:citedRange">
                                 <xsl:sequence select="$citedRange"/>
                             </xsl:when>
-                            <xsl:otherwise><xsl:text>.</xsl:text></xsl:otherwise>
+                            <xsl:otherwise>
+                                <xsl:text>.</xsl:text>
+                            </xsl:otherwise>
                         </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -799,7 +803,7 @@
             <xsl:choose>
                 <xsl:when test="@type='zotero'"/>
                 <xsl:when test="starts-with($ref,$base-uri)">
-                    <a href="{replace($ref,$base-uri,$nav-base)}" title="Link to Syriaca.org Bibliographic Record" data-toggle="tooltip" data-placement="top" class="bibl-links">
+                    <a href="{replace($ref,$base-uri,$nav-base)}" title="Link to Syriaca.org Bibliographic Record for {parent::*/t:title[1]/text()}" data-toggle="tooltip" data-placement="top" class="bibl-links">
                         <img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record"/>
                     </a>
                 </xsl:when>
