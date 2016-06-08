@@ -121,11 +121,11 @@
                 <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]">
                     <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]" mode="title"/>
                 </xsl:when>
+                <xsl:when test="//t:titleStmt">
+                    <xsl:apply-templates select="//t:titleStmt/t:title[1]" mode="full"/>
+                </xsl:when>
                 <xsl:when test="descendant::t:biblStruct">
                     <xsl:apply-templates select="descendant::t:biblStruct/descendant::t:title[1]" mode="full"/>
-                </xsl:when>
-                <xsl:when test="ancestor::t:TEI/descendant::t:titleStmt">
-                    <xsl:apply-templates select="ancestor::t:TEI/descendant::t:titleStmt/t:title[1]"/>
                 </xsl:when>
                 <xsl:when test="descendant::t:title">
                     <xsl:apply-templates select="descendant::t:title[1]"/>
@@ -360,13 +360,13 @@
                     </xsl:if>
                     <xsl:if test="//*:match">
                         <span class="results-list-desc srp-label">Matches:</span>
-                        <xsl:for-each select="//*:match/parent::*">
+                        <xsl:for-each select="//*:match/parent::*[1]">
                             <xsl:if test="position() lt 8">
                                 <span class="results-list-desc container">
                                     <span class="srp-label">
                                         <xsl:value-of select="concat(position(),'. (', name(.),') ')"/>
                                     </span>
-                                    <xsl:apply-templates select="."/>
+                                    <xsl:apply-templates mode="plain"/>
                                 </span>
                             </xsl:if>
                             <xsl:if test="position() = 8">
@@ -391,7 +391,8 @@
     </xsl:template>
     <xsl:template match="*:match" mode="#all">
         <span class="match" style="background-color:yellow; padding:0 .25em;">
-            <xsl:text> </xsl:text><xsl:value-of select="."/>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="."/>
         </span>
     </xsl:template>
 </xsl:stylesheet>
