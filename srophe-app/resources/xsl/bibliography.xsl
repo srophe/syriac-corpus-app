@@ -126,47 +126,57 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="t:bibl" mode="inline">
+        <xsl:variable name="citedRange">
+            <xsl:if test="t:citedRange">
+                <xsl:text>, </xsl:text>
+                <xsl:for-each select="t:citedRange">
+                    <xsl:apply-templates select="." mode="footnote"/>
+                </xsl:for-each>
+            </xsl:if>
+        </xsl:variable>
         <!-- When ptr is available, use full bibl record (indicated by ptr) -->
         <xsl:choose>
             <!-- NOTE: unclear what use case this handles.  -->
-                <xsl:when test="t:ptr[@target and starts-with(@target, concat($base-uri,'/bibl/'))]">
+            <xsl:when test="t:ptr[@target and starts-with(@target, concat($base-uri,'/bibl/'))]">
                     <!-- Find file path for bibliographic record -->
-                    <xsl:variable name="biblfilepath">
-                        <xsl:value-of select="concat($data-root,'/bibl/tei/',substring-after(t:ptr/@target, concat($base-uri,'/bibl/')),'.xml')"/>
-                    </xsl:variable>
-                    <xsl:variable name="citedRange">
-                        <xsl:if test="t:citedRange">
-                            <xsl:text>, </xsl:text>
-                            <xsl:for-each select="t:citedRange">
-                                <xsl:apply-templates select="." mode="footnote"/>
-                            </xsl:for-each>
-                        </xsl:if>
-                    </xsl:variable>
-                    <!-- Check if record exists in db with doc-available function -->
-                    <xsl:choose>
-                        <xsl:when test="doc-available($biblfilepath)">
-                            <!-- Process record as a footnote -->
-                            <xsl:for-each select="document($biblfilepath)/descendant::t:biblStruct[1]">
-                                <xsl:apply-templates mode="footnote"/>
-                                <!-- Process all citedRange elements as footnotes -->
-                                <xsl:sequence select="$citedRange"/>
-                                <span class="footnote-links">
-                                    <a href="{replace(t:ptr/@target,$base-uri,$nav-base)}" title="Link to Syriaca.org Bibliographic Record" data-toggle="tooltip" data-placement="top" class="bibl-links">
-                                        <img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record"/>    
-                                    </a>
-                                </span>
-                            </xsl:for-each>
-                        </xsl:when>
-                        <xsl:otherwise>
+                <xsl:variable name="biblfilepath">
+                    <xsl:value-of select="concat($data-root,'/bibl/tei/',substring-after(t:ptr/@target, concat($base-uri,'/bibl/')),'.xml')"/>
+                </xsl:variable>    
+                <!-- Check if record exists in db with doc-available function -->
+                <xsl:choose>
+                    <xsl:when test="doc-available($biblfilepath)">
+                        <!-- Process record as a footnote -->
+                        <xsl:for-each select="document($biblfilepath)/descendant::t:biblStruct[1]">
                             <xsl:apply-templates mode="footnote"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:when>
-            <!-- Main footnote display, used by "Sources" portion of Syriaca.org pages -->
-                <xsl:otherwise>
-                    <span class="footnote-content">
+                            <!-- Process all citedRange elements as footnotes -->
+                            <xsl:choose>
+                                <xsl:when test="t:citedRange">
+                                    <xsl:sequence select="$citedRange"/>
+                                </xsl:when>
+                                <xsl:otherwise><xsl:text>.</xsl:text></xsl:otherwise>
+                            </xsl:choose>
+                            <span class="footnote-links">
+                                <xsl:apply-templates select="descendant::t:idno" mode="links"/>
+                                <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
+                            </span>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
                         <xsl:apply-templates mode="footnote"/>
-                    </span>
+                        <xsl:choose>
+                            <xsl:when test="t:citedRange">
+                                <xsl:sequence select="$citedRange"/>
+                            </xsl:when>
+                            <xsl:otherwise><xsl:text>.</xsl:text></xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <!-- Main footnote display, used by "Sources" portion of Syriaca.org pages -->
+            <xsl:otherwise>
+                <span class="footnote-content">
+                    <xsl:apply-templates mode="footnote"/>
+                </span>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
