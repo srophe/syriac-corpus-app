@@ -825,31 +825,33 @@
         </xsl:variable>
         <span class="footnote-icon">
             <a href="{$ref}" title="{$title}" data-toggle="tooltip" data-placement="top" class="bibl-links">
-                <xsl:call-template name="link-icons"><xsl:with-param name="ref" select="$ref"/></xsl:call-template>
+                <xsl:call-template name="ref-icons">
+                    <xsl:with-param name="ref" select="$ref"/>
+                </xsl:call-template>
             </a>
         </span>
     </xsl:template>
-    <xsl:template name="link-icons">
+    <xsl:template name="ref-icons">
         <xsl:param name="ref"/>
         <xsl:choose>
             <xsl:when test="@type='zotero'"/>
-            <xsl:when test="starts-with($ref,$base-uri)">    
+            <xsl:when test="starts-with($ref,$base-uri)">
                 <img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record"/>
             </xsl:when>
             <!-- glyphicon glyphicon-book -->
-            <xsl:when test="starts-with($ref,'http://www.worldcat.org/')">    
+            <xsl:when test="starts-with($ref,'http://www.worldcat.org/')">
                 <img src="{$nav-base}/resources/img/worldCat-logo.jpg" alt="Link to Worldcat Bibliographic record"/>
             </xsl:when>
-            <xsl:when test="starts-with($ref,'http://catalog.hathitrust.org/')">    
+            <xsl:when test="starts-with($ref,'http://catalog.hathitrust.org/')">
                 <img src="{$nav-base}/resources/img/htrc_logo.jpg" alt="Link to HathiTrust Bibliographic record"/>
             </xsl:when>
-            <xsl:when test="starts-with($ref,'http://digitale-sammlungen.ulb.uni-bonn.de')">    
+            <xsl:when test="starts-with($ref,'http://digitale-sammlungen.ulb.uni-bonn.de')">
                 <span class="glyphicon glyphicon-book" aria-hidden="true"/>
             </xsl:when>
             <xsl:when test="starts-with($ref,'https://archive.org')">
                 <img src="{$nav-base}/resources/img/ialogo.jpg" alt="Link to Archive.org Bibliographic record"/>
             </xsl:when>
-            <xsl:otherwise>    
+            <xsl:otherwise>
                 <span class="glyphicon glyphicon-book"/>
             </xsl:otherwise>
         </xsl:choose>
@@ -868,7 +870,9 @@
                 <xsl:when test="@type='URI'">
                     <a href="{text()}">
                         <xsl:value-of select="text()"/>&#160;
-                        <xsl:call-template name="link-icons"><xsl:with-param name="ref" select="text()"/></xsl:call-template>
+                        <xsl:call-template name="ref-icons">
+                            <xsl:with-param name="ref" select="text()"/>
+                        </xsl:call-template>
                     </a>
                 </xsl:when>
                 <xsl:otherwise>
@@ -889,7 +893,9 @@
                         <xsl:value-of select="@target"/>
                     </xsl:otherwise>
                 </xsl:choose>
-                &#160;<xsl:call-template name="link-icons"><xsl:with-param name="ref" select="text()"/></xsl:call-template>
+                &#160;<xsl:call-template name="ref-icons">
+                    <xsl:with-param name="ref" select="text()"/>
+                </xsl:call-template>
             </a>
         </p>
     </xsl:template>
@@ -914,7 +920,7 @@
                         <xsl:otherwise>
                             <xsl:apply-templates/>
                         </xsl:otherwise>
-                    </xsl:choose>                    
+                    </xsl:choose>
                 </span>
             </p>
         </xsl:for-each>
@@ -976,7 +982,7 @@
         <p>
             <span class="srp-label">
                 <xsl:value-of select="concat(upper-case(substring(name(.),1,1)),substring(name(.),2))"/>: </span>
-            <span>  
+            <span>
                 <xsl:call-template name="langattr"/>
                 <xsl:apply-templates mode="footnote"/>
             </span>
