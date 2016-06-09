@@ -799,43 +799,60 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:variable>
-        <span class="footnote-icon">
+        <xsl:variable name="title">
             <xsl:choose>
                 <xsl:when test="@type='zotero'"/>
                 <xsl:when test="starts-with($ref,$base-uri)">
-                    <a href="{replace($ref,$base-uri,$nav-base)}" title="Link to Syriaca.org Bibliographic Record for {parent::*/t:title[1]/text()}" data-toggle="tooltip" data-placement="top" class="bibl-links">
-                        <img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record"/>
-                    </a>
+                    <xsl:value-of select="concat('Link to Syriaca.org Bibliographic Record for', parent::*/t:title[1]/text())"/>
                 </xsl:when>
                 <!-- glyphicon glyphicon-book -->
                 <xsl:when test="starts-with($ref,'http://www.worldcat.org/')">
-                    <a href="{$ref}" title="Link to Worldcat Bibliographic record" data-toggle="tooltip" data-placement="top" class="bibl-links">
-                        <!--<span class="glyphicon glyphicon-book" aria-hidden="true"/>-->
-                        <img src="{$nav-base}/resources/img/worldCat-logo.jpg" alt="Link to Worldcat Bibliographic record"/>
-                    </a>
+                    <xsl:text>Link to Worldcat Bibliographic record</xsl:text>
                 </xsl:when>
                 <xsl:when test="starts-with($ref,'http://catalog.hathitrust.org/')">
-                    <a href="{$ref}" title="Link to HathiTrust Bibliographic record" data-toggle="tooltip" data-placement="top" class="bibl-links">
-                        <img src="{$nav-base}/resources/img/htrc_logo.jpg" alt="Link to HathiTrust Bibliographic record"/>
-                    </a>
+                    <xsl:text>Link to HathiTrust Bibliographic record</xsl:text>
                 </xsl:when>
                 <xsl:when test="starts-with($ref,'http://digitale-sammlungen.ulb.uni-bonn.de')">
-                    <a href="{$ref}" title="Link to UniversitätBonn Bibliographic record" data-toggle="tooltip" data-placement="top" class="bibl-links">
-                        <span class="glyphicon glyphicon-book" aria-hidden="true"/>
-                    </a>
+                    <xsl:text>Link to UniversitätBonn Bibliographic record</xsl:text>
                 </xsl:when>
                 <xsl:when test="starts-with($ref,'https://archive.org')">
-                    <a href="{$ref}" title="Link to Archive.org Bibliographic record" data-toggle="tooltip" data-placement="top" class="bibl-links">
-                        <img src="{$nav-base}/resources/img/ialogo.jpg" alt="Link to Archive.org Bibliographic record"/>
-                    </a>
+                    <xsl:text>Link to Archive.org Bibliographic record</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
-                    <a href="{$ref}" data-toggle="tooltip" data-placement="top" title="{$ref}">
-                        <span class="glyphicon glyphicon-book"/>
-                    </a>
+                    <xsl:text>External link to bibliographic record</xsl:text>
                 </xsl:otherwise>
             </xsl:choose>
+        </xsl:variable>
+        <span class="footnote-icon">
+            <a href="{$ref}" title="{$title}" data-toggle="tooltip" data-placement="top" class="bibl-links">
+                <xsl:call-template name="link-icons"><xsl:with-param name="ref" select="$ref"/></xsl:call-template>
+            </a>
         </span>
+    </xsl:template>
+    <xsl:template name="link-icons">
+        <xsl:param name="ref"/>
+        <xsl:choose>
+            <xsl:when test="@type='zotero'"/>
+            <xsl:when test="starts-with($ref,$base-uri)">    
+                <img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record"/>
+            </xsl:when>
+            <!-- glyphicon glyphicon-book -->
+            <xsl:when test="starts-with($ref,'http://www.worldcat.org/')">    
+                <img src="{$nav-base}/resources/img/worldCat-logo.jpg" alt="Link to Worldcat Bibliographic record"/>
+            </xsl:when>
+            <xsl:when test="starts-with($ref,'http://catalog.hathitrust.org/')">    
+                <img src="{$nav-base}/resources/img/htrc_logo.jpg" alt="Link to HathiTrust Bibliographic record"/>
+            </xsl:when>
+            <xsl:when test="starts-with($ref,'http://digitale-sammlungen.ulb.uni-bonn.de')">    
+                <span class="glyphicon glyphicon-book" aria-hidden="true"/>
+            </xsl:when>
+            <xsl:when test="starts-with($ref,'https://archive.org')">
+                <img src="{$nav-base}/resources/img/ialogo.jpg" alt="Link to Archive.org Bibliographic record"/>
+            </xsl:when>
+            <xsl:otherwise>    
+                <span class="glyphicon glyphicon-book"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="t:idno" mode="full">
         <p>
@@ -850,13 +867,30 @@
             <xsl:choose>
                 <xsl:when test="@type='URI'">
                     <a href="{text()}">
-                        <xsl:value-of select="text()"/>&#160;<span class="glyphicon glyphicon-book" aria-hidden="true"/>
+                        <xsl:value-of select="text()"/>&#160;
+                        <xsl:call-template name="link-icons"><xsl:with-param name="ref" select="text()"/></xsl:call-template>
                     </a>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:apply-templates/>
                 </xsl:otherwise>
             </xsl:choose>
+        </p>
+    </xsl:template>
+    <xsl:template match="t:ref" mode="full">
+        <p>
+            <span class="srp-label">See Also: </span>
+            <a href="{@target}">
+                <xsl:choose>
+                    <xsl:when test="text()">
+                        <xsl:value-of select="text()"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="@target"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                &#160;<xsl:call-template name="link-icons"><xsl:with-param name="ref" select="text()"/></xsl:call-template>
+            </a>
         </p>
     </xsl:template>
     <xsl:template match="t:imprint" mode="full">
@@ -869,16 +903,19 @@
                         <xsl:when test="self::t:date">Date of Publication: </xsl:when>
                     </xsl:choose>
                 </span>
-                <xsl:choose>
-                    <xsl:when test="@ref">
-                        <a href="{@ref}">
+                <span>
+                    <xsl:call-template name="langattr"/>
+                    <xsl:choose>
+                        <xsl:when test="@ref">
+                            <a href="{@ref}">
+                                <xsl:apply-templates/>
+                            </a>
+                        </xsl:when>
+                        <xsl:otherwise>
                             <xsl:apply-templates/>
-                        </a>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:apply-templates/>
-                    </xsl:otherwise>
-                </xsl:choose>
+                        </xsl:otherwise>
+                    </xsl:choose>                    
+                </span>
             </p>
         </xsl:for-each>
     </xsl:template>
@@ -903,25 +940,13 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </span>
-            <xsl:apply-templates mode="full"/>
+            <span>
+                <xsl:call-template name="langattr"/>
+                <xsl:apply-templates mode="full"/>
+            </span>
         </p>
     </xsl:template>
-    <xsl:template match="t:ref" mode="full">
-        <p>
-            <span class="srp-label">See Also: </span>
-            <a href="{@target}">
-                <xsl:choose>
-                    <xsl:when test="text()">
-                        <xsl:value-of select="text()"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="@target"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-                &#160;<span class="glyphicon glyphicon-book" aria-hidden="true"/>
-            </a>
-        </p>
-    </xsl:template>
+
     <!-- Templates for full bibl display -->
     <xsl:template match="t:biblStruct" mode="full">
         <xsl:apply-templates mode="full"/>
@@ -951,7 +976,10 @@
         <p>
             <span class="srp-label">
                 <xsl:value-of select="concat(upper-case(substring(name(.),1,1)),substring(name(.),2))"/>: </span>
-            <xsl:apply-templates mode="footnote"/>
+            <span>  
+                <xsl:call-template name="langattr"/>
+                <xsl:apply-templates mode="footnote"/>
+            </span>
         </p>
     </xsl:template>
     
