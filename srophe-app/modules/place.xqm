@@ -51,10 +51,15 @@ declare %templates:wrap function place:app-title($node as node(), $model as map(
 };  
 
 (:
- : Pass necessary element to h1 xslt template
+ : Pass necessary elements to h1 xslt template
 :)
 declare %templates:wrap function place:h1($node as node(), $model as map(*)){
-    app:h1($node,$model)
+    let $title := $model("data")//tei:place
+    let $title-nodes := 
+            <srophe-title xmlns="http://www.tei-c.org/ns/1.0">
+                {($title//tei:placeName[@syriaca-tags='#syriaca-headword'],$title/descendant::tei:idno, $title/descendant::tei:location)}
+            </srophe-title>
+    return global:tei2html($title-nodes)
 };
 
 declare %templates:wrap function place:abstract($node as node(), $model as map(*)){

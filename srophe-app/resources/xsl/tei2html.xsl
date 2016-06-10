@@ -157,7 +157,7 @@
             </div>
         </xsl:if>
         <xsl:if test="self::t:person">
-            <div id="persnames">
+            <div>
                 <xsl:if test="t:desc[@type='abstract'] | t:desc[starts-with(@xml:id, 'abstract-en')] | t:note[@type='abstract']">
                     <div style="margin-bottom:1em;">
                         <h4>Identity</h4>
@@ -616,27 +616,28 @@
         </div>
     </xsl:template>
     <xsl:template name="title">
-        <xsl:apply-templates select="t:title[1]"/>
-        <xsl:if test="t:title[@level='m'][not(position()=1)] or t:birth or t:death or t:floruit">
+        <xsl:choose>
+            <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')]">
+                <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]" mode="plain"/>
+                <xsl:text> - </xsl:text>
+                <xsl:choose>
+                    <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')]">
+                        <span lang="syr" dir="rtl">
+                            <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')][1]" mode="plain"/>
+                        </span>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        [ Syriac Not Available ]
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="t:title[1]"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:if test="//t:title[@level='s'][. != 'The Syriac Biographical Dictionary'] or t:birth or t:death or t:floruit">
             <span lang="en" class="type" style="padding-left:1em;">
                 <xsl:text>(</xsl:text>
-                <xsl:for-each select="t:title[@level='m' or @level='s']">
-                    <xsl:choose>
-                        <xsl:when test=". = 'A Guide to Syriac Authors'">
-                            <a href="{$nav-base}/authors/index.html">
-                                <img src="{$nav-base}/resources/img/icons-authors-sm.png" alt="A Guide to Syriac Authors"/>author</a>
-                        </xsl:when>
-                        <xsl:when test=". = 'Qadishe: A Guide to the Syriac Saints'">
-                            <a href="{$nav-base}/q/index.html">
-                                <img src="{$nav-base}/resources/img/icons-q-sm.png" alt="Qadishe: A Guide to the Syriac Saints"/>saint</a>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="t:title[@level='m' or @level='s']"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <xsl:if test="following-sibling::*/text() = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')">, TEST2</xsl:if>
-                </xsl:for-each>
-                <xsl:if test="t:title[@level='m'] and (t:death or t:birth)">,  </xsl:if>
                 <xsl:if test="t:death or t:birth">
                     <xsl:if test="not(t:death)">b. </xsl:if>
                     <xsl:value-of select="t:birth/text()"/>
@@ -649,11 +650,32 @@
                     </xsl:if>
                 </xsl:if>
                 <xsl:if test="t:floruit/text()">
-                    <xsl:if test="t:title[@level='m' or @level='s'][not(. = 'The Syriac Biographical Dictionary')] or t:death or t:birth">
+                    <xsl:if test="t:death or t:birth">
                         <xsl:text>, </xsl:text>
                     </xsl:if>
-                    <xsl:value-of select="t:floruit/text()"/>
+                    <xsl:value-of select="concat('active ', t:floruit/text())"/>
                 </xsl:if>
+                <xsl:for-each select="t:title[@level='s']">
+                    <xsl:choose>
+                        <xsl:when test=". = 'The Syriac Biographical Dictionary'"/>
+                        <xsl:when test=". = 'A Guide to Syriac Authors'">
+                            <a href="{$nav-base}/authors/index.html">
+                                <img src="{$nav-base}/resources/img/icons-authors-sm.png" alt="A Guide to Syriac Authors"/>author</a>
+                        </xsl:when>
+                        <xsl:when test=". = 'Qadishe: A Guide to the Syriac Saints'">
+                            <a href="{$nav-base}/q/index.html">
+                                <img src="{$nav-base}/resources/img/icons-q-sm.png" alt="Qadishe: A Guide to the Syriac Saints"/>saint</a>
+                        </xsl:when>
+                        <xsl:when test=". = 'Gateway to the Syriac Saints'">
+                            <a href="{$nav-base}/q/index.html">
+                                <img src="{$nav-base}/resources/img/icons-q-sm.png" alt="Qadishe: A Guide to the Syriac Saints"/>saint</a>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="."/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:if test="following-sibling::*/text() = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')">, TEST2</xsl:if>
+                </xsl:for-each>
                 <xsl:text>) </xsl:text>
             </span>
         </xsl:if>

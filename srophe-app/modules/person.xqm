@@ -43,10 +43,21 @@ declare %templates:wrap function person:app-title($node as node(), $model as map
 };  
 
 (:
- : Pass necessary element to h1 xslt template     
+ : Pass necessary elements to h1 xslt template     
 :)
 declare %templates:wrap function person:h1($node as node(), $model as map(*)){
-    app:h1($node,$model)
+    let $title-nodes := 
+            <srophe-title xmlns="http://www.tei-c.org/ns/1.0">
+                {(
+                    $model("data")//tei:titleStmt/tei:title[1],
+                    $model("data")//tei:seriesStmt/tei:title[1],
+                    $model("data")//tei:person/descendant::tei:birth,
+                    $model("data")//tei:person/descendant::tei:death,
+                    $model("data")//tei:person/descendant::tei:floruit,
+                    $model("data")//tei:person/descendant::tei:idno[contains(.,$global:base-uri)]
+                )}
+            </srophe-title>
+    return global:tei2html($title-nodes)
 };
 
 declare %templates:wrap function person:names($node as node(), $model as map(*)){
@@ -56,14 +67,26 @@ try {
     let $sex := $model("data")//tei:sex
     let $martyr := $model("data")//tei:state
     let $nodes := 
-        <person xmlns="http://www.tei-c.org/ns/1.0">
+        (<person xmlns="http://www.tei-c.org/ns/1.0">
             {(
                 $names,
                 $abstract,
                 $martyr,
                 $sex
             )}
-        </person>
+        </person>)
+    return global:tei2html($nodes)
+   } catch * { <error>No Data {$err:code}: {$err:description}</error>}
+   
+};
+
+declare %templates:wrap function person:desc($node as node(), $model as map(*)){
+try {    
+    let $desc := $model("data")//tei:note[@type="description"]
+    let $nodes := 
+        (<person xmlns="http://www.tei-c.org/ns/1.0">
+            {$desc}
+        </person>)
     return global:tei2html($nodes)
    } catch * { <error>No Data {$err:code}: {$err:description}</error>}
    
@@ -77,7 +100,7 @@ declare %templates:wrap function person:data($node as node(), $model as map(*)){
                  {
                      for $data in $rec/child::*[not(self::tei:persName)][not(self::tei:bibl)]
                      [not(self::*[@type='abstract' or starts-with(@xml:id, 'abstract-en')])]
-                     [not(self::tei:state)][not(self::tei:sex)]
+                     [not(self::tei:state)][not(self::tei:sex)][not(self::tei:note[@type="description"])]
                      return $data
                  }
          </person>
@@ -93,13 +116,9 @@ return
         $data//tei:death[@when or @notBefore or @notAfter] or 
         $data//tei:state[@when or @notBefore or @notAfter or @to or @from] or 
         $data//tei:floruit[@when or @notBefore or @notAfter or @to or @from] or $data//tei:date[@when or @notBefore or @notAfter or @to or @from]) then
-                <div class="row">
-                        <div class="col-md-9">
-                            <div class="timeline">
-                                <div>{timeline:timeline($data, 'Events Timeline')}</div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
+                <div>                
+                    <div>{timeline:timeline($data, 'Events Timeline')}</div>
+                    <div class="indent">
                             <h4>Dates</h4>
                             <ul class="list-unstyled">
                                 {
@@ -110,8 +129,8 @@ return
                                  return 
                                     <li>{global:tei2html($date)}</li>
                                 }
-                            </ul>
-                        </div> 
+                            </ul> 
+                       </div>     
                     </div>
         else ()
      else if($dates = 'events') then
@@ -129,10 +148,11 @@ return
     if(count($geo-hits) gt 0) then
         (
         <div>
+        <hr/>
             <h2>Related Places in the Syriac Gazetteer</h2>
             {geo:build-map($geo-hits,'','')}
         </div>,
-        <div>
+        <div class="indent">
             {
             global:tei2html(
                 <person xmlns="http://www.tei-c.org/ns/1.0">
@@ -141,7 +161,8 @@ return
                     </related-items>
                 </person>)
             }
-        </div>
+        </div>,<hr/>
+        
         )
      else if(person:get-related($data/descendant::tei:relation/child::*)) then 
             global:tei2html(

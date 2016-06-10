@@ -179,7 +179,7 @@
         <xsl:variable name="floruit">
             <xsl:if test="descendant-or-self::t:floruit/text()">
                 <xsl:for-each select="descendant-or-self::t:floruit">
-                    <xsl:value-of select="concat('active ',string-join(self::text(),' '))"/>
+                    <xsl:value-of select="concat('active ',string-join(.,' '))"/>
                 </xsl:for-each>
             </xsl:if>
         </xsl:variable>
