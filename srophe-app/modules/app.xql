@@ -1,5 +1,5 @@
 xquery version "3.0";
-
+    
 module namespace app="http://syriaca.org/templates";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
@@ -10,7 +10,7 @@ import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 
-(:~       
+(:~        
  : Syriaca.org URI for retrieving TEI records 
 :)
 declare variable $app:id {request:get-parameter('id', '')};
@@ -101,7 +101,7 @@ http://syriaca.org/work/ http://syriaca.org/work/488
  : Simple get record function, get tei record based on idno
  : Builds uri from simple ids.
  : @param $app:id syriaca.org uri   
-:) 
+:)    
 declare function app:get-rec($node as node(), $model as map(*), $collection as xs:string?) { 
 if($app:id != '') then 
     let $id :=
@@ -161,7 +161,7 @@ declare function app:h1($node as node(), $model as map(*)){
  : Default record display, used if no sub-module functions. 
 :)
 declare %templates:wrap function app:rec-display($node as node(), $model as map(*)){
-    if($model("data")//tei:listRelation) then 
+    if($model("data")//tei:relation) then 
        <div class="row">
             <div class="col-md-8 column1">
                 {global:tei2html($model("data")/descendant::tei:body)} 
