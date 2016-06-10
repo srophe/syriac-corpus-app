@@ -801,7 +801,9 @@
         </xsl:variable>
         <xsl:variable name="title">
             <xsl:choose>
-                <xsl:when test="@type='zotero'"/>
+                <xsl:when test="@type='zotero'">
+                    <xsl:text>Link to Zotero Bibliographic record</xsl:text>
+                </xsl:when>
                 <xsl:when test="starts-with($ref,$base-uri)">
                     <xsl:value-of select="concat('Link to Syriaca.org Bibliographic Record for', parent::*/t:title[1]/text())"/>
                 </xsl:when>
@@ -834,22 +836,21 @@
     <xsl:template name="ref-icons">
         <xsl:param name="ref"/>
         <xsl:choose>
-            <xsl:when test="@type='zotero'"/>
+            <xsl:when test="@type='zotero'">
+                <img src="{$nav-base}/resources/img/zotero.png" alt="Link to Zotero Bibliographic Record" height="20px"/>
+            </xsl:when>
             <xsl:when test="starts-with($ref,$base-uri)">
-                <img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record"/>
+                <img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record" height="20px"/> 
             </xsl:when>
             <!-- glyphicon glyphicon-book -->
             <xsl:when test="starts-with($ref,'http://www.worldcat.org/')">
-                <img src="{$nav-base}/resources/img/worldCat-logo.jpg" alt="Link to Worldcat Bibliographic record"/>
+                <img src="{$nav-base}/resources/img/worldCat-logo.jpg" alt="Link to Worldcat Bibliographic record" height="20px"/>
             </xsl:when>
             <xsl:when test="starts-with($ref,'http://catalog.hathitrust.org/')">
-                <img src="{$nav-base}/resources/img/htrc_logo.jpg" alt="Link to HathiTrust Bibliographic record"/>
-            </xsl:when>
-            <xsl:when test="starts-with($ref,'http://digitale-sammlungen.ulb.uni-bonn.de')">
-                <span class="glyphicon glyphicon-book" aria-hidden="true"/>
+                <img src="{$nav-base}/resources/img/htrc_logo.jpg" alt="Link to HathiTrust Bibliographic record" height="20px"/>
             </xsl:when>
             <xsl:when test="starts-with($ref,'https://archive.org')">
-                <img src="{$nav-base}/resources/img/ialogo.jpg" alt="Link to Archive.org Bibliographic record"/>
+                <img src="{$nav-base}/resources/img/ialogo.jpg" alt="Link to Archive.org Bibliographic record" height="20px"/>
             </xsl:when>
             <xsl:otherwise>
                 <span class="glyphicon glyphicon-book"/>
