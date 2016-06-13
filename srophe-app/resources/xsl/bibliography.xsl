@@ -136,9 +136,8 @@
         </xsl:variable>
         <!-- When ptr is available, use full bibl record (indicated by ptr) -->
         <xsl:choose>
-            <!-- NOTE: unclear what use case this handles.  -->
             <xsl:when test="t:ptr[@target and starts-with(@target, concat($base-uri,'/bibl/'))]">
-                    <!-- Find file path for bibliographic record -->
+                <!-- Find file path for bibliographic record -->
                 <xsl:variable name="biblfilepath">
                     <xsl:value-of select="concat($data-root,'/bibl/tei/',substring-after(t:ptr/@target, concat($base-uri,'/bibl/')),'.xml')"/>
                 </xsl:variable>    
@@ -150,7 +149,7 @@
                             <xsl:apply-templates mode="footnote"/>
                             <!-- Process all citedRange elements as footnotes -->
                             <xsl:choose>
-                                <xsl:when test="t:citedRange">
+                                <xsl:when test="not(empty($citedRange))">
                                     <xsl:sequence select="$citedRange"/>
                                 </xsl:when>
                                 <xsl:otherwise>
@@ -840,7 +839,7 @@
                 <img src="{$nav-base}/resources/img/zotero.png" alt="Link to Zotero Bibliographic Record" height="20px"/>
             </xsl:when>
             <xsl:when test="starts-with($ref,$base-uri)">
-                <img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record" height="20px"/> 
+                <img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record" height="20px"/>
             </xsl:when>
             <!-- glyphicon glyphicon-book -->
             <xsl:when test="starts-with($ref,'http://www.worldcat.org/')">
