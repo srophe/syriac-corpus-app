@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
     
     <!-- ================================================================== 
@@ -105,7 +106,11 @@
                                     <xsl:if test="t:note">
                                         <xsl:text> </xsl:text>
                                         <xsl:for-each select="t:note">
-                                            <span class="note">Note: <xsl:apply-templates select="." mode="plain"/><xsl:if test="not(ends-with(.,'.'))"><xsl:text>.</xsl:text></xsl:if></span>
+                                            <span class="note">Note: <xsl:apply-templates select="." mode="plain"/>
+                                                <xsl:if test="not(ends-with(.,'.'))">
+                                                    <xsl:text>.</xsl:text>
+                                                </xsl:if>
+                                            </span>
                                         </xsl:for-each>
                                     </xsl:if>
                                 </xsl:variable>
@@ -146,7 +151,11 @@
             <xsl:if test="t:note">
                 <xsl:text> </xsl:text>
                 <xsl:for-each select="t:note">
-                    <span class="note">Note: <xsl:apply-templates select="." mode="plain"/><xsl:if test="not(ends-with(.,'.'))"><xsl:text>.</xsl:text></xsl:if></span>
+                    <span class="note">Note: <xsl:apply-templates select="." mode="plain"/>
+                        <xsl:if test="not(ends-with(.,'.'))">
+                            <xsl:text>.</xsl:text>
+                        </xsl:if>
+                    </span>
                 </xsl:for-each>
             </xsl:if>
         </xsl:variable>
@@ -171,8 +180,8 @@
                                 <xsl:otherwise>
                                     <xsl:text>.</xsl:text>
                                 </xsl:otherwise>
-                            </xsl:choose>    
-                            <xsl:sequence select="$note"/>    
+                            </xsl:choose>
+                            <xsl:sequence select="$note"/>
                             <span class="footnote-links">
                                 <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
                                 <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
@@ -188,8 +197,8 @@
                             <xsl:otherwise>
                                 <xsl:text>.</xsl:text>
                             </xsl:otherwise>
-                        </xsl:choose>    
-                        <xsl:sequence select="$note"/>    
+                        </xsl:choose>
+                        <xsl:sequence select="$note"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -221,7 +230,14 @@
         <!-- Display authors/editors -->
         <xsl:call-template name="persons"/>
         <!-- Analytic title(s) -->
-        <xsl:apply-templates select="t:title" mode="footnote"/>
+        <xsl:choose>
+            <xsl:when test="t:title[starts-with(@xml:lang,'en')]">
+                <xsl:apply-templates select="t:title[starts-with(@xml:lang,'en')][1]" mode="footnote"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="t:title[1]" mode="footnote"/>
+            </xsl:otherwise>
+        </xsl:choose>
         
         <!-- If monograph is level='m' include 'in' -->
         <xsl:if test="following-sibling::t:monogr/t:title[1][@level='m']">
@@ -252,7 +268,14 @@
             </xsl:otherwise>
         </xsl:choose>
         <!-- Titles -->
-        <xsl:apply-templates select="t:title" mode="footnote"/>
+        <xsl:choose>
+            <xsl:when test="t:title[starts-with(@xml:lang,'en')]">
+                <xsl:apply-templates select="t:title[starts-with(@xml:lang,'en')][1]" mode="footnote"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="t:title[1]" mode="footnote"/>
+            </xsl:otherwise>
+        </xsl:choose>
         <!-- handle translator, if present -->
         <xsl:if test="count(t:editor[@role='translator']) &gt; 0">
             <xsl:text>, trans. </xsl:text>
@@ -262,7 +285,15 @@
         <!-- Add edition  -->
         <xsl:if test="t:edition">
             <xsl:text> </xsl:text>
-            <xsl:apply-templates select="t:edition" mode="footnote"/>
+            <xsl:choose>
+                <xsl:when test="t:edition[starts-with(@xml:lang,'en')]">
+                    <xsl:apply-templates select="t:edition[starts-with(@xml:lang,'en')][1]" mode="footnote"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="t:edition[1]" mode="footnote"/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <!--<xsl:apply-templates select="t:edition" mode="footnote"/>-->
             <xsl:text> </xsl:text>
         </xsl:if>
         <!-- Add vol  -->
@@ -298,7 +329,15 @@
         <xsl:if test="preceding-sibling::t:monogr/t:title[@level='j']">
             <xsl:text>=</xsl:text>
         </xsl:if>
-        <xsl:apply-templates select="t:title" mode="footnote"/>
+        <!--<xsl:apply-templates select="t:title[1]" mode="footnote"/>-->
+        <xsl:choose>
+            <xsl:when test="t:title[starts-with(@xml:lang,'en')]">
+                <xsl:apply-templates select="t:title[starts-with(@xml:lang,'en')][1]" mode="footnote"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="t:title[1]" mode="footnote"/>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:if test="t:biblScope">
             <xsl:text>, </xsl:text>
             <xsl:for-each select="t:biblScope[@unit='series'] | t:biblScope[@unit='vol']">
@@ -309,11 +348,11 @@
             </xsl:for-each>
         </xsl:if>
         <xsl:if test="preceding-sibling::t:monogr/t:imprint">
-            <xsl:variable name="impring-string">
+            <xsl:variable name="imprint-string">
                 <xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/>
             </xsl:variable>
             <xsl:text>; </xsl:text>
-            <xsl:value-of select="substring-before(substring-after($impring-string,'('),')')"/>
+            <xsl:value-of select="substring-before(substring-after($imprint-string,'('),')')"/>
         </xsl:if>
         <xsl:text>)</xsl:text>
     </xsl:template>
@@ -342,34 +381,13 @@
             <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
             <xsl:choose>
                 <xsl:when test="t:author">
-                    <xsl:choose>
-                        <xsl:when test="t:author/t:persName">
-                            <xsl:sequence select="local:emit-responsible-persons(t:author/t:persName[not(contains(@xml:lang,'Latn-iso9r95'))],'footnote',3)"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',3)"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                    <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',3)"/>
                 </xsl:when>
-                <xsl:when test="$edited">
-                    <xsl:choose>
-                        <xsl:when test="t:editor[not(@role) or @role!='translator']/t:persName">
-                            <xsl:sequence select="local:emit-responsible-persons(t:editor[not(@role) or @role!='translator']/t:persName[not(contains(@xml:lang,'Latn-iso9r95'))],'footnote',3)"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:sequence select="local:emit-responsible-persons(t:editor[not(@role) or @role!='translator'],'footnote',3)"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                <xsl:when test="$edited">        
+                    <xsl:sequence select="local:emit-responsible-persons(t:editor[not(@role) or @role!='translator'],'footnote',3)"/>
                 </xsl:when>
-                <xsl:otherwise>
-                    <xsl:choose>
-                        <xsl:when test="t:author/t:persName">
-                            <xsl:sequence select="local:emit-responsible-persons(t:author/t:persName[not(contains(@xml:lang,'Latn-iso9r95'))],'footnote',3)"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',3)"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                <xsl:otherwise>        
+                    <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',3)"/>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:if test="not(t:author)">
@@ -430,15 +448,7 @@
             </xsl:if>
         </xsl:if>
     </xsl:template>
-    <!--
-    <xsl:template match="t:ptr" mode="footnote">
-        <xsl:if test="starts-with(@target,$base-uri)">
-            <a href="{replace(@target,$base-uri,$nav-base)}" title="Link to Syriaca.org Bibliographic Record" data-toggle="tooltip" data-placement="top" class="bibl-links">
-                <img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record"/>
-            </a>
-        </xsl:if>
-    </xsl:template>
-    -->
+    
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle name components in the context of a footnote
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -995,15 +1005,28 @@
             <xsl:apply-templates select="t:title" mode="full"/>
             <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
         </div>
-    </xsl:template>
+    </xsl:template>  
     <xsl:template match="*" mode="full">
         <p>
             <span class="srp-label">
                 <xsl:value-of select="concat(upper-case(substring(name(.),1,1)),substring(name(.),2))"/>: </span>
-            <span>
-                <xsl:call-template name="langattr"/>
-                <xsl:apply-templates mode="footnote"/>
-            </span>
+            <xsl:choose>
+                <xsl:when test="count(child::*) gt 1">
+                    <xsl:for-each select="child::*">
+                        <span class="block indent">
+                            <xsl:call-template name="langattr"/>
+                            <xsl:apply-templates mode="footnote"/>
+                        </span>
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <span>
+                        <xsl:call-template name="langattr"/>
+                        <xsl:apply-templates mode="footnote"/>
+                    </span>
+                </xsl:otherwise>
+            </xsl:choose>
+            
         </p>
     </xsl:template>
     
