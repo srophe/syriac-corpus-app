@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
     
     <!-- ================================================================== 
@@ -102,6 +101,14 @@
                                         </xsl:for-each>
                                     </xsl:if>
                                 </xsl:variable>
+                                <xsl:variable name="note">
+                                    <xsl:if test="t:note">
+                                        <xsl:text> </xsl:text>
+                                        <xsl:for-each select="t:note">
+                                            <span class="note">Note: <xsl:apply-templates select="." mode="plain"/><xsl:if test="not(ends-with(.,'.'))"><xsl:text>.</xsl:text></xsl:if></span>
+                                        </xsl:for-each>
+                                    </xsl:if>
+                                </xsl:variable>
                                 <!-- Check if record exists in db with doc-available function -->
                                 <xsl:if test="doc-available($biblfilepath)">
                                     <!-- Process record as a footnote -->
@@ -109,6 +116,7 @@
                                         <xsl:apply-templates mode="footnote"/>
                                         <!-- Process all citedRange elements as footnotes -->
                                         <xsl:sequence select="$citedRange"/>
+                                        <xsl:sequence select="$note"/>
                                         <span class="footnote-links">
                                             <xsl:apply-templates select="descendant::t:idno" mode="links"/>
                                             <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
@@ -134,6 +142,14 @@
                 </xsl:for-each>
             </xsl:if>
         </xsl:variable>
+        <xsl:variable name="note">
+            <xsl:if test="t:note">
+                <xsl:text> </xsl:text>
+                <xsl:for-each select="t:note">
+                    <span class="note">Note: <xsl:apply-templates select="." mode="plain"/><xsl:if test="not(ends-with(.,'.'))"><xsl:text>.</xsl:text></xsl:if></span>
+                </xsl:for-each>
+            </xsl:if>
+        </xsl:variable>
         <!-- When ptr is available, use full bibl record (indicated by ptr) -->
         <xsl:choose>
             <xsl:when test="t:ptr[@target and starts-with(@target, concat($base-uri,'/bibl/'))]">
@@ -155,7 +171,8 @@
                                 <xsl:otherwise>
                                     <xsl:text>.</xsl:text>
                                 </xsl:otherwise>
-                            </xsl:choose>
+                            </xsl:choose>    
+                            <xsl:sequence select="$note"/>    
                             <span class="footnote-links">
                                 <xsl:apply-templates select="descendant::t:idno" mode="links"/>
                                 <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
@@ -165,13 +182,14 @@
                     <xsl:otherwise>
                         <xsl:apply-templates mode="footnote"/>
                         <xsl:choose>
-                            <xsl:when test="t:citedRange">
+                            <xsl:when test="not(empty($citedRange))">
                                 <xsl:sequence select="$citedRange"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:text>.</xsl:text>
                             </xsl:otherwise>
-                        </xsl:choose>
+                        </xsl:choose>    
+                        <xsl:sequence select="$note"/>    
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
