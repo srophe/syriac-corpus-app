@@ -174,7 +174,7 @@
                             </xsl:choose>    
                             <xsl:sequence select="$note"/>    
                             <span class="footnote-links">
-                                <xsl:apply-templates select="descendant::t:idno" mode="links"/>
+                                <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
                                 <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
                             </span>
                         </xsl:for-each>
