@@ -2857,7 +2857,7 @@ tei_fileDesc =
       tei_editionStmt?,
       tei_extent?,
       tei_publicationStmt,
-      tei_seriesStmt+),
+      tei_seriesStmt*),
      tei_sourceDesc+),
     tei_att.global.attributes,
     empty
