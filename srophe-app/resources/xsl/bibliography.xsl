@@ -383,10 +383,10 @@
                 <xsl:when test="t:author">
                     <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',3)"/>
                 </xsl:when>
-                <xsl:when test="$edited">        
+                <xsl:when test="$edited">
                     <xsl:sequence select="local:emit-responsible-persons(t:editor[not(@role) or @role!='translator'],'footnote',3)"/>
                 </xsl:when>
-                <xsl:otherwise>        
+                <xsl:otherwise>
                     <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',3)"/>
                 </xsl:otherwise>
             </xsl:choose>
@@ -588,7 +588,7 @@
         <xsl:variable name="unit">
             <xsl:choose>
                 <xsl:when test="@unit = 'vol'">
-                    <xsl:value-of select="concat(@unit,'.')"/>
+                    <!-- <xsl:value-of select="concat(@unit,'.')"/>--> Temp
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="@unit"/>
@@ -597,15 +597,15 @@
         </xsl:variable>
         <xsl:choose>
             <xsl:when test="matches(text(),'^\d')">
-                <xsl:value-of select="concat($unit,' ',text())"/>
+                <!--<xsl:value-of select="concat($unit,' ',text())"/>--> temp2
             </xsl:when>
             <xsl:when test="not(text()) and (@to or @from)">
                 <xsl:choose>
                     <xsl:when test="@to = @from">
-                        <xsl:value-of select="concat($unit,' ',@to)"/>
+                        <!--<xsl:value-of select="concat($unit,' ',@to)"/>--> temp3
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:value-of select="concat($unit,' ',@from,' - ',@to)"/>
+                        <!--<xsl:value-of select="concat($unit,' ',@from,' - ',@to)"/>--> temp4
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -673,7 +673,7 @@
             <xsl:when test="@unit = preceding-sibling::*/@unit"/>
             <xsl:when test="@unit='ff'"/>
             <xsl:otherwise>
-                <xsl:value-of select="concat(@unit,': ')"/>
+                <!--  <xsl:value-of select="concat(@unit,': ')"/>--> temp5
             </xsl:otherwise>
         </xsl:choose>
         <xsl:choose>
@@ -827,12 +827,15 @@
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="title">
+            <xsl:variable name="title-string">
+                <xsl:value-of select="preceding-sibling::t:title[1]//text()"/>
+            </xsl:variable>
             <xsl:choose>
                 <xsl:when test="@type='zotero'">
                     <xsl:text>Link to Zotero Bibliographic record</xsl:text>
                 </xsl:when>
                 <xsl:when test="starts-with($ref,$base-uri)">
-                    <xsl:value-of select="concat('Link to Syriaca.org Bibliographic Record for', parent::*/t:title[1]/text())"/>
+                    <xsl:value-of select="concat('Link to Syriaca.org Bibliographic Record for', $title-string)"/>
                 </xsl:when>
                 <!-- glyphicon glyphicon-book -->
                 <xsl:when test="starts-with($ref,'http://www.worldcat.org/')">
@@ -1005,7 +1008,7 @@
             <xsl:apply-templates select="t:title" mode="full"/>
             <xsl:apply-templates select="*[not(self::t:title)]" mode="full"/>
         </div>
-    </xsl:template>  
+    </xsl:template>
     <xsl:template match="*" mode="full">
         <p>
             <span class="srp-label">
@@ -1026,7 +1029,6 @@
                     </span>
                 </xsl:otherwise>
             </xsl:choose>
-            
         </p>
     </xsl:template>
     
