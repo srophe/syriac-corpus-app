@@ -588,7 +588,7 @@
         <xsl:variable name="unit">
             <xsl:choose>
                 <xsl:when test="@unit = 'vol'">
-                    <!-- <xsl:value-of select="concat(@unit,'.')"/>--> Temp
+                    <xsl:value-of select="concat(@unit,'.')"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="@unit"/>
@@ -597,15 +597,15 @@
         </xsl:variable>
         <xsl:choose>
             <xsl:when test="matches(text(),'^\d')">
-                <!--<xsl:value-of select="concat($unit,' ',text())"/>--> temp2
+                <xsl:value-of select="concat($unit,' ',text())"/>
             </xsl:when>
             <xsl:when test="not(text()) and (@to or @from)">
                 <xsl:choose>
                     <xsl:when test="@to = @from">
-                        <!--<xsl:value-of select="concat($unit,' ',@to)"/>--> temp3
+                       <xsl:value-of select="concat($unit,' ',@to)"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <!--<xsl:value-of select="concat($unit,' ',@from,' - ',@to)"/>--> temp4
+                        <xsl:value-of select="concat($unit,' ',@from,' - ',@to)"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -673,7 +673,7 @@
             <xsl:when test="@unit = preceding-sibling::*/@unit"/>
             <xsl:when test="@unit='ff'"/>
             <xsl:otherwise>
-                <!--  <xsl:value-of select="concat(@unit,': ')"/>--> temp5
+                <xsl:value-of select="concat(@unit,': ')"/>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:choose>
