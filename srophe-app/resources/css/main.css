@@ -112,7 +112,103 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 	height:200px;
     width:100%;
 }
+/* styles used for index2 example*/
+.banner-index2 {
+    position:relative;
+    margin-top:-1em;
+    padding-top:0;
+	background-image:url('/exist/apps/srophe/resources/img/home-banner.jpg');
+	background-size:cover;
+	background-position:center;
+    height:350px;
+    width:100%;
+}
+/* styles used for index2 example*/
+.info-overlay {
+    position:absolute;
+    display:block; 
+    width:70%;
+    min-height:45%;
+    margin:4% 15%;
+}
+/* styles used for index2 example*/    
+.overlay {
+    font-weight:200;
+    background: rgb(34,34,34); /* for IE */
+    background: rgba(34,34,34,0.65);
+    color: white; 
+    display: inline;
+    padding: 1.5em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
 
+/* styles for index4 */
+.gradient{  
+    -webkit-transition: background 1s ease-out;  
+    -moz-transition: background 1s ease-out;  
+    -o-transition: background 1s ease-out;  
+    transition: background 1s ease-out;    
+    cursor:pointer;  
+}  
+.places .gradient {
+    background: -webkit-linear-gradient(#ec7951,#753C28);  
+    background: -moz-linear-gradient(#ec7951,#753C28);  
+    background: -o-linear-gradient(#ec7951,#753C28);  
+    background: linear-gradient(#ec7951,#753C28);    
+    border: 1px solid #753C28; 
+}
+.persons .gradient {
+    background: -webkit-linear-gradient(#f2d7fc,#7b6d80);  
+    background: -moz-linear-gradient(#f2d7fc,#7b6d80);  
+    background: -o-linear-gradient(#f2d7fc,#7b6d80);  
+    background: linear-gradient(#f2d7fc,#7b6d80);    
+    border: 1px solid #7b6d80; 
+}
+.saints .gradient {
+    background: -webkit-linear-gradient(#7ac6fa,#2F4C60);  
+    background: -moz-linear-gradient(#7ac6fa,#2F4C60);  
+    background: -o-linear-gradient(#7ac6fa,#2F4C60);  
+    background: linear-gradient(#7ac6fa,#2F4C60);    
+    border: 1px solid #2F4C60; 
+}
+.authors .gradient {
+    background: -webkit-linear-gradient(#6b6bf8,#2d2d86);  
+    background: -moz-linear-gradient(#6b6bf8,#2d2d86);  
+    background: -o-linear-gradient(#6b6bf8,#2d2d86);  
+    background: linear-gradient(#6b6bf8,#2d2d86);    
+    border: 1px solid #2d2d86; 
+}
+.works .gradient {
+    background: -webkit-linear-gradient(#fe3b3e,#7a1517);  
+    background: -moz-linear-gradient(#fe3b3e,#7a1517);  
+    background: -o-linear-gradient(#fe3b3e,#7a1517);  
+    background: linear-gradient(#fe3b3e,#7a1517);    
+    border: 1px solid #7a1517; 
+}
+.mss .gradient {
+    background: -webkit-linear-gradient(#f5d9bc,#e67605);  
+    background: -moz-linear-gradient(#f5d9bc,#e67605);  
+    background: -o-linear-gradient(#f5d9bc,#e67605);  
+    background: linear-gradient(#f5d9bc,#e67605);    
+    border: 1px solid #e67605; 
+}
+.events .gradient {
+    background: -webkit-linear-gradient(#98ce84,#2b4a2b);  
+    background: -moz-linear-gradient(#98ce84,#2b4a2b);  
+    background: -o-linear-gradient(#98ce84,#2b4a2b);  
+    background: linear-gradient(#98ce84,#2b4a2b);    
+    border: 1px solid #2b4a2b; 
+}
+.gradient:Hover{  
+    background-position:100px;  
+} 
+.geo-gradient{
+    background: -webkit-linear-gradient(#E5A163,#C47227);  
+    background: -moz-linear-gradient(#E5A163,#C47227);  
+    background: -o-linear-gradient(#E5A163,#C47227);  
+    background: linear-gradient(#E5A163,#C47227);  
+}
 /* Banner styles banner internal pages */
 .banner-interior {
     position:relative;
@@ -169,6 +265,7 @@ footer {text-align:center; color:white;}
 .white {background-color:white;}
 .content-block {background-color:#ffffff !important;}
 .top-padding {margin-top:2em;}
+.block {display:block;}
 
 /* Typography */
 h1 {font-size:1.5em; margin:.25em 0 .25em 0; color:#456889; font-weight:500;}
@@ -346,7 +443,8 @@ td {
 
 
 /* Styles for record short view under relation div*/
-.relation .results-list-desc.uri{margin-left:0;}
+.relation {white-space: normal;}
+.relation .results-list-desc.uri{margin-left:0; }
 
 /* footnote styles */
 .footnote-refs, .footnote-tgt {
@@ -362,9 +460,8 @@ td {
     padding-right:.5em;    
 }
 
-.footnote-links {line-hieght: 18px;float:right;}
+.footnote-links {float:right; overflow:hidden;clear:right;}
 .footnote-icon {padding-left:.5em; font-size:18px;}
-
 .bibl li{line-height: 1.5em;padding-bottom:.5em;}
 .bibl-links {padding:.25em; width:25px;}
 .anchor { 
@@ -708,3 +805,5 @@ pre {
 .geo { 
   border-top:10px solid #753C28;
 }
+
+/* new search */
