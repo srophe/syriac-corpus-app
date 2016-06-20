@@ -1,6 +1,6 @@
 xquery version "3.0";
 (:~  
- : Builds browse pages for Syriac.org sub-collections 
+ : Builds browse pages for Syriaca.org sub-collections 
  : Alphabetical English and Syriac Browse lists, browse by type, browse by date, map browse. 
  :
  : @see lib/global.xqm for global variables

@@ -1,6 +1,6 @@
 xquery version "3.0";
 (:~
- : Builds browse page for Syriac.org sub-collections 
+ : Builds browse page for Syriaca.org sub-collections 
  : Alphabetical English and Syriac Browse lists
  : Browse by type
  :

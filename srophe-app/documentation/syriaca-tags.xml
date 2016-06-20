@@ -50,7 +50,7 @@
                     <category xml:id="syriaca-headword">
                         <gloss type="short">Syriaca Headword</gloss>
                         <gloss type="long">The name used by Syriaca.org for document titles, citation, and disambiguation.</gloss>
-                        <desc>These names have been created according to the Syriac.org guidelines for headwords: 
+                        <desc>These names have been created according to the Syriaca.org guidelines for headwords: 
                             <ref target="http://syriaca.org/documentation/headwords.html">http://syriaca.org/documentation/headwords.html</ref>.
                             <!-- Should the headword documentation be moved into this doc? -->
                         </desc>

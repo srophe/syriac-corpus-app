@@ -12,7 +12,7 @@ Syriaca.org provides four basic services to its users:
 * new reference works for defining entities included in the Syriaca.org index of Syriac studies
 * common digital standards to enable scholars to publish their own Syriac scholarship online and link it to Syriaca.org
 
-The methodological approach of Syriaca.org is informed by the emerging field of [digital humanities](http://digitalhumanities.org:8080/dhq/vol/3/1/index.html). Because Syriac.org relies on new ways to organize information, it differs in design from previous print reference works in the humanities. Namely the chief aim of Syriaca.org is to link together existing resources, rather than to be itself a comprehensive or canonical authority on factual data. In this regard, Syriaca.org is more similar to a Google Search result algorith than it is to an encyclopedia entry. 
+The methodological approach of Syriaca.org is informed by the emerging field of [digital humanities](http://digitalhumanities.org:8080/dhq/vol/3/1/index.html). Because Syriaca.org relies on new ways to organize information, it differs in design from previous print reference works in the humanities. Namely the chief aim of Syriaca.org is to link together existing resources, rather than to be itself a comprehensive or canonical authority on factual data. In this regard, Syriaca.org is more similar to a Google Search result algorith than it is to an encyclopedia entry. 
 
 
 http://linkeddata.org/faq
