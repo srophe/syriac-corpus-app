@@ -1,6 +1,6 @@
 xquery version "3.0";
 (:~  
- : Builds browse pages for Syriaca.org sub-collections 
+ : Builds browse pages for Syriac.org sub-collections 
  : Alphabetical English and Syriac Browse lists, browse by type, browse by date, map browse. 
  :
  : @see lib/global.xqm for global variables
@@ -323,8 +323,8 @@ declare function browse:get-map($node as node(), $model as map(*)){
 declare function browse:parse-persName($persName){
 if($persName/child::*) then 
     string-join(for $namePart in $persName/child::*
-    order by $namePart/@sort ascending, $namePart/text() descending
-    return $namePart/text(),' ')
+    order by $namePart/@sort ascending, $namePart descending
+    return $namePart,' ')
 else $persName/text()
 };
 
