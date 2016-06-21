@@ -345,7 +345,6 @@ td {
 /*.section ul {padding-left:0;}*/
 .section.type ul {padding-left:0;}
 
-
 /* Browse page styles */
 .syr-list{padding-right:7em; padding-top:2em; text-align: right;}
 .en-list{padding-left:5em; padding-top:2em;}
@@ -460,7 +459,7 @@ td {
     padding-right:.5em;    
 }
 
-.footnote-links {float:right; overflow:hidden;clear:right;}
+/*.footnote-links {float:right; overflow:hidden; clear:right;}*/
 .footnote-icon {padding-left:.5em; font-size:18px;}
 .bibl li{line-height: 1.5em;padding-bottom:.5em;}
 .bibl-links {padding:.25em; width:25px;}
