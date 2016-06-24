@@ -118,19 +118,32 @@ declare function global:display-recs-short-view($node, $lang) as node()*{
 
 (:
  : Generic get record function
+ : Manuscripts and SPEAR recieve special treatment as individule parts may be treated as full records. 
+ : @param $id syriaca.org uri for record or part. 
 :)
 declare function global:get-rec($id as xs:string){  
     if(contains($id,'/spear/')) then 
         for $rec in collection($global:data-root)//tei:div[@uri = $id]
         return 
-            <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec}</tei:TEI>
+            <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec}</tei:TEI>   
+    else if(contains($id,'/manuscript/')) then
+    (: Descrepency in how id's are handled, why dont the msPart id's have '/tei'?  :)
+        for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = $id]
+        return 
+            if($rec/ancestor::tei:msPart) then
+               <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec/ancestor::tei:msPart}</tei:TEI>
+            else $rec/ancestor::tei:TEI
     else 
         for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = concat($id,'/tei')]/ancestor::tei:TEI
         return $rec 
 };
 
-(: Browse and search sort functions :)
-declare function global:parse-name($name){
+(:~ 
+ : Parse persNames to take advantage of sort attribute in display. 
+ : Returns a sorted string
+ : @param $name persName element 
+ :)
+declare function global:parse-name($name as node()*) as xs:string* {
 if($name/child::*) then 
     string-join(for $part in $name/child::*
     order by $part/@sort ascending, string-join($part/descendant-or-self::text(),' ') descending
@@ -140,6 +153,7 @@ else $name/text()
 
 (:~
  : Strips english titles of non-sort characters as established by Syriaca.org
+ : Used for alphabetizing
  : @param $titlestring 
  :)
 declare function global:build-sort-string($titlestring as xs:string?, $lang as xs:string?) as xs:string* {
@@ -149,6 +163,7 @@ declare function global:build-sort-string($titlestring as xs:string?, $lang as x
 
 (:~
  : Strips Arabic titles of non-sort characters as established by Syriaca.org
+ : Used for alphabetizing
  : @param $titlestring 
  :)
 declare function global:ar-sort-string($titlestring as xs:string?) as xs:string* {

@@ -41,19 +41,13 @@ declare
 function mss:fix-links($node as node(), $model as map(*)) {
     templates:process(global:fix-links($node/node()), $model)
 };
+
 (:~
  : Build manuscripts view
  : @param $id mss URI
  :)
 declare %templates:wrap function mss:get-data($node as node(), $model as map(*), $collection as xs:string?){
-app:get-rec($node, $model, $collection)
-(:
-let $mssURI :=
-        if(contains($mss:id,$global:base-uri)) then $mss:id 
-        else concat($global:base-uri,'/manuscript/',$mss:id)
-return 
-    map {"data" := collection($global:data-root || "/manuscripts/tei")//tei:idno[@type='URI'][. = $mssURI]}
-    :)
+    app:get-rec($node, $model, $collection)
 };
 
 declare %templates:wrap function mss:uri($node as node(), $model as map(*)){
@@ -64,9 +58,9 @@ declare %templates:wrap function mss:uri($node as node(), $model as map(*)){
  : Build Manuscript title
 :)
 declare %templates:wrap function mss:h1($node as node(), $model as map(*)){
-    let $rec := $model("data")/ancestor::tei:teiHeader
-    let $title := $rec//tei:titleStmt/tei:title
-    let $id := $rec//tei:idno[@type="URI"][.=$mss:id]
+    let $rec := $model("data")
+    let $title := $rec/descendant::tei:title[1]
+    let $id := $rec/descendant::tei:idno[@type='URI'][1]
     return global:tei2html(<srophe-title  xmlns="http://www.tei-c.org/ns/1.0">{($title,$id)}</srophe-title>)
 };
 
@@ -74,7 +68,7 @@ declare %templates:wrap function mss:h1($node as node(), $model as map(*)){
  : Pull together front matter  
 :)
 declare %templates:wrap function mss:front-matter($node as node(), $model as map(*)){
-let $rec := $model("data")/ancestor::tei:teiHeader/descendant::tei:sourceDesc/tei:msDesc
+let $rec := $model("data")/descendant::tei:sourceDesc/tei:msDesc
 let $history := $rec/child::tei:history
 let $lang := $rec/child::tei:textLang[@mainLang]
 return 
@@ -96,7 +90,7 @@ return
  : Pull in names from persons database for author information
 :)
 declare function mss:msItems($node as node(), $model as map(*)){
-let $rec := $model("data")/ancestor::tei:teiHeader/descendant::tei:msContents | $model("data")/ancestor::tei:teiHeader/descendant::tei:msPart 
+let $rec := $model("data")/descendant::tei:msContents | $model("data")/ancestor::tei:teiHeader/descendant::tei:msPart 
 let $authors := 
     <tei:msAuthors xmlns="http://www.tei-c.org/ns/1.0">
     {

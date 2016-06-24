@@ -10,7 +10,7 @@ import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 
-(:~        
+(:~           
  : Syriaca.org URI for retrieving TEI records 
 :)
 declare variable $app:id {request:get-parameter('id', '')};
@@ -101,34 +101,28 @@ http://syriaca.org/work/ http://syriaca.org/work/488
  : Simple get record function, get tei record based on idno
  : Builds uri from simple ids.
  : @param $app:id syriaca.org uri   
-:)    
+:)   
 declare function app:get-rec($node as node(), $model as map(*), $collection as xs:string?) { 
 if($app:id != '') then 
     let $id :=
-        if(contains(request:get-uri(),$global:base-uri)) then $app:id
-        else if($collection = 'places') then concat('http://syriaca.org/place/',$app:id) 
-        else if(($collection = 'persons') or ($collection = 'saints') or ($collection = 'authors')  or ($collection = 'q')) then concat('http://syriaca.org/person/',$app:id)
-        else if(($collection = 'bhse') or ($collection = 'mss')) then concat('http://syriaca.org/work/',$app:id)
-        else if($collection = 'spear') then concat('http://syriaca.org/spear/',$app:id)
-        else if($collection = 'mss') then concat('http://syriaca.org/manuscript/',$app:id)
-        else if($collection = 'bibl') then concat('http://syriaca.org/bibl/',$app:id,'/tei')
+        if(contains($app:id,$global:base-uri)) then $app:id
+        else if(contains(request:get-uri(),'/bibl/')) then concat('http://syriaca.org/bibl/',$app:id,'/tei')
+        else if(contains(request:get-uri(),'/spear/')) then concat('http://syriaca.org/spear/',$app:id)
+        else if(contains(request:get-uri(),$global:nav-base)) then replace(request:get-uri(),$global:nav-base, $global:base-uri)
+        else if(contains(request:get-uri(),$global:base-uri)) then request:get-uri()
         else $app:id
     return 
         if($collection = 'spear') then 
-            if(starts-with($app:id,'http://syriaca.org/spear/')) then
-                   map {"data" :=  collection($global:data-root || "/spear/tei")//tei:div[@uri = $app:id]}
-            else if(starts-with($app:id,'http://syriaca.org')) then  
+            if(starts-with($app:id,'http://syriaca.org')) then  
                     map {"data" :=  collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$app:id]]}
-            else
-                let $id := concat('http://syriaca.org/spear/',$app:id)
-                return
-                       map {"data" :=   collection($global:data-root || "/spear/tei")//tei:div[@uri = $id]}
+            else map {"data" := global:get-rec($id)}
         else if(collection($global:data-root)//tei:idno[@type='URI'][. = $id]) then 
             if(collection($global:data-root)//tei:idno[@type='URI'][. = $id]/parent::*/descendant::tei:idno[@type='redirect']) then
                 let $rec := collection($global:data-root)//tei:idno[@type='URI'][. = $id]
                 let $redirect := replace(replace($rec/parent::*/descendant::tei:idno[@type='redirect'][1]/text(),'/tei',''),$global:base-uri,$global:nav-base)
                 return response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
-            else map {"data" :=  collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}
+            else map {"data" := global:get-rec($id)}
+            (:map {"data" :=  collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}:)
         else response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html'))) 
 else map {"data" := 'Page data'}    
 };
@@ -157,11 +151,23 @@ declare function app:h1($node as node(), $model as map(*)){
  global:tei2html(<srophe-title xmlns="http://www.tei-c.org/ns/1.0">{($model("data")/descendant::tei:titleStmt[1]/tei:title[1], $model("data")/descendant::tei:idno[1])}</srophe-title>)
 }; 
 
-(:~ 
+(:~  
  : Default record display, used if no sub-module functions. 
 :)
 declare %templates:wrap function app:rec-display($node as node(), $model as map(*)){
-    if($model("data")//tei:relation) then 
+    if($model("data")//tei:body/tei:biblStruct) then
+        <div class="row">
+            <div class="col-md-8 column1">
+                {global:tei2html($model("data")/descendant::tei:body)} 
+            </div>
+            <div class="col-md-4 column2">
+                { (
+                rel:subject-headings($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')]),
+                rel:cited($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')], $app:start,$app:perpage)
+                )}  
+            </div>
+        </div>  
+    else if($model("data")//tei:relation) then 
        <div class="row">
             <div class="col-md-8 column1">
                 {global:tei2html($model("data")/descendant::tei:body)} 
@@ -169,19 +175,7 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
             <div class="col-md-4 column2">
                 {rel:build-relationships($model("data")//tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))}  
             </div>
-        </div>
-    else if($model("data")//tei:body/tei:biblStruct) then
-        <div class="row">
-            <div class="col-md-8 column1">
-                {global:tei2html($model("data")/descendant::tei:body)} 
-            </div>
-            <div class="col-md-4 column2">
-                {(
-                rel:subject-headings($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')]),
-                rel:cited($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')], $app:start,$app:perpage)
-                )}  
-            </div>
-        </div>        
+        </div>      
     else 
         <div class="row">
             <div class="col-md-12 column1">
