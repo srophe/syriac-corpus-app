@@ -866,20 +866,20 @@
     <xsl:template name="ref-icons">
         <xsl:param name="ref"/>
         <xsl:choose>
-            <xsl:when test="@type='zotero'">
+            <xsl:when test="@type='zotero' or contains($ref,'zotero.org/')">
                 <img src="{$nav-base}/resources/img/zotero.png" alt="Link to Zotero Bibliographic Record" height="18px"/>
             </xsl:when>
             <xsl:when test="starts-with($ref,$base-uri)">
                 <img src="{$nav-base}/resources/img/icons-syriaca-sm.png" alt="Link to Syriaca.org Bibliographic Record" height="18px"/>
             </xsl:when>
             <!-- glyphicon glyphicon-book -->
-            <xsl:when test="starts-with($ref,'http://www.worldcat.org/')">
+            <xsl:when test="contains($ref,'worldcat.org/')">
                 <img src="{$nav-base}/resources/img/worldCat-logo.jpg" alt="Link to Worldcat Bibliographic record" height="18px"/>
             </xsl:when>
-            <xsl:when test="starts-with($ref,'http://catalog.hathitrust.org/')">
+            <xsl:when test="contains($ref,'hathitrust.org/')">
                 <img src="{$nav-base}/resources/img/htrc_logo.jpg" alt="Link to HathiTrust Bibliographic record" height="18px"/>
             </xsl:when>
-            <xsl:when test="starts-with($ref,'https://archive.org')">
+            <xsl:when test="contains($ref,'archive.org')">
                 <img src="{$nav-base}/resources/img/ialogo.jpg" alt="Link to Archive.org Bibliographic record" height="18px"/>
             </xsl:when>
             <xsl:otherwise>
