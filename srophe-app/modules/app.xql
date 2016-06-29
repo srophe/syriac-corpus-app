@@ -106,7 +106,6 @@ declare function app:get-rec($node as node(), $model as map(*), $collection as x
 if($app:id != '') then 
     let $id :=
         if(contains($app:id,$global:base-uri)) then $app:id
-        else if(contains(request:get-uri(),'/bibl/')) then concat('http://syriaca.org/bibl/',$app:id,'/tei')
         else if(contains(request:get-uri(),'/spear/')) then concat('http://syriaca.org/spear/',$app:id)
         else if(contains(request:get-uri(),$global:nav-base)) then replace(request:get-uri(),$global:nav-base, $global:base-uri)
         else if(contains(request:get-uri(),$global:base-uri)) then request:get-uri()
