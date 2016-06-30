@@ -709,7 +709,11 @@
         </xsl:for-each>
         <xsl:choose>
             <xsl:when test="following-sibling::*[not(self::t:ptr)]">, </xsl:when>
-            <xsl:otherwise>.</xsl:otherwise>
+            <xsl:otherwise>
+                <xsl:if test="not(ends-with(.,'.'))">
+                    <xsl:text>.</xsl:text>
+                </xsl:if>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
