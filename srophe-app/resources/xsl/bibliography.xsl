@@ -755,7 +755,7 @@
                                 </xsl:attribute>
                                 <xsl:call-template name="langattr"/>
                             </xsl:for-each>
-                            <xsl:apply-templates select="." mode="text-normal"/>
+                            <xsl:apply-templates select="." mode="footnote"/>
                         </bdi>
                     </xsl:if>
                 </xsl:for-each>
