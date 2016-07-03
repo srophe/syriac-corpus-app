@@ -13,6 +13,7 @@
         <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org: The Syriac Reference Portal"/>
         <link data-template="app:rel-links"/>
         <link rel="shortcut icon" href="$app-root/resources/img/syriaca.ico"/>
+        <link rel="stylesheet" href="$app-root/resources/css/syr-icon-fonts.css"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/main.css"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/manuscripts.css"/>
@@ -35,8 +36,14 @@
                         <span class="icon-bar"/>
                         <span class="icon-bar"/>
                     </button>
-                    <a class="navbar-brand" href="$app-root/mss/index.html">
-                        <img class="img-responsive" alt="Syriaca.org: MSS" src="$app-root/resources/img/icons-mss.png"/>
+                    <a class="navbar-brand banner-container" href="$app-root/mss/index.html">
+                        <span class="syriaca-icon syriaca-mss banner-icon">
+                            <span class="path1"/>
+                            <span class="path2"/>
+                            <span class="path3"/>
+                            <span class="path4"/>
+                        </span>
+                        <span class="banner-text">A Digital Catalogue of Syriac Manuscripts in the British Library</span>
                     </a>
                 </div>
                 <div class="navbar-collapse collapse pull-right">
@@ -45,7 +52,15 @@
                             <a href="$app-root/mss/browse.html">Browse</a>
                         </li>
                         <li>
-                            <a href="$app-root/index.html" class="syriaca-sm-icon nav-icons"> Syriaca.org</a>
+                            <a href="$app-root/index.html" class="icon-container">
+                                <span class="syriaca-icon syriaca-syriaca icon-nav">
+                                    <span class="path1"/>
+                                    <span class="path2"/>
+                                    <span class="path3"/>
+                                    <span class="path4"/>
+                                </span>
+                                <span class="icon-text">Syriaca.org</span>
+                            </a>
                         </li>
                         <!-- Shared drop-down menu of all submodules -->
                         <li data-template="app:shared-content" data-template-path="/templates/shared-links.html"/>

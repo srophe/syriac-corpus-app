@@ -11,6 +11,7 @@
         <meta name="DC.type" property="dc.type" content="Text"/>
         <link data-template="app:rel-links"/>
         <link rel="shortcut icon" href="$app-root/resources/img/syriaca.ico"/>
+        <link rel="stylesheet" href="$app-root/resources/css/syr-icon-fonts.css"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/main.css"/>
         <link rel="stylesheet" type="text/css" media="print" href="$app-root/resources/css/print.css"/>
@@ -32,8 +33,9 @@
                         <span class="icon-bar"/>
                         <span class="icon-bar"/>
                     </button>
-                    <a class="navbar-brand" href="$app-root/bibl/index.html">
-                        <!-- <img class="img-responsive" alt="Syriaca.org: Bibl" src="$app-root/resources/img/icons-syriaca.png"/>--> [Bibliography Name and Logo here]
+                    <a class="navbar-brand banner-container" href="$app-root/bibl/index.html">
+                        <!--<img property="logo" class="img-responsive" alt="Syriac.org" src="$app-root/resources/img/syriaca-logo.png"/> Draft-->
+                        <span class="banner-text">[Bibliography Name and Logo here]</span>
                     </a>
                 </div>
                 <div class="navbar-collapse collapse pull-right">
@@ -45,7 +47,15 @@
                             <a href="$app-root/documentation.html">Help</a>
                         </li>
                         <li>
-                            <a href="$app-root/index.html" class="syriaca-sm-icon nav-icons"> Syriaca.org</a>
+                            <a href="$app-root/index.html" class="icon-container">
+                                <span class="syriaca-icon syriaca-syriaca icon-nav">
+                                    <span class="path1"/>
+                                    <span class="path2"/>
+                                    <span class="path3"/>
+                                    <span class="path4"/>
+                                </span>
+                                <span class="icon-text">Syriaca.org</span>
+                            </a>
                         </li>                        
                         <!-- Shared drop-down menu of all submodules -->
                         <li data-template="app:shared-content" data-template-path="/templates/shared-links.html"/>
