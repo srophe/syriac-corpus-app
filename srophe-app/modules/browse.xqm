@@ -80,7 +80,7 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
                         else if($browse:view = 'ا-ي') then
                             for $hit in util:eval(browse:build-path($collection))//tei:titleStmt/tei:title[1]
                             [matches(.,'\p{IsArabic}','i')]
-                            order by browse:ar-sort-string($hit) collation "?lang=ar&amp;decomposition=full"
+                            order by  global:build-sort-string($hit,'ar') collation "?lang=ar&amp;decomposition=full"
                             return $hit/ancestor::tei:TEI 
                         else if($browse:view = 'other') then
                             for $hit in util:eval(browse:build-path($collection))//tei:title[parent::tei:titleStmt][1][not(matches(substring(browse:build-sort-string(.),1,1),'\p{IsSyriac}|\p{IsArabic}|\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}|\p{IsLatinExtendedAdditional}','i'))]
@@ -166,29 +166,22 @@ declare function browse:ar-sort(){
         else if($browse:sort = 'ى') then '(ى|ئ|ي)'
         else $browse:sort
 };
+
 (:~
- : Strips english titles of non-sort characters as established by Syriaca.org
+ : Strips titles of non-sort characters as established by Syriaca.org
  : @param $titlestring 
  :)
 declare function browse:build-sort-string($titlestring as xs:string?) as xs:string* {
-    if($browse:lang = 'ar') then browse:ar-sort-string($titlestring)
-    else replace($titlestring,'^\s+|^al-|[«‘ʻʿ»]|^On |^The |^A ','')
+  global:build-sort-string($titlestring, $browse:lang)
 };
 
-(:~
- : Strips Arabic titles of non-sort characters as established by Syriaca.org
- : @param $titlestring 
- :)
-declare function browse:ar-sort-string($titlestring as xs:string?) as xs:string* {
-    replace(replace(replace(replace($titlestring,'^\s+',''),'^(\sابن|\sإبن|\sبن)',''),'(ال|أل|ٱل)',''),'^[U064B - U0656]','')
-};
 
 (:~
  : Sort on Titles/Headwords
 :)
 declare function browse:lang-filter($node as node(), $model as map(*)){
     if($browse:lang != '' and $browse:lang != 'en') then 
-       $model("browse-data")//tei:body/child::*[1]/child::*[1][child::*[@xml:lang = $browse:lang][1][matches(substring(browse:build-sort-string(browse:parse-persName(.)),1,1),browse:get-sort(),'i')]]
+       $model("browse-data")//tei:body/descendant::*[child::*[@xml:lang = $browse:lang][1][matches(substring(browse:build-sort-string(global:parse-name(.)),1,1),browse:get-sort(),'i')]]
     else $model("browse-data")//tei:title[@level='a'][parent::tei:titleStmt][matches(substring(browse:build-sort-string(string-join(text(),' ')),1,1),browse:get-sort(),'i')]        
 };
 
@@ -319,14 +312,6 @@ declare function browse:get-map($node as node(), $model as map(*)){
     </div>
 };
 
-(: Parse persName elements into text string :)
-declare function browse:parse-persName($persName){
-if($persName/child::*) then 
-    string-join(for $namePart in $persName/child::*
-    order by $namePart/@sort ascending, $namePart descending
-    return $namePart,' ')
-else $persName/text()
-};
 
 (:
  : Sorts and outputs results set
@@ -343,7 +328,7 @@ for $data in $model("browse-refine")
 let $rec-id := tokenize(replace($data/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei|/source',''),'/')[last()]
 let $title := if($browse:lang != '' and $browse:lang != 'en') then 
                      if($collection = ('persons','sbd','saints','q','authors')) then 
-                        browse:parse-persName($data/ancestor::tei:TEI/descendant::tei:person/tei:persName[@xml:lang = $browse:lang][1])
+                        global:parse-name($data/ancestor::tei:TEI/descendant::tei:person/tei:persName[@xml:lang = $browse:lang][1])
                      else if($collection = 'places') then 
                         string-join($data/ancestor::tei:TEI/descendant::tei:place/tei:placeName[@xml:lang = $browse:lang][1]/text(),' ')
                      else 
@@ -452,10 +437,11 @@ declare function browse:browse-date(){
 };
 
 (:
- : Build Language Tabs dynamically.
- : @param $value from template
- : @param $language from template
- : @param $sort-value from template
+ : Build Tabs dynamically.
+ : @param $text tab text, from template
+ : @param $param tab parameter passed to url from template
+ : @param $value value of tab parameter passed to url from template
+ : @param $sort-value for abc menus. 
 :)
 declare function browse:tabs($node as node(), $model as map(*), $text as xs:string?, $param as xs:string?, $value as xs:string?, $sort-value as xs:string?){
 let $s := if($sort-value != '') then $sort-value else if($browse:sort != '') then $browse:sort else 'A'
@@ -471,36 +457,6 @@ return
         {$text}
         </a>
     </li> 
-};
-
-(:~
- : Browse Tabs - Type  
- : @depreciated use browse:tabs()
-:)
-declare  %templates:wrap function browse:build-tabs-type($node, $model){
-    <li>{if($browse:view = 'type') then attribute class {'active'}
-         else '' }<a href="browse.html?view=type">Type</a>
-    </li>
-};
-
-(:~
- : Browse Tabs - date
- : @depreciated use browse:tabs()
-:)
-declare  %templates:wrap function browse:build-tabs-date($node, $model){
-    <li>{if($browse:view = 'date') then attribute class {'active'} 
-         else '' }<a href="browse.html?view=date">Date</a>
-    </li>
-};
-
-(:~
- : Browse Tabs - Map
- : @depreciated use browse:tabs()
-:)
-declare  %templates:wrap function browse:build-tabs-map($node, $model){
-    <li>{if($browse:view = 'map') then attribute class {'active'} 
-         else '' }<a href="browse.html?view=map">Map</a>
-    </li>
 };
 
 (:~
