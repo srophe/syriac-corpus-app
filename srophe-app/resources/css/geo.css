@@ -14,6 +14,8 @@
 body {background-color:#753C28;}
 #main {background-color:#F5F2E9;}
 .navbar {border-bottom:4px solid #753C28 !important;}
+.banner-interior {border-bottom:.5em solid #753C28 !important;}
+.banner-text {color:#E69849;}
 /* Main content blocks */
 
 /* Typography */
@@ -22,3 +24,5 @@ h2 {color:#753C28;}
 h3 {color:#333;}
 h3.underline {color:#999; border-bottom:3px solid #E69849;}
 #map {height: 180px;}
+
+#placenames .placeName {font-weight: bold;}

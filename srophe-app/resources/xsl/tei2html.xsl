@@ -1059,10 +1059,12 @@
                 </li>
             </xsl:when>
             <xsl:when test="@type='ancientVersion'">
-                <li>
-                    <span class="srp-label">
-                        <xsl:value-of select="local:expand-lang(@xml:lang,'ancientVersion')"/>: 
-                    </span>
+                <li class="note">
+                    <xsl:if test="descendant::t:lang/text()">
+                        <span class="srp-label">
+                            <xsl:value-of select="local:expand-lang(descendant::t:lang/text(),'ancientVersion')"/>:
+                        </span>
+                    </xsl:if>
                     <span>
                         <xsl:call-template name="langattr"/>
                         <xsl:apply-templates/>
@@ -1074,10 +1076,11 @@
             </xsl:when>
             <xsl:when test="@type='modernTranslation'">
                 <li>
-                    <!-- Note this could be a helper function local:expand lang -->
-                    <span class="srp-label">
-                        <xsl:value-of select="local:expand-lang(@xml:lang,'modernTranslation')"/>: 
-                    </span>
+                    <xsl:if test="descendant::t:lang/text()">
+                        <span class="srp-label">
+                            <xsl:value-of select="local:expand-lang(descendant::t:lang/text(),'modernTranslation')"/>:
+                        </span>
+                    </xsl:if>
                     <span>
                         <xsl:call-template name="langattr"/>
                         <xsl:apply-templates/>
@@ -1243,7 +1246,12 @@
         <xsl:choose>
             <xsl:when test="@ref">
                 <xsl:choose>
-                    <xsl:when test="string-length(@ref) &lt; 1"/>
+                    <xsl:when test="string-length(@ref) &lt; 1">
+                        <span>                            
+                            <xsl:call-template name="langattr"/>
+                            <xsl:apply-templates/>
+                        </span>
+                    </xsl:when>
                     <xsl:otherwise>
                         <xsl:text> </xsl:text>
                         <a class="{local-name(.)}" href="{@ref}">
