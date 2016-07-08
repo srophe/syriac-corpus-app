@@ -640,13 +640,34 @@
                 <xsl:text>(</xsl:text>
                 <xsl:if test="t:death or t:birth">
                     <xsl:if test="not(t:death)">b. </xsl:if>
-                    <xsl:value-of select="t:birth/text()"/>
+                    <xsl:choose>
+                        <xsl:when test="count(t:birth/t:date) &gt; 1">
+                            <xsl:for-each select="t:birth/t:date">
+                                <xsl:value-of select="text()"/> 
+                                <xsl:if test="position() != last()"> or </xsl:if>
+                            </xsl:for-each>    
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="t:birth/text()"/>                            
+                        </xsl:otherwise>
+                    </xsl:choose>
+
                     <xsl:if test="t:death">
                         <xsl:choose>
                             <xsl:when test="t:birth"> - </xsl:when>
                             <xsl:otherwise>d. </xsl:otherwise>
                         </xsl:choose>
-                        <xsl:value-of select="t:death/text()"/>
+                        <xsl:choose>
+                            <xsl:when test="count(t:death/t:date) &gt; 1">
+                                <xsl:for-each select="t:death/t:date">
+                                    <xsl:value-of select="text()"/> 
+                                    <xsl:if test="position() != last()"> or </xsl:if>
+                                </xsl:for-each>    
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="t:death/text()"/>                            
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:if>
                 </xsl:if>
                 <xsl:if test="t:floruit/text()">
@@ -655,7 +676,9 @@
                     </xsl:if>
                     <xsl:value-of select="concat('active ', t:floruit/text())"/>
                 </xsl:if>
+                <xsl:text>) </xsl:text>
                 <xsl:for-each select="t:title[@level='s']">
+                    <xsl:text> </xsl:text>
                     <xsl:choose>
                         <xsl:when test=". = 'The Syriac Biographical Dictionary'"/>
                         <xsl:when test=". = 'A Guide to Syriac Authors'">
@@ -676,7 +699,6 @@
                     </xsl:choose>
                     <xsl:if test="following-sibling::*/text() = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')">, TEST2</xsl:if>
                 </xsl:for-each>
-                <xsl:text>) </xsl:text>
             </span>
         </xsl:if>
     </xsl:template>
@@ -1247,7 +1269,7 @@
             <xsl:when test="@ref">
                 <xsl:choose>
                     <xsl:when test="string-length(@ref) &lt; 1">
-                        <span>                            
+                        <span>
                             <xsl:call-template name="langattr"/>
                             <xsl:apply-templates/>
                         </span>
