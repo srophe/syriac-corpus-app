@@ -22,6 +22,9 @@ declare namespace rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
  : Parameters passed from the url  
  :)
 declare variable $person:id {request:get-parameter('id', '')};
+declare variable $person:works-view {request:get-parameter('works-view', '')};
+declare variable $person:work-start {request:get-parameter('work-start', 1)};
+declare variable $person:work-count {request:get-parameter('work-count', 20)};
 
 (:~  
  : Simple get record function, retrieves tei record based on idno
@@ -227,6 +230,7 @@ return
  : NOTE should be able to pass related items in as string?
 :)
 declare function person:get-related($rec as node()*){
+(:
             for $related in $rec//tei:relation 
             let $item-uri := string($related/@passive)
             let $desc := $related/tei:desc
@@ -251,7 +255,8 @@ declare function person:get-related($rec as node()*){
                            ,
                            $desc
                        )}
-                    </relation>    
+                    </relation>  
+:)<p>'temp'</p>                    
 };   
 
 (: 
@@ -281,7 +286,44 @@ return
        else ()
 };
 
-
+declare %templates:wrap function person:authored-by($node as node(), $model as map(*)){
+let $rec := $model("data")
+let $recid := replace($rec//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+let $works := collection($global:data-root || '/works/tei')//tei:author[@ref =  $recid]  
+let $count := count($works)
+return 
+    if($count gt 0) then 
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            <h3>Works by {substring-before($rec/descendant::tei:title[1]/text(),' — ')} in the New Handbook of Syriac Literature</h3>
+            {(
+                if($rec/descendant::tei:note[@type='authorship']) then
+                    global:tei2html($rec/descendant::tei:note[@type='authorship'])
+                else (),
+                if($count gt 3) then
+                        <div>
+                         {
+                             for $r in subsequence($works, 1, 3)
+                             let $workid := replace($r/ancestor::tei:TEI//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+                             let $rec :=  global:get-rec($workid)
+                             return global:display-recs-short-view($rec,'',$recid)
+                         }
+                            <div>
+                            <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
+                            data-ref="/exist/apps/srophe/bhse/search.html?author={$recid}&amp;perpage={$count}&amp;sort=alpha" 
+                            data-label="Works by {substring-before($rec/descendant::tei:title[1]/text(),' — ')} in the New Handbook of Syriac Literature" id="works">
+                              See all {count($works)} works
+                             </a>
+                            </div>
+                         </div>    
+                else 
+                    for $r in $works
+                    let $workid := replace($r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+                    let $rec :=  global:get-rec($workid)
+                    return global:display-recs-short-view($rec,'',$recid)
+            )}
+        </div>
+    else ()     
+};
 (:
  : Return bibls for use in sources
 :)

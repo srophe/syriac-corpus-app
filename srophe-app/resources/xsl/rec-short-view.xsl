@@ -60,6 +60,7 @@
     <xsl:param name="base-uri" select="'/db/apps/srophe'"/>
     <xsl:param name="lang" select="'en'"/>
     <xsl:param name="spear" select="'false'"/>
+    <xsl:param name="recid" select="''"/>
     <!-- Resource id -->
     <xsl:variable name="resource-id">
         <xsl:choose>
@@ -297,6 +298,11 @@
                             </span>
                         </xsl:when>
                     </xsl:choose>
+                    <xsl:if test="$recid != ''">
+                        <xsl:if test="//t:author[@ref = $recid][@role!='']">
+                            [<xsl:value-of select="//t:author[@ref = $recid]/@role"/>] 
+                        </xsl:if>
+                    </xsl:if>
                     <a href="{replace($uri,$base-uri,$nav-base)}" dir="ltr">
                         <xsl:sequence select="$main-title"/>
                         <xsl:if test="$type != ''">

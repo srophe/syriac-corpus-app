@@ -3,30 +3,54 @@
     <xi:include href="../banner.html"/>
     <div class="grey-dark">
         <div class="container interior-content white">
-        <!-- Page title and resource links: Includes h1, link icons, and item URI -->
+            <!-- Page title and resource links: Includes h1, link icons, and item URI -->
             <div data-template="person:h1"/>
             <div class="row">
-            <!-- Column 1 -->
+                <!-- Column 1 -->
                 <div class="col-md-8 column1">
                     <div id="persnames" class="well">
                         <div data-template="person:names"/>
                     </div>
                     <div data-template="person:desc"/>
+                    <div data-template="person:authored-by"/>
                     <div data-template="person:related-places"/>
                     <div data-template="person:timeline" data-template-dates="personal"/>
                     <div data-template="person:data"/>
-                <!-- Citation -->
+                    <!-- Citation -->
                     <div data-template="person:sources"/>
                 </div>
-            <!-- Column 2 -->
+                <!-- Column 2 -->
                 <div class="col-md-4 column2">
                     <div data-template="person:relations"/>
-                    <div data-template="person:worldcat"/>
+                    <!--<div data-template="person:worldcat"/>-->
                     <div data-template="person:link-icons-list"/>
                 </div>
             </div>
             <div data-template="person:citation"/>
-        <!--<div data-template="spear:display-persons"/>-->
+            <!-- more info module used by: person:authored-by  -->
+            <!-- would like to use if for other things like subjects and other 'popouts' -->
+            <div class="modal fade" id="moreInfo" tabindex="-1" role="dialog" aria-labelledby="moreInfoLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">x</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <h2 class="modal-title" id="moreInfoLabel"/>
+                        </div>
+                        <div class="modal-body" id="modal-body">
+                            <div id="moreInfo-box"></div>
+                            <br style="clear:both;"></br>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!--<div data-template="spear:display-persons"/>-->
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-xquery version "3.0";
+xquery version "3.0";        
 
 module namespace search="http://syriaca.org/search";
 import module namespace page="http://syriaca.org/page" at "../lib/paging.xqm";
@@ -24,8 +24,8 @@ declare variable $search:q {request:get-parameter('q', '') cast as xs:string};
 declare variable $search:persName {request:get-parameter('persName', '') cast as xs:string};
 declare variable $search:placeName {request:get-parameter('placeName', '') cast as xs:string};
 declare variable $search:title {request:get-parameter('title', '') cast as xs:string};
-declare variable $search:bibl {request:get-parameter('title', '') cast as xs:string};
-declare variable $search:idno {request:get-parameter('title', '') cast as xs:string};
+declare variable $search:bibl {request:get-parameter('bibl', '') cast as xs:string};
+declare variable $search:idno {request:get-parameter('idno', '') cast as xs:string};
 declare variable $search:start {request:get-parameter('start', 1) cast as xs:integer};
 declare variable $search:sort {request:get-parameter('sort', '') cast as xs:string};
 declare variable $search:perpage {request:get-parameter('perpage', 20) cast as xs:integer};
@@ -266,21 +266,23 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
         else ()     
     }
     </div>
-   <div class="col-md-10" style="background-color:white;">
+   <div class="col-md-10" id="search-results" style="background-color:white;">
    <div>{search:build-geojson($node,$model)}</div>
    {
-       for $hit at $p in subsequence($model("hits"), $search:start, 20)
+       for $hit at $p in subsequence($model("hits"), $search:start, $search:perpage)
        return
            <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
                <div class="col-md-12">
-                   <div class="result">
                      <div class="col-md-1" style="margin-right:-1em;">
                        <span class="label label-default">{$search:start + $p - 1}</span>
                      </div>
                      <div class="col-md-9" xml:lang="en">
-                       {global:display-recs-short-view($hit,'')} 
+                       {
+                        if(starts-with(request:get-parameter('author', ''),$global:base-uri)) then 
+                            global:display-recs-short-view($hit,'',request:get-parameter('author', ''))
+                        else global:display-recs-short-view($hit,'')
+                       } 
                      </div>
-                   </div>
                </div>
            </div>
       }
@@ -288,7 +290,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
 </div>
 };
 
-(:~        
+(:~          
  : Checks to see if there are any parameters in the URL, if yes, runs search, if no displays search form. 
 :)
 declare %templates:wrap function search:build-page($node as node()*, $model as map(*), $collection as xs:string?) {
