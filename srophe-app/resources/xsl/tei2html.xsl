@@ -643,15 +643,14 @@
                     <xsl:choose>
                         <xsl:when test="count(t:birth/t:date) &gt; 1">
                             <xsl:for-each select="t:birth/t:date">
-                                <xsl:value-of select="text()"/> 
+                                <xsl:value-of select="text()"/>
                                 <xsl:if test="position() != last()"> or </xsl:if>
-                            </xsl:for-each>    
+                            </xsl:for-each>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:value-of select="t:birth/text()"/>                            
+                            <xsl:value-of select="t:birth/text()"/>
                         </xsl:otherwise>
                     </xsl:choose>
-
                     <xsl:if test="t:death">
                         <xsl:choose>
                             <xsl:when test="t:birth"> - </xsl:when>
@@ -660,21 +659,30 @@
                         <xsl:choose>
                             <xsl:when test="count(t:death/t:date) &gt; 1">
                                 <xsl:for-each select="t:death/t:date">
-                                    <xsl:value-of select="text()"/> 
+                                    <xsl:value-of select="text()"/>
                                     <xsl:if test="position() != last()"> or </xsl:if>
-                                </xsl:for-each>    
+                                </xsl:for-each>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of select="t:death/text()"/>                            
+                                <xsl:value-of select="t:death/text()"/>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:if>
                 </xsl:if>
-                <xsl:if test="t:floruit/text()">
-                    <xsl:if test="t:death or t:birth">
-                        <xsl:text>, </xsl:text>
+                <xsl:if test="t:floruit">
+                    <xsl:if test="not(t:death) and not(t:birth)">
+                        <xsl:choose>
+                            <xsl:when test="count(t:floruit/t:date) &gt; 1">
+                                <xsl:for-each select="t:floruit/t:date">
+                                    <xsl:value-of select="concat('active ',text())"/>
+                                    <xsl:if test="position() != last()"> or </xsl:if>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="concat('active ', t:floruit/text())"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </xsl:if>
-                    <xsl:value-of select="concat('active ', t:floruit/text())"/>
                 </xsl:if>
                 <xsl:text>) </xsl:text>
                 <xsl:for-each select="t:title[@level='s']">
