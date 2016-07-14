@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:s="http://syriaca.org" xmlns:t="http://www.tei-c.org/ns/1.0" 
-    xmlns:x="http://www.w3.org/1999/xhtml" 
-    xmlns:tei="http://www.tei-c.org/ns/1.0" 
-    xmlns:saxon="http://saxon.sf.net/" 
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:s="http://syriaca.org" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t s saxon" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University
@@ -153,7 +147,9 @@
         <xsl:choose>
             <xsl:when test="string-length(.) &lt; 1">Not available</xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates/>
+                <div>
+                    Place:  <xsl:apply-templates/>
+                </div>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -229,10 +225,12 @@
         <!-- Have to pull in author via xquery? or just doc? -->
         <p>
             <strong>Author: </strong>
-            <xsl:variable name="author" select="string(t:author/@ref)"/>
-            <a href="{$author}">
-                <xsl:value-of select="string-join(/t:msAuthors/t:msAuthor[@id = $author][1],' ')"/>
-            </a>
+            <xsl:for-each select="t:author">
+                <xsl:variable name="author" select="string(@ref)"/>
+                <a href="{$author}">
+                    <xsl:value-of select="string-join(/t:msAuthors/t:msAuthor[@id = $author][1],' ')"/>
+                </a>
+            </xsl:for-each>
         </p>
         <xsl:apply-templates select="*[not(self::t:title or self::t:author or self::t:listBibl)]"/>
         <xsl:if test="t:listBibl">
@@ -480,11 +478,6 @@
     <xsl:template match="t:origDate">
         <div>
             Date:  <xsl:apply-templates/>
-        </div>
-    </xsl:template>
-    <xsl:template match="t:origPlace">
-        <div>
-            Place:  <xsl:apply-templates/>
         </div>
     </xsl:template>
     <xsl:template match="t:provenance">
