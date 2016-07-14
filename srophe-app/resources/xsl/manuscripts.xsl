@@ -145,11 +145,11 @@
     </xsl:template>
     <xsl:template match="t:origPlace">
         <xsl:choose>
-            <xsl:when test="string-length(.) &lt; 1">Not available</xsl:when>
+            <xsl:when test="string-length(text()) &lt; 1">Not available</xsl:when>
             <xsl:otherwise>
-                <div>
+                <span>
                     Place:  <xsl:apply-templates/>
-                </div>
+                </span>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
