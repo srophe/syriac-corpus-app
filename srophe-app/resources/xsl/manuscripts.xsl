@@ -118,22 +118,29 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="t:history/t:origin">
-        <xsl:if test="t:origin">
-            <xsl:for-each select="t:origin">
-                <xsl:if test="t:origDate">
-                    <p>
-                        <strong>Date of Origin: </strong>
-                        <xsl:apply-templates select="t:origDate"/>
-                    </p>
-                </xsl:if>
-                <xsl:if test="t:origPlace">
-                    <p>
-                        <strong>Place of Origin: </strong>
-                        <xsl:apply-templates select="t:origPlace"/>
-                    </p>
-                </xsl:if>
-            </xsl:for-each>
-        </xsl:if>
+        <xsl:for-each select="t:origDate">
+            <p>
+                <span class="srp-label">Date of Origin: </span>
+                <xsl:choose>
+                    <xsl:when test="text()"><xsl:value-of select="."/></xsl:when>
+                    <xsl:otherwise>
+                        <!-- Add date range handling -->
+                    </xsl:otherwise>
+                </xsl:choose>
+            </p>
+        </xsl:for-each>
+        <xsl:for-each select="t:origPlace">
+            <p>
+                <span class="srp-label">Place of Origin: </span>
+                <xsl:choose>
+                    <xsl:when test="text()"><xsl:value-of select="."/></xsl:when>
+                    <xsl:otherwise>
+                        <!-- Add date range handling -->
+                    </xsl:otherwise>
+                </xsl:choose>
+            </p>
+        </xsl:for-each>
+        <!-- NOTE: Are there other children of origin that should be visualized? -->
     </xsl:template>
     <xsl:template match="t:textLang[@mainLang]">
         <xsl:if test="not(parent::*)">
