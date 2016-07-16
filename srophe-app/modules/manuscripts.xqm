@@ -1,4 +1,4 @@
-(:~
+(:~  
  : Builds persons page and persons page functions
  :)
 xquery version "3.0";
@@ -54,7 +54,7 @@ declare %templates:wrap function mss:uri($node as node(), $model as map(*)){
     string($mss:id)
 };
 
-(:~
+(:~       
  : Build Manuscript title
 :)
 declare %templates:wrap function mss:h1($node as node(), $model as map(*)){
@@ -98,7 +98,7 @@ let $authors :=
     let $ref := string($auth/@ref)
     let $author := collection($global:data-root || "/persons/tei")//tei:idno[@type='URI'][. = $ref]
     return
-        <tei:msAuthor id="{$ref}">{$author/parent::*/tei:persName[@syriaca-tags='#syriaca-headword'][1]}</tei:msAuthor>
+        <tei:msAuthor id="{$ref}">{global:parse-name($author/parent::*/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang = 'en'][1])}</tei:msAuthor>
     }
     </tei:msAuthors>
     
