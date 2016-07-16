@@ -122,7 +122,9 @@
             <p>
                 <span class="srp-label">Date of Origin: </span>
                 <xsl:choose>
-                    <xsl:when test="text()"><xsl:value-of select="."/></xsl:when>
+                    <xsl:when test="text()">
+                        <xsl:value-of select="."/>
+                    </xsl:when>
                     <xsl:otherwise>
                         <!-- Add date range handling -->
                     </xsl:otherwise>
@@ -133,7 +135,9 @@
             <p>
                 <span class="srp-label">Place of Origin: </span>
                 <xsl:choose>
-                    <xsl:when test="text()"><xsl:value-of select="."/></xsl:when>
+                    <xsl:when test="text()">
+                        <xsl:value-of select="."/>
+                    </xsl:when>
                     <xsl:otherwise>
                         <!-- Add date range handling -->
                     </xsl:otherwise>
@@ -398,43 +402,42 @@
             <xsl:apply-templates/>
         </div>
     </xsl:template>
-
-    <!--
-    <xsl:template match="t:height">
-        <p>Height (<xsl:value-of select="t:measure/@unit"/>) <xsl:value-of select="t:measure/@quantity"/></p>
-    </xsl:template>
-    <xsl:template match="t:width">
-        <p>Width (<xsl:value-of select="t:measure/@unit"/>) <xsl:value-of select="t:measure/@quantity"/></p>
-    </xsl:template>
-    -->
     <xsl:template match="t:handNote">
         <div name="{string(@xml:id)}">
             Hand <xsl:value-of select="substring-after(string(@xml:id),'ote')"/>:
             <div class="msItem">
-                <div>
-                    Type: <xsl:value-of select="@scope"/>
-                </div>
-                <div>
-                    Script: <xsl:value-of select="ancestor::t:fileDesc/following-sibling::t:profileDesc/t:langUsage/t:language[@ident=string(./@script)]/text()"/>
-                </div>
-                <div>
-                    Medium: <xsl:value-of select="@medium"/>
-                </div>
+                <xsl:if test="@scope">
+                    Scope:  <xsl:value-of select="@scope"/>
+                </xsl:if>
+                <xsl:if test="@script">
+                    <div>
+                        Script: <xsl:value-of select="@script"/>
+                    </div>
+                </xsl:if>
+                <xsl:if test="@medium">
+                    <div>
+                        Medium: <xsl:value-of select="@medium"/>
+                    </div>
+                </xsl:if>
                 <xsl:apply-templates mode="plain"/>
             </div>
         </div>
     </xsl:template>
     <xsl:template match="t:decoNote">
-        <div class="msItem" name="{string(@xml:id)}">
+        <div name="{string(@xml:id)}">
             Decoration <xsl:value-of select="substring-after(string(@xml:id),'ote')"/>:
             <div class="msItem">
-                <div>
-                    Type: <xsl:value-of select="@type"/>
-                </div>
-                <div>
-                    Medium: <xsl:value-of select="@medium"/>
-                </div>
-                <xsl:apply-templates/>
+                <xsl:if test="@type">
+                    <div>
+                        Type: <xsl:value-of select="@type"/>
+                    </div>                    
+                </xsl:if>
+                <xsl:if test="@medium">
+                    <div>
+                        Medium: <xsl:value-of select="@medium"/>
+                    </div>
+                </xsl:if>
+                <xsl:apply-templates mode="plain"/>
             </div>
         </div>
     </xsl:template>
@@ -513,4 +516,15 @@
             </div>
         </div>
     </xsl:template>
+    
+    <!--
+    <xsl:template match="* | @*" mode="labeled">
+        <xsl:if test="not(empty(.))">
+            <span>
+                <span class="srp-label"><xsl:value-of select="name(.)"/>: </span>
+                <span class="note"><xsl:apply-templates/></span>
+            </span>            
+        </xsl:if>
+    </xsl:template>
+    -->
 </xsl:stylesheet>
