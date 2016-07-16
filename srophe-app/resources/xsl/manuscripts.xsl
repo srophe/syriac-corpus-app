@@ -410,8 +410,9 @@
                     Scope:  <xsl:value-of select="@scope"/>
                 </xsl:if>
                 <xsl:if test="@script">
+                    <xsl:variable name="script" select="@script"/>
                     <div>
-                        Script: <xsl:value-of select="@script"/>
+                        Script: <xsl:value-of select="//t:langUsage/t:language[@ident = $script]/text()"/>
                     </div>
                 </xsl:if>
                 <xsl:if test="@medium">
@@ -430,7 +431,7 @@
                 <xsl:if test="@type">
                     <div>
                         Type: <xsl:value-of select="@type"/>
-                    </div>                    
+                    </div>
                 </xsl:if>
                 <xsl:if test="@medium">
                     <div>

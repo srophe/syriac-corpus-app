@@ -64,7 +64,7 @@ declare %templates:wrap function mss:h1($node as node(), $model as map(*)){
     return global:tei2html(<srophe-title  xmlns="http://www.tei-c.org/ns/1.0">{($title,$id)}</srophe-title>)
 };
 
-(:~
+(:~   
  : Pull together front matter  
 :)
 declare %templates:wrap function mss:front-matter($node as node(), $model as map(*)){
@@ -77,7 +77,7 @@ return
         {global:tei2html(($rec/tei:msIdentifier,$lang))}
     </div>
     <div>
-        {global:tei2html($rec/tei:physDesc)}
+        {global:tei2html(($rec/tei:physDesc, $rec/ancestor::tei:TEI/descendant::tei:profileDesc/tei:langUsage))}
     </div>
      <div class="well">
         {global:tei2html(($history, $rec/tei:additional, $rec/tei:encodingDesc))}
@@ -85,7 +85,7 @@ return
 </div>
 };
 
-(:~ 
+(:~  
  : Output msItems transformed via tei2html xslt    
  : Pull in names from persons database for author information
 :)
