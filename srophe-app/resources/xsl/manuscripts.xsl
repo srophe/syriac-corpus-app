@@ -54,6 +54,33 @@
  <!-- =================================================================== -->
 
     <!-- Manuscript templates -->
+    <xsl:template match="t:msDesc">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="well">
+                    <xsl:apply-templates select="descendant::t:textLang[@mainLang] | descendant::t:msIdentifier"/>
+                </div>
+                <div>
+                    <xsl:apply-templates select="descendant::t:physDesc | descendant::t:profileDesc/t:langUsager"/>
+                </div>
+                <div class="well">
+                    <xsl:apply-templates select="descendant::t:history | descendant::t:additional | descendant::t:encodingDesc"/>
+                </div>
+            </div>
+            <div class="col-md-8 column1">
+                <div>
+                    <h3>Manuscript Contents</h3>
+                    <p style="margin:0 2em;" class="well">This manuscript contains 
+                        <xsl:value-of select="count(descendant::t:msItem)"/>
+                         items 
+                        <xsl:if test="descendant::t:msItem/t:msItem">
+                            <xsl:text> including nested subsections</xsl:text>
+                        </xsl:if>. N.B. Items were re-numbered by Syriaca.org and may not reflect previous numeration.</p>
+                </div>
+                <xsl:apply-templates select="descendant::t:msContents | descendant::t:teiHeader/descendant::t:msPart"/>
+            </div>
+        </div>
+    </xsl:template>
     <xsl:template match="t:msPart">
         <div class="row">
             <xsl:if test="t:msIdentifier">

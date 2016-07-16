@@ -64,33 +64,8 @@ declare %templates:wrap function mss:h1($node as node(), $model as map(*)){
     return global:tei2html(<srophe-title  xmlns="http://www.tei-c.org/ns/1.0">{($title,$id)}</srophe-title>)
 };
 
-(:~   
- : Pull together front matter  
-:)
-declare %templates:wrap function mss:front-matter($node as node(), $model as map(*)){
-let $rec := $model("data")/descendant::tei:sourceDesc/tei:msDesc
-let $history := $rec/child::tei:history
-let $lang := $rec/child::tei:textLang[@mainLang]
-return 
-<div>
-    <div class="well">
-        {global:tei2html(($rec/tei:msIdentifier,$lang))}
-    </div>
-    <div>
-        {global:tei2html(($rec/tei:physDesc, $rec/ancestor::tei:TEI/descendant::tei:profileDesc/tei:langUsage))}
-    </div>
-     <div class="well">
-        {global:tei2html(($history, $rec/tei:additional, $rec/tei:encodingDesc))}
-    </div>
-</div>
-};
-
-(:~  
- : Output msItems transformed via tei2html xslt    
- : Pull in names from persons database for author information
-:)
-declare function mss:msItems($node as node(), $model as map(*)){
-let $rec := $model("data")/descendant::tei:msContents | $model("data")/ancestor::tei:teiHeader/descendant::tei:msPart 
+declare %templates:wrap function mss:display-rec($node as node(), $model as map(*)){
+let $rec := $model("data")
 let $authors := 
     <tei:msAuthors xmlns="http://www.tei-c.org/ns/1.0">
     {
@@ -101,12 +76,6 @@ let $authors :=
         <tei:msAuthor id="{$ref}">{global:parse-name($author/parent::*/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang = 'en'][1])}</tei:msAuthor>
     }
     </tei:msAuthors>
-    
-return
-    (<div>
-        <h3>Manuscript Contents</h3>
-        <p style="margin:0 2em;" class="well">This manuscript contains {count($rec//tei:msItem)} items {if($rec//tei:msItem/tei:msItem) then 'including nested subsections' else ()}. 
-        N.B. Items were re-numbered by Syriaca.org and may not reflect previous numeration.</p>
-    </div>,
-    global:tei2html(($authors,$rec)))
+return global:tei2html(($rec, $authors))
 };
+

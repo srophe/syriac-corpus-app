@@ -126,7 +126,9 @@
                 <xsl:call-template name="h1"/>
             </xsl:otherwise>
         </xsl:choose>
-        
+        <xsl:if test="descendant::t:sourceDesc/t:msDesc">
+            <xsl:apply-templates select="descendant::t:sourceDesc/t:msDesc"/>
+        </xsl:if>
         <!-- Body -->
         <xsl:apply-templates select="descendant::t:body/child::*"/>
         
@@ -997,11 +999,11 @@
             </ul>
         </li>
     </xsl:template>
-    <xsl:template match="t:offset | t:measure">
+    <xsl:template match="t:offset | t:measure | t:source">
         <xsl:if test="preceding-sibling::*">
             <xsl:text> </xsl:text>
         </xsl:if>
-        <xsl:apply-templates select="." mode="out-normal"/>
+        <xsl:apply-templates select="." mode="plain"/>
     </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -1069,6 +1071,7 @@
         <ul class="listBibl">
             <xsl:for-each select="t:bibl">
                 <li>
+                    <xsl:if test="@xml:id"><xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute></xsl:if>
                     <xsl:apply-templates mode="biblist"/>
                     <xsl:text>.</xsl:text>
                 </li>
@@ -1348,18 +1351,18 @@
     <xsl:template match="t:persName" mode="plain">
         <span class="persName">
             <xsl:call-template name="langattr"/>
-            <xsl:apply-templates mode="out-normal"/>
+            <xsl:apply-templates mode="plain"/>
         </span>
     </xsl:template>
     <xsl:template match="t:roleName">
-        <xsl:apply-templates mode="out-normal"/>
+        <xsl:apply-templates mode="plain"/>
         <xsl:text> </xsl:text>
     </xsl:template>
     <xsl:template match="t:forename | t:addName">
         <xsl:if test="preceding-sibling::*">
             <xsl:text> </xsl:text>
         </xsl:if>
-        <xsl:apply-templates mode="out-normal"/>
+        <xsl:apply-templates mode="plain"/>
         <xsl:if test="following-sibling::*">
             <xsl:text> </xsl:text>
         </xsl:if>
@@ -1375,7 +1378,7 @@
                     <!-- write out the placename itself, with appropriate language and directionality indicia -->
                     <span class="placeName">
                         <xsl:call-template name="langattr"/>
-                        <xsl:apply-templates select="." mode="out-normal"/>
+                        <xsl:apply-templates select="." mode="plain"/>
                     </span>
                     <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
                 </li>
@@ -1408,7 +1411,7 @@
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of the ref element
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <xsl:template match="t:ref">
+    <xsl:template match="t:ref" mode="#all">
         <a href="{@target}">
             <xsl:apply-templates/>
         </a>
@@ -1444,6 +1447,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
     <!-- |||| match=t:*: suppress all TEI elements not otherwise handled -->
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
