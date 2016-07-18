@@ -51,6 +51,19 @@ $("#email").validate({
 		}
 });
 
+//Expand works authored-by in persons page
+$('a.getData').click(function(event) {
+    event.preventDefault();
+    var title = $(this).data('label');
+    var URL = $(this).data('ref');
+    $("#moreInfoLabel").text(title);
+    $('#moreInfo-box').load(URL + " #search-results");
+});
+    
+$('#showSection').click(function(event) {
+    event.preventDefault();
+    $('#recComplete').load('/exist/apps/srophe/documentation/faq.html #selection');
+});
 
 //Changes text on toggle buttons, toggle funtion handled by Bootstrap
 $('.togglelink').click(function(e){
