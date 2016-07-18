@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'syriaca';
-    src:    url('../fonts/syriaca.eot?vor76w');
-    src:    url('../fonts/syriaca.eot?vor76w#iefix') format('embedded-opentype'),
-        url('../fonts/syriaca.ttf?vor76w') format('truetype'),
-        url('../fonts/syriaca.woff?vor76w') format('woff'),
-        url('../fonts/syriaca.svg?vor76w#syriaca') format('svg');
+    src:    url('../fonts/syriaca.eot?w8vknx');
+    src:    url('../fonts/syriaca.eot?w8vknx#iefix') format('embedded-opentype'),
+        url('../fonts/syriaca.ttf?w8vknx') format('truetype'),
+        url('../fonts/syriaca.woff?w8vknx') format('woff'),
+        url('../fonts/syriaca.svg?w8vknx#syriaca') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -24,6 +24,9 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.syriaca-book:before {
+    content: "\f02d";
+}
 .syriaca-authors .path1:before {
     content: "\e900";
     color: rgb(36, 62, 144);
