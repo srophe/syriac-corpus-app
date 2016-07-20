@@ -10,7 +10,7 @@ import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 
-(:~           
+(:~     
  : Syriaca.org URI for retrieving TEI records 
 :)
 declare variable $app:id {request:get-parameter('id', '')};
@@ -116,9 +116,11 @@ if($app:id != '') then
                     map {"data" :=  collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$app:id]]}
             else map {"data" := global:get-rec($id)}
         else if(collection($global:data-root)//tei:idno[@type='URI'][. = $id]) then 
-            if(collection($global:data-root)//tei:idno[@type='URI'][. = $id]/parent::*/descendant::tei:idno[@type='redirect']) then
+            if(collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI/descendant::tei:revisionDesc[@status='deprecated']) then
                 let $rec := collection($global:data-root)//tei:idno[@type='URI'][. = $id]
-                let $redirect := replace(replace($rec/parent::*/descendant::tei:idno[@type='redirect'][1]/text(),'/tei',''),$global:base-uri,$global:nav-base)
+                let $redirect := if($rec/parent::*/descendant::tei:idno[@type='redirect']) then 
+                                    replace(replace($rec/parent::*/descendant::tei:idno[@type='redirect'][1]/text(),'/tei',''),$global:base-uri,$global:nav-base)
+                                 else(concat($global:nav-base,'/',$collection,'/','browse.html'))
                 return response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
             else map {"data" := global:get-rec($id)}
             (:map {"data" :=  collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}:)
