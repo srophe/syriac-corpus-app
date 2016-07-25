@@ -1,6 +1,6 @@
 xquery version "3.0";
 (:~
- : Builds browse page for Syriaca.org sub-collections 
+ : Builds browse page for Syriac.org sub-collection SPEAR
  : Alphabetical English and Syriac Browse lists
  : Browse by type
  :
@@ -74,7 +74,6 @@ concat("[ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[@level='a'][1][. 
  : For browsing by element type 
 :)
 declare function bs:spear-facet-groups($nodes, $category){
-
     <li><a href="?view=sources&amp;type={$category}&amp;fq={$facets:fq}" class="facet-label"> {$category} factoids 
     <span class="count">({
         if($category = 'persons') then count(distinct-values($nodes/descendant::tei:persName[1]/@ref)) 
@@ -250,10 +249,10 @@ declare function bs:spear-person($nodes){
 for $d in $nodes
 let $id := string($d/descendant::tei:persName[1]/@ref)
 let $connical := collection($global:data-root)//tei:idno[. = $id]
-let $name := if($connical) then string($connical/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text())
-                else if($d/text()) then $d/text()[1]
-                else tokenize($id,'/')[last()]
-order by $name collation "?lang=en&lt;syr&amp;decomposition=full"
+let $name := if(exists($connical)) then $connical/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text()
+             else if($d/text()) then global:parse-name($d)
+             else tokenize($id,'/')[last()]
+order by $name[1] collation "?lang=en&lt;syr&amp;decomposition=full"
 return 
     if($connical) then 
             bs:display-recs-short-view($connical/ancestor::tei:TEI,'')
@@ -269,14 +268,14 @@ declare function bs:spear-places($nodes){
 for $d in $nodes
 let $id := string($d/descendant::tei:placeName[1]/@ref)
 let $connical := collection($global:data-root)//tei:idno[. = $id]
-let $name := if($connical) then string($connical/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text())
+let $name := if($connical) then $connical/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text()
              else if(empty($d/descendant::tei:placeName[1])) then tokenize($id,'/')[last()]
              else normalize-space($d/descendant::tei:placeName[1]/text())
              (:else if($d/text()) then $d/text()
              else if($d/child::*/text()) then $d/child::*[1]/text()
              else tokenize($id,'/')[last()]:)
 (:where $d/descendant::tei:placeName/@ref:)
-order by $name collation "?lang=en&lt;syr&amp;decomposition=full"
+order by $name[1] collation "?lang=en&lt;syr&amp;decomposition=full"
 return 
     if($connical) then 
             bs:display-recs-short-view($connical/ancestor::tei:TEI,'')
@@ -287,9 +286,6 @@ return
         <span class="results-list-desc uri"><span class="srp-label">SPEAR: </span> <a href="factoid.html?id={$id}"> http://syriaca.org/spear/factoid.html?id={$id}</a></span>
     </div>
 };
-
-
-
 
 (:~
  : Browse Tabs - SPEAR
