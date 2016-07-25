@@ -59,6 +59,7 @@
     <xsl:param name="nav-base" select="'/db/apps/srophe'"/>
     <xsl:param name="base-uri" select="'/db/apps/srophe'"/>
     <xsl:param name="lang" select="'en'"/>
+    <!-- NOTE: this should not be used, use idno  -->
     <xsl:param name="spear" select="'false'"/>
     <xsl:param name="recid" select="''"/>
     <!-- Resource id -->
@@ -122,8 +123,8 @@
                 <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]">
                     <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')][1]" mode="title"/>
                 </xsl:when>
-                <xsl:when test="//t:titleStmt">
-                    <xsl:apply-templates select="//t:titleStmt/t:title[1]" mode="full"/>
+                <xsl:when test="descendant::t:titleStmt">
+                    <xsl:apply-templates select="descendant::t:titleStmt/t:title[1]" mode="full"/>
                 </xsl:when>
                 <xsl:when test="descendant::t:biblStruct">
                     <xsl:apply-templates select="descendant::t:biblStruct/descendant::t:title[1]" mode="full"/>
@@ -203,7 +204,48 @@
             </xsl:if>
         </xsl:variable>
         <xsl:choose>
-            <xsl:when test="$spear = 'true'">
+            <xsl:when test="contains($uri,'/manuscript/')">
+                <div class="results-list">
+                    <a href="{replace($uri,$base-uri,$nav-base)}" dir="ltr">
+                        <xsl:value-of select="$main-title"/>
+                    </a>
+                    <xsl:if test="descendant::t:msIdentifier[t:altIdentifier/t:idno[@type = ('Wright-BL-Arabic','Wright-BL-Roman')]]">
+                        <span class="results-list-desc desc">
+                            <xsl:text>Alternate Identifiers: </xsl:text>
+                            <!-- Not correct -->
+                            <xsl:for-each select="descendant::t:msIdentifier[t:altIdentifier/t:idno[@type = ('Wright-BL-Arabic','Wright-BL-Roman')]]">
+                                <xsl:value-of select="t:altIdentifier/t:idno[@type = 'Wright-BL-Arabic']"/>
+                                <xsl:if test="t:altIdentifier/t:idno[@type = 'Wright-BL-Roman']">
+                                    <xsl:text> (</xsl:text>
+                                    <xsl:value-of select="t:altIdentifier/t:idno[@type = 'Wright-BL-Roman']"/>     
+                                    <xsl:text>) </xsl:text>
+                                </xsl:if>   
+                                <xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+                            </xsl:for-each>
+                        </span>
+                    </xsl:if>
+                    <xsl:if test="count(descendant::t:msPart) gt 0">
+                        <span class="results-list-desc desc">
+                            This manuscript contains <xsl:value-of select="count(descendant::t:msPart)"/> component manuscripts
+                        </span>
+                    </xsl:if>
+                    <xsl:if test="descendant::t:history/t:origin/t:origDate">
+                        <span class="results-list-desc desc">
+                            <xsl:text>Date: </xsl:text>
+                            <xsl:for-each select="descendant::t:history/t:origin/t:origDate">
+                                <xsl:value-of select="."/>
+                            </xsl:for-each>
+                        </span>
+                    </xsl:if>
+                    <span class="results-list-desc uri">
+                        <span class="srp-label">URI: </span>
+                        <a href="{replace($uri,$base-uri,$nav-base)}">
+                            <xsl:value-of select="$uri"/>
+                        </a>
+                    </span>
+                </div>
+            </xsl:when>
+            <xsl:when test="contains($uri,'/spear/')">
                 <div class="results-list">
                     <a href="factoid.html?id={$uri}" class="syr-label">
                         <xsl:choose>

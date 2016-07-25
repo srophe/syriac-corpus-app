@@ -37,7 +37,7 @@ declare function ms:facets($node as node(), $model as map(*)){
  : Build query string to pass to search.xqm 
 :)
 declare function ms:query-string() as xs:string? {
- concat("collection('",$global:data-root,"/manuscripts/tei')//tei:msDesc",
+ concat("collection('",$global:data-root,"/manuscripts/tei')//tei:teiHeader",
     ms:keyword(),facets:facet-filter()
     )
 };
