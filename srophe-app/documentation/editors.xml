@@ -258,6 +258,18 @@
                         <surname>Smith</surname>
                     </persName>
                 </person>
+                <person xml:id="sminov">
+                    <persName>
+                        <forename>Sergey</forename>
+                        <surname>Minov</surname>
+                    </persName>
+                </person>
+                <person xml:id="dsalem">
+                    <persName>
+                        <forename>Daniel</forename>
+                        <surname>Salem</surname>
+                    </persName>
+                </person>
                 <org xml:id="uasyriacresearchgroup">
                     <name xml:lang="en">The Syriac Research Group, University of Alabama</name>
                 </org>
