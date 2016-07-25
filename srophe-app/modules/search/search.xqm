@@ -36,7 +36,7 @@ declare variable $search:collection {request:get-parameter('collection', '') cas
  : Search stored in map for use by other functions
  : @param $collection passed from search page templates to build correct sub-collection search string
 :)
-declare %templates:wrap function search:get-results($node as node(), $model as map(*), $collection as xs:string?){
+declare %templates:wrap function search:get-results($node as node(), $model as map(*), $collection as xs:string?, $view as xs:string?){
     let $coll := if($search:collection != '') then $search:collection else $collection
     let $eval-string := 
                         if($coll = ('sbd','q','authors','saints','persons')) then persons:query-string($coll)
@@ -48,7 +48,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                         else search:query-string($collection)
     return                         
     map {"hits" := 
-                if(exists(request:get-parameter-names())) then 
+                if(exists(request:get-parameter-names()) or ($view = 'all')) then 
                     if($search:sort = 'alpha') then 
                         for $hit in util:eval($eval-string)
                         let $en-title := 
@@ -99,7 +99,6 @@ concat("collection('",$global:data-root,"')//tei:body",
     search:idno(),"/ancestor::tei:TEI"
     )
 };
-
 
 declare function search:persName(){
     if($search:persName != '') then 
@@ -178,6 +177,20 @@ if(exists(request:get-parameter-names())) then
 else ()    
 };
 
+(:~
+ : Call facets on search results
+ : NOTE: need better template integration
+:)
+declare %templates:wrap function search:facets($node as node()*, $model as map(*)){
+<div>
+     {
+        let $facet-nodes := $model("hits")
+        let $facets := $facet-nodes//tei:repository | $facet-nodes//tei:country
+        return facets:facets($facets)
+     }
+</div>
+};
+
 (:~ 
  : Count total hits
 :)
@@ -189,8 +202,10 @@ declare  %templates:wrap function search:hit-count($node as node()*, $model as m
  : Build paging for search results pages
  : If 0 results show search form
 :)
-declare  %templates:wrap function search:pageination($node as node()*, $model as map(*), $collection as xs:string?){
-   if(exists(request:get-parameter-names())) then 
+declare  %templates:wrap function search:pageination($node as node()*, $model as map(*), $collection as xs:string?, $view as xs:string?){
+   if($view = 'all') then 
+        page:pageination($model("hits"), $search:start, $search:perpage, true())
+   else if(exists(request:get-parameter-names())) then 
         page:pageination($model("hits"), $search:start, $search:perpage, true(), $collection, search:search-string($collection))
    else ()
 };
@@ -292,9 +307,10 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
 
 (:~          
  : Checks to see if there are any parameters in the URL, if yes, runs search, if no displays search form. 
+ : NOTE: could add view param to show all for faceted browsing? 
 :)
-declare %templates:wrap function search:build-page($node as node()*, $model as map(*), $collection as xs:string?) {
-    if(exists(request:get-parameter-names())) then search:show-hits($node, $model, $collection)
+declare %templates:wrap function search:build-page($node as node()*, $model as map(*), $collection as xs:string?, $view as xs:string?) {
+    if(exists(request:get-parameter-names()) or ($view = 'all')) then search:show-hits($node, $model, $collection)
     else ()
 };
 

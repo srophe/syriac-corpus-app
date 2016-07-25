@@ -13,14 +13,16 @@ declare namespace html="http://www.w3.org/1999/xhtml";
  : @param $uris passed as string, can contain multiple uris
  : @param $idno for parent record, can be blank. Used to filter current record from results list. 
  :)
-declare function rel:get-names($uris as xs:string*, $idno) as element(a)*{
+declare function rel:get-uris($uris as xs:string*, $idno) as xs:string*{
     for $uri in distinct-values(tokenize($uris,' '))
-    let $rec :=  global:get-rec($uri)
-    let $names := $rec
     where ($uri != $idno and not(starts-with($uri,'#')))  
-    return global:display-recs-short-view($names, '')
+    return $uri
 };
 
+declare function rel:display($uri as xs:string*) as element(a)*{
+    let $rec :=  global:get-rec($uri)  
+    return global:display-recs-short-view($rec, '')
+};
 (:~ 
  : Get names/titles for each uri, for json output
  : @param $uris passed as string, can contain multiple uris
@@ -133,22 +135,22 @@ declare function rel:subject-headings($idno){
                 let $headword := $recs/descendant::tei:body/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]
                 let $subject-idno := replace($recs/descendant::tei:idno[1],'/tei','')
                 return 
-                   <span class="sh pers-label badge">{string($headword)} <a href="search.html?subject={$subject-idno}" class="sh-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></span>,
-                if($total gt 20) then 
+                   <span class="sh pers-label badge">{global:tei2html($headword)} <a href="search.html?subject={$subject-idno}" class="sh-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></span>,
+                    
+                    if($total gt 20) then 
                     <div>
-                        
                         <div class="collapse" id="showAllSH">
                             {
                             for $recs in subsequence($hits,20,$total)
-                            let $headword := $recs/descendant::tei:body/descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')]
+                            let $headword := $recs/descendant::tei:body/descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1]
                             let $subject-idno := replace($recs/descendant::tei:idno[1],'/tei','')
                             return 
-                               <span class="sh pers-label badge">{global:tei2html($headword)} <a href="search.html?subject={$subject-idno}" class="sh-search"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></span>
+                               <span class="sh pers-label badge">{$headword/text()} <a href="search.html?subject={$subject-idno}" class="sh-search"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></span>
                             }
                         </div>
                         <a class="togglelink pull-right btn-link" data-toggle="collapse" data-target="#showAllSH" data-text-swap="Hide"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Show All </a>
                     </div>                  
-                  else ()
+                    else ()
                   )}
                  </div>
             }
@@ -167,18 +169,25 @@ declare function rel:build-relationships($node,$idno){
     <div>
     {   
         for $related in $node/descendant-or-self::tei:relation
-        let $count := count(rel:get-names(string-join(($related/@active/string(),$related/@passive/string(),$related/@mutual/string()),' '),$idno))
+        let $names := rel:get-uris(string-join(($related/@active/string(),$related/@passive/string(),$related/@mutual/string()),' '),$idno)
+        let $count := count($names)
         let $rel-id := index-of($node, $related[1])
         group by $relationship := $related/@name
         return 
             <div>
             {(
                 rel:decode-relationship($related),
-                <span>
-                    <span class="collapse" id="showRel-{$rel-id}">{rel:get-names(string-join(($related/@active/string(),$related/@passive/string(),$related/@mutual/string()),' '),$idno)}</span>
-                    <a class="togglelink btn-link" data-toggle="collapse" data-target="#showRel-{$rel-id}" data-text-swap="Hide"> See all {$count} &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
-                </span>  
-
+                for $r in subsequence($names,1,2)
+                return rel:display($r),
+                if($count gt 2) then
+                    <span>
+                        <span class="collapse" id="showRel-{$rel-id}">{
+                            for $r in subsequence($names,3,$count)
+                            return rel:display($r)
+                        }</span>
+                        <a class="togglelink btn btn-info" style="width:100%; margin-bottom:1em;" data-toggle="collapse" data-target="#showRel-{$rel-id}" data-text-swap="Hide"> See all {$count} &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+                    </span>
+                else ()
             )}
             </div>
         }

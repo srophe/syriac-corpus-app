@@ -10,7 +10,7 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 
 (:~
- : Build paging menu for browsing
+ : Build paging menu for browse
  : $param @hits hits as nodes
  : $param @start start number passed from url
  : $param @perpage number of hits to show 
@@ -59,7 +59,7 @@ let $pagination-links :=
                     (: Shows 'Next' for all but the last page of results :)
                     if ($start + $perpage ge $total-result-count) then ()
                     else <li><a href="{concat($param-string, $start + $perpage)}">Next</a></li>,
-                    if($sort = true()) then 'Sort options'
+                    if($sort = true()) then page:sort-options($param-string, $start,'')
                     else(), 
                     <li><a href="{concat('?start=1&amp;perpage=',$total-result-count)}">All</a></li>
                     )}
@@ -73,9 +73,7 @@ let $pagination-links :=
             </ul>
         }
     </div>    
-return 
-   if(exists(request:get-parameter-names())) then $pagination-links
-   else ()
+return $pagination-links
 };
 
 (:~
@@ -101,7 +99,7 @@ let $url-params := replace(request:get-query-string(), '&amp;start=\d+', '')
 let $param-string := if($url-params != '') then concat('?',$url-params,'&amp;start=') else '?start='        
 let $pagination-links := 
     <div class="row" xmlns="http://www.w3.org/1999/xhtml">
-            <div class="col-sm-5">
+            <div class="col-sm-5 search-string">
                 <h4 class="hit-count">Search results:</h4>
                 <p class="col-md-offset-1 hit-count">{$total-result-count} matches for {$search-string}.</p>
             </div>
@@ -135,7 +133,7 @@ let $pagination-links :=
                         else <li><a href="{concat($param-string, $start + $perpage)}">Next</a></li>,
                         if($sort = true()) then page:sort-options($param-string,$start, $collection)
                         else(), 
-                        <li class="pull-right"><a href="search.html"><span class="glyphicon glyphicon-search"/> New</a></li>
+                        <li class="pull-right search-new"><a href="search.html"><span class="glyphicon glyphicon-search"/> New</a></li>
                         )}
                 </ul>
                 else 
@@ -153,7 +151,6 @@ return
    if(exists(request:get-parameter-names())) then $pagination-links
    else ()
 };
-
 
 (:~
  : Build sort options menu for search results, includes search string

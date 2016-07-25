@@ -1,19 +1,16 @@
 xquery version "3.0";
 (:~
- : Builds browse page for Syriaca.org sub-collections 
- : Alphabetical English and Syriac Browse lists
- : Results output as TEI xml and are transformed by /srophe/resources/xsl/browselisting.xsl
+ : Facet library for Syriaca.org
+ : Formats facets, facet filter to be added to xpath and add/remove facet buttons.  
  :)
  
 module namespace facets="http://syriaca.org/facets";
 
 import module namespace functx="http://www.functx.com";
-declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
-declare namespace transform="http://exist-db.org/xquery/transform";
-declare namespace util="http://exist-db.org/xquery/util";
 
+(: External facet parameters :)
 declare variable $facets:limit {request:get-parameter('limit', 5) cast as xs:integer};
 declare variable $facets:fq {request:get-parameter('fq', '') cast as xs:string};
 
@@ -24,7 +21,8 @@ add facet parameters and functionality to browse.xm and search.xqm?
 :)
 
 (:
- : Filter by facets to be passed to browse or search function
+ : XPath filter to be passed to browse or search function
+ : creates XPath based on facet node name.
 :)
 declare function facets:facet-filter(){
     if($facets:fq != '') then
@@ -44,99 +42,9 @@ declare function facets:facet-filter(){
     else ()   
 };
 
-(:~
- : Build facets menus from nodes passed by search or browse
- : @param $facets nodes to facet on
- : @param $facets:limit number of facets per catagory to display, defaults to 5
-:)
-declare function facets:facets($facets as node()*){
-<div>
-    <!--<div>{facets:facet-filter()}</div>-->
-    <span class="facets applied">
-        {
-            if($facets:fq) then facets:selected-facet-display()
-            else ()            
-        }
-    </span>
-    {
-        for $facet-group in $facets
-        group by $category := node-name($facet-group)
-        return 
-            <div class="category">
-                {
-                    if(string($category) = 'event') then 
-                        <div>
-                            <h4>Keyword</h4>
-                            {
-                            (<div class="facet-list show">
-                                {
-                                if($facets:limit) then 
-                                    for $facet-list at $l in subsequence(facets:keyword($facets),1,$facets:limit)
-                                    return $facet-list
-                                else facets:keyword($facets)
-                                }
-                               </div>,
-                               <div class="facet-list collapse" id="{concat('show',string($category))}">
-                                {
-                                if($facets:limit) then 
-                                    for $facet-list at $l in subsequence(facets:keyword($facets),$facets:limit + 1)
-                                    return $facet-list
-                                else facets:keyword($facets)
-                                }
-                               </div>,
-                               <a class="togglelink" data-toggle="collapse" data-target="#{concat('show',string($category))}" data-text-swap="less">more...</a>)
-                            }
-                        </div>  
-                    else if(string($category) = 'title') then 
-                        <div>
-                                <h4>Source Text</h4>
-                                {
-                                (<div class="facet-list show">
-                                    {
-                                    if($facets:limit) then 
-                                        for $facet-list at $l in subsequence(facets:title($facets),1,$facets:limit)
-                                        return $facet-list
-                                    else facets:title($facets)
-                                    }
-                                   </div>,
-                                   <div class="facet-list collapse" id="{concat('show',string($category))}">
-                                    {
-                                    if($facets:limit) then 
-                                        for $facet-list at $l in subsequence(facets:title($facets),$facets:limit + 1)
-                                        return $facet-list
-                                    else facets:title($facets)
-                                    }
-                                   </div>,
-                                   <a class="togglelink" data-toggle="collapse" data-target="#{concat('show',string($category))}" data-text-swap="less">more...</a>)
-                                }
-                            </div>  
-                    else 
-                        <div>
-                            <h4>{if(string($category) = 'persName') then 'Person' else if(string($category) = 'placeName') then 'Place' else if(string($category) = 'title') then 'Source Text' else string($category)}</h4>
-                            {
-                                if($facets:limit) then 
-                                    (<div class="facet show">
-                                    {
-                                    for $facet-list at $l in subsequence(facets:build-facet($facet-group,string($category)),1,$facets:limit)
-                                    return $facet-list
-                                    }
-                                    </div>,
-                                    <div class="facet collapse" id="{concat('show',string($category))}">
-                                    {
-                                    for $facet-list at $l in subsequence(facets:build-facet($facet-group,string($category)),$facets:limit + 1)
-                                    return $facet-list
-                                    }
-                                    </div>,
-                                    <a class="togglelink" data-toggle="collapse" data-target="#{concat('show',string($category))}" data-text-swap="less">more...</a>)
-                                else facets:build-facet($facet-group,string($category))   
-                            }
-                        </div>
-                }     
-            </div>
-    }
-</div>
-};
-
+(:~ 
+ : Builds new facet params. 
+ :)
 declare function facets:url-params(){
     string-join(for $param in request:get-parameter-names()
     return 
@@ -170,6 +78,72 @@ declare function facets:selected-facet-display(){
 };
 
 (:~
+ : Build facets menus from facet nodes 
+ : @param $facets nodes to facet on
+:)
+declare function facets:facets($facets as node()*){
+<div>
+    <span class="facets applied">
+        {
+            if($facets:fq) then facets:selected-facet-display()
+            else ()            
+        }
+    </span>
+    {
+        for $facet-group in $facets
+        group by $category := node-name($facet-group)
+        return 
+        <div>{(
+            facets:display-grp($category),
+            facets:display-labels($facet-group,$category))
+            }</div>
+    }
+</div>
+};
+
+declare function facets:display-grp($category as xs:string*){
+        <h4>{
+                if(string($category) = 'persName') then 'Person' 
+                else if(string($category) = 'placeName') then 'Place'
+                else if(string($category) = 'event') then 'Keyword'
+                else if(string($category) = 'title') then 'Source Text' 
+                else string(functx:capitalize-first($category))
+                }</h4>  
+};
+
+declare function facets:display-labels($facet-group, $category){
+    if($facets:limit) then 
+    let $count := count(facets:facet-type($facet-group,$category))
+    return
+        <div>
+            <div class="facet-list show">{
+                for $facet-list at $l in subsequence(facets:facet-type($facet-group,$category),1,$facets:limit)
+                return $facet-list
+            }</div>
+            <div class="facet-list collapse" id="{concat('show',string($category))}">{
+                for $facet-list at $l in subsequence(facets:facet-type($facet-group,$category),$facets:limit + 1)
+                return $facet-list
+            }</div>
+            {if($count gt ($facets:limit - 1)) then 
+                <a class="facet-label togglelink btn btn-info" data-toggle="collapse" data-target="#{concat('show',string($category))}" data-text-swap="Less"> More &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+            else()}
+        </div>
+    else facets:facet-type($facet-group,$category)
+};
+
+(:~ 
+ : Handles @ref vrs element() facets  
+ :)
+declare function facets:facet-type($facets,$category){
+    if(string($category) = 'keyword') then 
+        facets:keyword($facets)
+    (:else if($category = 'title') then facets:title($facets):)
+    else if(string($category) = ('persName','placeName','title')) then facets:build-facet($facets, $category)
+    else facets:build-facet-node($facets, $category)
+};
+
+(:~
+ : NOTE need to rename to facets:build-facet-ref but need to address facets in events.xqm
  : Build individual facet lists for each facet category
  : @param $nodes nodes to facet on
 :)
@@ -184,6 +158,23 @@ declare function facets:build-facet($nodes, $category){
                 if($facets:fq) then concat('fq=',$facets:fq,' ',$facet-query)
                 else concat('fq=',$facet-query)
         return <a href="?{$new-fq}{facets:url-params()}" class="facet-label">{string($facet-val)} <span class="count">  ({count($facet)})</span></a>
+};
+
+(:~
+ : Build individual facet lists for each facet category
+ : @param $nodes nodes to facet on
+:)
+declare function facets:build-facet-node($nodes, $category){
+    for $facet in $nodes
+    group by $facet-grp := $facet/text()
+    order by count($facet) descending
+    return  
+        let $facet-val := $facet[1]
+        let $facet-query := concat('fq-',$category,':',normalize-space($facet-val))
+        let $new-fq := 
+                if($facets:fq) then concat('fq=',$facets:fq,' ',$facet-query)
+                else concat('fq=',$facet-query)
+        return <a href="?{$new-fq}{facets:url-params()}" class="facet-label btn btn-default" style="text-align:left;">{string($facet-val)} <span class="count">  ({count($facet)})</span></a>
 };
 
 (:~
@@ -207,6 +198,7 @@ declare function facets:title($nodes){
                 <span class="count">  ({count($facet)})</span>
             </a>
 };
+
 (:~
  : Special handling for keywords which are in attributes and must be tokenized
  : @param $nodes nodes to build keyword list

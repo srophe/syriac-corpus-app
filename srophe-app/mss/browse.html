@@ -1,28 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/manuscripts.html" data-template-at="content">
     <xi:include href="../banner.html"/>
-    <div class="section">
-        <h1 class="title about">Index of Manuscripts</h1>
-        <p/>
-        <!-- Calls xquery functions -->
+    <div class="mss-banner-interior">
+        <div class="container">
+            <h1>Browse Manuscripts</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div data-template="search:get-results" data-template-collection="manuscripts" data-template-view="all">
+            <!-- Calls paging and search parameters string  -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div data-template="search:facets" data-template-collection="manuscripts"/>                                
+                </div>
+                <div class="col-md-8">
+                    <div data-template="search:pageination" data-template-collection="manuscripts" data-template-view="all"/>
+                    <div data-template="search:build-page" data-template-collection="manuscripts" data-template-view="all"/>
+                </div>
+            </div>
+        </div>
+        <!-- Calls xquery functions 
         <div data-template="browse:get-all" data-template-collection="manuscripts">
             <div class="tabbable">
-                <!-- Browse Tabs -->
                 <ul class="nav nav-tabs" id="nametabs">
-                    <li data-template="browse:tabs" data-template-text="English" data-template-param="lang" data-template-value="en" data-template-sort-value="A"/>
-                    <li data-template="browse:tabs" data-template-text="ܠܫܢܐ ܣܘܪܝܝܐ" data-template-param="lang" data-template-value="syr" data-template-sort-value="ܐ"/>
-                    <li data-template="browse:tabs" data-template-text="اللغة العربية" data-template-param="lang" data-template-value="ar" data-template-sort-value="ا"/>
+                    <li data-template="browse:tabs" data-template-text="Library" data-template-param="view" data-template-value="repository" data-template-sort-value="A"/>
+                    <li data-template="browse:tabs" data-template-text="Country" data-template-param="view" data-template-value="country" data-template-sort-value="A"/>
                 </ul>
-                <!-- Browse Content -->
                 <div class="tab-content" data-template="browse:get-narrow" data-template-collection="manuscripts">
                     <div class="tab-pane active">
                         <div class="row">
-                            <div data-template="browse:results-panel" data-template-collection="manuscripts"/>
+                            <div class="col-md-4">
+                                <div data-template="browse:facets-by-repo" data-template-collection="manuscripts"/>                                
+                            </div>
+                            <div class="col-md-4">
+                                <div data-template="browse:results-panel" data-template-collection="manuscripts" data-template-view="all"/>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        -->
         <!--
         <div id="externals">
             <p>
