@@ -67,7 +67,7 @@ let $pagination-links :=
         else 
             <ul class="pagination pull-right">
             {
-                if($sort = true()) then 'Sort options'
+                if($sort = true()) then page:sort-options($param-string, $start,'')
                 else()
             }
             </ul>
