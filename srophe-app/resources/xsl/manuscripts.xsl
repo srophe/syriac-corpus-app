@@ -148,12 +148,23 @@
         <xsl:for-each select="t:origDate">
             <p>
                 <span class="srp-label">Date of Origin: </span>
+                <xsl:variable name="range">
+                    <xsl:if test="@notBefore or @notAfter or @to or @from or @when">
+                        <xsl:text> (</xsl:text>
+                        <xsl:value-of select="@notBefore|@from|@when"/>
+                        <xsl:if test="@notAfter or @to">
+                            <xsl:text> - </xsl:text><xsl:value-of select="@notAfter|@to"/>
+                        </xsl:if>
+                        <xsl:text>)</xsl:text>
+                    </xsl:if>
+                </xsl:variable>
                 <xsl:choose>
                     <xsl:when test="text()">
                         <xsl:value-of select="."/>
+                        <xsl:sequence select="$range"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <!-- Add date range handling -->
+                        <xsl:sequence select="$range"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </p>
