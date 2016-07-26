@@ -322,30 +322,36 @@
             <xsl:apply-templates/>
         </p>
     </xsl:template>
-    <xsl:template match="t:locus"/>
-    <xsl:template match="t:locus" mode="locus">
-        <p>
-            <xsl:choose>
-                <xsl:when test="parent::t:msItem"/>
-                <xsl:otherwise>
-                    <xsl:attribute name="class">msItem</xsl:attribute>
-                </xsl:otherwise>
-            </xsl:choose>
-            <strong>Locus: </strong>
-            <xsl:choose>
-                <xsl:when test="string-length(.) &gt; 0">
-                    <xsl:apply-templates/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:if test="@from"> from <xsl:value-of select="@from"/>
-                    </xsl:if>
-                    <xsl:if test="@to"> to <xsl:value-of select="@to"/>
-                    </xsl:if>
-                </xsl:otherwise>
-            </xsl:choose>
-        </p>
+    <xsl:template match="t:locus">
+        <xsl:choose>
+            <xsl:when test="parent::t:msItem">
+                <p>
+                    <xsl:choose>
+                        <xsl:when test="parent::t:msItem"/>
+                        <xsl:otherwise>
+                            <xsl:attribute name="class">msItem</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <strong>Locus: </strong>
+                    <xsl:choose>
+                        <xsl:when test="string-length(.) &gt; 0">
+                            <xsl:apply-templates/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:if test="@from"> from <xsl:value-of select="@from"/>
+                            </xsl:if>
+                            <xsl:if test="@to"> to <xsl:value-of select="@to"/>
+                            </xsl:if>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </p>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-    <xsl:template match="t:msItem/t:quote">
+    <xsl:template match="t:quote[parent::t:msItem]">
         <p>
             <strong>Quote: </strong>
             <xsl:apply-templates/>
