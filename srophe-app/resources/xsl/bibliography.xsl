@@ -403,15 +403,17 @@
                 </xsl:if>
             </xsl:if>
         </xsl:variable>
-        <xsl:value-of select="normalize-space($bookAuth)"/>
-        <xsl:choose>
-            <xsl:when test="self::t:monogr and not(preceding-sibling::t:analytic)">
-                <xsl:text>. </xsl:text>
-            </xsl:when>
-            <xsl:when test="$bookAuth != ''">
-                <xsl:text>, </xsl:text>
-            </xsl:when>
-        </xsl:choose>
+        <xsl:if test="$rcount &gt; 0">
+            <xsl:value-of select="normalize-space($bookAuth)"/>
+            <xsl:choose>
+                <xsl:when test="self::t:monogr and not(preceding-sibling::t:analytic)">
+                    <xsl:text>. </xsl:text>
+                </xsl:when>
+                <xsl:when test="$bookAuth != ''">
+                    <xsl:text>, </xsl:text>
+                </xsl:when>
+            </xsl:choose>            
+        </xsl:if>
     </xsl:template>
 
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
