@@ -207,34 +207,64 @@
             <xsl:when test="contains($uri,'/manuscript/')">
                 <div class="results-list">
                     <a href="{replace($uri,$base-uri,$nav-base)}" dir="ltr">
-                        <xsl:value-of select="$main-title"/>
+                        <span class="srp-label">Shelfmark: </span> <xsl:apply-templates select="descendant::t:titleStmt/t:title[1]" mode="plain"/>
                     </a>
-                    <xsl:if test="descendant::t:msIdentifier[t:altIdentifier/t:idno[@type = ('Wright-BL-Arabic','Wright-BL-Roman')]]">
-                        <span class="results-list-desc desc">
-                            <xsl:text>Alternate Identifiers: </xsl:text>
-                            <!-- Not correct -->
-                            <xsl:for-each select="descendant::t:msIdentifier[t:altIdentifier/t:idno[@type = ('Wright-BL-Arabic','Wright-BL-Roman')]]">
-                                <xsl:value-of select="t:altIdentifier/t:idno[@type = 'Wright-BL-Arabic']"/>
-                                <xsl:if test="t:altIdentifier/t:idno[@type = 'Wright-BL-Roman']">
-                                    <xsl:text> (</xsl:text>
-                                    <xsl:value-of select="t:altIdentifier/t:idno[@type = 'Wright-BL-Roman']"/>     
-                                    <xsl:text>) </xsl:text>
-                                </xsl:if>   
-                                <xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
-                            </xsl:for-each>
-                        </span>
-                    </xsl:if>
                     <xsl:if test="count(descendant::t:msPart) gt 0">
                         <span class="results-list-desc desc">
                             This manuscript contains <xsl:value-of select="count(descendant::t:msPart)"/> component manuscripts
                         </span>
                     </xsl:if>
+                    <xsl:if test="descendant::t:msIdentifier[t:altIdentifier/t:idno[@type = ('Wright-BL-Arabic','Wright-BL-Roman')]]">
+                        <span class="results-list-desc desc">
+                            <span class="srp-label">Alternate Identifiers: </span>
+                            <!-- Not correct -->
+                            <xsl:for-each select="descendant::t:msIdentifier[t:altIdentifier/t:idno]">
+                                <xsl:for-each select="t:altIdentifier/t:idno">
+                                    <xsl:choose>
+                                        <xsl:when test="@type=('Wright-BL-Arabic','Wright-BL-Roman')">
+                                            <xsl:text>Wright </xsl:text>
+                                        </xsl:when>
+                                        <xsl:when test="@type='BL-Shelfmark'">
+                                            <xsl:text>BL </xsl:text>
+                                        </xsl:when>
+                                        <xsl:when test="@type='Clemons' or @type='clemons'">
+                                            <xsl:text>Clemons Checklist </xsl:text>
+                                        </xsl:when>
+                                    </xsl:choose>
+                                    <xsl:value-of select="."/>
+                                    <xsl:if test="position() != last()">
+                                        <xsl:text>, </xsl:text>
+                                    </xsl:if>
+                                </xsl:for-each>
+                            </xsl:for-each>
+                        </span>
+                    </xsl:if>
                     <xsl:if test="descendant::t:history/t:origin/t:origDate">
                         <span class="results-list-desc desc">
-                            <xsl:text>Date: </xsl:text>
-                            <xsl:for-each select="descendant::t:history/t:origin/t:origDate">
-                                <xsl:value-of select="."/>
-                            </xsl:for-each>
+                            <xsl:choose>
+                                <xsl:when test="count(descendant::t:history/t:origin/t:origDate) &gt; 2">
+                                    <span class="srp-label">The component parts of this manuscript have various dates including: </span>
+                                    <xsl:for-each select="descendant::t:history/t:origin/t:origDate">
+                                        <xsl:if test="position() &lt; 3">
+                                            <xsl:value-of select="."/> 
+                                            <xsl:if test="position() &lt; 2">
+                                                <xsl:text>, </xsl:text>
+                                            </xsl:if>
+                                        </xsl:if>
+                                    </xsl:for-each>        
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <span class="srp-label">Date: </span>     
+                                    <xsl:for-each select="descendant::t:history/t:origin/t:origDate">
+                                        <xsl:if test="position() &lt; 3">
+                                            <xsl:value-of select="."/> 
+                                            <xsl:if test="position() &lt; 2">
+                                                <xsl:text>, </xsl:text>
+                                            </xsl:if>
+                                        </xsl:if>
+                                    </xsl:for-each> 
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </span>
                     </xsl:if>
                     <span class="results-list-desc uri">
