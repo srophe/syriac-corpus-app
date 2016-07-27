@@ -102,6 +102,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
+    
  <!-- =================================================================== -->
  <!-- TEMPLATES -->
  <!-- =================================================================== -->
@@ -115,31 +116,181 @@
     </xsl:template>
     <xsl:template match="t:TEI">
         <!-- Header -->
-        <xsl:choose>
-            <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword') and starts-with(@xml:lang,'en')]">
-                <xsl:call-template name="h1"/>
-            </xsl:when>
-            <xsl:when test="t:teiHeader/t:fileDesc/t:titleStmt">
-                <xsl:apply-templates select="t:teiHeader/t:fileDesc/t:titleStmt"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:call-template name="h1"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:call-template name="h1"/>
+        <!-- MSS display -->
         <xsl:if test="descendant::t:sourceDesc/t:msDesc">
             <xsl:apply-templates select="descendant::t:sourceDesc/t:msDesc"/>
         </xsl:if>
         <!-- Body -->
         <xsl:apply-templates select="descendant::t:body/child::*"/>
-        
-        <!-- Citation Information -->        
-        <!-- Citations -->
+        <!-- Citation Information -->
         <xsl:call-template name="citationInfo"/>
     </xsl:template>
    
     <!-- Template for page titles -->
     <xsl:template match="t:srophe-title | t:titleStmt">
         <xsl:call-template name="h1"/>
+    </xsl:template>
+    <xsl:template name="h1">
+        <div class="row title">
+            <h1 class="col-md-8">
+                <!-- Format title, calls template in place-title-std.xsl -->
+                <xsl:call-template name="title"/>
+            </h1>
+            <!-- Call link icons (located in link-icons.xsl) -->
+            <xsl:call-template name="link-icons"/>   
+            <!-- End Title -->
+        </div>
+        <!-- emit record URI and associated help links -->
+        <div style="margin:0 1em 1em; color: #999999;">
+            <xsl:variable name="current-id" select="tokenize($resource-id,'/')[last()]"/>
+            <xsl:variable name="next-id" select="xs:integer($current-id) + 1"/>
+            <xsl:variable name="prev-id" select="xs:integer($current-id) - 1"/>
+            <xsl:variable name="next-uri" select="replace($resource-id,$current-id,string($next-id))"/>
+            <xsl:variable name="prev-uri" select="replace($resource-id,$current-id,string($prev-id))"/>
+            <small>
+                <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
+                    <span class="helper circle noprint">
+                        <p>i</p>
+                    </span>
+                </a>
+                <p>
+                    <xsl:if test="starts-with($nav-base,'/exist/apps')">
+                        <a href="{replace($prev-uri,$base-uri,$nav-base)}">
+                            <span class="glyphicon glyphicon-backward" aria-hidden="true"/>
+                        </a>
+                    </xsl:if>
+                    <xsl:text> </xsl:text>
+                    <span class="srp-label">URI</span>
+                    <xsl:text>: </xsl:text>
+                    <span id="syriaca-id">
+                        <xsl:value-of select="$resource-id"/>
+                    </span>
+                    <xsl:text> </xsl:text>
+                    <xsl:if test="starts-with($nav-base,'/exist/apps')">
+                        <a href="{replace($next-uri,$base-uri,$nav-base)}">
+                            <span class="glyphicon glyphicon-forward" aria-hidden="true"/>
+                        </a>
+                    </xsl:if>
+                </p>
+            </small>
+        </div>
+    </xsl:template>
+    <xsl:template name="title">
+        <xsl:choose>
+            <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')]">
+                <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]" mode="plain"/>
+                <xsl:text> - </xsl:text>
+                <xsl:choose>
+                    <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')]">
+                        <span lang="syr" dir="rtl">
+                            <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')][1]" mode="plain"/>
+                        </span>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        [ Syriac Not Available ]
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="descendant-or-self::t:title[1]"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <xsl:if test="t:birth or t:death or t:floruit">
+            <span lang="en" class="type" style="padding-left:1em;">
+                <xsl:text>(</xsl:text>
+                <xsl:if test="t:death or t:birth">
+                    <xsl:if test="not(t:death)">b. </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="count(t:birth/t:date) &gt; 1">
+                            <xsl:for-each select="t:birth/t:date">
+                                <xsl:value-of select="text()"/>
+                                <xsl:if test="position() != last()"> or </xsl:if>
+                            </xsl:for-each>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="t:birth/text()"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:if test="t:death">
+                        <xsl:choose>
+                            <xsl:when test="t:birth"> - </xsl:when>
+                            <xsl:otherwise>d. </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="count(t:death/t:date) &gt; 1">
+                                <xsl:for-each select="t:death/t:date">
+                                    <xsl:value-of select="text()"/>
+                                    <xsl:if test="position() != last()"> or </xsl:if>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="t:death/text()"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:if>
+                </xsl:if>
+                <xsl:if test="t:floruit">
+                    <xsl:if test="not(t:death) and not(t:birth)">
+                        <xsl:choose>
+                            <xsl:when test="count(t:floruit/t:date) &gt; 1">
+                                <xsl:for-each select="t:floruit/t:date">
+                                    <xsl:value-of select="concat('active ',text())"/>
+                                    <xsl:if test="position() != last()"> or </xsl:if>
+                                </xsl:for-each>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="concat('active ', t:floruit/text())"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:if>
+                </xsl:if>
+                <xsl:text>) </xsl:text>
+            </span>
+        </xsl:if>
+        <xsl:for-each select="t:title[@level='s']">
+            <xsl:text>&#160; </xsl:text>
+            <xsl:choose>
+                <xsl:when test=". = 'The Syriac Biographical Dictionary'"/>
+                <xsl:when test=". = 'A Guide to Syriac Authors'">
+                    <a href="$app-root/authors/index.html">
+                        <span class="syriaca-icon syriaca-authors">
+                            <span class="path1"/>
+                            <span class="path2"/>
+                            <span class="path3"/>
+                            <span class="path4"/>
+                        </span>
+                        <span class="icon-text">authors</span>
+                    </a>
+                </xsl:when>
+                <xsl:when test=". = 'Qadishe: A Guide to the Syriac Saints'">
+                    <a href="$app-root/q/index.html">
+                        <span class="syriaca-icon syriaca-q">
+                            <span class="path1"/>
+                            <span class="path2"/>
+                            <span class="path3"/>
+                            <span class="path4"/>
+                        </span>
+                        <span> saint</span>
+                    </a>
+                </xsl:when>
+                <xsl:when test=". = 'Gateway to the Syriac Saints'">
+                    <a href="$app-root/q/index.html">
+                        <span class="syriaca-icon syriaca-q">
+                            <span class="path1"/>
+                            <span class="path2"/>
+                            <span class="path3"/>
+                            <span class="path4"/>
+                        </span>
+                        <span> saint</span>
+                    </a>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="."/>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:if test="following-sibling::*/text() = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')">, TEST2</xsl:if>
+        </xsl:for-each>
     </xsl:template>
     
     <!-- Main page modules for syriaca.org display -->
@@ -540,13 +691,6 @@
         </xsl:if>
     </xsl:template>
     
-    <!-- NOTE: May not be used anymore?? -->
-    <!-- used by search pages not real tei element -->
-    <xsl:template match="t:search">
-        <!-- Output elements without links -->
-        <xsl:apply-templates mode="title"/>
-    </xsl:template>
-    
     <!-- used by spear pages not real tei element -->
     <xsl:template match="t:factoid">
         <xsl:if test="not(empty(.))">
@@ -572,167 +716,13 @@
     <xsl:template match="t:person[ancestor::t:factoid]">
         <xsl:apply-templates/>
     </xsl:template>
-    <xsl:template name="h1">
-        <div class="row title">
-            <h1 class="col-md-8">
-                <!-- Format title, calls template in place-title-std.xsl -->
-                <xsl:call-template name="title"/>
-            </h1>
-            <!-- Call link icons (located in link-icons.xsl) -->
-            <xsl:call-template name="link-icons"/>   
-            <!-- End Title -->
-        </div>
-        <!-- emit record URI and associated help links -->
-        <div style="margin:0 1em 1em; color: #999999;">
-            <xsl:variable name="current-id" select="tokenize($resource-id,'/')[last()]"/>
-            <xsl:variable name="next-id" select="xs:integer($current-id) + 1"/>
-            <xsl:variable name="prev-id" select="xs:integer($current-id) - 1"/>
-            <xsl:variable name="next-uri" select="replace($resource-id,$current-id,string($next-id))"/>
-            <xsl:variable name="prev-uri" select="replace($resource-id,$current-id,string($prev-id))"/>
-            <small>
-                <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
-                    <span class="helper circle noprint">
-                        <p>i</p>
-                    </span>
-                </a>
-                <p>
-                    <xsl:if test="starts-with($nav-base,'/exist/apps')">
-                        <a href="{replace($prev-uri,$base-uri,$nav-base)}">
-                            <span class="glyphicon glyphicon-backward" aria-hidden="true"/>
-                        </a>
-                    </xsl:if>
-                    <xsl:text> </xsl:text>
-                    <span class="srp-label">URI</span>
-                    <xsl:text>: </xsl:text>
-                    <span id="syriaca-id">
-                        <xsl:value-of select="$resource-id"/>
-                    </span>
-                    <xsl:text> </xsl:text>
-                    <xsl:if test="starts-with($nav-base,'/exist/apps')">
-                        <a href="{replace($next-uri,$base-uri,$nav-base)}">
-                            <span class="glyphicon glyphicon-forward" aria-hidden="true"/>
-                        </a>
-                    </xsl:if>
-                </p>
-            </small>
-        </div>
+    <!-- Not real tei element -->
+    <xsl:template match="t:pers-group">
+        <h4>Person</h4>
+        <xsl:apply-templates select="*[not(t:listPerson/t:person/t:persName)]"/>
     </xsl:template>
-    <xsl:template name="title">
-        <xsl:choose>
-            <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')]">
-                <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]" mode="plain"/>
-                <xsl:text> - </xsl:text>
-                <xsl:choose>
-                    <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')]">
-                        <span lang="syr" dir="rtl">
-                            <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')][1]" mode="plain"/>
-                        </span>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        [ Syriac Not Available ]
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="t:title[1]"/>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:if test="t:birth or t:death or t:floruit">
-            <span lang="en" class="type" style="padding-left:1em;">
-                <xsl:text>(</xsl:text>
-                <xsl:if test="t:death or t:birth">
-                    <xsl:if test="not(t:death)">b. </xsl:if>
-                    <xsl:choose>
-                        <xsl:when test="count(t:birth/t:date) &gt; 1">
-                            <xsl:for-each select="t:birth/t:date">
-                                <xsl:value-of select="text()"/>
-                                <xsl:if test="position() != last()"> or </xsl:if>
-                            </xsl:for-each>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="t:birth/text()"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                    <xsl:if test="t:death">
-                        <xsl:choose>
-                            <xsl:when test="t:birth"> - </xsl:when>
-                            <xsl:otherwise>d. </xsl:otherwise>
-                        </xsl:choose>
-                        <xsl:choose>
-                            <xsl:when test="count(t:death/t:date) &gt; 1">
-                                <xsl:for-each select="t:death/t:date">
-                                    <xsl:value-of select="text()"/>
-                                    <xsl:if test="position() != last()"> or </xsl:if>
-                                </xsl:for-each>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="t:death/text()"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:if>
-                </xsl:if>
-                <xsl:if test="t:floruit">
-                    <xsl:if test="not(t:death) and not(t:birth)">
-                        <xsl:choose>
-                            <xsl:when test="count(t:floruit/t:date) &gt; 1">
-                                <xsl:for-each select="t:floruit/t:date">
-                                    <xsl:value-of select="concat('active ',text())"/>
-                                    <xsl:if test="position() != last()"> or </xsl:if>
-                                </xsl:for-each>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="concat('active ', t:floruit/text())"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:if>
-                </xsl:if>
-                <xsl:text>) </xsl:text>
-            </span>
-        </xsl:if>
-        <xsl:for-each select="t:title[@level='s']">
-            <xsl:text>&#160; </xsl:text>
-            <xsl:choose>
-                <xsl:when test=". = 'The Syriac Biographical Dictionary'"/>
-                <xsl:when test=". = 'A Guide to Syriac Authors'">
-                    <a href="$app-root/authors/index.html">
-                        <span class="syriaca-icon syriaca-authors">
-                            <span class="path1"/>
-                            <span class="path2"/>
-                            <span class="path3"/>
-                            <span class="path4"/>
-                        </span>
-                        <span class="icon-text">authors</span>
-                    </a>
-                </xsl:when>
-                <xsl:when test=". = 'Qadishe: A Guide to the Syriac Saints'">
-                    <a href="$app-root/q/index.html">
-                        <span class="syriaca-icon syriaca-q">
-                            <span class="path1"/>
-                            <span class="path2"/>
-                            <span class="path3"/>
-                            <span class="path4"/>
-                        </span>
-                        <span> saint</span>
-                    </a>
-                </xsl:when>
-                <xsl:when test=". = 'Gateway to the Syriac Saints'">
-                    <a href="$app-root/q/index.html">
-                        <span class="syriaca-icon syriaca-q">
-                            <span class="path1"/>
-                            <span class="path2"/>
-                            <span class="path3"/>
-                            <span class="path4"/>
-                        </span>
-                        <span> saint</span>
-                    </a>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="."/>
-                </xsl:otherwise>
-            </xsl:choose>
-            <xsl:if test="following-sibling::*/text() = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')">, TEST2</xsl:if>
-        </xsl:for-each>
-    </xsl:template>
+    
+    <!-- Named template for citation information -->
     <xsl:template name="citationInfo">
         <div class="citationinfo">
             <h3>How to Cite This Entry</h3>
@@ -764,6 +754,7 @@
             </div>
         </div>
     </xsl:template>
+    <!-- Named template for bibl about -->
     <xsl:template match="t:srophe-about">
         <div id="citation-note" class="well">
             <xsl:call-template name="aboutEntry"/>
@@ -783,6 +774,7 @@
             </xsl:choose>
         </div>
     </xsl:template>
+    <!-- Named template for sources calls bibliography.xsl -->
     <xsl:template name="sources">
         <xsl:param name="node"/>
         <div class="well">
@@ -799,6 +791,8 @@
             </div>
         </div>
     </xsl:template>
+    
+    <!-- Generic title formating -->
     <xsl:template match="t:title">
         <xsl:choose>
             <xsl:when test="@ref">
@@ -811,21 +805,11 @@
                 <xsl:apply-templates/>
             </xsl:otherwise>
         </xsl:choose>
-        <!--
-        <xsl:if test="following-sibling::t:title and not(parent::t:srophe-title)">
-            <xsl:text>: </xsl:text>
-        </xsl:if>
-        -->
     </xsl:template>
     <xsl:template match="t:foreign">
         <xsl:choose>
-            <xsl:when test="starts-with(@xml:lang,'syr')">
-                <span lang="syr" dir="rtl">
-                    <xsl:value-of select="."/>
-                </span>
-            </xsl:when>
-            <xsl:when test="starts-with(@xml:lang,'ar')">
-                <span lang="ar" dir="rtl">
+            <xsl:when test="starts-with(@xml:lang,'syr') or starts-with(@xml:lang,'ar')">
+                <span lang="{@xml:id}" dir="rtl">
                     <xsl:value-of select="."/>
                 </span>
             </xsl:when>
@@ -837,18 +821,14 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="t:event">
-            <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
+        <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
         <xsl:apply-templates select="child::*" mode="plain"/>
-            <!-- Adds dates if available -->
+        <!-- Adds dates if available -->
         <xsl:sequence select="local:do-dates(.)"/>
-            <!-- Adds footnotes if available -->
+        <!-- Adds footnotes if available -->
         <xsl:if test="@source">
             <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
         </xsl:if>
-    </xsl:template>
-    <xsl:template match="t:choice">
-        <xsl:text> </xsl:text>
-        <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="t:orig | t:sic">
         <xsl:text> (</xsl:text>
@@ -896,32 +876,10 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <!-- Not real tei element -->
-    <xsl:template match="t:pers-group">
-        <h4>Person</h4>
-        <xsl:apply-templates select="*[not(t:listPerson/t:person/t:persName)]"/>
-    </xsl:template>
     <xsl:template match="t:listPerson">
-        <xsl:choose>
-            <!-- Used by spear -->
-            <xsl:when test="/t:factoid">
-                <li>
-                    <xsl:apply-templates/>
-                    <!--
-                    <xsl:if test="/t:factoid/@type != 'event-factoid'">
-                        <a href="factoid.html?id={string(ancestor::t:div/@uri)}">
-                        See factoid <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
-                        </a>
-                    </xsl:if>
-                    -->
-                </li>
-            </xsl:when>
-            <xsl:otherwise>
-                <li>
-                    <xsl:apply-templates/>
-                </li>
-            </xsl:otherwise>
-        </xsl:choose>
+        <li>
+            <xsl:apply-templates/>
+        </li>
     </xsl:template>
     <xsl:template match="t:biblScope"/>
     <xsl:template match="t:biblStruct">
@@ -999,7 +957,7 @@
             </ul>
         </li>
     </xsl:template>
-    <xsl:template match="t:offset | t:measure | t:source">
+    <xsl:template match="t:offset | t:measure | t:source | t:choice">
         <xsl:if test="preceding-sibling::*">
             <xsl:text> </xsl:text>
         </xsl:if>
@@ -1010,10 +968,7 @@
      Description templates 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <!-- Descriptions without list elements or paragraph elements -->
-    <xsl:template match="t:desc" mode="plain">
-        <xsl:apply-templates/>
-    </xsl:template>
-    <xsl:template match="t:label" mode="plain">
+    <xsl:template match="t:desc | t:label" mode="plain">
         <xsl:apply-templates/>
     </xsl:template>
     <!-- Descriptions for place abstract  added template for abstracts, handles quotes and references.-->
@@ -1071,14 +1026,37 @@
         <ul class="listBibl">
             <xsl:for-each select="t:bibl">
                 <li>
-                    <xsl:if test="@xml:id"><xsl:attribute name="id"><xsl:value-of select="@xml:id"/></xsl:attribute></xsl:if>
+                    <xsl:if test="@xml:id">
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="@xml:id"/>
+                        </xsl:attribute>
+                    </xsl:if>
                     <xsl:apply-templates mode="biblist"/>
                     <xsl:text>.</xsl:text>
                 </li>
             </xsl:for-each>
         </ul>
     </xsl:template>
-    
+    <xsl:template match="t:listBibl[parent::t:note]">
+        <xsl:choose>
+            <xsl:when test="t:bibl/t:msIdentifier">
+                <xsl:choose>
+                    <xsl:when test="t:bibl/t:msIdentifier/t:altIdentifier">
+                        <xsl:text> </xsl:text>
+                        <a href="{t:bibl/t:msIdentifier/t:altIdentifier/t:idno[@type='URI']/text()}">
+                            <xsl:value-of select="t:bibl/t:msIdentifier/t:idno"/>                            
+                        </a>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="t:idno"/>        
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates mode="plain"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of a note element 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -1225,8 +1203,6 @@
         <xsl:variable name="elementID" select="substring-after(substring-before(@target,' '),'#')"/>
         <xsl:for-each select="/descendant-or-self::*[@xml:id=$elementID]">
             <xsl:apply-templates select="."/>
-            <!-- NOTE: position last is not working? -->
-            <!--   <xsl:if test="not(../preceding-sibling::*[@xml:id=$elementID])"><xsl:text>, </xsl:text></xsl:if>-->
             <xsl:text> </xsl:text>
         </xsl:for-each>
     </xsl:template>
@@ -1416,8 +1392,7 @@
             <xsl:apply-templates/>
         </a>
     </xsl:template>
-    
-    
+     
     <!-- NOTE: would really like to get rid of mode=cleanout -->
     <xsl:template match="t:placeName[local-name(..)='desc']" mode="cleanout">
         <xsl:apply-templates select="."/>
