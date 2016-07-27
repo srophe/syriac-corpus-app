@@ -218,8 +218,8 @@
                         <span class="results-list-desc desc">
                             <span class="srp-label">Alternate Identifiers: </span>
                             <!-- Not correct -->
-                            <xsl:for-each select="descendant::t:msIdentifier[t:altIdentifier/t:idno]">
-                                <xsl:for-each select="t:altIdentifier/t:idno">
+                            <xsl:for-each select="descendant::t:altIdentifier">
+                                <xsl:for-each select="t:idno">
                                     <xsl:choose>
                                         <xsl:when test="@type=('Wright-BL-Arabic','Wright-BL-Roman')">
                                             <xsl:text>Wright </xsl:text>
@@ -232,10 +232,10 @@
                                         </xsl:when>
                                     </xsl:choose>
                                     <xsl:value-of select="."/>
-                                    <xsl:if test="position() != last()">
-                                        <xsl:text>, </xsl:text>
-                                    </xsl:if>
                                 </xsl:for-each>
+                                <xsl:if test="position() != last()">
+                                    <xsl:text>, </xsl:text>
+                                </xsl:if>
                             </xsl:for-each>
                         </span>
                     </xsl:if>
