@@ -813,3 +813,15 @@ pre {
 }
 
 /* new search */
+.mobile-submenu{display:none;}
+
+@media screen and (max-width: 480px) {
+.navbar-collapse, .dropdown-menu {float:none; width:100% !important;}
+.navbar-nav li {width:100% !important; float:none;}
+.mobile-submenu {
+    display: block;
+    float:left;
+    margin-left:3em;
+    }
+.caret {float:left; margin-left:.5em; margin-top:.5em;}    
+}
