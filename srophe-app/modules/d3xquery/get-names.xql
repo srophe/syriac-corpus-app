@@ -14,7 +14,7 @@ declare variable $id {request:get-parameter('id', '')};
                 '<p><label>URI:</label> <a href="' + d.id + '">' + d.id +'</a></p>');
 :)
 if(rel:get-names-json($id) != '') then 
-    rel:get-names($id)
+    rel:display($id)
 else 
     <div class="results-list">
         <a href="{$id}" class="syr-label">{tokenize($id,'/')[last()]}</a>
