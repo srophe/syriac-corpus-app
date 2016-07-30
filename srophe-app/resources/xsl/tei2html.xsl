@@ -885,7 +885,7 @@
     <xsl:template match="t:biblStruct">
         <xsl:choose>
             <xsl:when test="parent::t:body">
-                <div class="well">
+                <div class="well preferred-citation">
                     <h4>Preferred Citation</h4>
                     <xsl:apply-templates mode="footnote"/>.
                 </div>
@@ -1044,11 +1044,11 @@
                     <xsl:when test="t:bibl/t:msIdentifier/t:altIdentifier">
                         <xsl:text> </xsl:text>
                         <a href="{t:bibl/t:msIdentifier/t:altIdentifier/t:idno[@type='URI']/text()}">
-                            <xsl:value-of select="t:bibl/t:msIdentifier/t:idno"/>                            
+                            <xsl:value-of select="t:bibl/t:msIdentifier/t:idno"/>
                         </a>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:value-of select="t:idno"/>        
+                        <xsl:value-of select="t:idno"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>

@@ -134,6 +134,20 @@ body {font-family: arial, sans-serif; background-color:#385978;}
     height:350px;
     width:100%;
 }
+
+/* Bibl banner*/
+.banner-bibl {
+    position:relative;
+    margin-top:-1em;
+    padding-top:0;
+	background-image:url('/exist/apps/srophe/resources/img/bibl-banner.png');
+	background-size:cover;
+	background-position:top;
+    height:250px;
+    width:100%;
+    border-bottom:4px solid #456889;
+}
+
 /* styles used for index2 example*/
 .info-overlay {
     position:absolute;
@@ -741,7 +755,7 @@ label.error {
 }
 
 .citationinfo {padding:1em; color: #555; border-top:1px solid #666666; background-color:#eee; }
-#citation {display:none;}
+.preferred-citation {font-size:1.2em;}
 .hint{margin:.5em; color: grey; font-style:italic;}
 .uri {margin:0 0 1em; color: #999999;}
 p.single-space{padding:.25em;}

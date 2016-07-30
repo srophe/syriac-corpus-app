@@ -102,8 +102,13 @@ h3.syr{
     background-size:cover;
 }
    
+.bibl-slide {
+    background-image:url('/exist/apps/srophe/resources/img/bibl.png');        
+    background-size:cover;
+}
 /* styles for index4 */
 a.gradient{color:white; text-decoration:none;}
+
 .gradient{  
     -webkit-transition: background 1s ease-out;  
     -moz-transition: background 1s ease-out;  
@@ -166,6 +171,7 @@ a.gradient{color:white; text-decoration:none;}
     background: linear-gradient(#f5d9bc,#e67605);    
     border: 1px solid #e67605; 
 }
+
 .events-slide .gradient {
     background: -webkit-linear-gradient(#98ce84,#2b4a2b);  
     background: -moz-linear-gradient(#98ce84,#2b4a2b);  
@@ -174,13 +180,13 @@ a.gradient{color:white; text-decoration:none;}
     border: 1px solid #2b4a2b; 
 }
 
-.geo-gradient{
-    background: -webkit-linear-gradient(#E5A163,#C47227);  
-    background: -moz-linear-gradient(#E5A163,#C47227);  
-    background: -o-linear-gradient(#E5A163,#C47227);  
-    background: linear-gradient(#E5A163,#C47227);  
+.bibl-slide .gradient {
+    background: -webkit-linear-gradient(#636363,#333333);  
+    background: -moz-linear-gradient(#636363,#333333);  
+    background: -o-linear-gradient(#636363,#333333);  
+    background: linear-gradient(#636363,#333333);    
+    border: 1px solid #333333; 
 }
-
 .slide-credit{
     position:absolute;
     bottom:0;
