@@ -27,7 +27,7 @@ body {background-color:#666;}
 }
 
 .banner-solid{ background-color:#315431; border-top:4px solid #2A492A;}
-
+.banner{ background-color:#315431; border-bottom:4px solid #2A492A;}
 /* Typography */
 h1 {color:#666; padding-top:1em;}
 h2 {color:#999;}

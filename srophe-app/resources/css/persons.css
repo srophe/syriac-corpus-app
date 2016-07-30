@@ -13,11 +13,13 @@ body {background-color:#666;}
 .navbar {border-bottom:4px solid #BCA7C4 !important;}
 .advanced-search > a {color:#999; text-decoration:none;}
 
+.banner {background-color:#BDA9C4; border-bottom:4px solid #BCA7C4;}
+
 /* Typography */
 h1 {color:#666; padding-top:1em;}
 h2 {color:#999;}
 h3 {color:#333;}
-h3.underline {color:#999; border-bottom:3px solid #BCA7C4;}
+h3.underline {color:#999; border-bottom:3px solid grey;}
 .column1 h3{border-bottom:1px solid #999; padding-bottom:0; margin-bottom:1em;}
 h3.label {
     background-color:#ccc;
