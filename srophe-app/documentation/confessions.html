@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
     <xi:include href="../banner.html"/>
+    <h1 class="banner">Religious Communities</h1>
     <div class="row">
         <div class="col-md-8">
-            <h1 class="about">Religious Communities</h1>
             <p>
                 <i>The Syriac Gazetteer</i> refers to religious communities using a nested controlled vocabulary.  These terms are used according
                 to scholarly convention and for scholars' convenience, without asserting that members of these groups would have called themselves by these labels.
@@ -12,7 +12,7 @@
                 or mutually exclusive.  <i>Caveat lector.</i>
             </p>
             <p>NB: Each list is alphabetized within its level, with the exception of Syriac.</p>
-            <div data-template="app:build-confessions"/>
+            <div data-template="app:build-documentation" data-template-doc="confessions.xml"/>
             <!-- Extract confession information from srophe/syriaca/confessions.xml -->
             <div>
                 <a href="../geo/howtoadd.html" class="btn feedback">Feedback?</a>

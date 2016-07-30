@@ -13,11 +13,9 @@ body {background-color:#666;}
 .navbar {border-bottom:4px solid #333399 !important;}
 .advanced-search > a {color:#999; text-decoration:none;}
 
-
 /* Banner styles SPEAR */
 .banner-index {
-	background-image:url('/exist/apps/srophe/resources/img/authors-banner.jpg');
-	
+	background-image:url('/exist/apps/srophe/resources/img/authors-banner.jpg');	
 }
 
 /* BHSE banner internal pages */
@@ -27,9 +25,7 @@ body {background-color:#666;}
     height:175px;
 }
 
-.banner-solid{ background-color:#243E90; border-top:4px solid #16347C;}
-
-
+.banner {background-color:#243E90; border-bottom:4px solid #16347C;}
 /* Typography */
 h1 {color:#666; padding-top:1em;}
 h2 {color:#999;}
