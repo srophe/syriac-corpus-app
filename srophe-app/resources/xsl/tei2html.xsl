@@ -1387,7 +1387,7 @@
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of the ref element
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <xsl:template match="t:ref" mode="#all">
+    <xsl:template match="t:ref">
         <a href="{@target}">
             <xsl:apply-templates/>
         </a>
