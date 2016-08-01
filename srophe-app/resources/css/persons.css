@@ -13,7 +13,7 @@ body {background-color:#666;}
 .navbar {border-bottom:4px solid #BCA7C4 !important;}
 .advanced-search > a {color:#999; text-decoration:none;}
 .banner-interior {
-	background-image:url('/exist/apps/srophe/resources/img/persons.jpg');
+	/*background-image:url('/exist/apps/srophe/resources/img/persons.jpg');*/
 	border-bottom:4px solid #BCA7C4;
     height:200px;	
 }
