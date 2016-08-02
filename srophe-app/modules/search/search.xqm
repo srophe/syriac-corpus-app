@@ -293,7 +293,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
         return
             <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
                 <div class="col-md-12">
-                      <div class="col-md-1" style="margin-right:-1em;">
+                      <div class="col-md-1" style="margin-right:-1em; padding-top:1em;">
                         <span class="label label-default">{$search:start + $p - 1}</span>
                       </div>
                       <div class="col-md-9" xml:lang="en">
