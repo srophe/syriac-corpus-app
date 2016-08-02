@@ -207,7 +207,8 @@
             <xsl:when test="contains($uri,'/manuscript/')">
                 <div class="results-list">
                     <a href="{replace($uri,$base-uri,$nav-base)}" dir="ltr">
-                        <span class="srp-label">Shelfmark: </span> <xsl:apply-templates select="descendant::t:titleStmt/t:title[1]" mode="plain"/>
+                        <span class="srp-label">Shelfmark: </span>
+                        <xsl:apply-templates select="descendant::t:titleStmt/t:title[1]" mode="plain"/>
                     </a>
                     <xsl:if test="count(descendant::t:msPart) gt 0">
                         <span class="results-list-desc desc">
@@ -246,23 +247,23 @@
                                     <span class="srp-label">The component parts of this manuscript have various dates including: </span>
                                     <xsl:for-each select="descendant::t:history/t:origin/t:origDate">
                                         <xsl:if test="position() &lt; 3">
-                                            <xsl:value-of select="."/> 
+                                            <xsl:value-of select="."/>
                                             <xsl:if test="position() &lt; 2">
                                                 <xsl:text>, </xsl:text>
                                             </xsl:if>
                                         </xsl:if>
-                                    </xsl:for-each>        
+                                    </xsl:for-each>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <span class="srp-label">Date: </span>     
+                                    <span class="srp-label">Date: </span>
                                     <xsl:for-each select="descendant::t:history/t:origin/t:origDate">
                                         <xsl:if test="position() &lt; 3">
-                                            <xsl:value-of select="."/> 
+                                            <xsl:value-of select="."/>
                                             <xsl:if test="position() &lt; 2">
                                                 <xsl:text>, </xsl:text>
                                             </xsl:if>
                                         </xsl:if>
-                                    </xsl:for-each> 
+                                    </xsl:for-each>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </span>
