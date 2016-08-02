@@ -6,9 +6,12 @@
         <div data-template="search:show-form" data-template-collection="nhsl"/>
         <div data-template="search:get-results" data-template-collection="nhsl">
             <!-- Calls paging and search parameters string  -->
-            <div data-template="search:pageination" data-template-collection="nhsl"/>
+            <div data-template="search:pageination" data-template-collection="nhsl" data-template-sort-options="relevance,title"/>
             <!-- Prints search results  -->
             <div data-template="search:build-page" data-template-collection="nhsl"/>
+            <div class="page-bottom">
+                <div data-template="search:pageination" data-template-collection="nhsl" data-template-sort-options="relevance,title"/>
+            </div>
         </div>
     </div>
 </div>

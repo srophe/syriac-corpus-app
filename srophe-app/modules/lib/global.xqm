@@ -180,7 +180,7 @@ else $name/text()
  :)
 declare function global:build-sort-string($titlestring as xs:string?, $lang as xs:string?) as xs:string* {
     if($lang = 'ar') then global:ar-sort-string($titlestring)
-    else replace(replace(replace(replace($titlestring,'^\s+',''),'^al-',''),'[‘ʻʿ]',''),'On ','')
+    else replace($titlestring,'^\s+|^al-|^On\s+|^The\s+|^A\s+|^''De |^[|^‘|^ʻ|^ʿ|^]','')
 };
 
 (:~

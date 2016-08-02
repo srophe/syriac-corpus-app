@@ -6,9 +6,12 @@
         <div data-template="search:show-form" data-template-collection="authors"/>
         <div data-template="search:get-results" data-template-collection="authors">
             <!-- Calls paging and search parameters string  -->
-            <div data-template="search:pageination" data-template-collection="authors"/>
+            <div data-template="search:pageination" data-template-collection="authors" data-template-sort-options="relevance,title,persDate"/>
             <!-- Prints search results  -->
             <div data-template="search:build-page" data-template-collection="authors"/>
+            <div class="page-bottom">
+            <div data-template="search:pageination" data-template-collection="authors" data-template-sort-options="relevance,title,persDate"/>
+            </div>
         </div>
     </div>
 </div>

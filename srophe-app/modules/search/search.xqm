@@ -1,5 +1,5 @@
 xquery version "3.0";        
-
+ 
 module namespace search="http://syriaca.org/search";
 import module namespace page="http://syriaca.org/page" at "../lib/paging.xqm";
 import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
@@ -25,9 +25,9 @@ declare variable $search:persName {request:get-parameter('persName', '') cast as
 declare variable $search:placeName {request:get-parameter('placeName', '') cast as xs:string};
 declare variable $search:title {request:get-parameter('title', '') cast as xs:string};
 declare variable $search:bibl {request:get-parameter('bibl', '') cast as xs:string};
-declare variable $search:idno {request:get-parameter('idno', '') cast as xs:string};
+declare variable $search:idno {request:get-parameter('uri', '') cast as xs:string};
 declare variable $search:start {request:get-parameter('start', 1) cast as xs:integer};
-declare variable $search:sort {request:get-parameter('sort', '') cast as xs:string};
+declare variable $search:sort-element {request:get-parameter('sort-element', '') cast as xs:string};
 declare variable $search:perpage {request:get-parameter('perpage', 20) cast as xs:integer};
 declare variable $search:collection {request:get-parameter('collection', '') cast as xs:string};
 
@@ -49,29 +49,17 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
     return                         
     map {"hits" := 
                 if(exists(request:get-parameter-names()) or ($view = 'all')) then 
-                    if($search:sort = 'alpha') then 
+                    if($search:sort-element != '' and $search:sort-element != 'relevance' or $view = 'all') then 
                         for $hit in util:eval($eval-string)
-                        let $en-title := 
-                                     if($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]) then 
-                                         string-join($hit/descendant::*[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'^en')][1]//text(),' ')   
-                                     else $hit/ancestor::tei:TEI/descendant::tei:title[1]/text()
-                        order by common:build-sort-string($en-title) ascending
+                        order by global:build-sort-string(page:add-sort-options($hit,$search:sort-element),'') ascending
                         return $hit                                                     
-                    else if($search:sort = 'date') then 
-                        for $hit in util:eval($eval-string)
-                        let $date := 
-                                if($hit/descendant::tei:birth) then $hit/descendant::tei:birth/@syriaca-computed-start
-                                else if($hit/descendant::tei:death) then $hit/descendant::tei:death/@syriaca-computed-start
-                                else ()
-                        order by xs:date($date) ascending
-                        return $hit 
                     else 
                         for $hit in util:eval($eval-string)
-                        let $expanded := util:expand($hit, "expand-xincludes=no")
+                       (: let $expanded := util:expand($hit, "expand-xincludes=no")
                         let $headword := count($expanded/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][descendant::*:match])
-                        let $headword := if($headword gt 0) then $headword + 15 else 0
-                        order by ft:score($hit) + (count($expanded/descendant::tei:bibl) div 2) + $headword descending
-                        return $expanded
+                        let $headword := if($headword gt 0) then $headword + 15 else 0:)
+                        order by ft:score($hit) + (count($hit/descendant::tei:bibl) div 2) descending
+                        return $hit
                 else ()                        
          }
 };
@@ -96,7 +84,7 @@ concat("collection('",$global:data-root,"')//tei:body",
     search:placeName(), 
     search:title(),
     search:bibl(),
-    search:idno(),"/ancestor::tei:TEI"
+    search:idno()
     )
 };
 
@@ -119,27 +107,38 @@ declare function search:title(){
 };
 
 declare function search:bibl(){
-    if($search:bibl != '') then 
-        common:element-search('placeName',$search:bibl) 
-    else '' 
+    if($search:bibl != '') then  
+        let $terms := common:clean-string($search:bibl)
+        let $ids := 
+            if(matches($search:bibl,'^http://syriaca.org/')) then
+                normalize-space($search:bibl)
+            else 
+                string-join(distinct-values(
+                for $r in collection($global:data-root || '/bibl')//tei:body[ft:query(.,$terms, common:options())]/ancestor::tei:TEI/descendant::tei:publicationStmt/tei:idno[starts-with(.,'http://syriaca.org')][1]
+                return concat(substring-before($r,'/tei'),'(\s|$)')),'|')
+        return concat("[descendant::tei:bibl/tei:ptr[@target[matches(.,'",$ids,"')]]]")
+    else ()
+       (: common:element-search('bibl',$search:bibl):)  
 };
 
+(: NOTE add additional idno locations, ptr/@target @ref, others? :)
 declare function search:idno(){
     if($search:idno != '') then 
-        common:element-search('placeName',$search:idno) 
-    else '' 
+         concat("[ft:query(descendant::tei:idno, '&quot;",$search:idno,"&quot;')]") 
+    else () 
 };
 
 declare function search:search-string(){
 <span xmlns="http://www.w3.org/1999/xhtml">
+<p>{search:query-string('')}</p>
 {(
     let $parameters :=  request:get-parameter-names()
     for  $parameter in $parameters
     return 
         if(request:get-parameter($parameter, '') != '') then
             if($parameter = 'q') then 
-                (<span class="param">Keyword: </span>,<span class="match">{common:clean-string($search:q)}&#160;</span>)
-            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{common:clean-string(request:get-parameter($parameter, ''))}</span>)    
+                (<span class="param">Keyword: </span>,<span class="match">{$search:q}&#160;</span>)
+            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}</span>)    
         else ())
         }
 </span>
@@ -202,11 +201,13 @@ declare  %templates:wrap function search:hit-count($node as node()*, $model as m
  : Build paging for search results pages
  : If 0 results show search form
 :)
-declare  %templates:wrap function search:pageination($node as node()*, $model as map(*), $collection as xs:string?, $view as xs:string?){
+declare  %templates:wrap function search:pageination($node as node()*, $model as map(*), $collection as xs:string?, $view as xs:string?, $sort-options as xs:string*){
    if($view = 'all') then 
-        page:pageination($model("hits"), $search:start, $search:perpage, true())
+        page:pages($model("hits"), $search:start, $search:perpage, '', $sort-options)
+        (:page:pageination($model("hits"), $search:start, $search:perpage, true()):)
    else if(exists(request:get-parameter-names())) then 
-        page:pageination($model("hits"), $search:start, $search:perpage, true(), $collection, search:search-string($collection))
+        page:pages($model("hits"), $search:start, $search:perpage, search:search-string($collection), $sort-options)
+        (:page:pageination($model("hits"), $search:start, $search:perpage, true(), $collection, search:search-string($collection)):)
    else ()
 };
 
@@ -319,7 +320,6 @@ declare %templates:wrap function search:build-page($node as node()*, $model as m
  :)
 declare function search:search-form() {   
 <form method="get" action="search.html" style="margin-top:2em;" class="form-horizontal" role="form">
-<h1>Advanced Search</h1>
     <div class="well well-small">
         <div class="well well-small" style="background-color:white;">
             <div class="row">

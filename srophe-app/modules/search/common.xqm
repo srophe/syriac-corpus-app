@@ -131,6 +131,7 @@ declare function common:lucene2xml($node) {
 };
 
 (:~
+ : @depreciated use global:build-sort-string()
  : Strips english titles of non-sort characters as established by Syriaca.org
  : Used for sorting for browse and search modules
  : @param $titlestring 
@@ -182,7 +183,9 @@ return
 
 declare function common:keyword($q){
     if(exists($q) and $q != '') then 
-        concat("[ft:query(.,'",common:clean-string($q),"',common:options())]")
+        if(starts-with($q,'http://syriaca.org/')) then
+           concat("[ft:query(.,'&quot;",$q,"&quot;',common:options())]")
+        else concat("[ft:query(.,'",common:clean-string($q),"',common:options())]")
     else '' 
 };
 
