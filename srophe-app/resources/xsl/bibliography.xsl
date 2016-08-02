@@ -319,12 +319,6 @@
                 </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test="t:biblScope[(@unit != 'vol' and @unit != 'series') or not(@unit)]">
-            <xsl:text>, </xsl:text>
-            <xsl:for-each select="t:biblScope[(@unit != 'vol' and @unit != 'series') or not(@unit)]">
-                <xsl:apply-templates select="." mode="footnote"/>
-            </xsl:for-each>
-        </xsl:if>
     </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -418,7 +412,7 @@
                 <xsl:when test="$bookAuth != ''">
                     <xsl:text>, </xsl:text>
                 </xsl:when>
-            </xsl:choose>
+            </xsl:choose>            
         </xsl:if>
     </xsl:template>
 
@@ -895,7 +889,7 @@
                 <img src="{$nav-base}/resources/img/ialogo.jpg" alt="Link to Archive.org Bibliographic record" height="18px"/>
             </xsl:when>
             <xsl:otherwise>
-                <span class="glyphicon glyphicon-book"></span>
+                <span class="glyphicon glyphicon-book"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
