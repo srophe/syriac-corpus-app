@@ -180,9 +180,20 @@ else ()
  : Call facets on search results
  : NOTE: need better template integration
 :)
-declare %templates:wrap function search:facets($node as node()*, $model as map(*)){
+declare %templates:wrap function search:facets($node as node()*, $model as map(*), $collection as xs:string*){
 <div>
      {
+     if($collection = 'spear') then
+            <div>
+                <h4>Browse by</h4>
+                {
+                   let $facet-nodes := $model("hits")
+                   let $facets := $facet-nodes//tei:persName | $facet-nodes//tei:placeName | $facet-nodes//tei:event 
+                   | $facet-nodes/ancestor::tei:TEI/descendant::tei:title[@level='a'][parent::tei:titleStmt]
+                   return facets:facets($facets)
+                }
+            </div>
+     else 
         let $facet-nodes := $model("hits")
         let $facets := $facet-nodes//tei:repository | $facet-nodes//tei:country
         return facets:facets($facets)
@@ -275,34 +286,26 @@ declare %templates:wrap  function search:show-form($node as node()*, $model as m
 declare 
     %templates:default("start", 1)
 function search:show-hits($node as node()*, $model as map(*), $collection as xs:string?) {
-<div class="row">
-    <div class="col-md-2">
-     {
-        if($collection = 'spear') then search:spear-facets($model("hits"))
-        else ()     
-    }
-    </div>
-   <div class="col-md-10" id="search-results" style="background-color:white;">
-   <div>{search:build-geojson($node,$model)}</div>
-   {
-       for $hit at $p in subsequence($model("hits"), $search:start, $search:perpage)
-       return
-           <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
-               <div class="col-md-12">
-                     <div class="col-md-1" style="margin-right:-1em;">
-                       <span class="label label-default">{$search:start + $p - 1}</span>
-                     </div>
-                     <div class="col-md-9" xml:lang="en">
-                       {
-                        if(starts-with(request:get-parameter('author', ''),$global:base-uri)) then 
-                            global:display-recs-short-view($hit,'',request:get-parameter('author', ''))
-                        else global:display-recs-short-view($hit,'')
-                       } 
-                     </div>
-               </div>
-           </div>
-      }
-   </div>   
+<div class="indent">
+    <div>{search:build-geojson($node,$model)}</div>
+    {
+        for $hit at $p in subsequence($model("hits"), $search:start, $search:perpage)
+        return
+            <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
+                <div class="col-md-12">
+                      <div class="col-md-1" style="margin-right:-1em;">
+                        <span class="label label-default">{$search:start + $p - 1}</span>
+                      </div>
+                      <div class="col-md-9" xml:lang="en">
+                        {
+                         if(starts-with(request:get-parameter('author', ''),$global:base-uri)) then 
+                             global:display-recs-short-view($hit,'',request:get-parameter('author', ''))
+                         else global:display-recs-short-view($hit,'')
+                        } 
+                      </div>
+                </div>
+            </div>
+       } 
 </div>
 };
 
@@ -319,7 +322,7 @@ declare %templates:wrap function search:build-page($node as node()*, $model as m
  : Builds advanced search form
  :)
 declare function search:search-form() {   
-<form method="get" action="search.html" style="margin-top:2em;" class="form-horizontal" role="form">
+<form method="get" action="search.html" style="margin-top:2em;" class="form-horizontal indent" role="form">
     <div class="well well-small">
         <div class="well well-small" style="background-color:white;">
             <div class="row">
