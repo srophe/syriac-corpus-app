@@ -17,10 +17,6 @@
                     <resp>Taxonomy compiled by</resp>
                     <name ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</name>
                 </respStmt>
-                <respStmt>
-                    <resp>Taxonomy format conversion by</resp>
-                    <name ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
-                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -43,189 +39,8 @@
             <editorialDecl>
                 <p>A taxonomy of known religious communities referenced by Syriaca.org.</p>
             </editorialDecl>
-            <classDecl>
-                <taxonomy xml:id="confessions-taxonomy">
-                    <category xml:id="christians">
-                        <catDesc>Christians</catDesc>
-                            <category xml:id="syriac">
-                                <catDesc>Syriac</catDesc>
-                                    <category xml:id="bardaisanites">
-                                        <catDesc>Bardaisanites</catDesc>
-                                    </category>
-                                    <category xml:id="east-syrian">
-                                        <catDesc>East Syrian</catDesc>
-                                            <category xml:id="ancient-church-of-the-east">
-                                                <catDesc>Ancient Church of the East</catDesc>
-                                            </category>
-                                            <category xml:id="assyrian-evangelical-church">
-                                                <catDesc>Assyrian Evangelical Church</catDesc>
-                                            </category>
-                                            <category xml:id="chaldean-catholic">
-                                                <catDesc>Chaldean Catholic</catDesc>
-                                            </category>
-                                            <category xml:id="church-of-the-east">
-                                                <catDesc>Church of the East</catDesc>
-                                            </category>
-                                        
-                                    </category>
-                                    <category xml:id="indian">
-                                        <catDesc>Indian</catDesc>
-                                        
-                                            <category xml:id="chaldean-syrian-church">
-                                                <catDesc>Chaldean Syrian Church</catDesc>
-                                            </category>
-                                            <category xml:id="malabar-catholic-church">
-                                                <catDesc>Malabar Catholic Church</catDesc>
-                                            </category>
-                                            <category xml:id="malabar-independent-syrian-church">
-                                                <catDesc>Malabar Independent Syrian Church</catDesc>
-                                            </category>
-                                            <category xml:id="malankara-catholic-church">
-                                                <catDesc>Malankara Catholic Church</catDesc>
-                                            </category>
-                                            <category xml:id="malankara-orthodox-syrian-church">
-                                                <catDesc>Malankara Orthodox Syrian Church</catDesc>
-                                            </category>
-                                            <category xml:id="malankara-syriac-orthodox-church">
-                                                <catDesc>Malankara Syriac Orthodox Church</catDesc>
-                                            </category>
-                                            <category xml:id="mar-thoma-syrian-church">
-                                                <catDesc>Mar Thoma Syrian Church</catDesc>
-                                            </category>
-                                        
-                                    </category>
-                                    <category xml:id="west-syrian">
-                                        <catDesc>West Syrian</catDesc>
-                                            <category xml:id="maronite">
-                                                <catDesc>Maronite</catDesc>
-                                            </category>
-                                            <category xml:id="melkite">
-                                                <catDesc>Melkite</catDesc>
-                                            </category>
-                                            <category xml:id="syrian-catholic">
-                                                <catDesc>Syrian Catholic</catDesc>
-                                            </category>
-                                            <category xml:id="syrian-orthodox">
-                                                <catDesc>Syrian Orthodox</catDesc>
-                                            </category>
-                                        
-                                    </category>
-                                
-                            </category>
-                            <category xml:id="arabic">
-                                <catDesc>Arabic</catDesc>
-                                    <category xml:id="arabic-protestant">
-                                        <catDesc>Arabic Protestant</catDesc>
-                                    </category>
-                                    <category xml:id="rum-orthodox">
-                                        <catDesc>Rum Orthodox</catDesc>
-                                    </category>
-                                
-                            </category>
-                            <category xml:id="armenian">
-                                <catDesc>Armenian</catDesc>
-                                    <category xml:id="armenian-catholic">
-                                        <catDesc>Armenian Catholic</catDesc>
-                                    </category>
-                                    <category xml:id="armenian-chalcedonian">
-                                        <catDesc>Armenian Chalcedonian</catDesc>
-                                    </category>
-                                    <category xml:id="armenian-orthodox">
-                                        <catDesc>Armenian Orthodox</catDesc>
-                                    </category>
-                                    <category xml:id="armenian-protestant">
-                                        <catDesc>Armenian Protestant</catDesc>
-                                    </category>
-                                
-                            </category>
-                            <category xml:id="coptic">
-                                <catDesc>Coptic</catDesc>
-                            </category>
-                            <category xml:id="ethiopic">
-                                <catDesc>Ethiopic</catDesc>
-                            </category>
-                            <category xml:id="georgian">
-                                <catDesc>Georgian</catDesc>
-                            </category>
-                            <category xml:id="greek">
-                                <catDesc>Greek</catDesc>
-                                    <category xml:id="greek-catholic">
-                                        <catDesc>Greek Catholic</catDesc>
-                                    </category>
-                                    <category xml:id="greek-orthodox">
-                                        <catDesc>Greek Orthodox</catDesc>
-                                    </category>
-                                    <category xml:id="marcionites">
-                                        <catDesc>Marcionites</catDesc>
-                                    </category>
-                                
-                            </category>
-                            <category xml:id="latin">
-                                <catDesc>Latin</catDesc>
-                                    <category xml:id="protestant">
-                                        <catDesc>Protestant</catDesc>
-                                    </category>
-                                    <category xml:id="roman-catholic">
-                                        <catDesc>Roman Catholic</catDesc>
-                                    </category>
-                                
-                            </category>
-                        
-                    </category>
-                    <category xml:id="gnostics">
-                        <catDesc>Gnostics</catDesc>
-                            <category xml:id="mandaeans">
-                                <catDesc>Mandaeans</catDesc>
-                            </category>
-                            <category xml:id="manichaeans">
-                                <catDesc>Manichaeans</catDesc>
-                            </category>
-                        
-                    </category>
-                    <category xml:id="jews">
-                        <catDesc>Jews</catDesc>
-                            <category xml:id="karaite">
-                                <catDesc>Karaite</catDesc>
-                            </category>
-                            <category xml:id="rabbanite">
-                                <catDesc>Rabbanite</catDesc>
-                            </category>
-                        
-                    </category>
-                    <category xml:id="muslims">
-                        <catDesc>Muslims</catDesc>
-                            <category xml:id="khariji">
-                                <catDesc>Khariji</catDesc>
-                            </category>
-                            <category xml:id="shia">
-                                <catDesc>Shiʿa</catDesc>
-                                    <category xml:id="ismaili">
-                                        <catDesc>Ismaʿili</catDesc>
-                                    </category>
-                                    <category xml:id="twelver">
-                                        <catDesc>Twelver</catDesc>
-                                    </category>
-                                    <category xml:id="Zaydi">
-                                        <catDesc>Zaydi</catDesc>
-                                    </category>
-                                
-                            </category>
-                            <category xml:id="sunni">
-                                <catDesc>Sunni</catDesc>
-                            </category>
-                        
-                    </category>
-                    <category xml:id="yezidis">
-                        <catDesc>Yezidis</catDesc>
-                    </category>
-                    <category xml:id="zoroastrians">
-                        <catDesc>Zoroastrians</catDesc>
-                    </category>
-                </taxonomy>
-            </classDecl>
         </encodingDesc>
         <revisionDesc>
-            <change when="2016-05-03" who="http://syriaca.org/documentation/editors.xml#ngibson">Converted from category format in body to taxonomy format in header.</change>
             <change when="2013-11-06" who="http://syriaca.org/documentation/editors.xml#tcarlson">CREATED: confessions.xml</change>
         </revisionDesc>
     </teiHeader>
@@ -240,6 +55,196 @@
                 or mutually exclusive.  <foreign xml:lang="la">Caveat lector.</foreign>
             </p>
             <p>NB: Each list is alphabetized within its level, with the exception of Syriac.</p>
+            <list>
+                <item xml:id="christians">
+                    <label>Christians</label>
+                    <list>
+                        <item xml:id="syriac">
+                            <label>Syriac</label>
+                            <list>
+                                <item xml:id="bardaisanites">
+                                    <label>Bardaisanites</label>
+                                </item>
+                                <item xml:id="east-syrian">
+                                    <label>East Syrian</label>
+                                    <list>
+                                        <item xml:id="ancient-church-of-the-east">
+                                            <label>Ancient Church of the East</label>
+                                        </item>
+                                        <item xml:id="assyrian-evangelical-church">
+                                            <label>Assyrian Evangelical Church</label>
+                                        </item>
+                                        <item xml:id="chaldean-catholic">
+                                            <label>Chaldean Catholic</label>
+                                        </item>
+                                        <item xml:id="church-of-the-east">
+                                            <label>Church of the East</label>
+                                        </item>
+                                    </list>
+                                </item>
+                                <item xml:id="indian">
+                                    <label>Indian</label>
+                                    <list>
+                                        <item xml:id="chaldean-syrian-church">
+                                            <label>Chaldean Syrian Church</label>
+                                        </item>
+                                        <item xml:id="malabar-catholic-church">
+                                            <label>Malabar Catholic Church</label>
+                                        </item>
+                                        <item xml:id="malabar-independent-syrian-church">
+                                            <label>Malabar Independent Syrian Church</label>
+                                        </item>
+                                        <item xml:id="malankara-catholic-church">
+                                            <label>Malankara Catholic Church</label>
+                                        </item>
+                                        <item xml:id="malankara-orthodox-syrian-church">
+                                            <label>Malankara Orthodox Syrian Church</label>
+                                        </item>
+                                        <item xml:id="malankara-syriac-orthodox-church">
+                                            <label>Malankara Syriac Orthodox Church</label>
+                                        </item>
+                                        <item xml:id="mar-thoma-syrian-church">
+                                            <label>Mar Thoma Syrian Church</label>
+                                        </item>
+                                    </list>
+                                </item>
+                                <item xml:id="west-syrian">
+                                    <label>West Syrian</label>
+                                    <list>
+                                        <item xml:id="maronite">
+                                            <label>Maronite</label>
+                                        </item>
+                                        <item xml:id="melkite">
+                                            <label>Melkite</label>
+                                        </item>
+                                        <item xml:id="syrian-catholic">
+                                            <label>Syrian Catholic</label>
+                                        </item>
+                                        <item xml:id="syrian-orthodox">
+                                            <label>Syrian Orthodox</label>
+                                        </item>
+                                    </list>
+                                </item>
+                            </list>
+                        </item>
+                        <item xml:id="arabic">
+                            <label>Arabic</label>
+                            <list>
+                                <item xml:id="arabic-protestant">
+                                    <label>Arabic Protestant</label>
+                                </item>
+                                <item xml:id="rum-orthodox">
+                                    <label>Rum Orthodox</label>
+                                </item>
+                            </list>
+                        </item>
+                        <item xml:id="armenian">
+                            <label>Armenian</label>
+                            <list>
+                                <item xml:id="armenian-catholic">
+                                    <label>Armenian Catholic</label>
+                                </item>
+                                <item xml:id="armenian-chalcedonian">
+                                    <label>Armenian Chalcedonian</label>
+                                </item>
+                                <item xml:id="armenian-orthodox">
+                                    <label>Armenian Orthodox</label>
+                                </item>
+                                <item xml:id="armenian-protestant">
+                                    <label>Armenian Protestant</label>
+                                </item>
+                            </list>
+                        </item>
+                        <item xml:id="coptic">
+                            <label>Coptic</label>
+                        </item>
+                        <item xml:id="ethiopic">
+                            <label>Ethiopic</label>
+                        </item>
+                        <item xml:id="georgian">
+                            <label>Georgian</label>
+                        </item>
+                        <item xml:id="greek">
+                            <label>Greek</label>
+                            <list>
+                                <item xml:id="greek-catholic">
+                                    <label>Greek Catholic</label>
+                                </item>
+                                <item xml:id="greek-orthodox">
+                                    <label>Greek Orthodox</label>
+                                </item>
+                                <item xml:id="marcionites">
+                                    <label>Marcionites</label>
+                                </item>
+                            </list>
+                        </item>
+                        <item xml:id="latin">
+                            <label>Latin</label>
+                            <list>
+                                <item xml:id="protestant">
+                                    <label>Protestant</label>
+                                </item>
+                                <item xml:id="roman-catholic">
+                                    <label>Roman Catholic</label>
+                                </item>
+                            </list>
+                        </item>
+                    </list>
+                </item>
+                <item xml:id="gnostics">
+                    <label>Gnostics</label>
+                    <list>
+                        <item xml:id="mandaeans">
+                            <label>Mandaeans</label>
+                        </item>
+                        <item xml:id="manichaeans">
+                            <label>Manichaeans</label>
+                        </item>
+                    </list>
+                </item>
+                <item xml:id="jews">
+                    <label>Jews</label>
+                    <list>
+                        <item xml:id="karaite">
+                            <label>Karaite</label>
+                        </item>
+                        <item xml:id="rabbanite">
+                            <label>Rabbanite</label>
+                        </item>
+                    </list>
+                </item>
+                <item xml:id="muslims">
+                    <label>Muslims</label>
+                    <list>
+                        <item xml:id="khariji">
+                            <label>Khariji</label>
+                        </item>
+                        <item xml:id="shia">
+                            <label>Shiʿa</label>
+                            <list>
+                                <item xml:id="ismaili">
+                                    <label>Ismaʿili</label>
+                                </item>
+                                <item xml:id="twelver">
+                                    <label>Twelver</label>
+                                </item>
+                                <item xml:id="Zaydi">
+                                    <label>Zaydi</label>
+                                </item>
+                            </list>
+                        </item>
+                        <item xml:id="sunni">
+                            <label>Sunni</label>
+                        </item>
+                    </list>
+                </item>
+                <item xml:id="yezidis">
+                    <label>Yezidis</label>
+                </item>
+                <item xml:id="zoroastrians">
+                    <label>Zoroastrians</label>
+                </item>
+            </list>
         </body>
     </text>
 </TEI>
