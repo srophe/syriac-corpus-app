@@ -887,7 +887,7 @@
             <xsl:when test="parent::t:body">
                 <div class="well preferred-citation">
                     <h4>Preferred Citation</h4>
-                    <xsl:apply-templates mode="footnote"/>.
+                    <xsl:apply-templates select="self::*" mode="bibliography"/>.
                 </div>
                 <h3>Full Citation Information</h3>
                 <div class="section indent">
