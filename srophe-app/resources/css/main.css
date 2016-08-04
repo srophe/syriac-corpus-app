@@ -117,7 +117,7 @@ body {font-family: arial, sans-serif; background-color:#385978;}
     position:relative;
     margin-top:0;
     padding-top:0;
-	background-image:url('../resources/img/resafa_arch.jpg');
+	background-image:url('../img/resafa_arch.jpg');
 	background-size:cover;
 	background-position:center;
 	height:200px;
@@ -128,7 +128,7 @@ body {font-family: arial, sans-serif; background-color:#385978;}
     position:relative;
     margin-top:-1em;
     padding-top:0;
-	background-image:url('../resources/img/home-banner.jpg');
+	background-image:url('../img/home-banner.jpg');
 	background-size:cover;
 	background-position:center;
     height:350px;
@@ -140,7 +140,7 @@ body {font-family: arial, sans-serif; background-color:#385978;}
     position:relative;
     margin-top:-1em;
     padding-top:0;
-	background-image:url('../resources/img/bibl-banner.png');
+	background-image:url('../img/bibl-banner.png');
 	background-size:cover;
 	background-position:top;
     height:250px;
@@ -239,7 +239,7 @@ body {font-family: arial, sans-serif; background-color:#385978;}
     position:relative;
     padding-top:0;
     border-bottom:4px solid #456889;
-	background-image:url('../resources/img/resafa_arch.jpg');
+	background-image:url('../img/resafa_arch.jpg');
 	background-size:cover;
 	background-position:center;
 	height:150px;
