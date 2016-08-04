@@ -17,6 +17,9 @@ body {background-color:#666;}
 
 /* Typography */
 h1 {color:#666; padding-top:1em;}
+h1.bhse {background-color:#861719; border-bottom:4px solid #861719;}
+h1.q {background-color:#A5744B; border-bottom:4px solid #2F4C60;}
+
 h2 {color:#999;}
 h3 {color:#333;}
 h3.underline {color:#999; border-bottom:3px solid #861719;}

@@ -83,19 +83,19 @@ h3.syr{
     background-size:cover;
 }
 .saints-slide {
-    background-image:url('/exist/apps/srophe/resources/img/q2.png');     
+    background-image:url('/exist/apps/srophe/resources/img/q-home.png');     
     background-size:cover;
 }
 .authors-slide {
-    background-image:url('/exist/apps/srophe/resources/img/authors2.png');     
+    background-image:url('/exist/apps/srophe/resources/img/authors-home.jpg');     
     background-size:cover;
 }
 .works-slide {
-    background-image:url('/exist/apps/srophe/resources/img/bhse2.jpg');        
+    background-image:url('/exist/apps/srophe/resources/img/bhse-home.jpg');        
     background-size:cover;
 }
 .mss-slide {
-    background-image:url('/exist/apps/srophe/resources/img/works2.jpg');        
+    background-image:url('/exist/apps/srophe/resources/img/works-home.jpg');        
     background-size:cover;
 }
 .events-slide {
@@ -104,7 +104,7 @@ h3.syr{
 }
    
 .bibl-slide {
-    background-image:url('/exist/apps/srophe/resources/img/bibl.png');        
+    background-image:url('/exist/apps/srophe/resources/img/bibl-home.png');        
     background-size:cover;
 }
 /* styles for index4 */

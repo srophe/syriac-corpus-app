@@ -9,6 +9,7 @@ module namespace timeline="http://syriaca.org/timeline";
 :)
 import module namespace json="http://www.json.org";
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
+import module namespace global="http://syriaca.org/global" at "global.xqm";
 
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
