@@ -130,7 +130,8 @@ declare function spears:search-string() as xs:string*{
     for  $parameter in $parameters
     return 
         if(request:get-parameter($parameter, '') != '') then
-            if($parameter = 'fq') then ()
+            if($parameter = 'start' or $parameter = 'sort-element') then ()
+            else if($parameter = 'fq') then ()
             else if($parameter = 'q') then 
                 (<span class="param">Keyword: </span>,<span class="match">{$spears:q}&#160;</span>)
             else if($parameter = 'keyword') then 

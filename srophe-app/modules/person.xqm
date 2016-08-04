@@ -306,7 +306,7 @@ return
                          }
                             <div>
                             <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
-                            data-ref="/exist/apps/srophe/bhse/search.html?author={$recid}&amp;perpage={$count}&amp;sort=alpha" 
+                            data-ref="{$global:nav-base}/bhse/search.html?author={$recid}&amp;perpage={$count}&amp;sort=alpha" 
                             data-label="Works by {substring-before($rec/descendant::tei:title[1]/text(),' — ')} in the New Handbook of Syriac Literature" id="works">
                               See all {count($works)} works
                              </a>

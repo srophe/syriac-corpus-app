@@ -319,8 +319,9 @@ declare function persons:search-string() as node()*{
     for  $parameter in $parameters
     return 
         if(request:get-parameter($parameter, '') != '') then
-            if($parameter = 'q') then 
-                (<span class="param">Keyword: </span>,<span class="match">{$persons:q}&#160;</span>)
+            if($parameter = 'start' or $parameter = 'sort-element') then ()
+            else if($parameter = 'q') then 
+                (<span class="param">Keyword: </span>,<span class="match">{$persons:q}&#160; </span>)
             else if($parameter = 'coll') then 
                 (<span class="param">Resource: </span>,<span class="match">{
                     if($persons:coll = 'sbd' ) then '"The Syriac Prosopography"'
@@ -330,39 +331,10 @@ declare function persons:search-string() as node()*{
                 }</span>)
             else if($parameter = 'gender') then 
                 (<span class="param">Sex or Gender: </span>,<span class="match">{$persons:gender}</span>)
-            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}</span>)    
+            else (<span class="param"> {replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}</span>)    
         else ())
         }
       </span>
-};
-
-(:~
- : Format search results
-:)
-declare function persons:results-node($hit){
-    let $root := $hit//tei:person    
-    let $title-en := string-join($root/tei:persName[@syriaca-tags='#syriaca-headword'][matches(@xml:lang,'(^en)')]/descendant::text(),' ')
-    let $title-syr := 
-                    if($root/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang='syr']) then 
-                        (<bdi dir="ltr" lang="en" xml:lang="en"><span> -  </span></bdi>,
-                            <bdi dir="rtl" lang="syr" xml:lang="syr">
-                                {string-join($root/tei:persName[@syriaca-tags='#syriaca-headword'][@xml:lang='syr']/descendant::text(),' ')}
-                            </bdi>)
-                    else ''
-    let $birth := if($root/@ana) then $root/tei:birth else()
-    let $death := if($root/@ana) then $root/tei:death else()
-    let $dates := concat(if($birth) then $birth/text() else(), if($birth and $death) then ' - ' else if($death) then 'd.' else(), if($death) then $death/text() else())                    
-    let $type := if($root/@ana) then  
-                    <bdi dir="ltr" lang="en" xml:lang="en"> ({(replace($root/@ana,'#syriaca-',''),if($dates) then concat(', ',$dates) else())})</bdi>
-                  else ''                      
-    let $id := substring-after($root/@xml:id,'-')                  
-    return
-        <p style="font-weight:bold padding:.5em;">
-            <a href="/exist/apps/srophe/person/{$id}">
-                <bdi dir="ltr" lang="en" xml:lang="en">{$title-en}</bdi>
-                {$type, $title-syr}
-            </a>
-        </p>
 };
 
 (:~
