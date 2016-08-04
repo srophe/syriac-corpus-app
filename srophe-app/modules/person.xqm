@@ -165,7 +165,6 @@ return
                 </person>)
             }
         </div>,<hr/>
-        
         )
      else if(person:get-related($data/descendant::tei:relation/child::*)) then 
             global:tei2html(
@@ -230,7 +229,6 @@ return
  : NOTE should be able to pass related items in as string?
 :)
 declare function person:get-related($rec as node()*){
-(:
             for $related in $rec//tei:relation 
             let $item-uri := string($related/@passive)
             let $desc := $related/tei:desc
@@ -255,8 +253,7 @@ declare function person:get-related($rec as node()*){
                            ,
                            $desc
                        )}
-                    </relation>  
-:)<p>'temp'</p>                    
+                    </relation>                
 };   
 
 (: 
