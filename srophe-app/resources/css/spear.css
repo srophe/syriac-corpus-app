@@ -16,14 +16,14 @@ body {background-color:#666;}
 
 /* Banner styles SPEAR */
 .banner-index {
-	background-image:url('/exist/apps/srophe/resources/img/andarin_stone.jpg');
+	background-image:url('../resources/img/andarin_stone.jpg');
 	
 }
 
 /* BHSE banner internal pages */
 .banner-interior {
     border-bottom:4px solid #2A492A;
-	background-image:url('/exist/apps/srophe/resources/img/andarin_stone.jpg');
+	background-image:url('../resources/img/andarin_stone.jpg');
 }
 
 .banner-solid{ background-color:#315431; border-top:4px solid #2A492A;}
@@ -47,7 +47,7 @@ h3.label {
 .dl-srophe dd {margin-left: 2em;}
 .srophe-marker
     {
-        background-image:url('/exist/apps/srophe/resources/leaflet/images/markers-plain.png');
+        background-image:url('../resources/leaflet/images/markers-plain.png');
         background-repeat: no-repeat;
         background-size: 141px 18px;
         background-position: 0 0;

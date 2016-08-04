@@ -15,13 +15,13 @@ body {background-color:#666;}
 
 /* Banner styles SPEAR */
 .banner-index {
-	background-image:url('/exist/apps/srophe/resources/img/authors-banner.jpg');	
+	background-image:url('../resources/img/authors-banner.jpg');	
 }
 
 /* BHSE banner internal pages */
 .banner-interior {
     border-bottom:4px solid #16347C;
-	background-image:url('/exist/apps/srophe/resources/img/authors-banner.jpg');
+	background-image:url('../resources/img/authors-banner.jpg');
     height:175px;
 }
 
@@ -45,7 +45,7 @@ h3.label {
 .dl-srophe dd {margin-left: 2em;}
 .srophe-marker
     {
-        background-image:url('/exist/apps/srophe/resources/leaflet/images/markers-plain.png');
+        background-image:url('../resources/leaflet/images/markers-plain.png');
         background-repeat: no-repeat;
         background-size: 141px 18px;
         background-position: 0 0;

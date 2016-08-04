@@ -13,7 +13,7 @@ body {background-color:#666;}
 .navbar {border-bottom:4px solid #BCA7C4 !important;}
 .advanced-search > a {color:#999; text-decoration:none;}
 .banner-interior {
-	/*background-image:url('/exist/apps/srophe/resources/img/persons.jpg');*/
+	/*background-image:url('../resources/img/persons.jpg');*/
 	border-bottom:4px solid #BCA7C4;
     height:200px;	
 }
@@ -39,7 +39,7 @@ h3.label {
 .dl-srophe dd {margin-left: 2em;}
 .srophe-marker
     {
-        background-image:url('/exist/apps/srophe/resources/leaflet/images/markers-plain.png');
+        background-image:url('../resources/leaflet/images/markers-plain.png');
         background-repeat: no-repeat;
         background-size: 141px 18px;
         background-position: 0 0;

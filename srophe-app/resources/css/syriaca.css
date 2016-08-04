@@ -75,36 +75,36 @@ h3.syr{
 }
 
 .places-slide {
-    background-image:url('/exist/apps/srophe/resources/img/places.jpg');    
+    background-image:url('../resources/img/places.jpg');    
     background-size:cover;
 }
 .persons-slide {
-     /*background-image:url('/exist/apps/srophe/resources/img/persons2.jpg');*/    
+     /*background-image:url('../resources/img/persons2.jpg');*/    
     background-size:cover;
 }
 .saints-slide {
-    background-image:url('/exist/apps/srophe/resources/img/q-home.png');     
+    background-image:url('../resources/img/q-home.png');     
     background-size:cover;
 }
 .authors-slide {
-    background-image:url('/exist/apps/srophe/resources/img/authors-home.jpg');     
+    background-image:url('../resources/img/authors-home.jpg');     
     background-size:cover;
 }
 .works-slide {
-    background-image:url('/exist/apps/srophe/resources/img/bhse-home.jpg');        
+    background-image:url('../resources/img/bhse-home.jpg');        
     background-size:cover;
 }
 .mss-slide {
-    background-image:url('/exist/apps/srophe/resources/img/works-home.jpg');        
+    background-image:url('../resources/img/works-home.jpg');        
     background-size:cover;
 }
 .events-slide {
-    background-image:url('/exist/apps/srophe/resources/img/andarin_stone.jpg');        
+    background-image:url('../resources/img/andarin_stone.jpg');        
     background-size:cover;
 }
    
 .bibl-slide {
-    background-image:url('/exist/apps/srophe/resources/img/bibl-home.png');        
+    background-image:url('../resources/img/bibl-home.png');        
     background-size:cover;
 }
 /* styles for index4 */

@@ -31,7 +31,7 @@ h3.label {background-color:#ccc;}
     position:relative;
     margin-top:0;
     padding-top:0;
-	background-image:url('/exist/apps/srophe/resources/img/bhse-banner-top.jpg');
+	background-image:url('../resources/img/bhse-banner-top.jpg');
 	background-size:cover;
 	background-position:center;
 	height:250px;
@@ -43,7 +43,7 @@ h3.label {background-color:#ccc;}
     /*margin-top:-4em;*/
     padding-top:0;
     border-bottom:4px solid #861719;
-	background-image:url('/exist/apps/srophe/resources/img/bhse-banner-top.jpg');
+	background-image:url('../resources/img/bhse-banner-top.jpg');
 	background-size:cover;
 	background-position:center;
 	height:150px;
@@ -57,7 +57,7 @@ h3.label {background-color:#ccc;}
     padding:0;
     border-top:4px solid #861719;
     border-bottom:4px solid #861719;
-	background-image:url('/exist/apps/srophe/resources/img/bhse-banner-bottom.jpg');
+	background-image:url('../resources/img/bhse-banner-bottom.jpg');
 	background-size:cover;
 	background-position:top center;
 	height:200px;
@@ -69,7 +69,7 @@ h3.label {background-color:#ccc;}
     position:relative;
     margin:0;
     padding:0;
-	background-image:url('/exist/apps/srophe/resources/img/bhse-banner-top.jpg');
+	background-image:url('../resources/img/bhse-banner-top.jpg');
 	background-size:cover;
 	background-position:right center;
 	height:325px;
@@ -81,7 +81,7 @@ h3.label {background-color:#ccc;}
     position:relative;
     margin:0;
     padding:0;
-	background-image:url('/exist/apps/srophe/resources/img/q-banner-top.jpg');
+	background-image:url('../resources/img/q-banner-top.jpg');
 	background-size:cover;
 	background-position:bottom center;
 	height:325px;
@@ -92,7 +92,7 @@ h3.label {background-color:#ccc;}
     position:relative;
     margin:0;
     padding:0;
-	background-image:url('/exist/apps/srophe/resources/img/q-banner-top.jpg');
+	background-image:url('../resources/img/q-banner-top.jpg');
 	background-size:cover;
 	background-position:bottom center;
 	height:325px;
@@ -103,7 +103,7 @@ h3.label {background-color:#ccc;}
     position:relative;
     margin:0;
     padding:0;
-	background-image:url('/exist/apps/srophe/resources/img/q-banner-top.jpg');
+	background-image:url('../resources/img/q-banner-top.jpg');
 	background-size:cover;
 	background-position:top center;
 	height:175px;
@@ -116,7 +116,7 @@ h3.label {background-color:#ccc;}
     padding:0;
     border-top:4px solid #2F4C60;
     border-bottom:4px solid #861719;
-	background-image:url('/exist/apps/srophe/resources/img/q-banner-bottom.jpg');
+	background-image:url('../resources/img/q-banner-bottom.jpg');
 	background-size:cover;
 	background-position:top center;
 	height:200px;
