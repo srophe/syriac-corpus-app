@@ -12,13 +12,13 @@ body {background-color:#666;}
 
 /* Banner styles SPEAR */
 .banner-index {
-	background-image:url('/exist/apps/srophe/resources/img/book-banner.jpg');
+	background-image:url('/exist/apps/srophe/resources/img/nhsl-banner.png');
 	background-position:bottom center;
 }
 
 /* BHSE banner internal pages */
 .banner-interior {
-	background-image:url('/exist/apps/srophe/resources/img/book-banner.jpg');
+	background-image:url('/exist/apps/srophe/resources/img/nhsl-banner.png');
     background-position:bottom center;
 }
 
