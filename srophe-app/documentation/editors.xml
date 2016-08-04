@@ -28,7 +28,7 @@
                         Distributed under a Creative Commons Attribution 3.0 Unported License
                     </licence>
                 </availability>
-                <date>2015-07-10</date>
+                <date>2016-08-03</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -41,6 +41,7 @@
         </encodingDesc>
         <revisionDesc>
             <change type="reminder">Please be sure to update the publication date when changes are made here!</change>
+            <change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: J. M. Fiey as contributor</change>
             <change when="2016-07-29" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Sergey Minov, Daniel Salem, and Kristian Heal as contributors</change>
             <change when="2015-07-10" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Andrea Schmidt and Philip Forness as area editors</change>
             <change when="2015-06-29" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Dina Boero as contributor</change>
@@ -275,6 +276,12 @@
                     <persName xml:lang="en">
                         <forename>Kristian</forename>
                         <surname>Heal</surname>
+                    </persName>
+                </person>
+                <person xml:id="jfiey">
+                    <persName xml:lang="en">
+                        <forename>J. M.</forename>
+                        <surname>Fiey</surname>
                     </persName>
                 </person>
                 <org xml:id="uasyriacresearchgroup">
