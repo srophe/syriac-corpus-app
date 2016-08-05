@@ -24,6 +24,7 @@ body {background-color:#666;}
 .banner-interior {
     border-bottom:4px solid #2A492A;
 	background-image:url('../img/spear-banner.png');
+	height:200px;
 }
 
 .banner-solid{ background-color:#315431; border-top:4px solid #2A492A;}
