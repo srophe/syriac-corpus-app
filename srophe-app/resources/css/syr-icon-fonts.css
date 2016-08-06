@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'syriaca';
-  src:  url('../fonts/syriaca.eot?3bnqeg');
-  src:  url('../fonts/syriaca.eot?3bnqeg#iefix') format('embedded-opentype'),
-    url('../fonts/syriaca.ttf?3bnqeg') format('truetype'),
-    url('../fonts/syriaca.woff?3bnqeg') format('woff'),
-    url('../fonts/syriaca.svg?3bnqeg#syriaca') format('svg');
+  src:  url('../fonts/syriaca.eot?d3bbbb');
+  src:  url('../fonts/syriaca.eot?d3bbbb#iefix') format('embedded-opentype'),
+    url('../fonts/syriaca.ttf?d3bbbb') format('truetype'),
+    url('../fonts/syriaca.woff?d3bbbb') format('woff'),
+    url('../fonts/syriaca.svg?d3bbbb#syriaca') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -31,7 +31,7 @@
 .syriaca-bibl .path2:before {
   content: "\e929";
   margin-left: -1.00390625em;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 .syriaca-bibl .path3:before {
   content: "\e92a";
@@ -41,7 +41,7 @@
 .syriaca-bibl .path4:before {
   content: "\e92b";
   margin-left: -1.00390625em;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 .syriaca-bibl .path5:before {
   content: "\e92c";
@@ -51,22 +51,22 @@
 .syriaca-bibl .path6:before {
   content: "\e92d";
   margin-left: -1.00390625em;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 .syriaca-bibl .path7:before {
   content: "\e92e";
   margin-left: -1.00390625em;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 .syriaca-bibl .path8:before {
   content: "\e92f";
   margin-left: -1.00390625em;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 .syriaca-bibl .path9:before {
   content: "\e930";
   margin-left: -1.00390625em;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 .syriaca-bibl .path10:before {
   content: "\e931";
@@ -95,26 +95,6 @@
 }
 .syriaca-bibl .path15:before {
   content: "\e936";
-  margin-left: -1.00390625em;
-  color: rgb(255, 255, 255);
-}
-.syriaca-bibl .path16:before {
-  content: "\e937";
-  margin-left: -1.00390625em;
-  color: rgb(255, 255, 255);
-}
-.syriaca-bibl .path17:before {
-  content: "\e938";
-  margin-left: -1.00390625em;
-  color: rgb(255, 255, 255);
-}
-.syriaca-bibl .path18:before {
-  content: "\e939";
-  margin-left: -1.00390625em;
-  color: rgb(255, 255, 255);
-}
-.syriaca-bibl .path19:before {
-  content: "\e93a";
   margin-left: -1.00390625em;
   color: rgb(255, 255, 255);
 }
@@ -307,8 +287,5 @@
   content: "\e927";
   margin-left: -1.00390625em;
   color: rgb(37, 80, 112);
-}
-.syriaca-book:before {
-  content: "\f02d";
 }
 
