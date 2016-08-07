@@ -47,12 +47,12 @@ declare %templates:wrap function person:app-title($node as node(), $model as map
 
 (:
  : Pass necessary elements to h1 xslt template     
-:)
+:)      
 declare %templates:wrap function person:h1($node as node(), $model as map(*)){
     let $title-nodes := 
             <srophe-title xmlns="http://www.tei-c.org/ns/1.0">
                 {(
-                    $model("data")//tei:titleStmt/tei:title[1],
+                    $model("data")//tei:persName[@syriaca-tags='#syriaca-headword'],
                     $model("data")//tei:seriesStmt/tei:title[1],
                     $model("data")//tei:person/descendant::tei:birth,
                     $model("data")//tei:person/descendant::tei:death,
