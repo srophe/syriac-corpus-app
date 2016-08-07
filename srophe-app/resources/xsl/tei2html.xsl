@@ -1330,6 +1330,12 @@
             <xsl:apply-templates mode="plain"/>
         </span>
     </xsl:template>
+    <xsl:template match="t:roleName | t:forename | t:addName" mode="plain">
+        <xsl:apply-templates mode="plain"/>
+        <xsl:if test="following-sibling::*">
+        <xsl:text> </xsl:text>
+        </xsl:if>
+    </xsl:template>
     <xsl:template match="t:roleName">
         <xsl:apply-templates mode="plain"/>
         <xsl:text> </xsl:text>
