@@ -40,22 +40,22 @@ declare variable $bs:title {request:get-parameter('title', '')};
 declare variable $bs:start {request:get-parameter('start', 1) cast as xs:integer};
 declare variable $bs:perpage {request:get-parameter('perpage', 25) cast as xs:integer};
 
-declare function bs:spear-person($node as node(), $model as map(*)){
-let $d := util:eval(concat('$model("browse-data")//tei:div[descendant::tei:persName]',facets:facet-filter()))
+declare function bs:spear-person($hits){
+let $d := util:eval(concat('$hits//tei:div[descendant::tei:persName]',facets:facet-filter()))
 for $data in $d
 group by $facet-grp := $data/descendant::tei:persName[1]/@ref
 return $data[1]
 };
 
-declare function bs:spear-place($node as node(), $model as map(*)){
-let $d := util:eval(concat('$model("browse-data")//tei:div[descendant::tei:placeName]',facets:facet-filter()))
+declare function bs:spear-place($hits){
+let $d := util:eval(concat('$hits//tei:div[descendant::tei:placeName]',facets:facet-filter()))
 for $data in $d
 group by $facet-grp := $data/descendant::tei:placeName[1]/@ref
 return $data[1]
 };
 
-declare function bs:spear-event($node as node(), $model as map(*)){
-    util:eval(concat('$model("browse-data")//tei:div[descendant::tei:listEvent]',facets:facet-filter()))
+declare function bs:spear-event($hits){
+    util:eval(concat('$hits//tei:div[descendant::tei:listEvent]',facets:facet-filter()))
 };
 
 declare function bs:narrow-by-type(){
@@ -81,26 +81,19 @@ declare function bs:spear-facet-groups($nodes, $category){
     })</span></a></li>
 };
 
-(:,facets:facet-filter() :)
-declare function bs:narrow-spear($node as node(), $model as map(*)){
-let $data :=
+declare function bs:spear-results-panel($hits){
+let $data := 
     if($bs:view = 'persons' or ($bs:view='sources' and $bs:type = 'persons')) then 
-        bs:spear-person($node, $model)
+        bs:spear-person($hits)
     else if($bs:view = 'places') then 
-        bs:spear-place($node, $model)
+        bs:spear-place($hits)
     else if($bs:view = 'events') then 
-        bs:spear-event($node, $model)
+        bs:spear-event($hits)
     else if($bs:view = 'keywords') then   
-        bs:spear-event($node, $model)
+        bs:spear-event($hits)
     else if($bs:view = 'advanced') then 
-        util:eval(concat('$model("browse-data")//tei:div',facets:facet-filter()))
-    else util:eval(concat('$model("browse-data")//tei:div',facets:facet-filter(),bs:narrow-by-type()))
-return $data
-};
-
-declare function bs:spear-results-panel($node as node(), $model as map(*)){
-let $data := $model("browse-refine")
-(:util:eval(concat('$model("browse-data")//tei:div',bs:narrow-by-type-spear(),facets:facet-filter())):)
+        util:eval(concat('$hits//tei:div',facets:facet-filter()))
+    else util:eval(concat('$hits//tei:div',facets:facet-filter(),bs:narrow-by-type()))
 return
  (
     if($bs:view = 'person' or $bs:view = 'place') then 'ABC Menu' else(),

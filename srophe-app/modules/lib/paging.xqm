@@ -183,10 +183,17 @@ declare function page:sort-options($param-string as xs:string?,$start as xs:inte
 :)
 declare function page:add-sort-options($hit, $sort-element as xs:string*){
     if($sort-element != '') then
-        if($sort-element = 'author') then 
+        if($sort-element = 'title') then 
+            $hit/ancestor::tei:TEI/descendant::tei:title[1]
+        else if($sort-element = 'author') then 
             if($hit/ancestor::tei:TEI/descendant::tei:author[1]) then 
-                $hit/ancestor::tei:TEI/descendant::tei:author[1]/descendant-or-self::tei:surname[1]
-            else $hit/ancestor::tei:TEI/descendant::tei:editor[1]/descendant-or-self::tei:surname[1]
+                if($hit/ancestor::tei:TEI/descendant::tei:author[1]/descendant-or-self::tei:surname) then 
+                    $hit/ancestor::tei:TEI/descendant::tei:author[1]/descendant-or-self::tei:surname[1]
+                else $hit/ancestor::tei:TEI/descendant::tei:author[1]
+            else 
+                if($hit/ancestor::tei:TEI/descendant::tei:editor[1]/descendant-or-self::tei:surname) then 
+                    $hit/ancestor::tei:TEI/descendant::tei:editor[1]/descendant-or-self::tei:surname[1]
+                else $hit/ancestor::tei:TEI/descendant::tei:editor[1]
         else if($sort-element = 'pubDate') then 
             $hit/ancestor::tei:TEI/descendant::tei:imprint[1]/descendant-or-self::tei:date[1]
         else if($sort-element = 'pubPlace') then 
