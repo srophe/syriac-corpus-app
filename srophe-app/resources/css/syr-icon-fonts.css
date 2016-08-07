@@ -288,4 +288,7 @@
   margin-left: -1.00390625em;
   color: rgb(37, 80, 112);
 }
+.syriaca-book:before {
+  content: "\f02d";
+}
 
