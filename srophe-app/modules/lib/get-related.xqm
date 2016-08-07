@@ -135,7 +135,10 @@ declare function rel:subject-headings($idno){
                 let $headword := $recs/descendant::tei:body/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]
                 let $subject-idno := replace($recs/descendant::tei:idno[1],'/tei','')
                 return 
-                   <span class="sh pers-label badge">{global:tei2html($headword)} <a href="search.html?subject={$subject-idno}" class="sh-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></span>,
+                   <span class="sh pers-label badge">{$headword/text()} 
+                   <a href="search.html?subject={$subject-idno}" class="sh-search">
+                   <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                   </a></span>,
                     
                     if($total gt 20) then 
                     <div>
@@ -145,7 +148,10 @@ declare function rel:subject-headings($idno){
                             let $headword := $recs/descendant::tei:body/descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1]
                             let $subject-idno := replace($recs/descendant::tei:idno[1],'/tei','')
                             return 
-                               <span class="sh pers-label badge">{$headword/text()} <a href="search.html?subject={$subject-idno}" class="sh-search"> <span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></span>
+                               <span class="sh pers-label badge">{$headword/text()} 
+                               <a href="search.html?subject={$subject-idno}" class="sh-search"> 
+                               <span class="glyphicon glyphicon-search" aria-hidden="true">
+                               </span></a></span>
                             }
                         </div>
                         <a class="togglelink pull-right btn-link" data-toggle="collapse" data-target="#showAllSH" data-text-swap="Hide"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Show All </a>
