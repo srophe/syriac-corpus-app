@@ -319,9 +319,7 @@ else if($browse:view = 'type' or $browse:view = 'date') then
         if($browse:view='type') then
             if($browse:type != '') then
                 (
-                <div class="row">
-                    <div class="col-sm-12">{browse:pages($hits, $collection, '')}</div>
-                </div>,
+                browse:pages($hits, $collection, ''),
                 <h3>{concat(upper-case(substring($browse:type,1,1)),substring($browse:type,2))}</h3>,
                 <div>
                     {(
@@ -332,10 +330,7 @@ else if($browse:view = 'type' or $browse:view = 'date') then
             else <h3>Select Type</h3>    
         else if($browse:view='date') then 
             if($browse:date !='') then 
-                (
-                <div class="row">
-                    <div class="col-sm-12">{browse:pages($hits, $collection, '')}</div>
-                </div>,
+                (browse:pages($hits, $collection, ''),
                 <h3>{$browse:date}</h3>,
                  <div>{browse:display-hits($hits)}</div>)
             else <h3>Select Date</h3>  
@@ -352,8 +347,8 @@ else
     <div class="col-md-12">
         {(
         if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),
-        <div class="row alpha-pages {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right"}">
-             <div class="col-sm-12">{browse:pages($hits, $collection, '')}</div>
+        <div class="alpha-pages {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right"}">
+             <div>{browse:pages($hits, $collection, '')}</div>
         </div>,
         browse:browse-abc-menu(),
         <h3>{(
