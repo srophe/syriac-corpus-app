@@ -64,16 +64,17 @@ let $current-page := xs:integer(($start + $perpage) div $perpage)
 let $url-params := replace(request:get-query-string(), '&amp;start=\d+', '')
 let $param-string := if($url-params != '') then concat('?',$url-params,'&amp;start=') else '?start='        
 let $pagination-links := 
-    <div class="row" xmlns="http://www.w3.org/1999/xhtml">
-            <div class="col-sm-5 search-string">
-                {
-                    if($search-string != '') then 
-                        (<h4 class="hit-count">Search results:</h4>,
-                        <p class="col-md-offset-1 hit-count">{$total-result-count} matches for {$search-string}.</p>)
-                    else()
-                }
-            </div>
-            <div class="col-md-7">
+    <div class="row alpha-pages" xmlns="http://www.w3.org/1999/xhtml">
+            {
+            if($search-string != '') then             
+                <div class="col-sm-5 search-string">
+                    <h4 class="hit-count">Search results:</h4>
+                    <p class="col-md-offset-1 hit-count">{$total-result-count} matches for {$search-string}.</p>
+                 </div>
+             else()
+             },
+            <div>
+                {if($search-string != '') then attribute class { "col-md-7" } else attribute class { "col-md-12" } }
                 {
                 if($total-result-count gt $perpage) then 
                 <ul class="pagination pull-right">
