@@ -108,7 +108,7 @@ declare function rel:cited($idno, $start,$perpage){
                 {
                      if($count gt 5) then 
                         <div class="row">
-                            <div class="col-sm-12">{page:pages($hits, $start, $perpage, '', '')}</div>
+                            <div class="col-sm-12">{page:pages($hits, $start, $perpage,'', '')}</div>
                         </div>
                      else ()
                  }
