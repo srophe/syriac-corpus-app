@@ -6,13 +6,13 @@
     <h1 class="banner">URI Policies</h1>
     <div class="row">
         <div class="col-md-8">
-            <p>Syriaca.org maintains stable <a href="terms.html/#uri">URI</a>s for the entities it
+            <p>Syriaca.org maintains stable <a href="terms.html#uri">URI</a>s for the entities it
                 describes (persons, places, works, manuscripts, etc.). The following guidelines will
-                usually be relevant only to Syriaca.org editors and partner projects, not ordinary
-                users.</p>
+                usually be relevant only to Syriaca.org editors and partner projects, not to
+                ordinary users.</p>
 
             <h2>Entity URIs</h2>
-            <p>Syriaca.org uses the following <a href="terms.html/#uri">URI</a> formats to identify
+            <p>Syriaca.org uses the following <a href="terms.html#uri">URI</a> formats to identify
                 each entity. Navigating to one of these URIs will display a human-readable HTML
                 page, but please note that these URIs identify the entity being described and not
                 the page that describes it. <table class="about-tables">
@@ -46,61 +46,80 @@
                             <td><code>/TEI/text/body/biblStruct/*[1]/idno[@type='URI' and
                                     starts-with(.,'http://syriaca.org')]</code>*</td></tr>
                     </tbody>
-                </table> * As of August 8, 2016, some records still contain the URI in
+                </table>
+            </p>
+            <p>* As of August 8, 2016, some records still contain the URI in
                     <code>/TEI/text/body/biblStruct/idno[@type='URI' and
-                    starts-with(.,'http://syriaca.org')]</code>
-                <br/>Please see the home page of each volume for definitions of each entity. </p>
+                    starts-with(.,'http://syriaca.org')]</code></p>
+            <p>Please see the home page of each volume for definitions of each entity. </p>
             <p>URIs for each entity are displayed directly underneath the name or title of the
                 entity. The entity URI may also be queried using the XPath code in the table above.
                 (A TEI namespace is assumed.) </p>
-            <br/>
+            <p>The numbers at the end of the URI are essentially random and do not correspond to any
+                other numbered or ordered system. Due to the process by which records are created,
+                there are sometimes unassigned URIs between URI numbers.</p>
 
             <h2>URIs for HTML Pages</h2>
             <p>Each entry describing a Syriaca.org entity has a human-readable HTML page. While this
                 page may be reached by navigating to the entity URI, the URI for the HTML page
                 itself is the entity URI plus the suffix ".html". This is important for RDF
-                assertions. For example, <code>http://syriaca.org/person/13.html</code> is the page
-                describing the person identified by <code>http://syriaca.org/person/13</code>.</p>
+                assertions. For example, <code>http://syriaca.org/place/78.html</code> is the page
+                describing the place identified by <code>http://syriaca.org/place/78</code>.</p>
 
             <h2>URIs for TEI Records</h2>
             <p>Each entry describing a Syriaca.org entity also has a TEI-XML record. The URI for
                 this record is the entity URI plus the suffix "/tei". For example,
-                    <code>http://syriaca.org/person/13/tei</code> is the TEI record describing the
-                person identified by <code>http://syriaca.org/person/13</code>. The TEI URI may be
+                    <code>http://syriaca.org/place/78/tei</code> is the TEI record describing the
+                place identified by <code>http://syriaca.org/place/78</code>. The TEI URI may be
                 queried using the XPath
                     <code>/TEI/teiHeader/fileDesc/publicationStmt/idno[@type='URI' and
                     starts-with(.,'http://syriaca.org')]</code>.</p>
 
             <h2>Redirected and Deprecated URIs</h2>
-            <p>On occasion, the Syriaca.org editors must deprecate a record that was created
-                erroneously. Usually these are duplicate records for a single entity. In these
-                cases, data from the duplicate records are merged, and one of the records is
-                deprecated. Browsers attempting to resolve a URI for one of these records will be
-                redirected (with a 301 message) to the correct record. Since the data from the
-                deprecated record is included in the record to which its URI redirects, there will
-                usually be no need to view the deprecated record or retrieve it in queries. If
-                necessary, however, deprecated records may be viewed at <a
+            <p>On occasion, the Syriaca.org editors must deprecate an erroneous record. Usually
+                these are duplicate records for a single entity. In these cases, data from the
+                duplicate records are merged, and one of the records is deprecated. Browsers
+                attempting to resolve a URI for one of these records will be redirected (with a 301
+                message) to the correct record. Since the data from the deprecated record is
+                included in the record to which its URI redirects, there will usually be no need to
+                view the deprecated record or retrieve it in queries. If necessary, however,
+                deprecated records may be viewed at <a
                     href="https://github.com/srophe/srophe-app-data/tree/master/data/deprecated"
                     >https://github.com/srophe/srophe-app-data/tree/master/data/deprecated</a>.
                 Queries on Syriaca.org data that might refer to deprecated URIs should include
-                    <code>idno[@type='deprecated']</code> in the XPaths listed above. </p>
+                    <code>idno[@type='deprecated']</code> in the XPaths listed above. This will
+                retrieve the record to which the deprecated record redirects.</p>
             <p>Scripts to merge and deprecate records may be found at <a
                     href="https://github.com/srophe/srophe-xQueries"
                     >https://github.com/srophe/srophe-xQueries</a>. To deprecate records manually,
-                please do the following (see the example at <a href="https://github.com/srophe/srophe-xQueries/blob/master/merge-persons-example-deprecated-record.xml">https://github.com/srophe/srophe-xQueries/blob/master/merge-persons-example-deprecated-record.xml</a>:<br/>
+                please do the following (see the example at <a
+                    href="https://github.com/srophe/srophe-xQueries/blob/master/merge-persons-example-deprecated-record.xml"
+                    >https://github.com/srophe/srophe-xQueries/blob/master/merge-persons-example-deprecated-record.xml</a>:<br/>
                 <ol>
-                    <li>Add " [deprecated]" to the end of TEI/teiHeader/fileDesc/titleStmt/title[@level='a']</li>
-                    <li>If the record should be redirected to another record,
-                        <li>after the TEI record URI (see above) add an <code>&lt;idno type="redirect"&gt;</code> containing the URI of the TEI record to which the deprecated record should redirect. For example, 
-                            &lt;idno type="redirect"&gt;http://syriaca.org/person/44/tei&lt;/idno&gt;</li>
-                        <li>after the entity URI (see above) add an <code>&lt;idno type="redirect"&gt;</code> containing the URI of the entity to which the deprecated entity should redirect. For example,
-                            &lt;idno type="redirect"&gt;http://syriaca.org/person/44&lt;/idno&gt;</li>
+                    <li>Add " [deprecated]" to the end of
+                        TEI/teiHeader/fileDesc/titleStmt/title[@level='a']</li>
+                    <li>If the record should be redirected to another record, <ol><li>After the TEI
+                                record URI (see above) add an <code>&lt;idno
+                                    type="redirect"&gt;</code> containing the URI of the TEI record
+                                to which the deprecated record should redirect. For example,
+                                &lt;idno
+                                type="redirect"&gt;http://syriaca.org/person/44/tei&lt;/idno&gt;</li>
+                            <li>After the entity URI (see above) add an <code>&lt;idno
+                                    type="redirect"&gt;</code> containing the URI of the entity to
+                                which the deprecated entity should redirect. For example, &lt;idno
+                                type="redirect"&gt;http://syriaca.org/person/44&lt;/idno&gt;</li></ol>
                     </li>
                     <li>Change the TEI/teiHeader/revisionDesc/@status to "deprecated"</li>
-                    <li>Inside TEI/teiHeader/revisionDesc add a change element with a description of the deprecation. For example, "Merged into [http://syriaca.org/person/44] and deprecated."</li>
-                    <li>Optional: Include an @xml:id on the change element, and add a @change attribute to the elements modified above that points to this xml:id.</li>
-                    <li>In the TEI/text/body, include a desc element with @type="deprecation" explaining the deprecation. For example,
-                        &lt;desc change="#change2001-1" type="deprecation"&gt;This record has been deprecated and merged into http://syriaca.org/person/44.&lt;/desc&gt;</li>
+                    <li>Inside TEI/teiHeader/revisionDesc add a change element with a description of
+                        the deprecation. For example, "Merged into [http://syriaca.org/person/44]
+                        and deprecated."</li>
+                    <li>Optional: Include an @xml:id on the change element, and add a @change
+                        attribute to the elements modified above that points to this xml:id.</li>
+                    <li>In the TEI/text/body, include a desc element with @type="deprecation"
+                        explaining the deprecation. For example, <code>&lt;desc
+                            change="#change2001-1" type="deprecation"&gt;This record has been
+                            deprecated and merged into
+                            http://syriaca.org/person/44.&lt;/desc&gt;</code></li>
                 </ol></p>
             <div>
                 <a href="../geo/howtoadd.html" class="btn feedback">Feedback?</a>
