@@ -366,6 +366,28 @@
                     <h3>Abstract</h3>
                     <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']" mode="abstract"/>
                 </xsl:if>
+                <xsl:if test="@ana">
+                    <xsl:for-each select="tokenize(@ana,' ')">
+                        <xsl:variable name="filepath">
+                            <xsl:value-of select="substring-before(replace(.,$base-uri,$app-root),'#')"/>
+                        </xsl:variable>
+                        <xsl:variable name="ana-id" select="substring-after(.,'#')"/>
+                        <xsl:if test="doc-available($filepath)">
+                            <p>
+                                <strong>Subject: </strong>
+                                <xsl:for-each select="document($filepath)/descendant::t:*[@xml:id = $ana-id]">
+                                    <xsl:value-of select="t:label"/>
+                                </xsl:for-each>
+                            </p>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:if>
+                <xsl:if test="t:date">
+                    <p><strong>Date: </strong> <xsl:apply-templates select="t:date"/></p>
+                </xsl:if>
+                <xsl:if test="t:extent">
+                    <p><strong>Extent: </strong> <xsl:apply-templates select="t:extent"/></p>
+                </xsl:if>
                 <xsl:if test="t:idno">
                     <h3>Reference Numbers</h3>
                     <p class="indent">
@@ -602,7 +624,10 @@
         <!-- Notes -->
         <!-- NOTE: need to handle abstract notes -->
         <xsl:if test="t:note[not(@type='abstract')]">
-            <xsl:variable name="rules" select="'&lt; prologue &lt; incipit &lt; explicit &lt; editions &lt; modernTranslation &lt; ancientVersion &lt; MSS'"/>
+            <xsl:variable name="rules" select="
+                '&lt; prologue &lt; incipit &lt; explicit &lt; 
+                editions &lt; modernTranslation &lt; 
+                ancientVersion &lt; MSS'"/>
             <xsl:for-each-group select="t:note[not(@type='abstract')][exists(@type)]" group-by="@type">
                 <xsl:sort select="current-grouping-key()" collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)};ignore-case=yes;ignore-modifiers=yes;ignore-symbols=yes)" order="ascending"/>
                 <!--<xsl:sort select="current-grouping-key()" order="descending"/>-->
@@ -637,6 +662,42 @@
             </xsl:for-each>
         </xsl:if>
         <xsl:if test="t:bibl">
+            <xsl:choose>
+                <xsl:when test="t:bibl[@type='lawd:Citation']">
+                    <xsl:variable name="rules" select="
+                        '&lt; lawd:Edition &lt; lawd:Translation &lt; lawd:WrittenWork'"/>
+                    <xsl:for-each-group select="t:bibl[exists(@type)][@type != 'lawd:Citation']" group-by="@type">
+                        <xsl:sort select="current-grouping-key()" collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)};ignore-case=yes;ignore-modifiers=yes;ignore-symbols=yes)" order="ascending"/>
+                        <xsl:variable name="label">
+                            <xsl:choose>
+                                <xsl:when test="current-grouping-key() = 'lawd:Edition'">Editions</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'lawd:WrittenWork'">Manuscript Witnesses</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'lawd:Translation'">Modern Translations</xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="current-grouping-key()"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:variable>
+                        <h3>
+                            <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
+                        </h3>
+                        <ol>
+                            <xsl:for-each select="current-group()">
+                                <xsl:sort select="if(current-grouping-key() = 'MSS') then substring-after(t:bibl/@xml:id,'-') = '' else if(current-grouping-key() = 'editions') then substring-after(t:bibl/@corresp,'-') = '' else if(@xml:lang) then local:expand-lang(@xml:lang,$label) else ." order="ascending"/>
+                                <xsl:sort select="if(current-grouping-key() = 'MSS' and (substring-after(t:bibl/@xml:id,'-') castable as xs:integer)) then xs:integer(substring-after(t:bibl/@xml:id,'-')) else if(@xml:lang) then local:expand-lang(@xml:lang,$label) else ()" order="ascending"/>
+                                <xsl:apply-templates select="self::*"/>
+                            </xsl:for-each>
+                        </ol>
+                    </xsl:for-each-group>
+                    <xsl:for-each select="t:note[not(exists(@type))]">
+                        <h3>Note</h3>
+                        <div class="left-padding bottom-padding">
+                            <xsl:apply-templates/>
+                        </div>
+                    </xsl:for-each>
+                    
+                </xsl:when>
+            </xsl:choose>
             <xsl:call-template name="sources"/>
         </xsl:if>
         <!-- Contains: -->
@@ -774,7 +835,14 @@
                 </p>
                 <ul>
                     <!-- Bibliography elements are processed by bibliography.xsl -->
-                    <xsl:apply-templates select="t:bibl" mode="footnote"/>
+                    <xsl:choose>
+                        <xsl:when test="t:bibl[@type='lawd:Citation']">
+                            <xsl:apply-templates select="t:bibl[@type='lawd:Citation']" mode="footnote"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="t:bibl" mode="footnote"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </ul>
             </div>
         </div>
@@ -839,6 +907,14 @@
     <xsl:template match="t:bibl" mode="title"/>
     <xsl:template match="t:bibl">
         <xsl:choose>
+            <xsl:when test="@type=('lawd:Edition','lawd:Translation','lawd:WrittenWork')">
+                <li>
+                    <span>
+                        <xsl:call-template name="langattr"/>
+                        <xsl:apply-templates mode="footnote"/>
+                    </span>
+                </li>
+            </xsl:when>
             <xsl:when test="parent::t:note">
                 <xsl:choose>
                     <xsl:when test="t:ptr">
