@@ -9,18 +9,18 @@
     <div class="row top-padding indent">
         <div class="container">
         <!-- To do -->
-        <div class="col-md-12">
-            <div data-template="search:show-form"/>
-            <div data-template="search:get-results">
+            <div class="col-md-12">
+                <div data-template="search:show-form"/>
+                <div data-template="search:get-results">
                 <!-- Calls paging and search parameters string  -->
-                <div data-template="search:pageination"/>
+                    <div data-template="search:pageination" data-template-collection="authors" data-template-sort-options="relevance,title"/>
                 <!-- Prints search results  -->
-                <div data-template="search:build-page"/>
-                <div class="page-bottom">
-                    <div data-template="search:pageination"/>
+                    <div data-template="search:build-page"/>
+                    <div class="page-bottom">
+                        <div data-template="search:pageination" data-template-collection="authors" data-template-sort-options="relevance,title"/>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </div>
