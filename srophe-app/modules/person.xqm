@@ -197,30 +197,32 @@ return
                                 else $viaf-ref
             let $build-request :=  <http:request href="{$uri}" method="get"/>
             return 
-                try {
-                    let $results :=  http:send-request($build-request)//by 
-                    let $total-works := string($results/ancestor::Identity//nameInfo/workCount)
-                    return 
-                        if(not(empty($results)) and  $total-works != '0') then 
-                                <div id="worldcat-refs" class="well">
-                                    <h3>{$total-works} Catalog Search Results from WorldCat</h3>
-                                    <p class="hint">Based on VIAF ID. May contain inaccuracies. Not curated by Syriaca.org.</p>
-                                    <div>
-                                         <ul id="{$viaf-ref}" count="{$total-works}">
-                                            {
-                                                for $citation in $results/citation[position() lt 5]
-                                                return
-                                                    <li><a href="{concat('http://www.worldcat.org/oclc/',substring-after($citation/oclcnum/text(),'ocn'))}">{$citation/title/text()}</a></li>
-                                             }
-                                         </ul>
-                                         <span class="pull-right"><a href="{$uri}">See all {$total-works} titles from WorldCat</a></span>,<br/>
-                                    </div>
-                                </div>    
-                                         
-                        else ()
-                } catch * {
-                    <error>Caught error {$err:code}: {$err:description}</error>
-                } 
+                if($uri != '') then 
+                    try {
+                        let $results :=  http:send-request($build-request)//by 
+                        let $total-works := string($results/ancestor::Identity//nameInfo/workCount)
+                        return 
+                            if(not(empty($results)) and  $total-works != '0') then 
+                                    <div id="worldcat-refs" class="well">
+                                        <h3>{$total-works} Catalog Search Results from WorldCat</h3>
+                                        <p class="hint">Based on VIAF ID. May contain inaccuracies. Not curated by Syriaca.org.</p>
+                                        <div>
+                                             <ul id="{$viaf-ref}" count="{$total-works}">
+                                                {
+                                                    for $citation in $results/citation[position() lt 5]
+                                                    return
+                                                        <li><a href="{concat('http://www.worldcat.org/oclc/',substring-after($citation/oclcnum/text(),'ocn'))}">{$citation/title/text()}</a></li>
+                                                 }
+                                             </ul>
+                                             <span class="pull-right"><a href="{$uri}">See all {$total-works} titles from WorldCat</a></span>,<br/>
+                                        </div>
+                                    </div>    
+                                             
+                            else ()
+                    } catch * {
+                        <error>Caught error {$err:code}: {$err:description}</error>
+                    } 
+                 else ()   
     else () 
 };
 
