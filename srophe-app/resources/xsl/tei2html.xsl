@@ -253,18 +253,18 @@
             <xsl:choose>
                 <xsl:when test=". = 'The Syriac Biographical Dictionary'"/>
                 <xsl:when test=". = 'A Guide to Syriac Authors'">
-                    <a href="{$app-root}/authors/index.html">
+                    <a href="{$nav-base}/authors/index.html">
                         <span class="syriaca-icon syriaca-authors">
                             <span class="path1"/>
                             <span class="path2"/>
                             <span class="path3"/>
                             <span class="path4"/>
                         </span>
-                        <span> authors</span>
+                        <span> author</span>
                     </a>
                 </xsl:when>
                 <xsl:when test=". = 'Qadishe: A Guide to the Syriac Saints'">
-                    <a href="{$app-root}/q/index.html">
+                    <a href="{$nav-base}/q/index.html">
                         <span class="syriaca-icon syriaca-q">
                             <span class="path1"/>
                             <span class="path2"/>
@@ -383,10 +383,16 @@
                     </xsl:for-each>
                 </xsl:if>
                 <xsl:if test="t:date">
-                    <p><strong>Date: </strong> <xsl:apply-templates select="t:date"/></p>
+                    <p>
+                        <strong>Date: </strong>
+                        <xsl:apply-templates select="t:date"/>
+                    </p>
                 </xsl:if>
                 <xsl:if test="t:extent">
-                    <p><strong>Extent: </strong> <xsl:apply-templates select="t:extent"/></p>
+                    <p>
+                        <strong>Extent: </strong>
+                        <xsl:apply-templates select="t:extent"/>
+                    </p>
                 </xsl:if>
                 <xsl:if test="t:idno">
                     <h3>Reference Numbers</h3>
@@ -624,10 +630,7 @@
         <!-- Notes -->
         <!-- NOTE: need to handle abstract notes -->
         <xsl:if test="t:note[not(@type='abstract')]">
-            <xsl:variable name="rules" select="
-                '&lt; prologue &lt; incipit &lt; explicit &lt; 
-                editions &lt; modernTranslation &lt; 
-                ancientVersion &lt; MSS'"/>
+            <xsl:variable name="rules" select="                 '&lt; prologue &lt; incipit &lt; explicit &lt;                  editions &lt; modernTranslation &lt;                  ancientVersion &lt; MSS'"/>
             <xsl:for-each-group select="t:note[not(@type='abstract')][exists(@type)]" group-by="@type">
                 <xsl:sort select="current-grouping-key()" collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)};ignore-case=yes;ignore-modifiers=yes;ignore-symbols=yes)" order="ascending"/>
                 <!--<xsl:sort select="current-grouping-key()" order="descending"/>-->
@@ -664,8 +667,7 @@
         <xsl:if test="t:bibl">
             <xsl:choose>
                 <xsl:when test="t:bibl[@type='lawd:Citation']">
-                    <xsl:variable name="rules" select="
-                        '&lt; lawd:Edition &lt; lawd:Translation &lt; lawd:WrittenWork'"/>
+                    <xsl:variable name="rules" select="                         '&lt; lawd:Edition &lt; lawd:Translation &lt; lawd:WrittenWork'"/>
                     <xsl:for-each-group select="t:bibl[exists(@type)][@type != 'lawd:Citation']" group-by="@type">
                         <xsl:sort select="current-grouping-key()" collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)};ignore-case=yes;ignore-modifiers=yes;ignore-symbols=yes)" order="ascending"/>
                         <xsl:variable name="label">
@@ -695,7 +697,6 @@
                             <xsl:apply-templates/>
                         </div>
                     </xsl:for-each>
-                    
                 </xsl:when>
             </xsl:choose>
             <xsl:call-template name="sources"/>
