@@ -351,13 +351,13 @@
             <xsl:when test="following-sibling::t:monogr">
                 <xsl:text>, </xsl:text>
             </xsl:when>
-            <xsl:when test="preceding-sibling::t:monogr and preceding-sibling::t:monogr/t:imprint[not(empty(child::*))]">
+            <xsl:when test="preceding-sibling::t:monogr and preceding-sibling::t:monogr/t:imprint[child::*[string-length(.) &gt; 0]]">
                 <xsl:text> (</xsl:text>
                 <xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/>
                 <xsl:text>)</xsl:text>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:if test="t:imprint[not(empty(child::*))]">
+                <xsl:if test="t:imprint[child::*[string-length(.) &gt; 0]]">
                     <xsl:text> (</xsl:text>
                     <xsl:apply-templates select="t:imprint" mode="footnote"/>
                     <xsl:text>)</xsl:text>
@@ -455,7 +455,7 @@
                 <xsl:choose>
                     <xsl:when test="preceding-sibling::t:analytic">
                         <xsl:choose>
-                            <xsl:when test="t:title[@level='j'] and t:imprint[not(empty(child::*))]">
+                            <xsl:when test="t:title[@level='j'] and t:imprint[child::*[string-length(.) &gt; 0]]">
                                 <xsl:text> (</xsl:text>
                                 <xsl:apply-templates select="t:imprint" mode="footnote"/>
                                 <xsl:text>)</xsl:text>
