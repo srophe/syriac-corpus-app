@@ -130,7 +130,6 @@ declare function search:idno(){
 
 declare function search:search-string(){
 <span xmlns="http://www.w3.org/1999/xhtml">
-<p>{search:query-string('')}</p>
 {(
     let $parameters :=  request:get-parameter-names()
     for  $parameter in $parameters
