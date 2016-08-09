@@ -47,7 +47,7 @@ declare function rel:decode-relationship($related as node()*){
  <span class="srp-label">
     {
      if($related/tei:desc != '') then
-        $related/tei:desc/text()
+        distinct-values($related/tei:desc/text())
      else 
         let $name := $related/@name
         for $name in $name
