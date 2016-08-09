@@ -71,7 +71,7 @@ let $pagination-links :=
                     <h4 class="hit-count">Search results:</h4>
                     <p class="col-md-offset-1 hit-count">{$total-result-count} matches for {$search-string}.</p>
                  </div>
-             else()
+             else ()
              }
             <div>
                 {if($search-string != '') then attribute class { "col-md-7" } else attribute class { "col-md-12" } }
@@ -121,9 +121,8 @@ let $pagination-links :=
                 }
             </div>
     </div>    
-return 
-   if($hits) then $pagination-links
-   else ()
+return $pagination-links
+   
 };
 
 (:~
