@@ -93,8 +93,8 @@
             <xsl:when test="string(/*/@id)">
                 <xsl:value-of select="string(/*/@id)"/>
             </xsl:when>
-            <xsl:when test="/descendant::t:idno[@type='URI'][starts-with(.,$base-uri)]">
-                <xsl:value-of select="replace(replace(/descendant::t:idno[@type='URI'][starts-with(.,$base-uri)][1],'/tei',''),'/source','')"/>
+            <xsl:when test="/descendant::t:idno[@type='URI'][starts-with(.,$base-uri)][not(ancestor::t:seriesStmt)]">
+                <xsl:value-of select="replace(replace(/descendant::t:idno[@type='URI'][not(ancestor::t:seriesStmt)][starts-with(.,$base-uri)][1],'/tei',''),'/source','')"/>
             </xsl:when>
             <!-- Temporary fix for SPEAR -->
             <xsl:otherwise>
@@ -248,34 +248,23 @@
                 <xsl:text>) </xsl:text>
             </span>
         </xsl:if>
-        <xsl:for-each select="t:title[@level='s']">
+        <xsl:for-each select="distinct-values(t:seriesStmt/t:biblScope/t:title)">
             <xsl:text>&#160; </xsl:text>
             <xsl:choose>
                 <xsl:when test=". = 'The Syriac Biographical Dictionary'"/>
                 <xsl:when test=". = 'A Guide to Syriac Authors'">
-                    <a href="$app-root/authors/index.html">
+                    <a href="{$app-root}/authors/index.html">
                         <span class="syriaca-icon syriaca-authors">
                             <span class="path1"/>
                             <span class="path2"/>
                             <span class="path3"/>
                             <span class="path4"/>
                         </span>
-                        <span class="icon-text">authors</span>
+                        <span> authors</span>
                     </a>
                 </xsl:when>
                 <xsl:when test=". = 'Qadishe: A Guide to the Syriac Saints'">
-                    <a href="$app-root/q/index.html">
-                        <span class="syriaca-icon syriaca-q">
-                            <span class="path1"/>
-                            <span class="path2"/>
-                            <span class="path3"/>
-                            <span class="path4"/>
-                        </span>
-                        <span> saint</span>
-                    </a>
-                </xsl:when>
-                <xsl:when test=". = 'Gateway to the Syriac Saints'">
-                    <a href="$app-root/q/index.html">
+                    <a href="{$app-root}/q/index.html">
                         <span class="syriaca-icon syriaca-q">
                             <span class="path1"/>
                             <span class="path2"/>
@@ -289,7 +278,6 @@
                     <xsl:value-of select="."/>
                 </xsl:otherwise>
             </xsl:choose>
-            <xsl:if test="following-sibling::*/text() = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')">, TEST2</xsl:if>
         </xsl:for-each>
     </xsl:template>
     
@@ -1329,12 +1317,6 @@
             <xsl:call-template name="langattr"/>
             <xsl:apply-templates mode="plain"/>
         </span>
-    </xsl:template>
-    <xsl:template match="t:roleName | t:forename | t:addName" mode="plain">
-        <xsl:apply-templates mode="plain"/>
-        <xsl:if test="following-sibling::*">
-        <xsl:text> </xsl:text>
-        </xsl:if>
     </xsl:template>
     <xsl:template match="t:roleName">
         <xsl:apply-templates mode="plain"/>

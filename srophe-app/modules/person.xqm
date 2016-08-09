@@ -53,7 +53,7 @@ declare %templates:wrap function person:h1($node as node(), $model as map(*)){
             <srophe-title xmlns="http://www.tei-c.org/ns/1.0">
                 {(
                     $model("data")//tei:persName[@syriaca-tags='#syriaca-headword'],
-                    $model("data")//tei:seriesStmt/tei:title[1],
+                    $model("data")//tei:seriesStmt,
                     $model("data")//tei:person/descendant::tei:birth,
                     $model("data")//tei:person/descendant::tei:death,
                     $model("data")//tei:person/descendant::tei:floruit,
