@@ -351,15 +351,17 @@
             <xsl:when test="following-sibling::t:monogr">
                 <xsl:text>, </xsl:text>
             </xsl:when>
-            <xsl:when test="preceding-sibling::t:monogr">
+            <xsl:when test="preceding-sibling::t:monogr and preceding-sibling::t:monogr/t:imprint[not(empty(child::*))]">
                 <xsl:text> (</xsl:text>
                 <xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/>
                 <xsl:text>)</xsl:text>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text> (</xsl:text>
-                <xsl:apply-templates select="t:imprint" mode="footnote"/>
-                <xsl:text>)</xsl:text>
+                <xsl:if test="t:imprint[not(empty(child::*))]">
+                    <xsl:text> (</xsl:text>
+                    <xsl:apply-templates select="t:imprint" mode="footnote"/>
+                    <xsl:text>)</xsl:text>                    
+                </xsl:if>
                 <xsl:if test="following-sibling::t:monogr">
                     <xsl:text>, </xsl:text>
                 </xsl:if>
@@ -460,7 +462,7 @@
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:text> </xsl:text>
-                                <xsl:apply-templates select="t:imprint" mode="footnote"/>                                
+                                <xsl:apply-templates select="t:imprint" mode="footnote"/>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
