@@ -360,7 +360,7 @@
                 <xsl:if test="t:imprint[not(empty(child::*))]">
                     <xsl:text> (</xsl:text>
                     <xsl:apply-templates select="t:imprint" mode="footnote"/>
-                    <xsl:text>)</xsl:text>                    
+                    <xsl:text>)</xsl:text>
                 </xsl:if>
                 <xsl:if test="following-sibling::t:monogr">
                     <xsl:text>, </xsl:text>
@@ -455,7 +455,7 @@
                 <xsl:choose>
                     <xsl:when test="preceding-sibling::t:analytic">
                         <xsl:choose>
-                            <xsl:when test="t:title[@level='j']">
+                            <xsl:when test="t:title[@level='j'] and t:imprint[not(empty(child::*))]">
                                 <xsl:text> (</xsl:text>
                                 <xsl:apply-templates select="t:imprint" mode="footnote"/>
                                 <xsl:text>)</xsl:text>
