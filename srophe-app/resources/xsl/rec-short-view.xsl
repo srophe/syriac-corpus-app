@@ -69,7 +69,7 @@
                 <xsl:value-of select="string(/*/@id)"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="replace(/descendant::t:idno[@type='URI'][starts-with(.,$base-uri)][1],'/tei','')"/>
+                <xsl:value-of select="replace(replace(/descendant::t:idno[@type='URI'][not(ancestor::t:seriesStmt)][starts-with(.,$base-uri)][1],'/tei',''),'/source','')"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
@@ -103,18 +103,44 @@
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="ana">
-            <xsl:for-each select="descendant::t:titleStmt/t:title[@level='m' or @level='s']">
+            <xsl:for-each select="distinct-values(descendant::t:seriesStmt/t:biblScope/t:title)">
+                <xsl:text>&#160; </xsl:text>
                 <xsl:choose>
+                    <xsl:when test=". = 'The Syriac Biographical Dictionary'"/>
                     <xsl:when test=". = 'A Guide to Syriac Authors'">
+                        <!--
+                        <a href="{$app-root}/authors/index.html">
+                            <span class="syriaca-icon syriaca-authors">
+                                <span class="path1"/>
+                                <span class="path2"/>
+                                <span class="path3"/>
+                                <span class="path4"/>
+                            </span>
+                            <span> authors</span>
+                        </a>
+                        -->
                         <a href="{$nav-base}/authors/index.html">
                             <img src="{$nav-base}/resources/img/icons-authors-sm.png" alt="A Guide to Syriac Authors"/>author</a>
+                        
                     </xsl:when>
                     <xsl:when test=". = 'Qadishe: A Guide to the Syriac Saints'">
+                        <!--
+                        <a href="{$app-root}/q/index.html">
+                            <span class="syriaca-icon syriaca-q">
+                                <span class="path1"/>
+                                <span class="path2"/>
+                                <span class="path3"/>
+                                <span class="path4"/>
+                            </span>
+                            <span> saint</span>
+                        </a>-->
                         <a href="{$nav-base}/q/index.html">
                             <img src="{$nav-base}/resources/img/icons-q-sm.png" alt="Qadishe: A Guide to the Syriac Saints"/>saint</a>
                     </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="."/>
+                    </xsl:otherwise>
                 </xsl:choose>
-                <xsl:if test="following-sibling::*/text() = ('A Guide to Syriac Authors','Qadishe: A Guide to the Syriac Saints')">, </xsl:if>
             </xsl:for-each>
         </xsl:variable>
         <xsl:variable name="type" select="descendant::t:place/@type"/>
