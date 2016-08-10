@@ -168,6 +168,72 @@ body {font-family: arial, sans-serif; background-color:#385978;}
     box-decoration-break: clone;
 }
 
+/* styles for index4 */
+.gradient{  
+    -webkit-transition: background 1s ease-out;  
+    -moz-transition: background 1s ease-out;  
+    -o-transition: background 1s ease-out;  
+    transition: background 1s ease-out;    
+    cursor:pointer;  
+}  
+.places .gradient {
+    background: -webkit-linear-gradient(#ec7951,#753C28);  
+    background: -moz-linear-gradient(#ec7951,#753C28);  
+    background: -o-linear-gradient(#ec7951,#753C28);  
+    background: linear-gradient(#ec7951,#753C28);    
+    border: 1px solid #753C28; 
+}
+.persons .gradient {
+    background: -webkit-linear-gradient(#f2d7fc,#7b6d80);  
+    background: -moz-linear-gradient(#f2d7fc,#7b6d80);  
+    background: -o-linear-gradient(#f2d7fc,#7b6d80);  
+    background: linear-gradient(#f2d7fc,#7b6d80);    
+    border: 1px solid #7b6d80; 
+}
+.saints .gradient {
+    background: -webkit-linear-gradient(#7ac6fa,#2F4C60);  
+    background: -moz-linear-gradient(#7ac6fa,#2F4C60);  
+    background: -o-linear-gradient(#7ac6fa,#2F4C60);  
+    background: linear-gradient(#7ac6fa,#2F4C60);    
+    border: 1px solid #2F4C60; 
+}
+.authors .gradient {
+    background: -webkit-linear-gradient(#6b6bf8,#2d2d86);  
+    background: -moz-linear-gradient(#6b6bf8,#2d2d86);  
+    background: -o-linear-gradient(#6b6bf8,#2d2d86);  
+    background: linear-gradient(#6b6bf8,#2d2d86);    
+    border: 1px solid #2d2d86; 
+}
+.works .gradient {
+    background: -webkit-linear-gradient(#fe3b3e,#7a1517);  
+    background: -moz-linear-gradient(#fe3b3e,#7a1517);  
+    background: -o-linear-gradient(#fe3b3e,#7a1517);  
+    background: linear-gradient(#fe3b3e,#7a1517);    
+    border: 1px solid #7a1517; 
+}
+.mss .gradient {
+    background: -webkit-linear-gradient(#f5d9bc,#e67605);  
+    background: -moz-linear-gradient(#f5d9bc,#e67605);  
+    background: -o-linear-gradient(#f5d9bc,#e67605);  
+    background: linear-gradient(#f5d9bc,#e67605);    
+    border: 1px solid #e67605; 
+}
+.events .gradient {
+    background: -webkit-linear-gradient(#98ce84,#2b4a2b);  
+    background: -moz-linear-gradient(#98ce84,#2b4a2b);  
+    background: -o-linear-gradient(#98ce84,#2b4a2b);  
+    background: linear-gradient(#98ce84,#2b4a2b);    
+    border: 1px solid #2b4a2b; 
+}
+.gradient:Hover{  
+    background-position:100px;  
+} 
+.geo-gradient{
+    background: -webkit-linear-gradient(#E5A163,#C47227);  
+    background: -moz-linear-gradient(#E5A163,#C47227);  
+    background: -o-linear-gradient(#E5A163,#C47227);  
+    background: linear-gradient(#E5A163,#C47227);  
+}
 /* Banner styles banner internal pages */
 .banner-interior {
     position:relative;
@@ -202,6 +268,7 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 /* Transparent styles for search box on home pages */
 .transparent-input{
        color: white;
+       font-size:larger;
        background-color: rgba(245, 245, 245, 0.2);
        border:3px solid white !important;
     }
@@ -209,6 +276,7 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 .transparent-input:-moz-placeholder { color: white; font-size:large;font-weight:500; }
 .transparent-input::-moz-placeholder { color: white; font-size:large;font-weight:500; }
 .transparent-input:-ms-input-placeholder { color: white; font-size:large;font-weight:500; }
+
 /* Footer styles */
 footer {text-align:center; color:white;}
 
@@ -303,8 +371,8 @@ td {
 /* Browse page styles */
 .syr-list{padding-right:7em; padding-top:2em; text-align: right;}
 .en-list{padding-left:5em; padding-top:2em;}
-
-.alpha-pages {margin-top:-1.85em;}
+.float-container{overflow:auto;}
+.alpha-pages {margin-top:-2em;}
 .browse-alpha {border-bottom:1px solid #ccc; padding-left:1em; padding:0; margin-bottom:1em; text-align: justify;}
 
 .browse-alpha li + li {

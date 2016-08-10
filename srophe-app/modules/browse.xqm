@@ -347,10 +347,12 @@ else
     <div class="col-md-12">
         {(
         if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),
-        <div class="alpha-pages {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right"}">
-             <div>{browse:pages($hits, $collection, '')}</div>
+        <div class="float-container">
+            <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right"}">
+                 <div>{browse:pages($hits, $collection, '')}</div>
+            </div>
+            {browse:browse-abc-menu()}
         </div>,
-        browse:browse-abc-menu(),
         <h3>{(
             if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then 
                 (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) 
