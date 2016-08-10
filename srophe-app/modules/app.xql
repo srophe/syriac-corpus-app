@@ -134,7 +134,9 @@ else map {"data" := 'Page data'}
 :)
 declare %templates:wrap function app:app-title($node as node(), $model as map(*), $collection as xs:string?){
 if($app:id) then
-   $model("data")/descendant::tei:titleStmt[1]/tei:title[1]/text()
+   if(contains($model("data")/descendant::tei:titleStmt[1]/tei:title[1]/text(),' — ')) then
+        substring-before($model("data")/descendant::tei:titleStmt[1]/tei:title[1]/text(),' — ')
+   else $model("data")/descendant::tei:titleStmt[1]/tei:title[1]/text()
 else if($collection = 'places') then 'The Syriac Gazetteer'  
 else if($collection = 'persons') then 'The Syriac Biographical Dictionary'
 else if($collection = 'saints')then 'Gateway to the Syriac Saints'
