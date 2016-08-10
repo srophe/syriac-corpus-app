@@ -1284,17 +1284,19 @@
     <xsl:template match="t:quote">
         <xsl:choose>
             <xsl:when test="@xml:lang">
+                <span dir="ltr"><xsl:text> “</xsl:text></span>
                 <span>
                     <xsl:attribute name="dir">
                         <xsl:call-template name="getdirection"/>
                     </xsl:attribute>
                     <xsl:call-template name="langattr"/>
-                    <xsl:text> “</xsl:text>
                     <xsl:apply-templates/>
-                    <xsl:text>” </xsl:text>
                 </span>
+                <span dir="ltr"><xsl:text>”  </xsl:text></span>
             </xsl:when>
             <xsl:when test="parent::*/@xml:lang">
+                <!-- Quotes need to be outside langattr for Syriac and arabic characters to render correctly.  -->
+                <span dir="ltr"><xsl:text> “</xsl:text></span>
                 <span class="langattr">
                     <xsl:attribute name="dir">
                         <xsl:choose>
@@ -1306,15 +1308,14 @@
                     <xsl:attribute name="lang">
                         <xsl:value-of select="parent::*/@xml:lang"/>
                     </xsl:attribute>
-                    <xsl:text> “</xsl:text>
                     <xsl:apply-templates/>
-                    <xsl:text>” </xsl:text>
                 </span>
+                <span dir="ltr"><xsl:text>”  </xsl:text></span>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text>“</xsl:text>
+                <xsl:text> “</xsl:text>
                 <xsl:apply-templates/>
-                <xsl:text>”</xsl:text>
+                <xsl:text>” </xsl:text>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:if test="@source or parent::*/@source">
