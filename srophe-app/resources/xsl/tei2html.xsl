@@ -1146,9 +1146,7 @@
                         <xsl:apply-templates select="../t:link[contains(@target,$xmlid)]"/>:
                             <xsl:apply-templates/>
                             <!-- Check for ending punctuation, if none, add . -->
-                        <xsl:if test="not(ends-with(.,'.'))">
-                            <xsl:text>.</xsl:text>
-                        </xsl:if>
+                            <!-- NOTE not working -->
                     </span>
                     <xsl:if test="@source">
                         <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
@@ -1242,9 +1240,7 @@
                                 <xsl:call-template name="langattr"/>
                                 <xsl:apply-templates/>
                                 <!-- Check for ending punctuation, if none, add . -->
-                                <xsl:if test="not(ends-with(.,'.'))">
-                                    <xsl:text>.</xsl:text>
-                                </xsl:if>
+                                <!-- Do not have this working -->
                             </span>
                         </xsl:otherwise>
                     </xsl:choose>
@@ -1284,7 +1280,9 @@
     <xsl:template match="t:quote">
         <xsl:choose>
             <xsl:when test="@xml:lang">
-                <span dir="ltr"><xsl:text> “</xsl:text></span>
+                <span dir="ltr">
+                    <xsl:text> “</xsl:text>
+                </span>
                 <span>
                     <xsl:attribute name="dir">
                         <xsl:call-template name="getdirection"/>
@@ -1292,11 +1290,15 @@
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                 </span>
-                <span dir="ltr"><xsl:text>”  </xsl:text></span>
+                <span dir="ltr">
+                    <xsl:text>”  </xsl:text>
+                </span>
             </xsl:when>
             <xsl:when test="parent::*/@xml:lang">
                 <!-- Quotes need to be outside langattr for Syriac and arabic characters to render correctly.  -->
-                <span dir="ltr"><xsl:text> “</xsl:text></span>
+                <span dir="ltr">
+                    <xsl:text> “</xsl:text>
+                </span>
                 <span class="langattr">
                     <xsl:attribute name="dir">
                         <xsl:choose>
@@ -1310,7 +1312,9 @@
                     </xsl:attribute>
                     <xsl:apply-templates/>
                 </span>
-                <span dir="ltr"><xsl:text>”  </xsl:text></span>
+                <span dir="ltr">
+                    <xsl:text>”  </xsl:text>
+                </span>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text> “</xsl:text>
