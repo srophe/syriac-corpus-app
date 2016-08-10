@@ -371,7 +371,7 @@ td {
 /* Browse page styles */
 .syr-list{padding-right:7em; padding-top:2em; text-align: right;}
 .en-list{padding-left:5em; padding-top:2em;}
-.float-container{overflow:auto;}
+.float-container{overflow:auto; padding:.75em 0;}
 .alpha-pages {margin-top:-2em;}
 .browse-alpha {border-bottom:1px solid #ccc; padding-left:1em; padding:0; margin-bottom:1em; text-align: justify;}
 
