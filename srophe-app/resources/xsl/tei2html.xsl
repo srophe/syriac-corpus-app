@@ -559,7 +559,7 @@
         </xsl:if>
         
         <!-- Confessions/Religious Communities -->
-        <xsl:if test="t:confessions/t:state[@type='confession'][parent::t:place] | t:state[@type='confession'][parent::t:place]">
+        <xsl:if test="t:confessions/t:state[@type='confession'] | t:state[@type='confession'][parent::t:place]">
             <div>
                 <h3>Known Religious Communities</h3>
                 <p class="caveat">
