@@ -37,6 +37,7 @@ else if(matches($exist:resource,"^[0-9]+$") or matches($exist:resource,"^(.[1-9]
         else if(starts-with($exist:path, "/work/")) then '/bhse/work.html'
         else if(starts-with($exist:path, "/manuscript/")) then '/mss/manuscript.html'
         else if(starts-with($exist:path, "/spear/")) then '/spear/factoid.html'
+        else if(starts-with($exist:path, "/bibl/")) then '/bibl/bibl.html'
         else '/404.html'
       return
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
