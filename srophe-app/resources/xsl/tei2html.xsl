@@ -923,7 +923,8 @@
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:variable>
-                            <xsl:text> (</xsl:text><xsl:value-of select="$bibl-type"/>
+                            <xsl:text> (</xsl:text>
+                            <xsl:value-of select="$bibl-type"/>
                             <xsl:text> from  </xsl:text>
                             <!--<xsl:value-of select="$bibl-rel"/>-->
                             <xsl:choose>
@@ -932,10 +933,10 @@
                                         <xsl:variable name="rel" select="substring-after(.,'#')"/>
                                         <xsl:for-each select="$parent/t:bibl">
                                             <xsl:if test="@xml:id = $rel">
-                                                    <xsl:choose>
-                                                        <xsl:when test="@type='lawd:Edition'">editions</xsl:when>
-                                                        <xsl:when test="@type='lawd:WrittenWork'">manuscript witnesses</xsl:when>
-                                                    </xsl:choose>
+                                                <xsl:choose>
+                                                    <xsl:when test="@type='lawd:Edition'">editions</xsl:when>
+                                                    <xsl:when test="@type='lawd:WrittenWork'">manuscript witnesses</xsl:when>
+                                                </xsl:choose>
                                                 <xsl:text> </xsl:text>
                                                 <xsl:value-of select="position()"/>
                                             </xsl:if>
@@ -1448,7 +1449,7 @@
     <xsl:template match="t:persName" mode="plain">
         <span class="persName">
             <xsl:call-template name="langattr"/>
-            <xsl:apply-templates mode="plain"/>
+            <xsl:apply-templates/>
         </span>
     </xsl:template>
     <xsl:template match="t:roleName">
