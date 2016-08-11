@@ -813,7 +813,7 @@
     <xsl:template name="aboutEntry">
         <div id="about">
             <xsl:choose>
-                <xsl:when test="/descendant::t:idno[contains(.,'/bibl/')]">
+                <xsl:when test="contains($resource-id,'/bibl/')">
                     <h3>About this Online Entry</h3>
                     <xsl:apply-templates select="/descendant::t:teiHeader/t:fileDesc/t:titleStmt" mode="about-bibl"/>
                 </xsl:when>
