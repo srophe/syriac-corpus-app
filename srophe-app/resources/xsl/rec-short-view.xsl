@@ -121,7 +121,6 @@
                         -->
                         <a href="{$nav-base}/authors/index.html">
                             <img src="{$nav-base}/resources/img/icons-authors-sm.png" alt="A Guide to Syriac Authors"/>author</a>
-                        
                     </xsl:when>
                     <xsl:when test=". = 'Qadishe: A Guide to the Syriac Saints'">
                         <!--
@@ -146,8 +145,8 @@
         <xsl:variable name="type" select="descendant::t:place/@type"/>
         <xsl:variable name="main-title">
             <xsl:choose>
-                <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')]">
-                    <xsl:for-each select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][matches(@xml:lang,'^en')]">
+                <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][@xml:lang = 'en']">
+                    <xsl:for-each select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][@xml:lang = 'en']">
                         <xsl:apply-templates/>
                     </xsl:for-each>
                 </xsl:when>
