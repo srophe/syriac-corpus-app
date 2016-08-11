@@ -913,6 +913,57 @@
                     <span>
                         <xsl:call-template name="langattr"/>
                         <xsl:apply-templates mode="footnote"/>
+                        <xsl:if test="@type=('lawd:Edition','lawd:Translation') and t:listRelation/t:relation">
+                            <xsl:variable name="parent" select="parent::*[1]"/>
+                            <xsl:variable name="bibl-type">
+                                <xsl:choose>
+                                    <xsl:when test="@type='lawd:Translation'">Translation</xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text>Edition</xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:variable>
+                            <xsl:text> (</xsl:text><xsl:value-of select="$bibl-type"/>
+                            <xsl:text> from  </xsl:text>
+                            <!--<xsl:value-of select="$bibl-rel"/>-->
+                            <xsl:choose>
+                                <xsl:when test="contains(t:listRelation/t:relation/@passive,' ')">
+                                    <xsl:for-each select="tokenize(t:listRelation/t:relation/@passive,' ')">
+                                        <xsl:variable name="rel" select="substring-after(.,'#')"/>
+                                        <xsl:for-each select="$parent/t:bibl">
+                                            <xsl:if test="@xml:id = $rel">
+                                                    <xsl:choose>
+                                                        <xsl:when test="@type='lawd:Edition'">editions</xsl:when>
+                                                        <xsl:when test="@type='lawd:WrittenWork'">manuscript witnesses</xsl:when>
+                                                    </xsl:choose>
+                                                <xsl:text> </xsl:text>
+                                                <xsl:value-of select="position()"/>
+                                            </xsl:if>
+                                        </xsl:for-each>
+                                        <xsl:if test="position() != last()">, </xsl:if>
+                                    </xsl:for-each>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:variable name="rel" select="substring-after(t:listRelation/t:relation/@passive,'#')"/>
+                                    <xsl:for-each select="$parent/t:bibl">
+                                        <xsl:if test="@xml:id = $rel">
+                                            <xsl:choose>
+                                                <xsl:when test="@type='lawd:Edition'">edition</xsl:when>
+                                                <xsl:when test="@type='lawd:WrittenWork'">manuscript witness</xsl:when>
+                                            </xsl:choose>
+                                            <xsl:text> </xsl:text>
+                                            <xsl:value-of select="position()"/>
+                                        </xsl:if>
+                                    </xsl:for-each>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:text>. See below.)</xsl:text>
+                            <xsl:if test="t:listRelation/t:relation/t:desc">
+                                <xsl:text> [</xsl:text>
+                                <xsl:value-of select="t:listRelation/t:relation/t:desc"/>
+                                <xsl:text>]</xsl:text>
+                            </xsl:if>
+                        </xsl:if>
                     </span>
                 </li>
             </xsl:when>
