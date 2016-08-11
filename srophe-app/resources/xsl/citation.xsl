@@ -167,13 +167,6 @@
             <xsl:text> </xsl:text>
             <xsl:apply-templates select="t:title[1]" mode="footnote"/>
         </p>
-        <!--
-        <p>
-            <span class="heading-inline">Entry Contributor<xsl:if test="count(t:editor[@role='creator'])>1">s</xsl:if>:</span>
-            <xsl:text> </xsl:text>
-            <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='creator'],'footnote',count(t:editor[@role='creator'])+1)"/>
-        </p>
-        -->
         <p>
             <span class="heading-inline">Publication Date: </span>
             <xsl:text> </xsl:text>
@@ -235,14 +228,9 @@
         </xsl:if>
     </xsl:template>
     <xsl:template match="t:titleStmt" mode="about-bibl">
-        <!--
+        <xsl:variable name="entry-title" select="t:title[@level='a'][1]"/>
         <p>
-            <span class="heading-inline">Entry Contributor<xsl:if test="count(t:editor[@role='creator'])>1">s</xsl:if>:</span>
-            <xsl:text> </xsl:text>
-            <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='creator'],'footnote',count(t:editor[@role='creator'])+1)"/>
-        </p>
-        -->
-        <p><span class="heading-inline">Date Entry Added: </span>
+            <span class="heading-inline">Date Entry Added: </span>
             <xsl:text> </xsl:text>
             <xsl:for-each select="../t:publicationStmt/t:date[1]">
                 <xsl:choose>
@@ -271,14 +259,16 @@
                     <xsl:sequence select="local:emit-responsible-persons-all(t:editor[@role='general'],'footnote')"/>
                     <xsl:text>, editor</xsl:text>
                     <xsl:if test="count(t:editor[@role='general'])&gt; 1">s</xsl:if>
-                    <xsl:text>, </xsl:text>
-                    <!-- NOTE: this is a problem in record bibl/859 no level='m' and no seriesStmt -->
-                    <xsl:apply-templates select="t:title[@level='m'][1]" mode="footnote"/>
+                    <xsl:text>, </xsl:text><em>Syriaca.org Works Cited</em>
                 </li>
                 <xsl:for-each select="t:editor[@role= ('creator','contributor')]">
                     <li>
                         <xsl:sequence select="local:emit-responsible-persons-all(.,'biblist')"/>
                         <xsl:text>, entry contributor</xsl:text>
+                        <xsl:text>, </xsl:text>
+                        <xsl:text>“</xsl:text>
+                            <xsl:value-of select="//t:titleStmt/t:title[1]"/>
+                        <xsl:text>”</xsl:text>
                     </li>
                 </xsl:for-each>
             </ul>

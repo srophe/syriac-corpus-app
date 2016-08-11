@@ -181,7 +181,9 @@
                         <xsl:when test="not(empty(t:citedRange))">
                             <xsl:for-each select="t:citedRange">
                                 <xsl:apply-templates select="." mode="footnote"/>
-                                <xsl:if test="not(last())"><xsl:text>, </xsl:text></xsl:if>
+                                <xsl:if test="not(last())">
+                                    <xsl:text>, </xsl:text>
+                                </xsl:if>
                             </xsl:for-each>
                         </xsl:when>
                         <xsl:otherwise>
@@ -665,7 +667,7 @@
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle authors and editors in the context of a footnote
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <xsl:template match="t:author | t:editor | t:principal | t:person | t:persName" mode="footnote biblist" priority="1">
+    <xsl:template match="t:author | t:editor | t:principal | t:person | t:persName | t:name" mode="footnote biblist" priority="1">
         <xsl:choose>
             <xsl:when test="@ref and starts-with(@ref, $editoruriprefix)">
                 <xsl:variable name="sought" select="substring-after(@ref, $editoruriprefix)"/>
@@ -922,6 +924,9 @@
                         <xsl:when test="@level='u'">
                             <xsl:text>-unpublished</xsl:text>
                         </xsl:when>
+                        <xsl:when test="parent::t:persName">
+                            <xsl:text>-person</xsl:text>
+                        </xsl:when>
                     </xsl:choose>
                 </xsl:attribute>
                 <xsl:for-each select="./node()">
@@ -1014,7 +1019,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle bibliographic records, output full record
