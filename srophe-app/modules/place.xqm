@@ -184,7 +184,7 @@ declare function place:confessions($node as node(), $model as map(*)){
     let $data := $model("data")//tei:place
     return if($data/tei:state[@type='confession']) then 
         let $confessions := doc($global:app-root || "/documentation/confessions.xml")//tei:list
-        return
+        return 
         global:tei2html(
         <place xmlns="http://www.tei-c.org/ns/1.0">
             <confessions xmlns="http://www.tei-c.org/ns/1.0">
@@ -219,21 +219,26 @@ declare function place:related-places($node as node(), $model as map(*)){
                         let $item-uri := $rel-item
                         let $place-id := concat('place-',$item-id)
                         return
-                            <relation id="{$item-id}" uri="{$item-uri}" varient="active">
-                            {
-                                (for $att in $related/@*
-                                    return
-                                         attribute {name($att)} {$att},                      
-                                for $get-related in collection($global:data-root || "/places/tei")/id($place-id)
-                                return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
-                            }
-                            </relation>
+                            if(starts-with($item-id,'#')) then ()
+                            else
+                                <relation id="{$item-id}" uri="{$item-uri}" varient="active">
+                                {
+                                    (for $att in $related/@*
+                                        return
+                                             attribute {name($att)} {$att},                      
+                                    for $get-related in collection($global:data-root || "/places/tei")/id($place-id)
+                                    return $get-related/tei:placeName[@syriaca-tags='#syriaca-headword'][@xml:lang='en'])
+                                }
+                                </relation>
+                            
                     let $passive := 
                         for $rel-item in tokenize($related/@passive,' ')
                         let $item-id := tokenize($rel-item, '/')[last()]
                         let $item-uri := $rel-item
                         let $place-id := concat('place-',$item-id)
                         return
+                            if(starts-with($item-id,'#')) then ()
+                            else
                             <relation id="{$item-id}" uri="{$item-uri}" varient="passive">
                             {
                                 (for $att in $related/@*
