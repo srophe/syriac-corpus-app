@@ -174,7 +174,25 @@
             <!-- Main footnote display, used by "Sources" portion of Syriaca.org pages -->
             <xsl:otherwise>
                 <span class="footnote-content">
-                    <xsl:apply-templates mode="footnote"/>
+                    <xsl:call-template name="persons"/>
+                    <xsl:text> </xsl:text>
+                    <xsl:apply-templates select="t:title" mode="footnote"/>
+                    <xsl:choose>
+                        <xsl:when test="not(empty(t:citedRange))">
+                            <xsl:for-each select="t:citedRange">
+                                <xsl:apply-templates select="." mode="footnote"/>
+                                <xsl:if test="not(last())"><xsl:text>, </xsl:text></xsl:if>
+                            </xsl:for-each>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>.</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:sequence select="$note"/>
+                    <span class="footnote-links">
+                        <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
+                        <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
+                    </span>
                 </span>
             </xsl:otherwise>
         </xsl:choose>
