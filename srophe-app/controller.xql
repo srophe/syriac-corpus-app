@@ -27,10 +27,9 @@ else if (ends-with($exist:path,"/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="index.html"/>
     </dispatch>
-else if(matches($exist:resource,"^[0-9]+(-[0-9]+)+$") or (matches($exist:resource,"^[0-9]+$")) or matches($exist:resource,"^(.[1-9])\.html")) then
+else if(matches($exist:resource,"^[0-9]+$") or matches($exist:resource,"^(.[1-9])\.html")) then
     let $id := 
-        if(matches($exist:resource,"^[0-9]+(-[0-9]+)+$")) then $exist:resource
-        else if(matches($exist:resource,"^[0-9]+$")) then $exist:resource
+        if(matches($exist:resource,"^[0-9]+$")) then $exist:resource
         else substring-before($exist:resource,'.html')
     let $html-path :=
         if(starts-with($exist:path, "/place/")) then '/geo/place.html'
@@ -38,14 +37,15 @@ else if(matches($exist:resource,"^[0-9]+(-[0-9]+)+$") or (matches($exist:resourc
         else if(starts-with($exist:path, "/work/")) then '/bhse/work.html'
         else if(starts-with($exist:path, "/manuscript/")) then '/mss/manuscript.html'
         else if(starts-with($exist:path, "/spear/")) then '/spear/factoid.html'
-        else if(starts-with($exist:path, "/bibl/")) then '/bibl/bibl.html'
         else '/404.html'
       return
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
             <forward url="{$exist:controller}{$html-path}"></forward>
                 <view>
                     <forward url="{$exist:controller}/modules/view.xql">
-                        <add-parameter name="id" value="{$id}"/>
+                        {if(starts-with($exist:path, "/work/")) then <add-parameter name="id" value="{concat('http://syriaca.org/work/',$id)}"/>
+                         else <add-parameter name="id" value="{$id}"/>
+                        }
                     </forward>
                 </view>
                 <error-handler>
@@ -70,10 +70,10 @@ else if (contains($exist:path,'/api/')) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <forward url="{concat('/restxq/srophe', $exist:path)}" absolute="yes"/>
     </dispatch>
-else if (ends-with($exist:path, "/atom") or ends-with($exist:path, "/tei")  or ends-with($exist:path, "/ttl") ) then
+else if (ends-with($exist:path, "/atom") or ends-with($exist:path, "/tei")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <forward url="{concat('/restxq', $exist:path)}" absolute="yes"/>
-    </dispatch>   
+    </dispatch>
 else if (ends-with($exist:resource, ".html")) then
     (: the html page is run through view.xql to expand templates :)
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
@@ -103,7 +103,7 @@ else if (contains($exist:path, "/$shared/")) then
 else if (matches($exist:resource, "^([^.]+)$")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="{concat($exist:path,'/index.html')}"/>
-    </dispatch>     
+    </dispatch>         
 else
     (: everything else is passed through :)
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
