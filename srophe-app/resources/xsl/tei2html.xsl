@@ -639,7 +639,7 @@
                 <!--<xsl:sort select="current-grouping-key()" order="descending"/>-->
                 <xsl:variable name="label">
                     <xsl:choose>
-                        <xsl:when test="current-grouping-key() = 'MSS'">Manuscript Witnesses</xsl:when>
+                        <xsl:when test="current-grouping-key() = 'MSS'">Syriac Manuscript Witnesses</xsl:when>
                         <xsl:when test="current-grouping-key() = 'incipit'">Incipit (Opening Line)</xsl:when>
                         <xsl:when test="current-grouping-key() = 'explicit'">Explicit (Closing Line)</xsl:when>
                         <xsl:when test="current-grouping-key() = 'ancientVersion'">Ancient Versions</xsl:when>
