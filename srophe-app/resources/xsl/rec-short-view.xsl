@@ -461,7 +461,7 @@
                     </xsl:if>
                     <xsl:if test="descendant::t:biblStruct">
                         <span class="results-list-desc desc" dir="ltr" lang="en">
-                            <xsl:apply-templates select="descendant::t:biblStruct" mode="footnote"/>
+                            <xsl:apply-templates select="descendant::t:biblStruct" mode="bibliography"/>
                         </span>
                     </xsl:if>
                     <xsl:if test="//*:match">
