@@ -676,7 +676,7 @@
                         <xsl:variable name="label">
                             <xsl:choose>
                                 <xsl:when test="current-grouping-key() = 'lawd:Edition'">Editions</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'lawd:WrittenWork'">Manuscript Witnesses</xsl:when>
+                                <xsl:when test="current-grouping-key() = 'lawd:WrittenWork'">Syriac Manuscript Witnesses</xsl:when>
                                 <xsl:when test="current-grouping-key() = 'lawd:Translation'">Modern Translations</xsl:when>
                                 <xsl:otherwise>
                                     <xsl:value-of select="current-grouping-key()"/>
@@ -937,8 +937,8 @@
                                         <xsl:for-each select="$parent/t:bibl">
                                             <xsl:if test="@xml:id = $rel">
                                                 <xsl:choose>
-                                                    <xsl:when test="@type='lawd:Edition'">editions</xsl:when>
-                                                    <xsl:when test="@type='lawd:WrittenWork'">manuscript witnesses</xsl:when>
+                                                    <xsl:when test="@type='lawd:Edition'">Editions</xsl:when>
+                                                    <xsl:when test="@type='lawd:WrittenWork'">Syriac Manuscript Witnesses</xsl:when>
                                                 </xsl:choose>
                                                 <xsl:text> </xsl:text>
                                                 <xsl:value-of select="position()"/>
