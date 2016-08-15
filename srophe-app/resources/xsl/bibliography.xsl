@@ -108,9 +108,29 @@
      assumption: you want the footnote included in a text item such as a <p> or <note>
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:bibl" mode="inline">
-        <xsl:call-template name="footnote"/>
+        <xsl:choose>
+            <xsl:when test="parent::t:note">
+                <xsl:choose>
+                    <xsl:when test="t:ptr/@target">
+                        <a href="{t:ptr/@target}">
+                            <xsl:call-template name="footnote"/>
+                        </a>
+                    </xsl:when>
+                    <xsl:otherwise>  
+                        <xsl:call-template name="footnote"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="text()">
+                <xsl:apply-templates/>
+                <!-- biblScope is not showing up -->
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:call-template name="footnote"/>                
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-    
+   
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      Named template used by inline and list style footnotes. 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -184,19 +204,15 @@
                     <xsl:call-template name="persons"/>
                     <xsl:text> </xsl:text>
                     <xsl:apply-templates select="t:title" mode="footnote"/>
-                    <xsl:choose>
-                        <xsl:when test="not(empty(t:citedRange))">
-                            <xsl:for-each select="t:citedRange">
-                                <xsl:apply-templates select="." mode="footnote"/>
-                                <xsl:if test="not(last())">
-                                    <xsl:text>, </xsl:text>
-                                </xsl:if>
-                            </xsl:for-each>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:text>.</xsl:text>
-                        </xsl:otherwise>
-                    </xsl:choose>
+                    <xsl:if test="not(empty(t:citedRange))">
+                        <xsl:text>, </xsl:text>
+                        <xsl:for-each select="t:citedRange">
+                            <xsl:apply-templates select="." mode="footnote"/>
+                            <xsl:if test="not(last())">
+                                <xsl:text>, </xsl:text>
+                            </xsl:if>
+                        </xsl:for-each>
+                    </xsl:if>
                     <xsl:sequence select="$note"/>
                     <span class="footnote-links">
                         <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
@@ -986,7 +1002,7 @@
     </xsl:template>
     
     <!-- Templates for adding links and icons to uris -->
-    <xsl:template match="t:idno | t:ref" mode="links">
+    <xsl:template match="t:idno | t:ref | t:ptr" mode="links">
         <xsl:variable name="ref">
             <xsl:choose>
                 <xsl:when test="self::t:ref/@target">
@@ -1204,7 +1220,6 @@
             </xsl:choose>
         </p>
     </xsl:template>
-    
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      suppress otherwise unhandled descendent nodes and attibutes of bibl or 
