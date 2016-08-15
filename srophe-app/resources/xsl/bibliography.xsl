@@ -73,11 +73,13 @@
         </xsl:variable>
         <!-- When ptr is available, use full bibl record (indicated by ptr) -->
         <xsl:choose>
+            <!--
             <xsl:when test="self::t:bibl[t:ptr][not(t:title)]">
                 <a href="{t:ptr/@target}">
                     <xsl:value-of select="."/>
                 </a>
             </xsl:when>
+            -->
             <xsl:when test="descendant::t:ptr[@target and starts-with(@target, '#')]">
                 <xsl:variable name="target" select="substring-after(descendant::t:ptr/@target,'#')"/>
                 <xsl:apply-templates select="/t:body/t:back/descendant::t:bibl[@xml:id = $target]" mode="footnote"/>
@@ -370,7 +372,9 @@
             <xsl:text> </xsl:text>
         </xsl:if>
         <xsl:choose>
-            <xsl:when test="following-sibling::t:series"><xsl:apply-templates select="t:series" mode="footnote"/></xsl:when>
+            <xsl:when test="following-sibling::t:series">
+                <xsl:apply-templates select="t:series" mode="footnote"/>
+            </xsl:when>
             <xsl:when test="following-sibling::t:monogr">
                 <xsl:text>, </xsl:text>
             </xsl:when>
@@ -463,7 +467,6 @@
             <xsl:apply-templates select="t:biblScope[@unit='vol']" mode="footnote"/>
             <xsl:text> </xsl:text>
         </xsl:if>
-       
         <xsl:choose>
             <xsl:when test="following-sibling::t:series">
                 <xsl:apply-templates select="t:series" mode="footnote"/>
