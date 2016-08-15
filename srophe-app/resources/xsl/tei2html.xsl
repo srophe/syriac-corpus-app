@@ -688,8 +688,6 @@
                         </h3>
                         <ol>
                             <xsl:for-each select="current-group()">
-                                <xsl:sort select="if(current-grouping-key() = 'MSS') then substring-after(t:bibl/@xml:id,'-') = '' else if(current-grouping-key() = 'editions') then substring-after(t:bibl/@corresp,'-') = '' else if(@xml:lang) then local:expand-lang(@xml:lang,$label) else ." order="ascending"/>
-                                <xsl:sort select="if(current-grouping-key() = 'MSS' and (substring-after(t:bibl/@xml:id,'-') castable as xs:integer)) then xs:integer(substring-after(t:bibl/@xml:id,'-')) else if(@xml:lang) then local:expand-lang(@xml:lang,$label) else ()" order="ascending"/>
                                 <xsl:apply-templates select="self::*"/>
                             </xsl:for-each>
                         </ol>
@@ -913,9 +911,14 @@
         <xsl:choose>
             <xsl:when test="@type=('lawd:Edition','lawd:Translation','lawd:WrittenWork')">
                 <li>
+                    <xsl:if test="descendant::t:lang/text()">
+                        <span class="srp-label">
+                            <xsl:value-of select="local:expand-lang(descendant::t:lang/text(),'lawd:Edition')"/>:
+                        </span>
+                    </xsl:if>
                     <span>
                         <xsl:call-template name="langattr"/>
-                        <xsl:apply-templates mode="footnote"/>
+                        <xsl:apply-templates select="self::*" mode="inline"/>
                         <xsl:if test="@type=('lawd:Edition','lawd:Translation') and t:listRelation/t:relation">
                             <xsl:variable name="parent" select="parent::*[1]"/>
                             <xsl:variable name="bibl-type">
