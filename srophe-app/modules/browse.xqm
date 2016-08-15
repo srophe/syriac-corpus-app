@@ -174,10 +174,15 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
 let $hits-main := util:eval(concat(browse:collection-path($collection),browse:sub-collection-filter($collection)))
 let $hits := util:eval(concat("$hits-main",browse:filters($collection)))
 let $data := 
-    if($browse:computed-lang != '' and $browse:sort != '') then 
-        for $hit in $hits[matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
-        order by $hit collation "?lang=en&lt;syr&amp;decomposition=full"
-        return $hit/ancestor::tei:TEI  
+    if($collection = 'bibl' and not($browse:view)) then
+            for $hit in $hits-main//tei:titleStmt/tei:title[1][matches(.,'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')]
+            where $hit[matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
+            order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'')
+            return $hit/ancestor::tei:TEI
+    else if($browse:computed-lang != '' and $browse:sort != '') then 
+            for $hit in $hits[matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
+            order by $hit collation "?lang=en&lt;syr&amp;decomposition=full"
+            return $hit/ancestor::tei:TEI  
     (:TEST:)        
     else if($browse:view = 'numeric') then
         for $hit in $hits/ancestor::tei:TEI/descendant::tei:idno[starts-with(.,$global:base-uri)][1]
@@ -190,13 +195,14 @@ let $data :=
         return $hit/ancestor::tei:TEI
 (:Next  4 are used by bibl module:)        
     else if($browse:view = 'A-Z') then
-        for $hit in $hits-main//tei:titleStmt/tei:title[1][matches(.,'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')]
-        order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'')
-        return $hit/ancestor::tei:TEI
+            for $hit in $hits-main//tei:titleStmt/tei:title[1][matches(.,'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')]
+            where $hit[matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
+            order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'')
+            return $hit/ancestor::tei:TEI
     else if($browse:view = 'ܐ-ܬ') then
-        for $hit in $hits-main//tei:titleStmt/tei:title[1][matches(.,'\p{IsSyriac}','i')]
-        order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'') collation "?lang=syr&amp;decomposition=full"
-        return $hit/ancestor::tei:TEI                            
+            for $hit in $hits-main//tei:titleStmt/tei:title[1][matches(.,'\p{IsSyriac}','i')]
+            order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'') collation "?lang=syr&amp;decomposition=full"
+            return $hit/ancestor::tei:TEI                            
     else if($browse:view = 'ا-ي') then
         for $hit in $hits-main//tei:titleStmt/tei:title[1][matches(.,'\p{IsArabic}','i')]
         order by  global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'ar') collation "?lang=ar&amp;decomposition=full"
@@ -296,16 +302,14 @@ declare %templates:wrap function browse:pageination($node as node()*, $model as 
 };
 
 declare function browse:pages($hits, $collection as xs:string?, $sort-options as xs:string*){
-if(count($hits) gt $browse:perpage) then 
-   page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)
-else ()   
+ page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)
 };
 
 (:
  : Set up browse page, select correct results function based on URI params
  : @param $collection passed from html 
 :)
-declare function browse:results-panel($node as node(), $model as map(*), $collection){
+declare function browse:results-panel($node as node(), $model as map(*), $collection, $sort-options as xs:string*){
 let $hits := $model("browse-data")
 return
 if($collection = 'spear') then bs:spear-results-panel($hits)
@@ -339,8 +343,9 @@ else if($browse:view = 'map') then
     <div class="col-md-12 map-lg">
         {geo:build-map($hits//tei:geo, '', '')}
     </div>
-else if($browse:view = 'all' or $browse:view = 'A-Z' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then 
+else if($browse:view = 'all' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then 
     <div class="col-md-12">
+        <div>{browse:pages($hits, $collection, $sort-options)}</div>
         <div>{browse:display-hits($hits)}</div>
     </div>
 else 
@@ -349,7 +354,7 @@ else
         if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),
         <div class="float-container">
             <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right"}">
-                 <div>{browse:pages($hits, $collection, '')}</div>
+                 <div>{browse:pages($hits, $collection, $sort-options)}</div>
             </div>
             {browse:browse-abc-menu()}
         </div>,
@@ -405,7 +410,7 @@ declare function browse:browse-abc-menu(){
             else                
                 for $letter in tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z', ' ')
                 return
-                    <li><a href="?lang={$browse:computed-lang}&amp;sort={$letter}">{$letter}</a></li>
+                    <li><a href="?lang={$browse:lang}&amp;sort={$letter}">{$letter}</a></li>
         }
         </ul>
     </div>
