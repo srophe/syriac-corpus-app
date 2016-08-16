@@ -49,7 +49,7 @@ declare function rel:decode-relationship($related as node()*){
      if($related/tei:desc != '') then
         distinct-values($related/tei:desc/text())
      else 
-        let $name := $related/@name
+        let $name := $related/@name | $related/@ref
         for $name in $name
         let $subject-type := rel:get-subject-type($related/@passive)
         return 
@@ -58,8 +58,8 @@ declare function rel:decode-relationship($related as node()*){
             else if($name = 'syriaca:commemorated') then
                 concat($subject-type,' commemorated:  ')    
             else  string-join(
-                for $w in tokenize(replace($name,'-|:',' '),' ')
-                return functx:capitalize-first($w),' ')
+                for $w in tokenize($name,' ')
+                return functx:capitalize-first(substring-after(functx:camel-case-to-words($w,' '),':')),' ')
      }
  </span>
 };
