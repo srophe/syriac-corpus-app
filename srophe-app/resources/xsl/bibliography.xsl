@@ -113,11 +113,15 @@
                 <xsl:choose>
                     <xsl:when test="t:ptr/@target">
                         <a href="{t:ptr/@target}">
-                            <xsl:call-template name="footnote"/>
+                            <xsl:apply-templates mode="footnote"/>
+                            <!--<xsl:call-template name="footnote"/>-->
                         </a>
                     </xsl:when>
-                    <xsl:otherwise>  
-                        <xsl:call-template name="footnote"/>
+                    <xsl:when test="text()">
+                        <xsl:apply-templates mode="footnote"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates mode="footnote"/>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -126,7 +130,7 @@
                 <!-- biblScope is not showing up -->
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="footnote"/>                
+                <xsl:apply-templates mode="footnote"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
