@@ -10,14 +10,14 @@ import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 
-(:~          
+(:~                 
  : Syriaca.org URI for retrieving TEI records 
 :)
 declare variable $app:id {request:get-parameter('id', '')};
 declare variable $app:start {request:get-parameter('start', 1) cast as xs:integer};
 declare variable $app:perpage {request:get-parameter('perpage', 5) cast as xs:integer};
 
-(:~      
+(:~                   
  : Traverse main nav and "fix" links based on values in config.xml
  : Replaces $app-root with vaule defined in config.xml. 
  : This allows for more flexible deployment for dev and production environments.   
@@ -101,7 +101,7 @@ http://syriaca.org/work/ http://syriaca.org/work/488
  : Simple get record function, get tei record based on idno
  : Builds uri from simple ids.
  : @param $app:id syriaca.org uri   
-:)   
+:)    
 declare function app:get-rec($node as node(), $model as map(*), $collection as xs:string?) { 
 if($app:id != '') then 
     let $id :=
@@ -169,6 +169,15 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                 rel:cited($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')], $app:start,$app:perpage)
                 )}  
             </div>
+        </div>
+    else if($model("data")//tei:body/tei:bibl/tei:listRelation) then 
+        <div class="row">
+            <div class="col-md-8 column1">
+                {global:tei2html($model("data")/descendant::tei:body)} 
+            </div>
+            <div class="col-md-4 column2">
+                {rel:build-relationships($model("data")//tei:body/tei:bibl/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))}  
+            </div>
         </div>  
     else if($model("data")//tei:relation) then 
        <div class="row">
@@ -217,9 +226,9 @@ declare %templates:wrap function app:set-data($node as node(), $model as map(*),
     teiDocs:generate-docs($global:data-root || '/places/tei/78.xml')
 };
 
-(:~
+(:~          
  : Builds Dublin Core metadata
- : If id parameter is present use place data to generate metadata
+ : If id parameter is present use place data to generate metadata           
  : @param $metadata:id gets place id from url
  :) 
 declare function app:get-dc-metadata(){
