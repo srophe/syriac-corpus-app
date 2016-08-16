@@ -111,7 +111,8 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 .nhsl-sm-icon {background-image: url(../img/icons-nhsl-sm.png);}
 .q-sm-icon {background-image: url(../img/icons-q-sm.png);}
 .syriaca-sm-icon {background-image: url(../img/icons-syriaca-sm.png);}
-
+.rec-status {width:100%; margin-bottom:1em;}
+.info-btns {width:100%; margin-bottom:1em;}
 /* Banner styles index page (Colors and images are set by internal css for submodules) */
 .banner-index {
     position:relative;
