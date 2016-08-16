@@ -286,7 +286,7 @@ declare %templates:wrap  function search:show-form($node as node()*, $model as m
 declare 
     %templates:default("start", 1)
 function search:show-hits($node as node()*, $model as map(*), $collection as xs:string?) {
-<div class="indent">
+<div class="indent" id="search-results">
     <div>{search:build-geojson($node,$model)}</div>
     {
         for $hit at $p in subsequence($model("hits"), $search:start, $search:perpage)
