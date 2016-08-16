@@ -91,6 +91,9 @@
             <xsl:when test="$lang='es'">
                 <xsl:text>Spanish</xsl:text>
             </xsl:when>
+            <xsl:when test="$lang='tr'">
+                <xsl:text>Turkish</xsl:text>
+            </xsl:when>
             <xsl:otherwise/>
         </xsl:choose>
     </xsl:function>
