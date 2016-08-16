@@ -28,7 +28,7 @@
                         Distributed under a Creative Commons Attribution 3.0 Unported License
                     </licence>
                 </availability>
-                <date>2016-08-03</date>
+                <date>2016-08-16</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -41,6 +41,7 @@
         </encodingDesc>
         <revisionDesc>
             <change type="reminder">Please be sure to update the publication date when changes are made here!</change>
+            <change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Ugo Zanetti and Claude Detienne</change>
             <change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: J. M. Fiey as contributor</change>
             <change when="2016-07-29" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Sergey Minov, Daniel Salem, and Kristian Heal as contributors</change>
             <change when="2015-07-10" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Andrea Schmidt and Philip Forness as area editors</change>
@@ -278,10 +279,28 @@
                         <surname>Heal</surname>
                     </persName>
                 </person>
-                <person xml:id="jfiey">
+                <person xml:id="jmfiey">
                     <persName xml:lang="en">
                         <forename>J. M.</forename>
                         <surname>Fiey</surname>
+                    </persName>
+                </person>
+                <person xml:id="uzanetti">
+                    <persName xml:lang="en">
+                        <forename>Ugo</forename>
+                        <surname>Zanetti</surname>
+                    </persName>
+                </person>
+                <person xml:id="cdetienne">
+                    <persName xml:lang="en">
+                        <forename>Claude</forename>
+                        <surname>Detienne</surname>
+                    </persName>
+                </person>
+                <person xml:id="dkiger">
+                    <persName xml:lang="en">
+                        <forename>David</forename>
+                        <surname>Kiger</surname>
                     </persName>
                 </person>
                 <org xml:id="uasyriacresearchgroup">
