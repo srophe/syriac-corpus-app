@@ -13,9 +13,9 @@ body {background-color:#666;}
 .navbar {border-bottom:4px solid #BCA7C4 !important;}
 .advanced-search > a {color:#999; text-decoration:none;}
 .banner-interior {
-	/*background-image:url('../img/persons.jpg');*/
+	background-image:url('../img/persons-banner.jpg');
 	border-bottom:4px solid #BCA7C4;
-    height:200px;	
+    height:250px;	
 }
 .banner {background-color:#BDA9C4; border-bottom:4px solid #BCA7C4;}
 
