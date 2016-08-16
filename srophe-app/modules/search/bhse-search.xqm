@@ -42,7 +42,11 @@ declare function bhses:title() as xs:string? {
 };
 
 declare function bhses:author() as xs:string? {
-    if($bhses:author != '') then concat("[ft:query(tei:bibl/tei:author,'",common:clean-string($bhses:author),"',common:options())]")
+    if($bhses:author != '') then
+        if(starts-with($bhses:author,$global:base-uri)) then 
+            concat("[tei:bibl/tei:author[@ref='",$bhses:author,"']]")
+        else
+            concat("[ft:query(tei:bibl/tei:author,'",common:clean-string($bhses:author),"',common:options())]")
     else ()    
 };
 
