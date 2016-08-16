@@ -112,11 +112,13 @@ let $pagination-links :=
                 </ul>
                 else 
                 <ul class="pagination pull-right">
-                {
+                {(
                     if($sort-options != '') then page:sort($param-string, $start, $sort-options)
-                    else()
-                }
-                <li class="pull-right"><a href="search.html"><span class="glyphicon glyphicon-search"/> New</a></li>
+                    else(),
+                    if($search-string != '') then   
+                        <li class="pull-right"><a href="search.html"><span class="glyphicon glyphicon-search"/> New</a></li>
+                    else() 
+                    )}
                 </ul>
                 }
             </div>
