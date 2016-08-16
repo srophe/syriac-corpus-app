@@ -94,9 +94,7 @@ function app:google-analytics($node as node(), $model as map(*)){
 declare %templates:wrap function app:get-nav($node as node(), $model as map(*)){
  doc($global:data-root || 'templates/subnav.xml')/child::*
 };
-(:
-http://syriaca.org/work/ http://syriaca.org/work/488
-:)
+
 (:~  
  : Simple get record function, get tei record based on idno
  : Builds uri from simple ids.
@@ -153,6 +151,14 @@ else 'Syriaca.org: The Syriac Reference Portal '
 declare function app:h1($node as node(), $model as map(*)){
  global:tei2html(<srophe-title xmlns="http://www.tei-c.org/ns/1.0">{($model("data")/descendant::tei:titleStmt[1]/tei:title[1], $model("data")/descendant::tei:idno[1])}</srophe-title>)
 }; 
+
+declare %templates:wrap  function app:rec-status($node as node(), $model as map(*), $collection as xs:string?){
+let $status := string($model("data")/descendant::tei:revisionDesc/@status)
+return
+    if($status = 'published') then ()
+    else
+    <span class="rec-status {$status} btn btn-info">Status: {$status}</span>
+};
 
 (:~  
  : Default record display, used if no sub-module functions. 
