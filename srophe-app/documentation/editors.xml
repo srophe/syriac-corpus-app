@@ -297,6 +297,12 @@
                         <surname>Detienne</surname>
                     </persName>
                 </person>
+                <person xml:id="dkiger">
+                    <persName xml:lang="en">
+                        <forename>David</forename>
+                        <surname>Kiger</surname>
+                    </persName>
+                </person>
                 <org xml:id="uasyriacresearchgroup">
                     <name xml:lang="en">The Syriac Research Group, University of Alabama</name>
                 </org>
