@@ -349,7 +349,7 @@ declare %templates:wrap function place:contact($node as node(), $model as map(*)
                 <p><strong>Notify the editors of a mistake:</strong>
                 <a class="btn btn-link togglelink" data-toggle="collapse" data-target="#viewdetails" data-text-swap="hide information">more information...</a>
                 </p>
-                <div class="section">
+                <div class="container">
                     <div class="collapse" id="viewdetails">
                     <p>Using the following form, please inform us which page URI the mistake is on, where on the page the mistake occurs,
                     the content of the correction, and a citation for the correct information (except in the case of obvious corrections, such as misspelled words). 
