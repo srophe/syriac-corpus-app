@@ -33,7 +33,7 @@ declare variable $global:data-root :=
 (: Establish main navigation for app, used in templates for absolute links :)
 declare variable $global:nav-base := 
     if($global:get-config//nav-base/text() != '') then $global:get-config//nav-base/text()
-    else concat('/exist/apps/',$global:app-root);
+    else '';
 
 (: Base URI used in tei:idno :)
 declare variable $global:base-uri := $global:get-config//base_uri/text();
