@@ -18,6 +18,4 @@ declare namespace skos = "http://www.w3.org/2004/02/skos/core#";
 
 declare option exist:serialize "method=xml media-type=application/rss+xml omit-xml-declaration=no indent=yes";
 
-rdfq:build-collex(
-for $recs in collection('/db/apps/srophe-data/data/places/tei')
-return $recs)
+'Run queries here'
