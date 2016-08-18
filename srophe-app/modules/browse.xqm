@@ -174,7 +174,8 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
 let $hits-main := util:eval(concat(browse:collection-path($collection),browse:sub-collection-filter($collection)))
 let $hits := util:eval(concat("$hits-main",browse:filters($collection)))
 let $data := 
-    if($collection = 'bibl' and not($browse:view)) then
+    if($collection = 'spear') then util:eval(concat(browse:collection-path($collection),'//tei:div[parent::tei:body]'))
+    else if($collection = 'bibl' and not($browse:view)) then
             for $hit in $hits-main//tei:titleStmt/tei:title[1][matches(.,'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')]
             where $hit[matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
             order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'')

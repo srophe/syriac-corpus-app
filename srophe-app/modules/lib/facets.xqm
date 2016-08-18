@@ -157,7 +157,7 @@ declare function facets:build-facet($nodes, $category){
         let $new-fq := 
                 if($facets:fq) then concat('fq=',$facets:fq,' ',$facet-query)
                 else concat('fq=',$facet-query)
-        return <a href="?{$new-fq}{facets:url-params()}" class="facet-label">{string($facet-val)} <span class="count">  ({count($facet)})</span></a>
+        return <a href="?{$new-fq}{facets:url-params()}" class="facet-label btn btn-default">{string($facet-val)} <span class="count">  ({count($facet)})</span></a>
 };
 
 (:~
