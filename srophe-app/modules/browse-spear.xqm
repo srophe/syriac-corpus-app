@@ -11,6 +11,7 @@ module namespace bs="http://syriaca.org/bs";
 
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace common="http://syriaca.org/common" at "search/common.xqm";
+import module namespace functx="http://www.functx.com";
 import module namespace facets="http://syriaca.org/facets" at "lib/facets.xqm";
 import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
@@ -198,22 +199,37 @@ declare function bs:display-spear($hits){
     </div>
 </div>
 };
+
 declare function bs:hits($hits){
     for $data in subsequence($hits, $bs:start,$bs:perpage)
-    return global:display-recs-short-view($data, '')
+    let $uri := $data/@uri
+    return 
+    <div class="results-list">
+        {
+        if($data/tei:listRelation) then 
+        <span class="srp-label">[{functx:capitalize-first(string($data/tei:listRelation/tei:relation/@type))} relation] </span>
+        else ()
+        }
+        <a href="factoid.html?id={$uri}" class="syr-label">
+            {
+                if($data/descendant-or-self::tei:titleStmt) then $data/descendant-or-self::tei:titleStmt[1]/text()
+                else if($data/tei:listRelation) then 
+                    <span> 
+                     {concat(' ', functx:camel-case-to-words(substring-after($data/tei:listRelation/tei:relation/@name,':'),' '))} :
+                     {
+                     if($data/tei:listRelation/tei:relation/@active) then
+                        (string($data/tei:listRelation/tei:relation/@active),' - ',string($data/tei:listRelation/tei:relation/@passive))
+                     else 
+                        string($data/tei:listRelation/tei:relation/@mutual)
+                        }
+                    </span>
+                else substring(string-join($data/descendant-or-self::*[not(self::tei:idno)][not(self::tei:bibl)][not(self::tei:biblScope)][not(self::tei:note)][not(self::tei:orig)][not(self::tei:sic)]/text(),' '),1,550)
+            }                                    
+        </a>
+    </div>  
+
 };
-declare function bs:display-recs-short-view($node,$lang){
-  transform:transform($node, doc($global:app-root || '/resources/xsl/rec-short-view.xsl'), 
-    <parameters>
-        <param name="data-root" value="{$global:data-root}"/>
-        <param name="app-root" value="{$global:app-root}"/>
-        <param name="nav-base" value="{$global:nav-base}"/>
-        <param name="base-uri" value="{$global:base-uri}"/>
-        <param name="lang" value="en"/>
-        <param name="spear" value="true"/>
-    </parameters>
-    )
-};
+
 
 declare function bs:spear-persons($nodes){
 for $d in $nodes
@@ -225,13 +241,15 @@ let $name := if(exists($connical)) then $connical/ancestor::tei:TEI/descendant::
 order by $name[1] collation "?lang=en&lt;syr&amp;decomposition=full"
 return 
     if($connical) then 
-            bs:display-recs-short-view($connical/ancestor::tei:TEI,'')
-    else
+            global:display-recs-short-view($connical/ancestor::tei:TEI,'')
+    else ()
+    (:
      <div class="results-list">
         <span class="srp-label">Name: {$name} </span>
         <span class="results-list-desc uri"><span class="srp-label">URI: </span> {$id}</span>
         <span class="results-list-desc uri"><span class="srp-label">SPEAR: </span> <a href="factoid.html?id={$id}"> http://syriaca.org/spear/factoid.html?id={$id}</a></span>
     </div>
+    :)
 };
 
 declare function bs:spear-places($nodes){
@@ -244,13 +262,15 @@ let $name := if($connical) then $connical/ancestor::tei:TEI/descendant::tei:titl
 order by $name[1] collation "?lang=en&lt;syr&amp;decomposition=full"
 return 
     if($connical) then 
-            bs:display-recs-short-view($connical/ancestor::tei:TEI,'')
-    else
+            global:display-recs-short-view($connical/ancestor::tei:TEI,'')
+    else ()
+    (:
      <div class="results-list">
         <span class="srp-label">Name: {$name} </span>
         <span class="results-list-desc uri"><span class="srp-label">URI: </span> {$id}</span>
         <span class="results-list-desc uri"><span class="srp-label">SPEAR: </span> <a href="factoid.html?id={$id}"> http://syriaca.org/spear/factoid.html?id={$id}</a></span>
     </div>
+    :)
 };
 
 (:~
