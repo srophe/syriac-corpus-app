@@ -867,7 +867,7 @@
     <xsl:template match="t:foreign">
         <xsl:choose>
             <xsl:when test="starts-with(@xml:lang,'syr') or starts-with(@xml:lang,'ar')">
-                <span lang="{@xml:id}" dir="rtl">
+                <span lang="{@xml:lang}" dir="rtl">
                     <xsl:value-of select="."/>
                 </span>
             </xsl:when>
@@ -934,12 +934,18 @@
                                 <xsl:variable name="type" select="$parent/t:bibl[@xml:id = substring-after($bibl-id,'#')]/@type"/>
                                 <xsl:choose>
                                     <xsl:when test="$type = 'lawd:Edition'">
-                                        Edition<xsl:if test="contains(t:listRelation/t:relation/@passive,' ')"><xsl:text>s</xsl:text></xsl:if>
+                                        Edition<xsl:if test="contains(t:listRelation/t:relation/@passive,' ')">
+                                            <xsl:text>s</xsl:text>
+                                        </xsl:if>
                                     </xsl:when>
                                     <xsl:when test="$type ='lawd:WrittenWork'">
-                                        Syriac Manuscript Witnesse<xsl:if test="contains(t:listRelation/t:relation/@passive,' ')"><xsl:text>s</xsl:text></xsl:if>
+                                        Syriac Manuscript Witnesse<xsl:if test="contains(t:listRelation/t:relation/@passive,' ')">
+                                            <xsl:text>s</xsl:text>
+                                        </xsl:if>
                                     </xsl:when>
-                                    <xsl:otherwise><xsl:value-of select="string($type)"/></xsl:otherwise>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="string($type)"/>
+                                    </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:variable>
                             <xsl:text> (</xsl:text>
