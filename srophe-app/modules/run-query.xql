@@ -18,4 +18,4 @@ declare namespace skos = "http://www.w3.org/2004/02/skos/core#";
 
 declare option exist:serialize "method=xml media-type=application/rss+xml omit-xml-declaration=no indent=yes";
 
-'Run queries here'
+'temp for running queries on production'

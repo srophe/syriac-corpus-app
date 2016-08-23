@@ -14,7 +14,7 @@ import module namespace recap = "http://www.exist-db.org/xquery/util/recapture" 
 declare option exist:serialize "method=xml media-type=text/xml indent=yes";
 
 declare function local:recaptcha(){
-let $recapture-private-key := "6Lc8sQ4TAAAAALsZFuT6UWGtHNygEDMGZgQAryxe"
+let $recapture-private-key := string(environment-variable('secret'))
 return 
     recap:validate($recapture-private-key, request:get-parameter("g-recaptcha-response",()))
 };
