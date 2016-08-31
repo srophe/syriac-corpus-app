@@ -261,38 +261,29 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
                         </button>
                         <h2 class="modal-title" id="feedbackLabel">Corrections/Additions?</h2>
                     </div>
-                    <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email" role="form">
-                    <div class="modal-body" id="modal-body">
-                        <!-- More information about submitting data from howtoadd.html -->
-                        <p><strong>Notify the editors of a mistake:</strong>
-                        <a class="btn btn-link togglelink" data-toggle="collapse" data-target="#viewdetails" data-text-swap="hide information">more information...</a>
-                        </p>
-                        <div class="container">
-                            <div class="collapse" id="viewdetails">
-                            <p>Using the following form, please inform us which page URI the mistake is on, where on the page the mistake occurs,
-                            the content of the correction, and a citation for the correct information (except in the case of obvious corrections, such as misspelled words). 
-                            Please also include your email address, so that we can follow up with you regarding 
-                            anything which is unclear. We will publish your name, but not your contact information as the author of the  correction.</p>
-                            <h4>Add data to an existing entry</h4>
-                            <p>The Syriac Gazetteer is an ever expanding resource  created by and for users. The editors actively welcome additions to the gazetteer. If there is information which you would like to add to an existing place entry in The Syriac Gazetteer, please use the link below to inform us about the information, your (primary or scholarly) source(s) 
-                            for the information, and your contact information so that we can credit you for the modification. For categories of information which  The Syriac Gazetteer structure can support, please see the section headings on the entry for Edessa and  specify in your submission which category or 
-                            categories this new information falls into.  At present this information should be entered into  the email form here, although there is an additional  delay in this process as the data needs to be encoded in the appropriate structured data format  and assigned a URI. A structured form for submitting  new entries is under development.</p>
-                            </div>
+                    <form action="{$global:nav-base}/srophe/modules/email.xql" method="post" id="email" role="form">
+                        <div class="modal-body" id="modal-body">
+                            <input type="text" name="name" placeholder="Name" class="form-control" style="max-width:300px"/>
+                            <br/>
+                            <input type="text" name="email" placeholder="email" class="form-control" style="max-width:300px"/>
+                            <br/>
+                            <input type="text" name="subject" placeholder="subject" class="form-control" style="max-width:300px"/>
+                            <br/>
+                            <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
+                            <!-- start reCaptcha API-->
+                            <script type="text/javascript" src="http://api.recaptcha.net/challenge?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia"/>
+                            <noscript>
+                                <iframe src="http://api.recaptcha.net/noscript?k=6Lf1uvESAAAAAPiMWhCCFcyDqj8LVNoBKwkROCia" height="100" width="100" frameborder="0"/>
+                                <br/>
+                                <textarea name="recaptcha_challenge_field" rows="3" cols="40"/>
+                                <input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
+                            </noscript>
                         </div>
-                        <input type="text" name="name" placeholder="Name" class="form-control" style="max-width:300px"/>
-                        <br/>
-                        <input type="text" name="email" placeholder="email" class="form-control" style="max-width:300px"/>
-                        <br/>
-                        <input type="text" name="subject" placeholder="subject" class="form-control" style="max-width:300px"/>
-                        <br/>
-                        <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
-                        <!-- start reCaptcha API-->
-                        <div class="g-recaptcha" data-sitekey="6Lc8sQ4TAAAAAEDR5b52CLAsLnqZSQ1wzVPdl0rO"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default" data-dismiss="modal">Close</button><input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
-                    </div>
-                </form>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal">Close</button>
+                            <input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
+                        </div>
+                  </form>
           </div>
        </div>
         </div>
@@ -387,8 +378,8 @@ declare %templates:wrap function app:build-editor-list($node as node(), $model a
 declare %templates:wrap function app:dashboard($node as node(), $model as map(*), $collection-title, $data-dir){
     let $data := 
         if($collection-title != '') then 
-            collection(concat($global:data-root,'/',$data-dir,'/tei'))//tei:title[. = $collection-title][parent::tei:titleStmt]
-        else collection(concat($global:data-root,'/',$data-dir,'/tei'))//tei:title[@level='a'][parent::tei:titleStmt] 
+            collection($global:data-root || '/' || $data-dir || '/tei')//tei:title[. = $collection-title]
+        else collection($global:data-root || '/' || $data-dir || '/tei')//tei:title[@level='a'][parent::tei:titleStmt] 
             
     let $data-type := if($data-dir) then $data-dir else 'data'
     let $rec-num := count($data)
