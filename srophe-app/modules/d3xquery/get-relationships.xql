@@ -2,6 +2,7 @@ xquery version "3.0";
 
 import module namespace rel="http://syriaca.org/related" at "../lib/get-related.xqm";
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
+import module namespace functx="http://www.functx.com";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace snap="http://syriaca.org/snap";
 declare namespace syriaca="http://syriaca.org/syriaca";
@@ -11,11 +12,11 @@ declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
 declare option output:method "json";
 declare option output:media-type "application/json";
 
-declare variable $collection {request:get-parameter('collection', '')};
-declare variable $uri {request:get-parameter('itemURI', '')};
-declare variable $event {request:get-parameter('eventType', '')};
-declare variable $reltype {request:get-parameter('relType', '')};
-declare variable $graphType {request:get-parameter('graphType', '')};
+declare variable $collection {request:get-parameter('collection', '') cast as xs:string};
+declare variable $uri {request:get-parameter('itemURI', '') cast as xs:string};
+declare variable $event {request:get-parameter('eventType', '') cast as xs:string};
+declare variable $reltype {request:get-parameter('relType', '') cast as xs:string};
+declare variable $graphType {request:get-parameter('graphType', '') cast as xs:string};
 
 declare function local:get-events($event as xs:string*){
 let $relationships := 
@@ -33,10 +34,13 @@ return
           return  
               <json:value>
                    <id>{$uri}</id>
+                   <name>{tokenize($uri,'/')[last()]}</name>
+                   <!--
                    {
                     if(rel:get-names-json($uri) != '') then rel:get-names-json($uri)
                     else (<name>{tokenize($uri,'/')[last()]}</name>,<desc>No description</desc>)
-                    }        
+                    }  
+                    -->
                     <type>{tokenize($uri,'/')[4]}</type>
               </json:value>,
           for $r in $relationships
@@ -44,6 +48,7 @@ return
           return  
               <json:value>
                    <id>{$uri}</id>
+                   <name>{tokenize($uri,'/')[last()]}</name>
                    {
                    if(rel:get-names-json($uri) != '') then rel:get-names-json($uri)
                    else (<name>{tokenize($uri,'/')[last()]}</name>,<desc>No description</desc>)
@@ -86,8 +91,10 @@ declare function local:get-relationships($uri as xs:string*, $rel-type as xs:str
 let $relationships :=
     (: Return just the record and its relations? Or find all relations with that uri? :)
     if($uri != '') then 
-        util:eval(concat("collection('/db/apps/srophe-data/data/spear/tei')//tei:relation[@passive[matches(.,'",$uri,"(\W|$)')] or @active[matches(.,'",$uri,"')] or @mutual[matches(.,'",$uri,"')]]
-        "))
+       collection('/db/apps/srophe-data/data/spear/tei')//tei:relation
+            [functx:contains-word(@passive,$uri) or 
+            functx:contains-word(@active,$uri) or 
+            functx:contains-word(@mutual,$uri)]
     else if($reltype != '') then    
        util:eval(concat("collection('/db/apps/srophe-data/data/spear/tei')//tei:relation[@name[matches(replace(.,'^(.*?):',''),'",$reltype,"')]]"))
     else collection('/db/apps/srophe-data/data/spear/tei')//tei:relation
@@ -105,10 +112,13 @@ return
                 return 
                     <json:value>
                             <id>{$uri}</id>
+                            <name>{tokenize($uri,'/')[last()]}</name>
+                            <!--
                             {
                                 if(rel:get-names-json($uri) != '') then rel:get-names-json($uri)
                                 else <name>{tokenize($uri,'/')[last()]}</name>
-                            }        
+                            }   
+                            -->
                             <type>{if(contains($uri,'/')) then tokenize($uri,'/')[4] else 'spear'}</type>
                    </json:value>
                 }
@@ -235,16 +245,12 @@ return
     </root>
 };
 
-if($graphType = 'event') then
+if(exists($graphType) and $graphType = 'event') then
     if($event = 'all') then local:bubble-events()
     else if($event != '') then local:get-events($event)
     else local:bubble-events() 
 else 
-    if($uri != '') then local:get-relationships($uri,'')
+    if(exists($uri) and $uri != '') then local:get-relationships($uri,'')
     else if($reltype = 'all') then local:bubble-relationships()
     else if($reltype != '') then local:get-relationships('',$reltype)
     else local:bubble-relationships()
-
-(:local:get-relationships(''):)
-(:local:get-events('birth'):)
-(:local:get-relationships('http://syriaca.org/place/78'):)

@@ -387,8 +387,8 @@ declare %templates:wrap function app:build-editor-list($node as node(), $model a
 declare %templates:wrap function app:dashboard($node as node(), $model as map(*), $collection-title, $data-dir){
     let $data := 
         if($collection-title != '') then 
-            collection(concat($global:data-root,'/',$data-dir,'/tei'))//tei:title[. = $collection-title][parent::tei:titleStmt]
-        else collection(concat($global:data-root,'/',$data-dir,'/tei'))//tei:title[@level='a'][parent::tei:titleStmt] 
+            collection($global:data-root || '/' || $data-dir || '/tei')//tei:title[. = $collection-title]
+        else collection($global:data-root || '/' || $data-dir || '/tei')//tei:title[@level='a'][parent::tei:titleStmt] 
             
     let $data-type := if($data-dir) then $data-dir else 'data'
     let $rec-num := count($data)

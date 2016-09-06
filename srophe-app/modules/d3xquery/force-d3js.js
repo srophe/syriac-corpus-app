@@ -44,12 +44,28 @@ d3xquery.initialGraph = function (json) {
     
     //Tooltip for mouseover
     tooltip = d3.select("body").append("div").attr("class", "toolTip").style("position", "absolute").style("z-index", "10").style("visibility", "hidden").style("background-color", "white").style("padding", "5px").text("a simple tooltip");
-    if (eventType === 'all') {
-        bubbleGraph(json);
-    } else if (relType === 'all') {
-        bubbleGraph(json);
-    } else {
+    if (itemURI !== '') {
+        console.log('We are here now itemID');
         forcegraph(json);
+    }
+    else if (eventType !== '') {
+        if(eventType === 'all') {
+            bubbleGraph(json);
+        }
+        else {
+            forcegraph(json);
+        }
+    }
+    else if (relType !== '') {
+        if(relType === 'all') {
+            bubbleGraph(json);
+        }
+        else {
+            forcegraph(json);
+        }
+    
+    } else {
+        bubbleGraph(json);
     }
 };
 

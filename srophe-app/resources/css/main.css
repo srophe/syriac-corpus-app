@@ -419,7 +419,7 @@ td {
 }
 
 /*.footnote-links {float:right; overflow:hidden; clear:right;}*/
-.footnote-icon {padding-left:.5em; font-size:18px;}
+.footnote-icon {padding-left:.5em; font-size:12px;}
 .bibl li{line-height: 1.5em;padding-bottom:.5em;}
 .bibl-links {padding:.25em; width:25px;}
 .anchor { 
@@ -708,7 +708,7 @@ unpublished
 
 /* Facet styles */
 .label-facet {background-color:#eee; color:#666; font-weight:normal; margin:.25em; display:inline-block;}
-.facet-label {margin-left:.5em; display:block;}
+.facet-label {margin-left:.5em; display:block; text-align:left; white-space: normal;}
 .facet .icon{margin-left:.25em;}
 
 /* Manuscripts */
