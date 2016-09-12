@@ -20,15 +20,55 @@ return
 };
 
 declare function local:build-message(){
-let $place := if(request:get-parameter('id','')) then concat(' for ',request:get-parameter('id','')) else ''
-let $place-uri := if(request:get-parameter('id','')) then concat(' Place: http://syriaca.org/place/',request:get-parameter('id','')) else ''
+let $id := request:get-parameter('id','')
+let $collection := request:get-parameter('collection','')
+let $uri := 
+    if($collection = 'places') then concat('http://syriaca.org/place/',$id)
+    else if($collection = ('q','authors','sbd')) then concat('http://syriaca.org/person/',$id)
+    else if($collection = ('bhse','nhsl')) then concat('http://syriaca.org/work/',$id)
+    else if($collection = 'bibl') then concat('http://syriaca.org/bibl/',$id)
+    else if($collection = 'spear') then concat('http://syriaca.org/spear/',$id)
+    else if($collection = 'mss') then concat('http://syriaca.org/manuscript/',$id)
+    else request:get-parameter('id','')
 return
   <mail>
     <from>Syriaca.org &lt;david.a.michelson@vanderbilt.edu&gt;</from>
+    {
+    if($collection = 'places') then
+        (<to>david.a.michelson@vanderbilt.edu</to>,
+        <to>thomas.a.carlson@okstate.edu</to>)
+    else if($collection = 'q') then
+        (<to>david.a.michelson@vanderbilt.edu</to>,
+        <to>jeannenicolesaint@gmail.com</to>)
+    else if($collection = 'bhse') then
+        (<to>david.a.michelson@vanderbilt.edu</to>,
+        <to>jeannenicolesaint@gmail.com</to>,  
+        <to>nathan.p.gibson@vanderbilt.edu</to>)
+    else if($collection = 'nhsl') then
+        (<to>david.a.michelson@vanderbilt.edu</to>,
+        <to>jeannenicolesaint@gmail.com</to>,  
+        <to>nathan.p.gibson@vanderbilt.edu</to>)     
+    else if($collection = 'sbd') then
+        (<to>david.a.michelson@vanderbilt.edu</to>,
+        <to>jeannenicolesaint@gmail.com</to>,  
+        <to>nathan.p.gibson@vanderbilt.edu</to>,
+        <to>daniel.schwartz@tamu.edu</to>)     
+    else if($collection = 'authors') then
+        (<to>david.a.michelson@vanderbilt.edu</to>,
+        <to>nathan.p.gibson@vanderbilt.edu</to>)
+    else if($collection = 'bibl') then
+        <to>daniel.schwartz@tamu.edu</to>
+    else if($collection = 'spear') then
+        (<to>david.a.michelson@vanderbilt.edu</to>,
+        <to>nathan.p.gibson@vanderbilt.edu</to>)
+    else if($collection = 'mss') then
+        <to>david.a.michelson@vanderbilt.edu</to>        
+    else 
+        (<cc>david.a.michelson@vanderbilt.edu</cc>,
+        <to>thomas.a.carlson@okstate.edu</to>)
+    }
     <cc>wsalesky@gmail.com</cc>
-    <cc>david.a.michelson@vanderbilt.edu</cc>
-    <to>thomas.a.carlson@okstate.edu</to>
-    <subject>{request:get-parameter('subject','')} for {request:get-parameter('place','')} {request:get-parameter('id','')}</subject>
+    <subject>{request:get-parameter('subject','')} RE: {$uri}</subject>
     <message>
       <xhtml>
            <html>
@@ -38,8 +78,8 @@ return
                <body>
                  <p>Name: {request:get-parameter('name','')}</p>
                  <p>e-mail: {request:get-parameter('email','')}</p>
-                 <p>Subject: {request:get-parameter('subject','')} {$place}</p>
-                 <p>{$place-uri}</p>
+                 <p>Subject: {request:get-parameter('subject','')}</p>
+                 <p>{$uri}</p>
                  <p>{request:get-parameter('comments','')}</p>
               </body>
            </html>
@@ -47,6 +87,7 @@ return
     </message>
   </mail>
 };
+
 
 let $cache := current-dateTime()
 return 
