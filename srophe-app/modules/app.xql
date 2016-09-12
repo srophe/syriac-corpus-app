@@ -155,7 +155,7 @@ declare function app:h1($node as node(), $model as map(*)){
 declare %templates:wrap  function app:rec-status($node as node(), $model as map(*), $collection as xs:string?){
 let $status := string($model("data")/descendant::tei:revisionDesc/@status)
 return
-    if($status = 'published') then ()
+    if($status = 'published' or $status = '') then ()
     else
     <span class="rec-status {$status} btn btn-info">Status: {$status}</span>
 };
@@ -171,6 +171,11 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
             </div>
             <div class="col-md-4 column2">
                 { (
+                app:rec-status($node, $model,''),
+                <div class="info-btns">  
+                    <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
+                    <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">Is this record complete?</a>
+                </div>,
                 rel:subject-headings($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')]),
                 rel:cited($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')], $app:start,$app:perpage)
                 )}  
@@ -182,7 +187,14 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                 {global:tei2html($model("data")/descendant::tei:body)} 
             </div>
             <div class="col-md-4 column2">
-                {rel:build-relationships($model("data")//tei:body/tei:bibl/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))}  
+                {(
+                app:rec-status($node, $model,''),
+                <div class="info-btns">  
+                    <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
+                    <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">Is this record complete?</a>
+                </div>,
+                rel:build-relationships($model("data")//tei:body/tei:bibl/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
+                )}  
             </div>
         </div>  
     else if($model("data")//tei:relation) then 
@@ -191,7 +203,14 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                 {global:tei2html($model("data")/descendant::tei:body)} 
             </div>
             <div class="col-md-4 column2">
-                {rel:build-relationships($model("data")//tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))}  
+                {(
+                app:rec-status($node, $model,''),
+                <div class="info-btns">  
+                    <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
+                    <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">Is this record complete?</a>
+                </div>,
+                rel:build-relationships($model("data")//tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
+                )}  
             </div>
         </div>      
     else 
