@@ -57,15 +57,14 @@ return
         (<to>david.a.michelson@vanderbilt.edu</to>,
         <to>nathan.p.gibson@vanderbilt.edu</to>)
     else if($collection = 'bibl') then
-        <to>daniel.schwartz@tamu.edu</to>
-    else if($collection = 'spear') then
         (<to>david.a.michelson@vanderbilt.edu</to>,
         <to>nathan.p.gibson@vanderbilt.edu</to>)
+    else if($collection = 'spear') then
+        <to>daniel.schwartz@tamu.edu</to>
     else if($collection = 'mss') then
         <to>david.a.michelson@vanderbilt.edu</to>        
     else 
-        (<cc>david.a.michelson@vanderbilt.edu</cc>,
-        <to>thomas.a.carlson@okstate.edu</to>)
+        <cc>david.a.michelson@vanderbilt.edu</cc>
     }
     <cc>wsalesky@gmail.com</cc>
     <subject>{request:get-parameter('subject','')} RE: {$uri}</subject>
