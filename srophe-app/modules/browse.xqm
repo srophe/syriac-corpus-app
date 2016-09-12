@@ -12,6 +12,8 @@ xquery version "3.0";
 module namespace browse="http://syriaca.org/browse";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace facets="http://syriaca.org/facets" at "lib/facets.xqm";
+import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
+import module namespace facet-defs="http://syriaca.org/facet-defs" at "facet-defs.xqm";
 import module namespace page="http://syriaca.org/page" at "lib/paging.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace bs="http://syriaca.org/bs" at "browse-spear.xqm";
@@ -41,6 +43,7 @@ declare variable $browse:sort-order {request:get-parameter('sort-order', '')};
 declare variable $browse:date {request:get-parameter('date', '')};
 declare variable $browse:start {request:get-parameter('start', 1) cast as xs:integer};
 declare variable $browse:perpage {request:get-parameter('perpage', 25) cast as xs:integer};
+declare variable $browse:fq {request:get-parameter('fq', '')};
 
 declare variable $browse:computed-lang{ 
     if($browse:lang != '') then $browse:lang
@@ -194,6 +197,10 @@ let $data :=
         for $hit in $hits-main/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]
         order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'') collation "?lang=en&lt;syr&amp;decomposition=full"
         return $hit/ancestor::tei:TEI
+    else if($browse:view = 'facets') then
+        let $path := concat('$hits-main/ancestor::tei:TEI',facet:facet-filter(facet-defs:facet-definition($collection)))
+        for $hit in util:eval($path)
+        return $hit
 (:Next  4 are used by bibl module:)        
     else if($browse:view = 'A-Z') then
             for $hit in $hits-main//tei:titleStmt/tei:title[1][matches(.,'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')]
@@ -314,10 +321,14 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
 let $hits := $model("browse-data")
 return
 if($collection = 'spear') then bs:spear-results-panel($hits)
-else if($browse:view = 'type' or $browse:view = 'date') then
+else if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then
     (<div class="col-md-4">
         {if($browse:view='type') then 
             browse:browse-type($collection) 
+         else if($browse:view = 'facets') then 
+            (facet:selected-facets-display(),
+            facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/child::*))
+            )
          else browse:browse-date()}
      </div>,
      <div class="col-md-8">{
@@ -335,11 +346,22 @@ else if($browse:view = 'type' or $browse:view = 'date') then
             else <h3>Select Type</h3>    
         else if($browse:view='date') then 
             if($browse:date !='') then 
-                (browse:pages($hits, $collection, ''),
+                (browse:pages($hits, $collection, $sort-options),
                 <h3>{$browse:date}</h3>,
                  <div>{browse:display-hits($hits)}</div>)
             else <h3>Select Date</h3>  
-        else ()}</div>)
+        else (
+                browse:pages($hits, $collection, ''),
+                
+                <h3>Results {concat(upper-case(substring($browse:type,1,1)),substring($browse:type,2))} ({count($hits)})</h3>,
+                <p>{facet:facet-filter(facet-defs:facet-definition($collection))}</p>,
+                <div>
+                    {(
+                        browse:get-map($hits),
+                        browse:display-hits($hits)
+                        )}
+                </div>)
+        }</div>)
 else if($browse:view = 'map') then 
     <div class="col-md-12 map-lg">
         {geo:build-map($hits//tei:geo, '', '')}
