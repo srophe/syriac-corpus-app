@@ -258,7 +258,7 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
             <h2 class="modal-title" id="feedbackLabel">Corrections/Additions?</h2>
         </div>
-        <form action="/exist/apps/srophe/modules/email.xql" method="post" id="email" role="form">
+        <form action="{$global:nav-base}/modules/email.xql" method="post" id="email" role="form">
             <div class="modal-body" id="modal-body">
                 <!-- More information about submitting data from howtoadd.html -->
                 <p><strong>Notify the editors of a mistake:</strong>
