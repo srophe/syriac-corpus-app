@@ -204,9 +204,11 @@ declare function facet:facet-filter($facet-definitions as node()*)  as item()*{
  : Uses request:get-parameter-names() to get all current params 
  :)
 declare function facet:url-params(){
-    string-join(for $param in request:get-parameter-names()
+    string-join(
+    for $param in request:get-parameter-names()
     return 
         if($param = 'fq') then ()
+        else if($param = 'start') then '&amp;start=1'
         else if(request:get-parameter($param, '') = ' ') then ()
         else concat('&amp;',$param, '=',request:get-parameter($param, '')),'')
 };
