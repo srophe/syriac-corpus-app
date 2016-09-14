@@ -189,7 +189,7 @@ return
     if($rec//tei:idno[starts-with(.,'http://worldcat.org/identities/lccn-n')] or $rec//tei:idno[starts-with(.,'http://viaf.org/viaf')][not(contains(.,'sourceID'))]) then
             let $viaf-ref := if($rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')]) then 
                                         $rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')][1]/text()
-                                     else $rec/descendant::tei:idno[@type='URI'][contains(.,'http://viaf.org/viaf')][not(contains(.,'sourceID/SRP'))][1]/text()
+                                     else $rec/descendant::tei:idno[@type='URI'][not(contains(.,'sourceID/SRP')) and starts-with(.,'http://viaf.org/viaf')][1]
             let $uri := if(starts-with($viaf-ref,'http://viaf.org/viaf')) then 
                                     let $rdf := http:send-request(<http:request href="{concat($viaf-ref,'/rdf.xml')}" method="get"/>)[2]//schema:sameAs/child::*/@rdf:about[starts-with(.,'http://id.loc.gov/')]
                                     let $lcc := tokenize($rdf,'/')[last()]
