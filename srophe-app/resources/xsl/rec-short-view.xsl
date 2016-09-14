@@ -219,8 +219,8 @@
             <xsl:if test="$birth != '' and $death != ''">
                 <xsl:text> - </xsl:text>
             </xsl:if>
-            <xsl:if test="$death != '' and $birth = ''">
-                <xsl:text>d. </xsl:text>
+            <xsl:if test="$death != ''">
+                <xsl:if test="$birth = '' or empty($birth)"><xsl:text>d. </xsl:text></xsl:if>
                 <xsl:value-of select="$death"/>
             </xsl:if>
             <xsl:if test="$floruit != ''">
