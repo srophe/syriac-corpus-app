@@ -83,9 +83,10 @@ declare function geo:get-coordinates($geo-search as element()*, $type as xs:stri
     let $id := string($place-name/ancestor::tei:place/tei:idno[@type='URI'][starts-with(.,$global:base-uri)])
     let $rec-type := string($place-name/ancestor::tei:place/@type)
     let $title := 
-        if($place-name/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]) then 
-            normalize-space(replace($place-name/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text(),'—',''))
-        else $place-name/ancestor::tei:body/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]/text()
+        if($place-name/ancestor::tei:place/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]) then 
+            $place-name/ancestor::tei:place/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]/text()
+        else 
+            normalize-space(replace($place-name/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text(),' — ',''))
     let $geo := $place-name
     let $rel := string($place-name/ancestor::*:relation/@name)
     return
