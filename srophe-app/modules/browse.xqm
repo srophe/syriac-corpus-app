@@ -200,6 +200,8 @@ let $data :=
     else if($browse:view = 'facets') then
         let $path := concat('$hits-main/ancestor::tei:TEI',facet:facet-filter(facet-defs:facet-definition($collection)))
         for $hit in util:eval($path)
+        let $title := $hit//tei:titleStmt/tei:title[1]
+        order by global:build-sort-string(page:add-sort-options($title,$browse:sort-element),'')
         return $hit
 (:Next  4 are used by bibl module:)        
     else if($browse:view = 'A-Z') then
@@ -326,9 +328,7 @@ else if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets
         {if($browse:view='type') then 
             browse:browse-type($collection) 
          else if($browse:view = 'facets') then 
-            (facet:selected-facets-display(),
             facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/child::*))
-            )
          else browse:browse-date()}
      </div>,
      <div class="col-md-8">{
@@ -354,7 +354,6 @@ else if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets
                 browse:pages($hits, $collection, ''),
                 
                 <h3>Results {concat(upper-case(substring($browse:type,1,1)),substring($browse:type,2))} ({count($hits)})</h3>,
-                <p>{facet:facet-filter(facet-defs:facet-definition($collection))}</p>,
                 <div>
                     {(
                         browse:get-map($hits),

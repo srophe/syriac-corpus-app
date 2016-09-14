@@ -17,7 +17,7 @@ if($collection = 'persons') then
         <group-by function="facet:group-by-sub-module">
             <sub-path>descendant::tei:seriesStmt/tei:biblScope/tei:idno</sub-path>
         </group-by>
-        <max-values show="5">50</max-values>
+        <max-values show="5">40</max-values>
         <order-by direction="descending">count</order-by>
     </facet-definition>
     <facet-definition name="Century">
@@ -48,71 +48,94 @@ if($collection = 'persons') then
             <sub-path>/@syriaca-computed-start</sub-path>
             <!--<sub-path>descendant::*/@syriaca-computed-start</sub-path>-->
         </group-by>
-        <max-values show="5">50</max-values>
+        <max-values show="5">40</max-values>
         <order-by direction="descending">count</order-by>
     </facet-definition>
     <facet-definition name="Sex or Gender">
         <group-by>
             <sub-path>descendant::tei:sex/text()</sub-path>
         </group-by>
-        <max-values show="5">50</max-values>
+        <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
     <facet-definition name="Has name in">
         <group-by>
             <sub-path>descendant::tei:persName/@xml:lang</sub-path>
         </group-by>
-        <max-values show="5">50</max-values>
+        <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
     <facet-definition name="Born">
         <group-by>
             <sub-path>descendant::tei:relation[@name="born-at"]/@passive</sub-path>
         </group-by>
-        <max-values show="5">50</max-values>
+        <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
     <facet-definition name="Died">
         <group-by>
             <sub-path>descendant::tei:relation[@name="died-at"]/@passive</sub-path>
         </group-by>
-        <max-values show="5">50</max-values>
+        <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
     <facet-definition name="Literary Connection">
-    <!-- Use distinct values? not sure how that will work, may need a special group-by-function, group-by-array -->
         <group-by function="facet:group-by-array">
             <sub-path>descendant::tei:relation[@name="has-literary-connection-to-place"]/@passive</sub-path>
         </group-by>
-        <max-values show="5">50</max-values>
+        <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>        
     <facet-definition name="Unspecified Connection">
         <group-by function="facet:group-by-array">
             <sub-path>descendant::tei:relation[@name="has-relation-to-place"]/@passive</sub-path>
         </group-by>
-        <max-values show="5">50</max-values>
+        <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>            
     <facet-definition name="Office">
         <group-by>
             <sub-path>descendant::tei:state[@type="office"]/@role</sub-path>
         </group-by>
-        <max-values show="5">50</max-values>
+        <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
     <facet-definition name="Saint type">
         <group-by>
             <sub-path>descendant::tei:state[@type="saint"]/@role</sub-path>
         </group-by>
-        <max-values show="5">50</max-values>
+        <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
     <facet-definition name="Occupation">
         <group-by>
             <sub-path>descendant::tei:state[@type="occupation"]/@role</sub-path>
         </group-by>
-        <max-values show="5">50</max-values>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+</facets> 
+else if($collection = 'bhse') then
+<facets xmlns="http://expath.org/ns/facet">
+    <facet-definition name="Type">
+        <group-by function="facet:group-by-sub-module">
+            <sub-path>descendant::tei:seriesStmt/tei:biblScope/tei:idno</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="descending">count</order-by>
+    </facet-definition>
+    <facet-definition name="Commemorated">
+        <group-by function="facet:group-by-array">
+            <sub-path>descendant::tei:relation[@name="syriaca:commemorated"]/@passive</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>        
+    <facet-definition name="Sources">
+        <group-by>
+            <sub-path>descendant::tei:body/tei:bibl/tei:bibl/tei:ptr/@target</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
 </facets> 

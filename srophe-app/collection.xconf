@@ -25,7 +25,6 @@
             <text qname="tei:desc" boost="1.0"/>
             <text qname="tei:event"/>
             <text qname="tei:note"/>
-            <text qname="tei:idno"/>
         </lucene>
         
         <!-- Range indexes -->
@@ -54,6 +53,13 @@
             <create qname="tei:persName" type="xs:string"/>
             <create qname="tei:placeName" type="xs:string"/>
             <create qname="tei:author" type="xs:string"/>
+            <create qname="tei:TEI">
+                <field name="uri" match="//tei:publicationStmt/tei:idno" type="xs:string"/>
+                <field name="title"  match="//tei:titleStmt/tei:title" type="xs:string"/>
+            </create>
+            <create qname="tei:idno">
+                <field name="type" match="@type" type="xs:string"/>
+            </create>
         </range>
     </index>
 </collection>

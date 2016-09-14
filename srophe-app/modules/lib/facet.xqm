@@ -18,6 +18,7 @@ xquery version "3.0";
  :)
 
 module namespace facet = "http://expath.org/ns/facet";
+import module namespace global="http://syriaca.org/global" at "global.xqm";
 import module namespace functx="http://www.functx.com";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
@@ -236,14 +237,38 @@ declare function facet:selected-facets-display(){
         else()
 };
 
+
 (:~
  : Create 'Add' button 
  : Constructs new URL for user action 'Add facet'
 :)
 declare function facet:html-list-facets-as-buttons($facets as node()*){
+(
+for $facet in tokenize($facet:fq,';fq-')
+let $facet-name := substring-before($facet,':')
+let $new-fq := string-join(
+                for $facet-param in tokenize($facet:fq,';fq-') 
+                return 
+                    if($facet-param = $facet) then ()
+                    else concat(';fq-',$facet-param),'')
+let $href := if($new-fq != '') then concat('?fq=',replace(replace($new-fq,';fq- ',''),';fq-;fq-',';fq-'),facet:url-params()) else ()
+return
+    if($facet != '') then
+        for $f in $facets/facet:facet[@name = $facet-name]
+        let $fn := string($f/@name)
+        let $label := string($f/facet:key[@value = substring-after($facet,concat($facet-name,':'))]/@label)
+        let $value := if(starts-with($label,'http://syriaca.org/')) then 
+                         facet:get-label($label)   
+                      else $label
+        return 
+                <span class="label label-facet" title="Remove {$value}">
+                    {concat($fn,': ', $value)} <a href="{$href}" class="facet icon"> x</a>
+                </span>
+    else(),
 for $f in $facets/facet:facet
 let $count := count($f/facet:key)
 return 
+    if($count gt 0) then 
     <div class="facet-grp">
         <h4>{string($f/@name)}</h4>
             <div class="facet-list show">{
@@ -252,20 +277,34 @@ return
                 let $new-fq := 
                     if($facet:fq) then concat('fq=',$facet:fq,$facet-query)
                     else concat('fq=',$facet-query)
-                return <a href="?{$new-fq}{facet:url-params()}" class="facet-label btn btn-default">{string($key/@label)} <span class="count"> ({string($key/@count)})</span></a> 
+                return <a href="?{$new-fq}{facet:url-params()}" class="facet-label btn btn-default">{facet:get-label(string($key/@label))} <span class="count"> ({string($key/@count)})</span></a> 
                 }
             </div>
             <div class="facet-list collapse" id="{concat('show',replace(string($f/@name),' ',''))}">{
-                for $key at $l in subsequence($f/facet:key,1,$f/@max)
+                for $key at $l in subsequence($f/facet:key,$f/@show + 1,$f/@max)
                 let $facet-query := replace(replace(concat(';fq-',string($f/@name),':',string($key/@value)),';fq-;fq-;',';fq-'),';fq- ','')
                 let $new-fq := 
                     if($facet:fq) then concat('fq=',$facet:fq,$facet-query)
                     else concat('fq=',$facet-query)
-                return <a href="?{$new-fq}{facet:url-params()}" class="facet-label btn btn-default">{string($key/@label)} <span class="count"> ({string($key/@count)})</span></a>
+                return <a href="?{$new-fq}{facet:url-params()}" class="facet-label btn btn-default">{facet:get-label(string($key/@label))} <span class="count"> ({string($key/@count)})</span></a>
                 }
             </div>
             {if($count gt ($f/@show - 1)) then 
                 <a class="facet-label togglelink btn btn-info" data-toggle="collapse" data-target="#{concat('show',replace(string($f/@name),' ',''))}" data-text-swap="Less"> More &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
             else()}
     </div>
+    else()
+)    
+};
+
+(:~
+ : Syriaca.org specific function to label URI's with human readable labels. 
+ : @param $uri Syriaca.org uri to be used for lookup. 
+ : NOTE: this function will probably slow down the facets.
+:)
+
+declare function facet:get-label($uri as item()*){
+if(starts-with($uri,'http://syriaca.org/')) then 
+  replace(string-join(collection('/db/apps/srophe-data/data')/range:field-eq("uri", concat($uri,"/tei"))[1]/descendant::tei:fileDesc/tei:titleStmt[1]/tei:title[1]/text()[1],' '),' — ','')
+else $uri
 };
