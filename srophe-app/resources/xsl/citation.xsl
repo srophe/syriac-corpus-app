@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
-  
-  <!-- ================================================================== 
+    
+    <!-- ================================================================== 
        Copyright 2013 New York University
        
        This file is part of the Syriac Reference Portal Places Application.
@@ -23,8 +23,8 @@
        see (http://www.gnu.org/licenses/).
        
        ================================================================== --> 
-  
-  <!-- ================================================================== 
+    
+    <!-- ================================================================== 
        citation.xsl
        
        This XSLT provides templates for output of citation guidance. 
@@ -51,31 +51,31 @@
        ================================================================== -->
     <xsl:variable name="uri" select="replace(//t:publicationStmt/t:idno[@type='URI'][1],'/tei','')"/>
     
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      generate a footnote for the matched titleStmt element
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:titleStmt" mode="cite-foot">
-    <!-- creator(s) of the entry -->
+        <!-- creator(s) of the entry -->
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
         <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='creator'],'footnote',2)"/>
         <xsl:text>, </xsl:text>
-    
-    <!-- title of the entry -->
+        
+        <!-- title of the entry -->
         <xsl:text>“</xsl:text>
         <xsl:apply-templates select="t:title[@level='a'][1]" mode="footnote"/>
         <xsl:text>”</xsl:text>
-    
-    <!-- monographic title -->
+        
+        <!-- monographic title -->
         <xsl:text> in </xsl:text>
-        <xsl:apply-templates select="t:title[@level='m'][1]" mode="footnote"/>
-    
-    <!-- general editors -->
+        <xsl:apply-templates select="../descendant::t:title[@level='m'][1]" mode="footnote"/>
+        
+        <!-- general editors -->
         <xsl:text>, eds. </xsl:text>
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
         <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='general'],'footnote',2)"/>
         <xsl:text>,</xsl:text>
-    
-    <!-- publication date statement -->
+        
+        <!-- publication date statement -->
         <xsl:text> entry published </xsl:text>
         <xsl:for-each select="../t:publicationStmt/t:date[1]">
             <xsl:choose>
@@ -88,8 +88,8 @@
             </xsl:choose>
         </xsl:for-each>
         <xsl:text>,</xsl:text>
-    
-    <!-- project -->
+        
+        <!-- project -->
         <xsl:text> </xsl:text>
         <xsl:value-of select="t:sponsor[1]"/>
         <xsl:text>, ed. </xsl:text>
@@ -105,32 +105,32 @@
         </a>
         <xsl:text>.</xsl:text>
     </xsl:template>
-  
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+    
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      generate a bibliographic entry for the matched titleStmt element
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:titleStmt" mode="cite-biblist">
-    <!-- creator(s) of the entry -->
+        <!-- creator(s) of the entry -->
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
         <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='creator'],'biblist',2)"/>
         <xsl:text>, </xsl:text>
-    
-    <!-- title of the entry -->
+        
+        <!-- title of the entry -->
         <xsl:text>“</xsl:text>
         <xsl:apply-templates select="t:title[@level='a'][1]" mode="biblist"/>
         <xsl:text>.”</xsl:text>
-    
-    <!-- monographic title -->
+        
+        <!-- monographic title -->
         <xsl:text> In </xsl:text>
-        <xsl:apply-templates select="t:title[@level='m'][1]" mode="biblist"/>
-    
-    <!-- general editors -->
+        <xsl:apply-templates select="../descendant::t:title[@level='m'][1]" mode="footnote"/>
+        
+        <!-- general editors -->
         <xsl:text>, edited by </xsl:text>
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
         <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='general'],'footnote',2)"/>
         <xsl:text>.</xsl:text>
-    
-    <!-- publication date statement -->
+        
+        <!-- publication date statement -->
         <xsl:text> Entry published </xsl:text>
         <xsl:for-each select="../t:publicationStmt/t:date[1]">
             <xsl:choose>
@@ -143,8 +143,8 @@
             </xsl:choose>
         </xsl:for-each>
         <xsl:text>.</xsl:text>
-    
-    <!-- project -->
+        
+        <!-- project -->
         <xsl:text> </xsl:text>
         <xsl:value-of select="t:sponsor[1]"/>
         <xsl:text>, edited by </xsl:text>
@@ -157,8 +157,8 @@
         </a>
         <xsl:text>.</xsl:text>
     </xsl:template>
-  
-<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+    
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      generate an "about this entry" section for the matched titleStmt element
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:titleStmt" mode="about">
@@ -198,7 +198,7 @@
                     <xsl:text>, editor</xsl:text>
                     <xsl:if test="count(t:editor[@role='general'])&gt; 1">s</xsl:if>
                     <xsl:text>, </xsl:text>
-                    <xsl:apply-templates select="t:title[@level='m'][1]" mode="footnote"/>
+                    <xsl:apply-templates select="../descendant::t:title[@level='m'][1]" mode="footnote"/>
                 </li>
                 <li>
                     <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
@@ -259,7 +259,8 @@
                     <xsl:sequence select="local:emit-responsible-persons-all(t:editor[@role='general'],'footnote')"/>
                     <xsl:text>, editor</xsl:text>
                     <xsl:if test="count(t:editor[@role='general'])&gt; 1">s</xsl:if>
-                    <xsl:text>, </xsl:text><em>Syriaca.org Works Cited</em>
+                    <xsl:text>, </xsl:text>
+                    <em>Syriaca.org Works Cited</em>
                 </li>
                 <xsl:for-each select="t:editor[@role= ('creator','contributor')]">
                     <li>
@@ -267,7 +268,7 @@
                         <xsl:text>, entry contributor</xsl:text>
                         <xsl:text>, </xsl:text>
                         <xsl:text>“</xsl:text>
-                            <xsl:value-of select="//t:titleStmt/t:title[1]"/>
+                        <xsl:value-of select="//t:titleStmt/t:title[1]"/>
                         <xsl:text>”</xsl:text>
                     </li>
                 </xsl:for-each>
