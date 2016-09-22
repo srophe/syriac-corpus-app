@@ -241,7 +241,12 @@ let $name := if(exists($connical)) then $connical/ancestor::tei:TEI/descendant::
 order by $name[1] collation "?lang=en&lt;syr&amp;decomposition=full"
 return 
     if($connical) then 
+        <div class="results-list">
+            {
             global:display-recs-short-view($connical/ancestor::tei:TEI,'')
+            }
+            <span class="results-list-desc uri"><span class="srp-label">SPEAR: </span> <a href="factoid.html?id={$id}"> http://syriaca.org/spear/factoid.html?id={$id}</a></span>
+        </div>
     else ()
     (:
      <div class="results-list">
@@ -262,7 +267,12 @@ let $name := if($connical) then $connical/ancestor::tei:TEI/descendant::tei:titl
 order by $name[1] collation "?lang=en&lt;syr&amp;decomposition=full"
 return 
     if($connical) then 
+        <div class="results-list">
+            {
             global:display-recs-short-view($connical/ancestor::tei:TEI,'')
+            }
+            <span class="results-list-desc uri"><span class="srp-label">SPEAR: </span> <a href="factoid.html?id={$id}"> http://syriaca.org/spear/factoid.html?id={$id}</a></span>
+        </div>
     else ()
     (:
      <div class="results-list">

@@ -220,7 +220,9 @@
                 <xsl:text> - </xsl:text>
             </xsl:if>
             <xsl:if test="$death != ''">
-                <xsl:if test="$birth = '' or empty($birth)"><xsl:text>d. </xsl:text></xsl:if>
+                <xsl:if test="$birth = '' or empty($birth)">
+                    <xsl:text>d. </xsl:text>
+                </xsl:if>
                 <xsl:value-of select="$death"/>
             </xsl:if>
             <xsl:if test="$floruit != ''">
@@ -232,7 +234,7 @@
         </xsl:variable>
         <xsl:choose>
             <xsl:when test="contains($uri,'/manuscript/')">
-                <div class="results-list">
+                <div>
                     <a href="{replace($uri,$base-uri,$nav-base)}" dir="ltr">
                         <span class="srp-label">Shelfmark: </span>
                         <xsl:apply-templates select="descendant::t:titleStmt/t:title[1]" mode="plain"/>
@@ -304,7 +306,7 @@
                 </div>
             </xsl:when>
             <xsl:when test="contains($uri,'/spear/')">
-                <div class="results-list">
+                <div>
                     <a href="factoid.html?id={$uri}" class="syr-label">
                         <xsl:choose>
                             <xsl:when test="descendant-or-self::t:titleStmt">
@@ -374,18 +376,10 @@
                             <xsl:value-of select="$uri"/>
                         </a>
                     </span>
-                    <!--
-                    <span class="results-list-desc uri">
-                        <span class="srp-label">SPEAR: </span>
-                        <a href="factoid.html?id={$uri}">
-                            http://syriaca.org/spear/factoid.html?id=<xsl:value-of select="$uri"/>
-                        </a>
-                    </span>
-                    -->
                 </div>
             </xsl:when>
             <xsl:otherwise>
-                <div class="results-list">
+                <div>
                     <xsl:choose>
                         <xsl:when test="$lang != '' and $lang != 'en' and $lang != 'syr'">
                             <span class="sort-title" lang="{$lang}" xml:lang="{$lang}">
