@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
-       Copyright 2013 New York University
+       Copyright 2013 New York University  
        
        This file is part of the Syriac Reference Portal Places Application.
        
@@ -990,21 +990,7 @@
                 </li>
             </xsl:when>
             <xsl:when test="parent::t:note">
-                <xsl:choose>
-                    <xsl:when test="t:ptr">
-                        <xsl:choose>
-                            <xsl:when test="child::*">
-                                <xsl:apply-templates select="." mode="inline"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:apply-templates mode="footnote"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:apply-templates mode="footnote"/>
-                    </xsl:otherwise>
-                </xsl:choose>
+                <xsl:apply-templates select="self::*" mode="inline"/>
             </xsl:when>
             <xsl:when test="child::*">
                 <xsl:apply-templates mode="footnote"/>
@@ -1157,6 +1143,7 @@
         <xsl:apply-templates/>
         <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
     </xsl:template>
+    
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of a listBibl element 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -1195,6 +1182,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of a note element 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -1457,7 +1445,6 @@
             <!-- Output all other names -->
             <xsl:otherwise>
                 <span dir="ltr" class="label label-default pers-label">
-                    <!-- write out the persName itself, with appropriate language and directionality indicia -->
                     <span class="persName">
                         <xsl:call-template name="langattr"/>
                         <xsl:apply-templates/>
@@ -2077,7 +2064,7 @@
             </xsl:choose>
         </a>
         <xsl:if test="preceding-sibling::*">,</xsl:if>
-        <!-- If footnotes exist call function do-refs pass footnotes and language variables to function -->
+        <!--  If footnotes exist call function do-refs pass footnotes and language variables to function -->
         <xsl:if test="@source">
             <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
         </xsl:if>

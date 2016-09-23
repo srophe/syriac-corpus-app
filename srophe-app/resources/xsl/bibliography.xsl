@@ -111,7 +111,7 @@
         <xsl:choose>
             <xsl:when test="parent::t:note">
                 <xsl:choose>
-                    <xsl:when test="t:ptr/@target">
+                    <xsl:when test="t:ptr[contains(@target,'/work/')]">
                         <a href="{t:ptr/@target}">
                             <xsl:apply-templates mode="footnote"/>
                             <!--<xsl:call-template name="footnote"/>-->
@@ -121,7 +121,10 @@
                         <xsl:apply-templates mode="footnote"/>
                     </xsl:when>
                     <xsl:otherwise>
+                        <xsl:call-template name="footnote"/>
+                        <!--
                         <xsl:apply-templates mode="footnote"/>
+                        -->
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -130,7 +133,7 @@
                 <!-- biblScope is not showing up -->
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates mode="footnote"/>
+                <xsl:call-template name="footnote"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -737,9 +740,17 @@
         <xsl:choose>
             <xsl:when test="@ref and starts-with(@ref, $editoruriprefix)">
                 <xsl:variable name="sought" select="substring-after(@ref, $editoruriprefix)"/>
-                <xsl:if test="doc-available($editorssourcedoc)">
-                    <xsl:apply-templates select="document($editorssourcedoc)/descendant::t:body/t:listPerson[1]/t:person[@xml:id=$sought][1]" mode="footnote"/>
-                </xsl:if>
+                <xsl:choose>
+                    <xsl:when test="exists(document($editorssourcedoc)/descendant::t:body/t:listPerson[1]/t:person[@xml:id=$sought][1])">
+                        <xsl:if test="doc-available($editorssourcedoc)">
+                            <xsl:apply-templates select="document($editorssourcedoc)/descendant::t:body/t:listPerson[1]/t:person[@xml:id=$sought][1]" mode="footnote"/>
+                        </xsl:if>                        
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates/>
+                    </xsl:otherwise>
+                </xsl:choose>
+
             </xsl:when>
             <xsl:otherwise>
                 <span>
