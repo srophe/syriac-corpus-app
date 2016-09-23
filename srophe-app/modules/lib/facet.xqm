@@ -75,6 +75,12 @@ declare function facet:facet($results as item()*, $facet-definitions as element(
 declare function facet:group-by($results as item()*, $facet-definitions as element(facet:facet-definition)?) as element(facet:key)*{
     let $path := concat('$results/',$facet-definitions/facet:group-by/facet:sub-path/text())
     let $sort := $facet-definitions/facet:order-by
+    (:
+    for $f in $results
+    let $facets := util:eval(concat('$f/','ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]'))
+    group by $fg := $facets
+    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$fg[1]}" label="{$fg[1]}"/>
+    :)
     for $f in util:eval($path)
     group by $facet-grp := $f
     order by 
@@ -82,6 +88,7 @@ declare function facet:group-by($results as item()*, $facet-definitions as eleme
         else count($f)
         descending
     return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$f[1]}" label="{$f[1]}"/>
+    
 };
 
 (:~
@@ -118,6 +125,7 @@ declare function facet:group-by-array($results as item()*, $facet-definitions as
         descending
     return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$f[1]}" label="{$f[1]}"/>
 };
+
 
 (:~
  : Given a result sequence, and a facet definition, count the facet-values for each range facet defined by the facet definition. 
@@ -300,11 +308,19 @@ return
 (:~
  : Syriaca.org specific function to label URI's with human readable labels. 
  : @param $uri Syriaca.org uri to be used for lookup. 
+ : URI can be a record or a keyword
  : NOTE: this function will probably slow down the facets.
 :)
 
 declare function facet:get-label($uri as item()*){
 if(starts-with($uri,'http://syriaca.org/')) then 
-  replace(string-join(collection('/db/apps/srophe-data/data')/range:field-eq("uri", concat($uri,"/tei"))[1]/descendant::tei:fileDesc/tei:titleStmt[1]/tei:title[1]/text()[1],' '),' — ','')
+  if(contains($uri,'/keyword/')) then
+    lower-case(functx:camel-case-to-words(substring-after($uri,'/keyword/'),' '))
+  else 
+      let $doc := collection('/db/apps/srophe-data/data')/range:field-eq("uri", concat($uri,"/tei"))[1]
+      return 
+      if (exists($doc)) then
+        replace(string-join($doc/descendant::tei:fileDesc/tei:titleStmt[1]/tei:title[1]/text()[1],' '),' — ','')
+      else $uri 
 else $uri
 };

@@ -12,6 +12,8 @@ module namespace bs="http://syriaca.org/bs";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace common="http://syriaca.org/common" at "search/common.xqm";
 import module namespace functx="http://www.functx.com";
+import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
+import module namespace facet-defs="http://syriaca.org/facet-defs" at "facet-defs.xqm";
 import module namespace facets="http://syriaca.org/facets" at "lib/facets.xqm";
 import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
@@ -93,8 +95,8 @@ declare function bs:narrow-spear($hits){
     else if($bs:view = 'keywords') then   
         bs:spear-event($hits)
     else if($bs:view = 'advanced') then 
-        util:eval(concat('$hits',facets:facet-filter()))
-    else util:eval(concat('$hits',facets:facet-filter(),bs:narrow-by-type()))
+        util:eval(concat('$hits',facet:facet-filter(facet-defs:facet-definition('spear'))))
+    else util:eval(concat('$hits',facet:facet-filter(facet-defs:facet-definition('spear')),bs:narrow-by-type()))
 };
 
 declare function bs:spear-results-panel($hits){
@@ -113,10 +115,12 @@ return
                 if($bs:view = 'advanced') then 
                      <div>
                          
-                         {
+                         {facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition('spear')/child::*))
+                         (:
                              let $facets := $hits//tei:persName | $hits//tei:placeName | $hits//tei:event 
                              | $hits/ancestor::tei:TEI/descendant::tei:title[@level='a'][parent::tei:titleStmt]
                              return facets:facets($facets)
+                             :)
                          }
                      </div>
                 else
@@ -173,6 +177,7 @@ return
                             else if($bs:view = 'events') then concat('Browse Events (',count($hits),')')
                             else concat('Browse (',count($hits),')')
                         }</h3>
+            <p>{facet:facet-filter(facet-defs:facet-definition('spear'))}</p>            
            {bs:display-spear($hits)}
        </div>
     )    
