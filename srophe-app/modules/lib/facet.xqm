@@ -111,6 +111,22 @@ declare function facet:group-by-sub-module($results as item()*, $facet-definitio
 };
 
 (:~
+ : Syriaca.org specific group-by function for correctly labeling SPEAR source texts.
+:)
+declare function facet:spear-source-text($results as item()*, $facet-definitions as element(facet:facet-definition)?) {
+    let $path := concat('$results[',$facet-definitions/facet:group-by/facet:sub-path/text(),']')
+    let $sort := $facet-definitions/facet:order-by
+    for $f in util:eval($path)
+    let $fg := util:eval(concat('$f/',$facet-definitions/facet:group-by/facet:sub-path/text()))
+    group by $facet-grp := $fg
+    order by 
+        if($sort/text() = 'value') then $f[1]
+        else count($f)
+        descending
+    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$f[1]}" label="{$facet-grp[1]}"/>    
+};
+
+(:~
  : Syriaca.org specific group-by function for correctly labeling attributes with arrays.
 :)
 declare function facet:group-by-array($results as item()*, $facet-definitions as element(facet:facet-definition)?){

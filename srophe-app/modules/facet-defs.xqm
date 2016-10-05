@@ -158,13 +158,13 @@ else if($collection = 'spear') then
     </facet-definition>        
     <facet-definition name="Keyword">
         <group-by function="facet:group-by-array">
-            <sub-path>descendant::tei:event/descendant::*/@*[contains(.,'/keyword/')]</sub-path>
+            <sub-path>descendant::*/@*[contains(.,'/keyword/')]</sub-path>
         </group-by>
         <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
     <facet-definition name="Source Text">
-        <group-by>
+        <group-by function="facet:spear-source-text">
             <sub-path>ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]</sub-path>
         </group-by>
         <max-values show="5">40</max-values>
