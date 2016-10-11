@@ -5,6 +5,8 @@ xquery version "3.0";
  :)
 module namespace spears="http://syriaca.org/spears";
 import module namespace functx="http://www.functx.com";
+import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm";
+import module namespace facet-defs="http://syriaca.org/facet-defs" at "../facet-defs.xqm";
 import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 import module namespace common="http://syriaca.org/common" at "common.xqm";
@@ -110,13 +112,12 @@ declare function spears:type-search(){
 declare function spears:query-string() as xs:string? {
  concat("collection('",$global:data-root,"/spear/tei')//tei:div[parent::tei:body]",
     spears:type-search(),
-    facets:facet-filter(),
     spears:keyword(),
     spears:name(),
     spears:place(),
     spears:event(),
     spears:title-search(),
-    spears:controlled-keyword-search()
+    spears:controlled-keyword-search(),facet:facet-filter(facet-defs:facet-definition('spear'))
     )
 };
 

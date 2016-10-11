@@ -2,6 +2,8 @@ xquery version "3.0";
  
 module namespace search="http://syriaca.org/search";
 import module namespace page="http://syriaca.org/page" at "../lib/paging.xqm";
+import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
+import module namespace facet-defs="http://syriaca.org/facet-defs" at "facet-defs.xqm";
 import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
 import module namespace persons="http://syriaca.org/persons" at "persons-search.xqm";
 import module namespace places="http://syriaca.org/places" at "places-search.xqm";
@@ -168,13 +170,8 @@ if(exists(request:get-parameter-names())) then
          {
          if($collection = 'spear') then
                 <div>
-                    <h4>Browse by</h4>
-                    {
-                       let $facet-nodes := $model("hits")
-                       let $facets := $facet-nodes//tei:persName | $facet-nodes//tei:placeName | $facet-nodes//tei:event 
-                       | $facet-nodes/ancestor::tei:TEI/descendant::tei:title[@level='a'][parent::tei:titleStmt]
-                       return facets:facets($facets)
-                    }
+                    <h4>Narrow Results</h4>
+                       {facet:html-list-facets-as-buttons(facet:count($model("hits"), facet-defs:facet-definition('spear')/child::*))}
                 </div>
          else 
             let $facet-nodes := $model("hits")
