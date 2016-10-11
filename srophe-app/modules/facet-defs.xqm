@@ -158,7 +158,7 @@ else if($collection = 'spear') then
     </facet-definition> 
         <facet-definition name="Sex or Gender">
         <group-by>
-            <sub-path>descendant::tei:sex/text()</sub-path>
+            <sub-path>descendant::tei:sex/@value</sub-path>
         </group-by>
         <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
