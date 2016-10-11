@@ -155,7 +155,29 @@ else if($collection = 'spear') then
         </group-by>
         <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
-    </facet-definition>        
+    </facet-definition> 
+        <facet-definition name="Sex or Gender">
+        <group-by>
+            <sub-path>descendant::tei:sex/text()</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+    <facet-definition name="Born">
+        <group-by>
+            <sub-path>descendant::tei:relation[@name="born-at"]/@passive</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+    <facet-definition name="Died">
+        <group-by>
+            <sub-path>descendant::tei:relation[@name="died-at"]/@passive</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+    
     <facet-definition name="Keyword">
         <group-by function="facet:group-by-array">
             <sub-path>descendant::*/@*[contains(.,'/keyword/')]</sub-path>
