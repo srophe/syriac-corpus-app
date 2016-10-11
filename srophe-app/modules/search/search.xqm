@@ -162,43 +162,27 @@ declare function search:search-string($collection as xs:string?){
  : Call facets on search results
  : NOTE: need better template integration
 :)
-declare %templates:wrap function search:spear-facets($hits){
-if(exists(request:get-parameter-names())) then 
-    <div>
-     <h4>Browse by</h4>
-     {
-        let $facet-nodes := $hits
-        let $facets := $facet-nodes//tei:persName | $facet-nodes//tei:placeName | $facet-nodes//tei:event 
-        | $facet-nodes/ancestor::tei:TEI/descendant::tei:title[@level='a'][parent::tei:titleStmt]
-        return facets:facets($facets)
-     }
-    </div>
-else ()    
-};
-
-(:~
- : Call facets on search results
- : NOTE: need better template integration
-:)
 declare %templates:wrap function search:facets($node as node()*, $model as map(*), $collection as xs:string*){
-<div>
-     {
-     if($collection = 'spear') then
-            <div>
-                <h4>Browse by</h4>
-                {
-                   let $facet-nodes := $model("hits")
-                   let $facets := $facet-nodes//tei:persName | $facet-nodes//tei:placeName | $facet-nodes//tei:event 
-                   | $facet-nodes/ancestor::tei:TEI/descendant::tei:title[@level='a'][parent::tei:titleStmt]
-                   return facets:facets($facets)
-                }
-            </div>
-     else 
-        let $facet-nodes := $model("hits")
-        let $facets := $facet-nodes//tei:repository | $facet-nodes//tei:country
-        return facets:facets($facets)
-     }
-</div>
+if(exists(request:get-parameter-names())) then
+    <div>
+         {
+         if($collection = 'spear') then
+                <div>
+                    <h4>Browse by</h4>
+                    {
+                       let $facet-nodes := $model("hits")
+                       let $facets := $facet-nodes//tei:persName | $facet-nodes//tei:placeName | $facet-nodes//tei:event 
+                       | $facet-nodes/ancestor::tei:TEI/descendant::tei:title[@level='a'][parent::tei:titleStmt]
+                       return facets:facets($facets)
+                    }
+                </div>
+         else 
+            let $facet-nodes := $model("hits")
+            let $facets := $facet-nodes//tei:repository | $facet-nodes//tei:country
+            return facets:facets($facets)
+         }
+    </div>
+else ()
 };
 
 (:~ 
