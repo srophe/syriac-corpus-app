@@ -315,7 +315,9 @@ return
                 }
             </div>
             {if($count gt ($f/@show - 1)) then 
-                <a class="facet-label togglelink btn btn-info" data-toggle="collapse" data-target="#{concat('show',replace(string($f/@name),' ',''))}" data-text-swap="Less"> More &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+                <a class="facet-label togglelink btn btn-info" 
+                data-toggle="collapse" data-target="#{concat('show',replace(string($f/@name),' ',''))}" href="#{concat('show',replace(string($f/@name),' ',''))}" 
+                data-text-swap="Less"> More &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
             else()}
     </div>
     else()
