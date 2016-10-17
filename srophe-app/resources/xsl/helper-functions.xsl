@@ -228,6 +228,9 @@
                         <xsl:when test="position() = $maxauthors">
                             <xsl:text> and </xsl:text>
                         </xsl:when>
+                        <xsl:when test="position() = last()">
+                            <xsl:text> and </xsl:text>
+                        </xsl:when>
                         <xsl:when test="position() &gt; 1">
                             <xsl:text>, </xsl:text>
                         </xsl:when>
