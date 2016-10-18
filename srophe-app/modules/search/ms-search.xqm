@@ -90,6 +90,9 @@ declare function ms:search-form() {
             </div> 
         </div>
         <div class="pull-right">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#searchTips">
+                Search Tips <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+            </button>&#160;        
             <button type="submit" class="btn btn-info">Search</button>&#160;
             <button type="reset" class="btn">Clear</button>
         </div>
