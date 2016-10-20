@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0"
-    xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns"
-    exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
     <!-- ================================================================== 
        Copyright 2013 New York University
@@ -126,7 +122,6 @@
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      Named template used by inline and list style footnotes. 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    
     <xsl:template name="footnote">
         <xsl:variable name="passThrough">
             <xsl:if test="not(empty(t:biblScope))">
@@ -173,7 +168,7 @@
                                                 <span class="footnote-links">
                                                     <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
                                                     <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
-                                                </span>                
+                                                </span>
                                             </xsl:if>
                                         </xsl:for-each>
                                     </xsl:when>
@@ -184,7 +179,7 @@
                                             <span class="footnote-links">
                                                 <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
                                                 <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
-                                            </span>                
+                                            </span>
                                         </xsl:if>
                                     </xsl:otherwise>
                                 </xsl:choose>
@@ -198,7 +193,7 @@
                                         <xsl:text> In</xsl:text>
                                     </xsl:if>
                                     <xsl:if test="position() != last()">
-                                        <xsl:text> </xsl:text>                            
+                                        <xsl:text> </xsl:text>
                                     </xsl:if>
                                 </xsl:for-each>
                                 <xsl:sequence select="$passThrough"/>
@@ -206,10 +201,10 @@
                                     <span class="footnote-links">
                                         <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
                                         <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
-                                    </span>                
+                                    </span>
                                 </xsl:if>
                             </xsl:otherwise>
-                        </xsl:choose>                        
+                        </xsl:choose>
                     </xsl:for-each>
                 </xsl:when>
                 <xsl:when test="descendant::t:ptr[@target and starts-with(@target, concat($base-uri,'/bibl/'))]"> 
@@ -226,7 +221,7 @@
                                     <span class="footnote-links">
                                         <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
                                         <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
-                                    </span>                
+                                    </span>
                                 </xsl:if>
                             </xsl:for-each>
                         </xsl:when>
@@ -237,30 +232,38 @@
                                 <span class="footnote-links">
                                     <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
                                     <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
-                                </span>                
+                                </span>
                             </xsl:if>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:call-template name="persons"/>
-                    <xsl:text> </xsl:text>
-                    <xsl:for-each select="t:title">
-                        <xsl:apply-templates select="self::*" mode="footnote"/>
-                        <xsl:if test="following-sibling::t:title[@level = 'j']">
-                            <xsl:text> In</xsl:text>
-                        </xsl:if>
-                        <xsl:if test="position() != last()">
-                            <xsl:text> </xsl:text>                            
-                        </xsl:if>
-                    </xsl:for-each>
-                    <xsl:sequence select="$passThrough"/>
-                    <xsl:if test="descendant::t:idno[@type='URI']">
-                        <span class="footnote-links">
-                            <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
-                            <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
-                        </span>                
-                    </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="child::*">
+                            <xsl:call-template name="persons"/>
+                            <xsl:text> </xsl:text>
+                            <xsl:for-each select="t:title">
+                                <xsl:apply-templates select="self::*" mode="footnote"/>
+                                <xsl:if test="following-sibling::t:title[@level = 'j']">
+                                    <xsl:text> In</xsl:text>
+                                </xsl:if>
+                                <xsl:if test="position() != last()">
+                                    <xsl:text> </xsl:text>
+                                </xsl:if>
+                            </xsl:for-each>
+                            <xsl:sequence select="$passThrough"/>
+                            <xsl:if test="descendant::t:idno[@type='URI']">
+                                <span class="footnote-links">
+                                    <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
+                                    <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
+                                </span>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+
                 </xsl:otherwise>
             </xsl:choose>
         </span>
@@ -601,7 +604,7 @@
         </xsl:if>
         <xsl:if test="preceding-sibling::t:monogr/t:imprint and not(following-sibling::t:series)">
             <xsl:text> (</xsl:text>
-                <xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/>
+            <xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/>
             <xsl:text>)</xsl:text>
         </xsl:if>
     </xsl:template>
