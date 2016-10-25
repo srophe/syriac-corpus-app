@@ -55,27 +55,137 @@
 
     <!-- Manuscript templates -->
     <!-- used by spear pages not real tei element -->
-    <xsl:template match="t:factoid">
-        <xsl:if test="not(empty(.))">
-            <!-- Output elements without links -->
-            <div class="panel panel-default">
-                <div class="panel-heading clearfix">
-                    <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Factoid(s)</h4>
-                </div>
-                <div class="panel-body">    
-                    <xsl:apply-templates/>
-                </div>
+    <xsl:template match="t:spear-title">
+            <div class="row title padding-top">
+                <h1 class="col-md-8">
+                    SPEAR data about<xsl:text> </xsl:text>
+                    <!-- Format title, calls template in place-title-std.xsl -->
+                    <xsl:call-template name="title"/>
+                </h1>
+                <!-- Call link icons (located in link-icons.xsl) -->
+                <span class="padding-top">
+                    <xsl:call-template name="link-icons"/>                    
+                </span>
+
+                <!-- End Title -->
             </div>
-        </xsl:if>
+            <!-- emit record URI and associated help links -->
+            <div style="margin:0 1em 1em; color: #999999;">
+                <xsl:variable name="current-id">
+                    <xsl:variable name="idString" select="tokenize($resource-id,'/')[last()]"/>
+                    <xsl:choose>
+                        <xsl:when test="contains($idString,'-')">
+                            <xsl:value-of select="substring-after($idString,'-')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$idString"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:variable>
+                <xsl:variable name="next-id" select="xs:integer($current-id) + 1"/>
+                <xsl:variable name="prev-id" select="xs:integer($current-id) - 1"/>
+                <xsl:variable name="next-uri" select="replace($resource-id,$current-id,string($next-id))"/>
+                <xsl:variable name="prev-uri" select="replace($resource-id,$current-id,string($prev-id))"/>
+                <small>
+                    <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
+                        <span class="helper circle noprint">
+                            <p>i</p>
+                        </span>
+                    </a>
+                    <p>
+                        <xsl:if test="starts-with($nav-base,'/exist/apps')">
+                            <a href="{replace($prev-uri,$base-uri,$nav-base)}">
+                                <span class="glyphicon glyphicon-backward" aria-hidden="true"/>
+                            </a>
+                        </xsl:if>
+                        <xsl:text> </xsl:text>
+                        <span class="srp-label">URI</span>
+                        <xsl:text>: </xsl:text>
+                        <span id="syriaca-id">
+                            <xsl:value-of select="$resource-id"/>
+                        </span>
+                        <xsl:text> </xsl:text>
+                        <xsl:if test="starts-with($nav-base,'/exist/apps')">
+                            <a href="{replace($next-uri,$base-uri,$nav-base)}">
+                                <span class="glyphicon glyphicon-forward" aria-hidden="true"/>
+                            </a>
+                        </xsl:if>
+                    </p>
+                </small>
+            </div>
     </xsl:template>
-    <xsl:template match="t:person[ancestor::t:factoid]">
-        <xsl:apply-templates/>
+    <xsl:template match="t:factoid">
+        <xsl:choose>
+            <xsl:when test="t:div">
+                <xsl:for-each select="t:div">
+                    <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"></xsl:sort>
+                    <p class="factoid indent">
+                        <xsl:apply-templates mode="spear"/>
+                        <xsl:if test="t:bibl">
+                            <span class="footnote-refs">
+                                <xsl:for-each select="t:bibl">
+                                    <span class="footnote-ref">
+                                        <a href="{descendant::t:ptr/@target}">
+                                            <xsl:value-of select="substring-after(descendant::t:ptr/@target,'-')"/>
+                                        </a>
+                                        <xsl:if test="position() != last()">,<xsl:text> </xsl:text></xsl:if>
+                                    </span>                   
+                                </xsl:for-each>                       
+                            </span>
+                        </xsl:if>
+                    </p>
+                </xsl:for-each>                
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates mode="spear"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-    <!-- Not real tei element -->
-    <xsl:template match="t:pers-group">
-        <h4>Person</h4>
-        <xsl:apply-templates select="*[not(t:listPerson/t:person/t:persName)]"/>
+    <xsl:template mode="spear" match="*">
+        <xsl:choose>
+            <xsl:when test="self::t:listEvent or self::t:bibl"/>
+            <xsl:otherwise>
+                <xsl:apply-templates mode="spear"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
+    
+    <xsl:template match="t:sex | t:state | t:persName" mode="spear">
+        <xsl:choose>
+            <xsl:when test="self::t:persName[empty(.)]"/>
+            <xsl:when test="self::t:persName[string-length(.) != 0]">
+                <span class="srp-label">Name: </span>
+                <xsl:choose>
+                    <xsl:when test="@ref">
+                        <a href="{@ref}">
+                            <xsl:apply-templates/>                            
+                        </a>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates/>                        
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:when test="self::t:sex">
+                <span class="srp-label">Sex: </span>
+                <xsl:apply-templates/>
+            </xsl:when>
+            <xsl:when test="@role">
+                <span class="srp-label"><xsl:value-of select="concat(upper-case(substring(@role,1,1)),substring(@role,2))"/>: </span>
+                <xsl:apply-templates mode="plain"/>
+            </xsl:when>
+            <xsl:when test="@type">
+                <span class="srp-label"><xsl:value-of select="concat(upper-case(substring(@type,1,1)),substring(@type,2))"/>: </span>
+                <xsl:apply-templates mode="plain"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates mode="plain"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        <span class="srp-label"> </span>
+    </xsl:template>
+    
+    <!-- Needs work -->
     <xsl:template match="t:spear-citation">
         <xsl:if test="t:bibl">
             <div class="well">
@@ -89,7 +199,7 @@
                         <xsl:apply-templates select="t:bibl" mode="footnote"/>
                     </ul>
                 </div>
-            </div>            
+            </div>
         </xsl:if>
     </xsl:template>
 </xsl:stylesheet>
