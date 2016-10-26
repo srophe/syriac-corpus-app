@@ -17,7 +17,7 @@
   top: 25px;
   left: -50px;
   text-align: center;
-  line-height: 50px;
+  /*line-height: 50px;*/
   letter-spacing: 1px;
   color: #f0f0f0;
   transform: rotate(-45deg);
@@ -48,13 +48,13 @@
 .corner-ribbon.grey{background: #999; background-color: rgba(128,128,128, 0.75);}
 .corner-ribbon.blue{background: #39d;}
 
-#draft-info a{color:white;}
+.draft-info a{color:white;}
 #draft-info{
-  width: 385px;
+  width: 410px;
   position: absolute;
   top: 45px;
-  left: -95px;
-  padding:1em 2em;
+  left: -96px;
+  padding:1.5em 2em;
   text-align: center;
   letter-spacing: .75px;
   color: #f0f0f0;
