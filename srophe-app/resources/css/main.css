@@ -95,9 +95,9 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 
 .banner-container {display:inline-block; line-height:2.5em;}
 .banner-icon {font-size:2.5em; display:inline-block; margin-right:.15em;}
-/*
+
+ * /*
  * font-family: Tahoma, Geneva, sans-serif;
- * 
  */
 .banner-text {color: #888; display:inline-block; margin-top:-.95em; vertical-align: middle; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}
 /* Small Syrica.org icons for submodules in nav menus */
@@ -113,6 +113,7 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 .syriaca-sm-icon {background-image: url(../img/icons-syriaca-sm.png);}
 .rec-status {display:block; width:100% !important; margin-bottom:1em; padding:1em;}
 .info-btns {width:100%; margin-bottom:1em;}
+
 /* Banner styles index page (Colors and images are set by internal css for submodules) */
 .banner-index {
     position:relative;
@@ -122,17 +123,6 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 	background-size:cover;
 	background-position:center;
 	height:200px;
-    width:100%;
-}
-/* styles used for index2 example*/
-.banner-index2 {
-    position:relative;
-    margin-top:-1em;
-    padding-top:0;
-	background-image:url('../img/home-banner.jpg');
-	background-size:cover;
-	background-position:center;
-    height:350px;
     width:100%;
 }
 
@@ -148,16 +138,7 @@ body {font-family: arial, sans-serif; background-color:#385978;}
     width:100%;
     border-bottom:4px solid #456889;
 }
-
-/* styles used for index2 example*/
-.info-overlay {
-    position:absolute;
-    display:block; 
-    width:70%;
-    min-height:45%;
-    margin:4% 15%;
-}
-/* styles used for index2 example*/    
+   
 .overlay {
     font-weight:200;
     background: rgb(34,34,34); /* for IE */
@@ -210,6 +191,7 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 .transparent-input:-moz-placeholder { color: white; font-size:large;font-weight:500; }
 .transparent-input::-moz-placeholder { color: white; font-size:large;font-weight:500; }
 .transparent-input:-ms-input-placeholder { color: white; font-size:large;font-weight:500; }
+
 /* Footer styles */
 footer {text-align:center; color:white;}
 
@@ -217,13 +199,15 @@ footer {text-align:center; color:white;}
 .grey {background-color:#eee;}
 .grey-dark {background-color:#ccc;}
 .white {background-color:white;}
+
+/* Block styles */
 .content-block {background-color:#ffffff !important;}
 .top-padding {margin-top:2em;}
 .block {display:block;}
 .banner {font-size: 24px; color:white; background-color:#456889; margin:0 0 1em 0; padding:.5em 1em;; border-bottom:4px solid #456889;}
+
 /* Typography */
 h1 {font-size:1.5em; margin:.25em 0 .25em 0; color:#456889; font-weight:500;}
-
 h2 {font-size: 1.25em; margin:1em 0 .25em 0; padding-bottom:0; color:#999; font-weight:500;}
 h3 {font-size: 1.2em; margin:1em 0 .25em 0; padding-bottom:0; color:#333; font-weight:500;  padding-bottom:0; margin-bottom:1em;}
 h3.banner-solid {color:white;}
@@ -280,7 +264,7 @@ td {
 .srp-label {background-color:none; color:#666; font-weight:500;}
 .sort-title {background-color:none; color:#666; font-weight:500; display:block; }
 .textBox {display:block;}
-.caveat {font-size: .785em; font-style:italic; margin-top:-.5em; padding-top:0;}
+.caveat, .note {font-size: .785em; font-style:italic; margin-top:-.5em; padding-top:0;}
 .title {border-bottom:2px solid #666666;margin-bottom:1em; margin-top:0;padding:0;}
 .about {padding-top: .5em; border-bottom:2px solid #666666;margin-bottom:1em;}
 .caption{text-align:center; font-size:.75em;color:grey;}
@@ -318,8 +302,9 @@ td {
 .browse-alpha li.ar-menu + li.ar-menu {
     padding-left: .15em;
 }
+
 .nav-stacked > .active > a,
-    .nav-stacked > .active > a:hover {
+.nav-stacked > .active > a:hover {
       color: #000;
       text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
       background-color: #eee;

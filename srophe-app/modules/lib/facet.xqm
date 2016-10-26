@@ -13,7 +13,6 @@ xquery version "3.0";
  : @see http://expath.org/spec/facet   
  : 
  : TODO: 
- :  Handle arrays in attribute values, see tei:relation/@mutual for an example
  :  Support for hierarchical facets
  :)
 
@@ -75,12 +74,6 @@ declare function facet:facet($results as item()*, $facet-definitions as element(
 declare function facet:group-by($results as item()*, $facet-definitions as element(facet:facet-definition)?) as element(facet:key)*{
     let $path := concat('$results/',$facet-definitions/facet:group-by/facet:sub-path/text())
     let $sort := $facet-definitions/facet:order-by
-    (:
-    for $f in $results
-    let $facets := util:eval(concat('$f/','ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]'))
-    group by $fg := $facets
-    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$fg[1]}" label="{$fg[1]}"/>
-    :)
     for $f in util:eval($path)
     group by $facet-grp := $f
     order by 
@@ -88,7 +81,6 @@ declare function facet:group-by($results as item()*, $facet-definitions as eleme
         else count($f)
         descending
     return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$f[1]}" label="{$f[1]}"/>
-    
 };
 
 (:~
@@ -124,6 +116,18 @@ declare function facet:spear-source-text($results as item()*, $facet-definitions
         else count($f)
         descending
     return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp[1]}" label="{$facet-grp[1]}"/>    
+};
+
+declare function facet:spear-type($results as item()*, $facet-definitions as element(facet:facet-definition)?) as element(facet:key)*{
+    let $path := concat('$results/',$facet-definitions/facet:group-by/facet:sub-path/text())
+    let $sort := $facet-definitions/facet:order-by
+    for $f in util:eval($path)
+    group by $facet-grp := $f
+    order by 
+        if($sort/text() = 'value') then $f[1]
+        else count($f)
+        descending
+    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$f[1]}" label="{substring-after($f[1],'list')}"/>
 };
 
 (:~
@@ -219,6 +223,8 @@ declare function facet:facet-filter($facet-definitions as node()*)  as item()*{
                     concat('[',$path,'[string(.) gt "', facet:type($facet/facet:range/facet:bucket[@name = $facet-value]/@gt, $facet/facet:range/facet:bucket[@name = $facet-value]/@type),'" and string(.) lt "',facet:type($facet/facet:range/facet:bucket[@name = $facet-value]/@lt, $facet/facet:range/facet:bucket[@name = $facet-value]/@type),'"]]')
                 else if($facet/facet:group-by[@function="facet:group-by-array"]) then 
                     concat('[',$path,'[matches(., "',$facet-value,'(\W|$)")]',']')
+                else if($facet/facet:group-by[@function="facet:spear-type"]) then 
+                    concat('[',substring-before($path,'/name(.)'),'[name(.) = "',$facet-value,'"]',']')                    
                 else concat('[',$path,'[string(.) = "',$facet-value,'"]',']')
             else(),'')    
     else () 
