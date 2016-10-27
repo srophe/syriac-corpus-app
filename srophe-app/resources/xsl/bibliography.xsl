@@ -1240,6 +1240,10 @@
      suppress otherwise unhandled descendent nodes and attibutes of bibl or 
      biblStruct in the context of a footnote 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <xsl:template match="text()" mode="footnote bibliography biblist allbibl lastname-first">
+        <xsl:value-of select="normalize-space(.)"/>
+    </xsl:template>
+    
     <xsl:template match="t:* | @*" mode="footnote bibliography biblist allbibl lastname-first"/>
    
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
