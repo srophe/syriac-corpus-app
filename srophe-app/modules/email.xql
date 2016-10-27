@@ -23,12 +23,12 @@ declare function local:build-message(){
 let $id := request:get-parameter('id','')
 let $collection := request:get-parameter('collection','')
 let $uri := 
-    if($collection = 'places') then concat('http://syriaca.org/place/',$id)
-    else if($collection = ('q','authors','sbd')) then concat('http://syriaca.org/person/',$id)
-    else if($collection = ('bhse','nhsl')) then concat('http://syriaca.org/work/',$id)
-    else if($collection = 'bibl') then concat('http://syriaca.org/bibl/',$id)
-    else if($collection = 'spear') then concat('http://syriaca.org/spear/',$id)
-    else if($collection = 'mss') then concat('http://syriaca.org/manuscript/',$id)
+    if($collection = 'places') then concat('Place: ',$id)
+    else if($collection = ('q','authors','sbd')) then concat('Person: ',$id)
+    else if($collection = ('bhse','nhsl')) then concat('Work: ',$id)
+    else if($collection = 'bibl') then concat('Work Cited: ',$id)
+    else if($collection = 'spear') then concat('SPEAR: ',$id)
+    else if($collection = 'mss') then concat('Manuscript: ',$id)
     else request:get-parameter('id','')
 return
   <mail>
