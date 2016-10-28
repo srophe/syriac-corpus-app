@@ -47,10 +47,10 @@ declare function rel:decode-relationship($related as node()*){
  <span class="srp-label">
     {
      if($related/tei:desc != '') then
-        distinct-values($related/tei:desc/text())
+        distinct-values($related/tei:desc/text())[1]
      else 
         let $name := $related/@name | $related/@ref
-        for $name in $name
+        for $name in $name[1]
         let $subject-type := rel:get-subject-type($related/@passive)
         return 
             if($name = 'dcterms:subject') then 
@@ -80,12 +80,13 @@ declare function rel:get-subject-type($passive as xs:string*) as xs:string*{
  : @param $idno bibl idno
 :)
 declare function rel:get-cited($idno){
-    for $recs in collection($global:data-root)//tei:TEI[descendant::tei:ptr[@target=replace($idno,'/tei','')]]
-    let $headword := $recs/descendant::tei:body/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]
+    for $r in collection($global:data-root)//@target[. = replace($idno,'/tei','')]
+    let $headword := $r/ancestor::tei:TEI/descendant::tei:title[1]
+    let $id := $r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][1]
     let $sort := global:parse-name($headword)
     let $sort := global:build-sort-string($sort,'')
     order by $sort collation "?lang=en&lt;syr&amp;decomposition=full"
-    return $recs
+    return <TEI xml:ns="http://www.tei-c.org/ns/1.0">{$headword, $id}</TEI>      
 };
 
 (:~ 
@@ -94,16 +95,20 @@ declare function rel:get-cited($idno){
 :)
 declare function rel:cited($idno, $start,$perpage){
     let $perpage := if($perpage) then $perpage else 5
-    let $hits := rel:get-cited($idno)
+    let $hits := rel:get-cited(replace($idno/text(),'/tei',''))
     let $count := count($hits)
     return
         if(exists($hits)) then 
             <div class="well relation">
                 <h4>Cited in:</h4>
                 <span class="caveat">{$count} record(s) cite this work.</span> 
-                {
-                    for $recs in subsequence($hits,$start,$perpage)
-                    return global:display-recs-short-view($recs,'')
+                {   
+                    if($count gt 5) then
+                        for $recs in subsequence($hits,$start,$perpage)
+                        return global:display-recs-short-view(collection($global:data-root)//tei:idno[@type='URI'][. = $hits//tei:idno]/ancestor::tei:TEI,'')                        
+                    else 
+                        for $recs in $hits
+                        return global:display-recs-short-view(collection($global:data-root)//tei:idno[@type='URI'][. = $hits//tei:idno]/ancestor::tei:TEI,'')
                 }
                 {
                      if($count gt 5) then 
@@ -122,46 +127,43 @@ declare function rel:cited($idno, $start,$perpage){
  : @param $idno bibl idno
 :)
 declare function rel:subject-headings($idno){
-    let $hits := rel:get-cited($idno)
+    let $hits := rel:get-cited(replace($idno/text(),'/tei',''))
     let $total := count($hits)
     return 
-        if(exists($hits)) then 
-        <div class="well relation">
-            <h4>Subject Headings:</h4> 
-            {
-                <div>
-                {(
-                for $recs in subsequence($hits,1,20)
-                let $headword := $recs/descendant::tei:body/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]
-                let $subject-idno := replace($recs/descendant::tei:idno[1],'/tei','')
-                return 
-                   <span class="sh pers-label badge">{$headword/text()} 
-                   <a href="search.html?subject={$subject-idno}" class="sh-search">
-                   <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                   </a></span>,
-                    
-                    if($total gt 20) then 
-                    <div>
-                        <div class="collapse" id="showAllSH">
+        if(exists($hits)) then
+            <div class="well relation">
+                <h4>Subject Headings:</h4>
+                {
+                    (
+                    for $recs in subsequence($hits,1,20)
+                    let $headword := $recs/tei:title
+                    let $subject-idno := replace($recs/tei:idno,'/tei','')
+                    return 
+                        <span class="sh pers-label badge">{replace($headword/text(),' — ','')} 
+                        <a href="search.html?subject={$subject-idno}" class="sh-search">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </a></span>,
+                    if($total gt 20) then
+                        (<div class="collapse" id="showAllSH">
                             {
                             for $recs in subsequence($hits,20,$total)
-                            let $headword := $recs/descendant::tei:body/descendant::*[@syriaca-tags='#syriaca-headword'][starts-with(@xml:lang,'en')][1]
-                            let $subject-idno := replace($recs/descendant::tei:idno[1],'/tei','')
+                            let $headword := $recs/tei:title
+                            let $subject-idno := replace($recs/tei:idno,'/tei','')
                             return 
-                               <span class="sh pers-label badge">{$headword/text()} 
+                               <span class="sh pers-label badge">{replace($headword/text(),' — ','')} 
                                <a href="search.html?subject={$subject-idno}" class="sh-search"> 
                                <span class="glyphicon glyphicon-search" aria-hidden="true">
                                </span></a></span>
                             }
-                        </div>
+                        </div>,
                         <a class="togglelink pull-right btn-link" data-toggle="collapse" data-target="#showAllSH" data-text-swap="Hide"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Show All </a>
-                    </div>                  
+                        )
                     else ()
-                  )}
-                 </div>
-            }
-        </div>
-    else ()
+                    )
+                }
+                
+            </div>
+        else ()
 };
 
 (:~ 
