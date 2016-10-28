@@ -145,8 +145,8 @@
         <xsl:variable name="type" select="descendant::t:place/@type"/>
         <xsl:variable name="main-title">
             <xsl:choose>
-                <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][@xml:lang = 'en']">
-                    <xsl:for-each select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][@xml:lang = 'en']">
+                <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][@xml:lang = 'en'][1]">
+                    <xsl:for-each select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][@xml:lang = 'en'][1]">
                         <xsl:apply-templates/>
                     </xsl:for-each>
                 </xsl:when>
@@ -372,6 +372,56 @@
                     </xsl:if>
                     <span class="results-list-desc uri">
                         <span class="srp-label">URI: </span>
+                        <a href="{replace($uri,$base-uri,$nav-base)}">
+                            <xsl:value-of select="$uri"/>
+                        </a>
+                    </span>
+                </div>
+            </xsl:when>
+            <xsl:when test="$lang = 'spear'">
+                <div>
+                    <a href="aggregate.html?id={$uri}" class="syr-label">
+                        <xsl:apply-templates select="descendant-or-self::t:titleStmt/t:title[1]"/>
+                    </a>
+                    <xsl:if test="$ana != ''">
+                        <span class="results-list-desc type" dir="ltr" lang="en">
+                            <xsl:text> (</xsl:text>
+                            <xsl:sequence select="$ana"/>
+                            <xsl:if test="$dates != ''">
+                                <xsl:text>, </xsl:text>
+                                <xsl:value-of select="$dates"/>
+                            </xsl:if>
+                            <xsl:text>) </xsl:text>
+                        </span>
+                    </xsl:if>
+                    <xsl:if test="descendant::t:person/t:persName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))] | descendant::t:place/t:placeName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))]">
+                        <span class="results-list-desc names" dir="ltr" lang="en">
+                            <xsl:text>Names: </xsl:text>
+                            <xsl:for-each select="descendant::t:person/t:persName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))] | descendant::t:place/t:placeName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))]">
+                                <xsl:if test="position() &lt; 8">
+                                    <span class="pers-label badge">
+                                        <xsl:apply-templates/>
+                                    </span>
+                                </xsl:if>
+                            </xsl:for-each>
+                        </span>
+                    </xsl:if>
+                    <xsl:if test="descendant::*[starts-with(@xml:id,'abstract')]">
+                        <span class="results-list-desc desc" dir="ltr" lang="en">
+                            <xsl:variable name="string" select="string-join(descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::*,' ')"/>
+                            <xsl:variable name="last-words" select="tokenize($string, '\W+')[position() = 14]"/>
+                            <xsl:choose>
+                                <xsl:when test="count(tokenize($string, '\W+')[. != '']) gt 13">
+                                    <xsl:value-of select="concat(substring-before($string, $last-words),'...')"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$string"/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </span>
+                    </xsl:if>
+                    <span class="results-list-desc uri">
+                        <span class="srp-label">For additional information, see: </span>
                         <a href="{replace($uri,$base-uri,$nav-base)}">
                             <xsl:value-of select="$uri"/>
                         </a>
