@@ -145,8 +145,8 @@
         <xsl:variable name="type" select="descendant::t:place/@type"/>
         <xsl:variable name="main-title">
             <xsl:choose>
-                <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][@xml:lang = 'en']">
-                    <xsl:for-each select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][@xml:lang = 'en']">
+                <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][@xml:lang = 'en'][1]">
+                    <xsl:for-each select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][@xml:lang = 'en'][1]">
                         <xsl:apply-templates/>
                     </xsl:for-each>
                 </xsl:when>
