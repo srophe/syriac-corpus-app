@@ -35,7 +35,7 @@ h2 {color:#999;}
 h3 {color:#333;}
 h3.underline {color:#999; border-bottom:3px solid #336633;}
 .column1 h3{border-bottom:1px solid #999; padding-bottom:0; margin-bottom:1em;}
-
+h4 {font-weight:500;}
 
 .browse-alpha li + li {
     padding-left: .75em;
