@@ -1,4 +1,4 @@
-(:~    
+(:~           
  : Builds persons page and persons page functions  
  :)
 xquery version "3.0";
@@ -186,7 +186,7 @@ return
 declare %templates:wrap function person:worldcat($node as node(), $model as map(*)){
 let $rec := $model("data")
 return 
-    if($rec//tei:idno[starts-with(.,'http://worldcat.org/identities/lccn-n')] or $rec//tei:idno[starts-with(.,'http://viaf.org/viaf')][not(contains(.,'sourceID'))]) then
+    if($rec/descendant::tei:idno[starts-with(.,'http://worldcat.org/identities/lccn-n')] or $rec/descendant::tei:idno[starts-with(.,'http://viaf.org/viaf')][not(contains(.,'sourceID'))]) then
             let $viaf-ref := if($rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')]) then 
                                         $rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')][1]/text()
                                      else $rec/descendant::tei:idno[@type='URI'][not(contains(.,'sourceID/SRP')) and starts-with(.,'http://viaf.org/viaf')][1]
@@ -263,8 +263,8 @@ declare function person:get-related($rec as node()*){
  : NOTE need to untangle get-related and get-related places. 
 :)
 declare %templates:wrap function person:relations($node as node(), $model as map(*)){
-if($model("data")//tei:relation) then 
-    let $idno := replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+if($model("data")/descendant::tei:relation) then 
+    let $idno := replace($model("data")/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1]/text(),'/tei','')
     return rel:build-relationships($model("data")//tei:relation, $idno)
 else ()
 };
@@ -287,7 +287,7 @@ return
 
 declare %templates:wrap function person:authored-by($node as node(), $model as map(*)){
 let $rec := $model("data")
-let $recid := replace($rec//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1]/text(),'/tei','')
 let $works := collection($global:data-root || '/works/tei')//tei:author[@ref =  $recid]  
 let $count := count($works)
 return 
@@ -302,7 +302,7 @@ return
                         <div>
                          {
                              for $r in subsequence($works, 1, 3)
-                             let $workid := replace($r/ancestor::tei:TEI//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+                             let $workid := replace($r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
                              let $rec :=  global:get-rec($workid)
                              return global:display-recs-short-view($rec,'',$recid)
                          }
@@ -323,6 +323,7 @@ return
         </div>
     else ()     
 };
+
 (:
  : Return bibls for use in sources
 :)
@@ -357,7 +358,7 @@ let $data := $model("data")
 let $links:=
     <person xmlns="http://www.tei-c.org/ns/1.0">
         <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
-            {$data//tei:person//tei:idno, $data//tei:person//tei:location}
+            {$data//tei:person/descendant::tei:idno, $data//tei:person/descendant::tei:location}
         </see-also>
     </person>
 return global:tei2html($links)
