@@ -23,6 +23,7 @@ declare function rel:display($uri as xs:string*) as element(a)*{
     let $rec :=  global:get-rec($uri)  
     return global:display-recs-short-view($rec, '')
 };
+
 (:~ 
  : Get names/titles for each uri, for json output
  : @param $uris passed as string, can contain multiple uris
@@ -80,40 +81,51 @@ declare function rel:get-subject-type($passive as xs:string*) as xs:string*{
  : @param $idno bibl idno
 :)
 declare function rel:get-cited($idno){
+let $data := 
     for $r in collection($global:data-root)//@target[. = replace($idno,'/tei','')]
     let $headword := $r/ancestor::tei:TEI/descendant::tei:title[1]
     let $id := $r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][1]
     let $sort := global:parse-name($headword)
     let $sort := global:build-sort-string($sort,'')
     order by $sort collation "?lang=en&lt;syr&amp;decomposition=full"
-    return <TEI xml:ns="http://www.tei-c.org/ns/1.0">{$headword, $id}</TEI>      
+    return <TEI xml:ns="http://www.tei-c.org/ns/1.0">{$headword, $id}</TEI>   
+return  map { "cited" := $data}    
 };
 
 (:~ 
  : HTML display of 'cited by' relationships. Used in bibl module. 
  : @param $idno bibl idno
 :)
-declare function rel:cited($idno, $start,$perpage){
+declare function rel:cited($idno, $start, $perpage){
     let $perpage := if($perpage) then $perpage else 5
-    let $hits := rel:get-cited(replace($idno/text(),'/tei',''))
+    let $current-id := replace($idno/text(),'/tei','')
+    let $hits := rel:get-cited($current-id)?cited
     let $count := count($hits)
     return
         if(exists($hits)) then 
             <div class="well relation">
                 <h4>Cited in:</h4>
                 <span class="caveat">{$count} record(s) cite this work.</span> 
-                {   
-                    if($count gt 5) then
-                        for $recs in subsequence($hits,$start,$perpage)
-                        return global:display-recs-short-view(collection($global:data-root)//tei:idno[@type='URI'][. = $hits//tei:idno]/ancestor::tei:TEI,'')                        
-                    else 
-                        for $recs in $hits
-                        return global:display-recs-short-view(collection($global:data-root)//tei:idno[@type='URI'][. = $hits//tei:idno]/ancestor::tei:TEI,'')
-                }
                 {
-                     if($count gt 5) then 
-                        <div class="row">
-                            <div class="col-sm-12">{page:pages($hits, $start, $perpage,'', '')}</div>
+                    if($count gt 5) then
+                        for $rec in subsequence($hits,$start,$perpage)
+                        let $id := $rec/tei:idno[@type='URI']
+                        return 
+                            global:display-recs-short-view(collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI,'')                        
+                    else 
+                        for $rec in $hits
+                        let $id := $rec/tei:idno[@type='URI']
+                        return 
+                            global:display-recs-short-view(collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI,'')
+                }
+                { 
+                     if($count gt 5) then
+                        <div>
+                            <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
+                            data-ref="../search.html?bibl={$current-id}&amp;perpage={$count}&amp;sort=alpha" 
+                            data-label="See all {$count} results" id="moreInfoBtn">
+                              See all {$count} results
+                             </a>
                         </div>
                      else ()
                  }
@@ -127,7 +139,7 @@ declare function rel:cited($idno, $start,$perpage){
  : @param $idno bibl idno
 :)
 declare function rel:subject-headings($idno){
-    let $hits := rel:get-cited(replace($idno/text(),'/tei',''))
+    let $hits := rel:get-cited(replace($idno/text(),'/tei',''))?cited
     let $total := count($hits)
     return 
         if(exists($hits)) then
@@ -161,7 +173,6 @@ declare function rel:subject-headings($idno){
                     else ()
                     )
                 }
-                
             </div>
         else ()
 };
@@ -175,13 +186,13 @@ declare function rel:build-relationships($node,$idno){
 <div class="relation well">
     <h3>Relationships</h3>
     <div>
-    {   
+    {       
         for $related in $node/descendant-or-self::tei:relation
         let $names := rel:get-uris(string-join(($related/@active/string(),$related/@passive/string(),$related/@mutual/string()),' '),$idno)
         let $count := count($names)
         let $rel-id := index-of($node, $related[1])
         group by $relationship := $related/@name
-        return 
+        return
             <div>
             {(
                 rel:decode-relationship($related),

@@ -827,6 +827,8 @@ pre {
     text-align:center;
     border:1px solid green;
     }
+    
+#moreInfo #map-data {display:none;}
 
 /* new search */
 .mobile-submenu{display:none;}
