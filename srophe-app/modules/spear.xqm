@@ -31,6 +31,7 @@ declare variable $spear:item-type {
 if($spear:id != '') then 
     if(contains($spear:id, '/place')) then 'place-factoid'
     else if(contains($spear:id, '/person')) then 'person-factoid'
+    else if(contains($spear:id, '/keyword')) then 'keyword-factoid'
     else 'event-factoid'
 else 'all-events'
 };    
@@ -38,7 +39,7 @@ else 'all-events'
 (:~
  : Build spear view
  : @param $id spear URI
- :)
+ :)       
 declare %templates:wrap function spear:get-rec($node as node(), $model as map(*)){ 
 let $id :=
         if(contains($app:id,$global:base-uri) or starts-with($app:id,'http://')) then $app:id
@@ -52,7 +53,7 @@ return
     else map {"data" :=  
         <aggregate xmlns="http://www.tei-c.org/ns/1.0" id="{$id}">
             {
-                for $rec in collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$app:id]]
+                for $rec in collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$app:id or @target=$app:id]]
                 (:| 
                 collection('/db/apps/srophe-data/data/spear/tei')//tei:div[descendant::*[matches(@active, concat($id,"(\W|$)"))]] |
                 collection('/db/apps/srophe-data/data/spear/tei')//tei:div[descendant::*[matches(@passive, concat($id,"(\W|$)"))]] |
@@ -78,7 +79,7 @@ global:tei2html(
     </spear-headwords>)
 };
 
-(:~ 
+(:~  
  : Build page title
  : Uses connical record from syriaca.org as title, otherwise uses spear data
 :)
@@ -87,20 +88,47 @@ declare %templates:wrap function spear:h1($node as node(), $model as map(*)){
     let $rec-exists := spear:canonical-rec()  
     let $title :=  $rec-exists/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"]
     let $id := <idno type='URI' xmlns="http://www.tei-c.org/ns/1.0">{$spear:id}</idno>
-    return global:tei2html(
-                <spear-title xmlns="http://www.tei-c.org/ns/1.0">
+    return 
+        if($rec-exists != '') then 
+            global:tei2html(
+                <aggregate-title xmlns="http://www.tei-c.org/ns/1.0">
                     {$title, $id}
-                </spear-title>)
+                </aggregate-title>)
+        else             
+            global:tei2html(
+                <factoid-title xmlns="http://www.tei-c.org/ns/1.0">
+                    {$id}
+                </factoid-title>)
 };
-
+     
 declare function spear:data($node as node(), $model as map(*)){
 if($spear:item-type = 'place-factoid') then ()
 else if($spear:item-type = 'person-factoid') then
     spear:person-data($model("data"))
-else $model("data")
+else if($spear:item-type = 'keyword-factoid') then
+    spear:keyword-data($model("data"))    
+else global:tei2html(  
+                    <factoid xmlns="http://www.tei-c.org/ns/1.0">
+                        {$model("data")}
+                    </factoid>)
+                    
 };
                           
-                       
+declare function spear:keyword-data($data){
+if($data/tei:div[tei:listPerson]) then 
+    <div class="panel panel-default">
+             <div class="panel-heading clearfix">
+                 <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Person Factoids about {spear:title()}</h4>
+             </div>
+             <div class="panel-body">
+                {global:tei2html(
+                    <aggregate xmlns="http://www.tei-c.org/ns/1.0">
+                        {$data/tei:div}
+                    </aggregate>)}
+             </div>
+        </div>
+else ()        
+};                      
 declare function spear:person-data($data){
 let $personInfo := $data/tei:div[tei:listPerson/child::*/tei:persName[1][@ref=$app:id]] 
 return 
@@ -108,22 +136,12 @@ return
         <div class="panel panel-default">
              <div class="panel-heading clearfix">
                  <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Person Factoids about {spear:title()}</h4>
-                 <!--  
-                 <div class="btn-group pull-right">
-                     <div class="dropdown"><button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">Sort<span class="caret"/></button>
-                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="manuscript">Textual</a></li>
-                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="date">Chronological</a></li>
-                         </ul>
-                     </div>
-                 </div>
-                 -->
              </div>
              <div class="panel-body">
                 {global:tei2html(
-                    <factoid xmlns="http://www.tei-c.org/ns/1.0">
+                    <aggregate xmlns="http://www.tei-c.org/ns/1.0">
                         {$personInfo}
-                    </factoid>)}
+                    </aggregate>)}
              </div>
         </div>
     else ()
@@ -147,8 +165,11 @@ declare %templates:wrap function spear:events($node as node(), $model as map(*))
   else ()  
 };
 
+
 (:~
- : Checks link to related record
+ : NOTE: this is really the cononical, not the related... should have two, on for factoids, one for 
+ aggrigate?  
+ Checks link to related record
 :)
 declare function spear:srophe-related($node as node(), $model as map(*)){
     let $data := $model("data")
@@ -330,7 +351,7 @@ return global:tei2html(<spear-citation xmlns="http://www.tei-c.org/ns/1.0">{($bi
 };
 
 
-(: 
+(:
  : Home page timeline
 :)
 

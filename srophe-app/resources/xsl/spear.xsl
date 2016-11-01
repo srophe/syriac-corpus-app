@@ -55,11 +55,10 @@
     
     <!-- Manuscript templates -->
     <!-- used by spear pages not real tei element -->
-    <xsl:template match="t:spear-title">
+    <xsl:template match="t:aggregate-title">
         <div class="row title padding-top">
             <h1 class="col-md-8">
-                SPEAR Factoids about<xsl:text> </xsl:text>
-                <!-- Format title, calls template in place-title-std.xsl -->
+                <xsl:text>SPEAR Factoids about </xsl:text>
                 <xsl:call-template name="title"/>
             </h1>
             <!-- Call link icons (located in link-icons.xsl) -->
@@ -68,21 +67,6 @@
             </span>
         </div>
         <div style="margin:0 1em 1em; color: #999999;">
-            <xsl:variable name="current-id">
-                <xsl:variable name="idString" select="tokenize($resource-id,'/')[last()]"/>
-                <xsl:choose>
-                    <xsl:when test="contains($idString,'-')">
-                        <xsl:value-of select="substring-after($idString,'-')"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="$idString"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:variable>
-            <xsl:variable name="next-id" select="xs:integer($current-id) + 1"/>
-            <xsl:variable name="prev-id" select="xs:integer($current-id) - 1"/>
-            <xsl:variable name="next-uri" select="replace($resource-id,$current-id,string($next-id))"/>
-            <xsl:variable name="prev-uri" select="replace($resource-id,$current-id,string($prev-id))"/>
             <small>
                 <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
                     <span class="helper circle noprint">
@@ -90,23 +74,36 @@
                     </span>
                 </a>
                 <p>
-                    <xsl:if test="starts-with($nav-base,'/exist/apps')">
-                        <a href="{replace($prev-uri,$base-uri,$nav-base)}">
-                            <span class="glyphicon glyphicon-backward" aria-hidden="true"/>
-                        </a>
-                    </xsl:if>
-                    <xsl:text> </xsl:text>
                     <span class="srp-label">URI</span>
                     <xsl:text>: </xsl:text>
                     <span id="syriaca-id">
                         <xsl:value-of select="$resource-id"/>
                     </span>
-                    <xsl:text> </xsl:text>
-                    <xsl:if test="starts-with($nav-base,'/exist/apps')">
-                        <a href="{replace($next-uri,$base-uri,$nav-base)}">
-                            <span class="glyphicon glyphicon-forward" aria-hidden="true"/>
-                        </a>
-                    </xsl:if>
+                </p>
+            </small>
+        </div>
+    </xsl:template>
+    <xsl:template match="t:factoid-title">
+        <div class="row title padding-top">
+            <h1 class="col-md-8">SPEAR Factoid </h1>
+            <!-- Call link icons (located in link-icons.xsl) -->
+            <span class="padding-top">
+                <xsl:call-template name="link-icons"/>
+            </span>
+        </div>
+        <div style="margin:0 1em 1em; color: #999999;">
+            <small>
+                <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
+                    <span class="helper circle noprint">
+                        <p>i</p>
+                    </span>
+                </a>
+                <p>
+                    <span class="srp-label">URI</span>
+                    <xsl:text>: </xsl:text>
+                    <span id="syriaca-id">
+                        <xsl:value-of select="$resource-id"/>
+                    </span>
                 </p>
             </small>
         </div>
@@ -114,7 +111,16 @@
     <xsl:template match="t:spear-headwords">
         <xsl:call-template name="title"/>
     </xsl:template>
-    <xsl:template match="t:factoid">
+    <xsl:template match="t:factoid | t:div[@uri]">
+        <div class="indent">
+            <xsl:for-each select="descendant::t:div[@uri]">
+                <xsl:for-each select="child::*[not(self::t:bibl)]">
+                    <xsl:apply-templates/>                    
+                </xsl:for-each>
+            </xsl:for-each>
+        </div>
+    </xsl:template>
+    <xsl:template match="t:aggregate ">
         <xsl:choose>
             <xsl:when test="t:div">
                 <xsl:for-each select="t:div">
@@ -135,7 +141,8 @@
                             </span>
                         </xsl:if>
                         <xsl:text> </xsl:text>
-                        <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a>
+                        <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
+                        </a>
                     </p>
                 </xsl:for-each>
             </xsl:when>
@@ -144,14 +151,16 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
     <xsl:template mode="spear" match="*">
         <xsl:choose>
-            <xsl:when test="self::t:listEvent or self::t:bibl"/>
+            <xsl:when test="self::t:bibl"/>
             <xsl:otherwise>
                 <xsl:apply-templates mode="spear"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
     <xsl:template match="t:sex | t:state | t:persName" mode="spear">
         <xsl:choose>
             <xsl:when test="self::t:persName[empty(.)]"/>
