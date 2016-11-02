@@ -19,6 +19,7 @@ declare variable $spears:place {request:get-parameter('place', '')};
 declare variable $spears:event {request:get-parameter('event', '')};
 declare variable $spears:ref {request:get-parameter('ref', '')};
 declare variable $spears:keyword {request:get-parameter('keyword', '')};
+declare variable $spears:relation {request:get-parameter('relation', '')};
 declare variable $spears:type {request:get-parameter('type', '')};
 declare variable $spears:title {request:get-parameter('title', '')};
 
@@ -101,6 +102,13 @@ declare function spears:type-search(){
     else ()    
 };
 
+declare function spears:relation(){
+    if($spears:relation != '') then
+            concat("[descendant::tei:relation[matches(@passive,'",$spears:relation,"(\W|$)')]
+            |descendant::tei:relation[matches(@active,'",$spears:relation,"(\W|$)')]
+            |descendant::tei:relation[matches(@mutual,'",$spears:relation,"(\W|$)')]]")
+    else ()
+};
 (:~
  : Search by date
  : NOTE: still thinking about this one
@@ -117,6 +125,7 @@ declare function spears:query-string() as xs:string? {
     spears:place(),
     spears:event(),
     spears:title-search(),
+    spears:relation(),
     spears:controlled-keyword-search(),facet:facet-filter(facet-defs:facet-definition('spear'))
     )
 };

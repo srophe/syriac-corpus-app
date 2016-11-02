@@ -2,8 +2,9 @@ xquery version "3.0";
  
 module namespace search="http://syriaca.org/search";
 import module namespace page="http://syriaca.org/page" at "../lib/paging.xqm";
-import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
-import module namespace facet-defs="http://syriaca.org/facet-defs" at "facet-defs.xqm";
+import module namespace rel="http://syriaca.org/related" at "../lib/get-related.xqm";
+import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm";
+import module namespace facet-defs="http://syriaca.org/facet-defs" at "../facet-defs.xqm";
 import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
 import module namespace persons="http://syriaca.org/persons" at "persons-search.xqm";
 import module namespace places="http://syriaca.org/places" at "places-search.xqm";
@@ -44,7 +45,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                         if($coll = ('sbd','q','authors','saints','persons')) then persons:query-string($coll)
                         else if($coll ='spear') then spears:query-string()
                         else if($coll = 'places') then places:query-string()
-                        else if($coll = 'bhse') then bhses:query-string()
+                        else if($coll = 'bhse') then bhses:query-string($collection)
                         else if($coll = 'bibl') then bibls:query-string()
                         else if($coll = 'manuscripts') then ms:query-string()
                         else search:query-string($collection)
@@ -255,7 +256,7 @@ declare %templates:wrap  function search:show-form($node as node()*, $model as m
         if($collection = ('persons','sbd','authors','q','saints')) then <div>{persons:search-form($collection)}</div>
         else if($collection ='spear') then <div>{spears:search-form()}</div>
         else if($collection ='manuscripts') then <div>{ms:search-form()}</div>
-        else if($collection ='bhse') then <div>{bhses:search-form()}</div>
+        else if($collection = ('bhse','nhsl')) then <div>{bhses:search-form($collection)}</div>
         else if($collection ='bibl') then <div>{bibls:search-form()}</div>
         else if($collection ='places') then <div>{places:search-form()}</div>
         else <div>{search:search-form()}</div>
@@ -268,6 +269,7 @@ declare
     %templates:default("start", 1)
 function search:show-hits($node as node()*, $model as map(*), $collection as xs:string?) {
 <div class="indent" id="search-results">
+    {bhses:query-string($collection)}
     <div>{search:build-geojson($node,$model)}</div>
     {
         for $hit at $p in subsequence($model("hits"), $search:start, $search:perpage)
@@ -281,6 +283,8 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                         {
                          if(starts-with(request:get-parameter('author', ''),$global:base-uri)) then 
                              global:display-recs-short-view($hit,'',request:get-parameter('author', ''))
+                         else if(request:get-parameter('relation', '') and $collection = 'spear') then
+                            <a href="factoid.html?id={string($hit/@uri)}">{rel:build-relationship-sentence($hit/descendant::tei:relation,$spears:relation)}</a>
                          else global:display-recs-short-view($hit,'')
                         } 
                       </div>

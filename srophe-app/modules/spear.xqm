@@ -53,12 +53,7 @@ return
     else map {"data" :=  
         <aggregate xmlns="http://www.tei-c.org/ns/1.0" id="{$id}">
             {
-                for $rec in collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$app:id or @target=$app:id]]
-                (:| 
-                collection('/db/apps/srophe-data/data/spear/tei')//tei:div[descendant::*[matches(@active, concat($id,"(\W|$)"))]] |
-                collection('/db/apps/srophe-data/data/spear/tei')//tei:div[descendant::*[matches(@passive, concat($id,"(\W|$)"))]] |
-                collection('/db/apps/srophe-data/data/spear/tei')//tei:div[descendant::*[matches(@mutual, concat($id,"(\W|$)"))]]
-                :)
+                for $rec in collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$app:id or @target=$app:id]]                
                 return ($rec)  
                 }
         </aggregate>}
@@ -129,6 +124,7 @@ if($data/tei:div[tei:listPerson]) then
         </div>
 else ()        
 };                      
+
 declare function spear:person-data($data){
 let $personInfo := $data/tei:div[tei:listPerson/child::*/tei:persName[1][@ref=$app:id]] 
 return 
@@ -147,13 +143,41 @@ return
     else ()
 };
 
-declare %templates:wrap function spear:relationships($node as node(), $model as map(*)){
-let $relation := $model("data")//tei:listRelation
-return 
+declare %templates:wrap function spear:relationships-aggregate($node as node(), $model as map(*)){
+let $relations := 
+                collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@active, concat($spear:id,"(\W|$)"))]] |
+                collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@passive, concat($spear:id,"(\W|$)"))]] |
+                collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@mutual, concat($spear:id,"(\W|$)"))]]
+let $count := count($relations)   
+let $relation := subsequence($relations,1,20)
+return  
     if(not(empty($relation))) then 
-        rel:build-relationships($relation,'')
+        <div class="panel panel-default">
+             <div class="panel-heading clearfix">
+                 <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Relationship Factoids about {spear:title()}</h4>
+             </div>
+             <div class="panel-body">
+                <div class="indent">
+                    {
+                       rel:build-short-relationships-list($relation, $spear:id),
+                       if($count gt 20) then 
+                           <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
+                            data-ref="{$global:nav-base}/spear/search.html?relation={$spear:id}&amp;perpage={$count}&amp;sort=alpha" 
+                            data-label="See all {$count} &#160; Relationships" id="related-names">See all {$count} relationships <i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+                       else ()
+                    }
+                </div>
+            </div>
+        </div>            
     else ()
 };
+
+declare %templates:wrap function spear:relationships($node as node(), $model as map(*)){
+let $relation := $model("data")//tei:listRelation
+for $r in $relation/descendant::tei:relation
+return rel:build-short-relationships($r,'')
+};
+
 
 (: NOTE: add footnotes to events panel :)
 declare %templates:wrap function spear:events($node as node(), $model as map(*)){
@@ -227,91 +251,86 @@ declare function spear:srophe-related($node as node(), $model as map(*)){
 declare function spear:related-factiods($node as node(), $model as map(*)){
 let $data := $model("data")
 return
-    if($data/ancestor::tei:body//tei:ref[@type='additional-attestation'][@target=$spear:id] or $data/descendant::tei:persName or $data/descendant::tei:placeName) then 
+    if($data/ancestor::tei:body//tei:ref[@type='additional-attestation'][@target=$spear:id] or $data/descendant::tei:persName or $data/descendant::tei:placeName or $data/descendant::tei:relation) then 
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
                 <h4 class="panel-title">Related Persons and Places</h4>
             </div>
             <div class="panel-body">
             {
-            if($data/ancestor::tei:body//tei:ref[@type='additional-attestation'][@target=$spear:id]) then
-        <div class="well">
-        <h4>Additional Attestations</h4>
-            <ul class="list-unstyled">
-            {
-                for $factoids in $data/ancestor::tei:body//tei:ref[@type='related-persons-places'][@target=$spear:id]
-                let $id := string($factoids/@ref)
-                return
-                    <li><a href="factoid.html?id={$id}">{$factoids}</a></li>
-            }
-            </ul>
-        
-        </div>
-    else(),
-    if($data/descendant::tei:persName) then 
-        let $persNames := distinct-values($data/descendant::tei:persName/@ref)
-        let $count := count($persNames)
-        return 
-        <div>
-            <h4>Related Person(s) {$count}</h4>
-                <div class="facet-list show">
-                <ul>
-                {
-                    for $r in subsequence($persNames,1,5)
-                    return 
-                        <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
-                }</ul>
-                </div>
-                {
-                    if($count gt 5) then
-                        (<div class="facet-list collapse" id="show-person">
-                            <ul>
-                            {
-                            for $r in subsequence($persNames,6,$count + 1)
-                            return 
-                                  <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
-                            }
-                            </ul>
-                        </div>,
-                        <a class="facet-label togglelink btn btn-info" 
-                        data-toggle="collapse" data-target="#show-person" href="#show-person" 
-                        data-text-swap="Less"> More &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>)
-                    else ()
-                }
-        </div>    
-    else(),
-    if($data/descendant::tei:placeName) then
-        let $placeNames := distinct-values($data/descendant::tei:placeName/@ref)
-        let $count := count($placeNames)
-        return 
-        <div>
-            <h4>Related Places(s) {$count}</h4>
-                <div class="facet-list show">
-                 <ul>
-                {
-                    for $r in subsequence($placeNames,1,5)
-                    return 
-                        <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
-                }</ul>
-                </div>
-                {
-                    if($count gt 5) then
-                        (<div class="facet-list collapse" id="show-places">
-                            <ul>
-                            {
-                            for $r in subsequence($placeNames,6,$count + 1)
-                            return 
-                                  <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
-                            }
-                            </ul>
-                        </div>,
-                        <a class="facet-label togglelink btn btn-info" 
-                        data-toggle="collapse" data-target="#show-places" href="#show-places" 
-                        data-text-swap="Less"> More &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>)
-                    else ()
-                }
-        </div>
-    else()
+                let $relations := 
+                distinct-values(
+                    (tokenize($data/descendant::*/@ref,' '), 
+                    tokenize($data/descendant::tei:relation/@mutual,' '), 
+                    tokenize($data/descendant::tei:relation/@active,' '), 
+                    tokenize($data/descendant::tei:relation/@passive,' '))
+                    )  
+                let $persNames := $relations[contains(.,'/person/')]
+                let $placeNames := $relations[contains(.,'/place/')]
+                let $count-persons := count($persNames)
+                let $count-places := count($placeNames)
+                return 
+                    (
+                    if($count-persons gt 0) then 
+                        <div>
+                            <h4>Related Person(s) {$count-persons}</h4>
+                            <div class="facet-list show">
+                                <ul>
+                                    {
+                                        for $r in subsequence($persNames,1,5)
+                                        return 
+                                            <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
+                                    }
+                                </ul>
+                             </div>
+                              {
+                                    if($count-persons gt 5) then
+                                        (<div class="facet-list collapse" id="show-person">
+                                            <ul>
+                                            {
+                                            for $r in subsequence($persNames,6,$count-persons + 1)
+                                            return 
+                                                  <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
+                                            }
+                                            </ul>
+                                        </div>,
+                                        <a class="facet-label togglelink btn btn-info" 
+                                        data-toggle="collapse" data-target="#show-person" href="#show-person" 
+                                        data-text-swap="Less"> More &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>)
+                                    else ()
+                                }
+                        </div>
+                    else(),     
+                    if($count-places gt 0) then                        
+                        <div>
+                            <h4>Related Places(s) {$count-places}</h4>
+                                <div class="facet-list show">
+                                     <ul>
+                                        {
+                                            for $r in subsequence($placeNames,1,5)
+                                            return 
+                                                <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
+                                        }
+                                    </ul>
+                                </div>
+                                {
+                                    if($count-places gt 5) then
+                                        (<div class="facet-list collapse" id="show-places">
+                                            <ul>
+                                            {
+                                            for $r in subsequence($placeNames,6,$count-places + 1)
+                                            return 
+                                                  <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
+                                            }
+                                            </ul>
+                                        </div>,
+                                        <a class="facet-label togglelink btn btn-info" 
+                                        data-toggle="collapse" data-target="#show-places" href="#show-places" 
+                                        data-text-swap="Less"> More &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>)
+                                    else ()
+                                }
+                        </div>
+                   else ())     
             }
             </div>
         </div>
