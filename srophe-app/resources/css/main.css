@@ -108,10 +108,11 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 
 .navbar .advanced-search{margin-top:-.5em;}
 .navbar-form {overflow:hidden;}
+
 .navbar-input-group {
   font-size: 0px; /*removes whitespace between button and input*/
 }
-
+/*
 .navbar-input-group input {
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
@@ -121,8 +122,8 @@ body {font-family: arial, sans-serif; background-color:#385978;}
   border-bottom-left-radius: 0px;
   border-left: 0px;
 }
-.navbar-form{max-width: 250px;}
-
+*/
+.navbar-form {max-width: 350px;}
 /* Nav submenus*/
 .dropdown-submenu {position: relative;}
 .dropdown-submenu > .dropdown-menu {
@@ -770,6 +771,16 @@ unpublished
 .msItem {margin:0 1em;}
 .msExtent {display:block; margin:0 1em;}
 
+.code-grp {width:100%;}
+.code {
+    text-align:left;
+    border:1px solid #ccc;
+	border-left: 11px solid #ccc;
+	overflow: auto;
+	max-width:inherit;
+    background-color: #F5F5F5;
+    width:90%;
+}
 /* API documentation */
 pre code {
 	line-height: 1.6em;
@@ -843,3 +854,4 @@ pre {
     }
 .caret {float:left; margin-left:.5em; margin-top:.5em;}    
 }
+.short-relationships {display:block;}
