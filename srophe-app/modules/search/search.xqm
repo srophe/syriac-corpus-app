@@ -309,7 +309,10 @@ declare %templates:wrap function search:build-page($node as node()*, $model as m
 declare function search:search-form() {   
 <form method="get" action="search.html" style="margin-top:2em;" class="form-horizontal indent" role="form">
     <div class="well well-small">
-        <div class="well well-small" style="background-color:white;">
+            <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#searchTips">
+                Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+            </button>&#160;
+        <div class="well well-small" style="background-color:white; margin-top:2em;">
             <div class="row">
                 <div class="col-md-7">
                 <!-- Keyword -->
@@ -354,9 +357,6 @@ declare function search:search-form() {
             </div>    
         </div>
         <div class="pull-right">
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#searchTips">
-                Search Tips <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-            </button>&#160;
             <button type="submit" class="btn btn-info">Search</button>&#160;
             <button type="reset" class="btn">Clear</button>
         </div>

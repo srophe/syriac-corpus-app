@@ -26,13 +26,14 @@ declare variable $bhses:refs {request:get-parameter('refs', '')};
 declare variable $bhses:related-pers {request:get-parameter('related-pers', '')};
 declare variable $bhses:idno {request:get-parameter('idno', '')};
 declare variable $bhses:id-type {request:get-parameter('id-type', '')};
+declare variable $bhses:coll {request:get-parameter('coll', '')};
 
 (:~
  : Build full-text keyword search over all tei:place data
  : @param $q query string
 :)
 declare function bhses:keyword() as xs:string? {
-    if($bhses:q != '') then concat("[ft:query(.,'",common:clean-string($bhses:q),"',common:options()) or ft:query(descendant::tei:persName,'",common:clean-string($bhses:q),"',common:options()) or ft:query(descendant::tei:placeName,'",common:clean-string($bhses:q),"',common:options()) or ft:query(ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:title,'",common:clean-string($bhses:q),"',common:options()) or ft:query(descendant::tei:desc,'",common:clean-string($bhses:q),"',common:options())]")
+    if($bhses:q != '') then concat("[ft:query(.,'",common:clean-string($bhses:q),"',common:options())]")
     else ()    
 };
 
@@ -118,11 +119,26 @@ declare function bhses:related-persons() as xs:string?{
             return concat("[descendant::tei:relation[@passive[matches(@passive,'",$ids,"')] or @active[matches(@passive,'",$ids,"')]]]")
     else ()  
 };
+
+(:~
+ : Search limit by submodule. 
+:)
+declare function bhses:coll($collection) as xs:string?{
+let $collection :=
+                   if($bhses:coll = 'nhsl') then 'http://syriaca.org/works'
+                   else if($bhses:coll = 'bhse' ) then 'http://syriaca.org/q'
+                   else if($collection = 'nhsl') then 'http://syriaca.org/works'
+                   else if($collection = 'bhse' ) then 'http://syriaca.org/q'
+                   else ()
+return                    
+    if($collection != '') then concat("[descendant::tei:seriesStmt/descendant::tei:idno/text() = '",$collection,"']")
+    else ()
+};
 (:~
  : Build query string to pass to search.xqm 
 :)
-declare function bhses:query-string() as xs:string? {
- concat("collection('",$global:data-root,"/works/tei')//tei:body",
+declare function bhses:query-string($collection) as xs:string? {
+ concat("collection('",$global:data-root,"/works/tei')//tei:TEI",bhses:coll($collection),
     bhses:keyword(),bhses:title(),bhses:author(),bhses:prologue(),
     bhses:incipit(),bhses:explicit(),bhses:editions(),
     bhses:modern(),bhses:ancient(),bhses:mss(),
@@ -137,7 +153,7 @@ declare function bhses:query-string() as xs:string? {
 declare function bhses:search-string(){
     let $parameters :=  request:get-parameter-names()
     for  $parameter in $parameters
-        return 
+    return 
             if(request:get-parameter($parameter, '') != '') then
                 if($parameter = 'start' or $parameter = 'sort-element') then ()
                 else if($parameter = 'q') then 
@@ -150,7 +166,7 @@ declare function bhses:search-string(){
                     (<span class="param">Ancient Versions: </span>,<span class="match">{$bhses:ancient}</span>)
                 else if($parameter = 'mss') then 
                     (<span class="param">Manuscript: </span>,<span class="match">{$bhses:mss}</span>)            
-                else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}</span>)    
+                else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')} </span>)    
             else ()               
 };
 
@@ -158,12 +174,34 @@ declare function bhses:search-string(){
 (:~
  : Builds advanced search form for persons
  :)
-declare function bhses:search-form() {   
+declare function bhses:search-form($collection) {   
 <form method="get" action="search.html" class="form-horizontal" role="form">
     <div class="well well-small">
-        <div><p><em>Wild cards * and ? may be used to optimize search results.
-        Wild cards may not be used at the beginning of a word, as it hinders search speed.</em></p></div>
+             <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#searchTips">
+                Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+            </button>&#160;
         <div class="well well-small search-inner well-white">
+              <div class="form-group">            
+                <label for="coll" class="col-sm-2 col-md-3  control-label">Search in Resource: </label>
+                <div class="col-sm-10 col-md-6">
+                    <label class="checkbox-inline">
+                        <input type="radio" name="coll" value="nhsl" aria-label="NHSL"/>
+                        {
+                            if($collection = 'nhsl') then attribute checked { "checked" }
+                            else ()
+                         }
+                            NHSL
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="radio" name="coll" value="q" aria-label="BHSE"/>
+                        {
+                            if($collection = 'bhse') then attribute checked { "checked" }
+                            else ()
+                        }
+                        BHSE
+                    </label>
+                </div>
+            </div>
         <!-- Keyword -->
             <div class="form-group">            
                 <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
@@ -259,9 +297,6 @@ declare function bhses:search-form() {
             </div> 
         </div>
         <div class="pull-right">
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#searchTips">
-                Search Tips <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-            </button>&#160;        
             <button type="submit" class="btn btn-info">Search</button>&#160;
             <button type="reset" class="btn">Clear</button>
         </div>

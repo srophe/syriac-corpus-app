@@ -388,9 +388,11 @@ declare function places:results-node($hit){
  :)
 declare function places:search-form() {   
 <form method="get" action="search.html" style="margin-top:2em;" class="form-horizontal" role="form">
-<h1>Advanced Search</h1>
     <div class="well well-small">
-        <div class="well well-small" style="background-color:white;">
+             <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#searchTips">
+                Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+            </button>
+        <div class="well well-small search-inner well-white">
             <div class="row">
                 <div class="col-md-7" style="border-right:1px solid #ccc;">
                 <!-- Keyword -->
@@ -523,10 +525,7 @@ declare function places:search-form() {
                 </div>
             </div>
         </div>
-        <div class="pull-right">
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#searchTips">
-                Search Tips <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-            </button>&#160;        
+        <div class="pull-right">        
             <button type="submit" class="btn btn-info">Search</button>&#160;
             <button type="reset" class="btn">Clear</button>
         </div>

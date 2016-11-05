@@ -455,7 +455,7 @@ td {
 .type-content {padding:1em;}
 .type-nav {width: 85%;}
 
-
+.search-inner {margin-top:2em;}
 /* Styles for record short view under relation div*/
 .relation {white-space: normal;}
 .relation .results-list-desc.uri{margin-left:0; }

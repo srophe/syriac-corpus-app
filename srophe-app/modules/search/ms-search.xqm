@@ -76,10 +76,10 @@ declare function ms:results-node($hit){
  :)
 declare function ms:search-form() {   
 <form method="get" action="search.html" class="form-horizontal" role="form">
-    <h1>Advanced Search</h1>
     <div class="well well-small">
-        <div><p><em>Wild cards * and ? may be used to optimize search results.
-        Wild cards may not be used at the beginning of a word, as it hinders search speed.</em></p></div>
+             <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#searchTips">
+                Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+            </button>&#160;
         <div class="well well-small search-inner well-white">
         <!-- Keyword -->
             <div class="form-group">            
@@ -90,9 +90,6 @@ declare function ms:search-form() {
             </div> 
         </div>
         <div class="pull-right">
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#searchTips">
-                Search Tips <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-            </button>&#160;        
             <button type="submit" class="btn btn-info">Search</button>&#160;
             <button type="reset" class="btn">Clear</button>
         </div>

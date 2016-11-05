@@ -33,10 +33,8 @@ declare variable $persons:mentioned {request:get-parameter('mentioned', '')};
 
 
 (:~
- : Build full-text keyword search over all tei:place data
+ : Build full-text keyword search over all tei:person data
  : @param $q query string
- descendant-or-self::* or . testing which is most correct
- common:build-query($pram-string)
 :)
 declare function persons:keyword() as xs:string? {
     if($persons:q != '') then concat("[ft:query(.,'",common:clean-string($persons:q),"',common:options()) | ft:query(descendant::tei:persName,'",common:clean-string($persons:q),"',common:options()) | ft:query(descendant::tei:placeName,'",common:clean-string($persons:q),"',common:options()) | ft:query(ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:title,'",common:clean-string($persons:q),"',common:options()) | ft:query(descendant::tei:desc,'",common:clean-string($persons:q),"',common:options())]")
@@ -343,8 +341,9 @@ declare function persons:search-string() as node()*{
 declare function persons:search-form($collection) {   
 <form method="get" action="search.html" class="form-horizontal" role="form">
     <div class="well well-small">
-        <div><p><em>Wild cards * and ? may be used to optimize search results.
-        Wild cards may not be used at the beginning of a word, as it hinders search speed.</em></p></div>
+             <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#searchTips">
+                Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+            </button>&#160;
         <div class="well well-small search-inner well-white">
          <!-- Person Type -->
            <div class="form-group">            
@@ -522,9 +521,6 @@ declare function persons:search-form($collection) {
             </div> 
         </div>
         <div class="pull-right">
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#searchTips">
-                Search Tips <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-            </button>&#160;        
             <button type="submit" class="btn btn-info">Search</button>&#160;
             <button type="reset" class="btn">Clear</button>
         </div>
