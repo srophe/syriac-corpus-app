@@ -32,6 +32,7 @@ if($spear:id != '') then
     if(contains($spear:id, '/place')) then 'place-factoid'
     else if(contains($spear:id, '/person')) then 'person-factoid'
     else if(contains($spear:id, '/keyword')) then 'keyword-factoid'
+    else if(contains($spear:id, '/spear')) then 'source-factoid'
     else 'event-factoid'
 else 'all-events'
 };    
@@ -40,23 +41,28 @@ else 'all-events'
  : Build spear view
  : @param $id spear URI
  :)       
-declare %templates:wrap function spear:get-rec($node as node(), $model as map(*)){ 
+declare %templates:wrap function spear:get-rec($node as node(), $model as map(*), $view as xs:string?){ 
 let $id :=
         if(contains($app:id,$global:base-uri) or starts-with($app:id,'http://')) then $app:id
         else if(contains(request:get-uri(),$global:nav-base)) then replace(request:get-uri(),$global:nav-base, $global:base-uri)
         else if(contains(request:get-uri(),$global:base-uri)) then request:get-uri()
         else $app:id
 let $id := if(ends-with($id,'.html')) then substring-before($id,'.html') else $id  
-return     
-    if(starts-with($id,'http://syriaca.org/spear/')) then  
-           map {"data" :=  global:get-rec($id)}
-    else map {"data" :=  
+return 
+    if($view = 'aggregate') then
+        map {"data" :=  
         <aggregate xmlns="http://www.tei-c.org/ns/1.0" id="{$id}">
             {
-                for $rec in collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$app:id or @target=$app:id]]                
-                return ($rec)  
-                }
+                if($spear:item-type = 'source-factoid') then 
+                    for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = concat($id,'/tei')]/ancestor::tei:TEI
+                    return $rec                  
+                else
+                    for $rec in collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$app:id or @target=$app:id]]                
+                    return ($rec)  
+            }
         </aggregate>}
+    else  map {"data" :=  global:get-rec($id)}
+    
 };
 
 (:~   
@@ -74,7 +80,7 @@ global:tei2html(
     </spear-headwords>)
 };
 
-(:~  
+(:~   
  : Build page title
  : Uses connical record from syriaca.org as title, otherwise uses spear data
 :)
@@ -84,7 +90,12 @@ declare %templates:wrap function spear:h1($node as node(), $model as map(*)){
     let $title :=  $rec-exists/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"]
     let $id := <idno type='URI' xmlns="http://www.tei-c.org/ns/1.0">{$spear:id}</idno>
     return 
-        if($rec-exists != '') then 
+        if($spear:item-type = 'source-factoid') then 
+            global:tei2html(
+                <aggregate-source xmlns="http://www.tei-c.org/ns/1.0">
+                    {$data/descendant::tei:title[1], $id}
+                </aggregate-source>)
+        else if($rec-exists != '') then 
             global:tei2html(
                 <aggregate-title xmlns="http://www.tei-c.org/ns/1.0">
                     {$title, $id}
@@ -100,6 +111,8 @@ declare function spear:data($node as node(), $model as map(*)){
 if($spear:item-type = 'place-factoid') then ()
 else if($spear:item-type = 'person-factoid') then
     spear:person-data($model("data"))
+else if($spear:item-type = 'source-factoid') then
+    spear:source-data($model("data"))
 else if($spear:item-type = 'keyword-factoid') then
     spear:keyword-data($model("data"))    
 else global:tei2html(  
@@ -110,7 +123,7 @@ else global:tei2html(
 };
                           
 declare function spear:keyword-data($data){
-if($data/tei:div[tei:listPerson]) then 
+if($data//tei:div[tei:listPerson]) then 
     <div class="panel panel-default">
              <div class="panel-heading clearfix">
                  <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Person Factoids about {spear:title()}</h4>
@@ -125,8 +138,25 @@ if($data/tei:div[tei:listPerson]) then
 else ()        
 };                      
 
+declare function spear:source-data($data){
+let $personInfo := $data//tei:div[tei:listPerson] 
+return 
+    if(not(empty($personInfo))) then 
+        <div class="panel panel-default">
+             <div class="panel-heading clearfix">
+                 <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Person Factoids about {spear:title()}</h4>
+             </div>
+             <div class="panel-body">
+                {global:tei2html(
+                    <aggregate xmlns="http://www.tei-c.org/ns/1.0">
+                        {$personInfo}
+                    </aggregate>)}
+             </div>
+        </div>
+    else ()
+};
 declare function spear:person-data($data){
-let $personInfo := $data/tei:div[tei:listPerson/child::*/tei:persName[1][@ref=$app:id]] 
+let $personInfo := $data//tei:div[tei:listPerson/child::*/tei:persName[1][@ref=$app:id]] 
 return 
     if(not(empty($personInfo))) then 
         <div class="panel panel-default">
@@ -260,7 +290,7 @@ return
             {
                 let $relations := 
                 distinct-values(
-                    (tokenize($data/descendant::*/@ref,' '), 
+                    (tokenize($data/descendant::*/@ref,' '),tokenize($data/descendant::*/@target,' '), 
                     tokenize($data/descendant::tei:relation/@mutual,' '), 
                     tokenize($data/descendant::tei:relation/@active,' '), 
                     tokenize($data/descendant::tei:relation/@passive,' '))

@@ -55,6 +55,34 @@
     
     <!-- Manuscript templates -->
     <!-- used by spear pages not real tei element -->
+    <xsl:template match="t:aggregate-source">
+        <div class="row title padding-top">
+            <h1 class="col-md-8">
+                <xsl:text>SPEAR Factoids from </xsl:text>
+                <xsl:call-template name="title"/>
+            </h1>
+            <!-- Call link icons (located in link-icons.xsl) -->
+            <span class="padding-top">
+                <xsl:call-template name="link-icons"/>
+            </span>
+        </div>
+        <div style="margin:0 1em 1em; color: #999999;">
+            <small>
+                <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
+                    <span class="helper circle noprint">
+                        <p>i</p>
+                    </span>
+                </a>
+                <p>
+                    <span class="srp-label">URI</span>
+                    <xsl:text>: </xsl:text>
+                    <span id="syriaca-id">
+                        <xsl:value-of select="$resource-id"/>
+                    </span>
+                </p>
+            </small>
+        </div>
+    </xsl:template>
     <xsl:template match="t:aggregate-title">
         <div class="row title padding-top">
             <h1 class="col-md-8">
@@ -115,7 +143,7 @@
         <div class="indent">
             <xsl:for-each select="descendant::t:div[@uri]">
                 <xsl:for-each select="child::*[not(self::t:bibl)]">
-                    <xsl:apply-templates/>                    
+                    <xsl:apply-templates/>
                 </xsl:for-each>
             </xsl:for-each>
         </div>
@@ -151,7 +179,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
     <xsl:template mode="spear" match="*">
         <xsl:choose>
             <xsl:when test="self::t:bibl"/>
@@ -160,7 +187,6 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
     <xsl:template match="t:sex | t:state | t:persName" mode="spear">
         <xsl:choose>
             <xsl:when test="self::t:persName[empty(.)]"/>
