@@ -398,7 +398,10 @@ else
 
 declare function browse:display-hits($hits){
     for $data in subsequence($hits, $browse:start,$browse:perpage)
-    return global:display-recs-short-view($data, $browse:computed-lang)
+    return 
+        <div xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
+            {global:display-recs-short-view($data, $browse:computed-lang)}
+        </div>
 };
 
 (: Display map :)
