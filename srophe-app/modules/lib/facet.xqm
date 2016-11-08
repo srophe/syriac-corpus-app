@@ -146,7 +146,6 @@ declare function facet:group-by-array($results as item()*, $facet-definitions as
     return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$f[1]}" label="{$f[1]}"/>
 };
 
-
 (:~
  : Given a result sequence, and a facet definition, count the facet-values for each range facet defined by the facet definition. 
  : Range values defined by: range and range/bucket elements
@@ -225,7 +224,7 @@ declare function facet:facet-filter($facet-definitions as node()*)  as item()*{
                     concat('[',$path,'[matches(., "',$facet-value,'(\W|$)")]',']')
                 else if($facet/facet:group-by[@function="facet:spear-type"]) then 
                     concat('[',substring-before($path,'/name(.)'),'[name(.) = "',$facet-value,'"]',']')                    
-                else concat('[',$path,'[string(.) = "',$facet-value,'"]',']')
+                else concat('[',$path,'[normalize-space(.) = "',replace($facet-value,'"','""'),'"]',']')
             else(),'')    
     else () 
 };
