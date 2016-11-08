@@ -443,6 +443,9 @@
                                 </xsl:choose>
                             </xsl:variable>
                             <xsl:variable name="last-words" select="tokenize($string, '\W+')[position() = 25]"/>
+                            <xsl:if test="descendant::*[starts-with(@xml:id,'abstract')]/t:quote">
+                                <xsl:text>"</xsl:text>
+                            </xsl:if>
                             <xsl:choose>
                                 <xsl:when test="count(tokenize($string, '\W+')[. != '']) gt 25">
                                     <xsl:value-of select="concat(substring-before($string, $last-words),'...')"/>
@@ -451,6 +454,9 @@
                                     <xsl:value-of select="$string"/>
                                 </xsl:otherwise>
                             </xsl:choose>
+                            <xsl:if test="descendant::*[starts-with(@xml:id,'abstract')]/t:quote">
+                                <xsl:text>"</xsl:text>
+                            </xsl:if>
                         </span>
                     </xsl:if>
                     <xsl:if test="descendant::t:biblStruct">
