@@ -8,9 +8,11 @@
             <div class="row">
                 <!-- Column 1 -->
                 <div class="col-md-8 column1">
-                    <div data-template="spear:data"/>
+                    <div data-template="spear:data" data-template-view="aggregate"/>
+                    <!-- Pull it all in via spear:data
                     <div data-template="spear:relationships-aggregate"/>
                     <div data-template="spear:events"/>
+                    -->
                     <!-- Bibliography -->
                     <!-- <div data-template="spear:bibl"/>-->
                 </div> 
@@ -18,7 +20,7 @@
                 <!-- Column 2 -->
                 <div class="col-md-4 column2">
                     <!-- Get related from Gazetteer or Persons db -->
-                    <div data-template="spear:srophe-related"/>
+                    <div data-template="spear:srophe-related" data-template-view="aggregate"/>
                     <div data-template="spear:related-factiods"/>
                 </div>
             </div>

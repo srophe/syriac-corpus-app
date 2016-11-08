@@ -107,21 +107,32 @@ declare %templates:wrap function spear:h1($node as node(), $model as map(*)){
                 </factoid-title>)
 };
      
-declare function spear:data($node as node(), $model as map(*)){
-if($spear:item-type = 'place-factoid') then ()
+declare function spear:data($node as node(), $model as map(*), $view as xs:string?){
+if($spear:item-type = 'place-factoid') then 
+    (spear:relationships-aggregate($node,$model),
+    spear:events($node,$model))
 else if($spear:item-type = 'person-factoid') then
-    spear:person-data($model("data"))
-else if($spear:item-type = 'source-factoid') then
+    (
+    spear:person-data($model("data")),
+    spear:relationships-aggregate($node,$model),
+    spear:events($node,$model)
+    )
+else if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
     spear:source-data($model("data"))
 else if($spear:item-type = 'keyword-factoid') then
-    spear:keyword-data($model("data"))    
+    (
+    spear:person-data($model("data")),
+    spear:relationships-aggregate($node,$model),
+    spear:events($node,$model)
+    )   
 else global:tei2html(  
                     <factoid xmlns="http://www.tei-c.org/ns/1.0">
                         {$model("data")}
                     </factoid>)
                     
 };
-                          
+
+(:@depreciated:)                          
 declare function spear:keyword-data($data){
 if($data//tei:div[tei:listPerson]) then 
     <div class="panel panel-default">
@@ -138,23 +149,82 @@ if($data//tei:div[tei:listPerson]) then
 else ()        
 };                      
 
+(: 
+    How to list all the factoids?
+    should have the options of by type, in order and using 'advance browse options?'
+    
+:)
 declare function spear:source-data($data){
-let $personInfo := $data//tei:div[tei:listPerson] 
-return 
-    if(not(empty($personInfo))) then 
-        <div class="panel panel-default">
-             <div class="panel-heading clearfix">
-                 <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Person Factoids about {spear:title()}</h4>
-             </div>
-             <div class="panel-body">
-                {global:tei2html(
+(<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h4 class="panel-title pull-left" style="padding-top: 7.5px;">About {global:tei2html($data/descendant::tei:titleStmt/tei:title[1])}</h4>
+    </div>
+    <div class="panel-body">
+        {global:tei2html(<spear-titleStmt xmlns="http://www.tei-c.org/ns/1.0">{$data/descendant::tei:titleStmt}</spear-titleStmt>)}
+        <div>
+            <ul>
+                <li>Person Factoids: {count($data/descendant::tei:div[tei:listPerson])}</li>
+                <li>Relationship Factoids: {count($data/descendant::tei:div[tei:listRelation])}</li>
+                <li>Event Factoids: {count($data/descendant::tei:div[tei:listEvent])}</li>
+            </ul>
+        </div>
+    </div>
+</div>,
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#persons">Person Factoids ({count($data/descendant::tei:div[tei:listPerson])})</a>
+      </h4>
+    </div>
+    <div id="persons" class="panel-collapse collapse">
+      <div class="panel-body">{
+        let $personInfo := $data/descendant::tei:div[tei:listPerson] 
+        return  global:tei2html(
                     <aggregate xmlns="http://www.tei-c.org/ns/1.0">
                         {$personInfo}
-                    </aggregate>)}
-             </div>
-        </div>
-    else ()
+                    </aggregate>)
+        }
+    </div>                    
+  </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#relationships">Relationship Factoids ({count($data/descendant::tei:div[tei:listRelation])})</a>
+      </h4>
+    </div>
+    <div id="relationships" class="panel-collapse collapse">
+      <div class="panel-body">{ 
+        let $relation := $data/descendant::tei:div/tei:listRelation
+        for $r in $relation/descendant::tei:relation
+        return <p>{rel:build-short-relationships-list($r, $spear:id)}</p>
+        }
+    </div>                    
+  </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#events">Event Factoids ({count($data/descendant::tei:div[tei:listEvent])})</a>
+      </h4>
+    </div>
+    <div id="events" class="panel-collapse collapse">
+      <div class="panel-body">{
+        let $events := $data/descendant::tei:div/tei:listEvent/descendant::tei:event 
+        return   
+        (ev:build-timeline($events,'events'),
+        ev:build-events-panel($events))
+        }
+    </div>                    
+  </div>
+  </div>  
+</div>,
+(:Sources:)
+global:tei2html(<spear-sources xmlns="http://www.tei-c.org/ns/1.0">{$data/descendant::tei:back/descendant::tei:bibl}</spear-sources>))
+  
 };
+
 declare function spear:person-data($data){
 let $personInfo := $data//tei:div[tei:listPerson/child::*/tei:persName[1][@ref=$app:id]] 
 return 
@@ -225,7 +295,17 @@ declare %templates:wrap function spear:events($node as node(), $model as map(*))
  aggrigate?  
  Checks link to related record
 :)
-declare function spear:srophe-related($node as node(), $model as map(*)){
+declare function spear:srophe-related($node as node(), $model as map(*), $view as xs:string?){
+if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h4 class="panel-title">NHSL Record information</h4>
+        </div>
+        <div class="panel-body">
+        
+         </div>
+    </div>      
+else
     let $data := $model("data")
     let $rec-exists := spear:canonical-rec()  
     let $type := string($rec-exists/ancestor::tei:place/@type)

@@ -179,6 +179,12 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <xsl:template match="t:spear-titleStmt">
+        <p>Title, editors, etc</p>
+    </xsl:template>
+    <xsl:template match="t:spear-sources">
+        <xsl:call-template name="sources"/>
+    </xsl:template>
     <xsl:template mode="spear" match="*">
         <xsl:choose>
             <xsl:when test="self::t:bibl"/>
