@@ -131,14 +131,14 @@ let $collection :=
                    else if($collection = 'bhse' ) then 'http://syriaca.org/q'
                    else ()
 return                    
-    if($collection != '') then concat("[descendant::tei:seriesStmt/descendant::tei:idno/text() = '",$collection,"']")
+    if($collection != '') then concat("[ancestor::tei:TEI/descendant::tei:seriesStmt/descendant::tei:idno/text() = '",$collection,"']")
     else ()
 };
 (:~
  : Build query string to pass to search.xqm 
 :)
 declare function bhses:query-string($collection) as xs:string? {
- concat("collection('",$global:data-root,"/works/tei')//tei:TEI",bhses:coll($collection),
+ concat("collection('",$global:data-root,"/works/tei')//tei:body",bhses:coll($collection),
     bhses:keyword(),bhses:title(),bhses:author(),bhses:prologue(),
     bhses:incipit(),bhses:explicit(),bhses:editions(),
     bhses:modern(),bhses:ancient(),bhses:mss(),
