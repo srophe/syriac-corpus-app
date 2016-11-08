@@ -45,7 +45,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                         if($coll = ('sbd','q','authors','saints','persons')) then persons:query-string($coll)
                         else if($coll ='spear') then spears:query-string()
                         else if($coll = 'places') then places:query-string()
-                        else if($coll = 'bhse') then bhses:query-string($collection)
+                        else if($coll = ('bhse','nhsl')) then bhses:query-string($collection)
                         else if($coll = 'bibl') then bibls:query-string()
                         else if($coll = 'manuscripts') then ms:query-string()
                         else search:query-string($collection)

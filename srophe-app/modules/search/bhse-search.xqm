@@ -125,13 +125,11 @@ declare function bhses:related-persons() as xs:string?{
 :)
 declare function bhses:coll($collection) as xs:string?{
 let $collection :=
-                   if($bhses:coll = 'nhsl') then 'http://syriaca.org/works'
-                   else if($bhses:coll = 'bhse' ) then 'http://syriaca.org/q'
-                   else if($collection = 'nhsl') then 'http://syriaca.org/works'
-                   else if($collection = 'bhse' ) then 'http://syriaca.org/q'
-                   else ()
+    if($collection = 'bhse' ) then 'Bibliotheca Hagiographica Syriaca Electronica'
+    else if($collection = 'nhsl' ) then 'New Handbook of Syriac Literature'
+    else ()
 return                    
-    if($collection != '') then concat("[ancestor::tei:TEI/descendant::tei:seriesStmt/descendant::tei:idno/text() = '",$collection,"']")
+    if($collection != '') then concat("[ancestor::tei:TEI/descendant::tei:title = '",$collection,"']")
     else ()
 };
 (:~
