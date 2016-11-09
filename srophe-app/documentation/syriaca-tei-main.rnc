@@ -7,7 +7,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2016-05-24T13:59:08Z. .
+# Schema generated from ODD source 2016-11-09T16:53:45Z. .
 # TEI Edition: Version 3.0.0. Last updated on
 #	29th March 2016, revision 89ba24e
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.0.0/
@@ -303,8 +303,8 @@ sch:pattern [
     "\x{a}" ~
     "        "
     sch:report [
-      role = "nonfatal"
       test = "@notBefore|@notAfter|@from|@to"
+      role = "nonfatal"
       "The @when attribute cannot be used with any other att.datable.w3c attributes."
     ]
     "\x{a}" ~
@@ -323,8 +323,8 @@ sch:pattern [
     "\x{a}" ~
     "        "
     sch:report [
-      role = "nonfatal"
       test = "@notBefore"
+      role = "nonfatal"
       "The @from and @notBefore attributes cannot be used together."
     ]
     "\x{a}" ~
@@ -342,8 +342,8 @@ sch:pattern [
     "\x{a}" ~
     "        "
     sch:report [
-      role = "nonfatal"
       test = "@notAfter"
+      role = "nonfatal"
       "The @to and @notAfter attributes cannot be used together."
     ]
     "\x{a}" ~
@@ -598,7 +598,9 @@ tei_att.global.attribute.syriaca-computed-start =
 tei_att.global.attribute.source =
   
   ## Global source attribute. 
-  attribute source { text }?
+  attribute source {
+    list { xsd:anyURI+ }
+  }?
 tei_att.global.attribute.syriaca-computed-end =
   
   ## End date
@@ -1622,36 +1624,42 @@ tei_model.nameLike =
   | tei_model.placeStateLike
   | tei_idno
   | tei_model.persNamePart
+  | tei_lang
 tei_model.nameLike_alternation =
   tei_model.nameLike.agent_alternation
   | tei_model.offsetLike_alternation
   | tei_model.placeStateLike_alternation
   | tei_idno
   | tei_model.persNamePart_alternation
+  | tei_lang
 tei_model.nameLike_sequence =
   tei_model.nameLike.agent_sequence,
   tei_model.offsetLike_sequence,
   tei_model.placeStateLike_sequence,
   tei_idno,
-  tei_model.persNamePart_sequence
+  tei_model.persNamePart_sequence,
+  tei_lang
 tei_model.nameLike_sequenceOptional =
   tei_model.nameLike.agent_sequenceOptional?,
   tei_model.offsetLike_sequenceOptional?,
   tei_model.placeStateLike_sequenceOptional?,
   tei_idno?,
-  tei_model.persNamePart_sequenceOptional?
+  tei_model.persNamePart_sequenceOptional?,
+  tei_lang?
 tei_model.nameLike_sequenceOptionalRepeatable =
   tei_model.nameLike.agent_sequenceOptionalRepeatable*,
   tei_model.offsetLike_sequenceOptionalRepeatable*,
   tei_model.placeStateLike_sequenceOptionalRepeatable*,
   tei_idno*,
-  tei_model.persNamePart_sequenceOptionalRepeatable*
+  tei_model.persNamePart_sequenceOptionalRepeatable*,
+  tei_lang*
 tei_model.nameLike_sequenceRepeatable =
   tei_model.nameLike.agent_sequenceRepeatable+,
   tei_model.offsetLike_sequenceRepeatable+,
   tei_model.placeStateLike_sequenceRepeatable+,
   tei_idno+,
-  tei_model.persNamePart_sequenceRepeatable+
+  tei_model.persNamePart_sequenceRepeatable+,
+  tei_lang+
 tei_model.global =
   tei_model.global.meta
   | tei_model.milestoneLike
@@ -1688,7 +1696,8 @@ tei_model.inter =
   | tei_model.listLike
   | tei_model.stageLike
   | tei_model.qLike
-tei_model.common = tei_model.divPart | tei_model.inter
+tei_model.common =
+  tei_model.divPart | tei_model.inter | tei_model.entryLike
 tei_model.phrase =
   tei_model.segLike
   | tei_model.highlighted
@@ -1700,6 +1709,7 @@ tei_model.phrase =
   | tei_model.phrase.xml
   | tei_model.specDescLike
   | tei_model.pPart.data
+  | tei_model.ptrLike.form
 tei_model.limitedPhrase =
   tei_model.hiLike
   | tei_model.emphLike
@@ -2586,11 +2596,63 @@ tei_bibl =
      | tei_model.ptrLike
      | tei_model.biblPart
      | tei_model.global)*,
-    tei_att.global.attributes,
+    tei_att.global.attribute.syriaca-computed-start,
+    tei_att.global.attribute.source,
+    tei_att.global.attribute.syriaca-computed-end,
+    tei_att.global.attribute.syriaca-tags,
+    tei_att.global.attribute.xmlid,
+    tei_att.global.attribute.n,
+    tei_att.global.attribute.xmllang,
+    tei_att.global.attribute.xmlbase,
+    tei_att.global.attribute.xmlspace,
+    tei_att.global.rendition.attribute.rend,
+    tei_att.global.rendition.attribute.style,
+    tei_att.global.rendition.attribute.rendition,
+    tei_att.global.linking.attribute.corresp,
+    tei_att.global.linking.attribute.synch,
+    tei_att.global.linking.attribute.sameAs,
+    tei_att.global.linking.attribute.copyOf,
+    tei_att.global.linking.attribute.next,
+    tei_att.global.linking.attribute.prev,
+    tei_att.global.linking.attribute.exclude,
+    tei_att.global.linking.attribute.select,
+    tei_att.global.facs.attribute.facs,
+    tei_att.global.change.attribute.change,
+    tei_att.global.responsibility.attribute.cert,
+    tei_att.global.responsibility.attribute.resp,
     tei_att.declarable.attributes,
-    tei_att.typed.attributes,
+    tei_att.typed.attribute.subtype,
     tei_att.sortable.attributes,
     tei_att.docStatus.attributes,
+    
+    ## (analysis) The ana attribute on bibl elements should contain one or more Syriaca.org subject URIs beginning with http://syriaca.org/subject/
+    attribute ana {
+      list { xsd:anyURI+ }
+    }?,
+    
+    ## The type attribute on bibl elements may be an RDF class defining the type of work or item. These will typically begin with either the prefix lawd: (http://lawd.info/ontology) or syriaca:
+    ## Suggested values include: 1] lawd:ConceptualWork; 2] lawd:Edition; 3] lawd:Translation; 4] lawd:Citation; 5] syriaca:Manuscript; 6] syriaca:Catalogue
+    attribute type {
+      
+      ## A Conceptual Work groups together one or more Written Works which have the same intellectual source. E.g. The Iliad, as opposed to a particular manuscript witness or edition of the Iliad. See http://lawd.info/ontology/ConceptualWork.
+      "lawd:ConceptualWork"
+      | 
+        ## A published (whether officially or not) Written Work that relies on one or more Written Works as sources. See http://lawd.info/ontology/Edition.
+        "lawd:Edition"
+      | 
+        ## A Written Work that translates one or more other Written Works that embody the same Conceptual Work. See http://lawd.info/ontology/Translation.
+        "lawd:Translation"
+      | 
+        ## A Citation models a bibliographic reference as a resource. See http://lawd.info/ontology/Citation.
+        "lawd:Citation"
+      | 
+        ## Any text-bearing object, which usually embodies a Conceptual Work and which may be a source for an Edition or Translation.
+        "syriaca:Manuscript"
+      | 
+        ## A Citation of a catalogue.
+        "syriaca:Catalogue"
+      | xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
+    }?,
     empty
   }
 tei_biblStruct =
@@ -2614,8 +2676,8 @@ tei_biblStruct =
            "\x{a}" ~
            "               "
            sch:report [
-             role = "nonfatal"
              test = "child::tei:idno"
+             role = "nonfatal"
              "WARNING: use of deprecated method — the use of the idno element as a direct child of the biblStruct element will be removed from the TEI on 2016-09-18"
            ]
            "\x{a}" ~
@@ -2857,7 +2919,7 @@ tei_fileDesc =
       tei_editionStmt?,
       tei_extent?,
       tei_publicationStmt,
-      tei_seriesStmt*),
+      tei_seriesStmt?),
      tei_sourceDesc+),
     tei_att.global.attributes,
     empty
@@ -2939,7 +3001,8 @@ tei_idno =
     tei_att.global.attributes,
     tei_att.sortable.attributes,
     
-    ## categorizes the identifier, for example as an ISBN, Social Security number, etc.
+    ## The type attribute on idno defines the kind of identifier contained in the text value. Custom types not listed here may be used so long as they are standard and clearly recognizable (for example, "CPG" for Clavis Patrum Graecorum numbers for work entities). Where available, URIs are always preferred over other types of identifiers.
+    ## Suggested values include: 
     attribute type {
       xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
     }?,
@@ -4329,8 +4392,8 @@ tei_msPart =
            "\x{a}" ~
            "               "
            sch:report [
-             role = "nonfatal"
              test = "child::tei:altIdentifier"
+             role = "nonfatal"
              "WARNING: use of deprecated method — the use of the altIdentifier element as a direct child of the msPart element will be removed from the TEI on 2016-09-09"
            ]
            "\x{a}" ~
@@ -6588,6 +6651,77 @@ tei_interpGrp =
     (tei_model.descLike*, tei_interp+),
     tei_att.global.attributes,
     tei_att.interpLike.attributes,
+    empty
+  }
+tei_model.entryLike = notAllowed
+tei_att.lexicographic.attributes =
+  tei_att.datcat.attributes,
+  tei_att.lexicographic.attribute.expand,
+  tei_att.lexicographic.attribute.norm,
+  tei_att.lexicographic.attribute.split,
+  tei_att.lexicographic.attribute.value,
+  tei_att.lexicographic.attribute.orig,
+  tei_att.lexicographic.attribute.location,
+  tei_att.lexicographic.attribute.mergedIn,
+  tei_att.lexicographic.attribute.opt
+tei_att.lexicographic.attribute.expand =
+  
+  ## gives an expanded form of information presented more concisely in the dictionary
+  attribute expand { text }?
+tei_att.lexicographic.attribute.norm =
+  
+  ## (normalized) gives a normalized form of information given by the source text in a non-normalized form
+  attribute norm { xsd:string }?
+tei_att.lexicographic.attribute.split =
+  
+  ## gives the list of split values for a merged form
+  attribute split { xsd:string }?
+tei_att.lexicographic.attribute.value =
+  
+  ## gives a value which lacks any realization in the printed source text.
+  attribute value { xsd:string }?
+tei_att.lexicographic.attribute.orig =
+  
+  ## (original) gives the original string or is the empty string when the element does not appear in the source text.
+  attribute orig { xsd:string }?
+tei_att.lexicographic.attribute.location =
+  
+  ## indicates an anchor element typically elsewhere in the document, but possibly in another document, which is the original location of this component.
+  attribute location { xsd:anyURI }?
+tei_att.lexicographic.attribute.mergedIn =
+  
+  ## gives a reference to another element, where the original appears as a merged form.
+  attribute mergedIn { xsd:anyURI }?
+tei_att.lexicographic.attribute.opt =
+  
+  ## (optional) indicates whether the element is optional or not
+  [ a:defaultValue = "false" ] attribute opt { xsd:boolean }?
+tei_model.ptrLike.form = notAllowed
+tei_lang =
+  
+  ## (language name) contains the name of a language mentioned in etymological or other linguistic discussion. Inside a bibl element, this refers to the language of the version to which the bibl refers. The contents of lang should be a BCP-47 code. [9.3.4. Etymological Information]
+  element lang {
+    tei_macro.paraContent
+    >> sch:pattern [
+         id = "syriacaMainODD-lang-lang-in-bibls-constraint-28"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "tei:lang"
+           "\x{a}" ~
+           "               "
+           sch:report [
+             test = "not(ancestor::tei:bibl)"
+             "Error: The lang element is only allowed inside a bibl element."
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
+    tei_att.global.attributes,
+    tei_att.lexicographic.attributes,
     empty
   }
 start = tei_TEI

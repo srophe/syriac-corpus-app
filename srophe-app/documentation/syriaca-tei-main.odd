@@ -34,6 +34,9 @@
                         </attDef>
                         <attDef ident="source" mode="add">
                             <desc>Global source attribute. </desc>
+                            <datatype minOccurs="1" maxOccurs="unbounded">
+                                <dataRef key="teidata.pointer"/>
+                            </datatype>
                         </attDef>
                     </attList>
                 </classSpec>
@@ -101,6 +104,13 @@
                     </classes>
                 </elementSpec>
                 <elementSpec ident="lang" module="dictionaries" mode="change">
+                    <desc>contains the name of a language mentioned in etymological or other linguistic discussion. Inside a <gi>bibl</gi> element, this 
+                        refers to the language of the version to which the <gi>bibl</gi> refers. The contents of <gi>lang</gi> should be a BCP-47 code.</desc>
+                    <constraintSpec scheme="isoschematron" ident="lang-in-bibls">
+                        <constraint xmlns:s="http://purl.oclc.org/dsdl/schematron">
+                            <s:report test="not(ancestor::tei:bibl)">Error: The lang element is only allowed inside a bibl element.</s:report>
+                        </constraint>
+                    </constraintSpec>
                     <exemplum versionDate="2016-11-09">
                         <egXML xmlns="http://www.tei-c.org/ns/Examples">
                             <bibl type="lawd:Translation" xml:id="bib2501-4">
@@ -118,6 +128,65 @@
                             the language of the bibliographic item. (In some cases this is different from the language of the version. For example, the 
                             bibliographic item may point to an English translation of an ancient Armenian version.)</p>
                     </remarks>
+                </elementSpec>
+                <elementSpec ident="bibl" module="core" mode="change">
+                    <attList>
+                        <attDef ident="type" mode="change">
+                            <desc>The <att>type</att> attribute on <gi>bibl</gi> elements may be an RDF class defining the type of work or item.
+                                These will typically begin with either the prefix lawd: (http://lawd.info/ontology) or syriaca:</desc>
+                            <valList mode="change" type="semi">
+                                <valItem ident="lawd:ConceptualWork">
+                                    <desc>A Conceptual Work groups together one or more Written Works which
+                                        have the same intellectual source. E.g. The Iliad, as opposed to a particular manuscript witness or edition of the Iliad. 
+                                        See http://lawd.info/ontology/ConceptualWork.</desc>
+                                </valItem>
+                                <valItem ident="lawd:Edition">
+                                    <desc>A published (whether officially or not) Written Work that relies on
+                                        one or more Written Works as sources.
+                                        See http://lawd.info/ontology/Edition.</desc>
+                                </valItem>
+                                <valItem ident="lawd:Translation">
+                                    <desc>A Written Work that translates one or more other Written Works that embody the same Conceptual Work.
+                                        See http://lawd.info/ontology/Translation.</desc>
+                                </valItem>
+                                <valItem ident="lawd:Citation">
+                                    <desc>A Citation models a bibliographic reference as a resource.
+                                        See http://lawd.info/ontology/Citation.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:Manuscript">
+                                    <desc>Any text-bearing object, which usually embodies a Conceptual Work and which may be a source 
+                                        for an Edition or Translation.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:Catalogue">
+                                    <desc>A Citation of a catalogue.</desc>
+                                </valItem>
+                            </valList>
+                        </attDef>
+                        <attDef ident="ana" mode="change">
+                            <desc>The <att>ana</att> attribute on <gi>bibl</gi> elements should contain one or more Syriaca.org subject URIs beginning with 
+                            http://syriaca.org/subject/</desc>
+                        </attDef>
+                    </attList>
+                </elementSpec>
+                <elementSpec ident="idno" module="header" mode="change">
+                    <attList>
+                        <attDef ident="type" mode="change">
+                            <desc>The <att>type</att> attribute on <gi>idno</gi> defines the kind of identifier contained 
+                            in the text value. Custom types not listed here may be used so long as they are standard and clearly recognizable 
+                            (for example, "CPG" for Clavis Patrum Graecorum numbers for work entities). Where available, URIs are always 
+                            preferred over other types of identifiers.</desc>
+                            <valList mode="change" type="semi">
+                                <valItem ident="URI">
+                                    <desc>A Uniform Resource Identifier. The Syriaca.org URI for the entity being described in the current 
+                                    document is contained in an idno of this type.</desc>
+                                </valItem>
+                                <valItem ident="FIEY">
+                                    <desc>An identifier for a saint used by Fiey, Jean Maurice. Saints Syriaques. 
+                                        Princeton, N.J.: The Darwin Press, Inc., 2004. (http://syriaca.org/bibl/650)</desc>
+                                </valItem>
+                            </valList>
+                        </attDef>
+                    </attList>
                 </elementSpec>
                 <classSpec ident="att.source" module="tei" mode="change" type="atts">
                     <attList>
