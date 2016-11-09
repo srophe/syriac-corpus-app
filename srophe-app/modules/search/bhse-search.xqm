@@ -132,6 +132,7 @@ return
     if($collection != '') then concat("[ancestor::tei:TEI/descendant::tei:title = '",$collection,"']")
     else ()
 };
+
 (:~
  : Build query string to pass to search.xqm 
 :)

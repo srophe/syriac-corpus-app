@@ -85,17 +85,23 @@ global:tei2html(
  : Uses connical record from syriaca.org as title, otherwise uses spear data
 :)
 declare %templates:wrap function spear:h1($node as node(), $model as map(*)){
-    let $data := $model("data")
-    let $rec-exists := spear:canonical-rec()  
-    let $title :=  $rec-exists/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"]
-    let $id := <idno type='URI' xmlns="http://www.tei-c.org/ns/1.0">{$spear:id}</idno>
-    return 
+let $data := $model("data")
+let $id := <idno type='URI' xmlns="http://www.tei-c.org/ns/1.0">{$spear:id}</idno>
+return 
         if($spear:item-type = 'source-factoid') then 
             global:tei2html(
                 <aggregate-source xmlns="http://www.tei-c.org/ns/1.0">
-                    {$data/descendant::tei:title[1], $id}
+                    {$id}
                 </aggregate-source>)
-        else if($rec-exists != '') then 
+        else if($spear:item-type = 'keyword-factoid') then 
+            global:tei2html(
+                <keyword-title xmlns="http://www.tei-c.org/ns/1.0">
+                    {$id}
+                </keyword-title>)                
+        else if($spear:item-type = ('person-factoid','place-factoid')) then 
+            let $rec-exists := spear:canonical-rec()  
+            let $title :=  $rec-exists/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"]
+            return 
             global:tei2html(
                 <aggregate-title xmlns="http://www.tei-c.org/ns/1.0">
                     {$title, $id}
@@ -105,6 +111,13 @@ declare %templates:wrap function spear:h1($node as node(), $model as map(*)){
                 <factoid-title xmlns="http://www.tei-c.org/ns/1.0">
                     {$id}
                 </factoid-title>)
+
+
+
+
+
+
+
 };
      
 declare function spear:data($node as node(), $model as map(*), $view as xs:string?){
@@ -125,34 +138,26 @@ else if($spear:item-type = 'keyword-factoid') then
     spear:relationships-aggregate($node,$model),
     spear:events($node,$model)
     )   
+else if($model("data")//tei:listRelation) then
+    ( 
+    <div class="bottom-padding indent">
+        {spear:relationships($node,$model)}
+    </div>,
+    global:tei2html(  
+       <factoid xmlns="http://www.tei-c.org/ns/1.0">
+           {$model("data")}
+       </factoid>)   
+    )
 else global:tei2html(  
-                    <factoid xmlns="http://www.tei-c.org/ns/1.0">
-                        {$model("data")}
-                    </factoid>)
+    <factoid xmlns="http://www.tei-c.org/ns/1.0">
+        {$model("data")}
+    </factoid>)
                     
 };
 
-(:@depreciated:)                          
-declare function spear:keyword-data($data){
-if($data//tei:div[tei:listPerson]) then 
-    <div class="panel panel-default">
-             <div class="panel-heading clearfix">
-                 <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Person Factoids about {spear:title()}</h4>
-             </div>
-             <div class="panel-body">
-                {global:tei2html(
-                    <aggregate xmlns="http://www.tei-c.org/ns/1.0">
-                        {$data/tei:div}
-                    </aggregate>)}
-             </div>
-        </div>
-else ()        
-};                      
-
 (: 
     How to list all the factoids?
-    should have the options of by type, in order and using 'advance browse options?'
-    
+    should have the options of by type, in order and using 'advance browse options?'   
 :)
 declare function spear:source-data($data){
 (<div class="panel panel-default">
@@ -364,21 +369,21 @@ return
     if($data/ancestor::tei:body//tei:ref[@type='additional-attestation'][@target=$spear:id] or $data/descendant::tei:persName or $data/descendant::tei:placeName or $data/descendant::tei:relation) then 
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
-                <h4 class="panel-title">Related Persons and Places</h4>
+                <h4 class="panel-title">Related Persons, Places and Keywords</h4>
             </div>
             <div class="panel-body">
             {
-                let $relations := 
-                distinct-values(
-                    (tokenize($data/descendant::*/@ref,' '),tokenize($data/descendant::*/@target,' '), 
-                    tokenize($data/descendant::tei:relation/@mutual,' '), 
-                    tokenize($data/descendant::tei:relation/@active,' '), 
-                    tokenize($data/descendant::tei:relation/@passive,' '))
-                    )  
+                let $relations := distinct-values(tokenize(string-join(($data/descendant::*/@ref,
+                                    $data/descendant::*/@target,
+                                    $data/descendant::tei:relation/@mutual,
+                                    $data/descendant::tei:relation/@active,
+                                    $data/descendant::tei:relation/@passive),' '),' '))
                 let $persNames := $relations[contains(.,'/person/')]
                 let $placeNames := $relations[contains(.,'/place/')]
+                let $keywords := $relations[contains(.,'/keyword/')]
                 let $count-persons := count($persNames)
                 let $count-places := count($placeNames)
+                let $count-keywords := count($keywords)
                 return 
                     (
                     if($count-persons gt 0) then 
@@ -440,7 +445,37 @@ return
                                     else ()
                                 }
                         </div>
-                   else ())     
+                    else (),
+                    if($count-keywords gt 0) then                        
+                        <div>
+                            <h4>Related Keyword(s) {$count-keywords}</h4>
+                                <div class="facet-list show">
+                                     <ul>
+                                        {
+                                            for $r in subsequence($keywords,1,5)
+                                            return 
+                                                <li><a href="aggregate.html?id={$r}">{substring-after($r,'/keyword/')}</a></li>
+                                        }
+                                    </ul>
+                                </div>
+                                {
+                                    if($count-keywords gt 5) then
+                                        (<div class="facet-list collapse" id="show-keywords">
+                                            <ul>
+                                            {
+                                            for $r in subsequence($keywords,6,$count-keywords + 1)
+                                            return 
+                                                  <li><a href="aggregate.html?id={$r}">{substring-after($r,'/keyword/')}</a></li>
+                                            }
+                                            </ul>
+                                        </div>,
+                                        <a class="facet-label togglelink btn btn-info" 
+                                        data-toggle="collapse" data-target="#show-keywords" href="#show-keywords" 
+                                        data-text-swap="Less"> More &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>)
+                                    else ()
+                                }
+                        </div>
+                    else ())     
             }
             </div>
         </div>
@@ -479,11 +514,9 @@ let $sources :=
 return global:tei2html(<spear-citation xmlns="http://www.tei-c.org/ns/1.0">{($bibl,$sources)}</spear-citation>)
 };
 
-
 (:
  : Home page timeline
 :)
-
 declare %templates:wrap function spear:get-event-data($node as node(), $model as map(*)){
 let $events :=  collection($global:data-root || "/spear/tei")//tei:event[parent::tei:listEvent]
 return 

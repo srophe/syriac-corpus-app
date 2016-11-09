@@ -111,6 +111,34 @@
             </small>
         </div>
     </xsl:template>
+    <xsl:template match="t:keyword-title">
+        <div class="row title padding-top">
+            <h1 class="col-md-8">
+                <xsl:text>SPEAR Factoids about </xsl:text>
+                <xsl:value-of select="substring-after(//tei:idno,'/keyword/')"/>
+            </h1>
+            <!-- Call link icons (located in link-icons.xsl) -->
+            <span class="padding-top">
+                <xsl:call-template name="link-icons"/>
+            </span>
+        </div>
+        <div style="margin:0 1em 1em; color: #999999;">
+            <small>
+                <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
+                    <span class="helper circle noprint">
+                        <p>i</p>
+                    </span>
+                </a>
+                <p>
+                    <span class="srp-label">URI</span>
+                    <xsl:text>: </xsl:text>
+                    <span id="syriaca-id">
+                        <xsl:value-of select="$resource-id"/>
+                    </span>
+                </p>
+            </small>
+        </div>
+    </xsl:template>
     <xsl:template match="t:factoid-title">
         <div class="row title padding-top">
             <h1 class="col-md-8">SPEAR Factoid </h1>
@@ -142,7 +170,7 @@
     <xsl:template match="t:factoid | t:div[@uri]">
         <div class="indent">
             <xsl:for-each select="descendant::t:div[@uri]">
-                <xsl:for-each select="child::*[not(self::t:bibl)]">
+                <xsl:for-each select="child::*[not(self::t:bibl)][not(self::t:listRelation)]">
                     <xsl:apply-templates/>
                 </xsl:for-each>
             </xsl:for-each>
@@ -219,7 +247,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+    <xsl:template match="t:listRelation" mode="spear"/>
     <!-- Needs work -->
     <xsl:template match="t:spear-citation">
         <xsl:if test="t:bibl">
