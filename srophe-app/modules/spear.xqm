@@ -80,7 +80,7 @@ global:tei2html(
     </spear-headwords>)
 };
 
-(:~   
+(:~    
  : Build page title
  : Uses connical record from syriaca.org as title, otherwise uses spear data
 :)
@@ -91,7 +91,7 @@ return
         if($spear:item-type = 'source-factoid') then 
             global:tei2html(
                 <aggregate-source xmlns="http://www.tei-c.org/ns/1.0">
-                    {$id}
+                    {$data/descendant::tei:titleStmt,$id}
                 </aggregate-source>)
         else if($spear:item-type = 'keyword-factoid') then 
             global:tei2html(
@@ -514,9 +514,11 @@ let $sources :=
 return global:tei2html(<spear-citation xmlns="http://www.tei-c.org/ns/1.0">{($bibl,$sources)}</spear-citation>)
 };
 
+
 (:
  : Home page timeline
 :)
+
 declare %templates:wrap function spear:get-event-data($node as node(), $model as map(*)){
 let $events :=  collection($global:data-root || "/spear/tei")//tei:event[parent::tei:listEvent]
 return 
