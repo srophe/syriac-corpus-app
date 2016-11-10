@@ -7,6 +7,76 @@
 
 @import url("syr-font-families.css");
 
+/* Dev only: corner ribbon */
+/* The ribbons */
+
+.corner-ribbon{
+  width: 200px;
+  background: #e43;
+  position: absolute;
+  top: 25px;
+  left: -50px;
+  text-align: center;
+  /*line-height: 50px;*/
+  letter-spacing: 1px;
+  color: #f0f0f0;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+   z-index: 1500;
+}
+
+/* Custom styles */
+
+.corner-ribbon.sticky{
+  position: fixed;
+}
+
+.corner-ribbon.shadow{
+  box-shadow: 0 0 3px rgba(0,0,0,.3);
+}
+
+/* Different positions */
+
+.corner-ribbon.top-left{
+  top: 25px;
+  left: -50px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+/* Colors */
+.corner-ribbon.grey{background: #999; background-color: rgba(128,128,128, 0.75);}
+.corner-ribbon.blue{background: #39d;}
+
+.draft-info a{color:white;}
+#draft-info{
+  width: 410px;
+  position: absolute;
+  top: 45px;
+  left: -96px;
+  padding:1.5em 2em;
+  text-align: center;
+  letter-spacing: .75px;
+  color: #f0f0f0;
+  background: #999; background-color: rgba(128,128,128, 0.95);
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+   z-index: 1500;
+   /*
+    height:150;
+    top: -10px;
+    left: 25px;
+    position: fixed;
+    margin:1em;
+    padding-top:25px;
+    padding-left:50px;
+    z-index: 1499;
+    border:1px solid red;
+    */
+}
+
+    
+}
 /* Main content blocks */
 body {font-family: arial, sans-serif; background-color:#385978;}
 #main { padding: 0; background-color:#999; }
@@ -38,10 +108,11 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 
 .navbar .advanced-search{margin-top:-.5em;}
 .navbar-form {overflow:hidden;}
+
 .navbar-input-group {
   font-size: 0px; /*removes whitespace between button and input*/
 }
-
+/*
 .navbar-input-group input {
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
@@ -51,8 +122,8 @@ body {font-family: arial, sans-serif; background-color:#385978;}
   border-bottom-left-radius: 0px;
   border-left: 0px;
 }
-.navbar-form{max-width: 250px;}
-
+*/
+.navbar-form {max-width: 350px;}
 /* Nav submenus*/
 .dropdown-submenu {position: relative;}
 .dropdown-submenu > .dropdown-menu {
@@ -95,9 +166,9 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 
 .banner-container {display:inline-block; line-height:2.5em;}
 .banner-icon {font-size:2.5em; display:inline-block; margin-right:.15em;}
-/*
+
+ * /*
  * font-family: Tahoma, Geneva, sans-serif;
- * 
  */
 .banner-text {color: #888; display:inline-block; margin-top:-.95em; vertical-align: middle; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}
 /* Small Syrica.org icons for submodules in nav menus */
@@ -113,6 +184,7 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 .syriaca-sm-icon {background-image: url(../img/icons-syriaca-sm.png);}
 .rec-status {display:block; width:100% !important; margin-bottom:1em; padding:1em;}
 .info-btns {width:100%; margin-bottom:1em;}
+
 /* Banner styles index page (Colors and images are set by internal css for submodules) */
 .banner-index {
     position:relative;
@@ -122,17 +194,6 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 	background-size:cover;
 	background-position:center;
 	height:200px;
-    width:100%;
-}
-/* styles used for index2 example*/
-.banner-index2 {
-    position:relative;
-    margin-top:-1em;
-    padding-top:0;
-	background-image:url('../img/home-banner.jpg');
-	background-size:cover;
-	background-position:center;
-    height:350px;
     width:100%;
 }
 
@@ -148,16 +209,7 @@ body {font-family: arial, sans-serif; background-color:#385978;}
     width:100%;
     border-bottom:4px solid #456889;
 }
-
-/* styles used for index2 example*/
-.info-overlay {
-    position:absolute;
-    display:block; 
-    width:70%;
-    min-height:45%;
-    margin:4% 15%;
-}
-/* styles used for index2 example*/    
+   
 .overlay {
     font-weight:200;
     background: rgb(34,34,34); /* for IE */
@@ -200,16 +252,7 @@ body {font-family: arial, sans-serif; background-color:#385978;}
     box-decoration-break: clone;
 }
 
-/* Transparent styles for search box on home pages */
-.transparent-input{
-       color: white;
-       background-color: rgba(245, 245, 245, 0.2);
-       border:3px solid white !important;
-    }
-.transparent-input::-webkit-input-placeholder { color: white; font-size:large;font-weight:500; }
-.transparent-input:-moz-placeholder { color: white; font-size:large;font-weight:500; }
-.transparent-input::-moz-placeholder { color: white; font-size:large;font-weight:500; }
-.transparent-input:-ms-input-placeholder { color: white; font-size:large;font-weight:500; }
+
 /* Footer styles */
 footer {text-align:center; color:white;}
 
@@ -217,13 +260,15 @@ footer {text-align:center; color:white;}
 .grey {background-color:#eee;}
 .grey-dark {background-color:#ccc;}
 .white {background-color:white;}
+
+/* Block styles */
 .content-block {background-color:#ffffff !important;}
 .top-padding {margin-top:2em;}
 .block {display:block;}
 .banner {font-size: 24px; color:white; background-color:#456889; margin:0 0 1em 0; padding:.5em 1em;; border-bottom:4px solid #456889;}
+
 /* Typography */
 h1 {font-size:1.5em; margin:.25em 0 .25em 0; color:#456889; font-weight:500;}
-
 h2 {font-size: 1.25em; margin:1em 0 .25em 0; padding-bottom:0; color:#999; font-weight:500;}
 h3 {font-size: 1.2em; margin:1em 0 .25em 0; padding-bottom:0; color:#333; font-weight:500;  padding-bottom:0; margin-bottom:1em;}
 h3.banner-solid {color:white;}
@@ -280,7 +325,7 @@ td {
 .srp-label {background-color:none; color:#666; font-weight:500;}
 .sort-title {background-color:none; color:#666; font-weight:500; display:block; }
 .textBox {display:block;}
-.caveat {font-size: .785em; font-style:italic; margin-top:-.5em; padding-top:0;}
+.caveat, .note {font-size: .785em; font-style:italic; margin-top:-.5em; padding-top:0;}
 .title {border-bottom:2px solid #666666;margin-bottom:1em; margin-top:0;padding:0;}
 .about {padding-top: .5em; border-bottom:2px solid #666666;margin-bottom:1em;}
 .caption{text-align:center; font-size:.75em;color:grey;}
@@ -318,6 +363,7 @@ td {
 .browse-alpha li.ar-menu + li.ar-menu {
     padding-left: .15em;
 }
+
 .nav-stacked > .active > a,
     .nav-stacked > .active > a:hover {
       color: #000;
@@ -398,7 +444,6 @@ td {
 
 .type-content {padding:1em;}
 .type-nav {width: 85%;}
-
 
 /* Styles for record short view under relation div*/
 .relation {white-space: normal;}
@@ -579,6 +624,21 @@ div[id|=place] > div:last-of-type {
 }
 
 /* Search styles */
+.search-header {margin-bottom: 1em;}
+.search-inner {margin-top:2em;}
+.search-results {border-top: 1px solid #eee; margin-top:1em;}
+
+
+/* Transparent styles for search box on home pages */
+.transparent-input{
+       color: white;
+       background-color: rgba(245, 245, 245, 0.2);
+       border:3px solid white !important;
+    }
+.transparent-input::-webkit-input-placeholder { color: white; font-size:large;font-weight:500; }
+.transparent-input:-moz-placeholder { color: white; font-size:large;font-weight:500; }
+.transparent-input::-moz-placeholder { color: white; font-size:large;font-weight:500; }
+.transparent-input:-ms-input-placeholder { color: white; font-size:large;font-weight:500; }
 
 .page-bottom .hit-count {display:none;}
 
@@ -715,6 +775,16 @@ unpublished
 .msItem {margin:0 1em;}
 .msExtent {display:block; margin:0 1em;}
 
+.code-grp {width:100%;}
+.code {
+    text-align:left;
+    border:1px solid #ccc;
+	border-left: 11px solid #ccc;
+	overflow: auto;
+	max-width:inherit;
+    background-color: #F5F5F5;
+    width:90%;
+}
 /* API documentation */
 pre code {
 	line-height: 1.6em;
@@ -772,6 +842,8 @@ pre {
     text-align:center;
     border:1px solid green;
     }
+    
+#moreInfo #map-data {display:none;}
 
 /* new search */
 .mobile-submenu{display:none;}
@@ -786,3 +858,4 @@ pre {
     }
 .caret {float:left; margin-left:.5em; margin-top:.5em;}    
 }
+.short-relationships {display:block;}
