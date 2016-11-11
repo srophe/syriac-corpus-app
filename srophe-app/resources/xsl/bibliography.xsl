@@ -475,10 +475,10 @@
         <!-- Titles -->
         <xsl:choose>
             <xsl:when test="t:title[starts-with(@xml:lang,'en')]">
-                <xsl:apply-templates select="t:title[starts-with(@xml:lang,'en')][1]" mode="footnote"/>
+                <xsl:text> </xsl:text><xsl:apply-templates select="t:title[starts-with(@xml:lang,'en')][1]" mode="footnote"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="t:title[1]" mode="footnote"/>
+                <xsl:text> </xsl:text><xsl:apply-templates select="t:title[1]" mode="footnote"/>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:choose>
@@ -526,7 +526,7 @@
         </xsl:if>
         <xsl:choose>
             <xsl:when test="following-sibling::t:series">
-                <xsl:apply-templates select="t:series" mode="footnote"/>
+                <xsl:apply-templates select="following-sibling::t:series" mode="footnote"/>
             </xsl:when>
             <xsl:when test="following-sibling::t:monogr">
                 <xsl:text>, </xsl:text>
@@ -610,31 +610,36 @@
     
     <!-- Series output -->
     <xsl:template match="t:series" mode="bibliography">
+        <xsl:choose>
+            <xsl:when test="preceding-sibling::t:monogr"/>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="t:title[starts-with(@xml:lang,'en')]">
+                        <xsl:apply-templates select="t:title[starts-with(@xml:lang,'en')][1]" mode="footnote"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates select="t:title[1]" mode="footnote"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:if test="t:biblScope">
+                    <xsl:text>, </xsl:text>
+                    <xsl:for-each select="t:biblScope[@unit='series'] | t:biblScope[@unit='vol'] | t:biblScope[@unit='tomus']">
+                        <xsl:apply-templates select="." mode="footnote"/>
+                        <xsl:if test="position() != last()">
+                            <xsl:text>, </xsl:text>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:if>
+                <xsl:if test="preceding-sibling::t:monogr/t:imprint and not(following-sibling::t:series)">
+                    <xsl:text>. </xsl:text>
+                    <xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/>
+                </xsl:if>
+            </xsl:otherwise>
+        </xsl:choose>
         <xsl:if test="preceding-sibling::t:series">
             <xsl:text>; </xsl:text>
         </xsl:if>
-        <xsl:choose>
-            <xsl:when test="t:title[starts-with(@xml:lang,'en')]">
-                <xsl:apply-templates select="t:title[starts-with(@xml:lang,'en')][1]" mode="footnote"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="t:title[1]" mode="footnote"/>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:if test="t:biblScope">
-            <xsl:text>, </xsl:text>
-            <xsl:for-each select="t:biblScope[@unit='series'] | t:biblScope[@unit='vol'] | t:biblScope[@unit='tomus']">
-                <xsl:apply-templates select="." mode="footnote"/>
-                <xsl:if test="position() != last()">
-                    <xsl:text>, </xsl:text>
-                </xsl:if>
-            </xsl:for-each>
-        </xsl:if>
-        <xsl:if test="preceding-sibling::t:monogr/t:imprint and not(following-sibling::t:series)">
-            <xsl:text>. </xsl:text>
-            <xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/>
-        </xsl:if>
-    </xsl:template>
+  </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      Template parses authors and editors for analytic and monograph sections
@@ -701,7 +706,7 @@
     </xsl:template>
     <xsl:template name="persons-bibliography">
         <!-- If edited -->
-        <xsl:variable name="edited" select="if (t:editor[not(@role) or @role!='translator']) then true() else false()"/>
+        <xsl:variable name="edited" select="if(t:editor[not(@role) or @role != 'translator']) then true() else false()"/>
         <!-- count editors/authors  -->
         <xsl:variable name="rcount">
             <xsl:choose>
@@ -836,7 +841,7 @@
                                         <xsl:apply-templates select="t:*[local-name()!='surname']" mode="footnote"/>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <xsl:apply-templates select="t:*" mode="lastname-first"/>
+                                        <xsl:apply-templates select="t:*" mode="footnote"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </xsl:for-each>
@@ -1047,7 +1052,7 @@
                                 </xsl:attribute>
                                 <xsl:call-template name="langattr"/>
                             </xsl:for-each>
-                            <xsl:apply-templates select="." mode="footnote"/>
+                            <xsl:apply-templates select="." mode="plain"/>
                         </bdi>
                     </xsl:if>
                 </xsl:for-each>
