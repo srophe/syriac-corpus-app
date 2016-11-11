@@ -74,3 +74,9 @@ h4 {font-weight:500;}
 .relation {
     background-position: -42px 0;
 }
+.factoid {
+    display:block;
+    margin-bottom: 1em;
+    margin-left: 1em;
+}
+.factoid h4 {font-size:large;}

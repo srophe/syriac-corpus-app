@@ -58,7 +58,7 @@
     <xsl:template match="t:aggregate-source">
         <div class="row title padding-top">
             <h1 class="col-md-8">
-                <xsl:text>SPEAR Factoids from </xsl:text>
+                <xsl:text>A Prosopography of </xsl:text>
                 <xsl:call-template name="title"/>
             </h1>
             <!-- Call link icons (located in link-icons.xsl) -->
@@ -168,12 +168,16 @@
         <xsl:call-template name="title"/>
     </xsl:template>
     <xsl:template match="t:factoid | t:div[@uri]">
-        <div class="indent">
+        <div class="factoid">
+            <xsl:if test="t:factoid-headword">
+                <h4><xsl:call-template name="title"/></h4>
+            </xsl:if>
             <xsl:for-each select="descendant::t:div[@uri]">
                 <xsl:for-each select="child::*[not(self::t:bibl)][not(self::t:listRelation)]">
-                    <xsl:apply-templates/>
+                    <xsl:apply-templates mode="spear"/>
                 </xsl:for-each>
             </xsl:for-each>
+            <br/>
         </div>
     </xsl:template>
     <xsl:template match="t:aggregate ">
@@ -207,8 +211,26 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="t:spear-titleStmt">
-        <p>Title, editors, etc</p>
+    <xsl:template match="t:spear-teiHeader">
+        <p><span class="srp-label">Editor: </span> <xsl:value-of select="descendant::t:titleStmt/t:editor[@role='creator']"/></p>
+        <xsl:if test="descendant::t:respStmt">
+            <p><span class="srp-label">Contributors: </span> <xsl:value-of select="count(descendant::t:respStmt)"/> contributors (<a hef="">see all</a>)</p>
+        </xsl:if>
+        <p><span class="srp-label">Date of Publication: </span> 
+            <xsl:choose>
+                <xsl:when test="descendant::t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
+                    <xsl:value-of select="format-date(xs:date(descendant::t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:value-of select="descendant::t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]"/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </p>
+        <p><span class="srp-label">Based on: </span>
+            <ul>
+                <xsl:apply-templates select="//tei:back/tei:bibl" mode="footnote"/>
+            </ul>    
+        </p>
     </xsl:template>
     <xsl:template match="t:spear-sources">
         <xsl:call-template name="sources"/>
@@ -223,7 +245,7 @@
     </xsl:template>
     <xsl:template match="t:sex | t:state | t:persName" mode="spear">
         <xsl:choose>
-            <xsl:when test="self::t:persName[empty(.)]"/>
+            <xsl:when test="self::t:persName = ''"/>
             <xsl:when test="self::t:persName[string-length(.) != 0]">
                 <span class="srp-label">Name: </span>
                 <xsl:apply-templates mode="plain"/>
