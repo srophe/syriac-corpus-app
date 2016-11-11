@@ -164,7 +164,7 @@
                         </attDef>
                         <attDef ident="ana" mode="change">
                             <desc>The <att>ana</att> attribute on <gi>bibl</gi> elements should contain one or more Syriaca.org subject URIs beginning with 
-                            http://syriaca.org/subject/</desc>
+                                http://syriaca.org/subject/</desc>
                         </attDef>
                     </attList>
                 </elementSpec>
@@ -172,17 +172,38 @@
                     <attList>
                         <attDef ident="type" mode="change">
                             <desc>The <att>type</att> attribute on <gi>idno</gi> defines the kind of identifier contained 
-                            in the text value. Custom types not listed here may be used so long as they are standard and clearly recognizable 
-                            (for example, "CPG" for Clavis Patrum Graecorum numbers for work entities). Where available, URIs are always 
-                            preferred over other types of identifiers.</desc>
+                                in the text value. Custom types not listed here may be used so long as they are standard and clearly recognizable 
+                                (for example, "CPG" for Clavis Patrum Graecorum numbers for work entities). Where available, URIs are always 
+                                preferred over other types of identifiers.</desc>
                             <valList mode="change" type="semi">
                                 <valItem ident="URI">
                                     <desc>A Uniform Resource Identifier. The Syriaca.org URI for the entity being described in the current 
-                                    document is contained in an idno of this type.</desc>
+                                        document is contained in an idno of this type.</desc>
+                                </valItem>
+                                <valItem ident="ISBN">
+                                    <desc>An International Standard Book Number, used to identify books.</desc>
+                                </valItem>
+                                <valItem ident="ISSN">
+                                    <desc>An International Standard Serial Number, used to identify serial publications, such as journals.</desc>
+                                </valItem>
+                                <valItem ident="DOI">
+                                    <desc>A digital object identifier, used to identify objects. However, the preferred method for including DOIs 
+                                        is with an <gi>idno</gi> of <att>type</att> "URI", prefixed by http://dx.doi.org/. For example, 
+                                        http://dx.doi.org/10.1006/reli.1997.0085.
+                                    </desc>
                                 </valItem>
                                 <valItem ident="FIEY">
                                     <desc>An identifier for a saint used by Fiey, Jean Maurice. Saints Syriaques. 
                                         Princeton, N.J.: The Darwin Press, Inc., 2004. (http://syriaca.org/bibl/650)</desc>
+                                </valItem>
+                                <valItem ident="BHS">
+                                    <desc>An identifier for a hagiographic work from Bibliotheca Hagiographica Syriaca. (http://syriaca.org/bibl/649)</desc>
+                                </valItem>
+                                <valItem ident="BHO">
+                                    <desc>An identifier for a hagiographic work from Bibliotheca Hagiographica Orientalis. (http://syriaca.org/bibl/1314)</desc>
+                                </valItem>
+                                <valItem ident="CPG">
+                                    <desc>An identifier for a  work from Clavis Patrum Graecorum. (http://syriaca.org/bibl/2081)</desc>
                                 </valItem>
                             </valList>
                         </attDef>
