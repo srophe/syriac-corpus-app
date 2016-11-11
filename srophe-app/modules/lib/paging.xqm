@@ -68,11 +68,12 @@ let $pagination-links :=
             {
             if($search-string != '') then             
                 <div class="col-sm-5 search-string">
-                    <h4 class="hit-count">Search results:</h4>
+                    <h3 class="hit-count">Search results:</h3>
                     <p class="col-md-offset-1 hit-count">{$total-result-count} matches for {$search-string}.</p>
-                    <p class="col-md-offset-1 hit-count note">You may wish to expand your search with a wildcard (*) to increase results. See 
-                    <a data-toggle="modal" data-target="#searchTips">search tips</a> for more details.</p>
-                                
+                    <p class="col-md-offset-1 hit-count note">
+                        You may wish to expand your search by using our advanced <a href="search.html">search functions</a> or by 
+                        using wildcard characters to increase results. See <a data-toggle="modal" data-target="#searchTips">search tips</a> for more details.
+                    </p>        
                  </div>
              else ()
              }
