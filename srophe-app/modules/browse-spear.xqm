@@ -84,7 +84,12 @@ let $data :=
    else if($bs:view = 'advanced') then 
      util:eval(concat('$hits',facet:facet-filter(facet-defs:facet-definition('spear'))))
    else 
-        util:eval(concat('$hits',facet:facet-filter(facet-defs:facet-definition('spear-sources'))))
+        (:util:eval(concat('$hits',facet:facet-filter(facet-defs:facet-definition('spear-sources')))):)
+        for $r in collection($global:data-root || '/spear/tei')//tei:title[@level='a'][parent::tei:titleStmt]
+        let $id := $r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][1]
+        let $num := if($r/tei:num) then xs:double($r/tei:num/text()) else()
+        order by $r, $num collation "?lang=en&lt;syr&amp;decomposition=full"
+        return <title>{$r, $id}</title>
 return $data   
 };
 
@@ -127,13 +132,21 @@ return
                 <h3>Explore SPEAR Relationships</h3>
                 <iframe id="iframe" src="../modules/d3xquery/build-html.xqm" width="100%" height="700" scrolling="auto" frameborder="0" seamless="true"/>
             </div>
+        else if($bs:view = 'sources' or not($bs:view)) then 
+            <div class="col-md-12">
+                <div class="float-container">
+                    <div class="pull-right">
+                        <div>{page:pages($hits, $bs:start, $bs:perpage,'', '')}</div>
+                    </div>
+                </div>
+                <h3>{concat('Browse (',count($hits),')')}</h3>            
+                 {bs:display-spear($hits)}
+            </div>
         else (
             <div class="col-md-3">
                  <div>
                     { 
-                    if($bs:view = 'sources' or not($bs:view)) then 
-                        facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition('spear-sources')/child::*))
-                    else if($bs:view = 'events') then
+                    if($bs:view = 'events') then
                         facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition('spear-events')/child::*))
                     else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition('spear')/child::*))
                     }
@@ -183,26 +196,27 @@ declare function bs:hits($hits){
     return 
     <div class="results-list">
         {
-        if($data/tei:listRelation) then 
-        <span class="srp-label">[{functx:capitalize-first(string($data/tei:listRelation/tei:relation/@type))} relation] </span>
-        else ()
-        }
-        <a href="factoid.html?id={$uri}" class="syr-label">
+        if($data/tei:title) then
+            (' ', <a href="aggregate.html?id={replace($data//tei:idno,'/tei','')}" class="syr-label">{string-join($data/descendant-or-self::tei:title[1]/node(),' ')}</a>)
+        else 
+            (if($data/tei:listRelation) then 
+                <span class="srp-label">[{concat(' ', functx:camel-case-to-words(substring-after($data/tei:listRelation/tei:relation/@name,':'),' '))} relation] </span>
+            else if($data/tei:listPerson) then
+                <span class="srp-label">[Person factoid] </span>
+            else if($data/tei:listEvent) then
+                <span class="srp-label">[Event factoid] </span>
+            else (),
+            <a href="factoid.html?id={$uri}" class="syr-label">
             {
                 if($data/descendant-or-self::tei:titleStmt) then $data/descendant-or-self::tei:titleStmt[1]/text()
                 else if($data/tei:listRelation) then 
                     <span> 
-                     {concat(' ', functx:camel-case-to-words(substring-after($data/tei:listRelation/tei:relation/@name,':'),' '))} :
-                     {
-                     if($data/tei:listRelation/tei:relation/@active) then
-                        (string($data/tei:listRelation/tei:relation/@active),' - ',string($data/tei:listRelation/tei:relation/@passive))
-                     else 
-                        string($data/tei:listRelation/tei:relation/@mutual)
-                        }
+                     {rel:build-short-relationships($data/tei:listRelation/tei:relation,'')}
                     </span>
-                else substring(string-join($data/descendant-or-self::*[not(self::tei:idno)][not(self::tei:bibl)][not(self::tei:biblScope)][not(self::tei:note)][not(self::tei:orig)][not(self::tei:sic)]/text(),' '),1,550)
+                else substring(string-join($data/child::*[1]/descendant-or-self::*/text(),' '),1,550)
             }                                    
-        </a>
+        </a>)
+        }
     </div>  
 
 };
