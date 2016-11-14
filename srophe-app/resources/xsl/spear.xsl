@@ -77,7 +77,8 @@
                     <span class="srp-label">URI</span>
                     <xsl:text>: </xsl:text>
                     <span id="syriaca-id">
-                        <xsl:value-of select="$resource-id"/>
+                        <!-- NOTE: temporary fix, the Perm URI will be found in header/sourceDesc -->
+                        <xsl:value-of select="concat('http://syriaca.org/spear/aggregate.html?id=',$resource-id)"/>
                     </span>
                 </p>
             </small>
@@ -214,21 +215,46 @@
     <xsl:template match="t:spear-teiHeader">
         <p><span class="srp-label">Editor: </span> <xsl:value-of select="descendant::t:titleStmt/t:editor[@role='creator']"/></p>
         <xsl:if test="descendant::t:respStmt">
-            <p><span class="srp-label">Contributors: </span> <xsl:value-of select="count(descendant::t:respStmt)"/> contributors (<a hef="">see all</a>)</p>
+            <div><span class="srp-label">Contributors: </span> 
+                <xsl:choose>
+                    <xsl:when test="count(descendant::t:respStmt) &gt; 2">
+                        <xsl:value-of select="count(descendant::t:respStmt)"/> contributors (
+                            <a class="togglelink" 
+                            data-toggle="collapse" data-target="#show-contributors" href="#show-contributors" 
+                            data-text-swap="Hide"> See all &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>)
+                            <div class="collapse" id="show-contributors">
+                                <ul>
+                                    <xsl:for-each select="descendant::t:respStmt">
+                                        <li><xsl:apply-templates select="."/></li>
+                                    </xsl:for-each>
+                                </ul>
+                            </div>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <ul>
+                            <xsl:for-each select="descendant::t:respStmt">
+                                <li><xsl:apply-templates select="."/></li>
+                            </xsl:for-each>
+                        </ul>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </div>
         </xsl:if>
-        <p><span class="srp-label">Date of Publication: </span> 
-            <xsl:choose>
-                <xsl:when test="descendant::t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
-                    <xsl:value-of select="format-date(xs:date(descendant::t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="descendant::t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </p>
+        <xsl:if test="descendant::t:fileDesc/t:publicationStmt/t:date">
+            <p><span class="srp-label">Date of Publication: </span> 
+                <xsl:choose>
+                    <xsl:when test="descendant::t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
+                        <xsl:value-of select="format-date(xs:date(descendant::t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="descendant::t:fileDesc/t:publicationStmt/t:date[1]"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </p>            
+        </xsl:if>
         <p><span class="srp-label">Based on: </span>
-            <ul>
-                <xsl:apply-templates select="//tei:back/tei:bibl" mode="footnote"/>
+            <ul class="list-unstyled indent">
+                <xsl:apply-templates select="descendant::t:back/descendant::t:bibl" mode="footnote"/>
             </ul>    
         </p>
     </xsl:template>

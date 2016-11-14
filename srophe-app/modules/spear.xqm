@@ -12,6 +12,7 @@ import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
+import module namespace functx="http://www.functx.com";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -59,7 +60,7 @@ return
                     return $rec                  
                 else
                     for $rec in collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$app:id or @target=$app:id]]                
-                    return ($rec)  
+                    return $rec  
             }
         </aggregate>}
     else  map {"data" :=  
@@ -87,7 +88,7 @@ declare function spear:title($id){
     else ()
 };
 
-(:~   
+(:~    
  : Build page title
  : Uses connical record from syriaca.org as title, otherwise uses spear data
 :)
@@ -162,11 +163,12 @@ else
                     
 };
 
-(: 
+(:~       
     How to list all the factoids?
     should have the options of by type, in order and using 'advance browse options?'   
 :)
 declare function spear:source-data($data){
+let $refs := distinct-values(tokenize(string-join($data//@active | $data//@passive | $data//@mutual | $data//@ref | $data//@target,' '),' '))
 let $factoids := $data/descendant::tei:div[@uri]
 let $count-factoids := count($factoids)
 let $biographical := $factoids[tei:listPerson]
@@ -175,19 +177,21 @@ let $relationship := $factoids[tei:listRelation]
 let $count-relationship := count($relationship)
 let $event := $factoids[tei:listEvent]
 let $count-event := count($event)
+let $unique-persons := count($refs[contains(.,'/person/')])
+let $unique-places := count($refs[contains(.,'/place/')])
+let $unique-keywords := count($refs[contains(.,'/keyword/')])
 return 
-(
 <div class="panel panel-default">
     <div class="panel-heading clearfix">
         <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Publication Information</h4>
     </div>
     <div class="panel-body"> 
-        {<spear-teiHeader xmlns="http://www.tei-c.org/ns/1.0">{$data/descendant::tei:teiHeader, $data/descendant::tei:back}</spear-teiHeader>}
+        {global:tei2html(<spear-teiHeader xmlns="http://www.tei-c.org/ns/1.0">{$data/descendant::tei:teiHeader, $data/descendant::tei:back}</spear-teiHeader>)}
         <div><span class="srp-label">Data Set:</span>
         <ul>
             <li>This prosopography contains  {$count-factoids} 
-            factoids about (count all unique person URIs) persons, 
-            (count all unique places) places, and (count all keywords) subjects.</li>
+            factoids about {$unique-persons} persons, 
+            {$unique-places} places, and {$unique-keywords} subjects.</li>
             <li>
                 The data is composed of {$count-biographical} biographical factoids, {$count-relationship} relationship factoids, 
                 and {$count-event} event factoids.
@@ -195,59 +199,7 @@ return
         </ul>
         </div>
     </div>
-</div>,
-
-<div class="panel-group">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" href="#persons">Person Factoids ({count($data/descendant::tei:div[tei:listPerson])})</a>
-      </h4>
-    </div>
-    <div id="persons" class="panel-collapse collapse">
-      <div class="panel-body">{
-        let $personInfo := $data/descendant::tei:div[tei:listPerson] 
-        return  global:tei2html(
-                    <aggregate xmlns="http://www.tei-c.org/ns/1.0">
-                        {$personInfo}
-                    </aggregate>)
-        }
-    </div>                    
-  </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" href="#relationships">Relationship Factoids ({count($data/descendant::tei:div[tei:listRelation])})</a>
-      </h4>
-    </div>
-    <div id="relationships" class="panel-collapse collapse">
-      <div class="panel-body">{ 
-        let $relation := $data/descendant::tei:div/tei:listRelation
-        for $r in $relation/descendant::tei:relation
-        return <p>{rel:build-short-relationships-list($r, $spear:id)}</p>
-        }
-    </div>                    
-  </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" href="#events">Event Factoids ({count($data/descendant::tei:div[tei:listEvent])})</a>
-      </h4>
-    </div>
-    <div id="events" class="panel-collapse collapse">
-      <div class="panel-body">{
-        let $events := $data/descendant::tei:div/tei:listEvent/descendant::tei:event 
-        return   
-        (ev:build-timeline($events,'events'),
-        ev:build-events-panel($events))
-        }
-    </div>                    
-  </div>
-  </div>  
-</div>,
-global:tei2html(<spear-sources xmlns="http://www.tei-c.org/ns/1.0">{$data/descendant::tei:back/descendant::tei:bibl}</spear-sources>))
+</div>
 };
 
 declare function spear:person-data($data){
@@ -303,7 +255,6 @@ for $r in $relation/descendant::tei:relation
 return rel:build-short-relationships($r,'')
 };
 
-
 (: NOTE: add footnotes to events panel :)
 declare %templates:wrap function spear:events($node as node(), $model as map(*)){
   if($model("data")//tei:listEvent) then
@@ -313,7 +264,6 @@ declare %templates:wrap function spear:events($node as node(), $model as map(*))
         ev:build-events-panel($events))
   else ()  
 };
-
 
 (:~
  : NOTE: this is really the cononical, not the related... should have two, on for factoids, one for 
@@ -382,14 +332,16 @@ else
 
 (:~     
  : Find related factoids
+ : Side bar used by aggrigate pages. Not to be confussed with spear:relationships-aggregate, which is used for center page display in aggrigate pages, and decodes relationships. 
 :)
 declare function spear:related-factiods($node as node(), $model as map(*)){
 let $data := $model("data")
+let $title := $data/descendant::tei:titleStmt/tei:title[1]/text()
 return
     if($data/ancestor::tei:body//tei:ref[@type='additional-attestation'][@target=$spear:id] or $data/descendant::tei:persName or $data/descendant::tei:placeName or $data/descendant::tei:relation) then 
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
-                <h4 class="panel-title">Related Persons, Places and Keywords</h4>
+                <h4 class="panel-title">Browse Persons, Places and Keywords in {$title}</h4>
             </div>
             <div class="panel-body">
             {
@@ -414,7 +366,7 @@ return
                                     {
                                         for $r in subsequence($persNames,1,5)
                                         return 
-                                            <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
+                                            <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Person:{$r}&amp;view=advanced">{spear:get-title($r)}</a></li>
                                     }
                                 </ul>
                              </div>
@@ -425,7 +377,7 @@ return
                                             {
                                             for $r in subsequence($persNames,6,$count-persons + 1)
                                             return 
-                                                  <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
+                                                  <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Person:{$r}&amp;view=advanced">{spear:get-title($r)}</a></li>
                                             }
                                             </ul>
                                         </div>,
@@ -444,7 +396,7 @@ return
                                         {
                                             for $r in subsequence($placeNames,1,5)
                                             return 
-                                                <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
+                                                <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Place:{$r}&amp;view=advanced">{spear:get-title($r)}</a></li>
                                         }
                                     </ul>
                                 </div>
@@ -455,7 +407,7 @@ return
                                             {
                                             for $r in subsequence($placeNames,6,$count-places + 1)
                                             return 
-                                                  <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
+                                                  <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Place:{$r}&amp;view=advanced">{spear:get-title($r)}</a></li>
                                             }
                                             </ul>
                                         </div>,
@@ -474,7 +426,7 @@ return
                                         {
                                             for $r in subsequence($keywords,1,5)
                                             return 
-                                                <li><a href="aggregate.html?id={$r}">{substring-after($r,'/keyword/')}</a></li>
+                                                <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Keyword:{$r}&amp;view=advanced">{lower-case(functx:camel-case-to-words(substring-after($r,'/keyword/'),' '))}</a></li>
                                         }
                                     </ul>
                                 </div>
@@ -485,7 +437,7 @@ return
                                             {
                                             for $r in subsequence($keywords,6,$count-keywords + 1)
                                             return 
-                                                  <li><a href="aggregate.html?id={$r}">{substring-after($r,'/keyword/')}</a></li>
+                                                  <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Keyword:{$r}&amp;view=advanced">{lower-case(functx:camel-case-to-words(substring-after($r,'/keyword/'),' '))}</a></li>
                                             }
                                             </ul>
                                         </div>,
@@ -501,7 +453,7 @@ return
         </div>
     else ()
 };
-
+ 
 declare function spear:get-title($uri){
 let $doc := collection('/db/apps/srophe-data/data')/range:field-eq("uri", concat($uri,"/tei"))[1]
 return 
