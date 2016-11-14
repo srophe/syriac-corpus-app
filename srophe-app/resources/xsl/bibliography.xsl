@@ -1264,8 +1264,8 @@
             <span class="srp-label">
                 <xsl:value-of select="concat(upper-case(substring(name(.),1,1)),substring(name(.),2))"/>: </span>
             <xsl:choose>
-                <xsl:when test="count(child::*) gt 1">
-                    <xsl:for-each select="child::*">
+                <xsl:when test="count(self::*) gt 1">
+                    <xsl:for-each select="self::*">
                         <span class="block indent">
                             <xsl:call-template name="langattr"/>
                             <xsl:apply-templates mode="footnote"/>
