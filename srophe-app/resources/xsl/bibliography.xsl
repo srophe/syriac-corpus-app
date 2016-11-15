@@ -490,7 +490,7 @@
                 <xsl:if test="t:title[@level='m'] and t:biblScope[(@unit != 'vol' and @unit != 'series') or not(@unit)]">
                     <xsl:for-each select="t:biblScope[(@unit != 'vol' and @unit != 'series') or not(@unit)]">
                         <xsl:text>, </xsl:text>
-                        <xsl:apply-templates select="." mode="bibliography"/>
+                        <xsl:apply-templates select="." mode="footnote"/>
                     </xsl:for-each>
                 </xsl:if>
             </xsl:when>
