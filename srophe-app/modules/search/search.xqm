@@ -333,6 +333,15 @@ declare %templates:wrap function search:build-page($node as node()*, $model as m
  :)
 declare function search:search-form() {   
 <form method="get" action="search.html" class="form-horizontal indent" role="form">
+    <script type="text/javascript">
+    <![CDATA[
+        $(function(){
+            initializeKeyboard('#qs', 'syriac-standard', '#qs-keyboard');
+            initializeKeyboard('#placeName', 'syriac-standard', '#placeName-keyboard');
+            initializeKeyboard('#persName', 'syriac-standard', '#persName-keyboard');
+            });
+         ]]>
+    </script>
     <h1 class="search-header">Search Syriaca.org (All Publications)</h1>
     <p class="indent">More detailed search functions are available in each individual <a href="/">publication</a>.</p>
     <div class="well well-small">
@@ -346,20 +355,43 @@ declare function search:search-form() {
                  <div class="form-group">
                     <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
                     <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="q" name="q" class="form-control"/>
+                        <div class="input-group">
+                            <input type="text" id="qs" name="q" class="form-control"/>
+                            <div class="input-group-btn">
+                                <span class="btn btn-default" id="qs-keyboard">
+                                   <span class="glyphicon glyphicon-cog"/>&#160;<small>Keyboard</small>
+                                </span>
+                            </div>
+                         </div> 
+
                     </div>
+                    
                   </div>
                     <!-- Place Name-->
                   <div class="form-group">
                     <label for="placeName" class="col-sm-2 col-md-3  control-label">Place Name: </label>
                     <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="placeName" name="placeName" class="form-control"/>
+                        <div class="input-group">
+                            <input type="text" id="placeName" name="placeName" class="form-control"/>
+                            <div class="input-group-btn">
+                                <span class="btn btn-default" id="placeName-keyboard">
+                                   <span class="glyphicon glyphicon-cog"/>&#160;<small>Keyboard</small>
+                                </span>
+                            </div>
+                         </div>   
                     </div>
-                  </div>
+                </div>
                 <div class="form-group">
                     <label for="persName" class="col-sm-2 col-md-3  control-label">Person Name: </label>
                     <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="persName" name="persName" class="form-control"/>
+                        <div class="input-group">
+                            <input type="text" id="persName" name="persName" class="form-control"/>
+                            <div class="input-group-btn">
+                                <span class="btn btn-default" id="persName-keyboard">
+                                   <span class="glyphicon glyphicon-cog"/>&#160;<small>Keyboard</small>
+                                </span>
+                            </div>
+                         </div>   
                     </div>
                   </div>
                   <!--
