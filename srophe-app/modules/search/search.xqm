@@ -324,6 +324,8 @@ declare %templates:wrap function search:build-page($node as node()*, $model as m
  :)
 declare function search:search-form() {   
 <form method="get" action="search.html" style="margin-top:2em;" class="form-horizontal indent" role="form">
+    <h1 class="search-header">Search Syriaca.org (All Publications)</h1>
+    <p class="indent">More detailed search functions are available in each individual <a href="/">publication</a>.</p>
     <div class="well well-small">
         <div class="well well-small" style="background-color:white;">
             <div class="row">
@@ -348,6 +350,7 @@ declare function search:search-form() {
                         <input type="text" id="persName" name="persName" class="form-control"/>
                     </div>
                   </div>
+                  <!--
                 <div class="form-group">
                     <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
                     <div class="col-sm-10 col-md-9 ">
@@ -360,6 +363,7 @@ declare function search:search-form() {
                         <input type="text" id="bibl" name="bibl" class="form-control"/>
                     </div>
                </div> 
+               -->
                 <div class="form-group">
                     <label for="uri" class="col-sm-2 col-md-3  control-label">Syriaca.org URI: </label>
                     <div class="col-sm-10 col-md-9 ">
