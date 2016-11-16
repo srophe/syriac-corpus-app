@@ -9,7 +9,7 @@ import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
 import module namespace app="http://syriaca.org/templates" at "app.xql";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
-import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
+import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
 import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
 import module namespace functx="http://www.functx.com";
@@ -284,7 +284,7 @@ else
     let $data := $model("data")
     let $rec-exists := spear:canonical-rec($spear:id)  
     let $type := string($rec-exists/ancestor::tei:place/@type)
-    let $geo := $rec-exists/ancestor::tei:body//tei:geo
+    let $geo := $rec-exists/ancestor::tei:body[descendant-or-self::tei:geo]
     let $abstract := $rec-exists/ancestor::tei:body//tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')] | $rec-exists/ancestor::tei:body//tei:note[@type='abstract']
     return
         if($rec-exists) then
@@ -296,7 +296,7 @@ else
                  {(if($geo) then 
                     <div>
                         <div>
-                            {geo:build-map($geo,'','')}
+                            {maps:build-map($geo)}
                         </div>
                         <div>
                             <div id="type">

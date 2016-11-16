@@ -13,7 +13,7 @@ import module namespace bhses="http://syriaca.org/bhses" at "bhse-search.xqm";
 import module namespace bibls="http://syriaca.org/bibls" at "bibl-search.xqm";
 import module namespace ms="http://syriaca.org/ms" at "ms-search.xqm";
 import module namespace common="http://syriaca.org/common" at "common.xqm";
-import module namespace geo="http://syriaca.org/geojson" at "../lib/geojson.xqm";
+import module namespace maps="http://syriaca.org/maps" at "../lib/maps.xqm";
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 import module namespace functx="http://www.functx.com";
 
@@ -210,11 +210,12 @@ declare  %templates:wrap function search:pageination($node as node()*, $model as
  : @param $node search resuls with coords
 :)
 declare function search:build-geojson($node as node()*, $model as map(*)){
-let $geo-hits := $model("hits")//tei:geo
+let $data := $model("hits")
+let $geo-hits := $data//tei:geo
 return
     if(count($geo-hits) gt 0) then
          (
-         geo:build-map($model("hits")//tei:geo, '', ''),
+         maps:build-map($data[descendant::tei:geo]),
          <div>
             <div class="modal fade" id="map-selection" tabindex="-1" role="dialog" aria-labelledby="map-selectionLabel" aria-hidden="true">
                 <div class="modal-dialog">

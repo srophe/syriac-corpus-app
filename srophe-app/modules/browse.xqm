@@ -15,7 +15,7 @@ import module namespace facets="http://syriaca.org/facets" at "lib/facets.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
 import module namespace facet-defs="http://syriaca.org/facet-defs" at "facet-defs.xqm";
 import module namespace page="http://syriaca.org/page" at "lib/paging.xqm";
-import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
+import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
 import module namespace bs="http://syriaca.org/bs" at "browse-spear.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates";
 
@@ -59,7 +59,7 @@ declare function browse:collection-path($collection){
         concat("collection('",$global:data-root,"/persons/tei')")
     else if($collection = 'places') then 
         concat("collection('",$global:data-root,"/places/tei')")
-    else if($collection = 'bhse') then 
+    else if($collection = ('bhse','nhsl')) then 
         concat("collection('",$global:data-root,"/works/tei')")
     else if($collection = 'bibl') then 
         concat("collection('",$global:data-root,"/bibl/tei')")
@@ -237,6 +237,7 @@ declare function browse:parse-collections($collection as xs:string?) {
     else if($collection = ('saints','q')) then 'Qadishe: A Guide to the Syriac Saints'
     else if($collection = 'authors' ) then 'A Guide to Syriac Authors'
     else if($collection = 'bhse' ) then 'Bibliotheca Hagiographica Syriaca Electronica'
+    else if($collection = 'nhsl' ) then 'New Handbook of Syriac Literature'
     else if($collection = ('places','The Syriac Gazetteer')) then 'The Syriac Gazetteer'
     else if($collection = ('spear','SPEAR: Syriac Persons, Events, and Relations')) then 'SPEAR: Syriac Persons, Events, and Relations'
     else if($collection != '' ) then $collection
@@ -363,7 +364,7 @@ else if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets
         }</div>)
 else if($browse:view = 'map') then 
     <div class="col-md-12 map-lg">
-        {geo:build-map($hits//tei:geo, '', '')}
+        {maps:build-map($hits[descendant::tei:geo])}
     </div>
 else if($browse:view = 'all' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then 
     <div class="col-md-12">
@@ -396,6 +397,24 @@ else
     </div>
 };
 
+(:
+ : Set up browse page, select correct results function based on URI params
+ : @param $collection passed from html 
+:)
+declare function browse:display-persons-map($node as node(), $model as map(*), $collection, $sort-options as xs:string*){
+let $hits := $model("browse-data")
+let $related := distinct-values(
+                    tokenize(
+                        string-join(($hits//tei:relation/@mutual,$hits//tei:relation/@passive,$hits//tei:relation/@active),' '),
+                        ' '))
+let $geo := for $r in $related[contains(.,'/place/')]
+            return 
+               collection($global:data-root)//tei:idno[@type='URI'][. = concat($r,'/tei')]/ancestor::tei:TEI[descendant::tei:geo]
+return                
+         maps:build-map($geo)
+
+};
+
 declare function browse:display-hits($hits){
     for $data in subsequence($hits, $browse:start,$browse:perpage)
     return 
@@ -408,7 +427,7 @@ declare function browse:display-hits($hits){
 declare function browse:get-map($hits){
 if($hits//tei:geo) then 
     <div class="col-md-12 map-md">
-        {geo:build-map($hits//tei:geo, '', '')}
+        {maps:build-map($hits[descendant::tei:geo])}
     </div>
 else ()    
 };

@@ -465,9 +465,6 @@
             </xsl:if>
         </xsl:if>
         <xsl:if test="t:related-items/descendant::t:relation and self::t:person">
-            <xsl:if test="not(t:related-items/descendant::t:geo)">
-                <h2>Related Places in the Syriac Gazetteer</h2>
-            </xsl:if>
             <div>
                 <xsl:if test="t:related-items/t:relation[contains(@uri,'place')]">
                     <div>
@@ -510,68 +507,9 @@
                         </dl>
                     </div>
                 </xsl:if>
-                <xsl:if test="t:related-items/t:relation[contains(@uri,'person')]">
-                    <div id="relations" class="well">
-                        <h3>Related People</h3>
-                        <!-- NOTE: currently in list, changed to approved format, list or inline -->
-                        <ul>
-                            <xsl:for-each-group select="t:related-items/t:relation[contains(@uri,'person')]" group-by="@name">
-                                <li>
-                                    <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
-                                    <xsl:value-of select="substring(*:desc,1,$desc-ln - 1)"/>:
-                                    <xsl:for-each select="current-group()">
-                                        <xsl:apply-templates select="." mode="relation"/>
-                                        <xsl:if test="position() != last()">, </xsl:if>
-                                    </xsl:for-each>
-                                </li>
-                            </xsl:for-each-group>
-                        </ul>
-                    </div>
-                </xsl:if>
             </div>
         </xsl:if>
-        <xsl:if test="t:related-places and self::t:person">
-            <div>
-                <dl class="dl-horizontal dl-srophe">
-                    <xsl:for-each-group select="t:related-places/t:relation[contains(@uri,'place')]" group-by="@name">
-                        <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
-                        <xsl:choose>
-                            <xsl:when test="not(current-group()/descendant::*:geo)">
-                                <dt>&#160;</dt>
-                            </xsl:when>
-                            <xsl:when test="current-grouping-key() = 'born-at'">
-                                <dt>
-                                    <i class="srophe-marker born-at"/>
-                                </dt>
-                            </xsl:when>
-                            <xsl:when test="current-grouping-key() = 'died-at'">
-                                <dt>
-                                    <i class="srophe-marker died-at"/>
-                                </dt>
-                            </xsl:when>
-                            <xsl:when test="current-grouping-key() = 'has-literary-connection-to-place'">
-                                <dt>
-                                    <i class="srophe-marker literary"/>
-                                </dt>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <dt>
-                                    <i class="srophe-marker relation"/>
-                                </dt>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                        <dd>
-                            <xsl:value-of select="substring(t:desc,1,$desc-ln - 1)"/>:
-                            <xsl:for-each select="current-group()">
-                                <xsl:apply-templates select="." mode="relation"/>
-                                <!--<xsl:if test="position() != last()">, </xsl:if>-->
-                            </xsl:for-each>
-                        </dd>
-                    </xsl:for-each-group>
-                </dl>
-            </div>
-        </xsl:if>
-        
+
         <!-- Confessions/Religious Communities -->
         <xsl:if test="t:confessions/t:state[@type='confession'] | t:state[@type='confession'][parent::t:place]">
             <div>
@@ -713,6 +651,7 @@
             </xsl:choose>
             <xsl:call-template name="sources"/>
         </xsl:if>
+        
         <!-- Contains: -->
         <xsl:if test="t:nested-place">
             <div id="contents">
@@ -743,6 +682,7 @@
         <xsl:if test="t:citation | t:srophe-citation ">
             <xsl:call-template name="citationInfo"/>
         </xsl:if>
+        
         <!-- Build see also -->
         <xsl:if test="t:see-also">
             <xsl:call-template name="link-icons-list">
@@ -785,12 +725,14 @@
             </div>
         </div>
     </xsl:template>
+    
     <!-- Named template for bibl about -->
     <xsl:template match="t:srophe-about">
         <div id="citation-note" class="well">
             <xsl:call-template name="aboutEntry"/>
         </div>
     </xsl:template>
+    
     <xsl:template name="aboutEntry">
         <div id="about">
             <xsl:choose>
@@ -805,6 +747,7 @@
             </xsl:choose>
         </div>
     </xsl:template>
+    
     <!-- Named template for sources calls bibliography.xsl -->
     <xsl:template name="sources">
         <xsl:param name="node"/>
@@ -968,7 +911,7 @@
                                             <xsl:value-of select="string($type)"/>
                                         </xsl:otherwise>
                                     </xsl:choose>
-                                </xsl:variable>   
+                                </xsl:variable>
                                 <xsl:text> (</xsl:text>
                                 <xsl:value-of select="$bibl-type"/>
                                 <xsl:text> from  </xsl:text>
@@ -1007,8 +950,6 @@
                                     <xsl:text>]</xsl:text>
                                 </xsl:if>
                             </xsl:for-each>
-
-
                         </xsl:if>
                     </span>
                 </li>
@@ -1281,7 +1222,7 @@
                         <xsl:when test="t:quote">
                             <xsl:apply-templates/>
                         </xsl:when>
-                        <xsl:otherwise>HI THERE
+                        <xsl:otherwise>
                             <span>
                                 <xsl:call-template name="langattr"/>
                                 <xsl:apply-templates/>
