@@ -394,7 +394,7 @@ declare function places:search-form() {
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             </button>&#160;
             <xi:include href="../searchTips.html"/>
-        <div class="well well-small" style="background-color:white;">
+        <div class="well well-small search-inner well-white">
             <div class="row">
                 <div class="col-md-7" style="border-right:1px solid #ccc;">
                 <!-- Keyword -->
