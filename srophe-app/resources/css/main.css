@@ -371,15 +371,16 @@ td {
       background-color: #eee;
       cursor: pointer;
     }
-    
-#map {height:325px !important;;}
+
 .browse-map {margin:0;}
 .inline-map {margin-left:-2em; margin-bottom:1em;}
 .map-lg #map {height:500px !important;}
 .map-md #map {height:300px !important;}
-.map-sm #map {height:250px !important;} 
-
-.results-list {margin-left: 25px; border-bottom:1px dotted #eee; padding-top:.5em}
+.map-sm #map {height:250px !important;}
+#map {height:325px !important;}
+.map-pop-title {display:block;font-weight:600; font-size:1.2em; margin-bottom:0; padding-bottom:0;}
+.map-pop-desc {display:block; padding:.5em;}
+.results-list {margin-left: 25px; border-bottom:1px dotted #eee; padding-top:.5em;}
 .results-list-desc{display:block;}
 .pers-label {background-color:#999; font-weight:400; margin-right:4px;}
 .results-list-desc .pers-label .footnote-refs,.results-list .footnote-refs, .relation .footnote-refs {display:none; visability:hidden;}
@@ -740,13 +741,6 @@ label.error {
 }
 */
 #map {height: 200px;}
-.transparent {
-    /* default fallback */
-    background: rgb(255, 255, 255) transparent;
-    /* nice browsers */
-    background: rgba(255, 255, 255, 0.8);
-    
-}
 
 .citationinfo {padding:1em; color: #555; border-top:1px solid #666666; background-color:#eee; }
 .preferred-citation {font-size:1.2em;}
