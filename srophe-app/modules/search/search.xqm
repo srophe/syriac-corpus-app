@@ -333,7 +333,7 @@ declare %templates:wrap function search:build-page($node as node()*, $model as m
  : Builds advanced search form
  :)
 declare function search:search-form() {   
-<form method="get" action="search.html" class="form-horizontal indent" role="form">
+<form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal indent" role="form">
     <script type="text/javascript">
     <![CDATA[
         $(function(){
@@ -346,9 +346,10 @@ declare function search:search-form() {
     <h1 class="search-header">Search Syriaca.org (All Publications)</h1>
     <p class="indent">More detailed search functions are available in each individual <a href="/">publication</a>.</p>
     <div class="well well-small">
-            <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#searchTips">
+          <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             </button>&#160;
+            <xi:include href="../searchTips.html"/>
         <div class="well well-small" style="background-color:white; margin-top:2em;">
             <div class="row">
                 <div class="col-md-7">

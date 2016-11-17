@@ -123,11 +123,12 @@ declare function bibls:search-string(){
  : Builds advanced search form for persons
  :)
 declare function bibls:search-form() {   
-<form method="get" action="search.html" class="form-horizontal" role="form">
+<form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
     <div class="well well-small">
-             <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#searchTips">
+             <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             </button>&#160;
+            <xi:include href="../searchTips.html"/>
         <div class="well well-small search-inner well-white">
         <!-- Keyword -->
             <div class="form-group">            
