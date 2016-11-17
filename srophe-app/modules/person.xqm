@@ -366,7 +366,7 @@ declare %templates:wrap function person:display-persons-map($node as node(), $mo
     let $places := for $p in tokenize(string-join(($p/@passive,$p/@active,$p/@mutual),' '),' ')[contains(.,'/place/')] return <placeName xmlns="http://www.tei-c.org/ns/1.0">{$p}</placeName>
     return 
         <person xmlns="http://www.tei-c.org/ns/1.0">
-            <persName xmlns="http://www.tei-c.org/ns/1.0" name="{$relation}" id="{$pers-id}">{substring-before($name,' — ')}</persName>
+            <persName xmlns="http://www.tei-c.org/ns/1.0" name="{$relation}" id="{replace($pers-id,'/tei','')}">{$name}</persName>
             {$places}
         </person>
     let $places := distinct-values($persons/descendant::tei:placeName/text()) 
@@ -389,4 +389,5 @@ declare %templates:wrap function person:display-persons-map($node as node(), $mo
                 <location>{$geo}</location>  
             </place>
     return  maps:build-map($locations)
+    (: ' — ' :)
 };
