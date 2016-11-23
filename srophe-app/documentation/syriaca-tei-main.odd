@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/schmea#" xml:lang="en">
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0" xml:lang="en">
     <teiHeader>
         <fileDesc>
             <titleStmt>
@@ -118,8 +118,9 @@
                 <elementSpec ident="lang" module="dictionaries" mode="change">
                     <desc>contains the name of a language mentioned in etymological or other linguistic discussion. Inside a <gi>bibl</gi> element, this 
                         refers to the language of the version to which the <gi>bibl</gi> refers. The contents of <gi>lang</gi> should be a BCP-47 code.</desc>
-                    <constraintSpec scheme="isoschematron" ident="lang-in-bibls">
+                    <constraintSpec scheme="isoschematron" ident="lang-in-bibl">
                         <constraint xmlns:s="http://purl.oclc.org/dsdl/schematron">
+                            <!-- Not sure whether this is working as it should in oXygen validation. -->
                             <s:report test="not(ancestor::tei:bibl)">Error: The lang element is only allowed inside a bibl element.</s:report>
                         </constraint>
                     </constraintSpec>
@@ -142,6 +143,64 @@
                     </remarks>
                 </elementSpec>
                 <elementSpec ident="bibl" module="core" mode="change">
+                    <content>
+                        <alternate>
+                            <!-- Model for work entity -->
+                            <sequence>
+                                <!-- requiring attribute doesn't seem to be working -->
+                                <classRef key="att.typed" minOccurs="1" context="body/bibl"/>
+                                <elementRef key="title" maxOccurs="unbounded" context="body/bibl"/>
+                                <alternate minOccurs="0" maxOccurs="unbounded">
+                                    <elementRef key="author" context="body/bibl"/>
+                                    <elementRef key="editor" context="body/bibl"/>
+                                </alternate>
+                                <elementRef key="idno" maxOccurs="unbounded" context="body/bibl"/>
+                                <elementRef key="textLang" minOccurs="0" context="body/bibl"/>
+                                <elementRef key="date" minOccurs="0" maxOccurs="unbounded" context="body/bibl"/>
+                                <elementRef key="extent" minOccurs="0" context="body/bibl"/>
+                                <elementRef key="note" minOccurs="0" maxOccurs="unbounded" context="body/bibl"/>
+                                <elementRef key="bibl" minOccurs="0" maxOccurs="unbounded" context="body/bibl"/>
+                                <elementRef key="listRelation" minOccurs="0" context="body/bibl"/>
+                            </sequence>
+                            <!-- Model for citations inside work entity -->
+                            <sequence>
+                                <!-- requiring attribute doesn't seem to be working -->
+                                <classRef key="att.typed" minOccurs="1" context="body/bibl/bibl"/>
+                                <elementRef key="lang" minOccurs="0" maxOccurs="unbounded"
+                                    context="body/bibl/bibl[@type='lawd:Translation']"/>
+                                <elementRef key="idno" minOccurs="0" maxOccurs="unbounded" context="body/bibl/bibl[@type='syriaca:Manuscript']"/>
+                                <alternate minOccurs="0" maxOccurs="unbounded">
+                                    <elementRef key="author" context="body/bibl/bibl"/>
+                                    <elementRef key="editor" context="body/bibl/bibl"/>
+                                </alternate>
+                                <elementRef key="title" minOccurs="0" maxOccurs="unbounded" context="body/bibl/bibl"/>
+                                <elementRef key="ptr" 
+                                        context="body/bibl/bibl[@type=('lawd:Edition','lawd:Translation','lawd:Citation')]"/>
+                                <elementRef key="textLang" minOccurs="0" context="body/bibl/bibl"/>
+                                <elementRef key="date" minOccurs="0" maxOccurs="unbounded" context="body/bibl/bibl"/>
+                                <elementRef key="extent" minOccurs="0" context="body/bibl/bibl"/>
+                                <elementRef key="citedRange" minOccurs="0" maxOccurs="unbounded" context="body/bibl/bibl"/>
+                                <elementRef key="note" minOccurs="0" maxOccurs="unbounded" context="body/bibl/bibl"/>
+                                <elementRef key="bibl" minOccurs="0" maxOccurs="unbounded" context="body/bibl/bibl"/>
+                                <elementRef key="listRelation" minOccurs="0" context="body/bibl/bibl"/>
+                            </sequence>
+                            <!-- Model for references to works in an unstructured format. 
+                            This could be locked down more so that it interferes less with the above two models. -->
+                            <alternate minOccurs="0"
+                                maxOccurs="unbounded">
+                                <textNode/>
+                                <classRef key="model.gLike" context="not(body/bibl[@type='lawd:ConceptualWork']) and not(body/bibl/bibl[@type=('lawd:Edition','lawd:Translation','lawd:Citation','syriaca:Manuscript')])"/>
+                                <classRef key="model.highlighted" context="not(body/bibl[@type='lawd:ConceptualWork']) and not(body/bibl/bibl[@type=('lawd:Edition','lawd:Translation','lawd:Citation','syriaca:Manuscript')])"/>
+                                <classRef key="model.pPart.data" context="not(body/bibl[@type='lawd:ConceptualWork']) and not(body/bibl/bibl[@type=('lawd:Edition','lawd:Translation','lawd:Citation','syriaca:Manuscript')])"/>
+                                <classRef key="model.pPart.edit" context="not(body/bibl[@type='lawd:ConceptualWork']) and not(body/bibl/bibl[@type=('lawd:Edition','lawd:Translation','lawd:Citation','syriaca:Manuscript')])"/>
+                                <classRef key="model.segLike" context="not(body/bibl[@type='lawd:ConceptualWork']) and not(body/bibl/bibl[@type=('lawd:Edition','lawd:Translation','lawd:Citation','syriaca:Manuscript')])"/>
+                                <classRef key="model.ptrLike" context="not(body/bibl[@type='lawd:ConceptualWork']) and not(body/bibl/bibl[@type=('lawd:Edition','lawd:Translation','lawd:Citation','syriaca:Manuscript')])"/>
+                                <classRef key="model.biblPart" context="not(body/bibl[@type='lawd:ConceptualWork']) and not(body/bibl/bibl[@type=('lawd:Edition','lawd:Translation','lawd:Citation','syriaca:Manuscript')])"/>
+                                <classRef key="model.global" context="not(body/bibl[@type='lawd:ConceptualWork']) and not(body/bibl/bibl[@type=('lawd:Edition','lawd:Translation','lawd:Citation','syriaca:Manuscript')])"/>
+                            </alternate>
+                        </alternate>
+                      
+                    </content>
                     <attList>
                         <attDef ident="type" mode="change">
                             <desc>The <att>type</att> attribute on <gi>bibl</gi> elements may be an RDF class defining the type of work or item.
@@ -222,7 +281,6 @@
                     </attList>
                 </elementSpec>
                 <elementSpec ident="author" module="core" mode="change">
-                    <desc>in a bibliographic reference, contains the name(s) of an author, personal or corporate, of a work; for example in the same form as that provided by a recognized bibliographic name authority.</desc>
                     <attList>
                         <attDef ident="ref" mode="change" usage="rec">
                             <desc>Should contain the URI of the author from the <ref target="http://syriaca.org/persons">Syriac 
@@ -259,7 +317,6 @@
                     </remarks>
                 </elementSpec>
                 <elementSpec ident="editor" module="core" mode="change">
-                    <desc>contains a secondary statement of responsibility for a bibliographic item, for example the name of an individual, institution or organization, (or of several such) acting as editor, compiler, translator, etc.</desc>
                     <attList>
                         <attDef ident="ref" mode="change" usage="rec">
                             <desc>Should contain the URI of the editor from the <ref target="http://syriaca.org/persons">Syriac 
@@ -290,6 +347,16 @@
                             connection to a work may be further specified using the <att>role</att>
                             attribute on <gi>editor</gi>.</p>
                     </remarks>
+                </elementSpec>
+                <elementSpec ident="body" module="textstructure" mode="change">
+                    <content>
+                        <alternate>
+                            <elementRef key="bibl"/>
+                            <elementRef key="biblStruct"/>
+                            <elementRef key="listPerson"/>
+                            <elementRef key="listPlace"/>
+                        </alternate>                        
+                    </content>
                 </elementSpec>
                 <classSpec ident="att.source" module="tei" mode="change" type="atts">
                     <attList>

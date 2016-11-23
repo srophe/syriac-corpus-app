@@ -7,7 +7,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2016-11-23T12:47:55Z. .
+# Schema generated from ODD source 2016-11-23T18:05:49Z. .
 # TEI Edition: Version 3.0.0. Last updated on
 #	29th March 2016, revision 89ba24e
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.0.0/
@@ -2622,15 +2622,36 @@ tei_bibl =
   
   ## (bibliographic citation) contains a loosely-structured bibliographic citation of which the sub-components may or may not be explicitly tagged. [3.11.1. Methods of Encoding Bibliographic References and Lists of References 2.2.7. The Source Description 15.3.2. Declarable Elements]
   element bibl {
-    (text
-     | tei_model.gLike
-     | tei_model.highlighted
-     | tei_model.pPart.data
-     | tei_model.pPart.edit
-     | tei_model.segLike
-     | tei_model.ptrLike
-     | tei_model.biblPart
-     | tei_model.global)*,
+    ((tei_title+,
+      (tei_author | tei_editor)*,
+      tei_idno+,
+      tei_textLang?,
+      tei_date*,
+      tei_extent?,
+      tei_note*,
+      tei_bibl*,
+      tei_listRelation?)
+     | (tei_lang*,
+        tei_idno*,
+        (tei_author | tei_editor)*,
+        tei_title*,
+        tei_ptr,
+        tei_textLang?,
+        tei_date*,
+        tei_extent?,
+        tei_citedRange*,
+        tei_note*,
+        tei_bibl*,
+        tei_listRelation?)
+     | (text
+        | tei_model.gLike
+        | tei_model.highlighted
+        | tei_model.pPart.data
+        | tei_model.pPart.edit
+        | tei_model.segLike
+        | tei_model.ptrLike
+        | tei_model.biblPart
+        | tei_model.global)*),
     tei_att.global.attribute.syriaca-computed-start,
     tei_att.global.attribute.source,
     tei_att.global.attribute.syriaca-computed-end,
@@ -5701,19 +5722,7 @@ tei_body =
   
   ## (text body) contains the whole body of a single unitary text, excluding any front or back matter. [4. Default Text Structure]
   element body {
-    (tei_model.global*,
-     (tei_model.divTop, (tei_model.global | tei_model.divTop)*)?,
-     (tei_model.divGenLike,
-      (tei_model.global | tei_model.divGenLike)*)?,
-     ((tei_model.divLike, (tei_model.global | tei_model.divGenLike)*)+
-      | (tei_model.div1Like,
-         (tei_model.global | tei_model.divGenLike)*)+
-      | ((tei_model.common, tei_model.global*)+,
-         ((tei_model.divLike,
-           (tei_model.global | tei_model.divGenLike)*)+
-          | (tei_model.div1Like,
-             (tei_model.global | tei_model.divGenLike)*)+)?)),
-     (tei_model.divBottom, tei_model.global*)*),
+    (tei_bibl | tei_biblStruct | tei_listPerson | tei_listPlace),
     tei_att.global.attributes,
     tei_att.declaring.attributes,
     empty
@@ -6738,7 +6747,7 @@ tei_lang =
   element lang {
     tei_macro.paraContent
     >> sch:pattern [
-         id = "syriacaMainODD-lang-lang-in-bibls-constraint-28"
+         id = "syriacaMainODD-lang-lang-in-bibl-constraint-28"
          "\x{a}" ~
          "            "
          sch:rule [
