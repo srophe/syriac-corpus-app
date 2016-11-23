@@ -33,7 +33,8 @@
                             </datatype>
                         </attDef>
                         <attDef ident="source" mode="add">
-                            <desc>Global source attribute. </desc>
+                            <desc>Global source attribute. This should use a hash URI to point to 
+                            one or more bibliography items in <tag>bibl</tag> elements.</desc>
                             <datatype minOccurs="1" maxOccurs="unbounded">
                                 <dataRef key="teidata.pointer"/>
                             </datatype>
@@ -57,6 +58,17 @@
                             <datatype maxOccurs="unbounded" minOccurs="1">
                                 <rng:text xmlns:rng="http://relaxng.org/ns/structure/1.0"/>
                             </datatype>
+                            <valList mode="change" type="semi">
+                                <valItem ident="#syriaca-headword">
+                                    <desc>The name used by Syriaca.org for document titles, citation, and
+                                        disambiguation. These names have been created according to the
+                                        Syriaca.org guidelines for headwords: <ref target="http://syriaca.org/documentation/headwords.html">http://syriaca.org/documentation/headwords.html</ref>.</desc>
+                                </valItem>
+                                <valItem ident="#syriaca-anglicized">
+                                    <desc>An anglicized version of a name created by Syriaca.org used to
+                                        facilitate searching in English.</desc>
+                                </valItem>
+                            </valList>
                         </attDef>
                     </attList>
                 </classSpec>
@@ -208,6 +220,76 @@
                             </valList>
                         </attDef>
                     </attList>
+                </elementSpec>
+                <elementSpec ident="author" module="core" mode="change">
+                    <desc>in a bibliographic reference, contains the name(s) of an author, personal or corporate, of a work; for example in the same form as that provided by a recognized bibliographic name authority.</desc>
+                    <attList>
+                        <attDef ident="ref" mode="change" usage="rec">
+                            <desc>Should contain the URI of the author from the <ref target="http://syriaca.org/persons">Syriac 
+                            Biographical Dictionary</ref>, unless no record yet exists for the author.</desc>
+                        </attDef>
+                        <!-- Should we import any values for @role or limit which ones can be applied to 
+                        author and which to editor? -->
+                        <attDef ident="role" mode="change">
+                            <desc>Specifies the connection of the author to the work, selected from 
+                                http://syriaca.org/documentation/author-editor-roles.xml . The attribute 
+                                value should contain the above URL followed by a hash (#) and the 
+                                <att>xml:id</att> of the role. For example, http://syriaca.org/documentation/author-editor-roles.xml#pseudo .
+                            This is not required if normal authorship is assumed (rather than 
+                            pseudonymous or questionably attributed authorship). It is also 
+                            not required if the connection is unknown.</desc>
+                        </attDef>
+                    </attList>
+                    <exemplum versionDate="2016-11-23">
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <author ref="http://syriaca.org/person/239" role="http://syriaca.org/documentation/author-editor-roles.xml#pseudo">
+                                <persName xml:lang="en">Gregorius Bar Hebraeus</persName> — 
+                                <persName xml:lang="syr">ܓܪܝܓܘܪܝܘܣ ܒܪ ܥܒܪܝܐ</persName>
+                            </author>
+                        </egXML>
+                    </exemplum>
+                    <remarks versionDate="2016-11-23">
+                        <p>Inside the main <gi>bibl</gi> of a work entity, authors are linked to 
+                        their record in the Syriac Biographical Dictionary using a URI in the 
+                        <att>ref</att> attribute. For the purpose of displaying the author's 
+                        name on the work's HTML page, the English and Syriac headwords are included 
+                        as <gi>persName</gi> elements separated by a dash. The nature of the author's 
+                        connection to a work may be further specified using the <att>role</att>
+                        attribute on <gi>author</gi>.</p>
+                    </remarks>
+                </elementSpec>
+                <elementSpec ident="editor" module="core" mode="change">
+                    <desc>contains a secondary statement of responsibility for a bibliographic item, for example the name of an individual, institution or organization, (or of several such) acting as editor, compiler, translator, etc.</desc>
+                    <attList>
+                        <attDef ident="ref" mode="change" usage="rec">
+                            <desc>Should contain the URI of the editor from the <ref target="http://syriaca.org/persons">Syriac 
+                                Biographical Dictionary</ref>, unless no record yet exists for the editor.</desc>
+                        </attDef>
+                        <attDef ident="role" mode="change" usage="rec">
+                            <desc>Specifies the connection of the editor to the work, selected from 
+                                http://syriaca.org/documentation/author-editor-roles.xml . The attribute 
+                                value should contain the above URL followed by a hash (#) and the 
+                                <att>xml:id</att> of the role. For example, http://syriaca.org/documentation/author-editor-roles.xml#translator .
+                                This is recommended, but not required if the type of connection is unknown.</desc>
+                        </attDef>
+                    </attList>
+                    <exemplum versionDate="2016-11-23">
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <editor ref="http://syriaca.org/person/239" role="http://syriaca.org/documentation/author-editor-roles.xml#translator">
+                                <persName xml:lang="en">Gregorius Bar Hebraeus</persName> — 
+                                <persName xml:lang="syr">ܓܪܝܓܘܪܝܘܣ ܒܪ ܥܒܪܝܐ</persName>
+                            </editor>
+                        </egXML>
+                    </exemplum>
+                    <remarks versionDate="2016-11-23">
+                        <p>Inside the main <gi>bibl</gi> of a work entity, editors are linked to 
+                            their record in the Syriac Biographical Dictionary using a URI in the 
+                            <att>ref</att> attribute. For the purpose of displaying the editor's 
+                            name on the work's HTML page, the English and Syriac headwords are included 
+                            as <gi>persName</gi> elements separated by a dash. The nature of the editor's 
+                            connection to a work may be further specified using the <att>role</att>
+                            attribute on <gi>editor</gi>.</p>
+                    </remarks>
                 </elementSpec>
                 <classSpec ident="att.source" module="tei" mode="change" type="atts">
                     <attList>

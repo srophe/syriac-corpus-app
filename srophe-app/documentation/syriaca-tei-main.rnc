@@ -7,7 +7,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2016-11-09T16:53:45Z. .
+# Schema generated from ODD source 2016-11-23T12:47:55Z. .
 # TEI Edition: Version 3.0.0. Last updated on
 #	29th March 2016, revision 89ba24e
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.0.0/
@@ -597,7 +597,7 @@ tei_att.global.attribute.syriaca-computed-start =
   attribute syriaca-computed-start { text }?
 tei_att.global.attribute.source =
   
-  ## Global source attribute. 
+  ## Global source attribute. This should use a hash URI to point to one or more bibliography items in  elements.
   attribute source {
     list { xsd:anyURI+ }
   }?
@@ -608,7 +608,16 @@ tei_att.global.attribute.syriaca-computed-end =
 tei_att.global.attribute.syriaca-tags =
   
   ## tags usable
-  attribute syriaca-tags { text }?
+  ## Suggested values include: 1] #syriaca-headword; 2] #syriaca-anglicized
+  attribute syriaca-tags {
+    
+    ## The name used by Syriaca.org for document titles, citation, and disambiguation. These names have been created according to the Syriaca.org guidelines for headwords: http://syriaca.org/documentation/headwords.html.
+    "#syriaca-headword"
+    | 
+      ## An anglicized version of a name created by Syriaca.org used to facilitate searching in English.
+      "#syriaca-anglicized"
+    | text
+  }?
 tei_att.global.attribute.xmlid =
   
   ## (identifier) provides a unique identifier for the element bearing the attribute.
@@ -2471,7 +2480,20 @@ tei_author =
   element author {
     tei_macro.phraseSeq,
     tei_att.global.attributes,
-    tei_att.naming.attributes,
+    tei_att.naming.attribute.nymRef,
+    tei_att.canonical.attribute.key,
+    
+    ## Specifies the connection of the author to the work, selected from http://syriaca.org/documentation/author-editor-roles.xml . The attribute value should contain the above URL followed by a hash (#) and the xml:id of the role. For example, http://syriaca.org/documentation/author-editor-roles.xml#pseudo . This is not required if normal authorship is assumed (rather than pseudonymous or questionably attributed authorship). It is also not required if the connection is unknown.
+    attribute role {
+      list {
+        xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }+
+      }
+    }?,
+    
+    ## (reference) Should contain the URI of the author from the Syriac Biographical Dictionary, unless no record yet exists for the author.
+    attribute ref {
+      list { xsd:anyURI+ }
+    }?,
     empty
   }
 tei_editor =
@@ -2480,7 +2502,20 @@ tei_editor =
   element editor {
     tei_macro.phraseSeq,
     tei_att.global.attributes,
-    tei_att.naming.attributes,
+    tei_att.naming.attribute.nymRef,
+    tei_att.canonical.attribute.key,
+    
+    ## Specifies the connection of the editor to the work, selected from http://syriaca.org/documentation/author-editor-roles.xml . The attribute value should contain the above URL followed by a hash (#) and the xml:id of the role. For example, http://syriaca.org/documentation/author-editor-roles.xml#translator . This is recommended, but not required if the type of connection is unknown.
+    attribute role {
+      list {
+        xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }+
+      }
+    }?,
+    
+    ## (reference) Should contain the URI of the editor from the Syriac Biographical Dictionary, unless no record yet exists for the editor.
+    attribute ref {
+      list { xsd:anyURI+ }
+    }?,
     empty
   }
 tei_respStmt =
