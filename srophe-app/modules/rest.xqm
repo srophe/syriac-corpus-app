@@ -310,6 +310,6 @@ let $geo-map :=
         else collection($global:data-root || "/places/tei")//tei:place[@type=$type]
     else collection($global:data-root || "/places/tei")//tei:geo/ancestor::tei:TEI
 return
-    if($output = 'json') then geojson:geojson($geo-map))
+    if($output = 'json') then geojson:geojson($geo-map)
     else geokml:kml($geo-map)
 };
