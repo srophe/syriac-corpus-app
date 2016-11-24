@@ -203,8 +203,9 @@ declare
     %output:method("xml")
 function api:get-tei($collection as xs:string, $id as xs:string){
    (<rest:response> 
-      <http:response status="200"> 
-        <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
+      <http:response status="200">
+        <http:header name="Content-Type" value="application/xml; charset=utf-8"/>
+        <http:header name="Access-Control-Allow-Origin" value="*"/> 
       </http:response> 
     </rest:response>, 
      api:get-tei-rec($collection, $id)
