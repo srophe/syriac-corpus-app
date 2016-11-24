@@ -121,7 +121,9 @@
                     <constraintSpec scheme="isoschematron" ident="lang-in-bibl">
                         <constraint xmlns:s="http://purl.oclc.org/dsdl/schematron">
                             <!-- Not sure whether this is working as it should in oXygen validation. -->
-                            <s:report test="not(ancestor::tei:bibl)">Error: The lang element is only allowed inside a bibl element.</s:report>
+                            <s:rule>
+                                <s:report test="not(ancestor::tei:bibl)">Error: The lang element is only allowed inside a bibl element.</s:report>
+                            </s:rule>
                         </constraint>
                     </constraintSpec>
                     <exemplum versionDate="2016-11-09">
@@ -199,8 +201,15 @@
                                 <classRef key="model.global" context="not(body/bibl[@type='lawd:ConceptualWork']) and not(body/bibl/bibl[@type=('lawd:Edition','lawd:Translation','lawd:Citation','syriaca:Manuscript')])"/>
                             </alternate>
                         </alternate>
-                      
                     </content>
+                    <constraintSpec scheme="isoschematron" ident="work-bibl">
+                        <constraint xmlns:s="http://purl.oclc.org/dsdl/schematron">
+                            <!-- Not sure whether this is working as it should in oXygen validation. -->
+                            <s:rule context="tei:*[@type='lawd:ConceptualWork']">
+                                <s:report test="not(idno)" role="nonfatal">Error: An idno is required.</s:report>
+                            </s:rule>
+                        </constraint>
+                    </constraintSpec>
                     <attList>
                         <attDef ident="type" mode="change">
                             <desc>The <att>type</att> attribute on <gi>bibl</gi> elements may be an RDF class defining the type of work or item.
@@ -281,6 +290,12 @@
                     </attList>
                 </elementSpec>
                 <elementSpec ident="author" module="core" mode="change">
+                    <content>
+                        <alternate minOccurs="0" maxOccurs="unbounded">
+                            <elementRef key="persName"/>
+                            <textNode/>
+                        </alternate>
+                    </content>
                     <attList>
                         <attDef ident="ref" mode="change" usage="rec">
                             <desc>Should contain the URI of the author from the <ref target="http://syriaca.org/persons">Syriac 
@@ -317,6 +332,12 @@
                     </remarks>
                 </elementSpec>
                 <elementSpec ident="editor" module="core" mode="change">
+                    <content>
+                        <alternate minOccurs="0" maxOccurs="unbounded">
+                            <elementRef key="persName"/>
+                            <textNode/>
+                        </alternate>
+                    </content>
                     <attList>
                         <attDef ident="ref" mode="change" usage="rec">
                             <desc>Should contain the URI of the editor from the <ref target="http://syriaca.org/persons">Syriac 
@@ -357,6 +378,335 @@
                             <elementRef key="listPlace"/>
                         </alternate>                        
                     </content>
+                </elementSpec>
+                <elementSpec ident="textLang" module="core" mode="change">
+                    <attList>
+                        <attDef ident="mainLang" mode="change" usage="req"/>
+                    </attList>
+                    <exemplum versionDate="2016-11-24">
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <textLang mainLang="syr" otherLangs="ar">Predominantly in Syriac with Arabic glosses</textLang>
+                        </egXML>
+                    </exemplum>
+                    <remarks versionDate="2016-11-24">
+                        <p>When possible, all work records should include the <gi>textLang</gi> element with at least a 
+                        <att>mainLang</att> attribute indicating the primary language of the conceptual work using a BCP 47 code. 
+                            The element should not contain any text unless additional explanation is needed beyond the machine-readable 
+                        language codes.</p>
+                    </remarks>
+                </elementSpec>
+                <elementSpec ident="date" module="core" mode="change">
+                    <attList>
+                        <attDef ident="type" mode="change" usage="rec">
+                            <desc>specifies how the date is associated with the entity (work, person, etc.) to which it refers</desc>
+                            <valList mode="change" type="closed">
+                                <valItem ident="original-composition">
+                                    <desc>the date a work was originally composed</desc>
+                                </valItem>
+                                <valItem ident="revision">
+                                    <desc>the date a work was revised</desc>
+                                </valItem>
+                                <valItem ident="translation">
+                                    <desc>the date a work was translated</desc>
+                                </valItem>
+                            </valList>
+                        </attDef>
+                        <attDef ident="notBefore" mode="change">
+                            <remarks versionDate="2016-11-24">
+                                <p>Provides a terminus post quem. Use this when the exact date is not known. See <ref target="http://syriaca.org/exist/apps/srophe/documentation/dates.html">the Syriaca.org documentation</ref> for editorial conventions 
+                                    regarding dates.</p>
+                            </remarks>
+                        </attDef>
+                        <attDef ident="notAfter" mode="change">
+                            <remarks versionDate="2016-11-24">
+                                <p>Provides a terminus ad quem. Use this when the exact date is not known. See <ref target="http://syriaca.org/exist/apps/srophe/documentation/dates.html">the Syriaca.org documentation</ref> for editorial conventions 
+                                    regarding dates.</p>
+                            </remarks>
+                        </attDef>
+                    </attList>
+                    <exemplum versionDate="2016-11-24">
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <date notBefore="1240" notAfter="1286" type="original-composition">mid-late 13th century</date>
+                        </egXML>
+                    </exemplum>
+                    <remarks versionDate="2016-11-24">
+                        <p>Dates should include both a machine-readable version (using attributes like <att>when</att>, 
+                            <att>notBefore</att>, <att>notAfter</att>) and a human-readable version as text in the element content. 
+                            See <ref target="http://syriaca.org/exist/apps/srophe/documentation/dates.html">the Syriaca.org documentation</ref> for editorial conventions 
+                            regarding dates.</p>
+                    </remarks>
+                </elementSpec>
+                <elementSpec ident="extent" module="header" mode="change">
+                    <content>
+                        <elementRef key="measure" maxOccurs="unbounded"/>
+                    </content>
+                    <exemplum versionDate="2016-11-24">
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <extent>
+                                <measure quantity="2" unit="part">2 parts</measure>
+                                <measure quantity="11" unit="chapter">11 chapters</measure>
+                                <measure quantity="200" unit="ff">approximately 200 folios</measure>
+                                <measure quantity="550" unit="pp">approximately 550 pages</measure>
+                            </extent>
+                        </egXML>
+                    </exemplum>
+                    <remarks versionDate="2016-11-24">
+                        <p>Should contain a <gi>measure</gi> element which provides both machine-readable attribute values and human-readable text.
+                        For work entities, the <gi>extent</gi> element is recommended to give a sense of the size of the work.</p>
+                    </remarks>
+                </elementSpec>
+                <elementSpec ident="measure" module="core" mode="change">
+                    <attList>
+                        <attDef ident="quantity" mode="change" usage="req"/>
+                        <attDef ident="unit" mode="change" usage="req">
+                            <valList mode="change" type="semi">
+                                <valItem ident="pp"><desc>page</desc></valItem>
+                                <valItem ident="ff"><desc>folio</desc></valItem>
+                                <valItem ident="part"><desc>part</desc></valItem>
+                                <valItem ident="chapter"><desc>chapter</desc></valItem>
+                                <valItem ident="stanza"><desc>stanza</desc></valItem>
+                                <valItem ident="verse"><desc>verse</desc></valItem>
+                                <valItem ident="paragraph"><desc>paragraph</desc></valItem>
+                                <valItem ident="section"><desc>section</desc></valItem>
+                                <valItem ident="word"><desc>word</desc></valItem>
+                                <valItem ident="character"><desc>character</desc></valItem>
+                            </valList>
+                            <remarks versionDate="2011-11-24">
+                                <p>When describing the extent of written or conceptual works, the unit is required, but may 
+                                be expressed using whatever terms are native to the particular work or most appropriate to it 
+                                (section, chapter, verse, etc.). An approximate or sample measurement of the number of folios 
+                                or pages the work comprises may also be used to give a general sense of the size of the work.</p>
+                            </remarks>
+                        </attDef>
+                    </attList>
+                    <exemplum versionDate="2016-11-24">
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <extent>
+                                <measure quantity="2" unit="part">2 parts</measure>
+                                <measure quantity="11" unit="chapter">11 chapters</measure>
+                                <measure quantity="200" unit="ff">approximately 200 folios</measure>
+                                <measure quantity="550" unit="pp">approximately 550 pages</measure>
+                            </extent>
+                        </egXML>
+                    </exemplum>
+                    <remarks versionDate="2011-11-24">
+                        <p>Measures should be given using both machine-readable values (in the <att>quantity</att> and <att>unit</att> 
+                            attributes) and human-readable text (in the element content). See <gi>extent</gi> regarding describing the 
+                            extent of a conceptual work.</p>
+                    </remarks>
+                </elementSpec>
+                <elementSpec ident="note" module="core" mode="change">
+                    <attList>
+                        <attDef ident="type" mode="change" usage="req">
+                            <desc>Describes the function of the note. This attribute is required and determines how the 
+                                note is displayed on the page.</desc>
+                            <valList mode="change" type="semi">
+                                <valItem ident="abstract">
+                                    <desc>A general brief (1-3 sentence) description of an entity (person, place, work, etc.) that facilitates identification. 
+                                    A note of this type should be included in the record whenever possible.</desc>
+                                </valItem>
+                                <valItem ident="description">
+                                    <desc>A description that provides more or different details from that of the abstract. For example, 
+                                    this type of note may be used to describe the way a person was remembered in hagiography, regardless of 
+                                    the historicity of that description.</desc>
+                                </valItem>
+                                <valItem ident="disambiguation">
+                                    <desc>A note to help distinguish this entity (person, place, work, etc.) from another one.</desc>
+                                </valItem>
+                                <valItem ident="content">
+                                    <desc>A note describing the content of a work. If provided, this should give more detail than the abstract.</desc>
+                                </valItem>
+                                <valItem ident="scope">
+                                    <desc>A note providing further information about the topical range of the work and its relation to larger works.</desc>
+                                </valItem>
+                                <valItem ident="incipit">
+                                    <desc>The incipit of a work or manuscript.</desc>
+                                </valItem>
+                                <valItem ident="explicit">
+                                    <desc>The explicit of a work or manuscript.</desc>
+                                </valItem>
+                                <valItem ident="prologue">
+                                    <desc>The prologue of a work. This type is typically provided for hagiographic works only.</desc>
+                                </valItem>
+                                <valItem ident="filiation">
+                                    <desc>A note concerning the textual relations between works. (Consider whether a <gi>relation</gi> 
+                                    could be used instead.)</desc>
+                                </valItem>
+                                <valItem ident="incerta">
+                                    <desc>A note describing uncertain data in the record.</desc>
+                                </valItem>
+                                <valItem ident="errata">
+                                    <desc>A note describing data that is included in the record but is known to be incorrect.</desc>
+                                </valItem>
+                                <valItem ident="corrigenda">
+                                    <desc>A note describing how the record should be corrected or read differently.</desc>
+                                </valItem>
+                                <valItem ident="record-description">
+                                    <desc>A note highlighting potentially problematic or confusing issues with the record or its source material.</desc>
+                                </valItem>
+                                <valItem ident="deprecation">
+                                    <desc>A note logging the reason(s) for deprecating a particular data point.</desc>
+                                </valItem>
+                                <valItem ident="misc">
+                                    <desc>A note that cannot be categorized as any other type.</desc>
+                                </valItem>
+                            </valList>
+                        </attDef>
+                    </attList>
+                    <exemplum versionDate="2016-11-24">
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <note type="abstract" xml:lang="en" source="#bib2501-8 #bib2501-14">The first part of <persName ref="http://syriaca.org/person/239">Bar Hebraeus</persName>' 
+                                <bibl>
+                                    <title>Chronicle</title>
+                                    <ptr target="http://syriaca.org/work/2500"/>
+                                </bibl>; an account of secular history from the time of <persName ref="http://syriaca.org/person/1560">Adam</persName> until 
+                                <persName ref="http://syriaca.org/person/239">Bar Hebraeus</persName>' own time (the 13th century).
+                            </note>
+                            <note type="disambiguation">This work should be distinguished from the Arabic <bibl>History of the Dynasties</bibl>, which reflects a similar structure but has significant differences, 
+                                including some additions that may be from Islamic sources.</note>
+                            <note type="content" source="#bib2501-8 #bib2501-14">Through the 12th century, this work is largely an abridgement of 
+                                <persName ref="http://syriaca.org/person/217">Michael the Syrian</persName>'s <bibl>Chronicle</bibl>. The portion following this is 
+                                particularly valuable for its representation of events during <persName ref="http://syriaca.org/person/239">Bar Hebraeus</persName>' 
+                                own lifetime.</note>
+                            <note type="scope">Secular world history from Creation through the 13th century A.D. Part of a larger work which also contains 
+                                <bibl>an ecclesiastical history<ptr target="http:/syriaca.org/work/2502"/></bibl>.</note>
+                            <note xml:lang="syr" type="incipit" source="#bib2501-2">
+                                <quote>ܐܠܗܐ ܥܕܪ ܠܡܚܝܠܘܬܝ. ܡܒܪܟ ܐܢܬ ܗܘ ܡܪܝܐ ܘܡܪܐ ܕܟܠ ܫܘܪܝܐ ܘܫܪܝܐ: ܐܢܬ ܗܘ ܩܕܡܝܐ ܘܐܢܬ ܗܘ ܐܚܪܝܐ. ܘܠܘܬܟ ܡܬܛܝܒܐ ܟܠ ܡܪܕܝܬܐ:</quote>
+                            </note>
+                            <note xml:lang="en" type="incipit" source="#bib2501-5">
+                                <quote>God, help my feebleness! Blessed be Thou, Lord, and Lord of the Universe, the beginning and the end; 
+                                    Thou art the First, and Thou art the last. With Thee every course of action is prepared.</quote>
+                            </note>
+                        </egXML>
+                    </exemplum>
+                    <remarks versionDate="2011-11-24">
+                        <p>Notes are used for various kinds of text. In entity records, Syriaca.org typically uses notes as 
+                            containers for sentence-length to paragraph-length text. The <att>type</att> attribute is required and determines how the 
+                        note is displayed on the page.</p>
+                    </remarks>
+                </elementSpec>
+                <elementSpec ident="relation" module="namesdates" mode="change">
+                    <constraintSpec scheme="isoschematron" ident="lang-in-bibl">
+                        <constraint xmlns:s="http://purl.oclc.org/dsdl/schematron">
+                            <!-- Not sure whether this is working as it should in oXygen validation. -->
+                            <s:rule>
+                                <s:report test="tei:*[not(@mutual) and not(@active and @passive)]">Error: The relation element must contain either 
+                                @mutual or both @active and @passive together.</s:report>
+                            </s:rule>
+                        </constraint>
+                    </constraintSpec>
+                    <attList>
+                        <attDef ident="type" mode="change">
+                            <desc>Describes the general category of relationship, which may be used in addition to <att>ref</att> to determine how the 
+                                relation should be displayed in the interface.</desc>
+                            <valList mode="change" type="semi">
+                                <valItem ident="part"><desc>A relation between a work and the larger work of which it is a part. See <gi>label</gi>.</desc></valItem>
+                                <valItem ident="disambiguation"><desc>A relation that disambiguates an entity from others.</desc></valItem>
+                                <valItem ident="general"><desc>A relation that does not belong in a more specific category.</desc></valItem>
+                                <valItem ident="mssWitnesses"><desc>A relation pointing to the manuscript witnesses of an edition or translation.</desc></valItem>
+                                <valItem ident="translationSource"><desc>A relation pointing to the original (or other-) language source of a translation.</desc></valItem>
+                            </valList>
+                        </attDef>
+                        <attDef ident="ref" mode="change" usage="req">
+                            <desc>An RDF property applicable to the relation. This may be a custom Syriaca.org property, such as one found at 
+                                <ref target="http://syriaca.org/documentation/relations.html">http://syriaca.org/documentation/relations.html</ref> or 
+                                one from an external vocabulary such as <ref target="http://snapdrgn.net/ontology">SNAP</ref> or 
+                                <ref target="http://lawd.info/ontology">LAWD</ref>.</desc>
+                        </attDef>
+                        <attDef ident="active" mode="change">
+                            <remarks versionDate="2016-11-24"><p>This should contain either the full URI of a Syriaca.org entity (person, place, work, etc.), 
+                            or a hash URI (fragment identifier introduced with #) for a node within the document. A full URI is preferred where one exists. 
+                            When the relation is serialized as RDF, the value of <att>active</att> identifies the subject resource.</p></remarks>
+                        </attDef>
+                        <attDef ident="passive" mode="change">
+                            <remarks versionDate="2016-11-24"><p>This should contain either the full URI of a Syriaca.org entity (person, place, work, etc.), 
+                                or a hash URI (fragment identifier introduced with #) for a node within the document. A full URI is preferred where one exists. 
+                                When the relation is serialized as RDF, the value of <att>passive</att> identifies the object resource.</p></remarks>
+                        </attDef>
+                        <attDef ident="mutual" mode="change">
+                            <remarks versionDate="2016-11-24"><p>This should contain identifiers for two or more Syriaca.org entities or nodes, either as full URIs, 
+                                or as hash URIs (fragment identifiers introduced with #) in the case of nodes within the document. When the relation is serialized as RDF, 
+                                a triple is created for each pairing of values in <att>mutual</att>, such that each entity referenced in <att>mutual</att> 
+                                is represented in different triples as a subject and as an object.</p></remarks>
+                        </attDef>
+                    </attList>
+                    <exemplum versionDate="2016-11-24">
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <bibl type="lawd:Translation" xml:id="bib2501-18" source="#bib2501-7">
+                                <lang>ar</lang>
+                                <title level="m" xml:lang="ar">تاريخ الزمان</title>
+                                <ptr target="http://syriaca.org/bibl/2286"/>
+                                <listRelation>
+                                    <relation type="translationSource" active="#bib2501-18" ref="dct:source" passive="#bib2501-2" source="#bib2501-7"/>
+                                    <relation active="#bib2501-18" ref="lawd:embodies" passive="http://syriaca.org/work/2501"/>
+                                </listRelation>
+                            </bibl>
+                        </egXML>
+                        <p>This relation links the <gi>bibl</gi> describing a translation to the <gi>bibl</gi> from which it was translated. Note the use of both a 
+                        <att>type</att> in addition to a <att>ref</att> to make the relation more specific. It is also linked to the work entity containing it.</p>
+                    </exemplum>
+                    <exemplum versionDate="2016-11-24">
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <relation xml:id="relation2501-1" type="part" active="http://syriaca.org/work/2501" ref="dct:isPartOf" passive="http://syriaca.org/work/2500">
+                                <desc><label type="order" subtype="part" n="1">part 1</label></desc>
+                            </relation>
+                        </egXML>
+                        <p>This relation shows that the work described in this record is part 1 of a larger work.</p>
+                    </exemplum>
+                    <remarks versionDate="2011-11-24">
+                        <p><gi>relation</gi> is used to link Syriaca.org entities to each other, when possible in a semantically robust, RDF-friendly way. 
+                        The values of <att>active</att>, <att>ref</att>, and <att>passive</att> should be construable as RDF triples. For this reason, 
+                            <att>ref</att> is required, as is either <att>active</att> and <att>passive</att>, or <att>mutual</att>. The <gi>relation</gi> 
+                        may also contain text inside a <gi>desc</gi> if such must be visualized on the record, but this text should be standardized 
+                        to the extent possible.</p>
+                    </remarks>
+                </elementSpec>
+                <elementSpec ident="label" module="core" mode="change">
+                    <constraintSpec scheme="isoschematron" ident="lang-in-bibl">
+                        <constraint xmlns:s="http://purl.oclc.org/dsdl/schematron">
+                            <!-- Not sure whether this is working as it should in oXygen validation. -->
+                            <s:rule context="tei:*[ancestor::tei:relation]">
+                                <s:report test="@type='order' and not(@subtype and @n)">Error: @subtype and @n are required when relation//label/@type='order'.</s:report>
+                            </s:rule>
+                        </constraint>
+                    </constraintSpec>
+                    <attList>
+                        <attDef ident="type" mode="change">
+                            <valList mode="change" type="semi">
+                                <valItem ident="order"><desc>Indicates that the label is used to designate the order of the parent item within a larger sequence, 
+                                for example, as part of a larger work. If this type is used, a <att>subtype</att> and <att>n</att> are also required.</desc></valItem>
+                            </valList>
+                        </attDef>
+                        <attDef ident="subtype" mode="change">
+                            <valList mode="change" type="semi">
+                                <valItem ident="part"/>
+                                <valItem ident="section"/>
+                                <valItem ident="chapter"/>
+                                <valItem ident="item-in-collection"/>
+                            </valList>
+                            <remarks versionDate="2016-11-24">
+                                <p>If used with @type="order", the <att>subtype</att> should reflect the kind of thing being ordered.</p>
+                            </remarks>
+                        </attDef>
+                        <attDef ident="n" mode="change">
+                            <remarks versionDate="2016-11-24">
+                                <p>If used with @type="order", <att>n</att> should contain the numeric value of the order of the parent item within a larger sequence.</p>
+                            </remarks>
+                        </attDef>
+                    </attList>
+                    <exemplum versionDate="2016-11-24">
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <relation xml:id="relation2501-1" type="part" active="http://syriaca.org/work/2501" ref="dct:isPartOf" passive="http://syriaca.org/work/2500">
+                                <desc><label type="order" subtype="part" n="1">part 1</label></desc>
+                            </relation>
+                        </egXML>
+                        <p>This relation shows that the work described in this record is part 1 of a larger work.</p>
+                    </exemplum>
+                    <remarks versionDate="2016-11-24">
+                        <p>When used in a <gi>desc</gi> within a <gi>relation</gi> having @ref="dct:isPartOf", <gi>label</gi> can be used to used to designate the 
+                            order of the parent item within a larger sequence. In this case, <att>type</att>, <att>subtype</att>, and <att>n</att> are all required and 
+                        the text content of <gi>label</gi> should contain a human-readable description (e.g., "part 1").</p>
+                    </remarks>
                 </elementSpec>
                 <classSpec ident="att.source" module="tei" mode="change" type="atts">
                     <attList>
