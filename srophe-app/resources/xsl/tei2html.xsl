@@ -732,7 +732,6 @@
             <xsl:call-template name="aboutEntry"/>
         </div>
     </xsl:template>
-    
     <xsl:template name="aboutEntry">
         <div id="about">
             <xsl:choose>
@@ -955,7 +954,16 @@
                 </li>
             </xsl:when>
             <xsl:when test="parent::t:note">
-                <xsl:apply-templates select="self::*" mode="inline"/>
+                <xsl:choose>
+                    <xsl:when test="t:ptr[contains(@target,'/work/')]"> 
+                        <a href="{t:ptr/@target}">
+                            <xsl:apply-templates mode="inline"/>
+                        </a>
+                    </xsl:when>
+                    <xsl:otherwise> 
+                        <xsl:call-template name="footnote"/>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:when test="child::*">
                 <xsl:apply-templates mode="footnote"/>
@@ -1494,7 +1502,10 @@
     <xsl:template match="t:div">
         <xsl:apply-templates select="*[not(self::t:bibl)]"/>
     </xsl:template>
-    <xsl:template match="t:*" mode="plain">
+    <xsl:template match="t:*" mode="inline" xml:space="preserve">
+        <xsl:apply-templates/>
+    </xsl:template>
+    <xsl:template match="t:*" mode="plain" xml:space="preserve">
         <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="text()" mode="cleanout">
