@@ -7,7 +7,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2016-11-25T10:37:06Z. .
+# Schema generated from ODD source 2016-11-25T13:12:11Z. .
 # TEI Edition: Version 3.0.0. Last updated on
 #	29th March 2016, revision 89ba24e
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.0.0/
@@ -2874,7 +2874,7 @@ tei_bibl =
     }?,
     
     ## The type attribute on bibl elements may be an RDF class defining the type of work or item. These will typically begin with either the prefix lawd: (http://lawd.info/ontology) or syriaca:
-    ## Suggested values include: 1] lawd:ConceptualWork; 2] lawd:Edition; 3] lawd:Translation; 4] lawd:Citation; 5] syriaca:Manuscript; 6] syriaca:Catalogue
+    ## Suggested values include: 1] lawd:ConceptualWork; 2] lawd:Edition; 3] lawd:Citation; 4] syriaca:Manuscript; 5] syriaca:Catalogue; 6] syriaca:ModernTranslation; 7] syriaca:AncientVersion
     attribute type {
       
       ## A Conceptual Work groups together one or more Written Works which have the same intellectual source. E.g. The Iliad, as opposed to a particular manuscript witness or edition of the Iliad. See http://lawd.info/ontology/ConceptualWork.
@@ -2882,9 +2882,6 @@ tei_bibl =
       | 
         ## A published (whether officially or not) Written Work that relies on one or more Written Works as sources. See http://lawd.info/ontology/Edition.
         "lawd:Edition"
-      | 
-        ## A Written Work that translates one or more other Written Works that embody the same Conceptual Work. See http://lawd.info/ontology/Translation.
-        "lawd:Translation"
       | 
         ## A Citation models a bibliographic reference as a resource. See http://lawd.info/ontology/Citation.
         "lawd:Citation"
@@ -2894,6 +2891,12 @@ tei_bibl =
       | 
         ## A Citation of a catalogue.
         "syriaca:Catalogue"
+      | 
+        ## A modern Written Work that translates one or more other Written Works that embody the same Conceptual Work. A subtype of http://lawd.info/ontology/Translation.
+        "syriaca:ModernTranslation"
+      | 
+        ## An ancient Written Work that translates one or more other Written Works that embody the same Conceptual Work. A subtype of http://lawd.info/ontology/Translation.
+        "syriaca:AncientVersion"
       | xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
     }?,
     empty

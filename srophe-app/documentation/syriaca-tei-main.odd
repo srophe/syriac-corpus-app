@@ -225,10 +225,6 @@
                                         one or more Written Works as sources.
                                         See http://lawd.info/ontology/Edition.</desc>
                                 </valItem>
-                                <valItem ident="lawd:Translation">
-                                    <desc>A Written Work that translates one or more other Written Works that embody the same Conceptual Work.
-                                        See http://lawd.info/ontology/Translation.</desc>
-                                </valItem>
                                 <valItem ident="lawd:Citation">
                                     <desc>A Citation models a bibliographic reference as a resource.
                                         See http://lawd.info/ontology/Citation.</desc>
@@ -239,6 +235,14 @@
                                 </valItem>
                                 <valItem ident="syriaca:Catalogue">
                                     <desc>A Citation of a catalogue.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:ModernTranslation">
+                                    <desc>A modern Written Work that translates one or more other Written Works that embody the same Conceptual Work.
+                                        A subtype of http://lawd.info/ontology/Translation.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:AncientVersion">
+                                    <desc>An ancient Written Work that translates one or more other Written Works that embody the same Conceptual Work.
+                                        A subtype of http://lawd.info/ontology/Translation.</desc>
                                 </valItem>
                             </valList>
                         </attDef>
