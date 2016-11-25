@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0" xml:lang="en">
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xml:lang="en">
     <teiHeader>
         <fileDesc>
             <titleStmt>
@@ -119,11 +119,11 @@
                     <desc>contains the name of a language mentioned in etymological or other linguistic discussion. Inside a <gi>bibl</gi> element, this 
                         refers to the language of the version to which the <gi>bibl</gi> refers. The contents of <gi>lang</gi> should be a BCP-47 code.</desc>
                     <constraintSpec scheme="isoschematron" ident="lang-in-bibl">
-                        <constraint xmlns:s="http://purl.oclc.org/dsdl/schematron">
+                        <constraint>
                             <!-- Not sure whether this is working as it should in oXygen validation. -->
-                            <s:rule>
-                                <s:report test="not(ancestor::tei:bibl)">Error: The lang element is only allowed inside a bibl element.</s:report>
-                            </s:rule>
+                            <sch:rule>
+                                <sch:report test="not(ancestor::tei:bibl)">Error: The lang element is only allowed inside a bibl element.</sch:report>
+                            </sch:rule>
                         </constraint>
                     </constraintSpec>
                     <exemplum versionDate="2016-11-09">
@@ -203,11 +203,11 @@
                         </alternate>
                     </content>
                     <constraintSpec scheme="isoschematron" ident="work-bibl">
-                        <constraint xmlns:s="http://purl.oclc.org/dsdl/schematron">
+                        <constraint>
                             <!-- Not sure whether this is working as it should in oXygen validation. -->
-                            <s:rule context="tei:*[@type='lawd:ConceptualWork']">
-                                <s:report test="not(idno)" role="nonfatal">Error: An idno is required.</s:report>
-                            </s:rule>
+                            <sch:rule context="tei:*[@type='lawd:ConceptualWork']">
+                                <sch:report test="not(idno)" role="nonfatal">Error: An idno is required.</sch:report>
+                            </sch:rule>
                         </constraint>
                     </constraintSpec>
                     <attList>
@@ -497,8 +497,10 @@
                 </elementSpec>
                 <elementSpec ident="note" module="core" mode="change">
                     <attList>
-                        <attDef ident="type" mode="change" usage="req">
-                            <desc>Describes the function of the note. This attribute is required and determines how the 
+                        <!-- It would be great if we could change note/@type to required, but there are many notes in existing records that would need to be 
+                        fixed first, perhaps by converting all notes without a type to @type='misc' -->
+                        <attDef ident="type" mode="change" usage="rec">
+                            <desc>Describes the function of the note. This attribute is recommended and determines how the 
                                 note is displayed on the page.</desc>
                             <valList mode="change" type="semi">
                                 <valItem ident="abstract">
@@ -586,13 +588,13 @@
                     </remarks>
                 </elementSpec>
                 <elementSpec ident="relation" module="namesdates" mode="change">
-                    <constraintSpec scheme="isoschematron" ident="lang-in-bibl">
-                        <constraint xmlns:s="http://purl.oclc.org/dsdl/schematron">
+                    <constraintSpec scheme="isoschematron" ident="relation-resources">
+                        <constraint>
                             <!-- Not sure whether this is working as it should in oXygen validation. -->
-                            <s:rule>
-                                <s:report test="tei:*[not(@mutual) and not(@active and @passive)]">Error: The relation element must contain either 
-                                @mutual or both @active and @passive together.</s:report>
-                            </s:rule>
+                            <sch:rule>
+                                <sch:report test="tei:*[not(@mutual) and not(@active and @passive)]">Error: The relation element must contain either 
+                                @mutual or both @active and @passive together.</sch:report>
+                            </sch:rule>
                         </constraint>
                     </constraintSpec>
                     <attList>
@@ -662,12 +664,12 @@
                     </remarks>
                 </elementSpec>
                 <elementSpec ident="label" module="core" mode="change">
-                    <constraintSpec scheme="isoschematron" ident="lang-in-bibl">
-                        <constraint xmlns:s="http://purl.oclc.org/dsdl/schematron">
+                    <constraintSpec scheme="isoschematron" ident="label-type-order">
+                        <constraint>
                             <!-- Not sure whether this is working as it should in oXygen validation. -->
-                            <s:rule context="tei:*[ancestor::tei:relation]">
-                                <s:report test="@type='order' and not(@subtype and @n)">Error: @subtype and @n are required when relation//label/@type='order'.</s:report>
-                            </s:rule>
+                            <sch:rule context="tei:*[ancestor::tei:relation]">
+                                <sch:report test="@type='order' and not(@subtype and @n)">Error: @subtype and @n are required when relation//label/@type='order'.</sch:report>
+                            </sch:rule>
                         </constraint>
                     </constraintSpec>
                     <attList>
