@@ -34,15 +34,16 @@ declare function rel:get-names($uris as xs:string?) {
                     let $string := normalize-space(string-join($rec/descendant::text(),' '))
                     let $last-words := tokenize($string, '\W+')[position() = 5]
                     return concat(substring-before($string, $last-words),'...')
-                else substring-before($rec/descendant::tei:titleStmt[1]/tei:title[1]/text()[1],'—')
-    return 
+                else substring-before($rec/descendant::tei:titleStmt[1]/tei:title[1]/text()[1],' — ')
+    return
         (
         if($i gt 1 and $count gt 2) then  
             ', '
         else if($i = $count and $count gt 1) then  
             ' and '
         else (),
-        normalize-space($name))     
+        normalize-space($name)
+        )
 };
 
 (:~ 
@@ -103,7 +104,7 @@ declare function rel:get-subject-type($passive as xs:string*) as xs:string*{
 :)
 declare function rel:get-cited($idno){
 let $data := 
-    for $r in collection($global:data-root)//@target[. = replace($idno,'/tei','')]
+    for $r in collection($global:data-root)//@target[. = replace($idno[1],'/tei','')]
     let $headword := $r/ancestor::tei:TEI/descendant::tei:title[1]
     let $id := $r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][1]
     let $sort := global:parse-name($headword)
@@ -119,7 +120,7 @@ return  map { "cited" := $data}
 :)
 declare function rel:cited($idno, $start, $perpage){
     let $perpage := if($perpage) then $perpage else 5
-    let $current-id := replace($idno/text(),'/tei','')
+    let $current-id := replace($idno[1]/text(),'/tei','')
     let $hits := rel:get-cited($current-id)?cited
     let $count := count($hits)
     return
@@ -160,7 +161,7 @@ declare function rel:cited($idno, $start, $perpage){
  : @param $idno bibl idno
 :)
 declare function rel:subject-headings($idno){
-    let $hits := rel:get-cited(replace($idno/text(),'/tei',''))?cited
+    let $hits := rel:get-cited(replace($idno[1]/text(),'/tei',''))?cited
     let $total := count($hits)
     return 
         if(exists($hits)) then
@@ -169,10 +170,10 @@ declare function rel:subject-headings($idno){
                 {
                     (
                     for $recs in subsequence($hits,1,20)
-                    let $headword := $recs/tei:title
-                    let $subject-idno := replace($recs/tei:idno,'/tei','')
+                    let $headword := $recs/tei:title[1]
+                    let $subject-idno := replace($recs/tei:idno[1],'/tei','')
                     return 
-                        <span class="sh pers-label badge">{replace($headword/text(),' — ','')} 
+                        <span class="sh pers-label badge">{replace($headword,' — ','')} 
                         <a href="search.html?subject={$subject-idno}" class="sh-search">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         </a></span>,
@@ -180,10 +181,10 @@ declare function rel:subject-headings($idno){
                         (<div class="collapse" id="showAllSH">
                             {
                             for $recs in subsequence($hits,20,$total)
-                            let $headword := $recs/tei:title
-                            let $subject-idno := replace($recs/tei:idno,'/tei','')
+                            let $headword := $recs/tei:title[1]
+                            let $subject-idno := replace($recs/tei:idno[1],'/tei','')
                             return 
-                               <span class="sh pers-label badge">{replace($headword/text(),' — ','')} 
+                               <span class="sh pers-label badge">{replace($headword,' — ','')} 
                                <a href="search.html?subject={$subject-idno}" class="sh-search"> 
                                <span class="glyphicon glyphicon-search" aria-hidden="true">
                                </span></a></span>
@@ -362,9 +363,9 @@ return
 declare function rel:build-relationship-sentence($relationship,$uri){
 (: Will have to add in some advanced prcessing that tests the current id (for aggrigate pages) and subs vocab for active/passive:)
 if($relationship/@mutual) then
-    (rel:get-names($relationship/@mutual), rel:decode-relationship-name($relationship/@name),'.')
+    concat(string-join(rel:get-names($relationship/@mutual),''), rel:decode-relationship-name($relationship/@name),'.')
 else if($relationship/@active) then 
-    (rel:get-names($relationship/@active), rel:decode-relationship-name($relationship/@name), rel:get-names($relationship/@passive),'.') 
+    concat(string-join(rel:get-names($relationship/@active),''), rel:decode-relationship-name($relationship/@name), string-join(rel:get-names($relationship/@passive),''),'.') 
 else ()
 };
 
