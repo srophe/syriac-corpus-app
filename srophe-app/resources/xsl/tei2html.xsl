@@ -137,7 +137,20 @@
             <h1 class="col-md-8">
                 <!-- Format title, calls template in place-title-std.xsl -->
                 <xsl:call-template name="title"/>
+                <button type="button" class="btn btn-default copy" id="titleBtn" data-clipboard-action="copy" data-clipboard-target="#title"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></button>
+                <script>
+                    var clipboard = new Clipboard('#titleBtn');
+                    
+                    clipboard.on('success', function(e) {
+                    console.log(e);
+                    });
+                    
+                    clipboard.on('error', function(e) {
+                    console.log(e);
+                    });
+                </script>
             </h1>
+
             <!-- Call link icons (located in link-icons.xsl) -->
             <xsl:call-template name="link-icons"/>   
             <!-- End Title -->
@@ -177,6 +190,19 @@
                     <span id="syriaca-id">
                         <xsl:value-of select="$resource-id"/>
                     </span>
+                    <button type="button" class="btn btn-default copy" id="idnoBtn" data-clipboard-action="copy" data-clipboard-target="#syriaca-id"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></button>
+                    <script>
+                        var clipboard = new Clipboard('#idnoBtn');
+                        
+                        clipboard.on('success', function(e) {
+                        console.log(e);
+                        });
+                        
+                        clipboard.on('error', function(e) {
+                        console.log(e);
+                        });
+                    </script>
+                    
                     <xsl:text> </xsl:text>
                     <xsl:if test="starts-with($nav-base,'/exist/apps')">
                         <a href="{replace($next-uri,$base-uri,$nav-base)}">
@@ -188,28 +214,30 @@
         </div>
     </xsl:template>
     <xsl:template name="title">
-        <xsl:choose>
-            <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')]">
-                <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]" mode="plain"/>
-                <xsl:text> - </xsl:text>
-                <xsl:choose>
-                    <xsl:when test="descendant::*[contains(@syriaca-tags,'#anonymous-description')]">
-                        <xsl:value-of select="descendant::*[contains(@syriaca-tags,'#anonymous-description')][1]"/>
-                    </xsl:when>
-                    <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')]">
-                        <span lang="syr" dir="rtl">
-                            <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')][1]" mode="plain"/>
-                        </span>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        [ Syriac Not Available ]
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="descendant-or-self::t:title[1]"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <span id="title">
+            <xsl:choose>
+                <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')]">
+                    <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]" mode="plain"/>
+                    <xsl:text> - </xsl:text>
+                    <xsl:choose>
+                        <xsl:when test="descendant::*[contains(@syriaca-tags,'#anonymous-description')]">
+                            <xsl:value-of select="descendant::*[contains(@syriaca-tags,'#anonymous-description')][1]"/>
+                        </xsl:when>
+                        <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')]">
+                            <span lang="syr" dir="rtl">
+                                <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')][1]" mode="plain"/>
+                            </span>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            [ Syriac Not Available ]
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates select="descendant-or-self::t:title[1]"/>
+                </xsl:otherwise>
+            </xsl:choose>            
+        </span>
         <xsl:if test="t:birth or t:death or t:floruit">
             <span lang="en" class="type" style="padding-left:1em;">
                 <xsl:text>(</xsl:text>
@@ -955,12 +983,12 @@
             </xsl:when>
             <xsl:when test="parent::t:note">
                 <xsl:choose>
-                    <xsl:when test="t:ptr[contains(@target,'/work/')]"> 
+                    <xsl:when test="t:ptr[contains(@target,'/work/')]">
                         <a href="{t:ptr/@target}">
                             <xsl:apply-templates mode="inline"/>
                         </a>
                     </xsl:when>
-                    <xsl:otherwise> 
+                    <xsl:otherwise>
                         <xsl:call-template name="footnote"/>
                     </xsl:otherwise>
                 </xsl:choose>

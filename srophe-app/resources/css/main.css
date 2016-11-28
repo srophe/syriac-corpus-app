@@ -112,17 +112,7 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 .navbar-input-group {
   font-size: 0px; /*removes whitespace between button and input*/
 }
-/*
-.navbar-input-group input {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-.navbar-input-group .btn {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-  border-left: 0px;
-}
-*/
+
 /*.navbar-form {max-width: 350px;}*/
 /* Nav submenus*/
 .dropdown-submenu {position: relative;}
@@ -303,6 +293,7 @@ h4 {font-size: 1em; margin-top:1em;}
     background: rgba(255, 255, 255, 0.8);
     
 }
+.copy {font-size:.85em; color:graytext; padding: .125em .35em; margin-left:1em; margin-bottom: 0;}
 /* Table styles*/
 table {width:98% !important;border-collapse:collapse; font-size:1em; margin-top:1.5em;}
 th {
@@ -371,13 +362,13 @@ td {
       background-color: #eee;
       cursor: pointer;
     }
-    
-#map {height:325px !important;;}
+
 .browse-map {margin:0;}
 .inline-map {margin-left:-2em; margin-bottom:1em;}
 .map-lg #map {height:500px !important;}
 .map-md #map {height:300px !important;}
-.map-sm #map {height:250px !important;} 
+.map-sm #map {height:250px !important;}
+#map {height:325px !important;}
 .map-pop-title {display:block;font-weight:600; font-size:1.2em; margin-bottom:0; padding-bottom:0;}
 .map-pop-desc {display:block; padding:.5em;}
 .results-list {margin-left: 25px; border-bottom:1px dotted #eee; padding-top:.5em;}
