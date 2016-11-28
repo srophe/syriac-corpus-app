@@ -142,7 +142,11 @@ else if($spear:item-type = 'keyword-factoid') then
 else if($model("data")//tei:listRelation) then
     ( 
     <div class="bottom-padding indent">
-        {spear:relationships($node,$model)}
+        {
+            for $r in spear:relationships($node,$model)
+            return 
+            <p>{$r}</p>
+        }
     </div>,
     global:tei2html(  
        <factoid xmlns="http://www.tei-c.org/ns/1.0">
@@ -163,7 +167,7 @@ else
                     
 };
 
-(:~       
+(:~          
     How to list all the factoids?
     should have the options of by type, in order and using 'advance browse options?'   
 :)

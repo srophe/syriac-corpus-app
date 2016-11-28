@@ -34,7 +34,7 @@ declare function rel:get-names($uris as xs:string?) {
                     let $string := normalize-space(string-join($rec/descendant::text(),' '))
                     let $last-words := tokenize($string, '\W+')[position() = 5]
                     return concat(substring-before($string, $last-words),'...')
-                else substring-before($rec/descendant::tei:titleStmt[1]/tei:title[1]/text()[1],' — ')
+                else substring-before($rec[1]/descendant::tei:titleStmt[1]/tei:title[1]/text()[1],' — ')
     return
         (
         if($i gt 1 and $count gt 2) then  
