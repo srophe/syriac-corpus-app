@@ -213,29 +213,15 @@
                         </a>
                     </p>
                 </xsl:for-each>
-                <!--
-                <xsl:for-each select="t:div">
+                <xsl:for-each select="t:div[descendant::t:occupation[. != '']]">
                     <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
                     <p class="factoid indent">
                         <xsl:apply-templates mode="spear"/>
-                        <xsl:if test="t:bibl">
-                            <span class="footnote-refs">
-                                <xsl:for-each select="t:bibl">
-                                    <span class="footnote-ref">
-                                        <a href="{descendant::t:ptr/@target}">
-                                            <xsl:value-of select="substring-after(descendant::t:ptr/@target,'-')"/>
-                                        </a>
-                                        <xsl:if test="position() != last()">,<xsl:text> </xsl:text>
-                                        </xsl:if>
-                                    </span>
-                                </xsl:for-each>
-                            </span>
-                        </xsl:if>
                         <xsl:text> </xsl:text>
-                        <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/></a>
+                        <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
+                        </a>
                     </p>
                 </xsl:for-each>
-                -->
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates mode="spear"/>
