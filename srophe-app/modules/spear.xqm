@@ -334,14 +334,20 @@ else
  : Find related factoids
  : Side bar used by aggrigate pages. Not to be confussed with spear:relationships-aggregate, which is used for center page display in aggrigate pages, and decodes relationships. 
 :)
-declare function spear:related-factiods($node as node(), $model as map(*)){
+declare function spear:related-factiods($node as node(), $model as map(*), $view as xs:string?){
 let $data := $model("data")
 let $title := $data/descendant::tei:titleStmt/tei:title[1]/text()
 return
     if($data/ancestor::tei:body//tei:ref[@type='additional-attestation'][@target=$spear:id] or $data/descendant::tei:persName or $data/descendant::tei:placeName or $data/descendant::tei:relation) then 
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
-                <h4 class="panel-title">Browse Persons, Places and Keywords in {$title}</h4>
+                {
+                    if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
+                        <h4 class="panel-title">Browse Persons, Places and Keywords in {$title}</h4>
+                    else
+                        <h4 class="panel-title">Related Persons, Places and Keywords</h4>
+                }
+
             </div>
             <div class="panel-body">
             {
@@ -360,13 +366,16 @@ return
                     (
                     if($count-persons gt 0) then 
                         <div>
-                            <h4>Related Person(s) {$count-persons}</h4>
+                            <h4>Person(s) <span class="badge">{$count-persons}</span></h4>
                             <div class="facet-list show">
                                 <ul>
                                     {
                                         for $r in subsequence($persNames,1,5)
                                         return 
-                                            <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Person:{$r}&amp;view=advanced">{spear:get-title($r)}</a></li>
+                                            if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
+                                                <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Person:{$r}&amp;view=advanced">{spear:get-title($r)}</a></li>
+                                            else     
+                                                <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
                                     }
                                 </ul>
                              </div>
@@ -377,7 +386,10 @@ return
                                             {
                                             for $r in subsequence($persNames,6,$count-persons + 1)
                                             return 
-                                                  <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Person:{$r}&amp;view=advanced">{spear:get-title($r)}</a></li>
+                                                if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
+                                                    <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Person:{$r}&amp;view=advanced">{spear:get-title($r)}</a></li>
+                                                else     
+                                                    <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
                                             }
                                             </ul>
                                         </div>,
@@ -390,13 +402,16 @@ return
                     else(),     
                     if($count-places gt 0) then                        
                         <div>
-                            <h4>Related Places(s) {$count-places}</h4>
+                            <h4>Places(s) <span class="badge">{$count-places}</span></h4>
                                 <div class="facet-list show">
                                      <ul>
                                         {
                                             for $r in subsequence($placeNames,1,5)
                                             return 
-                                                <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Place:{$r}&amp;view=advanced">{spear:get-title($r)}</a></li>
+                                                if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
+                                                    <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Place:{$r}&amp;view=advanced">{spear:get-title($r)}</a></li>
+                                                else 
+                                                    <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
                                         }
                                     </ul>
                                 </div>
@@ -407,8 +422,10 @@ return
                                             {
                                             for $r in subsequence($placeNames,6,$count-places + 1)
                                             return 
-                                                  <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Place:{$r}&amp;view=advanced">{spear:get-title($r)}</a></li>
-                                            }
+                                                if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
+                                                    <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Place:{$r}&amp;view=advanced">{spear:get-title($r)}</a></li>
+                                                else 
+                                                    <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>                                            }
                                             </ul>
                                         </div>,
                                         <a class="facet-label togglelink btn btn-info" 
@@ -420,13 +437,16 @@ return
                     else (),
                     if($count-keywords gt 0) then                        
                         <div>
-                            <h4>Related Keyword(s) {$count-keywords}</h4>
+                            <h4>Keyword(s) <span class="badge">{$count-keywords}</span></h4>
                                 <div class="facet-list show">
                                      <ul>
                                         {
                                             for $r in subsequence($keywords,1,5)
                                             return 
-                                                <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Keyword:{$r}&amp;view=advanced">{lower-case(functx:camel-case-to-words(substring-after($r,'/keyword/'),' '))}</a></li>
+                                                if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
+                                                    <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Keyword:{$r}&amp;view=advanced">{lower-case(functx:camel-case-to-words(substring-after($r,'/keyword/'),' '))}</a></li>
+                                                else
+                                                    <li><a href="aggregate.html?id={$r}">{lower-case(functx:camel-case-to-words(substring-after($r,'/keyword/'),' '))}</a></li>                                                    
                                         }
                                     </ul>
                                 </div>
