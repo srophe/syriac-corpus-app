@@ -201,9 +201,9 @@ return
     </div>
 </div>
 };
-
+     
 declare function spear:person-data($data){
-let $personInfo := $data//tei:div[tei:listPerson/child::*/tei:persName[1][@ref=$app:id]] 
+let $personInfo := $data//tei:div[tei:listPerson/descendant-or-self::tei:persName[1][@ref=$app:id]] 
 return 
     if(not(empty($personInfo))) then 
         <div class="panel panel-default">
@@ -322,7 +322,7 @@ else
                 else (),
                 <div class="indent">
                     {global:tei2html(<factoid xmlns="http://www.tei-c.org/ns/1.0">{$abstract}</factoid>)}
-                </div>    
+                </div>          
                 )}
                <p><hr/>View entry in <a href="{$spear:id}">{if(contains($spear:id,'person')) then 'Syriac Biographical Dictionary' else 'The Syriac Gazetteer' }</a></p>
                  </div>
@@ -330,12 +330,12 @@ else
         else ()       
 };
 
-(:~     
+(:~          
  : Find related factoids
  : Side bar used by aggrigate pages. Not to be confussed with spear:relationships-aggregate, which is used for center page display in aggrigate pages, and decodes relationships. 
 :)
 declare function spear:related-factiods($node as node(), $model as map(*), $view as xs:string?){
-let $data := $model("data")
+let $data := $model("data")  
 let $title := $data/descendant::tei:titleStmt/tei:title[1]/text()
 return
     if($data/ancestor::tei:body//tei:ref[@type='additional-attestation'][@target=$spear:id] or $data/descendant::tei:persName or $data/descendant::tei:placeName or $data/descendant::tei:relation) then 
