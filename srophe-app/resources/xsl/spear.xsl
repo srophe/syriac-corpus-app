@@ -171,7 +171,9 @@
     <xsl:template match="t:factoid | t:div[@uri]">
         <div class="factoid">
             <xsl:if test="t:factoid-headword">
-                <h4><xsl:call-template name="title"/></h4>
+                <h4>
+                    <xsl:call-template name="title"/>
+                </h4>
             </xsl:if>
             <xsl:for-each select="descendant::t:div[@uri]">
                 <xsl:for-each select="child::*[not(self::t:bibl)][not(self::t:listRelation)]">
@@ -184,6 +186,70 @@
     <xsl:template match="t:aggregate ">
         <xsl:choose>
             <xsl:when test="t:div">
+                <xsl:for-each select="t:div[descendant::t:persName[. != '']]">
+                    <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
+                    <p class="factoid indent">
+                        <xsl:apply-templates mode="spear"/>
+                        <xsl:if test="t:bibl">
+                            <span class="footnote-refs">
+                                <xsl:for-each select="t:bibl">
+                                    <span class="footnote-ref">
+                                        <a href="{descendant::t:ptr/@target}">
+                                            <xsl:value-of select="substring-after(descendant::t:ptr/@target,'-')"/>
+                                        </a>
+                                        <xsl:if test="position() != last()">,<xsl:text> </xsl:text>
+                                        </xsl:if>
+                                    </span>
+                                </xsl:for-each>
+                            </span>
+                        </xsl:if>
+                        <xsl:text> </xsl:text>
+                        <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/></a>
+                    </p>
+                </xsl:for-each>
+                <xsl:for-each select="t:div[descendant::t:sex[. != '']]">
+                    <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
+                    <p class="factoid indent">
+                        <xsl:apply-templates mode="spear"/>
+                        <xsl:if test="t:bibl">
+                            <span class="footnote-refs">
+                                <xsl:for-each select="t:bibl">
+                                    <span class="footnote-ref">
+                                        <a href="{descendant::t:ptr/@target}">
+                                            <xsl:value-of select="substring-after(descendant::t:ptr/@target,'-')"/>
+                                        </a>
+                                        <xsl:if test="position() != last()">,<xsl:text> </xsl:text>
+                                        </xsl:if>
+                                    </span>
+                                </xsl:for-each>
+                            </span>
+                        </xsl:if>
+                        <xsl:text> </xsl:text>
+                        <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/></a>
+                    </p>
+                </xsl:for-each>
+                <xsl:for-each select="t:div[descendant::t:state[. != '']]">
+                    <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
+                    <p class="factoid indent">
+                        <xsl:apply-templates mode="spear"/>
+                        <xsl:if test="t:bibl">
+                            <span class="footnote-refs">
+                                <xsl:for-each select="t:bibl">
+                                    <span class="footnote-ref">
+                                        <a href="{descendant::t:ptr/@target}">
+                                            <xsl:value-of select="substring-after(descendant::t:ptr/@target,'-')"/>
+                                        </a>
+                                        <xsl:if test="position() != last()">,<xsl:text> </xsl:text>
+                                        </xsl:if>
+                                    </span>
+                                </xsl:for-each>
+                            </span>
+                        </xsl:if>
+                        <xsl:text> </xsl:text>
+                        <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/></a>
+                    </p>
+                </xsl:for-each>
+                <!--
                 <xsl:for-each select="t:div">
                     <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
                     <p class="factoid indent">
@@ -202,10 +268,10 @@
                             </span>
                         </xsl:if>
                         <xsl:text> </xsl:text>
-                        <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
-                        </a>
+                        <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/></a>
                     </p>
                 </xsl:for-each>
+                -->
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates mode="spear"/>
@@ -213,27 +279,34 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="t:spear-teiHeader">
-        <p><span class="srp-label">Editor: </span> <xsl:value-of select="descendant::t:titleStmt/t:editor[@role='creator']"/></p>
+        <p>
+            <span class="srp-label">Editor: </span>
+            <xsl:value-of select="descendant::t:titleStmt/t:editor[@role='creator']"/>
+        </p>
         <xsl:if test="descendant::t:respStmt">
-            <div><span class="srp-label">Contributors: </span> 
+            <div>
+                <span class="srp-label">Contributors: </span>
                 <xsl:choose>
                     <xsl:when test="count(descendant::t:respStmt) &gt; 2">
                         <xsl:value-of select="count(descendant::t:respStmt)"/> contributors (
-                            <a class="togglelink" 
-                            data-toggle="collapse" data-target="#show-contributors" href="#show-contributors" 
-                            data-text-swap="Hide"> See all &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>)
+                            <a class="togglelink" data-toggle="collapse" data-target="#show-contributors" href="#show-contributors" data-text-swap="Hide"> See all &#160;<i class="glyphicon glyphicon-circle-arrow-right"/>
+                        </a>)
                             <div class="collapse" id="show-contributors">
-                                <ul>
-                                    <xsl:for-each select="descendant::t:respStmt">
-                                        <li><xsl:apply-templates select="."/></li>
-                                    </xsl:for-each>
-                                </ul>
-                            </div>
+                            <ul>
+                                <xsl:for-each select="descendant::t:respStmt">
+                                    <li>
+                                        <xsl:apply-templates select="."/>
+                                    </li>
+                                </xsl:for-each>
+                            </ul>
+                        </div>
                     </xsl:when>
                     <xsl:otherwise>
                         <ul>
                             <xsl:for-each select="descendant::t:respStmt">
-                                <li><xsl:apply-templates select="."/></li>
+                                <li>
+                                    <xsl:apply-templates select="."/>
+                                </li>
                             </xsl:for-each>
                         </ul>
                     </xsl:otherwise>
@@ -241,7 +314,8 @@
             </div>
         </xsl:if>
         <xsl:if test="descendant::t:fileDesc/t:publicationStmt/t:date">
-            <p><span class="srp-label">Date of Publication: </span> 
+            <p>
+                <span class="srp-label">Date of Publication: </span>
                 <xsl:choose>
                     <xsl:when test="descendant::t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
                         <xsl:value-of select="format-date(xs:date(descendant::t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>
@@ -250,12 +324,13 @@
                         <xsl:value-of select="descendant::t:fileDesc/t:publicationStmt/t:date[1]"/>
                     </xsl:otherwise>
                 </xsl:choose>
-            </p>            
+            </p>
         </xsl:if>
-        <p><span class="srp-label">Based on: </span>
+        <p>
+            <span class="srp-label">Based on: </span>
             <ul class="list-unstyled indent">
                 <xsl:apply-templates select="descendant::t:back/descendant::t:bibl" mode="footnote"/>
-            </ul>    
+            </ul>
         </p>
     </xsl:template>
     <xsl:template match="t:spear-sources">
