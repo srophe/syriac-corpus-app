@@ -139,5 +139,99 @@ else if($collection = 'bhse') then
         <order-by direction="ascending">count</order-by>
     </facet-definition>
 </facets> 
+else if($collection = 'spear') then
+<facets xmlns="http://expath.org/ns/facet">
+    <facet-definition name="Place">
+        <group-by>
+            <sub-path>descendant::tei:placeName/@ref</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="descending">count</order-by>
+    </facet-definition>
+    <facet-definition name="Person">
+    <!--function="facet:group-name" -->
+        <group-by>
+            <sub-path>descendant::tei:persName/@ref</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition> 
+    <facet-definition name="Sex or Gender">
+        <group-by>
+            <sub-path>descendant::tei:sex/@value</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+    <facet-definition name="Born">
+        <group-by>
+            <sub-path>descendant::tei:relation[@name="born-at"]/@passive</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+    <facet-definition name="Died">
+        <group-by>
+            <sub-path>descendant::tei:relation[@name="died-at"]/@passive</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+    <facet-definition name="Keyword">
+        <group-by function="facet:group-by-array">
+            <sub-path>descendant::*/@*[contains(.,'/keyword/')]</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+        <facet-definition name="Type">
+        <group-by function="facet:spear-type">
+            <sub-path>child::*[1]/name(.)</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+    <facet-definition name="Source Text">
+        <group-by function="facet:spear-source-text">
+            <sub-path>ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+</facets>
+else if($collection = 'spear-sources') then 
+<facets xmlns="http://expath.org/ns/facet">
+    <facet-definition name="Source Text">
+        <group-by function="facet:spear-source-text">
+            <sub-path>ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+    <facet-definition name="Type">
+        <group-by function="facet:spear-type">
+            <sub-path>child::*[1]/name(.)</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+</facets> 
+else if($collection = 'spear-events') then 
+<facets xmlns="http://expath.org/ns/facet">
+    <facet-definition name="Source Text">
+        <group-by function="facet:spear-source-text">
+            <sub-path>ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+        <facet-definition name="Keyword">
+        <group-by function="facet:group-by-array">
+            <sub-path>descendant::*/@*[contains(.,'/keyword/')]</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+</facets> 
 else ()
 };
