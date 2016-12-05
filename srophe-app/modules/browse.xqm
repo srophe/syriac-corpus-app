@@ -12,7 +12,6 @@ xquery version "3.0";
 module namespace browse="http://syriaca.org/browse";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace facets="http://syriaca.org/facets" at "lib/facets.xqm";
-import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
 import module namespace facet-defs="http://syriaca.org/facet-defs" at "facet-defs.xqm";
 import module namespace page="http://syriaca.org/page" at "lib/paging.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
