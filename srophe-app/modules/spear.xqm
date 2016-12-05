@@ -89,6 +89,8 @@ declare function spear:title($id){
             <spear-headwords xmlns="http://www.tei-c.org/ns/1.0">
                 {spear:canonical-rec($id)/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"]}
             </spear-headwords>)
+    else if($spear:item-type = 'keyword-factoid') then   
+        concat('"',lower-case(functx:camel-case-to-words(substring-after($id,'/keyword/'),' ')),'"')
     else ()
 };
 
