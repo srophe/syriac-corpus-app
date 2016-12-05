@@ -59,7 +59,11 @@ return
                     for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = concat($id,'/tei')]/ancestor::tei:TEI
                     return $rec                  
                 else
-                    for $rec in collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$app:id or @target=$app:id]]                
+                    for $rec in 
+                        collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$app:id or @target=$app:id]] |
+                        collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@active, concat($spear:id,"(\W|$)"))]] |
+                        collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@passive, concat($spear:id,"(\W|$)"))]] |
+                        collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@mutual, concat($spear:id,"(\W|$)"))]]
                     return $rec  
             }
         </aggregate>}
@@ -226,10 +230,12 @@ return
 };
 
 declare %templates:wrap function spear:relationships-aggregate($node as node(), $model as map(*)){
-let $relations := 
+let $relations := $model("data")//tei:div[descendant::tei:relation]
+(:
                 collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@active, concat($spear:id,"(\W|$)"))]] |
                 collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@passive, concat($spear:id,"(\W|$)"))]] |
                 collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@mutual, concat($spear:id,"(\W|$)"))]]
+:)                
 let $count := count($relations)   
 let $relation := subsequence($relations,1,20)
 return 
@@ -505,7 +511,7 @@ let $events :=  collection($global:data-root || "/spear/tei")//tei:event[parent:
 return 
      map {"data" := $events}
 };
-  
+   
 declare %templates:wrap function spear:build-event-timeline($node as node(), $model as map(*)){
 let $events := $model("data")
 return
