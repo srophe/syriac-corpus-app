@@ -124,7 +124,8 @@ return
 declare function spear:data($node as node(), $model as map(*), $view as xs:string?){
 if($spear:item-type = 'place-factoid') then 
     (spear:relationships-aggregate($node,$model),
-    spear:events($node,$model))
+    spear:events($node,$model),
+    spear:person-data($model("data")))
 else if($spear:item-type = 'person-factoid') then
     (
     spear:person-data($model("data")),
@@ -207,12 +208,12 @@ return
 };
      
 declare function spear:person-data($data){
-let $personInfo := $data//tei:div[tei:listPerson/descendant-or-self::tei:persName[1][@ref=$app:id]] 
+let $personInfo := $data//tei:div[tei:listPerson/descendant-or-self::tei:persName[1][@ref=$app:id]]
 return 
     if(not(empty($personInfo))) then 
         <div class="panel panel-default">
              <div class="panel-heading clearfix">
-                 <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Person Factoids about {spear:title($spear:id)}</h4>
+                 <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Person Factoids {if($spear:item-type = 'person-factoid') then ' about ' else ' referencing '} {spear:title($spear:id)}</h4>
              </div>
              <div class="panel-body">
                 {global:tei2html(
