@@ -51,7 +51,7 @@
     <!-- =================================================================== -->
     
     <!-- Syriaca.org specific templates, not need to render full TEI -->
-    
+    <xsl:import href="collations.xsl"/>
     <!-- Template for page titles -->
     <xsl:template match="t:srophe-title | t:titleStmt">
         <xsl:call-template name="h1"/>
