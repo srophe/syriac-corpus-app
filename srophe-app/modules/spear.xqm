@@ -39,7 +39,7 @@ declare variable $spear:item-type {
     else 'all-events'
 };    
 
-(:~
+(:~  
  : Build spear view
  : @param $id spear URI
  :)       

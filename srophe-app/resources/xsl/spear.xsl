@@ -294,7 +294,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="t:sex | t:state | t:persName" mode="spear">
+    <xsl:template match="t:sex | t:state | t:persName | t:occupation" mode="spear">
         <xsl:choose>
             <xsl:when test="self::t:persName = ''"/>
             <xsl:when test="self::t:persName[string-length(.) != 0]">
@@ -303,6 +303,10 @@
             </xsl:when>
             <xsl:when test="self::t:sex">
                 <span class="srp-label">Sex: </span>
+                <xsl:apply-templates mode="plain"/>
+            </xsl:when>
+            <xsl:when test="self::t:occupation">
+                <span class="srp-label">Occupation: </span>
                 <xsl:apply-templates mode="plain"/>
             </xsl:when>
             <xsl:when test="@role">
