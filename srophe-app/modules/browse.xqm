@@ -185,7 +185,8 @@ let $data :=
             return $hit/ancestor::tei:TEI
     else if($browse:computed-lang != '' and $browse:sort != '') then 
             for $hit in $hits[matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
-            order by $hit collation "?lang=en&lt;syr&amp;decomposition=full"
+            let $title := global:build-sort-string($hit,$browse:computed-lang)
+            order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
             return $hit/ancestor::tei:TEI  
     (:TEST:)        
     else if($browse:view = 'numeric') then
