@@ -111,6 +111,20 @@
             <a href="javascript:window.print();">
                 <img src="{$nav-base}/resources/img/icons-print.png" alt="The Print format icon" title="click to send this page to the printer"/>
             </a>
+            <button type="button" class="btn btn-default copy" id="titleBtn" data-clipboard-action="copy" data-clipboard-text="{normalize-space($resource-title)} - {normalize-space($resource-id)}">
+                <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
+            </button>
+            <script>
+                var clipboard = new Clipboard('#titleBtn');
+                
+                clipboard.on('success', function(e) {
+                console.log(e);
+                });
+                
+                clipboard.on('error', function(e) {
+                console.log(e);
+                });
+            </script>
         </div>
     </xsl:template>
     

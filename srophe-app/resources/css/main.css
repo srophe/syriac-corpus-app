@@ -112,17 +112,7 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 .navbar-input-group {
   font-size: 0px; /*removes whitespace between button and input*/
 }
-/*
-.navbar-input-group input {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-.navbar-input-group .btn {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-  border-left: 0px;
-}
-*/
+
 /*.navbar-form {max-width: 350px;}*/
 /* Nav submenus*/
 .dropdown-submenu {position: relative;}
@@ -303,6 +293,7 @@ h4 {font-size: 1em; margin-top:1em;}
     background: rgba(255, 255, 255, 0.8);
     
 }
+.copy {font-size:1.2em; color:graytext; padding: .125em .35em; margin-right:1em; margin-bottom: 0;}
 /* Table styles*/
 table {width:98% !important;border-collapse:collapse; font-size:1em; margin-top:1.5em;}
 th {
@@ -322,7 +313,7 @@ td {
 
 /* Lables */
 .get-syriac {font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none}
-.srp-label {background-color:none; color:#666; font-weight:500;}
+.srp-label {background-color:none; color:#333; font-weight:500;}
 .sort-title {background-color:none; color:#666; font-weight:500; display:block; }
 .textBox {display:block;}
 .caveat, .note {font-size: .785em; font-style:italic; margin-top:-.5em; padding-top:0;}
@@ -528,7 +519,7 @@ td {
 
 
 /* link icon styles (inline) */
-#link-icons{padding:0; margin:0 0 -1em 0;}
+#link-icons{padding:0; margin-bottom:0;}
 #link-icons a {
     display:inline-block; 
     padding-right: .5em; 

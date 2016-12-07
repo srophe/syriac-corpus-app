@@ -102,7 +102,30 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
-    
+    <xsl:variable name="resource-title">
+        <xsl:choose>
+            <xsl:when test="/descendant::*[contains(@syriaca-tags,'#syriaca-headword')]">
+                <xsl:apply-templates select="/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]" mode="plain"/>
+                <xsl:text> - </xsl:text>
+                <xsl:choose>
+                    <xsl:when test="/descendant::*[contains(@syriaca-tags,'#anonymous-description')]">
+                        <xsl:value-of select="descendant::*[contains(@syriaca-tags,'#anonymous-description')][1]"/>
+                    </xsl:when>
+                    <xsl:when test="/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')]">
+                        <span lang="syr" dir="rtl">
+                            <xsl:apply-templates select="/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')][1]" mode="plain"/>
+                        </span>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        [ Syriac Not Available ]
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="/descendant-or-self::t:title[1]"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
  <!-- =================================================================== -->
  <!-- TEMPLATES -->
  <!-- =================================================================== -->
