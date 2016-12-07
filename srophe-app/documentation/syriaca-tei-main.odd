@@ -39,6 +39,167 @@
                                 <dataRef key="teidata.pointer"/>
                             </datatype>
                         </attDef>
+                        <attDef ident="xml:lang" mode="change">
+                            <datatype minOccurs="1" maxOccurs="unbounded">
+                                <dataRef key="teidata.language"/>
+                            </datatype>
+                            <valList mode="add" type="closed">
+                                <valItem ident="ar">
+                                    <gloss>Arabic</gloss>
+                                    <desc>Arabic of any variety or period</desc>
+                                </valItem>
+                                <valItem ident="ar-Syrc">
+                                    <gloss>Garshuni</gloss>
+                                    <desc>Arabic Garshuni in unvocalized or undetermined Syriac script</desc>
+                                </valItem>
+                                <valItem ident="ar-Syrj">
+                                    <gloss>Garshuni in West Syriac script</gloss>
+                                    <desc>Arabic Garshuni in vocalized West Syriac script</desc>
+                                </valItem>
+                                <valItem ident="ar-Syrn">
+                                    <gloss>Garshuni in East Syriac script</gloss>
+                                    <desc>Arabic Garshuni in vocalized East Syriac script</desc>
+                                </valItem>
+                                <valItem ident="cop">
+                                    <gloss>Coptic</gloss>
+                                    <desc>Coptic of any variety or period</desc>
+                                </valItem>
+                                <valItem ident="cu">
+                                    <gloss>Old Church Slavonic</gloss>
+                                    <desc>Old Church Slavonic</desc>
+                                </valItem>
+                                <valItem ident="de">
+                                    <gloss>German</gloss>
+                                    <desc>German of any variety or period</desc>
+                                </valItem>
+                                <valItem ident="de-x-baumstrk">
+                                    <gloss>Baumstark German Romanization</gloss>
+                                    <desc>Names or terms Romanized into German according to
+                                        the standards adopted by Anton Baumstark's 
+                                        Geschichte der syrischen Literatur.</desc>
+                                </valItem>
+                                <valItem ident="el">
+                                    <gloss>Modern Greek</gloss>
+                                    <desc>Modern Greek after A.D. 1453</desc>
+                                </valItem>
+                                <valItem ident="en">
+                                    <gloss>English</gloss>
+                                    <desc>English of any variety or period</desc>
+                                </valItem>
+                                <valItem ident="en-x-gedsh">
+                                    <gloss>GEDSH English Romanization</gloss>
+                                    <desc>Names or terms Romanized into English according to
+                                        the standards adopted by the Gorgias Encyclopedic Dictionary of the Syriac
+                                        Heritage</desc>
+                                </valItem>
+                                <valItem ident="en-x-gedsh">
+                                    <gloss>LAH English Romanization</gloss>
+                                    <desc>Names or terms Romanized into English according to
+                                        the standards adopted by the Late Antique Historiography project.</desc>
+                                </valItem>
+                                <valItem ident="en-x-srp1">
+                                    <gloss>Syriaca.org Alternate English Romanization</gloss>
+                                    <desc>Names or terms Romanized into English by Syriaca.org using alternate methods 
+                                        for indexing purposes.</desc>
+                                </valItem>
+                                <valItem ident="es">
+                                    <gloss>Spanish</gloss>
+                                    <desc>Spanish</desc>
+                                </valItem>
+                                <valItem ident="fr">
+                                    <gloss>French</gloss>
+                                    <desc>French of any variety or period</desc>
+                                </valItem>
+                                <valItem ident="fr-x-bhs">
+                                    <gloss>BHS French Romanization</gloss>
+                                    <desc>Names or terms Romanized into French according to the
+                                        standards adopted by the Bibliotheca Hagiographica Syriaca</desc>
+                                </valItem>
+                                <valItem ident="fr-x-fiey">
+                                    <gloss>BHS French Romanization</gloss>
+                                    <desc>Names or terms Romanized into French according to the
+                                        standards adopted by the Bibliotheca Hagiographica Syriaca</desc>
+                                </valItem>
+                                <valItem ident="gez">
+                                    <gloss>Ge'ez</gloss>
+                                    <desc>Ge'ez</desc>
+                                </valItem>
+                                <valItem ident="grc">
+                                    <gloss>Ancient Greek</gloss>
+                                    <desc>Ancient Greek to A.D. 1453</desc>
+                                </valItem>
+                                <valItem ident="hy">
+                                    <gloss>Armenian</gloss>
+                                    <desc>Classical or Modern Armenian</desc>
+                                </valItem>
+                                <valItem ident="it">
+                                    <gloss>Italian</gloss>
+                                    <desc>Italian</desc>
+                                </valItem>
+                                <valItem ident="ka">
+                                    <gloss>Georgian</gloss>
+                                    <desc>Classical or Modern Georgian</desc>
+                                </valItem>
+                                <valItem ident="la">
+                                    <gloss>Latin</gloss>
+                                    <desc>Latin of any variety or period</desc>
+                                </valItem>
+                                <valItem ident="mal">
+                                    <gloss>Malayalam</gloss>
+                                    <desc>Malayalam of any variety or period</desc>
+                                </valItem>
+                                <valItem ident="mal-Syrn">
+                                    <gloss>Malayalam Garshuni</gloss>
+                                    <desc>Malayalam Garshuni in vocalized East Syriac script</desc>
+                                </valItem>
+                                <valItem ident="nl">
+                                    <gloss>Dutch</gloss>
+                                    <desc>Dutch</desc>
+                                </valItem>
+                                <valItem ident="pt">
+                                    <gloss>Portuguese</gloss>
+                                    <desc>Portuguese</desc>
+                                </valItem>
+                                <valItem ident="ru">
+                                    <gloss>Russian</gloss>
+                                    <desc>Russian</desc>
+                                </valItem>
+                                <valItem ident="syr">
+                                    <gloss>Syriac</gloss>
+                                    <desc>Syriac of any variety or period</desc>
+                                </valItem>
+                                <valItem ident="syr-Syre">
+                                    <gloss>Syriac in Estrangela script</gloss>
+                                    <desc>Syriac in Estrangela script</desc>
+                                </valItem>
+                                <valItem ident="syr-Syrj">
+                                    <gloss>West Syriac</gloss>
+                                    <desc>Syriac in vocalized West Syriac script</desc>
+                                </valItem>
+                                <valItem ident="syr-Syrn">
+                                    <gloss>East Syriac</gloss>
+                                    <desc>Syriac in vocalized East Syriac script</desc>
+                                </valItem>
+                                <valItem ident="syr-x-syrm">
+                                    <gloss>Syriac in Melkite script</gloss>
+                                    <desc>Syriac in Melkite script. Note: This is not an ISO code but a private use code for Melkite employed by Syriaca.org until an ISO code is created</desc>
+                                </valItem>
+                                <valItem ident="sog">
+                                    <gloss>Sogdian</gloss>
+                                    <desc>Sogdian</desc>
+                                </valItem>
+                                <valItem ident="tr">
+                                    <gloss>Turkish</gloss>
+                                    <desc>Turkish</desc>
+                                </valItem>
+                            </valList>
+                            <remarks versionDate="2016-12-07">
+                                <p>All elements should have an <att>xml:lang</att> value, either inherited from an ancestor element or declared explicitly. 
+                                    See the <ref target="http://syriaca.org/documentation/isostandards.html">Syriaca.org documentation</ref> for more information 
+                                on the usage of particular tags. Note that <att>xml:lang</att> describes the language of the content of the node. For indicating 
+                                the language of a work or bibliographic resource, see the documentation about the <gi>textLang</gi> and <gi>lang</gi> elements.</p>
+                            </remarks>
+                        </attDef>
                     </attList>
                 </classSpec>
                 <classSpec ident="att.global" mode="change" module="tei" type="atts">

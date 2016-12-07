@@ -7,7 +7,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2016-11-25T13:12:11Z. .
+# Schema generated from ODD source 2016-12-07T20:06:00Z. .
 # TEI Edition: Version 3.0.0. Last updated on
 #	29th March 2016, revision 89ba24e
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.0.0/
@@ -630,10 +630,113 @@ tei_att.global.attribute.xmllang =
   
   ## (language) indicates the language of the element content using a tag generated according to BCP 47.
   attribute xml:lang {
-    xsd:language
-    | (
-       ##
-       "")
+    list {
+      (
+       ## (Arabic) Arabic of any variety or period
+       "ar"
+       | 
+         ## (Garshuni) Arabic Garshuni in unvocalized or undetermined Syriac script
+         "ar-Syrc"
+       | 
+         ## (Garshuni in West Syriac script) Arabic Garshuni in vocalized West Syriac script
+         "ar-Syrj"
+       | 
+         ## (Garshuni in East Syriac script) Arabic Garshuni in vocalized East Syriac script
+         "ar-Syrn"
+       | 
+         ## (Coptic) Coptic of any variety or period
+         "cop"
+       | 
+         ## (Old Church Slavonic) Old Church Slavonic
+         "cu"
+       | 
+         ## (German) German of any variety or period
+         "de"
+       | 
+         ## (Baumstark German Romanization) Names or terms Romanized into German according to the standards adopted by Anton Baumstark's Geschichte der syrischen Literatur.
+         "de-x-baumstrk"
+       | 
+         ## (Modern Greek) Modern Greek after A.D. 1453
+         "el"
+       | 
+         ## (English) English of any variety or period
+         "en"
+       | 
+         ## (GEDSH English Romanization) Names or terms Romanized into English according to the standards adopted by the Gorgias Encyclopedic Dictionary of the Syriac Heritage
+         "en-x-gedsh"
+       | 
+         ## (LAH English Romanization) Names or terms Romanized into English according to the standards adopted by the Late Antique Historiography project.
+         "en-x-gedsh"
+       | 
+         ## (Syriaca.org Alternate English Romanization) Names or terms Romanized into English by Syriaca.org using alternate methods for indexing purposes.
+         "en-x-srp1"
+       | 
+         ## (Spanish) Spanish
+         "es"
+       | 
+         ## (French) French of any variety or period
+         "fr"
+       | 
+         ## (BHS French Romanization) Names or terms Romanized into French according to the standards adopted by the Bibliotheca Hagiographica Syriaca
+         "fr-x-bhs"
+       | 
+         ## (BHS French Romanization) Names or terms Romanized into French according to the standards adopted by the Bibliotheca Hagiographica Syriaca
+         "fr-x-fiey"
+       | 
+         ## (Ge'ez) Ge'ez
+         "gez"
+       | 
+         ## (Ancient Greek) Ancient Greek to A.D. 1453
+         "grc"
+       | 
+         ## (Armenian) Classical or Modern Armenian
+         "hy"
+       | 
+         ## (Italian) Italian
+         "it"
+       | 
+         ## (Georgian) Classical or Modern Georgian
+         "ka"
+       | 
+         ## (Latin) Latin of any variety or period
+         "la"
+       | 
+         ## (Malayalam) Malayalam of any variety or period
+         "mal"
+       | 
+         ## (Malayalam Garshuni) Malayalam Garshuni in vocalized East Syriac script
+         "mal-Syrn"
+       | 
+         ## (Dutch) Dutch
+         "nl"
+       | 
+         ## (Portuguese) Portuguese
+         "pt"
+       | 
+         ## (Russian) Russian
+         "ru"
+       | 
+         ## (Syriac) Syriac of any variety or period
+         "syr"
+       | 
+         ## (Syriac in Estrangela script) Syriac in Estrangela script
+         "syr-Syre"
+       | 
+         ## (West Syriac) Syriac in vocalized West Syriac script
+         "syr-Syrj"
+       | 
+         ## (East Syriac) Syriac in vocalized East Syriac script
+         "syr-Syrn"
+       | 
+         ## (Syriac in Melkite script) Syriac in Melkite script. Note: This is not an ISO code but a private use code for Melkite employed by Syriaca.org until an ISO code is created
+         "syr-x-syrm"
+       | 
+         ## (Sogdian) Sogdian
+         "sog"
+       | 
+         ## (Turkish) Turkish
+         "tr")+
+    }
   }?
 tei_att.global.attribute.xmlbase =
   
