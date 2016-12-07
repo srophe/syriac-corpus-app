@@ -58,35 +58,35 @@ if($collection = 'persons') then
         <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
-    <facet-definition name="Has name in">
+    <facet-definition name="Has name in language">
         <group-by>
             <sub-path>descendant::tei:persName/@xml:lang</sub-path>
         </group-by>
         <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
-    <facet-definition name="Born">
+    <facet-definition name="Birth Location">
         <group-by>
             <sub-path>descendant::tei:relation[@name="born-at"]/@passive</sub-path>
         </group-by>
         <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
-    <facet-definition name="Died">
+    <facet-definition name="Death Location">
         <group-by>
             <sub-path>descendant::tei:relation[@name="died-at"]/@passive</sub-path>
         </group-by>
         <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
-    <facet-definition name="Literary Connection">
+    <facet-definition name="Literary Connection to Location">
         <group-by function="facet:group-by-array">
             <sub-path>descendant::tei:relation[@name="has-literary-connection-to-place"]/@passive</sub-path>
         </group-by>
         <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>        
-    <facet-definition name="Unspecified Connection">
+    <facet-definition name="Unspecified Geographic Connection">
         <group-by function="facet:group-by-array">
             <sub-path>descendant::tei:relation[@name="has-relation-to-place"]/@passive</sub-path>
         </group-by>
