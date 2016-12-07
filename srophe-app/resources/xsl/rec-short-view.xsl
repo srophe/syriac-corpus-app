@@ -61,6 +61,8 @@
     <xsl:param name="lang" select="'en'"/>
     <!-- NOTE: this should not be used, use idno  -->
     <xsl:param name="spear" select="'false'"/>
+    <!-- For browse results -->
+    <xsl:param name="sort-title" select="''"/>
     <xsl:param name="recid" select="''"/>
     <!-- Resource id -->
     <xsl:variable name="resource-id">
@@ -175,25 +177,31 @@
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="sort-title">
-            <xsl:if test="$lang != 'en' and $lang != ''">
-                <xsl:for-each select="//t:body/child::*[1]/child::*/child::*[@xml:lang = $lang][1]">
-                    <xsl:choose>
-                        <xsl:when test="child::*">
-                            <xsl:for-each select="child::*">
-                                <xsl:sort select="@sort"/>
-                                <xsl:value-of select="."/>
-                                <xsl:if test="following-sibling::*">
-                                    <xsl:text> </xsl:text>
-                                </xsl:if>
-                            </xsl:for-each>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="."/>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:for-each>
-                <!--<xsl:value-of select="//t:body/child::*[1]/child::*/child::*[@xml:lang = $lang][1]"/>-->
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="$sort-title and $lang != 'en' and $lang != 'syr'">
+                    <xsl:value-of select="$sort-title"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:if test="$lang != 'en' and $lang != ''">
+                        <xsl:for-each select="//t:body/child::*[1]/child::*/child::*[@xml:lang = $lang][1]">
+                            <xsl:choose>
+                                <xsl:when test="child::*">
+                                    <xsl:for-each select="child::*">
+                                        <xsl:sort select="@sort"/>
+                                        <xsl:value-of select="."/>
+                                        <xsl:if test="following-sibling::*">
+                                            <xsl:text> </xsl:text>
+                                        </xsl:if>
+                                    </xsl:for-each>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="."/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:for-each>
+                    </xsl:if>
+                </xsl:otherwise>
+            </xsl:choose>
         </xsl:variable>
         <xsl:variable name="birth">
             <xsl:if test="$ana != ''">

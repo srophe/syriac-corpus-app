@@ -187,7 +187,8 @@ let $data :=
             for $hit in $hits[matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
             let $title := global:build-sort-string($hit,$browse:computed-lang)
             order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
-            return $hit/ancestor::tei:TEI      
+            return 
+                <browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$title}">{$hit/ancestor::tei:TEI}</browse>      
     else if($browse:view = 'numeric') then
         for $hit in $hits/ancestor::tei:TEI/descendant::tei:idno[starts-with(.,$global:base-uri)][1]
         let $rec-id := tokenize(replace($hit,'/tei|/source',''),'/')[last()]
@@ -417,9 +418,24 @@ return
 
 declare function browse:display-hits($hits){
     for $data in subsequence($hits, $browse:start,$browse:perpage)
+    let $sort-title := if($browse:computed-lang != ('en','syr')) then string($data/@sort-title) else () 
     return 
         <div xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
-            {global:display-recs-short-view($data, $browse:computed-lang)}
+            { 
+             (:$data/matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i'):)
+             transform:transform($data, doc($global:app-root || '/resources/xsl/rec-short-view.xsl'), 
+                <parameters>
+                    <param name="data-root" value="{$global:data-root}"/>
+                    <param name="app-root" value="{$global:app-root}"/>
+                    <param name="nav-base" value="{$global:nav-base}"/>
+                    <param name="base-uri" value="{$global:base-uri}"/>
+                    <param name="lang" value=" "/>
+                    <param name="recid" value=" "/>
+                    <param name="sort-title" value="{$sort-title}"/>
+                </parameters>
+                )
+             (:global:display-recs-short-view-browse($data, $browse:computed-lang, $sort-title):)
+            }
         </div>
 };
 
