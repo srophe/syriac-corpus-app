@@ -2076,5 +2076,4 @@
             <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
         </xsl:if>
     </xsl:template>
-
 </xsl:stylesheet>

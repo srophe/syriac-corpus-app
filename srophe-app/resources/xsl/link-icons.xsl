@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:t="http://www.tei-c.org/ns/1.0" 
-    xmlns:x="http://www.w3.org/1999/xhtml" 
-    xmlns:saxon="http://saxon.sf.net/" 
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-    xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
     
     <!-- ================================================================== 
        Copyright 2013 New York University
@@ -111,6 +106,23 @@
             <a href="javascript:window.print();">
                 <img src="{$nav-base}/resources/img/icons-print.png" alt="The Print format icon" title="click to send this page to the printer"/>
             </a>
+            
+            <button type="button" class="btn btn-default copy" id="titleBtn" data-clipboard-action="copy" 
+                data-clipboard-text="{normalize-space($resource-title)} - {normalize-space($resource-id)}">
+                <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
+            </button>
+            
+            <script>
+                var clipboard = new Clipboard('#titleBtn');
+                
+                clipboard.on('success', function(e) {
+                console.log(e);
+                });
+                
+                clipboard.on('error', function(e) {
+                console.log(e);
+                });
+            </script>
         </div>
     </xsl:template>
     
