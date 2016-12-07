@@ -184,11 +184,24 @@
                         </a>
                     </xsl:if>
                     <xsl:text> </xsl:text>
-                    <span class="srp-label">URI</span>
+                    <button type="button" class="btn btn-default btn-xs" id="idnoBtn" data-clipboard-action="copy" data-clipboard-target="#syriaca-id">
+                        <span class="srp-label">URI</span>
+                    </button>
                     <xsl:text>: </xsl:text>
                     <span id="syriaca-id">
                         <xsl:value-of select="$resource-id"/>
                     </span>
+                    <script>
+                        var clipboard = new Clipboard('#idnoBtn');
+                        
+                        clipboard.on('success', function(e) {
+                        console.log(e);
+                        });
+                        
+                        clipboard.on('error', function(e) {
+                        console.log(e);
+                        });
+                    </script>
                     <xsl:text> </xsl:text>
                     <xsl:if test="starts-with($nav-base,'/exist/apps')">
                         <a href="{replace($next-uri,$base-uri,$nav-base)}">
