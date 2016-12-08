@@ -172,11 +172,13 @@
             <xsl:variable name="next-uri" select="replace($resource-id,$current-id,string($next-id))"/>
             <xsl:variable name="prev-uri" select="replace($resource-id,$current-id,string($prev-id))"/>
             <small>
+                <!--
                 <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
                     <span class="helper circle noprint">
                         <p>i</p>
                     </span>
                 </a>
+                -->
                 <p>
                     <xsl:if test="starts-with($nav-base,'/exist/apps')">
                         <a href="{replace($prev-uri,$base-uri,$nav-base)}">
@@ -187,7 +189,7 @@
                     <button type="button" class="btn btn-default btn-xs" id="idnoBtn" data-clipboard-action="copy" data-clipboard-target="#syriaca-id">
                         <span class="srp-label">URI</span>
                     </button>
-                    <xsl:text>: </xsl:text>
+                    <xsl:text> </xsl:text>
                     <span id="syriaca-id">
                         <xsl:value-of select="$resource-id"/>
                     </span>
