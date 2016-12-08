@@ -103,7 +103,30 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
-    
+    <xsl:variable name="resource-title">
+        <xsl:choose>
+            <xsl:when test="/descendant::*[contains(@syriaca-tags,'#syriaca-headword')]">
+                <xsl:apply-templates select="/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]" mode="plain"/>
+                <xsl:text> - </xsl:text>
+                <xsl:choose>
+                    <xsl:when test="/descendant::*[contains(@syriaca-tags,'#anonymous-description')]">
+                        <xsl:value-of select="descendant::*[contains(@syriaca-tags,'#anonymous-description')][1]"/>
+                    </xsl:when>
+                    <xsl:when test="/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')]">
+                        <span lang="syr" dir="rtl">
+                            <xsl:apply-templates select="/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')][1]" mode="plain"/>
+                        </span>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        [ Syriac Not Available ]
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="/descendant-or-self::t:title[1]"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
  <!-- =================================================================== -->
  <!-- TEMPLATES -->
  <!-- =================================================================== -->
@@ -128,7 +151,6 @@
         <xsl:call-template name="citationInfo"/>
     </xsl:template>
    
-    
     <!-- Generic title formating -->
     <xsl:template match="t:title">
         <xsl:choose>
@@ -900,20 +922,6 @@
             <h1 class="col-md-8">
                 <!-- Format title, calls template in place-title-std.xsl -->
                 <xsl:call-template name="title"/>
-                <button type="button" class="btn btn-default copy" id="titleBtn" data-clipboard-action="copy" data-clipboard-target="#title">
-                    <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
-                </button>
-                <script>
-                    var clipboard = new Clipboard('#titleBtn');
-                    
-                    clipboard.on('success', function(e) {
-                    console.log(e);
-                    });
-                    
-                    clipboard.on('error', function(e) {
-                    console.log(e);
-                    });
-                </script>
             </h1>
 
             <!-- Call link icons (located in link-icons.xsl) -->
@@ -938,11 +946,13 @@
             <xsl:variable name="next-uri" select="replace($resource-id,$current-id,string($next-id))"/>
             <xsl:variable name="prev-uri" select="replace($resource-id,$current-id,string($prev-id))"/>
             <small>
+                <!--
                 <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
                     <span class="helper circle noprint">
                         <p>i</p>
                     </span>
                 </a>
+                -->
                 <p>
                     <xsl:if test="starts-with($nav-base,'/exist/apps')">
                         <a href="{replace($prev-uri,$base-uri,$nav-base)}">
@@ -950,14 +960,13 @@
                         </a>
                     </xsl:if>
                     <xsl:text> </xsl:text>
-                    <span class="srp-label">URI</span>
-                    <xsl:text>: </xsl:text>
+                    <button type="button" class="btn btn-default btn-xs" id="idnoBtn" data-clipboard-action="copy" data-clipboard-target="#syriaca-id">
+                        <span class="srp-label">URI</span>
+                    </button>
+                    <xsl:text> </xsl:text>
                     <span id="syriaca-id">
                         <xsl:value-of select="$resource-id"/>
                     </span>
-                    <button type="button" class="btn btn-default copy" id="idnoBtn" data-clipboard-action="copy" data-clipboard-target="#syriaca-id">
-                        <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
-                    </button>
                     <script>
                         var clipboard = new Clipboard('#idnoBtn');
                         
