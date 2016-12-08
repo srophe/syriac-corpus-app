@@ -186,7 +186,16 @@
     <xsl:template match="t:aggregate ">
         <xsl:choose>
             <xsl:when test="t:div">
-                <xsl:for-each select="t:div[t:listPerson/t:person/t:persName[. != '']]">
+                <xsl:for-each select="t:div[t:listPerson/child::*/t:persName[. != '']]">
+                    <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
+                    <p class="factoid indent">
+                        <xsl:apply-templates mode="spear"/>
+                        <xsl:text> </xsl:text>
+                        <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
+                        </a>
+                    </p>
+                </xsl:for-each>
+                <xsl:for-each select="t:div[descendant::t:sex]">
                     <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
                     <p class="factoid indent">
                         <xsl:apply-templates mode="spear"/>
@@ -213,16 +222,7 @@
                         </a>
                     </p>
                 </xsl:for-each>
-                <xsl:for-each select="t:div[descendant::t:sex]">
-                    <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                    <p class="factoid indent">
-                        <xsl:apply-templates mode="spear"/>
-                        <xsl:text> </xsl:text>
-                        <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
-                        </a>
-                    </p>
-                </xsl:for-each>
-                <xsl:for-each select="t:div[descendant::t:state[. != '']]">
+                <xsl:for-each select="t:div[descendant::t:socecStatus[. != '']]">
                     <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
                     <p class="factoid indent">
                         <xsl:apply-templates mode="spear"/>
@@ -240,15 +240,6 @@
                         </a>
                     </p>
                 </xsl:for-each>
-                <xsl:for-each select="t:div[descendant::t:education[. != '']]">
-                    <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                    <p class="factoid indent">
-                        <xsl:apply-templates mode="spear"/>
-                        <xsl:text> </xsl:text>
-                        <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
-                        </a>
-                    </p>
-                </xsl:for-each> 
                 <xsl:for-each select="t:div[descendant::t:nationality[. != '']]">
                     <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
                     <p class="factoid indent">
@@ -257,8 +248,26 @@
                         <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                         </a>
                     </p>
-                </xsl:for-each>
+                </xsl:for-each>  
                 <xsl:for-each select="t:div[descendant::t:residence[. != '']]">
+                    <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
+                    <p class="factoid indent">
+                        <xsl:apply-templates mode="spear"/>
+                        <xsl:text> </xsl:text>
+                        <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
+                        </a>
+                    </p>
+                </xsl:for-each>
+                <xsl:for-each select="t:div[descendant::t:state[. != '']]">
+                    <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
+                    <p class="factoid indent">
+                        <xsl:apply-templates mode="spear"/>
+                        <xsl:text> </xsl:text>
+                        <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
+                        </a>
+                    </p>
+                </xsl:for-each>
+               <xsl:for-each select="t:div[descendant::t:education[. != '']]">
                     <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
                     <p class="factoid indent">
                         <xsl:apply-templates mode="spear"/>
@@ -276,15 +285,6 @@
                         </a>
                     </p>
                 </xsl:for-each>
-                <xsl:for-each select="t:div[descendant::t:socecStatus[. != '']]">
-                    <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                    <p class="factoid indent">
-                        <xsl:apply-templates mode="spear"/>
-                        <xsl:text> </xsl:text>
-                        <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
-                        </a>
-                    </p>
-                </xsl:for-each>
                 <xsl:for-each select="t:div[descendant::t:trait[. != '']]">
                     <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
                     <p class="factoid indent">
@@ -294,20 +294,18 @@
                         </a>
                     </p>
                 </xsl:for-each>
-                <xsl:for-each select="t:div[not(
-                    descendant::t:sex | 
-                    descendant::t:state | 
-                    descendant::t:occupation | 
-                    descendant::t:birth | 
-                    descendant::t:death | 
-                    descendant::t:education | 
-                    descendant::t:nationality | 
-                    descendant::t:residence | 
-                    descendant::t:langKnowledge | 
-                    descendant::t:socecStatus | 
-                    descendant::t:trait |
-                    t:listPerson/t:person/t:persName[. != '']
-                    )]">
+                <xsl:for-each select="t:div[not(descendant::t:sex |                      
+                    descendant::t:state |                      
+                    descendant::t:occupation |                      
+                    descendant::t:birth |                      
+                    descendant::t:death |                      
+                    descendant::t:education |                      
+                    descendant::t:nationality |                      
+                    descendant::t:residence |                      
+                    descendant::t:langKnowledge |                      
+                    descendant::t:socecStatus |                      
+                    descendant::t:trait |                     
+                    t:listPerson/child::*/t:persName[. != ''])]">
                     <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
                     <p class="factoid indent">
                         <xsl:apply-templates mode="spear"/>
@@ -388,12 +386,11 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="t:sex | t:state | t:persName | t:occupation | t:birth | t:death 
-        | t:education | t:nationality | t:residence | t:langKnowledge | t:socecStatus | t:trait" mode="spear">
+    <xsl:template match="t:sex | t:state | t:persName | t:occupation | t:birth | t:death          | t:education | t:nationality | t:residence | t:langKnowledge | t:socecStatus | t:trait" mode="spear">
         <xsl:choose>
             <xsl:when test="self::t:persName = ''"/>
             <xsl:when test="self::t:persName[string-length(.) != 0]">
-                <span class="srp-label">Name Varient: </span>
+                <span class="srp-label">Name variants<xsl:if test="parent::t:personGrp"> (group)</xsl:if>: </span>
             </xsl:when>
             <xsl:when test="self::t:sex">
                 <span class="srp-label">Sex: </span>
@@ -412,7 +409,7 @@
             </xsl:when>
             <xsl:when test="self::t:death[t:placeName]">
                 <span class="srp-label">Death place: </span>
-            </xsl:when>            
+            </xsl:when>
             <xsl:when test="self::t:education">
                 <span class="srp-label">Education: </span>
             </xsl:when>
@@ -441,10 +438,12 @@
                 <span class="srp-label">Mental state: </span>
             </xsl:when>
             <xsl:when test="@role">
-                <span class="srp-label"><xsl:value-of select="concat(upper-case(substring(@role,1,1)),substring(@role,2))"/>: </span>
+                <span class="srp-label">
+                    <xsl:value-of select="concat(upper-case(substring(@role,1,1)),substring(@role,2))"/>: </span>
             </xsl:when>
             <xsl:when test="@type">
-                <span class="srp-label"><xsl:value-of select="concat(upper-case(substring(@type,1,1)),substring(@type,2))"/>: </span>
+                <span class="srp-label">
+                    <xsl:value-of select="concat(upper-case(substring(@type,1,1)),substring(@type,2))"/>: </span>
             </xsl:when>
         </xsl:choose>
         <xsl:apply-templates mode="plain"/>
