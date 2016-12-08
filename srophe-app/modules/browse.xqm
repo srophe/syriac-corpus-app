@@ -188,7 +188,7 @@ let $data :=
             let $title := global:build-sort-string($hit,$browse:computed-lang)
             order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
             return 
-                <browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$title}">{$hit/ancestor::tei:TEI}</browse>      
+                <browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$hit}">{$hit/ancestor::tei:TEI}</browse>      
     else if($browse:view = 'numeric') then
         for $hit in $hits/ancestor::tei:TEI/descendant::tei:idno[starts-with(.,$global:base-uri)][1]
         let $rec-id := tokenize(replace($hit,'/tei|/source',''),'/')[last()]
@@ -429,7 +429,7 @@ declare function browse:display-hits($hits){
                     <param name="app-root" value="{$global:app-root}"/>
                     <param name="nav-base" value="{$global:nav-base}"/>
                     <param name="base-uri" value="{$global:base-uri}"/>
-                    <param name="lang" value=" "/>
+                    <param name="lang" value="{$browse:computed-lang}"/>
                     <param name="recid" value=" "/>
                     <param name="sort-title" value="{$sort-title}"/>
                 </parameters>
