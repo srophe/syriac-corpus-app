@@ -390,7 +390,7 @@
         <xsl:choose>
             <xsl:when test="self::t:persName = ''"/>
             <xsl:when test="self::t:persName[string-length(.) != 0]">
-                <span class="srp-label">Name variants<xsl:if test="parent::t:personGrp"> (group)</xsl:if>: </span>
+                <span class="srp-label">Name variant: </span>
             </xsl:when>
             <xsl:when test="self::t:sex">
                 <span class="srp-label">Sex: </span>
