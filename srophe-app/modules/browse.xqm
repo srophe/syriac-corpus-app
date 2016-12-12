@@ -543,13 +543,14 @@ declare function browse:browse-date(){
  : @param $text tab text, from template
  : @param $param tab parameter passed to url from template
  : @param $value value of tab parameter passed to url from template
+ ($value = 'en' and not(exists(request:get-parameter-names()))) or ($value = 'en' and $browse:computed-lang = 'en')
  : @param $sort-value for abc menus. 
 :)
 declare function browse:tabs($node as node(), $model as map(*), $text as xs:string?, $param as xs:string?, $value as xs:string?, $sort-value as xs:string?){
 let $s := if($sort-value != '') then $sort-value else if($browse:sort != '') then $browse:sort else 'A'
 return
     <li xmlns="http://www.w3.org/1999/xhtml" test="{$value}">{
-        if($value = 'en' and not(exists(request:get-parameter-names()))) then attribute class {'active'} 
+        if(($value='en' and $browse:computed-lang = 'en') or ($value='en' and $browse:lang = '')) then attribute class {'active'} 
         else if($value = $browse:view) then attribute class {'active'}
         else if($value = $browse:lang) then attribute class {'active'}
         else ()
