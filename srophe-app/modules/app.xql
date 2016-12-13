@@ -197,7 +197,7 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                 )}  
             </div>
         </div>  
-    else if($model("data")//tei:relation) then 
+    else  
        <div class="row">
             <div class="col-md-8 column1">
                 {global:tei2html($model("data")/descendant::tei:body)} 
@@ -213,12 +213,6 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                 )}  
             </div>
         </div>      
-    else 
-        <div class="row">
-            <div class="col-md-12 column1">
-                {global:tei2html($model("data")/descendant::tei:body)}
-            </div>
-        </div>
 };
 (:~      
  : Return teiHeader info to be used in citation
