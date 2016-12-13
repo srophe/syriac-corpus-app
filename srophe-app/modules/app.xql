@@ -1,12 +1,12 @@
 xquery version "3.0";
-    
+       
 module namespace app="http://syriaca.org/templates";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace teiDocs="http://syriaca.org/teiDocs" at "teiDocs/teiDocs.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
-
+declare namespace html="http://www.w3.org/1999/xhtml";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 
@@ -88,16 +88,10 @@ function app:google-analytics($node as node(), $model as map(*)){
    $global:get-config//google_analytics/text() 
 };
 
-(:
- :NOTE: not being used
-:)
-declare %templates:wrap function app:get-nav($node as node(), $model as map(*)){
- doc($global:data-root || 'templates/subnav.xml')/child::*
-};
-
 (:~  
  : Simple get record function, get tei record based on idno
  : Builds uri from simple ids.
+ : Retruns 404 page if record is not found, or has been @depreciated
  : @param $app:id syriaca.org uri   
 :)    
 declare function app:get-rec($node as node(), $model as map(*), $collection as xs:string?) { 
@@ -201,7 +195,7 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                 )}  
             </div>
         </div>  
-    else  
+    else 
        <div class="row">
             <div class="col-md-8 column1">
                 {global:tei2html($model("data")/descendant::tei:body)} 
@@ -214,13 +208,14 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                     <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">Is this record complete?</a>
                 </div>,
                 if($model("data")//tei:relation) then 
-                    rel:build-relationships($model("data")//tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
+                rel:build-relationships($model("data")//tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
                 else ()
                 )}  
             </div>
-        </div>      
+        </div> 
 
 };
+
 (:~      
  : Return teiHeader info to be used in citation
 :)
@@ -262,7 +257,6 @@ declare function app:get-dc-metadata(){
     if(exists($id)) then 'get data'
     else ()
 };
-
 
 (:~
  : Generic contact form can be added to any page by calling:
@@ -510,4 +504,53 @@ declare %templates:wrap function app:dashboard($node as node(), $model as map(*)
             </div>
         </div>
     </div>
+};
+
+
+(:
+ <li>
+      <strong><a href="/srophe/srophe-eXist-app/wiki" class="wiki-page-link">Home</a></strong>
+    </li>
+:)
+declare function app:wiki($node, $model){
+let $wiki-url := 'https://github.com/srophe/srophe-eXist-app/wiki'
+let $uri := 
+    if(request:get-parameter('wiki-page', '')) then 
+        concat($wiki-url, request:get-parameter('wiki-page', ''))
+    else $wiki-url
+let $wiki-data :=
+    http:send-request(
+            <http:request href="{xs:anyURI($uri)}" method="get">
+                <http:header name="Connection" value="close"/>
+            </http:request>)[2]//html:div[@class = 'repository-content']
+let $content := $wiki-data//html:div[@id='wiki-body']
+let $menu := app:wiki-links($wiki-data//html:div[@id='wiki-rightbar']/descendant::*:ul[@class='wiki-pages'])        
+return 
+    <div>
+    <h1>{$wiki-data//html:h1}</h1>
+    <div class="row" xmlns="http://www.w3.org/1999/xhtml">
+        <div class="col-md-8">{$content}</div>
+        <div class="col-md-4">
+            {$menu}
+        </div>
+    </div>
+    </div>
+};
+
+declare function app:wiki-links($nodes as node()*) {
+    for $node in $nodes
+    return
+        typeswitch($node)
+            case element(html:a) return
+                let $href := replace($node/@href, "/srophe/srophe-eXist-app/wiki", "wiki.html?wiki-page=")
+                return
+                    <a href="{$href}">
+                        {$node/@* except $node/@href, $node/node()}
+                    </a>
+            case element() return
+                element { node-name($node) } {
+                    $node/@*, app:wiki-links($node/node())
+                }
+            default return
+                $node
 };
