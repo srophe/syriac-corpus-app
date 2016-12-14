@@ -778,11 +778,11 @@
         <xsl:text> </xsl:text>
     </xsl:template>
     <xsl:template match="t:forename | t:addName">
-        <xsl:if test="preceding-sibling::*">
+        <xsl:if test="preceding-sibling::node()[1][not(matches(.,'$(\s|\(|\.|,)|\[|'))]">
             <xsl:text> </xsl:text>
         </xsl:if>
         <xsl:apply-templates mode="plain"/>
-        <xsl:if test="following-sibling::*">
+        <xsl:if test="following-sibling::node()[1][not(matches(.,'^(\s|\)|\.|,)|\]|;|:'))]">
             <xsl:text> </xsl:text>
         </xsl:if>
     </xsl:template>
@@ -834,6 +834,18 @@
         <a href="{@target}">
             <xsl:apply-templates/>
         </a>
+    </xsl:template>
+    <xsl:template match="t:hi" mode="#all">
+        <xsl:sequence select="local:rend(.)"/>
+    </xsl:template>
+    <xsl:template match="t:abbr">
+        <xsl:if test="preceding-sibling::node()[1][not(matches(.,'$(\s|\(|\.|,)|\[|'))]">
+            <xsl:text> </xsl:text>
+        </xsl:if>
+        <xsl:apply-templates/>
+        <xsl:if test="following-sibling::node()[1][not(matches(.,'^(\s|\)|\.|,)|\]|;|:'))]">
+            <xsl:text> </xsl:text>
+        </xsl:if>
     </xsl:template>
     <xsl:template match="t:relation">
         <div>
