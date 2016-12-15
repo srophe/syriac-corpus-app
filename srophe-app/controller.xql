@@ -40,7 +40,7 @@ else if(matches($exist:path, '/place/\d+') or matches($exist:path, '/place/\d+.h
             <forward url="{$exist:controller}/geo/place.html"></forward>
                 <view>
                     <forward url="{$exist:controller}/modules/view.xql">
-                        <add-parameter name="id" value="{concat('http://syriaca.org/place/',$id)}"/>
+                        <add-parameter name="id" value="{$id}"/>
                     </forward>
                 </view>
                 <error-handler>
