@@ -465,6 +465,22 @@
                             <xsl:sequence select="$syr-title"/>
                         </xsl:if>
                     </a>
+                    &#160;
+                    <xsl:variable name="ref-id" select="generate-id(.)"/>
+                    <button type="button" class="btn btn-sm btn-default copy-sm" id="{$ref-id}" data-toggle="tooltip" title="Copies record title &amp; URI to clipboard." data-clipboard-action="copy" data-clipboard-text="{normalize-space($resource-title)} - {normalize-space($resource-id)}">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
+                    </button>
+                    <script>
+                        var clipboard = new Clipboard('#<xsl:value-of select="$ref-id"/>');
+                        
+                        clipboard.on('success', function(e) {
+                        console.log(e);
+                        });
+                        
+                        clipboard.on('error', function(e) {
+                        console.log(e);
+                        });
+                    </script>
                     <xsl:if test="$ana != ''">
                         <span class="results-list-desc type" dir="ltr" lang="en">
                             <xsl:text> (</xsl:text>
@@ -475,7 +491,7 @@
                             </xsl:if>
                             <xsl:text>) </xsl:text>
                         </span>
-                    </xsl:if>
+                    </xsl:if> 
                     <xsl:if test="descendant::t:person/t:persName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))] | descendant::t:place/t:placeName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))]">
                         <span class="results-list-desc names" dir="ltr" lang="en">
                             <xsl:text>Names: </xsl:text>
