@@ -104,7 +104,7 @@ declare function app:get-rec($node as node(), $model as map(*), $collection as x
 if($app:id != '') then 
     let $id :=
         if(contains($app:id,$global:base-uri)) then $app:id
-        else if(contains(request:get-uri(),$global:nav-base)) then replace(request:get-uri(),$global:nav-base, $global:base-uri)
+        else if(contains(request:get-uri(),'/exist/apps/srophe/')) then replace(request:get-uri(),'/exist/apps/srophe', $global:base-uri)
         else if(contains(request:get-uri(),$global:base-uri)) then request:get-uri()
         else $app:id
     let $id := if(ends-with($id,'.html')) then substring-before($id,'.html') else $id   
@@ -121,8 +121,7 @@ if($app:id != '') then
                                  else(concat($global:nav-base,'/',$collection,'/','browse.html'))
                 return response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
             else map {"data" := global:get-rec($id)}
-            (:map {"data" :=  collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI}:)
-        else response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html')))
+        else response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html')))        
 else map {"data" := 'Page data'}    
 };
 
