@@ -520,6 +520,7 @@ td {
 
 /* link icon styles (inline) */
 .copy {font-size:1.125em; color:graytext; padding: .035em .2em; margin-right:1em; margin-bottom: 0; box-shadow: 2px 2px 2px #888888;}
+.copy-sm {font-size:.85em; color:graytext; padding: .025em .15em; margin-left:1em; margin-bottom: .25em; box-shadow: 2px 2px 2px #888888;}
 #link-icons{padding:0; margin-bottom:0;}
 #link-icons a {
     display:inline-block; 
@@ -818,15 +819,14 @@ pre {
 
   /* Popover */
   .tooltip {
-      padding:1em;
+      padding:.25em;
       overflow:visible;
   }
   .tooltip-inner {
-    padding:1em;
+    padding:.25em;
     padding-left:1.5em;
     overflow:visible;
     text-align:center;
-    border:1px solid green;
     }
     
 #moreInfo #map-data {display:none;}
