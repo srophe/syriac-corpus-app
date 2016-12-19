@@ -363,31 +363,38 @@
                                 These will typically begin with either the prefix lawd: (http://lawd.info/ontology) or syriaca:</desc>
                             <valList mode="change" type="semi">
                                 <valItem ident="lawd:ConceptualWork">
+                                    <gloss>Work</gloss>
                                     <desc>A Conceptual Work groups together one or more Written Works which
                                         have the same intellectual source. E.g. The Iliad, as opposed to a particular manuscript witness or edition of the Iliad. 
                                         See http://lawd.info/ontology/ConceptualWork.</desc>
                                 </valItem>
                                 <valItem ident="lawd:Edition">
+                                    <gloss>Edition</gloss>
                                     <desc>A published (whether officially or not) Written Work that relies on
                                         one or more Written Works as sources.
                                         See http://lawd.info/ontology/Edition.</desc>
                                 </valItem>
                                 <valItem ident="lawd:Citation">
+                                    <gloss>Citation</gloss>
                                     <desc>A Citation models a bibliographic reference as a resource.
                                         See http://lawd.info/ontology/Citation.</desc>
                                 </valItem>
                                 <valItem ident="syriaca:Manuscript">
+                                    <gloss>Manuscript</gloss>
                                     <desc>Any text-bearing object, which usually embodies a Conceptual Work and which may be a source 
                                         for an Edition or Translation.</desc>
                                 </valItem>
                                 <valItem ident="syriaca:Catalogue">
+                                    <gloss>Catalogue</gloss>
                                     <desc>A Citation of a catalogue.</desc>
                                 </valItem>
                                 <valItem ident="syriaca:ModernTranslation">
+                                    <gloss>Modern Translation</gloss>
                                     <desc>A modern Written Work that translates one or more other Written Works that embody the same Conceptual Work.
                                         A subtype of http://lawd.info/ontology/Translation.</desc>
                                 </valItem>
                                 <valItem ident="syriaca:AncientVersion">
+                                    <gloss>Ancient Version</gloss>
                                     <desc>An ancient Written Work that translates one or more other Written Works that embody the same Conceptual Work.
                                         A subtype of http://lawd.info/ontology/Translation.</desc>
                                 </valItem>
