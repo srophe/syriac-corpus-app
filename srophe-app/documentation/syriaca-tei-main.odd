@@ -32,18 +32,8 @@
                                 <rng:text xmlns:rng="http://relaxng.org/ns/structure/1.0"/>
                             </datatype>
                         </attDef>
-                        <attDef ident="source" mode="add">
-                            <desc>Global source attribute. This should use a hash URI to point to 
-                            one or more bibliography items in <tag>bibl</tag> elements.</desc>
-                            <datatype minOccurs="1" maxOccurs="unbounded">
-                                <dataRef key="teidata.pointer"/>
-                            </datatype>
-                        </attDef>
                         <attDef ident="xml:lang" mode="change">
-                            <datatype minOccurs="1" maxOccurs="unbounded">
-                                <dataRef key="teidata.language"/>
-                            </datatype>
-                            <valList mode="add" type="closed">
+                            <valList mode="change" type="closed">
                                 <valItem ident="ar">
                                     <gloss>Arabic</gloss>
                                     <desc>Arabic of any variety or period</desc>
@@ -210,10 +200,6 @@
                                 <rng:text xmlns:rng="http://relaxng.org/ns/structure/1.0"/>
                             </datatype>
                         </attDef>
-                    </attList>
-                </classSpec>
-                <classSpec ident="att.global" mode="change" module="tei" type="atts">
-                    <attList>
                         <attDef ident="syriaca-tags" mode="add">
                             <desc>tags usable</desc>
                             <datatype maxOccurs="unbounded" minOccurs="1">
@@ -279,7 +265,7 @@
                 <elementSpec ident="lang" module="dictionaries" mode="change">
                     <desc>contains the name of a language mentioned in etymological or other linguistic discussion. Inside a <gi>bibl</gi> element, this 
                         refers to the language of the version to which the <gi>bibl</gi> refers. The contents of <gi>lang</gi> should be a BCP-47 code.</desc>
-                    <constraintSpec scheme="isoschematron" ident="lang-in-bibl">
+                    <constraintSpec scheme="schematron" ident="lang-in-bibl">
                         <constraint>
                             <!-- Not sure whether this is working as it should in oXygen validation. -->
                             <sch:rule>
@@ -363,7 +349,7 @@
                             </alternate>
                         </alternate>
                     </content>
-                    <constraintSpec scheme="isoschematron" ident="work-bibl">
+                    <constraintSpec scheme="schematron" ident="work-bibl">
                         <constraint>
                             <!-- Not sure whether this is working as it should in oXygen validation. -->
                             <sch:rule context="tei:*[@type='lawd:ConceptualWork']">
@@ -753,7 +739,7 @@
                     </remarks>
                 </elementSpec>
                 <elementSpec ident="relation" module="namesdates" mode="change">
-                    <constraintSpec scheme="isoschematron" ident="relation-resources">
+                    <constraintSpec scheme="schematron" ident="relation-resources">
                         <constraint>
                             <!-- Not sure whether this is working as it should in oXygen validation. -->
                             <sch:rule>
@@ -829,7 +815,7 @@
                     </remarks>
                 </elementSpec>
                 <elementSpec ident="label" module="core" mode="change">
-                    <constraintSpec scheme="isoschematron" ident="label-type-order">
+                    <constraintSpec scheme="schematron" ident="label-type-order">
                         <constraint>
                             <!-- Not sure whether this is working as it should in oXygen validation. -->
                             <sch:rule context="tei:*[ancestor::tei:relation]">
@@ -875,16 +861,6 @@
                         the text content of <gi>label</gi> should contain a human-readable description (e.g., "part 1").</p>
                     </remarks>
                 </elementSpec>
-                <classSpec ident="att.source" module="tei" mode="change" type="atts">
-                    <attList>
-                        <attDef ident="source" mode="delete"/>
-                    </attList>
-                </classSpec>
-                <classSpec ident="att.readFrom" module="tei" mode="change" type="atts">
-                    <attList>
-                        <attDef ident="source" mode="delete"/>
-                    </attList>
-                </classSpec>
             </schemaSpec>
         </body>
     </text>
