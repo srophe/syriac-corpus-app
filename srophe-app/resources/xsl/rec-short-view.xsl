@@ -407,6 +407,22 @@
                             <xsl:sequence select="$syr-title"/>
                         </xsl:if>
                     </a>
+                    &#160;
+                    <xsl:variable name="ref-id" select="generate-id(.)"/>
+                    <button type="button" class="btn btn-sm btn-default copy-sm" id="{$ref-id}" data-toggle="tooltip" title="Copies record title &amp; URI to clipboard." data-clipboard-action="copy" data-clipboard-text="{normalize-space($resource-title)} - {normalize-space($resource-id)}">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
+                    </button>
+                    <script>
+                        var clipboard = new Clipboard('#<xsl:value-of select="$ref-id"/>');
+                        
+                        clipboard.on('success', function(e) {
+                        console.log(e);
+                        });
+                        
+                        clipboard.on('error', function(e) {
+                        console.log(e);
+                        });
+                    </script>
                     <xsl:if test="$ana != ''">
                         <span class="results-list-desc type" dir="ltr" lang="en">
                             <xsl:text> (</xsl:text>
