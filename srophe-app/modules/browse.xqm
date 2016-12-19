@@ -326,10 +326,13 @@ if($collection = 'spear') then bs:spear-results-panel($hits)
 else if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then
     (<div class="col-md-4">
         {if($browse:view='type') then 
-            browse:browse-type($collection) 
+            if($collection = ('geo','places')) then 
+                browse:browse-type($collection)
+            else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/child::*/facet:facet-definition[@name="Type"]))
          else if($browse:view = 'facets') then 
             facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/child::*))
-         else browse:browse-date()}
+         else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/child::*/facet:facet-definition[@name="Century"])) 
+         }
      </div>,
      <div class="col-md-8">{
         if($browse:view='type') then
