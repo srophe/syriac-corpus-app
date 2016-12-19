@@ -184,30 +184,31 @@
         </div>
     </xsl:template>
     <xsl:template match="t:aggregate ">
+        <div class="spear-aggregate">
         <xsl:choose>
             <xsl:when test="t:div">
                 <xsl:for-each-group select="t:div[t:listPerson/child::*/t:persName[. != '']]" group-by="name(t:div/t:listPerson/child::*/t:persName[. != ''][1])">
                     <h4>Name variant(s): </h4>
                     <xsl:for-each select="current-group()">
                         <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                        <p class="factoid indent">
+                        <p class="indent">
                             <xsl:apply-templates mode="spear"/>
                             <xsl:text> </xsl:text>
                             <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                             </a>
-                        </p>                        
+                        </p>
                     </xsl:for-each>
                 </xsl:for-each-group>
                 <xsl:for-each-group select="t:div[descendant::t:sex]" group-by="name(t:div[descendant::t:sex][1])">
                     <h4>Sex: </h4>
                     <xsl:for-each select="current-group()">
                         <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                        <p class="factoid indent">
+                        <p class="indent">
                             <xsl:apply-templates mode="spear"/>
                             <xsl:text> </xsl:text>
                             <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                             </a>
-                        </p>                        
+                        </p>
                     </xsl:for-each>
                 </xsl:for-each-group>
                 <xsl:for-each-group select="t:div[descendant::t:birth]" group-by="name(t:div[descendant::t:birth][1])">
@@ -215,25 +216,25 @@
                         <h4>Birth date: </h4>
                         <xsl:for-each select="current-group()">
                             <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                            <p class="factoid indent">
+                            <p class="indent">
                                 <xsl:apply-templates mode="spear"/>
                                 <xsl:text> </xsl:text>
                                 <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                                 </a>
-                            </p>                        
-                        </xsl:for-each>                        
+                            </p>
+                        </xsl:for-each>
                     </xsl:for-each-group>
                     <xsl:for-each-group select=".[descendant::t:birth/t:placeName]" group-by="name(descendant::t:birth/t:placeName)">
                         <h4>Birth Place: </h4>
                         <xsl:for-each select="current-group()">
                             <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                            <p class="factoid indent">
+                            <p class="indent">
                                 <xsl:apply-templates mode="spear"/>
                                 <xsl:text> </xsl:text>
                                 <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                                 </a>
-                            </p>                        
-                        </xsl:for-each>                        
+                            </p>
+                        </xsl:for-each>
                     </xsl:for-each-group>
                 </xsl:for-each-group>
                 <xsl:for-each-group select="t:div[descendant::t:death]" group-by="name(t:div[descendant::t:death][1])">
@@ -241,73 +242,73 @@
                         <h4>Death date: </h4>
                         <xsl:for-each select="current-group()">
                             <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                            <p class="factoid indent">
+                            <p class="indent">
                                 <xsl:apply-templates mode="spear"/>
                                 <xsl:text> </xsl:text>
                                 <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                                 </a>
-                            </p>                        
-                        </xsl:for-each>                        
+                            </p>
+                        </xsl:for-each>
                     </xsl:for-each-group>
                     <xsl:for-each-group select=".[descendant::t:death/t:placeName]" group-by="name(descendant::t:death/t:placeName)">
                         <h4>Death Place: </h4>
                         <xsl:for-each select="current-group()">
                             <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                            <p class="factoid indent">
+                            <p class="indent">
                                 <xsl:apply-templates mode="spear"/>
                                 <xsl:text> </xsl:text>
                                 <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                                 </a>
-                            </p>                        
-                        </xsl:for-each>                        
+                            </p>
+                        </xsl:for-each>
                     </xsl:for-each-group>
                 </xsl:for-each-group>
                 <xsl:for-each-group select="t:div[descendant::t:socecStatus]" group-by="name(t:div[descendant::t:socecStatus][1])">
                     <h4>Social rank: </h4>
                     <xsl:for-each select="current-group()">
                         <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                        <p class="factoid indent">
+                        <p class="indent">
                             <xsl:apply-templates mode="spear"/>
                             <xsl:text> </xsl:text>
                             <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                             </a>
-                        </p>                        
+                        </p>
                     </xsl:for-each>
                 </xsl:for-each-group>
                 <xsl:for-each-group select="t:div[descendant::t:occupation]" group-by="name(t:div[descendant::t:occupation][1])">
                     <h4>Occupation(s): </h4>
                     <xsl:for-each select="current-group()">
                         <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                        <p class="factoid indent">
+                        <p class="indent">
                             <xsl:apply-templates mode="spear"/>
                             <xsl:text> </xsl:text>
                             <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                             </a>
-                        </p>                        
+                        </p>
                     </xsl:for-each>
                 </xsl:for-each-group>
                 <xsl:for-each-group select="t:div[descendant::t:nationality]" group-by="name(t:div[descendant::t:nationality][1])">
                     <h4>Citizenship: </h4>
                     <xsl:for-each select="current-group()">
                         <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                        <p class="factoid indent">
+                        <p class="indent">
                             <xsl:apply-templates mode="spear"/>
                             <xsl:text> </xsl:text>
                             <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                             </a>
-                        </p>                        
+                        </p>
                     </xsl:for-each>
                 </xsl:for-each-group>
                 <xsl:for-each-group select="t:div[descendant::t:residence]" group-by="name(t:div[descendant::t:residence][1])">
                     <h4>Place of residence: </h4>
                     <xsl:for-each select="current-group()">
                         <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                        <p class="factoid indent">
+                        <p class="indent">
                             <xsl:apply-templates mode="spear"/>
                             <xsl:text> </xsl:text>
                             <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                             </a>
-                        </p>                        
+                        </p>
                     </xsl:for-each>
                 </xsl:for-each-group>
                 <xsl:for-each-group select="t:div[descendant::t:state]" group-by="name(t:div[descendant::t:state][1])">
@@ -315,42 +316,44 @@
                         <h4>
                             <xsl:choose>
                                 <xsl:when test="current-grouping-key() = 'mental'">Mental state: </xsl:when>
-                                <xsl:otherwise><xsl:value-of select="current-grouping-key()"/></xsl:otherwise>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="current-grouping-key()"/>
+                                </xsl:otherwise>
                             </xsl:choose>
                         </h4>
                         <xsl:for-each select="current-group()">
                             <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                            <p class="factoid indent">
+                            <p class="indent">
                                 <xsl:apply-templates mode="spear"/>
                                 <xsl:text> </xsl:text>
                                 <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                                 </a>
-                            </p>                        
-                        </xsl:for-each>                        
+                            </p>
+                        </xsl:for-each>
                     </xsl:for-each-group>
                 </xsl:for-each-group>
                 <xsl:for-each-group select="t:div[descendant::t:education]" group-by="name(t:div[descendant::t:education][1])">
                     <h4>Education: </h4>
                     <xsl:for-each select="current-group()">
                         <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                        <p class="factoid indent">
+                        <p class="indent">
                             <xsl:apply-templates mode="spear"/>
                             <xsl:text> </xsl:text>
                             <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                             </a>
-                        </p>                        
+                        </p>
                     </xsl:for-each>
                 </xsl:for-each-group>
                 <xsl:for-each-group select="t:div[descendant::t:langKnowledge]" group-by="name(t:div[descendant::t:langKnowledge][1])">
                     <h4>Language known: </h4>
                     <xsl:for-each select="current-group()">
                         <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                        <p class="factoid indent">
+                        <p class="indent">
                             <xsl:apply-templates mode="spear"/>
                             <xsl:text> </xsl:text>
                             <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                             </a>
-                        </p>                        
+                        </p>
                     </xsl:for-each>
                 </xsl:for-each-group>
                 <xsl:for-each-group select="t:div[descendant::t:trait]" group-by="name(t:div[descendant::t:trait][1])">
@@ -360,23 +363,25 @@
                                 <xsl:when test="current-grouping-key() = 'physical'">Physical trait: </xsl:when>
                                 <xsl:when test="current-grouping-key() = 'gender'">Gender: </xsl:when>
                                 <xsl:when test="current-grouping-key() = 'ethnicLabel'">Ethnic label: </xsl:when>
-                                <xsl:otherwise><xsl:value-of select="current-grouping-key()"/></xsl:otherwise>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="current-grouping-key()"/>
+                                </xsl:otherwise>
                             </xsl:choose>
                         </h4>
                         <xsl:for-each select="current-group()">
                             <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                            <p class="factoid indent">
+                            <p class="indent">
                                 <xsl:apply-templates mode="spear"/>
                                 <xsl:text> </xsl:text>
                                 <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                                 </a>
-                            </p>                        
-                        </xsl:for-each>                        
+                            </p>
+                        </xsl:for-each>
                     </xsl:for-each-group>
                 </xsl:for-each-group>
                 <xsl:for-each select="t:div[not(descendant::t:sex |                                           descendant::t:state |                                           descendant::t:occupation |                                           descendant::t:birth |                                           descendant::t:death |                                           descendant::t:education |                                           descendant::t:nationality |                                           descendant::t:residence |                                           descendant::t:langKnowledge |                                           descendant::t:socecStatus |                                           descendant::t:trait |                                          t:listPerson/child::*/t:persName[. != ''])]">
                     <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
-                    <p class="factoid indent">
+                    <p class="indent">
                         <xsl:apply-templates mode="spear"/>
                         <xsl:text> </xsl:text>
                         <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
@@ -388,6 +393,7 @@
                 <xsl:apply-templates mode="spear"/>
             </xsl:otherwise>
         </xsl:choose>
+        </div>
     </xsl:template>
     <xsl:template match="t:spear-teiHeader">
         <p>
