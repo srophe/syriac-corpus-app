@@ -217,7 +217,7 @@
     <xsl:template name="title">
         <xsl:choose>
             <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')]">
-                <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]" mode="plain"/>
+                <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][not(empty(node()))][1]" mode="plain"/>
                 <xsl:text> - </xsl:text>
                 <xsl:choose>
                     <xsl:when test="descendant::*[contains(@syriaca-tags,'#anonymous-description')]">
