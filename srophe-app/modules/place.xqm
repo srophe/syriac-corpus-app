@@ -7,7 +7,7 @@ module namespace place="http://syriaca.org/place";
 
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace app="http://syriaca.org/templates" at "app.xql";
-import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
+import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
@@ -105,7 +105,7 @@ return
     if($data//tei:geo) then 
         <div class="row" xmlns="http://www.w3.org/1999/xhtml">
             <div class="col-md-7">
-                {geo:build-map($geo,'','')}
+                {maps:build-map($data)}
             </div>
             <div class="col-md-5">
                 {place:type-details($data, $type)}

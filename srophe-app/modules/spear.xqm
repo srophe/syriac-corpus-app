@@ -1,5 +1,5 @@
-(:~
- : Builds persons page and persons page functions
+(:~     
+ : Builds spear page  
  :)
 xquery version "3.0";
 
@@ -7,17 +7,19 @@ module namespace spear="http://syriaca.org/spear";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
-import module namespace facets="http://syriaca.org/facets" at "lib/facets.xqm";
+import module namespace app="http://syriaca.org/templates" at "app.xql";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
-import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
+import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
 import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
+import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
+import module namespace functx="http://www.functx.com";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace transform="http://exist-db.org/xquery/transform";
 
-(:~ 
+(:~      
  : Parameters passed from the url 
  :)
 declare variable $spear:id {request:get-parameter('id', '')}; 
@@ -26,192 +28,288 @@ declare variable $spear:date {request:get-parameter('date', '')};
 declare variable $spear:fq {request:get-parameter('fq', '')};
 declare variable $spear:sort {request:get-parameter('sort', 'all') cast as xs:string};
 
-
 declare variable $spear:item-type {
-if($spear:id != '') then 
-    if(contains($spear:id, '/place')) then 'place-factoid'
-    else if(contains($spear:id, '/person')) then 'person-factoid'
-    else 'event-factoid'
-else 'all-events'
-};
+    if($spear:id != '') then 
+        if(contains($spear:id, '/place')) then 'place-factoid'
+        else if(contains($spear:id, '/person')) then 'person-factoid'
+        else if(contains($spear:id, '/keyword')) then 'keyword-factoid'
+        else if(contains($spear:id, '/spear') and contains($spear:id, '-')) then 'factoid'
+        else if(contains($spear:id, '/spear')) then 'source-factoid'
+        else 'event-factoid'
+    else 'all-events'
+};    
 
-(:~
- : Traverse main nav and "fix" links based on values in config.xml 
-:)
-declare
-    %templates:wrap
-function spear:fix-links($node as node(), $model as map(*)) {
-    templates:process(global:fix-links($node/node()), $model)
-};
-
-
-declare function spear:build-doc-path(){ 
-if($spear:id != '') then 
-    if(starts-with($spear:id,'http://syriaca.org/spear/')) then
-       collection($global:data-root || "/spear/tei")//tei:div[@uri = $spear:id]
-    else if(starts-with($spear:id,'http://syriaca.org')) then  
-        collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$spear:id]]
-    else
-        let $id := concat('http://syriaca.org/spear/',$spear:id)
-        return
-        collection($global:data-root || "/spear/tei")//tei:div[@uri = $id]
-else if($spear:view = 'person') then collection($global:data-root || "/spear/tei")//tei:persName
-else if($spear:view = 'place') then collection($global:data-root || "/spear/tei")//tei:placeName
-else if($spear:view = 'event') then collection($global:data-root || "/spear/tei")//tei:div[tei:listEvent]
-else if($spear:view = 'all') then collection($global:data-root || "/spear/tei")//tei:div
-else util:eval(concat("collection('",$global:data-root,"/spear/tei')//tei:div",facets:facet-filter()))
-};
-
-
-(:~
- : Holding place
- : Value passed through metadata:page-title() 
- : NOTE need to work out the logic here
-:)
-declare function spear:html-title(){
-   'SPEAR'
-};
-
-(:~
- : Build persons view
- : @param $id persons URI
- :)
-declare %templates:wrap function spear:get-spear-data($node as node(), $model as map(*)){
-     map {"spear-data" := spear:build-doc-path()}
-};
-
-declare %templates:wrap function spear:get-event-data($node as node(), $model as map(*)){
-let $events :=  collection($global:data-root || "/spear/tei")//tei:event[parent::tei:listEvent]
+(:~  
+ : Build spear view
+ : @param $id spear URI
+ :)       
+declare %templates:wrap function spear:get-rec($node as node(), $model as map(*), $view as xs:string?){ 
+let $id :=
+        if(contains($app:id,$global:base-uri) or starts-with($app:id,'http://')) then $app:id
+        else if(contains(request:get-uri(),$global:nav-base)) then replace(request:get-uri(),$global:nav-base, $global:base-uri)
+        else if(contains(request:get-uri(),$global:base-uri)) then request:get-uri()
+        else $app:id
+let $id := if(ends-with($id,'.html')) then substring-before($id,'.html') else $id  
 return 
-     map {"spear-data" := $events}
+    if($view = 'aggregate') then
+        map {"data" :=  
+        <aggregate xmlns="http://www.tei-c.org/ns/1.0" id="{$id}">
+            {
+                if($spear:item-type = 'source-factoid') then 
+                    for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = concat($id,'/tei')]/ancestor::tei:TEI
+                    return $rec                  
+                else
+                    for $rec in 
+                        collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$app:id or @target=$app:id]] |
+                        collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@active, concat($spear:id,"(\W|$)"))]] |
+                        collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@passive, concat($spear:id,"(\W|$)"))]] |
+                        collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@mutual, concat($spear:id,"(\W|$)"))]]
+                    return $rec  
+            }
+        </aggregate>}
+    else  map {"data" :=  
+                    for $rec in collection($global:data-root)//tei:div[@uri = $id]
+                    return 
+                        <TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec}</TEI>
+                
+                }  
 };
 
-declare %templates:wrap function spear:build-event-timeline($node as node(), $model as map(*)){
-let $events := $model("spear-data")
-return
-    ev:build-timeline($events,'events')
-};
-
-declare %templates:wrap function spear:uri($node as node(), $model as map(*)){
-    string($spear:id)
-};
-
-(:~
- : Builds TEI for output
-:)
-declare function spear:get-tei($id as xs:string){
-    <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">
-        {
-            for $rec in collection($global:data-root || "/spear/tei")//tei:div[@uri = $spear:id]
-            return $rec
-        }
-    </tei:TEI>
-};
-
-(:~
+(:~   
  : Checks for canonical record in Syriaca.org 
  : @param $spear:id 
 :)
-declare function spear:canonical-rec(){
-    collection($global:data-root)//tei:idno[. = $spear:id]
+declare function spear:canonical-rec($id){
+  collection($global:data-root)//tei:idno[. = $id]
 };
 
-(:~
+declare function spear:title($id){
+    if($spear:item-type = ('place-factoid','person-factoid')) then 
+        global:tei2html(
+            <spear-headwords xmlns="http://www.tei-c.org/ns/1.0">
+                {spear:canonical-rec($id)/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"]}
+            </spear-headwords>)
+    else if($spear:item-type = 'keyword-factoid') then   
+        concat('"',lower-case(functx:camel-case-to-words(substring-after($id,'/keyword/'),' ')),'"')
+    else ()
+};
+
+(:~    
  : Build page title
  : Uses connical record from syriaca.org as title, otherwise uses spear data
 :)
 declare %templates:wrap function spear:h1($node as node(), $model as map(*)){
-    let $data := $model("spear-data")[1]
-    let $rec-exists := spear:canonical-rec()  
-    let $title :=  
-        if($rec-exists) then $rec-exists/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"]
-        else if($data/tei:listPerson) then $data/tei:listPerson/descendant::tei:persName[1]
-        else if($data/tei:placeName[1]) then $data/descendant::tei:placeName[1]
-        else if(contains($spear:id,'/person/')) then $data/descendant::tei:persName[1]
-        else if(contains($spear:id,'/place/')) then $data/descendant::tei:placeName[1]
-        else if($data/tei:listEvent) then 'Event'
-        else $data/tei:listPerson/descendant::tei:persName[1] | $data/descendant::tei:placeName[1]
-    let $id := <idno xmlns="http://www.tei-c.org/ns/1.0">{$spear:id}</idno>
-    return global:tei2html(
-                        <srophe-title xmlns="http://www.tei-c.org/ns/1.0">
-                            {$title, $id}
-                        </srophe-title>)
+let $data := $model("data")
+let $id := <idno type='URI' xmlns="http://www.tei-c.org/ns/1.0">{$spear:id}</idno>
+return 
+        if($spear:item-type = 'source-factoid') then 
+            global:tei2html(
+                <aggregate-source xmlns="http://www.tei-c.org/ns/1.0">
+                    {$data/descendant::tei:titleStmt,$id}
+                </aggregate-source>)
+        else if($spear:item-type = 'keyword-factoid') then 
+            global:tei2html(
+                <keyword-title xmlns="http://www.tei-c.org/ns/1.0">
+                    {$id}
+                </keyword-title>)                
+        else if($spear:item-type = ('person-factoid','place-factoid')) then 
+            let $rec-exists := spear:canonical-rec($spear:id)  
+            let $title :=  $rec-exists/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"]
+            return 
+            global:tei2html(
+                <aggregate-title xmlns="http://www.tei-c.org/ns/1.0">
+                    {$title, $id}
+                </aggregate-title>)
+        else             
+            global:tei2html(
+                <factoid-title xmlns="http://www.tei-c.org/ns/1.0">
+                    {$id}
+                </factoid-title>)                      
 };
-
-(:
- : Add related items to sidebar
- : NOTE, when there is a title to grab from spear, make all events from $title dynamic
-:)
-declare %templates:wrap function spear:related($node as node(), $model as map(*)){
-    if(starts-with($spear:id,'http://syriaca.org/spear/')) then 
-        <div class="well">{spear:related-factiods($node,$model)}</div>    
-    else (spear:related-rec($node, $model),<div class="well">{spear:related-factiods($node,$model)}</div> )
-};
-
-(:~
- : Find related factoids
-:)
-declare function spear:related-factiods($node as node(), $model as map(*)){
-let $data := $model("spear-data")
-return
+     
+declare function spear:data($node as node(), $model as map(*), $view as xs:string?){
+if($spear:item-type = 'place-factoid') then 
+    (spear:relationships-aggregate($node,$model),
+    spear:events($node,$model),
+    spear:person-data($model("data")))
+else if($spear:item-type = 'person-factoid') then
     (
-    if($data/ancestor::tei:body//tei:ref[@type='additional-attestation'][@target=$spear:id] or $data/descendant::tei:persName or $data/descendant::tei:placeName) then <h3>Related Factoids</h3> 
-    else (),
-    if($data/ancestor::tei:body//tei:ref[@type='additional-attestation'][@target=$spear:id]) then
-        (<h4>Additional Attestations</h4>,
-            <ul class="list-unstyled">
-            {
-                for $factoids in $data/ancestor::tei:body//tei:ref[@type='related-persons-places'][@target=$spear:id]
-                let $id := string($factoids/@ref)
+    spear:person-data($model("data")),
+    spear:relationships-aggregate($node,$model),
+    spear:events($node,$model)
+    )
+else if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
+    spear:source-data($model("data"))
+else if($spear:item-type = 'keyword-factoid') then
+    (
+    spear:person-data($model("data")),
+    spear:relationships-aggregate($node,$model),
+    spear:events($node,$model)
+    )   
+else if($model("data")//tei:listRelation) then
+    ( 
+    <div class="bottom-padding indent">
+        {
+            for $r in spear:relationships($node,$model)
+            return 
+            <p>{$r}</p>
+        }
+    </div>,
+    global:tei2html(  
+       <factoid xmlns="http://www.tei-c.org/ns/1.0">
+           {$model("data")}
+       </factoid>)   
+    )
+else    
+    global:tei2html(<factoid xmlns="http://www.tei-c.org/ns/1.0">
+        {(
+            $model("data"), 
+            if($model("data")/descendant::tei:persName[@ref] = '') then 
+                let $id := string($model("data")/descendant::tei:persName[. = ''][1]/@ref)
                 return
-                    <li><a href="factoid.html?id={$id}">{$factoids}</a></li>
-            }
-            </ul>
-        )
-    else(),
-    if($data/descendant::tei:persName) then 
-        (<h4>Related Person(s)</h4>,
-        <ul class="list-unstyled">{
-            for $persons in $data/descendant::tei:persName
-            let $id := $persons/@ref
-            group by $person := $id
-            return
-                <li><a href="factoid.html?id={string($id[1])}">{$persons[1]}</a></li>
-            }
-        </ul>)     
-    else(),
-    if($data/descendant::tei:placeName) then 
-        (<h4>Related Place(s)</h4>,
-        <ul class="list-unstyled">{
-            for $place in $data/descendant::tei:placeName
-            let $id := $place/@ref
-            group by $place := $id
-            return
-                <li><a href="factoid.html?id={string($id[1])}">{$place[1]}</a></li>
-              }  
-         </ul>
-         )
-    else())        
+                <factoid-headword xmlns="http://www.tei-c.org/ns/1.0">{spear:canonical-rec($id)/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"]}</factoid-headword>
+            else ()
+            )}
+    </factoid>)
+                    
+};
+
+(:~          
+    How to list all the factoids?
+    should have the options of by type, in order and using 'advance browse options?'   
+:)
+declare function spear:source-data($data){
+let $refs := distinct-values(tokenize(string-join($data//@active | $data//@passive | $data//@mutual | $data//@ref | $data//@target,' '),' '))
+let $factoids := $data/descendant::tei:div[@uri]
+let $count-factoids := count($factoids)
+let $biographical := $factoids[tei:listPerson]
+let $count-biographical := count($biographical)
+let $relationship := $factoids[tei:listRelation]
+let $count-relationship := count($relationship)
+let $event := $factoids[tei:listEvent]
+let $count-event := count($event)
+let $unique-persons := count($refs[contains(.,'/person/')])
+let $unique-places := count($refs[contains(.,'/place/')])
+let $unique-keywords := count($refs[contains(.,'/keyword/')])
+return 
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Publication Information</h4>
+    </div>
+    <div class="panel-body"> 
+        {global:tei2html(<spear-teiHeader xmlns="http://www.tei-c.org/ns/1.0">{$data/descendant::tei:teiHeader, $data/descendant::tei:back}</spear-teiHeader>)}
+        <div><span class="srp-label">Data Set:</span>
+        <ul>
+            <li>This prosopography contains  {$count-factoids} 
+            factoids about {$unique-persons} persons, 
+            {$unique-places} places, and {$unique-keywords} subjects.</li>
+            <li>
+                The data is composed of {$count-biographical} biographical factoids, {$count-relationship} relationship factoids, 
+                and {$count-event} event factoids.
+            </li>
+        </ul>
+        </div>
+    </div>
+</div>
+};
+     
+declare function spear:person-data($data){
+let $personInfo := $data//tei:div[tei:listPerson]
+return 
+    if(not(empty($personInfo))) then 
+        <div class="panel panel-default">
+             <div class="panel-heading clearfix">
+                 <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Person Factoids {if($spear:item-type = 'person-factoid') then ' about ' else ' referencing '} {spear:title($spear:id)}</h4>
+             </div>
+             <div class="panel-body">
+                {global:tei2html(
+                    <aggregate xmlns="http://www.tei-c.org/ns/1.0">
+                        {$personInfo}
+                    </aggregate>)}
+             </div>
+        </div>
+    else ()
+};
+
+declare %templates:wrap function spear:relationships-aggregate($node as node(), $model as map(*)){
+let $relations := $model("data")//tei:div[descendant::tei:relation]
+(:
+                collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@active, concat($spear:id,"(\W|$)"))]] |
+                collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@passive, concat($spear:id,"(\W|$)"))]] |
+                collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@mutual, concat($spear:id,"(\W|$)"))]]
+:)                
+let $count := count($relations)   
+let $relation := subsequence($relations,1,20)
+return 
+    if(not(empty($relation))) then 
+        <div class="panel panel-default">
+             <div class="panel-heading clearfix">
+                 <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Relationship Factoids about {spear:title($spear:id)}</h4>
+             </div>
+             <div class="panel-body">
+                <div class="indent">
+                    {
+                       rel:build-short-relationships-list($relation, $spear:id),
+                       if($count gt 20) then 
+                           <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
+                            data-ref="{$global:nav-base}/spear/search.html?relation={$spear:id}&amp;perpage={$count}&amp;sort=alpha" 
+                            data-label="See all {$count} &#160; Relationships" id="related-names">See all {$count} relationships <i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+                       else ()
+                    }
+                </div>
+            </div>
+        </div>            
+    else () 
+};
+
+declare %templates:wrap function spear:relationships($node as node(), $model as map(*)){
+let $relation := $model("data")//tei:listRelation
+for $r in $relation/descendant::tei:relation
+return rel:build-short-relationships($r,'')
+};
+
+(: NOTE: add footnotes to events panel :)
+declare %templates:wrap function spear:events($node as node(), $model as map(*)){
+  if($model("data")//tei:listEvent) then
+    let $events := $model("data")//tei:listEvent/descendant::tei:event
+    return
+        (ev:build-timeline($events,'events'),
+        ev:build-events-panel($events))
+  else ()  
 };
 
 (:~
- : Checks link to related record
+ : NOTE: this is really the cononical, not the related... should have two, on for factoids, one for 
+ aggrigate?  
+ Checks link to related record
 :)
-declare function spear:related-rec($node as node(), $model as map(*)){
-    let $data := $model("spear-data")[1]
-    let $rec-exists := spear:canonical-rec()  
+declare function spear:srophe-related($node as node(), $model as map(*), $view as xs:string?){
+if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h4 class="panel-title">NHSL Record information</h4>
+        </div>
+        <div class="panel-body">
+        
+         </div>
+    </div>      
+else
+    let $data := $model("data")
+    let $rec-exists := spear:canonical-rec($spear:id)  
     let $type := string($rec-exists/ancestor::tei:place/@type)
-    let $geo := $rec-exists/ancestor::tei:body//tei:geo
+    let $geo := $rec-exists/ancestor::tei:body[descendant-or-self::tei:geo]
     let $abstract := $rec-exists/ancestor::tei:body//tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')] | $rec-exists/ancestor::tei:body//tei:note[@type='abstract']
     return
         if($rec-exists) then
-            <div class="well">
-             <h3>{if(contains($spear:id,'person')) then 'From Persons database' else 'From The Syriac Gazetteer' }</h3>
-                {
-                (if($geo) then 
+            <div class="panel panel-default">
+                 <div class="panel-heading clearfix">
+                     <h4 class="panel-title">About {spear:title($spear:id)}</h4>
+                 </div>
+                 <div class="panel-body">
+                 {(if($geo) then 
                     <div>
                         <div>
-                            {geo:build-map($geo,'','')}
+                            {maps:build-map($geo)}
                         </div>
                         <div>
                             <div id="type">
@@ -235,508 +333,189 @@ declare function spear:related-rec($node as node(), $model as map(*)){
                         </div>    
                     </div>
                 else (),
-                global:tei2html($abstract)
-                )
-                }
-               <p><hr/>View full entry in <a href="{$spear:id}">{if(contains($spear:id,'person')) then 'Persons database' else 'The Syriac Gazetteer' }</a></p>
+                <div class="indent">
+                    {global:tei2html(<factoid xmlns="http://www.tei-c.org/ns/1.0">{$abstract}</factoid>)}
+                </div>          
+                )}
+               <p><hr/>View entry in <a href="{$spear:id}">{if(contains($spear:id,'person')) then 'Syriac Biographical Dictionary' else 'The Syriac Gazetteer' }</a></p>
+                 </div>
             </div> 
-        else ()    
+        else ()       
 };
 
-declare %templates:wrap function spear:names($node as node(), $model as map(*)){
-if($spear:item-type = 'person-factoid' and $model("spear-data")//tei:listPerson/tei:person/tei:persName) then 
-    <div id="persnames" class="well">
-    {
-    for $persName in $model("spear-data")//tei:listPerson/tei:person/tei:persName
-    return 
-        if($persName/text() or $persName/child::*) then
-            <span dir="ltr" class="label label-default pers-label">{global:tei2html($persName)}</span>
-        else ()   
-    }
-    </div>
-else ()   
-};
-
-(:~
- : Test for timeline inclusion
+(:~          
+ : Find related factoids
+ : Side bar used by aggrigate pages. Not to be confussed with spear:relationships-aggregate, which is used for center page display in aggrigate pages, and decodes relationships. 
 :)
-declare %templates:wrap function spear:timeline($node as node(), $model as map(*), $dates){
-if($spear:item-type = 'event-factoid') then ()
-else spear:build-timeline($node, $model, $dates)        
-};
+declare function spear:related-factiods($node as node(), $model as map(*), $view as xs:string?){
+let $data := $model("data")  
+let $title := $data/descendant::tei:titleStmt/tei:title[1]/text()
+return
+    if($data/ancestor::tei:body//tei:ref[@type='additional-attestation'][@target=$spear:id] or $data/descendant::tei:persName or $data/descendant::tei:placeName or $data/descendant::tei:relation) then 
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                {
+                    if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
+                        <h4 class="panel-title">Browse Persons, Places and Keywords in {$title}</h4>
+                    else
+                        <h4 class="panel-title">Related Persons, Places and Keywords</h4>
+                }
 
-(:~ 
- : Include timeline and events list view in xql to adjust for event/person/place view
-:)
-declare function spear:build-timeline($node as node()*, $model as map(*), $dates){
-let $data := $model("spear-data")
-    return
-     if($dates = 'personal') then 
-         if($data//tei:birth[@when or @notBefore or @notAfter] or $data//death[@when or @notBefore or @notAfter] or $data//tei:state[@when or @notBefore or @notAfter or @to or @from]) then
-                 <div class="row">
-                         <div class="col-md-9">
-                             <div class="timeline">
-                                 <div>{timeline:timeline($data, 'Events Timeline')}</div>
+            </div>
+            <div class="panel-body">
+            {
+                let $relations := distinct-values(tokenize(string-join(($data/descendant::*/@ref,
+                                    $data/descendant::*/@target,
+                                    $data/descendant::tei:relation/@mutual,
+                                    $data/descendant::tei:relation/@active,
+                                    $data/descendant::tei:relation/@passive),' '),' '))
+                let $persNames := $relations[contains(.,'/person/')]
+                let $placeNames := $relations[contains(.,'/place/')]
+                let $keywords := $relations[contains(.,'/keyword/')]
+                let $count-persons := count($persNames)
+                let $count-places := count($placeNames)
+                let $count-keywords := count($keywords)
+                return 
+                    (
+                    if($count-persons gt 0) then 
+                        <div>
+                            <h4>Person(s) <span class="badge">{$count-persons}</span></h4>
+                            <div class="facet-list show">
+                                <ul>
+                                    {
+                                        for $r in subsequence($persNames,1,5)
+                                        return 
+                                            if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
+                                                <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Person:{$r}&amp;view=advanced">{spear:get-title($r)}</a></li>
+                                            else     
+                                                <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
+                                    }
+                                </ul>
                              </div>
-                         </div>
-                         <div class="col-md-3">
-                             <h4>Dates</h4>
-                             <ul class="list-unstyled">
-                                 {
-                                  for $date in $data//tei:birth[@when] | $data//tei:birth[@notBefore] | $data//tei:birth[@notAfter] 
-                                  | $data//tei:death[@when] |$data//tei:death[@notBefore] |$data//tei:death[@notAfter]| 
-                                  $data//tei:floruit[@when] | $data//tei:floruit[@notBefore]| $data//tei:floruit[@notAfter] 
-                                  | $data//tei:state[@when] | $data//tei:state[@notBefore] | $data//tei:state[@notAfter] | $data//tei:state[@from] | $data//tei:state[@to]
-                                  return 
-                                     <li>{global:tei2html($date)}</li>
-                                 }
-                             </ul>
-                         </div>
-                     </div>
-         else ()
-      else if($dates = 'events') then
-         <div class="timeline">
-             <div>{timeline:timeline($data//tei:event, 'Events Timeline')}</div>
-         </div>
-      else ()  
-};
-
-declare function spear:build-events-panel($node as node(), $model as map(*)){
-<div class="panel panel-default">
-    <div class="panel-heading clearfix">
-        <h4 class="panel-title pull-left" style="padding-top: 7.5px;">
-        {if($spear:view='event') then 'Events' else if($spear:id !='') then 'Events' else 'All Factoids'}
-        </h4>
-        <!-- Sort options for events list -->
-        <div class="btn-group pull-right">
-            <div class="dropdown"><button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">Sort<span class="caret"/></button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="manuscript">Textual</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" id="date">Chronological</a></li>
-                </ul>
+                              {
+                                    if($count-persons gt 5) then
+                                        (<div class="facet-list collapse" id="show-person">
+                                            <ul>
+                                            {
+                                            for $r in subsequence($persNames,6,$count-persons + 1)
+                                            return 
+                                                if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
+                                                    <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Person:{$r}&amp;view=advanced">{spear:get-title($r)}</a></li>
+                                                else     
+                                                    <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
+                                            }
+                                            </ul>
+                                        </div>,
+                                        <a class="facet-label togglelink btn btn-info" 
+                                        data-toggle="collapse" data-target="#show-person" href="#show-person" 
+                                        data-text-swap="Less"> More &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>)
+                                    else ()
+                                }
+                        </div>
+                    else(),     
+                    if($count-places gt 0) then                        
+                        <div>
+                            <h4>Places(s) <span class="badge">{$count-places}</span></h4>
+                                <div class="facet-list show">
+                                     <ul>
+                                        {
+                                            for $r in subsequence($placeNames,1,5)
+                                            return 
+                                                if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
+                                                    <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Place:{$r}&amp;view=advanced">{spear:get-title($r)}</a></li>
+                                                else 
+                                                    <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>
+                                        }
+                                    </ul>
+                                </div>
+                                {
+                                    if($count-places gt 5) then
+                                        (<div class="facet-list collapse" id="show-places">
+                                            <ul>
+                                            {
+                                            for $r in subsequence($placeNames,6,$count-places + 1)
+                                            return 
+                                                if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
+                                                    <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Place:{$r}&amp;view=advanced">{spear:get-title($r)}</a></li>
+                                                else 
+                                                    <li><a href="aggregate.html?id={$r}">{spear:get-title($r)}</a></li>                                            }
+                                            </ul>
+                                        </div>,
+                                        <a class="facet-label togglelink btn btn-info" 
+                                        data-toggle="collapse" data-target="#show-places" href="#show-places" 
+                                        data-text-swap="Less"> More &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>)
+                                    else ()
+                                }
+                        </div>
+                    else (),
+                    if($count-keywords gt 0) then                        
+                        <div>
+                            <h4>Keyword(s) <span class="badge">{$count-keywords}</span></h4>
+                                <div class="facet-list show">
+                                     <ul>
+                                        {
+                                            for $r in subsequence($keywords,1,5)
+                                            return 
+                                                if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
+                                                    <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Keyword:{$r}&amp;view=advanced">{lower-case(functx:camel-case-to-words(substring-after($r,'/keyword/'),' '))}</a></li>
+                                                else
+                                                    <li><a href="aggregate.html?id={$r}">{lower-case(functx:camel-case-to-words(substring-after($r,'/keyword/'),' '))}</a></li>                                                    
+                                        }
+                                    </ul>
+                                </div>
+                                {
+                                    if($count-keywords gt 5) then
+                                        (<div class="facet-list collapse" id="show-keywords">
+                                            <ul>
+                                            {
+                                            for $r in subsequence($keywords,6,$count-keywords + 1)
+                                            return 
+                                                  <li><a href="browse.html?fq=;fq-Source Text:{$title};fq-Keyword:{$r}&amp;view=advanced">{lower-case(functx:camel-case-to-words(substring-after($r,'/keyword/'),' '))}</a></li>
+                                            }
+                                            </ul>
+                                        </div>,
+                                        <a class="facet-label togglelink btn btn-info" 
+                                        data-toggle="collapse" data-target="#show-keywords" href="#show-keywords" 
+                                        data-text-swap="Less"> More &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>)
+                                    else ()
+                                }
+                        </div>
+                    else ())     
+            }
             </div>
         </div>
-    </div>
-    <div class="panel-body">
-        {spear:events($node,$model)}
-    </div>
-</div>
-};
-
-declare %templates:wrap function spear:build-events-list($node as node(), $model as map(*)){
-if($model("spear-data")//tei:event) then 
-    if($spear:item-type = 'event-factoid') then ()
-    else spear:build-events-panel($node, $model)
-else ()    
-};
-
-(:  
- : Pass all additional data to html page
-  
-:)
-declare %templates:wrap function spear:data($node as node(), $model as map(*)){
-let $data := $model("spear-data")
-return
-global:tei2html(
-    <factoid xmlns="http://www.tei-c.org/ns/1.0" type="{$spear:item-type}">
-        {
-         if($spear:item-type = 'event-factoid') then $data
-        else $data[not(tei:listEvent)]}
-    </factoid>)
-};
-
-declare %templates:wrap function spear:dates($node as node(), $model as map(*)){
-let $data := $model("spear-data")
-return 
-    if($data//tei:birth or $data//tei:death or $data//tei:floruit or $data//tei:state[@when or @notBefore or @notAfter or @to or @from]) then
-        (
-            <h4>Dates</h4>,
-            <ul class="list-unstyled">
-            {
-                for $date in $data//tei:birth | $data//tei:death | $data//tei:floruit | $data//tei:state[@when or @notBefore or @notAfter or @to or @from]
-                return 
-                    <li>{global:tei2html($date)}</li>
-                }
-            </ul>
-        )
     else ()
 };
+ 
+declare function spear:get-title($uri){
+let $doc := collection('/db/apps/srophe-data/data')/range:field-eq("uri", concat($uri,"/tei"))[1]
+return 
+      if (exists($doc)) then
+        replace(string-join($doc/descendant::tei:fileDesc/tei:titleStmt[1]/tei:title[1]/text()[1],' '),' — ',' ')
+      else $uri
+};
 
-(:~
- : Build bibliography 
+(:~           
+ : Build footnotes   
+ : Better handling of footnotes, should only return 1 tei:back (currently returns on for each factoid)
 :)
 declare %templates:wrap function spear:bibl($node as node(), $model as map(*)){
-let $sources := $model("spear-data")[1]
-let $bibl := $sources/descendant::tei:bibl
-let $back-info := $sources/ancestor::tei:text/tei:back
-return global:tei2html(<spear xmlns="http://www.tei-c.org/ns/1.0">{($bibl, $back-info)}</spear>)
-};
-
-declare %templates:wrap function spear:citation($node as node(), $model as map(*)){
-let $citation := $model("spear-data")[1]
-return global:tei2html($citation)
-}; 
-
-declare function spear:events($node as node(), $model as map(*)){
-(:add if spear:date then sort, else no sort
-<span class="anchor"/>
-:)
-<div id="events-list">
-    {
-    let $data := $model("spear-data")
-    return
-    if($spear:sort = 'date') then
-        <ul>
-        {
-            for $event in $data//tei:event
-            let $date := substring($event/descendant-or-self::tei:date[1]/@syriaca-computed-start,1,2)
-            group by $date
-            order by $date ascending
-            return
-            <li>
-                <h4>
-                {
-                    if(starts-with($date,'-')) then 'BC Dates'
-                    else if($date != '') then concat(substring-after($date,'0'),'00') 
-                    else 'Date Unknown'
-                }
-                </h4>
-                <ul>
-                    {
-                        for $e in $event
-                        return 
-                         <li class="md-line-height">{global:tei2html($e)} 
-                            {
-                            if($spear:item-type != 'event-factoid') then 
-                                <a href="factoid.html?id={string($e/ancestor::tei:div/@uri)}">
-                                    See event page
-                                    <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
-                                </a>
-                            else ()
-                            }
-                        </li>
-                    }
-                </ul>
-            </li>
-         }
-         </ul>
-    else
-        <ul>
-        {
-            for $e in $data//tei:event
-            (:for $e in $event//tei:desc:)
-            return 
-            <li class="md-line-height">{global:tei2html($e)} 
-                {
-                if($spear:item-type != 'event-factoid') then 
-                    <a href="factoid.html?id={string($e/ancestor::tei:div/@uri)}">
-                        See event page 
-                        <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
-                    </a>
-                else ()
-                }
-            </li>
-         }
-        </ul>
-         }
-</div>
-};
-
-declare %templates:wrap function spear:link-icons-list($node as node(), $model as map(*)){
-let $data := $model("spear-data")
-let $links:=
-    <spear xmlns="http://www.tei-c.org/ns/1.0">
-        <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
-            {$data//tei:person//tei:idno, $data//tei:person//tei:location}
-        </see-also>
-   </spear>
-return global:tei2html($links)
+let $data := $model("data")
+let $bibl := $data/tei:div[@uri]/descendant::tei:bibl
+return global:tei2html(<spear-citation xmlns="http://www.tei-c.org/ns/1.0">{($bibl)}</spear-citation>)
 };
 
 (:
- : Browse modules for spear
+ : Home page timeline
 :)
-(:
- : GROUP by pers/place sort events like event page (include event page code here, with a sort by source doc)
-     for $facet in $nodes
-    group by $facet-grp := $facet/@ref
-    order by count($facet) descending
-:)
-declare %templates:wrap function spear:browse-facets($node as node(), $model as map(*)) {
-    <div style="margin:1em;">
-         <h4>Narrow by</h4>
-         {
-            let $facet-nodes := $model('spear-data')
-            let $facets := $facet-nodes/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title
-            return facets:facets($facets)
-         }
-    </div>
+declare %templates:wrap function spear:get-event-data($node as node(), $model as map(*)){
+let $events :=  collection($global:data-root || "/spear/tei")//tei:event[parent::tei:listEvent]
+return 
+     map {"data" := $events}
 };
-
-declare function spear:browse-filter-options($node as node(), $model as map(*)){
-<div>
-    <h4>Narrow by Source Text</h4>
-    <span class="facets applied">
-        {   
-            if($facets:fq) then facets:selected-facet-display()
-            else ()            
-        }
-    </span>
-    <ul class="nav nav-tabs nav-stacked" style="margin-left:-1em;">
-         {
-            let $facet-nodes := $model('spear-data')
-            let $facets := $facet-nodes/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[@level='a']
-            return 
-            <li>{facets:title($facets)}</li>
-         }
-    </ul>
-</div>
-};
-(:
- : SPEAR Browse options
-:)
-declare %templates:wrap function spear:browse-spear($node as node(), $model as map(*)){
-if($spear:view = 'sources' or $spear:view = '') then 
-<div class="row">
-    <div class="col-md-3">
-        {spear:browse-filter-options($node, $model)}
-    </div>
-    <div class="col-md-9">
-        {
-            if($spear:fq !='') then 
-                for $data in $model('spear-data')
-                let $id := $data/@uri
-                return 
-                <div class="md-line-height">
-                    {$data/child::*[not(self::tei:bibl)]}  <a href="factoid.html?id={string($data/@uri)}">See event page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a>
-                </div>
-            else <h3>Select a Source </h3> 
-        }
-    </div>
-</div>
-else if($spear:view = 'person') then 
-<div class="row">
-    <div class="col-md-3">
-        {spear:browse-filter-options($node, $model)}
-    </div>
-    <div class="col-md-9">
-        <h3>{$spear:sort}</h3>
-        <ul class="left-padding top-padding">
-            {
-            if($spear:fq !='') then 
-                let $d := util:eval(concat('$model("spear-data")//tei:persName[parent::tei:person]',facets:facet-filter()))
-                for $data in $d
-                let $id := normalize-space($data[1]/@ref)
-                let $connical := collection($global:data-root)//tei:idno[. = $id]
-                let $name := if($connical) then $connical/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"][@xml:lang='en'][1]
-                             else tokenize($id,'/')[last()]
-                group by $person := $name
-                order by $person
-                return 
-                    if($spear:sort = 'all' or empty($spear:sort)) then 
-                        for $pers-data in $person[1] 
-                        return 
-                        <div>
-                            <a href="factoid.html?id={$id}">{$data[1]}</a>
-                        </div>
-                    else
-                        for $pers-data in $person[1]
-                        where contains(spear:get-sort(), substring($name,1,1)) 
-                        return 
-                        <div>
-                            <a href="factoid.html?id={$id}">{$data[1]}</a>
-                        </div>
-            else <h3>Select a Source </h3>                        
-            }
-        </ul>
-    </div>
-</div>
-else if($spear:view = 'event') then
-<div class="row">
-    <div class="col-md-3">
-        <div style="margin:1em;">
-         <h4>Narrow by Source Text</h4>
-         <span class="facets applied">
-                {
-                    if($facets:fq) then facets:selected-facet-display()
-                    else ()            
-                }
-         </span>
-         <ul class="nav nav-tabs nav-stacked" style="margin-left:-1em;">
-         {
-            let $facet-nodes := $model('spear-data')
-            let $facets := $facet-nodes/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title
-            return 
-            <li>{facets:title($facets)}</li>
-         }
-         </ul>
-        </div>
-    </div>
-    <div class="col-md-9 top-padding">
-        <div>
-            {(spear:build-timeline($node,$model,'events'),spear:build-events-panel($node,$model))}
-        </div>
-    </div>
-</div>
-else if($spear:view = 'keywords') then
-<div class="row">
-    <div class="col-md-3">
-        <div style="margin:1em;">
-         <h4>Narrow by Keyword</h4>
-         <ul class="nav nav-tabs nav-stacked" style="margin-left:-1em;">
-         {
-            let $facet-nodes := $model('spear-data')
-            let $facets := $facet-nodes//tei:event
-            return 
-            <li>{facets:keyword($facets)}</li>
-         }
-         </ul>
-        </div>
-    </div>
-    <div class="col-md-9 top-padding">
-       <div class="top-padding" >
-       {if($spear:fq != '') then 
-        (<strong>Keywords</strong>,facets:selected-facet-display(),<hr/>)
-        else ()
-       } 
-       <div>
-        {
-            for $data in $model('spear-data')
-            let $id := $data/@uri
-            return 
-            <li class="md-line-height">
-                {$data/child::*[not(self::tei:bibl)]}  <a href="factoid.html?id={string($data/@uri)}">See event page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a>
-            </li>
-        }
-        </div>
-        </div>
-    </div>
-</div>
-
-else if($spear:view = 'advanced') then
-<div>
- <h4>Advanced browse options: <a href="search.html?q=">see advanced search</a></h4>
-</div>
-else
-<div class="row">
-    <div class="col-md-3">
-        <div style="margin:1em;">
-         <h4>Narrow by Source Text</h4>
-         <span class="facets applied">
-                {
-                    if($facets:fq) then facets:selected-facet-display()
-                    else ()            
-                }
-         </span>
-         <ul class="nav nav-tabs nav-stacked" style="margin-left:-1em;">
-         {
-            let $facet-nodes := $model('spear-data')
-            let $facets := $facet-nodes/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title
-            return 
-            <li>{facets:title($facets)}</li>
-         }
-         </ul>
-        </div>
-    </div>
-    <div class="col-md-9">
-        <h3>{$spear:sort}</h3>
-        <ul class="left-padding top-padding">
-            {
-                for $data in $model('spear-data')
-                let $id := normalize-space($data[1]/@ref)
-                let $connical := collection($global:data-root)//tei:idno[. = $id]
-                let $name := if($connical) then $connical/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"][@xml:lang='en'][1]
-                             else tokenize($id,'/')[last()]
-                group by $place := $name
-                order by $place
-                return 
-                    if($spear:sort = 'all' or empty($spear:sort)) then 
-                        for $place-data in $place[1] 
-                        return 
-                            <li>
-                                <a href="factoid.html?id={$id}">{$place-data}</a>
-                            </li>   
-                    else
-                        for $place-data in $place[1]
-                        where contains(spear:get-sort(), substring($name,1,1)) 
-                        return 
-                            <li>
-                                <a href="factoid.html?id={$id}">{$place-data}</a>
-                            </li>
-            }
-        </ul>
-    </div>
-</div>
-
-};
-
-declare function spear:get-sort(){
-    if(exists($spear:sort) and $spear:sort != '') then
-        if($spear:sort = 'A') then 'A a ẵ Ẵ ằ Ằ ā Ā'
-        else if($spear:sort = 'D') then 'D d đ Đ'
-        else if($spear:sort = 'S') then 'S s š Š ṣ Ṣ'
-        else if($spear:sort = 'E') then 'E e ễ Ễ'
-        else if($spear:sort = 'U') then 'U u ū Ū'
-        else if($spear:sort = 'H') then 'H h ḥ Ḥ'
-        else if($spear:sort = 'T') then 'T t ṭ Ṭ'
-        else if($spear:sort = 'I') then 'I i ī Ī'
-        else if($spear:sort = 'O') then 'O Ō o Œ œ'
-        else $spear:sort
-    else 'A a ẵ Ẵ ằ Ằ ā Ā'
-};
-
-declare function spear:browse-abc-list($node as node(), $model as map(*)){
-if(($spear:view = 'person') or ($spear:view='place')) then
-    <div class="browse-alpha tabbable">
-        <ul class="list-inline">
-            <li><a href="?view={$spear:view}&amp;sort=all">All</a></li>
-            {
-                let $vals := $model('spear-data')/upper-case(substring(normalize-space(.),1,1))
-                for $letter in tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z', ' ')
-                return
-                    if(contains($vals,$letter)) then 
-                    <li><a href="?view={$spear:view}&amp;sort={$letter}">{$letter}</a></li>
-                    else <li>{$letter}</li>
-            }
-        </ul>
-    </div>
-else ()        
-};
-
-(: Browse tabs for spear :)
-(:S ources, Persons, Events, Relations, Places, Keywords, Advanced :)
-declare function spear:browse-tabs($node as node(), $model as map(*)){
-    <ul class="nav nav-tabs" id="nametabs">
-        <li>{if(not($spear:view)) then 
-                attribute class {'active'} 
-          else if($spear:view = 'sources') then 
-                attribute class {'active'}
-          else '' }<a href="browse.html?view=sources">Sources</a>
-        </li>
-        <li>{if($spear:view = 'person') then 
-                    attribute class {'active'} 
-            else '' }<a href="browse.html?view=person&amp;sort=all">Persons</a>
-        </li>
-        <li>{if($spear:view = 'event') then 
-                    attribute class {'active'}
-                 else '' }<a href="browse.html?view=event">Events</a>
-        </li>
-        <li>{
-                 if($spear:view = 'relations') then 
-                    attribute class {'active'} 
-                 else '' }<a href="browse.html?view=relations">Relations</a>
-        </li>,
-        <li>{if($spear:view = 'place') then 
-                    attribute class {'active'} 
-                 else '' }<a href="browse.html?view=place&amp;sort=all">Places</a>
-        </li>
-        <li>{if($spear:view = 'keywords') then 
-                    attribute class {'active'}
-                 else '' }<a href="browse.html?view=keywords">Keywords</a>
-        </li>
-        <li>{if($spear:view = 'advanced') then 
-                    attribute class {'active'}
-                 else '' }<a href="browse.html?view=advanced">Advanced Browse</a>
-        </li>
-    </ul>
+   
+declare %templates:wrap function spear:build-event-timeline($node as node(), $model as map(*)){
+let $events := $model("data")
+return
+    ev:build-timeline($events,'events')
 };

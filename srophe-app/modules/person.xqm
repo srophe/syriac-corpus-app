@@ -1,4 +1,4 @@
-(:~    
+(:~                
  : Builds persons page and persons page functions  
  :)
 xquery version "3.0";
@@ -9,7 +9,7 @@ import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace app="http://syriaca.org/templates" at "app.xql";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
-import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
+import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
 import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
@@ -146,36 +146,72 @@ return
 
 declare %templates:wrap function person:related-places($node as node(), $model as map(*)){
 let $data := $model("data")
-let $geo-hits := person:get-related($data)//tei:geo
+let $geo-hits := person:get-related($data)
 return 
-    if(count($geo-hits) gt 0) then
-        (
-        <div>
-        <hr/>
+    if($geo-hits//tei:geo) then
+        <div><hr/>
             <h2>Related Places in the Syriac Gazetteer</h2>
-            {geo:build-map($geo-hits,'','')}
-        </div>,
-        <div class="indent">
-            {
-            global:tei2html(
+            {maps:build-map($geo-hits)}
+            {global:tei2html(
                 <person xmlns="http://www.tei-c.org/ns/1.0">
                     <related-items xmlns="http://www.tei-c.org/ns/1.0">
-                        {person:get-related($data)}
+                        {
+                            for $r in $data//tei:relation
+                            let $uris := $r/@passive
+                            let $desc := $r/tei:desc
+                            for $rel-rec in tokenize($uris,' ')
+                            return
+                                <relation uri="{$rel-rec}" xmlns="http://www.tei-c.org/ns/1.0">
+                                    {(for $att in $r/@*
+                                      return attribute {name($att)} {$att},
+                                      let $rec := collection($global:data-root)//tei:idno[. = $rel-rec] 
+                                      let $title := 
+                                        if($rec/ancestor::tei:place) then 
+                                            <place xml:id="{$rec/ancestor::tei:place/@xml:id}" type="{$rec/ancestor::tei:place/@type}" xmlns="http://www.tei-c.org/ns/1.0">
+                                                {($rec/ancestor::tei:place/tei:placeName[@syriaca-tags="#syriaca-headword"][1])}
+                                            </place>
+                                        else $rec/ancestor::tei:TEI/descendant::*[@syriaca-tags="#syriaca-headword"][1]
+                                      return 
+                                        <item uri="{$rel-rec}" xmlns="http://www.tei-c.org/ns/1.0">
+                                            {$title}
+                                        </item> 
+                                       ,
+                                       $desc
+                                   )}
+                                </relation>   
+                        }
                     </related-items>
                 </person>)
-            }
-        </div>,<hr/>
-        )
-     else if(person:get-related($data/descendant::tei:relation/child::*)) then 
-            global:tei2html(
-                <person xmlns="http://www.tei-c.org/ns/1.0">
-                    <related-items xmlns="http://www.tei-c.org/ns/1.0">
-                        {person:get-related($data)}
-                    </related-items>
-                </person>)
-     else ()
+            }  
+        </div>
+    else ()
+    
 };
 
+(:~
+ : Get related items 
+ : NOTE should be able to pass related items in as string?
+:)  
+declare function person:get-related($rec as node()*){
+for $related in $rec//tei:relation
+let $uris := string($related/@passive)
+for $item-uri in tokenize($uris,' ')
+let $rec := collection($global:data-root)//tei:idno[. = $item-uri]
+let $geo := if($rec/ancestor::tei:TEI//tei:geo) then $rec/ancestor::tei:TEI//tei:geo
+                else ()
+let $title := string($rec/ancestor::tei:TEI/descendant::*[@syriaca-tags="#syriaca-headword"][1])
+let $type := if($rec/ancestor::tei:TEI/descendant::tei:place/@type) then concat(' - ', string($rec/ancestor::tei:TEI/descendant::tei:place/@type)) else ()
+let $desc := string($related/tei:desc)
+return 
+      <place xmlns="http://www.tei-c.org/ns/1.0">
+        <idno>{$item-uri}</idno>
+        <title>{concat($title,$type)}</title>
+        <relationType>{string($related/@name)}</relationType>
+        <desc>{$desc}</desc>
+        <location>{$geo}</location>  
+      </place>
+                  
+};
 
 (:
  : Use OCLC API to return VIAF records 
@@ -226,68 +262,21 @@ return
     else () 
 };
 
-(:~
- : Get related items 
- : NOTE should be able to pass related items in as string?
-:)
-declare function person:get-related($rec as node()*){
-            for $related in $rec//tei:relation 
-            let $item-uri := string($related/@passive)
-            let $desc := $related/tei:desc
-            return 
-                for $rel-rec in tokenize($item-uri,' ')
-                return
-                    <relation uri="{$rel-rec}" xmlns="http://www.tei-c.org/ns/1.0">
-                        {(for $att in $related/@*
-                          return attribute {name($att)} {$att},
-                          let $rec := collection($global:data-root)//tei:idno[. = $rel-rec] 
-                          let $geo := if($rec/ancestor::tei:TEI//tei:geo) then $rec/ancestor::tei:TEI//tei:geo
-                                      else ()
-                          let $title := if($rec/ancestor::tei:place) then 
-                                            <place xml:id="{$rec/ancestor::tei:place/@xml:id}" type="{$rec/ancestor::tei:place/@type}" xmlns="http://www.tei-c.org/ns/1.0">
-                                                {($rec/ancestor::tei:place/tei:placeName[@syriaca-tags="#syriaca-headword"][1],$geo)}
-                                            </place>
-                                        else $rec/ancestor::tei:TEI/descendant::*[@syriaca-tags="#syriaca-headword"][1]
-                          return 
-                            <item uri="{$rel-rec}" xmlns="http://www.tei-c.org/ns/1.0">
-                                {$title}
-                            </item> 
-                           ,
-                           $desc
-                       )}
-                    </relation>                
-};   
-
 (: 
- : Get relations 
+ : Get relations for right side menu 
+ : Use get-related module.
  : NOTE need to untangle get-related and get-related places. 
 :)
 declare %templates:wrap function person:relations($node as node(), $model as map(*)){
-if($model("data")//tei:relation) then 
-    let $idno := replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+if($model("data")/descendant::tei:relation) then 
+    let $idno := replace($model("data")/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1]/text(),'/tei','')
     return rel:build-relationships($model("data")//tei:relation, $idno)
 else ()
 };
 
-(:~
- : Build map widget for realted places passed from person:get-related-places
- : @param $rec
- : Passes tei:geo data to geojson.xqm for correct geojson formatting.
- : Passed back into leafletjs js below. 
-:)
-declare function person:build-geojson($rec){
-let $geo-hits := person:get-related($rec)//tei:geo
-return    
-        if(count($geo-hits) gt 0) then
-            <div id="geojson" count="{count($geo-hits)}">
-                {geo:json-transform($geo-hits,'','')}
-            </div>
-       else ()
-};
-
 declare %templates:wrap function person:authored-by($node as node(), $model as map(*)){
 let $rec := $model("data")
-let $recid := replace($rec//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1]/text(),'/tei','')
 let $works := collection($global:data-root || '/works/tei')//tei:author[@ref =  $recid]  
 let $count := count($works)
 return 
@@ -302,7 +291,7 @@ return
                         <div>
                          {
                              for $r in subsequence($works, 1, 3)
-                             let $workid := replace($r/ancestor::tei:TEI//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+                             let $workid := replace($r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
                              let $rec :=  global:get-rec($workid)
                              return global:display-recs-short-view($rec,'',$recid)
                          }
@@ -323,6 +312,7 @@ return
         </div>
     else ()     
 };
+
 (:
  : Return bibls for use in sources
 :)
@@ -357,8 +347,47 @@ let $data := $model("data")
 let $links:=
     <person xmlns="http://www.tei-c.org/ns/1.0">
         <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
-            {$data//tei:person//tei:idno, $data//tei:person//tei:location}
+            {$data//tei:person/descendant::tei:idno, $data//tei:person/descendant::tei:location}
         </see-also>
     </person>
 return global:tei2html($links)
+};
+
+(:
+ : Map for persons index page. 
+ : All persons with relationships to places.
+:)
+declare %templates:wrap function person:display-persons-map($node as node(), $model as map(*)){
+    let $persons := 
+    for $p in collection($global:data-root || '/persons/tei')//tei:relation[contains(@passive,'/place/') or contains(@active,'/place/') or contains(@mutual,'/place/')]
+    let $name := string($p/ancestor::tei:TEI/descendant::tei:title[1])
+    let $pers-id := string($p/ancestor::tei:TEI/descendant::tei:idno[1])
+    let $relation := string($p/@name)
+    let $places := for $p in tokenize(string-join(($p/@passive,$p/@active,$p/@mutual),' '),' ')[contains(.,'/place/')] return <placeName xmlns="http://www.tei-c.org/ns/1.0">{$p}</placeName>
+    return 
+        <person xmlns="http://www.tei-c.org/ns/1.0">
+            <persName xmlns="http://www.tei-c.org/ns/1.0" name="{$relation}" id="{replace($pers-id,'/tei','')}">{$name}</persName>
+            {$places}
+        </person>
+    let $places := distinct-values($persons/descendant::tei:placeName/text()) 
+    let $locations := 
+        for $id in $places
+        for $geo in collection($global:data-root || '/places/tei')//tei:idno[. = $id][ancestor::tei:TEI[descendant::tei:geo]]
+        let $title := $geo/ancestor::tei:TEI/descendant::*[@syriaca-tags="#syriaca-headword"][1]
+        let $type := string($geo/ancestor::tei:TEI/descendant::tei:place/@type)
+        let $geo := $geo/ancestor::tei:TEI/descendant::tei:geo
+        return 
+            <place xmlns="http://www.tei-c.org/ns/1.0">
+                <idno>{$id}</idno>
+                <title>{concat(normalize-space($title), ' - ', $type)}</title>
+                <desc>Related Persons:
+                {
+                    for $p in $persons[child::tei:placeName[. = $id]]/tei:persName
+                    return concat('<br/><a href="',string($p/@id),'">',normalize-space($p),'</a>')
+                }
+                </desc>
+                <location>{$geo}</location>  
+            </place>
+    return  maps:build-map($locations)
+    (: ' — ' :)
 };

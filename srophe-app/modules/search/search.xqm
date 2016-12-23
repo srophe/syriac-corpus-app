@@ -2,6 +2,9 @@ xquery version "3.0";
  
 module namespace search="http://syriaca.org/search";
 import module namespace page="http://syriaca.org/page" at "../lib/paging.xqm";
+import module namespace rel="http://syriaca.org/related" at "../lib/get-related.xqm";
+import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm";
+import module namespace facet-defs="http://syriaca.org/facet-defs" at "../facet-defs.xqm";
 import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
 import module namespace persons="http://syriaca.org/persons" at "persons-search.xqm";
 import module namespace places="http://syriaca.org/places" at "places-search.xqm";
@@ -10,8 +13,9 @@ import module namespace bhses="http://syriaca.org/bhses" at "bhse-search.xqm";
 import module namespace bibls="http://syriaca.org/bibls" at "bibl-search.xqm";
 import module namespace ms="http://syriaca.org/ms" at "ms-search.xqm";
 import module namespace common="http://syriaca.org/common" at "common.xqm";
-import module namespace geo="http://syriaca.org/geojson" at "../lib/geojson.xqm";
+import module namespace maps="http://syriaca.org/maps" at "../lib/maps.xqm";
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
+import module namespace functx="http://www.functx.com";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 
@@ -42,7 +46,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                         if($coll = ('sbd','q','authors','saints','persons')) then persons:query-string($coll)
                         else if($coll ='spear') then spears:query-string()
                         else if($coll = 'places') then places:query-string()
-                        else if($coll = 'bhse') then bhses:query-string()
+                        else if($coll = ('bhse','nhsl')) then bhses:query-string($collection)
                         else if($coll = 'bibl') then bibls:query-string()
                         else if($coll = 'manuscripts') then ms:query-string()
                         else search:query-string($collection)
@@ -162,43 +166,22 @@ declare function search:search-string($collection as xs:string?){
  : Call facets on search results
  : NOTE: need better template integration
 :)
-declare %templates:wrap function search:spear-facets($hits){
-if(exists(request:get-parameter-names())) then 
-    <div>
-     <h4>Browse by</h4>
-     {
-        let $facet-nodes := $hits
-        let $facets := $facet-nodes//tei:persName | $facet-nodes//tei:placeName | $facet-nodes//tei:event 
-        | $facet-nodes/ancestor::tei:TEI/descendant::tei:title[@level='a'][parent::tei:titleStmt]
-        return facets:facets($facets)
-     }
-    </div>
-else ()    
-};
-
-(:~
- : Call facets on search results
- : NOTE: need better template integration
-:)
 declare %templates:wrap function search:facets($node as node()*, $model as map(*), $collection as xs:string*){
-<div>
-     {
-     if($collection = 'spear') then
-            <div>
-                <h4>Browse by</h4>
-                {
-                   let $facet-nodes := $model("hits")
-                   let $facets := $facet-nodes//tei:persName | $facet-nodes//tei:placeName | $facet-nodes//tei:event 
-                   | $facet-nodes/ancestor::tei:TEI/descendant::tei:title[@level='a'][parent::tei:titleStmt]
-                   return facets:facets($facets)
-                }
-            </div>
-     else 
-        let $facet-nodes := $model("hits")
-        let $facets := $facet-nodes//tei:repository | $facet-nodes//tei:country
-        return facets:facets($facets)
-     }
-</div>
+if(exists(request:get-parameter-names())) then
+    <div>
+         {
+         if($collection = 'spear') then
+                <div>
+                    <h4>Narrow Results</h4>
+                       {facet:html-list-facets-as-buttons(facet:count($model("hits"), facet-defs:facet-definition('spear')/child::*))}
+                </div>
+         else 
+            let $facet-nodes := $model("hits")
+            let $facets := $facet-nodes//tei:repository | $facet-nodes//tei:country
+            return facets:facets($facets)
+         }
+    </div>
+else ()
 };
 
 (:~ 
@@ -227,11 +210,12 @@ declare  %templates:wrap function search:pageination($node as node()*, $model as
  : @param $node search resuls with coords
 :)
 declare function search:build-geojson($node as node()*, $model as map(*)){
-let $geo-hits := $model("hits")//tei:geo
+let $data := $model("hits")
+let $geo-hits := $data//tei:geo
 return
     if(count($geo-hits) gt 0) then
          (
-         geo:build-map($model("hits")//tei:geo, '', ''),
+         maps:build-map($data[descendant::tei:geo]),
          <div>
             <div class="modal fade" id="map-selection" tabindex="-1" role="dialog" aria-labelledby="map-selectionLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -274,7 +258,7 @@ declare %templates:wrap  function search:show-form($node as node()*, $model as m
         if($collection = ('persons','sbd','authors','q','saints')) then <div>{persons:search-form($collection)}</div>
         else if($collection ='spear') then <div>{spears:search-form()}</div>
         else if($collection ='manuscripts') then <div>{ms:search-form()}</div>
-        else if($collection ='bhse') then <div>{bhses:search-form()}</div>
+        else if($collection = ('bhse','nhsl')) then <div>{bhses:search-form($collection)}</div>
         else if($collection ='bibl') then <div>{bibls:search-form()}</div>
         else if($collection ='places') then <div>{places:search-form()}</div>
         else <div>{search:search-form()}</div>
@@ -282,7 +266,6 @@ declare %templates:wrap  function search:show-form($node as node()*, $model as m
 
 (:~ 
  : Builds results output
-
 :)
 declare 
     %templates:default("start", 1)
@@ -301,6 +284,33 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                         {
                          if(starts-with(request:get-parameter('author', ''),$global:base-uri)) then 
                              global:display-recs-short-view($hit,'',request:get-parameter('author', ''))
+                         else if($collection = 'spear') then 
+                            <div class="results-list">
+                                 {
+                                 if($hit/tei:title) then
+                                     (' ', <a href="aggregate.html?id={replace($hit//tei:idno,'/tei','')}" class="syr-label">{string-join($hit/descendant-or-self::tei:title[1]/node(),' ')}</a>)
+                                 else 
+                                     (if($hit/tei:listRelation) then 
+                                         <span class="srp-label">[{concat(' ', functx:camel-case-to-words(substring-after($hit/tei:listRelation/tei:relation/@name,':'),' '))} relation] </span>
+                                     else if($hit/tei:listPerson) then
+                                         <span class="srp-label">[Person factoid] </span>
+                                     else if($hit/tei:listEvent) then
+                                         <span class="srp-label">[Event factoid] </span>
+                                     else (),
+                                     <a href="factoid.html?id={string($hit/@uri)}" class="syr-label">
+                                     {
+                                         if($hit/descendant-or-self::tei:titleStmt) then $hit/descendant-or-self::tei:titleStmt[1]/text()
+                                         else if($hit/tei:listRelation) then 
+                                             <span> 
+                                              {rel:build-short-relationships($hit/tei:listRelation/tei:relation,'')}
+                                             </span>
+                                         else substring(string-join($hit/child::*[1]/descendant-or-self::*/text(),' '),1,550)
+                                     }                                    
+                                 </a>)
+                                 }
+                             </div>  
+                         else if(request:get-parameter('relation', '') and $collection = 'spear') then
+                            <a href="factoid.html?id={string($hit/@uri)}">{rel:build-relationship-sentence($hit/descendant::tei:relation,$spears:relation)}</a>
                          else global:display-recs-short-view($hit,'')
                         } 
                       </div>
@@ -323,35 +333,67 @@ declare %templates:wrap function search:build-page($node as node()*, $model as m
  : Builds advanced search form
  :)
 declare function search:search-form() {   
-<form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude" style="margin-top:2em;" class="form-horizontal indent" role="form">
+<form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal indent" role="form">
+    <script type="text/javascript">
+    <![CDATA[
+        $(function(){
+            initializeKeyboard('#qs', 'syriac-standard', '#qs-keyboard');
+            initializeKeyboard('#placeName', 'syriac-standard', '#placeName-keyboard');
+            initializeKeyboard('#persName', 'syriac-standard', '#persName-keyboard');
+            });
+         ]]>
+    </script>
     <h1 class="search-header">Search Syriaca.org (All Publications)</h1>
     <p class="indent">More detailed search functions are available in each individual <a href="/">publication</a>.</p>
     <div class="well well-small">
-             <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
+          <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             </button>&#160;
             <xi:include href="../searchTips.html"/>
-        <div class="well well-small search-inner well-white">
+        <div class="well well-small" style="background-color:white; margin-top:2em;">
             <div class="row">
                 <div class="col-md-7">
                 <!-- Keyword -->
                  <div class="form-group">
                     <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
                     <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="q" name="q" class="form-control"/>
+                        <div class="input-group">
+                            <input type="text" id="qs" name="q" class="form-control"/>
+                            <div class="input-group-btn">
+                                <span class="btn btn-default" id="qs-keyboard">
+                                   <span class="glyphicon glyphicon-cog"/>&#160;<small>Keyboard</small>
+                                </span>
+                            </div>
+                         </div> 
+
                     </div>
+                    
                   </div>
                     <!-- Place Name-->
                   <div class="form-group">
                     <label for="placeName" class="col-sm-2 col-md-3  control-label">Place Name: </label>
                     <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="placeName" name="placeName" class="form-control"/>
+                        <div class="input-group">
+                            <input type="text" id="placeName" name="placeName" class="form-control"/>
+                            <div class="input-group-btn">
+                                <span class="btn btn-default" id="placeName-keyboard">
+                                   <span class="glyphicon glyphicon-cog"/>&#160;<small>Keyboard</small>
+                                </span>
+                            </div>
+                         </div>   
                     </div>
-                  </div>
+                </div>
                 <div class="form-group">
                     <label for="persName" class="col-sm-2 col-md-3  control-label">Person Name: </label>
                     <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="persName" name="persName" class="form-control"/>
+                        <div class="input-group">
+                            <input type="text" id="persName" name="persName" class="form-control"/>
+                            <div class="input-group-btn">
+                                <span class="btn btn-default" id="persName-keyboard">
+                                   <span class="glyphicon glyphicon-cog"/>&#160;<small>Keyboard</small>
+                                </span>
+                            </div>
+                         </div>   
                     </div>
                   </div>
                   <!--
@@ -366,8 +408,7 @@ declare function search:search-form() {
                     <div class="col-sm-10 col-md-9 ">
                         <input type="text" id="bibl" name="bibl" class="form-control"/>
                     </div>
-               </div> 
-               -->
+               </div> -->
                 <div class="form-group">
                     <label for="uri" class="col-sm-2 col-md-3  control-label">Syriaca.org URI: </label>
                     <div class="col-sm-10 col-md-9 ">
