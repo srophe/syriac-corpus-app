@@ -17,6 +17,7 @@ declare variable $spears:place {request:get-parameter('place', '')};
 declare variable $spears:event {request:get-parameter('event', '')};
 declare variable $spears:ref {request:get-parameter('ref', '')};
 declare variable $spears:keyword {request:get-parameter('keyword', '')};
+declare variable $spears:relation {request:get-parameter('relation', '')};
 declare variable $spears:type {request:get-parameter('type', '')};
 declare variable $spears:title {request:get-parameter('title', '')};
 
