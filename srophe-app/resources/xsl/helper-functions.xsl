@@ -301,6 +301,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
+    
     <!-- Wrap text in @rend tags -->
     <xsl:function name="local:rend">
         <xsl:param name="node"/>
@@ -310,22 +311,44 @@
         -->
         <xsl:choose>
             <xsl:when test="$node/@rend = 'bold'">
-                <b><xsl:apply-templates select="$node/node()|$node/text()"/></b>
+                <b>
+                    <xsl:apply-templates select="$node/node()|$node/text()"/>
+                </b>
             </xsl:when>
             <xsl:when test="$node/@rend = 'italic'">
-                <i><xsl:apply-templates select="$node/node()|$node/text()"/></i>
+                <i>
+                    <xsl:apply-templates select="$node/node()|$node/text()"/>
+                </i>
             </xsl:when>
             <xsl:when test="$node/@rend = 'superscript'">
-                <sup><xsl:apply-templates select="$node/node()|$node/text()"/></sup>
+                <sup>
+                    <xsl:apply-templates select="$node/node()|$node/text()"/>
+                </sup>
             </xsl:when>
             <xsl:when test="$node/@rend = 'subscript'">
-                <sub><xsl:apply-templates select="$node/node()|$node/text()"/></sub>
+                <sub>
+                    <xsl:apply-templates select="$node/node()|$node/text()"/>
+                </sub>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:apply-templates select="$node/node()|$node/text()"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
+    
+    <!-- Translate labels to human readable labels via odd -->
+    <xsl:function name="local:translate-label">
+        <xsl:param name="label"/>
+        <!-- NOTE could be useful to pass the xpath to lookup any controlled values.  -->
+        <!-- <xsl:param name="path"/>
+        <xsl:variable name="odd" select="document(concat($nav-base,'/documentation/syriaca-tei-main.odd'))"></xsl:variable>
+        valItem ident="lawd:Edition"
+        -->
+        <xsl:variable name="odd" select="doc('http://localhost:8080/exist/apps/srophe/documentation/syriaca-tei-main.odd')"/>
+        <xsl:value-of select="$odd/descendant::t:valItem[@ident=$label]/t:gloss"/>
+        <!-- //elementSpec[@ident='bibl']/attList/attDef[@ident='type']/valList/valItem[@ident='lawd:ConceptualWork']/gloss -->
+        <!--<xsl:value-of select="$odd/descendant::t:elementSpec[@ident='bibl']/t:attList/t:attDef[@ident='type']/t:valList/t:valItem[@ident='lawd:ConceptualWork']/t:gloss"/>-->
+    </xsl:function>        
     <!-- Text normalization functions -->
     <xsl:template match="t:*" mode="out-normal">
         <xsl:variable name="thislang" select="ancestor-or-self::*[@xml:lang][1]/@xml:lang"/>
