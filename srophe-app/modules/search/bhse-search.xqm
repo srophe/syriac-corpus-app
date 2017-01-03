@@ -120,6 +120,14 @@ declare function bhses:related-persons() as xs:string?{
     else ()  
 };
 
+declare function bhses:child() as xs:string? {
+    if(request:get-parameter('child-rec', '') != '') then
+        if(starts-with(request:get-parameter('child-rec', ''),$global:base-uri)) then  
+            concat("[tei:bibl/tei:listRelation/tei:relation[@passive[matches(.,'",request:get-parameter('child-rec', ''),"(\W|$)')]]]")
+        else ()
+    else ()    
+};
+
 (:~
  : Search limit by submodule. 
 :)
@@ -132,6 +140,7 @@ return
     if($collection != '') then concat("[ancestor::tei:TEI/descendant::tei:title = '",$collection,"']")
     else ()
 };
+
 (:~
  : Build query string to pass to search.xqm 
 :)
@@ -140,7 +149,7 @@ declare function bhses:query-string($collection) as xs:string? {
     bhses:keyword(),bhses:title(),bhses:author(),bhses:prologue(),
     bhses:incipit(),bhses:explicit(),bhses:editions(),
     bhses:modern(),bhses:ancient(),bhses:mss(),
-    bhses:refs(),bhses:related-persons(),
+    bhses:refs(),bhses:related-persons(),bhses:child(),
     bhses:idno()
     )
 };
