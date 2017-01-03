@@ -15,19 +15,11 @@ declare namespace gn = "http://www.geonames.org/ontology#";
 declare namespace lawd = "http://lawd.info/ontology";
 declare namespace rdfs = "http://www.w3.org/2000/01/rdf-schema#";
 declare namespace skos = "http://www.w3.org/2004/02/skos/core#";
+declare namespace xlink = "http://www.w3.org/1999/xlink";
+declare namespace transform="http://exist-db.org/xquery/transform";
+declare namespace schema = "http://schema.org/";
+declare namespace rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
 declare option exist:serialize "method=xml media-type=application/rss+xml omit-xml-declaration=no indent=yes";
 
-let $rec := 
-    for $r in collection('/db/apps/srophe-data')//tei:idno[. = 'http://syriaca.org/person/701/tei']
-    return root($r)
-return 
-    transform:transform($rec//tei:TEI, doc('/db/apps/srophe/resources/xsl/tei2html.xsl'), 
-    <parameters>
-        <param name="data-root" value="srophe-data/data"/>
-        <param name="app-root" value="srophe"/>
-        <param name="nav-base" value="http://syriaca.org/"/>
-        <param name="base-uri" value="http://syriaca.org"/>
-    </parameters>
-    )
-    
+'Test query'
