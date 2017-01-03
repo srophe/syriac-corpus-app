@@ -227,11 +227,11 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
 declare %templates:wrap function app:get-child-works($data){
 let $rec := $data
 let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1]/text(),'/tei','')
-let $works := collection($global:data-root || '/works/tei')//tei:listRelation/tei:relation[@passive[matches(.,$recid)]]  
+let $works := collection($global:data-root || '/works/tei')//tei:body/child::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]  
 let $count := count($works)
 return 
     if($count gt 0) then 
-        <div xmlns="http://www.w3.org/1999/xhtml">
+        <div xmlns="http://www.w3.org/1999/xhtml" class="well">
             <h3>{substring-before($rec/descendant::tei:title[1]/text(),' — ')} contains {$count} works.</h3>
             {(
                 if($count gt 3) then
@@ -244,7 +244,7 @@ return
                          }
                             <div>
                             <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
-                            data-ref="{$global:nav-base}/bhse/search.html?author={$recid}&amp;perpage={$count}&amp;sort=alpha" 
+                            data-ref="{$global:nav-base}/nhsl/search.html?child-rec={$recid}&amp;perpage={$count}&amp;sort=alpha" 
                             data-label="{substring-before($rec/descendant::tei:title[1]/text(),' — ')} contains" id="works">
                               See all {count($works)} works
                              </a>
