@@ -91,7 +91,7 @@ function app:google-analytics($node as node(), $model as map(*)){
 (:~  
  : Simple get record function, get tei record based on idno
  : Builds uri from simple ids.
- : Retruns 404 page if record is not found, or has been @depreciated
+ : Retuns 404 page if record is not found, or has been @depreciated
  : @param $app:id syriaca.org uri   
 :)                 
 declare function app:get-rec($node as node(), $model as map(*), $collection as xs:string?) { 
@@ -150,6 +150,9 @@ declare function app:h1($node as node(), $model as map(*)){
  global:tei2html(<srophe-title xmlns="http://www.tei-c.org/ns/1.0">{($model("data")/descendant::tei:titleStmt[1]/tei:title[1], $model("data")/descendant::tei:idno[1])}</srophe-title>)
 }; 
 
+(:~  
+ : Record status to be displayed in HTML sidebar 
+:)
 declare %templates:wrap  function app:rec-status($node as node(), $model as map(*), $collection as xs:string?){
 let $status := string($model("data")/descendant::tei:revisionDesc/@status)
 return
@@ -179,7 +182,7 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                 )}  
             </div>
         </div>
-    else if($model("data")//tei:body/tei:bibl/tei:listRelation) then 
+    else if($model("data")//tei:body/tei:bibl) then 
         <div class="row">
             <div class="col-md-8 column1">
                 {global:tei2html($model("data")/descendant::tei:body)} 
@@ -191,7 +194,10 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                     <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
                     <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">Is this record complete?</a>
                 </div>,
-                rel:build-relationships($model("data")//tei:body/tei:bibl/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
+                app:get-child-works($model("data")),
+                if($model("data")//tei:body/child::*/tei:listRelation) then 
+                rel:build-relationships($model("data")//tei:body/child::*/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
+                else ()
                 )}  
             </div>
         </div>  
@@ -213,7 +219,45 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                 )}  
             </div>
         </div> 
+};
 
+(:~ 
+ : Get child works for NHSL records
+:)
+declare %templates:wrap function app:get-child-works($data){
+let $rec := $data
+let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1]/text(),'/tei','')
+let $works := collection($global:data-root || '/works/tei')//tei:listRelation/tei:relation[@passive[matches(.,$recid)]]  
+let $count := count($works)
+return 
+    if($count gt 0) then 
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            <h3>{substring-before($rec/descendant::tei:title[1]/text(),' — ')} contains {$count} works.</h3>
+            {(
+                if($count gt 3) then
+                        <div>
+                         {
+                             for $r in subsequence($works, 1, 3)
+                             let $workid := replace($r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+                             let $rec :=  global:get-rec($workid)
+                             return global:display-recs-short-view($rec,'',$recid)
+                         }
+                            <div>
+                            <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
+                            data-ref="{$global:nav-base}/bhse/search.html?author={$recid}&amp;perpage={$count}&amp;sort=alpha" 
+                            data-label="{substring-before($rec/descendant::tei:title[1]/text(),' — ')} contains" id="works">
+                              See all {count($works)} works
+                             </a>
+                            </div>
+                         </div>    
+                else 
+                    for $r in $works
+                    let $workid := replace($r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+                    let $rec :=  global:get-rec($workid)
+                    return global:display-recs-short-view($rec,'',$recid)
+            )}
+        </div>
+    else ()     
 };
 
 (:~      
