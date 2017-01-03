@@ -228,6 +228,9 @@
                         <xsl:when test="position() = $maxauthors">
                             <xsl:text> and </xsl:text>
                         </xsl:when>
+                        <xsl:when test="position() = last()">
+                            <xsl:text> and </xsl:text>
+                        </xsl:when>
                         <xsl:when test="position() &gt; 1">
                             <xsl:text>, </xsl:text>
                         </xsl:when>
@@ -295,6 +298,39 @@
                         </xsl:when>
                     </xsl:choose>
                 </xsl:for-each>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    <!-- Wrap text in @rend tags -->
+    <xsl:function name="local:rend">
+        <xsl:param name="node"/>
+        <!--
+            Can not have a dynamic mode need a work around
+            <xsl:param name="mode"/>
+        -->
+        <xsl:choose>
+            <xsl:when test="$node/@rend = 'bold'">
+                <b>
+                    <xsl:apply-templates select="$node/node()|$node/text()"/>
+                </b>
+            </xsl:when>
+            <xsl:when test="$node/@rend = 'italic'">
+                <i>
+                    <xsl:apply-templates select="$node/node()|$node/text()"/>
+                </i>
+            </xsl:when>
+            <xsl:when test="$node/@rend = 'superscript'">
+                <sup>
+                    <xsl:apply-templates select="$node/node()|$node/text()"/>
+                </sup>
+            </xsl:when>
+            <xsl:when test="$node/@rend = 'subscript'">
+                <sub>
+                    <xsl:apply-templates select="$node/node()|$node/text()"/>
+                </sub>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates select="$node/node()|$node/text()"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>

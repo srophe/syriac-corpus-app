@@ -18,4 +18,16 @@ declare namespace skos = "http://www.w3.org/2004/02/skos/core#";
 
 declare option exist:serialize "method=xml media-type=application/rss+xml omit-xml-declaration=no indent=yes";
 
-'temp for running queries on production'
+let $rec := 
+    for $r in collection('/db/apps/srophe-data')//tei:idno[. = 'http://syriaca.org/person/701/tei']
+    return root($r)
+return 
+    transform:transform($rec//tei:TEI, doc('/db/apps/srophe/resources/xsl/tei2html.xsl'), 
+    <parameters>
+        <param name="data-root" value="srophe-data/data"/>
+        <param name="app-root" value="srophe"/>
+        <param name="nav-base" value="http://syriaca.org/"/>
+        <param name="base-uri" value="http://syriaca.org"/>
+    </parameters>
+    )
+    

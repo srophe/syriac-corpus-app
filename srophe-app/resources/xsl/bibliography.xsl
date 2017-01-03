@@ -367,11 +367,11 @@
             </xsl:otherwise>
         </xsl:choose>
         <!-- If monograph is level='m' include 'in' -->
-        <xsl:if test="following-sibling::t:monogr/t:title[1][@level='m']">
+        <xsl:if test="following-sibling::*[1][self::t:monogr]/t:title[1][@level='m']">
             <xsl:text> In</xsl:text>
         </xsl:if>
         <!-- Space if followed by monograph -->
-        <xsl:if test="following-sibling::t:monogr">
+        <xsl:if test="following-sibling::*[1][self::t:monogr]">
             <xsl:text> </xsl:text>
         </xsl:if>
     </xsl:template>
@@ -458,10 +458,10 @@
         <!-- Display authors/editors -->
         <!-- Suppress duplicate authors for records with multiple t:monogr elements -->
         <xsl:choose>
-            <xsl:when test="preceding-sibling::t:analytic"/>
-            <xsl:when test="preceding-sibling::t:monogr">
+            <xsl:when test="preceding-sibling::*[1][self::t:analytic]"/>
+            <xsl:when test="preceding-sibling::*[1][self::t:monogr]">
                 <xsl:choose>
-                    <xsl:when test="deep-equal(t:editor | t:author, preceding-sibling::t:monogr/t:editor | preceding-sibling::t:monogr/t:author )"/>
+                    <xsl:when test="deep-equal(t:editor | t:author, preceding-sibling::t:monogr[1]/t:editor | preceding-sibling::t:monogr[1]/t:author )"/>
                     <xsl:otherwise>
                         <xsl:call-template name="persons-bibliography"/>
                     </xsl:otherwise>
@@ -484,7 +484,7 @@
             </xsl:otherwise>
         </xsl:choose>
         <xsl:choose>
-            <xsl:when test="preceding-sibling::t:analytic">
+            <xsl:when test="preceding-sibling::*[1][self::t:analytic]">
                 <xsl:text>, </xsl:text>
                 <xsl:call-template name="persons-bibliography"/>
                 <xsl:if test="t:title[@level='m'] and t:biblScope[(@unit != 'vol' and @unit != 'series') or not(@unit)]">
@@ -527,19 +527,19 @@
             <xsl:text> </xsl:text>
         </xsl:if>
         <xsl:choose>
-            <xsl:when test="following-sibling::t:series">
-                <xsl:apply-templates select="following-sibling::t:series" mode="footnote"/>
+            <xsl:when test="following-sibling::*[1][self::t:series]">
+                <xsl:apply-templates select="following-sibling::*[1][self::t:series]" mode="footnote"/>
             </xsl:when>
-            <xsl:when test="following-sibling::t:monogr">
+            <xsl:when test="following-sibling::*[1][self::t:monogr]">
                 <xsl:text>, </xsl:text>
             </xsl:when>
-            <xsl:when test="preceding-sibling::t:monogr">
+            <xsl:when test="preceding-sibling::*[1][self::t:monogr]">
                 <xsl:text> </xsl:text>
-                <xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/>
+                <xsl:apply-templates select="preceding-sibling::t:monogr[1]/t:imprint" mode="footnote"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:choose>
-                    <xsl:when test="preceding-sibling::t:analytic">
+                    <xsl:when test="preceding-sibling::*[1][self::t:analytic]">
                         <xsl:choose>
                             <xsl:when test="t:title[@level='j'] and t:imprint[child::*[string-length(.) &gt; 0]]">
                                 <xsl:text> (</xsl:text>
@@ -557,7 +557,7 @@
                         <xsl:apply-templates select="t:imprint" mode="footnote"/>
                     </xsl:otherwise>
                 </xsl:choose>
-                <xsl:if test="following-sibling::t:monogr">
+                <xsl:if test="following-sibling::*[1][self::t:monogr]">
                     <xsl:text>, </xsl:text>
                 </xsl:if>
             </xsl:otherwise>
@@ -796,7 +796,9 @@
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
+                <!--NOTE: Added preceding space for dealing with names in titles (ex: /bibl/670), check for issues.  -->
                 <span>
+                    <xsl:text> </xsl:text>
                     <xsl:choose>
                         <xsl:when test="t:persName[starts-with(@xml:lang,'en')]">
                             <xsl:apply-templates select="t:persName[starts-with(@xml:lang,'en')][1]" mode="footnote"/>

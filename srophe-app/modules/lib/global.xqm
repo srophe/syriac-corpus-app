@@ -33,7 +33,7 @@ declare variable $global:data-root :=
 (: Establish main navigation for app, used in templates for absolute links :)
 declare variable $global:nav-base := 
     if($global:get-config//nav-base/text() != '') then $global:get-config//nav-base/text()
-    else '';
+    else concat('/exist/apps/',$global:app-root);
 
 (: Base URI used in tei:idno :)
 declare variable $global:base-uri := $global:get-config//base_uri/text();
@@ -180,7 +180,7 @@ else $name/text()
  :)
 declare function global:build-sort-string($titlestring as xs:string?, $lang as xs:string?) as xs:string* {
     if($lang = 'ar') then global:ar-sort-string($titlestring)
-    else replace($titlestring,'^\s+|^al-|^On\s+|^The\s+|^A\s+|^''De |^[|^‘|^ʻ|^ʿ|^]','')
+    else replace($titlestring,'^\s+|^al-|^On\s+|^The\s+|^A\s+|^''De |^[|^‘|^ʻ|^ʿ|^]|^\d*\W','')
 };
 
 (:~
@@ -189,5 +189,5 @@ declare function global:build-sort-string($titlestring as xs:string?, $lang as x
  : @param $titlestring 
  :)
 declare function global:ar-sort-string($titlestring as xs:string?) as xs:string* {
-    replace(replace(replace(replace($titlestring,'^\s+',''),'^(\sابن|\sإبن|\sبن)',''),'(ال|أل|ٱل)',''),'^[U064B - U0656]','')
+    replace(replace(replace(replace($titlestring,'^\s+',''),'^(\sابن|\sإبن|\sبن)',''),'(ال|أل|ٱل)',''),'[U064B-U0656]','')
 };
