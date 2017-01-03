@@ -113,15 +113,18 @@ if($app:id != '') then
             if(starts-with($app:id,'http://syriaca.org')) then  
                     map {"data" :=  collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$app:id]]}
             else map {"data" := global:get-rec($id)}
-        else if(collection($global:data-root)//tei:idno[@type='URI'][. = concat($id,'/tei')]) then 
-            if(collection($global:data-root)//tei:idno[@type='URI'][. = concat($id,'/tei')][1]/ancestor::tei:TEI/descendant::tei:revisionDesc[@status='deprecated']) then
-                let $rec := collection($global:data-root)//tei:idno[@type='URI'][. = $id]
-                let $redirect := if($rec/parent::*/descendant::tei:idno[@type='redirect']) then 
-                                    replace(replace($rec/parent::*/descendant::tei:idno[@type='redirect'][1]/text(),'/tei',''),$global:base-uri,$global:nav-base)
-                                 else(concat($global:nav-base,'/',$collection,'/','browse.html'))
-                return response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
-            else map {"data" := global:get-rec($id)}
-        else response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html')))        
+        else 
+            let $rec := global:get-rec($id)
+            return 
+                if(empty($rec)) then response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html')))
+                else 
+                    if($rec/descendant::tei:revisionDesc[@status='deprecated']) then 
+                        let $redirect := 
+                                         if($rec/descendant::tei:idno[@type='redirect']) then 
+                                            replace(replace($rec/descendant::tei:idno[@type='redirect'][1]/text(),'/tei',''),$global:base-uri,$global:nav-base)
+                                         else concat($global:nav-base,'/',$collection,'/','browse.html')
+                        return response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
+                    else map {"data" := $rec }      
 else map {"data" := 'Page data'}    
 };
 
