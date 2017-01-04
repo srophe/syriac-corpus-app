@@ -33,7 +33,7 @@
                             </datatype>
                         </attDef>
                         <attDef ident="xml:lang" mode="change">
-                            <valList mode="change" type="closed">
+                            <valList mode="add" type="closed">
                                 <valItem ident="ar">
                                     <gloss>Arabic</gloss>
                                     <desc>Arabic of any variety or period</desc>
@@ -772,6 +772,24 @@
                                 <ref target="http://syriaca.org/documentation/relations.html">http://syriaca.org/documentation/relations.html</ref> or 
                                 one from an external vocabulary such as <ref target="http://snapdrgn.net/ontology">SNAP</ref> or 
                                 <ref target="http://lawd.info/ontology">LAWD</ref>.</desc>
+                            <valList mode="change" type="semi">
+                                <valItem ident="dct:source">
+                                    <gloss>is derived from</gloss>
+                                    <desc>A related resource from which the described resource is derived (<ref target="http://purl.org/dc/terms/source">http://purl.org/dc/terms/source</ref>).</desc>
+                                </valItem>
+                                <valItem ident="lawd:embodies">
+                                    <gloss>embodies</gloss>
+                                    <desc>The relationship between a Written Work and the abstract Conceptual Work it embodies. (<ref target="http://lawd.info/ontology/embodies">http://lawd.info/ontology/embodies</ref>).</desc>
+                                </valItem>
+                                <valItem ident="syriaca:commemorated">
+                                    <gloss>commemorates</gloss>
+                                    <desc>The relationship between a Work and the Person it commemorates.</desc>
+                                </valItem>
+                                <valItem ident="dct:isPartOf">
+                                    <gloss>is part of</gloss>
+                                    <desc>A related resource in which the described resource is physically or logically included. (<ref target="http://purl.org/dc/terms/isPartOf">http://purl.org/dc/terms/isPartOf</ref>).</desc>
+                                </valItem>
+                            </valList>
                         </attDef>
                         <attDef ident="active" mode="change">
                             <remarks versionDate="2016-11-24"><p>This should contain either the full URI of a Syriaca.org entity (person, place, work, etc.), 
