@@ -57,7 +57,8 @@ let $data :=
        let $d := util:eval(concat('$hits[descendant::tei:persName]',facet:facet-filter(facet-defs:facet-definition('spear-persons'))))
        let $uris := distinct-values($d/descendant::tei:persName/@ref)
        for $hit in $uris
-       let $title := bs:get-title($hit)
+       for $hit in collection($global:data-root)//tei:TEI[.//tei:idno = concat($hit,"/tei")][1]
+       let $title := replace(string-join($hit/descendant::tei:fileDesc/tei:titleStmt[1]/tei:title[1]/text()[1],' '),' — ',' ')
        where 
             if($bs:sort='All') then 
                 $title
@@ -65,18 +66,20 @@ let $data :=
                 $title[starts-with(.,'Anonym')]
             else $title[not(starts-with(.,'Anonym'))][matches(substring(global:build-sort-string(.,'en'),1,1),browse:get-sort(),'i')] 
        order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
-       return <uri>{$hit}</uri>
+       (:return <hit>{($d,$hit)}</hit>:)
+       return $hit
    else if($bs:view = 'places') then 
        let $d := util:eval(concat('$hits[descendant::tei:placeName]',facet:facet-filter(facet-defs:facet-definition('spear'))))
        let $uris := distinct-values($d/descendant::tei:placeName/@ref)
        for $hit in $uris
-       let $title := bs:get-title($hit)
+       for $hit in collection($global:data-root)//tei:TEI[.//tei:idno = concat($hit,"/tei")][1]
+       let $title := replace(string-join($hit/descendant::tei:fileDesc/tei:titleStmt[1]/tei:title[1]/text()[1],' '),' — ',' ')
        where 
         if($bs:sort='All') then 
             $title
         else $title[matches(substring(global:build-sort-string(.,'en'),1,1),browse:get-sort(),'i')]
        order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
-       return <uri>{$hit}</uri>
+       return $hit
    else if($bs:view = 'events') then 
         util:eval(concat('$hits[descendant::tei:listEvent]',facet:facet-filter(facet-defs:facet-definition('spear-events'))))
    else if($bs:view = 'keywords') then   
@@ -84,7 +87,6 @@ let $data :=
    else if($bs:view = 'advanced') then 
      util:eval(concat('$hits',facet:facet-filter(facet-defs:facet-definition('spear'))))
    else 
-        (:util:eval(concat('$hits',facet:facet-filter(facet-defs:facet-definition('spear-sources')))):)
         for $r in collection($global:data-root || '/spear/tei')//tei:title[@level='a'][parent::tei:titleStmt]
         let $id := $r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][1]
         let $num := if($r/tei:num) then xs:double($r/tei:num/text()) else()
@@ -149,7 +151,9 @@ return
                     if($bs:view = 'events') then
                         facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition('spear-events')/child::*))
                     else if($bs:view = 'keywords') then
-                        facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition('spear-keywords')/child::*))    
+                        facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition('spear-keywords')/child::*))
+                    else if($bs:view = 'persons' or $bs:view = 'places') then
+                        (:facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition('spear-persons')/child::*)):) ()
                     else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition('spear')/child::*))
                     }
                  </div>
@@ -238,14 +242,13 @@ return
 (:~
  : Display results where canonical records are referenced
 :)
-declare function bs:display-canonical-names($nodes){
-for $hit in subsequence($nodes,$bs:start,$bs:perpage)
-let $doc := collection($global:data-root)//tei:TEI[.//tei:idno = concat($hit,"/tei")][1]
+declare function bs:display-canonical-names($hits){
+for $hit in subsequence($hits,$bs:start,$bs:perpage)
 return 
     <div class="results-list">
         {
-            if (exists($doc)) then
-                global:display-recs-short-view($doc,'spear')
+            if (exists($hit)) then
+                global:display-recs-short-view($hit,'spear')
             else $hit
         }
     </div>
