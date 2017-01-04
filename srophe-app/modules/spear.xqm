@@ -1,4 +1,4 @@
-(:~
+(:~              
  : Builds spear page  
  :)
 xquery version "3.0";
@@ -80,14 +80,14 @@ return
  : @param $spear:id 
 :)
 declare function spear:canonical-rec($id){
-  collection($global:data-root)//tei:idno[. = $id]
+  collection($global:data-root)//tei:TEI[.//tei:idno[. = $id]]
 };
 
 declare function spear:title($id){
     if($spear:item-type = ('place-factoid','person-factoid')) then 
         global:tei2html(
             <spear-headwords xmlns="http://www.tei-c.org/ns/1.0">
-                {spear:canonical-rec($id)/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"]}
+                {spear:canonical-rec($id)/descendant::*[@syriaca-tags="#syriaca-headword"]}
             </spear-headwords>)
     else if($spear:item-type = 'keyword-factoid') then   
         concat('"',lower-case(functx:camel-case-to-words(substring-after($id,'/keyword/'),' ')),'"')
@@ -488,7 +488,7 @@ return
 };
  
 declare function spear:get-title($uri){
-let $doc := collection('/db/apps/srophe-data/data')/range:field-eq("uri", concat($uri,"/tei"))[1]
+let $doc := collection($global:data-root)/tei:TEI[.//tei:idno = concat($uri,"/tei")]
 return 
       if (exists($doc)) then
         replace(string-join($doc/descendant::tei:fileDesc/tei:titleStmt[1]/tei:title[1]/text()[1],' '),' — ',' ')
