@@ -148,6 +148,8 @@ return
                     { 
                     if($bs:view = 'events') then
                         facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition('spear-events')/child::*))
+                    else if($bs:view = 'keywords') then
+                        facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition('spear-keywords')/child::*))    
                     else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition('spear')/child::*))
                     }
                  </div>
@@ -226,7 +228,7 @@ declare function bs:hits($hits){
  : NOTE: could be a global function
 :)
 declare function bs:get-title($uri){
-let $doc := collection($global:data-root)/range:field-eq("uri", concat($uri,"/tei"))[1]
+let $doc := collection($global:data-root)//tei:TEI[.//tei:idno = concat($uri,"/tei")][1]
 return 
       if (exists($doc)) then
         replace(string-join($doc/descendant::tei:fileDesc/tei:titleStmt[1]/tei:title[1]/text()[1],' '),' — ',' ')
@@ -238,7 +240,7 @@ return
 :)
 declare function bs:display-canonical-names($nodes){
 for $hit in subsequence($nodes,$bs:start,$bs:perpage)
-let $doc := collection($global:data-root)/range:field-eq("uri", concat($hit,"/tei"))[1]
+let $doc := collection($global:data-root)//tei:TEI[.//tei:idno = concat($hit,"/tei")][1]
 return 
     <div class="results-list">
         {

@@ -21,35 +21,35 @@ if($collection = 'persons') then
         <order-by direction="descending">count</order-by>
     </facet-definition>
     <facet-definition name="Century">
-        <range type="xs:date">
-            <bucket gt="0001-01-01" lt="0100-01-01" name="1-100"/>
-            <bucket gt="0100-01-01" lt="0200-01-01" name="100-200"/>
-            <bucket gt="0200-01-01" lt="0300-01-01" name="200-300"/>
-            <bucket gt="0300-01-01" lt="0400-01-01" name="300-400"/>
-            <bucket gt="0400-01-01" lt="0500-01-01" name="400-500"/>
-            <bucket gt="0500-01-01" lt="0600-01-01" name="500-600"/>
-            <bucket gt="0600-01-01" lt="0700-01-01" name="600-700"/>
-            <bucket gt="0700-01-01" lt="0800-01-01" name="700-800"/>
-            <bucket gt="0800-01-01" lt="0900-01-01" name="800-900"/>
-            <bucket gt="0900-01-01" lt="1000-01-01" name="900-1000"/>
-            <bucket gt="1000-01-01" lt="1100-01-01" name="1000-1100"/>
-            <bucket gt="1100-01-01" lt="1200-01-01" name="1100-1200"/>
-            <bucket gt="1200-01-01" lt="1300-01-01" name="1200-1300"/>
-            <bucket gt="1300-01-01" lt="1400-01-01" name="1300-1400"/>
-            <bucket gt="1400-01-01" lt="1500-01-01" name="1400-1500"/>
-            <bucket gt="1500-01-01" lt="1600-01-01" name="1500-1600"/>
-            <bucket gt="1600-01-01" lt="1700-01-01" name="1600-1700"/>
-            <bucket gt="1700-01-01" lt="1800-01-01" name="1700-1800"/>
-            <bucket gt="1800-01-01" lt="1900-01-01" name="1800-1900"/>
-            <bucket gt="1900-01-01" lt="2000-01-01" name="1900-2000"/>
-            <!--<bucket gt="2000-01-01" name="2000 +"/>-->
+        <range type="xs:year">
+            <bucket lt="0001" name="BC dates" order='22'/>
+            <bucket gt="0001-01-01" lt="0100-01-01" name="1-100" order='21'/>
+            <bucket gt="0100-01-01" lt="0200-01-01" name="100-200" order='20'/>
+            <bucket gt="0200-01-01" lt="0300-01-01" name="200-300" order='19'/>
+            <bucket gt="0300-01-01" lt="0400-01-01" name="300-400" order='18'/>
+            <bucket gt="0400-01-01" lt="0500-01-01" name="400-500" order='17'/>
+            <bucket gt="0500-01-01" lt="0600-01-01" name="500-600" order='16'/>
+            <bucket gt="0600-01-01" lt="0700-01-01" name="600-700" order='15'/>
+            <bucket gt="0700-01-01" lt="0800-01-01" name="700-800" order='14'/>
+            <bucket gt="0800-01-01" lt="0900-01-01" name="800-900" order='13'/>
+            <bucket gt="0900-01-01" lt="1000-01-01" name="900-1000" order='12'/>
+            <bucket gt="1000-01-01" lt="1100-01-01" name="1000-1100" order='11'/>
+            <bucket gt="1100-01-01" lt="1200-01-01" name="1100-1200" order='10'/>
+            <bucket gt="1200-01-01" lt="1300-01-01" name="1200-1300" order='9'/>
+            <bucket gt="1300-01-01" lt="1400-01-01" name="1300-1400" order='8'/>
+            <bucket gt="1400-01-01" lt="1500-01-01" name="1400-1500" order='7'/>
+            <bucket gt="1500-01-01" lt="1600-01-01" name="1500-1600" order='6'/>
+            <bucket gt="1600-01-01" lt="1700-01-01" name="1600-1700" order='5'/>
+            <bucket gt="1700-01-01" lt="1800-01-01" name="1700-1800" order='4'/>
+            <bucket gt="1800-01-01" lt="1900-01-01" name="1800-1900" order='3'/>
+            <bucket gt="1900-01-01" lt="2000-01-01" name="1900-2000" order='2'/>
+            <bucket gt="2000-01-01" name="2000 +" order="1"/>
         </range>
         <group-by type="xs:date">
             <sub-path>/@syriaca-computed-start</sub-path>
-            <!--<sub-path>descendant::*/@syriaca-computed-start</sub-path>-->
         </group-by>
         <max-values show="5">40</max-values>
-        <order-by direction="descending">count</order-by>
+        <order-by direction="descending">order</order-by>
     </facet-definition>
     <facet-definition name="Sex or Gender">
         <group-by>
@@ -58,35 +58,35 @@ if($collection = 'persons') then
         <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
-    <facet-definition name="Has name in language">
+    <facet-definition name="Has name in">
         <group-by>
             <sub-path>descendant::tei:persName/@xml:lang</sub-path>
         </group-by>
         <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
-    <facet-definition name="Birth Location">
+    <facet-definition name="Born">
         <group-by>
             <sub-path>descendant::tei:relation[@name="born-at"]/@passive</sub-path>
         </group-by>
         <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
-    <facet-definition name="Death Location">
+    <facet-definition name="Died">
         <group-by>
             <sub-path>descendant::tei:relation[@name="died-at"]/@passive</sub-path>
         </group-by>
         <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
-    <facet-definition name="Literary Connection to Location">
+    <facet-definition name="Literary Connection">
         <group-by function="facet:group-by-array">
             <sub-path>descendant::tei:relation[@name="has-literary-connection-to-place"]/@passive</sub-path>
         </group-by>
         <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>        
-    <facet-definition name="Unspecified Geographic Connection">
+    <facet-definition name="Unspecified Connection">
         <group-by function="facet:group-by-array">
             <sub-path>descendant::tei:relation[@name="has-relation-to-place"]/@passive</sub-path>
         </group-by>
@@ -233,5 +233,15 @@ else if($collection = 'spear-events') then
         <order-by direction="ascending">count</order-by>
     </facet-definition>
 </facets> 
+else if($collection = 'spear-keywords') then 
+<facets xmlns="http://expath.org/ns/facet">
+    <facet-definition name="Keyword">
+        <group-by function="facet:group-by-array">
+            <sub-path>descendant::*/@*[contains(.,'/keyword/')]</sub-path>
+        </group-by>
+        <max-values show="5">100</max-values>
+        <order-by direction="ascending">count</order-by>
+    </facet-definition>
+</facets>    
 else ()
 };
