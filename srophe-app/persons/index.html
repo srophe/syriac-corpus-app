@@ -21,9 +21,6 @@
             <div class="col-md-2"/>
         </div>
     </div>
-    <div>
-        <div data-template="person:display-persons-map" data-template-collection="persons"/>
-    </div>
     <div class="row grey">
         <div class="col-md-8 white">
             <div class="section indent" style="min-height:450px; padding-top:1.5em;">
@@ -37,59 +34,62 @@
                         <a href="about.html">About page</a>: an overview of the Syriac Biographical Dictionary.</li>
                     <li>
                         <a href="http://syriaca.org/documentation">Help page</a>: documentation, editorial guidelines, and technical definitions.</li>
-                    <li>
-                        <a href="browse.html">Browse persons</a>: browse persons by name, date, or type.</li>
+                    <li><span class="srp-label">Browse persons</span>
+                        <ul>
+                            <li>
+                                By Name
+                                <ul>
+                                    <li>
+                                        <a href="browse.html?lang=en&amp;sort=A">English</a>
+                                    </li>
+                                    <li>
+                                        <a href="browse.html?lang=syr&amp;sort=ܐ">
+                                            <span dir="rtl">ܠܫܢܐ ܣܘܪܝܝܐ</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="browse.html?lang=ar&amp;sort=ا">
+                                            <span dir="rtl">اللغة العربية</span>
+                                        </a>
+                                    </li>
+                                    <!--Do not have this browse option <li><a href="">Other Languages</a></li> -->
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="browse.html?view=type">By Person Type</a>
+                            </li>
+                            <li>
+                                <a href="browse.html?view=date">By Date</a>
+                            </li>
+                            <li>
+                                Browse Subsidiary Volumes:
+                                <ul>
+                                    <li>
+                                        <a href="../q/browse.html">Volume 1: Qadishe: A Digital Catalogue of Saints in the Syriac Tradition</a>
+                                    </li>
+                                    <li>
+                                        <a href="../authors/browse.html">Volume 2: A Guide to Syriac Authors</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="browse.html?view=facets">Advanced Browse</a>
+                            </li>
+                            <li>
+                                <a href="search.html">Advanced Search</a>
+                            </li>
+                        </ul>
+                    
+                    </li>
                     <li>
                         <a href="http://syriaca.org/person/779">Theodora</a>: featured person.</li>
                 </ul>
             </div>
         </div>
         <div class="col-md-4">
-            <h3>Browse</h3>
-            <ul>
-                <li>
-                    <span class="srp-label">By Name</span>
-                    <ul>
-                        <li>
-                            <a href="browse.html?lang=en&amp;sort=A">English</a>
-                        </li>
-                        <li>
-                            <a href="browse.html?lang=syr&amp;sort=ܐ">
-                                <span dir="rtl" lang="syr">ܠܫܢܐ ܣܘܪܝܝܐ</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="browse.html?lang=ar&amp;sort=ا">
-                                <span dir="rtl">اللغة العربية</span>
-                            </a>
-                        </li>
-                        <!--Do not have this browse option <li><a href="">Other Languages</a></li> -->
-                    </ul>
-                </li>
-                <li>
-                    <a href="browse.html?view=type">By Person Type</a>
-                </li>
-                <li>
-                    <a href="browse.html?view=date">By Date</a>
-                </li>
-                <li>
-                    <span class="srp-label">Browse Subsidiary Volumes</span>:
-                    <ul>
-                        <li>
-                            <a href="../q/browse.html">Volume 1: Qadishe: A Digital Catalogue of Saints in the Syriac Tradition</a>
-                        </li>
-                        <li>
-                            <a href="../authors/browse.html">Volume 2: A Guide to Syriac Authors</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="browse.html?view=facets">Advanced Browse</a>
-                </li>
-                <li>
-                    <a href="search.html">Advanced Search</a>
-                </li>
-            </ul>
+            <div data-template="person:display-persons-map" data-template-collection="persons" style="margin:0 -1em 1em -1em;"/>
+            <a href="browse.html?view=map">See bigger map &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+            
         </div>
     </div>
 </div>
