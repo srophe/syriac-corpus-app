@@ -258,16 +258,20 @@
                         </span>
                     </xsl:if>
                     <span>
+                        <xsl:apply-templates select="@xml:id"/>
                         <xsl:call-template name="langattr"/>
                         <xsl:call-template name="footnote"/>
                         <xsl:if test="t:listRelation/t:relation">
                             <xsl:variable name="parent" select="ancestor::t:body/t:bibl"/>
-                            <xsl:variable name="bibl-type" select="local:translate-label(string(@type))"/>                               
+                            <xsl:variable name="bibl-type" select="local:translate-label(string(@type))"/>
                             <xsl:for-each select="t:listRelation/t:relation[not(@ref='lawd:embodies')]">
                                 <xsl:variable name="bibl-rel">
                                     <xsl:variable name="bibl-id" select="tokenize(@passive,' ')[1]"/>
                                     <xsl:variable name="type" select="$parent/t:bibl[@xml:id = substring-after($bibl-id,'#')]/@type"/>
-                                    <xsl:value-of select="local:translate-label(string($type))"/><xsl:if test="contains(@passive,' ')"><xsl:text>s</xsl:text></xsl:if> 
+                                    <xsl:value-of select="local:translate-label(string($type))"/>
+                                    <xsl:if test="contains(@passive,' ')">
+                                        <xsl:text>s</xsl:text>
+                                    </xsl:if>
                                 </xsl:variable>
                                 <xsl:text> (</xsl:text>
                                 <xsl:value-of select="$bibl-type"/>
@@ -814,6 +818,9 @@
             <xsl:apply-templates/>
         </a>
     </xsl:template>
+    <xsl:template match="@xml:id">
+        <xsl:attribute name="id" select="."/>
+    </xsl:template>
     <xsl:template match="t:hi" mode="#all">
         <xsl:sequence select="local:rend(.)"/>
     </xsl:template>
@@ -1141,7 +1148,7 @@
         <xsl:if test="self::t:bibl">
             <div class="well">
                 <xsl:if test="t:title">
-                    <h3>Titles:</h3>
+                    <h3>Titles</h3>
                     <ul>
                         <xsl:apply-templates select="t:title[contains(@syriaca-tags,'#syriaca-headword') and starts-with(@xml:lang,'syr')]" mode="list">
                             <xsl:sort lang="syr" select="."/>
@@ -1419,7 +1426,9 @@
                         <xsl:variable name="label">
                             <xsl:variable name="l" select="local:translate-label(current-grouping-key())"/>
                             <xsl:choose>
-                                <xsl:when test="$l != ''"><xsl:value-of select="$l"/></xsl:when>
+                                <xsl:when test="$l != ''">
+                                    <xsl:value-of select="$l"/>
+                                </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:value-of select="current-grouping-key()"/>
                                 </xsl:otherwise>
