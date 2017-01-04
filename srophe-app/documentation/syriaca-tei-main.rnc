@@ -1,16 +1,15 @@
 namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
 namespace ns1 = "http://www.isocat.org/ns/dcr"
 namespace rng = "http://relaxng.org/ns/structure/1.0"
-namespace s = "http://www.ascc.net/xml/schematron"
 namespace sch = "http://purl.oclc.org/dsdl/schematron"
 default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2016-12-07T20:06:00Z. .
-# TEI Edition: Version 3.0.0. Last updated on
-#	29th March 2016, revision 89ba24e
-# TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.0.0/
+# Schema generated from ODD source 2017-01-04T20:27:08Z. .
+# TEI Edition: Version 3.1.0. Last updated on
+#	15th December 2016, revision d3f5e70
+# TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.1.0/
 #
 
 #
@@ -36,14 +35,11 @@ tei_macro.specialPara =
    | tei_model.divPart
    | tei_model.global)*
 tei_macro.xtext = (text | tei_model.gLike)*
-tei_macro.anyXML =
+anyElement-xenoData =
   element * - (tei:* | teix:egXML) {
     attribute * { text }*,
-    (text | tei_macro.anyXML)*
+    (text | anyElement-xenoData)*
   }
-tei_data.word = xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
-tei_data.name = xsd:Name
-tei_data.enumerated = tei_data.word
 tei_att.ascribed.attributes = tei_att.ascribed.attribute.who
 tei_att.ascribed.attribute.who =
   
@@ -295,7 +291,7 @@ tei_att.datable.w3c.attribute.to =
   }?
 sch:pattern [
   id =
-    "syriacaMainODD-att.datable.w3c-att-datable-w3c-when-constraint-1"
+    "syriacaMainODD-att.datable.w3c-att-datable-w3c-when-constraint-rule-1"
   "\x{a}" ~
   "      "
   sch:rule [
@@ -315,7 +311,7 @@ sch:pattern [
 ]
 sch:pattern [
   id =
-    "syriacaMainODD-att.datable.w3c-att-datable-w3c-from-constraint-2"
+    "syriacaMainODD-att.datable.w3c-att-datable-w3c-from-constraint-rule-2"
   "\x{a}" ~
   "      "
   sch:rule [
@@ -334,7 +330,8 @@ sch:pattern [
   "   "
 ]
 sch:pattern [
-  id = "syriacaMainODD-att.datable.w3c-att-datable-w3c-to-constraint-3"
+  id =
+    "syriacaMainODD-att.datable.w3c-att-datable-w3c-to-constraint-rule-3"
   "\x{a}" ~
   "      "
   sch:rule [
@@ -363,7 +360,7 @@ tei_att.datable.attribute.calendar =
   ## indicates the system or calendar to which the date represented by the content of this element belongs.
   attribute calendar { xsd:anyURI }?
 sch:pattern [
-  id = "syriacaMainODD-att.datable-calendar-calendar-constraint-4"
+  id = "syriacaMainODD-att.datable-calendar-calendar-constraint-rule-4"
   "\x{a}" ~
   "      "
   sch:rule [
@@ -519,7 +516,6 @@ tei_att.global.responsibility.attribute.resp =
   }?
 tei_att.editLike.attributes =
   tei_att.dimensions.attributes,
-  tei_att.source.attributes,
   tei_att.editLike.attribute.evidence,
   tei_att.editLike.attribute.instant
 tei_att.editLike.attribute.evidence =
@@ -575,6 +571,14 @@ tei_att.global.rendition.attribute.rendition =
   attribute rendition {
     list { xsd:anyURI+ }
   }?
+tei_att.global.source.attributes =
+  tei_att.global.source.attribute.source
+tei_att.global.source.attribute.source =
+  
+  ## specifies the source from which some aspect of this element is drawn.
+  attribute source {
+    list { xsd:anyURI+ }
+  }?
 tei_att.global.attributes =
   tei_att.global.rendition.attributes,
   tei_att.global.linking.attributes,
@@ -582,8 +586,8 @@ tei_att.global.attributes =
   tei_att.global.facs.attributes,
   tei_att.global.change.attributes,
   tei_att.global.responsibility.attributes,
+  tei_att.global.source.attributes,
   tei_att.global.attribute.syriaca-computed-start,
-  tei_att.global.attribute.source,
   tei_att.global.attribute.syriaca-computed-end,
   tei_att.global.attribute.syriaca-tags,
   tei_att.global.attribute.xmlid,
@@ -595,12 +599,6 @@ tei_att.global.attribute.syriaca-computed-start =
   
   ## start date
   attribute syriaca-computed-start { text }?
-tei_att.global.attribute.source =
-  
-  ## Global source attribute. This should use a hash URI to point to one or more bibliography items in  elements.
-  attribute source {
-    list { xsd:anyURI+ }
-  }?
 tei_att.global.attribute.syriaca-computed-end =
   
   ## End date
@@ -630,113 +628,111 @@ tei_att.global.attribute.xmllang =
   
   ## (language) indicates the language of the element content using a tag generated according to BCP 47.
   attribute xml:lang {
-    list {
-      (
-       ## (Arabic) Arabic of any variety or period
-       "ar"
-       | 
-         ## (Garshuni) Arabic Garshuni in unvocalized or undetermined Syriac script
-         "ar-Syrc"
-       | 
-         ## (Garshuni in West Syriac script) Arabic Garshuni in vocalized West Syriac script
-         "ar-Syrj"
-       | 
-         ## (Garshuni in East Syriac script) Arabic Garshuni in vocalized East Syriac script
-         "ar-Syrn"
-       | 
-         ## (Coptic) Coptic of any variety or period
-         "cop"
-       | 
-         ## (Old Church Slavonic) Old Church Slavonic
-         "cu"
-       | 
-         ## (German) German of any variety or period
-         "de"
-       | 
-         ## (Baumstark German Romanization) Names or terms Romanized into German according to the standards adopted by Anton Baumstark's Geschichte der syrischen Literatur.
-         "de-x-baumstrk"
-       | 
-         ## (Modern Greek) Modern Greek after A.D. 1453
-         "el"
-       | 
-         ## (English) English of any variety or period
-         "en"
-       | 
-         ## (GEDSH English Romanization) Names or terms Romanized into English according to the standards adopted by the Gorgias Encyclopedic Dictionary of the Syriac Heritage
-         "en-x-gedsh"
-       | 
-         ## (LAH English Romanization) Names or terms Romanized into English according to the standards adopted by the Late Antique Historiography project.
-         "en-x-gedsh"
-       | 
-         ## (Syriaca.org Alternate English Romanization) Names or terms Romanized into English by Syriaca.org using alternate methods for indexing purposes.
-         "en-x-srp1"
-       | 
-         ## (Spanish) Spanish
-         "es"
-       | 
-         ## (French) French of any variety or period
-         "fr"
-       | 
-         ## (BHS French Romanization) Names or terms Romanized into French according to the standards adopted by the Bibliotheca Hagiographica Syriaca
-         "fr-x-bhs"
-       | 
-         ## (BHS French Romanization) Names or terms Romanized into French according to the standards adopted by the Bibliotheca Hagiographica Syriaca
-         "fr-x-fiey"
-       | 
-         ## (Ge'ez) Ge'ez
-         "gez"
-       | 
-         ## (Ancient Greek) Ancient Greek to A.D. 1453
-         "grc"
-       | 
-         ## (Armenian) Classical or Modern Armenian
-         "hy"
-       | 
-         ## (Italian) Italian
-         "it"
-       | 
-         ## (Georgian) Classical or Modern Georgian
-         "ka"
-       | 
-         ## (Latin) Latin of any variety or period
-         "la"
-       | 
-         ## (Malayalam) Malayalam of any variety or period
-         "mal"
-       | 
-         ## (Malayalam Garshuni) Malayalam Garshuni in vocalized East Syriac script
-         "mal-Syrn"
-       | 
-         ## (Dutch) Dutch
-         "nl"
-       | 
-         ## (Portuguese) Portuguese
-         "pt"
-       | 
-         ## (Russian) Russian
-         "ru"
-       | 
-         ## (Syriac) Syriac of any variety or period
-         "syr"
-       | 
-         ## (Syriac in Estrangela script) Syriac in Estrangela script
-         "syr-Syre"
-       | 
-         ## (West Syriac) Syriac in vocalized West Syriac script
-         "syr-Syrj"
-       | 
-         ## (East Syriac) Syriac in vocalized East Syriac script
-         "syr-Syrn"
-       | 
-         ## (Syriac in Melkite script) Syriac in Melkite script. Note: This is not an ISO code but a private use code for Melkite employed by Syriaca.org until an ISO code is created
-         "syr-x-syrm"
-       | 
-         ## (Sogdian) Sogdian
-         "sog"
-       | 
-         ## (Turkish) Turkish
-         "tr")+
-    }
+    
+    ## (Arabic) Arabic of any variety or period
+    "ar"
+    | 
+      ## (Garshuni) Arabic Garshuni in unvocalized or undetermined Syriac script
+      "ar-Syrc"
+    | 
+      ## (Garshuni in West Syriac script) Arabic Garshuni in vocalized West Syriac script
+      "ar-Syrj"
+    | 
+      ## (Garshuni in East Syriac script) Arabic Garshuni in vocalized East Syriac script
+      "ar-Syrn"
+    | 
+      ## (Coptic) Coptic of any variety or period
+      "cop"
+    | 
+      ## (Old Church Slavonic) Old Church Slavonic
+      "cu"
+    | 
+      ## (German) German of any variety or period
+      "de"
+    | 
+      ## (Baumstark German Romanization) Names or terms Romanized into German according to the standards adopted by Anton Baumstark's Geschichte der syrischen Literatur.
+      "de-x-baumstrk"
+    | 
+      ## (Modern Greek) Modern Greek after A.D. 1453
+      "el"
+    | 
+      ## (English) English of any variety or period
+      "en"
+    | 
+      ## (GEDSH English Romanization) Names or terms Romanized into English according to the standards adopted by the Gorgias Encyclopedic Dictionary of the Syriac Heritage
+      "en-x-gedsh"
+    | 
+      ## (LAH English Romanization) Names or terms Romanized into English according to the standards adopted by the Late Antique Historiography project.
+      "en-x-gedsh"
+    | 
+      ## (Syriaca.org Alternate English Romanization) Names or terms Romanized into English by Syriaca.org using alternate methods for indexing purposes.
+      "en-x-srp1"
+    | 
+      ## (Spanish) Spanish
+      "es"
+    | 
+      ## (French) French of any variety or period
+      "fr"
+    | 
+      ## (BHS French Romanization) Names or terms Romanized into French according to the standards adopted by the Bibliotheca Hagiographica Syriaca
+      "fr-x-bhs"
+    | 
+      ## (BHS French Romanization) Names or terms Romanized into French according to the standards adopted by the Bibliotheca Hagiographica Syriaca
+      "fr-x-fiey"
+    | 
+      ## (Ge'ez) Ge'ez
+      "gez"
+    | 
+      ## (Ancient Greek) Ancient Greek to A.D. 1453
+      "grc"
+    | 
+      ## (Armenian) Classical or Modern Armenian
+      "hy"
+    | 
+      ## (Italian) Italian
+      "it"
+    | 
+      ## (Georgian) Classical or Modern Georgian
+      "ka"
+    | 
+      ## (Latin) Latin of any variety or period
+      "la"
+    | 
+      ## (Malayalam) Malayalam of any variety or period
+      "mal"
+    | 
+      ## (Malayalam Garshuni) Malayalam Garshuni in vocalized East Syriac script
+      "mal-Syrn"
+    | 
+      ## (Dutch) Dutch
+      "nl"
+    | 
+      ## (Portuguese) Portuguese
+      "pt"
+    | 
+      ## (Russian) Russian
+      "ru"
+    | 
+      ## (Syriac) Syriac of any variety or period
+      "syr"
+    | 
+      ## (Syriac in Estrangela script) Syriac in Estrangela script
+      "syr-Syre"
+    | 
+      ## (West Syriac) Syriac in vocalized West Syriac script
+      "syr-Syrj"
+    | 
+      ## (East Syriac) Syriac in vocalized East Syriac script
+      "syr-Syrn"
+    | 
+      ## (Syriac in Melkite script) Syriac in Melkite script. Note: This is not an ISO code but a private use code for Melkite employed by Syriaca.org until an ISO code is created
+      "syr-x-syrm"
+    | 
+      ## (Sogdian) Sogdian
+      "sog"
+    | 
+      ## (Turkish) Turkish
+      "tr"
   }?
 tei_att.global.attribute.xmlbase =
   
@@ -851,9 +847,7 @@ tei_att.resourced.attribute.url =
   ## (uniform resource locator) specifies the URL from which the media concerned may be obtained.
   attribute url { xsd:anyURI }
 tei_att.interpLike.attributes =
-  tei_att.source.attributes,
-  tei_att.interpLike.attribute.type,
-  tei_att.interpLike.attribute.inst
+  tei_att.interpLike.attribute.type, tei_att.interpLike.attribute.inst
 tei_att.interpLike.attribute.type =
   
   ## indicates what kind of phenomenon is being noted in the passage.
@@ -955,7 +949,7 @@ tei_att.typed.attribute.subtype =
     xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
   }?
 sch:pattern [
-  id = "syriacaMainODD-att.typed-subtypeTyped-constraint-5"
+  id = "syriacaMainODD-att.typed-subtypeTyped-constraint-rule-5"
   "\x{a}" ~
   "      "
   sch:rule [
@@ -988,7 +982,8 @@ tei_att.pointing.attribute.targetLang =
        "")
   }?
 sch:pattern [
-  id = "syriacaMainODD-att.pointing-targetLang-targetLang-constraint-6"
+  id =
+    "syriacaMainODD-att.pointing-targetLang-targetLang-constraint-rule-6"
   "\x{a}" ~
   "      "
   sch:rule [
@@ -1027,7 +1022,6 @@ tei_att.pointing.attribute.evaluate =
       ## no further evaluation of targets is carried out beyond that needed to find the element specified in the pointer's target.
       "none"
   }?
-tei_att.readFrom.attributes = empty
 tei_att.scoping.attributes =
   tei_att.scoping.attribute.target, tei_att.scoping.attribute.match
 tei_att.scoping.attribute.target =
@@ -1079,7 +1073,7 @@ tei_att.spanning.attribute.spanTo =
   ## indicates the end of a span initiated by the element bearing this attribute.
   attribute spanTo { xsd:anyURI }?
 sch:pattern [
-  id = "syriacaMainODD-att.spanning-spanTo-spanTo-2-constraint-7"
+  id = "syriacaMainODD-att.spanning-spanTo-spanTo-2-constraint-rule-7"
   "\x{a}" ~
   "      "
   sch:rule [
@@ -1130,15 +1124,8 @@ tei_att.transcriptional.attribute.status =
 tei_att.transcriptional.attribute.cause =
   
   ## documents the presumed cause for the intervention.
-  ## Suggested values include: 1] fix; 2] unclear
   attribute cause {
-    
-    ## repeated for the purpose of fixation
-    "fix"
-    | 
-      ## repeated to clarify a previously illegible or badly written text or mark
-      "unclear"
-    | xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
+    xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
   }?
 tei_att.transcriptional.attribute.seq =
   
@@ -1644,6 +1631,7 @@ tei_model.choicePart =
   | tei_seg
   | tei_ex
   | tei_am
+  | tei_supplied
 tei_model.imprintPart = tei_publisher | tei_biblScope | tei_pubPlace
 tei_model.catDescPart = notAllowed
 tei_model.addressLike = tei_address | tei_affiliation
@@ -1717,7 +1705,7 @@ tei_model.biblPart =
   | tei_msIdentifier
   | tei_listRelation
 tei_model.frontPart =
-  tei_model.frontPart.drama | tei_divGen | tei_titlePage
+  tei_model.frontPart.drama | tei_listBibl | tei_divGen | tei_titlePage
 tei_model.addrPart = tei_model.nameLike | tei_addrLine
 tei_model.pPart.data =
   tei_model.dateLike
@@ -1761,7 +1749,8 @@ tei_model.teiHeaderPart =
   tei_encodingDesc | tei_profileDesc | tei_xenoData
 tei_model.sourceDescPart = notAllowed
 tei_model.encodingDescPart =
-  tei_projectDesc
+  tei_schemaRef
+  | tei_projectDesc
   | tei_editorialDecl
   | tei_classDecl
   | tei_geoDecl
@@ -1779,7 +1768,6 @@ tei_model.correspContextPart =
   tei_model.ptrLike | tei_model.pLike | tei_note
 tei_model.correspDescPart =
   tei_note | tei_correspAction | tei_correspContext
-tei_att.source.attributes = empty
 tei_model.resourceLike = tei_facsimile | tei_text
 tei_att.personal.attributes =
   tei_att.naming.attributes,
@@ -1858,7 +1846,7 @@ tei_p =
   element p {
     tei_macro.paraContent
     >> sch:pattern [
-         id = "syriacaMainODD-p-abstractModel-p-constraint-4"
+         id = "syriacaMainODD-p-abstractModel-p-constraint-report-4"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -1879,7 +1867,8 @@ tei_p =
          "         "
        ]
     >> sch:pattern [
-         id = "syriacaMainODD-p-abstractModel-structure-l-constraint-5"
+         id =
+           "syriacaMainODD-p-abstractModel-structure-l-constraint-report-5"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -1928,7 +1917,6 @@ tei_quote =
     tei_att.global.attributes,
     tei_att.typed.attributes,
     tei_att.msExcerpt.attributes,
-    tei_att.source.attributes,
     empty
   }
 tei_q =
@@ -1938,7 +1926,6 @@ tei_q =
     tei_macro.specialPara,
     tei_att.global.attributes,
     tei_att.ascribed.attributes,
-    tei_att.source.attributes,
     
     ## may be used to indicate whether the offset passage is spoken or thought, or to characterize it more finely.
     ## Suggested values include: 1] spoken; 2] thought; 3] written; 4] soCalled; 5] foreign; 6] distinct; 7] term; 8] emph; 9] mentioned
@@ -1976,7 +1963,7 @@ tei_q =
   }
 tei_desc =
   
-  ## (description) contains a brief description of the object documented by its parent element, including its intended usage, purpose, or application where this is appropriate. [22.4.1. Description of Components]
+  ## (description) contains a brief description of the object documented by its parent element, typically a documentation element or an entity. [22.4.1. Description of Components]
   element desc {
     tei_macro.limitedContent,
     tei_att.global.attributes,
@@ -1999,13 +1986,9 @@ tei_gloss =
   }
 tei_sic =
   
-  ## (Latin for thus or so
-  ##    ) contains text reproduced although apparently incorrect or inaccurate. [3.4.1. Apparent Errors]
+  ## (Latin for thus or so) contains text reproduced although apparently incorrect or inaccurate. [3.4.1. Apparent Errors]
   element sic {
-    tei_macro.paraContent,
-    tei_att.global.attributes,
-    tei_att.source.attributes,
-    empty
+    tei_macro.paraContent, tei_att.global.attributes, empty
   }
 tei_corr =
   
@@ -2041,10 +2024,7 @@ tei_orig =
   ## (original form) contains a reading which is marked as following the original, rather than being normalized or corrected. [3.4.2. Regularization and
   ## Normalization 12. Critical Apparatus]
   element orig {
-    tei_macro.paraContent,
-    tei_att.global.attributes,
-    tei_att.source.attributes,
-    empty
+    tei_macro.paraContent, tei_att.global.attributes, empty
   }
 tei_gap =
   
@@ -2299,7 +2279,6 @@ tei_abbr =
   element abbr {
     tei_macro.phraseSeq,
     tei_att.global.attributes,
-    tei_att.source.attributes,
     tei_att.typed.attribute.subtype,
     
     ## allows the encoder to classify the abbreviation according to some convenient typology.
@@ -2324,7 +2303,7 @@ tei_ptr =
   element ptr {
     empty
     >> sch:pattern [
-         id = "syriacaMainODD-ptr-ptrAtts-constraint-6"
+         id = "syriacaMainODD-ptr-ptrAtts-constraint-report-6"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -2358,7 +2337,7 @@ tei_ref =
   element ref {
     tei_macro.paraContent
     >> sch:pattern [
-         id = "syriacaMainODD-ref-refAtts-constraint-7"
+         id = "syriacaMainODD-ref-refAtts-constraint-report-7"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -2397,7 +2376,7 @@ tei_list =
      (tei_model.divBottom, tei_model.global*)*)
     >> sch:pattern [
          id =
-           "syriacaMainODD-list-gloss-list-must-have-labels-constraint-8"
+           "syriacaMainODD-list-gloss-list-must-have-labels-constraint-rule-8"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -2455,7 +2434,7 @@ tei_label =
   element label {
     tei_macro.phraseSeq
     >> sch:pattern [
-         id = "syriacaMainODD-label-label-type-order-constraint-9"
+         id = "syriacaMainODD-label-label-type-order-constraint-rule-9"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -2473,7 +2452,6 @@ tei_label =
          "         "
        ],
     tei_att.global.attribute.syriaca-computed-start,
-    tei_att.global.attribute.source,
     tei_att.global.attribute.syriaca-computed-end,
     tei_att.global.attribute.syriaca-tags,
     tei_att.global.attribute.xmlid,
@@ -2496,6 +2474,7 @@ tei_label =
     tei_att.global.change.attribute.change,
     tei_att.global.responsibility.attribute.cert,
     tei_att.global.responsibility.attribute.resp,
+    tei_att.global.source.attribute.source,
     tei_att.placement.attributes,
     tei_att.written.attributes,
     
@@ -2554,7 +2533,6 @@ tei_note =
     tei_att.global.attributes,
     tei_att.placement.attributes,
     tei_att.pointing.attributes,
-    tei_att.source.attributes,
     tei_att.typed.attribute.subtype,
     tei_att.written.attributes,
     
@@ -2817,6 +2795,7 @@ tei_title =
     tei_att.global.attributes,
     tei_att.canonical.attributes,
     tei_att.typed.attribute.subtype,
+    tei_att.datable.attributes,
     
     ## classifies the title according to some convenient typology.
     ## Sample values include: 1] main; 2] sub(subordinate) ; 3] alt(alternate) ; 4] short; 5] desc(descriptive) 
@@ -2924,7 +2903,7 @@ tei_bibl =
         | tei_model.biblPart
         | tei_model.global)*)
     >> sch:pattern [
-         id = "syriacaMainODD-bibl-work-bibl-constraint-10"
+         id = "syriacaMainODD-bibl-work-bibl-constraint-rule-10"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -2943,7 +2922,6 @@ tei_bibl =
          "         "
        ],
     tei_att.global.attribute.syriaca-computed-start,
-    tei_att.global.attribute.source,
     tei_att.global.attribute.syriaca-computed-end,
     tei_att.global.attribute.syriaca-tags,
     tei_att.global.attribute.xmlid,
@@ -2966,6 +2944,7 @@ tei_bibl =
     tei_att.global.change.attribute.change,
     tei_att.global.responsibility.attribute.cert,
     tei_att.global.responsibility.attribute.resp,
+    tei_att.global.source.attribute.source,
     tei_att.declarable.attributes,
     tei_att.typed.attribute.subtype,
     tei_att.sortable.attributes,
@@ -2977,28 +2956,28 @@ tei_bibl =
     }?,
     
     ## The type attribute on bibl elements may be an RDF class defining the type of work or item. These will typically begin with either the prefix lawd: (http://lawd.info/ontology) or syriaca:
-    ## Suggested values include: 1] lawd:ConceptualWork; 2] lawd:Edition; 3] lawd:Citation; 4] syriaca:Manuscript; 5] syriaca:Catalogue; 6] syriaca:ModernTranslation; 7] syriaca:AncientVersion
+    ## Suggested values include: 1] lawd:ConceptualWork(Work) ; 2] lawd:Edition(Edition) ; 3] lawd:Citation(Citation) ; 4] syriaca:Manuscript(Manuscript) ; 5] syriaca:Catalogue(Catalogue) ; 6] syriaca:ModernTranslation(Modern Translation) ; 7] syriaca:AncientVersion(Ancient Version) 
     attribute type {
       
-      ## A Conceptual Work groups together one or more Written Works which have the same intellectual source. E.g. The Iliad, as opposed to a particular manuscript witness or edition of the Iliad. See http://lawd.info/ontology/ConceptualWork.
+      ## (Work) A Conceptual Work groups together one or more Written Works which have the same intellectual source. E.g. The Iliad, as opposed to a particular manuscript witness or edition of the Iliad. See http://lawd.info/ontology/ConceptualWork.
       "lawd:ConceptualWork"
       | 
-        ## A published (whether officially or not) Written Work that relies on one or more Written Works as sources. See http://lawd.info/ontology/Edition.
+        ## (Edition) A published (whether officially or not) Written Work that relies on one or more Written Works as sources. See http://lawd.info/ontology/Edition.
         "lawd:Edition"
       | 
-        ## A Citation models a bibliographic reference as a resource. See http://lawd.info/ontology/Citation.
+        ## (Citation) A Citation models a bibliographic reference as a resource. See http://lawd.info/ontology/Citation.
         "lawd:Citation"
       | 
-        ## Any text-bearing object, which usually embodies a Conceptual Work and which may be a source for an Edition or Translation.
+        ## (Manuscript) Any text-bearing object, which usually embodies a Conceptual Work and which may be a source for an Edition or Translation.
         "syriaca:Manuscript"
       | 
-        ## A Citation of a catalogue.
+        ## (Catalogue) A Citation of a catalogue.
         "syriaca:Catalogue"
       | 
-        ## A modern Written Work that translates one or more other Written Works that embody the same Conceptual Work. A subtype of http://lawd.info/ontology/Translation.
+        ## (Modern Translation) A modern Written Work that translates one or more other Written Works that embody the same Conceptual Work. A subtype of http://lawd.info/ontology/Translation.
         "syriaca:ModernTranslation"
       | 
-        ## An ancient Written Work that translates one or more other Written Works that embody the same Conceptual Work. A subtype of http://lawd.info/ontology/Translation.
+        ## (Ancient Version) An ancient Written Work that translates one or more other Written Works that embody the same Conceptual Work. A subtype of http://lawd.info/ontology/Translation.
         "syriaca:AncientVersion"
       | xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
     }?,
@@ -3011,30 +2990,9 @@ tei_biblStruct =
     (tei_analytic*,
      (tei_monogr, tei_series*)+,
      (tei_model.noteLike
-      | tei_idno
       | tei_model.ptrLike
       | tei_relatedItem
-      | tei_citedRange)*)
-    >> sch:pattern [
-         id =
-           "syriacaMainODD-biblStruct-deprecate-altIdentifier-child-constraint-10"
-         "\x{a}" ~
-         "            "
-         sch:rule [
-           context = "tei:biblStruct"
-           "\x{a}" ~
-           "               "
-           sch:report [
-             test = "child::tei:idno"
-             role = "nonfatal"
-             "WARNING: use of deprecated method — the use of the idno element as a direct child of the biblStruct element will be removed from the TEI on 2016-09-18"
-           ]
-           "\x{a}" ~
-           "            "
-         ]
-         "\x{a}" ~
-         "         "
-       ],
+      | tei_citedRange)*),
     tei_att.global.attributes,
     tei_att.declarable.attributes,
     tei_att.typed.attributes,
@@ -3062,7 +3020,7 @@ tei_relatedItem =
     ((tei_model.biblLike | tei_model.ptrLike)?)
     >> sch:pattern [
          id =
-           "syriacaMainODD-relatedItem-targetorcontent1-constraint-11"
+           "syriacaMainODD-relatedItem-targetorcontent1-constraint-report-10"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -3084,7 +3042,8 @@ tei_relatedItem =
          "         "
        ]
     >> sch:pattern [
-         id = "syriacaMainODD-relatedItem-targetorcontent1-constraint-6"
+         id =
+           "syriacaMainODD-relatedItem-targetorcontent1-constraint-assert-6"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -3119,7 +3078,8 @@ tei_l =
       | tei_model.inter
       | tei_model.global)*)
     >> sch:pattern [
-         id = "syriacaMainODD-l-abstractModel-structure-l-constraint-12"
+         id =
+           "syriacaMainODD-l-abstractModel-structure-l-constraint-report-11"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -3159,7 +3119,7 @@ tei_lg =
       | tei_lg)*,
      (tei_model.divBottom, tei_model.global*)*)
     >> sch:pattern [
-         id = "syriacaMainODD-lg-atleast1oflggapl-constraint-7"
+         id = "syriacaMainODD-lg-atleast1oflggapl-constraint-assert-7"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -3180,7 +3140,7 @@ tei_lg =
        ]
     >> sch:pattern [
          id =
-           "syriacaMainODD-lg-abstractModel-structure-l-constraint-13"
+           "syriacaMainODD-lg-abstractModel-structure-l-constraint-report-12"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -3252,13 +3212,6 @@ tei_teiHeader =
   element teiHeader {
     (tei_fileDesc, tei_model.teiHeaderPart*, tei_revisionDesc?),
     tei_att.global.attributes,
-    
-    ## specifies the kind of document to which the header is attached, for example whether it is a corpus or individual text.
-    ## Sample values include: 1] text; 2] corpus
-    [ a:defaultValue = "text" ]
-    attribute type {
-      xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
-    }?,
     empty
   }
 tei_fileDesc =
@@ -3348,11 +3301,34 @@ tei_idno =
     (text | tei_model.gLike | tei_idno)*,
     tei_att.global.attributes,
     tei_att.sortable.attributes,
+    tei_att.datable.attributes,
+    tei_att.typed.attribute.subtype,
     
     ## The type attribute on idno defines the kind of identifier contained in the text value. Custom types not listed here may be used so long as they are standard and clearly recognizable (for example, "CPG" for Clavis Patrum Graecorum numbers for work entities). Where available, URIs are always preferred over other types of identifiers.
-    ## Suggested values include: 
+    ## Suggested values include: 1] ISBN; 2] ISSN; 3] DOI; 4] URI; 5] VIAF; 6] ESTC; 7] OCLC
     attribute type {
-      xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
+      
+      ## An International Standard Book Number, used to identify books.
+      "ISBN"
+      | 
+        ## An International Standard Serial Number, used to identify serial publications, such as journals.
+        "ISSN"
+      | 
+        ## A digital object identifier, used to identify objects. However, the preferred method for including DOIs is with an idno of type "URI", prefixed by http://dx.doi.org/. For example, http://dx.doi.org/10.1006/reli.1997.0085.
+        "DOI"
+      | 
+        ## A Uniform Resource Identifier. The Syriaca.org URI for the entity being described in the current document is contained in an idno of this type.
+        "URI"
+      | 
+        ##
+        "VIAF"
+      | 
+        ##
+        "ESTC"
+      | 
+        ##
+        "OCLC"
+      | xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
     }?,
     empty
   }
@@ -3418,6 +3394,19 @@ tei_encodingDesc =
   element encodingDesc {
     (tei_model.encodingDescPart | tei_model.pLike)+,
     tei_att.global.attributes,
+    empty
+  }
+tei_schemaRef =
+  
+  ## (schema reference) describes or points to a related customization or schema file [2.3.9. The Schema Specification]
+  element schemaRef {
+    tei_model.descLike?,
+    tei_att.global.attributes,
+    tei_att.typed.attributes,
+    tei_att.resourced.attributes,
+    
+    ## the identifier used for the customization or schema
+    attribute key { xsd:NCName }?,
     empty
   }
 tei_projectDesc =
@@ -3487,8 +3476,9 @@ tei_taxonomy =
   
   ## defines a typology either implicitly, by means of a bibliographic citation, or explicitly by a structured taxonomy. [2.3.7. The Classification Declaration]
   element taxonomy {
-    ((tei_model.glossLike | tei_model.descLike)*
-     | (tei_category | tei_taxonomy)+
+    (((tei_category | tei_taxonomy)+
+      | ((tei_model.glossLike | tei_model.descLike)+,
+         (tei_category | tei_taxonomy)*))
      | (tei_model.biblLike, (tei_category | tei_taxonomy)*)),
     tei_att.global.attributes,
     empty
@@ -3597,7 +3587,7 @@ tei_keywords =
     (tei_list),
     tei_att.global.attributes,
     
-    ## identifies the controlled vocabulary within which the set of keywords concerned is defined identifies the classification scheme within which the set of categories concerned is defined, for example by a taxonomy element, or by some other resource.
+    ## identifies the controlled vocabulary within which the set of keywords concerned is defined, for example by a taxonomy element, or by some other resource.
     attribute scheme { xsd:anyURI }?,
     empty
   }
@@ -3608,7 +3598,7 @@ tei_classCode =
     tei_macro.phraseSeq.limited,
     tei_att.global.attributes,
     
-    ## identifies the classification system in use, as defined by for example by a taxonomy element, or some other resource.
+    ## identifies the classification system in use, as defined by, e.g. a taxonomy element, or some other resource.
     attribute scheme { xsd:anyURI },
     empty
   }
@@ -3638,7 +3628,7 @@ tei_correspDesc =
   }
 tei_correspAction =
   
-  ## contains a structured description of the place, the name of a person/organization and the date related to the sending/receiving of a message or any other action related to the correspondence [2.4.6. Correspondence Description]
+  ## (correspondence action) contains a structured description of the place, the name of a person/organization and the date related to the sending/receiving of a message or any other action related to the correspondence. [2.4.6. Correspondence Description]
   element correspAction {
     (tei_model.correspActionPart+ | tei_model.pLike+),
     tei_att.global.attributes,
@@ -3649,13 +3639,13 @@ tei_correspAction =
     ## Suggested values include: 1] sent; 2] received; 3] transmitted; 4] redirected; 5] forwarded
     attribute type {
       
-      ## information concerning the sending or dispatch of a message
+      ## information concerning the sending or dispatch of a message.
       "sent"
       | 
-        ## information concerning the receipt of a message
+        ## information concerning the receipt of a message.
         "received"
       | 
-        ## information concerning the transmission of a message, i.e. between the dispatch and the next receipt, redirect or forwarding
+        ## information concerning the transmission of a message, i.e. between the dispatch and the next receipt, redirect or forwarding.
         "transmitted"
       | 
         ## information concerning the redirection of an unread message.
@@ -3675,9 +3665,9 @@ tei_correspContext =
   }
 tei_xenoData =
   
-  ## (outside metadata) provides a container element into which metadata in non-TEI formats may be placed. [2.5. Non-TEI Metadata]
+  ## (non-TEI metadata) provides a container element into which metadata in non-TEI formats may be placed. [2.5. Non-TEI Metadata]
   element xenoData {
-    (text | tei_macro.anyXML),
+    (text | anyElement-xenoData),
     tei_att.global.attributes,
     tei_att.declarable.attributes,
     tei_att.typed.attributes,
@@ -3889,7 +3879,7 @@ tei_link =
   element link {
     empty
     >> sch:pattern [
-         id = "syriacaMainODD-link-linkTargets3-constraint-8"
+         id = "syriacaMainODD-link-linkTargets3-constraint-assert-8"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -3921,7 +3911,7 @@ tei_ab =
     tei_macro.paraContent
     >> sch:pattern [
          id =
-           "syriacaMainODD-ab-abstractModel-structure-p-constraint-14"
+           "syriacaMainODD-ab-abstractModel-structure-p-constraint-report-13"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -3943,7 +3933,7 @@ tei_ab =
        ]
     >> sch:pattern [
          id =
-           "syriacaMainODD-ab-abstractModel-structure-l-constraint-15"
+           "syriacaMainODD-ab-abstractModel-structure-l-constraint-report-14"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -3971,7 +3961,7 @@ tei_ab =
   }
 tei_anchor =
   
-  ## (anchor point) attaches an identifier to a point within a text, whether or not it corresponds with a textual element. [8.4.2. Synchronization and Overlap 16.4. Correspondence and Alignment]
+  ## (anchor point) attaches an identifier to a point within a text, whether or not it corresponds with a textual element. [8.4.2. Synchronization and Overlap 16.5. Correspondence and Alignment]
   element anchor {
     empty, tei_att.global.attributes, tei_att.typed.attributes, empty
   }
@@ -3983,7 +3973,6 @@ tei_seg =
     tei_att.global.attributes,
     tei_att.segLike.attributes,
     tei_att.typed.attributes,
-    tei_att.source.attributes,
     tei_att.written.attributes,
     empty
   }
@@ -4023,7 +4012,31 @@ tei_catchwords =
   
   ## describes the system used to ensure correct ordering of the quires making up a codex or incunable, typically by means of annotations at the foot of the page. [10.3.7. Catchwords, Signatures, Secundo Folio]
   element catchwords {
-    tei_macro.phraseSeq, tei_att.global.attributes, empty
+    tei_macro.phraseSeq
+    >> sch:pattern [
+         id =
+           "syriacaMainODD-catchwords-catchword_in_msDesc-constraint-assert-9"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "tei:catchwords"
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test = "ancestor::tei:msDesc"
+             role = "nonfatal"
+             "WARNING: deprecated use of element — The "
+             sch:name [ ]
+             " element will not be allowed outside of msDesc as of 2018-10-01."
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
+    tei_att.global.attributes,
+    empty
   }
 tei_dimensions =
   
@@ -4031,7 +4044,8 @@ tei_dimensions =
   element dimensions {
     ((tei_model.dimLike)*)
     >> sch:pattern [
-         id = "syriacaMainODD-dimensions-duplicateDim-constraint-16"
+         id =
+           "syriacaMainODD-dimensions-duplicateDim-constraint-report-15"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -4053,7 +4067,8 @@ tei_dimensions =
          "         "
        ]
     >> sch:pattern [
-         id = "syriacaMainODD-dimensions-duplicateDim-constraint-17"
+         id =
+           "syriacaMainODD-dimensions-duplicateDim-constraint-report-16"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -4075,7 +4090,8 @@ tei_dimensions =
          "         "
        ]
     >> sch:pattern [
-         id = "syriacaMainODD-dimensions-duplicateDim-constraint-18"
+         id =
+           "syriacaMainODD-dimensions-duplicateDim-constraint-report-17"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -4202,7 +4218,31 @@ tei_signatures =
   
   ## contains discussion of the leaf or quire signatures found within a codex. [10.3.7. Catchwords, Signatures, Secundo Folio]
   element signatures {
-    tei_macro.specialPara, tei_att.global.attributes, empty
+    tei_macro.specialPara
+    >> sch:pattern [
+         id =
+           "syriacaMainODD-signatures-signatures_in_msDesc-constraint-assert-10"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "tei:signatures"
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test = "ancestor::tei:msDesc"
+             role = "nonfatal"
+             "WARNING: deprecated use of element — The "
+             sch:name [ ]
+             " element will not be allowed outside of msDesc as of 2018-10-01."
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
+    tei_att.global.attributes,
+    empty
   }
 tei_stamp =
   
@@ -4235,7 +4275,8 @@ tei_msIdentifier =
       tei_idno?),
      (tei_msName | tei_altIdentifier)*)
     >> sch:pattern [
-         id = "syriacaMainODD-msIdentifier-msId_minimal-constraint-19"
+         id =
+           "syriacaMainODD-msIdentifier-msId_minimal-constraint-report-18"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -4649,7 +4690,6 @@ tei_provenance =
     tei_att.global.attributes,
     tei_att.datable.attributes,
     tei_att.typed.attributes,
-    tei_att.source.attributes,
     empty
   }
 tei_acquisition =
@@ -4722,35 +4762,16 @@ tei_msPart =
   
   ## (manuscript part) contains information about an originally distinct manuscript or part of a manuscript, which is now part of a composite manuscript. [10.10. Manuscript Parts]
   element msPart {
-    ((tei_altIdentifier | tei_msIdentifier),
+    (tei_msIdentifier,
      tei_model.headLike*,
      (tei_model.pLike+
       | (tei_msContents?,
          tei_physDesc?,
          tei_history?,
          tei_additional?,
-         tei_msPart*)))
-    >> sch:pattern [
-         id =
-           "syriacaMainODD-msPart-deprecate-altIdentifier-child-constraint-20"
-         "\x{a}" ~
-         "            "
-         sch:rule [
-           context = "tei:msPart"
-           "\x{a}" ~
-           "               "
-           sch:report [
-             test = "child::tei:altIdentifier"
-             role = "nonfatal"
-             "WARNING: use of deprecated method — the use of the altIdentifier element as a direct child of the msPart element will be removed from the TEI on 2016-09-09"
-           ]
-           "\x{a}" ~
-           "            "
-         ]
-         "\x{a}" ~
-         "         "
-       ],
+         tei_msPart*))),
     tei_att.global.attributes,
+    tei_att.typed.attributes,
     empty
   }
 tei_msFrag =
@@ -4765,6 +4786,7 @@ tei_msFrag =
          tei_history?,
          tei_additional?))),
     tei_att.global.attributes,
+    tei_att.typed.attributes,
     empty
   }
 tei_att.datable.custom.attributes =
@@ -5339,7 +5361,7 @@ tei_occupation =
   
   ## contains an informal description of a person's trade, profession or occupation. [15.2.2. The Participant Description]
   element occupation {
-    tei_macro.phraseSeq,
+    tei_macro.specialPara,
     tei_att.global.attributes,
     tei_att.datable.attributes,
     tei_att.editLike.attributes,
@@ -5474,7 +5496,8 @@ tei_relation =
   element relation {
     (tei_desc?)
     >> sch:pattern [
-         id = "syriacaMainODD-relation-relation-resources-constraint-11"
+         id =
+           "syriacaMainODD-relation-relation-resources-constraint-rule-11"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -5492,7 +5515,8 @@ tei_relation =
          "         "
        ]
     >> sch:pattern [
-         id = "syriacaMainODD-relation-reforkeyorname-constraint-9"
+         id =
+           "syriacaMainODD-relation-reforkeyorname-constraint-assert-11"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -5510,7 +5534,8 @@ tei_relation =
          "         "
        ]
     >> sch:pattern [
-         id = "syriacaMainODD-relation-activemutual-constraint-22"
+         id =
+           "syriacaMainODD-relation-activemutual-constraint-report-20"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -5529,7 +5554,8 @@ tei_relation =
          "         "
        ]
     >> sch:pattern [
-         id = "syriacaMainODD-relation-activepassive-constraint-23"
+         id =
+           "syriacaMainODD-relation-activepassive-constraint-report-21"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -5556,8 +5582,23 @@ tei_relation =
     tei_att.typed.attribute.subtype,
     
     ## (reference) An RDF property applicable to the relation. This may be a custom Syriaca.org property, such as one found at http://syriaca.org/documentation/relations.html or one from an external vocabulary such as SNAP or LAWD.
+    ## Suggested values include: 1] dct:source(is derived from) ; 2] lawd:embodies(embodies) ; 3] syriaca:commemorated(commemorates) ; 4] dct:isPartOf(is part of) 
     attribute ref {
-      list { xsd:anyURI+ }
+      list {
+        (
+         ## (is derived from) A related resource from which the described resource is derived (http://purl.org/dc/terms/source).
+         "dct:source"
+         | 
+           ## (embodies) The relationship between a Written Work and the abstract Conceptual Work it embodies. (http://lawd.info/ontology/embodies).
+           "lawd:embodies"
+         | 
+           ## (commemorates) The relationship between a Work and the Person it commemorates.
+           "syriaca:commemorated"
+         | 
+           ## (is part of) A related resource in which the described resource is physically or logically included. (http://purl.org/dc/terms/isPartOf).
+           "dct:isPartOf"
+         | xsd:anyURI)+
+      }
     },
     
     ## Describes the general category of relationship, which may be used in addition to ref to determine how the relation should be displayed in the interface.
@@ -5698,7 +5739,6 @@ tei_witDetail =
     tei_macro.phraseSeq,
     tei_att.global.attributes,
     tei_att.placement.attributes,
-    tei_att.source.attributes,
     tei_att.pointing.attributes,
     
     ## (witnesses) indicates the sigil or sigla identifying the witness or witnesses to which the detail refers.
@@ -5742,7 +5782,7 @@ tei_addSpan =
   element addSpan {
     empty
     >> sch:pattern [
-         id = "syriacaMainODD-addSpan-spanTo-constraint-10"
+         id = "syriacaMainODD-addSpan-spanTo-constraint-assert-12"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -5762,7 +5802,7 @@ tei_addSpan =
          "         "
        ]
     >> sch:pattern [
-         id = "syriacaMainODD-addSpan-spanTo_fr-constraint-11"
+         id = "syriacaMainODD-addSpan-spanTo_fr-constraint-assert-13"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -5802,7 +5842,7 @@ tei_damageSpan =
   element damageSpan {
     empty
     >> sch:pattern [
-         id = "syriacaMainODD-damageSpan-spanTo-constraint-12"
+         id = "syriacaMainODD-damageSpan-spanTo-constraint-assert-14"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -5823,7 +5863,7 @@ tei_damageSpan =
          "         "
        ]
     >> sch:pattern [
-         id = "syriacaMainODD-damageSpan-spanTo_fr-constraint-13"
+         id = "syriacaMainODD-damageSpan-spanTo_fr-constraint-assert-15"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -5852,7 +5892,7 @@ tei_delSpan =
   element delSpan {
     empty
     >> sch:pattern [
-         id = "syriacaMainODD-delSpan-spanTo-constraint-14"
+         id = "syriacaMainODD-delSpan-spanTo-constraint-assert-16"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -5872,7 +5912,7 @@ tei_delSpan =
          "         "
        ]
     >> sch:pattern [
-         id = "syriacaMainODD-delSpan-spanTo_fr-constraint-15"
+         id = "syriacaMainODD-delSpan-spanTo_fr-constraint-assert-17"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -5931,7 +5971,6 @@ tei_handShift =
     empty,
     tei_att.global.attributes,
     tei_att.handFeatures.attributes,
-    tei_att.source.attributes,
     
     ## indicates a handNote element describing the hand concerned.
     attribute new { xsd:anyURI }?,
@@ -5963,7 +6002,7 @@ tei_subst =
   element subst {
     ((tei_add | tei_del | tei_model.milestoneLike)+)
     >> sch:pattern [
-         id = "syriacaMainODD-subst-substContents1-constraint-16"
+         id = "syriacaMainODD-subst-substContents1-constraint-assert-18"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -6075,7 +6114,7 @@ tei_div =
       (tei_model.divBottom, tei_model.global*)*)?)
     >> sch:pattern [
          id =
-           "syriacaMainODD-div-abstractModel-structure-l-constraint-24"
+           "syriacaMainODD-div-abstractModel-structure-l-constraint-report-22"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -6096,7 +6135,7 @@ tei_div =
        ]
     >> sch:pattern [
          id =
-           "syriacaMainODD-div-abstractModel-structure-p-constraint-25"
+           "syriacaMainODD-div-abstractModel-structure-p-constraint-report-23"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -6173,7 +6212,10 @@ tei_signed =
   
   ## (signature) contains the closing salutation, etc., appended to a foreword, dedicatory epistle, or other division of a text. [4.2.2. Openers and Closers]
   element signed {
-    tei_macro.paraContent, tei_att.global.attributes, empty
+    tei_macro.paraContent,
+    tei_att.global.attributes,
+    tei_att.written.attributes,
+    empty
   }
 tei_postscript =
   
@@ -6309,6 +6351,75 @@ tei_back =
     tei_att.declaring.attributes,
     empty
   }
+tei_att.repeatable.attribute.context =
+  
+  ## supplies an XPath identifying a context within which this component of a content model must be found
+  attribute context { text }?
+tei_att.repeatable.attribute.minOccurs =
+  
+  ## (minimum number of occurences) indicates the smallest number of times this component may occur.
+  [ a:defaultValue = "1" ]
+  attribute minOccurs { xsd:nonNegativeInteger }?
+tei_att.repeatable.attribute.maxOccurs =
+  
+  ## (maximum number of occurences) indicates the largest number of times this component may occur.
+  [ a:defaultValue = "1" ]
+  attribute maxOccurs {
+    xsd:nonNegativeInteger
+    | (
+       ##
+       "unbounded")
+  }?
+sch:pattern [
+  id =
+    "syriacaMainODD-att.repeatable-MAXandMINoccurs-constraint-rule-12"
+  "\x{a}" ~
+  "      "
+  sch:rule [
+    context = "*[@minOccurs and @maxOccurs]"
+    "\x{a}" ~
+    "        "
+    sch:let [ name = "min" value = "@minOccurs cast as xs:integer" ]
+    "\x{a}" ~
+    "        "
+    sch:let [
+      name = "max"
+      value =
+        "if ( normalize-space(@maxOccurs) eq 'unbounded' )                                    then -1                                    else @maxOccurs cast as xs:integer"
+    ]
+    "\x{a}" ~
+    "        "
+    sch:assert [
+      test = "$max eq -1  or  $max ge $min"
+      "@maxOccurs should be greater than or equal\x{a}" ~
+      "          to @minOccurs"
+    ]
+    "\x{a}" ~
+    "      "
+  ]
+  "\x{a}" ~
+  "   "
+]
+sch:pattern [
+  id =
+    "syriacaMainODD-att.repeatable-MAXandMINoccurs-constraint-rule-13"
+  "\x{a}" ~
+  "      "
+  sch:rule [
+    context = "*[@minOccurs and not(@maxOccurs)]"
+    "\x{a}" ~
+    "        "
+    sch:assert [
+      test = "@minOccurs cast as xs:integer lt 2"
+      "When @maxOccurs is not specified,\x{a}" ~
+      "          @minOccurs must be 0 or 1"
+    ]
+    "\x{a}" ~
+    "      "
+  ]
+  "\x{a}" ~
+  "   "
+]
 tei_att.combinable.attributes =
   tei_att.deprecated.attributes, tei_att.combinable.attribute.mode
 tei_att.combinable.attribute.mode =
@@ -6347,7 +6458,7 @@ tei_att.identified.attribute.module =
   ## supplies a name for the module in which this object is to be declared.
   attribute module { xsd:NCName }?
 sch:pattern [
-  id = "syriacaMainODD-att.identified-spec-in-module-constraint-12"
+  id = "syriacaMainODD-att.identified-spec-in-module-constraint-rule-14"
   "\x{a}" ~
   "      "
   sch:rule [
@@ -6380,7 +6491,7 @@ tei_att.deprecated.attribute.validUntil =
   attribute validUntil { xsd:date }?
 sch:pattern [
   id =
-    "syriacaMainODD-att.deprecated-validUntil-deprecated-constraint-13"
+    "syriacaMainODD-att.deprecated-validUntil-deprecated-constraint-rule-15"
   "\x{a}" ~
   "      "
   sch:rule [
@@ -6433,7 +6544,7 @@ tei_gi =
   
   ## (element name) contains the name (generic identifier) of an element. [22. Documentation Elements 22.5. Element Specifications]
   element gi {
-    tei_data.name,
+    xsd:Name,
     tei_att.global.attributes,
     
     ## supplies the name of the scheme in which this name is defined.
@@ -6453,7 +6564,6 @@ tei_schemaSpec =
     tei_att.global.attributes,
     tei_att.identified.attributes,
     tei_att.namespaceable.attributes,
-    tei_att.readFrom.attributes,
     tei_att.docStatus.attributes,
     
     ## specifies entry points to the schema, i.e. which patterns may be used as the root of documents conforming to it.
@@ -6482,6 +6592,12 @@ tei_schemaSpec =
             ""))+
       }
     }?,
+    
+    ## (default namespace exclusions) provides a list of namespaces and/or prefixed element names to be excluded by default from anyName in RelaxNG schemas
+    [ a:defaultValue = "http://www.tei-c.org/ns/1.0 teix:egXML" ]
+    attribute defaultExceptions {
+      list { (xsd:anyURI | xsd:Name)+ }
+    }?,
     empty
   }
 tei_dataSpec =
@@ -6499,7 +6615,85 @@ tei_model =
   element model {
     ((tei_model.glossLike | tei_model.descLike)*,
      tei_param*,
-     tei_outputRendition*),
+     tei_outputRendition*)
+    >> sch:pattern [
+         id =
+           "syriacaMainODD-model-no_dup_default_models-constraint-rule-16"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context =
+             "tei:model[ not( parent::tei:modelSequence ) ][ not( @predicate ) ]"
+           "\x{a}" ~
+           "               "
+           sch:let [
+             name = "output"
+             value = "normalize-space( @output )"
+           ]
+           "\x{a}" ~
+           "               "
+           sch:report [
+             test =
+               "following-sibling::tei:model                             [ not( @predicate )]                             [ normalize-space( @output ) eq $output ]"
+             "\x{a}" ~
+             "          There are 2 (or more) 'model' elements in this '"
+             sch:value-of [ select = "local-name(..)" ]
+             "'\x{a}" ~
+             "          that have no predicate, but are targeted to the same output\x{a}" ~
+             '          ("'
+             sch:value-of [
+               select = "( $output, parent::modelGrp/@output, 'all')[1]"
+             ]
+             '")'
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ]
+    >> sch:pattern [
+         id = "syriacaMainODD-model-no_dup_models-constraint-rule-17"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context =
+             "tei:model[ not( parent::tei:modelSequence ) ][ @predicate ]"
+           "\x{a}" ~
+           "               "
+           sch:let [
+             name = "predicate"
+             value = "normalize-space( @predicate )"
+           ]
+           "\x{a}" ~
+           "               "
+           sch:let [
+             name = "output"
+             value = "normalize-space( @output )"
+           ]
+           "\x{a}" ~
+           "               "
+           sch:report [
+             test =
+               "following-sibling::tei:model                             [ normalize-space( @predicate ) eq $predicate ]                             [ normalize-space( @output ) eq $output ]"
+             "\x{a}" ~
+             "          There are 2 (or more) 'model' elements in this\x{a}" ~
+             "          '"
+             sch:value-of [ select = "local-name(..)" ]
+             "' that have\x{a}" ~
+             "          the same predicate, and are targeted to the same output\x{a}" ~
+             '          ("'
+             sch:value-of [
+               select = "( $output, parent::modelGrp/@output, 'all')[1]"
+             ]
+             '")'
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
     tei_att.global.attributes,
     
     ## names the process or function which this processing model uses in order to produce output.
@@ -6509,7 +6703,7 @@ tei_model =
       ## support display of alternative visualisations, for example by displaying the preferred content, by displaying both in parallel, or by toggling between the two.
       "alternate"
       | 
-        ## create an identifiable anchor point in the output
+        ## create an identifiable anchor point in the output.
         "anchor"
       | 
         ## create a block structure
@@ -6542,7 +6736,7 @@ tei_model =
         ## creates a heading. 
         "heading"
       | 
-        ## generate list according to type
+        ## generate list according to type.
         "index"
       | 
         ## creates inline element out of content
@@ -6551,10 +6745,10 @@ tei_model =
         ## create hyperlink
         "link"
       | 
-        ## create a list 
+        ## create a list. 
         "list"
       | 
-        ## create a list item
+        ## create a list item.
         "listItem"
       | 
         ## create metadata section
@@ -6608,7 +6802,30 @@ tei_modelSequence =
   
   ## any sequence of model or modelSequence elements which is to be processed as a single set of actions [22.5.5.7. Model sequence]
   element modelSequence {
-    ((tei_model.glossLike | tei_model.descLike)*, tei_model+),
+    ((tei_model.glossLike | tei_model.descLike)*,
+     (tei_model, tei_model, tei_model*))
+    >> sch:pattern [
+         id =
+           "syriacaMainODD-modelSequence-no_outputs_nor_predicates_4_my_kids-constraint-report-26"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "tei:modelSequence"
+           "\x{a}" ~
+           "               "
+           sch:report [
+             test = "tei:model[@output]"
+             role = "warning"
+             "The 'model' children\x{a}" ~
+             "      of a 'modelSequence' element inherit the @output attribute of the\x{a}" ~
+             "      parent 'modelSequence', and thus should not have their own"
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
     tei_att.global.attributes,
     
     ## the condition under which this model applies given as an XPath Predicate Expression
@@ -6642,7 +6859,9 @@ tei_outputRendition =
     
     ## provides a way of defining pseudo-elements, that is, styling rules applicable to specific sub-portions of an element.
     ## Sample values include: 1] first-line; 2] first-letter; 3] before; 4] after
-    attribute scope { tei_data.enumerated }?,
+    attribute scope {
+      xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
+    }?,
     empty
   }
 tei_paramSpec =
@@ -6708,9 +6927,49 @@ tei_dataRef =
   
   ## identifies the datatype of an attribute value, either by referencing an item in an externally defined datatype library, or by pointing to a TEI-defined data specification [22.5.4.1. Datatypes]
   element dataRef {
-    empty,
+    (tei_dataFacet*)
+    >> sch:pattern [
+         id =
+           "syriacaMainODD-dataRef-restrictDataFacet-constraint-rule-18"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "tei:dataRef[tei:dataFacet]"
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test = "@name"
+             role = "nonfatal"
+             "Data facets can only be specified for references to datatypes specified by\x{a}" ~
+             "          XML Schemas: Part 2: Datatypes"
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ]
+    >> sch:pattern [
+         id =
+           "syriacaMainODD-dataRef-restrictAttRestriction-constraint-rule-19"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "tei:dataRef[tei:dataFacet]"
+           "\x{a}" ~
+           "               "
+           sch:report [
+             test = "@restriction"
+             role = "nonfatal"
+             "The attribute restriction cannot be used when dataFacet elements are present."
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
     tei_att.global.attributes,
-    tei_att.readFrom.attributes,
     (
      ## the identifier used for this datatype specification
      attribute key { xsd:NCName }?
@@ -6723,6 +6982,57 @@ tei_dataRef =
     
     ## supplies a string representing a regular expression providing additional constraints on the strings used to represent values of this datatype
     attribute restriction { xsd:token }?,
+    empty
+  }
+tei_dataFacet =
+  
+  ## Restricts the value of the strings used to represent values of a datatype, according to XML Schemas: Part 2: Datatypes. [22.5.4.1. Datatypes]
+  element dataFacet {
+    empty,
+    tei_att.global.attributes,
+    
+    ## the name of the facet.
+    attribute name {
+      
+      ##
+      "length"
+      | 
+        ##
+        "minLength"
+      | 
+        ##
+        "maxLength"
+      | 
+        ##
+        "pattern"
+      | 
+        ##
+        "enumeration"
+      | 
+        ##
+        "whiteSpace"
+      | 
+        ##
+        "maxInclusive"
+      | 
+        ##
+        "minInclusive"
+      | 
+        ##
+        "maxExclusive"
+      | 
+        ##
+        "minExclusive"
+      | 
+        ##
+        "totalDigits"
+      | 
+        ##
+        "fractionDigits"
+    },
+    
+    ## the facet value.
+    attribute value { xsd:string },
     empty
   }
 tei_precision =
@@ -6772,7 +7082,7 @@ tei_s =
   element s {
     tei_macro.phraseSeq
     >> sch:pattern [
-         id = "syriacaMainODD-s-noNestedS-constraint-26"
+         id = "syriacaMainODD-s-noNestedS-constraint-report-28"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -6909,7 +7219,7 @@ tei_span =
   element span {
     tei_macro.phraseSeq.limited
     >> sch:pattern [
-         id = "syriacaMainODD-span-targetfrom-constraint-27"
+         id = "syriacaMainODD-span-targetfrom-constraint-report-29"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -6931,7 +7241,7 @@ tei_span =
          "         "
        ]
     >> sch:pattern [
-         id = "syriacaMainODD-span-targetto-constraint-28"
+         id = "syriacaMainODD-span-targetto-constraint-report-30"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -6953,7 +7263,7 @@ tei_span =
          "         "
        ]
     >> sch:pattern [
-         id = "syriacaMainODD-span-tonotfrom-constraint-29"
+         id = "syriacaMainODD-span-tonotfrom-constraint-report-31"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -6974,7 +7284,7 @@ tei_span =
          "         "
        ]
     >> sch:pattern [
-         id = "syriacaMainODD-span-tofrom-constraint-30"
+         id = "syriacaMainODD-span-tofrom-constraint-report-32"
          "\x{a}" ~
          "            "
          sch:rule [
@@ -7083,7 +7393,7 @@ tei_lang =
   element lang {
     tei_macro.paraContent
     >> sch:pattern [
-         id = "syriacaMainODD-lang-lang-in-bibl-constraint-14"
+         id = "syriacaMainODD-lang-lang-in-bibl-constraint-rule-20"
          "\x{a}" ~
          "            "
          sch:rule [
