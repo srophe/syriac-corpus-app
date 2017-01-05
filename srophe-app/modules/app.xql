@@ -269,14 +269,13 @@ let $works :=
             order by $part
             return $w
 let $count := count($works)
+let $title := if(contains($rec/descendant::tei:title[1]/text(),' — ')) then 
+                    substring-before($rec/descendant::tei:title[1]/text(),' — ') 
+               else $rec/descendant::tei:title[1]/text()
 return 
     if($count gt 0) then 
         <div xmlns="http://www.w3.org/1999/xhtml">
-            <h3>{
-                if(contains($rec/descendant::tei:title[1]/text(),' — ')) then 
-                    substring-before($rec/descendant::tei:title[1]/text(),' — ') 
-                else $rec/descendant::tei:title[1]/text()}
-                 contains {$count} works.</h3>
+            <h3>{$title} contains {$count} works.</h3>
             {(
                 if($count gt 3) then
                         <div>
@@ -284,17 +283,17 @@ return
                              for $r in subsequence($works, 1, 3)
                              let $rec :=  $r/ancestor::tei:TEI
                              let $workid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
-                             let $part := xs:integer($rec/descendant::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc/tei:label[@type='order']/@n)
+                             let $part := $rec/descendant::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc/tei:label[@type='order']
                              return 
                              <div class="indent row">
-                                <div class="col-md-1"><span class="badge">{$part}</span></div>
+                                <div class="col-md-1"><span class="badge">{$part/text()}</span></div>
                                 <div class="col-md-11">{global:display-recs-short-view($rec,'',$recid)}</div>
                              </div>
                          }
                            <div>
                             <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
-                            data-ref="{$global:nav-base}/nhsl/search.html?child-rec={$recid}&amp;perpage={$count}&amp;sort=alpha" 
-                            data-label="{substring-before($rec/descendant::tei:title[1]/text(),' — ')} contains" id="works">
+                            data-ref="{$global:nav-base}/nhsl/search.html?child-rec={$recid}&amp;perpage={$count}" 
+                            data-label="{$title} contains" id="works">
                               See all {count($works)} works
                              </a>
                            </div>
@@ -302,8 +301,14 @@ return
                 else 
                     for $r in $works
                     let $workid := replace($r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
-                    let $rec :=  global:get-rec($workid)
-                    return global:display-recs-short-view($rec,'',$recid)
+                    let $rec :=  $r/ancestor::tei:TEI
+                    let $workid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+                             let $part := $rec/descendant::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc/tei:label[@type='order']
+                             return 
+                             <div class="indent row">
+                                <div class="col-md-1"><span class="badge">{$part/text()}</span></div>
+                                <div class="col-md-11">{global:display-recs-short-view($rec,'',$recid)}</div>
+                             </div>
             )}
         </div>
     else ()     

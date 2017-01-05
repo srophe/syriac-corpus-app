@@ -56,7 +56,12 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                     if($search:sort-element != '' and $search:sort-element != 'relevance' or $view = 'all') then 
                         for $hit in util:eval($eval-string)
                         order by global:build-sort-string(page:add-sort-options($hit,$search:sort-element),'') ascending
-                        return $hit                                                     
+                        return $hit   
+                    else if(request:get-parameter('child-rec', '') != '' and ($search:sort-element = '' or not(exists($search:sort-element)))) then 
+                        for $hit in util:eval($eval-string)
+                        let $part := xs:integer($hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc/tei:label[@type='order']/@n)
+                        order by $part
+                        return $hit                                                                             
                     else 
                         for $hit in util:eval($eval-string)
                        (: let $expanded := util:expand($hit, "expand-xincludes=no")
@@ -278,7 +283,13 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
             <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
                 <div class="col-md-12">
                       <div class="col-md-1" style="margin-right:-1em; padding-top:1em;">
-                        <span class="label label-default">{$search:start + $p - 1}</span>
+                        <span class="badge">
+                            {
+                                if(request:get-parameter('child-rec', '') != '' and ($search:sort-element = '' or not(exists($search:sort-element)))) then
+                                    $hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order']
+                                else $search:start + $p - 1
+                            }
+                        </span>
                       </div>
                       <div class="col-md-9" xml:lang="en">
                         {
