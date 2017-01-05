@@ -87,7 +87,7 @@
     <!-- Hard coded values-->
     <xsl:param name="normalization">NFKC</xsl:param>
     <xsl:param name="editoruriprefix">http://syriaca.org/documentation/editors.xml#</xsl:param>
-    <xsl:variable name="editorssourcedoc" select="'http://syriaca.org/documentation/editors.xml'"/>
+    <xsl:variable name="editorssourcedoc" select="concat($app-root,'/documentation/editors.xml')"/>
     <!-- Resource id -->
     <xsl:variable name="resource-id">
         <xsl:choose>
@@ -189,11 +189,6 @@
             <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
         </xsl:if>
     </xsl:template>
-    <xsl:template match="t:orig | t:sic">
-        <xsl:text> (</xsl:text>
-        <xsl:apply-templates/>
-        <xsl:text>) </xsl:text>
-    </xsl:template>
     <xsl:template match="t:event" mode="event">
         <li>
         <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
@@ -250,7 +245,7 @@
     <xsl:template match="t:bibl" mode="title"/>
     <xsl:template match="t:bibl">
         <xsl:choose>
-            <xsl:when test="@type=('lawd:Edition','lawd:Translation','lawd:WrittenWork')">
+            <xsl:when test="@type=('lawd:Edition','lawd:Translation','lawd:WrittenWork','syriaca:Manuscript','syriaca:ModernTranslation')">
                 <li>
                     <xsl:if test="descendant::t:lang/text()">
                         <span class="srp-label">
@@ -259,36 +254,18 @@
                     </xsl:if>
                     <span>
                         <xsl:call-template name="langattr"/>
-                        <xsl:apply-templates select="self::*" mode="inline"/>
-                        <xsl:if test="@type=('lawd:Edition','lawd:Translation') and t:listRelation/t:relation">
+                        <xsl:call-template name="footnote"/>
+                        <xsl:if test="t:listRelation/t:relation">
                             <xsl:variable name="parent" select="ancestor::t:body/t:bibl"/>
-                            <xsl:variable name="bibl-type">
-                                <xsl:choose>
-                                    <xsl:when test="@type='lawd:Translation'">Translation</xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:text>Edition</xsl:text>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:variable>
-                            <xsl:for-each select="t:listRelation/t:relation">
+                            <xsl:variable name="bibl-type" select="local:translate-label(string(@type))"/>
+                            <xsl:for-each select="t:listRelation/t:relation[not(@ref='lawd:embodies')]">
                                 <xsl:variable name="bibl-rel">
                                     <xsl:variable name="bibl-id" select="tokenize(@passive,' ')[1]"/>
                                     <xsl:variable name="type" select="$parent/t:bibl[@xml:id = substring-after($bibl-id,'#')]/@type"/>
-                                    <xsl:choose>
-                                        <xsl:when test="$type = 'lawd:Edition'">
-                                            Edition<xsl:if test="contains(@passive,' ')">
-                                                <xsl:text>s</xsl:text>
-                                            </xsl:if>
-                                        </xsl:when>
-                                        <xsl:when test="$type ='lawd:WrittenWork'">
-                                            Syriac Manuscript Witnesse<xsl:if test="contains(@passive,' ')">
-                                                <xsl:text>s</xsl:text>
-                                            </xsl:if>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:value-of select="string($type)"/>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
+                                    <xsl:value-of select="local:translate-label(string($type))"/>
+                                    <xsl:if test="contains(@passive,' ')">
+                                        <xsl:text>s</xsl:text>
+                                    </xsl:if>
                                 </xsl:variable>
                                 <xsl:text> (</xsl:text>
                                 <xsl:value-of select="$bibl-type"/>
@@ -321,7 +298,7 @@
                                         </xsl:for-each-group>
                                     </xsl:otherwise>
                                 </xsl:choose>
-                                <xsl:text>. See below.)</xsl:text>
+                                <xsl:text>.)</xsl:text>
                                 <xsl:if test="t:desc">
                                     <xsl:text> [</xsl:text>
                                     <xsl:value-of select="t:desc"/>
@@ -433,11 +410,24 @@
             </ul>
         </li>
     </xsl:template>
-    <xsl:template match="t:offset | t:measure | t:source | t:choice">
+    <xsl:template match="t:offset | t:measure | t:source ">
         <xsl:if test="preceding-sibling::*">
             <xsl:text> </xsl:text>
         </xsl:if>
         <xsl:apply-templates select="." mode="plain"/>
+    </xsl:template>
+    <xsl:template match="t:choice" mode="#all">
+        <xsl:apply-templates/>
+    </xsl:template>
+    <xsl:template match="t:orig">
+        <xsl:text> (</xsl:text>
+        <xsl:apply-templates/>
+        <xsl:text>) </xsl:text>
+    </xsl:template>
+    <xsl:template match="t:sic">
+        <xsl:text> [sic: </xsl:text>
+        <xsl:apply-templates/>
+        <xsl:text>] </xsl:text>
     </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -835,6 +825,9 @@
             <xsl:apply-templates/>
         </a>
     </xsl:template>
+    <xsl:template match="@xml:id">
+        <xsl:attribute name="id" select="."/>
+    </xsl:template>
     <xsl:template match="t:hi" mode="#all">
         <xsl:sequence select="local:rend(.)"/>
     </xsl:template>
@@ -1159,10 +1152,10 @@
                 </p>
             </div>
         </xsl:if>
-        <xsl:if test="self::t:bibl">
+        <xsl:if test="self::t:bibl and t:title">
             <div class="well">
                 <xsl:if test="t:title">
-                    <h3>Titles:</h3>
+                    <h3>Titles</h3>
                     <ul>
                         <xsl:apply-templates select="t:title[contains(@syriaca-tags,'#syriaca-headword') and starts-with(@xml:lang,'syr')]" mode="list">
                             <xsl:sort lang="syr" select="."/>
@@ -1438,10 +1431,11 @@
                     <xsl:for-each-group select="t:bibl[exists(@type)][@type != 'lawd:Citation']" group-by="@type">
                         <xsl:sort select="current-grouping-key()" collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)};ignore-case=yes;ignore-modifiers=yes;ignore-symbols=yes)" order="ascending"/>
                         <xsl:variable name="label">
+                            <xsl:variable name="l" select="local:translate-label(current-grouping-key())"/>
                             <xsl:choose>
-                                <xsl:when test="current-grouping-key() = 'lawd:Edition'">Editions</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'lawd:WrittenWork'">Syriac Manuscript Witnesses</xsl:when>
-                                <xsl:when test="current-grouping-key() = 'lawd:Translation'">Modern Translations</xsl:when>
+                                <xsl:when test="$l != ''">
+                                    <xsl:value-of select="$l"/>
+                                </xsl:when>
                                 <xsl:otherwise>
                                     <xsl:value-of select="current-grouping-key()"/>
                                 </xsl:otherwise>
@@ -1512,7 +1506,6 @@
     <xsl:template name="citationInfo">
         <div class="citationinfo">
             <h3>How to Cite This Entry</h3>
-            
             <div id="citation-note" class="well">
                 <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
                 <div class="collapse" id="showcit">
@@ -1575,6 +1568,7 @@
                 </p>
                 <ul>
                     <!-- Bibliography elements are processed by bibliography.xsl -->
+                    <!-- Old works model 
                     <xsl:choose>
                         <xsl:when test="t:bibl[@type='lawd:Citation']">
                             <xsl:apply-templates select="t:bibl[@type='lawd:Citation']" mode="footnote"/>
@@ -1583,6 +1577,11 @@
                             <xsl:apply-templates select="t:bibl" mode="footnote"/>
                         </xsl:otherwise>
                     </xsl:choose>
+                    -->
+                    <xsl:for-each select="t:bibl">
+                        <xsl:sort select="xs:integer(substring-after(@xml:id,'-'))"/>
+                        <xsl:apply-templates select="." mode="footnote"/>
+                    </xsl:for-each>
                 </ul>
             </div>
         </div>
