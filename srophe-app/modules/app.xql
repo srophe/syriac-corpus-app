@@ -182,6 +182,7 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                 )}  
             </div>
         </div>
+    (: Used for NHSL an BHSE formats:)        
     else if($model("data")//tei:body/tei:bibl) then 
         <div class="row">
             <div class="col-md-8 column1">
@@ -262,7 +263,11 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
 declare %templates:wrap function app:get-child-works($data){
 let $rec := $data
 let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1]/text(),'/tei','')
-let $works := collection($global:data-root || '/works/tei')//tei:body/child::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]  
+let $works := 
+            for $w in collection($global:data-root || '/works/tei')//tei:body[child::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]]
+            let $part := xs:integer($w/child::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc/tei:label[@type='order']/@n)
+            order by $part
+            return $w
 let $count := count($works)
 return 
     if($count gt 0) then 
@@ -277,9 +282,14 @@ return
                         <div>
                          {
                              for $r in subsequence($works, 1, 3)
-                             let $workid := replace($r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
-                             let $rec :=  global:get-rec($workid)
-                             return <div class="indent">{global:display-recs-short-view($rec,'',$recid)}</div>
+                             let $rec :=  $r/ancestor::tei:TEI
+                             let $workid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+                             let $part := xs:integer($rec/descendant::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc/tei:label[@type='order']/@n)
+                             return 
+                             <div class="indent row">
+                                <div class="col-md-1"><span class="badge">{$part}</span></div>
+                                <div class="col-md-11">{global:display-recs-short-view($rec,'',$recid)}</div>
+                             </div>
                          }
                            <div>
                             <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
