@@ -741,10 +741,10 @@
                     </xsl:choose>
                 </xsl:when>
                 <xsl:when test="$edited">
-                    <xsl:sequence select="local:emit-responsible-persons-all(t:editor[not(@role) or @role!='translator'],'biblist')"/>
+                    <xsl:sequence select="local:emit-responsible-persons-all(t:editor[not(@role) or @role!='translator'],'footnote')"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:sequence select="local:emit-responsible-persons-all(t:author,'biblist')"/>
+                    <xsl:sequence select="local:emit-responsible-persons-all(t:author,'footnote')"/>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:if test="not(t:author)">
@@ -771,7 +771,7 @@
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle name components in the context of a footnote
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <xsl:template match="t:forename | t:addName | t:surname" mode="footnote" priority="1">
+    <xsl:template match="t:forename | t:addName | t:surname" mode="footnote biblist" priority="1">
         <xsl:if test="preceding-sibling::t:*">
             <xsl:text> </xsl:text>
         </xsl:if>
