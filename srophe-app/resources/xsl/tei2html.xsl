@@ -258,7 +258,6 @@
                         </span>
                     </xsl:if>
                     <span>
-                        <xsl:apply-templates select="@xml:id"/>
                         <xsl:call-template name="langattr"/>
                         <xsl:call-template name="footnote"/>
                         <xsl:if test="t:listRelation/t:relation">
@@ -1145,7 +1144,7 @@
                 </p>
             </div>
         </xsl:if>
-        <xsl:if test="self::t:bibl">
+        <xsl:if test="self::t:bibl and t:title">
             <div class="well">
                 <xsl:if test="t:title">
                     <h3>Titles</h3>
@@ -1561,6 +1560,7 @@
                 </p>
                 <ul>
                     <!-- Bibliography elements are processed by bibliography.xsl -->
+                    <!-- Old works model 
                     <xsl:choose>
                         <xsl:when test="t:bibl[@type='lawd:Citation']">
                             <xsl:apply-templates select="t:bibl[@type='lawd:Citation']" mode="footnote"/>
@@ -1569,6 +1569,12 @@
                             <xsl:apply-templates select="t:bibl" mode="footnote"/>
                         </xsl:otherwise>
                     </xsl:choose>
+                    -->
+                    <xsl:for-each select="t:bibl">
+                        <xsl:sort select="xs:integer(substring-after(@xml:id,'-'))"/>
+                        <xsl:apply-templates select="." mode="footnote"/>                        
+                    </xsl:for-each>
+
                 </ul>
             </div>
         </div>

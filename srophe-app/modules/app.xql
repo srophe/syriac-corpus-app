@@ -185,7 +185,42 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
     else if($model("data")//tei:body/tei:bibl) then 
         <div class="row">
             <div class="col-md-8 column1">
-                {global:tei2html($model("data")/descendant::tei:body)} 
+                {
+                    let $data := $model("data")/descendant::tei:body/tei:bibl
+                    let $infobox := 
+                        <bibl xmlns="http://www.tei-c.org/ns/1.0">
+                        {(
+                            $data/@*,
+                            $data/tei:title,
+                            $data/tei:author,
+                            $data/tei:editor,
+                            $data/tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')],
+                            $data/tei:note[@type='abstract'],
+                            $data/tei:date,
+                            $data/tei:extent,
+                            $data/tei:idno
+                         )}
+                        </bibl>
+                     let $allData := 
+                     <bibl xmlns="http://www.tei-c.org/ns/1.0">
+                        {(
+                            $data/@*,
+                            $data/child::*
+                            [not(self::tei:title)]
+                            [not(self::tei:author)]
+                            [not(self::tei:editor)]
+                            [not(self::tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')])]
+                            [not(self::tei:note[@type='abstract'])]
+                            [not(self::tei:date)]
+                            [not(self::tei:extent)]
+                            [not(self::tei:idno)])}
+                        </bibl>
+                     return 
+                        (global:tei2html($infobox),
+                        app:get-child-works($model("data")),
+                        global:tei2html($allData))  
+                
+                } 
             </div>
             <div class="col-md-4 column2">
                 {(
@@ -194,7 +229,7 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                     <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
                     <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">Is this record complete?</a>
                 </div>,
-                app:get-child-works($model("data")),
+                
                 if($model("data")//tei:body/child::*/tei:listRelation) then 
                 rel:build-relationships($model("data")//tei:body/child::*/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
                 else ()
@@ -231,8 +266,12 @@ let $works := collection($global:data-root || '/works/tei')//tei:body/child::*/t
 let $count := count($works)
 return 
     if($count gt 0) then 
-        <div xmlns="http://www.w3.org/1999/xhtml" class="well">
-            <h3>{substring-before($rec/descendant::tei:title[1]/text(),' — ')} contains {$count} works.</h3>
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            <h3>{
+                if(contains($rec/descendant::tei:title[1]/text(),' — ')) then 
+                    substring-before($rec/descendant::tei:title[1]/text(),' — ') 
+                else $rec/descendant::tei:title[1]/text()}
+                 contains {$count} works.</h3>
             {(
                 if($count gt 3) then
                         <div>
@@ -240,15 +279,15 @@ return
                              for $r in subsequence($works, 1, 3)
                              let $workid := replace($r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
                              let $rec :=  global:get-rec($workid)
-                             return global:display-recs-short-view($rec,'',$recid)
+                             return <div class="indent">{global:display-recs-short-view($rec,'',$recid)}</div>
                          }
-                            <div>
+                           <div>
                             <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
                             data-ref="{$global:nav-base}/nhsl/search.html?child-rec={$recid}&amp;perpage={$count}&amp;sort=alpha" 
                             data-label="{substring-before($rec/descendant::tei:title[1]/text(),' — ')} contains" id="works">
                               See all {count($works)} works
                              </a>
-                            </div>
+                           </div>
                          </div>    
                 else 
                     for $r in $works
