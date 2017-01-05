@@ -189,11 +189,6 @@
             <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
         </xsl:if>
     </xsl:template>
-    <xsl:template match="t:orig | t:sic">
-        <xsl:text> (</xsl:text>
-        <xsl:apply-templates/>
-        <xsl:text>) </xsl:text>
-    </xsl:template>
     <xsl:template match="t:event" mode="event">
         <li>
         <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
@@ -415,11 +410,24 @@
             </ul>
         </li>
     </xsl:template>
-    <xsl:template match="t:offset | t:measure | t:source | t:choice">
+    <xsl:template match="t:offset | t:measure | t:source ">
         <xsl:if test="preceding-sibling::*">
             <xsl:text> </xsl:text>
         </xsl:if>
         <xsl:apply-templates select="." mode="plain"/>
+    </xsl:template>
+    <xsl:template match="t:choice" mode="#all">
+        <xsl:apply-templates/>
+    </xsl:template>
+    <xsl:template match="t:orig">
+        <xsl:text> (</xsl:text>
+        <xsl:apply-templates/>
+        <xsl:text>) </xsl:text>
+    </xsl:template>
+    <xsl:template match="t:sic">
+        <xsl:text> [sic: </xsl:text>
+        <xsl:apply-templates/>
+        <xsl:text>] </xsl:text>
     </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -1572,9 +1580,8 @@
                     -->
                     <xsl:for-each select="t:bibl">
                         <xsl:sort select="xs:integer(substring-after(@xml:id,'-'))"/>
-                        <xsl:apply-templates select="." mode="footnote"/>                        
+                        <xsl:apply-templates select="." mode="footnote"/>
                     </xsl:for-each>
-
                 </ul>
             </div>
         </div>
