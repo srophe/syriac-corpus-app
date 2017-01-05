@@ -282,7 +282,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
         return
             <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
                 <div class="col-md-12">
-                      <div class="col-md-1" style="margin-right:-1em; padding-top:1em;">
+                      <div class="col-md-1" style="margin-right:-1em;">
                         <span class="badge">
                             {
                                 if(request:get-parameter('child-rec', '') != '' and ($search:sort-element = '' or not(exists($search:sort-element)))) then
