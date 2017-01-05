@@ -293,7 +293,7 @@ return
                            <div>
                             <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
                             data-ref="{$global:nav-base}/nhsl/search.html?child-rec={$recid}&amp;perpage={$count}" 
-                            data-label="{$title} contains" id="works">
+                            data-label="{$title} contains {$count} works" id="works">
                               See all {count($works)} works
                              </a>
                            </div>
