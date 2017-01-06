@@ -867,7 +867,7 @@
      levels)
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:date | t:publisher | t:pubPlace | t:placeName | t:foreign" mode="footnote" priority="1">
-        <xsl:if test="preceding-sibling::* and not(self::t:pubPlace)">
+        <xsl:if test="(preceding-sibling::* and not(self::t:pubPlace)) or preceding-sibling::text()">
             <xsl:text> </xsl:text>
         </xsl:if>
         <span class="{local-name()}">

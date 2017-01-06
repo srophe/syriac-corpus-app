@@ -1,5 +1,5 @@
 xquery version "3.0";
-  
+
 module namespace app="http://syriaca.org/templates";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
