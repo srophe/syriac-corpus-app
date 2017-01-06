@@ -324,7 +324,7 @@ declare function persons:search-string() as node()*{
                 (<span class="param">Keyword: </span>,<span class="match">{$persons:q}&#160; </span>)
             else if($parameter = 'coll') then 
                 (<span class="param">Resource: </span>,<span class="match">{
-                    if($persons:coll = 'sbd' ) then '"The Syriac Prosopography"'
+                    if($persons:coll = 'sbd' ) then '"The Syriac Biographical Dictionary"'
                     else if($persons:coll = 'q' ) then '"Qadishe: A Guide to the Syriac Saints"'
                     else if($persons:coll = 'authors' ) then '"A Guide to Syriac Authors"'
                     else $persons:coll
