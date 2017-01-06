@@ -111,10 +111,10 @@ declare function bibls:search-string(){
             if(request:get-parameter($parameter, '') != '') then
                 if($parameter = 'start' or $parameter = 'sort-element') then ()
                 else if($parameter = 'q') then 
-                    (<span class="param">Keyword: </span>,<span class="match">{$bibls:q}</span>)
+                    (<span class="param">Keyword: </span>,<span class="match">{$bibls:q}&#160;</span>)
                 else if ($parameter = 'author') then 
-                    (<span class="param">Author/Editor: </span>,<span class="match">{$bibls:author}</span>)
-                else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}</span>)    
+                    (<span class="param">Author/Editor: </span>,<span class="match">{$bibls:author}&#160;</span>)
+                else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)    
             else ()               
 };
 

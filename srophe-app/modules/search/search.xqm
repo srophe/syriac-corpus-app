@@ -142,7 +142,7 @@ declare function search:search-string(){
             if($parameter = 'start' or $parameter = 'sort-element') then ()
             else if($parameter = 'q') then 
                 (<span class="param">Keyword: </span>,<span class="match">{$search:q}&#160;</span>)
-            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}</span>)    
+            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)    
         else ())
         }
 </span>

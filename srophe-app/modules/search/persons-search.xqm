@@ -328,10 +328,10 @@ declare function persons:search-string() as node()*{
                     else if($persons:coll = 'q' ) then '"Qadishe: A Guide to the Syriac Saints"'
                     else if($persons:coll = 'authors' ) then '"A Guide to Syriac Authors"'
                     else $persons:coll
-                }</span>)
+                }&#160;</span>)
             else if($parameter = 'gender') then 
-                (<span class="param">Sex or Gender: </span>,<span class="match">{$persons:gender}</span>)
-            else (<span class="param"> {replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}</span>)    
+                (<span class="param">Sex or Gender: </span>,<span class="match">{$persons:gender}&#160;</span>)
+            else (<span class="param"> {replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)    
         else ())
         }
       </span>
