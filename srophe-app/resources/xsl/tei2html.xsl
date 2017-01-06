@@ -256,48 +256,41 @@
                         <xsl:call-template name="langattr"/>
                         <xsl:call-template name="footnote"/>
                         <xsl:if test="t:listRelation/t:relation">
-                            <xsl:variable name="parent" select="ancestor::t:body/t:bibl"/>
+                            <xsl:variable name="parent" select="/"/>
                             <xsl:variable name="bibl-type" select="local:translate-label(string(@type))"/>
                             <xsl:for-each select="t:listRelation/t:relation[not(@ref='lawd:embodies')]">
                                 <xsl:variable name="bibl-rel">
-                                    <xsl:variable name="bibl-id" select="tokenize(@passive,' ')[1]"/>
-                                    <xsl:variable name="type" select="$parent/t:bibl[@xml:id = substring-after($bibl-id,'#')]/@type"/>
-                                    <xsl:value-of select="local:translate-label(string($type))"/>
-                                    <xsl:if test="contains(@passive,' ')">
-                                        <xsl:text>s</xsl:text>
-                                    </xsl:if>
+                                    <bib-relations xmlns="http://www.tei-c.org/ns/1.0">
+                                        <xsl:for-each select="tokenize(@passive,' ')">
+                                            <xsl:variable name="bibl-id" select="replace(.,'#','')"/>
+                                            <bib-relation xmlns="http://www.tei-c.org/ns/1.0" bibid="{$bibl-id}" 
+                                                position="{position()}"><xsl:value-of select="local:translate-label(string($parent/descendant-or-self::*[@xml:id = $bibl-id]/@type))"></xsl:value-of></bib-relation>
+                                        </xsl:for-each>
+                                    </bib-relations>
                                 </xsl:variable>
                                 <xsl:text> (</xsl:text>
                                 <xsl:value-of select="$bibl-type"/>
                                 <xsl:text> from  </xsl:text>
-                                <xsl:value-of select="$bibl-rel"/>
-                                <xsl:choose>
-                                    <xsl:when test="contains(@passive,' ')">
-                                        <xsl:for-each select="tokenize(@passive,' ')">
-                                            <xsl:variable name="rel" select="substring-after(.,'#')"/>
-                                            <xsl:for-each-group select="$parent/t:bibl" group-by="@type">
-                                                <xsl:for-each select="current-group()">
-                                                    <xsl:if test="@xml:id = $rel">
-                                                        <xsl:text> </xsl:text>
-                                                        <xsl:value-of select="position()"/>
-                                                    </xsl:if>
+                                <xsl:for-each-group select="$bibl-rel/child::*" group-by=".">
+                                    <xsl:for-each select="current-group()">
+                                        <xsl:choose>
+                                            <xsl:when test="count(child::*) &gt; 1">
+                                                <xsl:value-of select="concat(child::*[1],'s ')"/>
+                                                <!--<xsl:value-of select="concat(current-grouping-key(),'s ')"/>-->
+                                                <xsl:for-each select="child::*">
+                                                    <xsl:text> </xsl:text><xsl:value-of select="string(@position)"/>
+                                                    <xsl:if test="not(position()=last())"><xsl:text>, </xsl:text></xsl:if>
                                                 </xsl:for-each>
-                                            </xsl:for-each-group>
-                                            <xsl:if test="position() != last()">, </xsl:if>
-                                        </xsl:for-each>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:variable name="rel" select="substring-after(@passive,'#')"/>
-                                        <xsl:for-each-group select="$parent/t:bibl" group-by="@type">
-                                            <xsl:for-each select="current-group()">
-                                                <xsl:if test="@xml:id = $rel">
-                                                    <xsl:text> </xsl:text>
-                                                    <xsl:value-of select="position()"/>
-                                                </xsl:if>
-                                            </xsl:for-each>
-                                        </xsl:for-each-group>
-                                    </xsl:otherwise>
-                                </xsl:choose>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="current-grouping-key()"/>
+                                                <xsl:for-each select="child::*">
+                                                    <xsl:text> </xsl:text><xsl:value-of select="string(@position)"/>
+                                                </xsl:for-each>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:for-each>
+                                </xsl:for-each-group>
                                 <xsl:text>.)</xsl:text>
                                 <xsl:if test="t:desc">
                                     <xsl:text> [</xsl:text>
