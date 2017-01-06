@@ -164,16 +164,16 @@ declare function bhses:search-string(){
             if(request:get-parameter($parameter, '') != '') then
                 if($parameter = 'start' or $parameter = 'sort-element') then ()
                 else if($parameter = 'q') then 
-                    (<span class="param">Keyword: </span>,<span class="match">{$bhses:q}</span>)
+                    (<span class="param">Keyword: </span>,<span class="match">{$bhses:q}&#160; </span>)
                 else if($parameter = 'related-pers') then 
-                    (<span class="param">Related Persons: </span>,<span class="match">{$bhses:related-pers}</span>)
+                    (<span class="param">Related Persons: </span>,<span class="match">{$bhses:related-pers}&#160; </span>)
                 else if($parameter = 'modern') then 
-                    (<span class="param">Modern Translations: </span>,<span class="match">{$bhses:modern}</span>)
+                    (<span class="param">Modern Translations: </span>,<span class="match">{$bhses:modern}&#160; </span>)
                 else if($parameter = 'ancient') then 
-                    (<span class="param">Ancient Versions: </span>,<span class="match">{$bhses:ancient}</span>)
+                    (<span class="param">Ancient Versions: </span>,<span class="match">{$bhses:ancient}&#160; </span>)
                 else if($parameter = 'mss') then 
-                    (<span class="param">Manuscript: </span>,<span class="match">{$bhses:mss}</span>)            
-                else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')} </span>)    
+                    (<span class="param">Manuscript: </span>,<span class="match">{$bhses:mss}&#160; </span>)            
+                else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;  </span>)    
             else ()               
 };
 
