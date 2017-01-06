@@ -78,7 +78,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
 :)
 declare function search:query-string($collection as xs:string?) as xs:string?{
 if($collection !='') then 
-    concat("collection('",$global:data-root,"/",$collection,"')//tei:body",
+    concat("collection('",$global:data-root,"/",$collection,"')//tei:TEI",
     common:keyword($search:q),
     search:persName(),
     search:placeName(), 
@@ -87,7 +87,7 @@ if($collection !='') then
     search:idno()
     )
 else 
-concat("collection('",$global:data-root,"')//tei:body",
+concat("collection('",$global:data-root,"')//tei:TEI",
     common:keyword($search:q),
     search:persName(),
     search:placeName(), 
@@ -133,7 +133,8 @@ declare function search:bibl(){
 (: NOTE add additional idno locations, ptr/@target @ref, others? :)
 declare function search:idno(){
     if($search:idno != '') then 
-         concat("[ft:query(descendant::tei:idno, '&quot;",$search:idno,"&quot;')]") 
+         (:concat("[ft:query(descendant::tei:idno, '&quot;",$search:idno,"&quot;')]"):)
+         concat("[.//tei:idno = '",$search:idno,"']")
     else () 
 };
 
@@ -276,17 +277,18 @@ declare
     %templates:default("start", 1)
 function search:show-hits($node as node()*, $model as map(*), $collection as xs:string?) {
 <div class="indent" id="search-results">
+    <p>Referesh {search:query-string('')}</p>
     <div>{search:build-geojson($node,$model)}</div>
     {
         for $hit at $p in subsequence($model("hits"), $search:start, $search:perpage)
         return
             <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
                 <div class="col-md-12">
-                      <div class="col-md-1" style="margin-right:-1em;">
+                      <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">
                         <span class="badge">
                             {
                                 if(request:get-parameter('child-rec', '') != '' and ($search:sort-element = '' or not(exists($search:sort-element)))) then
-                                    $hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order']
+                                    string($hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order']/@n)
                                 else $search:start + $p - 1
                             }
                         </span>

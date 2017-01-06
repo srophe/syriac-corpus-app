@@ -1,5 +1,5 @@
 xquery version "3.0";
-       
+               
 module namespace app="http://syriaca.org/templates";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
@@ -286,7 +286,7 @@ return
                              let $part := $rec/descendant::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc/tei:label[@type='order']
                              return 
                              <div class="indent row">
-                                <div class="col-md-1"><span class="badge">{$part/text()}</span></div>
+                                <div class="col-md-1"><span class="badge">{string($part/@n)}</span></div>
                                 <div class="col-md-11">{global:display-recs-short-view($rec,'',$recid)}</div>
                              </div>
                          }
