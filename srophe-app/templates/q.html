@@ -24,6 +24,21 @@
         <script type="text/javascript" src="$app-root/resources/js/jquery-1.9.1.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/jquery.smartmenus.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/clipboard.min.js"/>
+        <!-- keyboard widget css & script -->
+        <link href="$app-root/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
+        <link href="$app-root/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
+        <link href="$app-root/resources/keyboard/syr/syr.css" rel="stylesheet"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/syr/jquery.keyboard.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/syr/syr.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/syr/keyboardSupport.js"/>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
+            })
+        </script>
     </head>
     <body vocab="http://schema.org/">
         <!--[if lt IE 7]>
@@ -105,7 +120,7 @@
                                     <span class="glyphicon glyphicon-cog"/>&#160;<small>Search Tools</small>
                                 </a>
                                 <span class="btn btn-default" id="q-keyboard">
-                                    <span class="syriaca-icon syriaca-keyboard"></span>
+                                    <span class="syriaca-icon syriaca-keyboard"/>
                                     <span class="glyphicon icon-keyboard-wireless"/>&#160;<small>Keyboard</small>
                                 </span>
                             </div><!-- /btn-group -->
