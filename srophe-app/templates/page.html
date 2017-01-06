@@ -37,6 +37,11 @@
         <script type="text/javascript" src="$app-root/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"/>
         <script type="text/javascript" src="$app-root/resources/keyboard/syr/syr.js"/>
         <script type="text/javascript" src="$app-root/resources/keyboard/syr/keyboardSupport.js"/>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
+            })
+        </script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -78,15 +83,15 @@
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="search" name="q" id="q"/>
                             <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit">
+                                <button class="btn btn-default" type="submit" data-toggle="tooltip" title="Search" data-placement="bottom">
                                     &#160; <span class="glyphicon glyphicon-search"/>
                                 </button>
-                                <a href="$app-root/search.html" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-cog"/>&#160;<small>Search Tools</small>
+                                <a href="$app-root/search.html" class="btn btn-default" data-toggle="tooltip" title="Search Tools" data-placement="bottom">
+                                    <span class="glyphicon glyphicon-cog" data-toggle="tooltip"/>&#160;<!--<small>Search Tools</small>-->
                                 </a>
-                                <span class="btn btn-default" id="q-keyboard">
-                                    <span class="fa fa-keyboard-o"/>t
-                                    <span class="glyphicon icon-keyboard-wireless"/>&#160;<small>Keyboard</small>
+                                <span class="btn btn-default" id="q-keyboard" data-toggle="tooltip" title="Syriac Keyboard" data-placement="bottom">
+                                    <span class="syriaca-icon syriaca-keyboard"></span>&#160;
+                                    <!--<span class="glyphicon icon-keyboard-wireless"/>&#160;<small>Keyboard</small>-->
                                 </span>
                             </div><!-- /btn-group -->
                             <script type="text/javascript">

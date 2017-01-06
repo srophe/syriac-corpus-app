@@ -81,7 +81,16 @@
                                 <a href="$app-root/authors/search.html" class="btn btn-default">
                                     <span class="glyphicon glyphicon-cog"/>&#160;<small>Search Tools</small>
                                 </a>
+                                <span class="btn btn-default" id="q-keyboard">
+                                    <span class="syriaca-icon syriaca-keyboard"></span>
+                                    <span class="glyphicon icon-keyboard-wireless"/>&#160;<small>Keyboard</small>
+                                </span>
                             </div><!-- /btn-group -->
+                            <script type="text/javascript">
+                                $(function(){
+                	               initializeKeyboard('#q', 'syriac-standard', '#q-keyboard');
+                	               });
+                   	        </script>
                         </div>
                     </form>
                 </div><!--/.nav-collapse -->
