@@ -170,7 +170,7 @@ declare function rel:subject-headings($idno){
                 {
                     (
                     for $recs in subsequence($hits,1,20)
-                    let $headword := $recs/tei:title[1]
+                    let $headword := $recs/tei:title[1]/text()[1]
                     let $subject-idno := replace($recs/tei:idno[1],'/tei','')
                     return 
                         <span class="sh pers-label badge">{replace($headword,' — ','')} 
@@ -181,10 +181,10 @@ declare function rel:subject-headings($idno){
                         (<div class="collapse" id="showAllSH">
                             {
                             for $recs in subsequence($hits,20,$total)
-                            let $headword := $recs/tei:title[1]
+                            let $headword := $recs/tei:title[1]/text()[1]
                             let $subject-idno := replace($recs/tei:idno[1],'/tei','')
                             return 
-                               <span class="sh pers-label badge">{replace($headword,' — ','')} 
+                               <span class="sh pers-label badge">{replace($headword,' — ',' ')} 
                                <a href="search.html?subject={$subject-idno}" class="sh-search"> 
                                <span class="glyphicon glyphicon-search" aria-hidden="true">
                                </span></a></span>
