@@ -18,9 +18,12 @@
         <link rel="stylesheet" type="text/css" media="print" href="$app-root/resources/css/print.css"/>
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
         <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>
-        <script type="text/javascript" src="$app-root/resources/js/jquery-1.9.1.min.js"/>
+        <!-- jquery -->
+        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/ui-lightness/jquery-ui.css" rel="stylesheet"/>
+        <!-- temporary until migrate to bootstrap 3.0 -->
+        <script type="text/javascript" src="$app-root/resources/js/jquery.min.js"/>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/jquery.smartmenus.min.js"/>
-        <script type="text/javascript" src="$app-root/resources/js/clipboard.min.js"/>
         <script src="https://www.google.com/recaptcha/api.js"/>
         <!-- keyboard widget css & script -->
         <link href="$app-root/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
@@ -30,13 +33,14 @@
         <script type="text/javascript" src="$app-root/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"/>
         <script type="text/javascript" src="$app-root/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"/>
         <script type="text/javascript" src="$app-root/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"/>
-        <script type="text/javascript" src="$app-root/resources/keyboard/syr/syr.js"/>
         <script type="text/javascript" src="$app-root/resources/keyboard/syr/keyboardSupport.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/syr/syr.js"/>
         <script type="text/javascript">
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
             })
         </script>
+        
     </head>
     <body vocab="http://schema.org/">
         <!--[if lt IE 7]>

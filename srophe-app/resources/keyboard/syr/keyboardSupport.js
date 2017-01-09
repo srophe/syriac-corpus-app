@@ -133,12 +133,14 @@ function initializeKeyboard(textBoxId, layout, buttonId, autocompleteUri, select
 	            keyboard.el.blur();
 	        },
 	        position: {
-		        of: $(window),
-		        my: 'center bottom',
-		        at: 'center bottom',
-		        at2: 'center bottom',
-               collision: 'flipfit flipfit'
-		    }
+            // null = attach to input/textarea;
+            // use $(sel) to attach elsewhere
+            of: null,
+            my: 'center top',
+            at: 'center top',
+            // used when "usePreview" is false
+            at2: 'center bottom'
+            }
 		};
 
 		if (popupButton) options.openOn = "";

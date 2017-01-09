@@ -340,6 +340,14 @@ declare function persons:search-string() as node()*{
  :)
 declare function persons:search-form($collection) {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
+    <script type="text/javascript">
+    <![CDATA[
+        $(function(){
+            initializeKeyboard('#qs', 'syriac-standard', '#qs-keyboard');
+            initializeKeyboard('#persNameSearch', 'syriac-standard', '#persNameSearch-keyboard');
+            });
+         ]]>
+    </script>
     <div class="well well-small">
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
@@ -406,24 +414,38 @@ declare function persons:search-form($collection) {
             </div>
             <hr/>
         <!-- Keyword -->
-            <div class="form-group">            
+            <div class="form-group">
                 <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="q" name="q" class="form-control" placeholder="Any script (Syriac, Roman, etc.)"/>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="qs" name="q" class="form-control" placeholder="Any script (Syriac, Roman, etc.)"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="qs-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                 </div>
             </div>
             <!-- Person Name -->
-            <div class="form-group">            
-                <label for="name" class="col-sm-2 col-md-3  control-label">Person Name: </label>
+            <div class="form-group">
+                <label for="q" class="col-sm-2 col-md-3  control-label">Person Name: </label>
                 <div class="col-sm-10 col-md-6">
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Any script (Syriac, Roman, etc.)"/>
-                    <!--<select name="name-type" class="input-medium">
+                    <div class="input-group">
+                        <input type="text" id="persNameSearch" name="name" class="form-control" placeholder="Any script (Syriac, Roman, etc.)"/>
+                        <!--<select name="name-type" class="input-medium">
                                 <option value="">- Select -</option>
                                 <option value="any">any</option>
                                 <option value="given">given</option>
                                 <option value="family">family</option>
                                 <option value="title">title</option>
                             </select>-->
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="persNameSearch-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                 </div>
             </div>
             <hr/>            

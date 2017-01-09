@@ -183,6 +183,25 @@ declare function bhses:search-string(){
  :)
 declare function bhses:search-form($collection) {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
+    <script type="text/javascript">
+    <![CDATA[
+        $(function(){
+            initializeKeyboard('#qs', 'syriac-standard', '#qs-keyboard');
+            initializeKeyboard('#title', 'syriac-standard', '#title-keyboard');
+            initializeKeyboard('#author', 'syriac-standard', '#author-keyboard');
+            initializeKeyboard('#relatedPers', 'syriac-standard', '#relatedPers-keyboard');
+            initializeKeyboard('#prologue', 'syriac-standard', '#prologue-keyboard');
+            initializeKeyboard('#incipit', 'syriac-standard', '#incipit-keyboard');
+            initializeKeyboard('#explicit', 'syriac-standard', '#explicit-keyboard');
+            initializeKeyboard('#editions', 'syriac-standard', '#editions-keyboard');
+            initializeKeyboard('#modern', 'syriac-standard', '#modern-keyboard');
+            initializeKeyboard('#ancient', 'syriac-standard', '#ancient-keyboard');
+            initializeKeyboard('#mss', 'syriac-standard', '#mss-keyboard');
+            initializeKeyboard('#refs', 'syriac-standard', '#refs-keyboard');            
+            
+            });
+         ]]>
+    </script>
     <div class="well well-small">
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
@@ -211,80 +230,164 @@ declare function bhses:search-form($collection) {
                 </div>
             </div>
         <!-- Keyword -->
-            <div class="form-group">            
+            <div class="form-group">
                 <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="q" name="q" class="form-control" placeholder="English, French, Syriac"/>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="qs" name="q" class="form-control" placeholder="English, French, Syriac"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="qs-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                 </div>
-            </div> 
-            <hr/>         
-            <div class="form-group">            
+            </div>
+            <hr/>
+            <div class="form-group">
                 <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="title" name="title" class="form-control"  placeholder="English, French, Syriac"/>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="title" name="title" class="form-control" placeholder="English, French, Syriac"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="title-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                 </div>
             </div>
-            <div class="form-group">            
-                <label for="author" class="col-sm-2 col-md-3  control-label">Author: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="author" name="author" class="form-control" placeholder="English, French, Syriac"/>
+            <div class="form-group">
+                <label for="title" class="col-sm-2 col-md-3  control-label">Author: </label>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="author" name="author" class="form-control" placeholder="English, French, Syriac"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="author-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                 </div>
             </div>
-            <div class="form-group">            
-                <label for="related-pers" class="col-sm-2 col-md-3  control-label">Related Persons: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="related-pers" name="related-pers" class="form-control" placeholder="English, French, Syriac Keyword or Syriaca.org URI"/>
+            <div class="form-group">
+                <label for="relatedPers" class="col-sm-2 col-md-3  control-label">Related Persons: </label>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="relatedPers" name="related-pers" class="form-control" placeholder="English, French, Syriac Keyword or Syriaca.org URI"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="relatedPers-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                 </div>
-            </div>              
-            <hr/>         
-            <div class="form-group">            
+            </div>          
+            <hr/>  
+            <div class="form-group">
                 <label for="prologue" class="col-sm-2 col-md-3  control-label">Prologue: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="prologue" name="prologue" class="form-control" placeholder="French, Syriac"/>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="prologue" name="prologue" class="form-control" placeholder="French, Syriac"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="prologue-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                 </div>
             </div> 
-            <div class="form-group">            
+            <div class="form-group">
                 <label for="incipit" class="col-sm-2 col-md-3  control-label">Incipit: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="incipit" name="incipit" class="form-control" placeholder="French, Syriac"/>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="incipit" name="incipit" class="form-control" placeholder="French, Syriac"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="incipit-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                 </div>
-            </div> 
-            <div class="form-group">            
+            </div>       
+            <div class="form-group">
                 <label for="explicit" class="col-sm-2 col-md-3  control-label">Explicit: </label>
-                <div class="col-sm-10 col-md-6 ">
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
                     <input type="text" id="explicit" name="explicit" class="form-control" placeholder="French, Syriac"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="explicit-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                 </div>
-            </div>
-            <div class="form-group">            
+            </div>  
+            <div class="form-group">
                 <label for="editions" class="col-sm-2 col-md-3  control-label">Editions: </label>
-                <div class="col-sm-10 col-md-6 ">
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
                     <input type="text" id="editions" name="editions" class="form-control" placeholder="Keyword"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="editions-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                 </div>
             </div> 
-            <div class="form-group">            
+            <div class="form-group">
                 <label for="modern" class="col-sm-2 col-md-3  control-label">Modern Translations: </label>
-                <div class="col-sm-10 col-md-6 ">
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
                     <input type="text" id="modern" name="modern" class="form-control" placeholder="Keyword"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="modern-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
+                </div>
+            </div>                            
+            <div class="form-group">
+                <label for="ancient" class="col-sm-2 col-md-3  control-label">Ancient Versions: </label>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                    <input type="text" id="ancient" name="ancient" class="form-control" placeholder="Keyword"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="ancient-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
+                </div>
+            </div>  
+            <div class="form-group">
+                <label for="mss" class="col-sm-2 col-md-3  control-label">Manuscripts: </label>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                    <input type="text" id="mss" name="mss" class="form-control" placeholder="Keyword"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="mss-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                 </div>
             </div> 
-            <div class="form-group">            
-                <label for="ancient" class="col-sm-2 col-md-3  control-label">Ancient Versions: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="ancient" name="ancient" class="form-control" placeholder="Keyword"/>
-                </div>
-            </div>
-            <div class="form-group">            
-                <label for="mss" class="col-sm-2 col-md-3  control-label">Manuscripts: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="mss" name="mss" class="form-control" placeholder="Keyword"/>
-                </div>
-            </div>
-            <div class="form-group">            
+            <div class="form-group">
                 <label for="sources" class="col-sm-2 col-md-3  control-label">References: </label>
-                <div class="col-sm-10 col-md-6 ">
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
                     <input type="text" id="refs" name="refs" class="form-control" placeholder="Keyword"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="refs-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                 </div>
-            </div>
+            </div>             
             <hr/>
             <div class="form-group">            
                 <label for="idno" class="col-sm-2 col-md-3  control-label">Text Id Number: </label>

@@ -212,6 +212,17 @@ return
  :)
 declare function spears:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
+    <script type="text/javascript">
+    <![CDATA[
+        $(function(){
+            initializeKeyboard('#qs', 'syriac-standard', '#qs-keyboard');
+            initializeKeyboard('#name', 'syriac-standard', '#name-keyboard');
+            initializeKeyboard('#place', 'syriac-standard', '#place-keyboard');
+            initializeKeyboard('#event', 'syriac-standard', '#event-keyboard');            
+            
+            });
+         ]]>
+    </script>
     <div class="well well-small">
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
@@ -219,32 +230,59 @@ declare function spears:search-form() {
             <xi:include href="../searchTips.html"/>
         <div class="well well-small search-inner well-white">
         <!-- Keyword -->
-            <div class="form-group">            
-                <label for="q" class="col-sm-2 col-md-3  control-label">Full-text: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="q" name="q" class="form-control"/>
+            <div class="form-group">
+                <label for="qs" class="col-sm-2 col-md-3  control-label">Full-text: </label>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="qs" name="q" class="form-control"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="qs-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                 </div>
             </div>
             <!-- Person Name -->
-            <div class="form-group">            
+            <div class="form-group">
                 <label for="name" class="col-sm-2 col-md-3  control-label">Person Name: </label>
                 <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
                     <input type="text" id="name" name="name" class="form-control"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="name-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                 </div>
-            </div>
-            <div class="form-group">            
+            </div>            
+            <div class="form-group">
                 <label for="place" class="col-sm-2 col-md-3  control-label">Place Name: </label>
                 <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
                     <input type="text" id="place" name="place" class="form-control"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="place-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                 </div>
-            </div>
-            <div class="form-group">            
+            </div> 
+            <div class="form-group">
                 <label for="event" class="col-sm-2 col-md-3  control-label">Event: </label>
                 <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
                     <input type="text" id="event" name="event" class="form-control"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="event-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                 </div>
-            </div>
-            
+            </div>              
             <!-- Person gender 
             <div class="form-group">            
                 <label for="gender" class="col-sm-2 col-md-3  control-label">Gender: </label>

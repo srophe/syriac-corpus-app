@@ -373,14 +373,12 @@ declare function search:search-form() {
                         <div class="input-group">
                             <input type="text" id="qs" name="q" class="form-control"/>
                             <div class="input-group-btn">
-                                <span class="btn btn-default" id="qs-keyboard">
-                                   <span class="glyphicon glyphicon-cog"/>&#160;<small>Keyboard</small>
+                                <span class="btn btn-default" id="qs-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                    <span class="syriaca-icon syriaca-keyboard"/>&#160;
                                 </span>
                             </div>
                          </div> 
-
                     </div>
-                    
                   </div>
                     <!-- Place Name-->
                   <div class="form-group">
@@ -389,8 +387,8 @@ declare function search:search-form() {
                         <div class="input-group">
                             <input type="text" id="placeName" name="placeName" class="form-control"/>
                             <div class="input-group-btn">
-                                <span class="btn btn-default" id="placeName-keyboard">
-                                   <span class="glyphicon glyphicon-cog"/>&#160;<small>Keyboard</small>
+                                <span class="btn btn-default" id="placeName-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                   <span class="syriaca-icon syriaca-keyboard"/>&#160;
                                 </span>
                             </div>
                          </div>   
@@ -402,8 +400,8 @@ declare function search:search-form() {
                         <div class="input-group">
                             <input type="text" id="persName" name="persName" class="form-control"/>
                             <div class="input-group-btn">
-                                <span class="btn btn-default" id="persName-keyboard">
-                                   <span class="glyphicon glyphicon-cog"/>&#160;<small>Keyboard</small>
+                                <span class="btn btn-default" id="persName-keyboard" data-toggle="tooltip" title="Syriac Keyboard">
+                                   <span class="syriaca-icon syriaca-keyboard"/>&#160;
                                 </span>
                             </div>
                          </div>   
