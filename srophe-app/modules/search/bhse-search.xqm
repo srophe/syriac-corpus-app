@@ -12,7 +12,6 @@ import module namespace global="http://syriaca.org/global" at "../lib/global.xqm
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
-declare variable $bhses:q {request:get-parameter('q', '')};
 declare variable $bhses:title {request:get-parameter('title', '')};
 declare variable $bhses:author {request:get-parameter('author', '')};
 declare variable $bhses:prologue {request:get-parameter('prologue', '')};
@@ -27,15 +26,6 @@ declare variable $bhses:related-pers {request:get-parameter('related-pers', '')}
 declare variable $bhses:idno {request:get-parameter('idno', '')};
 declare variable $bhses:id-type {request:get-parameter('id-type', '')};
 declare variable $bhses:coll {request:get-parameter('coll', '')};
-
-(:~
- : Build full-text keyword search over all tei:place data
- : @param $q query string
-:)
-declare function bhses:keyword() as xs:string? {
-    if($bhses:q != '') then concat("[ft:query(.,'",common:clean-string($bhses:q),"',common:options())]")
-    else ()    
-};
 
 declare function bhses:title() as xs:string? {
     if($bhses:title != '') then concat("[ft:query(tei:bibl/tei:title,'",common:clean-string($bhses:title),"',common:options())]")
@@ -146,7 +136,7 @@ return
 :)
 declare function bhses:query-string($collection) as xs:string? {
  concat("collection('",$global:data-root,"/works/tei')//tei:body",bhses:coll($collection),
-    bhses:keyword(),bhses:title(),bhses:author(),bhses:prologue(),
+    common:keyword(),bhses:title(),bhses:author(),bhses:prologue(),
     bhses:incipit(),bhses:explicit(),bhses:editions(),
     bhses:modern(),bhses:ancient(),bhses:mss(),
     bhses:refs(),bhses:related-persons(),bhses:child(),
@@ -165,7 +155,7 @@ declare function bhses:search-string(){
             if(request:get-parameter($parameter, '') != '') then
                 if($parameter = 'start' or $parameter = 'sort-element') then ()
                 else if($parameter = 'q') then 
-                    (<span class="param">Keyword: </span>,<span class="match">{$bhses:q}&#160; </span>)
+                    (<span class="param">Keyword: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)
                 else if($parameter = 'related-pers') then 
                     (<span class="param">Related Persons: </span>,<span class="match">{$bhses:related-pers}&#160; </span>)
                 else if($parameter = 'modern') then 

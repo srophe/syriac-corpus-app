@@ -181,27 +181,19 @@ return
     else $string
 };
 
-declare function common:keyword($q){
-    if(exists($q) and $q != '') then 
-        if(starts-with($q,'http://syriaca.org/')) then
-           concat("[ft:query(.,'&quot;",$q,"&quot;',common:options())]")
-        else concat("[ft:query(.,'",common:clean-string($q),"',common:options())]")
+(:
+ : Build full-text keyword search over full record data 
+:)
+declare function common:keyword(){
+    if(request:get-parameter('q', '') != '') then 
+        if(starts-with(request:get-parameter('q', ''),'http://syriaca.org/')) then
+           concat("[ft:query(.,'&quot;",request:get-parameter('q', ''),"&quot;',common:options())]")
+        else concat("[ft:query(.,'",common:clean-string(request:get-parameter('q', '')),"',common:options())]")
     else '' 
-};
-
-declare function common:element-search($element, $query){
-    if(exists($element) and $element != '') then 
-        for $e in $element
-        return concat("[ft:query(descendant::tei:",$element,",'",common:clean-string($query),"',common:options())]") 
-    else '' 
-};
-
-declare function common:id-search($q){
-'temp'
 };
 
 (:~
- : Add relationship search to any search module. 
+ : Add a generic relationship search to any search module. 
 :)
 declare function common:relation-search(){
 if(request:get-parameter('rel', '') != '') then
@@ -214,3 +206,28 @@ if(request:get-parameter('rel', '') != '') then
         else concat("[descendant::tei:relation[@passive[matches(.,'",$q,"(\W|$)')] or @active[matches(.,'",$q,"')] or @mutual[matches(.,'",$q,"')]]]")
 else ''
 };
+
+(:~
+ : Generic id search
+ : Searches record ids and also references to record ids.?
+:)
+declare function common:idno() as xs:string? {
+    if(request:get-parameter('idno', '') != '') then 
+        let $id := replace(request:get-parameter('idno', ''),'[^\d\s]','')
+        let $syr-id := concat('http://syriaca.org/work/',$id)
+        return concat("[descendant::tei:idno[normalize-space(.) = '",$id,"' or .= '",$syr-id,"']]")
+    else ''    
+};
+
+(:
+ : General search function to pass in any tei element. 
+ : @param $element element name must have a lucene index defined on the element
+ : @param $query query text to be searched. 
+:)
+declare function common:element-search($element, $query){
+    if(exists($element) and $element != '') then 
+        for $e in $element
+        return concat("[ft:query(descendant::tei:",$element,",'",common:clean-string($query),"',common:options())]") 
+    else '' 
+};
+

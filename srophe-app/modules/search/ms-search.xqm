@@ -12,19 +12,6 @@ import module namespace global="http://syriaca.org/global" at "../lib/global.xqm
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
-declare variable $ms:q {request:get-parameter('q', '')};
-
-(:~
- : Build full-text keyword search over all tei:place data
- : @param $q query string
- descendant-or-self::* or . testing which is most correct
- common:build-query($pram-string)
-:)
-declare function ms:keyword() as xs:string? {
-    if($ms:q != '') then concat("[ft:query(.,'",common:clean-string($ms:q),"',common:options())]")
-    else ()    
-};
-
 (:
 declare function ms:facets($node as node(), $model as map(*)){
     let $facet-nodes := $model("browse-data")
@@ -38,7 +25,7 @@ declare function ms:facets($node as node(), $model as map(*)){
 :)
 declare function ms:query-string() as xs:string? {
  concat("collection('",$global:data-root,"/manuscripts/tei')//tei:teiHeader",
-    ms:keyword(),facets:facet-filter()
+    common:keyword(),facets:facet-filter()
     )
 };
 
@@ -52,7 +39,7 @@ declare function ms:search-string() as xs:string*{
         if(request:get-parameter($parameter, '') != '') then
             if($parameter = 'start' or $parameter = 'sort-element') then ()
             else if($parameter = 'q') then 
-                (<span class="param">Keyword: </span>,<span class="match">{$ms:q}&#160;</span>)
+                (<span class="param">Keyword: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)
             else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')} &#160;</span>)    
         else ()            
 };
@@ -76,6 +63,13 @@ declare function ms:results-node($hit){
  :)
 declare function ms:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
+    <script type="text/javascript">
+    <![CDATA[
+        $(function(){
+            initializeKeyboard('#qs', 'syriac-standard', '#qs-keyboard');
+            });
+         ]]>
+    </script>
     <div class="well well-small">
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
@@ -83,12 +77,19 @@ declare function ms:search-form() {
             <xi:include href="../searchTips.html"/>
         <div class="well well-small search-inner well-white">
         <!-- Keyword -->
-            <div class="form-group">            
-                <label for="q" class="col-sm-2 col-md-3  control-label">Full-text: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="q" name="q" class="form-control"/>
-                </div>
-            </div> 
+        <div class="form-group">
+            <label for="q" class="col-sm-2 col-md-3  control-label">Full-text: </label>
+            <div class="col-sm-10 col-md-9 ">
+                <div class="input-group">
+                    <input type="text" id="qs" name="q" class="form-control"/>
+                    <div class="input-group-btn">
+                        <span class="btn btn-default" id="qs-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                            <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                        </span>
+                    </div>
+                </div> 
+            </div>
+        </div>
         </div>
         <div class="pull-right">
             <button type="submit" class="btn btn-info">Search</button>&#160;

@@ -12,7 +12,6 @@ import module namespace global="http://syriaca.org/global" at "../lib/global.xqm
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
-declare variable $bibls:q {request:get-parameter('q', '')};
 declare variable $bibls:title {request:get-parameter('title', '')};
 declare variable $bibls:author {request:get-parameter('author', '')};
 declare variable $bibls:idno {request:get-parameter('idno', '')};
@@ -21,15 +20,6 @@ declare variable $bibls:id-type {request:get-parameter('id-type', '')};
 declare variable $bibls:pub-place {request:get-parameter('pub-place', '')};
 declare variable $bibls:publisher {request:get-parameter('publisher', '')};
 declare variable $bibls:date {request:get-parameter('date', '')};
-
-(:~
- : Build full-text keyword search over all tei:place data
- : @param $q query string
-:)
-declare function bibls:keyword() as xs:string? {
-    if($bibls:q != '') then concat("[ft:query(.,'",common:clean-string($bibls:q),"',common:options())]")
-    else ()    
-};
 
 declare function bibls:title() as xs:string? {
     if($bibls:title != '') then concat("[ft:query(descendant::tei:title,'",common:clean-string($bibls:title),"',common:options())]")
@@ -91,7 +81,7 @@ declare function bibls:query-string() as xs:string? {
 if($bibls:subject != '') then bibls:subject()
 else
  concat("collection('",$global:data-root,"/bibl/tei')//tei:body",
-    bibls:keyword(),
+    common:keyword(),
     bibls:title(),
     bibls:author(),
     bibls:pub-place(),
@@ -111,7 +101,7 @@ declare function bibls:search-string(){
             if(request:get-parameter($parameter, '') != '') then
                 if($parameter = 'start' or $parameter = 'sort-element') then ()
                 else if($parameter = 'q') then 
-                    (<span class="param">Keyword: </span>,<span class="match">{$bibls:q}&#160; </span>)
+                    (<span class="param">Keyword: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)
                 else if ($parameter = 'author') then 
                     (<span class="param">Author/Editor: </span>,<span class="match">{$bibls:author}&#160; </span>)
                 else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    

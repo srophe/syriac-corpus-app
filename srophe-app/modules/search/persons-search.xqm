@@ -31,7 +31,6 @@ declare variable $persons:place-type {request:get-parameter('place-type', '')};
 declare variable $persons:related-persons {request:get-parameter('related-persons', '')};
 declare variable $persons:mentioned {request:get-parameter('mentioned', '')};
 
-
 (:~
  : Build full-text keyword search over all tei:person data
  : @param $q query string
@@ -109,6 +108,7 @@ declare function persons:state() as xs:string?{
     if($persons:state != '') then concat("[descendant::tei:state[@type = '",$persons:state,"']]")
     else ()
 };
+
 (:~
  : Build date search string
  : @param $persons:date-type indicates element to restrict date searches on, if empty, no element restrictions

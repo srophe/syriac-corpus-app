@@ -79,7 +79,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
 declare function search:query-string($collection as xs:string?) as xs:string?{
 if($collection !='') then 
     concat("collection('",$global:data-root,"/",$collection,"')//tei:TEI",
-    common:keyword($search:q),
+    common:keyword(),
     search:persName(),
     search:placeName(), 
     search:title(),
@@ -88,7 +88,7 @@ if($collection !='') then
     )
 else 
 concat("collection('",$global:data-root,"')//tei:TEI",
-    common:keyword($search:q),
+    common:keyword(),
     search:persName(),
     search:placeName(), 
     search:title(),
@@ -277,7 +277,6 @@ declare
     %templates:default("start", 1)
 function search:show-hits($node as node()*, $model as map(*), $collection as xs:string?) {
 <div class="indent" id="search-results">
-    <p>Referesh {search:query-string('')}</p>
     <div>{search:build-geojson($node,$model)}</div>
     {
         for $hit at $p in subsequence($model("hits"), $search:start, $search:perpage)

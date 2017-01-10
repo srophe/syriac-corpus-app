@@ -13,7 +13,6 @@ import module namespace common="http://syriaca.org/common" at "common.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
-declare variable $spears:q {request:get-parameter('q', '')};
 declare variable $spears:name {request:get-parameter('name', '')};
 declare variable $spears:place {request:get-parameter('place', '')};
 declare variable $spears:event {request:get-parameter('event', '')};
@@ -22,17 +21,6 @@ declare variable $spears:keyword {request:get-parameter('keyword', '')};
 declare variable $spears:relation {request:get-parameter('relation', '')};
 declare variable $spears:type {request:get-parameter('type', '')};
 declare variable $spears:title {request:get-parameter('title', '')};
-
-(:~
- : Build full-text keyword search over all tei:place data
- : @param $q query string
- descendant-or-self::* or . testing which is most correct
- common:build-query($pram-string)
-:)
-declare function spears:keyword() as xs:string? {
-    if($spears:q != '') then concat("[ft:query(.,'",common:clean-string($spears:q),"',common:options())]")
-    else ()    
-};
 
 (:~
  : Search Name
@@ -109,6 +97,7 @@ declare function spears:relation(){
             |descendant::tei:relation[matches(@mutual,'",$spears:relation,"(\W|$)')]]")
     else ()
 };
+
 (:~
  : Search by date
  : NOTE: still thinking about this one
@@ -120,7 +109,7 @@ declare function spears:relation(){
 declare function spears:query-string() as xs:string? {
  concat("collection('",$global:data-root,"/spear/tei')//tei:div[parent::tei:body]",
     spears:type-search(),
-    spears:keyword(),
+    common:keyword(),
     spears:name(),
     spears:place(),
     spears:event(),
@@ -143,7 +132,7 @@ declare function spears:search-string() as xs:string*{
             if($parameter = 'start' or $parameter = 'sort-element') then ()
             else if($parameter = 'fq') then ()
             else if($parameter = 'q') then 
-                (<span class="param">Keyword: </span>,<span class="match">{$spears:q}&#160;</span>)
+                (<span class="param">Keyword: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)
             else if($parameter = 'keyword') then 
                 (<span class="param">Controlled Keyword: </span>,<span class="match">{lower-case(functx:camel-case-to-words(substring-after($spears:keyword,'/keyword/'),' '))}&#160; </span>)
             else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
