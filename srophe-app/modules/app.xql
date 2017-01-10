@@ -1,5 +1,5 @@
 xquery version "3.0";
-                      
+               
 module namespace app="http://syriaca.org/templates";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
@@ -218,8 +218,7 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                         </bibl>
                      return 
                         (global:tei2html($infobox),
-                        app:get-related-inline($model("data"),'dct:isPartOf'),
-                        app:get-related-inline($model("data"),'syriaca:part-of-tradition'),
+                        app:get-child-works($model("data")),
                         global:tei2html($allData))  
                 
                 } 
@@ -261,17 +260,11 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
 (:~ 
  : Get child works for NHSL records
 :)
-declare %templates:wrap function app:get-related-inline($data, $relType){
+declare %templates:wrap function app:get-child-works($data){
 let $rec := $data
-let $relType := $relType
-(: should be a global function at somepoint :)
-let $tranlsateType := 
-                    if($relType = 'dct:isPartOf') then ' contains '
-                    else if($relType = 'syriaca:part-of-tradition') then ' ' 
-                    else ()
 let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1]/text(),'/tei','')
 let $works := 
-            for $w in collection($global:data-root || '/works/tei')//tei:body[child::*/tei:listRelation/tei:relation[@passive[matches(.,concat($recid,'"(\W|$)"'))]][@ref=$relType]]
+            for $w in collection($global:data-root || '/works/tei')//tei:body[child::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]]
             let $part := xs:integer($w/child::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc/tei:label[@type='order']/@n)
             order by $part
             return $w
@@ -282,13 +275,7 @@ let $title := if(contains($rec/descendant::tei:title[1]/text(),' — ')) then
 return 
     if($count gt 0) then 
         <div xmlns="http://www.w3.org/1999/xhtml">
-            {if($relType = 'dct:isPartOf') then 
-                <h3>{$title} contains {$count} works.</h3>
-             else if ($relType = 'syriaca:part-of-tradition') then 
-                (<h3>This tradition is extant in {$count} of branches</h3>,
-                <p>{$data/descendant::tei:note[@type='literary-tradition']}</p>)
-             else <h3>{$title} {$relType} {$count} works.</h3>
-             }
+            <h3>{$title} contains {$count} works.</h3>
             {(
                 if($count gt 3) then
                         <div>
@@ -305,7 +292,7 @@ return
                          }
                            <div>
                             <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
-                            data-ref="{$global:nav-base}/nhsl/search.html?rel={$recid}&amp;={$relType}&amp;perpage={$count}" 
+                            data-ref="{$global:nav-base}/nhsl/search.html?child-rec={$recid}&amp;perpage={$count}" 
                             data-label="{$title} contains {$count} works" id="works">
                               See all {count($works)} works
                              </a>
