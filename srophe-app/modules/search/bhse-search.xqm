@@ -67,22 +67,22 @@ declare function bhses:explicit() as xs:string? {
 };
 
 declare function bhses:editions() as xs:string? {
-    if($bhses:editions != '') then concat("[ft:query(tei:bibl/tei:note[@type='editions'],'",common:clean-string($bhses:editions),"',common:options())]")
+    if($bhses:editions != '') then concat("[ft:query(tei:bibl/tei:bibl[@type='lawd:Edition'],'",common:clean-string($bhses:editions),"',common:options())]")
     else ()    
 };
 
 declare function bhses:modern() as xs:string? {
-    if($bhses:modern != '') then concat("[ft:query(tei:bibl/tei:note[@type='modernTranslation'],'",common:clean-string($bhses:modern),"',common:options())]")
+    if($bhses:modern != '') then concat("[ft:query(tei:bibl/tei:bibl[@type='syriaca:ModernTranslation'],'",common:clean-string($bhses:modern),"',common:options())]")
     else ()    
 };
 
 declare function bhses:ancient() as xs:string? {
-    if($bhses:ancient != '') then concat("[ft:query(tei:bibl/tei:note[@type='ancientVersion'],'",common:clean-string($bhses:ancient),"',common:options())]")
+    if($bhses:ancient != '') then concat("[ft:query(tei:bibl/tei:bibl[@type='syriaca:AncientVersion'],'",common:clean-string($bhses:ancient),"',common:options())]")
     else ()    
 };
 
 declare function bhses:mss() as xs:string? {
-    if($bhses:mss != '') then concat("[ft:query(tei:bibl/tei:note[@type='MSS'],'",common:clean-string($bhses:mss),"',common:options())]")
+    if($bhses:mss != '') then concat("[ft:query(tei:bibl/tei:bibl[@type='syriaca:Manuscript'],'",common:clean-string($bhses:mss),"',common:options())]")
     else ()    
 };
 
@@ -150,6 +150,7 @@ declare function bhses:query-string($collection) as xs:string? {
     bhses:incipit(),bhses:explicit(),bhses:editions(),
     bhses:modern(),bhses:ancient(),bhses:mss(),
     bhses:refs(),bhses:related-persons(),bhses:child(),
+    common:relation-search(),
     bhses:idno()
     )
 };

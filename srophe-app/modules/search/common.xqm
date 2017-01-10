@@ -195,3 +195,22 @@ declare function common:element-search($element, $query){
         return concat("[ft:query(descendant::tei:",$element,",'",common:clean-string($query),"',common:options())]") 
     else '' 
 };
+
+declare function common:id-search($q){
+'temp'
+};
+
+(:~
+ : Add relationship search to any search module. 
+:)
+declare function common:relation-search(){
+if(request:get-parameter('rel', '') != '') then
+    let $q := request:get-parameter('rel', '')
+    return 
+        if(request:get-parameter('relType', '') != '') then
+            let $relType := request:get-parameter('relType', '')
+            return 
+                concat("[descendant::tei:relation[@passive[matches(.,'",$q,"(\W|$)')] or @active[matches(.,'",$q,"')] or @mutual[matches(.,'",$q,"')]][@ref = '",request:get-parameter('relType', ''),"']]")
+        else concat("[descendant::tei:relation[@passive[matches(.,'",$q,"(\W|$)')] or @active[matches(.,'",$q,"')] or @mutual[matches(.,'",$q,"')]]]")
+else ''
+};
