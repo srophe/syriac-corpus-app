@@ -202,8 +202,8 @@ if(request:get-parameter('rel', '') != '') then
         if(request:get-parameter('relType', '') != '') then
             let $relType := request:get-parameter('relType', '')
             return 
-                concat("[descendant::tei:relation[@passive[matches(.,'",$q,"(\W|$)')] or @active[matches(.,'",$q,"')] or @mutual[matches(.,'",$q,"')]][@ref = '",request:get-parameter('relType', ''),"']]")
-        else concat("[descendant::tei:relation[@passive[matches(.,'",$q,"(\W|$)')] or @active[matches(.,'",$q,"')] or @mutual[matches(.,'",$q,"')]]]")
+                concat("[descendant::tei:relation[@passive[functx:contains-word(.,'",$q,"')] or @active[functx:contains-word(.,'",$q,"')] or @mutual[functx:contains-word(.,'",$q,"')]][@ref = '",request:get-parameter('relType', ''),"' or @name = '",request:get-parameter('relType', ''),"']]")
+        else concat("[descendant::tei:relation[@passive[functx:contains-word(.,'",$q,"')] or @active[functx:contains-word(.,'",$q,"')] or @mutual[functx:contains-word(.,'",$q,"')]]]")
 else ''
 };
 
