@@ -6,6 +6,7 @@ import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace teiDocs="http://syriaca.org/teiDocs" at "teiDocs/teiDocs.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
+import module namespace functx="http://www.functx.com";
 declare namespace html="http://www.w3.org/1999/xhtml";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
@@ -264,15 +265,10 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
 declare %templates:wrap function app:get-related-inline($data, $relType){
 let $rec := $data
 let $relType := $relType
-(: should be a global function at somepoint :)
-let $tranlsateType := 
-                    if($relType = 'dct:isPartOf') then ' contains '
-                    else if($relType = 'syriaca:part-of-tradition') then ' ' 
-                    else ()
 let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1]/text(),'/tei','')
 let $works := 
-            for $w in collection($global:data-root || '/works/tei')//tei:body[child::*/tei:listRelation/tei:relation[@passive[matches(.,concat($recid,'(\W|$)'))]][@ref=$relType or @name=$relType]]
-            let $part := xs:integer($w/child::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc/tei:label[@type='order']/@n)
+            for $w in collection($global:data-root || '/works/tei')//tei:body[child::*/tei:listRelation/tei:relation[@passive[functx:contains-word(.,$recid)]][@ref=$relType or @name=$relType]]
+            let $part := xs:integer($w/child::*/tei:listRelation/tei:relation[@passive[functx:contains-word(.,$recid)]]/tei:desc/tei:label[@type='order']/@n)
             order by $part
             return $w
 let $count := count($works)

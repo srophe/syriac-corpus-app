@@ -191,3 +191,15 @@ declare function global:build-sort-string($titlestring as xs:string?, $lang as x
 declare function global:ar-sort-string($titlestring as xs:string?) as xs:string* {
     replace(replace(replace(replace($titlestring,'^\s+',''),'^(\sابن|\sإبن|\sبن)',''),'(ال|أل|ٱل)',''),'[U064B-U0656]','')
 };
+
+(:
+ : example: global:odd2text($rec/descendant::tei:bibl[1],string($rec/descendant::tei:bibl[1]/@type))
+:)
+declare function global:odd2text($element as element()?, $label as xs:string?) as xs:string* {
+    let $odd := doc($global:app-root || '/documentation/syriaca-tei-main.xml')
+    return 
+        if($odd/descendant::tei:elementSpec[@ident = name($element)]/descendant::tei:valItem[@ident=$label]/tei:gloss/text()) then
+            $odd/descendant::tei:elementSpec[@ident = name($element)]/descendant::tei:valItem[@ident=$label]/tei:gloss/text()
+        else $label
+};
+
