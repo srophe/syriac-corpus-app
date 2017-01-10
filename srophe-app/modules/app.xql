@@ -271,7 +271,7 @@ let $tranlsateType :=
                     else ()
 let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1]/text(),'/tei','')
 let $works := 
-            for $w in collection($global:data-root || '/works/tei')//tei:body[child::*/tei:listRelation/tei:relation[@passive[matches(.,concat($recid,'"(\W|$)"'))]][@ref=$relType or @name=$relType]]
+            for $w in collection($global:data-root || '/works/tei')//tei:body[child::*/tei:listRelation/tei:relation[@passive[matches(.,concat($recid,'(\W|$)'))]][@ref=$relType or @name=$relType]]
             let $part := xs:integer($w/child::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc/tei:label[@type='order']/@n)
             order by $part
             return $w
@@ -285,12 +285,12 @@ return
             {if($relType = 'dct:isPartOf') then 
                 <h3>{$title} contains {$count} works.</h3>
              else if ($relType = 'syriaca:part-of-tradition') then 
-                (<h3>This tradition is extant in {$count} of branches</h3>,
+                (<h3>This tradition is extant in {$count} branches</h3>,
                 <p>{$data/descendant::tei:note[@type='literary-tradition']}</p>)
              else <h3>{$title} {$relType} {$count} works.</h3>
              }
             {(
-                if($count gt 3) then
+                if($count gt 5) then
                         <div>
                          {
                              for $r in subsequence($works, 1, 3)
