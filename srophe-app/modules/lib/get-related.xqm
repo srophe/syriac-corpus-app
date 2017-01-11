@@ -238,7 +238,8 @@ declare function rel:build-relationships($node,$idno){
                 </p>,
                 <span class="collapse" id="showRel-{$rel-id}">{
                     for $r in $names
-                    return rel:display($r)
+                    return 
+                    <div class="short-rec rel indent">{rel:display($r)}</div>
                 }</span>)
         }
     </div>
