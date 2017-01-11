@@ -200,6 +200,7 @@ declare function global:odd2text($element as element()?, $label as xs:string?) a
     return 
         if($odd/descendant::tei:elementSpec[@ident = name($element)]/descendant::tei:valItem[@ident=$label]/tei:gloss/text()) then
             $odd/descendant::tei:elementSpec[@ident = name($element)]/descendant::tei:valItem[@ident=$label]/tei:gloss/text()
-        else $label
+        else ''  
+
 };
 
