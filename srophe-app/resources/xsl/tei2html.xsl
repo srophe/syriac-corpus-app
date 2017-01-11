@@ -262,8 +262,9 @@
                                     <bib-relations xmlns="http://www.tei-c.org/ns/1.0">
                                         <xsl:for-each select="tokenize(@passive,' ')">
                                             <xsl:variable name="bibl-id" select="replace(.,'#','')"/>
-                                            <bib-relation xmlns="http://www.tei-c.org/ns/1.0" bibid="{$bibl-id}" 
-                                                position="{position()}"><xsl:value-of select="local:translate-label(string($parent/descendant-or-self::*[@xml:id = $bibl-id]/@type))"></xsl:value-of></bib-relation>
+                                            <bib-relation bibid="{$bibl-id}" position="{position()}">
+                                                <xsl:value-of select="local:translate-label(string($parent/descendant-or-self::*[@xml:id = $bibl-id]/@type))"/>
+                                            </bib-relation>
                                         </xsl:for-each>
                                     </bib-relations>
                                 </xsl:variable>
@@ -277,14 +278,18 @@
                                                 <xsl:value-of select="concat(child::*[1],'s ')"/>
                                                 <!--<xsl:value-of select="concat(current-grouping-key(),'s ')"/>-->
                                                 <xsl:for-each select="child::*">
-                                                    <xsl:text> </xsl:text><xsl:value-of select="string(@position)"/>
-                                                    <xsl:if test="not(position()=last())"><xsl:text>, </xsl:text></xsl:if>
+                                                    <xsl:text> </xsl:text>
+                                                    <xsl:value-of select="string(@position)"/>
+                                                    <xsl:if test="not(position()=last())">
+                                                        <xsl:text>, </xsl:text>
+                                                    </xsl:if>
                                                 </xsl:for-each>
                                             </xsl:when>
                                             <xsl:otherwise>
                                                 <xsl:value-of select="current-grouping-key()"/>
                                                 <xsl:for-each select="child::*">
-                                                    <xsl:text> </xsl:text><xsl:value-of select="string(@position)"/>
+                                                    <xsl:text> </xsl:text>
+                                                    <xsl:value-of select="string(@position)"/>
                                                 </xsl:for-each>
                                             </xsl:otherwise>
                                         </xsl:choose>
@@ -1571,7 +1576,7 @@
                     </xsl:choose>
                     -->
                     <xsl:for-each select="t:bibl">
-                        <xsl:sort select="xs:integer(substring-after(@xml:id,'-'))"/>
+                        <xsl:sort select="xs:integer(translate(substring-after(@xml:id,'-'),translate(substring-after(@xml:id,'-'), '0123456789', ''), ''))"/>
                         <xsl:apply-templates select="." mode="footnote"/>
                     </xsl:for-each>
                 </ul>
