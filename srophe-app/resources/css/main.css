@@ -314,6 +314,8 @@ td {
 
 /* Lables */
 .get-syriac {font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none}
+.rel-label {font-size:1.05em; background-color:none; color:#666; font-weight:500; margin:0; padding:0;}
+.rel-list {padding:0; margin-left:1em;}
 .srp-label {background-color:none; color:#333; font-weight:500;}
 .sort-title {background-color:none; color:#666; font-weight:500; display:block; }
 .textBox {display:block;}
