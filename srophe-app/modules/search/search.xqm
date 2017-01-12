@@ -61,13 +61,13 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                         for $hit in util:eval($eval-string)
                         let $part := xs:integer($hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc/tei:label[@type='order']/@n)
                         order by $part
-                        return $hit                                                                             
+                        return $hit                                                                                               
                     else 
                         for $hit in util:eval($eval-string)
                        (: let $expanded := util:expand($hit, "expand-xincludes=no")
                         let $headword := count($expanded/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][descendant::*:match])
                         let $headword := if($headword gt 0) then $headword + 15 else 0:)
-                        order by ft:score($hit) + (count($hit/descendant::tei:bibl) div 2) descending
+                        order by ft:score($hit) + (count($hit/descendant::tei:bibl) div 100) descending
                         return $hit
                 else ()                        
          }
@@ -84,7 +84,7 @@ if($collection !='') then
     search:placeName(), 
     search:title(),
     search:bibl(),
-    search:idno()
+    common:uri()
     )
 else 
 concat("collection('",$global:data-root,"')//tei:TEI",
@@ -93,7 +93,7 @@ concat("collection('",$global:data-root,"')//tei:TEI",
     search:placeName(), 
     search:title(),
     search:bibl(),
-    search:idno()
+    common:uri()
     )
 };
 
