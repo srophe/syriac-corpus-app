@@ -281,7 +281,7 @@ return
             {if($relType = 'dct:isPartOf') then 
                 <h3>{$title} contains {$count} works.</h3>
              else if ($relType = 'syriaca:part-of-tradition') then 
-                (<h3>This tradition is extant in {$count} branches.</h3>,
+                (<h3>This tradition comprises at least {$count} branches.</h3>,
                 <p>{$data/descendant::tei:note[@type='literary-tradition']}</p>)
              else <h3>{$title} {$relType} {$count} works.</h3>
              }
@@ -423,13 +423,15 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
  : Grabs latest news for home page
  : http://syriaca.org/feed/
  :) 
-declare %templates:wrap function app:get-feed($node as node(), $model as map(*)){ 
-   let $news := doc('http://syriaca.org/blog/feed/')/child::*
-   for $latest at $n in subsequence($news//item, 1, 3)
-   return 
-   <li>
-        <a href="{$latest/link/text()}">{$latest/title/text()}</a>
-   </li>
+declare %templates:wrap function app:get-feed($node as node(), $model as map(*)){
+    if(doc('http://syriaca.org/blog/feed/')/child::*) then 
+       let $news := doc('http://syriaca.org/blog/feed/')/child::*
+       for $latest at $n in subsequence($news//item, 1, 3)
+       return 
+       <li>
+            <a href="{$latest/link/text()}">{$latest/title/text()}</a>
+       </li>
+    else ()   
 };
 
 (:~
