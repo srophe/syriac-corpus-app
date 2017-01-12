@@ -187,8 +187,8 @@ return
 declare function common:keyword(){
     if(request:get-parameter('q', '') != '') then 
         if(starts-with(request:get-parameter('q', ''),'http://syriaca.org/')) then
-           concat("[ft:query(.,'&quot;",request:get-parameter('q', ''),"&quot;',common:options())]")
-        else concat("[ft:query(.,'",common:clean-string(request:get-parameter('q', '')),"',common:options())]")
+           concat("[ft:query(descendant::*,'&quot;",request:get-parameter('q', ''),"&quot;',common:options())]")
+        else concat("[ft:query(descendant::*,'",common:clean-string(request:get-parameter('q', '')),"',common:options())]")
     else '' 
 };
 
@@ -228,7 +228,7 @@ declare function common:uri() as xs:string? {
         let $q := request:get-parameter('uri', '')
         return 
         concat("
-        [descendant::*[ft:query(.,'",$q,"',common:options())] or 
+        [ft:query(descendant::*,'&quot;",$q,"&quot;',common:options()) or 
             .//@passive[matches(.,'",$q,"(\W.*)?$')]
             or 
             .//@mutual[matches(.,'",$q,"(\W.*)?$')]
@@ -239,7 +239,6 @@ declare function common:uri() as xs:string? {
             or 
             .//@target[matches(.,'",$q,"(\W.*)?$')]
         ]")
-        (:concat("[descendant::tei:idno[normalize-space(.) = '",$id,"' or .= '",$syr-id,"']]"):)
     else ''    
 };
 
