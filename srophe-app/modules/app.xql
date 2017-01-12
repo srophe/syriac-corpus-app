@@ -281,7 +281,7 @@ return
             {if($relType = 'dct:isPartOf') then 
                 <h3>{$title} contains {$count} works.</h3>
              else if ($relType = 'syriaca:part-of-tradition') then 
-                (<h3>This tradition is extant in {$count} branches</h3>,
+                (<h3>This tradition is extant in {$count} branches.</h3>,
                 <p>{$data/descendant::tei:note[@type='literary-tradition']}</p>)
              else <h3>{$title} {$relType} {$count} works.</h3>
              }
@@ -613,51 +613,62 @@ declare %templates:wrap function app:dashboard($node as node(), $model as map(*)
     </div>
 };
 
-
-(:
- <li>
-      <strong><a href="/srophe/srophe-eXist-app/wiki" class="wiki-page-link">Home</a></strong>
-    </li>
-:)
-declare function app:wiki($node, $model){
-let $wiki-url := 'https://github.com/srophe/srophe-eXist-app/wiki'
-let $uri := 
-    if(request:get-parameter('wiki-page', '')) then 
-        concat($wiki-url, request:get-parameter('wiki-page', ''))
-    else $wiki-url
-let $wiki-data :=
-    http:send-request(
-            <http:request href="{xs:anyURI($uri)}" method="get">
-                <http:header name="Connection" value="close"/>
-            </http:request>)[2]//html:div[@class = 'repository-content']
-let $content := $wiki-data//html:div[@id='wiki-body']
-let $menu := app:wiki-links($wiki-data//html:div[@id='wiki-rightbar']/descendant::*:ul[@class='wiki-pages'])        
-return 
-    <div>
-    <h1>{$wiki-data//html:h1}</h1>
-    <div class="row" xmlns="http://www.w3.org/1999/xhtml">
-        <div class="col-md-8">{$content}</div>
-        <div class="col-md-4">
-            {$menu}
-        </div>
-    </div>
-    </div>
+declare function app:wiki-page-title($node, $model){
+    let $wiki-uri := 
+        if(request:get-parameter('wiki-uri', '')) then 
+            request:get-parameter('wiki-uri', '')
+        else 'https://github.com/srophe/srophe-eXist-app/wiki' 
+    let $uri := 
+        if(request:get-parameter('wiki-page', '')) then 
+            concat($wiki-uri, request:get-parameter('wiki-page', ''))
+        else $wiki-uri
+    let $wiki-data := app:get-wiki($uri)
+    let $content := $wiki-data//html:div[@id='wiki-body']
+    return $wiki-data/descendant::html:h1[1]
 };
 
-declare function app:wiki-links($nodes as node()*) {
+declare function app:wiki-page-content($node, $model){
+    let $wiki-uri := 
+        if(request:get-parameter('wiki-uri', '')) then 
+            request:get-parameter('wiki-uri', '')
+        else 'https://github.com/srophe/srophe-eXist-app/wiki' 
+    let $uri := 
+        if(request:get-parameter('wiki-page', '')) then 
+            concat($wiki-uri, request:get-parameter('wiki-page', ''))
+        else $wiki-uri
+    let $wiki-data := app:get-wiki($uri)
+    return $wiki-data//html:div[@id='wiki-body'] 
+};
+
+declare function app:get-wiki($wiki-uri as xs:string?){
+    http:send-request(
+            <http:request href="{xs:anyURI($wiki-uri)}" method="get">
+                <http:header name="Connection" value="close"/>
+            </http:request>)[2]//html:div[@class = 'repository-content']
+            
+};
+
+declare function app:wiki-menu($node, $model, $wiki){
+    let $wiki-data := app:get-wiki($wiki)
+    let $menu := app:wiki-links($wiki-data//html:div[@id='wiki-rightbar']/descendant::*:ul[@class='wiki-pages'], $wiki)
+    return $menu
+};
+
+declare function app:wiki-links($nodes as node()*, $wiki) {
     for $node in $nodes
-    return
+    return 
         typeswitch($node)
             case element(html:a) return
-                let $href := replace($node/@href, "/srophe/srophe-eXist-app/wiki", "wiki.html?wiki-page=")
+                let $wiki-path := substring-after($wiki,'https://github.com')
+                let $href := concat($global:nav-base, replace($node/@href, $wiki-path, "/documentation/wiki.html?wiki-page="),'&amp;wiki-uri=', $wiki)
                 return
                     <a href="{$href}">
                         {$node/@* except $node/@href, $node/node()}
                     </a>
             case element() return
                 element { node-name($node) } {
-                    $node/@*, app:wiki-links($node/node())
+                    $node/@*, app:wiki-links($node/node(), $wiki)
                 }
             default return
-                $node
+                $node               
 };
