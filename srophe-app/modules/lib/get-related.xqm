@@ -70,7 +70,7 @@ declare function rel:decode-relationship($related as node()*){
     let $name := $related/@name | $related/@ref
     for $name in $name[1]
     let $subject-type := rel:get-subject-type($related/@passive)
-    let $label := global:odd2text($related,string($name))
+    let $label := global:odd2text($related[1],string($name))
     return 
             if($label != '') then 
                 $label
@@ -222,25 +222,36 @@ declare function rel:build-relationships($node,$idno){
         let $rel-type := if($related/@name) then $related/@name else $related/@ref
         group by $relationship := $rel-type
         return
-                (<p> 
+                (<p class="rel-label"> 
                     {
                       if($related/@mutual) then 
-                        ('This ', rel:get-subject-type($related/@mutual), ' ', 
+                        ('This ', rel:get-subject-type($related[1]/@mutual), ' ', 
                         rel:decode-relationship($related), ' ', 
-                        $count, ' other ', rel:get-subject-type($related/@mutual),'.')
+                        $count, ' other ', rel:get-subject-type($related[1]/@mutual),'.')
                       else if($related/@active) then 
-                        ('This ', rel:get-subject-type($related/@active), ' ',
+                        ('This ', rel:get-subject-type($related[1]/@active), ' ',
                         rel:decode-relationship($related), ' ', $count, ' ',
-                        rel:get-subject-type($related/@passive),'.')
+                        rel:get-subject-type($related[1]/@passive),'.')
                       else rel:decode-relationship($related)
                     }
-                    <a class="togglelink" style="margin-left:1em;" data-toggle="collapse" data-target="#showRel-{$rel-id}" data-text-swap="Hide list"> See list &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
                 </p>,
-                <span class="collapse" id="showRel-{$rel-id}">{
-                    for $r in $names
+                <div class="rel-list" id="showRel-{$rel-id}">{
+                    for $r in subsequence($names,1,2)
+                    return rel:display($r),
+                    if($count gt 2) then
+                        <span>
+                            <span class="collapse" id="showRel-{$rel-id}">{
+                                for $r in subsequence($names,3,$count)
+                                return rel:display($r)
+                            }</span>
+                            <a class="togglelink btn btn-info" style="width:100%; margin-bottom:1em;" data-toggle="collapse" data-target="#showRel-{$rel-id}" data-text-swap="Hide"> See all {$count} &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+                        </span>
+                    else ()
+                    (:for $r in $names
                     return 
                     <div class="short-rec rel indent">{rel:display($r)}</div>
-                }</span>)
+                    :)
+                }</div>)
         }
     </div>
 </div>
