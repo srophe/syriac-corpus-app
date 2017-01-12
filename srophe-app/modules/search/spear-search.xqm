@@ -204,10 +204,10 @@ declare function spears:search-form() {
     <script type="text/javascript">
     <![CDATA[
         $(function(){
-            initializeKeyboard('#qs', 'syriac-standard', '#qs-keyboard');
-            initializeKeyboard('#name', 'syriac-standard', '#name-keyboard');
-            initializeKeyboard('#place', 'syriac-standard', '#place-keyboard');
-            initializeKeyboard('#event', 'syriac-standard', '#event-keyboard');            
+            initializeKeyboard('#qs', 'syriac-phonetic', '#qs-keyboard');
+            initializeKeyboard('#name', 'syriac-phonetic', '#name-keyboard');
+            initializeKeyboard('#place', 'syriac-phonetic', '#place-keyboard');
+            initializeKeyboard('#event', 'syriac-phonetic', '#event-keyboard');            
             
             });
          ]]>

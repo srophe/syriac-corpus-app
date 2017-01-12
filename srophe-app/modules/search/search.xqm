@@ -349,9 +349,9 @@ declare function search:search-form() {
     <script type="text/javascript">
     <![CDATA[
         $(function(){
-            initializeKeyboard('#qs', 'syriac-standard', '#qs-keyboard');
-            initializeKeyboard('#placeName', 'syriac-standard', '#placeName-keyboard');
-            initializeKeyboard('#persName', 'syriac-standard', '#persName-keyboard');
+            initializeKeyboard('#qs', 'syriac-phonetic', '#qs-keyboard');
+            initializeKeyboard('#placeName', 'syriac-phonetic', '#placeName-keyboard');
+            initializeKeyboard('#persName', 'syriac-phonetic', '#persName-keyboard');
             });
          ]]>
     </script>

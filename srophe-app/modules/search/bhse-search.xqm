@@ -177,18 +177,18 @@ declare function bhses:search-form($collection) {
     <script type="text/javascript">
     <![CDATA[
         $(function(){
-            initializeKeyboard('#qs', 'syriac-standard', '#qs-keyboard');
-            initializeKeyboard('#title', 'syriac-standard', '#title-keyboard');
-            initializeKeyboard('#author', 'syriac-standard', '#author-keyboard');
-            initializeKeyboard('#relatedPers', 'syriac-standard', '#relatedPers-keyboard');
-            initializeKeyboard('#prologue', 'syriac-standard', '#prologue-keyboard');
-            initializeKeyboard('#incipit', 'syriac-standard', '#incipit-keyboard');
-            initializeKeyboard('#explicit', 'syriac-standard', '#explicit-keyboard');
-            initializeKeyboard('#editions', 'syriac-standard', '#editions-keyboard');
-            initializeKeyboard('#modern', 'syriac-standard', '#modern-keyboard');
-            initializeKeyboard('#ancient', 'syriac-standard', '#ancient-keyboard');
-            initializeKeyboard('#mss', 'syriac-standard', '#mss-keyboard');
-            initializeKeyboard('#refs', 'syriac-standard', '#refs-keyboard');            
+            initializeKeyboard('#qs', 'syriac-phonetic', '#qs-keyboard');
+            initializeKeyboard('#title', 'syriac-phonetic', '#title-keyboard');
+            initializeKeyboard('#author', 'syriac-phonetic', '#author-keyboard');
+            initializeKeyboard('#relatedPers', 'syriac-phonetic', '#relatedPers-keyboard');
+            initializeKeyboard('#prologue', 'syriac-phonetic', '#prologue-keyboard');
+            initializeKeyboard('#incipit', 'syriac-phonetic', '#incipit-keyboard');
+            initializeKeyboard('#explicit', 'syriac-phonetic', '#explicit-keyboard');
+            initializeKeyboard('#editions', 'syriac-phonetic', '#editions-keyboard');
+            initializeKeyboard('#modern', 'syriac-phonetic', '#modern-keyboard');
+            initializeKeyboard('#ancient', 'syriac-phonetic', '#ancient-keyboard');
+            initializeKeyboard('#mss', 'syriac-phonetic', '#mss-keyboard');
+            initializeKeyboard('#refs', 'syriac-phonetic', '#refs-keyboard');            
             
             });
          ]]>

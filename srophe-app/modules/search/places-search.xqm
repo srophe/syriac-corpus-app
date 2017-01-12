@@ -388,6 +388,17 @@ declare function places:results-node($hit){
  :)
 declare function places:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
+    <script type="text/javascript">
+    <![CDATA[
+        $(function(){
+            initializeKeyboard('#qs', 'syriac-phonetic', '#qs-keyboard');
+            initializeKeyboard('#p', 'syriac-phonetic', '#p-keyboard');
+            initializeKeyboard('#loc', 'syriac-phonetic', '#loc-keyboard');
+            initializeKeyboard('#e', 'syriac-phonetic', '#e-keyboard');
+            initializeKeyboard('#a', 'syriac-phonetic', '#a-keyboard');            
+            });
+         ]]>
+    </script>
     <div class="well well-small">
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
@@ -400,28 +411,56 @@ declare function places:search-form() {
                  <div class="form-group">
                     <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
                     <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="q" name="q" class="form-control"/>
+                       <div class="input-group">
+                        <input type="text" id="qs" name="q" class="form-control"/>
+                        <div class="input-group-btn">
+                            <span class="btn btn-default" id="qs-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                            </span>
+                        </div>
+                    </div> 
                     </div>
                   </div>
                     <!-- Place Name-->
                   <div class="form-group">
                     <label for="p" class="col-sm-2 col-md-3  control-label">Place Name: </label>
                     <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="p" name="p" class="form-control"/>
+                       <div class="input-group">
+                            <input type="text" id="p" name="p" class="form-control"/>
+                            <div class="input-group-btn">
+                                <span class="btn btn-default" id="p-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                    <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                                </span>
+                            </div>
+                        </div> 
                     </div>
                   </div>
                     <!-- Location --> 
                     <div class="form-group">
                         <label for="loc" class="col-sm-2 col-md-3  control-label">Location: </label>
                         <div class="col-sm-10 col-md-9 ">
-                            <input type="text" id="loc" name="loc" class="form-control"/>
+                           <div class="input-group">
+                                <input type="text" id="loc" name="loc" class="form-control"/>
+                                <div class="input-group-btn">
+                                    <span class="btn btn-default" id="loc-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                        <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                                    </span>
+                                </div>
+                            </div>                         
                         </div>
                     </div>
                     <hr/>
                     <div class="form-group">
                         <label for="e" class="col-sm-2 col-md-3  control-label">Events: </label>
                         <div class="col-sm-10 col-md-9 ">
+                           <div class="input-group">
                             <input type="text" id="e" name="e" class="form-control"/>
+                                <div class="input-group-btn">
+                                    <span class="btn btn-default" id="e-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                        <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                                    </span>
+                                </div>
+                            </div>                              
                         </div>
                     </div>
                     <div class="form-group">
@@ -437,7 +476,14 @@ declare function places:search-form() {
                      <div class="form-group">
                         <label for="a" class="col-sm-2 col-md-3  control-label">Attestations: </label>
                         <div class="col-sm-10 col-md-9 ">
+                           <div class="input-group">
                             <input type="text" id="a" name="a" class="form-control"/>
+                                <div class="input-group-btn">
+                                    <span class="btn btn-default" id="a-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
+                                        <span class="syriaca-icon syriaca-keyboard"/>&#160;
+                                    </span>
+                                </div>
+                            </div>                             
                         </div>
                     </div>
                     <div class="form-group">

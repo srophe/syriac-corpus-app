@@ -66,7 +66,7 @@ declare function ms:search-form() {
     <script type="text/javascript">
     <![CDATA[
         $(function(){
-            initializeKeyboard('#qs', 'syriac-standard', '#qs-keyboard');
+            initializeKeyboard('#qs', 'syriac-phonetic', '#qs-keyboard');
             });
          ]]>
     </script>

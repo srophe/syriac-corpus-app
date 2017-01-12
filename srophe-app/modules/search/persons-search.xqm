@@ -343,8 +343,8 @@ declare function persons:search-form($collection) {
     <script type="text/javascript">
     <![CDATA[
         $(function(){
-            initializeKeyboard('#qs', 'syriac-standard', '#qs-keyboard');
-            initializeKeyboard('#persNameSearch', 'syriac-standard', '#persNameSearch-keyboard');
+            initializeKeyboard('#qs', 'syriac-phonetic', '#qs-keyboard');
+            initializeKeyboard('#persNameSearch', 'syriac-phonetic', '#persNameSearch-keyboard');
             });
          ]]>
     </script>
