@@ -613,6 +613,20 @@ declare %templates:wrap function app:dashboard($node as node(), $model as map(*)
     </div>
 };
 
+(:~
+ : Pulls github wiki data into Syriaca.org documentation pages. 
+ : @param $wiki-uri pulls content from specified wiki or wiki page. 
+:)
+declare function app:get-wiki($wiki-uri as xs:string?){
+    http:send-request(
+            <http:request href="{xs:anyURI($wiki-uri)}" method="get">
+                <http:header name="Connection" value="close"/>
+            </http:request>)[2]//html:div[@class = 'repository-content']            
+};
+
+(:~
+ : Pulls github wiki data H1.  
+:)
 declare function app:wiki-page-title($node, $model){
     let $wiki-uri := 
         if(request:get-parameter('wiki-uri', '')) then 
@@ -627,6 +641,9 @@ declare function app:wiki-page-title($node, $model){
     return $wiki-data/descendant::html:h1[1]
 };
 
+(:~
+ : Pulls github wiki content.  
+:)
 declare function app:wiki-page-content($node, $model){
     let $wiki-uri := 
         if(request:get-parameter('wiki-uri', '')) then 
@@ -640,20 +657,21 @@ declare function app:wiki-page-content($node, $model){
     return $wiki-data//html:div[@id='wiki-body'] 
 };
 
-declare function app:get-wiki($wiki-uri as xs:string?){
-    http:send-request(
-            <http:request href="{xs:anyURI($wiki-uri)}" method="get">
-                <http:header name="Connection" value="close"/>
-            </http:request>)[2]//html:div[@class = 'repository-content']
-            
-};
-
+(:~
+ : Pull github wiki data into Syriaca.org documentation pages. 
+ : Grabs wiki menus to add to Syraica.org pages
+ : @param $wiki pulls content from specified wiki or wiki page. 
+:)
 declare function app:wiki-menu($node, $model, $wiki){
     let $wiki-data := app:get-wiki($wiki)
     let $menu := app:wiki-links($wiki-data//html:div[@id='wiki-rightbar']/descendant::*:ul[@class='wiki-pages'], $wiki)
     return $menu
 };
 
+(:~
+ : Typeswitch to processes wiki menu links for use with Syriaca.org documentation pages. 
+ : @param $wiki pulls content from specified wiki or wiki page. 
+:)
 declare function app:wiki-links($nodes as node()*, $wiki) {
     for $node in $nodes
     return 
