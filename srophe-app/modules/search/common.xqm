@@ -202,20 +202,44 @@ if(request:get-parameter('rel', '') != '') then
         if(request:get-parameter('relType', '') != '') then
             let $relType := request:get-parameter('relType', '')
             return 
-                concat("[descendant::tei:relation[@passive[functx:contains-word(.,'",$q,"')] or @active[functx:contains-word(.,'",$q,"')] or @mutual[functx:contains-word(.,'",$q,"')]][@ref = '",request:get-parameter('relType', ''),"' or @name = '",request:get-parameter('relType', ''),"']]")
-        else concat("[descendant::tei:relation[@passive[functx:contains-word(.,'",$q,"')] or @active[functx:contains-word(.,'",$q,"')] or @mutual[functx:contains-word(.,'",$q,"')]]]")
+                concat("[descendant::tei:relation[@passive[matches(.,'",$q,"(\W.*)?$')] or @active[matches(.,'",$q,"(\W.*)?$')] or @mutual[matches(.,'",$q,"(\W.*)?$')]][@ref = '",request:get-parameter('relType', ''),"' or @name = '",request:get-parameter('relType', ''),"']]")
+        else concat("[descendant::tei:relation[@passive[matches(.,'",$q,"(\W.*)?$')] or @active[matches(.,'",$q,"(\W.*)?$')] or @mutual[matches(.,'",$q,"(\W.*)?$')]]]")
 else ''
 };
 
 (:~
  : Generic id search
- : Searches record ids and also references to record ids.?
+ : Searches record idnos
 :)
 declare function common:idno() as xs:string? {
     if(request:get-parameter('idno', '') != '') then 
         let $id := replace(request:get-parameter('idno', ''),'[^\d\s]','')
         let $syr-id := concat('http://syriaca.org/work/',$id)
         return concat("[descendant::tei:idno[normalize-space(.) = '",$id,"' or .= '",$syr-id,"']]")
+    else ''    
+};
+
+(:~
+ : Generic URI search
+ : Searches record URIs and also references to record ids.
+:)
+declare function common:uri() as xs:string? {
+    if(request:get-parameter('uri', '') != '') then 
+        let $q := request:get-parameter('uri', '')
+        return 
+        concat("
+        [descendant::*[ft:query(.,'",$q,"',common:options())] or 
+            .//@passive[matches(.,'",$q,"(\W.*)?$')]
+            or 
+            .//@mutual[matches(.,'",$q,"(\W.*)?$')]
+            or 
+            .//@active[matches(.,'",$q,"(\W.*)?$')]
+            or 
+            .//@ref[matches(.,'",$q,"(\W.*)?$')]
+            or 
+            .//@target[matches(.,'",$q,"(\W.*)?$')]
+        ]")
+        (:concat("[descendant::tei:idno[normalize-space(.) = '",$id,"' or .= '",$syr-id,"']]"):)
     else ''    
 };
 
