@@ -78,7 +78,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
 :)
 declare function search:query-string($collection as xs:string?) as xs:string?{
 if($collection !='') then 
-    concat("collection('",$global:data-root,"/",$collection,"')//tei:TEI",
+    concat("collection('",$global:data-root,"/",$collection,"')//tei:body",
     common:keyword(),
     search:persName(),
     search:placeName(), 
@@ -87,7 +87,7 @@ if($collection !='') then
     common:uri()
     )
 else 
-concat("collection('",$global:data-root,"')//tei:TEI",
+concat("collection('",$global:data-root,"')//tei:body",
     common:keyword(),
     search:persName(),
     search:placeName(), 
@@ -284,7 +284,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
             <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
                 <div class="col-md-12">
                       <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">
-                        <span class="badge">
+                        <span class="badge">{ft:score($hit)}
                             {
                                 if(request:get-parameter('child-rec', '') != '' and ($search:sort-element = '' or not(exists($search:sort-element)))) then
                                     string($hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order']/@n)
