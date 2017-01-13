@@ -455,7 +455,9 @@
                             [<xsl:value-of select="//t:author[@ref = $recid]/@role"/>] 
                         </xsl:if>
                     </xsl:if>
-                    <a href="{replace($uri,$base-uri,$nav-base)}" dir="ltr">
+                    <!-- Must have correct redirects set up...  
+                        <a href="{replace($uri,$base-uri,$nav-base)}" dir="ltr"> -->
+                    <a href="{$nav-base}/rec.html?id={$uri}" dir="ltr">
                         <xsl:sequence select="$main-title"/>
                         <xsl:if test="$type != ''">
                             <xsl:value-of select="concat(' (',string-join($type,' '),')')"/>
@@ -491,7 +493,7 @@
                             </xsl:if>
                             <xsl:text>) </xsl:text>
                         </span>
-                    </xsl:if> 
+                    </xsl:if>
                     <xsl:if test="descendant::t:person/t:persName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))] | descendant::t:place/t:placeName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))]">
                         <span class="results-list-desc names" dir="ltr" lang="en">
                             <xsl:text>Names: </xsl:text>
