@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <!-- App title -->
+    <title>The Oxford-BYU Syriac Corpus projectl</title>
+    <!-- App description -->
+    <description/>
+    <!-- Contact email -->
+    <contact>info@syriaca.org</contact>
+    <!-- Logo name (assumes path to logo is $app-root/resources/img/) -->
+    <logo>syriaca-logo.png</logo>
+    <!-- Web Site URL -->
+    <url>http://syriac-corpus.org/</url>
+    <!-- Root of app for building dynamic links. Default is eXist app root -->
+    <nav-base>/exist/apps/syriac-corpus</nav-base>
+    <!-- eXist app root for app deployment-->
+    <app-root>syriac-corpus</app-root>
+    <!-- eXist data app root for gazetteer data -->
+    <data-root>syriac-corpus-data</data-root>
+    <!-- Base URI for identifiers in app data -->
+    <base_uri>syriaccorpus.org</base_uri>
+    <!-- Map rendering -->
+    <maps>
+        <option>google</option>
+        <option selected="true">leaflet</option>
+    </maps>
+    <!--
+    <google_analytics>var _gaq=[['_setAccount','UA-333143-26'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));</google_analytics>
+    <footer>
+        <div class="container">
+            <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">
+                <img alt="Creative Commons License" style="border-width:0" src="/exist/apps/srophe/resources/img/cc.png" height="18px"/>
+            </a> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a>.
+            <br/>Copyright Vanderbilt University, Princeton University, and the Contributor(s), 2014.
+        </div>
+    </footer>
+    -->
+</config>

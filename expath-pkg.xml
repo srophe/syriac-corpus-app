@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://expath.org/ns/pkg" name="http://syriac-corpus.org/syriac-corpus" abbrev="syriac-corpus" version="1.03" spec="1.0">
+    <title>The Oxford-BYU Syriac Corpus project</title>
+    <!-- TEI data -->
+    <dependency package="http://syriac-corpus.org/syriaca-corpus-data"/>
+    <!-- eXist shared resources -->
+    <dependency package="http://exist-db.org/apps/shared"/>
+    <!-- JSON Parser and Serializer for XQuery -->
+    <dependency package="http://xqilla.sourceforge.net/pkg/xqjson"/>
+    <!-- Functx  -->
+    <dependency package="http://www.functx.com"/>
+</package>
