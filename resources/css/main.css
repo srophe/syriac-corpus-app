@@ -257,7 +257,11 @@ footer {text-align:center; color:white;}
 .top-padding {margin-top:2em;}
 .block {display:block;}
 .banner {font-size: 24px; color:white; background-color:#456889; margin:0 0 1em 0; padding:.5em 1em;; border-bottom:4px solid #456889;}
-
+.div1 {margin:1em;}
+.div2 {margin:1em;}
+.div3 {margin:1em;}
+.div4 {margin:1em;}
+.div5 {margin:1em;}
 /* Typography */
 h1 {font-size:1.5em; margin:.25em 0 .25em 0; color:#456889; font-weight:500;}
 h2 {font-size: 1.25em; margin:1em 0 .25em 0; padding-bottom:0; color:#999; font-weight:500;}
@@ -496,28 +500,28 @@ td {
   /*font-size:large;*/
   font-size:1.25em; 
   line-height:1em;
-  
+  text-align: right;
 }
 
 :lang(syr-Syrj), :lang(syc-Syrj) {
  font-family: "SertoBatnan", "Serto Batnan", Verdana, Arial, Helvetica, sans-serif;
   font-size:1.25em; 
   line-height:1em;
- 
+ text-align: right;
 }
 
 :lang(syr-Syre), :lang(syc-Syre) {
  font-family: "EastSyriacAdiabene", "East Syriac Adiabene", Verdana, Arial, Helvetica, sans-serif;
  font-size:1.25em; 
  line-height:1em;
-
+text-align: right;
 }
 
 :lang(ar) {
  font-family: arial, sans-serif;
  font-size:1.25em; 
  line-height:1em;
- 
+ text-align: right;
 }
 
 
