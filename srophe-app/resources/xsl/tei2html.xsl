@@ -638,6 +638,9 @@
             <xsl:apply-templates/>
         </p>
     </xsl:template>
+    <xsl:template match="t:lb">
+        <br/>
+    </xsl:template>
     <xsl:template match="t:quote">
         <xsl:choose>
             <xsl:when test="@xml:lang">
@@ -925,7 +928,6 @@
                 <!-- Format title, calls template in place-title-std.xsl -->
                 <xsl:call-template name="title"/>
             </h1>
-
             <!-- Call link icons (located in link-icons.xsl) -->
             <xsl:call-template name="link-icons"/>   
             <!-- End Title -->
@@ -948,13 +950,6 @@
             <xsl:variable name="next-uri" select="replace($resource-id,$current-id,string($next-id))"/>
             <xsl:variable name="prev-uri" select="replace($resource-id,$current-id,string($prev-id))"/>
             <small>
-                <!--
-                <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
-                    <span class="helper circle noprint">
-                        <p>i</p>
-                    </span>
-                </a>
-                -->
                 <p>
                     <xsl:if test="starts-with($nav-base,'/exist/apps')">
                         <a href="{replace($prev-uri,$base-uri,$nav-base)}">
@@ -1051,15 +1046,39 @@
                 </xsl:if>
                 <xsl:if test="t:floruit">
                     <xsl:if test="not(t:death) and not(t:birth)">
+                        <xsl:text>active </xsl:text>
                         <xsl:choose>
                             <xsl:when test="count(t:floruit/t:date) &gt; 1">
                                 <xsl:for-each select="t:floruit/t:date">
-                                    <xsl:value-of select="concat('active ',text())"/>
+                                    <xsl:value-of select="text()"/>
                                     <xsl:if test="position() != last()"> or </xsl:if>
                                 </xsl:for-each>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:value-of select="concat('active ', t:floruit/text())"/>
+                                <xsl:choose>
+                                    <xsl:when test="t:floruit/t:date">
+                                        <xsl:value-of select="t:floruit/t:date/text()"/>
+                                    </xsl:when>
+                                    <xsl:when test="t:floruit/text()">
+                                        <xsl:choose>
+                                            <xsl:when test="t:floruit/@notBefore and t:floruit/@notAfter">
+                                                <xsl:value-of select="concat(t:floruit/@notBefore, ' - ', t:floruit/@notAfter)"/>
+                                            </xsl:when>
+                                            <xsl:when test="t:floruit/@notBefore and not(t:floruit/@notAfter)">
+                                                <xsl:value-of select="t:floruit/@notBefore"/>
+                                            </xsl:when>
+                                            <xsl:when test="t:floruit/@notAfter and not(t:floruit/@notBefore)">
+                                                <xsl:value-of select="t:floruit/@notAfter"/>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="t:floruit"/>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="t:floruit"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:if>
