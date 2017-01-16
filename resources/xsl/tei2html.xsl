@@ -638,6 +638,9 @@
             <xsl:apply-templates/>
         </p>
     </xsl:template>
+    <xsl:template match="t:lb">
+        <br/>
+    </xsl:template>
     <xsl:template match="t:quote">
         <xsl:choose>
             <xsl:when test="@xml:lang">
