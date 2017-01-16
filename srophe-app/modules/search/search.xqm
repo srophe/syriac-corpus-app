@@ -125,11 +125,27 @@ declare function search:bibl(){
        (: common:element-search('bibl',$search:bibl):)  
 };
 
-(: NOTE add additional idno locations, ptr/@target @ref, others? :)
+(:~
+ : Generic URI search
+ : Searches record URIs and also references to record ids.
+:)
 declare function search:idno(){
     if($search:idno != '') then 
-         concat("[ft:query(descendant::tei:idno, '&quot;",$search:idno,"&quot;')]") 
+         concat("
+        [ft:query(descendant::*,'&quot;",$search:idno,"&quot;',common:options()) or 
+            .//@passive[matches(.,'",$search:idno,"(\W.*)?$')]
+            or 
+            .//@mutual[matches(.,'",$search:idno,"(\W.*)?$')]
+            or 
+            .//@active[matches(.,'",$search:idno,"(\W.*)?$')]
+            or 
+            .//@ref[matches(.,'",$search:idno,"(\W.*)?$')]
+            or 
+            .//@target[matches(.,'",$search:idno,"(\W.*)?$')]
+        ]") 
     else () 
+    
+    
 };
 
 declare function search:search-string(){
