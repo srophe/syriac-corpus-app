@@ -110,14 +110,13 @@ declare function rel:get-subject-type($rel as xs:string*) as xs:string*{
 :)
 declare function rel:get-cited($idno){
 let $data := 
-    distinct-values(
-    for $r in collection('/db/apps/srophe-data/data')//@target[. = replace($idno[1],'/tei','')]
-    let $headword := $r/ancestor::tei:TEI/descendant::tei:title[1]
+    for $r in collection('/db/apps/srophe-data/data')//tei:body[.//@target[. = replace($idno[1],'/tei','')]]
+    let $headword := replace($r/ancestor::tei:TEI/descendant::tei:title[1]/text()[1],' — ','')
     let $id := $r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][1]
-    let $sort := global:parse-name($headword)
-    let $sort := global:build-sort-string($sort,'')
+    let $sort := global:build-sort-string($headword,'')
+    where $sort != ''
     order by $sort collation "?lang=en&lt;syr&amp;decomposition=full"
-    return concat($id, 'headword:=', $headword))
+    return concat($id, 'headword:=', $headword)
 return  map { "cited" := $data}    
 };
 
