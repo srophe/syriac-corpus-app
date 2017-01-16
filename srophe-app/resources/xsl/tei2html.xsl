@@ -149,7 +149,17 @@
         <!-- Citation Information -->
         <xsl:call-template name="citationInfo"/>
     </xsl:template>
-   
+    <xsl:template match="t:body">
+        <div class="body">
+            <xsl:call-template name="langattr"/>
+            <xsl:apply-templates/>
+        </div>
+    </xsl:template>
+    <xsl:template match="t:div1 | t:div2 | t:div3 | t:div4 | t:div5">
+        <div class="{name(.)}">
+            <xsl:apply-templates/>
+        </div>
+    </xsl:template>
     <!-- Generic title formating -->
     <xsl:template match="t:title">
         <xsl:choose>
