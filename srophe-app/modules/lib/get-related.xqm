@@ -15,7 +15,7 @@ declare namespace html="http://www.w3.org/1999/xhtml";
  :)
 declare function rel:get-uris($uris as xs:string*, $idno) as xs:string*{
     for $uri in distinct-values(tokenize($uris,' '))
-    where (($uri != replace($idno,'/tei','')) and not(starts-with($uri,'#')))  
+    where ($uri != $idno and not(starts-with($uri,'#')))  
     return $uri
 };
 
@@ -66,36 +66,42 @@ declare function rel:get-names-json($uris as xs:string?) as node()*{
  : Describe relationship using tei:description or @name
  : @param $related relationship element 
  :)
-declare function rel:decode-relationship($related as node()*){
- <span class="srp-label">
-    {
-     if($related/tei:desc != '') then
-        distinct-values($related/tei:desc/text())[1]
-     else 
-        let $name := $related/@name | $related/@ref
-        for $name in $name[1]
-        let $subject-type := rel:get-subject-type($related/@passive)
-        return 
-            if($name = 'dcterms:subject') then 
-                concat($subject-type, ' highlighted: ')
-            else if($name = 'syriaca:commemorated') then
-                concat($subject-type,' commemorated:  ')    
-            else  string-join(
-                for $w in tokenize($name,' ')
-                return functx:capitalize-first(substring-after(functx:camel-case-to-words($w,' '),':')),' ')
-     }
- </span>
+declare function rel:decode-relationship($related as node()*){ 
+    let $name := $related/@name | $related/@ref
+    for $name in $name[1]
+    let $subject-type := rel:get-subject-type($related/@passive)
+    let $label := global:odd2text($related[1],string($name))
+    return 
+            if($label != '') then 
+                $label
+            else 
+                if($name = 'dcterms:subject') then 
+                    concat($subject-type, ' highlighted: ')
+                else if($name = 'syriaca:commemorated') then
+                    concat($subject-type,' commemorated:  ')    
+                else  
+                string-join(
+                    for $w in tokenize($name,' ')
+                    return functx:capitalize-first(substring-after(functx:camel-case-to-words($w,' '),':')),' ')
 };
+
 
 (:~ 
  : Subject type, based on uri of @passive uris
  : @param 'passive' $relationship attribute
 :)
-declare function rel:get-subject-type($passive as xs:string*) as xs:string*{
-    if(contains($passive,'person') and contains($passive,'place')) then 'Records '
-    else if(contains($passive,'person')) then 'Persons '
-    else if(contains($passive,'place')) then 'Places '
-    else ()
+declare function rel:get-subject-type($rel as xs:string*) as xs:string*{
+    if(contains($rel,'person') and contains($rel,'place')) then 'records'
+    else if(contains($rel,'person')) then 
+        if(contains($rel,' ')) then 'persons'
+        else 'person'
+    else if(contains($rel,'place')) then 
+        if(contains($rel,' ')) then 'places'
+        else 'place'
+    else if(contains($rel,'work')) then 
+        if(contains($rel,' ')) then 'works'
+        else 'work'
+    else string($rel)
 };
 
 (:~ 
@@ -104,13 +110,13 @@ declare function rel:get-subject-type($passive as xs:string*) as xs:string*{
 :)
 declare function rel:get-cited($idno){
 let $data := 
-    for $r in collection($global:data-root)//@target[. = replace($idno[1],'/tei','')]
-    let $headword := $r/ancestor::tei:TEI/descendant::tei:title[1]
+    for $r in collection('/db/apps/srophe-data/data')//tei:body[.//@target[. = replace($idno[1],'/tei','')]]
+    let $headword := replace($r/ancestor::tei:TEI/descendant::tei:title[1]/text()[1],' — ','')
     let $id := $r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][1]
-    let $sort := global:parse-name($headword)
-    let $sort := global:build-sort-string($sort,'')
+    let $sort := global:build-sort-string($headword,'')
+    where $sort != ''
     order by $sort collation "?lang=en&lt;syr&amp;decomposition=full"
-    return <TEI xml:ns="http://www.tei-c.org/ns/1.0">{$headword, $id}</TEI>   
+    return concat($id, 'headword:=', $headword)
 return  map { "cited" := $data}    
 };
 
@@ -131,12 +137,12 @@ declare function rel:cited($idno, $start, $perpage){
                 {
                     if($count gt 5) then
                         for $rec in subsequence($hits,$start,$perpage)
-                        let $id := $rec/tei:idno[@type='URI']
+                        let $id := substring-before($rec,'headword:=')
                         return 
                             global:display-recs-short-view(collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI,'')                        
                     else 
                         for $rec in $hits
-                        let $id := $rec/tei:idno[@type='URI']
+                        let $id := substring-before($rec,'headword:=')
                         return 
                             global:display-recs-short-view(collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI,'')
                 }
@@ -170,27 +176,28 @@ declare function rel:subject-headings($idno){
                 {
                     (
                     for $recs in subsequence($hits,1,20)
-                    let $headword := $recs/tei:title[1]/text()[1]
-                    let $subject-idno := replace($recs/tei:idno[1],'/tei','')
+                    let $headword := substring-after($recs,'headword:=')
+                    let $id := replace(substring-before($recs,'headword:='),'/tei','')
                     return 
-                        <span class="sh pers-label badge">{replace($headword,' — ','')} 
-                        <a href="search.html?subject={$subject-idno}" class="sh-search">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        </a></span>,
-                    if($total gt 20) then
+                            <span class="sh pers-label badge">{replace($headword,' — ','')} 
+                            <a href="search.html?subject={$id}" class="sh-search">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </a></span>
+                            ,
+                       if($total gt 20) then
                         (<div class="collapse" id="showAllSH">
                             {
                             for $recs in subsequence($hits,20,$total)
-                            let $headword := $recs/tei:title[1]/text()[1]
-                            let $subject-idno := replace($recs/tei:idno[1],'/tei','')
+                            let $headword := substring-after($recs,'headword:=')
+                            let $id := replace(substring-before($recs,'headword:='),'/tei','')
                             return 
-                               <span class="sh pers-label badge">{replace($headword,' — ','')} 
-                               <a href="search.html?subject={$subject-idno}" class="sh-search"> 
+                               <span class="sh pers-label badge">{replace($headword,' — ',' ')} 
+                               <a href="search.html?subject={$id}" class="sh-search"> 
                                <span class="glyphicon glyphicon-search" aria-hidden="true">
                                </span></a></span>
                             }
                         </div>,
-                        <a class="togglelink pull-right btn-link" data-toggle="collapse" data-target="#showAllSH" data-text-swap="Hide"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Show All </a>
+                        <a class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="collapse" data-target="#showAllSH" data-text-swap="Hide"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Show All </a>
                         )
                     else ()
                     )
@@ -207,36 +214,51 @@ declare function rel:subject-headings($idno){
 declare function rel:build-relationships($node,$idno){ 
 <div class="relation well">
     <h3>Relationships</h3>
-    <div>
+    <div class="indent">
     {       
         for $related in $node/descendant-or-self::tei:relation
         let $names := rel:get-uris(string-join(($related/@active/string(),$related/@passive/string(),$related/@mutual/string()),' '),$idno)
         let $count := count($names)
         let $rel-id := index-of($node, $related[1])
-        group by $relationship := $related/@name
+        let $rel-type := if($related/@name) then $related/@name else $related/@ref
+        group by $relationship := $rel-type
         return
-            <div>
-            {(
-                rel:decode-relationship($related),
-                for $r in subsequence($names,1,2)
-                return rel:display($r),
-                if($count gt 2) then
-                    <span>
-                        <span class="collapse" id="showRel-{$rel-id}">{
-                            for $r in subsequence($names,3,$count)
-                            return rel:display($r)
-                        }</span>
-                        <a class="togglelink btn btn-info" style="width:100%; margin-bottom:1em;" data-toggle="collapse" data-target="#showRel-{$rel-id}" data-text-swap="Hide"> See all {$count} &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
-                    </span>
-                else ()
-            )}
-            </div>
+                (<p class="rel-label"> 
+                    {
+                      if($related/@mutual) then 
+                        ('This ', rel:get-subject-type($related[1]/@mutual), ' ', 
+                        rel:decode-relationship($related), ' ', 
+                        $count, ' other ', rel:get-subject-type($related[1]/@mutual),'.')
+                      else if($related/@active) then 
+                        ('This ', rel:get-subject-type($related[1]/@active), ' ',
+                        rel:decode-relationship($related), ' ', $count, ' ',
+                        rel:get-subject-type($related[1]/@passive),'.')
+                      else rel:decode-relationship($related)
+                    }
+                </p>,
+                <div class="rel-list" id="showRel-{$rel-id}">{
+                    for $r in subsequence($names,1,2)
+                    return rel:display($r),
+                    if($count gt 2) then
+                        <span>
+                            <span class="collapse" id="showRel-{$rel-id}">{
+                                for $r in subsequence($names,3,$count)
+                                return rel:display($r)
+                            }</span>
+                            <a class="togglelink btn btn-info" style="width:100%; margin-bottom:1em;" data-toggle="collapse" data-target="#showRel-{$rel-id}" data-text-swap="Hide"> See all {$count} &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+                        </span>
+                    else ()
+                    (:for $r in $names
+                    return 
+                    <div class="short-rec rel indent">{rel:display($r)}</div>
+                    :)
+                }</div>)
         }
     </div>
 </div>
 };
 
-(: Assumes active/passive :)
+(: Assumes active/passive SPEAR:)
 declare function rel:decode-relationship-name($relationship){
 let $relationship-name := 
     if(contains($relationship,':')) then 
@@ -312,7 +334,7 @@ return
         default return concat(' ', functx:camel-case-to-words($relationship-name,' '),' ') 
 };
 
-(: TODO build text for passive/active :)
+(: TODO build text for passive/active SPEAR:)
 declare function rel:decode-relationship-passive($relationship){
 let $relationship-name := 
     if(contains($relationship,':')) then 
@@ -370,7 +392,7 @@ else ()
 };
 
 (:~ 
- : Main div for HTML display 
+ : Main div for HTML display for SPEAR relationships
  : @param $node all relationship elements
  : @param $idno record idno
 :)
@@ -387,7 +409,7 @@ declare function rel:build-short-relationships-list($node,$idno){
 };
 
 (:~ 
- : Main div for HTML display 
+ : Main div for HTML display SPEAR relationships
  : @param $node all relationship elements
  : @param $idno record idno
 :)
