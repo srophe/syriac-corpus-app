@@ -319,15 +319,16 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
  : Grabs latest news for home page
  : http://syriaca.org/feed/
  :) 
-declare %templates:wrap function app:get-feed($node as node(), $model as map(*)){ 
-   let $news := doc('http://syriaca.org/blog/feed/')/child::*
-   for $latest at $n in subsequence($news//item, 1, 3)
-   return 
-   <li>
-        <a href="{$latest/link/text()}">{$latest/title/text()}</a>
-   </li>
+declare %templates:wrap function app:get-feed($node as node(), $model as map(*)){
+    if(doc('http://syriaca.org/blog/feed/')/child::*) then 
+       let $news := doc('http://syriaca.org/blog/feed/')/child::*
+       for $latest at $n in subsequence($news//item, 1, 3)
+       return 
+       <li>
+            <a href="{$latest/link/text()}">{$latest/title/text()}</a>
+       </li>
+    else ()   
 };
-
 (:~
  : Typeswitch to transform confessions.xml into nested list.
  : @param $node   
