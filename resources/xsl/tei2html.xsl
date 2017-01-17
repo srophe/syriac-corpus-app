@@ -164,15 +164,22 @@
     <xsl:template match="t:head">
         <xsl:choose>
             <xsl:when test="parent::t:div1">
-                <h2><xsl:apply-templates/></h2>
+                <h2>
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </h2>
             </xsl:when>
             <xsl:when test="parent::t:div2">
-                <h3><xsl:apply-templates/></h3>
+                <h3>
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </h3>
             </xsl:when>
             <xsl:otherwise>
                 <span class="{name(parent::*[1])}">
+                    <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
-                </span>                
+                </span>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -180,12 +187,16 @@
         <xsl:choose>
             <xsl:when test="@ref">
                 <a href="{@ref}">
+                    <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                     [<xsl:value-of select="@ref"/>]
                 </a>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates/>
+                <span>
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>                    
+                </span>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
