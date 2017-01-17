@@ -268,41 +268,49 @@
                             <xsl:variable name="parent" select="/"/>
                             <xsl:variable name="bibl-type" select="local:translate-label(string(@type))"/>
                             <xsl:for-each select="t:listRelation/t:relation[not(@ref='lawd:embodies')]">
+                                <!-- List all bibs grouped by type to get correct position for constructed relationship sentance. -->
+                                <xsl:variable name="all-bibs">
+                                    <bibs xmlns="http://www.tei-c.org/ns/1.0">
+                                        <xsl:for-each-group select="ancestor::t:bibl[@type='lawd:ConceptualWork']/t:bibl" group-by="@type">
+                                            <bibList>
+                                                <xsl:for-each select="current-group()">
+                                                    <bibl bibid="{@xml:id}" position="{position()}" type="{local:translate-label(string(current-grouping-key()))}"/>
+                                                </xsl:for-each>
+                                            </bibList>
+                                        </xsl:for-each-group>                                        
+                                    </bibs>
+                                </xsl:variable>
+                                <!-- Get related bibs based on @passive -->
                                 <xsl:variable name="bibl-rel">
                                     <bib-relations xmlns="http://www.tei-c.org/ns/1.0">
                                         <xsl:for-each select="tokenize(@passive,' ')">
                                             <xsl:variable name="bibl-id" select="replace(.,'#','')"/>
-                                            <bib-relation bibid="{$bibl-id}" position="{position()}">
-                                                <xsl:value-of select="local:translate-label(string($parent/descendant-or-self::*[@xml:id = $bibl-id]/@type))"/>
-                                            </bib-relation>
+                                            <xsl:for-each select="$all-bibs/descendant::t:bibl[@bibid = $bibl-id]">
+                                                <xsl:copy-of select="."/>
+                                            </xsl:for-each>
                                         </xsl:for-each>
                                     </bib-relations>
                                 </xsl:variable>
+                                <!-- Compile sentance -->
                                 <xsl:text> (</xsl:text>
                                 <xsl:value-of select="$bibl-type"/>
                                 <xsl:text> from  </xsl:text>
-                                <xsl:for-each-group select="$bibl-rel/child::*" group-by=".">
+                                <xsl:for-each-group select="$bibl-rel/descendant-or-self::t:bibl" group-by="@type">
+                                    <xsl:copy-of select="current-group()"/>
+                                    <xsl:choose>
+                                        <xsl:when test="count(current-group()) &gt; 1">
+                                            <xsl:value-of select="concat(current-grouping-key(),'s ')"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="current-grouping-key()"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                     <xsl:for-each select="current-group()">
-                                        <xsl:choose>
-                                            <xsl:when test="count(child::*) &gt; 1">
-                                                <xsl:value-of select="concat(child::*[1],'s ')"/>
-                                                <!--<xsl:value-of select="concat(current-grouping-key(),'s ')"/>-->
-                                                <xsl:for-each select="child::*">
-                                                    <xsl:text> </xsl:text>
-                                                    <xsl:value-of select="string(@position)"/>
-                                                    <xsl:if test="not(position()=last())">
-                                                        <xsl:text>, </xsl:text>
-                                                    </xsl:if>
-                                                </xsl:for-each>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <xsl:value-of select="current-grouping-key()"/>
-                                                <xsl:for-each select="child::*">
-                                                    <xsl:text> </xsl:text>
-                                                    <xsl:value-of select="string(@position)"/>
-                                                </xsl:for-each>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
+                                        <xsl:text> </xsl:text>
+                                        <xsl:value-of select="string(@position)"/>
+                                        <xsl:if test="not(position()=last())">
+                                            <xsl:text>, </xsl:text>
+                                        </xsl:if>    
                                     </xsl:for-each>
                                 </xsl:for-each-group>
                                 <xsl:text>.)</xsl:text>
