@@ -467,6 +467,7 @@
                             <xsl:sequence select="$syr-title"/>
                         </xsl:if>
                     </a>
+                    <!--
                     &#160;
                     <xsl:variable name="ref-id" select="generate-id(.)"/>
                     <button type="button" class="btn btn-sm btn-default copy-sm" id="{$ref-id}" data-toggle="tooltip" title="Copies record title &amp; URI to clipboard." data-clipboard-action="copy" data-clipboard-text="{normalize-space($resource-title)} - {normalize-space($resource-id)}">
@@ -483,6 +484,7 @@
                         console.log(e);
                         });
                     </script>
+                    -->
                     <xsl:if test="$ana != ''">
                         <span class="results-list-desc type" dir="ltr" lang="en">
                             <xsl:text> (</xsl:text>
