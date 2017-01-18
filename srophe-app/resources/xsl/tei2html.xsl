@@ -161,16 +161,42 @@
         </div>
     </xsl:template>
     <!-- Generic title formating -->
+    <xsl:template match="t:head">
+        <xsl:choose>
+            <xsl:when test="parent::t:div1">
+                <h2>
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </h2>
+            </xsl:when>
+            <xsl:when test="parent::t:div2">
+                <h3>
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </h3>
+            </xsl:when>
+            <xsl:otherwise>
+                <span class="{name(parent::*[1])}">
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </span>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <xsl:template match="t:title">
         <xsl:choose>
             <xsl:when test="@ref">
                 <a href="{@ref}">
+                    <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                     [<xsl:value-of select="@ref"/>]
                 </a>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates/>
+                <span>
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>                    
+                </span>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -277,7 +303,7 @@
                                                     <bibl bibid="{@xml:id}" position="{position()}" type="{local:translate-label(string(current-grouping-key()))}"/>
                                                 </xsl:for-each>
                                             </bibList>
-                                        </xsl:for-each-group>                                        
+                                        </xsl:for-each-group>
                                     </bibs>
                                 </xsl:variable>
                                 <!-- Get related bibs based on @passive -->
@@ -310,7 +336,7 @@
                                         <xsl:value-of select="string(@position)"/>
                                         <xsl:if test="not(position()=last())">
                                             <xsl:text>, </xsl:text>
-                                        </xsl:if>    
+                                        </xsl:if>
                                     </xsl:for-each>
                                 </xsl:for-each-group>
                                 <xsl:text>.)</xsl:text>
@@ -451,6 +477,15 @@
     <!-- Descriptions without list elements or paragraph elements -->
     <xsl:template match="t:desc | t:label" mode="plain">
         <xsl:apply-templates/>
+    </xsl:template>
+    <xsl:template match="t:label">
+        <label>
+            <xsl:if test="@type">
+                <xsl:attribute name="class"><xsl:value-of select="@type"/></xsl:attribute>    
+            </xsl:if>
+            <xsl:call-template name="langattr"/>
+            <xsl:sequence select="local:rend(.)"/>            
+        </label>
     </xsl:template>
     <!-- Descriptions for place abstract  added template for abstracts, handles quotes and references.-->
     <xsl:template match="t:desc[starts-with(@xml:id, 'abstract-en')]" mode="abstract">
