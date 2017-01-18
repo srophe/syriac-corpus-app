@@ -43,10 +43,22 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
+                //Change fonts
+                $('#selectFont').val("EstrangeloEdessa");
+                $('#selectFont').on('change', function(){
+                    $('.selectableFont').not('.syr').css('font-family', $(this).val());
+                    $("*:lang(syr)").css('font-family', $(this).val())
+                });
+
             })
         </script>
     </head>
     <body>
+        <!-- 
+        Estrangela (use Estrangelo Edessa Font)
+East Syriac (what font do we current use here)
+West Syriac (what font do we current use here)
+        -->
         <!--[if lt IE 7]>
                 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
             <![endif]-->
@@ -70,6 +82,17 @@
                     </a>
                 </div>
                 <div class="navbar-collapse collapse pull-right">
+                    <ul class="nav navbar-nav sm sm-vertical" id="swap-font" style="float:right;">
+                        <li>
+                                <select id="selectFont" style="margin-top: 10px;">
+                                    <option value="EstrangeloEdessa">Change Font</option>
+                                    <option value="EstrangeloEdessa">Estrangelo Edessa</option>
+                                    <option value="EastSyriacAdiabene">East Syriac Adiabene</option>
+                                    <option value="SertoBatnan">Serto Batnan</option>
+                                </select>
+                            
+                        </li>
+                    </ul>
                     <ul class="nav navbar-nav sm sm-vertical" id="main-menu">
                         <li>
                             <a href="$app-root/browse.html?view=facets" style="margin-top:1em;">

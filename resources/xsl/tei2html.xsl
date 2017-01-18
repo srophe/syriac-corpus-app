@@ -1575,8 +1575,7 @@
                                     <xsl:value-of select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]"/>
                                 </xsl:otherwise>
                             </xsl:choose>.
-                        <xsl:text> and released under a </xsl:text>
-                            <br/>
+                            <xsl:text> and released under a </xsl:text>
                             <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
                         </div>
                     </div>
