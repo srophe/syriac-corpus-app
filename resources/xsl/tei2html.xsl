@@ -53,7 +53,7 @@
     <xsl:import href="helper-functions.xsl"/>
     <xsl:import href="link-icons.xsl"/>
     <xsl:import href="manuscripts.xsl"/>
-    <xsl:import href="corpus.xsl"/>
+    <!--<xsl:import href="corpus.xsl"/>-->
     <xsl:import href="citation.xsl"/>
     <xsl:import href="bibliography.xsl"/>
     <xsl:import href="json-uri.xsl"/>
@@ -1575,12 +1575,14 @@
                                     <xsl:value-of select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]"/>
                                 </xsl:otherwise>
                             </xsl:choose>.
-                        <xsl:text> and released under a </xsl:text><br/>
-                        <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
+                        <xsl:text> and released under a </xsl:text>
+                            <br/>
+                            <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
                         </div>
                     </div>
                 </div>
-                <a class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide Publication Information">Show Full Publication Information <i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+                <a class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide Publication Information">Show Full Publication Information <i class="glyphicon glyphicon-circle-arrow-right"/>
+                </a>
             </div>
         </div>
     </xsl:template>
