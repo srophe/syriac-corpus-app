@@ -459,7 +459,19 @@ td {
 }
 
 /*.footnote-links {float:right; overflow:hidden; clear:right;}*/
-.footnote-icon {padding-left:.5em; font-size:12px;}
+.footnote-icon {
+    padding-left:.5em; 
+    font-size:12px; 
+    line-height: 18px;
+    vertical-align: middle;
+    }
+.footnote-icon .glyphicon-book{
+    padding-left:.75em;
+    line-height: 18px;
+    font-size:18px;
+    margin-top: -0.25em;
+    vertical-align: middle;
+    }
 .bibl li{line-height: 1.5em;padding-bottom:.5em;}
 .bibl-links {padding:.25em; width:25px;}
 .anchor { 
@@ -849,3 +861,4 @@ pre {
 }
 .short-relationships {display:block;}
 .wiki-page-link {font-weight:normal;}
+select.keyboardSelect {display:none;}
