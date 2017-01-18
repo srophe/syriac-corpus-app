@@ -152,8 +152,9 @@
                         <xsl:apply-templates/>
                     </xsl:for-each>
                 </xsl:when>
+                <!-- Corpus title display -->
                 <xsl:when test="descendant::t:titleStmt">
-                    <xsl:apply-templates select="descendant::t:titleStmt/t:title[1]" mode="full"/>
+                    <xsl:apply-templates select="descendant::t:titleStmt/t:title[1]" mode="title"/>
                 </xsl:when>
                 <xsl:when test="descendant::t:biblStruct">
                     <xsl:apply-templates select="descendant::t:biblStruct/descendant::t:title[1]" mode="full"/>
@@ -240,203 +241,6 @@
                 <xsl:value-of select="$floruit"/>
             </xsl:if>
         </xsl:variable>
-        <xsl:choose>
-            <xsl:when test="contains($uri,'/manuscript/')">
-                <div>
-                    <a href="{replace($uri,$base-uri,$nav-base)}" dir="ltr">
-                        <span class="srp-label">Shelfmark: </span>
-                        <xsl:apply-templates select="descendant::t:titleStmt/t:title[1]" mode="plain"/>
-                    </a>
-                    <xsl:if test="count(descendant::t:msPart) gt 0">
-                        <span class="results-list-desc desc">
-                            This manuscript contains <xsl:value-of select="count(descendant::t:msPart)"/> component manuscripts
-                        </span>
-                    </xsl:if>
-                    <xsl:if test="descendant::t:msIdentifier[t:altIdentifier/t:idno[@type = ('Wright-BL-Arabic','Wright-BL-Roman')]]">
-                        <span class="results-list-desc desc">
-                            <span class="srp-label">Alternate Identifiers: </span>
-                            <!-- Not correct -->
-                            <xsl:for-each select="descendant::t:altIdentifier">
-                                <xsl:for-each select="t:idno">
-                                    <xsl:choose>
-                                        <xsl:when test="@type=('Wright-BL-Arabic','Wright-BL-Roman')">
-                                            <xsl:text>Wright </xsl:text>
-                                        </xsl:when>
-                                        <xsl:when test="@type='BL-Shelfmark'">
-                                            <xsl:text>BL </xsl:text>
-                                        </xsl:when>
-                                        <xsl:when test="@type='Clemons' or @type='clemons'">
-                                            <xsl:text>Clemons Checklist </xsl:text>
-                                        </xsl:when>
-                                    </xsl:choose>
-                                    <xsl:value-of select="."/>
-                                </xsl:for-each>
-                                <xsl:if test="position() != last()">
-                                    <xsl:text>, </xsl:text>
-                                </xsl:if>
-                            </xsl:for-each>
-                        </span>
-                    </xsl:if>
-                    <xsl:if test="descendant::t:history/t:origin/t:origDate">
-                        <span class="results-list-desc desc">
-                            <xsl:choose>
-                                <xsl:when test="count(descendant::t:history/t:origin/t:origDate) &gt; 2">
-                                    <span class="srp-label">The component parts of this manuscript have various dates including: </span>
-                                    <xsl:for-each select="descendant::t:history/t:origin/t:origDate">
-                                        <xsl:if test="position() &lt; 3">
-                                            <xsl:value-of select="."/>
-                                            <xsl:if test="position() &lt; 2">
-                                                <xsl:text>, </xsl:text>
-                                            </xsl:if>
-                                        </xsl:if>
-                                    </xsl:for-each>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <span class="srp-label">Date: </span>
-                                    <xsl:for-each select="descendant::t:history/t:origin/t:origDate">
-                                        <xsl:if test="position() &lt; 3">
-                                            <xsl:value-of select="."/>
-                                            <xsl:if test="position() &lt; 2">
-                                                <xsl:text>, </xsl:text>
-                                            </xsl:if>
-                                        </xsl:if>
-                                    </xsl:for-each>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </span>
-                    </xsl:if>
-                    <span class="results-list-desc uri">
-                        <span class="srp-label">URI: </span>
-                        <a href="{replace($uri,$base-uri,$nav-base)}">
-                            <xsl:value-of select="$uri"/>
-                        </a>
-                    </span>
-                </div>
-            </xsl:when>
-            <xsl:when test="contains($uri,'/spear/')">
-                <div>
-                    <a href="factoid.html?id={$uri}" class="syr-label">
-                        <xsl:choose>
-                            <xsl:when test="descendant-or-self::t:titleStmt">
-                                <xsl:apply-templates select="descendant-or-self::t:titleStmt/t:title[1]"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="substring(string-join(descendant-or-self::*[not(self::t:idno)][not(self::t:bibl)][not(self::t:biblScope)][not(self::t:note)][not(self::t:orig)][not(self::t:sic)]/text(),' '),1,550)"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </a>
-                    <xsl:if test="$ana != ''">
-                        <span class="results-list-desc type" dir="ltr" lang="en">
-                            <xsl:text> (</xsl:text>
-                            <xsl:sequence select="$ana"/>
-                            <xsl:if test="$dates != ''">
-                                <xsl:text>, </xsl:text>
-                                <xsl:value-of select="$dates"/>
-                            </xsl:if>
-                            <xsl:text>) </xsl:text>
-                        </span>
-                    </xsl:if>
-                    <xsl:if test="descendant::t:person/t:persName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))] | descendant::t:place/t:placeName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))]">
-                        <span class="results-list-desc names" dir="ltr" lang="en">
-                            <xsl:text>Names: </xsl:text>
-                            <xsl:for-each select="descendant::t:person/t:persName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))] | descendant::t:place/t:placeName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))]">
-                                <xsl:if test="position() &lt; 8">
-                                    <span class="pers-label badge">
-                                        <xsl:apply-templates/>
-                                    </span>
-                                </xsl:if>
-                            </xsl:for-each>
-                        </span>
-                    </xsl:if>
-                    <xsl:if test="descendant::*[starts-with(@xml:id,'abstract')]">
-                        <span class="results-list-desc desc" dir="ltr" lang="en">
-                            <xsl:variable name="string" select="string-join(descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::*,' ')"/>
-                            <xsl:variable name="last-words" select="tokenize($string, '\W+')[position() = 14]"/>
-                            <xsl:choose>
-                                <xsl:when test="count(tokenize($string, '\W+')[. != '']) gt 13">
-                                    <xsl:value-of select="concat(substring-before($string, $last-words),'...')"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:value-of select="$string"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </span>
-                    </xsl:if>
-                    <xsl:if test="//*:match">
-                        <span class="results-list-desc srp-label">Matches:</span>
-                        <xsl:for-each select="//*:match">
-                            <xsl:if test="position() lt 8">
-                                <span class="results-list-desc container">
-                                    <span class="srp-label">
-                                        <xsl:value-of select="concat(position(),'. (', name(parent::*[1]),') ')"/>
-                                    </span>
-                                    <xsl:apply-templates select="parent::*[1]" mode="plain"/>
-                                </span>
-                            </xsl:if>
-                            <xsl:if test="position() = 8">
-                                <span class="results-list-desc container">more ...</span>
-                            </xsl:if>
-                        </xsl:for-each>
-                    </xsl:if>
-                    <span class="results-list-desc uri">
-                        <span class="srp-label">URI: </span>
-                        <a href="{replace($uri,$base-uri,$nav-base)}">
-                            <xsl:value-of select="$uri"/>
-                        </a>
-                    </span>
-                </div>
-            </xsl:when>
-            <xsl:when test="$lang = 'spear'">
-                <div>
-                    <a href="aggregate.html?id={$uri}" class="syr-label">
-                        <xsl:apply-templates select="descendant-or-self::t:titleStmt/t:title[1]"/>
-                    </a>
-                    <xsl:if test="$ana != ''">
-                        <span class="results-list-desc type" dir="ltr" lang="en">
-                            <xsl:text> (</xsl:text>
-                            <xsl:sequence select="$ana"/>
-                            <xsl:if test="$dates != ''">
-                                <xsl:text>, </xsl:text>
-                                <xsl:value-of select="$dates"/>
-                            </xsl:if>
-                            <xsl:text>) </xsl:text>
-                        </span>
-                    </xsl:if>
-                    <xsl:if test="descendant::t:person/t:persName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))] | descendant::t:place/t:placeName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))]">
-                        <span class="results-list-desc names" dir="ltr" lang="en">
-                            <xsl:text>Names: </xsl:text>
-                            <xsl:for-each select="descendant::t:person/t:persName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))] | descendant::t:place/t:placeName[not(contains(@syriaca-tags,'#syriaca-headword'))][not(matches(@xml:lang,('^syr|^ar|^en-xsrp1')))]">
-                                <xsl:if test="position() &lt; 8">
-                                    <span class="pers-label badge">
-                                        <xsl:apply-templates/>
-                                    </span>
-                                </xsl:if>
-                            </xsl:for-each>
-                        </span>
-                    </xsl:if>
-                    <xsl:if test="descendant::*[starts-with(@xml:id,'abstract')]">
-                        <span class="results-list-desc desc" dir="ltr" lang="en">
-                            <xsl:variable name="string" select="string-join(descendant::*[starts-with(@xml:id,'abstract')]/descendant-or-self::*,' ')"/>
-                            <xsl:variable name="last-words" select="tokenize($string, '\W+')[position() = 14]"/>
-                            <xsl:choose>
-                                <xsl:when test="count(tokenize($string, '\W+')[. != '']) gt 13">
-                                    <xsl:value-of select="concat(substring-before($string, $last-words),'...')"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:value-of select="$string"/>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </span>
-                    </xsl:if>
-                    <span class="results-list-desc uri">
-                        <span class="srp-label">For additional information, see: </span>
-                        <a href="{replace($uri,$base-uri,$nav-base)}">
-                            <xsl:value-of select="$uri"/>
-                        </a>
-                    </span>
-                </div>
-            </xsl:when>
-            <xsl:otherwise>
                 <div>
                     <xsl:choose>
                         <xsl:when test="$lang != '' and $lang != 'en' and $lang != 'syr'">
@@ -467,10 +271,14 @@
                             <xsl:sequence select="$syr-title"/>
                         </xsl:if>
                     </a>
+                    <xsl:if test="descendant::t:titleStmt/t:author">
+                        <xsl:text> by </xsl:text>
+                        <xsl:apply-templates select="descendant::t:titleStmt/t:author" mode="plain"/>
+                    </xsl:if>
                     <!--
-                    &#160;
+                     
                     <xsl:variable name="ref-id" select="generate-id(.)"/>
-                    <button type="button" class="btn btn-sm btn-default copy-sm" id="{$ref-id}" data-toggle="tooltip" title="Copies record title &amp; URI to clipboard." data-clipboard-action="copy" data-clipboard-text="{normalize-space($resource-title)} - {normalize-space($resource-id)}">
+                    <button type="button" class="btn btn-sm btn-default copy-sm" id="{$ref-id}" data-toggle="tooltip" title="Copies record title & URI to clipboard." data-clipboard-action="copy" data-clipboard-text="{normalize-space($resource-title)} - {normalize-space($resource-id)}">
                         <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
                     </button>
                     <script>
@@ -539,7 +347,7 @@
                     </xsl:if>
                     <xsl:if test="descendant::t:biblStruct">
                         <span class="results-list-desc desc" dir="ltr" lang="en">
-                            <xsl:apply-templates select="descendant::t:biblStruct" mode="bibliography"/>
+                           <label>Source:&#160;</label> <xsl:apply-templates select="descendant::t:biblStruct" mode="bibliography"/>
                         </span>
                     </xsl:if>
                     <xsl:if test="//*:match">
@@ -567,8 +375,6 @@
                         </span>
                     </xsl:if>
                 </div>
-            </xsl:otherwise>
-        </xsl:choose>
     </xsl:template>
     <xsl:template match="t:choice">[1]
         <xsl:apply-templates select="child::*[1]"/>
