@@ -53,7 +53,7 @@
     <xsl:import href="helper-functions.xsl"/>
     <xsl:import href="link-icons.xsl"/>
     <xsl:import href="manuscripts.xsl"/>
-    <xsl:import href="spear.xsl"/>
+    <xsl:import href="corpus.xsl"/>
     <xsl:import href="citation.xsl"/>
     <xsl:import href="bibliography.xsl"/>
     <xsl:import href="json-uri.xsl"/>
@@ -83,6 +83,7 @@
     <xsl:param name="nav-base" select="'/db/apps/srophe'"/>
     <!-- Base URI for identifiers in app data -->
     <xsl:param name="base-uri" select="'/db/apps/srophe'"/>
+    <xsl:param name="view" select="'syriaca.org'"/>
     <!-- Hard coded values-->
     <xsl:param name="normalization">NFKC</xsl:param>
     <xsl:param name="editoruriprefix">http://syriaca.org/documentation/editors.xml#</xsl:param>
@@ -195,7 +196,7 @@
             <xsl:otherwise>
                 <span>
                     <xsl:call-template name="langattr"/>
-                    <xsl:apply-templates/>                    
+                    <xsl:apply-templates/>
                 </span>
             </xsl:otherwise>
         </xsl:choose>
@@ -469,6 +470,17 @@
     <!-- Descriptions without list elements or paragraph elements -->
     <xsl:template match="t:desc | t:label" mode="plain">
         <xsl:apply-templates/>
+    </xsl:template>
+    <xsl:template match="t:label">
+        <label>
+            <xsl:if test="@type">
+                <xsl:attribute name="class">
+                    <xsl:value-of select="@type"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:call-template name="langattr"/>
+            <xsl:sequence select="local:rend(.)"/>
+        </label>
     </xsl:template>
     <!-- Descriptions for place abstract  added template for abstracts, handles quotes and references.-->
     <xsl:template match="t:desc[starts-with(@xml:id, 'abstract-en')]" mode="abstract">
@@ -845,12 +857,12 @@
      handle standard output of the licence element in the tei header
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:licence">
-        <xsl:if test="@target">
+        <xsl:apply-templates/>
+        <xsl:if test="contains(@target, 'http://creativecommons.org/licenses/')">
             <a rel="license" href="{@target}">
-                <img alt="Creative Commons License" style="border-width:0" src="{$nav-base}/resources/img/cc.png" height="18px"/>
+                <img alt="Creative Commons License" style="border-width:0;display:inline;" src="{$nav-base}/resources/img/cc.png" height="18px"/>
             </a>
         </xsl:if>
-        <xsl:apply-templates/>
     </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -1554,6 +1566,7 @@
                         <h3>Copyright and License for Reuse</h3>
                         <div>
                             <xsl:text>Except otherwise noted, this page is © </xsl:text>
+                            <xsl:value-of select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:authority"/>
                             <xsl:choose>
                                 <xsl:when test="//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
                                     <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>
@@ -1562,11 +1575,12 @@
                                     <xsl:value-of select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]"/>
                                 </xsl:otherwise>
                             </xsl:choose>.
-                        </div>
+                        <xsl:text> and released under a </xsl:text><br/>
                         <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
+                        </div>
                     </div>
                 </div>
-                <a class="togglelink pull-right btn-link" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide citation">Show full citation information...</a>
+                <a class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide Publication Information">Show Full Publication Information <i class="glyphicon glyphicon-circle-arrow-right"></i></a>
             </div>
         </div>
     </xsl:template>
@@ -1585,7 +1599,7 @@
                     <xsl:apply-templates select="/descendant::t:teiHeader/t:fileDesc/t:titleStmt" mode="about-bibl"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <h3>About this Entry</h3>
+                    <!--<h3>About this Entry</h3>-->
                     <xsl:apply-templates select="/descendant::t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
                 </xsl:otherwise>
             </xsl:choose>
