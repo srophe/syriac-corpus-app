@@ -289,6 +289,9 @@
                     </xsl:if>
                     <span>
                         <xsl:call-template name="langattr"/>
+                        <xsl:if test="t:idno">
+                            <span class="footnote idno"><xsl:value-of select="t:idno"/></span>
+                        </xsl:if>
                         <xsl:call-template name="footnote"/>
                         <xsl:if test="t:listRelation/t:relation">
                             <xsl:variable name="parent" select="/"/>

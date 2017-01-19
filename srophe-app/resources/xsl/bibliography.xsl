@@ -1017,7 +1017,9 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+    <xsl:template match="t:idno" mode="footnote">
+        <span class="footnote idno"><xsl:apply-templates/></span>
+    </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle bibliographic titles in the context of a footnote
