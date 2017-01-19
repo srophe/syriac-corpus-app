@@ -268,7 +268,7 @@ let $relType := $relType
 let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1]/text(),'/tei','')
 let $works := 
             for $w in collection($global:data-root || '/works/tei')//tei:body[child::*/tei:listRelation/tei:relation[@passive[functx:contains-word(.,$recid)]][@ref=$relType or @name=$relType]]
-            let $part := xs:integer($w/child::*/tei:listRelation/tei:relation[@passive[functx:contains-word(.,$recid)]]/tei:desc/tei:label[@type='order']/@n)
+            let $part := xs:integer($w/child::*/tei:listRelation/tei:relation[@passive[functx:contains-word(.,$recid)]]/tei:desc/tei:label[@type='order'][1]/@n)
             order by $part
             return $w
 let $count := count($works)
@@ -295,7 +295,7 @@ return
                              let $part := $rec/descendant::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc/tei:label[@type='order']
                              return 
                              <div class="indent row">
-                                <div class="col-md-1"><span class="badge">{string($part/@n)}</span></div>
+                                <div class="col-md-1"><span class="badge">{string-join($part/@n,' ')}</span></div>
                                 <div class="col-md-11">{global:display-recs-short-view($rec,'',$recid)}</div>
                              </div>
                          }
@@ -422,6 +422,11 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
 (:~
  : Grabs latest news for home page
  : http://syriaca.org/feed/
+    try {
+        $x cast as xs:integer
+    } catch * {
+        <error>Caught error {$err:code}: {$err:description}</error>
+        }
  :) 
 declare %templates:wrap function app:get-feed($node as node(), $model as map(*)){
     if(doc('http://syriaca.org/blog/feed/')/child::*) then 
