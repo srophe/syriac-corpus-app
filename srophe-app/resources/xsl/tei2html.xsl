@@ -195,7 +195,7 @@
             <xsl:otherwise>
                 <span>
                     <xsl:call-template name="langattr"/>
-                    <xsl:apply-templates/>                    
+                    <xsl:apply-templates/>
                 </span>
             </xsl:otherwise>
         </xsl:choose>
@@ -280,7 +280,7 @@
     <xsl:template match="t:bibl" mode="title"/>
     <xsl:template match="t:bibl">
         <xsl:choose>
-            <xsl:when test="@type=('lawd:Edition','lawd:Translation','lawd:WrittenWork','syriaca:Manuscript','syriaca:ModernTranslation','syriaca:AncientVersion')">
+            <xsl:when test="@type=('lawd:Edition','lawd:Translation','lawd:WrittenWork','syriaca:Manuscript','syriaca:ModernTranslation','syriaca:AncientVersion','syriaca:Catalogue')">
                 <li>
                     <xsl:if test="descendant::t:lang/text()">
                         <span class="srp-label">
@@ -481,10 +481,12 @@
     <xsl:template match="t:label">
         <label>
             <xsl:if test="@type">
-                <xsl:attribute name="class"><xsl:value-of select="@type"/></xsl:attribute>    
+                <xsl:attribute name="class">
+                    <xsl:value-of select="@type"/>
+                </xsl:attribute>
             </xsl:if>
             <xsl:call-template name="langattr"/>
-            <xsl:sequence select="local:rend(.)"/>            
+            <xsl:sequence select="local:rend(.)"/>
         </label>
     </xsl:template>
     <!-- Descriptions for place abstract  added template for abstracts, handles quotes and references.-->
@@ -1495,8 +1497,8 @@
         </xsl:if>
         <xsl:if test="t:bibl">
             <xsl:choose>
-                <xsl:when test="t:bibl[@type='lawd:Citation']">
-                    <xsl:variable name="rules" select="                         '&lt; lawd:Edition &lt; lawd:Translation &lt; lawd:WrittenWork'"/>
+                <xsl:when test="self::t:bibl[@type='lawd:Citation' or @type='lawd:ConceptualWork']">
+                    <xsl:variable name="rules" select="'&lt; lawd:Edition &lt; lawd:Translation &lt; lawd:WrittenWork'"/>
                     <xsl:for-each-group select="t:bibl[exists(@type)][@type != 'lawd:Citation']" group-by="@type">
                         <xsl:sort select="current-grouping-key()" collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)};ignore-case=yes;ignore-modifiers=yes;ignore-symbols=yes)" order="ascending"/>
                         <xsl:variable name="label">
