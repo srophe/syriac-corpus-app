@@ -110,7 +110,7 @@ declare function timeline:get-birth($data as node()*) as node()?{
                         else replace($end,'-',',')
                     }
                     </pair>
-                    <pair name="headline" type="string">{$birth-date/text()} Birth</pair>
+                    <pair name="headline" type="string">{string-join($birth-date/descendant-or-self::*,' ')} Birth</pair>
             </pair>
     else () 
 };
@@ -151,7 +151,7 @@ declare function timeline:get-death($data as node()*) as node()?{
                         else replace($end,'-',',')
                     }
                     </pair>
-                    <pair name="headline" type="string">{$death-date/text()} Death</pair>
+                    <pair name="headline" type="string">{string-join($death-date/descendant-or-self::*,' ')} Death</pair>
             </pair>
     else () 
 };
@@ -192,7 +192,7 @@ declare function timeline:get-floruit($data as node()*) as node()*{
                         else replace($end,'-',',')
                     }
                     </pair>
-                    <pair name="headline" type="string">{$floruit-date/text()} Floruit</pair>
+                    <pair name="headline" type="string">{string-join($floruit-date/descendant-or-self::*,' ')} Floruit</pair>
             </pair>
     else () 
 };
@@ -234,7 +234,7 @@ declare function timeline:get-state($data as node()*) as node()*{
                         else replace($end,'-',',')
                     }
                     </pair>
-                    <pair name="headline" type="string">{$state-date/text()} {$office}</pair>
+                    <pair name="headline" type="string">{string-join($state-date/descendant-or-self::*,' ')} {$office}</pair>
                 </pair>
     else () 
 };
@@ -248,7 +248,7 @@ declare function timeline:get-state($data as node()*) as node()*{
 declare function timeline:get-events($data as node()*) as node()*{
      if($data/descendant-or-self::tei:event) then 
         for $event in $data/descendant-or-self::tei:event
-        let $event-content := normalize-space(string-join($event/descendant::*/text(),' '))
+        let $event-content := normalize-space(string-join($event/descendant-or-self::*/text(),' '))
         let $start := if($event/descendant-or-self::*/@when) then $event/descendant-or-self::*[@when][1]/@when
                       else if($event/descendant-or-self::*/@notBefore) then $event/descendant-or-self::*[@notBefore][1]/@notBefore
                       else if($event/descendant-or-self::*/@from) then $event/descendant-or-self::*[@from][1]/@from

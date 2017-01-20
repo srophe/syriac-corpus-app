@@ -862,3 +862,5 @@ pre {
 .short-relationships {display:block;}
 .wiki-page-link {font-weight:normal;}
 select.keyboardSelect {display:none;}
+/* Timeline title styles */
+.slider-item h3{font-size:1.25em !important;}
