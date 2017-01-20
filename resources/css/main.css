@@ -806,6 +806,7 @@ pre {
 /* Dashboard styles */
 .huge {font-size:2.5em;}
 .dashboard  .panel-heading .glyphicon{font-size:3em; padding-top: .25em;}
+.panel-heading {font-weight:500;}
 #dashboardOne h4.panel-title {color:#666; font-weight:500; font-size:1.25em;}
 
 /* TEST home page styles*/
@@ -853,3 +854,11 @@ pre {
 }
 .short-relationships {display:block;}
 .wiki-page-link {font-weight:normal;}
+.toc {display:block; margin-left:.75em;}
+.toc-item {display:block; font-size: small;}
+:target:before {
+    content:"";
+    display:block;
+    height:60px; /* fixed header height*/
+    margin:-60px 0 0; /* negative fixed header height */
+}

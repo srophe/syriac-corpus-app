@@ -234,12 +234,39 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
         </div>  
     else 
        <div class="row">
-            <div class="col-md-8 column1">
+            <div class="col-md-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Table of Contents</div>
+                    <div class="panel-body">
+                        {app:toc($model("data")/descendant::tei:body/child::*)}
+                    </div>
+                </div>                        
+            </div>
+            <div class="col-md-6">
                 {global:tei2html($model("data")/descendant::tei:body)} 
             </div>
-            <div class="col-md-4 column2">
+            <div class="col-md-4">
                 {(
                 app:rec-status($node, $model,''),
+                <div class="panel panel-default">
+                    <div class="panel-heading">Title app:get-srophe-title()</div>
+                    <div class="panel-body">
+                        <h4>Stable Identifiers</h4>
+                        <div class="indent">
+                        {
+                            if($model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']) then
+                                <div><label>Corpus Text ID:&#160;</label>{$model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']}</div>
+                            else(),
+                            if($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref) then
+                                <div><label>NHSL Work ID(s):&#160;</label>{string($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref)}</div>
+                            else()
+                        }
+                        </div> 
+                        <h4>Source</h4>
+                        {global:tei2html($model("data")/descendant::tei:sourceDesc)}  
+                    </div>
+                </div>,
+                <div>{app:citation($node, $model)}</div>,
                 <div class="info-btns">  
                     <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
                     <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">Is this record complete?</a>
@@ -252,7 +279,42 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
         </div>
 };
 
-(:~ 
+(:
+                    <xsl:choose>
+                        <xsl:when test="@xml:id">
+                            <xsl:apply-templates select="@xml:id"/>                            
+                        </xsl:when>
+                        <xsl:when test="parent::*[1]/@n">
+                            <xsl:attribute name="id" select="concat('head-',string(parent::*[1]/@n),'-',count(preceding-sibling::t:head))"/>
+                        </xsl:when>
+                    </xsl:choose>
+:)
+declare function app:toc($nodes){
+for $node in $nodes
+return 
+        typeswitch($node)
+            case text() return $node
+            case element(tei:div1) return 
+                app:toc($node/node())
+            case element(tei:div2) return 
+                <span class="toc">{app:toc($node/node())}</span>
+            case element(tei:div3) return 
+                <span class="toc">{app:toc($node/node())}</span>
+            case element(tei:div4) return 
+                <span class="toc">{app:toc($node/node())}</span>
+            case element(tei:head) return 
+                let $id := 
+                    if($node/@xml:id) then string($node/@xml:id) 
+                    else if($node/parent::*[1]/@n) then
+                        concat('head-',string($node/parent::*[1]/@n),'-',count($node/preceding-sibling::tei:head))
+                    else 'on-parent'
+                return 
+                    (
+                    <a href="#{$id}" class="toc-item">{string-join($node/descendant-or-self::text(),' ')}</a>, ' ') 
+            default return ()          
+};
+
+(:~                     
  : Get child works for NHSL records
 :)
 declare %templates:wrap function app:get-related-inline($data, $relType){
