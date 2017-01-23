@@ -290,7 +290,9 @@
                     <span>
                         <xsl:call-template name="langattr"/>
                         <xsl:if test="t:idno">
-                            <span class="footnote idno"><xsl:value-of select="t:idno"/></span>
+                            <span class="footnote idno">
+                                <xsl:value-of select="t:idno"/>
+                            </span>
                         </xsl:if>
                         <xsl:call-template name="footnote"/>
                         <xsl:if test="t:listRelation/t:relation">
@@ -1069,7 +1071,7 @@
             </xsl:choose>
         </span>
         <xsl:if test="t:birth or t:death or t:floruit">
-            <span lang="en" class="type" style="padding-left:1em;">
+            <span lang="en" class="type" style="padding-left:1em; font-size:.85em;">
                 <xsl:text>(</xsl:text>
                 <xsl:if test="t:death or t:birth">
                     <xsl:if test="not(t:death)">b. </xsl:if>
@@ -1120,13 +1122,13 @@
                                     <xsl:when test="t:floruit/text()">
                                         <xsl:choose>
                                             <xsl:when test="t:floruit/@notBefore and t:floruit/@notAfter">
-                                                <xsl:value-of select="concat(t:floruit/@notBefore, ' - ', t:floruit/@notAfter)"/>
+                                                <xsl:value-of select="concat('not before ',t:floruit/@notBefore, ' - and not after ', t:floruit/@notAfter)"/>
                                             </xsl:when>
                                             <xsl:when test="t:floruit/@notBefore and not(t:floruit/@notAfter)">
-                                                <xsl:value-of select="t:floruit/@notBefore"/>
+                                                <xsl:value-of select="concat('not before ',t:floruit/@notBefore)"/>
                                             </xsl:when>
                                             <xsl:when test="t:floruit/@notAfter and not(t:floruit/@notBefore)">
-                                                <xsl:value-of select="t:floruit/@notAfter"/>
+                                                <xsl:value-of select="concat('not after ',t:floruit/@notAfter)"/>
                                             </xsl:when>
                                             <xsl:otherwise>
                                                 <xsl:value-of select="t:floruit"/>
@@ -1501,7 +1503,7 @@
         <xsl:if test="t:bibl">
             <xsl:choose>
                 <xsl:when test="self::t:bibl[@type='lawd:Citation' or @type='lawd:ConceptualWork']">
-                    <xsl:variable name="rules" select="'&lt; lawd:Edition &lt; lawd:Translation &lt; lawd:WrittenWork'"/>
+                    <xsl:variable name="rules" select="'&lt; lawd:Edition &lt; lawd:Translation &lt; lawd:WrittenWork &lt; syriaca:Catalogue &lt; syriaca:Manuscript '"/>
                     <xsl:for-each-group select="t:bibl[exists(@type)][@type != 'lawd:Citation']" group-by="@type">
                         <xsl:sort select="current-grouping-key()" collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)};ignore-case=yes;ignore-modifiers=yes;ignore-symbols=yes)" order="ascending"/>
                         <xsl:variable name="label">
