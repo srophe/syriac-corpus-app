@@ -218,7 +218,7 @@
         <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
         <xsl:apply-templates select="child::*" mode="plain"/>
         <!-- Adds dates if available -->
-        <xsl:sequence select="local:do-dates(.)"/>
+        <xsl:text> (</xsl:text><xsl:sequence select="local:do-dates(.)"/><xsl:text>)</xsl:text>
         <!-- Adds footnotes if available -->
         <xsl:if test="@source">
             <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
@@ -229,7 +229,7 @@
         <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
             <xsl:apply-templates select="child::*" mode="plain"/>
         <!-- Adds dates if available -->
-            <xsl:sequence select="local:do-dates(.)"/>
+            <xsl:text> (</xsl:text><xsl:sequence select="local:do-dates(.)"/><xsl:text>)</xsl:text>
         <!-- Adds footnotes if available -->
             <xsl:if test="@source">
                 <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
@@ -1119,10 +1119,22 @@
                                     <xsl:when test="t:floruit/t:date">
                                         <xsl:value-of select="t:floruit/t:date/text()"/>
                                     </xsl:when>
+                                    <xsl:when test="t:floruit/@notBefore or t:floruit/@notAfter or t:floruit/@when or t:floruit/@from or t:floruit/@to">
+                                        <xsl:value-of select="local:do-dates(t:floruit)"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="t:floruit"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <!--
+                                <xsl:choose>
+                                    <xsl:when test="t:floruit/t:date">
+                                        <xsl:value-of select="t:floruit/t:date/text()"/>
+                                    </xsl:when>
                                     <xsl:when test="t:floruit/text()">
                                         <xsl:choose>
                                             <xsl:when test="t:floruit/@notBefore and t:floruit/@notAfter">
-                                                <xsl:value-of select="concat('not before ',t:floruit/@notBefore, ' - and not after ', t:floruit/@notAfter)"/>
+                                                <xsl:value-of select="concat('not before 't:floruit/@notBefore, ' - and not after ', t:floruit/@notAfter)"/>
                                             </xsl:when>
                                             <xsl:when test="t:floruit/@notBefore and not(t:floruit/@notAfter)">
                                                 <xsl:value-of select="concat('not before ',t:floruit/@notBefore)"/>
@@ -1139,6 +1151,7 @@
                                         <xsl:value-of select="t:floruit"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
+                                -->
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:if>
@@ -1984,9 +1997,9 @@
                     <xsl:value-of select="$name-string"/>
                     <xsl:text> </xsl:text>
                     <xsl:value-of select="$currentPlace"/>
-                    <xsl:text> </xsl:text>
+                    <xsl:text> (</xsl:text>
                     <xsl:value-of select="local:do-dates(.)"/>
-                    <xsl:text> </xsl:text>
+                    <xsl:text>) </xsl:text>
                     <!-- If footnotes exist call function do-refs pass footnotes and language variables to function -->
                     <xsl:if test="@source">
                         <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
@@ -2002,9 +2015,9 @@
                     <a href="{concat('/place/',@id,'.html')}">
                         <xsl:value-of select="t:placeName"/>
                     </a>
-                    <xsl:text> </xsl:text>
+                    <xsl:text> (</xsl:text>
                     <xsl:value-of select="local:do-dates(.)"/>
-                    <xsl:text> </xsl:text>
+                    <xsl:text>) </xsl:text>
                     <!-- If footnotes exist call function do-refs pass footnotes and language variables to function -->
                     <xsl:if test="@source">
                         <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
@@ -2100,9 +2113,9 @@
                     <xsl:text> </xsl:text>
                     <xsl:value-of select="replace(child::*[1]/@name,'-',' ')"/>
                     with '<xsl:value-of select="$currentPlace"/>'
-                    
+                    <xsl:text> (</xsl:text>
                     <xsl:value-of select="local:do-dates(child::*[1])"/>
-                    <xsl:text> </xsl:text>
+                    <xsl:text>) </xsl:text>
                     <!-- If footnotes exist call function do-refs pass footnotes and language variables to function -->
                     <xsl:if test="child::*[1]/@source">
                         <xsl:sequence select="local:do-refs(child::*[1]/@source,@xml:lang)"/>

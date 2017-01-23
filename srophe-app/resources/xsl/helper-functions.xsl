@@ -105,7 +105,7 @@
     <xsl:function name="local:do-dates">
         <xsl:param name="element" as="node()"/>
         <xsl:if test="$element/@when or $element/@notBefore or $element/@notAfter or $element/@from or $element/@to">
-            (<xsl:choose>
+            <xsl:choose>
                 <!-- Formats to and from dates -->
                 <xsl:when test="$element/@from">
                     <xsl:choose>
@@ -133,7 +133,7 @@
                 <!-- Adds comma if there are other dates -->
                 <xsl:if test="$element/@to or $element/@from or $element/@notBefore or $element/@notAfter">, </xsl:if>
                 <xsl:value-of select="local:trim-date($element/@when)"/>
-            </xsl:if>)
+            </xsl:if>
         </xsl:if>
     </xsl:function>
     
@@ -148,7 +148,7 @@
             </xsl:when>
             <!-- removes leading 0 -->
             <xsl:when test="starts-with($date,'0')">
-                <xsl:value-of select="substring($date,2)"/>
+                <xsl:value-of select="local:trim-date(substring($date,2))"/>
             </xsl:when>
             <!-- passes value through without changing it -->
             <xsl:otherwise>
