@@ -57,9 +57,9 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                         for $hit in util:eval($eval-string)
                         order by global:build-sort-string(page:add-sort-options($hit,$search:sort-element),'') ascending
                         return $hit   
-                    else if(request:get-parameter('child-rec', '') != '' and ($search:sort-element = '' or not(exists($search:sort-element)))) then 
+                    else if(request:get-parameter('rel', '') != '' and ($search:sort-element = '' or not(exists($search:sort-element)))) then 
                         for $hit in util:eval($eval-string)
-                        let $part := xs:integer($hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc/tei:label[@type='order']/@n)
+                        let $part := xs:integer($hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
                         order by $part
                         return $hit                                                                                               
                     else 
@@ -284,7 +284,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
             <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
                 <div class="col-md-12">
                       <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">
-                        <span class="badge">{ft:score($hit)}
+                        <span class="badge">
                             {
                                 if(request:get-parameter('child-rec', '') != '' and ($search:sort-element = '' or not(exists($search:sort-element)))) then
                                     string($hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order']/@n)
