@@ -32,7 +32,7 @@ declare function maps:build-leaflet-map($nodes as node()*){
         <script src="http://isawnyu.github.com/awld-js/awld.js?autoinit" type="text/javascript"/>
         <script type="text/javascript" src="{$global:nav-base}/resources/leaflet/leaflet.awesome-markers.js"/>
         <div id="map"/>
-        <div class="hint map pull-right">* {count($nodes)} have coordinates and are shown on this map. 
+        <div class="hint map pull-right">* {count($nodes)} places have coordinates and are shown on this map. 
              <button class="btn btn-link" data-toggle="modal" data-target="#map-selection" id="mapFAQ">Read more...</button>
         </div>
         <script type="text/javascript">
