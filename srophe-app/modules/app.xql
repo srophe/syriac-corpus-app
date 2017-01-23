@@ -259,7 +259,7 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
         </div> 
 };
 
-(:~ 
+(:~      
  : Get child works for NHSL records
 :)
 declare %templates:wrap function app:get-related-inline($data, $relType){
