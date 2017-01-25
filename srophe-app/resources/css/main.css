@@ -636,8 +636,8 @@ div[id|=place] > div:last-of-type {
 /* Search styles */
 .search-header {margin-bottom: 1em;}
 .search-inner {margin-top:2em;}
-.search-results {border-top: 1px solid #eee; margin-top:1em;}
-
+.search-results {margin-top:1em;}
+#search-results {border-top: 1px solid #eee; margin-top:1em; margin-bottom:1em;}
 
 /* Transparent styles for search box on home pages */
 .transparent-input{
@@ -651,7 +651,8 @@ div[id|=place] > div:last-of-type {
 .transparent-input:-ms-input-placeholder { color: white; font-size:large;font-weight:500; }
 
 .page-bottom .hit-count {display:none;}
-
+h3.paging {display:block;font-weight:500; color:#666;}
+.search-string{display:block;clear:both;}
 .match {
     font-style:italic; color:gray;
 }

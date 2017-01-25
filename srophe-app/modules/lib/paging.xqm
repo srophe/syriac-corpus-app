@@ -7,8 +7,8 @@ module namespace page="http://syriaca.org/page";
 
 import module namespace functx="http://www.functx.com";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
+declare namespace xi = "http://www.w3.org/2001/XInclude";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
-
 (:~ 
  : Adds sort filter based on sort prameter
 :)
@@ -68,11 +68,13 @@ let $pagination-links :=
             {
             if($search-string != '') then             
                 <div class="col-sm-5 search-string">
-                    <h3 class="hit-count">Search results:</h3>
+                    <h3 class="hit-count paging">Search results:</h3>
                     <p class="col-md-offset-1 hit-count">{$total-result-count} matches for {$search-string}.</p>
                     <p class="col-md-offset-1 hit-count note">
                         You may wish to expand your search by using our advanced <a href="search.html">search functions</a> or by 
-                        using wildcard characters to increase results. See <a data-toggle="modal" data-target="#searchTips">search tips</a> for more details.
+                        using wildcard characters to increase results. See  
+                        <a href="#" data-toggle="collapse" data-target="#searchTips">search tips</a> for more details.
+                        <xi:include href="../searchTips.html"/>
                     </p>        
                  </div>
              else ()
