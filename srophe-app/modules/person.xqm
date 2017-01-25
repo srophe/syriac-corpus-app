@@ -147,11 +147,12 @@ return
 declare %templates:wrap function person:related-places($node as node(), $model as map(*)){
 let $data := $model("data")
 let $geo-hits := person:get-related($data)
+let $places-count := count(tokenize(string-join(($data//tei:relation/@passive),' '),' ')[contains(.,'/place/')])
 return 
     if($geo-hits//tei:geo) then
         <div><hr/>
             <h2>Related Places in the Syriac Gazetteer</h2>
-            {maps:build-map($geo-hits,0)}
+            {maps:build-map($geo-hits,$places-count)}
             {global:tei2html(
                 <person xmlns="http://www.tei-c.org/ns/1.0">
                     <related-items xmlns="http://www.tei-c.org/ns/1.0">
