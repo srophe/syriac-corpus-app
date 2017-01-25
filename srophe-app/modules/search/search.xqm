@@ -370,11 +370,20 @@ declare function search:search-form() {
                     <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
                     <div class="col-sm-10 col-md-9 ">
                         <div class="input-group">
-                            <input type="text" id="qs" name="q" class="form-control"/>
+                            <input type="text" id="qs" name="q" class="form-control keyboard"/>
                             <div class="input-group-btn">
-                                <span class="btn btn-default" id="qs-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                    <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                                </span>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="qs">Syriac Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="qs">Syriac Phonetic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="qs">Arabic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="qs">Greek</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="qs">Russian</a></li>
+                                    </ul>
+                                </div>
                             </div>
                          </div> 
                     </div>
@@ -384,11 +393,20 @@ declare function search:search-form() {
                     <label for="placeName" class="col-sm-2 col-md-3  control-label">Place Name: </label>
                     <div class="col-sm-10 col-md-9 ">
                         <div class="input-group">
-                            <input type="text" id="placeName" name="placeName" class="form-control"/>
+                            <input type="text" id="placeName" name="placeName" class="form-control keyboard"/>
                             <div class="input-group-btn">
-                                <span class="btn btn-default" id="placeName-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                   <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                                </span>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="placeName">Syriac Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="placeName">Syriac Phonetic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="placeName">Arabic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="placeName">Greek</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="placeName">Russian</a></li>
+                                    </ul>
+                                </div>
                             </div>
                          </div>   
                     </div>
@@ -397,28 +415,24 @@ declare function search:search-form() {
                     <label for="persName" class="col-sm-2 col-md-3  control-label">Person Name: </label>
                     <div class="col-sm-10 col-md-9 ">
                         <div class="input-group">
-                            <input type="text" id="persName" name="persName" class="form-control"/>
+                            <input type="text" id="persName" name="persName" class="form-control keyboard"/>
                             <div class="input-group-btn">
-                                <span class="btn btn-default" id="persName-keyboard" data-toggle="tooltip" title="Syriac Keyboard">
-                                   <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                                </span>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="persName">Syriac Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="persName">Syriac Phonetic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="persName">Arabic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="persName">Greek</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="persName">Russian</a></li>
+                                    </ul>
+                                </div>
                             </div>
                          </div>   
                     </div>
                   </div>
-                  <!--
-                <div class="form-group">
-                    <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
-                    <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="title" name="title" class="form-control"/>
-                    </div>
-                  </div> 
-                <div class="form-group">
-                    <label for="bibl" class="col-sm-2 col-md-3  control-label">Citation: </label>
-                    <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="bibl" name="bibl" class="form-control"/>
-                    </div>
-               </div> -->
                 <div class="form-group">
                     <label for="uri" class="col-sm-2 col-md-3  control-label">Syriaca.org URI: </label>
                     <div class="col-sm-10 col-md-9 ">

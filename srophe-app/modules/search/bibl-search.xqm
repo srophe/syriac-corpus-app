@@ -114,17 +114,6 @@ declare function bibls:search-string(){
  :)
 declare function bibls:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
-    <script type="text/javascript">
-    <![CDATA[
-        $(function(){
-            initializeKeyboard('#qs', 'syriac-phonetic', '#qs-keyboard');
-            initializeKeyboard('#title', 'syriac-phonetic', '#title-keyboard');
-            initializeKeyboard('#author', 'syriac-phonetic', '#author-keyboard');
-            initializeKeyboard('#pubPlace', 'syriac-phonetic', '#pubPlace-keyboard');
-            initializeKeyboard('#publisher', 'syriac-phonetic', '#publisher-keyboard');        
-            });
-         ]]>
-    </script>
     <div class="well well-small">
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
@@ -136,11 +125,20 @@ declare function bibls:search-form() {
                 <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
                 <div class="col-sm-10 col-md-6 ">
                     <div class="input-group">
-                        <input type="text" id="qs" name="q" class="form-control" placeholder="Any word in citation"/>
+                        <input type="text" id="qs" name="q" class="form-control keyboard" placeholder="Any word in citation"/>
                         <div class="input-group-btn">
-                            <span class="btn btn-default" id="qs-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="qs">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="qs">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="qs">Arabic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="qs">Greek</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="qs">Russian</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>                 
                 </div>
@@ -150,11 +148,20 @@ declare function bibls:search-form() {
                 <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
                 <div class="col-sm-10 col-md-6 ">
                     <div class="input-group">
-                        <input type="text" id="title" name="title" class="form-control"  placeholder="Title of article, journal, book, or series"/>
+                        <input type="text" id="title" name="title" class="form-control keyboard"  placeholder="Title of article, journal, book, or series"/>
                         <div class="input-group-btn">
-                            <span class="btn btn-default" id="title-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="title">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="title">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="title">Arabic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="title">Greek</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="title">Russian</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>                 
                 </div>
@@ -163,11 +170,20 @@ declare function bibls:search-form() {
                 <label for="author" class="col-sm-2 col-md-3  control-label">Author/Editor: </label>
                 <div class="col-sm-10 col-md-6 ">
                     <div class="input-group">
-                        <input type="text" id="author" name="author" class="form-control" placeholder="First Last or Last, First"/>
+                        <input type="text" id="author" name="author" class="form-control keyboard" placeholder="First Last or Last, First"/>
                         <div class="input-group-btn">
-                            <span class="btn btn-default" id="author-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="author">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="author">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="author">Arabic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="author">Greek</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="author">Russian</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>                
                 </div>
@@ -176,11 +192,20 @@ declare function bibls:search-form() {
                 <label for="pub-place" class="col-sm-2 col-md-3  control-label">Publication Place: </label>
                 <div class="col-sm-10 col-md-6 ">
                     <div class="input-group">
-                        <input type="text" id="pubPlace" name="pub-place" class="form-control" placeholder="First Last or Last, First"/>
+                        <input type="text" id="pubPlace" name="pub-place" class="form-control keyboard" placeholder="First Last or Last, First"/>
                         <div class="input-group-btn">
-                            <span class="btn btn-default" id="pubPlace-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="pubPlace">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="pubPlace">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="pubPlace">Arabic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="pubPlace">Greek</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="pubPlace">Russian</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>                
                 </div>
@@ -189,12 +214,21 @@ declare function bibls:search-form() {
                 <label for="publisher" class="col-sm-2 col-md-3  control-label">Publisher: </label>
                 <div class="col-sm-10 col-md-6 ">
                     <div class="input-group">
-                    <input type="text" id="publisher" name="publisher" class="form-control" placeholder="Publisher Name"/>
-                        <div class="input-group-btn">
-                            <span class="btn btn-default" id="publisher-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
-                        </div>
+                    <input type="text" id="publisher" name="publisher" class="form-control keyboard" placeholder="Publisher Name"/>
+                            <div class="input-group-btn">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="publisher">Syriac Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="publisher">Syriac Phonetic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="publisher">Arabic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="publisher">Greek</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="publisher">Russian</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                     </div>                 
                 </div>
             </div>   

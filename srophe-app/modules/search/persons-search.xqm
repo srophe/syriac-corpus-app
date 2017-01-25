@@ -340,14 +340,6 @@ declare function persons:search-string() as node()*{
  :)
 declare function persons:search-form($collection) {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
-    <script type="text/javascript">
-    <![CDATA[
-        $(function(){
-            initializeKeyboard('#qs', 'syriac-phonetic', '#qs-keyboard');
-            initializeKeyboard('#persNameSearch', 'syriac-phonetic', '#persNameSearch-keyboard');
-            });
-         ]]>
-    </script>
     <div class="well well-small">
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
@@ -418,11 +410,20 @@ declare function persons:search-form($collection) {
                 <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
                 <div class="col-sm-10 col-md-6">
                     <div class="input-group">
-                        <input type="text" id="qs" name="q" class="form-control" placeholder="Any script (Syriac, Roman, etc.)"/>
+                        <input type="text" id="qs" name="q" class="form-control keyboard" placeholder="Any script (Syriac, Roman, etc.)"/>
                         <div class="input-group-btn">
-                            <span class="btn btn-default" id="qs-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="qs">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="qs">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="qs">Arabic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="qs">Greek</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="qs">Russian</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div> 
                 </div>
@@ -432,7 +433,7 @@ declare function persons:search-form($collection) {
                 <label for="q" class="col-sm-2 col-md-3  control-label">Person Name: </label>
                 <div class="col-sm-10 col-md-6">
                     <div class="input-group">
-                        <input type="text" id="persNameSearch" name="name" class="form-control" placeholder="Any script (Syriac, Roman, etc.)"/>
+                        <input type="text" id="persNameSearch" name="name" class="form-control keyboard" placeholder="Any script (Syriac, Roman, etc.)"/>
                         <!--<select name="name-type" class="input-medium">
                                 <option value="">- Select -</option>
                                 <option value="any">any</option>
@@ -441,9 +442,18 @@ declare function persons:search-form($collection) {
                                 <option value="title">title</option>
                             </select>-->
                         <div class="input-group-btn">
-                            <span class="btn btn-default" id="persNameSearch-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="persNameSearch">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="persNameSearch">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="persNameSearch">Arabic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="persNameSearch">Greek</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="persNameSearch">Russian</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div> 
                 </div>

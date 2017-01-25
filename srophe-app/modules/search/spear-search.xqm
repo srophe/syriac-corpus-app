@@ -201,17 +201,6 @@ return
  :)
 declare function spears:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
-    <script type="text/javascript">
-    <![CDATA[
-        $(function(){
-            initializeKeyboard('#qs', 'syriac-phonetic', '#qs-keyboard');
-            initializeKeyboard('#name', 'syriac-phonetic', '#name-keyboard');
-            initializeKeyboard('#place', 'syriac-phonetic', '#place-keyboard');
-            initializeKeyboard('#event', 'syriac-phonetic', '#event-keyboard');            
-            
-            });
-         ]]>
-    </script>
     <div class="well well-small">
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
@@ -223,11 +212,20 @@ declare function spears:search-form() {
                 <label for="qs" class="col-sm-2 col-md-3  control-label">Full-text: </label>
                 <div class="col-sm-10 col-md-6">
                     <div class="input-group">
-                        <input type="text" id="qs" name="q" class="form-control"/>
+                        <input type="text" id="qs" name="q" class="form-control keyboard"/>
                         <div class="input-group-btn">
-                            <span class="btn btn-default" id="qs-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="qs">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="qs">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="qs">Arabic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="qs">Greek</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="qs">Russian</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div> 
                 </div>
@@ -237,11 +235,20 @@ declare function spears:search-form() {
                 <label for="name" class="col-sm-2 col-md-3  control-label">Person Name: </label>
                 <div class="col-sm-10 col-md-6">
                     <div class="input-group">
-                    <input type="text" id="name" name="name" class="form-control"/>
+                    <input type="text" id="name" name="name" class="form-control keyboard"/>
                         <div class="input-group-btn">
-                            <span class="btn btn-default" id="name-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="name">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="name">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="name">Arabic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="name">Greek</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="name">Russian</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div> 
                 </div>
@@ -250,11 +257,20 @@ declare function spears:search-form() {
                 <label for="place" class="col-sm-2 col-md-3  control-label">Place Name: </label>
                 <div class="col-sm-10 col-md-6">
                     <div class="input-group">
-                    <input type="text" id="place" name="place" class="form-control"/>
+                    <input type="text" id="place" name="place" class="form-control keyboard"/>
                         <div class="input-group-btn">
-                            <span class="btn btn-default" id="place-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="place">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="place">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="place">Arabic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="place">Greek</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="place">Russian</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div> 
                 </div>
@@ -263,11 +279,20 @@ declare function spears:search-form() {
                 <label for="event" class="col-sm-2 col-md-3  control-label">Event: </label>
                 <div class="col-sm-10 col-md-6">
                     <div class="input-group">
-                    <input type="text" id="event" name="event" class="form-control"/>
+                    <input type="text" id="event" name="event" class="form-control keyboard"/>
                         <div class="input-group-btn">
-                            <span class="btn btn-default" id="event-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="event">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="event">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="event">Arabic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="event">Greek</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="event">Russian</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div> 
                 </div>

@@ -388,17 +388,6 @@ declare function places:results-node($hit){
  :)
 declare function places:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
-    <script type="text/javascript">
-    <![CDATA[
-        $(function(){
-            initializeKeyboard('#qs', 'syriac-phonetic', '#qs-keyboard');
-            initializeKeyboard('#p', 'syriac-phonetic', '#p-keyboard');
-            initializeKeyboard('#loc', 'syriac-phonetic', '#loc-keyboard');
-            initializeKeyboard('#e', 'syriac-phonetic', '#e-keyboard');
-            initializeKeyboard('#a', 'syriac-phonetic', '#a-keyboard');            
-            });
-         ]]>
-    </script>
     <div class="well well-small">
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
@@ -412,12 +401,21 @@ declare function places:search-form() {
                     <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
                     <div class="col-sm-10 col-md-9 ">
                        <div class="input-group">
-                        <input type="text" id="qs" name="q" class="form-control"/>
-                        <div class="input-group-btn">
-                            <span class="btn btn-default" id="qs-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
-                        </div>
+                        <input type="text" id="qs" name="q" class="form-control keyboard"/>
+                            <div class="input-group-btn">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="qs">Syriac Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="qs">Syriac Phonetic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="qs">Arabic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="qs">Greek</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="qs">Russian</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                     </div> 
                     </div>
                   </div>
@@ -426,11 +424,20 @@ declare function places:search-form() {
                     <label for="p" class="col-sm-2 col-md-3  control-label">Place Name: </label>
                     <div class="col-sm-10 col-md-9 ">
                        <div class="input-group">
-                            <input type="text" id="p" name="p" class="form-control"/>
+                            <input type="text" id="p" name="p" class="form-control keyboard"/>
                             <div class="input-group-btn">
-                                <span class="btn btn-default" id="p-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                    <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                                </span>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="p">Syriac Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="p">Syriac Phonetic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="p">Arabic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="p">Greek</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="p">Russian</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div> 
                     </div>
@@ -440,12 +447,21 @@ declare function places:search-form() {
                         <label for="loc" class="col-sm-2 col-md-3  control-label">Location: </label>
                         <div class="col-sm-10 col-md-9 ">
                            <div class="input-group">
-                                <input type="text" id="loc" name="loc" class="form-control"/>
-                                <div class="input-group-btn">
-                                    <span class="btn btn-default" id="loc-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                        <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                                    </span>
+                                <input type="text" id="loc" name="loc" class="form-control keyboard"/>
+                            <div class="input-group-btn">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="loc">Syriac Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="loc">Syriac Phonetic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="loc">Arabic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="loc">Greek</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="loc">Russian</a></li>
+                                    </ul>
                                 </div>
+                            </div>
                             </div>                         
                         </div>
                     </div>
@@ -454,12 +470,21 @@ declare function places:search-form() {
                         <label for="e" class="col-sm-2 col-md-3  control-label">Events: </label>
                         <div class="col-sm-10 col-md-9 ">
                            <div class="input-group">
-                            <input type="text" id="e" name="e" class="form-control"/>
-                                <div class="input-group-btn">
-                                    <span class="btn btn-default" id="e-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                        <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                                    </span>
+                            <input type="text" id="e" name="e" class="form-control keyboard"/>
+                            <div class="input-group-btn">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="e">Syriac Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="e">Syriac Phonetic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="e">Arabic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="e">Greek</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="e">Russian</a></li>
+                                    </ul>
                                 </div>
+                            </div>
                             </div>                              
                         </div>
                     </div>
@@ -477,12 +502,21 @@ declare function places:search-form() {
                         <label for="a" class="col-sm-2 col-md-3  control-label">Attestations: </label>
                         <div class="col-sm-10 col-md-9 ">
                            <div class="input-group">
-                            <input type="text" id="a" name="a" class="form-control"/>
-                                <div class="input-group-btn">
-                                    <span class="btn btn-default" id="a-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                        <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                                    </span>
+                            <input type="text" id="a" name="a" class="form-control keyboard"/>
+                            <div class="input-group-btn">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="a">Syriac Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="a">Syriac Phonetic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="a">Arabic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="a">Greek</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="a">Russian</a></li>
+                                    </ul>
                                 </div>
+                            </div>
                             </div>                             
                         </div>
                     </div>
