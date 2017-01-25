@@ -64,7 +64,7 @@ let $current-page := xs:integer(($start + $perpage) div $perpage)
 let $url-params := replace(replace(request:get-query-string(), '&amp;start=\d+', ''),'start=\d+','')
 let $param-string := if($url-params != '') then concat('?',$url-params,'&amp;start=') else '?start='        
 let $pagination-links := 
-    <div class="row alpha-pages" xmlns="http://www.w3.org/1999/xhtml">
+    (<div class="row alpha-pages" xmlns="http://www.w3.org/1999/xhtml">
             {
             if($search-string != '') then             
                 <div class="col-sm-5 search-string">
@@ -74,7 +74,6 @@ let $pagination-links :=
                         You may wish to expand your search by using our advanced <a href="search.html">search functions</a> or by 
                         using wildcard characters to increase results. See  
                         <a href="#" data-toggle="collapse" data-target="#searchTips">search tips</a> for more details.
-                        <xi:include href="../searchTips.html"/>
                     </p>        
                  </div>
              else ()
@@ -128,7 +127,11 @@ let $pagination-links :=
                 </ul>
                 }
             </div>
-    </div>    
+    </div>,
+    if($search-string != '') then 
+        <xi:include href="../searchTips.html"/>
+    else ()
+    )    
 return $pagination-links
    
 };
