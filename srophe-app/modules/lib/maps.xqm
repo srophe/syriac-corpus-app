@@ -17,24 +17,29 @@ declare namespace tei = "http://www.tei-c.org/ns/1.0";
 (:~
  : Selects map rendering based on config.xml entry
 :)
-declare function maps:build-map($nodes as node()*){
+declare function maps:build-map($nodes as node()*, $total-count as xs:integer?){
 if($global:app-map-option = 'google') then maps:build-google-map($nodes)
-else maps:build-leaflet-map($nodes)
+else maps:build-leaflet-map($nodes,$total-count)
 };
 
 (:~
  : Build leafletJS map
 :)
-declare function maps:build-leaflet-map($nodes as node()*){
+declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:integer?){
     <div id="map-data" style="margin-bottom:3em;">
         <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2"/>
         <script src="http://isawnyu.github.com/awld-js/lib/requirejs/require.min.js" type="text/javascript"/>
         <script src="http://isawnyu.github.com/awld-js/awld.js?autoinit" type="text/javascript"/>
         <script type="text/javascript" src="{$global:nav-base}/resources/leaflet/leaflet.awesome-markers.js"/>
         <div id="map"/>
-        <div class="hint map pull-right">* {count($nodes)} places have coordinates and are shown on this map. 
-             <button class="btn btn-link" data-toggle="modal" data-target="#map-selection" id="mapFAQ">Read more...</button>
-        </div>
+        {
+            if($total-count gt 0) then 
+               <div class="hint map pull-right small">
+                * This map displays {count($nodes)} of {$total-count} places. Only places with coordinates in The Syriac Gazetteer are displayed. 
+                     <button class="btn btn-link" data-toggle="modal" data-target="#map-selection" id="mapFAQ">See why?</button>
+               </div>
+            else ()
+            }
         <script type="text/javascript">
             <![CDATA[
             var terrain = L.tileLayer('http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});

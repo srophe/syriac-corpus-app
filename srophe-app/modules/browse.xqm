@@ -404,21 +404,26 @@ else
     </div>
 };
 
+declare function browse:total-places(){
+    count(collection($global:data-root || '/places/tei')//tei:place)
+};
+
 (:
  : Set up browse page, select correct results function based on URI params
  : @param $collection passed from html 
 :)
 declare function browse:display-persons-map($node as node(), $model as map(*), $collection, $sort-options as xs:string*){
-let $hits := $model("browse-data")
+let $hits := $model("browse-data") 
 let $related := distinct-values(
                     tokenize(
                         string-join(($hits//tei:relation/@mutual,$hits//tei:relation/@passive,$hits//tei:relation/@active),' '),
                         ' '))
-let $geo := for $r in $related[contains(.,'/place/')]
+let $places :=  $related[contains(.,'/place/')]                       
+let $geo := for $r in $places
             return 
                collection($global:data-root)//tei:idno[@type='URI'][. = concat($r,'/tei')]/ancestor::tei:TEI[descendant::tei:geo]
 return                
-         maps:build-map($geo)
+         maps:build-map($geo, count($places))
 
 };
 
@@ -448,7 +453,7 @@ declare function browse:display-hits($hits){
 (: Display map :)
 declare function browse:get-map($hits){
     if($hits/descendant::tei:body/tei:listPlace/descendant::tei:geo) then 
-            maps:build-map($hits[descendant::tei:geo])
+            maps:build-map($hits[descendant::tei:geo], count($hits))
     else if($hits/descendant::tei:body/tei:listPerson/tei:person) then 
         let $persons := 
             for $p in $hits//tei:relation[contains(@passive,'/place/') or contains(@active,'/place/') or contains(@mutual,'/place/')]
@@ -480,7 +485,7 @@ declare function browse:get-map($hits){
                     </desc>
                     <location>{$geo}</location>  
                 </place>
-        return maps:build-map($locations)
+        return maps:build-map($locations,count($places))
     else ()
 };
 

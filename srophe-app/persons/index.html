@@ -21,7 +21,7 @@
             <div class="col-md-2"/>
         </div>
     </div>
-    <div class="row grey">
+    <div class="row">
         <div class="col-md-8 white">
             <div class="section indent" style="min-height:450px; padding-top:1.5em;">
                 <p>
@@ -34,7 +34,8 @@
                         <a href="about.html">About page</a>: an overview of the Syriac Biographical Dictionary.</li>
                     <li>
                         <a href="http://syriaca.org/documentation">Help page</a>: documentation, editorial guidelines, and technical definitions.</li>
-                    <li><span class="srp-label">Browse persons</span>
+                    <li>
+                        <span class="srp-label">Browse persons</span>
                         <ul>
                             <li>
                                 By Name
@@ -79,7 +80,6 @@
                                 <a href="search.html">Advanced Search</a>
                             </li>
                         </ul>
-                    
                     </li>
                     <li>
                         <a href="http://syriaca.org/person/779">Theodora</a>: featured person.</li>
@@ -87,9 +87,16 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div data-template="person:display-persons-map" data-template-collection="persons" style="margin:0 -1em 1em -1em;"/>
-            <a href="browse.html?view=map">See bigger map &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
-            
+            <br/>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Related places</h3>
+                </div>
+                <div class="panel-body">
+                    <div data-template="person:display-persons-map" data-template-collection="persons" style="margin:0 -1em 1em -1em;"/>
+                    <a href="browse.html?view=map">See bigger map &#160;<i class="glyphicon glyphicon-circle-arrow-right"/></a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
