@@ -213,7 +213,6 @@ return
       </place>
                   
 };
-
 (:
  : Use OCLC API to return VIAF records 
  : limit to first 5 results
@@ -223,7 +222,7 @@ return
 declare %templates:wrap function person:worldcat($node as node(), $model as map(*)){
 let $rec := $model("data")
 return 
-    if($rec/descendant::tei:idno[starts-with(.,'http://worldcat.org/identities/lccn-n')] or $rec/descendant::tei:idno[starts-with(.,'http://viaf.org/viaf')][not(contains(.,'sourceID'))]) then
+    if($rec//tei:idno[starts-with(.,'http://worldcat.org/identities/lccn-n')] or $rec//tei:idno[starts-with(.,'http://viaf.org/viaf')][not(contains(.,'sourceID'))]) then
             let $viaf-ref := if($rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')]) then 
                                         $rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')][1]/text()
                                      else $rec/descendant::tei:idno[@type='URI'][not(contains(.,'sourceID/SRP')) and starts-with(.,'http://viaf.org/viaf')][1]
@@ -262,7 +261,6 @@ return
                  else ()   
     else () 
 };
-
 (: 
  : Get relations for right side menu 
  : Use get-related module.
