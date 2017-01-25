@@ -111,7 +111,7 @@ declare function search:placeName(){
 
 declare function search:title(){
     if($search:title != '') then 
-        common:element-search('placeName',$search:title) 
+        common:element-search('title',$search:title) 
     else '' 
 };
 
@@ -429,6 +429,26 @@ declare function search:search-form() {
                     </div>
                   </div>
                 <div class="form-group">
+                    <label for="titleInput" class="col-sm-2 col-md-3  control-label">Title: </label>
+                    <div class="col-sm-10 col-md-9 ">
+                        <div class="input-group">
+                            <input type="text" id="titleInput" name="title" class="form-control keyboard"/>
+                            <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="titleInput">Syriac Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="titleInput">Syriac Phonetic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="titleInput">Arabic</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="titleInput">Greek</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="titleInput">Russian</a></li>
+                                    </ul>
+                            </div>
+                         </div>   
+                    </div>
+                  </div>
+              <div class="form-group">
                     <label for="uri" class="col-sm-2 col-md-3  control-label">Syriaca.org URI: </label>
                     <div class="col-sm-10 col-md-9 ">
                         <input type="text" id="uri" name="uri" class="form-control"/>
