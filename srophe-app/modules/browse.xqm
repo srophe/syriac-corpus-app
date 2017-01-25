@@ -364,7 +364,7 @@ else if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets
                         <div class="col-md-12 map-md">
                             {browse:get-map($hits)}
                         </div>,
-                        browse:display-hits($hits)
+                        <div class="indent">{browse:display-hits($hits)}</div>
                         )}
                 </div>)
         }</div>)
@@ -485,7 +485,15 @@ declare function browse:get-map($hits){
                     </desc>
                     <location>{$geo}</location>  
                 </place>
-        return maps:build-map($locations,count($places))
+        return 
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Related places</h3>
+                </div>
+                <div class="panel-body">
+                    {maps:build-map($locations,count($places))}
+                </div>
+            </div>
     else ()
 };
 
