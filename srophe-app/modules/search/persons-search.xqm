@@ -301,9 +301,9 @@ declare function persons:query-string($collection as xs:string?) as xs:string? {
     persons:name(),
     persons:uri(),
     persons:date-range(),
-    persons:related-places(),
-    persons:related-persons(),
-    persons:mentioned()
+    common:related-places(),
+    common:related-persons(),
+    common:mentioned()
     )
 };
 

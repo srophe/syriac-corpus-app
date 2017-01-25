@@ -22,6 +22,7 @@ body {background-color:#753C28;}
 h1 {color:#E69849; padding-top:1em;}
 h2 {color:#753C28;}
 h3 {color:#999; border-bottom:1px solid grey;}
+h3.paging {display:block;font-weight:500; color:#666; border-bottom:none;}
 h3.underline {color:#999; border-bottom:3px solid #E69849;}
 #map {height: 180px;}
 
