@@ -403,7 +403,6 @@ declare function places:search-form() {
                        <div class="input-group">
                         <input type="text" id="qs" name="q" class="form-control keyboard"/>
                             <div class="input-group-btn">
-                                <div class="btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
@@ -414,7 +413,6 @@ declare function places:search-form() {
                                         <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="qs">Greek</a></li>
                                         <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="qs">Russian</a></li>
                                     </ul>
-                                </div>
                             </div>
                     </div> 
                     </div>
@@ -426,7 +424,6 @@ declare function places:search-form() {
                        <div class="input-group">
                             <input type="text" id="p" name="p" class="form-control keyboard"/>
                             <div class="input-group-btn">
-                                <div class="btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
@@ -437,7 +434,6 @@ declare function places:search-form() {
                                         <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="p">Greek</a></li>
                                         <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="p">Russian</a></li>
                                     </ul>
-                                </div>
                             </div>
                         </div> 
                     </div>
@@ -449,7 +445,6 @@ declare function places:search-form() {
                            <div class="input-group">
                                 <input type="text" id="loc" name="loc" class="form-control keyboard"/>
                             <div class="input-group-btn">
-                                <div class="btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
@@ -460,7 +455,6 @@ declare function places:search-form() {
                                         <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="loc">Greek</a></li>
                                         <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="loc">Russian</a></li>
                                     </ul>
-                                </div>
                             </div>
                             </div>                         
                         </div>
@@ -472,7 +466,6 @@ declare function places:search-form() {
                            <div class="input-group">
                             <input type="text" id="e" name="e" class="form-control keyboard"/>
                             <div class="input-group-btn">
-                                <div class="btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
@@ -483,7 +476,6 @@ declare function places:search-form() {
                                         <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="e">Greek</a></li>
                                         <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="e">Russian</a></li>
                                     </ul>
-                                </div>
                             </div>
                             </div>                              
                         </div>
@@ -504,7 +496,6 @@ declare function places:search-form() {
                            <div class="input-group">
                             <input type="text" id="a" name="a" class="form-control keyboard"/>
                             <div class="input-group-btn">
-                                <div class="btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
@@ -515,7 +506,6 @@ declare function places:search-form() {
                                         <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="a">Greek</a></li>
                                         <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="a">Russian</a></li>
                                     </ul>
-                                </div>
                             </div>
                             </div>                             
                         </div>

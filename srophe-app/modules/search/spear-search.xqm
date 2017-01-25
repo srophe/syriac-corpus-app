@@ -214,7 +214,6 @@ declare function spears:search-form() {
                     <div class="input-group">
                         <input type="text" id="qs" name="q" class="form-control keyboard"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -225,7 +224,6 @@ declare function spears:search-form() {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="qs">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="qs">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>
@@ -237,7 +235,6 @@ declare function spears:search-form() {
                     <div class="input-group">
                     <input type="text" id="name" name="name" class="form-control keyboard"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -248,7 +245,6 @@ declare function spears:search-form() {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="name">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="name">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>
@@ -259,7 +255,6 @@ declare function spears:search-form() {
                     <div class="input-group">
                     <input type="text" id="place" name="place" class="form-control keyboard"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -270,7 +265,6 @@ declare function spears:search-form() {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="place">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="place">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>
@@ -281,7 +275,6 @@ declare function spears:search-form() {
                     <div class="input-group">
                     <input type="text" id="event" name="event" class="form-control keyboard"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -292,7 +285,6 @@ declare function spears:search-form() {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="event">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="event">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>

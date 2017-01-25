@@ -76,7 +76,6 @@ declare function ms:search-form() {
                 <div class="input-group">
                     <input type="text" id="qs" name="q" class="form-control keyboard"/>
                     <div class="input-group-btn">
-                        <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                 &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                             </button>
@@ -87,7 +86,6 @@ declare function ms:search-form() {
                                 <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="qs">Greek</a></li>
                                 <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="qs">Russian</a></li>
                             </ul>
-                        </div>
                     </div>
                 </div> 
             </div>

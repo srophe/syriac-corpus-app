@@ -208,7 +208,6 @@ declare function bhses:search-form($collection) {
                     <div class="input-group">
                         <input type="text" id="qs" name="q" class="form-control keyboard" placeholder="English, French, Syriac"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -219,7 +218,6 @@ declare function bhses:search-form($collection) {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="qs">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="qs">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>
@@ -231,7 +229,6 @@ declare function bhses:search-form($collection) {
                     <div class="input-group">
                         <input type="text" id="title" name="title" class="form-control keyboard" placeholder="English, French, Syriac"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -242,7 +239,6 @@ declare function bhses:search-form($collection) {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="title">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="title">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>
@@ -253,7 +249,6 @@ declare function bhses:search-form($collection) {
                     <div class="input-group">
                         <input type="text" id="author" name="author" class="form-control keyboard" placeholder="English, French, Syriac"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -264,7 +259,6 @@ declare function bhses:search-form($collection) {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="author">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="author">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>
@@ -275,7 +269,6 @@ declare function bhses:search-form($collection) {
                     <div class="input-group">
                         <input type="text" id="relatedPers" name="related-pers" class="form-control keyboard" placeholder="English, French, Syriac Keyword or Syriaca.org URI"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -286,7 +279,6 @@ declare function bhses:search-form($collection) {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="relatedPers">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="relatedPers">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>
@@ -298,7 +290,6 @@ declare function bhses:search-form($collection) {
                     <div class="input-group">
                         <input type="text" id="prologue" name="prologue" class="form-control keyboard" placeholder="French, Syriac"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -309,7 +300,6 @@ declare function bhses:search-form($collection) {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="prologue">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="prologue">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>
@@ -320,7 +310,6 @@ declare function bhses:search-form($collection) {
                     <div class="input-group">
                         <input type="text" id="incipit" name="incipit" class="form-control keyboard" placeholder="French, Syriac"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -331,7 +320,6 @@ declare function bhses:search-form($collection) {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="incipit">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="incipit">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>
@@ -342,7 +330,6 @@ declare function bhses:search-form($collection) {
                     <div class="input-group">
                     <input type="text" id="explicit" name="explicit" class="form-control keyboard" placeholder="French, Syriac"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -353,7 +340,6 @@ declare function bhses:search-form($collection) {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="explicit">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="explicit">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>
@@ -364,7 +350,6 @@ declare function bhses:search-form($collection) {
                     <div class="input-group">
                     <input type="text" id="editions" name="editions" class="form-control keyboard" placeholder="Keyword"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -375,7 +360,6 @@ declare function bhses:search-form($collection) {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="editions">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="editions">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>
@@ -386,7 +370,6 @@ declare function bhses:search-form($collection) {
                     <div class="input-group">
                     <input type="text" id="modern" name="modern" class="form-control keyboard" placeholder="Keyword"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -397,7 +380,6 @@ declare function bhses:search-form($collection) {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="modern">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="modern">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>
@@ -408,7 +390,6 @@ declare function bhses:search-form($collection) {
                     <div class="input-group">
                     <input type="text" id="ancient" name="ancient" class="form-control keyboard" placeholder="Keyword"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -419,7 +400,6 @@ declare function bhses:search-form($collection) {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="ancient">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="ancient">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>
@@ -430,7 +410,6 @@ declare function bhses:search-form($collection) {
                     <div class="input-group">
                     <input type="text" id="mss" name="mss" class="form-control keyboard" placeholder="Keyword"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -441,7 +420,6 @@ declare function bhses:search-form($collection) {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="mss">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="mss">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>
@@ -452,7 +430,6 @@ declare function bhses:search-form($collection) {
                     <div class="input-group">
                     <input type="text" id="refs" name="refs" class="form-control keyboard" placeholder="Keyword"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -463,7 +440,6 @@ declare function bhses:search-form($collection) {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="refs">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="refs">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>

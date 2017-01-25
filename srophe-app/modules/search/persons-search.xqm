@@ -412,7 +412,6 @@ declare function persons:search-form($collection) {
                     <div class="input-group">
                         <input type="text" id="qs" name="q" class="form-control keyboard" placeholder="Any script (Syriac, Roman, etc.)"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -423,7 +422,6 @@ declare function persons:search-form($collection) {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="qs">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="qs">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>
@@ -442,7 +440,6 @@ declare function persons:search-form($collection) {
                                 <option value="title">title</option>
                             </select>-->
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -453,7 +450,6 @@ declare function persons:search-form($collection) {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="persNameSearch">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="persNameSearch">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div> 
                 </div>

@@ -127,7 +127,6 @@ declare function bibls:search-form() {
                     <div class="input-group">
                         <input type="text" id="qs" name="q" class="form-control keyboard" placeholder="Any word in citation"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -138,7 +137,6 @@ declare function bibls:search-form() {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="qs">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="qs">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div>                 
                 </div>
@@ -150,7 +148,6 @@ declare function bibls:search-form() {
                     <div class="input-group">
                         <input type="text" id="title" name="title" class="form-control keyboard"  placeholder="Title of article, journal, book, or series"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -161,7 +158,6 @@ declare function bibls:search-form() {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="title">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="title">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div>                 
                 </div>
@@ -172,7 +168,6 @@ declare function bibls:search-form() {
                     <div class="input-group">
                         <input type="text" id="author" name="author" class="form-control keyboard" placeholder="First Last or Last, First"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -183,7 +178,6 @@ declare function bibls:search-form() {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="author">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="author">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div>                
                 </div>
@@ -194,7 +188,6 @@ declare function bibls:search-form() {
                     <div class="input-group">
                         <input type="text" id="pubPlace" name="pub-place" class="form-control keyboard" placeholder="First Last or Last, First"/>
                         <div class="input-group-btn">
-                            <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
@@ -205,7 +198,6 @@ declare function bibls:search-form() {
                                     <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="pubPlace">Greek</a></li>
                                     <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="pubPlace">Russian</a></li>
                                 </ul>
-                            </div>
                         </div>
                     </div>                
                 </div>
@@ -216,7 +208,6 @@ declare function bibls:search-form() {
                     <div class="input-group">
                     <input type="text" id="publisher" name="publisher" class="form-control keyboard" placeholder="Publisher Name"/>
                             <div class="input-group-btn">
-                                <div class="btn-group">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
@@ -227,7 +218,6 @@ declare function bibls:search-form() {
                                         <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="publisher">Greek</a></li>
                                         <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="publisher">Russian</a></li>
                                     </ul>
-                                </div>
                             </div>
                     </div>                 
                 </div>
