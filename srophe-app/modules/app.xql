@@ -1,12 +1,15 @@
 xquery version "3.0";
-                      
+(: Main module for interacting with eXist-db templates :)                
 module namespace app="http://syriaca.org/templates";
-
+(: eXist modules :)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
+import module namespace functx="http://www.functx.com";
+(: Srophe modules :)
 import module namespace teiDocs="http://syriaca.org/teiDocs" at "teiDocs/teiDocs.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "lib/tei2html.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
-import module namespace functx="http://www.functx.com";
+(: Namespaces :)
 declare namespace html="http://www.w3.org/1999/xhtml";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
@@ -251,12 +254,19 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                     <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
                     <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">Is this record complete?</a>
                 </div>,
-                if($model("data")//tei:body/child::*/tei:listRelation) then 
-                rel:build-relationships($model("data")//tei:body/child::*/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
-                else ()
+                app:display-related($node, $model)
                 )}  
             </div>
         </div> 
+};
+
+(:~  
+ : Display relationships 
+:)
+declare function app:display-related($node as node(), $model as map(*)){
+    if($model("data")//tei:body/child::*/tei:listRelation) then 
+        rel:build-relationships($model("data")//tei:body/child::*/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
+    else ()
 };
 
 (:~      
@@ -353,16 +363,6 @@ declare %templates:wrap function app:citation($node as node(), $model as map(*))
 
 declare %templates:wrap function app:set-data($node as node(), $model as map(*), $doc as xs:string){
     teiDocs:generate-docs($global:data-root || '/places/tei/78.xml')
-};
-
-(:~          
- : Builds Dublin Core metadata
- : If id parameter is present use place data to generate metadata           
- : @param $metadata:id gets place id from url
- :) 
-declare function app:get-dc-metadata(){
-    if(exists($id)) then 'get data'
-    else ()
 };
 
 (:~
