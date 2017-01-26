@@ -361,6 +361,17 @@
         </xsl:choose>
     </xsl:function>
     
+    <xsl:function name="local:bibl-type-order">
+        <xsl:param name="label"/>
+        <xsl:choose>
+            <xsl:when test="$label = 'lawd:Edition'">a</xsl:when>
+            <xsl:when test="$label = 'lawd:Translation'">b</xsl:when>
+            <xsl:when test="$label = 'syriaca:ModernTranslation'">c</xsl:when>
+            <xsl:when test="$label = 'lawd:WrittenWork'">d</xsl:when>
+            <xsl:when test="$label = 'syriaca:Manuscript'">e</xsl:when>
+            <xsl:when test="$label = 'syriaca:Catalogue'">f</xsl:when>
+        </xsl:choose>
+    </xsl:function>
     <!-- Text normalization functions -->
     <xsl:template match="t:*" mode="out-normal">
         <xsl:variable name="thislang" select="ancestor-or-self::*[@xml:lang][1]/@xml:lang"/>

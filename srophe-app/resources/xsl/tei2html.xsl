@@ -218,7 +218,9 @@
         <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
         <xsl:apply-templates select="child::*" mode="plain"/>
         <!-- Adds dates if available -->
-        <xsl:text> (</xsl:text><xsl:sequence select="local:do-dates(.)"/><xsl:text>)</xsl:text>
+        <xsl:text> (</xsl:text>
+        <xsl:sequence select="local:do-dates(.)"/>
+        <xsl:text>)</xsl:text>
         <!-- Adds footnotes if available -->
         <xsl:if test="@source">
             <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
@@ -229,7 +231,9 @@
         <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
             <xsl:apply-templates select="child::*" mode="plain"/>
         <!-- Adds dates if available -->
-            <xsl:text> (</xsl:text><xsl:sequence select="local:do-dates(.)"/><xsl:text>)</xsl:text>
+            <xsl:text> (</xsl:text>
+            <xsl:sequence select="local:do-dates(.)"/>
+            <xsl:text>)</xsl:text>
         <!-- Adds footnotes if available -->
             <xsl:if test="@source">
                 <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
@@ -1516,9 +1520,10 @@
         <xsl:if test="t:bibl">
             <xsl:choose>
                 <xsl:when test="self::t:bibl[@type='lawd:Citation' or @type='lawd:ConceptualWork']">
-                    <xsl:variable name="rules" select="'&lt; lawd:Edition &lt; lawd:Translation &lt; lawd:WrittenWork &lt; syriaca:Catalogue &lt; syriaca:Manuscript '"/>
+                    <xsl:variable name="rules" select="'&lt; syriaca:Catalogue &lt; syriaca:Manuscript &lt; lawd:Edition &lt; lawd:Translation &lt; lawd:WrittenWork '"/>                    
+                    <xsl:variable name="type-order"></xsl:variable>
                     <xsl:for-each-group select="t:bibl[exists(@type)][@type != 'lawd:Citation']" group-by="@type">
-                        <xsl:sort select="current-grouping-key()" collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)};ignore-case=yes;ignore-modifiers=yes;ignore-symbols=yes)" order="ascending"/>
+                        <xsl:sort select="local:bibl-type-order(current-grouping-key())" order="ascending"/>
                         <xsl:variable name="label">
                             <xsl:variable name="l" select="local:translate-label(current-grouping-key())"/>
                             <xsl:choose>
