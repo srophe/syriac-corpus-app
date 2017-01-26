@@ -156,7 +156,7 @@ declare function global:get-rec($id as xs:string){
                <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec/ancestor::tei:msPart}</tei:TEI>
             else $rec/ancestor::tei:TEI
     else 
-        for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = concat($id,'/tei')]/ancestor::tei:TEI
+        for $rec in collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][text() = concat($id,'/tei')]]
         return $rec 
 };
 
@@ -204,3 +204,18 @@ declare function global:odd2text($element as element()?, $label as xs:string?) a
 
 };
 
+(:~
+ : Configure dropdown menu for keyboard layouts for input boxes
+ : @param $input-id input id used by javascript to select correct keyboard layout.  
+ :)
+declare function global:keyboard-select-menu($input-id as xs:string){
+    (: Could have lange options set in config :)
+        <ul xmlns="http://www.w3.org/1999/xhtml" class="dropdown-menu">
+            <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="{$input-id}">Syriac Phonetic</a></li>                                
+            <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="{$input-id}">Syriac Standard</a></li>
+            <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="{$input-id}">Arabic Mod. Standard</a></li>
+            <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="{$input-id}">English QWERTY</a></li>                                    
+            <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="{$input-id}">Greek Mod. Standard</a></li>
+            <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="{$input-id}">Russian Mod. Standard</a></li>
+        </ul>    
+};

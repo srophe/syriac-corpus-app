@@ -79,13 +79,7 @@ declare function ms:search-form() {
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                 &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                             </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="qs">Syriac Standard</a></li>
-                                <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="qs">Syriac Phonetic</a></li>
-                                <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="qs">Arabic</a></li>
-                                <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="qs">Greek</a></li>
-                                <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="qs">Russian</a></li>
-                            </ul>
+                            {global:keyboard-select-menu('qs')}
                     </div>
                 </div> 
             </div>

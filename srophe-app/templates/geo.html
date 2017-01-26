@@ -69,17 +69,7 @@
                     var kb = $(keyboardID).getkeyboard();
                     //var kb = $('#searchField').getkeyboard();
                     // change layout based on link ID
-                    if(this.id === 'syriac-standard') {
-                        kb.options.layout = 'syriac-standard'
-                    }else if(this.id === 'ms-Arabic'){
-                        kb.options.layout = 'ms-Arabic (101)'
-                    }else if(this.id === 'ms-Greek'){
-                        kb.options.layout = 'ms-Greek'
-                    }else if(this.id === 'ms-Russian'){
-                        kb.options.layout = 'ms-Russian'
-                    }else {
-                        kb.options.layout = 'syriac-phonetic'
-                    }                    
+                    kb.options.layout = this.id
                     // open keyboard if layout is different, or time from it last closing is > 200 ms
                     if (kb.last.layout !== kb.options.layout || (new Date().getTime() - kb.last.eventTime) > 200) {
                         kb.reveal();
@@ -149,23 +139,7 @@
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span>
                                     <span class="caret"/>
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="q">Syriac Standard</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="q">Syriac Phonetic</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="q">Arabic</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="q">Greek</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="q">Russian</a>
-                                    </li>
-                                </ul>
+                                <ul data-template="app:keyboard-select-menu" data-template-input-id="q"/>
                             </div>
                         </li>
                     </ul>
@@ -183,7 +157,6 @@
                             </div><!-- /btn-group -->
                         </div>
                     </form>
-                    
                 </div><!--/.nav-collapse -->
             </div>
         </div>

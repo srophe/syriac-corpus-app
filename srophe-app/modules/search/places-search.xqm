@@ -419,13 +419,14 @@ declare function places:search-form() {
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="qs">Syriac Standard</a></li>
-                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="qs">Syriac Phonetic</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="qs">Arabic</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="qs">Greek</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="qs">Russian</a></li>
-                                    </ul>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="qs">Syriac Phonetic</a></li>                                
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="qs">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="qs">Arabic Mod. Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="qs">English QWERTY</a></li>                                        
+                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="qs">Greek Mod. Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="qs">Russian Mod. Standard</a></li>
+                                </ul>
                             </div>
                     </div> 
                     </div>
@@ -441,11 +442,12 @@ declare function places:search-form() {
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
                                     <ul class="dropdown-menu">
+                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="p">Syriac Phonetic</a></li>                                    
                                         <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="p">Syriac Standard</a></li>
-                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="p">Syriac Phonetic</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="p">Arabic</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="p">Greek</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="p">Russian</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="p">Arabic Mod. Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="p">English QWERTY</a></li>       
+                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="p">Greek Mod. Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="p">Russian Mod. Standard</a></li>
                                     </ul>
                             </div>
                         </div> 
@@ -462,11 +464,12 @@ declare function places:search-form() {
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
                                     <ul class="dropdown-menu">
+                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="loc">Syriac Phonetic</a></li>                                    
                                         <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="loc">Syriac Standard</a></li>
-                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="loc">Syriac Phonetic</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="loc">Arabic</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="loc">Greek</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="loc">Russian</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="loc">Arabic Mod. Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="loc">English QWERTY</a></li>                                        
+                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="loc">Greek Mod. Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="loc">Russian Mod. Standard</a></li>
                                     </ul>
                             </div>
                             </div>                         
@@ -483,11 +486,12 @@ declare function places:search-form() {
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
                                     <ul class="dropdown-menu">
+                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="e">Syriac Phonetic</a></li>                                    
                                         <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="e">Syriac Standard</a></li>
-                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="e">Syriac Phonetic</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="e">Arabic</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="e">Greek</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="e">Russian</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="e">Arabic Mod. Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="e">English QWERTY</a></li>                                         
+                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="e">Greek Mod. Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="e">Russian Mod. Standard</a></li>
                                     </ul>
                             </div>
                             </div>                              
@@ -513,11 +517,12 @@ declare function places:search-form() {
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="a">Syriac Standard</a></li>
                                         <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="a">Syriac Phonetic</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="a">Arabic</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="a">Greek</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="a">Russian</a></li>
+                                        <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="a">Syriac Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="a">Arabic Mod. Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="a">English QWERTY</a></li>                                        
+                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="a">Greek Mod. Standard</a></li>
+                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="a">Russian Mod. Standard</a></li>
                                     </ul>
                             </div>
                             </div>                             

@@ -211,13 +211,7 @@ declare function bhses:search-form($collection) {
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="qs">Syriac Standard</a></li>
-                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="qs">Syriac Phonetic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="qs">Arabic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="qs">Greek</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="qs">Russian</a></li>
-                                </ul>
+                                    {global:keyboard-select-menu('qs')}
                         </div>
                     </div> 
                 </div>
@@ -232,13 +226,7 @@ declare function bhses:search-form($collection) {
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="title">Syriac Standard</a></li>
-                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="title">Syriac Phonetic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="title">Arabic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="title">Greek</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="title">Russian</a></li>
-                                </ul>
+                                    {global:keyboard-select-menu('title')}
                         </div>
                     </div> 
                 </div>
@@ -252,13 +240,7 @@ declare function bhses:search-form($collection) {
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="author">Syriac Standard</a></li>
-                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="author">Syriac Phonetic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="author">Arabic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="author">Greek</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="author">Russian</a></li>
-                                </ul>
+                                    {global:keyboard-select-menu('author')}
                         </div>
                     </div> 
                 </div>
@@ -272,13 +254,7 @@ declare function bhses:search-form($collection) {
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="relatedPers">Syriac Standard</a></li>
-                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="relatedPers">Syriac Phonetic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="relatedPers">Arabic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="relatedPers">Greek</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="relatedPers">Russian</a></li>
-                                </ul>
+                                    {global:keyboard-select-menu('relatedPers')}
                         </div>
                     </div> 
                 </div>
@@ -293,13 +269,7 @@ declare function bhses:search-form($collection) {
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="prologue">Syriac Standard</a></li>
-                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="prologue">Syriac Phonetic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="prologue">Arabic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="prologue">Greek</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="prologue">Russian</a></li>
-                                </ul>
+                                    {global:keyboard-select-menu('prologue')}
                         </div>
                     </div> 
                 </div>
@@ -313,13 +283,7 @@ declare function bhses:search-form($collection) {
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="incipit">Syriac Standard</a></li>
-                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="incipit">Syriac Phonetic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="incipit">Arabic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="incipit">Greek</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="incipit">Russian</a></li>
-                                </ul>
+                                    {global:keyboard-select-menu('incipit')}
                         </div>
                     </div> 
                 </div>
@@ -333,13 +297,7 @@ declare function bhses:search-form($collection) {
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="explicit">Syriac Standard</a></li>
-                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="explicit">Syriac Phonetic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="explicit">Arabic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="explicit">Greek</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="explicit">Russian</a></li>
-                                </ul>
+                                    {global:keyboard-select-menu('explicit')}
                         </div>
                     </div> 
                 </div>
@@ -353,13 +311,7 @@ declare function bhses:search-form($collection) {
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="editions">Syriac Standard</a></li>
-                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="editions">Syriac Phonetic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="editions">Arabic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="editions">Greek</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="editions">Russian</a></li>
-                                </ul>
+                                    {global:keyboard-select-menu('editions')}
                         </div>
                     </div> 
                 </div>
@@ -373,13 +325,7 @@ declare function bhses:search-form($collection) {
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="modern">Syriac Standard</a></li>
-                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="modern">Syriac Phonetic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="modern">Arabic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="modern">Greek</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="modern">Russian</a></li>
-                                </ul>
+                                    {global:keyboard-select-menu('modern')}
                         </div>
                     </div> 
                 </div>
@@ -393,13 +339,7 @@ declare function bhses:search-form($collection) {
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="ancient">Syriac Standard</a></li>
-                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="ancient">Syriac Phonetic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="ancient">Arabic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="ancient">Greek</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="ancient">Russian</a></li>
-                                </ul>
+                                    {global:keyboard-select-menu('ancient')}
                         </div>
                     </div> 
                 </div>
@@ -413,13 +353,7 @@ declare function bhses:search-form($collection) {
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="mss">Syriac Standard</a></li>
-                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="mss">Syriac Phonetic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="mss">Arabic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="mss">Greek</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="mss">Russian</a></li>
-                                </ul>
+                                    {global:keyboard-select-menu('mss')}
                         </div>
                     </div> 
                 </div>
@@ -433,13 +367,7 @@ declare function bhses:search-form($collection) {
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="refs">Syriac Standard</a></li>
-                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="refs">Syriac Phonetic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="refs">Arabic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="refs">Greek</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="refs">Russian</a></li>
-                                </ul>
+                                    {global:keyboard-select-menu('refs')}
                         </div>
                     </div> 
                 </div>

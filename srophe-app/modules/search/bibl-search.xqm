@@ -130,13 +130,7 @@ declare function bibls:search-form() {
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="qs">Syriac Standard</a></li>
-                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="qs">Syriac Phonetic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="qs">Arabic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="qs">Greek</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="qs">Russian</a></li>
-                                </ul>
+                                {global:keyboard-select-menu('qs')}
                         </div>
                     </div>                 
                 </div>
@@ -151,13 +145,7 @@ declare function bibls:search-form() {
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="title">Syriac Standard</a></li>
-                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="title">Syriac Phonetic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="title">Arabic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="title">Greek</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="title">Russian</a></li>
-                                </ul>
+                                {global:keyboard-select-menu('title')}
                         </div>
                     </div>                 
                 </div>
@@ -171,13 +159,7 @@ declare function bibls:search-form() {
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="author">Syriac Standard</a></li>
-                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="author">Syriac Phonetic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="author">Arabic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="author">Greek</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="author">Russian</a></li>
-                                </ul>
+                                {global:keyboard-select-menu('author')}
                         </div>
                     </div>                
                 </div>
@@ -191,13 +173,7 @@ declare function bibls:search-form() {
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="pubPlace">Syriac Standard</a></li>
-                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="pubPlace">Syriac Phonetic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="pubPlace">Arabic</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="pubPlace">Greek</a></li>
-                                    <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="pubPlace">Russian</a></li>
-                                </ul>
+                                {global:keyboard-select-menu('pubPlace')}
                         </div>
                     </div>                
                 </div>
@@ -211,13 +187,7 @@ declare function bibls:search-form() {
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="publisher">Syriac Standard</a></li>
-                                        <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="publisher">Syriac Phonetic</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Arabic" data-keyboard-id="publisher">Arabic</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="publisher">Greek</a></li>
-                                        <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="publisher">Russian</a></li>
-                                    </ul>
+                                    {global:keyboard-select-menu('publisher')}
                             </div>
                     </div>                 
                 </div>

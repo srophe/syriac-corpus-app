@@ -11,7 +11,7 @@ declare namespace html="http://www.w3.org/1999/xhtml";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 
-(:~                 
+(:~                  
  : Syriaca.org URI for retrieving TEI records 
 :)
 declare variable $app:id {request:get-parameter('id', '')};
@@ -696,4 +696,12 @@ declare function app:wiki-links($nodes as node()*, $wiki) {
                 }
             default return
                 $node               
+};
+
+
+(:~
+ : display keyboard menu 
+:)
+declare function app:keyboard-select-menu($node, $model, $input-id){
+    global:keyboard-select-menu($input-id)
 };
