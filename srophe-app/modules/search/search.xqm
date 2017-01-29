@@ -231,7 +231,7 @@ let $geo-hits := $data//tei:geo
 return
     if(count($geo-hits) gt 0) then
          (
-         maps:build-map($data[descendant::tei:geo]),
+         maps:build-map($data[descendant::tei:geo], count($data)),
          <div>
             <div class="modal fade" id="map-selection" tabindex="-1" role="dialog" aria-labelledby="map-selectionLabel" aria-hidden="true">
                 <div class="modal-dialog">

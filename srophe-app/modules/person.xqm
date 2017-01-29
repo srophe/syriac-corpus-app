@@ -147,11 +147,12 @@ return
 declare %templates:wrap function person:related-places($node as node(), $model as map(*)){
 let $data := $model("data")
 let $geo-hits := person:get-related($data)
+let $places-count := count(tokenize(string-join(($data//tei:relation/@passive),' '),' ')[contains(.,'/place/')])
 return 
     if($geo-hits//tei:geo) then
         <div><hr/>
             <h2>Related Places in the Syriac Gazetteer</h2>
-            {maps:build-map($geo-hits)}
+            {maps:build-map($geo-hits,$places-count)}
             {global:tei2html(
                 <person xmlns="http://www.tei-c.org/ns/1.0">
                     <related-items xmlns="http://www.tei-c.org/ns/1.0">
@@ -364,11 +365,11 @@ declare %templates:wrap function person:display-persons-map($node as node(), $mo
     let $pers-id := string($p/ancestor::tei:TEI/descendant::tei:idno[1])
     let $relation := string($p/@name)
     let $places := for $p in tokenize(string-join(($p/@passive,$p/@active,$p/@mutual),' '),' ')[contains(.,'/place/')] return <placeName xmlns="http://www.tei-c.org/ns/1.0">{$p}</placeName>
-    return 
-        <person xmlns="http://www.tei-c.org/ns/1.0">
-            <persName xmlns="http://www.tei-c.org/ns/1.0" name="{$relation}" id="{replace($pers-id,'/tei','')}">{$name}</persName>
-            {$places}
-        </person>
+                    return 
+                        <person xmlns="http://www.tei-c.org/ns/1.0">
+                            <persName xmlns="http://www.tei-c.org/ns/1.0" name="{$relation}" id="{replace($pers-id,'/tei','')}">{$name}</persName>
+                            {$places}
+                        </person>
     let $places := distinct-values($persons/descendant::tei:placeName/text()) 
     let $locations := 
         for $id in $places
@@ -388,6 +389,5 @@ declare %templates:wrap function person:display-persons-map($node as node(), $mo
                 </desc>
                 <location>{$geo}</location>  
             </place>
-    return  maps:build-map($locations)
-    (: ' — ' :)
+    return  maps:build-map($locations,count($places))
 };

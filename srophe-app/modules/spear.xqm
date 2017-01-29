@@ -309,7 +309,7 @@ else
                  {(if($geo) then 
                     <div>
                         <div>
-                            {maps:build-map($geo)}
+                            {maps:build-map($geo,0)}
                         </div>
                         <div>
                             <div id="type">
