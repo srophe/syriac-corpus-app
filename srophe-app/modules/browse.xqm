@@ -329,6 +329,8 @@ else if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets
             if($collection = ('geo','places','persons','authors','q','saints')) then 
                 browse:browse-type($collection)
             else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/descendant::facet:facet-definition[@name="Type"]))
+         else if($browse:view='date') then
+            browse:browse-date()
          else if($browse:view = 'facets') then 
             facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/child::*))
          else 
