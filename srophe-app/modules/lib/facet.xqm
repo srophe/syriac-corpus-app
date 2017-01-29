@@ -83,6 +83,46 @@ declare function facet:group-by($results as item()*, $facet-definitions as eleme
     return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$f[1]}" label="{$f[1]}"/>
 };
 
+
+(:~
+ : Syriaca.org specific group-by function for correctly labeling attributes with arrays.
+:)
+declare function facet:group-by-array($results as item()*, $facet-definitions as element(facet:facet-definition)?){
+    let $path := concat('$results/',$facet-definitions/facet:group-by/facet:sub-path/text()) 
+    let $sort := $facet-definitions/facet:order-by
+    let $d := tokenize(string-join(util:eval($path),' '),' ')
+    for $f in $d
+    group by $facet-grp := tokenize($f,' ')
+    order by 
+        if($sort/text() = 'value') then $f[1]
+        else count($f)
+        descending
+    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$f[1]}" label="{$f[1]}"/>
+};
+
+(:~
+ : Given a result sequence, and a facet definition, count the facet-values for each range facet defined by the facet definition. 
+ : Range values defined by: range and range/bucket elements
+ : Facet defined by facets:facet-definition/facet:group-by/facet:sub-path 
+ : @param $results results to be faceted on. 
+ : @param $facet-definitions one or more facet:facet-definition element
+:) 
+declare function facet:group-by-range($results as item()*, $facet-definitions as element(facet:facet-definition)*) as element(facet:key)*{
+    let $ranges := $facet-definitions/facet:range
+    let $sort := $facet-definitions/facet:order-by 
+    for $range in $ranges/facet:bucket
+    let $path := concat('$results/',$facet-definitions/descendant::facet:sub-path/text(),'[. gt "', facet:type($range/@gt, $ranges/@type),'" and . lt "',facet:type($range/@lt, $ranges/@type),'"]')
+    let $f := util:eval($path)
+    order by 
+            if($sort/text() = 'value') then $f[1]
+            else if($sort/text() = 'count') then count($f)
+            else if($sort/text() = 'order') then xs:integer($range/@order)
+            else count($f)
+        descending
+    return 
+         <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{string($range/@name)}" label="{string($range/@name)}"/>
+};
+
 (:~
  : Syriaca.org specific group-by function for correctly labeling submodules.
 :)
@@ -128,43 +168,6 @@ declare function facet:spear-type($results as item()*, $facet-definitions as ele
         else count($f)
         descending
     return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$f[1]}" label="{substring-after($f[1],'list')}"/>
-};
-
-(:~
- : Syriaca.org specific group-by function for correctly labeling attributes with arrays.
-:)
-declare function facet:group-by-array($results as item()*, $facet-definitions as element(facet:facet-definition)?){
-    let $path := concat('$results/',$facet-definitions/facet:group-by/facet:sub-path/text()) 
-    let $sort := $facet-definitions/facet:order-by
-    let $d := tokenize(string-join(util:eval($path),' '),' ')
-    for $f in $d
-    group by $facet-grp := tokenize($f,' ')
-    order by 
-        if($sort/text() = 'value') then $f[1]
-        else count($f)
-        descending
-    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$f[1]}" label="{$f[1]}"/>
-};
-
-(:~
- : Given a result sequence, and a facet definition, count the facet-values for each range facet defined by the facet definition. 
- : Range values defined by: range and range/bucket elements
- : Facet defined by facets:facet-definition/facet:group-by/facet:sub-path 
- : @param $results results to be faceted on. 
- : @param $facet-definitions one or more facet:facet-definition element
-:) 
-declare function facet:group-by-range($results as item()*, $facet-definitions as element(facet:facet-definition)*) as element(facet:key)*{
-    let $ranges := $facet-definitions/facet:range
-    let $sort := $facet-definitions/facet:order-by
-    for $range in $ranges/facet:bucket
-    let $path := concat('$results/',$facet-definitions/descendant::facet:sub-path/text(),'[. gt "', facet:type($range/@gt, $ranges/@type),'" and . lt "',facet:type($range/@lt, $ranges/@type),'"]')
-    let $f := util:eval($path)
-    order by 
-            if($sort/text() = 'value') then $f[1]
-            else count($f)
-        descending
-    return 
-         <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{string($range/@name)}" label="{string($range/@name)}"/>
 };
 
 (:~
@@ -341,7 +344,7 @@ if(starts-with($uri,'http://syriaca.org/')) then
   if(contains($uri,'/keyword/')) then
     lower-case(functx:camel-case-to-words(substring-after($uri,'/keyword/'),' '))
   else 
-      let $doc := collection('/db/apps/srophe-data/data')/range:field-eq("uri", concat($uri,"/tei"))[1]
+      let $doc := collection($global:data-root)//tei:TEI[.//tei:idno = concat($uri,"/tei")][1]
       return 
       if (exists($doc)) then
         replace(string-join($doc/descendant::tei:fileDesc/tei:titleStmt[1]/tei:title[1]/text()[1],' '),' — ','')
