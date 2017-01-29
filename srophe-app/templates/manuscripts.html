@@ -68,6 +68,12 @@
                         kb.reveal();
                     }
                 });
+                //Change fonts
+                $('.swap-font').on('click', function(){
+                    var selectedFont = $(this).data("font-id")
+                    $('.selectableFont').not('.syr').css('font-family', selectedFont);
+                    $("*:lang(syr)").css('font-family', selectedFont)
+                });                
                 ]]>
             })
         </script>
@@ -126,19 +132,42 @@
                                 <ul data-template="app:keyboard-select-menu" data-template-input-id="q"/>
                             </div>
                         </li>
+                        <li>
+                            <div class="btn-nav">
+                                <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                                    Font&#160;<span class="caret"/></a>
+                                <ul class="dropdown-menu" id="swap-font">
+                                    <li><a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a></li>
+                                    <li><a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a></li>
+                                    <li><a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a></li>
+                                    <li><a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="btn-nav">
+                                <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Search Tools">
+                                    &#160;<span class="glyphicon glyphicon-cog"/>&#160;<span class="caret"/></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="search.html">Advanced Search</a></li>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                     <form class="navbar-form navbar-right navbar-input-group" role="search" action="$app-root/mss/search.html" method="get">
                         <div class="input-group">
                             <input type="text" class="form-control keyboard" placeholder="search" name="q" id="q"/>
                             <input type="hidden" id="collection" value="manuscripts"/>
+                            <!--
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit" data-toggle="tooltip" title="Search" data-placement="bottom">
                                     &#160; <span class="glyphicon glyphicon-search"/>
                                 </button>
                                 <a href="$app-root/mss/search.html" class="btn btn-default" data-toggle="tooltip" title="Search Tools" data-placement="bottom">
-                                    <span class="glyphicon glyphicon-cog" data-toggle="tooltip"/>&#160;<!--<small>Search Tools</small>-->
+                                    <span class="glyphicon glyphicon-cog" data-toggle="tooltip"/>&#160;
                                 </a>
-                            </div><!-- /btn-group -->
+                            </div>-->
+                            <!-- /btn-group -->
                         </div>
                     </form>
                 </div><!--/.nav-collapse -->
