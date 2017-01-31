@@ -249,7 +249,7 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                 {(
                 app:rec-status($node, $model,''),
                 <div class="panel panel-default">
-                    <div class="panel-heading">Title app:get-srophe-title()</div>
+                    <div class="panel-heading">{'Syriaca.org Title'(:global:get-syriaca-refs(string($model("data")//tei:titleStmt/tei:title[1]/@ref)):)}</div>
                     <div class="panel-body">
                         <h4>Stable Identifiers</h4>
                         <div class="indent">
