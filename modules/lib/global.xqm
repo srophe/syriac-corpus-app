@@ -191,3 +191,25 @@ declare function global:odd2text($element as element()?, $label as xs:string?) a
 
 };
 
+(:
+ : Get and display links to syriaca.org records. 
+:)
+declare function global:get-syriaca-refs($url as xs:string*){
+    for $r in $url
+    let $request := 
+        try{
+            http:send-request(<http:request href="{concat($url,'/tei')}" method="get"/>)
+          } catch * { 
+              concat($err:code, ": ", $err:description)
+           }
+    return 
+        $request
+(:        if($request/@status = '200') then 
+            try{
+                <a href="{$url}">{global:display-recs-short-view($request[2]//tei:titleStmt/tei:title[1],'')}</a>
+            } catch * {
+                concat($err:code, ": ", $err:description)
+            }
+        else $url
+:)        
+};
