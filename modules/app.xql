@@ -269,7 +269,6 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                 <div>{app:citation($node, $model)}</div>,
                 <div class="info-btns">  
                     <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
-                    <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">Is this record complete?</a>
                 </div>,
                 if($model("data")//tei:body/child::*/tei:listRelation) then 
                 rel:build-relationships($model("data")//tei:body/child::*/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
