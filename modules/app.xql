@@ -1,5 +1,5 @@
 xquery version "3.0";
-                      
+                       
 module namespace app="http://syriaca.org/templates";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
@@ -262,8 +262,7 @@ declare %templates:wrap function app:rec-display($node as node(), $model as map(
                             else()
                         }
                         </div> 
-                        <h4>Source</h4>
-                        {global:tei2html($model("data")/descendant::tei:sourceDesc)}  
+                        <p>{global:tei2html(<bibl-chicago xmlns="http://www.tei-c.org/ns/1.0">{$model("data")/descendant::tei:sourceDesc/tei:biblStruct}</bibl-chicago>)}</p>
                     </div>
                 </div>,
                 <div>{app:citation($node, $model)}</div>,

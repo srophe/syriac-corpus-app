@@ -983,6 +983,13 @@
         </xsl:choose>
     </xsl:template>
     
+    <!-- Syriac Corpus Specific templates -->
+    <xsl:template match="t:bibl-chicago">
+        <span class="results-list-desc desc" dir="ltr" lang="en">
+            <label>Source:&#160;</label>
+            <xsl:apply-templates mode="bibliography"/>
+        </span>
+    </xsl:template>
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
     <!-- |||| match=t:*: suppress all TEI elements not otherwise handled -->
     <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
