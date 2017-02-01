@@ -213,3 +213,16 @@ declare function global:get-syriaca-refs($url as xs:string*){
         else $url
 :)        
 };
+
+
+(:~
+ : Configure dropdown menu for keyboard layouts for input boxes
+ : @param $input-id input id used by javascript to select correct keyboard layout.  
+ :)
+declare function global:keyboard-select-menu($input-id as xs:string){
+    (: Could have lange options set in config :)
+        <ul xmlns="http://www.w3.org/1999/xhtml" class="dropdown-menu">
+            <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="{$input-id}">Syriac Phonetic</a></li>                                
+            <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="{$input-id}">Syriac Standard</a></li>
+        </ul>    
+};

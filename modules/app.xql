@@ -745,3 +745,10 @@ declare function app:wiki-links($nodes as node()*, $wiki) {
             default return
                 $node               
 };
+
+(:~
+ : display keyboard menu 
+:)
+declare function app:keyboard-select-menu($node, $model, $input-id){
+    global:keyboard-select-menu($input-id)
+};

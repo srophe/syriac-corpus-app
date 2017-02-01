@@ -43,13 +43,36 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
-                //Change fonts
-                $('#selectFont').val("EstrangeloEdessa");
-                $('#selectFont').on('change', function(){
-                    $('.selectableFont').not('.syr').css('font-family', $(this).val());
-                    $("*:lang(syr)").css('font-family', $(this).val())
+                <![CDATA[
+                $('.keyboard').keyboard({
+                    openOn: null,
+                    stayOpen: false,
+                    alwaysOpen: false,
+                    autoAccept: true,
+                    usePreview: false,
+                    initialFocus: true,
+                    rtl : true,
+                    layout: 'syriac-phonetic'
                 });
-
+                
+                $('.keyboard-select').click(function () {
+                    var keyboardID = '#' + $(this).data("keyboard-id")
+                    var kb = $(keyboardID).getkeyboard();
+                    //var kb = $('#searchField').getkeyboard();
+                    // change layout based on link ID
+                    kb.options.layout = this.id
+                    // open keyboard if layout is different, or time from it last closing is > 200 ms
+                    if (kb.last.layout !== kb.options.layout || (new Date().getTime() - kb.last.eventTime) > 200) {
+                        kb.reveal();
+                    }
+                });
+                //Change fonts
+                $('.swap-font').on('click', function(){
+                    var selectedFont = $(this).data("font-id")
+                    $('.selectableFont').not('.syr').css('font-family', selectedFont);
+                    $("*:lang(syr)").css('font-family', selectedFont)
+                });
+                ]]>
             })
         </script>
     </head>
@@ -82,17 +105,6 @@ West Syriac (what font do we current use here)
                     </a>
                 </div>
                 <div class="navbar-collapse collapse pull-right">
-                    <ul class="nav navbar-nav sm sm-vertical" id="swap-font" style="float:right;">
-                        <li>
-                                <select id="selectFont" style="margin-top: 10px;">
-                                    <option value="EstrangeloEdessa">Change Font</option>
-                                    <option value="EstrangeloEdessa">Estrangelo Edessa</option>
-                                    <option value="EastSyriacAdiabene">East Syriac Adiabene</option>
-                                    <option value="SertoBatnan">Serto Batnan</option>
-                                </select>
-                            
-                        </li>
-                    </ul>
                     <ul class="nav navbar-nav sm sm-vertical" id="main-menu">
                         <li>
                             <a href="$app-root/browse.html?view=facets" style="margin-top:1em;">
@@ -100,26 +112,57 @@ West Syriac (what font do we current use here)
                             </a>
                         </li>
                     </ul>
+                    <ul class="nav navbar-nav navbar-right keboard-btn">
+                        <li>
+                            <div class="btn-nav">
+                                <a class="btn btn-default navbar-btn dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span>
+                                    <span class="caret"/>
+                                </a>
+                                <ul data-template="app:keyboard-select-menu" data-template-input-id="q"/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="btn-nav">
+                                <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Search Tools">
+                                    &#160;<span class="glyphicon glyphicon-cog"/>&#160;<span class="caret"/>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="search.html">Advanced Search</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="btn-nav">
+                                <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                                    Font&#160;<span class="caret"/>
+                                </a>
+                                <ul class="dropdown-menu" id="swap-font">
+                                    <li>
+                                        <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a>
+                                    </li>
+                                    <li>
+                                        <a href="$app-root/documentation/wiki.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/srophe-app-data/wiki">Help <span class="glyphicon glyphicon-question-sign"/>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
                     <form class="navbar-form navbar-right navbar-input-group" role="search" action="$app-root/search.html" method="get">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="search" name="q" id="q"/>
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit" data-toggle="tooltip" title="Search" data-placement="bottom">
-                                    &#160; <span class="glyphicon glyphicon-search"/>
-                                </button>
-                                <a href="$app-root/search.html" class="btn btn-default" data-toggle="tooltip" title="Search Tools" data-placement="bottom">
-                                    <span class="glyphicon glyphicon-cog" data-toggle="tooltip"/>&#160;<!--<small>Search Tools</small>-->
-                                </a>
-                                <span class="btn btn-default" id="q-keyboard" data-toggle="tooltip" title="Syriac Keyboard" data-placement="bottom">
-                                    <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                                    <!--<span class="glyphicon icon-keyboard-wireless"/> <small>Keyboard</small>-->
-                                </span>
-                            </div><!-- /btn-group -->
-                            <script type="text/javascript">
-                                $(function(){
-                	               initializeKeyboard('#q', 'syriac-phonetic', '#q-keyboard');
-                	               });
-                   	        </script>
+                            <input type="text" class="form-control keyboard" placeholder="search" name="q" id="q"/>
                         </div>
                     </form>
                 </div><!--/.nav-collapse -->
