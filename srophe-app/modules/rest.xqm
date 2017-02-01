@@ -80,6 +80,7 @@ function api:get-geo-kml($type as xs:string*, $output as xs:string*) {
     event
     desc
     location
+    idno
  @param $collection accepts:
     Gateway to the Syriac Saints
     The Syriac Biographical Dictionary
@@ -202,14 +203,26 @@ declare
     %output:media-type("text/xml")
     %output:method("xml")
 function api:get-tei($collection as xs:string, $id as xs:string){
-   (<rest:response> 
-      <http:response status="200">
-        <http:header name="Content-Type" value="application/xml; charset=utf-8"/>
-        <http:header name="Access-Control-Allow-Origin" value="*"/> 
-      </http:response> 
-    </rest:response>, 
-     api:get-tei-rec($collection, $id)
-     )
+    let $rec := api:get-tei-rec($collection, $id)
+    return 
+        if(not(empty($rec))) then 
+            (<rest:response> 
+                <http:response status="200">
+                  <http:header name="Content-Type" value="application/xml; charset=utf-8"/>
+                  <http:header name="Access-Control-Allow-Origin" value="*"/> 
+                </http:response> 
+              </rest:response>, 
+              api:get-tei-rec($collection, $id))
+        else 
+            (<rest:response> 
+                <http:response status="400">
+                  <http:header name="Content-Type" value="application/xml; charset=utf-8"/>
+                  <http:header name="Access-Control-Allow-Origin" value="*"/> 
+                </http:response> 
+              </rest:response>,
+              <response status="error">
+                    <message>This record can not be found, please check URI and try again</message>
+              </response>)
 }; 
 
 (:~
