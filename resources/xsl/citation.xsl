@@ -158,24 +158,26 @@
      generate an "about this entry" section for the matched titleStmt element
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:titleStmt" mode="about">
-        <p>
-            <span class="heading-inline">Publication Date: </span>
-            <xsl:text> </xsl:text>
-            <xsl:for-each select="../t:publicationStmt/t:date[1]">
-                <xsl:choose>
-                    <xsl:when test=". castable as xs:date">
-                        <xsl:value-of select="format-date(xs:date(.), '[MNn] [D], [Y]')"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:value-of select="."/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:for-each>
-        </p>
+        <xsl:if test="../t:publicationStmt/t:date[1]">
+            <p>
+                <span class="heading-inline">Publication Date: </span>
+                <xsl:text> </xsl:text>
+                <xsl:for-each select="../t:publicationStmt/t:date[1]">
+                    <xsl:choose>
+                        <xsl:when test=". castable as xs:date">
+                            <xsl:value-of select="format-date(xs:date(.), '[MNn] [D], [Y]')"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="."/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:for-each>
+            </p>            
+        </xsl:if>
         <div>
             <h4>Editorial Responsibility:</h4>
             <p>
-                <xsl:sequence select="local:emit-responsible-persons-all(t:editor,'footnote')"/>  
+                <xsl:sequence select="local:emit-responsible-persons-all(t:editor,'footnote')"/>
             </p>
         </div>
         <xsl:if test="t:respStmt">

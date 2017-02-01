@@ -741,7 +741,7 @@ label.error {
 }
 */
 #map {height: 200px;}
-
+#about {padding-top:1em;}
 .citationinfo {padding:1em; color: #555; border-top:1px solid #666666; background-color:#eee; }
 .preferred-citation {font-size:1.2em;}
 .hint{margin:.5em; color: grey; font-style:italic;}
@@ -757,6 +757,7 @@ journal
 series
 unpublished
 */
+.citation-bibliography {margin-top:1em; margin-bottom:1em;}
 .title-journal, .title-monographic{font-style:italic;}
 
 
