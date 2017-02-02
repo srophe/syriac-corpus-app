@@ -233,13 +233,7 @@ return
 :)
 declare function browse:narrow-by-type($collection){
     if($browse:type != '') then 
-        if($collection = ('persons','saints','authors')) then 
-            if($browse:type != '') then 
-                if($browse:type = 'unknown') then
-                    "[tei:teiHeader[not(/descendant::tei:title[. = 'Qadishe: A Guide to the Syriac Saints']) and not(/descendant::tei:title[. = 'A Guide to Syriac Authors'])]]"
-                else 
-                    concat("[descendant::tei:title[@level='m'][. ='", browse:parse-collections($browse:type),"']]")
-            else ()
+        if($collection = ('persons','saints','authors')) then ()
         else   
             if($browse:type != '') then 
                  concat("[descendant::tei:place[contains(@type,'",$browse:type,"')]]")
@@ -337,7 +331,7 @@ else if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets
      </div>,
      <div class="col-md-8">{
         if($browse:view='type') then
-            if($browse:type != '') then
+            if($browse:type != '' or contains(request:get-parameter('fq', ''),'fq-Type')) then
                 (
                 browse:pages($hits, $collection, ''),
                 <h3>{concat(upper-case(substring($browse:type,1,1)),substring($browse:type,2))}</h3>,
@@ -351,9 +345,9 @@ else if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets
                 </div>)
             else <h3>Select Type</h3>    
         else if($browse:view='date') then 
-            if($browse:date !='') then 
+            if($browse:date !='' or contains(request:get-parameter('fq', ''),'fq-Century')) then 
                 (browse:pages($hits, $collection, $sort-options),
-                <h3>{$browse:date}</h3>,
+                 <h3>{$browse:date}</h3>,
                  <div>{browse:display-hits($hits)}</div>)
             else <h3>Select Date</h3>  
         else (
