@@ -162,7 +162,7 @@ else if (ends-with($exist:resource, ".html")) then
 		</error-handler>
     </dispatch>
 (: Resource paths starting with $app-root are resolved relative to app :)
-else if (contains($exist:path, "/$app-root/")) then
+else if (contains($exist:path, "$app-root/")) then
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
             <forward url="{concat($exist:controller,'/', substring-after($exist:path, '/$app-root/'))}">
                 <set-header name="Cache-Control" value="max-age=3600, must-revalidate"/>
