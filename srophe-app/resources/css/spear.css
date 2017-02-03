@@ -35,11 +35,14 @@ h2 {color:#999;}
 h3 {color:#333;}
 h3.underline {color:#999; border-bottom:3px solid #336633;}
 .column1 h3{border-bottom:1px solid #999; padding-bottom:0; margin-bottom:1em;}
-h3.label {
-    background-color:#ccc;
+h4 {font-weight:500;}
 
+.browse-alpha li + li {
+    padding-left: .75em;
 }
 
+.browse-alpha li.selected a{color:white; padding-right:.25em;}
+.spear-related {display:block; padding:.5em;}
 .title {border-bottom:2px solid #666666;margin-bottom:1em;}
 .about {padding-top: .5em; border-bottom:2px solid #666666;margin-bottom:1em;}
 .pers-label {margin:.25em; padding:.5em; background-color: #cdcdcd; color:black; font-weight:normal; display:inline-block}
@@ -71,3 +74,12 @@ h3.label {
 .relation {
     background-position: -42px 0;
 }
+.factoid {
+    display:block;
+    margin-bottom: 1em;
+    margin-left: 1em;
+}
+.factoid h4 {font-size:large;}
+.spear-aggregate {margin-left:1.5em;}
+.spear-aggregate h4 {margin-top:1.5em;}
+.spear-aggregate p {margin:.25em;}
