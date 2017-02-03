@@ -30,14 +30,54 @@
         <script type="text/javascript" src="$app-root/resources/js/jquery.smartmenus.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/clipboard.min.js"/>
         <script src="https://www.google.com/recaptcha/api.js"/>
-        
-        <!-- temporary until migrate to bootstrap 3.0 -->
-        <!--
-        <script type="text/javascript" src="$app-root/resources/js/jquery-1.9.1.min.js"/>
-        <script type="text/javascript" src="$app-root/resources/js/jquery.smartmenus.min.js"/>
-        <script type="text/javascript" src="$app-root/resources/js/clipboard.min.js"/>
-        <script src='https://www.google.com/recaptcha/api.js'></script>
-        -->
+        <!-- keyboard widget css & script -->
+        <link href="$app-root/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
+        <link href="$app-root/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
+        <link href="$app-root/resources/keyboard/syr/syr.css" rel="stylesheet"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/syr/jquery.keyboard.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/syr/keyboardSupport.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/syr/syr.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/layouts/ms-Greek.min.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/layouts/ms-Russian.min.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/layouts/ms-Arabic.min.js"/>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
+                <![CDATA[
+                $('.keyboard').keyboard({
+                    openOn: null,
+                    stayOpen: false,
+                    alwaysOpen: false,
+                    autoAccept: true,
+                    usePreview: false,
+                    initialFocus: true,
+                    rtl : true,
+                    layout: 'syriac-phonetic'
+                });
+                
+                $('.keyboard-select').click(function () {
+                    var keyboardID = '#' + $(this).data("keyboard-id")
+                    var kb = $(keyboardID).getkeyboard();
+                    //var kb = $('#searchField').getkeyboard();
+                    // change layout based on link ID
+                    kb.options.layout = this.id
+                    // open keyboard if layout is different, or time from it last closing is > 200 ms
+                    if (kb.last.layout !== kb.options.layout || (new Date().getTime() - kb.last.eventTime) > 200) {
+                        kb.reveal();
+                    }
+                });
+                //Change fonts
+                $('.swap-font').on('click', function(){
+                    var selectedFont = $(this).data("font-id")
+                    $('.selectableFont').not('.syr').css('font-family', selectedFont);
+                    $("*:lang(syr)").css('font-family', selectedFont)
+                });
+                ]]>
+            })
+        </script>
     </head>
     <body>
         <!--[if lt IE 7]>
