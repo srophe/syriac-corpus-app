@@ -28,18 +28,69 @@
         <!-- Leaflet -->
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
         <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>
-        <!-- JQuery -->
-        <script type="text/javascript" src="$app-root/resources/js/jquery-1.9.1.min.js"/>
+        <!-- jquery -->
+        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/ui-lightness/jquery-ui.css" rel="stylesheet"/>
+        <!-- temporary until migrate to bootstrap 3.0 -->
+        <script type="text/javascript" src="$app-root/resources/js/jquery.min.js"/>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/jquery.smartmenus.min.js"/>
-        <script type="text/javascript" src="$shared/resources/scripts/loadsource.js"/>
         <script type="text/javascript" src="$app-root/resources/js/clipboard.min.js"/>
-        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <script src="https://www.google.com/recaptcha/api.js"/>
+        <!-- keyboard widget css & script -->
+        <link href="$app-root/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
+        <link href="$app-root/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
+        <link href="$app-root/resources/keyboard/syr/syr.css" rel="stylesheet"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/syr/jquery.keyboard.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/syr/keyboardSupport.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/syr/syr.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/layouts/ms-Greek.min.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/layouts/ms-Russian.min.js"/>
+        <script type="text/javascript" src="$app-root/resources/keyboard/layouts/ms-Arabic.min.js"/>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
+                <![CDATA[
+                $('.keyboard').keyboard({
+                    openOn: null,
+                    stayOpen: false,
+                    alwaysOpen: false,
+                    autoAccept: true,
+                    usePreview: false,
+                    initialFocus: true,
+                    rtl : true,
+                    layout: 'syriac-phonetic'
+                });
+                
+                $('.keyboard-select').click(function () {
+                    var keyboardID = '#' + $(this).data("keyboard-id")
+                    var kb = $(keyboardID).getkeyboard();
+                    //var kb = $('#searchField').getkeyboard();
+                    // change layout based on link ID
+                    kb.options.layout = this.id
+                    // open keyboard if layout is different, or time from it last closing is > 200 ms
+                    if (kb.last.layout !== kb.options.layout || (new Date().getTime() - kb.last.eventTime) > 200) {
+                        kb.reveal();
+                    }
+                });
+                //Change fonts
+                $('.swap-font').on('click', function(){
+                    var selectedFont = $(this).data("font-id")
+                    $('.selectableFont').not('.syr').css('font-family', selectedFont);
+                    $("*:lang(syr)").css('font-family', selectedFont)
+                });
+                ]]>
+            })
+        </script>
     </head>
     <body vocab="http://schema.org/">
         <!--[if lt IE 7]>
                 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
             <![endif]-->
         <!-- Fixed navbar -->
+        <div data-template="app:shared-content" data-template-path="/templates/draft-info.html"/>
         <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
             <div class="container">
                 <div class="navbar-header">
@@ -87,18 +138,69 @@
                         <!-- Shared drop-down menu of all submodules -->
                         <li data-template="app:shared-content" data-template-path="/templates/shared-links.html"/>
                     </ul>
+                    <ul class="nav navbar-nav navbar-right keboard-btn">
+                        <li>
+                            <div class="btn-nav">
+                                <a class="btn btn-default navbar-btn dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span>
+                                    <span class="caret"/>
+                                </a>
+                                <ul data-template="app:keyboard-select-menu" data-template-input-id="q"/>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="btn-nav">
+                                <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Search Tools">
+                                    &#160;<span class="glyphicon glyphicon-cog"/>&#160;<span class="caret"/>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="search.html">Advanced Search</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="btn-nav">
+                                <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                                    Font&#160;<span class="caret"/>
+                                </a>
+                                <ul class="dropdown-menu" id="swap-font">
+                                    <li>
+                                        <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a>
+                                    </li>
+                                    <li>
+                                        <a href="$app-root/documentation/view-syriac.html">Help <span class="glyphicon glyphicon-question-sign"/>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
                     <form class="navbar-form navbar-right navbar-input-group" role="search" action="$app-root/geo/search.html" method="get">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="search" name="q" id="q"/>
+                            <input type="text" class="form-control keyboard" placeholder="search" name="q" id="q"/>
                             <input type="hidden" id="collection" value="places"/>
+                            <!--
                             <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit">
-                                    &#160; <span class="glyphicon glyphicon-search"/>
+                                <button class="btn btn-default" type="submit" data-toggle="tooltip" title="Search" data-placement="bottom">
+                                      <span class="glyphicon glyphicon-search"/>
                                 </button>
-                                <a href="$app-root/geo/search.html" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-cog"/>&#160;<small>Search Tools</small>
+                                <a href="$app-root/geo/search.html" class="btn btn-default" data-toggle="tooltip" title="Search Tools" data-placement="bottom">
+                                    <span class="glyphicon glyphicon-cog" data-toggle="tooltip"/> 
                                 </a>
-                            </div><!-- /btn-group -->
+                            </div>
+                            -->
+                            <!-- /btn-group -->
                         </div>
                     </form>
                 </div><!--/.nav-collapse -->
