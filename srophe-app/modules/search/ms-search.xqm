@@ -72,7 +72,7 @@ declare function ms:results-node($hit){
 };
 
 (:~
- : Builds advanced search form for persons
+ : Builds advanced search form for MSS
  :)
 declare function ms:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
@@ -83,12 +83,20 @@ declare function ms:search-form() {
             <xi:include href="../searchTips.html"/>
         <div class="well well-small search-inner well-white">
         <!-- Keyword -->
-            <div class="form-group">            
-                <label for="q" class="col-sm-2 col-md-3  control-label">Full-text: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="q" name="q" class="form-control"/>
-                </div>
-            </div> 
+        <div class="form-group">
+            <label for="q" class="col-sm-2 col-md-3  control-label">Full-text: </label>
+            <div class="col-sm-10 col-md-9 ">
+                <div class="input-group">
+                    <input type="text" id="qs" name="q" class="form-control keyboard"/>
+                    <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                            </button>
+                            {global:keyboard-select-menu('qs')}
+                    </div>
+                </div> 
+            </div>
+        </div>
         </div>
         <div class="pull-right">
             <button type="submit" class="btn btn-info">Search</button>&#160;

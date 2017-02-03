@@ -199,7 +199,7 @@ return
 };
 
 (:~
- : Builds advanced search form for persons
+ : Builds advanced search form for SPEAR
  :)
 declare function spears:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
@@ -210,32 +210,63 @@ declare function spears:search-form() {
             <xi:include href="../searchTips.html"/>
         <div class="well well-small search-inner well-white">
         <!-- Keyword -->
-            <div class="form-group">            
-                <label for="q" class="col-sm-2 col-md-3  control-label">Full-text: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="q" name="q" class="form-control"/>
+            <div class="form-group">
+                <label for="qs" class="col-sm-2 col-md-3  control-label">Full-text: </label>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="qs" name="q" class="form-control keyboard"/>
+                        <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                {global:keyboard-select-menu('qs')}
+                        </div>
+                    </div> 
                 </div>
             </div>
             <!-- Person Name -->
-            <div class="form-group">            
+            <div class="form-group">
                 <label for="name" class="col-sm-2 col-md-3  control-label">Person Name: </label>
                 <div class="col-sm-10 col-md-6">
-                    <input type="text" id="name" name="name" class="form-control"/>
+                    <div class="input-group">
+                    <input type="text" id="name" name="name" class="form-control keyboard"/>
+                        <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                {global:keyboard-select-menu('name')}
+                        </div>
+                    </div> 
                 </div>
-            </div>
-            <div class="form-group">            
+            </div>            
+            <div class="form-group">
                 <label for="place" class="col-sm-2 col-md-3  control-label">Place Name: </label>
                 <div class="col-sm-10 col-md-6">
-                    <input type="text" id="place" name="place" class="form-control"/>
+                    <div class="input-group">
+                    <input type="text" id="place" name="place" class="form-control keyboard"/>
+                        <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                {global:keyboard-select-menu('place')} 
+                        </div>
+                    </div> 
                 </div>
-            </div>
-            <div class="form-group">            
+            </div> 
+            <div class="form-group">
                 <label for="event" class="col-sm-2 col-md-3  control-label">Event: </label>
                 <div class="col-sm-10 col-md-6">
-                    <input type="text" id="event" name="event" class="form-control"/>
+                    <div class="input-group">
+                    <input type="text" id="event" name="event" class="form-control keyboard"/>
+                        <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                {global:keyboard-select-menu('event')}
+                        </div>
+                    </div> 
                 </div>
-            </div>
-            
+            </div>              
             <!-- Person gender 
             <div class="form-group">            
                 <label for="gender" class="col-sm-2 col-md-3  control-label">Gender: </label>

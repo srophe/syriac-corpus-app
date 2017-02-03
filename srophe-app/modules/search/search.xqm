@@ -345,20 +345,12 @@ declare %templates:wrap function search:build-page($node as node()*, $model as m
     else ()
 };
 
+
 (:~
  : Builds advanced search form
  :)
 declare function search:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal indent" role="form">
-    <script type="text/javascript">
-    <![CDATA[
-        $(function(){
-            initializeKeyboard('#qs', 'syriac-standard', '#qs-keyboard');
-            initializeKeyboard('#placeName', 'syriac-standard', '#placeName-keyboard');
-            initializeKeyboard('#persName', 'syriac-standard', '#persName-keyboard');
-            });
-         ]]>
-    </script>
     <h1 class="search-header">Search Syriaca.org (All Publications)</h1>
     <p class="indent">More detailed search functions are available in each individual <a href="/">publication</a>.</p>
     <div class="well well-small">
@@ -374,27 +366,27 @@ declare function search:search-form() {
                     <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
                     <div class="col-sm-10 col-md-9 ">
                         <div class="input-group">
-                            <input type="text" id="qs" name="q" class="form-control"/>
+                            <input type="text" id="qs" name="q" class="form-control keyboard"/>
                             <div class="input-group-btn">
-                                <span class="btn btn-default" id="qs-keyboard">
-                                   <span class="glyphicon glyphicon-cog"/>&#160;<small>Keyboard</small>
-                                </span>
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    {global:keyboard-select-menu('qs')}
                             </div>
                          </div> 
-
                     </div>
-                    
                   </div>
                     <!-- Place Name-->
                   <div class="form-group">
                     <label for="placeName" class="col-sm-2 col-md-3  control-label">Place Name: </label>
                     <div class="col-sm-10 col-md-9 ">
                         <div class="input-group">
-                            <input type="text" id="placeName" name="placeName" class="form-control"/>
+                            <input type="text" id="placeName" name="placeName" class="form-control keyboard"/>
                             <div class="input-group-btn">
-                                <span class="btn btn-default" id="placeName-keyboard">
-                                   <span class="glyphicon glyphicon-cog"/>&#160;<small>Keyboard</small>
-                                </span>
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    {global:keyboard-select-menu('placeName')}
                             </div>
                          </div>   
                     </div>
@@ -403,29 +395,32 @@ declare function search:search-form() {
                     <label for="persName" class="col-sm-2 col-md-3  control-label">Person Name: </label>
                     <div class="col-sm-10 col-md-9 ">
                         <div class="input-group">
-                            <input type="text" id="persName" name="persName" class="form-control"/>
+                            <input type="text" id="persName" name="persName" class="form-control keyboard"/>
                             <div class="input-group-btn">
-                                <span class="btn btn-default" id="persName-keyboard">
-                                   <span class="glyphicon glyphicon-cog"/>&#160;<small>Keyboard</small>
-                                </span>
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    {global:keyboard-select-menu('persName')}
+                                
                             </div>
                          </div>   
                     </div>
                   </div>
-                  <!--
                 <div class="form-group">
-                    <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
+                    <label for="titleInput" class="col-sm-2 col-md-3  control-label">Title: </label>
                     <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="title" name="title" class="form-control"/>
+                        <div class="input-group">
+                            <input type="text" id="titleInput" name="title" class="form-control keyboard"/>
+                            <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    {global:keyboard-select-menu('titleInput')}
+                            </div>
+                         </div>   
                     </div>
-                  </div> 
-                <div class="form-group">
-                    <label for="bibl" class="col-sm-2 col-md-3  control-label">Citation: </label>
-                    <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="bibl" name="bibl" class="form-control"/>
-                    </div>
-               </div> -->
-                <div class="form-group">
+                  </div>
+              <div class="form-group">
                     <label for="uri" class="col-sm-2 col-md-3  control-label">Syriaca.org URI: </label>
                     <div class="col-sm-10 col-md-9 ">
                         <input type="text" id="uri" name="uri" class="form-control"/>

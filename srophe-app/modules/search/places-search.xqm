@@ -382,13 +382,11 @@ declare function places:results-node($hit){
             </a>
         </p>
 };
-
 (:~
  : Builds advanced search form
  :)
 declare function places:search-form() {   
-<form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  style="margin-top:2em;" class="form-horizontal" role="form">
-<h1>Advanced Search</h1>
+<form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
     <div class="well well-small">
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
@@ -401,28 +399,60 @@ declare function places:search-form() {
                  <div class="form-group">
                     <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
                     <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="q" name="q" class="form-control"/>
+                       <div class="input-group">
+                        <input type="text" id="qs" name="q" class="form-control keyboard"/>
+                            <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                {global:keyboard-select-menu('qs')}
+                            </div>
+                    </div> 
                     </div>
                   </div>
                     <!-- Place Name-->
                   <div class="form-group">
                     <label for="p" class="col-sm-2 col-md-3  control-label">Place Name: </label>
                     <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="p" name="p" class="form-control"/>
+                       <div class="input-group">
+                            <input type="text" id="p" name="p" class="form-control keyboard"/>
+                            <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    {global:keyboard-select-menu('p')}
+                            </div>
+                        </div> 
                     </div>
                   </div>
                     <!-- Location --> 
                     <div class="form-group">
                         <label for="loc" class="col-sm-2 col-md-3  control-label">Location: </label>
                         <div class="col-sm-10 col-md-9 ">
-                            <input type="text" id="loc" name="loc" class="form-control"/>
+                           <div class="input-group">
+                                <input type="text" id="loc" name="loc" class="form-control keyboard"/>
+                            <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    {global:keyboard-select-menu('loc')}
+                            </div>
+                            </div>                         
                         </div>
                     </div>
                     <hr/>
                     <div class="form-group">
                         <label for="e" class="col-sm-2 col-md-3  control-label">Events: </label>
                         <div class="col-sm-10 col-md-9 ">
-                            <input type="text" id="e" name="e" class="form-control"/>
+                           <div class="input-group">
+                            <input type="text" id="e" name="e" class="form-control keyboard"/>
+                            <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    {global:keyboard-select-menu('e')}
+                            </div>
+                            </div>                              
                         </div>
                     </div>
                     <div class="form-group">
@@ -438,7 +468,15 @@ declare function places:search-form() {
                      <div class="form-group">
                         <label for="a" class="col-sm-2 col-md-3  control-label">Attestations: </label>
                         <div class="col-sm-10 col-md-9 ">
-                            <input type="text" id="a" name="a" class="form-control"/>
+                           <div class="input-group">
+                            <input type="text" id="a" name="a" class="form-control keyboard"/>
+                            <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    {global:keyboard-select-menu('a')}
+                            </div>
+                            </div>                             
                         </div>
                     </div>
                     <div class="form-group">
@@ -486,6 +524,30 @@ declare function places:search-form() {
                             <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
                         </div>
                     </div>
+            <!-- Associated Places-->
+            <div class="form-group">            
+                <label for="related-place" class="col-sm-2 col-md-3  control-label">Related Places: </label>
+                <div class="col-sm-10 col-md-6">
+                    <input type="text" id="related-place" name="related-place" placeholder="Related Places" class="form-control"/>&#160;
+                    <p class="hint small">* Enter syriaca.org URI, ex: http://syriaca.org/place/78</p>
+                </div>
+            </div>
+            <!-- Related persons-->
+            <div class="form-group">            
+                <label for="related-persons" class="col-sm-2 col-md-3  control-label">Related Persons: </label>
+                <div class="col-sm-10 col-md-6">
+                    <input type="text" id="related-persons" name="related-persons" class="form-control" placeholder="Related Persons"/>
+                    <p class="hint small">* Enter syriaca.org URI, ex: http://syriaca.org/person/13</p>
+                </div>
+            </div>
+            <!--Associated Texts:-->
+            <div class="form-group">            
+                <label for="mentioned" class="col-sm-2 col-md-3  control-label">Related Works: </label>
+                <div class="col-sm-10 col-md-6">
+                    <input type="text" id="mentioned" name="mentioned" class="form-control" placeholder="Related Works"/>
+                    <p class="hint small">* Enter syriaca.org URI, ex: http://syriaca.org/work/429</p>
+                </div>
+            </div>                    
                 </div>
                 <div class="col-md-5">
                       <!-- Place Type -->
@@ -527,7 +589,7 @@ declare function places:search-form() {
                 </div>
             </div>
         </div>
-        <div class="pull-right">
+        <div class="pull-right">        
             <button type="submit" class="btn btn-info">Search</button>&#160;
             <button type="reset" class="btn">Clear</button>
         </div>

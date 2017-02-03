@@ -170,7 +170,7 @@ declare function bhses:search-string(){
 
 
 (:~
- : Builds advanced search form for persons
+ : Builds advanced search form for BHSE
  :)
 declare function bhses:search-form($collection) {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
@@ -202,80 +202,176 @@ declare function bhses:search-form($collection) {
                 </div>
             </div>
         <!-- Keyword -->
-            <div class="form-group">            
+            <div class="form-group">
                 <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="q" name="q" class="form-control" placeholder="English, French, Syriac"/>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="qs" name="q" class="form-control keyboard" placeholder="English, French, Syriac"/>
+                        <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                    {global:keyboard-select-menu('qs')}
+                        </div>
+                    </div> 
                 </div>
-            </div> 
-            <hr/>         
-            <div class="form-group">            
+            </div>
+            <hr/>
+            <div class="form-group">
                 <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="title" name="title" class="form-control"  placeholder="English, French, Syriac"/>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="title" name="title" class="form-control keyboard" placeholder="English, French, Syriac"/>
+                        <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                    {global:keyboard-select-menu('title')}
+                        </div>
+                    </div> 
                 </div>
             </div>
-            <div class="form-group">            
-                <label for="author" class="col-sm-2 col-md-3  control-label">Author: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="author" name="author" class="form-control" placeholder="English, French, Syriac"/>
+            <div class="form-group">
+                <label for="title" class="col-sm-2 col-md-3  control-label">Author: </label>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="author" name="author" class="form-control keyboard" placeholder="English, French, Syriac"/>
+                        <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                    {global:keyboard-select-menu('author')}
+                        </div>
+                    </div> 
                 </div>
             </div>
-            <div class="form-group">            
-                <label for="related-pers" class="col-sm-2 col-md-3  control-label">Related Persons: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="related-pers" name="related-pers" class="form-control" placeholder="English, French, Syriac Keyword or Syriaca.org URI"/>
+            <div class="form-group">
+                <label for="relatedPers" class="col-sm-2 col-md-3  control-label">Related Persons: </label>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="relatedPers" name="related-pers" class="form-control keyboard" placeholder="English, French, Syriac Keyword or Syriaca.org URI"/>
+                        <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                    {global:keyboard-select-menu('relatedPers')}
+                        </div>
+                    </div> 
                 </div>
-            </div>              
-            <hr/>         
-            <div class="form-group">            
+            </div>          
+            <hr/>  
+            <div class="form-group">
                 <label for="prologue" class="col-sm-2 col-md-3  control-label">Prologue: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="prologue" name="prologue" class="form-control" placeholder="French, Syriac"/>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="prologue" name="prologue" class="form-control keyboard" placeholder="French, Syriac"/>
+                        <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                    {global:keyboard-select-menu('prologue')}
+                        </div>
+                    </div> 
                 </div>
             </div> 
-            <div class="form-group">            
+            <div class="form-group">
                 <label for="incipit" class="col-sm-2 col-md-3  control-label">Incipit: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="incipit" name="incipit" class="form-control" placeholder="French, Syriac"/>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="incipit" name="incipit" class="form-control keyboard" placeholder="French, Syriac"/>
+                        <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                    {global:keyboard-select-menu('incipit')}
+                        </div>
+                    </div> 
                 </div>
-            </div> 
-            <div class="form-group">            
+            </div>       
+            <div class="form-group">
                 <label for="explicit" class="col-sm-2 col-md-3  control-label">Explicit: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="explicit" name="explicit" class="form-control" placeholder="French, Syriac"/>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                    <input type="text" id="explicit" name="explicit" class="form-control keyboard" placeholder="French, Syriac"/>
+                        <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                    {global:keyboard-select-menu('explicit')}
+                        </div>
+                    </div> 
                 </div>
-            </div>
-            <div class="form-group">            
+            </div>  
+            <div class="form-group">
                 <label for="editions" class="col-sm-2 col-md-3  control-label">Editions: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="editions" name="editions" class="form-control" placeholder="Keyword"/>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                    <input type="text" id="editions" name="editions" class="form-control keyboard" placeholder="Keyword"/>
+                        <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                    {global:keyboard-select-menu('editions')}
+                        </div>
+                    </div> 
                 </div>
             </div> 
-            <div class="form-group">            
+            <div class="form-group">
                 <label for="modern" class="col-sm-2 col-md-3  control-label">Modern Translations: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="modern" name="modern" class="form-control" placeholder="Keyword"/>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                    <input type="text" id="modern" name="modern" class="form-control keyboard" placeholder="Keyword"/>
+                        <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                    {global:keyboard-select-menu('modern')}
+                        </div>
+                    </div> 
+                </div>
+            </div>                            
+            <div class="form-group">
+                <label for="ancient" class="col-sm-2 col-md-3  control-label">Ancient Versions: </label>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                    <input type="text" id="ancient" name="ancient" class="form-control keyboard" placeholder="Keyword"/>
+                        <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                    {global:keyboard-select-menu('ancient')}
+                        </div>
+                    </div> 
+                </div>
+            </div>  
+            <div class="form-group">
+                <label for="mss" class="col-sm-2 col-md-3  control-label">Manuscripts: </label>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                    <input type="text" id="mss" name="mss" class="form-control keyboard" placeholder="Keyword"/>
+                        <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                    {global:keyboard-select-menu('mss')}
+                        </div>
+                    </div> 
                 </div>
             </div> 
-            <div class="form-group">            
-                <label for="ancient" class="col-sm-2 col-md-3  control-label">Ancient Versions: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="ancient" name="ancient" class="form-control" placeholder="Keyword"/>
-                </div>
-            </div>
-            <div class="form-group">            
-                <label for="mss" class="col-sm-2 col-md-3  control-label">Manuscripts: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="mss" name="mss" class="form-control" placeholder="Keyword"/>
-                </div>
-            </div>
-            <div class="form-group">            
+            <div class="form-group">
                 <label for="sources" class="col-sm-2 col-md-3  control-label">References: </label>
-                <div class="col-sm-10 col-md-6 ">
-                    <input type="text" id="refs" name="refs" class="form-control" placeholder="Keyword"/>
+                <div class="col-sm-10 col-md-6">
+                    <div class="input-group">
+                    <input type="text" id="refs" name="refs" class="form-control keyboard" placeholder="Keyword"/>
+                        <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                    {global:keyboard-select-menu('refs')}
+                        </div>
+                    </div> 
                 </div>
-            </div>
+            </div>             
             <hr/>
             <div class="form-group">            
                 <label for="idno" class="col-sm-2 col-md-3  control-label">Text Id Number: </label>
