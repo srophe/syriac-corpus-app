@@ -11,7 +11,6 @@
         <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org"/>
         <link data-template="app:rel-links"/>
         <link rel="shortcut icon" href="$app-root/resources/img/syriaca.ico"/>
-        <!-- Syriaca.org css -->
         <link rel="stylesheet" href="$app-root/resources/css/syr-icon-fonts.css"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/main.css"/>
@@ -22,62 +21,11 @@
         <!-- Leaflet -->
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
         <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>   
-        <!-- jquery -->
-        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/ui-lightness/jquery-ui.css" rel="stylesheet"/>
         <!-- temporary until migrate to bootstrap 3.0 -->
-        <script type="text/javascript" src="$app-root/resources/js/jquery.min.js"/>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"/>
+        <script type="text/javascript" src="$app-root/resources/js/jquery-1.9.1.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/jquery.smartmenus.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/clipboard.min.js"/>
-        <script src="https://www.google.com/recaptcha/api.js"/>
-        <!-- keyboard widget css & script -->
-        <link href="$app-root/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
-        <link href="$app-root/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
-        <link href="$app-root/resources/keyboard/syr/syr.css" rel="stylesheet"/>
-        <script type="text/javascript" src="$app-root/resources/keyboard/syr/jquery.keyboard.js"/>
-        <script type="text/javascript" src="$app-root/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"/>
-        <script type="text/javascript" src="$app-root/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"/>
-        <script type="text/javascript" src="$app-root/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"/>
-        <script type="text/javascript" src="$app-root/resources/keyboard/syr/keyboardSupport.js"/>
-        <script type="text/javascript" src="$app-root/resources/keyboard/syr/syr.js"/>
-        <script type="text/javascript" src="$app-root/resources/keyboard/layouts/ms-Greek.min.js"/>
-        <script type="text/javascript" src="$app-root/resources/keyboard/layouts/ms-Russian.min.js"/>
-        <script type="text/javascript" src="$app-root/resources/keyboard/layouts/ms-Arabic.min.js"/>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
-                <![CDATA[
-                $('.keyboard').keyboard({
-                    openOn: null,
-                    stayOpen: false,
-                    alwaysOpen: false,
-                    autoAccept: true,
-                    usePreview: false,
-                    initialFocus: true,
-                    rtl : true,
-                    layout: 'syriac-phonetic'
-                });
-                
-                $('.keyboard-select').click(function () {
-                    var keyboardID = '#' + $(this).data("keyboard-id")
-                    var kb = $(keyboardID).getkeyboard();
-                    //var kb = $('#searchField').getkeyboard();
-                    // change layout based on link ID
-                    kb.options.layout = this.id
-                    // open keyboard if layout is different, or time from it last closing is > 200 ms
-                    if (kb.last.layout !== kb.options.layout || (new Date().getTime() - kb.last.eventTime) > 200) {
-                        kb.reveal();
-                    }
-                });
-                //Change fonts
-                $('.swap-font').on('click', function(){
-                    var selectedFont = $(this).data("font-id")
-                    $('.selectableFont').not('.syr').css('font-family', selectedFont);
-                    $("*:lang(syr)").css('font-family', selectedFont)
-                });
-                ]]>
-            })
-        </script>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
     <body>
         <!--[if lt IE 7]>
