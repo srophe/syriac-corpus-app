@@ -509,3 +509,11 @@ declare %templates:wrap function app:dashboard($node as node(), $model as map(*)
         </div>
     </div>
 };
+
+
+(:~
+ : display keyboard menu 
+:)
+declare function app:keyboard-select-menu($node, $model, $input-id){
+    global:keyboard-select-menu($input-id)
+};

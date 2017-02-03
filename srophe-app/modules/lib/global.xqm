@@ -191,3 +191,20 @@ declare function global:build-sort-string($titlestring as xs:string?, $lang as x
 declare function global:ar-sort-string($titlestring as xs:string?) as xs:string* {
     replace(replace(replace(replace($titlestring,'^\s+',''),'^(\sابن|\sإبن|\sبن)',''),'(ال|أل|ٱل)',''),'[U064B-U0656]','')
 };
+
+
+(:~
+ : Configure dropdown menu for keyboard layouts for input boxes
+ : @param $input-id input id used by javascript to select correct keyboard layout.  
+ :)
+declare function global:keyboard-select-menu($input-id as xs:string){
+    (: Could have lange options set in config :)
+        <ul xmlns="http://www.w3.org/1999/xhtml" class="dropdown-menu">
+            <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="{$input-id}">Syriac Phonetic</a></li>                                
+            <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="{$input-id}">Syriac Standard</a></li>
+            <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="{$input-id}">Arabic Mod. Standard</a></li>
+            <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="{$input-id}">English QWERTY</a></li>                                    
+            <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="{$input-id}">Greek Mod. Standard</a></li>
+            <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="{$input-id}">Russian Mod. Standard</a></li>
+        </ul>    
+};
