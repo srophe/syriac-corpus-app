@@ -16,7 +16,7 @@ import module namespace common="http://syriaca.org/common" at "common.xqm";
 import module namespace maps="http://syriaca.org/maps" at "../lib/maps.xqm";
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 import module namespace functx="http://www.functx.com";
-
+import module namespace kwic="http://exist-db.org/xquery/kwic";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -280,6 +280,8 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
     <div>{search:build-geojson($node,$model)}</div>
     {
         for $hit at $p in subsequence($model("hits"), $search:start, $search:perpage)
+        let $kwic := kwic:summarize($hit, <config width="40"/>, util:function(xs:QName("search:filter"
+), 2))
         return
             <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
                 <div class="col-md-12">
@@ -293,43 +295,24 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                         </span>
                       </div>
                       <div class="col-md-9" xml:lang="en">
+                        {global:display-recs-short-view($hit,'')} 
                         {
-                         if(starts-with(request:get-parameter('author', ''),$global:base-uri)) then 
-                             global:display-recs-short-view($hit,'',request:get-parameter('author', ''))
-                         else if($collection = 'spear') then 
-                            <div class="results-list">
-                                 {
-                                 if($hit/tei:title) then
-                                     (' ', <a href="aggregate.html?id={replace($hit//tei:idno,'/tei','')}" class="syr-label">{string-join($hit/descendant-or-self::tei:title[1]/node(),' ')}</a>)
-                                 else 
-                                     (if($hit/tei:listRelation) then 
-                                         <span class="srp-label">[{concat(' ', functx:camel-case-to-words(substring-after($hit/tei:listRelation/tei:relation/@name,':'),' '))} relation] </span>
-                                     else if($hit/tei:listPerson) then
-                                         <span class="srp-label">[Person factoid] </span>
-                                     else if($hit/tei:listEvent) then
-                                         <span class="srp-label">[Event factoid] </span>
-                                     else (),
-                                     <a href="factoid.html?id={string($hit/@uri)}" class="syr-label">
-                                     {
-                                         if($hit/descendant-or-self::tei:titleStmt) then $hit/descendant-or-self::tei:titleStmt[1]/text()
-                                         else if($hit/tei:listRelation) then 
-                                             <span> 
-                                              {rel:build-short-relationships($hit/tei:listRelation/tei:relation,'')}
-                                             </span>
-                                         else substring(string-join($hit/child::*[1]/descendant-or-self::*/text(),' '),1,550)
-                                     }                                    
-                                 </a>)
-                                 }
-                             </div>  
-                         else if(request:get-parameter('relation', '') and $collection = 'spear') then
-                            <a href="factoid.html?id={string($hit/@uri)}">{rel:build-relationship-sentence($hit/descendant::tei:relation,$spears:relation)}</a>
-                         else global:display-recs-short-view($hit,'')
-                        } 
+                            if($kwic) then $kwic 
+                            else ()
+                        }
                       </div>
                 </div>
             </div>
        } 
 </div>
+};
+
+declare function search:filter($node as node(), $mode as xs:string) as xs:string? 
+{
+  if ($mode eq 'before') then 
+      concat($node, ' ')
+  else 
+      concat(' ', $node)
 };
 
 (:~          
