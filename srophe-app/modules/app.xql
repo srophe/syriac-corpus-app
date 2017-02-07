@@ -75,10 +75,8 @@ declare function app:display-nodes($node as node(), $model as map(*), $paths as 
     return 
         if($paths != '') then 
             global:tei2html(
-                <body xmlns="http://www.tei-c.org/ns/1.0">{
                     for $p in tokenize($paths,',')
-                    return util:eval(concat('$data',$p))
-                }</body>)
+                    return util:eval(concat('$data',$p)))
         else global:tei2html($model("data")/descendant::tei:body)
 }; 
 
@@ -88,13 +86,6 @@ declare function app:display-nodes($node as node(), $model as map(*), $paths as 
 declare %templates:wrap function app:display-sources($node as node(), $model as map(*)){
     let $sources := $model("data")/descendant::tei:body/descendant::tei:bibl
     return global:tei2html(<sources xmlns="http://www.tei-c.org/ns/1.0">{$sources}</sources>)
-};
-
-(:~    
- : Return teiHeader info to be used in citation
-:)
-declare %templates:wrap function app:display-citation($node as node(), $model as map(*)){
-    global:tei2html($model("data")//tei:teiHeader)
 };
 
 (:~    
@@ -138,7 +129,6 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                         app:display-related-inline($model("data"),'dct:isPartOf'),
                         app:display-related-inline($model("data"),'syriaca:part-of-tradition'),
                         global:tei2html($allData))  
-                
                 } 
             </div>
             <div class="col-md-4 column2">
@@ -147,8 +137,7 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                 <div class="info-btns">  
                     <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
                     <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">Is this record complete?</a>
-                </div>,
-                
+                </div>,                
                 if($model("data")//tei:body/child::*/tei:listRelation) then 
                 rel:build-relationships($model("data")//tei:body/child::*/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
                 else ()
@@ -156,6 +145,7 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
             </div>
         </div>
 };
+
 (:~
  : Passes any tei:geo coordinates in record to map function. 
  : Suppress map if no coords are found. 
