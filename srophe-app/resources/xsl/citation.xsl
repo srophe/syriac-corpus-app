@@ -63,13 +63,13 @@
         <!-- title of the entry -->
         <xsl:text>“</xsl:text>
         <xsl:choose>
-            <xsl:when test="../descendant::*[@syriaca-tags='#syriaca-headword']">
-                <xsl:for-each select="../descendant::*[@syriaca-tags='#syriaca-headword']">
-                    <xsl:call-template name="title"/>                    
+            <xsl:when test="/descendant::*[@syriaca-tags='#syriaca-headword']">
+                <xsl:for-each select="/descendant::*[@syriaca-tags='#syriaca-headword']">
+                    <xsl:call-template name="title"/>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="t:title[@level='a'][1]" mode="footnote"/>                
+                <xsl:apply-templates select="t:title[@level='a'][1]" mode="footnote"/>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:text>”</xsl:text>
@@ -129,11 +129,11 @@
         <xsl:choose>
             <xsl:when test="../descendant::*[@syriaca-tags='#syriaca-headword']">
                 <xsl:for-each select="../descendant::*[@syriaca-tags='#syriaca-headword']">
-                    <xsl:call-template name="title"/>                    
+                    <xsl:call-template name="title"/>
                 </xsl:for-each>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="t:title[@level='a'][1]" mode="biblist"/>                
+                <xsl:apply-templates select="t:title[@level='a'][1]" mode="biblist"/>
             </xsl:otherwise>
         </xsl:choose>
         <xsl:text>.”</xsl:text>
@@ -147,12 +147,12 @@
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
         <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='general'],'footnote',20)"/>
         <xsl:text>.</xsl:text>
-        
         <xsl:for-each select="../descendant::t:seriesStmt[1]">
             <!-- Add Series and Volumn -->
             <xsl:if test="t:biblScope[1]/@unit='vol'">
                 <xsl:text> </xsl:text>
-                <xsl:text>Vol. </xsl:text><xsl:value-of select="../descendant::t:seriesStmt[1]/t:biblScope[1]/@from"/>
+                <xsl:text>Vol. </xsl:text>
+                <xsl:value-of select="../descendant::t:seriesStmt[1]/t:biblScope[1]/@from"/>
                 <xsl:text> of </xsl:text>
                 <xsl:value-of select="../descendant::t:seriesStmt[1]/t:title[@level='s'][1]"/>
             </xsl:if>
@@ -162,7 +162,6 @@
             <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='general'],'footnote',1)"/>
             <xsl:text>.</xsl:text>
         </xsl:for-each>
-
         <xsl:text> Syriaca.org, 2016-.</xsl:text>
         <!-- publication date statement -->
         <xsl:text> Entry published </xsl:text>
@@ -184,8 +183,6 @@
         <xsl:text>, edited by </xsl:text>
         <xsl:sequence select="local:emit-responsible-persons(t:principal,'footnote',1)"/>
         -->
-        
-
         <xsl:text> </xsl:text>
         <a href="{$uri}">
             <xsl:value-of select="$uri"/>

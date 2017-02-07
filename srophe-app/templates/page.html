@@ -9,7 +9,7 @@
         <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/"/>
         <meta name="DC.type" property="dc.type" content="Text"/>
         <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org"/>
-        <link data-template="app:rel-links"/>
+        <link data-template="app:metadata"/>
         <link rel="shortcut icon" href="$app-root/resources/img/syriaca.ico"/>
         <!-- Syriaca.org css -->
         <link rel="stylesheet" href="$app-root/resources/css/syr-icon-fonts.css"/>
@@ -57,6 +57,8 @@
                     rtl : true,
                     layout: 'syriac-phonetic'
                 });
+                
+                
                 
                 $('.keyboard-select').click(function () {
                     var keyboardID = '#' + $(this).data("keyboard-id")
@@ -171,7 +173,8 @@
                                         <a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a>
                                     </li>
                                     <li>
-                                        <a href="$app-root/documentation/wiki.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/srophe-app-data/wiki">Help <span class="glyphicon glyphicon-question-sign"></span></a>
+                                        <a href="$app-root/documentation/wiki.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/srophe-app-data/wiki">Help <span class="glyphicon glyphicon-question-sign"/>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>

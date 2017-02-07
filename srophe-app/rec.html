@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/bhse.html" data-template-at="content">
-    <!--<xi:include href="banner.html"/>-->
+<div xmlns="http://www.w3.org/1999/xhtml" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
     <div class="grey-dark">
-        <!-- Page title and resource links: Includes h1, link icons, and item URI -->
+        <!-- Simple record display, XSLT conversion of TEI -->
+        <!--
         <div class="container interior-content white">
-            <div data-template="app:h1"/>
-            <div data-template="app:display-work"/>
-            <div data-template="app:display-citation"/>
+            <div data-template="app:display-rec"/>
         </div>
+        -->
+        <!-- Alternate display using map and timeline and relationships -->
+        <!-- For more layout examples look at ../person or /geo   -->
+        <div class="container interior-content white">
+        <div data-template="app:h1"/>
+            <div class="row">
+                <!-- Column 1 -->
+                <div class="col-md-8 column1">
+                    <!-- Break up record, to change order of elements in HTML -->
+                    <!--<div data-template="app:nodes" data-template-paths="/descendant::tei:placeName,/descendant::tei:bibl"/>-->
+                    <div data-template="app:display-nodes" data-template-paths="/descendant::tei:body"/>
+                    <div data-template="app:display-map"/>
+                    <div data-template="app:display-timeline"/>
+                </div>
+                <!-- Column 2 -->
+                <div class="col-md-4 column2">
+                    <div data-template="app:rec-status"/>
+                    <div class="info-btns">  
+                        <!-- Button trigger corrections email modal -->
+                        <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
+                        <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">
+                            Is this record complete?
+                        </a>
+                    </div>
+                    <div data-template="app:display-related"/>
+                </div>
+            </div>
+            <div data-template="app:display-citation"/>
         <!-- Modal email form-->
-        <div data-template="app:contact-form" data-template-collection="bhse"/>
+        <div data-template="app:contact-form"/>
         <!-- Modal faq popup -->
         <div class="modal fade" id="selection" tabindex="-1" role="dialog" aria-labelledby="selectionLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -53,5 +79,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>

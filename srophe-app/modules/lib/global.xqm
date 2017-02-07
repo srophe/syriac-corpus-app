@@ -48,6 +48,9 @@ declare variable $global:app-logo := $global:get-config//logo/text();
 (: Map rendering, google or leaflet :)
 declare variable $global:app-map-option := $global:get-config//maps/option[@selected='true']/text();
 
+(: Recaptcha Key, Store as environemnt variable. :)
+declare variable $global:recaptcha := '6Lc8sQ4TAAAAAEDR5b52CLAsLnqZSQ1wzVPdl0rO';
+
 (: Sub in relative paths based on base-url variable :)
 declare function global:internal-links($uri){
     replace($uri,$global:base-uri,$global:nav-base)
@@ -136,6 +139,21 @@ declare function global:display-recs-short-view($node, $lang) as node()*{
         <param name="lang" value="{$lang}"/>
     </parameters>
     )
+};
+
+(:~
+ : Build uri from short id
+ : @param $id from URL
+:)
+declare function global:resolve-id(){
+let $id := request:get-parameter('id', '')
+let $parse-id :=
+    if(contains($id,$global:base-uri) or starts-with($id,'http://')) then $id
+    else if(contains(request:get-uri(),$global:nav-base)) then replace(request:get-uri(),$global:nav-base, $global:base-uri)
+    else if(contains(request:get-uri(),$global:base-uri)) then request:get-uri()
+    else $id
+let $final-id := if(ends-with($parse-id,'.html')) then substring-before($parse-id,'.html') else $parse-id
+return $final-id
 };
 
 (:

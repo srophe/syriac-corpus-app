@@ -105,7 +105,7 @@
     <xsl:variable name="resource-title">
         <xsl:choose>
             <xsl:when test="/descendant::*[contains(@syriaca-tags,'#syriaca-headword')]">
-                <xsl:apply-templates select="/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]" mode="plain"/>
+                <xsl:apply-templates select="/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][not(empty(node()))][1]" mode="plain"/>
                 <xsl:text> - </xsl:text>
                 <xsl:choose>
                     <xsl:when test="/descendant::*[contains(@syriaca-tags,'#anonymous-description')]">
@@ -145,9 +145,40 @@
             <xsl:apply-templates select="descendant::t:sourceDesc/t:msDesc"/>
         </xsl:if>
         <!-- Body -->
-        <xsl:apply-templates select="descendant::t:body/child::*"/>
+        <xsl:apply-templates select="descendant::t:body"/>
         <!-- Citation Information -->
-        <xsl:call-template name="citationInfo"/>
+        <xsl:apply-templates select="t:teiHeader" mode="citation"/>
+    </xsl:template>
+    <xsl:template match="t:teiHeader" mode="#all">
+        <div class="citationinfo">
+            <h3>How to Cite This Entry</h3>
+            <div id="citation-note" class="well">
+                <xsl:apply-templates select="t:fileDesc/t:titleStmt" mode="cite-foot"/>
+                <div class="collapse" id="showcit">
+                    <div id="citation-bibliography">
+                        <h4>Bibliography:</h4>
+                        <xsl:apply-templates select="t:fileDesc/t:titleStmt" mode="cite-biblist"/>
+                    </div>
+                    <xsl:call-template name="aboutEntry"/>
+                    <div id="license">
+                        <h3>Copyright and License for Reuse</h3>
+                        <div>
+                            <xsl:text>Except otherwise noted, this page is © </xsl:text>
+                            <xsl:choose>
+                                <xsl:when test="t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
+                                    <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="t:fileDesc/t:publicationStmt/t:date[1]"/>
+                                </xsl:otherwise>
+                            </xsl:choose>.
+                        </div>
+                        <xsl:apply-templates select="t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
+                    </div>
+                </div>
+                <a class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide citation">Show full citation information...</a>
+            </div>
+        </div>
     </xsl:template>
     <xsl:template match="t:body">
         <div class="body">
@@ -280,7 +311,7 @@
         </xsl:choose>
     </xsl:template>
     
-    <!-- suppress bibl -->
+    <!-- suppress bibl in titles -->
     <xsl:template match="t:bibl" mode="title"/>
     <xsl:template match="t:bibl">
         <xsl:choose>
@@ -942,6 +973,7 @@
             </xsl:choose>
         </div>
     </xsl:template>
+    
     <!-- NOTE: would really like to get rid of mode=cleanout -->
     <xsl:template match="t:placeName[local-name(..)='desc']" mode="cleanout">
         <xsl:apply-templates select="."/>
@@ -1520,8 +1552,8 @@
         <xsl:if test="t:bibl">
             <xsl:choose>
                 <xsl:when test="self::t:bibl[@type='lawd:Citation' or @type='lawd:ConceptualWork']">
-                    <xsl:variable name="rules" select="'&lt; syriaca:Catalogue &lt; syriaca:Manuscript &lt; lawd:Edition &lt; lawd:Translation &lt; lawd:WrittenWork '"/>                    
-                    <xsl:variable name="type-order"></xsl:variable>
+                    <xsl:variable name="rules" select="'&lt; syriaca:Catalogue &lt; syriaca:Manuscript &lt; lawd:Edition &lt; lawd:Translation &lt; lawd:WrittenWork '"/>
+                    <xsl:variable name="type-order"/>
                     <xsl:for-each-group select="t:bibl[exists(@type)][@type != 'lawd:Citation']" group-by="@type">
                         <xsl:sort select="local:bibl-type-order(current-grouping-key())" order="ascending"/>
                         <xsl:variable name="label">
@@ -1596,16 +1628,19 @@
         </xsl:if>
     </xsl:template>
     
-    <!-- Named template for citation information -->
+    <xsl:template match="t:sources">
+        <xsl:call-template name="sources"/>
+    </xsl:template>
+    <!--@depreciated Named template for citation information -->
     <xsl:template name="citationInfo">
         <div class="citationinfo">
             <h3>How to Cite This Entry</h3>
             <div id="citation-note" class="well">
-                <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
+                <xsl:apply-templates select="descendant-or-self::t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
                 <div class="collapse" id="showcit">
                     <div id="citation-bibliography">
                         <h4>Bibliography:</h4>
-                        <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
+                        <xsl:apply-templates select="descendant-or-self::t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
                     </div>
                     <xsl:call-template name="aboutEntry"/>
                     <div id="license">
@@ -1613,15 +1648,15 @@
                         <div>
                             <xsl:text>Except otherwise noted, this page is © </xsl:text>
                             <xsl:choose>
-                                <xsl:when test="//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
+                                <xsl:when test="descendant-or-self::t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
                                     <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:value-of select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]"/>
+                                    <xsl:value-of select="descendant-or-self::t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]"/>
                                 </xsl:otherwise>
                             </xsl:choose>.
                         </div>
-                        <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
+                        <xsl:apply-templates select="descendant-or-self::t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
                     </div>
                 </div>
                 <a class="togglelink pull-right btn-link" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide citation">Show full citation information...</a>
@@ -1640,11 +1675,11 @@
             <xsl:choose>
                 <xsl:when test="contains($resource-id,'/bibl/')">
                     <h3>About this Online Entry</h3>
-                    <xsl:apply-templates select="/descendant::t:teiHeader/t:fileDesc/t:titleStmt" mode="about-bibl"/>
+                    <xsl:apply-templates select="descendant-or-self::t:teiHeader/t:fileDesc/t:titleStmt" mode="about-bibl"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <h3>About this Entry</h3>
-                    <xsl:apply-templates select="/descendant::t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
+                    <xsl:apply-templates select="descendant-or-self::t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
                 </xsl:otherwise>
             </xsl:choose>
         </div>
