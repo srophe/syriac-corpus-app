@@ -1,6 +1,7 @@
 xquery version "3.0";
 (: Global app variables and functions. :)
 module namespace global="http://syriaca.org/global";
+declare namespace repo="http://exist-db.org/xquery/repo";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
 
@@ -19,34 +20,33 @@ declare variable $global:app-root :=
     return
         substring-before($modulePath, "/modules")
     ;
-(: Get config.xml to parse global varaibles :)
-declare variable $global:get-config := doc($global:app-root || '/config.xml');
+(: Get repo.xml to parse global varaibles :)
+declare variable $global:get-config := doc($global:app-root || '/repo.xml');
 
 (: Establish data app root :)
 declare variable $global:data-root := 
-    let $app-root := $global:get-config//app-root/text()  
-    let $data-root := concat($global:get-config//data-root/text(),'/data') 
+    let $app-root := $global:get-config//repo:app-root/text()  
+    let $data-root := concat($global:get-config//repo:data-root/text(),'/data') 
     return
        replace($global:app-root, $app-root, $data-root)
     ;
 
-(: Establish main navigation for app, used in templates for absolute links :)
+(: Establish main navigation for app, used in templates for absolute links. Syriaca.org uses a development and production server which each have different root directories.  :)
 declare variable $global:nav-base := 
-    if($global:get-config//nav-base/text() != '') then $global:get-config//nav-base/text()
+    if($global:get-config//repo:nav-base/text() != '') then $global:get-config//repo:nav-base/text()
+    (: For app set to root '/' see syriaca.org production site. :)
+    else if($global:get-config//repo:nav-base/text() = '/') then ''
     else concat('/exist/apps/',$global:app-root);
 
-(: Base URI used in tei:idno :)
-declare variable $global:base-uri := $global:get-config//base_uri/text();
+(: Base URI used in record tei:idno :)
+declare variable $global:base-uri := $global:get-config//repo:base_uri/text();
 
-declare variable $global:app-title := $global:get-config//title/text();
+declare variable $global:app-title := $global:get-config//repo:title/text();
 
-declare variable $global:app-url := $global:get-config//url/text();
-
-(: Name of logo, not currently used dynamically :)
-declare variable $global:app-logo := $global:get-config//logo/text();
+declare variable $global:app-url := $global:get-config//repo:url/text();
 
 (: Map rendering, google or leaflet :)
-declare variable $global:app-map-option := $global:get-config//maps/option[@selected='true']/text();
+declare variable $global:app-map-option := $global:get-config//repo:maps/repo:option[@selected='true']/text();
 
 (: Recaptcha Key, Store as environemnt variable. :)
 declare variable $global:recaptcha := '6Lc8sQ4TAAAAAEDR5b52CLAsLnqZSQ1wzVPdl0rO';
@@ -228,12 +228,13 @@ declare function global:odd2text($element as element()?, $label as xs:string?) a
  :)
 declare function global:keyboard-select-menu($input-id as xs:string){
     (: Could have lange options set in config :)
-        <ul xmlns="http://www.w3.org/1999/xhtml" class="dropdown-menu">
-            <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="{$input-id}">Syriac Phonetic</a></li>                                
-            <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="{$input-id}">Syriac Standard</a></li>
-            <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="{$input-id}">Arabic Mod. Standard</a></li>
-            <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="{$input-id}">English QWERTY</a></li>                                    
-            <li><a href="#" class="keyboard-select" id="ms-Greek" data-keyboard-id="{$input-id}">Greek Mod. Standard</a></li>
-            <li><a href="#" class="keyboard-select" id="ms-Russian" data-keyboard-id="{$input-id}">Russian Mod. Standard</a></li>
-        </ul>    
+    if($global:get-config//repo:keyboard-options/child::*) then 
+        <ul xmlns="http://www.w3.org/1999/xhtml" class="dropdown-menu" test="TEST">
+            {
+            for $layout in $global:get-config//repo:keyboard-options/child::*/child::*
+            return  
+                <li xmlns="http://www.w3.org/1999/xhtml"><a href="#" class="keyboard-select" id="{$layout/@id}" data-keyboard-id="{$input-id}">{$layout}</a></li>
+            }
+        </ul>
+    else ()       
 };
