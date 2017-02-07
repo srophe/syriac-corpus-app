@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< Updated upstream
 <package xmlns="http://expath.org/ns/pkg" name="http://syriaca.org/srophe" abbrev="srophe" version="2.0" spec="1.0">
+=======
+<<<<<<< Updated upstream
+<package xmlns="http://expath.org/ns/pkg" name="http://syriaca.org/srophe" abbrev="srophe" version="1.65" spec="1.0">
+=======
+<package xmlns="http://expath.org/ns/pkg" name="http://syriaca.org/srophe" abbrev="srophe" version="1.51" spec="1.0">
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     <title>Syriaca.org</title>
     <!-- TEI data -->
     <dependency package="http://syriaca.org/srophe-data"/>

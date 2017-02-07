@@ -1,4 +1,7 @@
+<<<<<<< Updated upstream
 <?xml version="1.0" encoding="UTF-8"?>
+=======
+>>>>>>> Stashed changes
 <config>
     <!-- App title -->
     <title>Syriaca.org: The Syriac Reference Portal</title>
@@ -35,5 +38,10 @@
             </a> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a>.
             <br/>Copyright Vanderbilt University, Princeton University, and the Contributor(s), 2014.
         </div>
+<<<<<<< Updated upstream
     </footer>
 </config>
+=======
+    </footer>  
+</config>
+>>>>>>> Stashed changes
