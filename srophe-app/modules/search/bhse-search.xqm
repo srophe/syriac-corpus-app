@@ -178,7 +178,7 @@ declare function bhses:search-form($collection) {
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             </button>&#160;
-            <xi:include href="../searchTips.html"/>
+            <xi:include href="{$global:app-root}/searchTips.html"/>
         <div class="well well-small search-inner well-white">
               <div class="form-group">            
                 <label for="coll" class="col-sm-2 col-md-3  control-label">Search in Resource: </label>
