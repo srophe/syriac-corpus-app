@@ -16,20 +16,15 @@ import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.
 declare namespace html="http://www.w3.org/1999/xhtml";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
-(: Record id, passed from URL :)
-declare variable $app:id {request:get-parameter('id', '')};
-declare variable $app:start {request:get-parameter('start', 1) cast as xs:integer};
-declare variable $app:perpage {request:get-parameter('perpage', 5) cast as xs:integer};
-
 (:~  
  : Simple get record function, get tei record based on tei:idno
  : Builds URL from the following URL patterns defined in the controller.xql or uses the id paramter
  : Retuns 404 page if record is not found, or has been @depreciated
  : Retuns 404 page and redirects if the record has been @depreciated see https://github.com/srophe/srophe-app-data/wiki/Deprecated-Records
- : @param $app:id syriaca.org uri   
+ : @param request:get-parameter('id', '') syriaca.org uri   
 :)                 
 declare function app:get-rec($node as node(), $model as map(*), $collection as xs:string?) { 
-if($app:id != '') then 
+if(request:get-parameter('id', '') != '') then 
     let $id := global:resolve-id()   
     return 
         let $rec := global:get-rec($id)
@@ -196,7 +191,7 @@ declare function app:subject-headings($node as node(), $model as map(*)){
  : bibl modulerelationships
 :)                   
 declare function app:cited($node as node(), $model as map(*)){
-    rel:cited($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')], $app:start,$app:perpage)
+    rel:cited($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')], request:get-parameter('start', 1),request:get-parameter('perpage', 5))
 };
 
 (:~      
@@ -292,10 +287,10 @@ return
 
 (:~
  : Dynamically build html title based on TEI record and/or sub-module. 
- : @param $app:id if id is present find TEI title, otherwise use title of sub-module
+ : @param request:get-parameter('id', '') if id is present find TEI title, otherwise use title of sub-module
 :)
 declare %templates:wrap function app:app-title($node as node(), $model as map(*), $collection as xs:string?){
-if($app:id) then
+if(request:get-parameter('id', '')) then
    if(contains($model("data")/descendant::tei:titleStmt[1]/tei:title[1]/text(),' — ')) then
         substring-before($model("data")/descendant::tei:titleStmt[1]/tei:title[1]/text(),' — ')
    else $model("data")/descendant::tei:titleStmt[1]/tei:title[1]/text()
@@ -305,7 +300,7 @@ else if($collection = 'saints')then 'Gateway to the Syriac Saints'
 else if($collection = 'q') then 'Gateway to the Syriac Saints: Volume II: Qadishe'
 else if($collection = 'bhse') then 'Gateway to the Syriac Saints: Volume I: Bibliotheca Hagiographica Syriaca Electronica'
 else if($collection = 'spear') then 'A Digital Catalogue of Syriac Manuscripts in the British Library'
-else if($collection = 'mss') then concat('http://syriaca.org/manuscript/',$app:id)
+else if($collection = 'mss') then concat('http://syriaca.org/manuscript/',request:get-parameter('id', ''))
 else $global:app-title
 };  
 
@@ -313,7 +308,7 @@ else $global:app-title
  : Add header links for alternative formats. 
 :)
 declare function app:metadata($node as node(), $model as map(*)) {
-    if($app:id) then 
+    if(request:get-parameter('id', '')) then 
     (
     (: some rdf examples
     <link type="application/rdf+xml" href="id.rdf" rel="alternate"/>
@@ -325,9 +320,9 @@ declare function app:metadata($node as node(), $model as map(*)) {
     if($model("data")/ancestor::tei:TEI/descendant::tei:desc or $model("data")/ancestor::tei:TEI/descendant::tei:note[@type="abstract"]) then 
         <meta name="DC.description " property="dc.description " content="{$model("data")/ancestor::tei:TEI/descendant::tei:desc[1]/text() | $model("data")/ancestor::tei:TEI/descendant::tei:note[@type="abstract"]}"/>
     else (),
-    <link xmlns="http://www.w3.org/1999/xhtml" type="text/html" href="{$app:id}.html" rel="alternate"/>,
-    <link xmlns="http://www.w3.org/1999/xhtml" type="text/xml" href="{$app:id}/tei" rel="alternate"/>,
-    <link xmlns="http://www.w3.org/1999/xhtml" type="application/atom+xml" href="{$app:id}/atom" rel="alternate"/>
+    <link xmlns="http://www.w3.org/1999/xhtml" type="text/html" href="{request:get-parameter('id', '')}.html" rel="alternate"/>,
+    <link xmlns="http://www.w3.org/1999/xhtml" type="text/xml" href="{request:get-parameter('id', '')}/tei" rel="alternate"/>,
+    <link xmlns="http://www.w3.org/1999/xhtml" type="application/atom+xml" href="{request:get-parameter('id', '')}/atom" rel="alternate"/>
     )
     else ()
 };
@@ -372,7 +367,7 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
                 <input type="text" name="subject" placeholder="subject" class="form-control" style="max-width:300px"/>
                 <br/>
                 <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
-                <input type="hidden" name="id" value="{$app:id}"/>
+                <input type="hidden" name="id" value="{request:get-parameter('id', '')}"/>
                 <input type="hidden" name="collection" value="{$collection}"/>
                 <!-- start reCaptcha API-->
                 <div class="g-recaptcha" data-sitekey="{$global:recaptcha}"></div>
