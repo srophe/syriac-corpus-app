@@ -1,7 +1,7 @@
 Syriaca.org
 =======
 
-Application data for Syriaca.org [http://syriaca.org]: The Syriac Reference Portal
+Application data for Syriaca.org: The Syriac Reference Portal
 All publications of Syriaca.org are made available online in a free and open format using the Creative Commons licenses.
 
 ### Dependencies
@@ -11,9 +11,9 @@ The data must be packaged and deployed to your eXist instance in order to use th
 
 #### Additional dependancies 
 Check that the following packages/libraries are deployed in eXist before deploying the srophe-eXist-app:
-* eXist-db Shared apps: [http://exist-db.org:8098/exist/apps/public-repo/packages/shared.html]
-* JSON Parser and Serializer for XQuery .1.6 + : [https://github.com/joewiz/xqjson]
-* Functx Library: [http://exist-db.org:8098/exist/apps/public-repo/packages/functx.html]
+* eXist-db Shared apps: http://exist-db.org/apps/shared
+* JSON Parser and Serializer for XQuery: http://xqilla.sourceforge.net/pkg/xqjson
+* Functx Library: http://www.functx.com
 
 Packages can be deployed via the eXistdb dashboard. 
 
