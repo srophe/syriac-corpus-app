@@ -17,7 +17,7 @@
     <!-- eXist data app root for gazetteer data -->
     <data-root>syriac-corpus-data</data-root>
     <!-- Base URI for identifiers in app data -->
-    <base_uri>syriaccorpus.org</base_uri>
+    <base_uri>https://syriaccorpus.org</base_uri>
     <!-- Map rendering -->
     <maps>
         <option>google</option>
