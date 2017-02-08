@@ -344,7 +344,7 @@ declare function persons:search-form($collection) {
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             </button>&#160;
-            <xi:include href="../searchTips.html"/>
+            <xi:include href="{$global:app-root}/searchTips.html"/>
         <div class="well well-small search-inner well-white">
          <!-- Person Type -->
            <div class="form-group">            

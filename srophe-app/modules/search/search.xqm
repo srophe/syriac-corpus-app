@@ -352,7 +352,7 @@ declare function search:search-form() {
           <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             </button>&#160;
-            <xi:include href="../searchTips.html"/>
+            <xi:include href="{$global:app-root}/searchTips.html"/>
         <div class="well well-small" style="background-color:white; margin-top:2em;">
             <div class="row">
                 <div class="col-md-7">
