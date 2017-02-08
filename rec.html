@@ -5,29 +5,29 @@
         <div class="container interior-content white">
             <div data-template="app:h1"/>
             <div class="row">
-                <div class="col-md-2">
+                <div class="hidden-xs col-sm-2 col-md-2">
                     <div class="panel panel-default">
                         <div class="panel-heading">Table of Contents</div>
                         <div class="panel-body">
                             <div data-template="app:display-toc"/>
                         </div>
-                    </div>                        
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <div data-template="app:display-nodes" data-template-paths="/descendant::tei:body"/> 
+                <div class="col-sm-6 col-md-6">
+                    <div data-template="app:display-nodes" data-template-paths="/descendant::tei:body"/>
                 </div>
-                <div class="col-md-4">
+                <div class="col-sm-4 col-md-4">
                     <div data-template="app:rec-status"/>
                     <div data-template="app:display-ids"/>
                     <div data-template="app:display-nodes" data-template-paths="/descendant::tei:teiHeader"/>
-                    <div class="info-btns">  
+                    <div class="info-btns">
                         <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
                     </div>
                     <div data-template="app:display-related"/>
                 </div>
             </div>
-
-
+            
+            
             <!--<div data-template="app:citation"/>-->
         </div>
         <!-- Modal email form-->
