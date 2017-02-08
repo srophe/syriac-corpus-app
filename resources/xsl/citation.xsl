@@ -172,13 +172,15 @@
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:for-each>
-            </p>            
+            </p>
         </xsl:if>
         <div>
             <h4>Editorial Responsibility:</h4>
-            <p>
-                <xsl:sequence select="local:emit-responsible-persons-all(t:editor,'footnote')"/>
-            </p>
+            <ul>
+                <xsl:for-each select="t:editor">
+                    <li><xsl:sequence select="local:emit-responsible-persons-all(.,'footnote')"/></li>
+                </xsl:for-each>                
+            </ul>
         </div>
         <xsl:if test="t:respStmt">
             <div>
