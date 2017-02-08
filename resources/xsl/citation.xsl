@@ -178,8 +178,10 @@
             <h4>Editorial Responsibility:</h4>
             <ul>
                 <xsl:for-each select="t:editor">
-                    <li><xsl:sequence select="local:emit-responsible-persons-all(.,'footnote')"/></li>
-                </xsl:for-each>                
+                    <li>
+                        <xsl:sequence select="local:emit-responsible-persons-all(.,'footnote')"/>
+                    </li>
+                </xsl:for-each>
             </ul>
         </div>
         <xsl:if test="t:respStmt">
@@ -192,6 +194,16 @@
                             <xsl:text> </xsl:text>
                             <xsl:apply-templates select="t:name" mode="footnote"/>
                         </li>
+                    </xsl:for-each>
+                </ul>
+            </div>
+        </xsl:if>
+        <xsl:if test="t:funder and not(empty(t:funder/node()))">
+            <div>
+                <h4>Funder:</h4>
+                <ul>
+                    <xsl:for-each select="t:funder">
+                        <li><xsl:value-of select="."/></li>
                     </xsl:for-each>
                 </ul>
             </div>
