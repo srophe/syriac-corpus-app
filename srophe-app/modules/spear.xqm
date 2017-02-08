@@ -45,10 +45,10 @@ declare variable $spear:item-type {
  :)       
 declare %templates:wrap function spear:get-rec($node as node(), $model as map(*), $view as xs:string?){ 
 let $id :=
-        if(contains($app:id,$global:base-uri) or starts-with($app:id,'http://')) then $app:id
+        if(contains($spear:id,$global:base-uri) or starts-with($spear:id,'http://')) then $spear:id
         else if(contains(request:get-uri(),$global:nav-base)) then replace(request:get-uri(),$global:nav-base, $global:base-uri)
         else if(contains(request:get-uri(),$global:base-uri)) then request:get-uri()
-        else $app:id
+        else $spear:id
 let $id := if(ends-with($id,'.html')) then substring-before($id,'.html') else $id  
 return 
     if($view = 'aggregate') then
@@ -60,7 +60,7 @@ return
                     return $rec                  
                 else
                     for $rec in 
-                        collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$app:id or @target=$app:id]] |
+                        collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$spear:id or @target=$spear:id]] |
                         collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@active, concat($spear:id,"(\W|$)"))]] |
                         collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@passive, concat($spear:id,"(\W|$)"))]] |
                         collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@mutual, concat($spear:id,"(\W|$)"))]]
