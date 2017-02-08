@@ -16,7 +16,7 @@ import module namespace common="http://syriaca.org/common" at "common.xqm";
 import module namespace maps="http://syriaca.org/maps" at "../lib/maps.xqm";
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 import module namespace functx="http://www.functx.com";
-import module namespace kwic="http://exist-db.org/xquery/kwic";
+
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -57,9 +57,9 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                         for $hit in util:eval($eval-string)
                         order by global:build-sort-string(page:add-sort-options($hit,$search:sort-element),'') ascending
                         return $hit   
-                    else if(request:get-parameter('child-rec', '') != '' and ($search:sort-element = '' or not(exists($search:sort-element)))) then 
+                    else if(request:get-parameter('rel', '') != '' and ($search:sort-element = '' or not(exists($search:sort-element)))) then 
                         for $hit in util:eval($eval-string)
-                        let $part := xs:integer($hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc/tei:label[@type='order']/@n)
+                        let $part := xs:integer($hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
                         order by $part
                         return $hit                                                                                               
                     else 
@@ -78,7 +78,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
 :)
 declare function search:query-string($collection as xs:string?) as xs:string?{
 if($collection !='') then 
-    concat("collection('",$global:data-root,"/",$collection,"')//tei:TEI",
+    concat("collection('",$global:data-root,"/",$collection,"')//tei:body",
     common:keyword(),
     search:persName(),
     search:placeName(), 
@@ -87,7 +87,7 @@ if($collection !='') then
     common:uri()
     )
 else 
-concat("collection('",$global:data-root,"')//tei:TEI",
+concat("collection('",$global:data-root,"')//tei:body",
     common:keyword(),
     search:persName(),
     search:placeName(), 
@@ -111,7 +111,7 @@ declare function search:placeName(){
 
 declare function search:title(){
     if($search:title != '') then 
-        common:element-search('placeName',$search:title) 
+        common:element-search('title',$search:title) 
     else '' 
 };
 
@@ -221,7 +221,7 @@ let $geo-hits := $data//tei:geo
 return
     if(count($geo-hits) gt 0) then
          (
-         maps:build-map($data[descendant::tei:geo]),
+         maps:build-map($data[descendant::tei:geo], count($data)),
          <div>
             <div class="modal fade" id="map-selection" tabindex="-1" role="dialog" aria-labelledby="map-selectionLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -280,8 +280,6 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
     <div>{search:build-geojson($node,$model)}</div>
     {
         for $hit at $p in subsequence($model("hits"), $search:start, $search:perpage)
-        let $kwic := kwic:summarize($hit, <config width="40"/>, util:function(xs:QName("search:filter"
-), 2))
         return
             <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
                 <div class="col-md-12">
@@ -295,24 +293,43 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                         </span>
                       </div>
                       <div class="col-md-9" xml:lang="en">
-                        {global:display-recs-short-view($hit,'')} 
                         {
-                            if($kwic) then $kwic 
-                            else ()
-                        }
+                         if(starts-with(request:get-parameter('author', ''),$global:base-uri)) then 
+                             global:display-recs-short-view($hit,'',request:get-parameter('author', ''))
+                         else if($collection = 'spear') then 
+                            <div class="results-list">
+                                 {
+                                 if($hit/tei:title) then
+                                     (' ', <a href="aggregate.html?id={replace($hit//tei:idno,'/tei','')}" class="syr-label">{string-join($hit/descendant-or-self::tei:title[1]/node(),' ')}</a>)
+                                 else 
+                                     (if($hit/tei:listRelation) then 
+                                         <span class="srp-label">[{concat(' ', functx:camel-case-to-words(substring-after($hit/tei:listRelation/tei:relation/@name,':'),' '))} relation] </span>
+                                     else if($hit/tei:listPerson) then
+                                         <span class="srp-label">[Person factoid] </span>
+                                     else if($hit/tei:listEvent) then
+                                         <span class="srp-label">[Event factoid] </span>
+                                     else (),
+                                     <a href="factoid.html?id={string($hit/@uri)}" class="syr-label">
+                                     {
+                                         if($hit/descendant-or-self::tei:titleStmt) then $hit/descendant-or-self::tei:titleStmt[1]/text()
+                                         else if($hit/tei:listRelation) then 
+                                             <span> 
+                                              {rel:build-short-relationships($hit/tei:listRelation/tei:relation,'')}
+                                             </span>
+                                         else substring(string-join($hit/child::*[1]/descendant-or-self::*/text(),' '),1,550)
+                                     }                                    
+                                 </a>)
+                                 }
+                             </div>  
+                         else if(request:get-parameter('relation', '') and $collection = 'spear') then
+                            <a href="factoid.html?id={string($hit/@uri)}">{rel:build-relationship-sentence($hit/descendant::tei:relation,$spears:relation)}</a>
+                         else global:display-recs-short-view($hit,'')
+                        } 
                       </div>
                 </div>
             </div>
        } 
 </div>
-};
-
-declare function search:filter($node as node(), $mode as xs:string) as xs:string? 
-{
-  if ($mode eq 'before') then 
-      concat($node, ' ')
-  else 
-      concat(' ', $node)
 };
 
 (:~          
@@ -329,22 +346,13 @@ declare %templates:wrap function search:build-page($node as node()*, $model as m
  :)
 declare function search:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal indent" role="form">
-    <script type="text/javascript">
-    <![CDATA[
-        $(function(){
-            initializeKeyboard('#qs', 'syriac-phonetic', '#qs-keyboard');
-            initializeKeyboard('#placeName', 'syriac-phonetic', '#placeName-keyboard');
-            initializeKeyboard('#persName', 'syriac-phonetic', '#persName-keyboard');
-            });
-         ]]>
-    </script>
     <h1 class="search-header">Search Syriaca.org (All Publications)</h1>
     <p class="indent">More detailed search functions are available in each individual <a href="/">publication</a>.</p>
     <div class="well well-small">
           <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             </button>&#160;
-            <xi:include href="../searchTips.html"/>
+            <xi:include href="{$global:app-root}/searchTips.html"/>
         <div class="well well-small" style="background-color:white; margin-top:2em;">
             <div class="row">
                 <div class="col-md-7">
@@ -353,11 +361,12 @@ declare function search:search-form() {
                     <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
                     <div class="col-sm-10 col-md-9 ">
                         <div class="input-group">
-                            <input type="text" id="qs" name="q" class="form-control"/>
+                            <input type="text" id="qs" name="q" class="form-control keyboard"/>
                             <div class="input-group-btn">
-                                <span class="btn btn-default" id="qs-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                    <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                                </span>
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    {global:keyboard-select-menu('qs')}
                             </div>
                          </div> 
                     </div>
@@ -367,11 +376,12 @@ declare function search:search-form() {
                     <label for="placeName" class="col-sm-2 col-md-3  control-label">Place Name: </label>
                     <div class="col-sm-10 col-md-9 ">
                         <div class="input-group">
-                            <input type="text" id="placeName" name="placeName" class="form-control"/>
+                            <input type="text" id="placeName" name="placeName" class="form-control keyboard"/>
                             <div class="input-group-btn">
-                                <span class="btn btn-default" id="placeName-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                   <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                                </span>
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    {global:keyboard-select-menu('placeName')}
                             </div>
                          </div>   
                     </div>
@@ -380,29 +390,32 @@ declare function search:search-form() {
                     <label for="persName" class="col-sm-2 col-md-3  control-label">Person Name: </label>
                     <div class="col-sm-10 col-md-9 ">
                         <div class="input-group">
-                            <input type="text" id="persName" name="persName" class="form-control"/>
+                            <input type="text" id="persName" name="persName" class="form-control keyboard"/>
                             <div class="input-group-btn">
-                                <span class="btn btn-default" id="persName-keyboard" data-toggle="tooltip" title="Syriac Keyboard">
-                                   <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                                </span>
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    {global:keyboard-select-menu('persName')}
+                                
                             </div>
                          </div>   
                     </div>
                   </div>
-                  <!--
                 <div class="form-group">
-                    <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
+                    <label for="titleInput" class="col-sm-2 col-md-3  control-label">Title: </label>
                     <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="title" name="title" class="form-control"/>
+                        <div class="input-group">
+                            <input type="text" id="titleInput" name="title" class="form-control keyboard"/>
+                            <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    {global:keyboard-select-menu('titleInput')}
+                            </div>
+                         </div>   
                     </div>
-                  </div> 
-                <div class="form-group">
-                    <label for="bibl" class="col-sm-2 col-md-3  control-label">Citation: </label>
-                    <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="bibl" name="bibl" class="form-control"/>
-                    </div>
-               </div> -->
-                <div class="form-group">
+                  </div>
+              <div class="form-group">
                     <label for="uri" class="col-sm-2 col-md-3  control-label">Syriaca.org URI: </label>
                     <div class="col-sm-10 col-md-9 ">
                         <input type="text" id="uri" name="uri" class="form-control"/>

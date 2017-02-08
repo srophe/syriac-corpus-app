@@ -301,9 +301,9 @@ declare function persons:query-string($collection as xs:string?) as xs:string? {
     persons:name(),
     persons:uri(),
     persons:date-range(),
-    persons:related-places(),
-    persons:related-persons(),
-    persons:mentioned()
+    common:related-places(),
+    common:related-persons(),
+    common:mentioned()
     )
 };
 
@@ -340,19 +340,11 @@ declare function persons:search-string() as node()*{
  :)
 declare function persons:search-form($collection) {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
-    <script type="text/javascript">
-    <![CDATA[
-        $(function(){
-            initializeKeyboard('#qs', 'syriac-phonetic', '#qs-keyboard');
-            initializeKeyboard('#persNameSearch', 'syriac-phonetic', '#persNameSearch-keyboard');
-            });
-         ]]>
-    </script>
     <div class="well well-small">
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             </button>&#160;
-            <xi:include href="../searchTips.html"/>
+            <xi:include href="{$global:app-root}/searchTips.html"/>
         <div class="well well-small search-inner well-white">
          <!-- Person Type -->
            <div class="form-group">            
@@ -418,11 +410,12 @@ declare function persons:search-form($collection) {
                 <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
                 <div class="col-sm-10 col-md-6">
                     <div class="input-group">
-                        <input type="text" id="qs" name="q" class="form-control" placeholder="Any script (Syriac, Roman, etc.)"/>
+                        <input type="text" id="qs" name="q" class="form-control keyboard" placeholder="Any script (Syriac, Roman, etc.)"/>
                         <div class="input-group-btn">
-                            <span class="btn btn-default" id="qs-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                {global:keyboard-select-menu('qs')}
                         </div>
                     </div> 
                 </div>
@@ -432,7 +425,7 @@ declare function persons:search-form($collection) {
                 <label for="q" class="col-sm-2 col-md-3  control-label">Person Name: </label>
                 <div class="col-sm-10 col-md-6">
                     <div class="input-group">
-                        <input type="text" id="persNameSearch" name="name" class="form-control" placeholder="Any script (Syriac, Roman, etc.)"/>
+                        <input type="text" id="persNameSearch" name="name" class="form-control keyboard" placeholder="Any script (Syriac, Roman, etc.)"/>
                         <!--<select name="name-type" class="input-medium">
                                 <option value="">- Select -</option>
                                 <option value="any">any</option>
@@ -441,9 +434,10 @@ declare function persons:search-form($collection) {
                                 <option value="title">title</option>
                             </select>-->
                         <div class="input-group-btn">
-                            <span class="btn btn-default" id="persNameSearch-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                    {global:keyboard-select-menu('persNameSearch')}
                         </div>
                     </div> 
                 </div>
@@ -514,9 +508,9 @@ declare function persons:search-form($collection) {
                 
             <!-- Associated Places-->
             <div class="form-group">            
-                <label for="related-place" class="col-sm-2 col-md-3  control-label">Associated Places: </label>
+                <label for="related-place" class="col-sm-2 col-md-3  control-label">Related Places: </label>
                 <div class="col-sm-10 col-md-6 form-inline">
-                    <input type="text" id="related-place" name="related-place" placeholder="Associated Places" class="form-control"/>&#160;
+                    <input type="text" id="related-place" name="related-place" placeholder="Related Places" class="form-control"/>&#160;
                     <select name="place-type" id="place-type" class="form-control">
                          <option value="">any</option>
                          <option value="birth">birth</option>
@@ -524,6 +518,7 @@ declare function persons:search-form($collection) {
                          <!--<option value="venerated">venerated</option>-->
                          <option value="other">other</option>
                     </select>
+                    <p class="hint">* Enter syriaca.org URI, ex: http://syriaca.org/place/78</p>
                 </div>
             </div>
             <!-- Related persons-->
@@ -531,15 +526,15 @@ declare function persons:search-form($collection) {
                 <label for="related-persons" class="col-sm-2 col-md-3  control-label">Related Persons: </label>
                 <div class="col-sm-10 col-md-6">
                     <input type="text" id="related-persons" name="related-persons" class="form-control"/>
-                    <p class="hint">* Enter syriaca uri. ex: http://syriaca.org/person/13</p>
+                    <p class="hint">* Enter syriaca.org URI, ex: http://syriaca.org/person/13</p>
                 </div>
             </div>
             <!--Associated Texts:-->
             <div class="form-group">            
-                <label for="mentioned" class="col-sm-2 col-md-3  control-label">Associated Texts: </label>
+                <label for="mentioned" class="col-sm-2 col-md-3  control-label">Related Works: </label>
                 <div class="col-sm-10 col-md-6">
                     <input type="text" id="mentioned" name="mentioned" class="form-control"/>
-                    <p class="hint">* Enter syriaca uri. ex: http://syriaca.org/work/429</p>
+                    <p class="hint">* Enter syriaca.org URI, ex: http://syriaca.org/work/429</p>
                 </div>
             </div> 
         </div>

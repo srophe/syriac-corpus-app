@@ -1,4 +1,4 @@
-(:~  
+(:~   
  : Builds place page and place page functions
  :)
 xquery version "3.0";
@@ -105,7 +105,7 @@ return
     if($data//tei:geo) then 
         <div class="row" xmlns="http://www.w3.org/1999/xhtml">
             <div class="col-md-7">
-                {maps:build-map($data)}
+                {maps:build-map($data,0)}
             </div>
             <div class="col-md-5">
                 {place:type-details($data, $type)}

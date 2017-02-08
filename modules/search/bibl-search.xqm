@@ -114,33 +114,23 @@ declare function bibls:search-string(){
  :)
 declare function bibls:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
-    <script type="text/javascript">
-    <![CDATA[
-        $(function(){
-            initializeKeyboard('#qs', 'syriac-phonetic', '#qs-keyboard');
-            initializeKeyboard('#title', 'syriac-phonetic', '#title-keyboard');
-            initializeKeyboard('#author', 'syriac-phonetic', '#author-keyboard');
-            initializeKeyboard('#pubPlace', 'syriac-phonetic', '#pubPlace-keyboard');
-            initializeKeyboard('#publisher', 'syriac-phonetic', '#publisher-keyboard');        
-            });
-         ]]>
-    </script>
     <div class="well well-small">
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             </button>&#160;
-            <xi:include href="../searchTips.html"/>
+            <xi:include href="{$global:app-root}/searchTips.html"/>
         <div class="well well-small search-inner well-white">
         <!-- Keyword -->
             <div class="form-group">            
                 <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
                 <div class="col-sm-10 col-md-6 ">
                     <div class="input-group">
-                        <input type="text" id="qs" name="q" class="form-control" placeholder="Any word in citation"/>
+                        <input type="text" id="qs" name="q" class="form-control keyboard" placeholder="Any word in citation"/>
                         <div class="input-group-btn">
-                            <span class="btn btn-default" id="qs-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                {global:keyboard-select-menu('qs')}
                         </div>
                     </div>                 
                 </div>
@@ -150,11 +140,12 @@ declare function bibls:search-form() {
                 <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
                 <div class="col-sm-10 col-md-6 ">
                     <div class="input-group">
-                        <input type="text" id="title" name="title" class="form-control"  placeholder="Title of article, journal, book, or series"/>
+                        <input type="text" id="title" name="title" class="form-control keyboard"  placeholder="Title of article, journal, book, or series"/>
                         <div class="input-group-btn">
-                            <span class="btn btn-default" id="title-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                {global:keyboard-select-menu('title')}
                         </div>
                     </div>                 
                 </div>
@@ -163,11 +154,12 @@ declare function bibls:search-form() {
                 <label for="author" class="col-sm-2 col-md-3  control-label">Author/Editor: </label>
                 <div class="col-sm-10 col-md-6 ">
                     <div class="input-group">
-                        <input type="text" id="author" name="author" class="form-control" placeholder="First Last or Last, First"/>
+                        <input type="text" id="author" name="author" class="form-control keyboard" placeholder="First Last or Last, First"/>
                         <div class="input-group-btn">
-                            <span class="btn btn-default" id="author-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                {global:keyboard-select-menu('author')}
                         </div>
                     </div>                
                 </div>
@@ -176,11 +168,12 @@ declare function bibls:search-form() {
                 <label for="pub-place" class="col-sm-2 col-md-3  control-label">Publication Place: </label>
                 <div class="col-sm-10 col-md-6 ">
                     <div class="input-group">
-                        <input type="text" id="pubPlace" name="pub-place" class="form-control" placeholder="First Last or Last, First"/>
+                        <input type="text" id="pubPlace" name="pub-place" class="form-control keyboard" placeholder="First Last or Last, First"/>
                         <div class="input-group-btn">
-                            <span class="btn btn-default" id="pubPlace-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                </button>
+                                {global:keyboard-select-menu('pubPlace')}
                         </div>
                     </div>                
                 </div>
@@ -189,12 +182,13 @@ declare function bibls:search-form() {
                 <label for="publisher" class="col-sm-2 col-md-3  control-label">Publisher: </label>
                 <div class="col-sm-10 col-md-6 ">
                     <div class="input-group">
-                    <input type="text" id="publisher" name="publisher" class="form-control" placeholder="Publisher Name"/>
-                        <div class="input-group-btn">
-                            <span class="btn btn-default" id="publisher-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                                <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                            </span>
-                        </div>
+                    <input type="text" id="publisher" name="publisher" class="form-control keyboard" placeholder="Publisher Name"/>
+                            <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                    </button>
+                                    {global:keyboard-select-menu('publisher')}
+                            </div>
                     </div>                 
                 </div>
             </div>   

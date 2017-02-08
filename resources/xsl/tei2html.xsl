@@ -146,9 +146,46 @@
             <xsl:apply-templates select="descendant::t:sourceDesc/t:msDesc"/>
         </xsl:if>
         <!-- Body -->
-        <xsl:apply-templates select="descendant::t:body/child::*"/>
+        <xsl:apply-templates select="descendant::t:body"/>
         <!-- Citation Information -->
-        <xsl:call-template name="citationInfo"/>
+        <xsl:apply-templates select="t:teiHeader" mode="citation"/>
+    </xsl:template>
+    <xsl:template match="t:teiHeader" mode="#all">
+        <div class="panel panel-default">
+            <div class="panel-heading">How to Cite this Electronic Edition</div>
+            <div class="panel-body">
+                <div id="citation-note">
+                    <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
+                    <div class="collapse" id="showcit">
+                        <div id="citation-bibliography">
+                            <h4>Bibliography:</h4>
+                            <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
+                        </div>
+                        <xsl:call-template name="aboutEntry"/>
+                        <div id="license">
+                            <h3>Copyright and License for Reuse</h3>
+                            <div>
+                                <xsl:text>Except otherwise noted, this page is © </xsl:text>
+                                <xsl:value-of select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:authority"/>
+                                <xsl:choose>
+                                    <xsl:when test="//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
+                                        <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:text> and released under a </xsl:text>
+                                <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <a class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide Publication Information">Show Full Publication Information <i class="glyphicon glyphicon-circle-arrow-right"/>
+                    </a>
+                </div>
+            </div>
+        </div>
     </xsl:template>
     <xsl:template match="t:body">
         <div class="body">
@@ -167,42 +204,18 @@
             <xsl:when test="parent::t:div1">
                 <h2>
                     <xsl:call-template name="langattr"/>
-                    <xsl:choose>
-                        <xsl:when test="@xml:id">
-                            <xsl:apply-templates select="@xml:id"/>
-                        </xsl:when>
-                        <xsl:when test="parent::*[1]/@n">
-                            <xsl:attribute name="id" select="concat('head-',string(parent::*[1]/@n),'-',count(preceding-sibling::t:head))"/>
-                        </xsl:when>
-                    </xsl:choose>
                     <xsl:apply-templates/>
                 </h2>
             </xsl:when>
             <xsl:when test="parent::t:div2">
                 <h3>
                     <xsl:call-template name="langattr"/>
-                    <xsl:choose>
-                        <xsl:when test="@xml:id">
-                            <xsl:apply-templates select="@xml:id"/>
-                        </xsl:when>
-                        <xsl:when test="parent::*[1]/@n">
-                            <xsl:attribute name="id" select="concat('head-',string(parent::*[1]/@n),'-',count(preceding-sibling::t:head))"/>
-                        </xsl:when>
-                    </xsl:choose>
                     <xsl:apply-templates/>
                 </h3>
             </xsl:when>
             <xsl:otherwise>
                 <span class="{name(parent::*[1])}">
                     <xsl:call-template name="langattr"/>
-                    <xsl:choose>
-                        <xsl:when test="@xml:id">
-                            <xsl:apply-templates select="@xml:id"/>
-                        </xsl:when>
-                        <xsl:when test="parent::*[1]/@n">
-                            <xsl:attribute name="id" select="concat('head-',string(parent::*[1]/@n),'-',count(preceding-sibling::t:head))"/>
-                        </xsl:when>
-                    </xsl:choose>
                     <xsl:apply-templates/>
                 </span>
             </xsl:otherwise>
@@ -243,7 +256,9 @@
         <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
         <xsl:apply-templates select="child::*" mode="plain"/>
         <!-- Adds dates if available -->
+        <xsl:text> (</xsl:text>
         <xsl:sequence select="local:do-dates(.)"/>
+        <xsl:text>)</xsl:text>
         <!-- Adds footnotes if available -->
         <xsl:if test="@source">
             <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
@@ -251,11 +266,13 @@
     </xsl:template>
     <xsl:template match="t:event" mode="event">
         <li>
-        <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
+            <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
             <xsl:apply-templates select="child::*" mode="plain"/>
-        <!-- Adds dates if available -->
+            <!-- Adds dates if available -->
+            <xsl:text> (</xsl:text>
             <xsl:sequence select="local:do-dates(.)"/>
-        <!-- Adds footnotes if available -->
+            <xsl:text>)</xsl:text>
+            <!-- Adds footnotes if available -->
             <xsl:if test="@source">
                 <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
             </xsl:if>
@@ -1607,7 +1624,7 @@
                                         <xsl:value-of select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
-                            <xsl:text> and released under a </xsl:text>
+                                <xsl:text> and released under a </xsl:text>
                                 <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
                             </div>
                         </div>

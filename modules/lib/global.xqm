@@ -1,6 +1,7 @@
 xquery version "3.0";
 (: Global app variables and functions. :)
 module namespace global="http://syriaca.org/global";
+declare namespace repo="http://exist-db.org/xquery/repo";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
 
@@ -19,34 +20,36 @@ declare variable $global:app-root :=
     return
         substring-before($modulePath, "/modules")
     ;
-(: Get config.xml to parse global varaibles :)
-declare variable $global:get-config := doc($global:app-root || '/config.xml');
+(: Get repo.xml to parse global varaibles :)
+declare variable $global:get-config := doc($global:app-root || '/repo.xml');
 
 (: Establish data app root :)
 declare variable $global:data-root := 
-    let $app-root := $global:get-config//app-root/text()  
-    let $data-root := concat($global:get-config//data-root/text(),'/data') 
+    let $app-root := $global:get-config//repo:app-root/text()  
+    let $data-root := concat($global:get-config//repo:data-root/text(),'/data') 
     return
        replace($global:app-root, $app-root, $data-root)
     ;
 
-(: Establish main navigation for app, used in templates for absolute links :)
+(: Establish main navigation for app, used in templates for absolute links. Syriaca.org uses a development and production server which each have different root directories.  :)
 declare variable $global:nav-base := 
-    if($global:get-config//nav-base/text() != '') then $global:get-config//nav-base/text()
+    if($global:get-config//repo:nav-base/text() != '') then $global:get-config//repo:nav-base/text()
+    (: For app set to root '/' see syriaca.org production site. :)
+    else if($global:get-config//repo:nav-base/text() = '/') then ''
     else concat('/exist/apps/',$global:app-root);
 
-(: Base URI used in tei:idno :)
-declare variable $global:base-uri := $global:get-config//base_uri/text();
+(: Base URI used in record tei:idno :)
+declare variable $global:base-uri := $global:get-config//repo:base_uri/text();
 
-declare variable $global:app-title := $global:get-config//title/text();
+declare variable $global:app-title := $global:get-config//repo:title/text();
 
-declare variable $global:app-url := $global:get-config//url/text();
-
-(: Name of logo, not currently used dynamically :)
-declare variable $global:app-logo := $global:get-config//logo/text();
+declare variable $global:app-url := $global:get-config//repo:url/text();
 
 (: Map rendering, google or leaflet :)
-declare variable $global:app-map-option := $global:get-config//maps/option[@selected='true']/text();
+declare variable $global:app-map-option := $global:get-config//repo:maps/repo:option[@selected='true']/text();
+
+(: Recaptcha Key, Store as environemnt variable. :)
+declare variable $global:recaptcha := '6Lc8sQ4TAAAAAEDR5b52CLAsLnqZSQ1wzVPdl0rO';
 
 (: Sub in relative paths based on base-url variable :)
 declare function global:internal-links($uri){
@@ -138,13 +141,29 @@ declare function global:display-recs-short-view($node, $lang) as node()*{
     )
 };
 
+(:~
+ : Build uri from short id
+ : @param $id from URL
+:)
+declare function global:resolve-id(){
+let $id := request:get-parameter('id', '')
+let $parse-id :=
+    if(contains($id,$global:base-uri) or starts-with($id,'http://')) then $id
+    else if(contains(request:get-uri(),$global:nav-base)) then replace(request:get-uri(),$global:nav-base, $global:base-uri)
+    else if(contains(request:get-uri(),$global:base-uri)) then request:get-uri()
+    else $id
+let $final-id := if(ends-with($parse-id,'.html')) then substring-before($parse-id,'.html') else $parse-id
+return $final-id
+};
+
 (:
- : Generic get record function 
+ : Generic get record function
+ : Manuscripts and SPEAR recieve special treatment as individule parts may be treated as full records. 
  : @param $id syriaca.org uri for record or part. 
 :)
 declare function global:get-rec($id as xs:string){  
-        for $rec in collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][text() = $id]]
-        return $rec 
+    for $rec in collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][text() = $id]]
+    return $rec 
 };
 
 (:~ 
@@ -191,38 +210,19 @@ declare function global:odd2text($element as element()?, $label as xs:string?) a
 
 };
 
-(:
- : Get and display links to syriaca.org records. 
-:)
-declare function global:get-syriaca-refs($url as xs:string*){
-    for $r in $url
-    let $request := 
-        try{
-            http:send-request(<http:request href="{concat($url,'/tei')}" method="get"/>)
-          } catch * { 
-              concat($err:code, ": ", $err:description)
-           }
-    return 
-        $request
-(:        if($request/@status = '200') then 
-            try{
-                <a href="{$url}">{global:display-recs-short-view($request[2]//tei:titleStmt/tei:title[1],'')}</a>
-            } catch * {
-                concat($err:code, ": ", $err:description)
-            }
-        else $url
-:)        
-};
-
-
 (:~
  : Configure dropdown menu for keyboard layouts for input boxes
  : @param $input-id input id used by javascript to select correct keyboard layout.  
  :)
 declare function global:keyboard-select-menu($input-id as xs:string){
     (: Could have lange options set in config :)
-        <ul xmlns="http://www.w3.org/1999/xhtml" class="dropdown-menu">
-            <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="{$input-id}">Syriac Phonetic</a></li>                                
-            <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="{$input-id}">Syriac Standard</a></li>
-        </ul>    
+    if($global:get-config//repo:keyboard-options/child::*) then 
+        <ul xmlns="http://www.w3.org/1999/xhtml" class="dropdown-menu" test="TEST">
+            {
+            for $layout in $global:get-config//repo:keyboard-options/child::*/child::*
+            return  
+                <li xmlns="http://www.w3.org/1999/xhtml"><a href="#" class="keyboard-select" id="{$layout/@id}" data-keyboard-id="{$input-id}">{$layout}</a></li>
+            }
+        </ul>
+    else ()       
 };

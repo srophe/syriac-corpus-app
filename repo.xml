@@ -10,4 +10,30 @@
     <target>syriac-corpus</target>
     <prepare>pre-install.xql</prepare>
     <finish>post-install.xql</finish>
+    <config>
+        <!-- App title -->
+        <title>The Oxford-BYU Syriac Corpus projectl</title>
+        <!-- App description -->
+        <description/>
+        <!-- Contact email -->
+        <contact>info@syriaca.org</contact>
+        <!-- Logo name (assumes path to logo is $app-root/resources/img/) -->
+        <logo>syriaca-logo.png</logo>
+        <!-- Web Site URL -->
+        <url>http://syriac-corpus.org/</url>
+        <!-- Root of app for building dynamic links. Default is eXist app root -->
+        <nav-base>/exist/apps/syriac-corpus</nav-base>
+        <!-- eXist app root for app deployment-->
+        <app-root>syriac-corpus</app-root>
+        <!-- eXist data app root for gazetteer data -->
+        <data-root>syriac-corpus-data</data-root>
+        <!-- Base URI for identifiers in app data -->
+        <base_uri>https://syriaccorpus.org</base_uri>
+        <!-- Map rendering -->
+        <maps>
+            <option>google</option>
+            <option selected="true">leaflet</option>
+        </maps>
+    </config>
+    <deployed>2017-02-07T14:27:48.896-05:00</deployed>
 </meta>

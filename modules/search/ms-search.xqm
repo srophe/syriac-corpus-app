@@ -63,29 +63,23 @@ declare function ms:results-node($hit){
  :)
 declare function ms:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
-    <script type="text/javascript">
-    <![CDATA[
-        $(function(){
-            initializeKeyboard('#qs', 'syriac-phonetic', '#qs-keyboard');
-            });
-         ]]>
-    </script>
     <div class="well well-small">
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             </button>&#160;
-            <xi:include href="../searchTips.html"/>
+            <xi:include href="{$global:app-root}/searchTips.html"/>
         <div class="well well-small search-inner well-white">
         <!-- Keyword -->
         <div class="form-group">
             <label for="q" class="col-sm-2 col-md-3  control-label">Full-text: </label>
             <div class="col-sm-10 col-md-9 ">
                 <div class="input-group">
-                    <input type="text" id="qs" name="q" class="form-control"/>
+                    <input type="text" id="qs" name="q" class="form-control keyboard"/>
                     <div class="input-group-btn">
-                        <span class="btn btn-default" id="qs-keyboard" data-toggle="tooltip" title="Syriac Keyboard" >
-                            <span class="syriaca-icon syriaca-keyboard"/>&#160;
-                        </span>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                            </button>
+                            {global:keyboard-select-menu('qs')}
                     </div>
                 </div> 
             </div>

@@ -412,7 +412,7 @@ let $geo := for $r in $related[contains(.,'/place/')]
             return 
                collection($global:data-root)//tei:idno[@type='URI'][. = concat($r,'/tei')]/ancestor::tei:TEI[descendant::tei:geo]
 return                
-         maps:build-map($geo)
+         maps:build-map($geo,'')
 
 };
 
@@ -442,7 +442,7 @@ declare function browse:display-hits($hits){
 (: Display map :)
 declare function browse:get-map($hits){
     if($hits/descendant::tei:body/tei:listPlace/descendant::tei:geo) then 
-            maps:build-map($hits[descendant::tei:geo])
+            maps:build-map($hits[descendant::tei:geo],count($hits))
     else if($hits/descendant::tei:body/tei:listPerson/tei:person) then 
         let $persons := 
             for $p in $hits//tei:relation[contains(@passive,'/place/') or contains(@active,'/place/') or contains(@mutual,'/place/')]
@@ -474,7 +474,7 @@ declare function browse:get-map($hits){
                     </desc>
                     <location>{$geo}</location>  
                 </place>
-        return maps:build-map($locations)
+        return maps:build-map($locations,'')
     else ()
 };
 

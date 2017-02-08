@@ -110,13 +110,13 @@ declare function rel:get-subject-type($rel as xs:string*) as xs:string*{
 :)
 declare function rel:get-cited($idno){
 let $data := 
-    for $r in collection($global:data-root)//@target[. = replace($idno[1],'/tei','')]
-    let $headword := $r/ancestor::tei:TEI/descendant::tei:title[1]
+    for $r in collection('/db/apps/srophe-data/data')//tei:body[.//@target[. = replace($idno[1],'/tei','')]]
+    let $headword := replace($r/ancestor::tei:TEI/descendant::tei:title[1]/text()[1],' — ','')
     let $id := $r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][1]
-    let $sort := global:parse-name($headword)
-    let $sort := global:build-sort-string($sort,'')
+    let $sort := global:build-sort-string($headword,'')
+    where $sort != ''
     order by $sort collation "?lang=en&lt;syr&amp;decomposition=full"
-    return <TEI xml:ns="http://www.tei-c.org/ns/1.0">{$headword, $id}</TEI>   
+    return concat($id, 'headword:=', $headword)
 return  map { "cited" := $data}    
 };
 
@@ -137,12 +137,12 @@ declare function rel:cited($idno, $start, $perpage){
                 {
                     if($count gt 5) then
                         for $rec in subsequence($hits,$start,$perpage)
-                        let $id := $rec/tei:idno[@type='URI']
+                        let $id := substring-before($rec,'headword:=')
                         return 
                             global:display-recs-short-view(collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI,'')                        
                     else 
                         for $rec in $hits
-                        let $id := $rec/tei:idno[@type='URI']
+                        let $id := substring-before($rec,'headword:=')
                         return 
                             global:display-recs-short-view(collection($global:data-root)//tei:idno[@type='URI'][. = $id]/ancestor::tei:TEI,'')
                 }
@@ -176,27 +176,28 @@ declare function rel:subject-headings($idno){
                 {
                     (
                     for $recs in subsequence($hits,1,20)
-                    let $headword := $recs/tei:title[1]/text()[1]
-                    let $subject-idno := replace($recs/tei:idno[1],'/tei','')
+                    let $headword := substring-after($recs,'headword:=')
+                    let $id := replace(substring-before($recs,'headword:='),'/tei','')
                     return 
-                        <span class="sh pers-label badge">{replace($headword,' — ','')} 
-                        <a href="search.html?subject={$subject-idno}" class="sh-search">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        </a></span>,
-                    if($total gt 20) then
+                            <span class="sh pers-label badge">{replace($headword,' — ','')} 
+                            <a href="search.html?subject={$id}" class="sh-search">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </a></span>
+                            ,
+                       if($total gt 20) then
                         (<div class="collapse" id="showAllSH">
                             {
                             for $recs in subsequence($hits,20,$total)
-                            let $headword := $recs/tei:title[1]/text()[1]
-                            let $subject-idno := replace($recs/tei:idno[1],'/tei','')
+                            let $headword := substring-after($recs,'headword:=')
+                            let $id := replace(substring-before($recs,'headword:='),'/tei','')
                             return 
                                <span class="sh pers-label badge">{replace($headword,' — ',' ')} 
-                               <a href="search.html?subject={$subject-idno}" class="sh-search"> 
+                               <a href="search.html?subject={$id}" class="sh-search"> 
                                <span class="glyphicon glyphicon-search" aria-hidden="true">
                                </span></a></span>
                             }
                         </div>,
-                        <a class="togglelink pull-right btn-link" data-toggle="collapse" data-target="#showAllSH" data-text-swap="Hide"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Show All </a>
+                        <a class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="collapse" data-target="#showAllSH" data-text-swap="Hide"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Show All </a>
                         )
                     else ()
                     )
