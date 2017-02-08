@@ -4,7 +4,7 @@ xquery version "3.0";
  :)
  
 module namespace page="http://syriaca.org/page";
-
+import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 import module namespace functx="http://www.functx.com";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xi = "http://www.w3.org/2001/XInclude";
@@ -129,7 +129,7 @@ let $pagination-links :=
             </div>
     </div>,
     if($search-string != '') then 
-        <xi:include href="../searchTips.html"/>
+        <xi:include href="{$global:app-root}/searchTips.html"/>
     else ()
     )    
 return $pagination-links
