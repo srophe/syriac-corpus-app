@@ -5,18 +5,45 @@
         <div class="container interior-content white">
             <div data-template="app:h1"/>
             <div class="row">
-                <div class="hidden-xs col-sm-2 col-md-2">
+                <div class="col-sm-2 col-md-2">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Table of Contents</div>
-                        <div class="panel-body">
+                        <div class="panel-heading">Table of Contents &#160;
+                            <a href="#" data-toggle="collapse" data-target="#showToc">
+                                <span id="tocIcon" class="glyphicon glyphicon-collapse-up"></span>
+                            </a>
+                        </div>
+                        <div class="panel-body collapse" id="showToc">
                             <div data-template="app:display-toc"/>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-6 col-md-6">
+                    <script type="text/javascript">
+                        <![CDATA[
+                        $(window).bind('resize load', function() {
+                            if ($(this).width() < 767) {
+                                $('#showToc').removeClass('in');
+                                $('#showToc').addClass('out');
+                                $("#tocIcon").removeClass("glyphicon-collapse-up").addClass("glyphicon-collapse-down");
+                            } else {
+                                $('#showToc').removeClass('out');
+                                $('#showToc').addClass('in');
+                                $('#showToc').removeAttr( "style" );
+                                $("#tocIcon").removeClass("glyphicon-collapse-down").addClass("glyphicon-collapse-up");
+                            }
+                            $('#showToc').on('shown.bs.collapse', function () {
+                                $("#tocIcon").removeClass("glyphicon-collapse-down").addClass("glyphicon-collapse-up");
+                            });
+                            
+                            $('#showToc').on('hidden.bs.collapse', function () {
+                                $("#tocIcon").removeClass("glyphicon-collapse-up").addClass("glyphicon-collapse-down");
+                            });                                
+                        });
+                        ]]>
+                    </script>
+                </div> 
+                <div class="col-sm-6 col-md-6 col-lg-7">
                     <div data-template="app:display-nodes" data-template-paths="/descendant::tei:body"/>
                 </div>
-                <div class="col-sm-4 col-md-4">
+                <div class="col-sm-4 col-md-4 col-lg-3">
                     <div data-template="app:rec-status"/>
                     <div data-template="app:display-ids"/>
                     <div data-template="app:display-nodes" data-template-paths="/descendant::tei:teiHeader"/>
