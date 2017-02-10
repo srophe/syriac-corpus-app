@@ -3,9 +3,9 @@ xquery version "3.0";
 module namespace app="http://syriaca.org/templates";
 (: eXist modules :)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
-import module namespace config="http://syriaca.org/config" at "config.xqm";
+import module namespace config="http://syriaca.org/config" at "config.xqm";   
 import module namespace functx="http://www.functx.com";
-(: Srophe modules :)
+(: Srophe modules :)    
 import module namespace teiDocs="http://syriaca.org/teiDocs" at "teiDocs/teiDocs.xqm";
 import module namespace tei2html="http://syriaca.org/tei2html" at "lib/tei2html.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
@@ -16,7 +16,7 @@ import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.
 declare namespace html="http://www.w3.org/1999/xhtml";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
-(:~  
+(:~     
  : Simple get record function, get tei record based on tei:idno
  : Builds URL from the following URL patterns defined in the controller.xql or uses the id paramter
  : Retuns 404 page if record is not found, or has been @depreciated
@@ -718,16 +718,16 @@ return
             case element(tei:div1) return 
                 app:toc($node/node())
             case element(tei:div2) return 
-                <span class="toc">{app:toc($node/node())}</span>
+                <span class="toc div2">{app:toc($node/node())}</span>
             case element(tei:div3) return 
-                <span class="toc">{app:toc($node/node())}</span>
+                <span class="toc div3">{app:toc($node/node())}</span>
             case element(tei:div4) return 
-                <span class="toc">{app:toc($node/node())}</span>
+                <span class="toc div4">{app:toc($node/node())}</span>
             case element(tei:head) return 
                 let $id := 
                     if($node/@xml:id) then string($node/@xml:id) 
                     else if($node/parent::*[1]/@n) then
-                        concat('head-',string($node/parent::*[1]/@n),'-',count($node/preceding-sibling::tei:head))
+                        concat('head-',string($node/parent::*[1]/@n))
                     else 'on-parent'
                 return 
                     (

@@ -281,10 +281,11 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
     <div>{search:build-geojson($node,$model)}</div>
     {
         for $hit at $p in subsequence($model("hits"), $search:start, $search:perpage)
-        let $kwic := kwic:summarize($hit, <config width="40"/>, util:function(xs:QName("search:filter"
-), 2)) 
+        let $id := $hit//tei:idno[1]
+        let $expanded := kwic:expand($hit)
+        order by ft:score($hit) descending
         return
-<div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
+            <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
                 <div class="col-md-12">
                       <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">
                         <span class="badge">
@@ -298,7 +299,17 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                       <div class="col-md-9" xml:lang="en">
                         {global:display-recs-short-view($hit,'')} 
                         {
-                            if($kwic) then $kwic 
+                            if($expanded//exist:match) then
+                                <div class="row" xmlns="http://www.w3.org/1999/xhtml">{
+                                    for $match in $expanded//exist:match
+                                    let $link := concat($global:nav-base,'/rec.html?id=',$id,'#head-',$match/ancestor-or-self::*[@n][1]/@n)
+                                    return 
+                                        (
+                                        <div class="col-md-9" style="padding-left:3em;">{kwic:get-summary($expanded, $match, <config xmlns="" width="40" link="{$link}"/>,util:function(xs:QName("search:filter"), 2))}</div>,
+                                        <div class="col-md-3">{string($match/ancestor-or-self::*[@n][1]/@n)}</div>
+                                        )
+                                }</div>         
+
                             else ()
                         }
                       </div>

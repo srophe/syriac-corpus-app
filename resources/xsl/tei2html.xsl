@@ -195,6 +195,7 @@
     </xsl:template>
     <xsl:template match="t:div1 | t:div2 | t:div3 | t:div4 | t:div5">
         <div class="{name(.)}">
+            <xsl:if test="@n"><xsl:attribute name="id"><xsl:value-of select="concat('head-',@n)"/></xsl:attribute></xsl:if>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
