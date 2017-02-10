@@ -1142,9 +1142,9 @@
                 </xsl:if>
                 <xsl:if test="t:floruit">
                     <xsl:if test="not(t:death) and not(t:birth)">
-                        <xsl:text>active </xsl:text>
                         <xsl:choose>
                             <xsl:when test="count(t:floruit/t:date) &gt; 1">
+                                <xsl:text>active </xsl:text>
                                 <xsl:for-each select="t:floruit/t:date">
                                     <xsl:value-of select="text()"/>
                                     <xsl:if test="position() != last()"> or </xsl:if>
@@ -1156,38 +1156,23 @@
                                         <xsl:value-of select="t:floruit/t:date/text()"/>
                                     </xsl:when>
                                     <xsl:when test="t:floruit/@notBefore or t:floruit/@notAfter or t:floruit/@when or t:floruit/@from or t:floruit/@to">
-                                        <xsl:value-of select="local:do-dates(t:floruit)"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:value-of select="t:floruit"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                                <!--
-                                <xsl:choose>
-                                    <xsl:when test="t:floruit/t:date">
-                                        <xsl:value-of select="t:floruit/t:date/text()"/>
-                                    </xsl:when>
-                                    <xsl:when test="t:floruit/text()">
                                         <xsl:choose>
+                                            <xsl:when test="t:floruit/@to and t:floruit/@from">
+                                                <xsl:text>between </xsl:text><xsl:value-of select="local:trim-date(t:floruit/@from)"/>
+                                                <xsl:text> - </xsl:text><xsl:value-of select="local:trim-date(t:floruit/@to)"/>
+                                            </xsl:when>
                                             <xsl:when test="t:floruit/@notBefore and t:floruit/@notAfter">
-                                                <xsl:value-of select="concat('not before 't:floruit/@notBefore, ' - and not after ', t:floruit/@notAfter)"/>
+                                                <xsl:text>sometime between </xsl:text><xsl:value-of select="local:trim-date(t:floruit/@notBefore)"/>
+                                                <xsl:text> - </xsl:text><xsl:value-of select="local:trim-date(t:floruit/@notAfter)"/>
                                             </xsl:when>
-                                            <xsl:when test="t:floruit/@notBefore and not(t:floruit/@notAfter)">
-                                                <xsl:value-of select="concat('not before ',t:floruit/@notBefore)"/>
-                                            </xsl:when>
-                                            <xsl:when test="t:floruit/@notAfter and not(t:floruit/@notBefore)">
-                                                <xsl:value-of select="concat('not after ',t:floruit/@notAfter)"/>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <xsl:value-of select="t:floruit"/>
-                                            </xsl:otherwise>
+                                            <xsl:otherwise><xsl:value-of select="local:do-dates(t:floruit)"/></xsl:otherwise>
                                         </xsl:choose>
                                     </xsl:when>
                                     <xsl:otherwise>
+                                        <xsl:text>active </xsl:text>
                                         <xsl:value-of select="t:floruit"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
-                                -->
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:if>
@@ -1627,7 +1612,6 @@
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
-    
     <xsl:template match="t:sources">
         <xsl:call-template name="sources"/>
     </xsl:template>
