@@ -306,7 +306,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                                     return 
                                         (
                                         <div class="col-md-9" style="padding-left:3em;">{kwic:get-summary($expanded, $match, <config xmlns="" width="40" link="{$link}"/>,util:function(xs:QName("search:filter"), 2))}</div>,
-                                        <div class="col-md-3">{string($match/ancestor-or-self::*[@n][1]/@n)}</div>
+                                        <div class="col-md-3">{string($match/ancestor-or-self::*[@n][@type='section'][1]/@n)}</div>
                                         )
                                 }</div>         
 
