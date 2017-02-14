@@ -266,7 +266,8 @@ let $data :=
         else if($browse:view = 'author' or empty(request:get-parameter-names())) then 
             for $hit in $hits-main//tei:titleStmt/tei:author[starts-with(@ref, 'http://syriaca.org/')][1][matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
             order by global:build-sort-string(page:add-sort-options($hit/text()[1],$browse:sort-element),'') collation "?lang=en&lt;syr&lt;ar&amp;decomposition=full"
-            return $hit/ancestor::tei:TEI
+            return
+                <browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$hit}">{$hit/ancestor::tei:TEI}</browse>
         else if($browse:computed-lang != '') then 
             for $hit in $hits[matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
             let $title := global:build-sort-string($hit,$browse:computed-lang)
@@ -428,7 +429,7 @@ return
 
 declare function browse:display-hits($hits){
     for $data in subsequence($hits, $browse:start,$browse:perpage)
-    let $sort-title := if($browse:computed-lang != ('en','syr')) then string($data/@sort-title) else () 
+    let $sort-title := if($data/@sort-title != '') then string($data/@sort-title) else () 
     return 
         <div xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
             { 
