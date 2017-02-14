@@ -257,7 +257,15 @@ let $hits :=
     util:eval(concat("$hits-main",
     facet:facet-filter(facet-defs:facet-definition('')),browse:narrow-by-type($collection),browse:narrow-by-date(),browse:lang-filter($collection)))
 let $data :=   
-        if($browse:computed-lang != '') then 
+        if($browse:view = 'title') then
+            for $hit in $hits-main//tei:titleStmt/tei:title[starts-with(@ref, 'http://syriaca.org/')][1][matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
+            order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'') collation "?lang=en&lt;syr&lt;ar&amp;decomposition=full"
+            return $hit/ancestor::tei:TEI 
+        else if($browse:view = 'author') then 
+            for $hit in $hits-main//tei:titleStmt/tei:author[starts-with(@ref, 'http://syriaca.org/')][1][matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
+            order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'') collation "?lang=en&lt;syr&lt;ar&amp;decomposition=full"
+            return $hit/ancestor::tei:TEI
+        else if($browse:computed-lang != '') then 
             for $hit in $hits[matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
             let $title := global:build-sort-string($hit,$browse:computed-lang)
             order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
@@ -288,7 +296,7 @@ let $data :=
         else if($browse:view = 'other') then
             for $hit in $hits-main//tei:titleStmt/tei:title[1][not(matches(substring(global:build-sort-string(.,''),1,1),'\p{IsSyriac}|\p{IsArabic}|\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}|\p{IsLatinExtendedAdditional}','i'))]
             order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'') collation "?lang=en&lt;syr&lt;ar&amp;decomposition=full"
-            return $hit/ancestor::tei:TEI                         
+            return $hit/ancestor::tei:TEI
         else 
             for $hit in $hits
             let $title := global:build-sort-string($hit,$browse:computed-lang)
@@ -500,7 +508,7 @@ declare function browse:browse-abc-menu(){
             else                
                 for $letter in tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z', ' ')
                 return
-                    <li><a href="?lang={$browse:lang}&amp;sort={$letter}">{$letter}</a></li>
+                    <li><a href="?lang={$browse:lang}&amp;sort={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else ()}">{$letter}</a></li>
         }
         </ul>
     </div>
