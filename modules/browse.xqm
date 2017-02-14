@@ -257,13 +257,15 @@ let $hits :=
     util:eval(concat("$hits-main",
     facet:facet-filter(facet-defs:facet-definition('')),browse:narrow-by-type($collection),browse:narrow-by-date(),browse:lang-filter($collection)))
 let $data :=   
-        if($browse:view = 'title') then
+        if($browse:view = 'title')  then
             for $hit in $hits-main//tei:titleStmt/tei:title[starts-with(@ref, 'http://syriaca.org/')][1][matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
-            order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'') collation "?lang=en&lt;syr&lt;ar&amp;decomposition=full"
+            let $num := if(xs:integer($hit/@n)) then xs:integer($hit/@n) else 0
+            order by $hit/text()[1], $num
+            (:global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'') collation "?lang=en&lt;syr&lt;ar&amp;decomposition=full", $num:)
             return $hit/ancestor::tei:TEI 
-        else if($browse:view = 'author') then 
+        else if($browse:view = 'author' or empty(request:get-parameter-names())) then 
             for $hit in $hits-main//tei:titleStmt/tei:author[starts-with(@ref, 'http://syriaca.org/')][1][matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
-            order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'') collation "?lang=en&lt;syr&lt;ar&amp;decomposition=full"
+            order by global:build-sort-string(page:add-sort-options($hit/text()[1],$browse:sort-element),'') collation "?lang=en&lt;syr&lt;ar&amp;decomposition=full"
             return $hit/ancestor::tei:TEI
         else if($browse:computed-lang != '') then 
             for $hit in $hits[matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
@@ -581,16 +583,17 @@ declare function browse:browse-date(){
  : @param $text tab text, from template
  : @param $param tab parameter passed to url from template
  : @param $value value of tab parameter passed to url from template
- ($value = 'en' and not(exists(request:get-parameter-names()))) or ($value = 'en' and $browse:computed-lang = 'en')
- : @param $sort-value for abc menus. 
+ : @param $sort-value for abc menus.
+not(request:get-parameter-names()) 
 :)
 declare function browse:tabs($node as node(), $model as map(*), $text as xs:string?, $param as xs:string?, $value as xs:string?, $sort-value as xs:string?){
 let $s := if($sort-value != '') then $sort-value else if($browse:sort != '') then $browse:sort else 'A'
 return
-    <li xmlns="http://www.w3.org/1999/xhtml" test="{$value}">{
+    <li xmlns="http://www.w3.org/1999/xhtml">{
         if(($value='en' and $browse:computed-lang = 'en')) then attribute class {'active'} 
         else if($value = $browse:view) then attribute class {'active'}
         else if($value = $browse:lang) then attribute class {'active'}
+        else if($value = 'author' and empty(request:get-parameter-names())) then attribute class {'active'}  
         else ()
         }
         <a href="browse.html?{$param}={$value}{if($param = 'lang') then concat('&amp;sort=',$s) else ()}">
