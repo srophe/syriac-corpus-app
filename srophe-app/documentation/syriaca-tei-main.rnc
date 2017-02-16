@@ -6,7 +6,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2017-02-16T13:08:20Z. .
+# Schema generated from ODD source 2017-02-16T17:55:19Z. .
 # TEI Edition: Version 3.1.0. Last updated on
 #	15th December 2016, revision d3f5e70
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.1.0/
@@ -632,40 +632,43 @@ tei_att.global.attribute.xmllang =
     ## (Arabic) Arabic of any variety or period
     "ar"
     | 
-      ## (Arabic (Garshuni)) Arabic Garshuni in unvocalized or undetermined Syriac script
+      ## (Arabic—Garshuni) Arabic Garshuni in unvocalized or undetermined Syriac script
       "ar-Syrc"
     | 
-      ## (Arabic (Garshuni in West Syriac script)) Arabic Garshuni in vocalized West Syriac script
+      ## (Arabic—Garshuni—Estrangela) Arabic Garshuni in Estrangela Syriac script
+      "ar-Syre"
+    | 
+      ## (Arabic—Garshuni—West Syriac) Arabic Garshuni in vocalized West Syriac script
       "ar-Syrj"
     | 
-      ## (Arabic (Garshuni in East Syriac script)) Arabic Garshuni in vocalized East Syriac script
+      ## (Arabic—Garshuni—East Syriac) Arabic Garshuni in vocalized East Syriac script
       "ar-Syrn"
     | 
       ## (Coptic) Coptic of any variety or period
       "cop"
     | 
-      ## (Slavonic (Old Church)) Old Church Slavonic
+      ## (Slavonic—Old Church) Old Church Slavonic
       "cu"
     | 
       ## (German) German of any variety or period
       "de"
     | 
-      ## (German (Baumstark Romanization)) Names or terms Romanized into German according to the standards adopted by Anton Baumstark's Geschichte der syrischen Literatur.
+      ## (German—Baumstark Romanization) Names or terms Romanized into German according to the standards adopted by Anton Baumstark's Geschichte der syrischen Literatur.
       "de-x-baumstrk"
     | 
-      ## (Greek (Modern)) Modern Greek after A.D. 1453
+      ## (Greek—Modern) Modern Greek after A.D. 1453
       "el"
     | 
       ## (English) English of any variety or period
       "en"
     | 
-      ## (English (GEDSH Romanization)) Names or terms Romanized into English according to the standards adopted by the Gorgias Encyclopedic Dictionary of the Syriac Heritage
+      ## (English—GEDSH Romanization) Names or terms Romanized into English according to the standards adopted by the Gorgias Encyclopedic Dictionary of the Syriac Heritage
       "en-x-gedsh"
     | 
-      ## (English (LAH Romanization)) Names or terms Romanized into English according to the standards adopted by the Late Antique Historiography project.
+      ## (English—LAH Romanization) Names or terms Romanized into English according to the standards adopted by the Late Antique Historiography project.
       "en-x-lah"
     | 
-      ## (English (Syriaca.org Alternate Romanization)) Names or terms Romanized into English by Syriaca.org using alternate methods for indexing purposes.
+      ## (English—Syriaca.org Alternate Romanization) Names or terms Romanized into English by Syriaca.org using alternate methods for indexing purposes.
       "en-x-srp1"
     | 
       ## (Spanish) Spanish
@@ -674,16 +677,16 @@ tei_att.global.attribute.xmllang =
       ## (French) French of any variety or period
       "fr"
     | 
-      ## (French (BHS Romanization)) Names or terms Romanized into French according to the standards adopted by the Bibliotheca Hagiographica Syriaca
+      ## (French—BHS Romanization) Names or terms Romanized into French according to the standards adopted by the Bibliotheca Hagiographica Syriaca
       "fr-x-bhs"
     | 
-      ## (French (Fiey Romanization)) Names or terms Romanized into French according to the standards adopted by Fiey, Saints Syriaques
+      ## (French—Fiey Romanization) Names or terms Romanized into French according to the standards adopted by Fiey, Saints Syriaques
       "fr-x-fiey"
     | 
       ## (Ge'ez) Ge'ez
       "gez"
     | 
-      ## (Greek (Ancient)) Ancient Greek to A.D. 1453
+      ## (Greek—Ancient) Ancient Greek to A.D. 1453
       "grc"
     | 
       ## (Armenian) Classical or Modern Armenian
@@ -701,7 +704,16 @@ tei_att.global.attribute.xmllang =
       ## (Malayalam) Malayalam of any variety or period
       "mal"
     | 
-      ## (Malayalam (Garshuni)) Malayalam Garshuni in vocalized East Syriac script
+      ## (Malayalam—Garshuni) Malayalam Garshuni in unvocalized or undetermined Syriac script
+      "mal-Syrc"
+    | 
+      ## (Malayalam—Garshuni—Estrangela) Malayalam Garshuni in Estrangela Syriac script
+      "mal-Syre"
+    | 
+      ## (Malayalam—Garshuni—West Syriac) Malayalam Garshuni in vocalized West Syriac script
+      "mal-Syrj"
+    | 
+      ## (Malayalam—Garshuni—East Syriac) Malayalam Garshuni in vocalized East Syriac script
       "mal-Syrn"
     | 
       ## (Dutch) Dutch
@@ -716,16 +728,16 @@ tei_att.global.attribute.xmllang =
       ## (Syriac) Syriac of any variety or period
       "syr"
     | 
-      ## (Syriac (Estrangela script)) Syriac in Estrangela script
+      ## (Syriac—Estrangela script) Syriac in Estrangela script
       "syr-Syre"
     | 
-      ## (Syriac (West)) Syriac in vocalized West Syriac script
+      ## (Syriac—West) Syriac in vocalized West Syriac script
       "syr-Syrj"
     | 
-      ## (Syriac (East)) Syriac in vocalized East Syriac script
+      ## (Syriac—East) Syriac in vocalized East Syriac script
       "syr-Syrn"
     | 
-      ## (Syriac (Melkite script)) Syriac in Melkite script. Note: This is not an ISO code but a private use code for Melkite employed by Syriaca.org until an ISO code is created
+      ## (Syriac—Melkite script) Syriac in Melkite script. Note: This is not an ISO code but a private use code for Melkite employed by Syriaca.org until an ISO code is created
       "syr-x-syrm"
     | 
       ## (Sogdian) Sogdian

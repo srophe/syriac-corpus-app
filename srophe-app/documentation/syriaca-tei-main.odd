@@ -39,15 +39,19 @@
                                     <desc>Arabic of any variety or period</desc>
                                 </valItem>
                                 <valItem ident="ar-Syrc">
-                                    <gloss>Arabic (Garshuni)</gloss>
+                                    <gloss>Arabic—Garshuni</gloss>
                                     <desc>Arabic Garshuni in unvocalized or undetermined Syriac script</desc>
                                 </valItem>
+                                <valItem ident="ar-Syre">
+                                    <gloss>Arabic—Garshuni—Estrangela</gloss>
+                                    <desc>Arabic Garshuni in Estrangela Syriac script</desc>
+                                </valItem>
                                 <valItem ident="ar-Syrj">
-                                    <gloss>Arabic (Garshuni in West Syriac script)</gloss>
+                                    <gloss>Arabic—Garshuni—West Syriac</gloss>
                                     <desc>Arabic Garshuni in vocalized West Syriac script</desc>
                                 </valItem>
                                 <valItem ident="ar-Syrn">
-                                    <gloss>Arabic (Garshuni in East Syriac script)</gloss>
+                                    <gloss>Arabic—Garshuni—East Syriac</gloss>
                                     <desc>Arabic Garshuni in vocalized East Syriac script</desc>
                                 </valItem>
                                 <valItem ident="cop">
@@ -55,7 +59,7 @@
                                     <desc>Coptic of any variety or period</desc>
                                 </valItem>
                                 <valItem ident="cu">
-                                    <gloss>Slavonic (Old Church)</gloss>
+                                    <gloss>Slavonic—Old Church</gloss>
                                     <desc>Old Church Slavonic</desc>
                                 </valItem>
                                 <valItem ident="de">
@@ -63,13 +67,13 @@
                                     <desc>German of any variety or period</desc>
                                 </valItem>
                                 <valItem ident="de-x-baumstrk">
-                                    <gloss>German (Baumstark Romanization)</gloss>
+                                    <gloss>German—Baumstark Romanization</gloss>
                                     <desc>Names or terms Romanized into German according to
                                         the standards adopted by Anton Baumstark's 
                                         Geschichte der syrischen Literatur.</desc>
                                 </valItem>
                                 <valItem ident="el">
-                                    <gloss>Greek (Modern)</gloss>
+                                    <gloss>Greek—Modern</gloss>
                                     <desc>Modern Greek after A.D. 1453</desc>
                                 </valItem>
                                 <valItem ident="en">
@@ -77,18 +81,18 @@
                                     <desc>English of any variety or period</desc>
                                 </valItem>
                                 <valItem ident="en-x-gedsh">
-                                    <gloss>English (GEDSH Romanization)</gloss>
+                                    <gloss>English—GEDSH Romanization</gloss>
                                     <desc>Names or terms Romanized into English according to
                                         the standards adopted by the Gorgias Encyclopedic Dictionary of the Syriac
                                         Heritage</desc>
                                 </valItem>
                                 <valItem ident="en-x-lah">
-                                    <gloss>English (LAH Romanization)</gloss>
+                                    <gloss>English—LAH Romanization</gloss>
                                     <desc>Names or terms Romanized into English according to
                                         the standards adopted by the Late Antique Historiography project.</desc>
                                 </valItem>
                                 <valItem ident="en-x-srp1">
-                                    <gloss>English (Syriaca.org Alternate Romanization)</gloss>
+                                    <gloss>English—Syriaca.org Alternate Romanization</gloss>
                                     <desc>Names or terms Romanized into English by Syriaca.org using alternate methods 
                                         for indexing purposes.</desc>
                                 </valItem>
@@ -101,12 +105,12 @@
                                     <desc>French of any variety or period</desc>
                                 </valItem>
                                 <valItem ident="fr-x-bhs">
-                                    <gloss>French (BHS Romanization)</gloss>
+                                    <gloss>French—BHS Romanization</gloss>
                                     <desc>Names or terms Romanized into French according to the
                                         standards adopted by the Bibliotheca Hagiographica Syriaca</desc>
                                 </valItem>
                                 <valItem ident="fr-x-fiey">
-                                    <gloss>French (Fiey Romanization)</gloss>
+                                    <gloss>French—Fiey Romanization</gloss>
                                     <desc>Names or terms Romanized into French according to the
                                         standards adopted by Fiey, Saints Syriaques</desc>
                                 </valItem>
@@ -115,7 +119,7 @@
                                     <desc>Ge'ez</desc>
                                 </valItem>
                                 <valItem ident="grc">
-                                    <gloss>Greek (Ancient)</gloss>
+                                    <gloss>Greek—Ancient</gloss>
                                     <desc>Ancient Greek to A.D. 1453</desc>
                                 </valItem>
                                 <valItem ident="hy">
@@ -138,8 +142,20 @@
                                     <gloss>Malayalam</gloss>
                                     <desc>Malayalam of any variety or period</desc>
                                 </valItem>
+                                <valItem ident="mal-Syrc">
+                                    <gloss>Malayalam—Garshuni</gloss>
+                                    <desc>Malayalam Garshuni in unvocalized or undetermined Syriac script</desc>
+                                </valItem>
+                                <valItem ident="mal-Syre">
+                                    <gloss>Malayalam—Garshuni—Estrangela</gloss>
+                                    <desc>Malayalam Garshuni in Estrangela Syriac script</desc>
+                                </valItem>
+                                <valItem ident="mal-Syrj">
+                                    <gloss>Malayalam—Garshuni—West Syriac</gloss>
+                                    <desc>Malayalam Garshuni in vocalized West Syriac script</desc>
+                                </valItem>
                                 <valItem ident="mal-Syrn">
-                                    <gloss>Malayalam (Garshuni)</gloss>
+                                    <gloss>Malayalam—Garshuni—East Syriac</gloss>
                                     <desc>Malayalam Garshuni in vocalized East Syriac script</desc>
                                 </valItem>
                                 <valItem ident="nl">
@@ -159,19 +175,19 @@
                                     <desc>Syriac of any variety or period</desc>
                                 </valItem>
                                 <valItem ident="syr-Syre">
-                                    <gloss>Syriac (Estrangela script)</gloss>
+                                    <gloss>Syriac—Estrangela script</gloss>
                                     <desc>Syriac in Estrangela script</desc>
                                 </valItem>
                                 <valItem ident="syr-Syrj">
-                                    <gloss>Syriac (West)</gloss>
+                                    <gloss>Syriac—West</gloss>
                                     <desc>Syriac in vocalized West Syriac script</desc>
                                 </valItem>
                                 <valItem ident="syr-Syrn">
-                                    <gloss>Syriac (East)</gloss>
+                                    <gloss>Syriac—East</gloss>
                                     <desc>Syriac in vocalized East Syriac script</desc>
                                 </valItem>
                                 <valItem ident="syr-x-syrm">
-                                    <gloss>Syriac (Melkite script)</gloss>
+                                    <gloss>Syriac—Melkite script</gloss>
                                     <desc>Syriac in Melkite script. Note: This is not an ISO code but a private use code for Melkite employed by Syriaca.org until an ISO code is created</desc>
                                 </valItem>
                                 <valItem ident="sog">
