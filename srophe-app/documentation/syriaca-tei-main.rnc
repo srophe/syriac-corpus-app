@@ -6,7 +6,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2017-01-04T20:27:08Z. .
+# Schema generated from ODD source 2017-02-16T12:57:26Z. .
 # TEI Edition: Version 3.1.0. Last updated on
 #	15th December 2016, revision d3f5e70
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.1.0/
@@ -663,7 +663,7 @@ tei_att.global.attribute.xmllang =
       "en-x-gedsh"
     | 
       ## (LAH English Romanization) Names or terms Romanized into English according to the standards adopted by the Late Antique Historiography project.
-      "en-x-gedsh"
+      "en-x-lah"
     | 
       ## (Syriaca.org Alternate English Romanization) Names or terms Romanized into English by Syriaca.org using alternate methods for indexing purposes.
       "en-x-srp1"
