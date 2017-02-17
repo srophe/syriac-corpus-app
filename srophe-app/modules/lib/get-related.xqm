@@ -70,7 +70,7 @@ declare function rel:decode-relationship($related as node()*){
     let $name := $related/@name | $related/@ref
     for $name in $name[1]
     let $subject-type := rel:get-subject-type($related/@passive)
-    let $label := global:odd2text($related[1],string($name))
+    let $label := global:odd2text(name($related[1]),string($name))
     return 
             if($label != '') then 
                 $label
@@ -213,7 +213,7 @@ declare function rel:subject-headings($idno){
 :)
 declare function rel:build-relationships($node,$idno){ 
 <div class="relation well">
-    <h3>Relationships</h3>
+    <h3>Relationships </h3>
     <div class="indent">
     {       
         for $related in $node/descendant-or-self::tei:relation
@@ -236,7 +236,7 @@ declare function rel:build-relationships($node,$idno){
                       else rel:decode-relationship($related)
                     }
                 </p>,
-                <div class="rel-list" id="showRel-{$rel-id}">{
+                <div class="rel-list">{
                     for $r in subsequence($names,1,2)
                     return rel:display($r),
                     if($count gt 2) then
