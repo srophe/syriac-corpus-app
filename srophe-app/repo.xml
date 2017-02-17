@@ -30,11 +30,25 @@
         <data-root>srophe-data</data-root>
         <!-- Base URI for identifiers in app data -->
         <base_uri>http://syriaca.org</base_uri>
+        <!-- Absolute (from app root) Path to ODD file used for translating controlled values. May be left blank. -->
+        <odd>/documentation/syriaca-tei-main.odd</odd>
+        <!-- xpath to unique identifier for record, syriaca.org uses tei:idno[@type='URL'], this is the default value -->
+        <id-path></id-path>
         <!-- Map rendering -->
         <maps>
+            <!--  <option selected="true" api-key="API_KEY_HERE">google</option> -->
             <option>google</option>
             <option selected="true">leaflet</option>
         </maps>
+        <!-- Keyboard options -->
+        <keyboard-options>
+            <option id="syriac-phonetic">Syriac Phonetic</option>
+            <option id="syriac-standard">Syriac Standard</option>
+            <option id="ms-Arabic (101)">Arabic Mod. Standard</option>
+            <option id="qwerty">English QWERTY</option>
+            <option id="ms-Greek">Greek Mod. Standard</option>
+            <option id="ms-Russian">Russian Mod. Standard</option>
+        </keyboard-options>
         <!--
     <google_analytics>var _gaq=[['_setAccount','UA-333143-26'],['_trackPageview']];
         (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
@@ -42,4 +56,5 @@
         s.parentNode.insertBefore(g,s)}(document,'script'));</google_analytics>
     -->
     </config>
+    <deployed>2017-02-13T12:22:15.303-05:00</deployed>
 </meta>
