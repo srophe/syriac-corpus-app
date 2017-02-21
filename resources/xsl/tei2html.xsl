@@ -740,8 +740,7 @@
         <xsl:choose>
             <xsl:when test="@n">
                 <span class="row">
-                    <span class="line-num col-md-1">
-                        <xsl:call-template name="langattr"/>
+                    <span class="line-num col-md-1" lang="en" dir="ltr">
                         <xsl:value-of select="@n"/>
                     </span>
                     <span class="line col-md-11">
