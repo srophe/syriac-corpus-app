@@ -280,6 +280,7 @@ h3.syr{
     margin-top:.5em;
     float:right !important;
 }
+
 h4 {font-size: 1em; margin-top:1em;}
 
 .hi {background-color:yellow;}
@@ -627,7 +628,6 @@ div[id|=place] > div:last-of-type {
 /* Search styles */
 .search-header {margin-bottom: 1em;}
 .search-inner {margin-top:2em;}
-.search-results {border-top: 1px solid #eee; margin-top:1em;}
 
 
 /* Transparent styles for search box on home pages */
