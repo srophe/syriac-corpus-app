@@ -868,3 +868,5 @@ pre {
 #showToc.collapsing {
     display: block!important;
 }
+.line {display:block;}
+.line-num {font-size:medium; float:right; clear:right; margin-top:.5em;}

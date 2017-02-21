@@ -195,7 +195,12 @@
     </xsl:template>
     <xsl:template match="t:div1 | t:div2 | t:div3 | t:div4 | t:div5">
         <div class="{name(.)}">
-            <xsl:if test="@n"><xsl:attribute name="id"><xsl:value-of select="concat('head-',@n)"/></xsl:attribute></xsl:if>
+            <xsl:if test="@n">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="concat('head-',@n)"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:call-template name="langattr"/>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
@@ -730,6 +735,28 @@
     </xsl:template>
     <xsl:template match="t:lb">
         <br/>
+    </xsl:template>
+    <xsl:template match="t:l">
+        <xsl:choose>
+            <xsl:when test="@n">
+                <span class="row">
+                    <span class="line-num col-md-1">
+                        <xsl:call-template name="langattr"/>
+                        <xsl:value-of select="@n"/>
+                    </span>
+                    <span class="line col-md-11">
+                        <xsl:call-template name="langattr"/>
+                        <xsl:apply-templates/>
+                    </span>
+                </span>
+            </xsl:when>
+            <xsl:otherwise>
+                <span class="line">
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </span>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <xsl:template match="t:quote">
         <xsl:choose>
