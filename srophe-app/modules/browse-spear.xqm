@@ -15,7 +15,7 @@ import module namespace functx="http://www.functx.com";
 import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
 import module namespace facet-defs="http://syriaca.org/facet-defs" at "facet-defs.xqm";
 import module namespace facets="http://syriaca.org/facets" at "lib/facets.xqm";
-import module namespace browse="http://syriaca.org/browse" at "browse.xqm";
+import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
@@ -64,7 +64,7 @@ let $data :=
                 $title
             else if($bs:sort = 'Anonymous') then
                 $title[starts-with(.,'Anonym')]
-            else $title[not(starts-with(.,'Anonym'))][matches(substring(global:build-sort-string(.,'en'),1,1),browse:get-sort(),'i')] 
+            else $title[not(starts-with(.,'Anonym'))][matches(substring(global:build-sort-string(.,'en'),1,1),data:get-alpha-filter(),'i')] 
        order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
        (:return <hit>{($d,$hit)}</hit>:)
        return $hit
@@ -77,7 +77,7 @@ let $data :=
        where 
         if($bs:sort='All') then 
             $title
-        else $title[matches(substring(global:build-sort-string(.,'en'),1,1),browse:get-sort(),'i')]
+        else $title[matches(substring(global:build-sort-string(.,'en'),1,1),data:get-alpha-filter(),'i')]
        order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
        return $hit
    else if($bs:view = 'events') then 

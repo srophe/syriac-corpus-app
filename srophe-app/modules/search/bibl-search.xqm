@@ -5,7 +5,7 @@ xquery version "3.0";
  :)
 module namespace bibls="http://syriaca.org/bibls";
 import module namespace functx="http://www.functx.com";
-import module namespace common="http://syriaca.org/common" at "common.xqm";
+import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
@@ -22,12 +22,12 @@ declare variable $bibls:publisher {request:get-parameter('publisher', '')};
 declare variable $bibls:date {request:get-parameter('date', '')};
 
 declare function bibls:title() as xs:string? {
-    if($bibls:title != '') then concat("[ft:query(descendant::tei:title,'",common:clean-string($bibls:title),"',common:options())]")
+    if($bibls:title != '') then concat("[ft:query(descendant::tei:title,'",data:clean-string($bibls:title),"',data:search-options())]")
     else ()    
 };
 
 declare function bibls:author() as xs:string? {
-    if($bibls:author != '') then concat("[ft:query(descendant::tei:author,'",common:clean-string($bibls:author),"',common:options()) or ft:query(descendant::tei:editor,'",common:clean-string($bibls:author),"',common:options())]")
+    if($bibls:author != '') then concat("[ft:query(descendant::tei:author,'",data:clean-string($bibls:author),"',data:search-options()) or ft:query(descendant::tei:editor,'",data:clean-string($bibls:author),"',data:search-options())]")
     else ()    
 };
 
@@ -52,19 +52,19 @@ declare function bibls:idno() as xs:string? {
 
 declare function bibls:pub-place() as xs:string? {
     if($bibls:pub-place != '') then 
-        concat("[ft:query(descendant::tei:imprint/tei:pubPlace,'",common:clean-string($bibls:pub-place),"',common:options())]")
+        concat("[ft:query(descendant::tei:imprint/tei:pubPlace,'",data:clean-string($bibls:pub-place),"',data:search-options())]")
     else ()  
 };
 
 declare function bibls:publisher() as xs:string? {
     if($bibls:publisher != '') then 
-        concat("[ft:query(descendant::tei:imprint/tei:publisher,'",common:clean-string($bibls:publisher),"',common:options())]")
+        concat("[ft:query(descendant::tei:imprint/tei:publisher,'",data:clean-string($bibls:publisher),"',data:search-options())]")
     else ()  
 };
 
 declare function bibls:date() as xs:string? {
     if($bibls:date != '') then 
-        concat("[ft:query(descendant::tei:imprint/tei:date,'",common:clean-string($bibls:date),"',common:options())]")
+        concat("[ft:query(descendant::tei:imprint/tei:date,'",data:clean-string($bibls:date),"',data:search-options())]")
     else ()  
 };
 
@@ -81,7 +81,7 @@ declare function bibls:query-string() as xs:string? {
 if($bibls:subject != '') then bibls:subject()
 else
  concat("collection('",$global:data-root,"/bibl/tei')//tei:body",
-    common:keyword(),
+    data:keyword(),
     bibls:title(),
     bibls:author(),
     bibls:pub-place(),

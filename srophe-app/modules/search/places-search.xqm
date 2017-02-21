@@ -1,7 +1,7 @@
 xquery version "3.0";
 
 module namespace places="http://syriaca.org/places";
-import module namespace common="http://syriaca.org/common" at "common.xqm";
+import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 
@@ -45,7 +45,7 @@ declare variable $places:ar {request:get-parameter('ar', '')};
  
 :)
 declare function places:keyword(){
-    if(exists($places:q) and $places:q != '') then concat("[ft:query(.,'",common:clean-string($places:q),"',common:options()) or ft:query(descendant::tei:placeName,'",common:clean-string($places:q),"',common:options()) or ft:query(descendant::tei:persName,'",common:clean-string($places:q),"',common:options()) or ft:query(ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:title,'",common:clean-string($places:q),"',common:options()) or ft:query(descendant::tei:desc,'",common:clean-string($places:q),"',common:options())]")
+    if(exists($places:q) and $places:q != '') then concat("[ft:query(.,'",data:clean-string($places:q),"',data:search-options()) or ft:query(descendant::tei:placeName,'",data:clean-string($places:q),"',data:search-options()) or ft:query(descendant::tei:persName,'",data:clean-string($places:q),"',data:search-options()) or ft:query(ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:title,'",data:clean-string($places:q),"',data:search-options()) or ft:query(descendant::tei:desc,'",data:clean-string($places:q),"',data:search-options())]")
     else ''    
 };
 
@@ -54,7 +54,7 @@ declare function places:keyword(){
  : @p full text query
 :)
 declare function places:place-name(){
-    if(exists($places:p) and $places:p != '') then concat("[ft:query(descendant::tei:place/tei:placeName,'",common:clean-string($places:p),"',common:options())]")
+    if(exists($places:p) and $places:p != '') then concat("[ft:query(descendant::tei:place/tei:placeName,'",data:clean-string($places:p),"',data:search-options())]")
     else ''    
 };
 
@@ -63,7 +63,7 @@ declare function places:place-name(){
  : @type full text query
 :)
 declare function places:type(){
-    if(exists($places:type) and $places:type != '') then string(concat("[descendant::tei:place/@type = '",common:clean-string($places:type),"']"))
+    if(exists($places:type) and $places:type != '') then string(concat("[descendant::tei:place/@type = '",data:clean-string($places:type),"']"))
     else '' 
 };
 
@@ -73,7 +73,7 @@ declare function places:type(){
  : NOTE: need to understand location search better. 
 :)
 declare function places:location(){
-    if(exists($places:loc) and $places:loc != '') then concat("[ft:query(descendant::tei:place/tei:location,'",common:clean-string($places:loc),"',common:options())]")
+    if(exists($places:loc) and $places:loc != '') then concat("[ft:query(descendant::tei:place/tei:location,'",data:clean-string($places:loc),"',data:search-options())]")
     else ''
 };
 
@@ -83,7 +83,7 @@ declare function places:location(){
  : @e full text query
 :)
 declare function places:event(){
-    if(exists($places:e) and $places:e != '') then concat("[ft:query(descendant::tei:place/tei:event[@type != 'attestation' or not(@type)],'",common:clean-string($places:e),"',common:options())]")
+    if(exists($places:e) and $places:e != '') then concat("[ft:query(descendant::tei:place/tei:event[@type != 'attestation' or not(@type)],'",data:clean-string($places:e),"',data:search-options())]")
     else ''
 };
 
@@ -121,7 +121,7 @@ declare function places:event-dates(){
  : @e full text query
 :)
 declare function places:attestation(){
-    if(exists($places:a) and $places:a != '') then concat("[ft:query(descendant::tei:place/tei:event[@type = 'attestation'],'",common:clean-string($places:a),"',common:options())]")
+    if(exists($places:a) and $places:a != '') then concat("[ft:query(descendant::tei:place/tei:event[@type = 'attestation'],'",data:clean-string($places:a),"',data:search-options())]")
     else ''
 };
 
@@ -226,7 +226,7 @@ if(exists($places:cds) and $places:cds != '') then
  : @e full text query
 :)
 declare function places:existence(){
-    if(exists($places:exist) and $places:exist != '') then concat("[ft:query(descendant::tei:state[@type = 'existence'],'",common:clean-string($places:exist),"',common:options())]")
+    if(exists($places:exist) and $places:exist != '') then concat("[ft:query(descendant::tei:state[@type = 'existence'],'",data:clean-string($places:exist),"',data:search-options())]")
     else ''
 };
 
@@ -312,9 +312,9 @@ declare function places:query-string() as xs:string?{
     places:attestation(), places:attestation-dates(), 
     places:existence(),places:existence-dates(),
     places:confession(),
-    common:related-places(),
-    common:related-persons(),
-    common:mentioned(),
+    data:related-places(),
+    data:related-persons(),
+    data:mentioned(),
     places:limit-by-lang-en(),places:limit-by-lang-syr(),places:limit-by-lang-ar()
     )
 };

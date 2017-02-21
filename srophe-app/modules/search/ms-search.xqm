@@ -6,7 +6,7 @@ xquery version "3.0";
 module namespace ms="http://syriaca.org/ms";
 import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
 import module namespace functx="http://www.functx.com";
-import module namespace common="http://syriaca.org/common" at "common.xqm";
+import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 
@@ -25,7 +25,7 @@ declare function ms:facets($node as node(), $model as map(*)){
 :)
 declare function ms:query-string() as xs:string? {
  concat("collection('",$global:data-root,"/manuscripts/tei')//tei:teiHeader",
-    common:keyword(),facets:facet-filter()
+    data:keyword(),facets:facet-filter()
     )
 };
 

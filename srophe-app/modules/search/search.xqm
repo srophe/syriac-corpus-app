@@ -1,22 +1,22 @@
 xquery version "3.0";        
  
 module namespace search="http://syriaca.org/search";
+import module namespace data="http://syriaca.org/data" at "../lib/data.xqm";
 import module namespace page="http://syriaca.org/page" at "../lib/paging.xqm";
 import module namespace rel="http://syriaca.org/related" at "../lib/get-related.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm";
 import module namespace facet-defs="http://syriaca.org/facet-defs" at "../facet-defs.xqm";
-import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
+import module namespace maps="http://syriaca.org/maps" at "../lib/maps.xqm";
+import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
+(: Search modules :)
 import module namespace persons="http://syriaca.org/persons" at "persons-search.xqm";
 import module namespace places="http://syriaca.org/places" at "places-search.xqm";
 import module namespace spears="http://syriaca.org/spears" at "spear-search.xqm";
 import module namespace bhses="http://syriaca.org/bhses" at "bhse-search.xqm";
 import module namespace bibls="http://syriaca.org/bibls" at "bibl-search.xqm";
 import module namespace ms="http://syriaca.org/ms" at "ms-search.xqm";
-import module namespace common="http://syriaca.org/common" at "common.xqm";
-import module namespace maps="http://syriaca.org/maps" at "../lib/maps.xqm";
-import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
-import module namespace functx="http://www.functx.com";
 
+import module namespace functx="http://www.functx.com";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -50,27 +50,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                         else if($coll = 'bibl') then bibls:query-string()
                         else if($coll = 'manuscripts') then ms:query-string()
                         else search:query-string($collection)
-    return                         
-    map {"hits" := 
-                if(exists(request:get-parameter-names()) or ($view = 'all')) then 
-                    if($search:sort-element != '' and $search:sort-element != 'relevance' or $view = 'all') then 
-                        for $hit in util:eval($eval-string)
-                        order by global:build-sort-string(page:add-sort-options($hit,$search:sort-element),'') ascending
-                        return $hit   
-                    else if(request:get-parameter('rel', '') != '' and ($search:sort-element = '' or not(exists($search:sort-element)))) then 
-                        for $hit in util:eval($eval-string)
-                        let $part := xs:integer($hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
-                        order by $part
-                        return $hit                                                                                               
-                    else 
-                        for $hit in util:eval($eval-string)
-                       (: let $expanded := util:expand($hit, "expand-xincludes=no")
-                        let $headword := count($expanded/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][descendant::*:match])
-                        let $headword := if($headword gt 0) then $headword + 15 else 0:)
-                        order by ft:score($hit) + (count($hit/descendant::tei:bibl) div 100) descending
-                        return $hit
-                else ()                        
-         }
+    return map {"hits" := data:search($eval-string) }
 };
 
 (:~   
@@ -79,55 +59,55 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
 declare function search:query-string($collection as xs:string?) as xs:string?{
 if($collection !='') then 
     concat("collection('",$global:data-root,"/",$collection,"')//tei:body",
-    common:keyword(),
+    data:keyword(),
     search:persName(),
     search:placeName(), 
     search:title(),
     search:bibl(),
-    common:uri()
+    data:uri()
     )
 else 
 concat("collection('",$global:data-root,"')//tei:body",
-    common:keyword(),
+    data:keyword(),
     search:persName(),
     search:placeName(), 
     search:title(),
     search:bibl(),
-    common:uri()
+    data:uri()
     )
 };
 
 declare function search:persName(){
     if($search:persName != '') then 
-        common:element-search('persName',$search:persName) 
+        data:element-search('persName',$search:persName) 
     else '' 
 };
 
 declare function search:placeName(){
     if($search:placeName != '') then 
-        common:element-search('placeName',$search:placeName) 
+        data:element-search('placeName',$search:placeName) 
     else '' 
 };
 
 declare function search:title(){
     if($search:title != '') then 
-        common:element-search('title',$search:title) 
+        data:element-search('title',$search:title) 
     else '' 
 };
 
 declare function search:bibl(){
     if($search:bibl != '') then  
-        let $terms := common:clean-string($search:bibl)
+        let $terms := data:clean-string($search:bibl)
         let $ids := 
             if(matches($search:bibl,'^http://syriaca.org/')) then
                 normalize-space($search:bibl)
             else 
                 string-join(distinct-values(
-                for $r in collection($global:data-root || '/bibl')//tei:body[ft:query(.,$terms, common:options())]/ancestor::tei:TEI/descendant::tei:publicationStmt/tei:idno[starts-with(.,'http://syriaca.org')][1]
+                for $r in collection($global:data-root || '/bibl')//tei:body[ft:query(.,$terms, data:search-options())]/ancestor::tei:TEI/descendant::tei:publicationStmt/tei:idno[starts-with(.,'http://syriaca.org')][1]
                 return concat(substring-before($r,'/tei'),'(\s|$)')),'|')
         return concat("[descendant::tei:bibl/tei:ptr[@target[matches(.,'",$ids,"')]]]")
     else ()
-       (: common:element-search('bibl',$search:bibl):)  
+       (: data:element-search('bibl',$search:bibl):)  
 };
 
 (: NOTE add additional idno locations, ptr/@target @ref, others? :)
@@ -166,28 +146,6 @@ declare function search:search-string($collection as xs:string?){
     else if($collection = 'bibl') then bibls:search-string()
     else if($collection = 'manuscripts') then ms:search-string()
     else search:search-string()
-};
-
-(:~
- : Call facets on search results
- : NOTE: need better template integration
-:)
-declare %templates:wrap function search:facets($node as node()*, $model as map(*), $collection as xs:string*){
-if(exists(request:get-parameter-names())) then
-    <div>
-         {
-         if($collection = 'spear') then
-                <div>
-                    <h4>Narrow Results</h4>
-                       {facet:html-list-facets-as-buttons(facet:count($model("hits"), facet-defs:facet-definition('spear')/child::*))}
-                </div>
-         else 
-            let $facet-nodes := $model("hits")
-            let $facets := $facet-nodes//tei:repository | $facet-nodes//tei:country
-            return facets:facets($facets)
-         }
-    </div>
-else ()
 };
 
 (:~ 

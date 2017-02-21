@@ -12,12 +12,15 @@ xquery version "3.0";
 
 module namespace browse="http://syriaca.org/browse";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
+import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
 import module namespace facet-defs="http://syriaca.org/facet-defs" at "facet-defs.xqm";
 import module namespace page="http://syriaca.org/page" at "lib/paging.xqm";
 import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
 import module namespace bs="http://syriaca.org/bs" at "browse-spear.xqm";
+import module namespace functx="http://www.functx.com";
 import module namespace templates="http://exist-db.org/xquery/templates";
+
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace transform="http://exist-db.org/xquery/transform";
@@ -32,10 +35,11 @@ declare namespace util="http://exist-db.org/xquery/util";
  : @param $browse:sort passes browse by letter for alphabetical browse lists
  :)
 declare variable $browse:coll {request:get-parameter('coll', '')};
+declare variable $browse:collection {request:get-parameter('collection', '')};
 declare variable $browse:type {request:get-parameter('type', '')};
 declare variable $browse:lang {request:get-parameter('lang', '')};
 declare variable $browse:view {request:get-parameter('view', '')};
-declare variable $browse:sort {request:get-parameter('sort', '')};
+declare variable $browse:alpha-filter {request:get-parameter('alpha-filter', '')};
 declare variable $browse:sort-element {request:get-parameter('sort-element', 'title')};
 declare variable $browse:sort-order {request:get-parameter('sort-order', '')};
 declare variable $browse:date {request:get-parameter('date', '')};
@@ -44,358 +48,113 @@ declare variable $browse:perpage {request:get-parameter('perpage', 25) cast as x
 declare variable $browse:fq {request:get-parameter('fq', '')};
 
 (:~
- : @depreciated
  : Set a default value for language, default sets to English. 
  : @param $browse:lang language parameter from URL
 :)
 declare variable $browse:computed-lang{ 
     if($browse:lang != '') then $browse:lang
-    else if($browse:lang = '' and $browse:sort != '') then 'en'
+    else if($browse:lang = '' and $browse:alpha-filter != '') then 'en'
     else if($browse:view = '') then 'en'
     else ()
 };
-
-(: @depreciated, use seriesStmt/title for collection browsing
- : Step one directory for browse 'browse path'
-:)
-declare function browse:collection-path($collection){
-    if($collection = ('persons','sbd','saints','q','authors')) then 
-        concat("collection('",$global:data-root,"/persons/tei')")
-    else if($collection = 'places') then 
-        concat("collection('",$global:data-root,"/places/tei')")
-    else if($collection = ('bhse','nhsl')) then 
-        concat("collection('",$global:data-root,"/works/tei')")
-    else if($collection = 'bibl') then 
-        concat("collection('",$global:data-root,"/bibl/tei')")
-    else if($collection = 'spear') then 
-        concat("collection('",$global:data-root,"/spear/tei')")
-    else if($collection = 'manuscripts') then 
-        concat("collection('",$global:data-root,"/manuscripts/tei')")
-    else if(exists($collection)) then 
-        concat("collection('",$global:data-root,xs:anyURI($collection),"')")
-    else 
-        concat("collection('",$global:data-root,"')")
-};
-
-(:
- : Limit browse to spceified collection. 
- : Uses seriesStmt/title
- : @param $collection param from URL or passed via html templates
-:)
-declare function browse:sub-collection-filter($collection){
-let $c := if($browse:coll != '') then $browse:coll
-          else if($collection = 'bibl') then ()
-          else $collection
-return          
-    if($c != '') then
-        concat("//tei:title[. = '",browse:parse-collections($collection),"']")    
-    else ()
-};
-
+ 
 (:~
- : Parse collection to match series name
- : @param $collection collection should match data subdirectory name or tei series name
-:)
-declare function browse:parse-collections($collection as xs:string?) {
-    if($collection = ('persons','sbd')) then 'The Syriac Biographical Dictionary'
-    else if($collection = ('saints','q')) then 'Qadishe: A Guide to the Syriac Saints'
-    else if($collection = 'authors' ) then 'A Guide to Syriac Authors'
-    else if($collection = 'bhse' ) then 'Bibliotheca Hagiographica Syriaca Electronica'
-    else if($collection = 'nhsl' ) then 'New Handbook of Syriac Literature'
-    else if($collection = ('places','The Syriac Gazetteer')) then 'The Syriac Gazetteer'
-    else if($collection = ('spear','SPEAR: Syriac Persons, Events, and Relations')) then 'SPEAR: Syriac Persons, Events, and Relations'
-    else if($collection != '' ) then $collection
-    else ()
-};
-
-(:~
- : Make XPath language filter. 
- : @param $collection used to select browse element: persName/placeName/title
- : @param $browse:computed-lang 
-:)
-declare function browse:lang-filter($collection){    
-    if($browse:computed-lang != '') then 
-        concat("/descendant::",browse:lang-element($collection),browse:lang-headwords(),"[@xml:lang = '", $browse:computed-lang, "']")
-    else ()
-};
-
-(:~
- : Matches English letters and their equivalent letters as established by Syriaca.org
- : @param $browse:sort indicates letter for browse
- :)
-declare function browse:get-sort(){
-    if(exists($browse:sort) and $browse:sort != '') then
-        if($browse:lang = 'ar') then
-            browse:ar-sort()
-        else
-            if($browse:sort = 'A') then '(A|a|ẵ|Ẵ|ằ|Ằ|ā|Ā)'
-            else if($browse:sort = 'D') then '(D|d|đ|Đ)'
-            else if($browse:sort = 'S') then '(S|s|š|Š|ṣ|Ṣ)'
-            else if($browse:sort = 'E') then '(E|e|ễ|Ễ)'
-            else if($browse:sort = 'U') then '(U|u|ū|Ū)'
-            else if($browse:sort = 'H') then '(H|h|ḥ|Ḥ)'
-            else if($browse:sort = 'T') then '(T|t|ṭ|Ṭ)'
-            else if($browse:sort = 'I') then '(I|i|ī|Ī)'
-            else if($browse:sort = 'O') then '(O|Ō|o|Œ|œ)'
-            else $browse:sort
-    else '(A|a|ẵ|Ẵ|ằ|Ằ|ā|Ā)'
-};
-
-declare function browse:ar-sort(){
-    if($browse:sort = 'ٱ') then '(ٱ|ا|آ|أ|إ)'
-        else if($browse:sort = 'ٮ') then '(ٮ|ب)'
-        else if($browse:sort = 'ة') then '(ة|ت)'
-        else if($browse:sort = 'ڡ') then '(ڡ|ف)'
-        else if($browse:sort = 'ٯ') then '(ٯ|ق)'
-        else if($browse:sort = 'ں') then '(ں|ن)'
-        else if($browse:sort = 'ھ') then '(ھ|ه)'
-        else if($browse:sort = 'ۈ') then '(ۈ|ۇ|ٷ|ؤ|و)'
-        else if($browse:sort = 'ى') then '(ى|ئ|ي)'
-        else $browse:sort
-};
-
-(:~
- : Syriaca.org uses headwords for Syriac and English language browse
- : @param $browse:computed-lang 
-:)
-declare function browse:lang-headwords(){
-    if($browse:computed-lang = ('en','syr')) then 
-        "[@syriaca-tags='#syriaca-headword']"
-    else ()    
-};
-
-(:~
-  : Select correct tei element to base browse list on. 
-  : Places use place/placeName
-  : Persons use person/persName
-  : All others use title
-:)
-declare function browse:lang-element($collection){
-    if($collection = ('persons','sbd','saints','q','authors')) then
-        "tei:person/tei:persName"
-    else if($collection = ('places','geo')) then
-        "tei:place/tei:placeName"
-    else "tei:title"    
-};
-
-(:~
- : @depreciated - depreciating now...
- : Browse by date, persons only
- : Could also be handled by facets... 
-:)
-declare function browse:narrow-by-date(){
-    if($browse:date != '') then 
-        if($browse:date = 'BC dates') then 
-            "[descendant::tei:body[descendant::*[(@syriaca-computed-start[starts-with(.,'-')] or @syriaca-computed-end[starts-with(.,'-')])]]]"
-        else
-        concat("[descendant::tei:body[descendant::*[(
-                @syriaca-computed-start >= 
-                    '",browse:get-start-date(),"' 
-                    and @syriaca-computed-end <= 
-                    '",browse:get-end-date(),"'
-                    ) or (
-                    @syriaca-computed-start >= 
-                    '",browse:get-start-date(),"' 
-                    and @syriaca-computed-start <= 
-                    '",browse:get-end-date(),"' and 
-                    not(exists(@syriaca-computed-end)))]]]") 
-    else () 
-};
-
-(: Formats end dates queries for searching :)
-declare function browse:get-end-date(){
-let $date := substring-after($browse:date,'-')
-return 
-    if($date = '0-100') then '0001-01-01'
-    else if($date = '2000-') then '2100-01-01'
-    else if(matches($date,'\d{4}')) then concat($date,'-01-01')
-    else if(matches($date,'\d{3}')) then concat('0',$date,'-01-01')
-    else if(matches($date,'\d{2}')) then concat('00',$date,'-01-01')
-    else if(matches($date,'\d{1}')) then concat('000',$date,'-01-01')
-    else '0100-01-01'
-};
-
-(: Formats end start queries for searching :)
-declare function browse:get-start-date(){
-let $date := substring-before($browse:date,'-')
-return 
-    if($date = '0-100') then '0001-01-01'
-    else if($date = '2000-') then '2100-01-01'
-    else if(matches($date,'\d{4}')) then concat($date,'-01-01')
-    else if(matches($date,'\d{3}')) then concat('0',$date,'-01-01')
-    else if(matches($date,'\d{2}')) then concat('00',$date,'-01-01')
-    else if(matches($date,'\d{1}')) then concat('000',$date,'-01-01')
-    else '0100-01-01'
-};
-
-(:~
- : Browse by type, used for persons/places
-:)
-declare function browse:narrow-by-type($collection){
-    if($browse:type != '') then 
-        if($collection = ('persons','saints','authors')) then ()
-        else   
-            if($browse:type != '') then 
-                 concat("[descendant::tei:place[contains(@type,'",$browse:type,"')]]")
-            else ()
-    else ()
-};  
-(:~
- : Add initial browse results function to be passed to display and refine functions
+ : Build initial browse results based on parameters
  : @param $collection collection name passed from html, should match data subdirectory name or tei series name
+ : Calls data function data:get-browse-data($collection as xs:string*, $series as xs:string*, $element as xs:string?)
 :)  
-declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string?){
-(:let $path := concat('$hits-main/ancestor::tei:TEI',facet:facet-filter(facet-defs:facet-definition($collection))):)
-let $hits-main := util:eval(concat(browse:collection-path($collection),browse:sub-collection-filter($collection)))
-let $hits := 
-    util:eval(concat("$hits-main/ancestor::tei:TEI",
-    facet:facet-filter(facet-defs:facet-definition($collection)),browse:narrow-by-type($collection),browse:narrow-by-date(),browse:lang-filter($collection)))
-let $data :=   
-        if($collection = 'spear') then util:eval(concat(browse:collection-path($collection),'//tei:div[parent::tei:body]'))
-        else if($collection = 'bibl' and not($browse:view)) then
-            for $hit in $hits-main//tei:titleStmt/tei:title[1][matches(.,'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')]
-            where $hit[matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
-            order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'')
-            return $hit/ancestor::tei:TEI
-        else if($browse:computed-lang != '') then 
-            for $hit in $hits[matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
-            let $title := global:build-sort-string($hit,$browse:computed-lang)
-            order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
-            return 
-                <browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$hit}">{$hit/ancestor::tei:TEI}</browse>
-        else if($browse:view = 'numeric') then
-            for $hit in $hits/ancestor::tei:TEI/descendant::tei:idno[starts-with(.,$global:base-uri)][1]
-            let $rec-id := tokenize(replace($hit,'/tei|/source',''),'/')[last()]
-            order by xs:integer($rec-id)
-            return $hit/ancestor::tei:TEI
-        else if($browse:view = 'all') then
-            for $hit in $hits-main/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]
-            order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'') collation "?lang=en&lt;syr&amp;decomposition=full"
-            return $hit/ancestor::tei:TEI
-        else if($browse:view = 'A-Z') then
-                for $hit in $hits-main//tei:titleStmt/tei:title[1][matches(.,'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')]
-                where $hit[matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i')]
-                order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'')
-                return $hit/ancestor::tei:TEI
-        else if($browse:view = 'ܐ-ܬ') then
-                for $hit in $hits-main//tei:titleStmt/tei:title[1][matches(.,'\p{IsSyriac}','i')]
-                order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'') collation "?lang=syr&amp;decomposition=full"
-                return $hit/ancestor::tei:TEI                            
-        else if($browse:view = 'ا-ي') then
-            for $hit in $hits-main//tei:titleStmt/tei:title[1][matches(.,'\p{IsArabic}','i')]
-            order by  global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'ar') collation "?lang=ar&amp;decomposition=full"
-            return $hit/ancestor::tei:TEI 
-        else if($browse:view = 'other') then
-            for $hit in $hits-main//tei:titleStmt/tei:title[1][not(matches(substring(global:build-sort-string(.,''),1,1),'\p{IsSyriac}|\p{IsArabic}|\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}|\p{IsLatinExtendedAdditional}','i'))]
-            order by global:build-sort-string(page:add-sort-options($hit,$browse:sort-element),'') collation "?lang=en&lt;syr&lt;ar&amp;decomposition=full"
-            return $hit/ancestor::tei:TEI                         
-        else 
-            for $hit in $hits
-            let $title := global:build-sort-string($hit,$browse:computed-lang)
-            order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
-            return 
-                $hit/ancestor-or-self::tei:TEI
-return map{"browse-data" := $data }
+declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string*, $series as xs:string*, $element as xs:string?){
+    map{"browse-data" := data:get-browse-data($collection, $series, $element) }
 };
 
 (:~
- : Display in html templates
+ : Display pageing functions in html templates
 :)
 declare %templates:wrap function browse:pageination($node as node()*, $model as map(*), $collection as xs:string?, $sort-options as xs:string*){
    page:pages($model("browse-data"), $browse:start, $browse:perpage,'', $sort-options)
 };
 
 declare function browse:pages($hits, $collection as xs:string?, $sort-options as xs:string*){
- page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)
+    page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)
 };
 
 (:
- : Set up browse page, select correct results function based on URI params
+ : Main HTML display of browse results
  : @param $collection passed from html 
 :)
-declare function browse:results-panel($node as node(), $model as map(*), $collection, $sort-options as xs:string*){
-let $hits := $model("browse-data")
-return
-if($collection = 'spear') then bs:spear-results-panel($hits)
-else if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then
-    (<div class="col-md-4">
-        {if($browse:view='type') then 
-            if($collection = ('geo','places')) then 
-                browse:browse-type($collection)
-            else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/descendant::facet:facet-definition[@name="Type"]))
-         else if($browse:view = 'facets') then 
-            facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/child::*))
-         else 
-            facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/descendant::facet:facet-definition[@name="Century"]))
-         }
-     </div>,
-     <div class="col-md-8">{
-        if($browse:view='type') then
-            if($browse:type != '' or contains(request:get-parameter('fq', ''),'fq-Type')) then
-                (
-                browse:pages($hits, $collection, ''),
-                <h3>{concat(upper-case(substring($browse:type,1,1)),substring($browse:type,2))}</h3>,
-                <div>
-                    {(        
-                        <div class="col-md-12 map-md">
-                            {browse:get-map($hits)}
-                        </div>,
-                        browse:display-hits($hits)
-                        )}
-                </div>)
-            else <h3>Select Type</h3>    
-        else if($browse:view='date') then 
-            if($browse:date !='' or contains(request:get-parameter('fq', ''),'fq-Century')) then 
-                (browse:pages($hits, $collection, $sort-options),
-                 <h3>{$browse:date}</h3>,
-                 <div>{browse:display-hits($hits)}</div>)
-            else <h3>Select Date</h3>  
-        else (
-                browse:pages($hits, $collection, ''),
-                <h3>Results {concat(upper-case(substring($browse:type,1,1)),substring($browse:type,2))} ({count($hits)})</h3>,
-                <div>
-                    {(
-                        <div class="col-md-12 map-md">
-                            {browse:get-map($hits)}
-                        </div>,
-                        <div class="indent">{browse:display-hits($hits)}</div>
-                        )}
-                </div>)
-        }</div>)
-else if($browse:view = 'map') then 
-    <div class="col-md-12 map-lg">
-        {browse:get-map($hits)}
-    </div>
-else if($browse:view = 'all' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then 
-    <div class="col-md-12">
-        <div>{browse:pages($hits, $collection, $sort-options)}</div>
-        <div>{browse:display-hits($hits)}</div>
-    </div>
-else 
-    <div class="col-md-12">
-        {(
-        if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),
-        <div class="float-container">
-            <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right"}">
-                 <div>{browse:pages($hits, $collection, $sort-options)}</div>
+declare function browse:results-panel($node as node(), $model as map(*), $collection, $series, $sort-options as xs:string*){
+    let $hits := $model("browse-data")
+    let $facets := if($series) then $series 
+                   else if($collection) then $collection 
+                   else ()
+    return 
+       if($collection = 'spear') then bs:spear-results-panel($hits)
+       else if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then
+            (<div class="col-md-4">
+                {if($browse:view='type') then 
+                    if($collection = ('geo','places')) then browse:browse-type($collection)
+                    else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($facets)/descendant::facet:facet-definition[@name="Type"]))
+                 else if($browse:view = 'facets') then facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($facets)/child::*))
+                 else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($facets)/descendant::facet:facet-definition[@name="Century"]))
+                 }
+             </div>,
+             <div class="col-md-8">{
+                if($browse:view='type') then
+                    if(request:get-parameter('fq', '') and contains(request:get-parameter('fq', ''), 'fq-Type:') or $browse:type != '') then
+                        (
+                        browse:pages($hits, $collection, ''),
+                        <h3>{concat(upper-case(substring($browse:type,1,1)),substring($browse:type,2))}</h3>,
+                        <div>{(        
+                                <div class="col-md-12 map-md">{browse:get-map($hits)}</div>,
+                                browse:display-hits($hits)
+                                )}</div>)
+                    else <h3>Select Type</h3>    
+                else if($browse:view='date') then 
+                    if(request:get-parameter('fq', '') and contains(request:get-parameter('fq', ''), 'fq-Century:')) then 
+                        (browse:pages($hits, $collection, $sort-options),
+                        <h3>{$browse:date}</h3>,
+                        <div>{browse:display-hits($hits)}</div>)
+                    else <h3>Select Date</h3>  
+                else (browse:pages($hits, $collection, ''),
+                      <h3>Results {concat(upper-case(substring($browse:type,1,1)),substring($browse:type,2))} ({count($hits)})</h3>,
+                      <div>{(
+                        <div class="col-md-12 map-md">{browse:get-map($hits)}</div>,
+                            browse:display-hits($hits)
+                        )}</div>)
+                }</div>)
+        else if($browse:view = 'map') then 
+            <div class="col-md-12 map-lg">
+                {browse:get-map($hits)}
             </div>
-            {browse:browse-abc-menu()}
-        </div>,
-        <h3>{(
-            if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then 
-                (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) 
-            else attribute class {"label"},
-                if($browse:sort != '') then $browse:sort else 'A')}</h3>,
-        <div class="{if($browse:lang = 'syr' or $browse:lang = 'ar') then 'syr-list' else 'en-list'}">
-            <div class="row">
-                <div class="col-sm-12">
-                {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else()}
-                {browse:display-hits($hits)}
+        else if($browse:view = 'all' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then 
+            <div class="col-md-12">
+                <div>{browse:pages($hits, $collection, $sort-options)}</div>
+                <div>{browse:display-hits($hits)}</div>
+            </div>
+        else 
+            <div class="col-md-12">
+                {(
+                if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),
+                <div class="float-container">
+                    <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right"}">
+                         <div>{browse:pages($hits, $collection, $sort-options)}</div>
+                    </div>
+                    {browse:browse-abc-menu()}
+                </div>,
+                <h3>{(
+                    if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) 
+                    else attribute class {"label"},
+                    if($browse:alpha-filter != '') then $browse:alpha-filter else 'A')}</h3>,
+                <div class="{if($browse:lang = 'syr' or $browse:lang = 'ar') then 'syr-list' else 'en-list'}">
+                    <div class="row">
+                        <div class="col-sm-12">
+                        {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else()}
+                        {browse:display-hits($hits)}
+                        </div>
+                    </div>
                 </div>
+                )}
             </div>
-        </div>
-        )}
-    </div>
 };
 
 declare function browse:total-places(){
@@ -421,13 +180,15 @@ return
 
 };
 
+(:
+ : Pass each TEI result through xslt stylesheet
+:)
 declare function browse:display-hits($hits){
     for $data in subsequence($hits, $browse:start,$browse:perpage)
     let $sort-title := if($browse:computed-lang != ('en','syr')) then string($data/@sort-title) else () 
     return 
         <div xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
             { 
-             (:$data/matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i'):)
              transform:transform($data, doc($global:app-root || '/resources/xsl/rec-short-view.xsl'), 
                 <parameters>
                     <param name="data-root" value="{$global:data-root}"/>
@@ -439,7 +200,6 @@ declare function browse:display-hits($hits){
                     <param name="sort-title" value="{$sort-title}"/>
                 </parameters>
                 )
-             (:global:display-recs-short-view-browse($data, $browse:computed-lang, $sort-title):)
             }
         </div>
 };
@@ -480,14 +240,16 @@ declare function browse:get-map($hits){
                     <location>{$geo}</location>  
                 </place>
         return 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Related places</h3>
-                </div>
-                <div class="panel-body">
-                    {maps:build-map($locations,count($places))}
-                </div>
-            </div>
+            if(not(empty($locations))) then 
+             <div class="panel panel-default">
+                 <div class="panel-heading">
+                     <h3 class="panel-title">Related places</h3>
+                 </div>
+                 <div class="panel-body">
+                     {maps:build-map($locations,count($places))}
+                 </div>
+             </div>
+           else () 
     else ()
 };
 
@@ -501,19 +263,29 @@ declare function browse:browse-abc-menu(){
             if(($browse:lang = 'syr')) then  
                 for $letter in tokenize('ܐ ܒ ܓ ܕ ܗ ܘ ܙ ܚ ܛ ܝ ܟ ܠ ܡ ܢ ܣ ܥ ܦ ܩ ܪ ܫ ܬ', ' ')
                 return 
-                    <li class="syr-menu" lang="syr"><a href="?lang={$browse:lang}&amp;sort={$letter}">{$letter}</a></li>
+                    <li class="syr-menu {if($browse:alpha-filter = $letter) then "selected badge" else()}" lang="syr"><a href="?lang={$browse:lang}&amp;alpha-filter={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else()}">{$letter}</a></li>
             else if(($browse:lang = 'ar')) then  
                 for $letter in tokenize('ا ب ت ث ج ح  خ  د  ذ  ر  ز  س  ش  ص  ض  ط  ظ  ع  غ  ف  ق  ك ل م ن ه  و ي', ' ')
                 return 
-                    <li class="ar-menu" lang="ar"><a href="?lang={$browse:lang}&amp;sort={$letter}">{$letter}</a></li>
+                    <li class="ar-menu {if($browse:alpha-filter = $letter) then "selected badge" else()}" lang="ar"><a href="?lang={$browse:lang}&amp;alpha-filter={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else()}">{$letter}</a></li>
             else if($browse:lang = 'ru') then 
                 for $letter in tokenize('А Б В Г Д Е Ё Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я',' ')
                 return 
-                <li><a href="?lang={$browse:lang}&amp;sort={$letter}">{$letter}</a></li>
+                <li>{if($browse:alpha-filter = $letter) then attribute class {"selected badge"} else()}<a href="?lang={$browse:lang}&amp;alpha-filter={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else()}">{$letter}</a></li>
+            (: Used by SPEAR :)
+            else if($browse:view = 'persons') then  
+                for $letter in tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Anonymous All', ' ')
+                return
+                    <li>{if($browse:alpha-filter = $letter) then attribute class {"selected badge"} else()}<a href="?view={$browse:view}&amp;alpha-filter={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else()}">{$letter}</a></li>
+            (: Used by SPEAR :)
+            else if($browse:view = 'places') then  
+                for $letter in tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z All', ' ')
+                return
+                     <li>{if($browse:alpha-filter = $letter) then attribute class {"selected badge"} else()}<a href="?view={$browse:view}&amp;alpha-filter={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else()}">{$letter}</a></li>            
             else                
                 for $letter in tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z', ' ')
                 return
-                    <li><a href="?lang={$browse:lang}&amp;sort={$letter}">{$letter}</a></li>
+                    <li>{if($browse:alpha-filter = $letter) then attribute class {"selected badge"} else()}<a href="?lang={$browse:lang}&amp;alpha-filter={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else()}">{$letter}</a></li>
         }
         </ul>
     </div>
@@ -534,51 +306,10 @@ declare function browse:browse-type($collection){
                             {if(string($place-types) = '') then 'unknown' else replace(string($place-types),'#|-',' ')}  <span class="count"> ({count($types)})</span>
                             </a> 
                         </li>
-            else      
-                   let $persons := collection($global:data-root || '/persons/tei')//tei:person
-                   let $unknown := count($persons[ancestor::tei:TEI[not(descendant::tei:title[@level='m'] = 'A Guide to Syriac Authors') and not(descendant::tei:title[@level='m'] = 'Qadishe: A Guide to the Syriac Saints')]])
-                   let $author := count($persons[ancestor::tei:TEI/descendant::tei:title[@level='m'][. = 'A Guide to Syriac Authors']])
-                   let $saint := count($persons[ancestor::tei:TEI/descendant::tei:title[@level='m'][. = 'Qadishe: A Guide to the Syriac Saints']])
-                   return 
-                         (<li>{if($browse:type = 'authors') then attribute class {'active'} else '' }
-                             <a href="?view=type&amp;type=authors">
-                                Authors <span class="count"> ({$author})</span>
-                             </a>
-                         </li>,
-                        <li>{if($browse:type = 'saints') then attribute class {'active'} else '' }
-                             <a href="?view=type&amp;type=saints">
-                                Saints <span class="count"> ({$saint})</span>
-                             </a>
-                         </li>
-                         (:,
-                         <li>{if($browse:type = 'unknown') then attribute class {'active'} else '' }
-                             <a href="?view=type&amp;type=unknown">
-                                Unknown <span class="count"> ({$unknown})</span>
-                             </a>
-                         </li>:))
+            else  () 
         }
     </ul>
 
-};
-
-(:
- : Browse by date
- : Precomputed values
- : NOTE: would be nice to use facets, however, it is currently inefficient 
-:)
-declare function browse:browse-date(){
-    <ul class="nav nav-tabs nav-stacked pull-left type-nav">
-        {   
-            let $all-dates := 'BC dates, 0-100, 100-200, 200-300, 300-400, 400-500, 500-600, 700-800, 800-900, 900-1000, 1100-1200, 1200-1300, 1300-1400, 1400-1500, 1500-1600, 1600-1700, 1700-1800, 1800-1900, 1900-2000, 2000-'
-            for $date in tokenize($all-dates,', ')
-            return
-                    <li>{if($browse:date = $date) then attribute class {'active'} else '' }
-                        <a href="?view=date&amp;date={$date}">
-                            {$date}  <!--<span class="count"> ({count($types)})</span>-->
-                        </a>
-                    </li>
-            }
-    </ul>
 };
 
 (:
@@ -586,24 +317,30 @@ declare function browse:browse-date(){
  : @param $text tab text, from template
  : @param $param tab parameter passed to url from template
  : @param $value value of tab parameter passed to url from template
- ($value = 'en' and not(exists(request:get-parameter-names()))) or ($value = 'en' and $browse:computed-lang = 'en')
- : @param $sort-value for abc menus. 
+ : @param $alpha-filter-value for abc menus. 
 :)
-declare function browse:tabs($node as node(), $model as map(*), $text as xs:string?, $param as xs:string?, $value as xs:string?, $sort-value as xs:string?){
-let $s := if($sort-value != '') then $sort-value else if($browse:sort != '') then $browse:sort else 'A'
+declare function browse:tabs($node as node(), $model as map(*), $text as xs:string?, $param as xs:string?, $value as xs:string?, $alpha-filter-value as xs:string?, $element as xs:string?, $default as xs:string?){
+let $element := 
+    if(request:get-parameter('element', '') != '') then 
+        request:get-parameter('element', '') 
+    else if($element) then $element
+    else ()
+let $s := if($alpha-filter-value != '') then $alpha-filter-value else if($browse:alpha-filter != '') then $browse:alpha-filter else 'A'
 return
-    <li xmlns="http://www.w3.org/1999/xhtml" test="{$value}">{
+    <li xmlns="http://www.w3.org/1999/xhtml">{
         if(($value='en' and $browse:computed-lang = 'en')) then attribute class {'active'} 
         else if($value = $browse:view) then attribute class {'active'}
         else if($value = $browse:lang) then attribute class {'active'}
+        else if($value = 'English' and empty(request:get-parameter-names())) then attribute class {'active'}
         else ()
         }
-        <a href="browse.html?{$param}={$value}{if($param = 'lang') then concat('&amp;sort=',$s) else ()}">
+        <a href="browse.html?{$param}={$value}{if($param = 'lang') then concat('&amp;alpha-filter=',$s) else ()}{if($element != '') then concat('&amp;element=',$element) else()}">
         {if($value = 'syr' or $value = 'ar') then (attribute lang {$value},attribute dir {'ltr'}) else ()}
         {$text}
         </a>
     </li> 
 };
+
 
 (:~
  : Browse Tabs - SPEAR

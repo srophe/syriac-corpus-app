@@ -4,11 +4,11 @@ module namespace api="http://syriaca.org/api";
 
 import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
+import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace geojson="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace geokml="http://syriaca.org/geokml" at "lib/geokml.xqm";
 import module namespace tei2ttl="http://syriaca.org/tei2ttl" at "lib/tei2ttl.xqm";
 import module namespace feed="http://syriaca.org/atom" at "lib/atom.xqm";
-import module namespace common="http://syriaca.org/common" at "search/common.xqm";
 declare namespace json="http://www.json.org";
 (: For output annotations  :)
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
@@ -137,7 +137,7 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
                     else ()
                  else ()                       
     let $eval-string := concat("collection('",$global:data-root,"')//tei:"
-                        ,$element,"[ft:query(.,'",$q,"*',common:options())]",$lang,$collection,$author)
+                        ,$element,"[ft:query(.,'",$q,"*',data:search-options())]",$lang,$collection,$author)
     let $hits := util:eval($eval-string)
     return 
         if(count($hits) gt 0) then 
@@ -178,7 +178,7 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
 :)
 declare 
     %rest:GET
-    %rest:path("/{$collection}/{$id}/ttl")
+    %rest:path("/srophe/{$collection}/{$id}/ttl")
     %output:media-type("text/turtle")
     %output:method("text")
 function api:get-ttl($collection as xs:string, $id as xs:string){
@@ -187,7 +187,7 @@ function api:get-ttl($collection as xs:string, $id as xs:string){
         <http:header name="Content-Type" value="text/turtle; charset=utf-8"/> 
       </http:response> 
     </rest:response>, 
-    tei2ttl:make-triples(api:get-tei-rec($collection, $id))
+    tei2ttl:ttl-output(api:get-tei-rec($collection, $id))
      )
 }; 
 
@@ -199,7 +199,7 @@ function api:get-ttl($collection as xs:string, $id as xs:string){
 :)
 declare 
     %rest:GET
-    %rest:path("/{$collection}/{$id}/tei")
+    %rest:path("/srophe/{$collection}/{$id}/tei")
     %output:media-type("text/xml")
     %output:method("xml")
 function api:get-tei($collection as xs:string, $id as xs:string){
@@ -233,7 +233,7 @@ function api:get-tei($collection as xs:string, $id as xs:string){
 :)
 declare 
     %rest:GET
-    %rest:path("/{$collection}/{$id}/atom")
+    %rest:path("/srophe/{$collection}/{$id}/atom")
     %output:media-type("application/atom+xml")
     %output:method("xml")
 function api:get-atom-record($collection as xs:string, $id as xs:string){
@@ -304,7 +304,7 @@ declare function api:get-tei-rec($collection as xs:string, $id as xs:string) as 
         if($collection='spear') then 
             let $spear-id := concat('http://syriaca.org/spear/',$id)
             return global:get-rec($spear-id)
-        else global:get-rec($uri)
+        else data:get-rec($uri)
 };
 
 (:~

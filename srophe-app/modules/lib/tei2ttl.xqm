@@ -343,38 +343,12 @@ declare function tei2ttl:ttl-output($recs) {
     return tei2ttl:make-triple-set($r)))
 };
 
-declare function tei2ttl:save-to-db($id){
-if($id = 'run all') then 
-    let $recs := collection('/db/apps/logar-data/data/places/tei')
-    (: Individual recs :)
-    for $hit at $p in subsequence($recs, 1, 4000)//tei:TEI
-    let $filename := concat(tokenize(replace($hit/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org')][1],'/tei',''),'/')[last()],'.ttl')
-    let $file-data :=  
-        try {
-            (concat(tei2ttl:prefix(), tei2ttl:record($hit)))
-        } catch * {
-            <error>Caught error {$err:code}: {$err:description}</error>
-            }     
-    return xmldb:store(xs:anyURI('/db/apps/logar-data/rdf/data'), xmldb:encode-uri($filename), $file-data)
-else if($id = 'combined') then 
-    (: Full collection:) 
-    let $recs := collection('/db/apps/logar-data/data/places/tei')
-    let $full-rec := 
-       string-join(
-       for $hit in $recs
-        let $filename := concat(tokenize(replace($hit/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org')][1],'/tei',''),'/')[last()],'.ttl')
-        let $file-data :=  
-            try {
-                tei2ttl:record($hit)
-            } catch * {
-                <error>Caught error {$err:code}: {$err:description}</error>
-                }
-        return $file-data,'&#xa;')  
-    let $full := concat(tei2ttl:prefix(),$full-rec)    
-    return xmldb:store(xs:anyURI('/db/apps/bug-test/data'), xmldb:encode-uri('all-places.ttl'), $full)
-else if($id != '') then  
-    let $recs := collection('/db/apps/srophe-data/data/places/tei')//tei:idno[@type='URI'][. = $id]
-    (: Individual recs :)
+declare function tei2ttl:save-to-db($id,$collection, $rdf-file-name){
+'temp'
+(:
+if($id != '') then
+    else if($id != '') then  
+    let $recs := collection($global:data-root)//tei:idno[@type='URI'][. = $id]
     for $hit in $recs/ancestor::tei:TEI
     let $filename := concat(tokenize(replace($hit/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org')][1],'/tei',''),'/')[last()],'.ttl')
     let $file-data :=  
@@ -384,6 +358,33 @@ else if($id != '') then
             <error>Caught error {$err:code}: {$err:description}</error>
             }     
     return $file-data
-    (:xmldb:store(xs:anyURI('/db/apps/bug-test/data/places/rdf'), xmldb:encode-uri($filename), $file-data):)
-else ()
+else if($collection) then 
+    if($id='all-recs') then 
+        let $recs := collection($collection)
+        for $hit in $recs
+        let $filename := concat(tokenize(replace($hit/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org')][1],'/tei',''),'/')[last()],'.ttl')
+        let $file-data :=  
+            try {
+            (concat(tei2ttl:prefix(), tei2ttl:record($hit)))
+                } catch * {
+                <error>Caught error {$err:code}: {$err:description}</error>
+                }     
+        return xmldb:store(xs:anyURI('/db/apps/logar-data/rdf/data'), xmldb:encode-uri($filename), $file-data)
+    else
+       let $recs := collection($collection)
+       return
+        string-join(
+           for $hit in $recs
+           let $filename := concat(tokenize(replace($hit/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org')][1],'/tei',''),'/')[last()],'.ttl')
+           let $file-data :=  
+               try {
+                   tei2ttl:make-triple-set($hit)
+               } catch * {
+                   <error>Caught error {$err:code}: {$err:description}</error>
+                   }
+           return $file-data,'&#xa;')  
+       let $full := concat(tei2ttl:prefix(),$full-rec)    
+       return xmldb:store(xs:anyURI('/db/apps/bug-test/data'), xmldb:encode-uri(concat($rdf-file-name,'.ttl')), $full)
+       :)
+
 };

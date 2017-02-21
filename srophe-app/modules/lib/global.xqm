@@ -5,7 +5,8 @@ declare namespace repo="http://exist-db.org/xquery/repo";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
 
-(: Find app root, borrowed from config.xqm :)
+(: Global variables used by Srophe app :)
+(: Find app root for building absolute paths :)
 declare variable $global:app-root := 
     let $rawPath := system:get-module-load-path()
     let $modulePath :=
@@ -23,7 +24,7 @@ declare variable $global:app-root :=
 (: Get repo.xml to parse global varaibles :)
 declare variable $global:get-config := doc($global:app-root || '/repo.xml');
 
-(: Establish data app root :)
+(: Establish data root defined in repo.xml 'data-root' name of eXist app :)
 declare variable $global:data-root := 
     let $app-root := $global:get-config//repo:app-root/text()  
     let $data-root := concat($global:get-config//repo:data-root/text(),'/data') 
@@ -45,20 +46,36 @@ declare variable $global:app-title := $global:get-config//repo:title/text();
 
 declare variable $global:app-url := $global:get-config//repo:url/text();
 
+declare variable $global:id-path := $global:get-config//repo:id-path/text();
+
 (: Map rendering, google or leaflet :)
 declare variable $global:app-map-option := $global:get-config//repo:maps/repo:option[@selected='true']/text();
+
+(: Map rendering, google or leaflet :)
+declare variable $global:map-api-key := $global:get-config//repo:maps/repo:option[@selected='true']/@api-key;
+
 
 (: Recaptcha Key, Store as environemnt variable. :)
 declare variable $global:recaptcha := '6Lc8sQ4TAAAAAEDR5b52CLAsLnqZSQ1wzVPdl0rO';
 
-(: Sub in relative paths based on base-url variable :)
-declare function global:internal-links($uri){
-    replace($uri,$global:base-uri,$global:nav-base)
+(: Global functions used throughout Srophe app :)
+(:~
+ : Sub in relative paths based on base-url variable
+ : @para @uri as xs:string 
+ :)
+declare function global:internal-links($uri as xs:string?){
+    try {
+        replace($uri,$global:base-uri,$global:nav-base)
+    } catch * {
+        <error>Caught error {$err:code}: {$err:description}</error>
+        }
+        
 };
 
 (:
  : Addapted from https://github.com/eXistSolutions/hsg-shell
  : Recurse through menu output absolute urls based on config.xml values. 
+ : @param $nodes html elements containing links with '$app-root'
 :)
 declare function global:fix-links($nodes as node()*) {
     for $node in $nodes
@@ -102,12 +119,12 @@ declare function global:tei2html($nodes as node()*) {
 (: 
  : Formats search and browse results 
  : Uses English and Syriac headwords if available, tei:teiHeader/tei:title if no headwords.
- : Should handle all data types, and eliminate the need for 
- : data type specific display functions eg: persons:saints-results-node()
  : @param $node search/browse hits should be either tei:person, tei:place, or tei:body
- : Used by search.xqm, browse.xqm and get-related.xqm
+ : @param $lang defaults to 'en'
+ : @param $recid 
+ : Used by search.xqm, browse.xqm and get-related.xqm and spear.xqm
 :)
-declare function global:display-recs-short-view($node, $lang, $recid) as node()*{
+declare function global:display-recs-short-view($node as node()*, $lang as xs:string?, $recid as xs:string?) as node()*{
   transform:transform($node, doc($global:app-root || '/resources/xsl/rec-short-view.xsl'), 
     <parameters>
         <param name="data-root" value="{$global:data-root}"/>
@@ -120,16 +137,14 @@ declare function global:display-recs-short-view($node, $lang, $recid) as node()*
     )
 };
 
-
 (: 
  : Formats search and browse results 
  : Uses English and Syriac headwords if available, tei:teiHeader/tei:title if no headwords.
- : Should handle all data types, and eliminate the need for 
- : data type specific display functions eg: persons:saints-results-node()
  : @param $node search/browse hits should be either tei:person, tei:place, or tei:body
+ : @param $lang defaults to 'en'
  : Used by search.xqm, browse.xqm and get-related.xqm
 :)
-declare function global:display-recs-short-view($node, $lang) as node()*{
+declare function global:display-recs-short-view($node as node()*, $lang as xs:string?) as node()*{
   transform:transform($node, doc($global:app-root || '/resources/xsl/rec-short-view.xsl'), 
     <parameters>
         <param name="data-root" value="{$global:data-root}"/>
@@ -143,9 +158,9 @@ declare function global:display-recs-short-view($node, $lang) as node()*{
 
 (:~
  : Build uri from short id
- : @param $id from URL
+ : Uses request:get-parameter('id', '') return string. 
 :)
-declare function global:resolve-id(){
+declare function global:resolve-id() as xs:string?{
 let $id := request:get-parameter('id', '')
 let $parse-id :=
     if(contains($id,$global:base-uri) or starts-with($id,'http://')) then $id
@@ -156,9 +171,10 @@ let $final-id := if(ends-with($parse-id,'.html')) then substring-before($parse-i
 return $final-id
 };
 
-(:
+(: @depreciated, uses data:get-rec()
  : Generic get record function
  : Manuscripts and SPEAR recieve special treatment as individule parts may be treated as full records. 
+ : Srophe uses tei:idno for record IDs
  : @param $id syriaca.org uri for record or part. 
 :)
 declare function global:get-rec($id as xs:string){  
@@ -191,6 +207,34 @@ if($name/child::*) then
 else $name/text()
 };
 
+(:~ 
+ : Parse persNames to take advantage of sort attribute in display. 
+ : Returns a sorted string
+ : @param $name persName element 
+ :)
+declare function global:make-iso-date($date as xs:string?) as xs:date* {
+xs:date(
+    if($date = '0-100') then '0001-01-01'
+    else if($date = '2000-') then '2100-01-01'
+    else if(matches($date,'\d{4}')) then concat($date,'-01-01')
+    else if(matches($date,'\d{3}')) then concat('0',$date,'-01-01')
+    else if(matches($date,'\d{2}')) then concat('00',$date,'-01-01')
+    else if(matches($date,'\d{1}')) then concat('000',$date,'-01-01')
+    else '0100-01-01')
+};
+
+(:
+ : Function to truncate description text after first 12 words
+ : @param $string
+:)
+declare function global:truncate-string($str as xs:string*) as xs:string? {
+let $string := string-join($str, ' ')
+return 
+    if(count(tokenize($string, '\W+')[. != '']) gt 12) then 
+        let $last-words := tokenize($string, '\W+')[position() = 14]
+        return concat(substring-before($string, $last-words),'...')
+    else $string
+};
 (:~
  : Strips english titles of non-sort characters as established by Syriaca.org
  : Used for alphabetizing
@@ -211,19 +255,29 @@ declare function global:ar-sort-string($titlestring as xs:string?) as xs:string*
 };
 
 (:
+ : Uses Srophe ODD file to establish labels for various ouputs. Returns blank if there is no matching definition in the ODD file.
+ : Pass in ODD file from repo.xml 
  : example: global:odd2text($rec/descendant::tei:bibl[1],string($rec/descendant::tei:bibl[1]/@type))
 :)
-declare function global:odd2text($element as element()?, $label as xs:string?) as xs:string* {
-    let $odd := util:parse(util:binary-to-string(util:binary-doc($global:app-root || '/documentation/syriaca-tei-main.odd')))
+declare function global:odd2text($element as xs:string?, $label as xs:string?) as xs:string* {
+    let $odd-path := $global:get-config//repo:odd/text()
+    let $odd-file := 
+                    if(starts-with($odd-path,'http://')) then 
+                            http:send-request(<http:request href="{xs:anyURI($odd-path)}" method="get"/>)[2]
+                    else util:parse(util:binary-to-string(util:binary-doc($global:app-root || $odd-path)))
     return 
-        if($odd/descendant::tei:elementSpec[@ident = name($element)]/descendant::tei:valItem[@ident=$label]/tei:gloss/text()) then
-            $odd/descendant::tei:elementSpec[@ident = name($element)]/descendant::tei:valItem[@ident=$label]/tei:gloss/text()
-        else ''  
-
+        if($odd-path != '') then
+                let $odd := util:parse(util:binary-to-string(util:binary-doc($global:app-root || $odd-path)))
+                return 
+                    if($odd/descendant::*[@ident = $element][1]/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()) then
+                        $odd/descendant::*[@ident = $element][1]/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()
+                    else $label  
+         else $label
 };
 
 (:~
  : Configure dropdown menu for keyboard layouts for input boxes
+ : Options are defined in repo.xml
  : @param $input-id input id used by javascript to select correct keyboard layout.  
  :)
 declare function global:keyboard-select-menu($input-id as xs:string){
@@ -231,9 +285,9 @@ declare function global:keyboard-select-menu($input-id as xs:string){
     if($global:get-config//repo:keyboard-options/child::*) then 
         <ul xmlns="http://www.w3.org/1999/xhtml" class="dropdown-menu" test="TEST">
             {
-            for $layout in $global:get-config//repo:keyboard-options/child::*/child::*
+            for $layout in $global:get-config//repo:keyboard-options/repo:option
             return  
-                <li xmlns="http://www.w3.org/1999/xhtml"><a href="#" class="keyboard-select" id="{$layout/@id}" data-keyboard-id="{$input-id}">{$layout}</a></li>
+                <li xmlns="http://www.w3.org/1999/xhtml"><a href="#" class="keyboard-select" id="{$layout/@id}" data-keyboard-id="{$input-id}">{$layout/text()}</a></li>
             }
         </ul>
     else ()       

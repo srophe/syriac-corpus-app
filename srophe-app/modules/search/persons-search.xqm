@@ -4,7 +4,7 @@ xquery version "3.0";
  : Search string is passed to search.xqm for processing.  
  :)
 module namespace persons="http://syriaca.org/persons";
-import module namespace common="http://syriaca.org/common" at "common.xqm";
+import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
@@ -36,7 +36,7 @@ declare variable $persons:mentioned {request:get-parameter('mentioned', '')};
  : @param $q query string
 :)
 declare function persons:keyword() as xs:string? {
-    if($persons:q != '') then concat("[ft:query(.,'",common:clean-string($persons:q),"',common:options()) | ft:query(descendant::tei:persName,'",common:clean-string($persons:q),"',common:options()) | ft:query(descendant::tei:placeName,'",common:clean-string($persons:q),"',common:options()) | ft:query(ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:title,'",common:clean-string($persons:q),"',common:options()) | ft:query(descendant::tei:desc,'",common:clean-string($persons:q),"',common:options())]")
+    if($persons:q != '') then concat("[ft:query(.,'",data:clean-string($persons:q),"',data:search-options()) | ft:query(descendant::tei:persName,'",data:clean-string($persons:q),"',data:search-options()) | ft:query(descendant::tei:placeName,'",data:clean-string($persons:q),"',data:search-options()) | ft:query(ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:title,'",data:clean-string($persons:q),"',data:search-options()) | ft:query(descendant::tei:desc,'",data:clean-string($persons:q),"',data:search-options())]")
     else ()    
 };
 
@@ -48,7 +48,7 @@ declare function persons:keyword() as xs:string? {
 :)
 declare function persons:name() as xs:string? {
     if($persons:name != '') then
-        concat("[ft:query(descendant::tei:person/tei:persName,'",common:clean-string($persons:name),"',common:options())]")   
+        concat("[ft:query(descendant::tei:person/tei:persName,'",data:clean-string($persons:name),"',data:search-options())]")   
     else ()
 };
 
@@ -120,111 +120,111 @@ if($persons:date-type != '') then
     if($persons:date-type = 'birth') then 
         if($persons:start-date != '' and $persons:end-date != '') then concat("[descendant::tei:birth[(
             @syriaca-computed-start >= 
-                '",common:do-date($persons:start-date),"' 
+                '",global:make-iso-date($persons:start-date),"' 
                 and @syriaca-computed-start <= 
-                '",common:do-date($persons:end-date),"'
+                '",global:make-iso-date($persons:end-date),"'
                 )]]") 
          else if($persons:start-date != '' and $persons:end-date = '') then 
-             concat("[descendant::tei:birth[@syriaca-computed-start >= '",common:do-date($persons:start-date),"' or @syriaca-computed-end >= '",common:do-date($persons:start-date),"']]")
+             concat("[descendant::tei:birth[@syriaca-computed-start >= '",global:make-iso-date($persons:start-date),"' or @syriaca-computed-end >= '",global:make-iso-date($persons:start-date),"']]")
          else if($persons:end-date != ''  and $persons:start-date = '') then
-            concat("[descendant::tei:birth[@syriaca-computed-end <= '",common:do-date($persons:end-date),"' or @syriaca-computed-start <= '",common:do-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
+            concat("[descendant::tei:birth[@syriaca-computed-end <= '",global:make-iso-date($persons:end-date),"' or @syriaca-computed-start <= '",global:make-iso-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
          else '' 
     else if($persons:date-type = 'death') then 
         if($persons:start-date != '' and $persons:end-date != '') then concat("[descendant::tei:death[(
             @syriaca-computed-start >= 
-                '",common:do-date($persons:start-date),"' 
+                '",global:make-iso-date($persons:start-date),"' 
                 and @syriaca-computed-start <= 
-                '",common:do-date($persons:end-date),"'
+                '",global:make-iso-date($persons:end-date),"'
                 )]]") 
          else if($persons:start-date != ''  and $persons:end-date = '') then 
-             concat("[descendant::tei:death[@syriaca-computed-start >= '",common:do-date($persons:start-date),"' or @syriaca-computed-end >= '",common:do-date($persons:start-date),"']]")
+             concat("[descendant::tei:death[@syriaca-computed-start >= '",global:make-iso-date($persons:start-date),"' or @syriaca-computed-end >= '",global:make-iso-date($persons:start-date),"']]")
          else if($persons:end-date != ''  and $persons:start-date = '') then
-            concat("[descendant::tei:death[@syriaca-computed-end <= '",common:do-date($persons:end-date),"' or @syriaca-computed-start <= '",common:do-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
+            concat("[descendant::tei:death[@syriaca-computed-end <= '",global:make-iso-date($persons:end-date),"' or @syriaca-computed-start <= '",global:make-iso-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
          else '' 
     else if($persons:date-type = 'floruit') then 
         if($persons:start-date != '' and $persons:end-date != '') then concat("[descendant::tei:floruit[(
             @syriaca-computed-start >= 
-                '",common:do-date($persons:start-date),"' 
+                '",global:make-iso-date($persons:start-date),"' 
                 and @syriaca-computed-end <= 
-                '",common:do-date($persons:end-date),"'
+                '",global:make-iso-date($persons:end-date),"'
                 ) or (
                     @syriaca-computed-start >= 
-                    '",common:do-date($persons:start-date),"' 
+                    '",global:make-iso-date($persons:start-date),"' 
                     and @syriaca-computed-start <= 
-                    '",common:do-date($persons:end-date),"' and 
+                    '",global:make-iso-date($persons:end-date),"' and 
                     not(exists(@syriaca-computed-end)))]]")  
          else if($persons:start-date != ''  and $persons:end-date = '') then 
-             concat("[descendant::tei:floruit[@syriaca-computed-start >= '",common:do-date($persons:start-date),"' or @syriaca-computed-end >= '",common:do-date($persons:start-date),"']]")
+             concat("[descendant::tei:floruit[@syriaca-computed-start >= '",global:make-iso-date($persons:start-date),"' or @syriaca-computed-end >= '",global:make-iso-date($persons:start-date),"']]")
          else if($persons:end-date != ''  and $persons:start-date = '') then
-            concat("[descendant::tei:floruit[@syriaca-computed-end <= '",common:do-date($persons:end-date),"' or @syriaca-computed-start <= '",common:do-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
+            concat("[descendant::tei:floruit[@syriaca-computed-end <= '",global:make-iso-date($persons:end-date),"' or @syriaca-computed-start <= '",global:make-iso-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
          else ''      
    else if($persons:date-type = 'office') then 
         if($persons:start-date != '' and $persons:end-date != '') then concat("[descendant::tei:state[@type='office'][(
             @syriaca-computed-start >= 
-                '",common:do-date($persons:start-date),"' 
+                '",global:make-iso-date($persons:start-date),"' 
                 and @syriaca-computed-end <= 
-                '",common:do-date($persons:end-date),"'
+                '",global:make-iso-date($persons:end-date),"'
                 ) or (
                     @syriaca-computed-start >= 
-                    '",common:do-date($persons:start-date),"' 
+                    '",global:make-iso-date($persons:start-date),"' 
                     and @syriaca-computed-start <= 
-                    '",common:do-date($persons:end-date),"' and 
+                    '",global:make-iso-date($persons:end-date),"' and 
                     not(exists(@syriaca-computed-end)))]]") 
          else if($persons:start-date != ''  and $persons:end-date = '') then 
-             concat("[descendant::tei:state[@type='office'][@syriaca-computed-start >= '",common:do-date($persons:start-date),"' or @syriaca-computed-end >= '",common:do-date($persons:start-date),"']]")
+             concat("[descendant::tei:state[@type='office'][@syriaca-computed-start >= '",global:make-iso-date($persons:start-date),"' or @syriaca-computed-end >= '",global:make-iso-date($persons:start-date),"']]")
          else if($persons:end-date != ''  and $persons:start-date = '') then
-            concat("[descendant::tei:state[@type='office'][@syriaca-computed-end <= '",common:do-date($persons:end-date),"' or @syriaca-computed-start <= '",common:do-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
+            concat("[descendant::tei:state[@type='office'][@syriaca-computed-end <= '",global:make-iso-date($persons:end-date),"' or @syriaca-computed-start <= '",global:make-iso-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
          else '' 
    else if($persons:date-type = 'event') then 
         if($persons:start-date != '' and $persons:end-date != '') then concat("[descendant::tei:event[(
             @syriaca-computed-start >= 
-                '",common:do-date($persons:start-date),"' 
+                '",global:make-iso-date($persons:start-date),"' 
                 and @syriaca-computed-end <= 
-                '",common:do-date($persons:end-date),"'
+                '",global:make-iso-date($persons:end-date),"'
                 ) or (
                     @syriaca-computed-start >= 
-                    '",common:do-date($persons:start-date),"' 
+                    '",global:make-iso-date($persons:start-date),"' 
                     and @syriaca-computed-start <= 
-                    '",common:do-date($persons:end-date),"' and 
+                    '",global:make-iso-date($persons:end-date),"' and 
                     not(exists(@syriaca-computed-end)))]]")  
          else if($persons:start-date != ''  and $persons:end-date = '') then 
-             concat("[descendant::tei:event[@syriaca-computed-start >= '",common:do-date($persons:start-date),"' or @syriaca-computed-end >= '",common:do-date($persons:start-date),"']]")
+             concat("[descendant::tei:event[@syriaca-computed-start >= '",global:make-iso-date($persons:start-date),"' or @syriaca-computed-end >= '",global:make-iso-date($persons:start-date),"']]")
          else if($persons:end-date != ''  and $persons:start-date = '') then
-            concat("[descendant::tei:event[@syriaca-computed-end <= '",common:do-date($persons:end-date),"' or @syriaca-computed-start <= '",common:do-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
+            concat("[descendant::tei:event[@syriaca-computed-end <= '",global:make-iso-date($persons:end-date),"' or @syriaca-computed-start <= '",global:make-iso-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
          else ''
     else 
         if($persons:start-date != '' and $persons:end-date != '') then concat("[descendant::*[(
                 @syriaca-computed-start >= 
-                    '",common:do-date($persons:start-date),"' 
+                    '",global:make-iso-date($persons:start-date),"' 
                     and @syriaca-computed-end <= 
-                    '",common:do-date($persons:end-date),"'
+                    '",global:make-iso-date($persons:end-date),"'
                     ) or (
                     @syriaca-computed-start >= 
-                    '",common:do-date($persons:start-date),"' 
+                    '",global:make-iso-date($persons:start-date),"' 
                     and @syriaca-computed-start <= 
-                    '",common:do-date($persons:end-date),"' and 
+                    '",global:make-iso-date($persons:end-date),"' and 
                     not(exists(@syriaca-computed-end)))]]") 
              else if($persons:start-date != ''  and $persons:end-date = '') then 
-                 concat("[descendant::*[@syriaca-computed-start >= '",common:do-date($persons:start-date),"' or @syriaca-computed-end >= '",common:do-date($persons:start-date),"']]")
+                 concat("[descendant::*[@syriaca-computed-start >= '",global:make-iso-date($persons:start-date),"' or @syriaca-computed-end >= '",global:make-iso-date($persons:start-date),"']]")
              else if($persons:end-date != ''  and $persons:start-date = '') then
-                concat("[descendant::*[@syriaca-computed-end <= '",common:do-date($persons:end-date),"' or @syriaca-computed-start <= '",common:do-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
+                concat("[descendant::*[@syriaca-computed-end <= '",global:make-iso-date($persons:end-date),"' or @syriaca-computed-start <= '",global:make-iso-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
              else ''
 else 
     if($persons:start-date != '' and $persons:end-date != '') then concat("[descendant::*[(
             @syriaca-computed-start >= 
-                '",common:do-date($persons:start-date),"' 
+                '",global:make-iso-date($persons:start-date),"' 
                 and @syriaca-computed-end <= 
-                '",common:do-date($persons:end-date),"'
+                '",global:make-iso-date($persons:end-date),"'
                 ) or (
                     @syriaca-computed-start >= 
-                    '",common:do-date($persons:start-date),"' 
+                    '",global:make-iso-date($persons:start-date),"' 
                     and @syriaca-computed-start <= 
-                    '",common:do-date($persons:end-date),"' and 
+                    '",global:make-iso-date($persons:end-date),"' and 
                     not(exists(@syriaca-computed-end)))]]") 
          else if($persons:start-date != ''  and $persons:end-date = '') then 
-             concat("[descendant::*[@syriaca-computed-start >= '",common:do-date($persons:start-date),"' or @syriaca-computed-end >= '",common:do-date($persons:start-date),"']]")
+             concat("[descendant::*[@syriaca-computed-start >= '",global:make-iso-date($persons:start-date),"' or @syriaca-computed-end >= '",global:make-iso-date($persons:start-date),"']]")
          else if($persons:end-date != ''  and $persons:start-date = '') then
-            concat("[descendant::*[@syriaca-computed-end <= '",common:do-date($persons:end-date),"' or @syriaca-computed-start <= '",common:do-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
+            concat("[descendant::*[@syriaca-computed-end <= '",global:make-iso-date($persons:end-date),"' or @syriaca-computed-start <= '",global:make-iso-date($persons:end-date),"' and not(@syriaca-computed-end)]]")
          else '' 
 }; 
 
@@ -284,7 +284,7 @@ declare function persons:mentioned() as xs:string?{
             let $id := normalize-space($persons:mentioned)
             return concat("[descendant::*[@ref[matches(.,'",$id,"')]]]")
         else 
-            concat("[descendant::*[ft:query(tei:title,'",common:clean-string($persons:mentioned),"',common:options())]]")
+            concat("[descendant::*[ft:query(tei:title,'",data:clean-string($persons:mentioned),"',data:search-options())]]")
     else ()  
 };
 
@@ -301,9 +301,9 @@ declare function persons:query-string($collection as xs:string?) as xs:string? {
     persons:name(),
     persons:uri(),
     persons:date-range(),
-    common:related-places(),
-    common:related-persons(),
-    common:mentioned()
+    data:related-places(),
+    data:related-persons(),
+    data:mentioned()
     )
 };
 

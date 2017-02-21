@@ -152,35 +152,6 @@ declare function common:options(){
     </options>
 };
 
-(:~
- : Function to cast dates strings from url to xs:date
- : Tests string length, may need something more sophisticated to test dates, 
- : or form validation via js before submit. 
- : @param $date passed to function from parent function
-:)
-declare function common:do-date($date){
-let $date-format := if(string-length($date) eq 4) then concat(string($date),'-01-01')
-                    else if(string-length($date) eq 5) then concat(string($date),'-01-01')
-                    else if(string-length($date) eq 3) then concat('0',string($date),'-01-01')
-                    else if(string-length($date) eq 2) then concat('00',string($date),'-01-01')
-                    else if(string-length($date) eq 1) then concat('000',string($date),'-01-01')
-                    else string($date) 
-return xs:date($date-format)
-};
-
-(:
- : Function to truncate description text after first 12 words
- : @param $string
-:)
-declare function common:truncate-string($str as xs:string*) as xs:string? {
-let $string := string-join($str, ' ')
-return 
-    if(count(tokenize($string, '\W+')[. != '']) gt 12) then 
-        let $last-words := tokenize($string, '\W+')[position() = 14]
-        return concat(substring-before($string, $last-words),'...')
-    else $string
-};
-
 (:
  : Build full-text keyword search over full record data 
 :)

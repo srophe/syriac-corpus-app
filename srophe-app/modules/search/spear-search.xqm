@@ -9,7 +9,7 @@ import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm"
 import module namespace facet-defs="http://syriaca.org/facet-defs" at "../facet-defs.xqm";
 import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
-import module namespace common="http://syriaca.org/common" at "common.xqm";
+import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
@@ -30,7 +30,7 @@ declare variable $spears:title {request:get-parameter('title', '')};
 :)
 declare function spears:name() as xs:string? {
     if($spears:name != '') then
-        concat("[ft:query(descendant::tei:persName,'",common:clean-string($spears:name),"',common:options())]")   
+        concat("[ft:query(descendant::tei:persName,'",data:clean-string($spears:name),"',data:search-options())]")   
     else ()
 };
 
@@ -40,7 +40,7 @@ declare function spears:name() as xs:string? {
 :)
 declare function spears:place() as xs:string? {
     if($spears:place != '') then
-        concat("[ft:query(descendant::tei:placeName,'",common:clean-string($spears:place),"',common:options())]")   
+        concat("[ft:query(descendant::tei:placeName,'",data:clean-string($spears:place),"',data:search-options())]")   
     else ()
 };
 
@@ -50,7 +50,7 @@ declare function spears:place() as xs:string? {
 :)
 declare function spears:event() as xs:string? {
     if($spears:event != '') then
-        concat("[ft:query(descendant::tei:event,'",common:clean-string($spears:event),"',common:options())]")   
+        concat("[ft:query(descendant::tei:event,'",data:clean-string($spears:event),"',data:search-options())]")   
     else ()
 };
 
@@ -109,7 +109,7 @@ declare function spears:relation(){
 declare function spears:query-string() as xs:string? {
  concat("collection('",$global:data-root,"/spear/tei')//tei:div[parent::tei:body]",
     spears:type-search(),
-    common:keyword(),
+    data:keyword(),
     spears:name(),
     spears:place(),
     spears:event(),
