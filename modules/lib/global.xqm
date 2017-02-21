@@ -210,8 +210,10 @@ declare function global:odd2text($element as element()?, $label as xs:string?) a
 
 };
 
+
 (:~
  : Configure dropdown menu for keyboard layouts for input boxes
+ : Options are defined in repo.xml
  : @param $input-id input id used by javascript to select correct keyboard layout.  
  :)
 declare function global:keyboard-select-menu($input-id as xs:string){
@@ -219,9 +221,9 @@ declare function global:keyboard-select-menu($input-id as xs:string){
     if($global:get-config//repo:keyboard-options/child::*) then 
         <ul xmlns="http://www.w3.org/1999/xhtml" class="dropdown-menu" test="TEST">
             {
-            for $layout in $global:get-config//repo:keyboard-options/child::*/child::*
+            for $layout in $global:get-config//repo:keyboard-options/repo:option
             return  
-                <li xmlns="http://www.w3.org/1999/xhtml"><a href="#" class="keyboard-select" id="{$layout/@id}" data-keyboard-id="{$input-id}">{$layout}</a></li>
+                <li xmlns="http://www.w3.org/1999/xhtml"><a href="#" class="keyboard-select" id="{$layout/@id}" data-keyboard-id="{$input-id}">{$layout/text()}</a></li>
             }
         </ul>
     else ()       

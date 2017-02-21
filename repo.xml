@@ -34,6 +34,17 @@
             <option>google</option>
             <option selected="true">leaflet</option>
         </maps>
+        <!-- Keyboard options -->
+        <keyboard-options>
+            <option id="syriac-phonetic">Syriac Phonetic</option>
+            <option id="syriac-standard">Syriac Standard</option>
+            <!--<option id="ms-Arabic (101)">Arabic Mod. Standard</option>-->
+            <option id="qwerty">English QWERTY</option>
+            <!--
+                <option id="ms-Greek">Greek Mod. Standard</option>
+                <option id="ms-Russian">Russian Mod. Standard</option>
+            -->
+        </keyboard-options>
     </config>
-    <deployed>2017-02-07T14:27:48.896-05:00</deployed>
+    <deployed>2017-02-21T10:19:37.542-05:00</deployed>
 </meta>
