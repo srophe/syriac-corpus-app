@@ -251,15 +251,17 @@
                 </xsl:for-each>
                 <!-- Google map links -->
                 <xsl:for-each select="//descendant::t:location[@type='gps']/t:geo">
-                    <xsl:variable name="geoRef">
-                        <xsl:variable name="coords" select="tokenize(normalize-space(.), '\s+')"/>
-                        <xsl:value-of select="$coords[1]"/>
-                        <xsl:text>, </xsl:text>
-                        <xsl:value-of select="$coords[2]"/>
-                    </xsl:variable>
-                    <a href="https://maps.google.com/maps?q={$geoRef}+(name)&amp;z=10&amp;ll={$geoRef}">
-                        <img src="{$nav-base}/resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {$title} on Google Maps"/>View in Google Maps
-                    </a>
+                    <li>
+                        <xsl:variable name="geoRef">
+                            <xsl:variable name="coords" select="tokenize(normalize-space(.), '\s+')"/>
+                            <xsl:value-of select="$coords[1]"/>
+                            <xsl:text>, </xsl:text>
+                            <xsl:value-of select="$coords[2]"/>
+                        </xsl:variable>
+                        <a href="https://maps.google.com/maps?q={$geoRef}+(name)&amp;z=10&amp;ll={$geoRef}">
+                            <img src="{$nav-base}/resources/img/gmaps-25.png" alt="The Google Maps icon" title="click to view {$title} on Google Maps"/> View in Google Maps
+                        </a>
+                    </li>
                 </xsl:for-each>
                 
                 <!-- TEI source link -->
