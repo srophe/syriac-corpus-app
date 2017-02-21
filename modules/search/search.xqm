@@ -90,12 +90,32 @@ if($collection !='') then
 else 
 concat("collection('",$global:data-root,"')//tei:TEI",
     common:keyword(),
-    search:persName(),
-    search:placeName(), 
-    search:title(),
-    search:bibl(),
-    common:uri()
+    common:xpath-search('.//tei:titleStmt/tei:author',request:get-parameter('author', '')),
+    common:xpath-search('.//tei:body/tei:div1/tei:head/tei:title',request:get-parameter('title', '')), 
+    common:xpath-search('.//tei:body/tei:div1/tei:div2/tei:head',request:get-parameter('section', '')),
+    search:corpus-id(),
+    search:syriaca-id(),
+    search:text-id()
     )
+};
+
+(: Corpus specific search fields:) 
+declare function search:corpus-id(){
+    if(request:get-parameter('corpus-uri', '') != '') then 
+        concat("[.//tei:publicationStmt/tei:idno = '",request:get-parameter('corpus-uri', ''),"']") 
+    else '' 
+};
+
+declare function search:syriaca-id(){
+    if(request:get-parameter('syriaca-uri', '') != '') then 
+        concat("[.//tei:titleStmt/tei:title[@ref = '",request:get-parameter('syriaca-uri', ''),"']]") 
+    else '' 
+};
+
+declare function search:text-id(){
+    if(request:get-parameter('text-id', '') != '') then 
+        concat("[.//tei:div1[@n = '",request:get-parameter('text-id', ''),"']]") 
+    else '' 
 };
 
 declare function search:persName(){
@@ -278,6 +298,7 @@ declare
     %templates:default("start", 1)
 function search:show-hits($node as node()*, $model as map(*), $collection as xs:string?) {
 <div class="indent" id="search-results">
+    <div>{search:query-string('')}</div>
     <div>{search:build-geojson($node,$model)}</div>
     {
         for $hit at $p in subsequence($model("hits"), $search:start, $search:perpage)
@@ -341,8 +362,7 @@ declare %templates:wrap function search:build-page($node as node()*, $model as m
  :)
 declare function search:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal indent" role="form">
-    <h1 class="search-header">Search Syriaca.org (All Publications)</h1>
-    <p class="indent">More detailed search functions are available in each individual <a href="/">publication</a>.</p>
+    <h1 class="search-header">Search Syriac Corpus (All Publications)</h1>
     <div class="well well-small">
           <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
@@ -366,56 +386,59 @@ declare function search:search-form() {
                          </div> 
                     </div>
                   </div>
-                    <!-- Place Name-->
+                    <!-- Author-->
                   <div class="form-group">
-                    <label for="placeName" class="col-sm-2 col-md-3  control-label">Place Name: </label>
+                    <label for="author" class="col-sm-2 col-md-3  control-label">Author: </label>
                     <div class="col-sm-10 col-md-9 ">
                         <div class="input-group">
-                            <input type="text" id="placeName" name="placeName" class="form-control keyboard"/>
+                            <input type="text" id="author" name="author" class="form-control keyboard"/>
                             <div class="input-group-btn">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
-                                    {global:keyboard-select-menu('placeName')}
+                                    {global:keyboard-select-menu('author')}
                             </div>
                          </div>   
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="persName" class="col-sm-2 col-md-3  control-label">Person Name: </label>
+                    <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
                     <div class="col-sm-10 col-md-9 ">
                         <div class="input-group">
-                            <input type="text" id="persName" name="persName" class="form-control keyboard"/>
+                            <input type="text" id="title" name="title" class="form-control keyboard"/>
                             <div class="input-group-btn">
                                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
-                                    {global:keyboard-select-menu('persName')}
-                                
+                                    {global:keyboard-select-menu('title')}
                             </div>
                          </div>   
                     </div>
                   </div>
                 <div class="form-group">
-                    <label for="titleInput" class="col-sm-2 col-md-3  control-label">Title: </label>
+                    <label for="section" class="col-sm-2 col-md-3  control-label">Section number: </label>
                     <div class="col-sm-10 col-md-9 ">
-                        <div class="input-group">
-                            <input type="text" id="titleInput" name="title" class="form-control keyboard"/>
-                            <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
-                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
-                                    </button>
-                                    {global:keyboard-select-menu('titleInput')}
-                            </div>
-                         </div>   
+                        <input type="text" id="section" name="section" class="form-control"/>
                     </div>
-                  </div>
-              <div class="form-group">
-                    <label for="uri" class="col-sm-2 col-md-3  control-label">Syriaca.org URI: </label>
+               </div>                   
+               <div class="form-group">
+                    <label for="corpus-uri" class="col-sm-2 col-md-3  control-label">Corpus URI: </label>
                     <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="uri" name="uri" class="form-control"/>
+                        <input type="text" id="corpus-uri" name="corpus-uri" class="form-control"/>
+                    </div>
+               </div>                   
+              <div class="form-group">
+                    <label for="syriaca-uri" class="col-sm-2 col-md-3  control-label">Syriaca URI: </label>
+                    <div class="col-sm-10 col-md-9 ">
+                        <input type="text" id="syriaca-uri" name="syriaca-uri" class="form-control"/>
                     </div>
                </div> 
+               <div class="form-group">
+                    <label for="text-id" class="col-sm-2 col-md-3  control-label">Text ID Number: </label>
+                    <div class="col-sm-10 col-md-9 ">
+                        <input type="text" id="text-id" name="text-id" class="form-control"/>
+                    </div>
+               </div>
                </div>
             </div>    
         </div>

@@ -314,8 +314,17 @@ declare function common:uri() as xs:string? {
 :)
 declare function common:element-search($element, $query){
     if(exists($element) and $element != '') then 
-        for $e in $element
-        return concat("[ft:query(descendant::tei:",$element,",'",common:clean-string($query),"',common:options())]") 
+        concat("[ft:query(descendant::tei:",$element,",'",common:clean-string($query),"',common:options())]") 
     else '' 
 };
 
+(:
+ : General search function to pass in any tei element. 
+ : @param $element element name must have a lucene index defined on the element
+ : @param $query query text to be searched. 
+:)
+declare function common:xpath-search($xpath, $query){
+    if(exists($query) and $query != '') then 
+        concat("[ft:query(",$xpath,",'",common:clean-string($query),"',common:options())]") 
+    else '' 
+};
