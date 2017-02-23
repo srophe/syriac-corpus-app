@@ -13,6 +13,7 @@ import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm
 import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
 import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
 (: Namespaces :)
+declare namespace http="http://expath.org/ns/http-client";
 declare namespace html="http://www.w3.org/1999/xhtml";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
