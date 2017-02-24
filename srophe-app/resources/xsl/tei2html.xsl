@@ -76,6 +76,7 @@
     
     <!-- Parameters passed from global.xqm (set in config.xml) default values if params are empty -->
     <!-- eXist data app root for gazetteer data -->
+    <xsl:param name="mode" select="'#all'"/>
     <xsl:param name="data-root" select="'/db/apps/srophe-data'"/>
     <!-- eXist app root for app deployment-->
     <xsl:param name="app-root" select="'/db/apps/srophe'"/>
@@ -188,6 +189,7 @@
     </xsl:template>
     <xsl:template match="t:div1 | t:div2 | t:div3 | t:div4 | t:div5">
         <div class="{name(.)}">
+            <xsl:call-template name="langattr"/>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
@@ -736,6 +738,28 @@
     <xsl:template match="t:lb">
         <br/>
     </xsl:template>
+    <xsl:template match="t:l">
+        <xsl:choose>
+            <xsl:when test="@n">
+                <span class="row">
+                    <span class="line-num col-md-1">
+                        <xsl:call-template name="langattr"/>
+                        <xsl:value-of select="@n"/>
+                    </span>
+                    <span class="line col-md-11">
+                        <xsl:call-template name="langattr"/>
+                        <xsl:apply-templates/>
+                    </span>
+                </span>
+            </xsl:when>
+            <xsl:otherwise>
+                <span class="line">
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </span>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <xsl:template match="t:quote">
         <xsl:choose>
             <xsl:when test="@xml:lang">
@@ -1158,14 +1182,20 @@
                                     <xsl:when test="t:floruit/@notBefore or t:floruit/@notAfter or t:floruit/@when or t:floruit/@from or t:floruit/@to">
                                         <xsl:choose>
                                             <xsl:when test="t:floruit/@to and t:floruit/@from">
-                                                <xsl:text>between </xsl:text><xsl:value-of select="local:trim-date(t:floruit/@from)"/>
-                                                <xsl:text> - </xsl:text><xsl:value-of select="local:trim-date(t:floruit/@to)"/>
+                                                <xsl:text>between </xsl:text>
+                                                <xsl:value-of select="local:trim-date(t:floruit/@from)"/>
+                                                <xsl:text> - </xsl:text>
+                                                <xsl:value-of select="local:trim-date(t:floruit/@to)"/>
                                             </xsl:when>
                                             <xsl:when test="t:floruit/@notBefore and t:floruit/@notAfter">
-                                                <xsl:text>sometime between </xsl:text><xsl:value-of select="local:trim-date(t:floruit/@notBefore)"/>
-                                                <xsl:text> - </xsl:text><xsl:value-of select="local:trim-date(t:floruit/@notAfter)"/>
+                                                <xsl:text>sometime between </xsl:text>
+                                                <xsl:value-of select="local:trim-date(t:floruit/@notBefore)"/>
+                                                <xsl:text> - </xsl:text>
+                                                <xsl:value-of select="local:trim-date(t:floruit/@notAfter)"/>
                                             </xsl:when>
-                                            <xsl:otherwise><xsl:value-of select="local:do-dates(t:floruit)"/></xsl:otherwise>
+                                            <xsl:otherwise>
+                                                <xsl:value-of select="local:do-dates(t:floruit)"/>
+                                            </xsl:otherwise>
                                         </xsl:choose>
                                     </xsl:when>
                                     <xsl:otherwise>
@@ -2209,5 +2239,9 @@
         <xsl:if test="@source">
             <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
         </xsl:if>
+    </xsl:template>
+    <!-- Used by rdf to output text of citation -->
+    <xsl:template match="t:text-citation">
+        <xsl:apply-templates select="//t:titleStmt" mode="cite-foot"/>
     </xsl:template>
 </xsl:stylesheet>

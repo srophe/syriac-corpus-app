@@ -35,7 +35,7 @@ declare variable $data:computed-lang{
  : Syriaca.org uses tei:idno for record IDs 
  : @param $id syriaca.org uri for record or part. 
 :)
-declare function data:get-rec($id as xs:string?) as xs:string?{  
+declare function data:get-rec($id as xs:string?){  
     if(contains($id,'/spear/')) then 
         for $rec in collection($global:data-root)//tei:div[@uri = $id]
         return 
