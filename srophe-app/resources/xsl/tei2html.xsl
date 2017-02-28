@@ -76,6 +76,7 @@
     
     <!-- Parameters passed from global.xqm (set in config.xml) default values if params are empty -->
     <!-- eXist data app root for gazetteer data -->
+    <xsl:param name="mode" select="'#all'"/>
     <xsl:param name="data-root" select="'/db/apps/srophe-data'"/>
     <!-- eXist app root for app deployment-->
     <xsl:param name="app-root" select="'/db/apps/srophe'"/>
@@ -105,7 +106,7 @@
     <xsl:variable name="resource-title">
         <xsl:choose>
             <xsl:when test="/descendant::*[contains(@syriaca-tags,'#syriaca-headword')]">
-                <xsl:apply-templates select="/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][1]" mode="plain"/>
+                <xsl:apply-templates select="/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][not(empty(node()))][1]" mode="plain"/>
                 <xsl:text> - </xsl:text>
                 <xsl:choose>
                     <xsl:when test="/descendant::*[contains(@syriaca-tags,'#anonymous-description')]">
@@ -145,9 +146,40 @@
             <xsl:apply-templates select="descendant::t:sourceDesc/t:msDesc"/>
         </xsl:if>
         <!-- Body -->
-        <xsl:apply-templates select="descendant::t:body/child::*"/>
+        <xsl:apply-templates select="descendant::t:body"/>
         <!-- Citation Information -->
-        <xsl:call-template name="citationInfo"/>
+        <xsl:apply-templates select="t:teiHeader" mode="citation"/>
+    </xsl:template>
+    <xsl:template match="t:teiHeader" mode="#all">
+        <div class="citationinfo">
+            <h3>How to Cite This Entry</h3>
+            <div id="citation-note" class="well">
+                <xsl:apply-templates select="t:fileDesc/t:titleStmt" mode="cite-foot"/>
+                <div class="collapse" id="showcit">
+                    <div id="citation-bibliography">
+                        <h4>Bibliography:</h4>
+                        <xsl:apply-templates select="t:fileDesc/t:titleStmt" mode="cite-biblist"/>
+                    </div>
+                    <xsl:call-template name="aboutEntry"/>
+                    <div id="license">
+                        <h3>Copyright and License for Reuse</h3>
+                        <div>
+                            <xsl:text>Except otherwise noted, this page is © </xsl:text>
+                            <xsl:choose>
+                                <xsl:when test="t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
+                                    <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="t:fileDesc/t:publicationStmt/t:date[1]"/>
+                                </xsl:otherwise>
+                            </xsl:choose>.
+                        </div>
+                        <xsl:apply-templates select="t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
+                    </div>
+                </div>
+                <a class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide citation">Show full citation information...</a>
+            </div>
+        </div>
     </xsl:template>
     <xsl:template match="t:body">
         <div class="body">
@@ -157,6 +189,7 @@
     </xsl:template>
     <xsl:template match="t:div1 | t:div2 | t:div3 | t:div4 | t:div5">
         <div class="{name(.)}">
+            <xsl:call-template name="langattr"/>
             <xsl:apply-templates/>
         </div>
     </xsl:template>
@@ -218,7 +251,9 @@
         <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
         <xsl:apply-templates select="child::*" mode="plain"/>
         <!-- Adds dates if available -->
+        <xsl:text> (</xsl:text>
         <xsl:sequence select="local:do-dates(.)"/>
+        <xsl:text>)</xsl:text>
         <!-- Adds footnotes if available -->
         <xsl:if test="@source">
             <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
@@ -229,7 +264,9 @@
         <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
             <xsl:apply-templates select="child::*" mode="plain"/>
         <!-- Adds dates if available -->
+            <xsl:text> (</xsl:text>
             <xsl:sequence select="local:do-dates(.)"/>
+            <xsl:text>)</xsl:text>
         <!-- Adds footnotes if available -->
             <xsl:if test="@source">
                 <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
@@ -276,7 +313,7 @@
         </xsl:choose>
     </xsl:template>
     
-    <!-- suppress bibl -->
+    <!-- suppress bibl in titles -->
     <xsl:template match="t:bibl" mode="title"/>
     <xsl:template match="t:bibl">
         <xsl:choose>
@@ -701,6 +738,28 @@
     <xsl:template match="t:lb">
         <br/>
     </xsl:template>
+    <xsl:template match="t:l">
+        <xsl:choose>
+            <xsl:when test="@n">
+                <span class="row">
+                    <span class="line-num col-md-1">
+                        <xsl:call-template name="langattr"/>
+                        <xsl:value-of select="@n"/>
+                    </span>
+                    <span class="line col-md-11">
+                        <xsl:call-template name="langattr"/>
+                        <xsl:apply-templates/>
+                    </span>
+                </span>
+            </xsl:when>
+            <xsl:otherwise>
+                <span class="line">
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </span>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
     <xsl:template match="t:quote">
         <xsl:choose>
             <xsl:when test="@xml:lang">
@@ -938,6 +997,7 @@
             </xsl:choose>
         </div>
     </xsl:template>
+    
     <!-- NOTE: would really like to get rid of mode=cleanout -->
     <xsl:template match="t:placeName[local-name(..)='desc']" mode="cleanout">
         <xsl:apply-templates select="."/>
@@ -1071,7 +1131,7 @@
             </xsl:choose>
         </span>
         <xsl:if test="t:birth or t:death or t:floruit">
-            <span lang="en" class="type" style="padding-left:1em;">
+            <span lang="en" class="type" style="padding-left:1em; font-size:.85em;">
                 <xsl:text>(</xsl:text>
                 <xsl:if test="t:death or t:birth">
                     <xsl:if test="not(t:death)">b. </xsl:if>
@@ -1106,9 +1166,9 @@
                 </xsl:if>
                 <xsl:if test="t:floruit">
                     <xsl:if test="not(t:death) and not(t:birth)">
-                        <xsl:text>active </xsl:text>
                         <xsl:choose>
                             <xsl:when test="count(t:floruit/t:date) &gt; 1">
+                                <xsl:text>active </xsl:text>
                                 <xsl:for-each select="t:floruit/t:date">
                                     <xsl:value-of select="text()"/>
                                     <xsl:if test="position() != last()"> or </xsl:if>
@@ -1119,23 +1179,27 @@
                                     <xsl:when test="t:floruit/t:date">
                                         <xsl:value-of select="t:floruit/t:date/text()"/>
                                     </xsl:when>
-                                    <xsl:when test="t:floruit/text()">
+                                    <xsl:when test="t:floruit/@notBefore or t:floruit/@notAfter or t:floruit/@when or t:floruit/@from or t:floruit/@to">
                                         <xsl:choose>
+                                            <xsl:when test="t:floruit/@to and t:floruit/@from">
+                                                <xsl:text>between </xsl:text>
+                                                <xsl:value-of select="local:trim-date(t:floruit/@from)"/>
+                                                <xsl:text> - </xsl:text>
+                                                <xsl:value-of select="local:trim-date(t:floruit/@to)"/>
+                                            </xsl:when>
                                             <xsl:when test="t:floruit/@notBefore and t:floruit/@notAfter">
-                                                <xsl:value-of select="concat(t:floruit/@notBefore, ' - ', t:floruit/@notAfter)"/>
-                                            </xsl:when>
-                                            <xsl:when test="t:floruit/@notBefore and not(t:floruit/@notAfter)">
-                                                <xsl:value-of select="t:floruit/@notBefore"/>
-                                            </xsl:when>
-                                            <xsl:when test="t:floruit/@notAfter and not(t:floruit/@notBefore)">
-                                                <xsl:value-of select="t:floruit/@notAfter"/>
+                                                <xsl:text>sometime between </xsl:text>
+                                                <xsl:value-of select="local:trim-date(t:floruit/@notBefore)"/>
+                                                <xsl:text> - </xsl:text>
+                                                <xsl:value-of select="local:trim-date(t:floruit/@notAfter)"/>
                                             </xsl:when>
                                             <xsl:otherwise>
-                                                <xsl:value-of select="t:floruit"/>
+                                                <xsl:value-of select="local:do-dates(t:floruit)"/>
                                             </xsl:otherwise>
                                         </xsl:choose>
                                     </xsl:when>
                                     <xsl:otherwise>
+                                        <xsl:text>active </xsl:text>
                                         <xsl:value-of select="t:floruit"/>
                                     </xsl:otherwise>
                                 </xsl:choose>
@@ -1503,9 +1567,10 @@
         <xsl:if test="t:bibl">
             <xsl:choose>
                 <xsl:when test="self::t:bibl[@type='lawd:Citation' or @type='lawd:ConceptualWork']">
-                    <xsl:variable name="rules" select="'&lt; lawd:Edition &lt; lawd:Translation &lt; lawd:WrittenWork'"/>
+                    <xsl:variable name="rules" select="'&lt; syriaca:Catalogue &lt; syriaca:Manuscript &lt; lawd:Edition &lt; lawd:Translation &lt; lawd:WrittenWork '"/>
+                    <xsl:variable name="type-order"/>
                     <xsl:for-each-group select="t:bibl[exists(@type)][@type != 'lawd:Citation']" group-by="@type">
-                        <xsl:sort select="current-grouping-key()" collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)};ignore-case=yes;ignore-modifiers=yes;ignore-symbols=yes)" order="ascending"/>
+                        <xsl:sort select="local:bibl-type-order(current-grouping-key())" order="ascending"/>
                         <xsl:variable name="label">
                             <xsl:variable name="l" select="local:translate-label(current-grouping-key())"/>
                             <xsl:choose>
@@ -1577,17 +1642,19 @@
             </xsl:call-template>
         </xsl:if>
     </xsl:template>
-    
-    <!-- Named template for citation information -->
+    <xsl:template match="t:sources">
+        <xsl:call-template name="sources"/>
+    </xsl:template>
+    <!--@depreciated Named template for citation information -->
     <xsl:template name="citationInfo">
         <div class="citationinfo">
             <h3>How to Cite This Entry</h3>
             <div id="citation-note" class="well">
-                <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
+                <xsl:apply-templates select="descendant-or-self::t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
                 <div class="collapse" id="showcit">
                     <div id="citation-bibliography">
                         <h4>Bibliography:</h4>
-                        <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
+                        <xsl:apply-templates select="descendant-or-self::t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
                     </div>
                     <xsl:call-template name="aboutEntry"/>
                     <div id="license">
@@ -1595,15 +1662,15 @@
                         <div>
                             <xsl:text>Except otherwise noted, this page is © </xsl:text>
                             <xsl:choose>
-                                <xsl:when test="//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
+                                <xsl:when test="descendant-or-self::t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
                                     <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:value-of select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]"/>
+                                    <xsl:value-of select="descendant-or-self::t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]"/>
                                 </xsl:otherwise>
                             </xsl:choose>.
                         </div>
-                        <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
+                        <xsl:apply-templates select="descendant-or-self::t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
                     </div>
                 </div>
                 <a class="togglelink pull-right btn-link" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide citation">Show full citation information...</a>
@@ -1622,11 +1689,11 @@
             <xsl:choose>
                 <xsl:when test="contains($resource-id,'/bibl/')">
                     <h3>About this Online Entry</h3>
-                    <xsl:apply-templates select="/descendant::t:teiHeader/t:fileDesc/t:titleStmt" mode="about-bibl"/>
+                    <xsl:apply-templates select="descendant-or-self::t:teiHeader/t:fileDesc/t:titleStmt" mode="about-bibl"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <h3>About this Entry</h3>
-                    <xsl:apply-templates select="/descendant::t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
+                    <xsl:apply-templates select="descendant-or-self::t:teiHeader/t:fileDesc/t:titleStmt" mode="about"/>
                 </xsl:otherwise>
             </xsl:choose>
         </div>
@@ -1984,9 +2051,9 @@
                     <xsl:value-of select="$name-string"/>
                     <xsl:text> </xsl:text>
                     <xsl:value-of select="$currentPlace"/>
-                    <xsl:text> </xsl:text>
+                    <xsl:text> (</xsl:text>
                     <xsl:value-of select="local:do-dates(.)"/>
-                    <xsl:text> </xsl:text>
+                    <xsl:text>) </xsl:text>
                     <!-- If footnotes exist call function do-refs pass footnotes and language variables to function -->
                     <xsl:if test="@source">
                         <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
@@ -2002,9 +2069,9 @@
                     <a href="{concat('/place/',@id,'.html')}">
                         <xsl:value-of select="t:placeName"/>
                     </a>
-                    <xsl:text> </xsl:text>
+                    <xsl:text> (</xsl:text>
                     <xsl:value-of select="local:do-dates(.)"/>
-                    <xsl:text> </xsl:text>
+                    <xsl:text>) </xsl:text>
                     <!-- If footnotes exist call function do-refs pass footnotes and language variables to function -->
                     <xsl:if test="@source">
                         <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
@@ -2100,9 +2167,9 @@
                     <xsl:text> </xsl:text>
                     <xsl:value-of select="replace(child::*[1]/@name,'-',' ')"/>
                     with '<xsl:value-of select="$currentPlace"/>'
-                    
+                    <xsl:text> (</xsl:text>
                     <xsl:value-of select="local:do-dates(child::*[1])"/>
-                    <xsl:text> </xsl:text>
+                    <xsl:text>) </xsl:text>
                     <!-- If footnotes exist call function do-refs pass footnotes and language variables to function -->
                     <xsl:if test="child::*[1]/@source">
                         <xsl:sequence select="local:do-refs(child::*[1]/@source,@xml:lang)"/>
@@ -2172,5 +2239,9 @@
         <xsl:if test="@source">
             <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
         </xsl:if>
+    </xsl:template>
+    <!-- Used by rdf to output text of citation -->
+    <xsl:template match="t:text-citation">
+        <xsl:apply-templates select="//t:titleStmt" mode="cite-foot"/>
     </xsl:template>
 </xsl:stylesheet>

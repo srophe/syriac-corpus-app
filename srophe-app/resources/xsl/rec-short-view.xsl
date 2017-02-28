@@ -110,31 +110,10 @@
                 <xsl:choose>
                     <xsl:when test=". = 'The Syriac Biographical Dictionary'"/>
                     <xsl:when test=". = 'A Guide to Syriac Authors'">
-                        <!--
-                        <a href="{$app-root}/authors/index.html">
-                            <span class="syriaca-icon syriaca-authors">
-                                <span class="path1"/>
-                                <span class="path2"/>
-                                <span class="path3"/>
-                                <span class="path4"/>
-                            </span>
-                            <span> authors</span>
-                        </a>
-                        -->
                         <a href="{$nav-base}/authors/index.html">
                             <img src="{$nav-base}/resources/img/icons-authors-sm.png" alt="A Guide to Syriac Authors"/>author</a>
                     </xsl:when>
                     <xsl:when test=". = 'Qadishe: A Guide to the Syriac Saints'">
-                        <!--
-                        <a href="{$app-root}/q/index.html">
-                            <span class="syriaca-icon syriaca-q">
-                                <span class="path1"/>
-                                <span class="path2"/>
-                                <span class="path3"/>
-                                <span class="path4"/>
-                            </span>
-                            <span> saint</span>
-                        </a>-->
                         <a href="{$nav-base}/q/index.html">
                             <img src="{$nav-base}/resources/img/icons-q-sm.png" alt="Qadishe: A Guide to the Syriac Saints"/>saint</a>
                     </xsl:when>
@@ -153,10 +132,10 @@
                     </xsl:for-each>
                 </xsl:when>
                 <xsl:when test="descendant::t:titleStmt">
-                    <xsl:apply-templates select="descendant::t:titleStmt/t:title[1]" mode="full"/>
+                    <xsl:apply-templates select="descendant::t:titleStmt/t:title[1]"/>
                 </xsl:when>
                 <xsl:when test="descendant::t:biblStruct">
-                    <xsl:apply-templates select="descendant::t:biblStruct/descendant::t:title[1]" mode="full"/>
+                    <xsl:apply-templates select="descendant::t:biblStruct/descendant::t:title[1]"/>
                 </xsl:when>
                 <xsl:when test="descendant::t:title">
                     <xsl:apply-templates select="descendant::t:title[1]"/>

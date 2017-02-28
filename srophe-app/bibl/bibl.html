@@ -2,10 +2,29 @@
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/bibl.html" data-template-at="content">
     <div class="section indent top-padding">
         <!-- Page title and resource links: Includes h1, link icons, and item URI -->
-        <div data-template="app:h1"/>
-        <div data-template="app:rec-display"/>
-        <div data-template="app:about"/>
+        <div class="interior-content white">
+            <div data-template="app:h1"/>
+            <div class="row">
+                <div class="col-md-8 column1">
+                    <div data-template="app:display-nodes" data-template-paths="/descendant::tei:body"/>
+                </div>
+                <!-- Column 2 -->
+                <div class="col-md-4 column2">
+                    <div data-template="app:rec-status"/>
+                    <div class="info-btns">  
+                        <!-- Button trigger corrections email modal -->
+                        <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
+                        <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">
+                            Is this record complete?
+                        </a>
+                    </div>
+                    <div data-template="app:subject-headings"/>
+                    <div data-template="app:cited"/>
+                </div>
+            </div>
+        </div>
         <br/>
+        <div data-template="app:about"/>
     </div>
     <!-- Modal email form-->
     <div data-template="app:contact-form" data-template-collection="bibl"/>
@@ -52,5 +71,4 @@
             </div>
         </div>
     </div>
-    
 </div>

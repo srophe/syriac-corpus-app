@@ -1,4 +1,4 @@
-(:~     
+(:~              
  : Builds spear page  
  :)
 xquery version "3.0";
@@ -45,10 +45,10 @@ declare variable $spear:item-type {
  :)       
 declare %templates:wrap function spear:get-rec($node as node(), $model as map(*), $view as xs:string?){ 
 let $id :=
-        if(contains($app:id,$global:base-uri) or starts-with($app:id,'http://')) then $app:id
+        if(contains($spear:id,$global:base-uri) or starts-with($spear:id,'http://')) then $spear:id
         else if(contains(request:get-uri(),$global:nav-base)) then replace(request:get-uri(),$global:nav-base, $global:base-uri)
         else if(contains(request:get-uri(),$global:base-uri)) then request:get-uri()
-        else $app:id
+        else $spear:id
 let $id := if(ends-with($id,'.html')) then substring-before($id,'.html') else $id  
 return 
     if($view = 'aggregate') then
@@ -60,7 +60,7 @@ return
                     return $rec                  
                 else
                     for $rec in 
-                        collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$app:id or @target=$app:id]] |
+                        collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$spear:id or @target=$spear:id]] |
                         collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@active, concat($spear:id,"(\W|$)"))]] |
                         collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@passive, concat($spear:id,"(\W|$)"))]] |
                         collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@mutual, concat($spear:id,"(\W|$)"))]]
@@ -80,14 +80,15 @@ return
  : @param $spear:id 
 :)
 declare function spear:canonical-rec($id){
-  collection($global:data-root)//tei:idno[. = $id]
+  collection($global:data-root)//tei:TEI[.//tei:idno = $id]
+  (:collection($global:data-root)//tei:idno[. = $id]:)
 };
 
 declare function spear:title($id){
     if($spear:item-type = ('place-factoid','person-factoid')) then 
         global:tei2html(
             <spear-headwords xmlns="http://www.tei-c.org/ns/1.0">
-                {spear:canonical-rec($id)/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"]}
+                {spear:canonical-rec($id)/descendant::*[@syriaca-tags="#syriaca-headword"]}
             </spear-headwords>)
     else if($spear:item-type = 'keyword-factoid') then   
         concat('"',lower-case(functx:camel-case-to-words(substring-after($id,'/keyword/'),' ')),'"')
@@ -114,7 +115,7 @@ return
                 </keyword-title>)                
         else if($spear:item-type = ('person-factoid','place-factoid')) then 
             let $rec-exists := spear:canonical-rec($spear:id)  
-            let $title :=  $rec-exists/ancestor::tei:body/descendant::*[@syriaca-tags="#syriaca-headword"]
+            let $title :=  $rec-exists/descendant::*[@syriaca-tags="#syriaca-headword"]
             return 
             global:tei2html(
                 <aggregate-title xmlns="http://www.tei-c.org/ns/1.0">
@@ -290,15 +291,14 @@ if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
             <h4 class="panel-title">NHSL Record information</h4>
         </div>
         <div class="panel-body">
-        
          </div>
     </div>      
 else
     let $data := $model("data")
     let $rec-exists := spear:canonical-rec($spear:id)  
-    let $type := string($rec-exists/ancestor::tei:place/@type)
-    let $geo := $rec-exists/ancestor::tei:body[descendant-or-self::tei:geo]
-    let $abstract := $rec-exists/ancestor::tei:body//tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')] | $rec-exists/ancestor::tei:body//tei:note[@type='abstract']
+    let $type := string($rec-exists/descendant::tei:place/@type)
+    let $geo := $rec-exists/descendant::tei:body[descendant-or-self::tei:geo]
+    let $abstract := $rec-exists/descendant::tei:body//tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')] | $rec-exists/descendant::tei:body//tei:note[@type='abstract']
     return
         if($rec-exists) then
             <div class="panel panel-default">
@@ -488,7 +488,8 @@ return
 };
  
 declare function spear:get-title($uri){
-let $doc := collection('/db/apps/srophe-data/data')/range:field-eq("uri", concat($uri,"/tei"))[1]
+let $doc := spear:canonical-rec($uri)
+(:collection($global:data-root)/tei:TEI[.//tei:idno = concat($uri,"/tei")]:)
 return 
       if (exists($doc)) then
         replace(string-join($doc/descendant::tei:fileDesc/tei:titleStmt[1]/tei:title[1]/text()[1],' '),' — ',' ')

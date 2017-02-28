@@ -27,112 +27,33 @@ else if (ends-with($exist:path,"/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="index.html"/>
     </dispatch>
-else if (ends-with($exist:path, "/atom") or ends-with($exist:path, "/tei")) then
-    <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <forward url="{concat('/restxq', $exist:path)}" absolute="yes"/>
-    </dispatch>
-else if(matches($exist:path, '/place/\d+') or matches($exist:path, '/place/\d+.html')) then 
-    let $id :=  
-            if(matches($exist:resource,"^[0-9]+$")) then $exist:resource
-            else substring-before($exist:resource,'.html')
-    return            
+else if(matches($exist:resource,"^[0-9]+$") or matches($exist:resource,"^(.[1-9])\.html")) then
+    let $id := 
+        if(matches($exist:resource,"^[0-9]+$")) then $exist:resource
+        else substring-before($exist:resource,'.html')
+    let $html-path :=
+        if(starts-with($exist:path, "/place/")) then '/geo/place.html'
+        else if(starts-with($exist:path, "/person/")) then '/persons/person.html'
+        else if(starts-with($exist:path, "/work/")) then '/bhse/work.html'
+        else if(starts-with($exist:path, "/manuscript/")) then '/mss/manuscript.html'
+        else if(starts-with($exist:path, "/spear/")) then '/spear/factoid.html'
+        else if(starts-with($exist:path, "/bibl/")) then '/bibl/bibl.html'
+        else '/404.html'
+      return
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-            <forward url="{$exist:controller}/geo/place.html"></forward>
+            <forward url="{$exist:controller}{$html-path}"></forward>
                 <view>
                     <forward url="{$exist:controller}/modules/view.xql">
-                        <add-parameter name="id" value="{$id}"/>
+                        {if(starts-with($exist:path, "/work/")) then <add-parameter name="id" value="{concat('http://syriaca.org/work/',$id)}"/>
+                         else <add-parameter name="id" value="{$id}"/>
+                        }
                     </forward>
                 </view>
                 <error-handler>
                     <forward url="{$exist:controller}/error-page.html" method="get"/>
                     <forward url="{$exist:controller}/modules/view.xql"/>
                 </error-handler>
-         </dispatch> 
-else if(matches($exist:path, '/person/\d+') or matches($exist:path, '/person/\d+.html')) then 
-    let $id :=  
-            if(matches($exist:resource,"^[0-9]+$")) then $exist:resource
-            else substring-before($exist:resource,'.html')
-    return            
-        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-            <forward url="{$exist:controller}/persons/person.html"></forward>
-                <view>
-                    <forward url="{$exist:controller}/modules/view.xql">
-                        <add-parameter name="id" value="{concat('http://syriaca.org/person/',$id)}"/>
-                    </forward>
-                </view>
-                <error-handler>
-                    <forward url="{$exist:controller}/error-page.html" method="get"/>
-                    <forward url="{$exist:controller}/modules/view.xql"/>
-                </error-handler>
-         </dispatch>          
-else if(matches($exist:path, '/work/\d+') or matches($exist:path, '/work/\d+.html')) then 
-    let $id :=  
-            if(matches($exist:resource,"^[0-9]+$")) then $exist:resource
-            else substring-before($exist:resource,'.html')
-    return            
-        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-            <forward url="{$exist:controller}/bhse/work.html"></forward>
-                <view>
-                    <forward url="{$exist:controller}/modules/view.xql">
-                        <add-parameter name="id" value="{concat('http://syriaca.org/work/',$id)}"/>
-                    </forward>
-                </view>
-                <error-handler>
-                    <forward url="{$exist:controller}/error-page.html" method="get"/>
-                    <forward url="{$exist:controller}/modules/view.xql"/>
-                </error-handler>
-         </dispatch>          
-else if(matches($exist:path, '/manuscript/\d+') or matches($exist:path, '/manuscript/\d+.html')) then 
-    let $id :=  
-            if(matches($exist:resource,"^[0-9]+$")) then $exist:resource
-            else substring-before($exist:resource,'.html')
-    return            
-        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-            <forward url="{$exist:controller}/mss/manuscript.html"></forward>
-                <view>
-                    <forward url="{$exist:controller}/modules/view.xql">
-                        <add-parameter name="id" value="{concat('http://syriaca.org/manuscript/',$id)}"/>
-                    </forward>
-                </view>
-                <error-handler>
-                    <forward url="{$exist:controller}/error-page.html" method="get"/>
-                    <forward url="{$exist:controller}/modules/view.xql"/>
-                </error-handler>
-         </dispatch>  
-else if(matches($exist:path, '/spear/\d+') or matches($exist:path, '/spear/\d+.html')) then 
-    let $id :=  
-            if(matches($exist:resource,"^[0-9]+$")) then $exist:resource
-            else substring-before($exist:resource,'.html')
-    return            
-        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-            <forward url="{$exist:controller}/spear/factoid.html"></forward>
-                <view>
-                    <forward url="{$exist:controller}/modules/view.xql">
-                        <add-parameter name="id" value="{concat('http://syriaca.org/spear/',$id)}"/>
-                    </forward>
-                </view>
-                <error-handler>
-                    <forward url="{$exist:controller}/error-page.html" method="get"/>
-                    <forward url="{$exist:controller}/modules/view.xql"/>
-                </error-handler>
-         </dispatch>  
-else if(matches($exist:path, '/bibl/\d+') or matches($exist:path, '/bibl/\d+.html')) then 
-    let $id :=  
-            if(matches($exist:resource,"^[0-9]+$")) then $exist:resource
-            else substring-before($exist:resource,'.html')
-    return            
-        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-            <forward url="{$exist:controller}/bibl/bibl.html"></forward>
-                <view>
-                    <forward url="{$exist:controller}/modules/view.xql">
-                        <add-parameter name="id" value="{concat('http://syriaca.org/bibl/',$id)}"/>
-                    </forward>
-                </view>
-                <error-handler>
-                    <forward url="{$exist:controller}/error-page.html" method="get"/>
-                    <forward url="{$exist:controller}/modules/view.xql"/>
-                </error-handler>
-         </dispatch>  
+         </dispatch>        
 else if (contains($exist:path,'/api/')) then
   if (ends-with($exist:path,"/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
@@ -150,6 +71,10 @@ else if (contains($exist:path,'/api/')) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <forward url="{concat('/restxq/srophe', $exist:path)}" absolute="yes"/>
     </dispatch>
+else if (ends-with($exist:path, "/atom") or ends-with($exist:path, "/tei")) then
+    <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+        <forward url="{concat('/restxq', $exist:path)}" absolute="yes"/>
+    </dispatch>
 else if (ends-with($exist:resource, ".html")) then
     (: the html page is run through view.xql to expand templates :)
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
@@ -162,9 +87,9 @@ else if (ends-with($exist:resource, ".html")) then
 		</error-handler>
     </dispatch>
 (: Resource paths starting with $app-root are resolved relative to app :)
-else if (contains($exist:path, "$app-root/")) then
+else if (contains($exist:path, "/$app-root/")) then
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-            <forward url="{concat($exist:controller,'/', substring-after($exist:path, '$app-root/'))}">
+            <forward url="{concat($exist:controller,'/', substring-after($exist:path, '/$app-root/'))}">
                 <set-header name="Cache-Control" value="max-age=3600, must-revalidate"/>
             </forward>
         </dispatch>        

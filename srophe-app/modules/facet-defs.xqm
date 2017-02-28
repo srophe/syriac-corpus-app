@@ -4,11 +4,7 @@
 xquery version "3.0";
 
 module namespace facet-defs="http://syriaca.org/facet-defs";
-
-import module namespace templates="http://exist-db.org/xquery/templates" ;
-import module namespace app="http://syriaca.org/templates" at "app.xql";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
-
 
 declare function facet-defs:facet-definition($collection){
 if($collection = 'persons') then
@@ -59,8 +55,8 @@ if($collection = 'persons') then
         <order-by direction="ascending">count</order-by>
     </facet-definition>
     <facet-definition name="Has name in">
-        <group-by>
-            <sub-path>descendant::tei:persName/@xml:lang</sub-path>
+        <group-by function="facet:controlled-labels">
+            <sub-path>descendant::tei:person/tei:persName/@xml:lang</sub-path>
         </group-by>
         <max-values show="5">40</max-values>
         <order-by direction="ascending">count</order-by>
@@ -242,16 +238,33 @@ else if($collection = 'spear-keywords') then
         <max-values show="5">100</max-values>
         <order-by direction="ascending">count</order-by>
     </facet-definition>
-</facets>  
-else if($collection = 'spear-persons') then 
+</facets> 
+else if($collection = 'places') then 
 <facets xmlns="http://expath.org/ns/facet">
-    <facet-definition name="Source Text">
-        <group-by function="facet:spear-source-text">
-            <sub-path>.//tei:titleStmt/tei:title[1]</sub-path>
+    <facet-definition name="Type">
+        <group-by function="facet:group-place-type">
+            <sub-path>descendant::tei:place/@type</sub-path>
         </group-by>
-        <max-values show="5">40</max-values>
-        <order-by direction="ascending">count</order-by>
+        <max-values show="100">100</max-values>
+        <order-by direction="descending">count</order-by>
     </facet-definition>
-</facets>   
+</facets>    
+else if($collection = 'manuscripts') then 
+<facets xmlns="http://expath.org/ns/facet">
+    <facet-definition name="Repository">
+        <group-by>
+            <sub-path>descendant::tei:repository</sub-path>
+        </group-by>
+        <max-values show="5">50</max-values>
+        <order-by direction="descending">count</order-by>
+    </facet-definition>
+    <facet-definition name="Country">
+        <group-by>
+            <sub-path>descendant::tei:country</sub-path>
+        </group-by>
+        <max-values show="5">50</max-values>
+        <order-by direction="descending">count</order-by>
+    </facet-definition>
+</facets> 
 else ()
 };

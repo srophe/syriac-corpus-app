@@ -5,14 +5,13 @@ xquery version "3.0";
  :)
 module namespace bibls="http://syriaca.org/bibls";
 import module namespace functx="http://www.functx.com";
-import module namespace common="http://syriaca.org/common" at "common.xqm";
+import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
-declare variable $bibls:q {request:get-parameter('q', '')};
 declare variable $bibls:title {request:get-parameter('title', '')};
 declare variable $bibls:author {request:get-parameter('author', '')};
 declare variable $bibls:idno {request:get-parameter('idno', '')};
@@ -22,22 +21,13 @@ declare variable $bibls:pub-place {request:get-parameter('pub-place', '')};
 declare variable $bibls:publisher {request:get-parameter('publisher', '')};
 declare variable $bibls:date {request:get-parameter('date', '')};
 
-(:~
- : Build full-text keyword search over all tei:place data
- : @param $q query string
-:)
-declare function bibls:keyword() as xs:string? {
-    if($bibls:q != '') then concat("[ft:query(.,'",common:clean-string($bibls:q),"',common:options())]")
-    else ()    
-};
-
 declare function bibls:title() as xs:string? {
-    if($bibls:title != '') then concat("[ft:query(descendant::tei:title,'",common:clean-string($bibls:title),"',common:options())]")
+    if($bibls:title != '') then concat("[ft:query(descendant::tei:title,'",data:clean-string($bibls:title),"',data:search-options())]")
     else ()    
 };
 
 declare function bibls:author() as xs:string? {
-    if($bibls:author != '') then concat("[ft:query(descendant::tei:author,'",common:clean-string($bibls:author),"',common:options()) or ft:query(descendant::tei:editor,'",common:clean-string($bibls:author),"',common:options())]")
+    if($bibls:author != '') then concat("[ft:query(descendant::tei:author,'",data:clean-string($bibls:author),"',data:search-options()) or ft:query(descendant::tei:editor,'",data:clean-string($bibls:author),"',data:search-options())]")
     else ()    
 };
 
@@ -62,19 +52,19 @@ declare function bibls:idno() as xs:string? {
 
 declare function bibls:pub-place() as xs:string? {
     if($bibls:pub-place != '') then 
-        concat("[ft:query(descendant::tei:imprint/tei:pubPlace,'",common:clean-string($bibls:pub-place),"',common:options())]")
+        concat("[ft:query(descendant::tei:imprint/tei:pubPlace,'",data:clean-string($bibls:pub-place),"',data:search-options())]")
     else ()  
 };
 
 declare function bibls:publisher() as xs:string? {
     if($bibls:publisher != '') then 
-        concat("[ft:query(descendant::tei:imprint/tei:publisher,'",common:clean-string($bibls:publisher),"',common:options())]")
+        concat("[ft:query(descendant::tei:imprint/tei:publisher,'",data:clean-string($bibls:publisher),"',data:search-options())]")
     else ()  
 };
 
 declare function bibls:date() as xs:string? {
     if($bibls:date != '') then 
-        concat("[ft:query(descendant::tei:imprint/tei:date,'",common:clean-string($bibls:date),"',common:options())]")
+        concat("[ft:query(descendant::tei:imprint/tei:date,'",data:clean-string($bibls:date),"',data:search-options())]")
     else ()  
 };
 
@@ -91,7 +81,7 @@ declare function bibls:query-string() as xs:string? {
 if($bibls:subject != '') then bibls:subject()
 else
  concat("collection('",$global:data-root,"/bibl/tei')//tei:body",
-    bibls:keyword(),
+    data:keyword(),
     bibls:title(),
     bibls:author(),
     bibls:pub-place(),
@@ -111,16 +101,16 @@ declare function bibls:search-string(){
             if(request:get-parameter($parameter, '') != '') then
                 if($parameter = 'start' or $parameter = 'sort-element') then ()
                 else if($parameter = 'q') then 
-                    (<span class="param">Keyword: </span>,<span class="match">{$bibls:q}&#160;</span>)
+                    (<span class="param">Keyword: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)
                 else if ($parameter = 'author') then 
-                    (<span class="param">Author/Editor: </span>,<span class="match">{$bibls:author}&#160;</span>)
-                else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)    
+                    (<span class="param">Author/Editor: </span>,<span class="match">{$bibls:author}&#160; </span>)
+                else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
             else ()               
 };
 
 
 (:~
- : Builds advanced search form for bibl module
+ : Builds advanced search form for persons
  :)
 declare function bibls:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
@@ -128,7 +118,7 @@ declare function bibls:search-form() {
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             </button>&#160;
-            <xi:include href="../searchTips.html"/>
+            <xi:include href="{$global:app-root}/searchTips.html"/>
         <div class="well well-small search-inner well-white">
         <!-- Keyword -->
             <div class="form-group">            

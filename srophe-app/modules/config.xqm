@@ -60,14 +60,8 @@ declare function config:expath-descriptor() as element(expath:package) {
     $config:expath-descriptor
 };
 
-<<<<<<< Updated upstream
 declare %templates:wrap function config:app-title($node as node(), $model as map(*)) as text() {
     $config:expath-descriptor/expath:title/text()
-=======
-
-declare %templates:wrap function config:app-title($node as node(), $model as map(*)) {
-    doc(concat($config:app-root,'/config.xml'))//title/text()
->>>>>>> Stashed changes
 };
 
 declare function config:app-meta($node as node(), $model as map(*)) as element()* {
