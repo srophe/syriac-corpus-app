@@ -152,141 +152,46 @@ declare function common:options(){
     </options>
 };
 
-(:
- : Build full-text keyword search over full record data 
+(:~
+ : Function to cast dates strings from url to xs:date
+ : Tests string length, may need something more sophisticated to test dates, 
+ : or form validation via js before submit. 
+ : @param $date passed to function from parent function
 :)
-declare function common:keyword(){
-    if(request:get-parameter('q', '') != '') then 
-        if(starts-with(request:get-parameter('q', ''),'http://syriaca.org/')) then
-           concat("[ft:query(descendant::*,'&quot;",request:get-parameter('q', ''),"&quot;',common:options())]")
-        else concat("[ft:query(descendant::*,'",common:clean-string(request:get-parameter('q', '')),"',common:options())]")
+declare function common:do-date($date){
+let $date-format := if(string-length($date) eq 4) then concat(string($date),'-01-01')
+                    else if(string-length($date) eq 5) then concat(string($date),'-01-01')
+                    else if(string-length($date) eq 3) then concat('0',string($date),'-01-01')
+                    else if(string-length($date) eq 2) then concat('00',string($date),'-01-01')
+                    else if(string-length($date) eq 1) then concat('000',string($date),'-01-01')
+                    else string($date) 
+return xs:date($date-format)
+};
+
+(:
+ : Function to truncate description text after first 12 words
+ : @param $string
+:)
+declare function common:truncate-string($str as xs:string*) as xs:string? {
+let $string := string-join($str, ' ')
+return 
+    if(count(tokenize($string, '\W+')[. != '']) gt 12) then 
+        let $last-words := tokenize($string, '\W+')[position() = 14]
+        return concat(substring-before($string, $last-words),'...')
+    else $string
+};
+
+declare function common:keyword($q){
+    if(exists($q) and $q != '') then 
+        if(starts-with($q,'http://syriaca.org/')) then
+           concat("[ft:query(.,'&quot;",$q,"&quot;',common:options())]")
+        else concat("[ft:query(.,'",common:clean-string($q),"',common:options())]")
     else '' 
 };
 
-(:~
- : Add a generic relationship search to any search module. 
-:)
-declare function common:relation-search(){
-if(request:get-parameter('rel', '') != '') then
-    let $q := request:get-parameter('rel', '')
-    return 
-        if(request:get-parameter('relType', '') != '') then
-            let $relType := request:get-parameter('relType', '')
-            return 
-                concat("[descendant::tei:relation[@passive[matches(.,'",$q,"(\W.*)?$')] or @active[matches(.,'",$q,"(\W.*)?$')] or @mutual[matches(.,'",$q,"(\W.*)?$')]][@ref = '",request:get-parameter('relType', ''),"' or @name = '",request:get-parameter('relType', ''),"']]")
-        else concat("[descendant::tei:relation[@passive[matches(.,'",$q,"(\W.*)?$')] or @active[matches(.,'",$q,"(\W.*)?$')] or @mutual[matches(.,'",$q,"(\W.*)?$')]]]")
-else ''
-};
-
-(:~
- : Generic search related places 
-:)
-declare function common:related-places() as xs:string?{
-    if(request:get-parameter('related-place', '') != '') then
-        let $related-place := request:get-parameter('related-place', '')
-        let $ids := 
-            if(matches($related-place,'^http://syriaca.org/')) then
-                normalize-space($related-place)
-            else 
-                string-join(distinct-values(
-                    for $r in collection($global:data-root || '/places')//tei:place[ft:query(tei:placeName,$related-place,common:options())]
-                    let $id := $r//tei:idno[starts-with(.,'http://syriaca.org')]
-                    return $id),'|')                   
-        return 
-            if($ids != '') then 
-                if(request:get-parameter('place-type', '') !='' and request:get-parameter('place-type', '') !='any') then 
-                    if(request:get-parameter('place-type', '') = 'birth') then 
-                        concat("[descendant::tei:relation[@name ='born-at'][@passive[matches(.,'",$ids,"(\W.*)?$')] or @active[matches(.,'",$ids,"(\W.*)?$')]]]")
-                    else if(request:get-parameter('place-type', '') = 'death') then
-                        concat("[descendant::tei:relation[@name ='died-at'][@passive[matches(.,'",$ids,"(\W.*)?$')] or @active[matches(.,'",$ids,"(\W.*)?$')]]]")   
-                    else if(request:get-parameter('place-type', '') = 'venerated') then 
-                        concat("[descendant::tei:event[matches(@contains,'",$ids,"(\W.*)?$')]]")
-                    else concat("[descendant::tei:relation[@name ='",request:get-parameter('place-type', ''),"'][@passive[matches(.,'",$ids,"(\W.*)?$')] or @active[matches(.,'",$ids,"(\W.*)?$')]]]")             
-                else concat("[descendant::tei:relation[@passive[matches(.,'",$ids,"(\W.*)?$')] or @mutual[matches(.,'",$ids,"(\W.*)?$')] or @active[matches(.,'",$ids,"(\W.*)?$')]]]")
-           else ()     
-    else ()
-};
-
-(:~
- : Generic search related persons 
-:)
-declare function common:related-persons() as xs:string?{
-    if(request:get-parameter('related-persons', '') != '') then
-        let $rel-person := request:get-parameter('related-persons', '')
-        let $ids := 
-            if(matches($rel-person,'^http://syriaca.org/')) then
-                normalize-space($rel-person)
-            else 
-                string-join(distinct-values(
-                    for $r in collection($global:data-root || '/persons')//tei:person[ft:query(tei:persName,$rel-person,common:options())]
-                    let $id := $r//tei:idno[starts-with(.,'http://syriaca.org')]
-                    return $id),'|')   
-        return 
-            if(request:get-parameter('person-type', '')) then
-                let $relType := request:get-parameter('person-type', '')
-                return 
-                    concat("[descendant::tei:relation[@passive[matches(.,'",$ids,"(\W.*)?$')] or @active[matches(.,'",$ids,"(\W.*)?$')] or @mutual[matches(.,'",$ids,"(\W.*)?$')]][@ref = '",$relType,"' or @name = '",$relType,"']]")
-            else concat("[descendant::tei:relation[@passive[matches(.,'",$ids,"(\W.*)?$')] or @mutual[matches(.,'",$ids,"(\W.*)?$')] or @active[matches(.,'",$ids,"(\W.*)?$')]]]")
-    else ()
-};
-
-(:~
- : Generic search related titles 
-:)
-declare function common:mentioned() as xs:string?{
-    if(request:get-parameter('mentioned', '') != '') then 
-        if(matches(request:get-parameter('mentioned', ''),'^http://syriaca.org/')) then 
-            let $id := normalize-space(request:get-parameter('mentioned', ''))
-            return concat("[descendant::*[@ref[matches(.,'",$id,"(\W.*)?$')]]]")
-        else 
-            concat("[descendant::*[ft:query(tei:title,'",common:clean-string(request:get-parameter('mentioned', '')),"',common:options())]]")
-    else ()  
-};
-
-(:~
- : Generic id search
- : Searches record idnos
-:)
-declare function common:idno() as xs:string? {
-    if(request:get-parameter('idno', '') != '') then 
-        let $id := replace(request:get-parameter('idno', ''),'[^\d\s]','')
-        let $syr-id := concat('http://syriaca.org/work/',$id)
-        return concat("[descendant::tei:idno[normalize-space(.) = '",$id,"' or .= '",$syr-id,"']]")
-    else ''    
-};
-
-(:~
- : Generic URI search
- : Searches record URIs and also references to record ids.
-:)
-declare function common:uri() as xs:string? {
-    if(request:get-parameter('uri', '') != '') then 
-        let $q := request:get-parameter('uri', '')
-        return 
-        concat("
-        [ft:query(descendant::*,'&quot;",$q,"&quot;',common:options()) or 
-            .//@passive[matches(.,'",$q,"(\W.*)?$')]
-            or 
-            .//@mutual[matches(.,'",$q,"(\W.*)?$')]
-            or 
-            .//@active[matches(.,'",$q,"(\W.*)?$')]
-            or 
-            .//@ref[matches(.,'",$q,"(\W.*)?$')]
-            or 
-            .//@target[matches(.,'",$q,"(\W.*)?$')]
-        ]")
-    else ''    
-};
-
-(:
- : General search function to pass in any tei element. 
- : @param $element element name must have a lucene index defined on the element
- : @param $query query text to be searched. 
-:)
 declare function common:element-search($element, $query){
     if(exists($element) and $element != '') then 
         for $e in $element
         return concat("[ft:query(descendant::tei:",$element,",'",common:clean-string($query),"',common:options())]") 
     else '' 
 };
-

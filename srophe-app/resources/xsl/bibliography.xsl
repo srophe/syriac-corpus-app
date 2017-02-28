@@ -137,13 +137,6 @@
                     </xsl:if>
                 </xsl:for-each>
             </xsl:if>
-            <xsl:if test="not(empty(t:date))">
-                <xsl:text> (</xsl:text>
-                <xsl:for-each select="t:date">
-                    <xsl:apply-templates select="." mode="footnote"/>
-                </xsl:for-each>
-                <xsl:text>) </xsl:text>
-            </xsl:if>
             <xsl:if test="not(empty(t:note))">
                 <xsl:text> </xsl:text>
                 <xsl:for-each select="t:note">
@@ -1024,11 +1017,7 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <xsl:template match="t:idno" mode="footnote">
-        <span class="footnote idno">
-            <xsl:apply-templates/>
-        </span>
-    </xsl:template>
+    
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle bibliographic titles in the context of a footnote

@@ -359,7 +359,6 @@ td {
     padding-left: .15em;
 }
 
-.browse-alpha li.selected a{color:white; padding-right:.25em;}
 .nav-stacked > .active > a,
     .nav-stacked > .active > a:hover {
       color: #000;
@@ -867,3 +866,4 @@ pre {
 select.keyboardSelect {display:none;}
 /* Timeline title styles */
 .slider-item h3{font-size:1.25em !important;}
+

@@ -5,13 +5,14 @@ xquery version "3.0";
  :)
 module namespace bhses="http://syriaca.org/bhses";
 import module namespace functx="http://www.functx.com";
-import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
+import module namespace common="http://syriaca.org/common" at "common.xqm";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
+declare variable $bhses:q {request:get-parameter('q', '')};
 declare variable $bhses:title {request:get-parameter('title', '')};
 declare variable $bhses:author {request:get-parameter('author', '')};
 declare variable $bhses:prologue {request:get-parameter('prologue', '')};
@@ -27,8 +28,17 @@ declare variable $bhses:idno {request:get-parameter('idno', '')};
 declare variable $bhses:id-type {request:get-parameter('id-type', '')};
 declare variable $bhses:coll {request:get-parameter('coll', '')};
 
+(:~
+ : Build full-text keyword search over all tei:place data
+ : @param $q query string
+:)
+declare function bhses:keyword() as xs:string? {
+    if($bhses:q != '') then concat("[ft:query(.,'",common:clean-string($bhses:q),"',common:options())]")
+    else ()    
+};
+
 declare function bhses:title() as xs:string? {
-    if($bhses:title != '') then concat("[ft:query(tei:bibl/tei:title,'",data:clean-string($bhses:title),"',data:search-options())]")
+    if($bhses:title != '') then concat("[ft:query(tei:bibl/tei:title,'",common:clean-string($bhses:title),"',common:options())]")
     else ()    
 };
 
@@ -37,47 +47,47 @@ declare function bhses:author() as xs:string? {
         if(starts-with($bhses:author,$global:base-uri)) then 
             concat("[tei:bibl/tei:author[@ref='",$bhses:author,"']]")
         else
-            concat("[ft:query(tei:bibl/tei:author,'",data:clean-string($bhses:author),"',data:search-options())]")
+            concat("[ft:query(tei:bibl/tei:author,'",common:clean-string($bhses:author),"',common:options())]")
     else ()    
 };
 
 declare function bhses:prologue() as xs:string? {
-    if($bhses:prologue != '') then concat("[ft:query(tei:bibl/tei:note[@type='prologue'],'",data:clean-string($bhses:prologue),"',data:search-options())]")
+    if($bhses:prologue != '') then concat("[ft:query(tei:bibl/tei:note[@type='prologue'],'",common:clean-string($bhses:prologue),"',common:options())]")
     else ()    
 };
 
 declare function bhses:incipit() as xs:string? {
-    if($bhses:incipit != '') then concat("[ft:query(tei:bibl/tei:note[@type='incipit'],'",data:clean-string($bhses:incipit),"',data:search-options())]")
+    if($bhses:incipit != '') then concat("[ft:query(tei:bibl/tei:note[@type='incipit'],'",common:clean-string($bhses:incipit),"',common:options())]")
     else ()    
 };
 
 declare function bhses:explicit() as xs:string? {
-    if($bhses:explicit != '') then concat("[ft:query(tei:bibl/tei:note[@type='explicit'],'",data:clean-string($bhses:explicit),"',data:search-options())]")
+    if($bhses:explicit != '') then concat("[ft:query(tei:bibl/tei:note[@type='explicit'],'",common:clean-string($bhses:explicit),"',common:options())]")
     else ()    
 };
 
 declare function bhses:editions() as xs:string? {
-    if($bhses:editions != '') then concat("[ft:query(tei:bibl/tei:bibl[@type='lawd:Edition'],'",data:clean-string($bhses:editions),"',data:search-options())]")
+    if($bhses:editions != '') then concat("[ft:query(tei:bibl/tei:note[@type='editions'],'",common:clean-string($bhses:editions),"',common:options())]")
     else ()    
 };
 
 declare function bhses:modern() as xs:string? {
-    if($bhses:modern != '') then concat("[ft:query(tei:bibl/tei:bibl[@type='syriaca:ModernTranslation'],'",data:clean-string($bhses:modern),"',data:search-options())]")
+    if($bhses:modern != '') then concat("[ft:query(tei:bibl/tei:note[@type='modernTranslation'],'",common:clean-string($bhses:modern),"',common:options())]")
     else ()    
 };
 
 declare function bhses:ancient() as xs:string? {
-    if($bhses:ancient != '') then concat("[ft:query(tei:bibl/tei:bibl[@type='syriaca:AncientVersion'],'",data:clean-string($bhses:ancient),"',data:search-options())]")
+    if($bhses:ancient != '') then concat("[ft:query(tei:bibl/tei:note[@type='ancientVersion'],'",common:clean-string($bhses:ancient),"',common:options())]")
     else ()    
 };
 
 declare function bhses:mss() as xs:string? {
-    if($bhses:mss != '') then concat("[ft:query(tei:bibl/tei:bibl[@type='syriaca:Manuscript'],'",data:clean-string($bhses:mss),"',data:search-options())]")
+    if($bhses:mss != '') then concat("[ft:query(tei:bibl/tei:note[@type='MSS'],'",common:clean-string($bhses:mss),"',common:options())]")
     else ()    
 };
 
 declare function bhses:refs() as xs:string? {
-    if($bhses:refs != '') then concat("[ft:query(tei:bibl/tei:bibl,'",data:clean-string($bhses:refs),"',data:search-options())]")
+    if($bhses:refs != '') then concat("[ft:query(tei:bibl/tei:bibl,'",common:clean-string($bhses:refs),"',common:options())]")
     else ()    
 };
 
@@ -99,23 +109,15 @@ declare function bhses:related-persons() as xs:string?{
     if($bhses:related-pers != '') then 
         if(matches($bhses:related-pers,'^http://syriaca.org/')) then 
             let $id := normalize-space($bhses:related-pers)
-            return concat("[descendant::tei:relation[@passive[matches(.,'",$id,"(\W.*)?$')] or @active[matches(.,'",$id,"(\W.*)?$')]]]")
+            return concat("[descendant::tei:relation[@passive[matches(.,'",$id,"')] or @active[matches(.,'",$id,"')]]]")
         else 
             let $ids := 
                 string-join(distinct-values(
                     for $name in collection('/db/apps/srophe-data/data/persons')//tei:person[ft:query(tei:persName,$bhses:related-pers)]
                     let $id := $name/parent::*/descendant::tei:idno[starts-with(.,'http://syriaca.org')]
                     return concat($id/text(),'(\s|$)')),'|')
-            return concat("[descendant::tei:relation[@passive[matches(@passive,'",$ids,"(\W.*)?$')] or @active[matches(@passive,'",$ids,"(\W.*)?$')]]]")
+            return concat("[descendant::tei:relation[@passive[matches(@passive,'",$ids,"')] or @active[matches(@passive,'",$ids,"')]]]")
     else ()  
-};
-
-declare function bhses:child() as xs:string? {
-    if(request:get-parameter('child-rec', '') != '') then
-        if(starts-with(request:get-parameter('child-rec', ''),$global:base-uri)) then  
-            concat("[tei:bibl/tei:listRelation/tei:relation[@passive[matches(.,'",request:get-parameter('child-rec', ''),"(\W.*)?$')]]]")
-        else ()
-    else ()    
 };
 
 (:~
@@ -130,17 +132,15 @@ return
     if($collection != '') then concat("[ancestor::tei:TEI/descendant::tei:title = '",$collection,"']")
     else ()
 };
-
 (:~
  : Build query string to pass to search.xqm 
 :)
 declare function bhses:query-string($collection) as xs:string? {
  concat("collection('",$global:data-root,"/works/tei')//tei:body",bhses:coll($collection),
-    data:keyword(),bhses:title(),bhses:author(),bhses:prologue(),
+    bhses:keyword(),bhses:title(),bhses:author(),bhses:prologue(),
     bhses:incipit(),bhses:explicit(),bhses:editions(),
     bhses:modern(),bhses:ancient(),bhses:mss(),
-    bhses:refs(),bhses:related-persons(),bhses:child(),
-    data:relation-search(),
+    bhses:refs(),bhses:related-persons(),
     bhses:idno()
     )
 };
@@ -155,22 +155,22 @@ declare function bhses:search-string(){
             if(request:get-parameter($parameter, '') != '') then
                 if($parameter = 'start' or $parameter = 'sort-element') then ()
                 else if($parameter = 'q') then 
-                    (<span class="param">Keyword: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)
+                    (<span class="param">Keyword: </span>,<span class="match">{$bhses:q}&#160;</span>)
                 else if($parameter = 'related-pers') then 
-                    (<span class="param">Related Persons: </span>,<span class="match">{$bhses:related-pers}&#160; </span>)
+                    (<span class="param">Related Persons: </span>,<span class="match">{$bhses:related-pers}&#160;</span>)
                 else if($parameter = 'modern') then 
-                    (<span class="param">Modern Translations: </span>,<span class="match">{$bhses:modern}&#160; </span>)
+                    (<span class="param">Modern Translations: </span>,<span class="match">{$bhses:modern}&#160;</span>)
                 else if($parameter = 'ancient') then 
-                    (<span class="param">Ancient Versions: </span>,<span class="match">{$bhses:ancient}&#160; </span>)
+                    (<span class="param">Ancient Versions: </span>,<span class="match">{$bhses:ancient}&#160;</span>)
                 else if($parameter = 'mss') then 
-                    (<span class="param">Manuscript: </span>,<span class="match">{$bhses:mss}&#160; </span>)            
-                else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;  </span>)    
+                    (<span class="param">Manuscript: </span>,<span class="match">{$bhses:mss}&#160;</span>)            
+                else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)    
             else ()               
 };
 
 
 (:~
- : Builds advanced search form for persons
+ : Builds advanced search form for BHSE
  :)
 declare function bhses:search-form($collection) {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
@@ -178,7 +178,7 @@ declare function bhses:search-form($collection) {
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             </button>&#160;
-            <xi:include href="{$global:app-root}/searchTips.html"/>
+            <xi:include href="../searchTips.html"/>
         <div class="well well-small search-inner well-white">
               <div class="form-group">            
                 <label for="coll" class="col-sm-2 col-md-3  control-label">Search in Resource: </label>

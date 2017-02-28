@@ -1,4 +1,4 @@
-(:~           
+(:~                
  : Builds persons page and persons page functions  
  :)
 xquery version "3.0";
@@ -12,7 +12,6 @@ import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
 import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
 
-declare namespace http="http://expath.org/ns/http-client";
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
@@ -224,8 +223,7 @@ return
 declare %templates:wrap function person:worldcat($node as node(), $model as map(*)){
 let $rec := $model("data")
 return 
-    try {
-        if($rec/descendant::tei:idno[starts-with(.,'http://worldcat.org/identities/lccn-n')] or $rec/descendant::tei:idno[starts-with(.,'http://viaf.org/viaf')][not(contains(.,'sourceID'))]) then
+    if($rec/descendant::tei:idno[starts-with(.,'http://worldcat.org/identities/lccn-n')] or $rec/descendant::tei:idno[starts-with(.,'http://viaf.org/viaf')][not(contains(.,'sourceID'))]) then
             let $viaf-ref := if($rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')]) then 
                                         $rec/descendant::tei:idno[@type='URI'][contains(.,'http://worldcat.org/identities/lccn-n')][1]/text()
                                      else $rec/descendant::tei:idno[@type='URI'][not(contains(.,'sourceID/SRP')) and starts-with(.,'http://viaf.org/viaf')][1]
@@ -262,10 +260,7 @@ return
                         <error>Caught error {$err:code}: {$err:description}</error>
                     } 
                  else ()   
-        else ()
-    } catch * {
-        <error>Caught error {$err:code}: {$err:description}</error>
-    } 
+    else () 
 };
 
 (: 

@@ -5,14 +5,13 @@ xquery version "3.0";
  :)
 module namespace spears="http://syriaca.org/spears";
 import module namespace functx="http://www.functx.com";
-import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm";
-import module namespace facet-defs="http://syriaca.org/facet-defs" at "../facet-defs.xqm";
 import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
-import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
+import module namespace common="http://syriaca.org/common" at "common.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
+declare variable $spears:q {request:get-parameter('q', '')};
 declare variable $spears:name {request:get-parameter('name', '')};
 declare variable $spears:place {request:get-parameter('place', '')};
 declare variable $spears:event {request:get-parameter('event', '')};
@@ -23,6 +22,17 @@ declare variable $spears:type {request:get-parameter('type', '')};
 declare variable $spears:title {request:get-parameter('title', '')};
 
 (:~
+ : Build full-text keyword search over all tei:place data
+ : @param $q query string
+ descendant-or-self::* or . testing which is most correct
+ common:build-query($pram-string)
+:)
+declare function spears:keyword() as xs:string? {
+    if($spears:q != '') then concat("[ft:query(.,'",common:clean-string($spears:q),"',common:options())]")
+    else ()    
+};
+
+(:~
  : Search Name
  : @param $name search persName
  want to be able to return all given/family ect without a search term?
@@ -30,7 +40,7 @@ declare variable $spears:title {request:get-parameter('title', '')};
 :)
 declare function spears:name() as xs:string? {
     if($spears:name != '') then
-        concat("[ft:query(descendant::tei:persName,'",data:clean-string($spears:name),"',data:search-options())]")   
+        concat("[ft:query(descendant::tei:persName,'",common:clean-string($spears:name),"',common:options())]")   
     else ()
 };
 
@@ -40,7 +50,7 @@ declare function spears:name() as xs:string? {
 :)
 declare function spears:place() as xs:string? {
     if($spears:place != '') then
-        concat("[ft:query(descendant::tei:placeName,'",data:clean-string($spears:place),"',data:search-options())]")   
+        concat("[ft:query(descendant::tei:placeName,'",common:clean-string($spears:place),"',common:options())]")   
     else ()
 };
 
@@ -50,7 +60,7 @@ declare function spears:place() as xs:string? {
 :)
 declare function spears:event() as xs:string? {
     if($spears:event != '') then
-        concat("[ft:query(descendant::tei:event,'",data:clean-string($spears:event),"',data:search-options())]")   
+        concat("[ft:query(descendant::tei:event,'",common:clean-string($spears:event),"',common:options())]")   
     else ()
 };
 
@@ -90,14 +100,6 @@ declare function spears:type-search(){
     else ()    
 };
 
-declare function spears:relation(){
-    if($spears:relation != '') then
-            concat("[descendant::tei:relation[matches(@passive,'",$spears:relation,"(\W|$)')]
-            |descendant::tei:relation[matches(@active,'",$spears:relation,"(\W|$)')]
-            |descendant::tei:relation[matches(@mutual,'",$spears:relation,"(\W|$)')]]")
-    else ()
-};
-
 (:~
  : Search by date
  : NOTE: still thinking about this one
@@ -109,13 +111,13 @@ declare function spears:relation(){
 declare function spears:query-string() as xs:string? {
  concat("collection('",$global:data-root,"/spear/tei')//tei:div[parent::tei:body]",
     spears:type-search(),
-    data:keyword(),
+    facets:facet-filter(),
+    spears:keyword(),
     spears:name(),
     spears:place(),
     spears:event(),
     spears:title-search(),
-    spears:relation(),
-    spears:controlled-keyword-search(),facet:facet-filter(facet-defs:facet-definition('spear'))
+    spears:controlled-keyword-search()
     )
 };
 
@@ -132,10 +134,10 @@ declare function spears:search-string() as xs:string*{
             if($parameter = 'start' or $parameter = 'sort-element') then ()
             else if($parameter = 'fq') then ()
             else if($parameter = 'q') then 
-                (<span class="param">Keyword: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)
+                (<span class="param">Keyword: </span>,<span class="match">{$spears:q}&#160;</span>)
             else if($parameter = 'keyword') then 
-                (<span class="param">Controlled Keyword: </span>,<span class="match">{lower-case(functx:camel-case-to-words(substring-after($spears:keyword,'/keyword/'),' '))}&#160; </span>)
-            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
+                (<span class="param">Controlled Keyword: </span>,<span class="match">{lower-case(functx:camel-case-to-words(substring-after($spears:keyword,'/keyword/'),' '))}&#160;</span>)
+            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)    
         else ())
         }
 </span>
@@ -197,7 +199,7 @@ return
 };
 
 (:~
- : Builds advanced search form for persons
+ : Builds advanced search form for SPEAR
  :)
 declare function spears:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
@@ -205,7 +207,7 @@ declare function spears:search-form() {
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             </button>&#160;
-            <xi:include href="{$global:app-root}/searchTips.html"/>
+            <xi:include href="../searchTips.html"/>
         <div class="well well-small search-inner well-white">
         <!-- Keyword -->
             <div class="form-group">

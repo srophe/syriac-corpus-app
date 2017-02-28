@@ -15,7 +15,11 @@ declare namespace gn = "http://www.geonames.org/ontology#";
 declare namespace lawd = "http://lawd.info/ontology";
 declare namespace rdfs = "http://www.w3.org/2000/01/rdf-schema#";
 declare namespace skos = "http://www.w3.org/2004/02/skos/core#";
+declare namespace xlink = "http://www.w3.org/1999/xlink";
+declare namespace transform="http://exist-db.org/xquery/transform";
+declare namespace schema = "http://schema.org/";
+declare namespace rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
 declare option exist:serialize "method=xml media-type=application/rss+xml omit-xml-declaration=no indent=yes";
 
-'Place holder'
+'Test query'

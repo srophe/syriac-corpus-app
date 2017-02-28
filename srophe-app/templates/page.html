@@ -9,7 +9,7 @@
         <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/"/>
         <meta name="DC.type" property="dc.type" content="Text"/>
         <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org"/>
-        <link data-template="app:metadata"/>
+        <link data-template="app:rel-links"/>
         <link rel="shortcut icon" href="$app-root/resources/img/fav-icons/syriaca-favicon.ico"/>
         <!-- Syriaca.org css -->
         <link rel="stylesheet" href="$app-root/resources/css/syr-icon-fonts.css"/>
@@ -21,11 +21,11 @@
         <link rel="stylesheet" type="text/css" media="print" href="$app-root/resources/css/print.css"/>
         <!-- Leaflet -->
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
-        <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>   
+        <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>
         <!-- jquery -->
         <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/ui-lightness/jquery-ui.css" rel="stylesheet"/>
         <!-- temporary until migrate to bootstrap 3.0 -->
-        <script type="text/javascript" src="$app-root/resources/js/jquery.min.js"/>
+        <script type="text/javascript" src="/resources/js/jquery.min.js"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/jquery.smartmenus.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/clipboard.min.js"/>
@@ -58,8 +58,6 @@
                     layout: 'syriac-phonetic'
                 });
                 
-                
-                
                 $('.keyboard-select').click(function () {
                     var keyboardID = '#' + $(this).data("keyboard-id")
                     var kb = $(keyboardID).getkeyboard();
@@ -86,7 +84,6 @@
                 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
             <![endif]-->
         <!-- Fixed navbar -->
-        <div data-template="app:shared-content" data-template-path="/templates/draft-info.html"/>
         <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
             <div class="container">
                 <div class="navbar-header">
@@ -98,7 +95,12 @@
                     </button>
                     <a class="navbar-brand banner-container" href="$app-root/index.html">
                         <!--<img property="logo" class="img-responsive" alt="Syriac.org" src="$app-root/resources/img/syriaca-logo.png"/> Draft-->
-                        <span class="syriaca-icon syriaca-syriaca banner-icon"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                        <span class="syriaca-icon syriaca-syriaca banner-icon">
+                            <span class="path1"/>
+                            <span class="path2"/>
+                            <span class="path3"/>
+                            <span class="path4"/>
+                        </span>
                         <span class="banner-text">Syriaca.org</span>
                     </a>
                 </div>
@@ -168,7 +170,7 @@
                                         <a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a>
                                     </li>
                                     <li>
-                                        <a href="$app-root/documentation/wiki.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/srophe-app-data/wiki">Help <span class="glyphicon glyphicon-question-sign"/>
+                                        <a href="$app-root/documentation/view-syriac.html">Help <span class="glyphicon glyphicon-question-sign"/>
                                         </a>
                                     </li>
                                 </ul>
