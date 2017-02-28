@@ -1,10 +1,10 @@
 xquery version "3.0";
 (:~
  : Builds browse page for Syriac.org sub-collection SPEAR
- : Alphabetical English and Syriac Browse lists
- : Browse by type
  :
  : @see lib/geojson.xqm for map generation
+ : @see lib/events.xqm for events timeline generation
+ : @see lib/facet.xqm for facet generation
  :)
 
 module namespace bs="http://syriaca.org/bs";
@@ -12,7 +12,10 @@ module namespace bs="http://syriaca.org/bs";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace common="http://syriaca.org/common" at "search/common.xqm";
 import module namespace functx="http://www.functx.com";
+import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
+import module namespace facet-defs="http://syriaca.org/facet-defs" at "facet-defs.xqm";
 import module namespace facets="http://syriaca.org/facets" at "lib/facets.xqm";
+import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
@@ -31,6 +34,8 @@ declare namespace util="http://exist-db.org/xquery/util";
  : @param $bs:type selects doc type filter eg: place@type person@ana
  : @param $bs:view selects language for browse display
  : @param $bs:sort passes browse by letter for alphabetical browse lists
+ : @param $bs:date passes browse by date
+ : @param $bs:fq passes browse by facet
  :)
 declare variable $bs:coll {request:get-parameter('coll', '')};
 declare variable $bs:type {request:get-parameter('type', '')}; 
@@ -42,158 +47,149 @@ declare variable $bs:title {request:get-parameter('title', '')};
 declare variable $bs:start {request:get-parameter('start', 1) cast as xs:integer};
 declare variable $bs:perpage {request:get-parameter('perpage', 25) cast as xs:integer};
 
-declare function bs:spear-person($hits){
-let $d := util:eval(concat('$hits[descendant::tei:persName]',facets:facet-filter()))
-for $data in $d
-group by $facet-grp := $data/descendant::tei:persName[1]/@ref
-return $data[1]
-};
-
-declare function bs:spear-place($hits){
-let $d := util:eval(concat('$hits[descendant::tei:placeName]',facets:facet-filter()))
-for $data in $d
-group by $facet-grp := $data/descendant::tei:placeName[1]/@ref
-return $data[1]
-};
-
-declare function bs:spear-event($hits){
-    util:eval(concat('$hits[descendant::tei:listEvent]',facets:facet-filter()))
-};
-
-declare function bs:narrow-by-type(){
-    if($bs:type = 'persons') then '[tei:listPerson]'
-    else if($bs:type = 'events') then '[tei:listEvent]'
-    else if($bs:type = 'relations') then '[tei:listRelation]'
-    else ()
-};
-
-declare function bs:narrow-by-title(){
-concat("[ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[@level='a'][1][. = '",$bs:title,"']]")
-};
-
-(:~ 
- : Build Facet groups
- : For browsing by element type 
+(:~
+ : Narrow and sort SPEAR results based on URI params
 :)
-declare function bs:spear-facet-groups($nodes, $category){
-    <li><a href="?view=sources&amp;type={$category}&amp;fq={$facets:fq}" class="facet-label"> {$category} factoids 
-    <span class="count">({
-        if($category = 'persons') then count(distinct-values($nodes/descendant::tei:persName[1]/@ref)) 
-        else count($nodes)
-    })</span></a></li>
+declare function bs:spear-data-narrow($hits){ 
+let $data := 
+   if($bs:view = 'relations') then () 
+   else if($bs:view = 'persons' or ($bs:view='sources' and $bs:type = 'persons')) then 
+       let $d := util:eval(concat('$hits[descendant::tei:persName]',facet:facet-filter(facet-defs:facet-definition('spear-persons'))))
+       let $uris := distinct-values($d/descendant::tei:persName/@ref)
+       for $hit in $uris
+       for $hit in collection($global:data-root)//tei:TEI[.//tei:idno = concat($hit,"/tei")][1]
+       let $title := replace(string-join($hit/descendant::tei:fileDesc/tei:titleStmt[1]/tei:title[1]/text()[1],' '),' — ',' ')
+       where 
+            if($bs:sort='All') then 
+                $title
+            else if($bs:sort = 'Anonymous') then
+                $title[starts-with(.,'Anonym')]
+            else $title[not(starts-with(.,'Anonym'))][matches(substring(global:build-sort-string(.,'en'),1,1),data:get-alpha-filter(),'i')] 
+       order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
+       (:return <hit>{($d,$hit)}</hit>:)
+       return $hit
+   else if($bs:view = 'places') then 
+       let $d := util:eval(concat('$hits[descendant::tei:placeName]',facet:facet-filter(facet-defs:facet-definition('spear'))))
+       let $uris := distinct-values($d/descendant::tei:placeName/@ref)
+       for $hit in $uris
+       for $hit in collection($global:data-root)//tei:TEI[.//tei:idno = concat($hit,"/tei")][1]
+       let $title := replace(string-join($hit/descendant::tei:fileDesc/tei:titleStmt[1]/tei:title[1]/text()[1],' '),' — ',' ')
+       where 
+        if($bs:sort='All') then 
+            $title
+        else $title[matches(substring(global:build-sort-string(.,'en'),1,1),data:get-alpha-filter(),'i')]
+       order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
+       return $hit
+   else if($bs:view = 'events') then 
+        util:eval(concat('$hits[descendant::tei:listEvent]',facet:facet-filter(facet-defs:facet-definition('spear-events'))))
+   else if($bs:view = 'keywords') then   
+        util:eval(concat('$hits[descendant::tei:listEvent]',facets:facet-filter()))
+   else if($bs:view = 'advanced') then 
+     util:eval(concat('$hits',facet:facet-filter(facet-defs:facet-definition('spear'))))
+   else 
+        for $r in collection($global:data-root || '/spear/tei')//tei:title[@level='a'][parent::tei:titleStmt]
+        let $id := $r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][1]
+        let $num := if($r/tei:num) then xs:double($r/tei:num/text()) else()
+        order by $r, $num collation "?lang=en&lt;syr&amp;decomposition=full"
+        return <title>{$r, $id}</title>
+return $data   
 };
 
-declare function bs:narrow-spear($hits){
-    if($bs:view = 'persons' or ($bs:view='sources' and $bs:type = 'persons')) then 
-        bs:spear-person($hits)
-    else if($bs:view = 'places') then 
-        bs:spear-place($hits)
-    else if($bs:view = 'events') then 
-        bs:spear-event($hits)
-    else if($bs:view = 'keywords') then   
-        bs:spear-event($hits)
-    else if($bs:view = 'advanced') then 
-        util:eval(concat('$hits',facets:facet-filter()))
-    else util:eval(concat('$hits',facets:facet-filter(),bs:narrow-by-type()))
+(:~
+ : Browse Alphabetical Menus SPEAR
+:)
+declare function bs:browse-abc-menu(){
+    <div class="browse-alpha tabbable">
+        <ul class="list-inline">
+        {
+            if($bs:view = 'persons') then  
+                for $letter in tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Anonymous All', ' ')
+                return
+                    <li>{if($bs:sort = $letter) then attribute class {"selected badge"} else()}<a href="?view={$bs:view}&amp;sort={$letter}">{$letter}</a></li>
+            else if($bs:view = 'places') then  
+                for $letter in tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z All', ' ')
+                return
+                     <li>{if($bs:sort = $letter) then attribute class {"selected badge"} else()}<a href="?view={$bs:view}&amp;sort={$letter}">{$letter}</a></li>
+            else ()  
+
+        }
+        </ul>
+    </div>
 };
 
-declare function bs:spear-results-panel($hits){
-let $hits := bs:narrow-spear($hits)
+declare function bs:spear-results-panel($data){
+let $hits := bs:spear-data-narrow($data)
 return
    ( 
-        if($bs:view = 'person' or $bs:view = 'place') then 'ABC Menu' else(),
+        if($bs:view = 'persons' or $bs:view = 'places') then 
+            <div class="float-container">
+                <div class="pull-right">
+                     <div>{page:pages($hits, $bs:start, $bs:perpage,'', '')}</div>
+                </div>
+                {bs:browse-abc-menu()}
+            </div>
+        else(),
         if($bs:view = 'relations') then 
             <div class="col-md-12">
                 <h3>Explore SPEAR Relationships</h3>
                 <iframe id="iframe" src="../modules/d3xquery/build-html.xqm" width="100%" height="700" scrolling="auto" frameborder="0" seamless="true"/>
             </div>
-        else    
-        <div class="col-md-3">
-            {
-                if($bs:view = 'advanced') then 
-                     <div>
-                         
-                         {
-                             let $facets := $hits//tei:persName | $hits//tei:placeName | $hits//tei:event 
-                             | $hits/ancestor::tei:TEI/descendant::tei:title[@level='a'][parent::tei:titleStmt]
-                             return facets:facets($facets)
+        else if($bs:view = 'sources' or not($bs:view)) then 
+            <div class="col-md-12">
+                <div class="float-container">
+                    <div class="pull-right">
+                        <div>{page:pages($hits, $bs:start, $bs:perpage,'', '')}</div>
+                    </div>
+                </div>
+                <h3>{concat('Browse (',count($hits),')')}</h3>            
+                 {bs:display-spear($hits)}
+            </div>
+        else (
+            <div class="col-md-3">
+                 <div>
+                    { 
+                    if($bs:view = 'events') then
+                        facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition('spear-events')/child::*))
+                    else if($bs:view = 'keywords') then
+                        facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition('spear-keywords')/child::*))
+                    else if($bs:view = 'persons' or $bs:view = 'places') then
+                        (:facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition('spear-persons')/child::*)):) ()
+                    else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition('spear')/child::*))
+                    }
+                 </div>
+             </div>,
+             <div class="col-md-8">
+                {
+                    if($bs:view != 'persons' and $bs:view != 'places' and $bs:view != 'events') then
+                        <div class="float-container">
+                            <div class="pull-right">
+                                 <div>{page:pages($hits, $bs:start, $bs:perpage,'', '')}</div>
+                            </div>
+                        </div>
+                    else ()
+                }
+                <h3> {
+                         if($bs:view = 'keywords') then concat('Browse Factoids by Keywords (',count($hits),')')
+                         else if($bs:view = 'persons') then concat(' Persons Mentioned (',count($hits),')')
+                         else if($bs:view = 'places') then concat('Places Mentioned (',count($hits),')')
+                         else if($bs:view = 'events') then concat('Browse Events (',count($hits),')')
+                         else concat('Browse (',count($hits),')')
                          }
-                     </div>
-                else
-                   <div>
-                    <h4>Narrow by Source Text</h4>
-                    <span class="facets applied">
-                        {
-                            if($facets:fq) then facets:selected-facet-display()
-                            else ()            
-                        }
-                    </span>
-                    <ul class="nav nav-tabs nav-stacked" style="margin-left:-1em;">
-                        {<li>{facets:title($hits)}</li>}
-                    </ul>
-                        {(
-                        if($bs:view = 'keywords') then 
-                            (<h4>Narrow by Keyword</h4>,
-                             <ul class="nav nav-tabs nav-stacked" style="margin-left:-1em;">
-                                {
-                                    let $facet-nodes := $hits
-                                    let $facets := $facet-nodes//tei:event
-                                    return 
-                                        <li>{facets:keyword($facets)}</li>
-                                }
-                             </ul>)
-                        else (),     
-                        if($bs:view = 'sources' or $bs:view = '') then 
-                            (<h4>Narrow by Type</h4>,
-                             if($bs:type != '') then 
-                                <span class="facets applied">
-                                    <span class="facet" title="Remove {$bs:type}">
-                                        <span class="label label-facet" title="{$bs:type}">{$bs:type} 
-                                            <a href="?view=sources&amp;fq={$facets:fq}" class="facet icon"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-                                        </span>
-                                    </span>            
-                                </span>
-                            else(),
-                            <ul class="nav nav-tabs nav-stacked" style="margin-left:-1em;">
-                                {(
-                                    bs:spear-facet-groups($hits/tei:listPerson, 'persons'),
-                                    bs:spear-facet-groups($hits/tei:listEvent, 'events'), 
-                                    bs:spear-facet-groups($hits/tei:listRelation, 'relations') 
-                                )}
-                            </ul>)
-                        else ()
-                        )}        
-                </div>}
-        </div>,
-        <div class="col-md-8">
-           <h3> {
-                            if($bs:view = 'keywords') then concat('Browse Factoids by Keywords (',count($hits),')')
-                            else if($bs:view = 'persons') then concat('Persons Mentioned (',count($hits),')')
-                            else if($bs:view = 'places') then concat('Places Mentioned (',count($hits),')')
-                            else if($bs:view = 'events') then concat('Browse Events (',count($hits),')')
-                            else concat('Browse (',count($hits),')')
-                        }</h3>
-           {bs:display-spear($hits)}
-       </div>
+                 </h3>            
+                 {bs:display-spear($hits)}
+            </div>)        
     )    
 };
 
-(: add paging 
-<h3>{if($bs:view) then $bs:view else 'Factoids'} ({count($data)})</h3>
-:)
 declare function bs:display-spear($hits){
 <div>
     <div>
         {
             if($bs:view = 'events') then 
                 (ev:build-timeline($hits,'events'), ev:build-events-panel($hits))
-            else if($bs:view = 'persons' or ($bs:view='sources' and $bs:type = 'persons')) then 
-                bs:spear-persons($hits)
-            else if($bs:view = 'places') then 
-                bs:spear-places($hits)                
-            else
-            (page:pages($hits, $bs:start, $bs:perpage,'', ''),
-            bs:hits($hits))
+            else if($bs:view = 'persons' or ($bs:view='sources' and $bs:type = 'persons') or $bs:view = 'places') then 
+                bs:display-canonical-names($hits)
+            else bs:hits($hits)
 
         }
     </div>
@@ -206,81 +202,56 @@ declare function bs:hits($hits){
     return 
     <div class="results-list">
         {
-        if($data/tei:listRelation) then 
-        <span class="srp-label">[{functx:capitalize-first(string($data/tei:listRelation/tei:relation/@type))} relation] </span>
-        else ()
-        }
-        <a href="factoid.html?id={$uri}" class="syr-label">
+        if($data/tei:title) then
+            (' ', <a href="aggregate.html?id={replace($data//tei:idno,'/tei','')}" class="syr-label">{string-join($data/descendant-or-self::tei:title[1]/node(),' ')}</a>)
+        else 
+            (if($data/tei:listRelation) then 
+                <span class="srp-label">[{concat(' ', functx:camel-case-to-words(substring-after($data/tei:listRelation/tei:relation/@name,':'),' '))} relation] </span>
+            else if($data/tei:listPerson) then
+                <span class="srp-label">[Person factoid] </span>
+            else if($data/tei:listEvent) then
+                <span class="srp-label">[Event factoid] </span>
+            else (),
+            <a href="factoid.html?id={$uri}" class="syr-label">
             {
                 if($data/descendant-or-self::tei:titleStmt) then $data/descendant-or-self::tei:titleStmt[1]/text()
                 else if($data/tei:listRelation) then 
                     <span> 
-                     {concat(' ', functx:camel-case-to-words(substring-after($data/tei:listRelation/tei:relation/@name,':'),' '))} :
-                     {
-                     if($data/tei:listRelation/tei:relation/@active) then
-                        (string($data/tei:listRelation/tei:relation/@active),' - ',string($data/tei:listRelation/tei:relation/@passive))
-                     else 
-                        string($data/tei:listRelation/tei:relation/@mutual)
-                        }
+                     {rel:build-short-relationships($data/tei:listRelation/tei:relation,'')}
                     </span>
-                else substring(string-join($data/descendant-or-self::*[not(self::tei:idno)][not(self::tei:bibl)][not(self::tei:biblScope)][not(self::tei:note)][not(self::tei:orig)][not(self::tei:sic)]/text(),' '),1,550)
+                else substring(string-join($data/child::*[1]/descendant-or-self::*/text(),' '),1,550)
             }                                    
-        </a>
+        </a>)
+        }
     </div>  
 
 };
 
-
-declare function bs:spear-persons($nodes){
-for $d in $nodes
-let $id := string($d/descendant::tei:persName[1]/@ref)
-let $connical := collection($global:data-root)//tei:idno[. = $id]
-let $name := if(exists($connical)) then $connical/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text()
-             else if($d/text()) then global:parse-name($d)
-             else tokenize($id,'/')[last()]
-order by $name[1] collation "?lang=en&lt;syr&amp;decomposition=full"
+(:~
+ : Get title for record
+ : NOTE: could be a global function
+:)
+declare function bs:get-title($uri){
+let $doc := collection($global:data-root)//tei:TEI[.//tei:idno = concat($uri,"/tei")][1]
 return 
-    if($connical) then 
-        <div class="results-list">
-            {
-            global:display-recs-short-view($connical/ancestor::tei:TEI,'')
-            }
-            <span class="results-list-desc uri"><span class="srp-label">SPEAR: </span> <a href="factoid.html?id={$id}"> http://syriaca.org/spear/factoid.html?id={$id}</a></span>
-        </div>
-    else ()
-    (:
-     <div class="results-list">
-        <span class="srp-label">Name: {$name} </span>
-        <span class="results-list-desc uri"><span class="srp-label">URI: </span> {$id}</span>
-        <span class="results-list-desc uri"><span class="srp-label">SPEAR: </span> <a href="factoid.html?id={$id}"> http://syriaca.org/spear/factoid.html?id={$id}</a></span>
-    </div>
-    :)
+      if (exists($doc)) then
+        replace(string-join($doc/descendant::tei:fileDesc/tei:titleStmt[1]/tei:title[1]/text()[1],' '),' — ',' ')
+      else $uri 
 };
 
-declare function bs:spear-places($nodes){
-for $d in $nodes
-let $id := string($d/descendant::tei:placeName[1]/@ref)
-let $connical := collection($global:data-root)//tei:idno[. = $id]
-let $name := if($connical) then $connical/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]/text()
-             else if(empty($d/descendant::tei:placeName[1])) then tokenize($id,'/')[last()]
-             else normalize-space($d/descendant::tei:placeName[1]/text())
-order by $name[1] collation "?lang=en&lt;syr&amp;decomposition=full"
+(:~
+ : Display results where canonical records are referenced
+:)
+declare function bs:display-canonical-names($hits){
+for $hit in subsequence($hits,$bs:start,$bs:perpage)
 return 
-    if($connical) then 
-        <div class="results-list">
-            {
-            global:display-recs-short-view($connical/ancestor::tei:TEI,'')
-            }
-            <span class="results-list-desc uri"><span class="srp-label">SPEAR: </span> <a href="factoid.html?id={$id}"> http://syriaca.org/spear/factoid.html?id={$id}</a></span>
-        </div>
-    else ()
-    (:
-     <div class="results-list">
-        <span class="srp-label">Name: {$name} </span>
-        <span class="results-list-desc uri"><span class="srp-label">URI: </span> {$id}</span>
-        <span class="results-list-desc uri"><span class="srp-label">SPEAR: </span> <a href="factoid.html?id={$id}"> http://syriaca.org/spear/factoid.html?id={$id}</a></span>
+    <div class="results-list">
+        {
+            if (exists($hit)) then
+                global:display-recs-short-view($hit,'spear')
+            else $hit
+        }
     </div>
-    :)
 };
 
 (:~

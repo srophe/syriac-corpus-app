@@ -1,22 +1,22 @@
 xquery version "3.0";        
  
 module namespace search="http://syriaca.org/search";
+import module namespace data="http://syriaca.org/data" at "../lib/data.xqm";
 import module namespace page="http://syriaca.org/page" at "../lib/paging.xqm";
 import module namespace rel="http://syriaca.org/related" at "../lib/get-related.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm";
 import module namespace facet-defs="http://syriaca.org/facet-defs" at "../facet-defs.xqm";
-import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
+import module namespace maps="http://syriaca.org/maps" at "../lib/maps.xqm";
+import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
+(: Search modules :)
 import module namespace persons="http://syriaca.org/persons" at "persons-search.xqm";
 import module namespace places="http://syriaca.org/places" at "places-search.xqm";
 import module namespace spears="http://syriaca.org/spears" at "spear-search.xqm";
 import module namespace bhses="http://syriaca.org/bhses" at "bhse-search.xqm";
 import module namespace bibls="http://syriaca.org/bibls" at "bibl-search.xqm";
 import module namespace ms="http://syriaca.org/ms" at "ms-search.xqm";
-import module namespace common="http://syriaca.org/common" at "common.xqm";
-import module namespace maps="http://syriaca.org/maps" at "../lib/maps.xqm";
-import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
-import module namespace functx="http://www.functx.com";
 
+import module namespace functx="http://www.functx.com";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -50,22 +50,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                         else if($coll = 'bibl') then bibls:query-string()
                         else if($coll = 'manuscripts') then ms:query-string()
                         else search:query-string($collection)
-    return                         
-    map {"hits" := 
-                if(exists(request:get-parameter-names()) or ($view = 'all')) then 
-                    if($search:sort-element != '' and $search:sort-element != 'relevance' or $view = 'all') then 
-                        for $hit in util:eval($eval-string)
-                        order by global:build-sort-string(page:add-sort-options($hit,$search:sort-element),'') ascending
-                        return $hit                                                     
-                    else 
-                        for $hit in util:eval($eval-string)
-                       (: let $expanded := util:expand($hit, "expand-xincludes=no")
-                        let $headword := count($expanded/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][descendant::*:match])
-                        let $headword := if($headword gt 0) then $headword + 15 else 0:)
-                        order by ft:score($hit) + (count($hit/descendant::tei:bibl) div 2) descending
-                        return $hit
-                else ()                        
-         }
+    return map {"hits" := data:search($eval-string) }
 };
 
 (:~   
@@ -74,78 +59,63 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
 declare function search:query-string($collection as xs:string?) as xs:string?{
 if($collection !='') then 
     concat("collection('",$global:data-root,"/",$collection,"')//tei:body",
-    common:keyword($search:q),
+    data:keyword(),
     search:persName(),
     search:placeName(), 
     search:title(),
     search:bibl(),
-    search:idno()
+    data:uri()
     )
 else 
 concat("collection('",$global:data-root,"')//tei:body",
-    common:keyword($search:q),
+    data:keyword(),
     search:persName(),
     search:placeName(), 
     search:title(),
     search:bibl(),
-    search:idno()
+    data:uri()
     )
 };
 
 declare function search:persName(){
     if($search:persName != '') then 
-        common:element-search('persName',$search:persName) 
+        data:element-search('persName',$search:persName) 
     else '' 
 };
 
 declare function search:placeName(){
     if($search:placeName != '') then 
-        common:element-search('placeName',$search:placeName) 
+        data:element-search('placeName',$search:placeName) 
     else '' 
 };
 
 declare function search:title(){
     if($search:title != '') then 
-        common:element-search('placeName',$search:title) 
+        data:element-search('title',$search:title) 
     else '' 
 };
 
 declare function search:bibl(){
     if($search:bibl != '') then  
-        let $terms := common:clean-string($search:bibl)
+        let $terms := data:clean-string($search:bibl)
         let $ids := 
             if(matches($search:bibl,'^http://syriaca.org/')) then
                 normalize-space($search:bibl)
             else 
                 string-join(distinct-values(
-                for $r in collection($global:data-root || '/bibl')//tei:body[ft:query(.,$terms, common:options())]/ancestor::tei:TEI/descendant::tei:publicationStmt/tei:idno[starts-with(.,'http://syriaca.org')][1]
+                for $r in collection($global:data-root || '/bibl')//tei:body[ft:query(.,$terms, data:search-options())]/ancestor::tei:TEI/descendant::tei:publicationStmt/tei:idno[starts-with(.,'http://syriaca.org')][1]
                 return concat(substring-before($r,'/tei'),'(\s|$)')),'|')
         return concat("[descendant::tei:bibl/tei:ptr[@target[matches(.,'",$ids,"')]]]")
     else ()
-       (: common:element-search('bibl',$search:bibl):)  
+       (: data:element-search('bibl',$search:bibl):)  
 };
 
-(:~
- : Generic URI search
- : Searches record URIs and also references to record ids.
-:)
+(: NOTE add additional idno locations, ptr/@target @ref, others? :)
 declare function search:idno(){
     if($search:idno != '') then 
-         concat("
-        [ft:query(descendant::*,'&quot;",$search:idno,"&quot;',common:options()) or 
-            .//@passive[matches(.,'",$search:idno,"(\W.*)?$')]
-            or 
-            .//@mutual[matches(.,'",$search:idno,"(\W.*)?$')]
-            or 
-            .//@active[matches(.,'",$search:idno,"(\W.*)?$')]
-            or 
-            .//@ref[matches(.,'",$search:idno,"(\W.*)?$')]
-            or 
-            .//@target[matches(.,'",$search:idno,"(\W.*)?$')]
-        ]") 
+         (:concat("[ft:query(descendant::tei:idno, '&quot;",$search:idno,"&quot;')]"):)
+         concat("[.//tei:idno = '",$search:idno,"']")
     else () 
-    
-    
 };
 
 declare function search:search-string(){
@@ -158,7 +128,7 @@ declare function search:search-string(){
             if($parameter = 'start' or $parameter = 'sort-element') then ()
             else if($parameter = 'q') then 
                 (<span class="param">Keyword: </span>,<span class="match">{$search:q}&#160;</span>)
-            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)    
+            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
         else ())
         }
 </span>
@@ -176,28 +146,6 @@ declare function search:search-string($collection as xs:string?){
     else if($collection = 'bibl') then bibls:search-string()
     else if($collection = 'manuscripts') then ms:search-string()
     else search:search-string()
-};
-
-(:~
- : Call facets on search results
- : NOTE: need better template integration
-:)
-declare %templates:wrap function search:facets($node as node()*, $model as map(*), $collection as xs:string*){
-if(exists(request:get-parameter-names())) then
-    <div>
-         {
-         if($collection = 'spear') then
-                <div>
-                    <h4>Narrow Results</h4>
-                       {facet:html-list-facets-as-buttons(facet:count($model("hits"), facet-defs:facet-definition('spear')/child::*))}
-                </div>
-         else 
-            let $facet-nodes := $model("hits")
-            let $facets := $facet-nodes//tei:repository | $facet-nodes//tei:country
-            return facets:facets($facets)
-         }
-    </div>
-else ()
 };
 
 (:~ 
@@ -293,8 +241,14 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
         return
             <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
                 <div class="col-md-12">
-                      <div class="col-md-1" style="margin-right:-1em; padding-top:1em;">
-                        <span class="label label-default">{$search:start + $p - 1}</span>
+                      <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">
+                        <span class="badge">
+                            {
+                                if(request:get-parameter('child-rec', '') != '' and ($search:sort-element = '' or not(exists($search:sort-element)))) then
+                                    string($hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order']/@n)
+                                else $search:start + $p - 1
+                            }
+                        </span>
                       </div>
                       <div class="col-md-9" xml:lang="en">
                         {
@@ -345,7 +299,6 @@ declare %templates:wrap function search:build-page($node as node()*, $model as m
     else ()
 };
 
-
 (:~
  : Builds advanced search form
  :)
@@ -357,7 +310,7 @@ declare function search:search-form() {
           <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             </button>&#160;
-            <xi:include href="../searchTips.html"/>
+            <xi:include href="{$global:app-root}/searchTips.html"/>
         <div class="well well-small" style="background-color:white; margin-top:2em;">
             <div class="row">
                 <div class="col-md-7">

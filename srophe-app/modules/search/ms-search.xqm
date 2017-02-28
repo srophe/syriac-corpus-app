@@ -6,24 +6,11 @@ xquery version "3.0";
 module namespace ms="http://syriaca.org/ms";
 import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
 import module namespace functx="http://www.functx.com";
-import module namespace common="http://syriaca.org/common" at "common.xqm";
+import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
-
-declare variable $ms:q {request:get-parameter('q', '')};
-
-(:~
- : Build full-text keyword search over all tei:place data
- : @param $q query string
- descendant-or-self::* or . testing which is most correct
- common:build-query($pram-string)
-:)
-declare function ms:keyword() as xs:string? {
-    if($ms:q != '') then concat("[ft:query(.,'",common:clean-string($ms:q),"',common:options())]")
-    else ()    
-};
 
 (:
 declare function ms:facets($node as node(), $model as map(*)){
@@ -38,7 +25,7 @@ declare function ms:facets($node as node(), $model as map(*)){
 :)
 declare function ms:query-string() as xs:string? {
  concat("collection('",$global:data-root,"/manuscripts/tei')//tei:teiHeader",
-    ms:keyword(),facets:facet-filter()
+    data:keyword(),facets:facet-filter()
     )
 };
 
@@ -52,8 +39,8 @@ declare function ms:search-string() as xs:string*{
         if(request:get-parameter($parameter, '') != '') then
             if($parameter = 'start' or $parameter = 'sort-element') then ()
             else if($parameter = 'q') then 
-                (<span class="param">Keyword: </span>,<span class="match">{$ms:q}&#160;</span>)
-            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)    
+                (<span class="param">Keyword: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160;</span>)
+            else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')} &#160;</span>)    
         else ()            
 };
 
@@ -72,7 +59,7 @@ declare function ms:results-node($hit){
 };
 
 (:~
- : Builds advanced search form for MSS
+ : Builds advanced search form for persons
  :)
 declare function ms:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal" role="form">
@@ -80,7 +67,7 @@ declare function ms:search-form() {
              <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
             </button>&#160;
-            <xi:include href="../searchTips.html"/>
+            <xi:include href="{$global:app-root}/searchTips.html"/>
         <div class="well well-small search-inner well-white">
         <!-- Keyword -->
         <div class="form-group">

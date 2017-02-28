@@ -40,6 +40,7 @@ declare function ev:display-recs-short-view($node,$lang){
     </parameters>
     )
 };
+
 (:~ 
  : Include timeline and events list view in xql to adjust for event/person/place view
 :)
@@ -110,8 +111,8 @@ declare function ev:events($nodes as node()*){
             return 
                     <li class="md-line-height">{global:tei2html($e)} 
                                  {
-                                     <a href="factoid.html?id={string($e/@uri)}">
-                                         See event page 
+                                     <a href="factoid.html?id={string($e/parent::*[1]/parent::*[1]/@uri)}">
+                                         See factoid page  
                                          <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
                                      </a>
                                  }
@@ -139,11 +140,12 @@ declare function ev:events($nodes as node()*){
                         for $e in $event
                         return 
                             <li class="md-line-height">{global:tei2html($e)} 
-                                 {(: test :)
-                                     <a href="factoid.html?id={string($e/@uri)}">
-                                         See event page 
+                                 {
+                                     <a href="factoid.html?id={string($e/parent::*[1]/parent::*[1]/@uri)}">
+                                         See factoid page  
                                          <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
                                      </a>
+                                     
                                  }
                             </li>
                     }
