@@ -23,7 +23,7 @@
         <!-- Web Site URL -->
         <url>http://syriaca.org/</url>
         <!-- Root of app for building dynamic links. Default is eXist app root -->
-        <nav-base>/exist/apps/srophe</nav-base>
+        <nav-base>/</nav-base>
         <!-- eXist app root for app deployment-->
         <app-root>srophe</app-root>
         <!-- eXist data app root for gazetteer data -->
@@ -49,12 +49,12 @@
             <option id="ms-Greek">Greek Mod. Standard</option>
             <option id="ms-Russian">Russian Mod. Standard</option>
         </keyboard-options>
-        <!--
+        
     <google_analytics>var _gaq=[['_setAccount','UA-333143-26'],['_trackPageview']];
         (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
         g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
         s.parentNode.insertBefore(g,s)}(document,'script'));</google_analytics>
-    -->
+    
     </config>
     <deployed>2017-02-13T12:22:15.303-05:00</deployed>
 </meta>
