@@ -28,7 +28,7 @@
                         Distributed under a Creative Commons Attribution 3.0 Unported License
                     </licence>
                 </availability>
-                <date>2016-08-16</date>
+                <date>2017-03-02</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -41,6 +41,7 @@
         </encodingDesc>
         <revisionDesc>
             <change type="reminder">Please be sure to update the publication date when changes are made here!</change>
+            <change when="2017-03-02" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Griogry Kessel and Nicolas Bamballi</change>
             <change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Ugo Zanetti and Claude Detienne</change>
             <change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: J. M. Fiey as contributor</change>
             <change when="2016-07-29" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Sergey Minov, Daniel Salem, and Kristian Heal as contributors</change>
@@ -301,6 +302,18 @@
                     <persName xml:lang="en">
                         <forename>David</forename>
                         <surname>Kiger</surname>
+                    </persName>
+                </person>
+                <person xml:id="gkessel">
+                    <persName xml:lang="en">
+                        <forename>Grigory</forename>
+                        <surname>Kessel</surname>
+                    </persName>
+                </person>
+                <person xml:id="nbamballi">
+                    <persName xml:lang="en">
+                        <forename>Nicolas</forename>
+                        <surname>Bamballi</surname>
                     </persName>
                 </person>
                 <org xml:id="uasyriacresearchgroup">
