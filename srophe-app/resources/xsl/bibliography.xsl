@@ -155,31 +155,21 @@
                 </xsl:for-each>
             </xsl:if>
         </xsl:variable>
-        <span class="footnote-content">
-            <xsl:choose>
-                <xsl:when test="descendant::t:ptr[@target and starts-with(@target, '#')]">
-                    <xsl:variable name="target" select="substring-after(descendant::t:ptr/@target,'#')"/>
-                    <xsl:for-each select="//t:bibl[@xml:id = $target]">
-                        <xsl:choose>
-                            <xsl:when test="descendant::t:ptr[@target and starts-with(@target, concat($base-uri,'/bibl/'))]">
-                                <!-- Find file path for bibliographic record -->
-                                <xsl:variable name="biblfilepath">
-                                    <xsl:value-of select="concat($data-root,'/bibl/tei/',substring-after(t:ptr/@target, concat($base-uri,'/bibl/')),'.xml')"/>
-                                </xsl:variable>
-                                <xsl:choose>
-                                    <xsl:when test="doc-available($biblfilepath)">
-                                        <xsl:for-each select="document($biblfilepath)/descendant::t:biblStruct">
-                                            <xsl:apply-templates mode="footnote"/>
-                                            <xsl:sequence select="$passThrough"/>
-                                            <xsl:if test="descendant::t:idno[@type='URI']">
-                                                <span class="footnote-links">
-                                                    <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
-                                                    <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
-                                                </span>
-                                            </xsl:if>
-                                        </xsl:for-each>
-                                    </xsl:when>
-                                    <xsl:otherwise>
+        <span class="footnote-content">  
+        <xsl:choose>
+            <xsl:when test="descendant::t:ptr[@target and starts-with(@target, '#')]">
+                <xsl:variable name="target" select="substring-after(descendant::t:ptr/@target,'#')"/>
+                <xsl:for-each select="descendant::t:bibl[@xml:id = $target]">
+                    <xsl:choose>
+                        <xsl:when test="descendant::t:ptr[@target and starts-with(@target, concat($base-uri,'/bibl/'))]">
+                            <!-- Find file path for bibliographic record -->
+                            <xsl:variable name="biblfilepath">
+                                <xsl:value-of select="concat('xmldb:exist://',$data-root,'/bibl/tei/',substring-after(t:ptr/@target, concat($base-uri,'/bibl/')),'.xml')"/>
+                            </xsl:variable>
+                            <xsl:choose>
+                                <xsl:when test="doc-available($biblfilepath)">
+                                    <xsl:variable name="rec" select="document($biblfilepath)"/>
+                                    <xsl:for-each select="$rec/descendant::t:biblStruct">
                                         <xsl:apply-templates mode="footnote"/>
                                         <xsl:sequence select="$passThrough"/>
                                         <xsl:if test="descendant::t:idno[@type='URI']">
@@ -188,65 +178,21 @@
                                                 <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
                                             </span>
                                         </xsl:if>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:call-template name="persons"/>
-                                <xsl:text> </xsl:text>
-                                <xsl:for-each select="t:title">
-                                    <xsl:apply-templates select="self::*" mode="footnote"/>
-                                    <xsl:if test="following-sibling::t:title[@level = 'j']">
-                                        <xsl:text> In</xsl:text>
+                                    </xsl:for-each>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:apply-templates mode="footnote"/>
+                                    <xsl:sequence select="$passThrough"/>
+                                    <xsl:if test="descendant::t:idno[@type='URI']">
+                                        <span class="footnote-links">
+                                            <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
+                                            <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
+                                        </span>
                                     </xsl:if>
-                                    <xsl:if test="position() != last()">
-                                        <xsl:text> </xsl:text>
-                                    </xsl:if>
-                                </xsl:for-each>
-                                <xsl:sequence select="$passThrough"/>
-                                <xsl:if test="descendant::t:idno[@type='URI']">
-                                    <span class="footnote-links">
-                                        <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
-                                        <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
-                                    </span>
-                                </xsl:if>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:for-each>
-                </xsl:when>
-                <xsl:when test="descendant::t:ptr[@target and starts-with(@target, concat($base-uri,'/bibl/'))]"> 
-                    <!-- Find file path for bibliographic record -->
-                    <xsl:variable name="biblfilepath">
-                        <xsl:value-of select="concat($data-root,'/bibl/tei/',substring-after(t:ptr/@target, concat($base-uri,'/bibl/')),'.xml')"/>
-                    </xsl:variable>
-                    <xsl:choose>
-                        <xsl:when test="doc-available($biblfilepath)">
-                            <xsl:for-each select="document($biblfilepath)/descendant::t:biblStruct">
-                                <xsl:apply-templates mode="footnote"/>
-                                <xsl:sequence select="$passThrough"/>
-                                <xsl:if test="descendant::t:idno[@type='URI']">
-                                    <span class="footnote-links">
-                                        <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
-                                        <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
-                                    </span>
-                                </xsl:if>
-                            </xsl:for-each>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:apply-templates mode="footnote"/>
-                            <xsl:sequence select="$passThrough"/>
-                            <xsl:if test="descendant::t:idno[@type='URI']">
-                                <span class="footnote-links">
-                                    <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
-                                    <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
-                                </span>
-                            </xsl:if>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:choose>
-                        <xsl:when test="child::*">
                             <xsl:call-template name="persons"/>
                             <xsl:text> </xsl:text>
                             <xsl:for-each select="t:title">
@@ -258,7 +204,6 @@
                                     <xsl:text> </xsl:text>
                                 </xsl:if>
                             </xsl:for-each>
-                            <xsl:apply-templates select="text()"/>
                             <xsl:sequence select="$passThrough"/>
                             <xsl:if test="descendant::t:idno[@type='URI']">
                                 <span class="footnote-links">
@@ -266,13 +211,69 @@
                                     <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
                                 </span>
                             </xsl:if>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:apply-templates/>
                         </xsl:otherwise>
                     </xsl:choose>
-                </xsl:otherwise>
-            </xsl:choose>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="descendant::t:ptr[@target and starts-with(@target, concat($base-uri,'/bibl/'))]">
+                <xsl:variable name="biblfilepath">
+                    <xsl:value-of select="concat('xmldb:exist://',$data-root,'/bibl/tei/',substring-after(t:ptr/@target, concat($base-uri,'/bibl/')),'.xml')"/>
+                </xsl:variable>
+                <xsl:choose>
+                    <xsl:when test="doc-available($biblfilepath)">
+                        <xsl:variable name="rec" select="document($biblfilepath)"/>
+                        <xsl:for-each select="$rec/descendant::t:biblStruct">
+                            <xsl:apply-templates mode="footnote"/>
+                            <xsl:sequence select="$passThrough"/>
+                            <xsl:if test="descendant::t:idno[@type='URI']">
+                                <span class="footnote-links">
+                                    <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
+                                    <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
+                                </span>
+                            </xsl:if>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates mode="footnote"/>
+                        <xsl:sequence select="$passThrough"/>
+                        <xsl:if test="descendant::t:idno[@type='URI']">
+                            <span class="footnote-links">
+                                <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
+                                <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
+                            </span>
+                        </xsl:if>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="child::*">
+                        <xsl:call-template name="persons"/>
+                        <xsl:text> </xsl:text>
+                        <xsl:for-each select="t:title">
+                            <xsl:apply-templates select="self::*" mode="footnote"/>
+                            <xsl:if test="following-sibling::t:title[@level = 'j']">
+                                <xsl:text> In</xsl:text>
+                            </xsl:if>
+                            <xsl:if test="position() != last()">
+                                <xsl:text> </xsl:text>
+                            </xsl:if>
+                        </xsl:for-each>
+                        <xsl:apply-templates select="text()"/>
+                        <xsl:sequence select="$passThrough"/>
+                        <xsl:if test="descendant::t:idno[@type='URI']">
+                            <span class="footnote-links">
+                                <xsl:apply-templates select="descendant::t:idno[@type='URI']" mode="links"/>
+                                <xsl:apply-templates select="descendant::t:ref[not(ancestor::note)]" mode="links"/>
+                            </span>
+                        </xsl:if>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:apply-templates/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:otherwise>
+        </xsl:choose>
         </span>
     </xsl:template>
     
@@ -317,9 +318,14 @@
             <xsl:apply-templates select="/descendant::t:bibl[@xml:id=$thistarget]" mode="biblist"/>
         </xsl:if>
         <xsl:if test="starts-with(@target, concat($base-uri,'/bibl/'))">
+            <!--<xsl:variable name="biblfilepath" select="replace(replace($base-uri, concat('xmldb:exist://',$data-root)),'/bibl/','/bibl/tei/')"/>-->
+            <xsl:variable name="biblfilepath" select="replace(replace(@target,$base-uri,concat('xmldb:exist://',$data-root)),'/bibl/','/bibl/tei/')"/>
+            <!--
             <xsl:variable name="biblfilepath">
-                <xsl:value-of select="concat($data-root,'/bibl/tei/',substring-after(@target, concat($base-uri,'/bibl/')),'.xml')"/>
+                <xsl:value-of select="concat(concat('xmldb:exist://',$data-root,'/bibl/tei/',substring-after(@target, concat($base-uri,'/bibl/')),'.xml')"/>
             </xsl:variable>
+            -->
+            
             <xsl:if test="doc-available($biblfilepath)">
                 <xsl:apply-templates select="document($biblfilepath)/descendant::t:biblStruct[1]" mode="biblist"/>
             </xsl:if>

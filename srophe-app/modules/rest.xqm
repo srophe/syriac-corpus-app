@@ -18,6 +18,7 @@ declare namespace rest = "http://exquery.org/ns/restxq";
 
 (: For interacting with the TEI document :)
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
+declare namespace http="http://expath.org/ns/http-client";
 
 (:~
   : Use resxq to format urls for geographic API

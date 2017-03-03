@@ -7,6 +7,7 @@ xquery version "3.0";
 
 module namespace tei2ttl="http://syriaca.org/tei2ttl";
 import module namespace global="http://syriaca.org/global" at "global.xqm";
+import module namespace data="http://syriaca.org/data" at "data.xqm";
 import module namespace functx="http://www.functx.com";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
@@ -99,7 +100,7 @@ if($ids != '') then
         tei2ttl:make-triple('','dcterms:relation',
            string-join(for $i in $ids
             return tei2ttl:make-uri($i), ', '))
-            ),', ')
+            ),' ')
 else ()   
 };
 
@@ -210,7 +211,7 @@ let $citation :=
         <param name="nav-base" value="{$global:nav-base}"/>
         <param name="base-uri" value="{$global:base-uri}"/>
         <param name="mode" value="text"/>
-    </parameters>),' '))
+    </parameters>)/text(),' '))
 return 
     tei2ttl:make-triple('','dcterms:bibliographicCitation', tei2ttl:make-literal($citation,''))
 };
@@ -243,8 +244,8 @@ declare function tei2ttl:resource-class($rec) as xs:string?{
     else 'skos:Concept'
 };
 
-(: Prefixes :)
-declare function tei2ttl:prefix() as xs:string{
+(: Prefixes 
+
 "@prefix cito: <http://purl.org/spar/cito> .
 @prefix cnt: <http://www.w3.org/2011/content#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -255,6 +256,21 @@ declare function tei2ttl:prefix() as xs:string{
 @prefix lawd: <http://lawd.info/ontology/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix wdata: <https://www.wikidata.org/wiki/Special:EntityData/> .&#xa;"
+rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+
+:)
+declare function tei2ttl:prefix() as xs:string{
+"@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix geosparql: <http://www.opengis.net/ont/geosparql#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix lawd: <http://lawd.info/ontology/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix syriaca: <http://syriaca.org/schema#> .
 @prefix wdata: <https://www.wikidata.org/wiki/Special:EntityData/> .&#xa;"
 };
 
@@ -289,7 +305,7 @@ concat(
         tei2ttl:make-triple('', 'a', tei2ttl:rec-type($rec)),
         tei2ttl:make-triple('','skos:prefLabel', 
             string-join(
-            for $headword in $rec/descendant::*[@syriaca-tags='#syriaca-headword']
+            for $headword in $rec/descendant::*[@syriaca-tags='#syriaca-headword'][. != '']
             return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else ())
             ,', ')),
        tei2ttl:idnos($rec, $id),
@@ -308,7 +324,7 @@ concat(
         tei2ttl:make-triple('','dcterms:title', 
             tei2ttl:make-literal($rec/descendant::tei:titleStmt/tei:title[1]/descendant::text(),'')),
         tei2ttl:make-triple('','dcterms:subject', tei2ttl:make-uri($id)),
-        tei2ttl:make-triple('','dcterms:format', 'text/html'),
+        tei2ttl:make-triple('','dcterms:format', tei2ttl:make-literal('text/html','')),
         tei2ttl:bibl-citation($rec)
     )),
     (: rdfs:Resource, tei :)
@@ -317,16 +333,16 @@ concat(
         tei2ttl:make-triple('','dcterms:title', 
             tei2ttl:make-literal($rec/descendant::tei:titleStmt/tei:title[1]/descendant::text(),'')),
         tei2ttl:make-triple('','dcterms:subject', tei2ttl:make-uri($id)),
-        tei2ttl:make-triple('','dcterms:format', 'text/xml'),
+        tei2ttl:make-triple('','dcterms:format', tei2ttl:make-literal('text/xml','')),
         tei2ttl:bibl-citation($rec)
     )),
     (: rdfs:Resource, ttl :)
     tei2ttl:record(concat(
-        tei2ttl:make-triple(tei2ttl:make-uri(concat($id,'/tei')), 'a', 'rdfs:Resource;'),
+        tei2ttl:make-triple(tei2ttl:make-uri(concat($id,'/ttl')), 'a', 'rdfs:Resource;'),
         tei2ttl:make-triple('','dcterms:title', 
             tei2ttl:make-literal($rec/descendant::tei:titleStmt/tei:title[1]/descendant::text(),'')),
         tei2ttl:make-triple('','dcterms:subject', tei2ttl:make-uri($id)),
-        tei2ttl:make-triple('','dcterms:format', 'text/turtle'),
+        tei2ttl:make-triple('','dcterms:format', tei2ttl:make-literal('text/turtle','')),
         tei2ttl:bibl-citation($rec)
     ))
     )
@@ -338,53 +354,38 @@ declare function tei2ttl:record($triple) as xs:string*{
 };
 
 declare function tei2ttl:ttl-output($recs) {
-    (concat(tei2ttl:prefix(), 
-    for $r in $recs
-    return tei2ttl:make-triple-set($r)))
+    (concat(tei2ttl:prefix(), tei2ttl:make-triple-set($recs)))
 };
 
-declare function tei2ttl:save-to-db($id,$collection, $rdf-file-name){
-'temp'
-(:
-if($id != '') then
-    else if($id != '') then  
-    let $recs := collection($global:data-root)//tei:idno[@type='URI'][. = $id]
-    for $hit in $recs/ancestor::tei:TEI
-    let $filename := concat(tokenize(replace($hit/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org')][1],'/tei',''),'/')[last()],'.ttl')
+declare function tei2ttl:get-ttl($id, $collection, $start, $perpage){
+if($id) then 
+    let $rec := data:get-rec($id)
+    let $filename := if($rdf-file-name) then $rdf-file-name else concat(tokenize(replace($id,'/tei',''),'/')[last()],'.ttl')
     let $file-data :=  
         try {
-            (concat(tei2ttl:prefix(), tei2ttl:record($hit)))
+            tei2ttl:ttl-output($rec)
         } catch * {
             <error>Caught error {$err:code}: {$err:description}</error>
-            }     
+            }  
     return $file-data
+        (:xmldb:store(xs:anyURI('/db/apps/srophe-rdf/rdf'), xmldb:encode-uri($filename), $file-data):)
 else if($collection) then 
-    if($id='all-recs') then 
-        let $recs := collection($collection)
-        for $hit in $recs
-        let $filename := concat(tokenize(replace($hit/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org')][1],'/tei',''),'/')[last()],'.ttl')
-        let $file-data :=  
-            try {
-            (concat(tei2ttl:prefix(), tei2ttl:record($hit)))
-                } catch * {
-                <error>Caught error {$err:code}: {$err:description}</error>
-                }     
-        return xmldb:store(xs:anyURI('/db/apps/logar-data/rdf/data'), xmldb:encode-uri($filename), $file-data)
-    else
-       let $recs := collection($collection)
-       return
+    let $start := if($start) then $start else 1
+    let $perpage := if($perpage) then $perpage else 50
+    let $filename := $rdf-file-name
+    let $recs := collection($global:data-root || '/' || $collection)//tei:TEI
+    let $rdf := 
         string-join(
-           for $hit in $recs
-           let $filename := concat(tokenize(replace($hit/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org')][1],'/tei',''),'/')[last()],'.ttl')
-           let $file-data :=  
-               try {
-                   tei2ttl:make-triple-set($hit)
-               } catch * {
-                   <error>Caught error {$err:code}: {$err:description}</error>
-                   }
-           return $file-data,'&#xa;')  
-       let $full := concat(tei2ttl:prefix(),$full-rec)    
-       return xmldb:store(xs:anyURI('/db/apps/bug-test/data'), xmldb:encode-uri(concat($rdf-file-name,'.ttl')), $full)
-       :)
-
+            for $rec in subsequence($recs,$start,$perpage)
+            return   
+                try {
+                    (tei2ttl:make-triple-set($rec))
+                } catch * {
+                    <error>Caught error {$err:code}: {$err:description}</error>
+                }
+                ,'&#xa;')
+    let $full := concat(tei2ttl:prefix(),$rdf)                
+    return $full
+        (:(xmldb:login('/db/apps/srophe/', 'admin', '', true()),xmldb:store(xs:anyURI('/db/apps/srophe-rdf/rdf'), xmldb:encode-uri($filename), $full)):)
+else()
 };

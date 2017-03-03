@@ -51,7 +51,8 @@ let $type := if($node//tei:relationType != '') then
               else ()   
 let $coords := $node//tei:geo[1]
 return 
-        <Placemark xmlns="http://www.opengis.net/kml/2.2">
+  <kml xmlns="http://www.opengis.net/kml/2.2">
+        <Placemark>
             <name>{string-join($title,' ')} - {replace($id,'/tei','')}</name>
             {if($desc != '') then 
                 <description>{string-join($desc,' ')}</description>
@@ -59,5 +60,6 @@ return
             <Point>
                 <coordinates>{replace($coords,' ',',')}</coordinates>
             </Point>
-        </Placemark> 
+        </Placemark>
+    </kml> 
 };

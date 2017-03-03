@@ -87,7 +87,8 @@
     <!-- Hard coded values-->
     <xsl:param name="normalization">NFKC</xsl:param>
     <xsl:param name="editoruriprefix">http://syriaca.org/documentation/editors.xml#</xsl:param>
-    <xsl:variable name="editorssourcedoc" select="concat($app-root,'/documentation/editors.xml')"/>
+    <!--<xsl:variable name="editorssourcedoc" select="concat('xmldb:exist://',$app-root,'/documentation/editors.xml')"/>-->
+    <xsl:variable name="editorssourcedoc">http://syriaca.org/documentation/editors.xml</xsl:variable>
     <!-- Resource id -->
     <xsl:variable name="resource-id">
         <xsl:choose>
@@ -443,7 +444,7 @@
     <!-- Template to print out confession section -->
     <xsl:template match="t:state[@type='confession']">
         <!-- Get all ancesors of current confession (but only once) -->
-        <xsl:variable name="confessions" select="document(concat($app-root,'/documentation/confessions.xml'))//t:body/t:list"/>
+        <xsl:variable name="confessions" select="document(concat('xmldb:exist://',$app-root,'/documentation/confessions.xml'))//t:body/t:list"/>
         <xsl:variable name="id" select="substring-after(@ref,'#')"/>
         <li>
             <xsl:value-of select="$id"/>: 
@@ -1331,7 +1332,7 @@
                 <xsl:if test="@ana">
                     <xsl:for-each select="tokenize(@ana,' ')">
                         <xsl:variable name="filepath">
-                            <xsl:value-of select="substring-before(replace(.,$base-uri,$app-root),'#')"/>
+                            <xsl:value-of select="concat('xmldb:exist://',substring-before(replace(.,$base-uri,$app-root),'#'))"/>
                         </xsl:variable>
                         <xsl:variable name="ana-id" select="substring-after(.,'#')"/>
                         <xsl:if test="doc-available($filepath)">

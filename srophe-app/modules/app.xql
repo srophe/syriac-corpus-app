@@ -85,7 +85,7 @@ declare %templates:wrap function app:display-sources($node as node(), $model as 
 };
 
 (:~    
- : Return teiHeader info to be used in citation
+ : Syriaca.org page layout for work records. 
 :)
 declare %templates:wrap function app:display-work($node as node(), $model as map(*)){
         <div class="row">
@@ -137,7 +137,7 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                 if($model("data")//tei:body/child::*/tei:listRelation) then 
                 rel:build-relationships($model("data")//tei:body/child::*/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
                 else ()
-                )}  
+                )}
             </div>
         </div>
 };
@@ -212,7 +212,7 @@ let $works :=
             return $w
 let $count := count($works)
 let $title := if(contains($rec/descendant::tei:title[1]/text(),' — ')) then 
-                    substring-before($rec/descendant::tei:title[1]/text(),' — ') 
+                    substring-before($rec/descendant::tei:title[1],' — ') 
                else $rec/descendant::tei:title[1]/text()
 return 
     if($count gt 0) then 
@@ -293,7 +293,7 @@ return
 declare %templates:wrap function app:app-title($node as node(), $model as map(*), $collection as xs:string?){
 if(request:get-parameter('id', '')) then
    if(contains($model("data")/descendant::tei:titleStmt[1]/tei:title[1]/text(),' — ')) then
-        substring-before($model("data")/descendant::tei:titleStmt[1]/tei:title[1]/text(),' — ')
+        substring-before($model("data")/descendant::tei:titleStmt[1]/tei:title[1],' — ')
    else $model("data")/descendant::tei:titleStmt[1]/tei:title[1]/text()
 else if($collection = 'places') then 'The Syriac Gazetteer'  
 else if($collection = 'persons') then 'The Syriac Biographical Dictionary'

@@ -265,10 +265,10 @@ declare function global:odd2text($element as xs:string?, $label as xs:string?) a
     let $odd-file := 
                     if(starts-with($odd-path,'http://')) then 
                             http:send-request(<http:request href="{xs:anyURI($odd-path)}" method="get"/>)[2]
-                    else doc($global:app-root || $odd-path)
+                    else util:parse(util:binary-to-string(util:binary-doc($global:app-root || $odd-path)))
     return 
         if($odd-path != '') then
-                let $odd := doc($global:app-root || $odd-path)
+                let $odd := util:parse(util:binary-to-string(util:binary-doc($global:app-root || $odd-path)))
                 return 
                     if($odd/descendant::*[@ident = $element][1]/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()) then
                         $odd/descendant::*[@ident = $element][1]/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()

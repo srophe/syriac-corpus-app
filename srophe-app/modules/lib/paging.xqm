@@ -9,6 +9,7 @@ import module namespace functx="http://www.functx.com";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xi = "http://www.w3.org/2001/XInclude";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
+
 (:~ 
  : Adds sort filter based on sort prameter
 :)
