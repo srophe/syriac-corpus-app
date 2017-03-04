@@ -199,7 +199,7 @@ declare function facet:controlled-labels($results as item()*, $facet-definitions
         if($sort/text() = 'value') then $f[1]
         else count($f)
         descending
-    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$f[1]}" label="{global:odd2text(tokenize(replace($path,'@|\[|\]',''),'/')[last()],string($f[1]))}"/>    
+    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$f[1]}" label="{global:odd2text(tokenize(replace($path[1],'@|\[|\]',''),'/')[last()],string($f[1]))}"/>    
 };
 
 (:~
