@@ -74,7 +74,6 @@
     border:1px solid red;
     */
 }
-
     
 }
 /* Main content blocks */
@@ -349,14 +348,15 @@ td {
 .browse-alpha {border-bottom:1px solid #ccc; padding-left:1em; padding:0; margin-bottom:1em; text-align: justify;}
 
 .browse-alpha li + li {
-    padding-left: 1em;
+    margin-left: .5em;
 }
 
 .browse-alpha li.syr-menu + li.syr-menu {
-    padding-left: .5em;
+    margin-left: .5em;
 }
 .browse-alpha li.ar-menu + li.ar-menu {
-    padding-left: .15em;
+    font-size:.98em;
+    margin-left: 0;
 }
 
 .nav-stacked > .active > a,
@@ -366,6 +366,7 @@ td {
       background-color: #eee;
       cursor: pointer;
     }
+.browse-alpha .badge a {color:white;}
 
 .browse-map {margin:0;}
 .inline-map {margin-left:-2em; margin-bottom:1em;}
@@ -768,7 +769,6 @@ series
 unpublished
 */
 .title-journal, .title-monographic{font-style:italic;}
-
 
 /* Facet styles */
 .label-facet {background-color:#eee; color:#666; font-weight:normal; margin:.25em; display:inline-block;}

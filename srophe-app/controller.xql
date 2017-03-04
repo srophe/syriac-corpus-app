@@ -57,7 +57,7 @@ else if(matches($exist:path, '/person/\d+') or matches($exist:path, '/person/\d+
             <forward url="{$exist:controller}/persons/person.html"></forward>
                 <view>
                     <forward url="{$exist:controller}/modules/view.xql">
-                        <add-parameter name="id" value="{concat('http://syriaca.org/person/',$id)}"/>
+                        <add-parameter name="id" value="{$id}"/>
                     </forward>
                 </view>
                 <error-handler>
@@ -74,7 +74,9 @@ else if(matches($exist:path, '/work/\d+') or matches($exist:path, '/work/\d+.htm
             <forward url="{$exist:controller}/bhse/work.html"></forward>
                 <view>
                     <forward url="{$exist:controller}/modules/view.xql">
-                        <add-parameter name="id" value="{concat('http://syriaca.org/work/',$id)}"/>
+                        {if(starts-with($exist:path, "/work/")) then <add-parameter name="id" value="{concat('http://syriaca.org/work/',$id)}"/>
+                         else <add-parameter name="id" value="{$id}"/>
+                        }
                     </forward>
                 </view>
                 <error-handler>
@@ -91,7 +93,7 @@ else if(matches($exist:path, '/manuscript/\d+') or matches($exist:path, '/manusc
             <forward url="{$exist:controller}/mss/manuscript.html"></forward>
                 <view>
                     <forward url="{$exist:controller}/modules/view.xql">
-                        <add-parameter name="id" value="{concat('http://syriaca.org/manuscript/',$id)}"/>
+                        <add-parameter name="id" value="{$id}"/>
                     </forward>
                 </view>
                 <error-handler>
@@ -108,7 +110,7 @@ else if(matches($exist:path, '/spear/\d+') or matches($exist:path, '/spear/\d+.h
             <forward url="{$exist:controller}/spear/factoid.html"></forward>
                 <view>
                     <forward url="{$exist:controller}/modules/view.xql">
-                        <add-parameter name="id" value="{concat('http://syriaca.org/spear/',$id)}"/>
+                        <add-parameter name="id" value="{$id}"/>
                     </forward>
                 </view>
                 <error-handler>
@@ -125,7 +127,7 @@ else if(matches($exist:path, '/bibl/\d+') or matches($exist:path, '/bibl/\d+.htm
             <forward url="{$exist:controller}/bibl/bibl.html"></forward>
                 <view>
                     <forward url="{$exist:controller}/modules/view.xql">
-                        <add-parameter name="id" value="{concat('http://syriaca.org/bibl/',$id)}"/>
+                        <add-parameter name="id" value="{$id}"/>
                     </forward>
                 </view>
                 <error-handler>
@@ -162,9 +164,9 @@ else if (ends-with($exist:resource, ".html")) then
 		</error-handler>
     </dispatch>
 (: Resource paths starting with $app-root are resolved relative to app :)
-else if (contains($exist:path, "$app-root/")) then
+else if (contains($exist:path, "/$app-root/")) then
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-            <forward url="{concat($exist:controller,'/', substring-after($exist:path, '$app-root/'))}">
+            <forward url="{concat($exist:controller,'/', substring-after($exist:path, '/$app-root/'))}">
                 <set-header name="Cache-Control" value="max-age=3600, must-revalidate"/>
             </forward>
         </dispatch>        

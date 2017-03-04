@@ -2,10 +2,11 @@
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/bhse.html" data-template-at="content">
     <!--<xi:include href="banner.html"/>-->
     <div class="grey-dark">
+        <!-- Page title and resource links: Includes h1, link icons, and item URI -->
         <div class="container interior-content white">
             <div data-template="app:h1"/>
-            <div data-template="app:rec-display"/>
-            <div data-template="app:citation"/>
+            <div data-template="app:display-work"/>
+            <div data-template="app:display-nodes" data-template-paths="/descendant::tei:teiHeader"/>
         </div>
         <!-- Modal email form-->
         <div data-template="app:contact-form" data-template-collection="bhse"/>

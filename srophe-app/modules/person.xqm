@@ -250,7 +250,7 @@ return
                                                 {
                                                     for $citation in $results/citation[position() lt 5]
                                                     return
-                                                        <li><a href="{concat('http://www.worldcat.org/oclc/',substring-after($citation/oclcnum/text(),'ocn'))}">{$citation/title/text()}</a></li>
+                                                        <li><a href="{concat('http://www.worldcat.org/oclc/',substring-after($citation/oclcnum[1]/text()[1],'ocn'))}">{$citation/title/text()}</a></li>
                                                  }
                                              </ul>
                                              <span class="pull-right"><a href="{$uri}">See all {$total-works} titles from WorldCat</a></span>,<br/>
@@ -280,7 +280,7 @@ if($model("data")/descendant::tei:relation) then
 else ()
 };
 
-declare %templates:wrap function person:authored-by($node as node(), $model as map(*)){
+declare %templates:wrap function person:authored-by($node as node()*, $model as map(*)){
 let $rec := $model("data")
 let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1]/text(),'/tei','')
 let $works := collection($global:data-root || '/works/tei')//tei:author[@ref =  $recid]  
@@ -288,7 +288,7 @@ let $count := count($works)
 return 
     if($count gt 0) then 
         <div xmlns="http://www.w3.org/1999/xhtml">
-            <h3>Works by {substring-before($rec/descendant::tei:title[1]/text(),' — ')} in the New Handbook of Syriac Literature</h3>
+            <h3>Works by {substring-before($rec/descendant::tei:title[1],' — ')} in the New Handbook of Syriac Literature</h3>
             {(
                 if($rec/descendant::tei:note[@type='authorship']) then
                     global:tei2html($rec/descendant::tei:note[@type='authorship'])
@@ -304,7 +304,7 @@ return
                             <div>
                             <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
                             data-ref="{$global:nav-base}/bhse/search.html?author={$recid}&amp;perpage={$count}&amp;sort=alpha" 
-                            data-label="Works by {substring-before($rec/descendant::tei:title[1]/text(),' — ')} in the New Handbook of Syriac Literature" id="works">
+                            data-label="Works by {substring-before($rec/descendant::tei:title[1],' — ')} in the New Handbook of Syriac Literature" id="works">
                               See all {count($works)} works
                              </a>
                             </div>

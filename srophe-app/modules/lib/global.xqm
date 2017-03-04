@@ -263,16 +263,18 @@ declare function global:ar-sort-string($titlestring as xs:string?) as xs:string*
 declare function global:odd2text($element as xs:string?, $label as xs:string?) as xs:string* {
     let $odd-path := $global:get-config//repo:odd/text()
     let $odd-file := 
-                    if(starts-with($odd-path,'http://')) then 
+                    if(starts-with($odd-path,'http')) then 
                             http:send-request(<http:request href="{xs:anyURI($odd-path)}" method="get"/>)[2]
                     else doc($global:app-root || $odd-path)
     return 
         if($odd-path != '') then
-                let $odd := doc($global:app-root || $odd-path)
-                return 
-                    if($odd/descendant::*[@ident = $element][1]/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()) then
-                        $odd/descendant::*[@ident = $element][1]/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()
-                    else $label  
+            let $odd := $odd-file
+            return 
+                try {
+                    $odd/descendant::*[@ident = $element][1]/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()
+                } catch * {
+                    $label (:<error>Caught error {$err:code}: {$err:description}</error>:)
+                }  
          else $label
 };
 

@@ -16,18 +16,18 @@ import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.
 declare namespace http="http://expath.org/ns/http-client";
 declare namespace html="http://www.w3.org/1999/xhtml";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
-
+                 
 (:~  
  : Simple get record function, get tei record based on tei:idno
  : Builds URL from the following URL patterns defined in the controller.xql or uses the id paramter
  : Retuns 404 page if record is not found, or has been @depreciated
  : Retuns 404 page and redirects if the record has been @depreciated see https://github.com/srophe/srophe-app-data/wiki/Deprecated-Records
  : @param request:get-parameter('id', '') syriaca.org uri   
-:)                 
+:)                                        
 declare function app:get-rec($node as node(), $model as map(*), $collection as xs:string?) { 
 if(request:get-parameter('id', '') != '') then 
     let $id := global:resolve-id()   
-    return 
+    return  
         let $rec := global:get-rec($id)
         return 
             if(empty($rec)) then response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html')))
@@ -212,7 +212,7 @@ let $works :=
             return $w
 let $count := count($works)
 let $title := if(contains($rec/descendant::tei:title[1]/text(),' — ')) then 
-                    substring-before($rec/descendant::tei:title[1]/text(),' — ') 
+                    substring-before($rec/descendant::tei:title[1],' — ') 
                else $rec/descendant::tei:title[1]/text()
 return 
     if($count gt 0) then 
@@ -293,7 +293,7 @@ return
 declare %templates:wrap function app:app-title($node as node(), $model as map(*), $collection as xs:string?){
 if(request:get-parameter('id', '')) then
    if(contains($model("data")/descendant::tei:titleStmt[1]/tei:title[1]/text(),' — ')) then
-        substring-before($model("data")/descendant::tei:titleStmt[1]/tei:title[1]/text(),' — ')
+        substring-before($model("data")/descendant::tei:titleStmt[1]/tei:title[1],' — ')
    else $model("data")/descendant::tei:titleStmt[1]/tei:title[1]/text()
 else if($collection = 'places') then 'The Syriac Gazetteer'  
 else if($collection = 'persons') then 'The Syriac Biographical Dictionary'
@@ -305,7 +305,7 @@ else if($collection = 'mss') then concat('http://syriaca.org/manuscript/',reques
 else $global:app-title
 };  
 
-(:~ 
+(:~     
  : Add header links for alternative formats. 
 :)
 declare function app:metadata($node as node(), $model as map(*)) {

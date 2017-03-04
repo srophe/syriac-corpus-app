@@ -23,7 +23,7 @@
         <!-- Web Site URL -->
         <url>http://syriaca.org/</url>
         <!-- Root of app for building dynamic links. Default is eXist app root -->
-        <nav-base>/</nav-base>
+        <nav-base>/exist/apps/srophe</nav-base>
         <!-- eXist app root for app deployment-->
         <app-root>srophe</app-root>
         <!-- eXist data app root for gazetteer data -->
@@ -31,9 +31,10 @@
         <!-- Base URI for identifiers in app data -->
         <base_uri>http://syriaca.org</base_uri>
         <!-- Absolute (from app root) Path to ODD file used for translating controlled values. May be left blank. -->
-        <odd>/documentation/syriaca-tei-main.odd</odd>
+        <!--<odd>/documentation/syriaca-tei-main.odd</odd>-->
+        <odd>http://wwwb.library.vanderbilt.edu/exist/apps/srophe/documentation/syriaca-tei-main.odd</odd>
         <!-- xpath to unique identifier for record, syriaca.org uses tei:idno[@type='URL'], this is the default value -->
-        <id-path></id-path>
+        <id-path/>
         <!-- Map rendering -->
         <maps>
             <!--  <option selected="true" api-key="API_KEY_HERE">google</option> -->
@@ -56,5 +57,7 @@
         s.parentNode.insertBefore(g,s)}(document,'script'));</google_analytics>
     -->
     </config>
-    <deployed>2017-02-13T12:22:15.303-05:00</deployed>
+    
+
+<deployed>2017-03-03T22:09:42.043-05:00</deployed>
 </meta>
