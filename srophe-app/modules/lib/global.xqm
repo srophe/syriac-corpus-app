@@ -36,9 +36,10 @@ declare variable $global:data-root :=
 (: Establish main navigation for app, used in templates for absolute links. Syriaca.org uses a development and production server which each have different root directories.  :)
 declare variable $global:nav-base := 
     if($global:get-config//repo:nav-base/text() != '') then $global:get-config//repo:nav-base/text()
-    (: For app set to root '/' see syriaca.org production site. :)
-    else if($global:get-config//repo:nav-base/text() = '/') then ''
-    else concat('/exist/apps/',$global:app-root);
+    (:else if($global:get-config//repo:nav-base/text() = ('/','')) then ''
+    else concat('/exist/apps/',$global:app-root):)
+    else ''
+    ;
 
 (: Base URI used in record tei:idno :)
 declare variable $global:base-uri := $global:get-config//repo:base_uri/text();
@@ -271,7 +272,9 @@ declare function global:odd2text($element as xs:string?, $label as xs:string?) a
             let $odd := $odd-file
             return 
                 try {
-                    $odd/descendant::*[@ident = $element][1]/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()
+                    if($odd/descendant::*[@ident = $element][1]/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()) then 
+                        $odd/descendant::*[@ident = $element][1]/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()
+                    else $label    
                 } catch * {
                     $label (:<error>Caught error {$err:code}: {$err:description}</error>:)
                 }  

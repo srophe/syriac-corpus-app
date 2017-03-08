@@ -23,7 +23,7 @@
         <!-- Web Site URL -->
         <url>http://syriaca.org/</url>
         <!-- Root of app for building dynamic links. Default is eXist app root -->
-        <nav-base>/exist/apps/srophe</nav-base>
+        <nav-base></nav-base>
         <!-- eXist app root for app deployment-->
         <app-root>srophe</app-root>
         <!-- eXist data app root for gazetteer data -->
@@ -57,7 +57,5 @@
         s.parentNode.insertBefore(g,s)}(document,'script'));</google_analytics>
     -->
     </config>
-    
-
-<deployed>2017-03-03T22:09:42.043-05:00</deployed>
+    <deployed>2017-03-04T23:02:09.604-06:00</deployed>
 </meta>

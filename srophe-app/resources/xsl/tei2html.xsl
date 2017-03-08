@@ -333,7 +333,6 @@
         </xsl:choose>
         
     </xsl:template>
-    
     <!-- suppress bibl in titles -->
     <xsl:template match="t:bibl" mode="title"/>
     <xsl:template match="t:bibl">
