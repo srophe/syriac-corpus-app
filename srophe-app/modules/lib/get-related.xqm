@@ -217,12 +217,13 @@ declare function rel:build-relationships($node,$idno){
     <div class="indent">
     {       
         for $related in $node/descendant-or-self::tei:relation
-        let $names := rel:get-uris(string-join(($related/@active/string(),$related/@passive/string(),$related/@mutual/string()),' '),$idno)
-        let $count := count($names)
         let $rel-id := index-of($node, $related[1])
         let $rel-type := if($related/@name) then $related/@name else $related/@ref
         group by $relationship := $rel-type
         return
+            let $names := rel:get-uris(string-join(($related/@active/string(),$related/@passive/string(),$related/@mutual/string()),' '),$idno)
+            let $count := count($names)
+            return 
                 (<p class="rel-label"> 
                     {
                       if($related/@mutual) then 
