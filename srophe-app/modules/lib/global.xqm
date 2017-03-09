@@ -166,8 +166,11 @@ declare function global:resolve-id() as xs:string?{
 let $id := request:get-parameter('id', '')
 let $parse-id :=
     if(contains($id,$global:base-uri) or starts-with($id,'http://')) then $id
-    else if(contains(request:get-uri(),$global:nav-base)) then replace(request:get-uri(),$global:nav-base, $global:base-uri)
-    else if(contains(request:get-uri(),$global:base-uri)) then request:get-uri()
+    else if(starts-with(request:get-uri(),$global:base-uri)) then string(request:get-uri())
+    else if(contains(request:get-uri(),$global:nav-base) and $global:nav-base != '') then 
+        replace(request:get-uri(),$global:nav-base, $global:base-uri)
+    else if(starts-with(request:get-uri(),'/exist/apps')) then 
+        replace(request:get-uri(),concat('/exist/apps/',replace($global:app-root,'/db/apps/','')), $global:base-uri)   
     else $id
 let $final-id := if(ends-with($parse-id,'.html')) then substring-before($parse-id,'.html') else $parse-id
 return $final-id
