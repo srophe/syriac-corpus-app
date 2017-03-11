@@ -20,6 +20,10 @@
                     <resp>XML encoding by</resp>
                     <name ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
                 </respStmt>
+                <respStmt>
+                    <resp>XML encoding expanded by</resp>
+                    <name ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</name>
+                </respStmt>
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -32,7 +36,7 @@
                         Distributed under a Creative Commons Attribution 3.0 Unported License
                     </licence>
                 </availability>
-                <date>2016-05-03</date>
+                <date>2017-03-11</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -50,6 +54,12 @@
                     </category>
                     <category xml:id="church">
                         <catDesc>A building for Christian religious services. It can be a parish church, a monastic church, a cathedral, or a small chapel used only occasionally, but not a chapel that is part of a larger church.</catDesc>
+                    </category>
+                    <category xml:id="composite">
+                        <catDesc>A named place concept which merges multiple distinct place types, such as a city and a diocese.  More specific types are preferred.</catDesc>
+                    </category>
+                    <category xml:id="designated-space">
+                        <catDesc>An area with artificial boundaries which is not necessarily built up, such as a cemetery, town square, or polo ground.</catDesc>
                     </category>
                     <category xml:id="diocese">
                         <catDesc>An ecclesiastical province governed by a bishop, archbishop, or metropolitan.</catDesc>
@@ -71,6 +81,9 @@
                     </category>
                     <category xml:id="mountain">
                         <catDesc>An elevated physical feature, from Mt. Ararat down to a prominent hill.</catDesc>
+                    </category>
+                    <category xml:id="natural-feature">
+                        <catDesc>A natural feature for which there is no narrower category, such as a <term ref="#mountain">mountain</term> or <term ref="#open-water">open water</term>.  Examples of this type include forests and hot springs.</catDesc>
                     </category>
                     <category xml:id="open-water">
                         <catDesc>A broad category for seas, lakes, oceans, and ponds.</catDesc>
@@ -109,6 +122,7 @@
             </classDecl>
         </encodingDesc>
         <revisionDesc>
+            <change when="2017-03-11" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: composite, designated-space, natural-feature</change>
             <change when="2016-05-03" who="http://syriaca.org/documentation/editors.xml#ngibson">CREATED: place-types.xml</change>
         </revisionDesc>
     </teiHeader>
