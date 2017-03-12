@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<facets xmlns="http://expath.org/ns/facet">
+    <facet-definition name="Type">
+        <group-by function="facet:group-by-sub-module">
+            <sub-path>descendant::tei:seriesStmt/tei:biblScope/tei:idno</sub-path>
+        </group-by>
+        <max-values show="5">40</max-values>
+        <order-by direction="descending">count</order-by>
+    </facet-definition>
+</facets> 

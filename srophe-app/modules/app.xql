@@ -58,7 +58,14 @@ declare function app:display-rec($node as node(), $model as map(*), $collection 
  : Used by templating module, not needed if full record is being displayed 
 :)
 declare function app:h1($node as node(), $model as map(*)){
- global:tei2html(<srophe-title xmlns="http://www.tei-c.org/ns/1.0">{($model("data")/descendant::tei:titleStmt[1]/tei:title[1], $model("data")/descendant::tei:idno[1])}</srophe-title>)
+ global:tei2html(
+ <srophe-title xmlns="http://www.tei-c.org/ns/1.0">{(
+    if($model("data")/descendant::*[@syriaca-tags='#syriaca-headword']) then
+        $model("data")/descendant::*[@syriaca-tags='#syriaca-headword']
+    else $model("data")/descendant::tei:titleStmt[1]/tei:title[1], 
+    $model("data")/descendant::tei:idno[1]
+    )}
+ </srophe-title>)
 }; 
 
 (:~  
