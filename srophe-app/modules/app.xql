@@ -38,7 +38,7 @@ if(request:get-parameter('id', '') != '') then
                                 replace(replace($rec/descendant::tei:idno[@type='redirect'][1]/text(),'/tei',''),$global:base-uri,$global:nav-base)
                             else concat($global:nav-base,'/',$collection,'/','browse.html')
                     return response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
-                else map {"data" := $rec }                    
+                else map {"data" := $rec }             
 else map {"data" := <div>'Page data'</div>}    
 };
 
@@ -387,14 +387,18 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
  : http://syriaca.org/feed/
  :) 
 declare %templates:wrap function app:get-feed($node as node(), $model as map(*)){
-    if(doc('http://syriaca.org/blog/feed/')/child::*) then 
-       let $news := doc('http://syriaca.org/blog/feed/')/child::*
-       for $latest at $n in subsequence($news//item, 1, 3)
-       return 
-       <li>
-            <a href="{$latest/link/text()}">{$latest/title/text()}</a>
-       </li>
-    else ()   
+    try {
+        if(doc('http://syriaca.org/blog/feed/')/child::*) then 
+            let $news := doc('http://syriaca.org/blog/feed/')/child::*
+            for $latest at $n in subsequence($news//item, 1, 3)
+            return 
+                <li>
+                     <a href="{$latest/link/text()}">{$latest/title/text()}</a>
+                </li>
+        else ()
+       } catch * {
+           <error>Caught error {$err:code}: {$err:description}</error>
+    }     
 };
 
 (:~ 
