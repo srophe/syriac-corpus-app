@@ -12,6 +12,7 @@ import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
 import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
 
+declare namespace http="http://expath.org/ns/http-client";
 declare namespace xslt="http://exist-db.org/xquery/transform";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
