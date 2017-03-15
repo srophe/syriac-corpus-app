@@ -12,7 +12,7 @@ import module namespace global="http://syriaca.org/global" at "../lib/global.xqm
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 declare variable $persons:q {request:get-parameter('q', '')};
-declare variable $persons:name {request:get-parameter('name', '')};
+declare variable $persons:name {request:get-parameter('persName', '')};
 
 declare variable $persons:uri {request:get-parameter('uri', '')};
 declare variable $persons:coll {request:get-parameter('coll', '')};
@@ -422,17 +422,10 @@ declare function persons:search-form($collection) {
             </div>
             <!-- Person Name -->
             <div class="form-group">
-                <label for="q" class="col-sm-2 col-md-3  control-label">Person Name: </label>
+                <label for="name" class="col-sm-2 col-md-3  control-label">Person Name: </label>
                 <div class="col-sm-10 col-md-6">
                     <div class="input-group">
-                        <input type="text" id="persNameSearch" name="name" class="form-control keyboard" placeholder="Any script (Syriac, Roman, etc.)"/>
-                        <!--<select name="name-type" class="input-medium">
-                                <option value="">- Select -</option>
-                                <option value="any">any</option>
-                                <option value="given">given</option>
-                                <option value="family">family</option>
-                                <option value="title">title</option>
-                            </select>-->
+                        <input type="text" id="persNameSearch" name="persName" class="form-control keyboard" placeholder="Any script (Syriac, Roman, etc.)"/>
                         <div class="input-group-btn">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                     &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
