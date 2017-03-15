@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <search-config>
+    <label>Search Subjects</label>
+    <desc>More detailed search functions are available in each individual <a href="/">publication</a>.</desc>
     <!-- Keyword -->                            
-    <input type="text"
-        label="Headword" 
-        name="headword"
-        element="tei:term[@type='headword']" 
-        keyboard="yes"/>
-    <input type="text"
-        label="Keyword" 
-        element="tei:body" 
-        name="qs" 
-        keyboard="yes"/>
-    <input type="text"
-        label="Related terms" 
-        element="tei:entryFree/tei:gloss/tei:term" 
-        name="related-terms" 
-        keyboard="yes"/>
+    <input type="text" label="Headword" name="headword" element="tei:term[@type='headword']" keyboard="yes"/>
+    <input type="text" label="Keyword" element="." name="qs" keyboard="yes"/>
+    <input type="text" label="Related terms" element="tei:entryFree/tei:gloss/tei:term" name="related-terms" keyboard="yes"/>
 </search-config>

@@ -55,7 +55,6 @@ declare variable $global:app-map-option := $global:get-config//repo:maps/repo:op
 (: Map rendering, google or leaflet :)
 declare variable $global:map-api-key := $global:get-config//repo:maps/repo:option[@selected='true']/@api-key;
 
-
 (: Recaptcha Key, Store as environemnt variable. :)
 declare variable $global:recaptcha := '6Lc8sQ4TAAAAAEDR5b52CLAsLnqZSQ1wzVPdl0rO';
 
@@ -70,7 +69,6 @@ declare function global:internal-links($uri as xs:string?){
     } catch * {
         <error>Caught error {$err:code}: {$err:description}</error>
         }
-        
 };
 
 (:
@@ -172,6 +170,35 @@ let $final-id := if(ends-with($parse-id,'.html')) then substring-before($parse-i
 return $final-id
 };
 
+(:~
+ : Build uri from short id
+ : Uses request:get-parameter('id', '') return string. 
+:)
+declare function global:collection-app-root($collection as xs:string?) as xs:string?{
+let $collection-config := $global:get-config//repo:collections
+for $collection in $collection-config/repo:collection[@name = $collection]
+return string($collection/@app-root)
+};
+
+(:~
+ : Build uri from short id
+ : Uses request:get-parameter('id', '') return string. 
+:)
+declare function global:collection-data-root($collection as xs:string?) as xs:string?{
+let $collection-config := $global:get-config//repo:collections
+for $collection in $collection-config/repo:collection[@name = $collection]
+return string($collection/@data-root)
+};
+
+(:~
+ : Build uri from short id
+ : Uses request:get-parameter('id', '') return string. 
+:)
+declare function global:collection-series($collection as xs:string?) as xs:string?{
+let $collection-config := $global:get-config//repo:collections
+for $collection in $collection-config/repo:collection[@name = $collection]
+return string($collection/@series)
+};
 (: @depreciated, uses data:get-rec()
  : Generic get record function
  : Manuscripts and SPEAR recieve special treatment as individule parts may be treated as full records. 

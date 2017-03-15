@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/keywords.html" data-template-at="content">
     <div class="container white top-padding indent">
         <div data-template="search:show-form" data-template-collection="keywords"/>
-        <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal indent" role="form">
-            <h1 class="search-header">Search Keywords</h1>
-            <p class="indent">More detailed search functions are available in each individual <a href="/">publication</a>.</p>
-            <div class="well well-small">
-                <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
-                    Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-                </button>&#160;
-                <xi:include href="../searchTips.html"/>
-                <div data-template="search:build-search-fields"/>  
-                <div class="pull-right">
-                    <button type="submit" class="btn btn-info">Search</button>&#160;
-                    <button type="reset" class="btn">Clear</button>
-                </div>
-                <br class="clearfix"/><br/>
-            </div>    
-        </form>
         <div data-template="search:get-results" data-template-collection="keywords">
                 <!-- Calls paging and search parameters string  -->
             <div data-template="search:pageination" data-template-collection="keywords" data-template-sort-options="relevance,title"/>

@@ -50,6 +50,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                         else if($coll = 'bibl') then bibls:query-string()
                         else if($coll = 'manuscripts') then ms:query-string()
                         else search:query-string($collection)
+                        
     return map {"hits" := data:search($eval-string) }
 };
 
@@ -57,15 +58,20 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
  : Builds general search string from main syriaca.org page and search api.
 :)
 declare function search:query-string($collection as xs:string?) as xs:string?{
-if($collection !='') then 
-    concat("collection('",$global:data-root,"/",$collection,"')//tei:body",
-    data:keyword(),
-    search:persName(),
-    search:placeName(), 
-    search:title(),
-    search:bibl(),
-    data:uri()
-    )
+let $search-config := concat($global:app-root, '/', global:collection-app-root($collection),'/','search-config.xml')
+return
+if($collection != '') then 
+    if(doc-available($search-config)) then 
+       concat("collection('",$global:data-root,"/",$collection,"')//tei:body",search:dynamic-paths($search-config))
+    else
+        concat("collection('",$global:data-root,"/",$collection,"')//tei:body",
+        data:keyword(),
+        search:persName(),
+        search:placeName(), 
+        search:title(),
+        search:bibl(),
+        data:uri()
+      )
 else 
 concat("collection('",$global:data-root,"')//tei:body",
     data:keyword(),
@@ -75,6 +81,20 @@ concat("collection('",$global:data-root,"')//tei:body",
     search:bibl(),
     data:uri()
     )
+};
+
+declare function search:dynamic-paths($search-config as xs:string?){
+    let $config := if(doc-available($search-config)) then doc($search-config) else ()
+    let $params := request:get-parameter-names()
+    return string-join(
+    for $p in $params
+    for $field in $config//input[@name = $p]
+    return 
+        if(request:get-parameter($p, '') != '') then
+            if(string($field/@element) = '.') then
+                concat("[ft:query(",string($field/@element),",'",data:clean-string(request:get-parameter($p, '')),"',data:search-options())]")
+            else concat("[ft:query(.//",string($field/@element),",'",data:clean-string(request:get-parameter($p, '')),"',data:search-options())]")    
+        else (),'')
 };
 
 declare function search:persName(){
@@ -224,8 +244,8 @@ declare %templates:wrap  function search:show-form($node as node()*, $model as m
         else if($collection ='manuscripts') then <div>{ms:search-form()}</div>
         else if($collection = ('bhse','nhsl')) then <div>{bhses:search-form($collection)}</div>
         else if($collection ='bibl') then <div>{bibls:search-form()}</div>
-        else if($collection ='places') then <div>{places:search-form()}</div>
-        else <div>{search:search-form()}</div>
+        else if($collection ='places') then <div>{places:search-form()}</div> 
+        else <div>{search:search-form($collection)}</div>
 };
 
 (:~ 
@@ -302,7 +322,68 @@ declare %templates:wrap function search:build-page($node as node()*, $model as m
 (:~
  : Builds advanced search form
  :)
-declare function search:search-form() {   
+declare function search:search-form($collection) {  
+let $search-config := concat($global:app-root, '/', global:collection-app-root($collection),'/','search-config.xml')
+return 
+    if(doc-available($search-config)) then 
+        search:build-form($search-config) 
+    else search:default-search-form()
+};
+
+declare function search:build-form($search-config){
+let $config := if(doc-available($search-config)) then doc($search-config) else ()
+return 
+<form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal indent" role="form">
+    <h1 class="search-header">{if($config//label != '') then $config//label else 'Search'}</h1>
+    {if($config//desc != '') then 
+        <p class="indent">{$config//desc}</p>
+    else() 
+    }
+    <div class="well well-small">
+        <div class="well well-small" style="background-color:white; margin-top:2em;">
+            <div class="row">
+                <div class="col-md-10">
+                    {
+                        for $input in $config//input
+                        let $label := string($input/@label)
+                        let $name := string($input/@name)
+                        let $id := concat('s',$name)
+                        (:<input type="text" label="Headword" name="headword" element="tei:term[@type='headword']" keyboard="yes"/>:)
+                        return 
+                            <div class="form-group">
+                                <label for="{$name}" class="col-sm-2 col-md-3  control-label">{$label}: </label>
+                                <div class="col-sm-10 col-md-9 ">
+                                    <div class="input-group">
+                                        <input type="text" id="{$id}" name="{$name}" class="form-control keyboard"/>
+                                        {
+                                            if($input/@keyboard='yes') then 
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                                    </button>{global:keyboard-select-menu($id)}
+                                                </div>
+                                            else ()
+                                        }
+                                    </div> 
+                                </div>
+                            </div>     
+                    }
+            </div>
+         </div> 
+         </div>
+         <div class="pull-right">
+            <button type="submit" class="btn btn-info">Search</button>&#160;
+            <button type="reset" class="btn">Clear</button>
+         </div>
+        <br class="clearfix"/><br/>
+    </div>
+</form>
+};
+
+(:~
+ : Builds advanced search form
+ :)
+declare function search:default-search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal indent" role="form">
     <h1 class="search-header">Search Syriaca.org (All Publications)</h1>
     <p class="indent">More detailed search functions are available in each individual <a href="/">publication</a>.</p>
