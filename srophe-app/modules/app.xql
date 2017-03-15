@@ -38,7 +38,7 @@ if(request:get-parameter('id', '') != '') then
                                 replace(replace($rec/descendant::tei:idno[@type='redirect'][1]/text(),'/tei',''),$global:base-uri,$global:nav-base)
                             else concat($global:nav-base,'/',$collection,'/','browse.html')
                     return response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
-                else map {"data" := $rec }             
+                else map {"data" := $rec }                    
 else map {"data" := <div>'Page data'</div>}    
 };
 
@@ -66,6 +66,20 @@ declare function app:h1($node as node(), $model as map(*)){
     $model("data")/descendant::tei:idno[1]
     )}
  </srophe-title>)
+}; 
+
+(:~  
+ : Display any TEI nodes passed to the function via the paths parameter
+ : Used by templating module, defaults to tei:body if no nodes are passed. 
+ : @param $paths comma separated list of xpaths for display. Passed from html page  
+:)
+declare function app:link-icons-list($node as node(), $model as map(*)){
+let $data := $model("data")
+let $links:=
+        <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
+            {$data//tei:body/descendant::tei:idno, $data//descendant::tei:location}
+        </see-also>
+return global:tei2html($links)
 }; 
 
 (:~  
@@ -219,7 +233,7 @@ let $works :=
             return $w
 let $count := count($works)
 let $title := if(contains($rec/descendant::tei:title[1]/text(),' — ')) then 
-                    substring-before($rec/descendant::tei:title[1]/text(),' — ') 
+                    substring-before($rec/descendant::tei:title[1],' — ') 
                else $rec/descendant::tei:title[1]/text()
 return 
     if($count gt 0) then 
@@ -300,7 +314,7 @@ return
 declare %templates:wrap function app:app-title($node as node(), $model as map(*), $collection as xs:string?){
 if(request:get-parameter('id', '')) then
    if(contains($model("data")/descendant::tei:titleStmt[1]/tei:title[1]/text(),' — ')) then
-        substring-before($model("data")/descendant::tei:titleStmt[1]/tei:title[1]/text()[1],' — ')
+        substring-before($model("data")/descendant::tei:titleStmt[1]/tei:title[1],' — ')
    else $model("data")/descendant::tei:titleStmt[1]/tei:title[1]/text()
 else if($collection = 'places') then 'The Syriac Gazetteer'  
 else if($collection = 'persons') then 'The Syriac Biographical Dictionary'
