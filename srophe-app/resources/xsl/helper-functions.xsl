@@ -341,7 +341,15 @@
         <xsl:param name="label"/>
         <xsl:variable name="odd" select="doc('http://localhost:8080/exist/apps/srophe/documentation/syriaca-tei-main.odd')"/>
         <!--<xsl:variable name="odd" select="doc('http://syriaca.org/documentation/syriaca-tei-main.odd')"/>-->
-        <xsl:value-of select="$odd/descendant::t:valItem[@ident=$label]/t:gloss"/>
+        <xsl:choose>
+            <xsl:when test="$odd/descendant::t:valItem[@ident=$label]/t:gloss">
+                <xsl:value-of select="$odd/descendant::t:valItem[@ident=$label]/t:gloss"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$label"/>
+            </xsl:otherwise>
+        </xsl:choose>
+        
     </xsl:function>
     
     <!-- Translate labels to human readable labels via odd, passes on element and label value -->

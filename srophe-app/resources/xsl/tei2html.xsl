@@ -948,10 +948,14 @@
     </xsl:template>
     <xsl:template match="t:gloss">
         <div>
-            <h4><xsl:value-of select="local:translate-label(@xml:lang)"/></h4>
+            <h4>
+                <xsl:value-of select="local:translate-label(@xml:lang)"/>
+            </h4>
             <xsl:for-each select="t:term">
                 <xsl:apply-templates/>
-                <xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+                <xsl:if test="position() != last()">
+                    <xsl:text>, </xsl:text>
+                </xsl:if>
             </xsl:for-each>            
         </div>
     </xsl:template>
@@ -1105,7 +1109,9 @@
                     </xsl:choose>                    
                 </xsl:variable>
                 <xsl:choose>
-                    <xsl:when test="$idSubstring  castable as xs:integer"><xsl:value-of select="$idSubstring cast as xs:integer"/></xsl:when>
+                    <xsl:when test="$idSubstring  castable as xs:integer">
+                        <xsl:value-of select="$idSubstring cast as xs:integer"/>
+                    </xsl:when>
                     <xsl:otherwise>0</xsl:otherwise>
                 </xsl:choose>
             </xsl:variable>
@@ -1632,7 +1638,7 @@
         </xsl:if>
         
         <xsl:if test="t:gloss">
-            <h3>Related terms</h3>
+            <h3>Gloss</h3>
             <div class="indent">
                 <xsl:apply-templates select="t:gloss"/>                
             </div>
