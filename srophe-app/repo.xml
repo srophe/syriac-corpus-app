@@ -60,7 +60,7 @@
             <collection name="mss" series="" app-root="mss" data-root="manuscripts"/>
             <collection name="spear" series="" app-root="spear" data-root="spear"/>
             <collection name="bibl" series="" app-root="bibl" data-root="bibl"/>
-            <collection name="keywords" series="" app-root="keywords" data-root="keywords"/>
+            <collection name="subjects" series="" app-root="taxonomy" data-root="subjects"/>
         </collections>
         <!--
     <google_analytics>var _gaq=[['_setAccount','UA-333143-26'],['_trackPageview']];
