@@ -815,6 +815,13 @@
                                     <gloss>is part of</gloss>
                                     <desc>A related resource in which the described resource is physically or logically included. (<ref target="http://purl.org/dc/terms/isPartOf">http://purl.org/dc/terms/isPartOf</ref>).</desc>
                                 </valItem>
+                                <valItem ident="skos:broadMatch">
+                                    <gloss>has broad match</gloss>
+                                    <desc>A resource with a broader or more generic definition that encompasses the current resource along with others. 
+                                        Syriaca.org describes the broader resource using a "composite URI". 
+                                        SKOS definition: <quote>skos:broadMatch is used to state a hierarchical mapping link between two conceptual resources in different concept schemes.</quote>
+                                        (<ref target="https://www.w3.org/2009/08/skos-reference/skos.rdf#broadMatch">https://www.w3.org/2009/08/skos-reference/skos.rdf#broadMatch</ref>).</desc>
+                                </valItem>
                             </valList>
                         </attDef>
                         <attDef ident="active" mode="change">

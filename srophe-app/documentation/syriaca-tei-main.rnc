@@ -6,7 +6,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2017-02-16T17:55:19Z. .
+# Schema generated from ODD source 2017-03-15T18:19:33Z. .
 # TEI Edition: Version 3.1.0. Last updated on
 #	15th December 2016, revision d3f5e70
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.1.0/
@@ -2968,7 +2968,7 @@ tei_bibl =
     }?,
     
     ## The type attribute on bibl elements may be an RDF class defining the type of work or item. These will typically begin with either the prefix lawd: (http://lawd.info/ontology) or syriaca:
-    ## Suggested values include: 1] lawd:ConceptualWork(Work) ; 2] lawd:Edition(Edition) ; 3] lawd:Citation(Citation) ; 4] syriaca:Manuscript(Manuscript) ; 5] syriaca:Catalogue(Catalogue) ; 6] syriaca:ModernTranslation(Modern Translation) ; 7] syriaca:AncientVersion(Ancient Version) 
+    ## Suggested values include: 1] lawd:ConceptualWork(Work) ; 2] lawd:Edition(Edition) ; 3] lawd:Citation(Citation) ; 4] syriaca:Manuscript(Manuscript) ; 5] syriaca:Catalogue(Catalogue) ; 6] syriaca:ModernTranslation(Modern Translation) ; 7] syriaca:AncientVersion(Ancient Version) ; 8] syriaca:Glossary(Glossary) ; 9] syriaca:Apparatus(Apparatus) 
     attribute type {
       
       ## (Work) A Conceptual Work groups together one or more Written Works which have the same intellectual source. E.g. The Iliad, as opposed to a particular manuscript witness or edition of the Iliad. See http://lawd.info/ontology/ConceptualWork.
@@ -2991,6 +2991,12 @@ tei_bibl =
       | 
         ## (Ancient Version) An ancient Written Work that translates one or more other Written Works that embody the same Conceptual Work. A subtype of http://lawd.info/ontology/Translation.
         "syriaca:AncientVersion"
+      | 
+        ## (Glossary) A bibliographic reference to a resource that provides glosses or explanations for terms. A subtype of http://lawd.info/ontology/Citation.
+        "syriaca:Glossary"
+      | 
+        ## (Apparatus) A bibliographic reference to a resource that contains notes regarding the witnesses, versions, or reconstruction of a text. A subtype of http://lawd.info/ontology/Citation.
+        "syriaca:Apparatus"
       | xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
     }?,
     empty
@@ -5594,7 +5600,7 @@ tei_relation =
     tei_att.typed.attribute.subtype,
     
     ## (reference) An RDF property applicable to the relation. This may be a custom Syriaca.org property, such as one found at http://syriaca.org/documentation/relations.html or one from an external vocabulary such as SNAP or LAWD.
-    ## Suggested values include: 1] dct:source(is derived from) ; 2] lawd:embodies(embodies) ; 3] syriaca:commemorated(commemorates) ; 4] dct:isPartOf(is part of) 
+    ## Suggested values include: 1] dct:source(is derived from) ; 2] lawd:embodies(embodies) ; 3] syriaca:commemorated(commemorates) ; 4] dct:isPartOf(is part of) ; 5] skos:broadMatch(has broad match) 
     attribute ref {
       list {
         (
@@ -5609,6 +5615,9 @@ tei_relation =
          | 
            ## (is part of) A related resource in which the described resource is physically or logically included. (http://purl.org/dc/terms/isPartOf).
            "dct:isPartOf"
+         | 
+           ## (has broad match) A resource with a broader or more generic definition that encompasses the current resource along with others. Syriaca.org describes the broader resource using a "composite URI". SKOS definition: skos:broadMatch is used to state a hierarchical mapping link between two conceptual resources in different concept schemes. (https://www.w3.org/2009/08/skos-reference/skos.rdf#broadMatch).
+           "skos:broadMatch"
          | xsd:anyURI)+
       }
     },
