@@ -7,6 +7,7 @@ module namespace person="http://syriaca.org/person";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace app="http://syriaca.org/templates" at "app.xql";
+import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";

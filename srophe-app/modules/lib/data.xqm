@@ -52,7 +52,7 @@ declare function data:get-rec($id as xs:string?){
             for $rec in util:eval(concat('collection($global:data-root)//tei:TEI[',$global:id-path,' = $id]'))
             return $rec
         else
-            for $rec in collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][text() = concat($id,'/tei')]]
+            for $rec in collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][. = concat($id,'/tei')]]
             return $rec 
 };
 
@@ -97,7 +97,7 @@ declare function data:parse-collections($series as xs:string?) as xs:string? {
     if($series = ('persons','sbd')) then 'The Syriac Biographical Dictionary'
     else if($series = ('saints','q')) then 'Qadishe: A Guide to the Syriac Saints'
     else if($series = 'authors' ) then 'A Guide to Syriac Authors'
-    else if($series = 'bhse' ) then 'Bibliotheca Hagiographica Syriaca Electronica'
+    else if($series = 'bhse' ) then ()(:'Bibliotheca Hagiographica Syriaca Electronica':)
     else if($series = 'nhsl' ) then 'New Handbook of Syriac Literature'
     else if($series = ('places','The Syriac Gazetteer')) then 'The Syriac Gazetteer'
     else if($series = ('spear','SPEAR: Syriac Persons, Events, and Relations')) then 'SPEAR: Syriac Persons, Events, and Relations'

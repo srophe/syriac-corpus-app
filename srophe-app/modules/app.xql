@@ -39,7 +39,7 @@ if(request:get-parameter('id', '') != '') then
                                 replace(replace($rec/descendant::tei:idno[@type='redirect'][1]/text(),'/tei',''),$global:base-uri,$global:nav-base)
                             else concat($global:nav-base,'/',$collection,'/','browse.html')
                     return response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
-                else map {"data" := $rec }                    
+                else map {"data" := $rec }                   
 else map {"data" := <div>'Page data'</div>}    
 };
 
