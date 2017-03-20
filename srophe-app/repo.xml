@@ -51,7 +51,7 @@
         </keyboard-options>
         <collections>
             <!--<collection name="Short-name used in html pages to reference collection, module name" series="Series name used in TEI" app-root="folder name in app" data-root="folder name in data"/>-->
-            <collection name="places" series="The Syriac Gazetteer" app-root="geo" data-root="places"/>
+            <collection name="places" title="The Syriac Gazetteer" series="" app-root="geo" data-root="places"/>
             <collection name="sbd" series="The Syriac Biographical Dictionary" app-root="persons" data-root="persons"/>
             <collection name="authors" series="A Guide to Syriac Authors" app-root="authors" data-root="persons"/>
             <collection name="q" series="Qadishe: A Guide to the Syriac Saints" app-root="q" data-root="persons"/>
@@ -70,6 +70,6 @@
     -->
     </config>
     
-
-<deployed>2017-03-20T12:18:51.165-04:00</deployed>
+    
+    <deployed>2017-03-20T12:18:51.165-04:00</deployed>
 </meta>
