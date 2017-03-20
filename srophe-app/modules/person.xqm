@@ -298,7 +298,7 @@ return
                          {
                              for $r in subsequence($works, 1, 3)
                              let $workid := replace($r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
-                             let $rec :=  global:get-rec($workid)
+                             let $rec :=  data:get-rec($workid)
                              return global:display-recs-short-view($rec,'',$recid)
                          }
                             <div>
@@ -312,7 +312,7 @@ return
                 else 
                     for $r in $works
                     let $workid := replace($r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
-                    let $rec :=  global:get-rec($workid)
+                    let $rec :=  data:get-rec($workid)
                     return global:display-recs-short-view($rec,'',$recid)
             )}
         </div>

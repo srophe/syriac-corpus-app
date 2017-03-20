@@ -6,6 +6,7 @@ import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org/config" at "config.xqm";
 import module namespace functx="http://www.functx.com";
 (: Srophe modules :)
+import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace teiDocs="http://syriaca.org/teiDocs" at "teiDocs/teiDocs.xqm";
 import module namespace tei2html="http://syriaca.org/tei2html" at "lib/tei2html.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
@@ -28,7 +29,7 @@ declare function app:get-rec($node as node(), $model as map(*), $collection as x
 if(request:get-parameter('id', '') != '') then 
     let $id := global:resolve-id()   
     return 
-        let $rec := global:get-rec($id)
+        let $rec := data:get-rec($id)
         return 
             if(empty($rec)) then response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html')))
             else 

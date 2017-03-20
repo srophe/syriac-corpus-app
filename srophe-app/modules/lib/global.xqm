@@ -199,28 +199,6 @@ let $collection-config := $global:get-config//repo:collections
 for $collection in $collection-config/repo:collection[@name = $collection]
 return string($collection/@series)
 };
-(: @depreciated, uses data:get-rec()
- : Generic get record function
- : Manuscripts and SPEAR recieve special treatment as individule parts may be treated as full records. 
- : Srophe uses tei:idno for record IDs
- : @param $id syriaca.org uri for record or part. 
-:)
-declare function global:get-rec($id as xs:string){  
-    if(contains($id,'/spear/')) then 
-        for $rec in collection($global:data-root)//tei:div[@uri = $id]
-        return 
-            <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec}</tei:TEI>   
-    else if(contains($id,'/manuscript/')) then
-    (: Descrepency in how id's are handled, why dont the msPart id's have '/tei'?  :)
-        for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = $id]
-        return 
-            if($rec/ancestor::tei:msPart) then
-               <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec/ancestor::tei:msPart}</tei:TEI>
-            else $rec/ancestor::tei:TEI
-    else 
-        for $rec in collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][. = concat($id,'/tei')]]
-        return $rec 
-};
 
 (:~ 
  : Parse persNames to take advantage of sort attribute in display. 

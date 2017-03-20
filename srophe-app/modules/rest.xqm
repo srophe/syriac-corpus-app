@@ -328,7 +328,7 @@ declare function api:get-tei-rec($collection as xs:string, $id as xs:string) as 
     return 
         if($collection='spear') then 
             let $spear-id := concat('http://syriaca.org/spear/',$id)
-            return global:get-rec($spear-id)
+            return data:get-rec($spear-id)
         else data:get-rec($uri)
 };
 
