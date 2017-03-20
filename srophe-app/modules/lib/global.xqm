@@ -195,7 +195,7 @@ declare function global:get-rec($id as xs:string){
                <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec/ancestor::tei:msPart}</tei:TEI>
             else $rec/ancestor::tei:TEI
     else 
-        for $rec in collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][text() = concat($id,'/tei')]]
+        for $rec in collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][. = concat($id,'/tei')]]
         return $rec 
 };
 
