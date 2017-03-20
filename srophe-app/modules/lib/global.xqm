@@ -36,10 +36,9 @@ declare variable $global:data-root :=
 (: Establish main navigation for app, used in templates for absolute links. Syriaca.org uses a development and production server which each have different root directories.  :)
 declare variable $global:nav-base := 
     if($global:get-config//repo:nav-base/text() != '') then $global:get-config//repo:nav-base/text()
-    (:else if($global:get-config//repo:nav-base/text() = ('/','')) then ''
-    else concat('/exist/apps/',$global:app-root):)
-    else ''
-    ;
+    (: For app set to root '/' see syriaca.org production site. :)
+    else if($global:get-config//repo:nav-base/text() = '/') then ''
+    else concat('/exist/apps/',$global:app-root);
 
 (: Base URI used in record tei:idno :)
 declare variable $global:base-uri := $global:get-config//repo:base_uri/text();
@@ -56,7 +55,6 @@ declare variable $global:app-map-option := $global:get-config//repo:maps/repo:op
 (: Map rendering, google or leaflet :)
 declare variable $global:map-api-key := $global:get-config//repo:maps/repo:option[@selected='true']/@api-key;
 
-
 (: Recaptcha Key, Store as environemnt variable. :)
 declare variable $global:recaptcha := '6Lc8sQ4TAAAAAEDR5b52CLAsLnqZSQ1wzVPdl0rO';
 
@@ -71,7 +69,6 @@ declare function global:internal-links($uri as xs:string?){
     } catch * {
         <error>Caught error {$err:code}: {$err:description}</error>
         }
-        
 };
 
 (:
@@ -166,37 +163,41 @@ declare function global:resolve-id() as xs:string?{
 let $id := request:get-parameter('id', '')
 let $parse-id :=
     if(contains($id,$global:base-uri) or starts-with($id,'http://')) then $id
-    else if(starts-with(request:get-uri(),$global:base-uri)) then string(request:get-uri())
-    else if(contains(request:get-uri(),$global:nav-base) and $global:nav-base != '') then 
-        replace(request:get-uri(),$global:nav-base, $global:base-uri)
-    else if(starts-with(request:get-uri(),'/exist/apps')) then 
-        replace(request:get-uri(),concat('/exist/apps/',replace($global:app-root,'/db/apps/','')), $global:base-uri)   
+    else if(contains(request:get-uri(),$global:nav-base)) then replace(request:get-uri(),$global:nav-base, $global:base-uri)
+    else if(contains(request:get-uri(),$global:base-uri)) then request:get-uri()
     else $id
 let $final-id := if(ends-with($parse-id,'.html')) then substring-before($parse-id,'.html') else $parse-id
 return $final-id
 };
 
-(: @depreciated, uses data:get-rec()
- : Generic get record function
- : Manuscripts and SPEAR recieve special treatment as individule parts may be treated as full records. 
- : Srophe uses tei:idno for record IDs
- : @param $id syriaca.org uri for record or part. 
+(:~
+ : Build uri from short id
+ : Uses request:get-parameter('id', '') return string. 
 :)
-declare function global:get-rec($id as xs:string){  
-    if(contains($id,'/spear/')) then 
-        for $rec in collection($global:data-root)//tei:div[@uri = $id]
-        return 
-            <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec}</tei:TEI>   
-    else if(contains($id,'/manuscript/')) then
-    (: Descrepency in how id's are handled, why dont the msPart id's have '/tei'?  :)
-        for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = $id]
-        return 
-            if($rec/ancestor::tei:msPart) then
-               <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec/ancestor::tei:msPart}</tei:TEI>
-            else $rec/ancestor::tei:TEI
-    else 
-        for $rec in collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][. = concat($id,'/tei')]]
-        return $rec 
+declare function global:collection-app-root($collection as xs:string?) as xs:string?{
+let $collection-config := $global:get-config//repo:collections
+for $collection in $collection-config/repo:collection[@name = $collection]
+return string($collection/@app-root)
+};
+
+(:~
+ : Build uri from short id
+ : Uses request:get-parameter('id', '') return string. 
+:)
+declare function global:collection-data-root($collection as xs:string?) as xs:string?{
+let $collection-config := $global:get-config//repo:collections
+for $collection in $collection-config/repo:collection[@name = $collection]
+return string($collection/@data-root)
+};
+
+(:~
+ : Build uri from short id
+ : Uses request:get-parameter('id', '') return string. 
+:)
+declare function global:collection-series($collection as xs:string?) as xs:string?{
+let $collection-config := $global:get-config//repo:collections
+for $collection in $collection-config/repo:collection[@name = $collection]
+return string($collection/@series)
 };
 
 (:~ 

@@ -20,16 +20,16 @@ declare function rel:get-uris($uris as xs:string*, $idno) as xs:string*{
 };
 
 declare function rel:display($uri as xs:string*) as element(a)*{
-    let $rec :=  global:get-rec($uri)  
+    let $rec :=  data:get-rec($uri)  
     return global:display-recs-short-view($rec, '')
 };
 
 declare function rel:get-names($uris as xs:string?) {
     let $count := count(tokenize($uris,' '))
     for $uri at $i in tokenize($uris,' ')
-    let $rec :=  global:get-rec($uri)
+    let $rec :=  data:get-rec($uri)
     let $name := 
-                if(not(exists(global:get-rec($uri)))) then $uri
+                if(not(exists(data:get-rec($uri)))) then $uri
                 else if(contains($uris,'/spear/')) then
                     let $string := normalize-space(string-join($rec/descendant::text(),' '))
                     let $last-words := tokenize($string, '\W+')[position() = 5]
@@ -52,7 +52,7 @@ declare function rel:get-names($uris as xs:string?) {
  :)
 declare function rel:get-names-json($uris as xs:string?) as node()*{
     for $uri in tokenize($uris,' ')
-    let $rec :=  global:get-rec($uri)
+    let $rec :=  data:get-rec($uri)
     let $name := 
                 if(contains($uris,'/spear/')) then
                     let $string := normalize-space(string-join($rec/descendant::text(),' '))

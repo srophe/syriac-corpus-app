@@ -6,6 +6,7 @@ import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace config="http://syriaca.org/config" at "config.xqm";
 import module namespace functx="http://www.functx.com";
 (: Srophe modules :)
+import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace teiDocs="http://syriaca.org/teiDocs" at "teiDocs/teiDocs.xqm";
 import module namespace tei2html="http://syriaca.org/tei2html" at "lib/tei2html.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
@@ -16,19 +17,19 @@ import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.
 declare namespace http="http://expath.org/ns/http-client";
 declare namespace html="http://www.w3.org/1999/xhtml";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
-                 
+
 (:~  
  : Simple get record function, get tei record based on tei:idno
  : Builds URL from the following URL patterns defined in the controller.xql or uses the id paramter
  : Retuns 404 page if record is not found, or has been @depreciated
  : Retuns 404 page and redirects if the record has been @depreciated see https://github.com/srophe/srophe-app-data/wiki/Deprecated-Records
  : @param request:get-parameter('id', '') syriaca.org uri   
-:)                                        
+:)                 
 declare function app:get-rec($node as node(), $model as map(*), $collection as xs:string?) { 
 if(request:get-parameter('id', '') != '') then 
     let $id := global:resolve-id()   
-    return  
-        let $rec := global:get-rec($id)
+    return 
+        let $rec := data:get-rec($id)
         return 
             if(empty($rec)) then response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html')))
             else 
@@ -38,7 +39,7 @@ if(request:get-parameter('id', '') != '') then
                                 replace(replace($rec/descendant::tei:idno[@type='redirect'][1]/text(),'/tei',''),$global:base-uri,$global:nav-base)
                             else concat($global:nav-base,'/',$collection,'/','browse.html')
                     return response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
-                else map {"data" := $rec }             
+                else map {"data" := $rec }                    
 else map {"data" := <div>'Page data'</div>}    
 };
 
@@ -58,7 +59,28 @@ declare function app:display-rec($node as node(), $model as map(*), $collection 
  : Used by templating module, not needed if full record is being displayed 
 :)
 declare function app:h1($node as node(), $model as map(*)){
- global:tei2html(<srophe-title xmlns="http://www.tei-c.org/ns/1.0">{($model("data")/descendant::tei:titleStmt[1]/tei:title[1], $model("data")/descendant::tei:idno[1])}</srophe-title>)
+ global:tei2html(
+ <srophe-title xmlns="http://www.tei-c.org/ns/1.0">{(
+    if($model("data")/descendant::*[@syriaca-tags='#syriaca-headword']) then
+        $model("data")/descendant::*[@syriaca-tags='#syriaca-headword']
+    else $model("data")/descendant::tei:titleStmt[1]/tei:title[1], 
+    $model("data")/descendant::tei:idno[1]
+    )}
+ </srophe-title>)
+}; 
+
+(:~  
+ : Display any TEI nodes passed to the function via the paths parameter
+ : Used by templating module, defaults to tei:body if no nodes are passed. 
+ : @param $paths comma separated list of xpaths for display. Passed from html page  
+:)
+declare function app:link-icons-list($node as node(), $model as map(*)){
+let $data := $model("data")
+let $links:=
+        <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
+            {$data//tei:body/descendant::tei:idno, $data//descendant::tei:location}
+        </see-also>
+return global:tei2html($links)
 }; 
 
 (:~  
@@ -305,7 +327,7 @@ else if($collection = 'mss') then concat('http://syriaca.org/manuscript/',reques
 else $global:app-title
 };  
 
-(:~     
+(:~ 
  : Add header links for alternative formats. 
 :)
 declare function app:metadata($node as node(), $model as map(*)) {
