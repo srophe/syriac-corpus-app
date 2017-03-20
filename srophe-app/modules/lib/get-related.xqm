@@ -3,6 +3,7 @@ xquery version "3.0";
 module namespace rel="http://syriaca.org/related";
 import module namespace page="http://syriaca.org/page" at "paging.xqm";
 import module namespace global="http://syriaca.org/global" at "global.xqm";
+import module namespace data="http://syriaca.org/data" at "data.xqm";
 import module namespace functx="http://www.functx.com";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
