@@ -2,7 +2,7 @@
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/manuscripts.html" data-template-at="content">
     <h1 class="banner indent top-padding">Browse Manuscripts</h1>
     <div class="container">
-        <div data-template="browse:get-all" data-template-collection="manuscripts">
+        <div data-template="browse:get-all" data-template-collection="mss">
             <!-- Calls paging and search parameters string  -->
             <ul class="nav nav-tabs" id="nametabs">
                 <li data-template="browse:tabs" data-template-text="English" data-template-param="lang" data-template-value="en" data-template-alpha-filter-value="A"/>
@@ -18,7 +18,7 @@
             <div class="tab-content">
                 <div class="tab-pane active">
                     <div class="row">
-                        <div data-template="browse:results-panel" data-template-collection="manuscripts"/>
+                        <div data-template="browse:results-panel" data-template-collection="mss"/>
                     </div>
                 </div>
             </div>

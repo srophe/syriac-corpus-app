@@ -1,4 +1,4 @@
-xquery version "3.0";
+xquery version "3.1";
 (:~  
  : Basic data interactions, returns raw data for use in other modules  
  : Used by browse, search, and view records.  
@@ -76,33 +76,8 @@ declare function data:get-title($uri as xs:string?) as xs:string?{
  : @note there are two ways to define collections, physical collection and tei collection, seriesStmt
  : Enhancement: It would be nice to be able to pass in multiple collections to browse function
 :)
-declare function data:build-browse-path($collection as xs:string?, $series as xs:string?) as xs:string?{  
-    concat("collection('",$global:data-root,$collection,"')",data:build-series-path($series))
-};
-
-(:
- : Build browse path.
- : @param $series as xs:string defined by seriesStmt
- :)
-declare function data:build-series-path($series as xs:string?) as xs:string? {
-    if($series != '') then concat("//tei:title[. = '",data:parse-collections($series),"'][ancestor::tei:seriesStmt]/ancestor::tei:TEI")
-    else '//tei:TEI'
-};
-
-(:~
- : Syriaca.org specific function to parse collection to match series name
- : @param $series
-:)
-declare function data:parse-collections($series as xs:string?) as xs:string? {
-    if($series = ('persons','sbd')) then 'The Syriac Biographical Dictionary'
-    else if($series = ('saints','q')) then 'Qadishe: A Guide to the Syriac Saints'
-    else if($series = 'authors' ) then 'A Guide to Syriac Authors'
-    else if($series = 'bhse' ) then ()(:'Bibliotheca Hagiographica Syriaca Electronica':)
-    else if($series = 'nhsl' ) then 'New Handbook of Syriac Literature'
-    else if($series = ('places','The Syriac Gazetteer')) then 'The Syriac Gazetteer'
-    else if($series = ('spear','SPEAR: Syriac Persons, Events, and Relations')) then 'SPEAR: Syriac Persons, Events, and Relations'
-    else if($series != '' ) then $series
-    else ()
+declare function data:build-browse-path($collection-path as xs:string?, $series-path as xs:string?) as xs:string?{  
+    concat("collection('",$global:data-root,$collection-path,"')",$series-path)
 };
 
 (:~
@@ -142,51 +117,41 @@ declare function data:element($element as xs:string?, $series as xs:string?) as 
     else "tei:title"  
 };
 
-(:~
-  : Select correct exist-db collection 
-  : @param $collection as xs:string
-:)
-declare function data:collection-path($collection as xs:string?) as xs:string{
-    (: Syriaca.org defaults :)
-    if($collection = ('persons','sbd','saints','q','authors')) then 
-        '/persons'
-    else if($collection = ('places','geo','The Syriac Gazetteer')) then 
-        '/places'
-    else if($collection = ('bhse','nhsl')) then  
-        '/works' 
-    else if($collection = ('bibl')) then 
-        '/bibl'  
-    else if($collection = ('spear')) then 
-        '/spear'           
-    (: Default browse is by all directories under data-root :)
-    else if(request:get-parameter('collection', '') != '') then 
-        concat('/',request:get-parameter('collection', '')) 
-    else if($collection) then 
-        concat('/',$collection)        
-    else '' 
-};
-
 (:
  : Main browse function 
- : @param $collection as xs:string physical eXistdb collection
+ : @param $collection as xs:string name of the collection, defined in the repo.xml
  : @param $series as xs:string defined by seriesStmt
  : @param $element as xs:string, element to be used browse on, xpath: ex: //tei:titleStmt/tei:author defaults to //tei:titleStmt/tei:title
  : @note parameters can be passed to function via the HTML templates or from the requesting url
  : @note there are two ways to define collections, physical collection and tei collection, seriesStmt
 :)
 declare function data:get-browse-data($collection as xs:string*, $series as xs:string*, $element as xs:string?){
-    let $element := if($series != '') then data:element($element, $series)
-                    else data:element($element, $collection)
-    let $facets := if($series != '') then $series
-                   else $collection
-    let $sort := if(request:get-parameter('sort', '') != '') then request:get-parameter('sort', '') 
-                 else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
-                 else ()        
-    let $hits-main := util:eval(concat(data:build-browse-path(data:collection-path($collection), $series),facet:facet-filter(facet-defs:facet-definition($facets)),data:lang-filter($element)))
+    let $collection-path := 
+        if(global:collection-vars($collection)/@data-root != '') then concat('/',global:collection-vars($collection)/@data-root)
+        else if($collection != '') then concat('/',$collection)
+        else ()
+    let $get-series :=  
+        if(global:collection-vars($collection)/@series != '') then string(global:collection-vars($collection)/@series)
+        else if($series != '') then $series
+        else ()                             
+    let $series-path := 
+        if($get-series != '') then concat("//tei:title[. = '",$get-series,"'][ancestor::tei:seriesStmt]/ancestor::tei:TEI")
+        else '//tei:TEI'
+    let $element := 
+        if($series != '') then data:element($element, $collection)
+        else data:element($element, $collection)
+    let $facets := 
+        if($series != '') then $series
+        else $collection
+    let $sort := 
+        if(request:get-parameter('sort', '') != '') then request:get-parameter('sort', '') 
+        else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
+        else ()        
+    let $hits-main := util:eval(concat(data:build-browse-path($collection-path, $series-path),facet:facet-filter(facet-defs:facet-definition($facets)),data:lang-filter($element)))
     return 
-    (:<p>{concat(data:build-browse-path(data:collection-path($collection), $series),facet:facet-filter(facet-defs:facet-definition($series)),data:lang-filter($element))}</p>:)
+    (:<p>{concat(data:build-browse-path($collection-path, $series-path),facet:facet-filter(facet-defs:facet-definition($series)),data:lang-filter($element))}</p>:)
     (: Special SPEAR options:)
-        if($collection = 'spear') then util:eval(concat(data:build-browse-path($collection, $series),'//tei:div[parent::tei:body]'))
+        if($collection = 'spear') then util:eval(concat(data:build-browse-path($collection-path,''),'//tei:div[parent::tei:body]'))
     (: Special places browse by type:)
         else if($collection = ('places','geo') and request:get-parameter('view', '') = 'type') then 
              let $hits := util:eval(concat("$hits-main[descendant::tei:place[contains(@type,'", request:get-parameter('type', ''),"')]]"))
@@ -243,8 +208,7 @@ declare function data:get-browse-data($collection as xs:string*, $series as xs:s
             let $title := global:build-sort-string($hit,$data:computed-lang)
             order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
             return $hit/ancestor-or-self::tei:TEI
-
-       
+    
 };
 
 (:

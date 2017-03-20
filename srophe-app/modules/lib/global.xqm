@@ -174,14 +174,15 @@ return $final-id
 };
 
 (:~
- : Build uri from short id
- : Uses request:get-parameter('id', '') return string. 
+ : Get collection data
+ : @param $collection match collection name in repo.xml 
 :)
-declare function global:collection-app-root($collection as xs:string?) as xs:string?{
+declare function global:collection-vars($collection as xs:string?) as node()?{
 let $collection-config := $global:get-config//repo:collections
 for $collection in $collection-config/repo:collection[@name = $collection]
-return string($collection/@app-root)
+return $collection
 };
+
 
 (:~
  : Build uri from short id

@@ -58,7 +58,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
  : Builds general search string from main syriaca.org page and search api.
 :)
 declare function search:query-string($collection as xs:string?) as xs:string?{
-let $search-config := concat($global:app-root, '/', global:collection-app-root($collection),'/','search-config.xml')
+let $search-config := concat($global:app-root, '/', string(global:collection-vars($collection)/@app-root),'/','search-config.xml')
 return
 if($collection != '') then 
     if(doc-available($search-config)) then 
@@ -323,7 +323,7 @@ declare %templates:wrap function search:build-page($node as node()*, $model as m
  : Builds advanced search form
  :)
 declare function search:search-form($collection) {  
-let $search-config := concat($global:app-root, '/', global:collection-app-root($collection),'/','search-config.xml')
+let $search-config := concat($global:app-root, '/', string(global:collection-vars($collection)/@app-root),'/','search-config.xml')
 return 
     if(doc-available($search-config)) then 
         search:build-form($search-config) 
