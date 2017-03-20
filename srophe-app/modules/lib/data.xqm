@@ -52,7 +52,7 @@ declare function data:get-rec($id as xs:string?){
             for $rec in util:eval(concat('collection($global:data-root)//tei:TEI[',$global:id-path,' = $id]'))
             return $rec
         else
-            for $rec in collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][text() = concat($id,'/tei')]]
+            for $rec in collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][. = concat($id,'/tei')]]
             return $rec 
 };
 
@@ -97,7 +97,7 @@ declare function data:parse-collections($series as xs:string?) as xs:string? {
     if($series = ('persons','sbd')) then 'The Syriac Biographical Dictionary'
     else if($series = ('saints','q')) then 'Qadishe: A Guide to the Syriac Saints'
     else if($series = 'authors' ) then 'A Guide to Syriac Authors'
-    else if($series = 'bhse' ) then 'Bibliotheca Hagiographica Syriaca Electronica'
+    else if($series = 'bhse' ) then ()(:'Bibliotheca Hagiographica Syriaca Electronica':)
     else if($series = 'nhsl' ) then 'New Handbook of Syriac Literature'
     else if($series = ('places','The Syriac Gazetteer')) then 'The Syriac Gazetteer'
     else if($series = ('spear','SPEAR: Syriac Persons, Events, and Relations')) then 'SPEAR: Syriac Persons, Events, and Relations'
@@ -221,12 +221,18 @@ declare function data:get-browse-data($collection as xs:string*, $series as xs:s
             for $hit in $hits-main/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]
             order by global:build-sort-string(page:add-sort-options($hit,$sort),'') collation "?lang=en&lt;syr&amp;decomposition=full"
             return $hit/ancestor::tei:TEI
-    (: Generic options :)        
+    (: Generic options :) 
         else if($data:computed-lang != '') then 
-            for $hit in $hits-main[matches(substring(global:build-sort-string(.,$data:computed-lang),1,1),data:get-alpha-filter(),'i')]
-            let $title := global:build-sort-string($hit,$data:computed-lang)
-            order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
-            return <browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$hit}">{$hit/ancestor::tei:TEI}</browse>
+            if(data:get-alpha-filter() = 'ALL') then 
+                for $hit in $hits-main
+                let $title := global:build-sort-string($hit,$data:computed-lang)
+                order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
+                return <browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$hit}">{$hit/ancestor::tei:TEI}</browse>
+            else
+                for $hit in $hits-main[matches(substring(global:build-sort-string(.,$data:computed-lang),1,1),data:get-alpha-filter(),'i')]
+                let $title := global:build-sort-string($hit,$data:computed-lang)
+                order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
+                return <browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$hit}">{$hit/ancestor::tei:TEI}</browse>
         else if(request:get-parameter('view', '') = 'numeric') then
             for $hit in $hits-main/ancestor::tei:TEI/descendant::tei:idno[starts-with(.,$global:base-uri)][1]
             let $rec-id := tokenize(replace($hit,'/tei|/source',''),'/')[last()]

@@ -7,6 +7,7 @@ module namespace person="http://syriaca.org/person";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace app="http://syriaca.org/templates" at "app.xql";
+import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
@@ -250,7 +251,7 @@ return
                                                 {
                                                     for $citation in $results/citation[position() lt 5]
                                                     return
-                                                        <li><a href="{concat('http://www.worldcat.org/oclc/',substring-after($citation/oclcnum[1]/text()[1],'ocn'))}">{$citation/title/text()}</a></li>
+                                                        <li><a href="{concat('http://www.worldcat.org/oclc/',substring-after($citation/oclcnum/text(),'ocn'))}">{$citation/title/text()}</a></li>
                                                  }
                                              </ul>
                                              <span class="pull-right"><a href="{$uri}">See all {$total-works} titles from WorldCat</a></span>,<br/>
@@ -280,7 +281,7 @@ if($model("data")/descendant::tei:relation) then
 else ()
 };
 
-declare %templates:wrap function person:authored-by($node as node()*, $model as map(*)){
+declare %templates:wrap function person:authored-by($node as node(), $model as map(*)){
 let $rec := $model("data")
 let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1]/text(),'/tei','')
 let $works := collection($global:data-root || '/works/tei')//tei:author[@ref =  $recid]  
