@@ -4,10 +4,14 @@
 xquery version "3.0";
 
 module namespace facet-defs="http://syriaca.org/facet-defs";
+import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 declare function facet-defs:facet-definition($collection){
-if($collection = 'persons') then
+let $facet-def := concat($global:app-root, '/', string(global:collection-vars($collection)/@app-root),'/','facet-def.xml')
+return 
+if(doc-available($facet-def)) then doc($facet-def)
+else if($collection = ('persons','sbd')) then
 <facets xmlns="http://expath.org/ns/facet">
     <facet-definition name="Type">
         <group-by function="facet:group-by-sub-module">
@@ -237,33 +241,6 @@ else if($collection = 'spear-keywords') then
         </group-by>
         <max-values show="5">100</max-values>
         <order-by direction="ascending">count</order-by>
-    </facet-definition>
-</facets> 
-else if($collection = 'places') then 
-<facets xmlns="http://expath.org/ns/facet">
-    <facet-definition name="Type">
-        <group-by function="facet:group-place-type">
-            <sub-path>descendant::tei:place/@type</sub-path>
-        </group-by>
-        <max-values show="100">100</max-values>
-        <order-by direction="descending">count</order-by>
-    </facet-definition>
-</facets>    
-else if($collection = 'manuscripts') then 
-<facets xmlns="http://expath.org/ns/facet">
-    <facet-definition name="Repository">
-        <group-by>
-            <sub-path>descendant::tei:repository</sub-path>
-        </group-by>
-        <max-values show="5">50</max-values>
-        <order-by direction="descending">count</order-by>
-    </facet-definition>
-    <facet-definition name="Country">
-        <group-by>
-            <sub-path>descendant::tei:country</sub-path>
-        </group-by>
-        <max-values show="5">50</max-values>
-        <order-by direction="descending">count</order-by>
     </facet-definition>
 </facets> 
 else ()
