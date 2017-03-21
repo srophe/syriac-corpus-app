@@ -6,7 +6,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2017-03-15T18:19:33Z. .
+# Schema generated from ODD source 2017-03-21T19:36:24Z. .
 # TEI Edition: Version 3.1.0. Last updated on
 #	15th December 2016, revision d3f5e70
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.1.0/
@@ -5600,7 +5600,7 @@ tei_relation =
     tei_att.typed.attribute.subtype,
     
     ## (reference) An RDF property applicable to the relation. This may be a custom Syriaca.org property, such as one found at http://syriaca.org/documentation/relations.html or one from an external vocabulary such as SNAP or LAWD.
-    ## Suggested values include: 1] dct:source(is derived from) ; 2] lawd:embodies(embodies) ; 3] syriaca:commemorated(commemorates) ; 4] dct:isPartOf(is part of) ; 5] skos:broadMatch(has broad match) 
+    ## Suggested values include: 1] dct:source(is derived from) ; 2] lawd:embodies(embodies) ; 3] syriaca:commemorated(commemorates) ; 4] dct:isPartOf(is part of) ; 5] skos:broadMatch(has broad match) ; 6] syriaca:hasRelationToPlace(has relation to place) ; 7] syriaca:bornAt(was born at) ; 8] syriaca:hasLiteraryConnectionToPlace(has literary connection to place) ; 9] syriaca:differentFrom(should be distinguished from) ; 10] syriaca:possiblyIdentical(is possibly identical to) ; 11] syriaca:diedAt(died at) 
     attribute ref {
       list {
         (
@@ -5618,6 +5618,24 @@ tei_relation =
          | 
            ## (has broad match) A resource with a broader or more generic definition that encompasses the current resource along with others. Syriaca.org describes the broader resource using a "composite URI". SKOS definition: skos:broadMatch is used to state a hierarchical mapping link between two conceptual resources in different concept schemes. (https://www.w3.org/2009/08/skos-reference/skos.rdf#broadMatch).
            "skos:broadMatch"
+         | 
+           ## (has relation to place) A place to which an entity (e.g., person) has an unspecified relation.
+           "syriaca:hasRelationToPlace"
+         | 
+           ## (was born at) The place where a person was born.
+           "syriaca:bornAt"
+         | 
+           ## (has literary connection to place) A place to which an entity (e.g., person) has a literary connection.
+           "syriaca:hasLiteraryConnectionToPlace"
+         | 
+           ## (should be distinguished from) Entities (in @mutual) that are not identical but have been or could be confused.
+           "syriaca:differentFrom"
+         | 
+           ## (is possibly identical to) Entities (in @mutual) that are possibly identical to each other.
+           "syriaca:possiblyIdentical"
+         | 
+           ## (died at) The place where a person died.
+           "syriaca:diedAt"
          | xsd:anyURI)+
       }
     },

@@ -822,6 +822,30 @@
                                         SKOS definition: <quote>skos:broadMatch is used to state a hierarchical mapping link between two conceptual resources in different concept schemes.</quote>
                                         (<ref target="https://www.w3.org/2009/08/skos-reference/skos.rdf#broadMatch">https://www.w3.org/2009/08/skos-reference/skos.rdf#broadMatch</ref>).</desc>
                                 </valItem>
+                                <valItem ident="syriaca:hasRelationToPlace">
+                                    <gloss>has relation to place</gloss>
+                                    <desc>A place to which an entity (e.g., person) has an unspecified relation.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:bornAt">
+                                    <gloss>was born at</gloss>
+                                    <desc>The place where a person was born.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:hasLiteraryConnectionToPlace">
+                                    <gloss>has literary connection to place</gloss>
+                                    <desc>A place to which an entity (e.g., person) has a literary connection.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:differentFrom">
+                                    <gloss>should be distinguished from</gloss>
+                                    <desc>Entities (in @mutual) that are not identical but have been or could be confused.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:possiblyIdentical">
+                                    <gloss>is possibly identical to</gloss>
+                                    <desc>Entities (in @mutual) that are possibly identical to each other.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:diedAt">
+                                    <gloss>died at</gloss>
+                                    <desc>The place where a person died.</desc>
+                                </valItem>
                             </valList>
                         </attDef>
                         <attDef ident="active" mode="change">
