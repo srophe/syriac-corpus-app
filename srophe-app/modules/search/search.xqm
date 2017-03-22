@@ -172,7 +172,7 @@ declare function search:search-string($collection as xs:string?){
  : Count total hits
 :)
 declare  %templates:wrap function search:hit-count($node as node()*, $model as map(*)) {
-    count($model("hits"))
+    count($model("hits")//tei:rec)
 };
 
 (:~
@@ -181,10 +181,10 @@ declare  %templates:wrap function search:hit-count($node as node()*, $model as m
 :)
 declare  %templates:wrap function search:pageination($node as node()*, $model as map(*), $collection as xs:string?, $view as xs:string?, $sort-options as xs:string*){
    if($view = 'all') then 
-        page:pages($model("hits"), $search:start, $search:perpage, '', $sort-options)
+        page:pages($model("hits")//tei:rec, $search:start, $search:perpage, '', $sort-options)
         (:page:pageination($model("hits"), $search:start, $search:perpage, true()):)
    else if(exists(request:get-parameter-names())) then 
-        page:pages($model("hits"), $search:start, $search:perpage, search:search-string($collection), $sort-options)
+        page:pages($model("hits")//tei:rec, $search:start, $search:perpage, search:search-string($collection), $sort-options)
         (:page:pageination($model("hits"), $search:start, $search:perpage, true(), $collection, search:search-string($collection)):)
    else ()
 };
@@ -194,7 +194,7 @@ declare  %templates:wrap function search:pageination($node as node()*, $model as
  : @param $node search resuls with coords
 :)
 declare function search:build-geojson($node as node()*, $model as map(*)){
-let $data := $model("hits")
+let $data := $model("hits")//tei:rec
 let $geo-hits := $data//tei:geo
 return
     if(count($geo-hits) gt 0) then
@@ -248,6 +248,41 @@ declare %templates:wrap  function search:show-form($node as node()*, $model as m
         else <div>{search:search-form($collection)}</div>
 };
 
+declare function search:show-grps($nodes, $p, $collection){
+    for $node in $nodes
+    return 
+        typeswitch($node)
+            case element(tei:grp) return 
+                <div class="indent group">{search:show-grps($node/node(),$p,$collection)}</div>
+            case element(tei:rec) return search:show-rec($node, $p,$collection)
+            default return search:show-grps($node/node(),$p,$collection)
+};
+
+declare function search:show-rec($hit, $p, $collection){
+    <div class="record" xml:lang="en">{
+            if(starts-with(request:get-parameter('author', ''),$global:base-uri)) then global:display-recs-short-view($hit,'',request:get-parameter('author', ''))
+            else if($collection = 'spear') then 
+                <div class="results-list">
+                    {
+                        if($hit/tei:title) then (' ', <a href="aggregate.html?id={replace($hit//tei:idno,'/tei','')}" class="syr-label">{string-join($hit/descendant-or-self::tei:title[1]/node(),' ')}</a>)
+                        else (
+                                if($hit/tei:listRelation) then <span class="srp-label">[{concat(' ', functx:camel-case-to-words(substring-after($hit/tei:listRelation/tei:relation/@name,':'),' '))} relation] </span>
+                                else if($hit/tei:listPerson) then <span class="srp-label">[Person factoid] </span>
+                                else if($hit/tei:listEvent) then <span class="srp-label">[Event factoid] </span>
+                                else (),
+                                <a href="factoid.html?id={string($hit/@uri)}" class="syr-label">{
+                                    if($hit/descendant-or-self::tei:titleStmt) then $hit/descendant-or-self::tei:titleStmt[1]/text()
+                                    else if($hit/tei:listRelation) then 
+                                        <span> {rel:build-short-relationships($hit/tei:listRelation/tei:relation,'')}</span>
+                                    else substring(string-join($hit/child::*[1]/descendant-or-self::*/text(),' '),1,550)
+                                     }</a>
+                              )}
+                </div>  
+                else if(request:get-parameter('relation', '') and $collection = 'spear') then <a href="factoid.html?id={string($hit/@uri)}">{rel:build-relationship-sentence($hit/descendant::tei:relation,$spears:relation)}</a>
+                else global:display-recs-short-view($hit,'')
+            }</div>
+};
+
 (:~ 
  : Builds results output
 :)
@@ -257,56 +292,10 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
 <div class="indent" id="search-results">
     <div>{search:build-geojson($node,$model)}</div>
     {
-        for $hit at $p in subsequence($model("hits"), $search:start, $search:perpage)
+        for $hit at $p in subsequence($model("hits")/tei:grp, $search:start, $search:perpage)
         return
-            <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
-                <div class="col-md-12">
-                      <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">
-                        <span class="badge">
-                            {
-                                if(request:get-parameter('child-rec', '') != '' and ($search:sort-element = '' or not(exists($search:sort-element)))) then
-                                    string($hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order']/@n)
-                                else $search:start + $p - 1
-                            }
-                        </span>
-                      </div>
-                      <div class="col-md-9" xml:lang="en">
-                        {
-                         if(starts-with(request:get-parameter('author', ''),$global:base-uri)) then 
-                             global:display-recs-short-view($hit,'',request:get-parameter('author', ''))
-                         else if($collection = 'spear') then 
-                            <div class="results-list">
-                                 {
-                                 if($hit/tei:title) then
-                                     (' ', <a href="aggregate.html?id={replace($hit//tei:idno,'/tei','')}" class="syr-label">{string-join($hit/descendant-or-self::tei:title[1]/node(),' ')}</a>)
-                                 else 
-                                     (if($hit/tei:listRelation) then 
-                                         <span class="srp-label">[{concat(' ', functx:camel-case-to-words(substring-after($hit/tei:listRelation/tei:relation/@name,':'),' '))} relation] </span>
-                                     else if($hit/tei:listPerson) then
-                                         <span class="srp-label">[Person factoid] </span>
-                                     else if($hit/tei:listEvent) then
-                                         <span class="srp-label">[Event factoid] </span>
-                                     else (),
-                                     <a href="factoid.html?id={string($hit/@uri)}" class="syr-label">
-                                     {
-                                         if($hit/descendant-or-self::tei:titleStmt) then $hit/descendant-or-self::tei:titleStmt[1]/text()
-                                         else if($hit/tei:listRelation) then 
-                                             <span> 
-                                              {rel:build-short-relationships($hit/tei:listRelation/tei:relation,'')}
-                                             </span>
-                                         else substring(string-join($hit/child::*[1]/descendant-or-self::*/text(),' '),1,550)
-                                     }                                    
-                                 </a>)
-                                 }
-                             </div>  
-                         else if(request:get-parameter('relation', '') and $collection = 'spear') then
-                            <a href="factoid.html?id={string($hit/@uri)}">{rel:build-relationship-sentence($hit/descendant::tei:relation,$spears:relation)}</a>
-                         else global:display-recs-short-view($hit,'')
-                        } 
-                      </div>
-                </div>
-            </div>
-       } 
+        <div class="results" style="border-bottom:1px dotted #eee; padding-top:.5em; padding-top:1em;">{search:show-grps($hit, $p, $collection)}</div>
+     } 
 </div>
 };
 

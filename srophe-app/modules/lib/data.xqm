@@ -147,7 +147,8 @@ declare function data:get-browse-data($collection as xs:string*, $series as xs:s
         if(request:get-parameter('sort', '') != '') then request:get-parameter('sort', '') 
         else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
         else ()        
-    let $hits-main := util:eval(concat(data:build-browse-path($collection-path, $series-path),facet:facet-filter(facet-defs:facet-definition($facets)),data:lang-filter($element)))
+    let $hits := util:eval(concat(data:build-browse-path($collection-path, $series-path),facet:facet-filter(facet-defs:facet-definition($facets)),data:lang-filter($element)))
+    let $hits-main := $hits[not(descendant::tei:relation[@name='skos:broadMatch'])]
     return 
     (:<p>{concat(data:build-browse-path($collection-path, $series-path),facet:facet-filter(facet-defs:facet-definition($series)),data:lang-filter($element))}</p>:)
     (: Special SPEAR options:)
@@ -208,7 +209,6 @@ declare function data:get-browse-data($collection as xs:string*, $series as xs:s
             let $title := global:build-sort-string($hit,$data:computed-lang)
             order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
             return $hit/ancestor-or-self::tei:TEI
-    
 };
 
 (:
@@ -226,26 +226,60 @@ declare function data:browse-data-pages($collection as xs:string*, $series as xs
     return $hit    
 };
 
+(:~
+ : Dynamic relationships
+:)
+declare function data:get-dynamic-relations($current-record-id as xs:string?, $relType as xs:string?){
+for $r in collection($global:data-root)//tei:body[child::*/tei:listRelation/tei:relation[@passive[functx:contains-word(.,$current-record-id)]][@ref=$relType or @name=$relType]]
+let $part := 
+            if($r/child::*/tei:listRelation/tei:relation[@passive[functx:contains-word(.,$current-record-id)]]/tei:desc/tei:label[@type='order'][1]/@n castable as xs:integer) then xs:integer($r/child::*/tei:listRelation/tei:relation[@passive[functx:contains-word(.,$current-record-id)]]/tei:desc/tei:label[@type='order'][1]/@n)
+            else 0
+order by $part 
+return $r
+};
+
 (: Search functions :)
 declare function data:search($query-string as xs:string?){
     if(exists(request:get-parameter-names()) or (request:get-parameter('view', '') = 'all')) then 
-        if(request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance' or request:get-parameter('view', '') = 'all') then 
-            for $hit in util:eval($query-string)
-            order by global:build-sort-string(page:add-sort-options($hit,request:get-parameter('sort-element', '')),'') ascending
-            return $hit   
-        else if(request:get-parameter('rel', '') != '' and (request:get-parameter('sort-element', '') = '' or not(exists(request:get-parameter('sort-element', ''))))) then 
-            for $hit in util:eval($query-string)
-            let $part := xs:integer($hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
-            order by $part
-            return $hit                                                                                               
-        else 
-            for $hit in util:eval($query-string)
-            (: let $expanded := util:expand($hit, "expand-xincludes=no")
-               let $headword := count($expanded/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][descendant::*:match])
-                let $headword := if($headword gt 0) then $headword + 15 else 0:)
-            order by ft:score($hit) + (count($hit/descendant::tei:bibl) div 100) descending
-            return $hit
+        let $hits := util:eval($query-string)
+        return 
+            <results total="{count($hits)}" xmlns="http://www.tei-c.org/ns/1.0">{
+                if(request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance' or request:get-parameter('view', '') = 'all') then 
+                    for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
+                    let $id := $h//tei:idno[1]
+                    order by global:build-sort-string(page:add-sort-options($h,request:get-parameter('sort-element', '')),'') ascending
+                    return data:get-children($hits, $id)
+                else if(request:get-parameter('rel', '') != '' and (request:get-parameter('sort-element', '') = '' or not(exists(request:get-parameter('sort-element', ''))))) then
+                    for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
+                    let $id := $h//tei:idno[1]
+                    let $part := xs:integer($h/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
+                    order by $part
+                    return data:get-children($hits, $id)        
+                else
+                    for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
+                    let $id := $h//tei:idno[1]
+                    order by ft:score($h) + (count($h/descendant::tei:bibl) div 100) descending
+                    return data:get-children($hits, $id)
+                }
+            </results>                
     else ()  
+};
+
+(:~
+ : Group results by skos:broadMatch
+ : @param $hits results set 
+ : @param $id current parent id
+ [matches(.,'",$q,"(\W.*)?$')]
+:)
+declare function data:get-children($hits as node()*, $id as node()?) as node()*{
+    <grp head="{$id}" xmlns="http://www.tei-c.org/ns/1.0">
+        <rec xmlns="http://www.tei-c.org/ns/1.0">{for $h in $hits[.//tei:idno[@type='URI'][. = $id]] return $h}</rec>
+        {
+            for $h in $hits[.//tei:relation[@ref='skos:broadMatch'][@passive = $id]]
+            let $i := $h//tei:idno[@type='URI'][1]    
+            return data:get-children($hits, $i)
+        }
+    </grp>
 };
 
 (:

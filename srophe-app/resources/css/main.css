@@ -862,6 +862,8 @@ pre {
     }
 .caret {float:left; margin-left:.5em; margin-top:.5em;}    
 }
+.group {padding-left:2.5em;}
+.results .record {padding-left:1em;}
 .short-relationships {display:block;}
 .wiki-page-link {font-weight:normal;}
 select.keyboardSelect {display:none;}
