@@ -289,7 +289,7 @@ let $count := count($works)
 return 
     if($count gt 0) then 
         <div xmlns="http://www.w3.org/1999/xhtml">
-            <h3>Works by {substring-before($rec/descendant::tei:title[1]/text(),' — ')} in the New Handbook of Syriac Literature</h3>
+            <h3>Works by {substring-before($rec/descendant::tei:title[1],' — ')} in the New Handbook of Syriac Literature</h3>
             {(
                 if($rec/descendant::tei:note[@type='authorship']) then
                     global:tei2html($rec/descendant::tei:note[@type='authorship'])
@@ -305,7 +305,7 @@ return
                             <div>
                             <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
                             data-ref="{$global:nav-base}/bhse/search.html?author={$recid}&amp;perpage={$count}&amp;sort=alpha" 
-                            data-label="Works by {substring-before($rec/descendant::tei:title[1]/text(),' — ')} in the New Handbook of Syriac Literature" id="works">
+                            data-label="Works by {substring-before($rec/descendant::tei:title[1],' — ')} in the New Handbook of Syriac Literature" id="works">
                               See all {count($works)} works
                              </a>
                             </div>
