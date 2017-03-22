@@ -149,7 +149,6 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
                     <div class="row">
                         <div class="col-sm-12">
                         {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else()}
-                        <h3>Results: {count($hits//tei:rec)}</h3>
                         {browse:display-hits($hits)}
                         </div>
                     </div>
@@ -181,20 +180,16 @@ return
 
 };
 
-declare function browse:show-grps($nodes, $p){
-    for $node in $nodes
+(:
+ : Pass each TEI result through xslt stylesheet
+:)
+declare function browse:display-hits($hits){
+    for $data in subsequence($hits, $browse:start,$browse:perpage)
+    let $sort-title := if($browse:computed-lang != ('en','syr')) then string($data/@sort-title) else () 
     return 
-        typeswitch($node)
-            case element(tei:grp) return 
-                <div class="indent group">{browse:show-grps($node/node(),$p)}</div>
-            case element(tei:rec) return browse:show-rec($node, $p)
-            default return browse:show-grps($node/node(),$p)
-};
-
-declare function browse:show-rec($hit, $p){
-let $sort-title := if($browse:computed-lang != ('en','syr')) then string($hit/@sort-title) else ()
-return <div class="record" xml:lang="en">{
-             transform:transform($hit, doc($global:app-root || '/resources/xsl/rec-short-view.xsl'), 
+        <div xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
+            { 
+             transform:transform($data, doc($global:app-root || '/resources/xsl/rec-short-view.xsl'), 
                 <parameters>
                     <param name="data-root" value="{$global:data-root}"/>
                     <param name="app-root" value="{$global:app-root}"/>
@@ -205,17 +200,8 @@ return <div class="record" xml:lang="en">{
                     <param name="sort-title" value="{$sort-title}"/>
                 </parameters>
                 )
-            }</div>
-};
-
-(:
- : Pass each TEI result through xslt stylesheet
-:)
-declare function browse:display-hits($hits){
-    for $hit at $p in subsequence($hits, $browse:start,$browse:perpage)
-    let $id := replace($hit/descendant::tei:idno[1],'/tei','')
-    return browse:show-grps($hit, $p)
-        
+            }
+        </div>
 };
 
 (: Display map :)

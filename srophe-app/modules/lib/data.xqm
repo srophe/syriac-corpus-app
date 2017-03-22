@@ -69,14 +69,6 @@ declare function data:get-title($uri as xs:string?) as xs:string?{
 };
 
 (:~
- : Get record id string
- : @param $rec
-:)
-declare function data:get-id($rec as node()?) as node()?{
-    if($global:id-path != '') then util:eval(concat('$rec/ancestor::tei:TEI/',$global:id-path,'[1]'))
-    else root($rec)/descendant::tei:body/descendant::tei:idno[1]
-};
-(:~
  : Build browse path.
  : @param $collection as xs:string physical eXistdb collection
  : @param $series as xs:string defined by seriesStmt
@@ -155,7 +147,8 @@ declare function data:get-browse-data($collection as xs:string*, $series as xs:s
         if(request:get-parameter('sort', '') != '') then request:get-parameter('sort', '') 
         else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
         else ()        
-    let $hits-main := util:eval(concat(data:build-browse-path($collection-path, $series-path),facet:facet-filter(facet-defs:facet-definition($facets)),data:lang-filter($element)))
+    let $hits := util:eval(concat(data:build-browse-path($collection-path, $series-path),facet:facet-filter(facet-defs:facet-definition($facets)),data:lang-filter($element)))
+    let $hits-main := $hits[not(descendant::tei:relation[@name='skos:broadMatch'])]
     return 
     (:<p>{concat(data:build-browse-path($collection-path, $series-path),facet:facet-filter(facet-defs:facet-definition($series)),data:lang-filter($element))}</p>:)
     (: Special SPEAR options:)
@@ -202,13 +195,10 @@ declare function data:get-browse-data($collection as xs:string*, $series as xs:s
                 order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
                 return <browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$hit}">{$hit/ancestor::tei:TEI}</browse>
             else
-                let $hits := $hits-main[matches(substring(global:build-sort-string(.,$data:computed-lang),1,1),data:get-alpha-filter(),'i')]
-                for $hit in $hits[ancestor::tei:TEI[not(descendant::tei:relation[@ref='skos:broadMatch'])]]
+                for $hit in $hits-main[matches(substring(global:build-sort-string(.,$data:computed-lang),1,1),data:get-alpha-filter(),'i')]
                 let $title := global:build-sort-string($hit,$data:computed-lang)
-                let $id := data:get-id($hit)
                 order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
-                return data:get-children(<browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$hit}">{$hit/ancestor::tei:TEI}</browse>,$hits,$id)
-                
+                return <browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$hit}">{$hit/ancestor::tei:TEI}</browse>
         else if(request:get-parameter('view', '') = 'numeric') then
             for $hit in $hits-main/ancestor::tei:TEI/descendant::tei:idno[starts-with(.,$global:base-uri)][1]
             let $rec-id := tokenize(replace($hit,'/tei|/source',''),'/')[last()]
@@ -256,20 +246,20 @@ declare function data:search($query-string as xs:string?){
             <results total="{count($hits)}" xmlns="http://www.tei-c.org/ns/1.0">{
                 if(request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance' or request:get-parameter('view', '') = 'all') then 
                     for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
-                    let $id := data:get-id($h)
+                    let $id := $h//tei:idno[1]
                     order by global:build-sort-string(page:add-sort-options($h,request:get-parameter('sort-element', '')),'') ascending
-                    return data:get-children($h, $hits, $id)
+                    return data:get-children($hits, $id)
                 else if(request:get-parameter('rel', '') != '' and (request:get-parameter('sort-element', '') = '' or not(exists(request:get-parameter('sort-element', ''))))) then
                     for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
-                    let $id := data:get-id($h)
+                    let $id := $h//tei:idno[1]
                     let $part := xs:integer($h/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
                     order by $part
-                    return data:get-children($h, $hits, $id)        
+                    return data:get-children($hits, $id)        
                 else
                     for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
-                    let $id := data:get-id($h)
+                    let $id := $h//tei:idno[1]
                     order by ft:score($h) + (count($h/descendant::tei:bibl) div 100) descending
-                    return data:get-children($h, $hits, $id)
+                    return data:get-children($hits, $id)
                 }
             </results>                
     else ()  
@@ -281,17 +271,16 @@ declare function data:search($query-string as xs:string?){
  : @param $id current parent id
  [matches(.,'",$q,"(\W.*)?$')]
 :)
-declare function data:get-children($hit as node(), $hits as node()*, $id as node()?) as node()*{
+declare function data:get-children($hits as node()*, $id as node()?) as node()*{
     <grp head="{$id}" xmlns="http://www.tei-c.org/ns/1.0">
-        <rec xmlns="http://www.tei-c.org/ns/1.0">{root($hit)}</rec>
+        <rec xmlns="http://www.tei-c.org/ns/1.0">{for $h in $hits[.//tei:idno[@type='URI'][. = $id]] return $h}</rec>
         {
-            for $h in $hits[ancestor::tei:TEI/descendant::tei:relation[@ref='skos:broadMatch'][@passive = $id]]
-            let $i := data:get-id($h)    
-            return data:get-children($h, $hits, $i)
+            for $h in $hits[.//tei:relation[@ref='skos:broadMatch'][@passive = $id]]
+            let $i := $h//tei:idno[@type='URI'][1]    
+            return data:get-children($hits, $i)
         }
     </grp>
 };
-
 
 (:
  : Limit results by per-page search function 
@@ -381,7 +370,7 @@ declare function data:related-places() as xs:string?{
             else 
                 string-join(distinct-values(
                     for $r in collection($global:data-root || '/places')//tei:place[ft:query(tei:placeName,$related-place,data:search-options())]
-                    let $id := data:get-id($r)
+                    let $id := $r//tei:idno[starts-with(.,'http://syriaca.org')]
                     return $id),'|')                   
         return 
             if($ids != '') then 
@@ -410,7 +399,7 @@ declare function data:related-persons() as xs:string?{
             else 
                 string-join(distinct-values(
                     for $r in collection($global:data-root || '/persons')//tei:person[ft:query(tei:persName,$rel-person,data:search-options())]
-                    let $id := data:get-id($r)
+                    let $id := $r//tei:idno[starts-with(.,'http://syriaca.org')]
                     return $id),'|')   
         return 
             if(request:get-parameter('person-type', '')) then
