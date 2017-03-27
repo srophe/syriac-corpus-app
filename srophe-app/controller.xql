@@ -73,7 +73,7 @@ else if (contains($exist:path,'/api/')) then
     </dispatch>
 else if (ends-with($exist:path, "/atom") or ends-with($exist:path, "/tei")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <forward url="{concat('/restxq', $exist:path)}" absolute="yes"/>
+        <forward url="{concat('/restxq/srophe', $exist:path)}" absolute="yes"/>
     </dispatch>
 else if (ends-with($exist:resource, ".html")) then
     (: the html page is run through view.xql to expand templates :)
