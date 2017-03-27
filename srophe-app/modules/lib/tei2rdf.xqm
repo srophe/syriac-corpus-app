@@ -250,6 +250,19 @@ declare function tei2rdf:rdf-output($recs){
 </rdf:RDF>
 };
 
+declare function tei2rdf:save-rec($doc){
+let $id := $doc/descendant::tei:idno[1]
+let $filename := concat(tokenize(replace($id,'/tei',''),'/')[last()],'.rdf')
+let $collection := substring-before(substring-after($id,'http://syriaca.org/'),'/')
+let $file-data :=  
+        try {
+            tei2rdf:rdf-output($doc)
+        } catch * {
+            <error>Caught error {$err:code}: {$err:description}</error>
+            }  
+return xmldb:store(xs:anyURI(concat('/db/apps/srophe-data/rdf/',$collection,'s')), xmldb:encode-uri($filename), $file-data)
+        
+};
 declare function tei2rdf:get-ttl($id, $collection, $start, $perpage){
 if($id) then 
     let $rec := data:get-rec($id)
