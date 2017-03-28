@@ -703,5 +703,5 @@ function app:fix-links($node as node(), $model as map(*)) {
 declare  
     %templates:wrap 
 function app:google-analytics($node as node(), $model as map(*)){
-   $global:get-config//google_analytics/text() 
+   $global:get-config//repo:google_analytics/text() 
 };
