@@ -560,7 +560,6 @@
             <xsl:apply-templates/>
         </p>
     </xsl:template>
-    
     <!-- General descriptions within the body of the place element, uses lists -->
     <xsl:template match="t:desc[not(starts-with(@xml:id, 'abstract-en'))]">
         <li>
@@ -1095,7 +1094,7 @@
             <!-- End Title -->
         </div>
         <!-- emit record URI and associated help links -->
-        <div style="margin:0 1em 1em; color: #999999;">
+        <div class="well" style="margin:0; margin-top:-1em; margin-bottom: 1em; padding:1em; color: #999999;">
             <xsl:variable name="current-id">
                 <xsl:variable name="idString" select="tokenize($resource-id,'/')[last()]"/>
                 <xsl:variable name="idSubstring">
@@ -1120,7 +1119,7 @@
             <xsl:variable name="next-uri" select="replace($resource-id,$current-id,string($next-id))"/>
             <xsl:variable name="prev-uri" select="replace($resource-id,$current-id,string($prev-id))"/>                
             <small>
-                <p>
+                <span class="uri">
                     <xsl:if test="starts-with($nav-base,'/exist/apps')">
                         <a href="{replace($prev-uri,$base-uri,$nav-base)}">
                             <span class="glyphicon glyphicon-backward" aria-hidden="true"/>
@@ -1150,10 +1149,47 @@
                             <span class="glyphicon glyphicon-forward" aria-hidden="true"/>
                         </a>
                     </xsl:if>
-                </p>
+                </span>
+            <xsl:if test="t:seriesStmt/t:biblScope/t:title">
+                <span class="series pull-right" style="margin-left:2em; padding-left:2em; display:inline">
+                    <xsl:text>This page is an entry in </xsl:text>
+                    <xsl:for-each select="distinct-values(t:seriesStmt/t:biblScope/t:title)">
+                            <xsl:choose>
+                                <xsl:when test=". = 'The Syriac Biographical Dictionary'"/>
+                                <xsl:when test=". = 'A Guide to Syriac Authors'">
+                                     <xsl:text> </xsl:text><a href="{$nav-base}/authors/index.html">
+                                         <span class="syriaca-icon syriaca-authors" style="font-size:1.35em; vertical-align: middle;"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                                        <span> A Guide to Syriac Authors</span>
+                                    </a>
+                                </xsl:when>
+                                <xsl:when test=". = 'Qadishe: A Guide to the Syriac Saints'">
+                                    <xsl:text> </xsl:text><a href="{$nav-base}/q/index.html">
+                                        <span class="syriaca-icon syriaca-q" style="font-size:1.35em; vertical-align: middle;"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                                        <span> Qadishe: A Guide to the Syriac Saints</span>
+                                    </a>
+                                </xsl:when>
+                                <xsl:when test=". = 'Bibliotheca Hagiographica Syriaca Electronica'">
+                                    <xsl:text> </xsl:text><a href="{$nav-base}/bhse/index.html">
+                                        <span class="syriaca-icon syriaca-bhse" style="font-size:1.35em; vertical-align: middle;"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                                        <span> Bibliotheca Hagiographica Syriaca Electronica</span>
+                                    </a>
+                                </xsl:when>
+                                <xsl:when test=". = 'New Handbook of Syriac Literature'">
+                                    <xsl:text> </xsl:text><a href="{$nav-base}/nhsl/index.html">
+                                        <span class="syriaca-icon syriaca-nhsl" style="font-size:1.35em; vertical-align: middle;"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                                        <span> New Handbook of Syriac Literature</span>
+                                    </a>
+                                </xsl:when>
+                                <xsl:otherwise></xsl:otherwise>
+                            </xsl:choose>
+                        <xsl:if test="position() != last()"> and </xsl:if>
+                    </xsl:for-each>    
+                </span>
+            </xsl:if>
             </small>
         </div>
     </xsl:template>
+
     <xsl:template name="title">
         <span id="title">
             <xsl:choose>
@@ -1259,6 +1295,7 @@
                 <xsl:text>) </xsl:text>
             </span>
         </xsl:if>
+        <!--
         <xsl:for-each select="distinct-values(t:seriesStmt/t:biblScope/t:title)">
             <xsl:text>&#160; </xsl:text>
             <xsl:choose>
@@ -1290,6 +1327,7 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each>
+        -->
     </xsl:template>
     
     <!-- Main page modules for syriaca.org display -->
