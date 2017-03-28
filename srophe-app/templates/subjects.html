@@ -54,7 +54,10 @@
                     usePreview: false,
                     initialFocus: true,
                     rtl : true,
-                    layout: 'syriac-phonetic'
+                    layout: 'syriac-phonetic',
+                    hidden: function(event, keyboard, el){
+                         keyboard.destroy();
+                     }
                 });
                 
                 $('.keyboard-select').click(function () {
@@ -105,7 +108,10 @@
                         <li>
                             <a href="$app-root/index.html" class="icon-container">
                                 <span class="syriaca-icon syriaca-syriaca icon-nav">
-                                    <span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/>
+                                    <span class="path1"/>
+                                    <span class="path2"/>
+                                    <span class="path3"/>
+                                    <span class="path4"/>
                                 </span>
                                 <span class="icon-text">Syriaca.org</span>
                             </a>

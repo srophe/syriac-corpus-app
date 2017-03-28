@@ -55,11 +55,12 @@
                     usePreview: false,
                     initialFocus: true,
                     rtl : true,
-                    layout: 'syriac-phonetic'
+                    layout: 'syriac-phonetic',
+                    hidden: function(event, keyboard, el){
+                         keyboard.destroy();
+                     }
                 });
-                
-                
-                
+                 
                 $('.keyboard-select').click(function () {
                     var keyboardID = '#' + $(this).data("keyboard-id")
                     var kb = $(keyboardID).getkeyboard();
@@ -70,6 +71,17 @@
                     if (kb.last.layout !== kb.options.layout || (new Date().getTime() - kb.last.eventTime) > 200) {
                         kb.reveal();
                     }
+
+                    /*
+                    if (this.checked) {
+            			$kb.keyboard();
+            		} else {
+            			kb = $kb.getkeyboard();
+            			if (kb) {
+            				kb.destroy();
+            			}
+            		}
+                    */
                 });
                 //Change fonts
                 $('.swap-font').on('click', function(){
@@ -99,7 +111,10 @@
                     <a class="navbar-brand banner-container" href="$app-root/index.html">
                         <!--<img property="logo" class="img-responsive" alt="Syriac.org" src="$app-root/resources/img/syriaca-logo.png"/> Draft-->
                         <span class="syriaca-icon syriaca-syriaca banner-icon">
-                            <span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/>
+                            <span class="path1"/>
+                            <span class="path2"/>
+                            <span class="path3"/>
+                            <span class="path4"/>
                         </span>
                         <span class="banner-text">Syriaca.org</span>
                     </a>
