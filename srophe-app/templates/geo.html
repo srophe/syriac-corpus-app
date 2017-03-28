@@ -61,7 +61,10 @@
                     usePreview: false,
                     initialFocus: true,
                     rtl : true,
-                    layout: 'syriac-phonetic'
+                    layout: 'syriac-phonetic',
+                    hidden: function(event, keyboard, el){
+                         keyboard.destroy();
+                     }
                 });
                 
                 $('.keyboard-select').click(function () {
