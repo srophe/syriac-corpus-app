@@ -37,7 +37,7 @@ declare option exist:serialize "method=xml media-type=text/xml omit-xml-declarat
 declare variable $base-url           := 'http://syriaca.org/api/oai';
 declare variable $repository-name    := 'Syriaca.org';
 declare variable $admin-email        := 'david.a.michelson@vanderbilt.edu';
-declare variable $hits-per-page      := 10;
+declare variable $hits-per-page      := 25;
 declare variable $earliest-datestamp := '2012-01-01';
 declare variable $_docs              := collection($global:data-root)//tei:TEI;
 declare variable $oai-domain         := 'syriaca.org';
@@ -109,7 +109,7 @@ declare function local:validateParams(){
     let $parameters :=  request:get-parameter-names()
     for $param in $parameters
     return
-        if($param = 'verb' or $param = 'identifier' or $param = 'from' or $param = 'until' or $param = 'set' or $param = 'metadataPrefix' or $param = 'resumptionToken' or $param = 'start') 
+        if($param = 'verb' or $param = 'identifier' or $param = 'from' or $param = 'until' or $param = 'set' or $param = 'metadataPrefix' or $param = 'resumptionToken' or $param = 'perpage' or $param = 'start') 
             then ''
         else <error code="badArgument">Invalid OAI-PMH parameter : {$param}</error>
 };
@@ -338,7 +338,12 @@ declare function local:oai-identify() {
 declare function local:oai-list-identifiers() {
 let $_hits := local:buildPath()
 let $_count := count($_hits)
-let $max := $hits-per-page
+let $max := 
+    if(request:get-parameter('perpage','') != '') then 
+        if(request:get-parameter('perpage','') cast as xs:integer lt 100) then 
+            (request:get-parameter('perpage','') cast as xs:integer)
+        else $hits-per-page    
+    else $hits-per-page
 let $_end := if ($start + $max - 1 < $_count) then 
                 $start + $max - 1 
             else 
@@ -401,7 +406,12 @@ declare function local:oai-list-metadata-formats() {
 declare function local:oai-list-records() {
 let $_hits := local:buildPath()
 let $_count := count($_hits)
-let $max := $hits-per-page
+let $max :=     
+        if(request:get-parameter('perpage','') != '') then 
+            if(request:get-parameter('perpage','') cast as xs:integer lt 100) then 
+                (request:get-parameter('perpage','') cast as xs:integer)
+            else $hits-per-page    
+        else $hits-per-page   
 let $_end := if ($start + $max - 1 < $_count) then 
                 $start + $max - 1 
             else 
