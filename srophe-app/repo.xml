@@ -57,10 +57,7 @@
             <collection name="authors" title="A Guide to Syriac Authors" series="A Guide to Syriac Authors" app-root="authors" data-root="persons"/>
             <collection name="q" title="Qadishe: A Guide to the Syriac Saints" series="Qadishe: A Guide to the Syriac Saints" app-root="q" data-root="persons"/>
             <collection name="bhse" title="Bibliotheca Hagiographica Syriaca Electronica" series="" app-root="bhse" data-root="works"/>
-            <collection name="nhsl" title="New Handbook of Syriac Literature" series="New Handbook of Syriac Literature" app-root="nhsl" data-root="works"/>
-            <collection name="mss" title="" series="" app-root="mss" data-root="manuscripts"/>
-            <collection name="spear" title="" series="" app-root="spear" data-root="spear"/>
-            <collection name="bibl" title="" series="" app-root="bibl" data-root="bibl"/>
+            <collection name="bibl" title="Syriaca.org Works Cited" series="" app-root="bibl" data-root="bibl"/>
             <collection name="subjects" title="" series="" app-root="taxonomy" data-root="subjects"/>
         </collections>    
     <google_analytics>var _gaq=[['_setAccount','UA-333143-26'],['_trackPageview']];
