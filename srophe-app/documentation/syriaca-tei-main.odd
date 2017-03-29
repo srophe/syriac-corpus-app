@@ -432,6 +432,41 @@
                         </attDef>
                     </attList>
                 </elementSpec>
+                <elementSpec ident="title" module="core" mode="change">
+                    <attList>
+                        <attDef ident="type" mode="change" usage="opt">
+                            <desc>Describes the function of the title. This attribute is optional. Certain non-blank values (such as "final-rubric") may 
+                            cause the title to be moved to a different section of the page.</desc>
+                            <valList mode="change" type="semi">
+                                <valItem ident="final-rubric">
+                                    <gloss>Final Rubric</gloss>
+                                    <desc>Text denoting the end of a work, usually derived from a manuscript exempplar. This may include a title of the work, 
+                                    but should be distinguished from other titles because it also includes non-title text.</desc>
+                                </valItem>
+                                <valItem ident="abbreviation">
+                                    <gloss>Abbreviation</gloss>
+                                    <desc>An abbreviation of a work's title.</desc>
+                                </valItem>
+                            </valList>
+                        </attDef>
+                    </attList>
+                    <exemplum versionDate="2017-03-23">
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <title xml:id="name1-1" xml:lang="en" syriaca-tags="#syriaca-headword">Genesis (Peshitta Version)</title>
+                            <title xml:id="name1-2"
+                                xml:lang="syr"
+                                syriaca-tags="#syriaca-headword"
+                                source="#bib1-1">ܣܦܪܐ ܕܒܪܝܫܝܬ</title>
+                            <title xml:id="name1-3" xml:lang="syr" source="#bib1-1">ܣܦܪܐ ܕܒܪܝܬܐ</title>
+                            <title xml:id="name1-4"
+                                xml:lang="en"
+                                type="abbreviation"
+                                source="#bib1-9">Gen</title>
+                            <title xml:id="name1-5" xml:lang="en" source="#bib1-9">Genesis</title>
+                            <title xml:id="name1-6" xml:lang="syr" source="#bib1-1">ܐܣ̣ܬܝܟ ܣܦ̣ܪܐ ܗܢܐ ܩܕܡܝܐ ܕܐܘܪܝܬܐ ܒܦ̈ܬܓܡܐ ܐܪ̈ܒܥܐ ܐܠܦ̈ܝܢ ܘܚܡܫ ܡ̈ܠܐ ܘܬܫܥܐ ܕܒܨ̈ܚܚܐ ܠ̅ܕ̅.</title>
+                        </egXML>
+                    </exemplum>
+                </elementSpec>
                 <elementSpec ident="idno" module="header" mode="change">
                     <attList>
                         <attDef ident="type" mode="change">
@@ -814,6 +849,10 @@
                                 <valItem ident="dct:isPartOf">
                                     <gloss>is part of</gloss>
                                     <desc>A related resource in which the described resource is physically or logically included. (<ref target="http://purl.org/dc/terms/isPartOf">http://purl.org/dc/terms/isPartOf</ref>).</desc>
+                                </valItem>
+                                <valItem ident="syriaca:isSometimesPartOf">
+                                    <gloss>is sometimes part of</gloss>
+                                    <desc>A related resource in which the described resource is only sometimes included.</desc>
                                 </valItem>
                                 <valItem ident="skos:broadMatch">
                                     <gloss>has broad match</gloss>

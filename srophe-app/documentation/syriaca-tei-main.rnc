@@ -6,7 +6,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2017-03-21T19:36:24Z. .
+# Schema generated from ODD source 2017-03-29T13:10:02Z. .
 # TEI Edition: Version 3.1.0. Last updated on
 #	15th December 2016, revision d3f5e70
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.1.0/
@@ -2809,10 +2809,25 @@ tei_title =
     tei_att.typed.attribute.subtype,
     tei_att.datable.attributes,
     
-    ## classifies the title according to some convenient typology.
-    ## Sample values include: 1] main; 2] sub(subordinate) ; 3] alt(alternate) ; 4] short; 5] desc(descriptive) 
+    ## Describes the function of the title. This attribute is optional. Certain non-blank values (such as "final-rubric") may cause the title to be moved to a different section of the page.
+    ## Suggested values include: 1] main; 2] sub; 3] alt; 4] short; 5] desc
     attribute type {
-      xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
+      
+      ##
+      "main"
+      | 
+        ##
+        "sub"
+      | 
+        ##
+        "alt"
+      | 
+        ##
+        "short"
+      | 
+        ##
+        "desc"
+      | xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
     }?,
     
     ## indicates the bibliographic level for a title, that is, whether it identifies an article, book, journal, series, or unpublished material.
@@ -5600,7 +5615,7 @@ tei_relation =
     tei_att.typed.attribute.subtype,
     
     ## (reference) An RDF property applicable to the relation. This may be a custom Syriaca.org property, such as one found at http://syriaca.org/documentation/relations.html or one from an external vocabulary such as SNAP or LAWD.
-    ## Suggested values include: 1] dct:source(is derived from) ; 2] lawd:embodies(embodies) ; 3] syriaca:commemorated(commemorates) ; 4] dct:isPartOf(is part of) ; 5] skos:broadMatch(has broad match) ; 6] syriaca:hasRelationToPlace(has relation to place) ; 7] syriaca:bornAt(was born at) ; 8] syriaca:hasLiteraryConnectionToPlace(has literary connection to place) ; 9] syriaca:differentFrom(should be distinguished from) ; 10] syriaca:possiblyIdentical(is possibly identical to) ; 11] syriaca:diedAt(died at) 
+    ## Suggested values include: 1] dct:source(is derived from) ; 2] lawd:embodies(embodies) ; 3] syriaca:commemorated(commemorates) ; 4] dct:isPartOf(is part of) ; 5] syriaca:isSometimesPartOf(is sometimes part of) ; 6] skos:broadMatch(has broad match) ; 7] syriaca:hasRelationToPlace(has relation to place) ; 8] syriaca:bornAt(was born at) ; 9] syriaca:hasLiteraryConnectionToPlace(has literary connection to place) ; 10] syriaca:differentFrom(should be distinguished from) ; 11] syriaca:possiblyIdentical(is possibly identical to) ; 12] syriaca:diedAt(died at) 
     attribute ref {
       list {
         (
@@ -5615,6 +5630,9 @@ tei_relation =
          | 
            ## (is part of) A related resource in which the described resource is physically or logically included. (http://purl.org/dc/terms/isPartOf).
            "dct:isPartOf"
+         | 
+           ## (is sometimes part of) A related resource in which the described resource is only sometimes included.
+           "syriaca:isSometimesPartOf"
          | 
            ## (has broad match) A resource with a broader or more generic definition that encompasses the current resource along with others. Syriaca.org describes the broader resource using a "composite URI". SKOS definition: skos:broadMatch is used to state a hierarchical mapping link between two conceptual resources in different concept schemes. (https://www.w3.org/2009/08/skos-reference/skos.rdf#broadMatch).
            "skos:broadMatch"
