@@ -18,7 +18,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
     {
        (
-       for $idno in $nodes/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org/')][1]
+       for $idno in $nodes/descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org/')]
        return
            <dc:identifier>{$idno/string()}</dc:identifier>,
        for $title in $nodes/descendant::tei:titleStmt/tei:title
