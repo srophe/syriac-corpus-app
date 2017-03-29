@@ -340,7 +340,7 @@ let $_hits := local:buildPath()
 let $_count := count($_hits)
 let $max := 
     if(request:get-parameter('perpage','') != '') then 
-        if(request:get-parameter('perpage','') cast as xs:integer lt 100) then 
+        if(request:get-parameter('perpage','') cast as xs:integer lt 101) then 
             (request:get-parameter('perpage','') cast as xs:integer)
         else $hits-per-page    
     else $hits-per-page
@@ -408,7 +408,7 @@ let $_hits := local:buildPath()
 let $_count := count($_hits)
 let $max :=     
         if(request:get-parameter('perpage','') != '') then 
-            if(request:get-parameter('perpage','') cast as xs:integer lt 100) then 
+            if(request:get-parameter('perpage','') cast as xs:integer lt 101) then 
                 (request:get-parameter('perpage','') cast as xs:integer)
             else $hits-per-page    
         else $hits-per-page   
