@@ -231,6 +231,9 @@
                                     <desc>An anglicized version of a name created by Syriaca.org used to
                                         facilitate searching in English.</desc>
                                 </valItem>
+                                <valItem ident="#canonical">
+                                    <desc>Indicates the content is canonical, i.e., widely agreed upon. Abbreviations of work titles are primarily in view.</desc>
+                                </valItem>
                             </valList>
                         </attDef>
                     </attList>
@@ -438,9 +441,14 @@
                             <desc>Describes the function of the title. This attribute is optional. Certain non-blank values (such as "final-rubric") may 
                             cause the title to be moved to a different section of the page.</desc>
                             <valList mode="change" type="semi">
+                                <valItem ident="initial-rubric">
+                                    <gloss>Initial Rubric</gloss>
+                                    <desc>Text denoting the beginning of a work, usually derived from a manuscript exemplar. This may include a title of the work, 
+                                        but should be distinguished from other titles because it also includes non-title text.</desc>
+                                </valItem>
                                 <valItem ident="final-rubric">
                                     <gloss>Final Rubric</gloss>
-                                    <desc>Text denoting the end of a work, usually derived from a manuscript exempplar. This may include a title of the work, 
+                                    <desc>Text denoting the end of a work, usually derived from a manuscript exemplar. This may include a title of the work, 
                                     but should be distinguished from other titles because it also includes non-title text.</desc>
                                 </valItem>
                                 <valItem ident="abbreviation">
@@ -460,7 +468,7 @@
                             <title xml:id="name1-3" xml:lang="syr" source="#bib1-1">ܣܦܪܐ ܕܒܪܝܬܐ</title>
                             <title xml:id="name1-4"
                                 xml:lang="en"
-                                type="abbreviation"
+                                type="abbreviation" syriaca-tags="#canonical"
                                 source="#bib1-9">Gen</title>
                             <title xml:id="name1-5" xml:lang="en" source="#bib1-9">Genesis</title>
                             <title xml:id="name1-6" xml:lang="syr" source="#bib1-1">ܐܣ̣ܬܝܟ ܣܦ̣ܪܐ ܗܢܐ ܩܕܡܝܐ ܕܐܘܪܝܬܐ ܒܦ̈ܬܓܡܐ ܐܪ̈ܒܥܐ ܐܠܦ̈ܝܢ ܘܚܡܫ ܡ̈ܠܐ ܘܬܫܥܐ ܕܒܨ̈ܚܚܐ ܠ̅ܕ̅.</title>
