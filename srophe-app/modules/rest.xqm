@@ -117,7 +117,7 @@ declare
     %rest:query-param("lang", "{$lang}", "")
     %rest:query-param("author", "{$author}", "")
     %output:method("json")
-function api:search-element($element as xs:string?, $q as xs:string*, $collection as xs:string*, $lang as xs:string*,$author as xs:string*){
+function api:search-element($element as xs:string?, $q as xs:string*, $collection as xs:string*, $lang as xs:string*, $author as xs:string*){
     let $collection := if($collection != '') then
                             if($collection = ('Gateway to the Syriac Saints',
                             'The Syriac Biographical Dictionary',
@@ -128,7 +128,7 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
                             'Qadishe: A Guide to the Syriac Saints',
                             'A Guide to Syriac Authors',
                             'A Guide to the Syriac Saints')) then 
-                                concat("[ancestor::tei:TEI/descendant::tei:titleStmt/tei:title/text() = '",$collection,"']")
+                                concat("[ancestor::tei:TEI[.//tei:title = '",$collection,"']]")
                             else ()
                         else ()
     let $lang := if($lang != '') then concat("[@xml:lang = '",$lang,"']") 
@@ -137,12 +137,17 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
                     if($element = 'title') then concat("[following-sibling::*[self::tei:author][ft:query(.,'",$author,"*')]]")
                     else ()
                  else ()                       
-    let $eval-string := concat("collection('",$global:data-root,"')//tei:"
-                        ,$element,"[ft:query(.,'",$q,"*',data:search-options())]",$lang,$collection,$author)
+    let $eval-string := concat("collection('",$global:data-root,"')//tei:",$element,"[ft:query(.,'",$q,"*')]",$lang,$collection,$author)
     let $hits := util:eval($eval-string)
     return 
         if(count($hits) gt 0) then 
             <json:value>
+                (
+                    <id>0</id>,
+                    <action>{$q}</action>,
+                    <info>hits: {count($hits)}</info>,
+                    <start>1</start>
+               <results>
                {
                 for $hit in $hits
                 let $id := replace($hit/ancestor::tei:TEI/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei','')
@@ -159,6 +164,7 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
                             {if($dates != '') then <dates>{$dates}</dates> else ()}
                         </json:value>
                 }
+                </results>)
             </json:value>
         else   
             <json:value>
