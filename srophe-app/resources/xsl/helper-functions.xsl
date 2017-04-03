@@ -339,7 +339,7 @@
     <!-- Translate labels to human readable labels via odd -->
     <xsl:function name="local:translate-label">
         <xsl:param name="label"/>
-        <xsl:variable name="odd" select="doc('http://localhost:8080/exist/apps/srophe/documentation/syriaca-tei-main.odd')"/>
+        <xsl:variable name="odd" select="doc(concat('xmldb:exist://',$app-root,'/documentation/syriaca-tei-main.odd'))"/>
         <!--<xsl:variable name="odd" select="doc('http://syriaca.org/documentation/syriaca-tei-main.odd')"/>-->
         <xsl:choose>
             <xsl:when test="$odd/descendant::t:valItem[@ident=$label]/t:gloss">
@@ -356,7 +356,7 @@
     <xsl:function name="local:translate-label">
         <xsl:param name="element"/>
         <xsl:param name="label"/>
-        <xsl:variable name="odd" select="doc('http://localhost:8080/exist/apps/srophe/documentation/syriaca-tei-main.odd')"/>
+        <xsl:variable name="odd" select="doc(concat('xmldb:exist://',$app-root,'/documentation/syriaca-tei-main.odd'))"/>
         <!--<xsl:variable name="odd" select="doc('http://syriaca.org/documentation/syriaca-tei-main.odd')"/>-->
         <xsl:variable name="element" select="$odd/descendant::t:elementSpec[@ident = name($element)]"/>
         <xsl:choose>
@@ -364,7 +364,7 @@
                 <xsl:value-of select="$element/descendant::t:valItem[@ident=$label]/t:gloss"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="$label"/>
+                <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:function>
@@ -380,6 +380,7 @@
             <xsl:when test="$label = 'syriaca:Catalogue'">f</xsl:when>
         </xsl:choose>
     </xsl:function>
+    
     <!-- Text normalization functions -->
     <xsl:template match="t:*" mode="out-normal">
         <xsl:variable name="thislang" select="ancestor-or-self::*[@xml:lang][1]/@xml:lang"/>

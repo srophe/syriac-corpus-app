@@ -1426,26 +1426,66 @@
                 </p>
             </div>
         </xsl:if>
-        <xsl:if test="self::t:bibl and t:title">
+        <xsl:if test="self::t:bibl[starts-with(@xml:id,'work-')] and t:title">
+            <!--
+            Titles
+/TEI/text/body/bibl/title[not(@type=('initial-rubric','final-rubric','abbreviation'))]
+
+Initial Rubrics
+/TEI/text/body/bibl/title[@type='initial-rubric']
+
+Final Rubrics
+/TEI/text/body/bibl/title[@type='final-rubric']
+
+Abbreviations
+/TEI/text/body/bibl/title[@type='abbreviation']
+
+    
+                -->
+            
             <div class="well">
-                <xsl:if test="t:title">
-                    <h3>Titles</h3>
-                    <ul>
-                        <xsl:apply-templates select="t:title[contains(@syriaca-tags,'#syriaca-headword') and starts-with(@xml:lang,'syr')]" mode="list">
-                            <xsl:sort lang="syr" select="."/>
-                        </xsl:apply-templates>
-                        <xsl:apply-templates select="t:title[contains(@syriaca-tags,'#syriaca-headword') and starts-with(@xml:lang,'en')]" mode="list">
+                <h3>Titles</h3>
+                <ul>                
+                    <xsl:for-each select="t:title[(not(@type) or not(@type=('initial-rubric','final-rubric','abbreviation'))) and not(@syriaca-tags='#syriaca-simplified-script')]">
+                        <xsl:apply-templates select=".[contains(@syriaca-tags,'#syriaca-headword') and starts-with(@xml:lang,'en')]" mode="list">
                             <xsl:sort collation="{$mixed}" select="."/>
                         </xsl:apply-templates>
-                        <xsl:apply-templates select="t:title[(not(@syriaca-tags) or not(contains(@syriaca-tags,'#syriaca-headword'))) and starts-with(@xml:lang, 'syr')]" mode="list">
+                        <xsl:apply-templates select=".[contains(@syriaca-tags,'#syriaca-headword') and starts-with(@xml:lang,'syr')]" mode="list">
                             <xsl:sort lang="syr" select="."/>
                         </xsl:apply-templates>
-                        <xsl:apply-templates select="t:title[starts-with(@xml:lang, 'ar')]" mode="list">
+                        <xsl:apply-templates select=".[(not(@syriaca-tags) or not(contains(@syriaca-tags,'#syriaca-headword'))) and starts-with(@xml:lang, 'syr')]" mode="list">
+                            <xsl:sort lang="syr" select="."/>
+                        </xsl:apply-templates>
+                        <xsl:apply-templates select=".[starts-with(@xml:lang, 'ar')]" mode="list">
                             <xsl:sort lang="ar" select="."/>
                         </xsl:apply-templates>
-                        <xsl:apply-templates select="t:title[(not(@syriaca-tags) or not(contains(@syriaca-tags,'#syriaca-headword'))) and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar')) and not(@syriaca-tags='#syriaca-simplified-script')]" mode="list">
+                        <xsl:apply-templates select=".[(not(@syriaca-tags) or not(contains(@syriaca-tags,'#syriaca-headword'))) and not(starts-with(@xml:lang, 'syr') or starts-with(@xml:lang, 'ar'))]" mode="list">
                             <xsl:sort collation="{$mixed}" select="."/>
                         </xsl:apply-templates>
+                    </xsl:for-each>
+                </ul>
+                <xsl:if test="t:title[@type='initial-rubric']">
+                    <h3>Initial Rubrics</h3>
+                    <ul>
+                        <xsl:for-each select="t:title[@type='initial-rubric']">
+                            <xsl:apply-templates select="." mode="list"/>
+                        </xsl:for-each>
+                    </ul>
+                </xsl:if>
+                <xsl:if test="t:title[@type='final-rubric']">
+                    <h3>Final Rubrics</h3>
+                    <ul>
+                        <xsl:for-each select="t:title[@type='final-rubric']">
+                            <xsl:apply-templates select="." mode="list"/>
+                        </xsl:for-each>
+                    </ul>
+                </xsl:if>
+                <xsl:if test="t:title[@type='abbreviation']">
+                    <h3>Abbreviations</h3>
+                    <ul>
+                        <xsl:for-each select="t:title[@type='abbreviation']">
+                            <xsl:apply-templates select="." mode="list"/>
+                        </xsl:for-each>
                     </ul>
                 </xsl:if>
                 <xsl:if test="t:author | t:editor">
