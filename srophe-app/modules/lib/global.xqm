@@ -261,7 +261,7 @@ declare function global:build-sort-string($titlestring as xs:string?, $lang as x
  : @param $titlestring 
  :)
 declare function global:ar-sort-string($titlestring as xs:string?) as xs:string* {
-    replace(replace(replace(replace(replace($titlestring,'^\s+',''),'^(\sابن|\sإبن|\sبن)',''),'(ال|أل|ٱل)',''),'[ً-ٖ]',''),'[U064B-U0656]','')
+    replace(replace(replace(replace(replace(replace($titlestring,'^\s+',''),'آ|إ|أ','ا'),'^(\sابن|\sإبن|\sبن)',''),'(ال|أل|ٱل)',''),'[ً-ٖ]',''),'[U064B-U0656]','')
 };
 
 (:
