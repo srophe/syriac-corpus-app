@@ -268,8 +268,8 @@ replace(
         replace(
           replace($titlestring,'^\s+',''), (:remove leading spaces. :)
             '[ً-ٖ]',''), (:remove vowels and diacritics :)
-                '^\s(ال|أل|ٱل)','') (: remove all definite articles :)
-                    'آ|إ|أ|ٱ'), (: normalize letter alif :)
+                '^\s(ال|أل|ٱل)',''), (: remove all definite articles :)
+                    'آ|إ|أ|ٱ','ا'), (: normalize letter alif :)
                         '^(\sابن|\sإبن|\sبن)\s','') (:remove all forms of (ابن) with leading space :)
 };
 
