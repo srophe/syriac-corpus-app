@@ -28,7 +28,7 @@ declare namespace tei = "http://www.tei-c.org/ns/1.0";
 :)
 declare
     %rest:GET
-    %rest:path("/srophe/api/geo/json")
+    %rest:path("/syriac-corpus/api/geo/json")
     %rest:query-param("type", "{$type}", "")
     %rest:query-param("output", "{$output}", "json")
     %output:media-type("application/json")
@@ -54,7 +54,7 @@ function api:get-geo-json($type as xs:string*, $output as xs:string*) {
 :)
 declare
     %rest:GET
-    %rest:path("/srophe/api/geo/kml")
+    %rest:path("/syriac-corpus/api/geo/kml")
     %rest:query-param("type", "{$type}", "")
     %rest:query-param("output", "{$output}", "kml")
     %output:media-type("application/vnd.google-earth.kmz")
@@ -110,7 +110,7 @@ function api:get-geo-kml($type as xs:string*, $output as xs:string*) {
 :)
 declare
     %rest:GET
-    %rest:path("/srophe/api/search/{$element}")
+    %rest:path("/syriac-corpus/api/search/{$element}")
     %rest:query-param("q", "{$q}", "")
     %rest:query-param("collection", "{$collection}", "")
     %rest:query-param("lang", "{$lang}", "")
@@ -178,7 +178,7 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
 :)
 declare 
     %rest:GET
-    %rest:path("/{$collection}/{$id}/ttl")
+    %rest:path("/syriac-corpus/{$collection}/{$id}/ttl")
     %output:media-type("text/turtle")
     %output:method("text")
 function api:get-ttl($collection as xs:string, $id as xs:string){
@@ -199,7 +199,7 @@ function api:get-ttl($collection as xs:string, $id as xs:string){
 :)
 declare 
     %rest:GET
-    %rest:path("/{$collection}/{$id}/tei")
+    %rest:path("/syriac-corpus/{$collection}/{$id}/tei")
     %output:media-type("text/xml")
     %output:method("xml")
 function api:get-tei($collection as xs:string, $id as xs:string){
@@ -233,7 +233,7 @@ function api:get-tei($collection as xs:string, $id as xs:string){
 :)
 declare 
     %rest:GET
-    %rest:path("/{$collection}/{$id}/atom")
+    %rest:path("/syriac-corpus/{$collection}/{$id}/atom")
     %output:media-type("application/atom+xml")
     %output:method("xml")
 function api:get-atom-record($collection as xs:string, $id as xs:string){
@@ -253,7 +253,7 @@ function api:get-atom-record($collection as xs:string, $id as xs:string){
 :)
 declare 
     %rest:GET
-    %rest:path("/srophe/api/{$collection}/atom")
+    %rest:path("/syriac-corpus/api/{$collection}/atom")
     %rest:query-param("start", "{$start}", 1)
     %rest:query-param("perpage", "{$perpage}", 25)
     %output:media-type("application/atom+xml")
@@ -277,7 +277,7 @@ function api:get-atom-feed($collection as xs:string, $start as xs:integer*, $per
 :)
 declare 
     %rest:GET
-    %rest:path("/srophe/api/atom")
+    %rest:path("/syriac-corpus/api/atom")
     %rest:query-param("start", "{$start}", 1)
     %rest:query-param("perpage", "{$perpage}", 25)
     %output:media-type("application/atom+xml")
