@@ -33,13 +33,13 @@ if(request:get-parameter('id', '') != '') then
         return 
             if(empty($rec)) then response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html')))
             else 
-                if($rec/descendant::tei:revisionDesc[@status='deprecated']) then 
+                if($rec/descendant::tei:idno[@type='redirect']) then 
                     let $redirect := 
                             if($rec/descendant::tei:idno[@type='redirect']) then 
-                                replace(replace($rec/descendant::tei:idno[@type='redirect'][1]/text(),'/tei',''),$global:base-uri,$global:nav-base)
+                                replace(replace($rec/descendant::tei:idno[@type='redirect'][1],'/tei',''),$global:base-uri,$global:nav-base)
                             else concat($global:nav-base,'/',$collection,'/','browse.html')
                     return response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
-                else map {"data" := $rec }                   
+                else map {"data" := $rec }  
 else map {"data" := <div>'Page data'</div>}    
 };
 
@@ -145,6 +145,7 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                      return 
                         (global:tei2html($infobox),
                         app:display-related-inline($model("data"),'dct:isPartOf'),
+                        app:display-related-inline($model("data"),'syriaca:isSometimesPartOf'),
                         app:display-related-inline($model("data"),'syriaca:part-of-tradition'),
                         global:tei2html($allData))  
                 } 
@@ -226,9 +227,10 @@ declare function app:cited($node as node(), $model as map(*)){
 declare %templates:wrap function app:display-related-inline($data, $relType){
 let $rec := $data
 let $relType := $relType
-let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1]/text(),'/tei','')
+let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+let $related := data:get-dynamic-relations($recid, $relType)
 let $works := 
-            for $w in collection($global:data-root)//tei:body[child::*/tei:listRelation/tei:relation[@passive[functx:contains-word(.,$recid)]][@ref=$relType or @name=$relType]]
+            for $w in $related
             let $part := xs:integer($w/child::*/tei:listRelation/tei:relation[@passive[functx:contains-word(.,$recid)]]/tei:desc/tei:label[@type='order'][1]/@n)
             order by $part
             return $w
@@ -236,7 +238,7 @@ let $count := count($works)
 let $title := if(contains($rec/descendant::tei:title[1]/text(),' — ')) then 
                     substring-before($rec/descendant::tei:title[1],' — ') 
                else $rec/descendant::tei:title[1]/text()
-return 
+return
     if($count gt 0) then 
         <div xmlns="http://www.w3.org/1999/xhtml">
             {if($relType = 'dct:isPartOf') then 
@@ -244,7 +246,7 @@ return
              else if ($relType = 'syriaca:part-of-tradition') then 
                 (<h3>This tradition comprises at least {$count} branches.</h3>,
                 <p>{$data/descendant::tei:note[@type='literary-tradition']}</p>)
-             else <h3>{$title} {$relType} {$count} works.</h3>
+             else <h3>{concat($title,' ',global:odd2text('ref', $relType),' ',$count,' works.')}</h3>
              }
             {(
                 if($count gt 5) then
@@ -281,7 +283,7 @@ return
                              </div>
             )}
         </div>
-    else ()     
+    else ()   
 };
 
 (:~      
@@ -703,5 +705,5 @@ function app:fix-links($node as node(), $model as map(*)) {
 declare  
     %templates:wrap 
 function app:google-analytics($node as node(), $model as map(*)){
-   $global:get-config//repo:google_analytics/text() 
+   $global:get-config//google_analytics/text() 
 };
