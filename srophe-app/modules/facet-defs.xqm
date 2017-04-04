@@ -7,7 +7,7 @@ module namespace facet-defs="http://syriaca.org/facet-defs";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 declare function facet-defs:facet-definition($collection){
-if($collection = 'persons') then
+if($collection = ('persons','sbd','authors','q')) then
 <facets xmlns="http://expath.org/ns/facet">
     <facet-definition name="Type">
         <group-by function="facet:group-by-sub-module">
