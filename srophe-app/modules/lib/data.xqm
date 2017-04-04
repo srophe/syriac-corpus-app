@@ -52,10 +52,9 @@ declare function data:get-rec($id as xs:string?){
             for $rec in util:eval(concat('collection($global:data-root)//tei:TEI[',$global:id-path,' = $id]'))
             return $rec
         else
-            for $rec in collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][. = concat($id,'/tei')]]
+            for $rec in collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][. = concat($id,'/tei')]][1]
             return $rec 
 };
-
 (:~
  : Get record title if record exists, otherwise return $uri
  : @param $uri
