@@ -7,7 +7,6 @@ module namespace spears="http://syriaca.org/spears";
 import module namespace functx="http://www.functx.com";
 import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm";
 import module namespace facet-defs="http://syriaca.org/facet-defs" at "../facet-defs.xqm";
-import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 
