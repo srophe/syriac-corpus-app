@@ -242,13 +242,15 @@ let $title := if(contains($rec/descendant::tei:title[1]/text(),' — ')) then
 return
     if($count gt 0) then 
         <div xmlns="http://www.w3.org/1999/xhtml">
-            {if($relType = 'dct:isPartOf') then 
+            {(if($relType = 'dct:isPartOf') then 
                 <h3>{$title} contains {$count} works.</h3>
              else if ($relType = 'syriaca:part-of-tradition') then 
                 (<h3>This tradition comprises at least {$count} branches.</h3>,
                 <p>{$data/descendant::tei:note[@type='literary-tradition']}</p>)
-             else <h3>{concat($title,' ',global:odd2text('ref', $relType),' ',$count,' works.')}</h3>
-             }
+             else <h3>{concat($title,' ',global:odd2text('relation', $relType),' ',$count,' works.')}</h3>,
+             if($relType = 'syriaca:isSometimesPartOf') then
+                <p class="note indent">* Manuscripts of the larger work only sometimes contain the work indicated.</p>
+            else ())}
             {(
                 if($count gt 5) then
                         <div>
@@ -283,6 +285,7 @@ return
                                 <div class="col-md-11">{global:display-recs-short-view($rec,'',$recid)}</div>
                              </div>
             )}
+
         </div>
     else ()   
 };
@@ -396,7 +399,7 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
                 <input type="hidden" name="id" value="{request:get-parameter('id', '')}"/>
                 <input type="hidden" name="collection" value="{$collection}"/>
                 <!-- start reCaptcha API-->
-                <div class="g-recaptcha" data-sitekey="{$global:recaptcha}" id="recaptchadiv"></div>
+                <div class="g-recaptcha" data-sitekey="{$global:recaptcha}"></div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal">Close</button><input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
