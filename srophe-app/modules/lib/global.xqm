@@ -268,7 +268,7 @@ replace(
         replace(
           replace($titlestring,'^\s+',''), (:remove leading spaces. :)
             '[ً-ٖ]',''), (:remove vowels and diacritics :)
-                '^(ال|أل|ٱل)',''), (: remove all definite articles :)
+                '(^|\s)(ال|أل|ٱل)',''), (: remove all definite articles :)
                     'آ|إ|أ|ٱ','ا'), (: normalize letter alif :)
                         '^\s(ابن|إبن|بن)','') (:remove all forms of (ابن) with leading space :)
 };
@@ -287,10 +287,15 @@ declare function global:odd2text($element as xs:string?, $label as xs:string?) a
     return 
         if($odd-path != '') then
             let $odd := $odd-file
+            (:let $e := if(contains($element,'/@')) then substring-before($element,'/@') else $element
+            let $a := if(contains($element,'@')) then substring-after($element,'/@') else ()
+            :)
             return 
                 try {
                     if($odd/descendant::*[@ident = $element][1]/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()) then 
                         $odd/descendant::*[@ident = $element][1]/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()
+                    else if($odd/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()) then 
+                        $odd/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()
                     else $label    
                 } catch * {
                     $label (:<error>Caught error {$err:code}: {$err:description}</error>:)
