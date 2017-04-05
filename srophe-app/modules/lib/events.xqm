@@ -7,10 +7,7 @@ module namespace ev="http://syriaca.org/events";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 
-import module namespace facets="http://syriaca.org/facets" at "facets.xqm";
 import module namespace global="http://syriaca.org/global" at "global.xqm";
-import module namespace rec="http://syriaca.org/short-rec-view" at "short-rec-view.xqm";
-import module namespace geo="http://syriaca.org/geojson" at "geojson.xqm";
 import module namespace timeline="http://syriaca.org/timeline" at "timeline.xqm";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
