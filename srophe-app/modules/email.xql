@@ -13,6 +13,7 @@ import module namespace recap = "http://www.exist-db.org/xquery/util/recapture" 
 
 declare option exist:serialize "method=xml media-type=text/xml indent=yes";
 
+(:request:get-parameter("recaptcha_response_field",()):)
 declare function local:recaptcha(){
 let $recapture-private-key := string(environment-variable('secret'))
 return 
@@ -93,12 +94,12 @@ return
     if(exists(request:get-parameter('email','')) and request:get-parameter('email','') != '') 
         then 
             if(exists(request:get-parameter('comments','')) and request:get-parameter('comments','') != '') 
-              then
+              then 
                if(local:recaptcha()//*:pair[@name='success'] = 'true') then 
                  if (mail:send-email(local:build-message(),"library.vanderbilt.edu", ()) ) then
                    <h4>Thank you. Your message has been sent.</h4>
                  else
                    <h4>Could not send message.</h4>
-                else 'Recaptcha fail'   
+                else 'Recaptcha fail' 
             else  <h4>Incomplete form.</h4>
    else  <h4>Incomplete form.</h4>
