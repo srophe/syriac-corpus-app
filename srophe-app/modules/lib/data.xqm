@@ -259,7 +259,7 @@ declare function data:search($query-string as xs:string?){
                     for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
                     let $id := $h//tei:idno[1]
                     order by ft:score($h) + (count($h/descendant::tei:bibl) div 100) descending
-                    return data:get-children($hits, $id)
+                    return data:get-children($hits, $id[1])
                 }
             </results>                
     else ()  
