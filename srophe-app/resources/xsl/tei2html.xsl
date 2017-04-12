@@ -276,11 +276,7 @@
             </xsl:if>
         </li>
     </xsl:template>
-    <!--
-    entryFree
-    -->
-    <xsl:template match="t:event">
-    </xsl:template>
+
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of a listBibl element 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
