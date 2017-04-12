@@ -1,31 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/nhsl.html" data-template-at="content">
-    <div class="banner-index full-page hide-search">
-        <xi:include href="banner.html"/>
+    <div class="full-page hide-search" style="background-color:#666; border-bottom:4px solid #456889;margin:0 0 1em 0; padding:1em 0;">
+        <ul id="lightSlider">
+            <li class="slide top-button nhsl-slide overlay">
+                <a href="/nhsl/index.html" class="gradient">
+                    All    
+                </a>
+                <span class="more-info">
+                    <br/>
+                    <p>
+                        <b>
+                            <em>The New Handbook of Syriac Literature</em>
+                        </b>  is a reference guide to Syriac works.</p>
+                    <p>
+                        Example record:<br/>
+                        <a href="/work/2501" style="color:white;" class="indent">Chronography, Part 1 (Chronicon Syriacum)</a>
+                    </p>
+                </span>
+                <span class="slide-credit">
+                    <a href="/nhsl/index.html" class="icon-container">
+                        <span class="syriaca-icon syriaca-nhsl icon-nav"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                        <span class="icon-text">NHSL</span>
+                    </a>
+                </span>
+            </li>
+            <li class="slide top-button works-slide overlay">
+                <a href="/bhse/index.html" class="gradient">
+                    1. Hagiography
+                </a>
+                <span class="more-info">
+                    <br/>
+                    <p>
+                        <b>
+                            <em>Bibliotheca Hagiographica Syriaca Electronica</em>
+                        </b>  is a database of Syriac hagiographic literature.</p>
+                    <p>Example record:<br/>
+                        <a href="/work/694" style="color:white;" class="indent">Abraham of the High Mountain (text)</a>
+                    </p>
+                </span>
+                <span class="slide-credit">
+                    <a href="/bhse/index.html" class="icon-container">
+                        <span class="syriaca-icon syriaca-bhse icon-nav"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                        <span class="icon-text">BHSE</span>
+                    </a>
+                </span>
+            </li>
+            <li class="slide top-button bible-slide overlay">
+                <a href="/bible/index.html" class="gradient">
+                    2. Bible
+                </a>
+                <span class="more-info">
+                    <br/>
+                    <p>
+                        <b>
+                            <em>A Guide to the Bible in Syriac</em>
+                        </b>  provides reference entries for Syriac biblical and parabiblical works.</p>
+                    <p>
+                        Example record:<br/>
+                        <a href="/work/1" style="color:white;" class="indent">Genesis (Peshitta Version)</a>
+                    </p>
+                </span>
+                <span class="slide-credit">
+                    <a href="/bible/index.html" class="icon-container">
+                        <span class="syriaca-icon syriaca-nhsl icon-nav"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                        <span class="icon-text">Bible</span>
+                    </a>
+                </span>
+            </li>
+       </ul>
+        <script type="text/javascript">
+            $(document).ready(function() {
+            $("#lightSlider").lightSlider({
+            item: 3,
+            autoWidth: false,
+            slideMove: 1, // slidemove will be 1 if loop is true
+            loop:false,
+            easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
+            speed:600,
+            slideMargin:5,
+            prevHtml:'<span class="glyphicon glyphicon-chevron-left slider-control" aria-hidden="true"/>',
+            nextHtml:'<span class="glyphicon glyphicon-chevron-right slider-control" aria-hidden="true"/>',
+            responsive : [
+            {
+            breakpoint:768,
+            settings: {
+            item:3,
+            slideMove:1,
+            slideMargin:5
+            }
+            },
+            {
+            breakpoint:320,
+            settings: {
+            item:1,
+            slideMove:1
+            }
+            }
+            ]
+            });
+            });
+            
+        </script>
     </div>
-    <div class="banner-solid">
-        <div class="row">
-            <div class="col-md-offset-2 col-md-8">
-                <form role="search" id="site_search_form" method="GET" class="col-xs-12 col-sm-offset-2 col-sm-8" action="search.html" style="">
-                    <div class="input-group">
-                        <input type="text" class="homepage_search_input form-control input-lg transparent-input" placeholder="Search for Texts" name="q" id="q"/>
-                        <input type="hidden" id="collection" value="nhsl"/>
-                        <div class="input-group-btn">
-                            <button class="btn btn-default input-lg" type="submit"> &#160; <span class="glyphicon glyphicon-search"/>
-                            </button>
-                            <a href="search.html" title="advanced search" class="btn btn-default input-lg" style="padding-top:.75em;"> &#160;
-                                <span class="glyphicon glyphicon-cog"/>&#160;Search Tools
-                            </a>
-                        </div>
-                        <!-- /btn-group -->
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-2"/>
-        </div>
-    </div>
-    <div class="row row-centered top-padding white container">
-        <div class="col-md-12">
+    <div class="row row-centered top-padding white container indent">
+        <div class="col-md-12" style="margin: 1em 5em;">
             <h1>
                 <em>The New Handbook of Syriac Literature</em>
             </h1>
