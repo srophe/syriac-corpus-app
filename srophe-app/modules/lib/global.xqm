@@ -270,7 +270,7 @@ replace(
             '[ً-ٖ]',''), (:remove vowels and diacritics :)
                 '(^|\s)(ال|أل|ٱل)',''), (: remove all definite articles :)
                     'آ|إ|أ|ٱ','ا'), (: normalize letter alif :)
-                        '^\s(ابن|إبن|بن)','') (:remove all forms of (ابن) with leading space :)
+                        '^(ابن|إبن|بن)','') (:remove all forms of (ابن) with leading space :)
 };
 
 (:
