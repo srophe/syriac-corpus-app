@@ -202,6 +202,19 @@ body {font-family: arial, sans-serif; background-color:#385978;}
     border-bottom:4px solid #456889;
 }
    
+/* Bibl banner*/
+.banner-bible {
+    position:relative;
+    margin-top:-1em;
+    padding-top:0;
+	background-image:url('../img/bible-banner.png');
+	background-size:cover;
+	background-position:top;
+    height:250px;
+    width:100%;
+    border-bottom:4px solid #456889;
+}
+
 .overlay {
     font-weight:200;
     background: rgb(34,34,34); /* for IE */
@@ -795,6 +808,7 @@ pre code {
 	line-height: 1.6em;
 	font-size: 11px;
 	}
+	
 pre {
 	padding: 0.1em 0.5em 0.3em 0.7em;
 	border-left: 11px solid #ccc;
@@ -809,6 +823,19 @@ pre {
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
 	}
 	
+code.inline{
+    display:inline;
+	padding: 0.1em 0.5em 0.3em 0.7em;
+	border-left: 11px solid #ccc;
+	margin: 1.7em 0 1.7em 0.3em;
+	overflow: auto;
+	max-width:inherit;
+	white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+	}	
 .api-path {width:15%}
 .api-param {width:20%}
 .api-desc {width:55%}
