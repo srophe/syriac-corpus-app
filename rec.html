@@ -9,7 +9,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">Table of Contents &#160;
                             <a href="#" data-toggle="collapse" data-target="#showToc">
-                                <span id="tocIcon" class="glyphicon glyphicon-collapse-up"></span>
+                                <span id="tocIcon" class="glyphicon glyphicon-collapse-up"/>
                             </a>
                         </div>
                         <div class="panel-body collapse" id="showToc">
@@ -43,7 +43,13 @@
                 <div class="col-sm-6 col-md-6 col-lg-7">
                     <div data-template="app:display-nodes" data-template-paths="/descendant::tei:body"/>
                 </div>
-                <div class="col-sm-4 col-md-4 col-lg-3">
+                <div class="col-sm-4 col-md-4 col-lg-3" id="rightCol">
+                    <div id="sedraDisplay" class="sedra panel panel-default">
+                        <div class="panel-body">
+                            <h3>Syriac Lexeme</h3>
+                            <div class="sedraContent"/>
+                        </div>
+                    </div>
                     <div data-template="app:rec-status"/>
                     <div data-template="app:display-ids"/>
                     <div data-template="app:display-nodes" data-template-paths="/descendant::tei:teiHeader"/>
@@ -53,7 +59,31 @@
                     <div data-template="app:display-related"/>
                 </div>
             </div>
-            
+            <script type="text/javascript">
+                $('button.toggleDisplay').click(function() {
+                var display = $(this).data("element");
+                //$('span.text-display').not(' .' + display).css('display','inline')
+                //$('span.text-display' + ' .' + display).css('display','block');
+                $('span.text-display' + ' .' + display).toggleClass( "text-inline" );
+                console.log(display);
+                });
+                
+                $('a.sedra').click(function(e) {
+                //event.preventDefault();
+                e.stopPropagation();
+                e.preventDefault();
+                $('#sedraDisplay').css('display','block');
+                console.log('Sedra link clicked!');
+                });
+                
+                $('html').click(function() {
+                $('#sedraDisplay').hide();
+                })
+                
+                $('#rightCol').click(function(e){
+                e.stopPropagation();
+                });
+            </script>
             
             <!--<div data-template="app:citation"/>-->
         </div>

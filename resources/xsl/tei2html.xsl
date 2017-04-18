@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -190,21 +190,53 @@
     <xsl:template match="t:body">
         <div class="body">
             <xsl:call-template name="langattr"/>
-            <xsl:apply-templates/>
+            <!-- Toggle displays re: milestones/div/line breaks -->
+            <div class="btn-group" role="group" aria-label="Toggle Display" style="display:block; margin-bottom:1em; clear:both;">
+                <!-- tei:div, tei:ab, tei:p, tei:lg, tei:l -->
+                <!-- tei:milestone (with @type if applicable, also include @ed with syriaca.org/bibl URI to show source, eventually we will use @edRef to contain CTS citation heres as well), tei:pb, tei:cb, tei:lb elements without text nodes should be used. (For these break elements, @ed must included with the syriaca.org/bibl URI as a value, if multiple page numbering from same edition, then include @type or @subtype to distinguish-->
+                <xsl:for-each select="distinct-values(//t:div/@type | 
+                    //t:div1/@type | 
+                    //t:div2/@type |
+                    //t:div3/@type | 
+                    //t:div4/@type | 
+                    //t:div5/@type |
+                    //t:ab/@type |
+                    //t:p/@type |
+                    //t:milestone/@type | 
+                    //t:milestone/@subtype
+                    )">
+                    <xsl:choose>
+                        <xsl:when test=". = ('part','text','rubric')"/>
+                        <xsl:otherwise>
+                            <button type="button" class="btn btn-default toggleDisplay" data-element="{.}"><xsl:value-of select="."/></button>
+                        </xsl:otherwise>
+                    </xsl:choose>        
+                </xsl:for-each>
+                <xsl:if test="//t:ab[not(@type) and not(@subtype)]">
+                    <button type="button" class="btn btn-default toggleDisplay" data-element="ab"><xsl:text>ab</xsl:text></button>
+                </xsl:if>
+                <xsl:if test="//t:l | //t:lb">
+                    <button type="button" class="btn btn-default toggleDisplay" data-element="l"><xsl:text>line</xsl:text></button>
+                </xsl:if>
+                <xsl:if test="//t:lg">
+                    <button type="button" class="btn btn-default toggleDisplay" data-element="lg"><xsl:text>line group</xsl:text></button>
+                </xsl:if>
+                <xsl:if test="//t:pb">
+                    <button type="button" class="btn btn-default toggleDisplay" data-element="pb"><xsl:text>page break</xsl:text></button>
+                </xsl:if>
+                <xsl:if test="//t:cb">
+                    <button type="button" class="btn btn-default toggleDisplay" data-element="cb"><xsl:text>column break</xsl:text></button>
+                </xsl:if>
+                <xsl:if test="//t:milestone[not(@type) and not(@subtype)]">
+                    <button type="button" class="btn btn-default toggleDisplay" data-element="cb"><xsl:text>milestone</xsl:text></button>
+                </xsl:if>
+            </div>
+            <div class="section">
+                <xsl:apply-templates/>
+            </div>
         </div>
     </xsl:template>
-    <xsl:template match="t:div1 | t:div2 | t:div3 | t:div4 | t:div5">
-        <div class="{name(.)}">
-            <xsl:if test="@n">
-                <xsl:attribute name="id">
-                    <xsl:value-of select="concat('head-',@n)"/>
-                </xsl:attribute>
-            </xsl:if>
-            <xsl:call-template name="langattr"/>
-            <xsl:apply-templates/>
-        </div>
-    </xsl:template>
-    <!-- Generic title formating -->
+  <!-- Generic title formating -->
     <xsl:template match="t:head">
         <xsl:choose>
             <xsl:when test="parent::t:div1">
@@ -258,6 +290,51 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
+    <xsl:template match="t:div | t:div1 | t:div2 | t:div3 | t:div4 | t:div5 | t:milestone | t:p | t:ab | t:l | t:lg | t:pb | t:cb | t:lb">
+        <span class="{name(.)}{if(@unit) then concat(' ',@unit) else ()} text-display">
+            <xsl:if test="@n and child::t:head">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="concat('head-',@n)"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="@lang"><xsl:call-template name="langattr"/></xsl:when>
+                <xsl:when test="ancestor-or-self::*[@xml:lang][1]/@xml:lang">
+                    <xsl:attribute name="lang">
+                        <xsl:value-of select="ancestor-or-self::*[@xml:lang][1]/@xml:lang"/>
+                    </xsl:attribute>                    
+                </xsl:when>
+                <xsl:otherwise/>
+            </xsl:choose>
+            <xsl:if test="@n">
+                <xsl:choose>
+                    <xsl:when test="child::t:head"/>
+                    <xsl:otherwise>
+                        <span class="text-number badge" id="{local-name(.)}-{@n}">
+                            <xsl:value-of select="@n"/>
+                        </span>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
+    
+    <xsl:template match="text()">
+        <xsl:choose>
+            <xsl:when test="ancestor-or-self::*[@xml:lang][1]/@xml:lang = 'syr'">
+                <xsl:analyze-string select="." regex="\s+">
+                    <xsl:matching-substring><xsl:value-of select="."/></xsl:matching-substring>
+                    <xsl:non-matching-substring><a href="#" class="sedra"><xsl:value-of select="."/></a><xsl:text> </xsl:text></xsl:non-matching-substring>
+                </xsl:analyze-string>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="."/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
     <xsl:template match="t:event">
         <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
         <xsl:apply-templates select="child::*" mode="plain"/>
@@ -727,6 +804,7 @@
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of a p element 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!--
     <xsl:template match="t:p">
         <p>
             <xsl:call-template name="langattr"/>
@@ -736,27 +814,7 @@
     <xsl:template match="t:lb">
         <br/>
     </xsl:template>
-    <xsl:template match="t:l">
-        <xsl:choose>
-            <xsl:when test="@n">
-                <span class="row">
-                    <span class="line-num col-md-1" lang="en" dir="ltr">
-                        <xsl:value-of select="@n"/>
-                    </span>
-                    <span class="line col-md-11">
-                        <xsl:call-template name="langattr"/>
-                        <xsl:apply-templates/>
-                    </span>
-                </span>
-            </xsl:when>
-            <xsl:otherwise>
-                <span class="line">
-                    <xsl:call-template name="langattr"/>
-                    <xsl:apply-templates/>
-                </span>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
+    -->
     <xsl:template match="t:quote">
         <xsl:choose>
             <xsl:when test="@xml:lang">

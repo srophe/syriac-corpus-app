@@ -499,29 +499,29 @@ td {
 :lang(syr),:lang(syc) {
  font-family: "EstrangeloEdessa", "Estrangelo Edessa", Verdana, Arial, Helvetica, sans-serif;
   /*font-size:large;*/
-  font-size:1.25em; 
-  line-height:1em;
+  font-size:24px; 
+  line-height:24px;
   text-align: right;
 }
 
 :lang(syr-Syrj), :lang(syc-Syrj) {
  font-family: "SertoBatnan", "Serto Batnan", Verdana, Arial, Helvetica, sans-serif;
-  font-size:1.25em; 
-  line-height:1em;
+  font-size:24px; 
+  line-height:24px;
  text-align: right;
 }
 
 :lang(syr-Syre), :lang(syc-Syre) {
  font-family: "EastSyriacAdiabene", "East Syriac Adiabene", Verdana, Arial, Helvetica, sans-serif;
- font-size:1.25em; 
- line-height:1em;
-text-align: right;
+  font-size:24px; 
+  line-height:24px;
+  text-align: right;
 }
 
 :lang(ar) {
  font-family: arial, sans-serif;
- font-size:1.25em; 
- line-height:1em;
+  font-size:24px; 
+  line-height:24px;
  text-align: right;
 }
 
@@ -868,5 +868,37 @@ pre {
 #showToc.collapsing {
     display: block!important;
 }
-.line {display:block;}
+#sedraDisplay {
+    display:none; position: fixed; width:20%; min-height:150px;top:150px;
+    box-shadow: 8px 8px 3px #999;
+    padding:.15em;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+} 
+
+a.sedra {text-decoration:none; color:#222; font-weight:normal; size:12px;}
+.text-number {
+    display:none;
+    background:#bbb;
+    font-size:small;
+   /* background:#eee; padding:.15em;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;*/
+    }
+    
+.l, .line {display:block; margin:0;padding:0;}    
+.div, .div1, .div2, .div3, .div4, .div5 {display:block; margin:1em;}
+.body {display:block; border:1px solid red;}
+
+/*
+.l,.ab {display:inline;}
 .line-num {font-size:medium; float:right; clear:right; margin-top:.5em;}
+ .milestone-number {float:right; padding:0 1em;}
+.milestone.section {display:block; height:1em;}
+.milestone.chapter {display:block; height:1em; width:100%; border:bottom:1px solid #eee;}
+.milestone.verse {display:block;}
+.lg {display:block;margin-bottom:1.25em;}
+*/
