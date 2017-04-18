@@ -62,9 +62,8 @@
             <script type="text/javascript">
                 $('button.toggleDisplay').click(function() {
                 var display = $(this).data("element");
-                //$('span.text-display').not(' .' + display).css('display','inline')
-                //$('span.text-display' + ' .' + display).css('display','block');
-                $('span.text-display' + ' .' + display).toggleClass( "text-inline" );
+                $('span.text-display' + ' .' + display).toggleClass( "textBlock" );
+                $(this).toggleClass( "active" );
                 console.log(display);
                 });
                 

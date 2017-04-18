@@ -191,7 +191,7 @@
         <div class="body">
             <xsl:call-template name="langattr"/>
             <!-- Toggle displays re: milestones/div/line breaks -->
-            <div class="btn-group" role="group" aria-label="Toggle Display" style="display:block; margin-bottom:1em; clear:both;">
+            <div class="btn-toolbar">
                 <!-- tei:div, tei:ab, tei:p, tei:lg, tei:l -->
                 <!-- tei:milestone (with @type if applicable, also include @ed with syriaca.org/bibl URI to show source, eventually we will use @edRef to contain CTS citation heres as well), tei:pb, tei:cb, tei:lb elements without text nodes should be used. (For these break elements, @ed must included with the syriaca.org/bibl URI as a value, if multiple page numbering from same edition, then include @type or @subtype to distinguish-->
                 <xsl:for-each select="distinct-values(//t:div/@type | 
@@ -206,9 +206,9 @@
                     //t:milestone/@subtype
                     )">
                     <xsl:choose>
-                        <xsl:when test=". = ('part','text','rubric')"/>
+                        <xsl:when test=". = ('part','text','rubric','heading')"/>
                         <xsl:otherwise>
-                            <button type="button" class="btn btn-default toggleDisplay" data-element="{.}"><xsl:value-of select="."/></button>
+                            <button type="button" class="btn btn-default toggleDisplay"  data-element="{.}"><xsl:value-of select="."/></button>
                         </xsl:otherwise>
                     </xsl:choose>        
                 </xsl:for-each>
@@ -230,7 +230,7 @@
                 <xsl:if test="//t:milestone[not(@type) and not(@subtype)]">
                     <button type="button" class="btn btn-default toggleDisplay" data-element="cb"><xsl:text>milestone</xsl:text></button>
                 </xsl:if>
-            </div>
+            </div>            
             <div class="section">
                 <xsl:apply-templates/>
             </div>
@@ -291,7 +291,7 @@
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="t:div | t:div1 | t:div2 | t:div3 | t:div4 | t:div5 | t:milestone | t:p | t:ab | t:l | t:lg | t:pb | t:cb | t:lb">
+    <xsl:template match="t:div | t:div1 | t:div2 | t:div3 | t:div4 | t:div5 | t:milestone | t:ab | t:l | t:lg | t:pb | t:cb | t:lb">
         <span class="{name(.)}{if(@unit) then concat(' ',@unit) else ()} text-display">
             <xsl:if test="@n and child::t:head">
                 <xsl:attribute name="id">
@@ -319,6 +319,35 @@
             </xsl:if>
             <xsl:apply-templates/>
         </span>
+    </xsl:template>
+    <xsl:template match="t:p">
+        <p class="{name(.)}{if(@unit) then concat(' ',@unit) else ()} text-display">
+            <xsl:if test="@n and child::t:head">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="concat('head-',@n)"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="@lang"><xsl:call-template name="langattr"/></xsl:when>
+                <xsl:when test="ancestor-or-self::*[@xml:lang][1]/@xml:lang">
+                    <xsl:attribute name="lang">
+                        <xsl:value-of select="ancestor-or-self::*[@xml:lang][1]/@xml:lang"/>
+                    </xsl:attribute>                    
+                </xsl:when>
+                <xsl:otherwise/>
+            </xsl:choose>
+            <xsl:if test="@n">
+                <xsl:choose>
+                    <xsl:when test="child::t:head"/>
+                    <xsl:otherwise>
+                        <span class="text-number badge" id="{local-name(.)}-{@n}">
+                            <xsl:value-of select="@n"/>
+                        </span>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
+            <xsl:apply-templates/>
+        </p>
     </xsl:template>
     
     <xsl:template match="text()">

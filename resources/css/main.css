@@ -890,9 +890,10 @@ a.sedra {text-decoration:none; color:#222; font-weight:normal; size:12px;}
     }
     
 .l, .line {display:block; margin:0;padding:0;}    
-.div, .div1, .div2, .div3, .div4, .div5 {display:block; margin:1em;}
+/*.div, .div1, .div2, .div3, .div4, .div5 {display:block; margin:1em;}*/
 .body {display:block; border:1px solid red;}
-
+.textBlock {display:block; border:1px solid green;}
+/*.toggleDisplay + .active {background-color:green;}*/
 /*
 .l,.ab {display:inline;}
 .line-num {font-size:medium; float:right; clear:right; margin-top:.5em;}
