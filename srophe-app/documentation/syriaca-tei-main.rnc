@@ -6,7 +6,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2017-03-30T15:35:51Z. .
+# Schema generated from ODD source 2017-04-19T18:17:33Z. .
 # TEI Edition: Version 3.1.0. Last updated on
 #	15th December 2016, revision d3f5e70
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.1.0/
@@ -5618,7 +5618,7 @@ tei_relation =
     tei_att.typed.attribute.subtype,
     
     ## (reference) An RDF property applicable to the relation. This may be a custom Syriaca.org property, such as one found at http://syriaca.org/documentation/relations.html or one from an external vocabulary such as SNAP or LAWD.
-    ## Suggested values include: 1] dct:source(is derived from) ; 2] lawd:embodies(embodies) ; 3] syriaca:commemorated(commemorates) ; 4] dct:isPartOf(is part of) ; 5] syriaca:isSometimesPartOf(is sometimes part of) ; 6] skos:broadMatch(has broad match) ; 7] syriaca:hasRelationToPlace(has relation to place) ; 8] syriaca:bornAt(was born at) ; 9] syriaca:hasLiteraryConnectionToPlace(has literary connection to place) ; 10] syriaca:differentFrom(should be distinguished from) ; 11] syriaca:possiblyIdentical(is possibly identical to) ; 12] syriaca:diedAt(died at) 
+    ## Suggested values include: 1] dct:source(is derived from) ; 2] lawd:embodies(embodies) ; 3] syriaca:commemorated(commemorates) ; 4] dct:isPartOf(is part of) ; 5] syriaca:sometimesCirculatesWith(sometimes circulates with) ; 6] skos:broadMatch(has broad match) ; 7] syriaca:hasRelationToPlace(has relation to place) ; 8] syriaca:bornAt(was born at) ; 9] syriaca:hasLiteraryConnectionToPlace(has literary connection to place) ; 10] syriaca:differentFrom(should be distinguished from) ; 11] syriaca:possiblyIdentical(is possibly identical to) ; 12] syriaca:diedAt(died at) 
     attribute ref {
       list {
         (
@@ -5634,8 +5634,8 @@ tei_relation =
            ## (is part of) A related resource in which the described resource is physically or logically included. (http://purl.org/dc/terms/isPartOf).
            "dct:isPartOf"
          | 
-           ## (is sometimes part of) A related resource in which the described resource is only sometimes included.
-           "syriaca:isSometimesPartOf"
+           ## (sometimes circulates with) A related resource with which the described resource may sometimes circulate, depending on the tradition.
+           "syriaca:sometimesCirculatesWith"
          | 
            ## (has broad match) A resource with a broader or more generic definition that encompasses the current resource along with others. Syriaca.org describes the broader resource using a "composite URI". SKOS definition: skos:broadMatch is used to state a hierarchical mapping link between two conceptual resources in different concept schemes. (https://www.w3.org/2009/08/skos-reference/skos.rdf#broadMatch).
            "skos:broadMatch"
