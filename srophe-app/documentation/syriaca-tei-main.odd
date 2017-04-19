@@ -858,9 +858,9 @@
                                     <gloss>is part of</gloss>
                                     <desc>A related resource in which the described resource is physically or logically included. (<ref target="http://purl.org/dc/terms/isPartOf">http://purl.org/dc/terms/isPartOf</ref>).</desc>
                                 </valItem>
-                                <valItem ident="syriaca:isSometimesPartOf">
-                                    <gloss>is sometimes part of</gloss>
-                                    <desc>A related resource in which the described resource is only sometimes included.</desc>
+                                <valItem ident="syriaca:sometimesCirculatesWith">
+                                    <gloss>sometimes circulates with</gloss>
+                                    <desc>A related resource with which the described resource may sometimes circulate, depending on the tradition.</desc>
                                 </valItem>
                                 <valItem ident="skos:broadMatch">
                                     <gloss>has broad match</gloss>
