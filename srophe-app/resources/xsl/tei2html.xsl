@@ -1425,22 +1425,6 @@
             </div>
         </xsl:if>
         <xsl:if test="self::t:bibl[starts-with(@xml:id,'work-')] and t:title">
-            <!--
-            Titles
-/TEI/text/body/bibl/title[not(@type=('initial-rubric','final-rubric','abbreviation'))]
-
-Initial Rubrics
-/TEI/text/body/bibl/title[@type='initial-rubric']
-
-Final Rubrics
-/TEI/text/body/bibl/title[@type='final-rubric']
-
-Abbreviations
-/TEI/text/body/bibl/title[@type='abbreviation']
-
-    
-                -->
-            
             <div class="well">
                 <h3>Titles</h3>
                 <ul>                
@@ -1462,30 +1446,6 @@ Abbreviations
                         </xsl:apply-templates>
                     </xsl:for-each>
                 </ul>
-                <xsl:if test="t:title[@type='initial-rubric']">
-                    <h3>Initial Rubrics</h3>
-                    <ul>
-                        <xsl:for-each select="t:title[@type='initial-rubric']">
-                            <xsl:apply-templates select="." mode="list"/>
-                        </xsl:for-each>
-                    </ul>
-                </xsl:if>
-                <xsl:if test="t:title[@type='final-rubric']">
-                    <h3>Final Rubrics</h3>
-                    <ul>
-                        <xsl:for-each select="t:title[@type='final-rubric']">
-                            <xsl:apply-templates select="." mode="list"/>
-                        </xsl:for-each>
-                    </ul>
-                </xsl:if>
-                <xsl:if test="t:title[@type='abbreviation']">
-                    <h3>Abbreviations</h3>
-                    <ul>
-                        <xsl:for-each select="t:title[@type='abbreviation']">
-                            <xsl:apply-templates select="." mode="list"/>
-                        </xsl:for-each>
-                    </ul>
-                </xsl:if>
                 <xsl:if test="t:author | t:editor">
                     <h3>Authors</h3>
                     <ul>
@@ -1550,6 +1510,31 @@ Abbreviations
                     </p>
                 </xsl:if>
             </div>
+            
+            <xsl:if test="t:title[@type='initial-rubric']">
+                <h3>Initial Rubrics</h3>
+                <ul>
+                    <xsl:for-each select="t:title[@type='initial-rubric']">
+                        <xsl:apply-templates select="." mode="list"/>
+                    </xsl:for-each>
+                </ul>
+            </xsl:if>
+            <xsl:if test="t:title[@type='final-rubric']">
+                <h3>Final Rubrics</h3>
+                <ul>
+                    <xsl:for-each select="t:title[@type='final-rubric']">
+                        <xsl:apply-templates select="." mode="list"/>
+                    </xsl:for-each>
+                </ul>
+            </xsl:if>
+            <xsl:if test="t:title[@type='abbreviation']">
+                <h3>Abbreviations</h3>
+                <ul>
+                    <xsl:for-each select="t:title[@type='abbreviation']">
+                        <xsl:apply-templates select="." mode="list"/>
+                    </xsl:for-each>
+                </ul>
+            </xsl:if>
         </xsl:if>
         <xsl:if test="self::t:place">
             <xsl:if test="t:placeName">
@@ -1763,7 +1748,8 @@ Abbreviations
                             </xsl:choose>
                         </xsl:variable>
                         <h3>
-                            <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/><xsl:if test="count(current-group()) &gt; 1">s</xsl:if>
+                            <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
+                            <xsl:if test="count(current-group()) &gt; 1">s</xsl:if>
                         </h3>
                         <ol>
                             <xsl:for-each select="current-group()">
