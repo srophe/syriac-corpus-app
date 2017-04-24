@@ -403,9 +403,13 @@
                                     <desc>Any text-bearing object, which usually embodies a Conceptual Work and which may be a source 
                                         for an Edition or Translation.</desc>
                                 </valItem>
-                                <valItem ident="syriaca:Catalogue">
-                                    <gloss>Catalogue</gloss>
-                                    <desc>A Citation of a catalogue.</desc>
+                                <valItem ident="syriaca:PrintCatalogue">
+                                    <gloss>Print Catalogue</gloss>
+                                    <desc>A Citation of a print catalogue, such as a manuscript catalogue.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:DigitalCatalogue">
+                                    <gloss>Digital Catalogue</gloss>
+                                    <desc>A Citation of a digital catalogue, such as a manuscript catalogue.</desc>
                                 </valItem>
                                 <valItem ident="syriaca:ModernTranslation">
                                     <gloss>Modern Translation</gloss>
