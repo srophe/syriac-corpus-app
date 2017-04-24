@@ -81,7 +81,11 @@ let $links:=
         <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
             {$data//tei:body/descendant::tei:idno, $data//descendant::tei:location}
         </see-also>
-return global:tei2html($links)
+return
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">See Also </h3></div>
+        <div class="panel-body">{global:tei2html($links)}</div>
+    </div>
 }; 
 
 (:~  
@@ -105,6 +109,49 @@ declare function app:display-nodes($node as node(), $model as map(*), $paths as 
 declare %templates:wrap function app:display-sources($node as node(), $model as map(*)){
     let $sources := $model("data")/descendant::tei:body/descendant::tei:bibl
     return global:tei2html(<sources xmlns="http://www.tei-c.org/ns/1.0">{$sources}</sources>)
+};
+
+(:~
+ : Display Series information
+ :)
+declare %templates:wrap function app:display-series($node as node(), $model as map(*)){
+let $series := distinct-values($model("data")/descendant::tei:seriesStmt/tei:biblScope/tei:title)
+return 
+if($series != '') then 
+<div class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">Series  
+    <span class="glyphicon glyphicon-question-sign text-info moreInfo pull-right" aria-hidden="true" 
+    data-toggle="tooltip" 
+    title="?"></span></h3></div>
+    <div class="panel-body">
+        {
+        for $f in $series
+        return 
+            if($f = 'A Guide to Syriac Authors') then
+                <p><a href="{$global:nav-base}/authors/index.html">
+                    <span class="syriaca-icon syriaca-authors" style="font-size:1.35em; vertical-align: middle;"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span><span> A Guide to Syriac Authors</span>
+                </a></p>
+            else if($f = 'The Syriac Biographical Dictionary') then
+                <p><a href="{$global:nav-base}/persons/index.html">
+                    <span class="syriaca-icon syriaca-sbd" style="font-size:1.35em; vertical-align: middle;"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span><span class="icon-text">SBD</span>
+                </a></p>
+            else if($f = 'Qadishe: A Guide to the Syriac Saints') then
+                <p><a href="{$global:nav-base}/q/index.html">
+                    <span class="syriaca-icon syriaca-q" style="font-size:1.35em; vertical-align: middle;"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span><span> Qadishe: A Guide to the Syriac Saints</span>
+                </a></p>                
+            else if($f = 'Bibliotheca Hagiographica Syriaca Electronica') then
+               <p><a href="{$global:nav-base}/bhse/index.html">
+                    <span class="syriaca-icon syriaca-bhse" style="font-size:1.35em; vertical-align: middle;"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span><span> Bibliotheca Hagiographica Syriaca Electronica</span>
+                </a></p>
+            else if($f = 'New Handbook of Syriac Literature') then
+               <p><a href="{$global:nav-base}/nhsl/index.html">
+                    <span class="syriaca-icon syriaca-nhsl" style="font-size:1.35em; vertical-align: middle;"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span><span> New Handbook of Syriac Literature</span>
+                </a></p>               
+            else ()
+        }
+    </div>
+</div>
+else ()
 };
 
 (:~    
@@ -146,7 +193,7 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                      return 
                         (global:tei2html($infobox),
                         app:display-related-inline($model("data"),'dct:isPartOf'),
-                        app:display-related-inline($model("data"),'syriaca:isSometimesPartOf'),
+                        app:display-related-inline($model("data"),'syriaca:sometimesCirculatesWith'),
                         app:display-related-inline($model("data"),'syriaca:part-of-tradition'),
                         global:tei2html($allData))  
                 } 
@@ -248,7 +295,7 @@ return
                 (<h3>This tradition comprises at least {$count} branches.</h3>,
                 <p>{$data/descendant::tei:note[@type='literary-tradition']}</p>)
              else <h3>{concat($title,' ',global:odd2text('relation', $relType),' ',$count,' works.')}</h3>,
-             if($relType = 'syriaca:isSometimesPartOf') then
+             if($relType = 'syriaca:sometimesCirculatesWith') then
                 <p class="note indent">* Manuscripts of the larger work only sometimes contain the work indicated.</p>
             else ())}
             {(
