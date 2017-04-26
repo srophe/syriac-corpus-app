@@ -235,9 +235,12 @@ declare function data:search($query-string as xs:string?){
                 for $h in $hits
                 order by global:build-sort-string(page:add-sort-options($h,request:get-parameter('sort-element', '')),'') ascending
                 return $h
-            else if(request:get-parameter('rel', '') != '' and (request:get-parameter('sort-element', '') = '' or not(exists(request:get-parameter('sort-element', ''))))) then
+            else if(request:get-parameter('relId', '') != '' and (request:get-parameter('sort-element', '') = '' or not(exists(request:get-parameter('sort-element', ''))))) then
                 for $h in $hits
-                let $part := xs:integer($h/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
+                let $part := 
+                      if ($h/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('relId', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n castable as  xs:integer)
+                      then xs:integer($h/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('relId', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
+                      else 0
                 order by $part
                 return $h        
             else
@@ -257,9 +260,12 @@ declare function data:search-nested-view($hits as node()*){
                 for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
                 order by global:build-sort-string(page:add-sort-options($h,request:get-parameter('sort-element', '')),'') ascending
                 return $h
-    else if(request:get-parameter('rel', '') != '' and (request:get-parameter('sort-element', '') = '' or not(exists(request:get-parameter('sort-element', ''))))) then
+    else if(request:get-parameter('relId', '') != '' and (request:get-parameter('sort-element', '') = '' or not(exists(request:get-parameter('sort-element', ''))))) then
                 for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
-                let $part := xs:integer($h/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
+                let $part := 
+                      if ($h/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('relId', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n castable as  xs:integer)
+                      then xs:integer($h/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('relId', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
+                      else 0
                 order by $part
                 return $h        
     else
@@ -355,8 +361,8 @@ if(request:get-parameter('relId', '') != '') then
         if(request:get-parameter('relType', '') != '') then
             let $relType := request:get-parameter('relType', '')
             return 
-                concat("[descendant::tei:relation[@passive[matches(.,'",$relId,"(\W.*)?$')] or @active[matches(.,'",$relId,"(\W.*)?$')] or @mutual[matches(.,'",$relId,"(\W.*)?$')]][@ref = '",request:get-parameter('relType', ''),"' or @name = '",request:get-parameter('relType', ''),"']]")
-        else concat("[descendant::tei:relation[@passive[matches(.,'",$relId,"(\W.*)?$')] or @active[matches(.,'",$relId,"(\W.*)?$')] or @mutual[matches(.,'",$relId,"(\W.*)?$')]]]")
+                concat("[descendant::tei:relation[@passive[matches(.,'",$relId,"(\W.*)?$')] or @mutual[matches(.,'",$relId,"(\W.*)?$')]][@ref = '",request:get-parameter('relType', ''),"' or @name = '",request:get-parameter('relType', ''),"']]")
+        else concat("[descendant::tei:relation[@passive[matches(.,'",$relId,"(\W.*)?$')] or @mutual[matches(.,'",$relId,"(\W.*)?$')]]]")
 else ''
 };
 
