@@ -226,45 +226,47 @@ declare function data:browse-data-pages($collection as xs:string*, $series as xs
     return $hit    
 };
 
-(:~
- : Dynamic relationships
-:)
-declare function data:get-dynamic-relations($current-record-id as xs:string?, $relType as xs:string?){
-for $r in collection($global:data-root)//tei:body[child::*/tei:listRelation/tei:relation[@passive[functx:contains-word(.,$current-record-id)]][@ref=$relType or @name=$relType]]
-let $part := 
-            if($r/child::*/tei:listRelation/tei:relation[@passive[functx:contains-word(.,$current-record-id)]]/tei:desc/tei:label[@type='order'][1]/@n castable as xs:integer) then xs:integer($r/child::*/tei:listRelation/tei:relation[@passive[functx:contains-word(.,$current-record-id)]]/tei:desc/tei:label[@type='order'][1]/@n)
-            else 0
-order by $part 
-return $r
-};
-
 (: Search functions :)
 declare function data:search($query-string as xs:string?){
     if(exists(request:get-parameter-names()) or (request:get-parameter('view', '') = 'all')) then 
         let $hits := util:eval($query-string)
         return 
-            <results total="{count($hits)}" xmlns="http://www.tei-c.org/ns/1.0">{
-                if(request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance' or request:get-parameter('view', '') = 'all') then 
-                    for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
-                    let $id := $h//tei:idno[1]
-                    order by global:build-sort-string(page:add-sort-options($h,request:get-parameter('sort-element', '')),'') ascending
-                    return data:get-children($hits, $id)
-                else if(request:get-parameter('rel', '') != '' and (request:get-parameter('sort-element', '') = '' or not(exists(request:get-parameter('sort-element', ''))))) then
-                    for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
-                    let $id := $h//tei:idno[1]
-                    let $part := xs:integer($h/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
-                    order by $part
-                    return data:get-children($hits, $id)        
-                else
-                    for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
-                    let $id := $h//tei:idno[1]
-                    order by ft:score($h) + (count($h/descendant::tei:bibl) div 100) descending
-                    return data:get-children($hits, $id[1])
-                }
-            </results>                
+            if(request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance' or request:get-parameter('view', '') = 'all') then 
+                for $h in $hits
+                order by global:build-sort-string(page:add-sort-options($h,request:get-parameter('sort-element', '')),'') ascending
+                return $h
+            else if(request:get-parameter('rel', '') != '' and (request:get-parameter('sort-element', '') = '' or not(exists(request:get-parameter('sort-element', ''))))) then
+                for $h in $hits
+                let $part := xs:integer($h/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
+                order by $part
+                return $h        
+            else
+                for $h in $hits
+                order by ft:score($h) + (count($h/descendant::tei:bibl) div 100) descending
+                return $h            
     else ()  
 };
 
+(: 
+ : Search functions
+ : Sort order for nested results. 
+ : Note: Order seems to be lost when a new xpath filter is applied. So this duplicates sort from data:search() 
+:)
+declare function data:search-nested-view($hits as node()*){
+    if(request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance' or request:get-parameter('view', '') = 'all') then 
+                for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
+                order by global:build-sort-string(page:add-sort-options($h,request:get-parameter('sort-element', '')),'') ascending
+                return $h
+    else if(request:get-parameter('rel', '') != '' and (request:get-parameter('sort-element', '') = '' or not(exists(request:get-parameter('sort-element', ''))))) then
+                for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
+                let $part := xs:integer($h/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
+                order by $part
+                return $h        
+    else
+                for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
+                order by ft:score($h) + (count($h/descendant::tei:bibl) div 100) descending
+                return $h              
+};
 (:~
  : Group results by skos:broadMatch
  : @param $hits results set 
@@ -347,15 +349,30 @@ declare function data:keyword(){
  : Add a generic relationship search to any search module. 
 :)
 declare function data:relation-search(){
-if(request:get-parameter('rel', '') != '') then
-    let $q := request:get-parameter('rel', '')
+if(request:get-parameter('relId', '') != '') then
+    let $relId := request:get-parameter('relId', '')
     return 
         if(request:get-parameter('relType', '') != '') then
             let $relType := request:get-parameter('relType', '')
             return 
-                concat("[descendant::tei:relation[@passive[matches(.,'",$q,"(\W.*)?$')] or @active[matches(.,'",$q,"(\W.*)?$')] or @mutual[matches(.,'",$q,"(\W.*)?$')]][@ref = '",request:get-parameter('relType', ''),"' or @name = '",request:get-parameter('relType', ''),"']]")
-        else concat("[descendant::tei:relation[@passive[matches(.,'",$q,"(\W.*)?$')] or @active[matches(.,'",$q,"(\W.*)?$')] or @mutual[matches(.,'",$q,"(\W.*)?$')]]]")
+                concat("[descendant::tei:relation[@passive[matches(.,'",$relId,"(\W.*)?$')] or @active[matches(.,'",$relId,"(\W.*)?$')] or @mutual[matches(.,'",$relId,"(\W.*)?$')]][@ref = '",request:get-parameter('relType', ''),"' or @name = '",request:get-parameter('relType', ''),"']]")
+        else concat("[descendant::tei:relation[@passive[matches(.,'",$relId,"(\W.*)?$')] or @active[matches(.,'",$relId,"(\W.*)?$')] or @mutual[matches(.,'",$relId,"(\W.*)?$')]]]")
 else ''
+};
+
+(:~
+ : Dynamic relationships
+:)
+declare function data:get-dynamic-relations($current-record-id as xs:string?, $relType as xs:string?){
+for $r in collection($global:data-root)//tei:body[child::*/tei:listRelation/tei:relation
+[@passive[matches(.,concat($current-record-id,'(\W.*)?$'))]][@ref=$relType or @name=$relType]]
+let $part := 
+            if($r/child::*/tei:listRelation/tei:relation
+            [@passive[matches(.,concat($current-record-id,'(\W.*)?$'))]]/tei:desc/tei:label[@type='order'][1]/@n castable as xs:integer) then 
+            xs:integer($r/child::*/tei:listRelation/tei:relation[@passive[matches(.,concat($current-record-id,'(\W.*)?$'))]]/tei:desc/tei:label[@type='order'][1]/@n)
+            else 0
+order by $part 
+return $r
 };
 
 (:~

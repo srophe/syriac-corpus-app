@@ -52,6 +52,7 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                         else search:query-string($collection)
                         
     return map {"hits" := data:search($eval-string) }
+            
 };
 
 (:~   
@@ -172,7 +173,7 @@ declare function search:search-string($collection as xs:string?){
  : Count total hits
 :)
 declare  %templates:wrap function search:hit-count($node as node()*, $model as map(*)) {
-    count($model("hits")//tei:rec)
+    count($model("hits"))
 };
 
 (:~
@@ -181,10 +182,10 @@ declare  %templates:wrap function search:hit-count($node as node()*, $model as m
 :)
 declare  %templates:wrap function search:pageination($node as node()*, $model as map(*), $collection as xs:string?, $view as xs:string?, $sort-options as xs:string*){
    if($view = 'all') then 
-        page:pages($model("hits")//tei:rec, $search:start, $search:perpage, '', $sort-options)
+        page:pages($model("hits"), $search:start, $search:perpage, '', $sort-options)
         (:page:pageination($model("hits"), $search:start, $search:perpage, true()):)
    else if(exists(request:get-parameter-names())) then 
-        page:pages($model("hits")//tei:rec, $search:start, $search:perpage, search:search-string($collection), $sort-options)
+        page:pages($model("hits"), $search:start, $search:perpage, search:search-string($collection), $sort-options)
         (:page:pageination($model("hits"), $search:start, $search:perpage, true(), $collection, search:search-string($collection)):)
    else ()
 };
@@ -292,9 +293,14 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
 <div class="indent" id="search-results">
     <div>{search:build-geojson($node,$model)}</div>
     {
-        for $hit at $p in subsequence($model("hits")/tei:grp, $search:start, $search:perpage)
+        let $hits := $model("hits")
+        let $tree := data:search-nested-view($model("hits"))
+        for $hit at $p in subsequence($tree, $search:start, $search:perpage)
+        let $id := $hit//tei:idno[1]
         return
-        <div class="results" style="border-bottom:1px dotted #eee; padding-top:.5em; padding-top:1em;">{search:show-grps($hit, $p, $collection)}</div>
+        <div class="results" style="border-bottom:1px dotted #eee; padding-top:.5em; padding-top:1em;">
+            {search:show-grps(data:get-children($hits, $id[1]), $p, $collection)}
+        </div>
      } 
 </div>
 };
