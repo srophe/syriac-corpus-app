@@ -1732,7 +1732,6 @@
         <xsl:if test="t:bibl">
             <xsl:choose>
                 <xsl:when test="self::t:bibl[@type='lawd:Citation' or @type='lawd:ConceptualWork']">
-                    <xsl:variable name="rules" select="'&lt; syriaca:Catalogue &lt; syriaca:PrintCatalogue &lt; syriaca:DigitalCatalogue &lt; syriaca:Manuscript &lt; lawd:Edition &lt; lawd:Translation &lt; lawd:WrittenWork '"/>
                     <xsl:variable name="type-order"/>
                     <xsl:for-each-group select="t:bibl[exists(@type)][@type != 'lawd:Citation']" group-by="@type">
                         <xsl:sort select="local:bibl-type-order(current-grouping-key())" order="ascending"/>
@@ -1745,16 +1744,25 @@
                                 <xsl:otherwise>
                                     <xsl:value-of select="current-grouping-key()"/>
                                 </xsl:otherwise>
-                            </xsl:choose>
+                            </xsl:choose><xsl:if test="count(current-group()) &gt; 1">s</xsl:if>
                         </xsl:variable>
                         <h3>
                             <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
-                            <xsl:if test="count(current-group()) &gt; 1">s</xsl:if>
                         </h3>
                         <ol>
-                            <xsl:for-each select="current-group()">
+                            <xsl:for-each select="current-group()[position() &lt; 3]">
                                 <xsl:apply-templates select="self::*"/>
                             </xsl:for-each>
+                            <xsl:if test="count(current-group()) &gt; 2">
+                                <div class="collapse" id="showMore-{local:bibl-type-order(current-grouping-key())}">
+                                    <xsl:for-each select="current-group()[position() &gt; 2]">
+                                        <xsl:apply-templates select="self::*"/>
+                                    </xsl:for-each>                                    
+                                </div>
+                                <button class="btn btn-link bibl-show togglelink" data-toggle="collapse" 
+                                    data-target="#showMore-{local:bibl-type-order(current-grouping-key())}" 
+                                    data-text-swap="Hide">Show all <xsl:value-of select="$label"/></button>
+                            </xsl:if>
                         </ol>
                     </xsl:for-each-group>
                     <xsl:for-each select="t:note[not(exists(@type))]">

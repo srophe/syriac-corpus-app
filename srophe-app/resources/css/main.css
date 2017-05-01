@@ -896,3 +896,5 @@ code.inline{
 select.keyboardSelect {display:none;}
 /* Timeline title styles */
 .slider-item h3{font-size:1.25em !important;}
+
+button.bibl-show {margin: .5em -1em;}
