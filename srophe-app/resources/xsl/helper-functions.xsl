@@ -346,7 +346,7 @@
                 <xsl:value-of select="$odd/descendant::t:valItem[@ident=$label]/t:gloss"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="$label"/>
+                <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
             </xsl:otherwise>
         </xsl:choose>
         
@@ -373,11 +373,14 @@
         <xsl:param name="label"/>
         <xsl:choose>
             <xsl:when test="$label = 'lawd:Edition'">a</xsl:when>
-            <xsl:when test="$label = 'lawd:Translation'">b</xsl:when>
-            <xsl:when test="$label = 'syriaca:ModernTranslation'">c</xsl:when>
-            <xsl:when test="$label = 'lawd:WrittenWork'">d</xsl:when>
-            <xsl:when test="$label = 'syriaca:Manuscript'">e</xsl:when>
-            <xsl:when test="$label = 'syriaca:Catalogue'">f</xsl:when>
+            <xsl:when test="$label = 'syriaca:Apparatus'">b</xsl:when>
+            <xsl:when test="$label = 'syriaca:Manuscript'">c</xsl:when>
+            <xsl:when test="$label = 'syriaca:AncientVersion'">d</xsl:when>
+            <xsl:when test="$label = 'syriaca:ModernTranslation'">e</xsl:when>
+            <xsl:when test="$label = 'syriaca:DigitalCatalogue'">f</xsl:when>
+            <xsl:when test="$label = 'syriaca:PrintCatalogue'">g</xsl:when>
+            <xsl:when test="$label = 'syriaca:Glossary'">h</xsl:when>
+            <xsl:when test="$label = 'lawd:WrittenWork'">i</xsl:when>
         </xsl:choose>
     </xsl:function>
     
