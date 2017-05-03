@@ -55,12 +55,13 @@
             <collection name="sbd" title="The Syriac Biographical Dictionary" series="The Syriac Biographical Dictionary" app-root="persons" data-root="persons"/>
             <collection name="authors" title="A Guide to Syriac Authors" series="A Guide to Syriac Authors" app-root="authors" data-root="persons"/>
             <collection name="q" title="Qadishe: A Guide to the Syriac Saints" series="Qadishe: A Guide to the Syriac Saints" app-root="q" data-root="persons"/>
-            <collection name="bhse" title="Bibliotheca Hagiographica Syriaca Electronica" series="Bibliotheca Hagiographica Syriaca Electronica" app-root="bhse" data-root="works"/>
+            <collection name="bhse" title="Bibliotheca Hagiographica Syriaca Electronica" series="New Handbook of Syriac Literature" app-root="bhse" data-root="works"/>
             <collection name="nhsl" title="New Handbook of Syriac Literature" series="New Handbook of Syriac Literature" app-root="nhsl" data-root="works"/>
             <collection name="mss" title="A Digital Catalogue of Syriac Manuscripts in the British Library" series="" app-root="mss" data-root="manuscripts"/>
             <collection name="spear" title="SPEAR: Syriac Persons Events and Relations" series="" app-root="spear" data-root="spear"/>
             <collection name="bibl" title="Syriaca.org Works Cited" series="" app-root="bibl" data-root="bibl"/>
             <collection name="subjects" title="A Taxonomy of Syriac Studies" series="" app-root="taxonomy" data-root="subjects"/>
+            <collection name="bible" title="A Guide to the Bible in Syriac" series="New Handbook of Syriac Literature" app-root="bible" data-root="works"/>
         </collections>
         <!--
     <google_analytics>var _gaq=[['_setAccount','UA-333143-26'],['_trackPageview']];
