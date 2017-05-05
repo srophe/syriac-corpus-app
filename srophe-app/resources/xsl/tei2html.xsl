@@ -1744,24 +1744,24 @@
                                 <xsl:otherwise>
                                     <xsl:value-of select="current-grouping-key()"/>
                                 </xsl:otherwise>
-                            </xsl:choose><xsl:if test="count(current-group()) &gt; 1">s</xsl:if>
+                            </xsl:choose>
+                            <xsl:if test="count(current-group()) &gt; 1">s</xsl:if>
                         </xsl:variable>
-                        <h3>
+                        <h3 name="{$label}">
                             <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
                         </h3>
                         <ol>
-                            <xsl:for-each select="current-group()[position() &lt; 3]">
+                            <xsl:for-each select="current-group()[position() &lt; 9]">
                                 <xsl:apply-templates select="self::*"/>
                             </xsl:for-each>
-                            <xsl:if test="count(current-group()) &gt; 2">
+                            <xsl:if test="count(current-group()) &gt; 8">
                                 <div class="collapse" id="showMore-{local:bibl-type-order(current-grouping-key())}">
-                                    <xsl:for-each select="current-group()[position() &gt; 2]">
+                                    <xsl:for-each select="current-group()[position() &gt; 8]">
                                         <xsl:apply-templates select="self::*"/>
                                     </xsl:for-each>                                    
                                 </div>
-                                <button class="btn btn-link bibl-show togglelink" data-toggle="collapse" 
-                                    data-target="#showMore-{local:bibl-type-order(current-grouping-key())}" 
-                                    data-text-swap="Hide">Show all <xsl:value-of select="$label"/></button>
+                                <button class="btn btn-link bibl-show togglelink" data-toggle="collapse" data-target="#showMore-{local:bibl-type-order(current-grouping-key())}" data-text-swap="Hide">Show all <xsl:value-of select="count(current-group())"/><xsl:text> </xsl:text> <xsl:value-of select="$label"/>
+                                </button>
                             </xsl:if>
                         </ol>
                     </xsl:for-each-group>
