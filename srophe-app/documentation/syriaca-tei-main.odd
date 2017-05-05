@@ -267,7 +267,7 @@
                     key="tagdocs"/>
                 <moduleRef except="certainty respons" key="certainty"/>
                 <moduleRef key="analysis"/>
-                <moduleRef key="dictionaries" include="lang"/>
+                <moduleRef key="dictionaries" include="lang entryFree"/>
                 <!-- If the TEI organization changes "precision" so that it can be a child of state and have notBefore notAfter attributes, this change may be removed. -->
                 <elementSpec ident="precision" module="certainty" mode="change">
                     <classes mode="replace">
