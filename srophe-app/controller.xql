@@ -11,7 +11,14 @@ declare variable $exist:record-uris  :=
     let $short-path := replace($collection/@record-URI-pattern,$global:base-uri,'')
     return $short-path)    
 ;
- 
+
+(: Get variables for Srophe collections. :)
+declare variable $exist:collection-uris  := 
+    distinct-values(for $collection in $global:get-config//repo:collection
+    let $short-path := replace($collection/@app-root,$global:base-uri,'')
+    return concat('/',$short-path,'/'))    
+; 
+
 (: Used to test vars
 <div>
     <p>$exist:path: {$exist:path}</p>
@@ -19,7 +26,8 @@ declare variable $exist:record-uris  :=
     <p>$exist:controller: {$exist:controller}</p>
     <p>$exist:prefix: {$exist:prefix}</p>
     <p>$exist:root: {$exist:root}</p>
-    <p>Srophe collections: {$exist:record-uris}</p>
+    <p>Srophe record uris: {$exist:record-uris}</p>
+    <p>Srophe coleection uris: {$exist:collection-uris}</p>
 </div>
 :)
 
@@ -44,9 +52,9 @@ else if (contains($exist:path, "/$shared/")) then
             <set-header name="Cache-Control" value="max-age=3600, must-revalidate"/>
         </forward>
     </dispatch>
-    
+
 (: Checks for any record uri patterns as defined in repo.xml :)    
-else if(replace($exist:path, $exist:resource,'') =  ($exist:record-uris)) then
+else if(replace($exist:path, $exist:resource,'') =  ($exist:record-uris) or ends-with($exist:path, ("/atom","/tei","/rdf","/ttl",'.tei','.atom','.rdf','.ttl'))) then
     (: Sends to restxql to handle /atom, /tei,/rdf:)
     if (ends-with($exist:path, ("/atom","/tei","/rdf","/ttl",'.tei','.atom','.rdf','.ttl'))) then
         let $path := 
@@ -69,6 +77,10 @@ else if(replace($exist:path, $exist:resource,'') =  ($exist:record-uris)) then
    		</error-handler>
        </dispatch>
     (: parses out record id to be passed to correct collection view, based on values in repo.xml :)       
+    else if($exist:resource = '') then 
+        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+            <redirect url="index.html"/>
+        </dispatch>
     else 
         let $id := replace(xmldb:decode($exist:resource), "^(.*)\..*$", "$1")
         let $record-uri-root := replace($exist:path,$exist:resource,'')
