@@ -28,10 +28,6 @@ if ($exist:path eq '') then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="{request:get-uri()}/"/>
     </dispatch>
-else if ($exist:resource eq '' or ends-with($exist:path,"/")) then 
-    <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <redirect url="index.html"/>
-    </dispatch>
 
 (: Resource paths starting with $app-root are resolved relative to app :)
 else if (contains($exist:path, "/$app-root/")) then
@@ -40,8 +36,8 @@ else if (contains($exist:path, "/$app-root/")) then
                 <set-header name="Cache-Control" value="max-age=3600, must-revalidate"/>
             </forward>
         </dispatch>        
-(: Resource pa
-ths starting with $shared are loaded from the shared-resources app :)
+
+(: Resource paths starting with $shared are loaded from the shared-resources app :)
 else if (contains($exist:path, "/$shared/")) then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <forward url="/shared-resources/{substring-after($exist:path, '/$shared/')}">
@@ -50,7 +46,7 @@ else if (contains($exist:path, "/$shared/")) then
     </dispatch>
     
 (: Checks for any record uri patterns as defined in repo.xml :)    
-else if(starts-with($exist:path, ($exist:record-uris))) then
+else if(replace($exist:path, $exist:resource,'') =  ($exist:record-uris)) then
     (: Sends to restxql to handle /atom, /tei,/rdf:)
     if (ends-with($exist:path, ("/atom","/tei","/rdf","/ttl",'.tei','.atom','.rdf','.ttl'))) then
         let $path := 
@@ -61,12 +57,23 @@ else if(starts-with($exist:path, ($exist:record-uris))) then
             <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
                 <forward url="{concat('/restxq/srophe', $path)}" absolute="yes"/>
             </dispatch>
-    (: parses out record id to be passed to correct collection view, based on values in repo.xml :)
-    else        
+    (: Special handling for collections with app-root that matches record-URI-pattern sends html pages to html, others are assumed to be records :)
+    else if($exist:resource = ('index.html','search.html','browse.html','about.html')) then 
+        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+           <view>
+               <forward url="{$exist:controller}/modules/view.xql"/>
+           </view>
+   		<error-handler>
+   			<forward url="{$exist:controller}/error-page.html" method="get"/>
+   			<forward url="{$exist:controller}/modules/view.xql"/>
+   		</error-handler>
+       </dispatch>
+    (: parses out record id to be passed to correct collection view, based on values in repo.xml :)       
+    else 
         let $id := replace(xmldb:decode($exist:resource), "^(.*)\..*$", "$1")
         let $record-uri-root := replace($exist:path,$exist:resource,'')
         let $html-path :=  concat('/',$global:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)][1]/@app-root,'/record.html')
-        return 
+        return
             <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
             <forward url="{$exist:controller}{$html-path}"></forward>
                 <view>
@@ -79,7 +86,6 @@ else if(starts-with($exist:path, ($exist:record-uris))) then
                     <forward url="{$exist:controller}/modules/view.xql"/>
                 </error-handler>
          </dispatch> 
-
 (: Passes any api requests to restxq:)    
 else if (contains($exist:path,'/api/')) then
   if (ends-with($exist:path,"/")) then
@@ -97,6 +103,11 @@ else if (contains($exist:path,'/api/')) then
     else
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <forward url="{concat('/restxq/srophe', $exist:path)}" absolute="yes"/>
+    </dispatch>
+
+else if ($exist:resource eq '' or ends-with($exist:path,"/")) then 
+    <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+        <redirect url="index.html"/>
     </dispatch>
     
 (: Sends all other html pages through eXist templating module for processing. :)    
