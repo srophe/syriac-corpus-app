@@ -76,8 +76,8 @@
             </xsl:choose>
         </xsl:variable>
         <!-- When ptr is available, use full bibl record (indicated by ptr) -->
-        <li id="{@xml:id}">
-            <span class="anchor"/>
+        <li>
+            <span class="anchor" id="{@xml:id}"/>
             <!-- Display footnote number -->
             <span class="footnote-tgt">
                 <xsl:value-of select="$thisnum"/>
@@ -1033,10 +1033,12 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="t:idno" mode="footnote">
+        <!-- IDNO should use mode="links" not mode footnote. 
         <xsl:text> </xsl:text>
         <span class="footnote idno">
             <xsl:apply-templates/>
         </span>
+        -->
     </xsl:template>
 
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
