@@ -316,6 +316,12 @@
                         <surname>Bamballi</surname>
                     </persName>
                 </person>
+                <person xml:id="klindtner">
+                    <persName xml:lang="en">
+                        <forename>K.</forename>
+                        <surname>Lindtner</surname>
+                    </persName>
+                </person>
                 <org xml:id="uasyriacresearchgroup">
                     <name xml:lang="en">The Syriac Research Group, University of Alabama</name>
                 </org>
