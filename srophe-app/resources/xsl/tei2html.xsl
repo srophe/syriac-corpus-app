@@ -1369,7 +1369,6 @@
             </div>
         </xsl:if>
         <xsl:if test="self::t:entryFree">
-            <div class="well">
                 <xsl:if test="t:desc[@type='abstract'] | t:desc[starts-with(@xml:id, 'abstract-en')] | t:note[@type='abstract']">
                     <div style="margin-bottom:1em;">
                         <h3>Abstract</h3>
@@ -1377,6 +1376,7 @@
                     </div>
                 </xsl:if>
                 <xsl:if test="t:term">
+                    <h3>Terms</h3>
                     <p>
                         <xsl:for-each-group select="t:term" group-by="@syriaca-tags">
                             <xsl:for-each select="current-group()">
@@ -1389,7 +1389,7 @@
                     </p>
                 </xsl:if>
                 <br class="clearfix"/>
-            </div>
+            
         </xsl:if>
         <xsl:if test="self::t:person">
             <div>
@@ -1760,7 +1760,8 @@
                                         <xsl:apply-templates select="self::*"/>
                                     </xsl:for-each>                                    
                                 </div>
-                                <button class="btn btn-link bibl-show togglelink" data-toggle="collapse" data-target="#showMore-{local:bibl-type-order(current-grouping-key())}" data-text-swap="Hide">Show all <xsl:value-of select="count(current-group())"/><xsl:text> </xsl:text> <xsl:value-of select="$label"/>
+                                <button class="btn btn-link bibl-show togglelink" data-toggle="collapse" data-target="#showMore-{local:bibl-type-order(current-grouping-key())}" data-text-swap="Hide">Show all <xsl:value-of select="count(current-group())"/>
+                                    <xsl:text> </xsl:text> <xsl:value-of select="$label"/>
                                 </button>
                             </xsl:if>
                         </ol>

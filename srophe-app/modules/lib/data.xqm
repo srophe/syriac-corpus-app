@@ -120,29 +120,23 @@ declare function data:element($element as xs:string?, $series as xs:string?) as 
 (:
  : Main browse function 
  : @param $collection as xs:string name of the collection, defined in the repo.xml
- : @param $series as xs:string defined by seriesStmt
  : @param $element as xs:string, element to be used browse on, xpath: ex: //tei:titleStmt/tei:author defaults to //tei:titleStmt/tei:title
  : @note parameters can be passed to function via the HTML templates or from the requesting url
  : @note there are two ways to define collections, physical collection and tei collection, seriesStmt
 :)
-declare function data:get-browse-data($collection as xs:string*, $series as xs:string*, $element as xs:string?){
+declare function data:get-browse-data($collection as xs:string*, $element as xs:string?){
     let $collection-path := 
         if(global:collection-vars($collection)/@data-root != '') then concat('/',global:collection-vars($collection)/@data-root)
         else if($collection != '') then concat('/',$collection)
         else ()
     let $get-series :=  
-        if(global:collection-vars($collection)/@series != '') then string(global:collection-vars($collection)/@series)
-        else if($series != '') then $series
+        if(global:collection-vars($collection)/@collection-URI != '') then string(global:collection-vars($collection)/@collection-URI)
         else ()                             
     let $series-path := 
-        if($get-series != '') then concat("//tei:title[. = '",$get-series,"'][ancestor::tei:seriesStmt]/ancestor::tei:TEI")
+        if($get-series != '') then concat("//tei:idno[. = '",$get-series,"'][ancestor::tei:seriesStmt]/ancestor::tei:TEI")
         else '//tei:TEI'
-    let $element := 
-        if($series != '') then data:element($element, $collection)
-        else data:element($element, $collection)
-    let $facets := 
-        if($series != '') then $series
-        else $collection
+    let $element := data:element($element, $collection)
+    let $facets := $collection
     let $sort := 
         if(request:get-parameter('sort', '') != '') then request:get-parameter('sort', '') 
         else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
@@ -214,15 +208,14 @@ declare function data:get-browse-data($collection as xs:string*, $series as xs:s
 (:
  : Limit results by per-page browse function 
  : @param $collection as xs:string physical eXistdb collection
- : @param $series as xs:string defined by seriesStmt
  : @param $element as xs:string, element to be used browse on, xpath: ex: //tei:titleStmt/tei:author defaults to //tei:titleStmt/tei:title
  : @param $start
  : @part $perpage
  : @note parameters can be passed to function via the HTML templates or from the requesting url
  : @note there are two ways to define collections, physical collection and tei collection, seriesStmt
 :)
-declare function data:browse-data-pages($collection as xs:string*, $series as xs:string*, $element as xs:string?, $start as xs:integer?, $perpage as xs:integer?){
-    for $hit in subsequence(data:get-browse-data($collection, $series, $element), $start, $perpage)
+declare function data:browse-data-pages($collection as xs:string*, $element as xs:string?, $start as xs:integer?, $perpage as xs:integer?){
+    for $hit in subsequence(data:get-browse-data($collection,$element), $start, $perpage)
     return $hit    
 };
 
@@ -364,21 +357,6 @@ if(request:get-parameter('relId', '') != '') then
                 concat("[descendant::tei:relation[@passive[matches(.,'",$relId,"(\W.*)?$')] or @mutual[matches(.,'",$relId,"(\W.*)?$')]][@ref = '",request:get-parameter('relType', ''),"' or @name = '",request:get-parameter('relType', ''),"']]")
         else concat("[descendant::tei:relation[@passive[matches(.,'",$relId,"(\W.*)?$')] or @mutual[matches(.,'",$relId,"(\W.*)?$')]]]")
 else ''
-};
-
-(:~
- : Dynamic relationships
-:)
-declare function data:get-dynamic-relations($current-record-id as xs:string?, $relType as xs:string?){
-for $r in collection($global:data-root)//tei:body[child::*/tei:listRelation/tei:relation
-[@passive[matches(.,concat($current-record-id,'(\W.*)?$'))]][@ref=$relType or @name=$relType]]
-let $part := 
-            if($r/child::*/tei:listRelation/tei:relation
-            [@passive[matches(.,concat($current-record-id,'(\W.*)?$'))]]/tei:desc/tei:label[@type='order'][1]/@n castable as xs:integer) then 
-            xs:integer($r/child::*/tei:listRelation/tei:relation[@passive[matches(.,concat($current-record-id,'(\W.*)?$'))]]/tei:desc/tei:label[@type='order'][1]/@n)
-            else 0
-order by $part 
-return $r
 };
 
 (:~

@@ -20,11 +20,19 @@ declare function rel:get-uris($uris as xs:string*, $idno) as xs:string*{
     return $uri
 };
 
+(:~
+ : Use XSLT to build short record view to display related records
+ : @param $uri uri of record to display.  
+:)
 declare function rel:display($uri as xs:string*) as element(a)*{
     let $rec :=  data:get-rec($uri)  
     return global:display-recs-short-view($rec, '')
 };
 
+(:~
+ : @depreciated use SPARQL instead
+ : Get related record names
+:)
 declare function rel:get-names($uris as xs:string?) {
     let $count := count(tokenize($uris,' '))
     for $uri at $i in tokenize($uris,' ')
@@ -86,23 +94,16 @@ declare function rel:decode-relationship($related as node()*){
                     return functx:capitalize-first(substring-after(functx:camel-case-to-words($w,' '),':')),' ')
 };
 
-
 (:~ 
  : Subject type, based on uri of @passive uris
  : @param 'passive' $relationship attribute
 :)
 declare function rel:get-subject-type($rel as xs:string*) as xs:string*{
-    if(contains($rel,'person') and contains($rel,'place')) then 'records'
-    else if(contains($rel,'person')) then 
-        if(contains($rel,' ')) then 'persons'
-        else 'person'
-    else if(contains($rel,'place')) then 
-        if(contains($rel,' ')) then 'places'
-        else 'place'
-    else if(contains($rel,'work')) then 
-        if(contains($rel,' ')) then 'works'
-        else 'work'
-    else string($rel)
+    if(contains($rel, ' ')) then
+        if(count(distinct-values(for $r in tokenize(string($rel),'/')[4] return $r)) gt 1) then 
+            'records'
+        else (tokenize(string($rel[1]),'/')[4],'s')
+    else tokenize(string($rel[1]),'/')[4]
 };
 
 (:~ 
@@ -213,9 +214,9 @@ declare function rel:subject-headings($idno){
  : @param $idno record idno
 :)
 declare function rel:build-relationships($node,$idno){ 
-<div class="relation well">
-    <h3>Relationships </h3>
-    <div class="indent">
+<div class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">Relationships </h3></div>
+    <div class="panel-body">
     {       
         for $related in $node/descendant-or-self::tei:relation
         let $rel-id := index-of($node, $related[1])
@@ -258,6 +259,42 @@ declare function rel:build-relationships($node,$idno){
         }
     </div>
 </div>
+};
+
+(:~ 
+ : Build a single relationship type relation/@ref or @name
+ : @param $node all relationship elements
+ : @param $idno record idno
+:)
+declare function rel:build-relationship($node,$idno, $relType){ 
+
+for $related in $node/descendant-or-self::tei:relation[@name = $relType or @ref = $relType]
+let $rel-id := index-of($node, $related[1])
+let $names := rel:get-uris(string-join(($related/@active/string(),$related/@passive/string(),$related/@mutual/string()),' '),$idno)
+let $count := count($names)
+return 
+    (<p class="rel-label"> 
+        {
+            if($related/@mutual) then 
+                ('This ', rel:get-subject-type($related[1]/@mutual), ' ', rel:decode-relationship($related), ' ', $count, ' other ', rel:get-subject-type($related[1]/@mutual),'.')
+            else if($related/@active) then 
+                ('This ', rel:get-subject-type($related[1]/@active), ' ',rel:decode-relationship($related), ' ', $count, ' ', rel:get-subject-type($related[1]/@passive),'.')
+            else rel:decode-relationship($related)
+         }
+      </p>,
+      <div class="rel-list">{
+        for $r in subsequence($names,1,2)
+        return rel:display($r),
+            if($count gt 2) then
+                <span>
+                    <span class="collapse" id="showRel-{$rel-id}">{
+                        for $r in subsequence($names,3,$count)
+                        return rel:display($r)
+                    }</span>
+                    <a class="togglelink btn btn-info" style="width:100%; margin-bottom:1em;" data-toggle="collapse" data-target="#showRel-{$rel-id}" data-text-swap="Hide"> See all {$count} &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
+                </span>
+            else ()
+     }</div>)
 };
 
 (: Assumes active/passive SPEAR:)
@@ -418,3 +455,97 @@ declare function rel:build-short-relationships-list($node,$idno){
 declare function rel:build-short-relationships($node,$uri){ 
     rel:build-relationship-sentence($node,$uri)
 };
+
+(:~
+ : Build external relationships, i.e, aggrigate all records which reference the current record, 
+ : as opposed to rel:build-relationships which displays record information for records referenced in the current record.
+ : @param $recID current record id 
+ : @param $title current record title 
+ : @param $relType relationship type
+ : @param $collection current record collection
+ : @param $sort sort on title or part number default to title
+ : @param $count number of records to return, if empty defaults to 5 with a popup for more. 
+:)
+declare function rel:external-relationships($recid as xs:string, $title as xs:string?, $relType as xs:string*, $collection as xs:string?, $sort as xs:string?, $count as xs:string?){
+let $related := 
+    for $r in collection($global:data-root)//tei:body[child::*/tei:listRelation/tei:relation[@passive[matches(.,concat($recid,'(\W.*)?$'))]][@ref=$relType or @name=$relType]]
+    let $title := $r/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]
+    let $sort :=
+                if($sort = 'part') then 
+                    if($r/child::*/tei:listRelation/tei:relation[@passive[matches(.,concat($recid,'(\W.*)?$'))]]/tei:desc/tei:label[@type='order'][1]/@n castable as xs:integer) then 
+                        xs:integer($r/child::*/tei:listRelation/tei:relation[@passive[matches(.,concat($recid,'(\W.*)?$'))]]/tei:desc/tei:label[@type='order'][1]/@n)
+                    else 0            
+                else $r/ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[1]
+    order by $sort, $title 
+    return $r
+let $total := count($related)
+let $recType := 
+    if($collection = ('sbd','authors','q')) then 'person'
+    else if($collection = ('geo','place')) then 'place'
+    else if($collection = ('nhsl','bhse','bible')) then 'work'
+    else if($collection = ('subject')) then 'subject'
+    else 'record'
+let $collection-root := string(global:collection-vars($collection)/@app-root)    
+return
+    if($total gt 0) then 
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            {(if($relType = 'dct:isPartOf') then 
+                <h3>{$title} contains {$total} works.</h3>
+             else if ($relType = 'skos:broadMatch') then
+                <h3>{$title} refers to {$total}{concat(' ',$recType)}{if($total gt 1) then 's' else()}.</h3>
+             (:
+             else if ($relType = 'syriaca:part-of-tradition') then 
+                (<h3>This tradition comprises at least {$total} branches.</h3>,
+                <p>{$rec/descendant::tei:note[@type='literary-tradition']}</p>)
+                :)
+             else <h3>{concat($title,' ',global:odd2text('relation', $relType),' ',$total,' ',$recType, if($total gt 1) then 's' else(),'.')}</h3>,
+             if($relType = 'syriaca:sometimesCirculatesWith') then
+                <p class="note indent">* Manuscripts of the larger work only sometimes contain the work indicated.</p>
+            else ())}
+            {(
+                if($count='all') then 
+                    for $r in $related
+                    let $rec :=  $r/ancestor::tei:TEI
+                    return 
+                             <div class="indent row">
+                                <div class="col-md-1"><span class="badge results">{$r/child::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc[1]/tei:label}</span></div>
+                                <div class="col-md-11">{global:display-recs-short-view($rec,'',$recid)}</div>
+                             </div>
+                else if($total gt 5) then
+                        <div>
+                         {
+                             for $r in subsequence($related, 1, 3)
+                             let $rec :=  $r/ancestor::tei:TEI
+                             let $part := 
+                                   if ($r/descendant::tei:relation[@passive[matches(.,$recid)]]/tei:desc[1]/tei:label[@type='order'][1]/@n castable as  xs:integer)
+                                   then xs:integer($r/child::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
+                                   else ''
+                             return 
+                             <div class="indent row">
+                                <div class="col-md-1"><span class="badge results">{$r/child::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc[1]/tei:label}</span></div>
+                                <div class="col-md-11">{global:display-recs-short-view($rec,'',$recid)}</div>
+                             </div>
+                         }
+                           <div>
+                            <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
+                            data-ref="{$global:nav-base}/{$collection-root}/search.html?relId={$recid}&amp;relType={$relType}&amp;perpage={$total}&amp;showPart=true" 
+                            data-label="{$title} contains {$count} works" id="works">
+                              See all {$total} records
+                             </a>
+                           </div>
+                         </div>
+                else 
+                    for $r in $related
+                    let $rec :=  $r/ancestor::tei:TEI
+                    return 
+                             <div class="indent row">
+                                <div class="col-md-1"><span class="badge results">{$r/child::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc[1]/tei:label}</span></div>
+                                <div class="col-md-11">{global:display-recs-short-view($rec,'',$recid)}</div>
+                             </div>
+            )}
+        </div>
+    else ()  
+};
+
+
+

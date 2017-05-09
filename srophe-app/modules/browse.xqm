@@ -28,7 +28,7 @@ declare namespace util="http://exist-db.org/xquery/util";
 
 (:~ 
  : Parameters passed from the url
- : @param $browse:coll selects collection (persons/places ect) from browse.html 
+ : @param $browse:coll selects collection (persons/places ect) from browse.html  @depreciated use $browse:collection
  : @param $browse:type selects doc type filter eg: place@type
  : @param $browse:view selects language for browse display
  : @param $browse:date selects doc by date
@@ -63,29 +63,24 @@ declare variable $browse:computed-lang{
  : @param $collection collection name passed from html, should match data subdirectory name or tei series name
  : Calls data function data:get-browse-data($collection as xs:string*, $series as xs:string*, $element as xs:string?)
 :)  
-declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string*, $series as xs:string*, $element as xs:string?){
-    map{"browse-data" := data:get-browse-data($collection, $series, $element) }
+declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string*, $element as xs:string?){
+    map{"browse-data" := data:get-browse-data($collection, $element) }
 };
 
 (:~
- : Display pageing functions in html templates
+ : Display paging functions in html templates
 :)
 declare %templates:wrap function browse:pageination($node as node()*, $model as map(*), $collection as xs:string?, $sort-options as xs:string*){
    page:pages($model("browse-data"), $browse:start, $browse:perpage,'', $sort-options)
-};
-
-declare function browse:pages($hits, $collection as xs:string?, $sort-options as xs:string*){
-    page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)
 };
 
 (:
  : Main HTML display of browse results
  : @param $collection passed from html 
 :)
-declare function browse:results-panel($node as node(), $model as map(*), $collection, $series, $sort-options as xs:string*){
+declare function browse:results-panel($node as node(), $model as map(*), $collection, $sort-options as xs:string*){
     let $hits := $model("browse-data")
-    let $facets := if($series) then $series 
-                   else if($collection) then $collection 
+    let $facets := if($collection) then $collection 
                    else ()
     return 
        if($collection = 'spear') then bs:spear-results-panel($hits)
@@ -102,7 +97,7 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
                 if($browse:view='type') then
                     if(request:get-parameter('fq', '') and contains(request:get-parameter('fq', ''), 'fq-Type:') or $browse:type != '') then
                         (
-                        browse:pages($hits, $collection, ''),
+                        page:pages($hits, $browse:start, $browse:perpage,'', $sort-options),
                         <h3>{concat(upper-case(substring($browse:type,1,1)),substring($browse:type,2))}</h3>,
                         <div>{(        
                                 <div class="col-md-12 map-md">{browse:get-map($hits)}</div>,
@@ -111,11 +106,11 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
                     else <h3>Select Type</h3>    
                 else if($browse:view='date') then 
                     if(request:get-parameter('fq', '') and contains(request:get-parameter('fq', ''), 'fq-Century:')) then 
-                        (browse:pages($hits, $collection, $sort-options),
+                        (page:pages($hits, $browse:start, $browse:perpage,'', $sort-options),
                         <h3>{$browse:date}</h3>,
                         <div>{browse:display-hits($hits)}</div>)
                     else <h3>Select Date</h3>  
-                else (browse:pages($hits, $collection, ''),
+                else (page:pages($hits, $browse:start, $browse:perpage,'', $sort-options),
                       <h3>Results {concat(upper-case(substring($browse:type,1,1)),substring($browse:type,2))} ({count($hits)})</h3>,
                       <div>{(
                         <div class="col-md-12 map-md">{browse:get-map($hits)}</div>,
@@ -128,7 +123,7 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
             </div>
         else if($browse:view = 'all' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then 
             <div class="col-md-12">
-                <div>{browse:pages($hits, $collection, $sort-options)}</div>
+                <div>{page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)}</div>
                 <div>{browse:display-hits($hits)}</div>
             </div>
         else 
@@ -137,7 +132,7 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
                 if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),
                 <div class="float-container">
                     <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right"}">
-                         <div>{browse:pages($hits, $collection, $sort-options)}</div>
+                         <div>{page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)}</div>
                     </div>
                     {browse:browse-abc-menu()}
                 </div>,
@@ -162,22 +157,89 @@ declare function browse:total-places(){
 };
 
 (:
- : Set up browse page, select correct results function based on URI params
+ : Display map from HTML page 
+ : For place records map coordinates
+ : For other records, check for place relationships
+ : @param $collection passed from html 
+ : @param $facet relative (from collection root) path to facet definition 
+:)
+declare function browse:display-facets($node as node(), $model as map(*), $collection as xs:string?, $facet as xs:string?){
+let $hits := $model("browse-data")
+let $facet-config := doc(concat($global:app-root, '/', string(global:collection-vars($collection)/@app-root),'/',$facet))
+return 
+    if($facet-config) then 
+        facet:html-list-facets-as-buttons(facet:count($hits, $facet-config/descendant::facet:facet-definition)) 
+    else ()               
+};
+
+(:
+ : Display map from HTML page 
+ : For place records map coordinates
+ : For other records, check for place relationships
  : @param $collection passed from html 
 :)
-declare function browse:display-persons-map($node as node(), $model as map(*), $collection, $sort-options as xs:string*){
-let $hits := $model("browse-data") 
-let $related := distinct-values(
-                    tokenize(
-                        string-join(($hits//tei:relation/@mutual,$hits//tei:relation/@passive,$hits//tei:relation/@active),' '),
-                        ' '))
-let $places :=  $related[contains(.,'/place/')]                       
-let $geo := for $r in $places
-            return 
-               collection($global:data-root)//tei:idno[@type='URI'][. = concat($r,'/tei')]/ancestor::tei:TEI[descendant::tei:geo]
-return                
-         maps:build-map($geo, count($places))
+declare function browse:display-map($node as node(), $model as map(*), $collection, $sort-options as xs:string*){
+let $hits := $model("browse-data")
+return browse:get-map($hits)                    
+};
 
+(: Display map :)
+(:
+ map {
+                    "config": $config,
+                    "data":
+                        if (empty($div)) then
+                            $node/following-sibling::tei:div[1]
+                        else
+                            $div
+                }
+:)
+declare function browse:get-map($hits){
+    if($hits/descendant::tei:body/tei:listPlace/descendant::tei:geo) then 
+            maps:build-map($hits[descendant::tei:geo], count($hits))
+    else if($hits//tei:relation[contains(@passive,'/place/') or contains(@active,'/place/') or contains(@mutual,'/place/')]) then
+        let $related := 
+                for $r in $hits//tei:relation[contains(@passive,'/place/') or contains(@active,'/place/') or contains(@mutual,'/place/')]
+                let $title := string($r/ancestor::tei:TEI/descendant::tei:title[1])
+                let $rid := string($r/ancestor::tei:TEI/descendant::tei:idno[1])
+                let $relation := string($r/@name)
+                let $places := for $p in tokenize(string-join(($r/@passive,$r/@active,$r/@mutual),' '),' ')[contains(.,'/place/')] return <placeName xmlns="http://www.tei-c.org/ns/1.0">{$p}</placeName>
+                return 
+                    <record xmlns="http://www.tei-c.org/ns/1.0">
+                        <title xmlns="http://www.tei-c.org/ns/1.0" name="{$relation}" id="{replace($rid,'/tei','')}">{$title}</title>
+                            {$places}
+                    </record>
+        let $places := distinct-values($related/descendant::tei:placeName/text()) 
+        let $locations := 
+            for $id in $places
+            for $geo in collection($global:data-root || '/places/tei')//tei:idno[. = $id][ancestor::tei:TEI[descendant::tei:geo]]
+            let $title := $geo/ancestor::tei:TEI/descendant::*[@syriaca-tags="#syriaca-headword"][1]
+            let $type := string($geo/ancestor::tei:TEI/descendant::tei:place/@type)
+            let $geo := $geo/ancestor::tei:TEI/descendant::tei:geo
+            return 
+                <place xmlns="http://www.tei-c.org/ns/1.0">
+                    <idno>{$id}</idno>
+                    <title>{concat(normalize-space($title), ' - ', $type)}</title>
+                    <desc>Related:
+                    {
+                        for $p in $related[child::tei:placeName[. = $id]]/tei:title
+                        return concat('<br/><a href="',string($p/@id),'">',normalize-space($p),'</a>')
+                    }
+                    </desc>
+                    <location>{$geo}</location>  
+                </place>
+        return 
+            if(not(empty($locations))) then 
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Related places</h3>
+                    </div>
+                    <div class="panel-body">
+                        {maps:build-map($locations,count($places))}
+                    </div>
+                </div>
+             else()
+    else ()
 };
 
 (:
@@ -204,54 +266,7 @@ declare function browse:display-hits($hits){
         </div>
 };
 
-(: Display map :)
-declare function browse:get-map($hits){
-    if($hits/descendant::tei:body/tei:listPlace/descendant::tei:geo) then 
-            maps:build-map($hits[descendant::tei:geo], count($hits))
-    else if($hits/descendant::tei:body/tei:listPerson/tei:person) then 
-        let $persons := 
-            for $p in $hits//tei:relation[contains(@passive,'/place/') or contains(@active,'/place/') or contains(@mutual,'/place/')]
-            let $name := string($p/ancestor::tei:TEI/descendant::tei:title[1])
-            let $pers-id := string($p/ancestor::tei:TEI/descendant::tei:idno[1])
-            let $relation := string($p/@name)
-            let $places := for $p in tokenize(string-join(($p/@passive,$p/@active,$p/@mutual),' '),' ')[contains(.,'/place/')] return <placeName xmlns="http://www.tei-c.org/ns/1.0">{$p}</placeName>
-            return 
-                <person xmlns="http://www.tei-c.org/ns/1.0">
-                    <persName xmlns="http://www.tei-c.org/ns/1.0" name="{$relation}" id="{replace($pers-id,'/tei','')}">{$name}</persName>
-                        {$places}
-                </person>
-        let $places := distinct-values($persons/descendant::tei:placeName/text()) 
-        let $locations := 
-            for $id in $places
-            for $geo in collection($global:data-root || '/places/tei')//tei:idno[. = $id][ancestor::tei:TEI[descendant::tei:geo]]
-            let $title := $geo/ancestor::tei:TEI/descendant::*[@syriaca-tags="#syriaca-headword"][1]
-            let $type := string($geo/ancestor::tei:TEI/descendant::tei:place/@type)
-            let $geo := $geo/ancestor::tei:TEI/descendant::tei:geo
-            return 
-                <place xmlns="http://www.tei-c.org/ns/1.0">
-                    <idno>{$id}</idno>
-                    <title>{concat(normalize-space($title), ' - ', $type)}</title>
-                    <desc>Related Persons:
-                    {
-                        for $p in $persons[child::tei:placeName[. = $id]]/tei:persName
-                        return concat('<br/><a href="',string($p/@id),'">',normalize-space($p),'</a>')
-                    }
-                    </desc>
-                    <location>{$geo}</location>  
-                </place>
-        return 
-            if(not(empty($locations))) then 
-             <div class="panel panel-default">
-                 <div class="panel-heading">
-                     <h3 class="panel-title">Related places</h3>
-                 </div>
-                 <div class="panel-body">
-                     {maps:build-map($locations,count($places))}
-                 </div>
-             </div>
-           else () 
-    else ()
-};
+
 
 (:~
  : Browse Alphabetical Menus

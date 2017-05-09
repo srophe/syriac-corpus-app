@@ -18,7 +18,7 @@ declare namespace http="http://expath.org/ns/http-client";
 declare namespace html="http://www.w3.org/1999/xhtml";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
-(:~    
+(:~         
  : Simple get record function, get tei record based on tei:idno
  : Builds URL from the following URL patterns defined in the controller.xql or uses the id paramter
  : Retuns 404 page if record is not found, or has been @depreciated
@@ -154,6 +154,8 @@ if($series != '') then
 else ()
 };
 
+
+
 (:~    
  : Return teiHeader info to be used in citation
 :)
@@ -192,9 +194,9 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                         </bibl>
                      return 
                         (global:tei2html($infobox),
-                        app:display-related-inline($node, $model,'dct:isPartOf', 'nhsl'),
-                        app:display-related-inline($node, $model,'syriaca:sometimesCirculatesWith','nhsl'),
-                        app:display-related-inline($node, $model,'syriaca:part-of-tradition','nhsl'),
+                        app:external-relationships($node, $model,'dct:isPartOf', 'nhsl','',''),
+                        app:external-relationships($node, $model,'syriaca:sometimesCirculatesWith','nhsl','',''),
+                        app:external-relationships($node, $model,'syriaca:part-of-tradition','nhsl','',''),
                         global:tei2html($allData))  
                 } 
             </div>
@@ -246,11 +248,30 @@ declare function app:display-timeline($node as node(), $model as map(*)){
 (:~
  : Process relationships uses lib/rel.xqm module
 :)                   
-declare function app:display-related($node as node(), $model as map(*)){
-    if($model("data")//tei:body/child::*/tei:listRelation) then 
-        rel:build-relationships($model("data")//tei:body/child::*/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
+declare function app:display-related($node as node(), $model as map(*), $relType as xs:string?){
+    if($relType != '') then 
+        rel:build-relationship($model("data")//tei:body/child::*/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''), $relType)
+    else if($model("data")//tei:body/child::*/tei:listRelation) then 
+            rel:build-relationships($model("data")//tei:body/child::*/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
     else ()
 };
+
+(:~      
+ : Get relations to display in body of HTML page
+ : Used by NHSL for displaying child works
+ : @param $data TEI record
+ : @param $relType name/ref of relation to be displayed in HTML page
+:)
+declare %templates:wrap function app:external-relationships($node as node(), $model as map(*), $relType, $collection, $sort, $count){
+let $rec := $model("data")
+let $relType := $relType
+let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+let $title := if(contains($rec/descendant::tei:title[1]/text(),' — ')) then 
+                    substring-before($rec/descendant::tei:title[1],' — ') 
+               else $rec/descendant::tei:title[1]/text()
+return rel:external-relationships($recid, $title, $relType, $collection, $sort, $count)
+};
+
 
 (:~
  : bibl module relationships
@@ -264,92 +285,6 @@ declare function app:subject-headings($node as node(), $model as map(*)){
 :)                   
 declare function app:cited($node as node(), $model as map(*)){
     rel:cited($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')], request:get-parameter('start', 1),request:get-parameter('perpage', 5))
-};
-
-(:~      
- : Get relations to display in body of HTML page
- : Used by NHSL for displaying child works
- : @param $data TEI record
- : @param $relType name/ref of relation to be displayed in HTML page
-:)
-declare %templates:wrap function app:display-related-inline($node as node(), $model as map(*), $relType, $collection){
-let $rec := $model("data")
-let $relType := $relType
-let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
-let $related := data:get-dynamic-relations($recid, $relType)
-let $works := 
-            for $w in $related
-            let $title := $w/descendant::tei:title[1]
-            let $part := 
-                      if ($w/descendant::tei:relation[@passive[matches(.,$recid)]]/tei:desc[1]/tei:label[@type='order'][1]/@n castable as  xs:integer)
-                      then xs:integer($w/descendant::tei:relation[@passive[matches(.,$recid)]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
-                      else 0
-            order by $part, $title
-            return $w
-let $count := count($works)
-let $title := if(contains($rec/descendant::tei:title[1]/text(),' — ')) then 
-                    substring-before($rec/descendant::tei:title[1],' — ') 
-               else $rec/descendant::tei:title[1]/text()
-let $recType := 
-    if($collection = ('sbd','authors','q')) then 'person'
-    else if($collection = ('geo','place')) then 'place'
-    else if($collection = ('nhsl','bhse','bible')) then 'work'
-    else 'record'
-let $collection-root := string(global:collection-vars($collection)/@app-root)    
-return
-    if($count gt 0) then 
-        <div xmlns="http://www.w3.org/1999/xhtml">
-            {(if($relType = 'dct:isPartOf') then 
-                <h3>{$title} contains {$count} works.</h3>
-             else if ($relType = 'skos:broadMatch') then
-                <h3>{$title} refers to {$count}{concat(' ',$recType)}{if($count gt 1) then 's' else()}.</h3>
-             else if ($relType = 'syriaca:part-of-tradition') then 
-                (<h3>This tradition comprises at least {$count} branches.</h3>,
-                <p>{$rec/descendant::tei:note[@type='literary-tradition']}</p>)
-             else <h3>{concat($title,' ',global:odd2text('relation', $relType),' ',$count,' ',$recType, if($count gt 1) then 's' else(),'.')}</h3>,
-             if($relType = 'syriaca:sometimesCirculatesWith') then
-                <p class="note indent">* Manuscripts of the larger work only sometimes contain the work indicated.</p>
-            else ())}
-            {(
-                if($count gt 5) then
-                        <div>
-                         {
-                             for $r in subsequence($works, 1, 3)
-                             let $rec :=  $r/ancestor::tei:TEI
-                             let $workid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
-                             let $part := 
-                                   if ($r/descendant::tei:relation[@passive[matches(.,$recid)]]/tei:desc[1]/tei:label[@type='order'][1]/@n castable as  xs:integer)
-                                   then xs:integer($r/child::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
-                                   else ''
-                             return 
-                             <div class="indent row">
-                                <div class="col-md-1"><span class="badge results">{$r/child::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc[1]/tei:label}</span></div>
-                                <div class="col-md-11">{global:display-recs-short-view($rec,'',$recid)}</div>
-                             </div>
-                         }
-                           <div>
-                            <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
-                            data-ref="{$global:nav-base}/{$collection-root}/search.html?relId={$recid}&amp;relType={$relType}&amp;perpage={$count}&amp;showPart=true" 
-                            data-label="{$title} contains {$count} works" id="works">
-                              See all {count($works)} works
-                             </a>
-                           </div>
-                         </div>    
-                else 
-                    for $r in $works
-                    let $workid := replace($r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
-                    let $rec :=  $r/ancestor::tei:TEI
-                    let $workid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
-                             let $part := $rec/descendant::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc/tei:label[@type='order']
-                             return 
-                             <div class="indent row">
-                                <div class="col-md-1"><span class="badge results">{$r/child::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc[1]/tei:label}</span></div>
-                                <div class="col-md-11">{global:display-recs-short-view($rec,'',$recid)}</div>
-                             </div>
-            )}
-
-        </div>
-    else ()   
 };
 
 (:~      
