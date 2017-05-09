@@ -41,6 +41,7 @@
         </encodingDesc>
         <revisionDesc>
             <change type="reminder">Please be sure to update the publication date when changes are made here!</change>
+            <change when="2017-05-09" who="http://syriaca.org/documentation/editors.xml#dschwartz">ADDED: Edward Keogh, Jimmy Daccache, Katayoun Torabi, Ashoor Yousif, Simcha Gross, Ralph Barczok, Maria E. Doerfler, Kelli Gibson, Jeffrey Wickes, Joshua Falconer, Ute Possekel, Eric Garret, Erin Galgay Walsh, Muriel Debie, Joshua McManaway, and Nick Elder</change>
             <change when="2017-03-02" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Griogry Kessel and Nicolas Bamballi</change>
             <change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Ugo Zanetti and Claude Detienne</change>
             <change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: J. M. Fiey as contributor</change>
@@ -320,6 +321,104 @@
                     <persName xml:lang="en">
                         <forename>K.</forename>
                         <surname>Lindtner</surname>
+                    </persName>
+                </person>
+                <person xml:id="ekeogh">
+                    <persName xml:lang="en">
+                        <forename>Edward</forename>
+                        <surname>Keogh</surname>
+                    </persName>
+                </person>
+                <person xml:id="jdaccache">
+                    <persName xml:lang="en">
+                        <forename>Jimmy</forename>
+                        <surname>Daccache</surname>
+                    </persName>
+                </person>
+                <person xml:id="ktorabi">
+                    <persName xml:lang="en">
+                        <forename>Katayoun</forename>
+                        <surname>Torabi</surname>
+                    </persName>
+                </person>
+                <person xml:id="ayousif">
+                    <persName xml:lang="en">
+                        <forename>Ashoor</forename>
+                        <surname>Yousif</surname>
+                    </persName>
+                </person>
+                <person xml:id="sgross">
+                    <persName xml:lang="en">
+                        <forename>Simcha</forename>
+                        <surname>Gross</surname>
+                    </persName>
+                </person>
+                <person xml:id="rbarczok">
+                    <persName xml:lang="en">
+                        <forename>Ralph</forename>
+                        <surname>Barczok</surname>
+                    </persName>
+                </person>
+                <person xml:id="mdoerfler">
+                    <persName xml:lang="en">
+                        <forename>Maria</forename>
+                        <addName>E.</addName>
+                        <surname>Doerfler</surname>
+                    </persName>
+                </person>
+                <person xml:id="kgibson">
+                    <persName xml:lang="en">
+                        <forename>Kelli</forename>
+                        <surname>Gibson</surname>
+                    </persName>
+                </person>
+                <person xml:id="jwickes">
+                    <persName xml:lang="en">
+                        <forename>Jeffrey</forename>
+                        <surname>Wickes</surname>
+                    </persName>
+                </person>
+                <person xml:id="jfalconer">
+                    <persName xml:lang="en">
+                        <forename>Joshua</forename>
+                        <surname>Falconer</surname>
+                    </persName>
+                </person>
+                <person xml:id="upossekel">
+                    <persName xml:lang="en">
+                        <forename>Ute</forename>
+                        <surname>Possekel</surname>
+                    </persName>
+                </person>
+                <person xml:id="egarret">
+                    <persName xml:lang="en">
+                        <forename>Eric</forename>
+                        <surname>Garret</surname>
+                    </persName>
+                </person>
+                <person xml:id="ewalsh">
+                    <persName xml:lang="en">
+                        <forename>Erin</forename>
+                        <addName>Galgay</addName>
+                        <surname>Walsh</surname>
+                    </persName>
+                </person>
+                <person xml:id="mdebie">
+                    <persName xml:lang="en">
+                        <forename>Muriel</forename>
+                        <surname>Debie</surname>
+                    </persName>
+                </person>
+                <person xml:id="jmcmanaway">
+                    <persName xml:lang="en">
+                        <forename>Joshua</forename>
+                        <surname>McManaway</surname>
+                    </persName>
+                </person>
+                <person xml:id="nelder">
+                    <persName xml:lang="en">
+                        <forename>Nick</forename>
+                        <surname>Elder</surname>
                     </persName>
                 </person>
                 <org xml:id="uasyriacresearchgroup">
