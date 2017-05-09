@@ -41,7 +41,7 @@
         </encodingDesc>
         <revisionDesc>
             <change type="reminder">Please be sure to update the publication date when changes are made here!</change>
-            <change when="2017-05-09" who="http://syriaca.org/documentation/editors.xml#dschwartz">ADDED: Edward Keogh, Jimmy Daccache, Katayoun Torabi, Ashoor Yousif, Simcha Gross, Ralph Barczok, Maria E. Doerfler, Kelli Gibson, Jeffrey Wickes, Joshua Falconer, Ute Possekel, Eric Garret, Erin Galgay Walsh, Muriel Debie, Joshua McManaway, and Nick Elder</change>
+            <change when="2017-05-09" who="http://syriaca.org/documentation/editors.xml#dschwartz">ADDED: Edward Keogh, Jimmy Daccache, Katayoun Torabi, Reyhan Dumaz, Ashoor Yousif, Simcha Gross, Ralph Barczok, Maria E. Doerfler, Kelli Gibson, Jeffrey Wickes, Joshua Falconer, Ute Possekel, Eric Garret, Erin Galgay Walsh, Muriel Debie, Joshua McManaway, and Nick Elder</change>
             <change when="2017-03-02" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Griogry Kessel and Nicolas Bamballi</change>
             <change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Ugo Zanetti and Claude Detienne</change>
             <change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: J. M. Fiey as contributor</change>
@@ -345,6 +345,12 @@
                     <persName xml:lang="en">
                         <forename>Ashoor</forename>
                         <surname>Yousif</surname>
+                    </persName>
+                </person>
+                <person xml:id="rdumaz">
+                    <persName xml:lang="en">
+                        <forename>Reyhan</forename>
+                        <surname>Dumaz</surname>
                     </persName>
                 </person>
                 <person xml:id="sgross">
