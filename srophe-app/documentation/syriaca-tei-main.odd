@@ -421,6 +421,10 @@
                                     <desc>An ancient Written Work that translates one or more other Written Works that embody the same Conceptual Work.
                                         A subtype of http://lawd.info/ontology/Translation.</desc>
                                 </valItem>
+                                <valItem ident="syriaca:OriginalWithSyriacEvidence">
+                                    <gloss>Original Language Edition with Syriac Evidence</gloss>
+                                    <desc>An edition of a non-Syriac text that incorporates evidence from Syriac versions.</desc>
+                                </valItem>
                                 <valItem ident="syriaca:Glossary">
                                     <gloss>Glossary</gloss>
                                     <desc>A bibliographic reference to a resource that provides glosses or explanations for terms.
