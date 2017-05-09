@@ -60,8 +60,9 @@ declare variable $browse:computed-lang{
  
 (:~
  : Build initial browse results based on parameters
- : @param $collection collection name passed from html, should match data subdirectory name or tei series name
- : Calls data function data:get-browse-data($collection as xs:string*, $series as xs:string*, $element as xs:string?)
+ : @param $collection collection name passed from html, should match collection name in repo.xml
+ : @param $element element used to filter browse results, passed from html 
+ : Calls data function data:get-browse-data($collection as xs:string*, $element as xs:string?)
 :)  
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string*, $element as xs:string?){
     map{"browse-data" := data:get-browse-data($collection, $element) }

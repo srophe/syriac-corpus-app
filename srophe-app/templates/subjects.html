@@ -54,7 +54,10 @@
                     usePreview: false,
                     initialFocus: true,
                     rtl : true,
-                    layout: 'syriac-phonetic'
+                    layout: 'syriac-phonetic',
+                    hidden: function(event, keyboard, el){
+                         keyboard.destroy();
+                     }
                 });
                 
                 $('.keyboard-select').click(function () {
@@ -100,16 +103,15 @@
                 <div class="navbar-collapse collapse pull-right">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="browse.html">Browse</a>
+                            <a href="$app-root/taxonomy/browse.html">Browse</a>
                         </li>
                         <li>
                             <a href="$app-root/index.html" class="icon-container">
                                 <span class="syriaca-icon syriaca-syriaca icon-nav">
-                                    <span 
-                                        class="path1"/><span 
-                                            class="path2"/><span 
-                                                class="path3"/><span 
-                                                    class="path4"/>
+                                    <span class="path1"/>
+                                    <span class="path2"/>
+                                    <span class="path3"/>
+                                    <span class="path4"/>
                                 </span>
                                 <span class="icon-text">Syriaca.org</span>
                             </a>
