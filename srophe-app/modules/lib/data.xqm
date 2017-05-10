@@ -121,8 +121,8 @@ declare function data:element($element as xs:string?, $series as xs:string?) as 
  : Main browse function 
  : @param $collection as xs:string name of the collection, defined in the repo.xml
  : @param $element as xs:string, element to be used browse on, xpath: ex: //tei:titleStmt/tei:author defaults to //tei:titleStmt/tei:title
+ : @param $facets facet xml file name, relative to collection directory
  : @note parameters can be passed to function via the HTML templates or from the requesting url
- : @note there are two ways to define collections, physical collection and tei collection, seriesStmt
 :)
 declare function data:get-browse-data($collection as xs:string*, $element as xs:string?){
     let $collection-path := 
@@ -136,15 +136,14 @@ declare function data:get-browse-data($collection as xs:string*, $element as xs:
         if($get-series != '') then concat("//tei:idno[. = '",$get-series,"'][ancestor::tei:seriesStmt]/ancestor::tei:TEI")
         else '//tei:TEI'
     let $element := data:element($element, $collection)
-    let $facets := $collection
     let $sort := 
         if(request:get-parameter('sort', '') != '') then request:get-parameter('sort', '') 
         else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
         else ()        
-    let $hits := util:eval(concat(data:build-browse-path($collection-path, $series-path),facet:facet-filter(facet-defs:facet-definition($facets)),data:lang-filter($element)))
+    let $hits := util:eval(concat(data:build-browse-path($collection-path, $series-path),facet:facet-filter(facet-defs:facet-definition($collection)),data:lang-filter($element)))
     let $hits-main := $hits[not(descendant::tei:relation[@name='skos:broadMatch'])]
     return 
-    (:<p>{concat(data:build-browse-path($collection-path, $series-path),facet:facet-filter(facet-defs:facet-definition($series)),data:lang-filter($element))}</p>:)
+    (:<p>{concat(data:build-browse-path($collection-path, $series-path),facet:facet-filter(facet-defs:facet-definition($collection)),data:lang-filter($element))}</p>:)
     (: Special SPEAR options:)
         if($collection = 'spear') then util:eval(concat(data:build-browse-path($collection-path,''),'//tei:div[parent::tei:body]'))
     (: Special places browse by type:)
@@ -154,6 +153,13 @@ declare function data:get-browse-data($collection as xs:string*, $element as xs:
              let $title := global:build-sort-string($hit,$data:computed-lang)
              order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
              return $hit/ancestor-or-self::tei:TEI
+        (: Special Handling for Subjects 'categories':)             
+        else if($collection = 'subjects' and request:get-parameter('view', '') = 'categories') then 
+             let $hits := util:eval("$hits-main//tei:entryFree[@subtype='category']/tei:term")
+             for $hit in $hits
+             let $title := global:build-sort-string($hit,$data:computed-lang)
+             order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
+             return $hit/ancestor-or-self::tei:TEI             
     (: Special bibl options :)
         else if($collection = 'bibl' and not(request:get-parameter('view', ''))) then
             for $hit in $hits-main//tei:titleStmt/tei:title[1][matches(.,'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')]
@@ -215,7 +221,7 @@ declare function data:get-browse-data($collection as xs:string*, $element as xs:
  : @note there are two ways to define collections, physical collection and tei collection, seriesStmt
 :)
 declare function data:browse-data-pages($collection as xs:string*, $element as xs:string?, $start as xs:integer?, $perpage as xs:integer?){
-    for $hit in subsequence(data:get-browse-data($collection,$element, ''), $start, $perpage)
+    for $hit in subsequence(data:get-browse-data($collection,$element), $start, $perpage)
     return $hit    
 };
 

@@ -47,7 +47,7 @@ declare variable $browse:start {request:get-parameter('start', 1) cast as xs:int
 declare variable $browse:perpage {request:get-parameter('perpage', 25) cast as xs:integer};
 declare variable $browse:fq {request:get-parameter('fq', '')};
 
-(:~
+(:~ 
  : Set a default value for language, default sets to English. 
  : @param $browse:lang language parameter from URL
 :)
@@ -60,9 +60,10 @@ declare variable $browse:computed-lang{
  
 (:~
  : Build initial browse results based on parameters
- : @param $collection collection name passed from html, should match collection name in repo.xml
- : @param $element element used to filter browse results, passed from html 
- : Calls data function data:get-browse-data($collection as xs:string*, $element as xs:string?)
+ : @param $collection collection name passed from html, should match data subdirectory name or tei series name
+ : @param $element element used to filter browse results, passed from html
+ : @param $facets facet xml file name, relative to collection directory
+ : Calls data function data:get-browse-data($collection as xs:string*, $series as xs:string*, $element as xs:string?)
 :)  
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string*, $element as xs:string?){
     map{"browse-data" := data:get-browse-data($collection, $element) }
@@ -76,13 +77,29 @@ declare %templates:wrap function browse:pageination($node as node()*, $model as 
 };
 
 (:
+ : Display facets from HTML page 
+ : For place records map coordinates
+ : For other records, check for place relationships
+ : @param $collection passed from html 
+ : @param $facet relative (from collection root) path to facet definition 
+:)
+declare function browse:display-facets($node as node(), $model as map(*), $collection as xs:string?, $facets as xs:string?){
+let $hits := $model("browse-data")
+let $facet-config := doc(concat($global:app-root, '/', string(global:collection-vars($collection)/@app-root),'/',$facets))
+return 
+    if($facet-config) then 
+        facet:html-list-facets-as-buttons(facet:count($hits, $facet-config/descendant::facet:facet-definition))
+    else if(exists(facet-defs:facet-definition($collection))) then 
+        facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/child::*))
+    else ()               
+};
+
+(:
  : Main HTML display of browse results
  : @param $collection passed from html 
 :)
-declare function browse:results-panel($node as node(), $model as map(*), $collection, $sort-options as xs:string*){
+declare function browse:results-panel($node as node(), $model as map(*), $collection, $sort-options as xs:string*, $facets as xs:string?){
     let $hits := $model("browse-data")
-    let $facets := if($collection) then $collection 
-                   else ()
     return 
        if($collection = 'spear') then bs:spear-results-panel($hits)
        else if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then
@@ -90,7 +107,7 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
                 {if($browse:view='type') then 
                     if($collection = ('geo','places')) then browse:browse-type($collection)
                     else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($facets)/descendant::facet:facet-definition[@name="Type"]))
-                 else if($browse:view = 'facets') then facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($facets)/child::*))
+                 else if($browse:view = 'facets') then browse:display-facets($node, $model, $collection, $facets)
                  else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($facets)/descendant::facet:facet-definition[@name="Century"]))
                  }
              </div>,
@@ -122,6 +139,10 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
             <div class="col-md-12 map-lg">
                 {browse:get-map($hits)}
             </div>
+        else if($browse:view = 'categories') then 
+            <div class="col-md-12 indent">
+                {browse:display-hits($hits)}
+            </div>            
         else if($browse:view = 'all' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then 
             <div class="col-md-12">
                 <div>{page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)}</div>
@@ -155,22 +176,6 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
 
 declare function browse:total-places(){
     count(collection($global:data-root || '/places/tei')//tei:place)
-};
-
-(:
- : Display map from HTML page 
- : For place records map coordinates
- : For other records, check for place relationships
- : @param $collection passed from html 
- : @param $facet relative (from collection root) path to facet definition 
-:)
-declare function browse:display-facets($node as node(), $model as map(*), $collection as xs:string?, $facet as xs:string?){
-let $hits := $model("browse-data")
-let $facet-config := doc(concat($global:app-root, '/', string(global:collection-vars($collection)/@app-root),'/',$facet))
-return 
-    if($facet-config) then 
-        facet:html-list-facets-as-buttons(facet:count($hits, $facet-config/descendant::facet:facet-definition)) 
-    else ()               
 };
 
 (:
@@ -334,20 +339,17 @@ declare function browse:browse-type($collection){
  : @param $param tab parameter passed to url from template
  : @param $value value of tab parameter passed to url from template
  : @param $alpha-filter-value for abc menus. 
+ : @param $default indicates initial active tab
 :)
-declare function browse:tabs($node as node(), $model as map(*), $text as xs:string?, $param as xs:string?, $value as xs:string?, $alpha-filter-value as xs:string?, $element as xs:string?, $default as xs:string?){
-let $element := 
-    if(request:get-parameter('element', '') != '') then 
-        request:get-parameter('element', '') 
-    else if($element) then $element
-    else ()
+declare function browse:tabs($node as node(), $model as map(*), $text as xs:string?, $param as xs:string?, $value as xs:string?, $alpha-filter-value as xs:string?, $element as xs:string?, $default as xs:string?){ 
 let $s := if($alpha-filter-value != '') then $alpha-filter-value else if($browse:alpha-filter != '') then $browse:alpha-filter else 'A'
 return
     <li xmlns="http://www.w3.org/1999/xhtml">{
-        if(($value='en' and $browse:computed-lang = 'en')) then attribute class {'active'} 
+        if($default = 'true' and empty(request:get-parameter-names())) then  attribute class {'active'}
+        (:else if(($value='en' and $browse:computed-lang = 'en')) then attribute class {'active'}:) 
         else if($value = $browse:view) then attribute class {'active'}
         else if($value = $browse:lang) then attribute class {'active'}
-        else if($value = 'English' and empty(request:get-parameter-names())) then attribute class {'active'}
+        (:else if($value = 'English' and empty(request:get-parameter-names())) then attribute class {'active'}:)
         else ()
         }
         <a href="browse.html?{$param}={$value}{if($param = 'lang') then concat('&amp;alpha-filter=',$s) else ()}{if($element != '') then concat('&amp;element=',$element) else()}">
