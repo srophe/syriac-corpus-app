@@ -844,7 +844,15 @@
     <xsl:template match="t:persName | t:region | t:settlement | t:placeName | t:author | t:editor">
         <xsl:if test="@role">
             <span class="srp-label">
-                <xsl:value-of select="concat(upper-case(substring(@role,1,1)),substring(@role,2))"/>: 
+                <!--<xsl:value-of select="concat(upper-case(substring(@role,1,1)),substring(@role,2))"/>:-->
+                <xsl:choose>
+                    <xsl:when test="contains(@role, 'http:')">
+                       <xsl:value-of select="local:translate-label(@role,.,substring-after(@role,'#'))"/>:
+                    </xsl:when>
+                    <xsl:otherwise>
+                       <xsl:value-of select="concat(upper-case(substring(@role,1,1)),substring(@role,2))"/>:
+                    </xsl:otherwise>
+                </xsl:choose>
             </span>
         </xsl:if>
         <xsl:choose>

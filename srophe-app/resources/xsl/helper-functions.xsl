@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
     
     <!-- Function to add correct ordinal suffix to numbers used in citation creation.  -->
     <xsl:function name="local:ordinal">
@@ -362,6 +362,35 @@
         <xsl:choose>
             <xsl:when test="$element/descendant::t:valItem[@ident=$label]/t:gloss">
                 <xsl:value-of select="$element/descendant::t:valItem[@ident=$label]/t:gloss"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:function>
+    
+    <!-- Translate labels to human readable labels via specified xml file, passes on element and label value -->
+    <xsl:function name="local:translate-label">
+        <xsl:param name="ref"/>
+        <xsl:param name="element"/>
+        <xsl:param name="label"/>
+        <xsl:variable name="file-name">
+            <xsl:choose>
+                <xsl:when test="contains($ref,'#')"><xsl:value-of select="substring-before($ref,'#')"/></xsl:when>
+                <xsl:otherwise><xsl:value-of select="$ref"/></xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="file">
+            <xsl:choose>
+                <xsl:when test="contains($file-name,$base-uri)">
+                    <xsl:value-of select="replace($file-name,$base-uri,concat('xmldb:exist://',$app-root))"/>
+                </xsl:when>
+                <xsl:otherwise><xsl:value-of select="doc($ref)"/></xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
+        <xsl:choose>
+            <xsl:when test="$file/descendant::*[@xml:id=$label]/t:gloss">
+                <xsl:value-of select="$file/descendant::*[@xml:id=$label]/t:gloss[1]"/>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
