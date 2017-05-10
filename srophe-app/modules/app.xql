@@ -193,7 +193,9 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                             [not(self::tei:idno)])}
                         </bibl>
                      return 
-                        (global:tei2html($infobox),
+                        (
+                        app:work-toc($data),
+                        global:tei2html($infobox),
                         app:external-relationships($node, $model,'dct:isPartOf', 'nhsl','',''),
                         app:external-relationships($node, $model,'syriaca:sometimesCirculatesWith','nhsl','',''),
                         app:external-relationships($node, $model,'syriaca:part-of-tradition','nhsl','',''),
@@ -213,6 +215,14 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                 )}  
             </div>
         </div>
+};
+
+(:~    
+ : Works TOC on bibl elements
+:)
+declare function app:work-toc($data){
+let $data := $data/tei:bibl[@type != ('lawd:Citation','lawd:ConceptualWork')]
+return global:tei2html(<work-toc xmlns="http://www.tei-c.org/ns/1.0" >{$data}</work-toc>)
 };
 
 (:~

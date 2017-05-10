@@ -502,6 +502,7 @@ td {
   height: 0px;
 }
 .anchorHighlight {display:block; content:" "; background-color:yellow; border:1px solid red;}
+
 .heading-inline {
 	font-weight: bold;
 }

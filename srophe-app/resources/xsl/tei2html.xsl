@@ -1361,6 +1361,30 @@
         -->
     </xsl:template>
     
+    <xsl:template match="t:work-toc">
+        <xsl:if test="//t:bibl[exists(@type)][@type != 'lawd:Citation']">
+            <div style="margin:1em;"><span class="btn btn-default" style="margin-right:1em;">Table of Contents: </span> 
+                <xsl:for-each-group select="//t:bibl[exists(@type)][@type != 'lawd:Citation']" group-by="@type">
+                    <xsl:sort select="local:bibl-type-order(current-grouping-key())" order="ascending"/>
+                    <xsl:variable name="label">
+                        <xsl:variable name="l" select="local:translate-label(current-grouping-key())"/>
+                        <xsl:choose>
+                            <xsl:when test="$l != ''">
+                                <xsl:value-of select="$l"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:value-of select="current-grouping-key()"/>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:if test="count(current-group()) &gt; 1">s</xsl:if>
+                    </xsl:variable>
+                    <a href="#bibl{$label}" class="btn btn-default">
+                        <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
+                    </a>&#160;
+                </xsl:for-each-group>            
+            </div>
+        </xsl:if>
+    </xsl:template>
     <!-- Main page modules for syriaca.org display -->
     <xsl:template match="t:place | t:person | t:bibl[starts-with(@xml:id,'work-')] | t:entryFree">
         <xsl:if test="not(empty(t:desc[not(starts-with(@xml:id,'abstract'))][1]))">
@@ -1434,6 +1458,7 @@
             </div>
         </xsl:if>
         <xsl:if test="self::t:bibl[starts-with(@xml:id,'work-')] and t:title">
+
             <div class="well">
                 <h3>Titles</h3>
                 <ul>                
@@ -1587,7 +1612,7 @@
                                 <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
                                 <xsl:choose>
                                     <xsl:when test="not(current-group()/descendant::*:geo)">
-                                        <dt>&#160;</dt>
+                                        <dt> </dt>
                                     </xsl:when>
                                     <xsl:when test="current-grouping-key() = 'born-at'">
                                         <dt>
@@ -1756,7 +1781,7 @@
                             </xsl:choose>
                             <xsl:if test="count(current-group()) &gt; 1">s</xsl:if>
                         </xsl:variable>
-                        <h3 name="{$label}">
+                        <h3><span class="anchor" id="bibl{$label}"></span>
                             <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
                         </h3>
                         <ol>
