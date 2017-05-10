@@ -1363,7 +1363,7 @@
     
     <xsl:template match="t:work-toc">
         <xsl:if test="//t:bibl[exists(@type)][@type != 'lawd:Citation']">
-            <div style="margin:1em;"><span class="btn btn-default" style="margin-right:1em;">Table of Contents: </span> 
+            <div style="margin:1em;"><span class="btn btn-primary" style="margin-right:1em;">Table of Contents: </span> 
                 <xsl:for-each-group select="//t:bibl[exists(@type)][@type != 'lawd:Citation']" group-by="@type">
                     <xsl:sort select="local:bibl-type-order(current-grouping-key())" order="ascending"/>
                     <xsl:variable name="label">
