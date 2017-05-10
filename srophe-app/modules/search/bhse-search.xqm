@@ -123,11 +123,12 @@ declare function bhses:child() as xs:string? {
 :)
 declare function bhses:coll($collection) as xs:string?{
 let $collection :=
-    if($collection = 'bhse' ) then 'Bibliotheca Hagiographica Syriaca Electronica'
-    else if($collection = 'nhsl' ) then 'New Handbook of Syriac Literature'
+    if($collection = 'bhse' ) then 'http://syriaca.org/bhse'
+    else if($collection = 'nhsl' ) then 'http://syriaca.org/nhsl'
+    else if($collection = 'bible' ) then 'http://syriaca.org/bible'
     else ()
-return                    
-    if($collection != '') then concat("[ancestor::tei:TEI/descendant::tei:title = '",$collection,"']")
+return             
+    if($collection != '') then concat("[ancestor::tei:TEI/descendant::tei:seriesStmt/descendant::tei:idno = '",$collection,"']")
     else ()
 };
 
