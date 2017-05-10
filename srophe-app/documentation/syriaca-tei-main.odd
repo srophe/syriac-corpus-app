@@ -871,7 +871,7 @@
                                     <desc>A related resource with which the described resource may sometimes circulate, depending on the tradition.</desc>
                                 </valItem>
                                 <valItem ident="skos:broadMatch">
-                                    <gloss>has broad match</gloss>
+                                    <gloss>has broader match with</gloss>
                                     <desc>A resource with a broader or more generic definition that encompasses the current resource along with others. 
                                         Syriaca.org describes the broader resource using a "composite URI". 
                                         SKOS definition: <quote>skos:broadMatch is used to state a hierarchical mapping link between two conceptual resources in different concept schemes.</quote>
