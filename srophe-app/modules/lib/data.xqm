@@ -215,7 +215,7 @@ declare function data:get-browse-data($collection as xs:string*, $element as xs:
  : @note there are two ways to define collections, physical collection and tei collection, seriesStmt
 :)
 declare function data:browse-data-pages($collection as xs:string*, $element as xs:string?, $start as xs:integer?, $perpage as xs:integer?){
-    for $hit in subsequence(data:get-browse-data($collection,$element), $start, $perpage)
+    for $hit in subsequence(data:get-browse-data($collection,$element, ''), $start, $perpage)
     return $hit    
 };
 
