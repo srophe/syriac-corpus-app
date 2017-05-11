@@ -6,7 +6,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2017-05-10T17:11:59Z. .
+# Schema generated from ODD source 2017-05-11T12:17:23Z. .
 # TEI Edition: Version 3.1.0. Last updated on
 #	15th December 2016, revision d3f5e70
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.1.0/
@@ -2987,40 +2987,40 @@ tei_bibl =
     }?,
     
     ## The type attribute on bibl elements may be an RDF class defining the type of work or item. These will typically begin with either the prefix lawd: (http://lawd.info/ontology) or syriaca:
-    ## Suggested values include: 1] lawd:ConceptualWork(Work) ; 2] lawd:Edition(Edition) ; 3] lawd:Citation(Citation) ; 4] syriaca:Manuscript(Manuscript) ; 5] syriaca:PrintCatalogue(Print Catalogue) ; 6] syriaca:DigitalCatalogue(Digital Catalogue) ; 7] syriaca:ModernTranslation(Modern Translation) ; 8] syriaca:AncientVersion(Ancient Version) ; 9] syriaca:OriginalWithSyriacEvidence(Original Language Edition with Syriac Evidence) ; 10] syriaca:Glossary(Glossary) ; 11] syriaca:Apparatus(Apparatus) 
+    ## Suggested values include: 1] lawd:ConceptualWork(WorkWorks) ; 2] lawd:Edition(EditionEditions) ; 3] lawd:Citation(CitationCitations) ; 4] syriaca:Manuscript(ManuscriptManuscripts) ; 5] syriaca:PrintCatalogue(Print CataloguePrint Catalogues) ; 6] syriaca:DigitalCatalogue(Digital CatalogueDigital Catalogues) ; 7] syriaca:ModernTranslation(Modern TranslationModern Translation) ; 8] syriaca:AncientVersion(Ancient VersionAncient Versions) ; 9] syriaca:OriginalWithSyriacEvidence(Original Language Edition with Syriac EvidenceOriginal Language Editions with Syriac Evidence) ; 10] syriaca:Glossary(GlossaryGlossaries) ; 11] syriaca:Apparatus(ApparatusApparatuses) 
     attribute type {
       
-      ## (Work) A Conceptual Work groups together one or more Written Works which have the same intellectual source. E.g. The Iliad, as opposed to a particular manuscript witness or edition of the Iliad. See http://lawd.info/ontology/ConceptualWork.
+      ## (Work) (Works) A Conceptual Work groups together one or more Written Works which have the same intellectual source. E.g. The Iliad, as opposed to a particular manuscript witness or edition of the Iliad. See http://lawd.info/ontology/ConceptualWork.
       "lawd:ConceptualWork"
       | 
-        ## (Edition) A published (whether officially or not) Written Work that relies on one or more Written Works as sources. See http://lawd.info/ontology/Edition.
+        ## (Edition) (Editions) A published (whether officially or not) Written Work that relies on one or more Written Works as sources. See http://lawd.info/ontology/Edition.
         "lawd:Edition"
       | 
-        ## (Citation) A Citation models a bibliographic reference as a resource. See http://lawd.info/ontology/Citation.
+        ## (Citation) (Citations) A Citation models a bibliographic reference as a resource. See http://lawd.info/ontology/Citation.
         "lawd:Citation"
       | 
-        ## (Manuscript) Any text-bearing object, which usually embodies a Conceptual Work and which may be a source for an Edition or Translation.
+        ## (Manuscript) (Manuscripts) Any text-bearing object, which usually embodies a Conceptual Work and which may be a source for an Edition or Translation.
         "syriaca:Manuscript"
       | 
-        ## (Print Catalogue) A Citation of a print catalogue, such as a manuscript catalogue.
+        ## (Print Catalogue) (Print Catalogues) A Citation of a print catalogue, such as a manuscript catalogue.
         "syriaca:PrintCatalogue"
       | 
-        ## (Digital Catalogue) A Citation of a digital catalogue, such as a manuscript catalogue.
+        ## (Digital Catalogue) (Digital Catalogues) A Citation of a digital catalogue, such as a manuscript catalogue.
         "syriaca:DigitalCatalogue"
       | 
-        ## (Modern Translation) A modern Written Work that translates one or more other Written Works that embody the same Conceptual Work. A subtype of http://lawd.info/ontology/Translation.
+        ## (Modern Translation) (Modern Translation) A modern Written Work that translates one or more other Written Works that embody the same Conceptual Work. A subtype of http://lawd.info/ontology/Translation.
         "syriaca:ModernTranslation"
       | 
-        ## (Ancient Version) An ancient Written Work that translates one or more other Written Works that embody the same Conceptual Work. A subtype of http://lawd.info/ontology/Translation.
+        ## (Ancient Version) (Ancient Versions) An ancient Written Work that translates one or more other Written Works that embody the same Conceptual Work. A subtype of http://lawd.info/ontology/Translation.
         "syriaca:AncientVersion"
       | 
-        ## (Original Language Edition with Syriac Evidence) An edition of a non-Syriac text that incorporates evidence from Syriac versions.
+        ## (Original Language Edition with Syriac Evidence) (Original Language Editions with Syriac Evidence) An edition of a non-Syriac text that incorporates evidence from Syriac versions.
         "syriaca:OriginalWithSyriacEvidence"
       | 
-        ## (Glossary) A bibliographic reference to a resource that provides glosses or explanations for terms. A subtype of http://lawd.info/ontology/Citation.
+        ## (Glossary) (Glossaries) A bibliographic reference to a resource that provides glosses or explanations for terms. A subtype of http://lawd.info/ontology/Citation.
         "syriaca:Glossary"
       | 
-        ## (Apparatus) A bibliographic reference to a resource that contains notes regarding the witnesses, versions, or reconstruction of a text. A subtype of http://lawd.info/ontology/Citation.
+        ## (Apparatus) (Apparatuses) A bibliographic reference to a resource that contains notes regarding the witnesses, versions, or reconstruction of a text. A subtype of http://lawd.info/ontology/Citation.
         "syriaca:Apparatus"
       | xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
     }?,
