@@ -128,16 +128,23 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
                             'Qadishe: A Guide to the Syriac Saints',
                             'A Guide to Syriac Authors',
                             'A Guide to the Syriac Saints')) then 
-                                concat("[ancestor::tei:TEI[.//tei:title = '",$collection,"']]")
+                                concat("[.//tei:title = '",$collection,"']")
                             else ()
                         else ()
+    let $options :=                  
+        "<options>
+            <default-operator>and</default-operator>
+            <phrase-slop>1</phrase-slop>
+            <leading-wildcard>yes</leading-wildcard>
+            <filter-rewrite>yes</filter-rewrite>
+        </options>"                          
     let $lang := if($lang != '') then concat("[@xml:lang = '",$lang,"']") 
                  else ()
     let $author := if($author != '') then 
-                    if($element = 'title') then concat("[following-sibling::*[self::tei:author][ft:query(.,'",$author,"*')]]")
-                    else ()
-                 else ()                       
-    let $eval-string := concat("collection('",$global:data-root,"')//tei:",$element,"[ft:query(.,'",$q,"*')]",$lang,$collection,$author)
+                     concat("[ft:query(.//tei:author,'",$author,"',",$options,")]")
+                 else () 
+               
+    let $eval-string := concat("collection('",$global:data-root,"')//tei:TEI[ft:query(.//tei:",$element,",'",$q,"',",$options,")]",$lang,$collection,$author)
     let $hits := util:eval($eval-string)
     return 
         if(count($hits) gt 0) then 
@@ -150,17 +157,18 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
                <results>
                {
                 for $hit in $hits
-                let $id := replace($hit/ancestor::tei:TEI/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei','')
+                let $id := replace($hit/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei','')
                 let $dates := 
                     if($element = 'persName') then 
-                        string-join($hit/ancestor::tei:body/descendant::tei:birth/text() 
-                        | $hit/ancestor::tei:body/descendant::tei:death/text() | 
-                        $hit/ancestor::tei:body/descendant::tei:floruit/text(),' ')
+                        string-join($hit/descendant::tei:body/descendant::tei:birth/text() 
+                        | $hit/descendant::tei:body/descendant::tei:death/text() | 
+                        $hit/descendant::tei:body/descendant::tei:floruit/text(),' ')
                     else ()
+                let $element-text := util:eval(concat("$hit//tei:",$element,"[ft:query(.,'",$q,"',",$options,")]"))                   
                 return
                         <json:value json:array="true">
                             <id>{$id}</id>
-                            {element {xs:QName($element)} { normalize-space(string-join($hit//text(),' ')) }}
+                            {element {xs:QName($element)} { normalize-space(string-join($element-text//text(),' ')) }}
                             {if($dates != '') then <dates>{$dates}</dates> else ()}
                         </json:value>
                 }
