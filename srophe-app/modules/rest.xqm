@@ -160,16 +160,18 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
                 let $id := replace($hit/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei','')
                 let $dates := 
                     if($element = 'persName') then 
-                        string-join($hit/descendant::tei:body/descendant::tei:birth/text() 
-                        | $hit/descendant::tei:body/descendant::tei:death/text() | 
-                        $hit/descendant::tei:body/descendant::tei:floruit/text(),' ')
+                        string-join($hit/descendant::tei:body/descendant::tei:birth/descendant-or-self::text() 
+                        | $hit/descendant::tei:body/descendant::tei:death/descendant-or-self::text() | 
+                        $hit/descendant::tei:body/descendant::tei:floruit/descendant-or-self::text(),' ')
                     else ()
                 let $element-text := util:eval(concat("$hit//tei:",$element,"[ft:query(.,'",$q,"*',",$options,")]"))                   
                 return
                         <json:value json:array="true">
                             <id>{$id}</id>
-                            {element {xs:QName($element)} { normalize-space(string-join($element-text//text(),' ')) }}
-                            {if($dates != '') then <dates>{$dates}</dates> else ()}
+                            {for $e in $element-text 
+                             return 
+                                element {xs:QName($element)} { normalize-space(string-join($e//text(),' ')) }}
+                            {if($dates != '') then <dates>{normalize-space($dates)}</dates> else ()}
                         </json:value>
                 }
                 </results>)
