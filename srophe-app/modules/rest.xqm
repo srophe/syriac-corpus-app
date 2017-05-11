@@ -144,7 +144,7 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
                      concat("[ft:query(.//tei:author,'",$author,"',",$options,")]")
                  else () 
                
-    let $eval-string := concat("collection('",$global:data-root,"')//tei:TEI[ft:query(.//tei:",$element,",'",$q,"',",$options,")]",$lang,$collection,$author)
+    let $eval-string := concat("collection('",$global:data-root,"')//tei:TEI[ft:query(.//tei:",$element,",'",$q,"*',",$options,")]",$lang,$collection,$author)
     let $hits := util:eval($eval-string)
     return 
         if(count($hits) gt 0) then 
@@ -164,7 +164,7 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
                         | $hit/descendant::tei:body/descendant::tei:death/text() | 
                         $hit/descendant::tei:body/descendant::tei:floruit/text(),' ')
                     else ()
-                let $element-text := util:eval(concat("$hit//tei:",$element,"[ft:query(.,'",$q,"',",$options,")]"))                   
+                let $element-text := util:eval(concat("$hit//tei:",$element,"[ft:query(.,'",$q,"*',",$options,")]"))                   
                 return
                         <json:value json:array="true">
                             <id>{$id}</id>
