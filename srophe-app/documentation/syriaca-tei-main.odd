@@ -382,67 +382,56 @@
                                 These will typically begin with either the prefix lawd: (http://lawd.info/ontology) or syriaca:</desc>
                             <valList mode="change" type="semi">
                                 <valItem ident="lawd:ConceptualWork">
-                                    <gloss type="sg">Work</gloss>
-                                    <gloss type="pl">Works</gloss>
+                                    <gloss>Work</gloss>
                                     <desc>A Conceptual Work groups together one or more Written Works which
                                         have the same intellectual source. E.g. The Iliad, as opposed to a particular manuscript witness or edition of the Iliad. 
                                         See http://lawd.info/ontology/ConceptualWork.</desc>
                                 </valItem>
                                 <valItem ident="lawd:Edition">
-                                    <gloss type="sg">Edition</gloss>
-                                    <gloss type="pl">Editions</gloss>
+                                    <gloss>Edition</gloss>
                                     <desc>A published (whether officially or not) Written Work that relies on
                                         one or more Written Works as sources.
                                         See http://lawd.info/ontology/Edition.</desc>
                                 </valItem>
                                 <valItem ident="lawd:Citation">
-                                    <gloss type="sg">Citation</gloss>
-                                    <gloss type="pl">Citations</gloss>
+                                    <gloss>Citation</gloss>
                                     <desc>A Citation models a bibliographic reference as a resource.
                                         See http://lawd.info/ontology/Citation.</desc>
                                 </valItem>
                                 <valItem ident="syriaca:Manuscript">
-                                    <gloss type="sg">Manuscript</gloss>
-                                    <gloss type="pl">Manuscripts</gloss>
+                                    <gloss>Manuscript</gloss>
                                     <desc>Any text-bearing object, which usually embodies a Conceptual Work and which may be a source 
                                         for an Edition or Translation.</desc>
                                 </valItem>
                                 <valItem ident="syriaca:PrintCatalogue">
-                                    <gloss type="sg">Print Catalogue</gloss>
-                                    <gloss type="pl">Print Catalogues</gloss>
+                                    <gloss>Print Catalogue</gloss>
                                     <desc>A Citation of a print catalogue, such as a manuscript catalogue.</desc>
                                 </valItem>
                                 <valItem ident="syriaca:DigitalCatalogue">
-                                    <gloss type="sg">Digital Catalogue</gloss>
-                                    <gloss type="pl">Digital Catalogues</gloss>
+                                    <gloss>Digital Catalogue</gloss>
                                     <desc>A Citation of a digital catalogue, such as a manuscript catalogue.</desc>
                                 </valItem>
                                 <valItem ident="syriaca:ModernTranslation">
-                                    <gloss type="sg">Modern Translation</gloss>
-                                    <gloss type="pl">Modern Translation</gloss>
+                                    <gloss>Modern Translation</gloss>
                                     <desc>A modern Written Work that translates one or more other Written Works that embody the same Conceptual Work.
                                         A subtype of http://lawd.info/ontology/Translation.</desc>
                                 </valItem>
                                 <valItem ident="syriaca:AncientVersion">
-                                    <gloss type="sg">Ancient Version</gloss>
-                                    <gloss type="pl">Ancient Versions</gloss>
+                                    <gloss>Ancient Version</gloss>
                                     <desc>An ancient Written Work that translates one or more other Written Works that embody the same Conceptual Work.
                                         A subtype of http://lawd.info/ontology/Translation.</desc>
                                 </valItem>
                                 <valItem ident="syriaca:OriginalWithSyriacEvidence">
-                                    <gloss type="sg">Original Language Edition with Syriac Evidence</gloss>
-                                    <gloss type="pl">Original Language Editions with Syriac Evidence</gloss>
+                                    <gloss>Original Language Edition with Syriac Evidence</gloss>
                                     <desc>An edition of a non-Syriac text that incorporates evidence from Syriac versions.</desc>
                                 </valItem>
                                 <valItem ident="syriaca:Glossary">
-                                    <gloss type="sg">Glossary</gloss>
-                                    <gloss type="pl">Glossaries</gloss>
+                                    <gloss>Glossary</gloss>
                                     <desc>A bibliographic reference to a resource that provides glosses or explanations for terms.
                                         A subtype of http://lawd.info/ontology/Citation.</desc>
                                 </valItem>
                                 <valItem ident="syriaca:Apparatus">
-                                    <gloss type="sg">Apparatus</gloss>
-                                    <gloss type="pl">Apparatuses</gloss>
+                                    <gloss>Apparatus</gloss>
                                     <desc>A bibliographic reference to a resource that contains notes regarding the witnesses, versions, or reconstruction of a text.
                                         A subtype of http://lawd.info/ontology/Citation.</desc>
                                 </valItem>
