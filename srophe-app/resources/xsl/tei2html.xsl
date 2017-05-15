@@ -1363,7 +1363,8 @@
     
     <xsl:template match="t:work-toc">
         <xsl:if test="//t:bibl[exists(@type)][@type != 'lawd:Citation']">
-            <div style="margin:1em;"><span class="btn btn-primary" style="margin-right:1em;">Table of Contents: </span> 
+            <div class="jump-menu">
+                <span class="jump-menu srp-label">Jump to: </span> 
                 <xsl:for-each-group select="//t:bibl[exists(@type)][@type != 'lawd:Citation']" group-by="@type">
                     <xsl:sort select="local:bibl-type-order(current-grouping-key())" order="ascending"/>
                     <xsl:variable name="label">
@@ -1380,7 +1381,7 @@
                     </xsl:variable>
                     <a href="#bibl{$label}" class="btn btn-default">
                         <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
-                    </a>&#160;
+                    </a> 
                 </xsl:for-each-group>            
             </div>
         </xsl:if>
@@ -1781,7 +1782,8 @@
                             </xsl:choose>
                             <xsl:if test="count(current-group()) &gt; 1">s</xsl:if>
                         </xsl:variable>
-                        <h3><span class="anchor" id="bibl{$label}"></span>
+                        <h3>
+                            <span class="anchor" id="bibl{$label}"/>
                             <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
                         </h3>
                         <ol>
