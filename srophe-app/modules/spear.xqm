@@ -210,6 +210,8 @@ return
             </li>
         </ul>
         </div>
+        <hr/>
+        <h4><a href="browse.html?fq=;fq-Source%20Text:{$data/descendant::tei:teiHeader/descendant::tei:title[1]}&amp;view=advanced">See all factoids for this work <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/></a></h4>
     </div>
 </div>
 };
