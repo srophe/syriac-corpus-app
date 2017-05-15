@@ -101,7 +101,8 @@ declare function spear:title($id){
 :)
 declare %templates:wrap function spear:h1($node as node(), $model as map(*)){
 let $data := $model("data")
-let $id := <idno type='URI' xmlns="http://www.tei-c.org/ns/1.0">{$spear:id}</idno>
+let $pid := global:resolve-id()
+let $id := <idno type='URI' xmlns="http://www.tei-c.org/ns/1.0">{$pid}</idno>
 return 
         if($spear:item-type = 'source-factoid') then 
             global:tei2html(
@@ -111,7 +112,7 @@ return
         else if($spear:item-type = 'keyword-factoid') then 
             global:tei2html(
                 <keyword-title xmlns="http://www.tei-c.org/ns/1.0">
-                    {$id}
+                    {$id}  
                 </keyword-title>)                
         else if($spear:item-type = ('person-factoid','place-factoid')) then 
             let $rec-exists := spear:canonical-rec($spear:id)  
@@ -125,9 +126,9 @@ return
             global:tei2html(
                 <factoid-title xmlns="http://www.tei-c.org/ns/1.0">
                     {$id}
-                </factoid-title>)                      
+                </factoid-title>)                     
 };
-     
+    
 declare function spear:data($node as node(), $model as map(*), $view as xs:string?){
 if($spear:item-type = 'place-factoid') then 
     (spear:relationships-aggregate($node,$model),

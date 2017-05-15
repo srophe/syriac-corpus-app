@@ -66,7 +66,7 @@ else if(replace($exist:path, $exist:resource,'') =  ($exist:record-uris) or ends
                 <forward url="{concat('/restxq/srophe', $path)}" absolute="yes"/>
             </dispatch>
     (: Special handling for collections with app-root that matches record-URI-pattern sends html pages to html, others are assumed to be records :)
-    else if($exist:resource = ('index.html','search.html','browse.html','about.html','aggregate.html')) then 
+    else if($exist:resource = ('index.html','search.html','browse.html','about.html','aggregate.html','factoid.html')) then 
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
            <view>
                <forward url="{$exist:controller}/modules/view.xql"/>
@@ -84,7 +84,12 @@ else if(replace($exist:path, $exist:resource,'') =  ($exist:record-uris) or ends
     else 
         let $id := replace(xmldb:decode($exist:resource), "^(.*)\..*$", "$1")
         let $record-uri-root := replace($exist:path,$exist:resource,'')
-        let $html-path :=  concat('/',$global:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)][1]/@app-root,'/record.html')
+        let $html-path :=
+            if(contains($exist:path,'spear')) then 
+                if(matches($exist:resource,'^[0-9]+-[0-9]+')) then concat('/',$global:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)][1]/@app-root,'/factoid.html')  
+                else if(matches($exist:resource,'^[0-9]+')) then concat('/',$global:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)][1]/@app-root,'/aggregate.html')
+                else concat('/',$global:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)][1]/@app-root,'/record.html')
+            else concat('/',$global:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)][1]/@app-root,'/record.html')
         return
             <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
             <forward url="{$exist:controller}{$html-path}"></forward>

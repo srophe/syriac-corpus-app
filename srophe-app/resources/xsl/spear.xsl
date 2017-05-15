@@ -149,19 +149,53 @@
             </span>
         </div>
         <div style="margin:0 1em 1em; color: #999999;">
+            <xsl:variable name="current-id">
+                <xsl:variable name="idString" select="tokenize($resource-id,'/')[last()]"/>
+                <xsl:variable name="idSubstring" select="substring-after($idString,'-')"/>
+                <xsl:choose>
+                    <xsl:when test="$idSubstring  castable as xs:integer">
+                        <xsl:value-of select="$idSubstring cast as xs:integer"/>
+                    </xsl:when>
+                    <xsl:otherwise>0</xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="next-id" select="$current-id + 1"/>
+            <xsl:variable name="prev-id" select="$current-id - 1"/>
+            <xsl:variable name="next-uri" select="concat(substring-before($resource-id,'-'),'-',string($next-id))"/>
+            <xsl:variable name="prev-uri" select="concat(substring-before($resource-id,'-'),'-',string($prev-id))"/>                
+            
             <small>
-                <a href="../documentation/terms.html#place-uri" title="Click to read more about Place URIs" class="no-print-link">
-                    <span class="helper circle noprint">
-                        <p>i</p>
-                    </span>
-                </a>
-                <p>
-                    <span class="srp-label">URI</span>
-                    <xsl:text>: </xsl:text>
+                <span class="uri">
+                    <xsl:if test="starts-with($nav-base,'/exist/apps')">
+                        <a href="{replace($prev-uri,$base-uri,$nav-base)}">
+                            <span class="glyphicon glyphicon-backward" aria-hidden="true"/>
+                        </a>
+                    </xsl:if>
+                    <xsl:text> </xsl:text>
+                    <button type="button" class="btn btn-default btn-xs" id="idnoBtn" data-clipboard-action="copy" data-clipboard-target="#syriaca-id">
+                        <span class="srp-label">URI</span>
+                    </button>
+                    <xsl:text> </xsl:text>
                     <span id="syriaca-id">
                         <xsl:value-of select="$resource-id"/>
                     </span>
-                </p>
+                    <script>
+                        var clipboard = new Clipboard('#idnoBtn');
+                        clipboard.on('success', function(e) {
+                        console.log(e);
+                        });
+                        
+                        clipboard.on('error', function(e) {
+                        console.log(e);
+                        });
+                    </script>
+                    <xsl:text> </xsl:text>
+                    <xsl:if test="starts-with($nav-base,'/exist/apps')">
+                        <a href="{replace($next-uri,$base-uri,$nav-base)}">
+                            <span class="glyphicon glyphicon-forward" aria-hidden="true"/>
+                        </a>
+                    </xsl:if>
+                </span>
             </small>
         </div>
     </xsl:template>
@@ -393,7 +427,7 @@
                 <xsl:apply-templates mode="spear"/>
             </xsl:otherwise>
         </xsl:choose>
-        </div>
+        </div>     
     </xsl:template>
     <xsl:template match="t:spear-teiHeader">
         <p>
@@ -406,7 +440,7 @@
                 <xsl:choose>
                     <xsl:when test="count(descendant::t:respStmt) &gt; 2">
                         <xsl:value-of select="count(descendant::t:respStmt)"/> contributors (
-                            <a class="togglelink" data-toggle="collapse" data-target="#show-contributors" href="#show-contributors" data-text-swap="Hide"> See all &#160;<i class="glyphicon glyphicon-circle-arrow-right"/>
+                            <a class="togglelink" data-toggle="collapse" data-target="#show-contributors" href="#show-contributors" data-text-swap="Hide"> See all  <i class="glyphicon glyphicon-circle-arrow-right"/>
                         </a>)
                             <div class="collapse" id="show-contributors">
                             <ul>
