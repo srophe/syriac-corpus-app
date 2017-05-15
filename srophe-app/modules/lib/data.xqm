@@ -69,14 +69,24 @@ declare function data:get-title($uri as xs:string?) as xs:string?{
 };
 
 (:~
- : Build browse path.
- : @param $collection as xs:string physical eXistdb collection
- : @param $series as xs:string defined by seriesStmt
+ : Build browse/earch path.
+ : @param $collection name from repo.xml
  : @note parameters can be passed to function via the HTML templates or from the requesting url
  : @note there are two ways to define collections, physical collection and tei collection, seriesStmt
  : Enhancement: It would be nice to be able to pass in multiple collections to browse function
 :)
-declare function data:build-browse-path($collection-path as xs:string?, $series-path as xs:string?) as xs:string?{  
+declare function data:build-collection-path($collection) as xs:string?{  
+let $collection-path := 
+        if(global:collection-vars($collection)/@data-root != '') then concat('/',global:collection-vars($collection)/@data-root)
+        else if($collection != '') then concat('/',$collection)
+        else ()
+let $get-series :=  
+        if(global:collection-vars($collection)/@collection-URI != '') then string(global:collection-vars($collection)/@collection-URI)
+        else ()                             
+let $series-path := 
+        if($get-series != '') then concat("//tei:idno[. = '",$get-series,"'][ancestor::tei:seriesStmt]/ancestor::tei:TEI")
+        else '//tei:TEI'
+return         
     concat("collection('",$global:data-root,$collection-path,"')",$series-path)
 };
 
@@ -125,27 +135,17 @@ declare function data:element($element as xs:string?, $series as xs:string?) as 
  : @note parameters can be passed to function via the HTML templates or from the requesting url
 :)
 declare function data:get-browse-data($collection as xs:string*, $element as xs:string?){
-    let $collection-path := 
-        if(global:collection-vars($collection)/@data-root != '') then concat('/',global:collection-vars($collection)/@data-root)
-        else if($collection != '') then concat('/',$collection)
-        else ()
-    let $get-series :=  
-        if(global:collection-vars($collection)/@collection-URI != '') then string(global:collection-vars($collection)/@collection-URI)
-        else ()                             
-    let $series-path := 
-        if($get-series != '') then concat("//tei:idno[. = '",$get-series,"'][ancestor::tei:seriesStmt]/ancestor::tei:TEI")
-        else '//tei:TEI'
     let $element := data:element($element, $collection)
     let $sort := 
         if(request:get-parameter('sort', '') != '') then request:get-parameter('sort', '') 
         else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
         else ()        
-    let $hits := util:eval(concat(data:build-browse-path($collection-path, $series-path),facet:facet-filter(facet-defs:facet-definition($collection)),data:lang-filter($element)))
+    let $hits := util:eval(concat(data:build-collection-path($collection),facet:facet-filter(facet-defs:facet-definition($collection)),data:lang-filter($element)))
     let $hits-main := $hits[not(descendant::tei:relation[@name='skos:broadMatch'])]
     return 
-    (:<p>{concat(data:build-browse-path($collection-path, $series-path),facet:facet-filter(facet-defs:facet-definition($collection)),data:lang-filter($element))}</p>:)
+    (:<p>{concat(data:build-collection-path($collection),facet:facet-filter(facet-defs:facet-definition($collection)),data:lang-filter($element))}</p>:)
     (: Special SPEAR options:)
-        if($collection = 'spear') then util:eval(concat(data:build-browse-path($collection-path,''),'//tei:div[parent::tei:body]'))
+        if($collection = 'spear') then util:eval(concat(data:build-collection-path($collection),'//tei:div[parent::tei:body]'))
     (: Special places browse by type:)
         else if($collection = ('places','geo') and request:get-parameter('view', '') = 'type') then 
              let $hits := util:eval(concat("$hits-main[descendant::tei:place[contains(@type,'", request:get-parameter('type', ''),"')]]"))
@@ -225,7 +225,9 @@ declare function data:browse-data-pages($collection as xs:string*, $element as x
     return $hit    
 };
 
-(: Search functions :)
+(:~ 
+ : Legacy Search functions 
+ :)
 declare function data:search($query-string as xs:string?){
     if(exists(request:get-parameter-names()) or (request:get-parameter('view', '') = 'all')) then 
         let $hits := util:eval($query-string)
@@ -248,6 +250,14 @@ declare function data:search($query-string as xs:string?){
                 return $h            
     else ()  
 };
+
+(:~
+ : More dynamic search functions
+ : Unclear on how to do this
+declare function data:search($collection as xs:string?){
+    
+};
+:)
 
 (: 
  : Search functions
@@ -362,6 +372,17 @@ if(request:get-parameter('relId', '') != '') then
             return 
                 concat("[descendant::tei:relation[@passive[matches(.,'",$relId,"(\W.*)?$')] or @mutual[matches(.,'",$relId,"(\W.*)?$')]][@ref = '",request:get-parameter('relType', ''),"' or @name = '",request:get-parameter('relType', ''),"']]")
         else concat("[descendant::tei:relation[@passive[matches(.,'",$relId,"(\W.*)?$')] or @mutual[matches(.,'",$relId,"(\W.*)?$')]]]")
+else ''
+};
+
+(:~
+ : Add a generic relationship search to any search module. 
+:)
+declare function data:relation-search($relId as xs:string?,$relType as xs:string?){
+if($relId != '') then
+    if($relType != '') then
+        concat("[descendant::tei:relation[@passive[matches(.,'",$relId,"(\W.*)?$')] or @mutual[matches(.,'",$relId,"(\W.*)?$')]][@ref = '",$relType,"' or @name = '",$relType,"']]")
+    else concat("[descendant::tei:relation[@passive[matches(.,'",$relId,"(\W.*)?$')] or @mutual[matches(.,'",$relId,"(\W.*)?$')]]]")
 else ''
 };
 
