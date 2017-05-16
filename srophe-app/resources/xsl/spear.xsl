@@ -221,14 +221,14 @@
         <div class="spear-aggregate">
         <xsl:choose>
             <xsl:when test="t:div">
-                <xsl:for-each-group select="t:div[t:listPerson/child::*/t:persName[. != '']]" group-by="name(t:div/t:listPerson/child::*/t:persName[. != ''][1])">
+                <xsl:for-each-group select="t:div/t:listPerson/t:person/t:persName[. != ''] | t:div/t:listPerson/t:person/t:persName[. != '']" group-by="name(.)">
                     <h4>Name variant(s): </h4>
                     <xsl:for-each select="current-group()">
-                        <xsl:sort select="xs:integer(substring-after(@uri,'-'))" order="ascending"/>
+                       <xsl:sort select="xs:integer(substring-after(ancestor::t:div[1]/@uri,'-'))" order="ascending"/>
                         <p class="indent">
-                            <xsl:apply-templates mode="spear"/>
-                            <xsl:text> </xsl:text>
-                            <a href="factoid.html?id={string(@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
+                            <xsl:copy-of select="."/>
+
+                            <a href="factoid.html?id={string(ancestor::t:div[1]/@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
                             </a>
                         </p>
                     </xsl:for-each>
