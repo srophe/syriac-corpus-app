@@ -325,7 +325,9 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                                     let $link := concat($global:nav-base,'/rec.html?id=',$id,'#head-',$match/ancestor-or-self::*[@n][1]/@n)
                                     return 
                                         (
-                                        <div class="col-md-9" style="padding-left:3em;">{kwic:get-summary($expanded, $match, <config xmlns="" width="40" link="{$link}"/>,util:function(xs:QName("search:filter"), 2))}</div>,
+                                        <div class="col-md-9" style="padding-left:3em;">
+                                        {kwic:get-summary($expanded, $match, <config xmlns="" width="40" link="{$link}"/>)}
+                                        </div>,
                                         <div class="col-md-3">{string($match/ancestor-or-self::*[@n][@type='section'][1]/@n)}</div>
                                         )
                                 }</div>         
@@ -339,13 +341,6 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
 </div>
 };
 
-declare function search:filter($node as node(), $mode as xs:string) as xs:string? 
-{
-  if ($mode eq 'before') then 
-      concat($node, ' ')
-  else 
-      concat(' ', $node)
-};
 
 (:~          
  : Checks to see if there are any parameters in the URL, if yes, runs search, if no displays search form. 
