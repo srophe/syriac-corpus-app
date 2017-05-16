@@ -703,7 +703,7 @@ declare function app:display-ids($node as node(), $model as map(*)){
 
 (:~
  : TOC for Syriac Corpus records. 
-:)
+:)  
 declare function app:display-toc($node as node(), $model as map(*)){
     app:toc($model("data")/descendant::tei:body/child::*)
 }; 
@@ -731,7 +731,6 @@ return
                         concat('head-',string($node/parent::*[1]/@n))
                     else 'on-parent'
                 return 
-                    (
-                    <a href="#{$id}" class="toc-item">{string-join($node/descendant-or-self::text(),' ')}</a>, ' ') 
+                    (<a href="#{$id}" class="toc-item">{string-join($node/descendant-or-self::text(),' ')}</a>, ' ') 
             default return ()          
 };

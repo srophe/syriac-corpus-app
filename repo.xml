@@ -45,6 +45,10 @@
                 <option id="ms-Russian">Russian Mod. Standard</option>
             -->
         </keyboard-options>
+        <collections>
+            <collection name="corpus" title="Syriac Corpus" app-root="/" data-root="/" record-URI-pattern="https://syriaccorpus.org/"/>
+        </collections>
     </config>
-    <deployed>2017-02-21T10:19:37.542-05:00</deployed>
+    
+<deployed>2017-05-15T08:52:37.648-04:00</deployed>
 </meta>

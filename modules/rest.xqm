@@ -6,10 +6,9 @@ import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace geojson="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace geokml="http://syriaca.org/geokml" at "lib/geokml.xqm";
-import module namespace tei2ttl="http://syriaca.org/tei2ttl" at "lib/tei2ttl.xqm";
 import module namespace feed="http://syriaca.org/atom" at "lib/atom.xqm";
-import module namespace common="http://syriaca.org/common" at "search/common.xqm";
 declare namespace json="http://www.json.org";
+
 (: For output annotations  :)
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
 
@@ -18,6 +17,8 @@ declare namespace rest = "http://exquery.org/ns/restxq";
 
 (: For interacting with the TEI document :)
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
+declare namespace http="http://expath.org/ns/http-client";
+
 
 (:~
   : Use resxq to format urls for geographic API
@@ -116,7 +117,7 @@ declare
     %rest:query-param("lang", "{$lang}", "")
     %rest:query-param("author", "{$author}", "")
     %output:method("json")
-function api:search-element($element as xs:string?, $q as xs:string*, $collection as xs:string*, $lang as xs:string*,$author as xs:string*){
+function api:search-element($element as xs:string?, $q as xs:string*, $collection as xs:string*, $lang as xs:string*, $author as xs:string*){
     let $collection := if($collection != '') then
                             if($collection = ('Gateway to the Syriac Saints',
                             'The Syriac Biographical Dictionary',
@@ -127,37 +128,53 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
                             'Qadishe: A Guide to the Syriac Saints',
                             'A Guide to Syriac Authors',
                             'A Guide to the Syriac Saints')) then 
-                                concat("[ancestor::tei:TEI/descendant::tei:titleStmt/tei:title/text() = '",$collection,"']")
+                                concat("[.//tei:title = '",$collection,"']")
                             else ()
                         else ()
+    let $options :=                  
+        "<options>
+            <default-operator>and</default-operator>
+            <phrase-slop>1</phrase-slop>
+            <leading-wildcard>yes</leading-wildcard>
+            <filter-rewrite>yes</filter-rewrite>
+        </options>"                          
     let $lang := if($lang != '') then concat("[@xml:lang = '",$lang,"']") 
                  else ()
     let $author := if($author != '') then 
-                    if($element = 'title') then concat("[following-sibling::*[self::tei:author][ft:query(.,'",$author,"*')]]")
-                    else ()
-                 else ()                       
-    let $eval-string := concat("collection('",$global:data-root,"')//tei:"
-                        ,$element,"[ft:query(.,'",$q,"*',common:options())]",$lang,$collection,$author)
+                     concat("[ft:query(.//tei:author,'",$author,"',",$options,")]")
+                 else () 
+               
+    let $eval-string := concat("collection('",$global:data-root,"')//tei:TEI[ft:query(.//tei:",$element,",'",$q,"*',",$options,")]",$lang,$collection,$author)
     let $hits := util:eval($eval-string)
     return 
         if(count($hits) gt 0) then 
             <json:value>
+                (
+                    <id>0</id>,
+                    <action>{$q}</action>,
+                    <info>hits: {count($hits)}</info>,
+                    <start>1</start>
+               <results>
                {
                 for $hit in $hits
-                let $id := replace($hit/ancestor::tei:TEI/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei','')
+                let $id := replace($hit/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei','')
                 let $dates := 
                     if($element = 'persName') then 
-                        string-join($hit/ancestor::tei:body/descendant::tei:birth/text() 
-                        | $hit/ancestor::tei:body/descendant::tei:death/text() | 
-                        $hit/ancestor::tei:body/descendant::tei:floruit/text(),' ')
+                        string-join($hit/descendant::tei:body/descendant::tei:birth/descendant-or-self::text() 
+                        | $hit/descendant::tei:body/descendant::tei:death/descendant-or-self::text() | 
+                        $hit/descendant::tei:body/descendant::tei:floruit/descendant-or-self::text(),' ')
                     else ()
+                let $element-text := util:eval(concat("$hit//tei:",$element,"[ft:query(.,'",$q,"*',",$options,")]"))                   
                 return
                         <json:value json:array="true">
                             <id>{$id}</id>
-                            {element {xs:QName($element)} { normalize-space(string-join($hit//text(),' ')) }}
-                            {if($dates != '') then <dates>{$dates}</dates> else ()}
+                            {for $e in $element-text 
+                             return 
+                                element {xs:QName($element)} { normalize-space(string-join($e//text(),' ')) }}
+                            {if($dates != '') then <dates>{normalize-space($dates)}</dates> else ()}
                         </json:value>
                 }
+                </results>)
             </json:value>
         else   
             <json:value>
@@ -178,32 +195,11 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
 :)
 declare 
     %rest:GET
-    %rest:path("/syriac-corpus/{$collection}/{$id}/ttl")
-    %output:media-type("text/turtle")
-    %output:method("text")
-function api:get-ttl($collection as xs:string, $id as xs:string){
-   (<rest:response> 
-      <http:response status="200"> 
-        <http:header name="Content-Type" value="text/turtle; charset=utf-8"/> 
-      </http:response> 
-    </rest:response>, 
-    tei2ttl:make-triples(api:get-tei-rec($collection, $id))
-     )
-}; 
-
-(:~
-  : Use resxq to format urls for tei
-  : @param $collection syriaca.org subcollection 
-  : @param $id record id
-  : Serialized as XML
-:)
-declare 
-    %rest:GET
-    %rest:path("/syriac-corpus/{$collection}/{$id}/tei")
+    %rest:path("/syriac-corpus/{$id}/tei")
     %output:media-type("text/xml")
     %output:method("xml")
-function api:get-tei($collection as xs:string, $id as xs:string){
-    let $rec := api:get-tei-rec($collection, $id)
+function api:get-tei($id as xs:string){
+    let $rec := api:get-tei-rec($id)
     return 
         if(not(empty($rec))) then 
             (<rest:response> 
@@ -212,7 +208,7 @@ function api:get-tei($collection as xs:string, $id as xs:string){
                   <http:header name="Access-Control-Allow-Origin" value="*"/> 
                 </http:response> 
               </rest:response>, 
-              api:get-tei-rec($collection, $id))
+              api:get-tei-rec($id))
         else 
             (<rest:response> 
                 <http:response status="400">
@@ -233,78 +229,56 @@ function api:get-tei($collection as xs:string, $id as xs:string){
 :)
 declare 
     %rest:GET
-    %rest:path("/syriac-corpus/{$collection}/{$id}/atom")
+    %rest:path("/syriac-corpus/{$id}/atom")
     %output:media-type("application/atom+xml")
     %output:method("xml")
-function api:get-atom-record($collection as xs:string, $id as xs:string){
+function api:get-atom-record($id as xs:string){
    (<rest:response> 
       <http:response status="200"> 
         <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
       </http:response> 
     </rest:response>, 
-     feed:get-entry(api:get-tei-rec($collection, $id))
+     feed:get-entry(api:get-tei-rec($id))
     )
 }; 
 
 (:~
-  : Return atom feed for syrica.org subcollection
-  : @param $collection syriaca.org subcollection 
+  : Lookup Syriac words via Sedra Lexeme API  
   : Serialized as XML
 :)
 declare 
     %rest:GET
-    %rest:path("/syriac-corpus/api/{$collection}/atom")
-    %rest:query-param("start", "{$start}", 1)
-    %rest:query-param("perpage", "{$perpage}", 25)
-    %output:media-type("application/atom+xml")
+    %rest:path("/syriac-corpus/api/lexeme/{$word}")
+    %output:media-type("text/xml")
     %output:method("xml")
-function api:get-atom-feed($collection as xs:string, $start as xs:integer*, $perpage as xs:integer*){
+function api:get-sedra-lexeme($word as xs:string?){
    (<rest:response> 
       <http:response status="200"> 
         <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
       </http:response> 
     </rest:response>, 
-    let $feed := collection(xs:anyURI($global:data-root || $collection ))//tei:TEI
-    let $total := count($feed)
-    return
-     feed:build-atom-feed($feed, $start, $perpage,'',$total)
-     )
-}; 
-
-(:~
-  : Return atom feed for syriaca.org  
-  : Serialized as XML
-:)
-declare 
-    %rest:GET
-    %rest:path("/syriac-corpus/api/atom")
-    %rest:query-param("start", "{$start}", 1)
-    %rest:query-param("perpage", "{$perpage}", 25)
-    %output:media-type("application/atom+xml")
-    %output:method("xml")
-function api:get-atom-feed($start as xs:integer*, $perpage as xs:integer*){
-   (<rest:response> 
-      <http:response status="200"> 
-        <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
-      </http:response> 
-    </rest:response>, 
-    let $feed := collection(xs:anyURI($global:data-root))//tei:TEI
-    let $total := count($feed)
+    let $word := $word
+    let $lexeme := 
+        http:send-request(
+            <http:request href="{xs:anyURI(concat('https://sedra.tara-lu.com/api/word/',$word,'.xml'))}" method="get">
+                <http:header name="Connection" value="close"/>
+            </http:request>)[2]
     return 
-     feed:build-atom-feed($feed, $start, $perpage,'',$total)
+        try {
+           $lexeme
+        } catch * {
+            <error>Caught error {$err:code}: {$err:description}</error>
+            }
      )
 };
+
 
 (:~
  : Returns tei record for syriaca.org subcollections
 :)
-declare function api:get-tei-rec($collection as xs:string, $id as xs:string) as node()*{
-    let $uri := concat($global:base-uri,'/',$collection, '/', $id)
-    return 
-        if($collection='spear') then 
-            let $spear-id := concat('http://syriaca.org/spear/',$id)
-            return global:get-rec($spear-id)
-        else global:get-rec($uri)
+declare function api:get-tei-rec($id as xs:string) as node()*{
+    let $uri := concat($global:base-uri,'/', $id)
+    return global:get-rec($uri)
 };
 
 (:~
