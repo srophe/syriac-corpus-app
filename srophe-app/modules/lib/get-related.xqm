@@ -102,8 +102,13 @@ declare function rel:get-subject-type($rel as xs:string*) as xs:string*{
     if(contains($rel, ' ')) then
         if(count(distinct-values(for $r in tokenize(string($rel),'/')[4] return $r)) gt 1) then 
             'records'
+        else if(contains($rel,'subject')) then 
+            'keywords'
         else (tokenize(string($rel[1]),'/')[4],'s')
-    else tokenize(string($rel[1]),'/')[4]
+    else
+        if(contains($rel,'subject')) then 
+            'keywords'
+        else tokenize(string($rel[1]),'/')[4]
 };
 
 (:~ 
@@ -228,14 +233,13 @@ declare function rel:build-relationships($node,$idno){
             return 
                 (<p class="rel-label"> 
                     {
-                      if($related/@mutual) then 
-                        ('This ', rel:get-subject-type($related[1]/@mutual), ' ', 
-                        rel:decode-relationship($related), ' ', 
-                        $count, ' other ', rel:get-subject-type($related[1]/@mutual),'.')
+                     if(contains($idno,'/subject/') and $rel-type = 'skos:broadMatch') then
+                        concat('This keyword has broader match with', $count,' keyword',if($count gt 1) then 's' else())
+                     else if($related/@mutual) then 
+                        ('This ', rel:get-subject-type($related[1]/@mutual), ' ', rel:decode-relationship($related), ' ', $count, ' other ', rel:get-subject-type($related[1]/@mutual),'.')
                       else if($related/@active) then 
                         ('This ', rel:get-subject-type($related[1]/@active), ' ',
-                        rel:decode-relationship($related), ' ', $count, ' ',
-                        rel:get-subject-type($related[1]/@passive),'.')
+                        rel:decode-relationship($related), ' ',$count, ' ',rel:get-subject-type($related[1]/@passive),'.')
                       else rel:decode-relationship($related)
                     }
                 </p>,
@@ -267,15 +271,14 @@ declare function rel:build-relationships($node,$idno){
  : @param $idno record idno
 :)
 declare function rel:build-relationship($node,$idno, $relType){ 
-
 for $related in $node/descendant-or-self::tei:relation[@name = $relType or @ref = $relType]
 let $rel-id := index-of($node, $related[1])
 let $names := rel:get-uris(string-join(($related/@active/string(),$related/@passive/string(),$related/@mutual/string()),' '),$idno)
 let $count := count($names)
 return 
-    (<p class="rel-label"> 
+    (<p class="rel-label">
         {
-            if($related/@mutual) then 
+if($related/@mutual) then 
                 ('This ', rel:get-subject-type($related[1]/@mutual), ' ', rel:decode-relationship($related), ' ', $count, ' other ', rel:get-subject-type($related[1]/@mutual),'.')
             else if($related/@active) then 
                 ('This ', rel:get-subject-type($related[1]/@active), ' ',rel:decode-relationship($related), ' ', $count, ' ', rel:get-subject-type($related[1]/@passive),'.')
@@ -473,7 +476,7 @@ let $recType :=
     if($collection = ('sbd','authors','q')) then 'person'
     else if($collection = ('geo','place')) then 'place'
     else if($collection = ('nhsl','bhse','bible')) then 'work'
-    else if($collection = ('subject')) then 'subject'
+    else if($collection = ('subjects','keywords')) then 'keyword'
     else 'record'
 let $collection-root := string(global:collection-vars($collection)/@app-root)    
 return 
