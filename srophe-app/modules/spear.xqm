@@ -95,7 +95,7 @@ declare function spear:title($id){
     else ()
 };
 
-(:~    
+(:~        
  : Build page title
  : Uses connical record from syriaca.org as title, otherwise uses spear data
 :)
@@ -275,7 +275,7 @@ return rel:build-short-relationships($r,'')
 (: NOTE: add footnotes to events panel :)
 declare %templates:wrap function spear:events($node as node(), $model as map(*)){
   if($model("data")//tei:listEvent) then
-    let $events := $model("data")//tei:listEvent/descendant::tei:event
+    let $events := $model("data")//tei:div[tei:listEvent/descendant::tei:event]
     return
         (ev:build-timeline($events,'events'),
         ev:build-events-panel($events))
