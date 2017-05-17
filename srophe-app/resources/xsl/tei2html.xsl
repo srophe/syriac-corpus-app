@@ -356,7 +356,7 @@
                         <xsl:call-template name="footnote"/>
                         <xsl:if test="t:listRelation/t:relation">
                             <xsl:variable name="parent" select="/"/>
-                            <xsl:variable name="bibl-type" select="local:translate-label(string(@type))"/>
+                            <xsl:variable name="bibl-type" select="local:translate-label(string(@type),0)"/>
                             <xsl:for-each select="t:listRelation/t:relation[not(@ref='lawd:embodies')]">
                                 <!-- List all bibs grouped by type to get correct position for constructed relationship sentance. -->
                                 <xsl:variable name="all-bibs">
@@ -364,7 +364,7 @@
                                         <xsl:for-each-group select="ancestor::t:bibl[@type='lawd:ConceptualWork']/t:bibl" group-by="@type">
                                             <bibList>
                                                 <xsl:for-each select="current-group()">
-                                                    <bibl bibid="{@xml:id}" position="{position()}" type="{local:translate-label(string(current-grouping-key()))}"/>
+                                                    <bibl bibid="{@xml:id}" position="{position()}" type="{local:translate-label(string(current-grouping-key()),count(current-group()))}"/>
                                                 </xsl:for-each>
                                             </bibList>
                                         </xsl:for-each-group>
@@ -387,14 +387,7 @@
                                 <xsl:text> based on  </xsl:text>
                                 <xsl:for-each-group select="$bibl-rel/descendant-or-self::t:bibl" group-by="@type">
                                     <xsl:copy-of select="current-group()"/>
-                                    <xsl:choose>
-                                        <xsl:when test="count(current-group()) &gt; 1">
-                                            <xsl:value-of select="concat(current-grouping-key(),'s ')"/>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:value-of select="current-grouping-key()"/>
-                                        </xsl:otherwise>
-                                    </xsl:choose>
+                                    <xsl:value-of select="current-grouping-key()"/>
                                     <xsl:for-each select="current-group()">
                                         <xsl:text> </xsl:text>
                                         <xsl:value-of select="string(@position)"/>
@@ -847,10 +840,10 @@
                 <!--<xsl:value-of select="concat(upper-case(substring(@role,1,1)),substring(@role,2))"/>:-->
                 <xsl:choose>
                     <xsl:when test="contains(@role, 'http:')">
-                       <xsl:value-of select="local:translate-label(@role,.,substring-after(@role,'#'))"/>:
+                       <xsl:value-of select="local:translate-label(@role,.,substring-after(@role,'#'),0)"/>:
                     </xsl:when>
                     <xsl:otherwise>
-                       <xsl:value-of select="concat(upper-case(substring(@role,1,1)),substring(@role,2))"/>:
+                       <xsl:value-of select="concat(upper-case(substring(@role,1,1)),substring(@role,2),0)"/>:
                     </xsl:otherwise>
                 </xsl:choose>
             </span>
@@ -955,7 +948,7 @@
     <xsl:template match="t:gloss">
         <div>
             <h4>
-                <xsl:value-of select="local:translate-label(@xml:lang)"/>
+                <xsl:value-of select="local:translate-label(@xml:lang,0)"/>
             </h4>
             <xsl:for-each select="t:term">
                 <xsl:apply-templates/>
@@ -1224,6 +1217,9 @@
     <xsl:template name="title">
         <span id="title">
             <xsl:choose>
+                <xsl:when test="contains($resource-id,'/subject/')">
+                    Term:  <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][not(empty(node()))][1]" mode="plain"/>
+                </xsl:when>
                 <xsl:when test="descendant::*[contains(@syriaca-tags,'#syriaca-headword')]">
                     <xsl:apply-templates select="descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][not(empty(node()))][1]" mode="plain"/>
                     <xsl:text> - </xsl:text>
@@ -1368,7 +1364,7 @@
                 <xsl:for-each-group select="//t:bibl[exists(@type)][@type != 'lawd:Citation']" group-by="@type">
                     <xsl:sort select="local:bibl-type-order(current-grouping-key())" order="ascending"/>
                     <xsl:variable name="label">
-                        <xsl:variable name="l" select="local:translate-label(current-grouping-key())"/>
+                        <xsl:variable name="l" select="local:translate-label(current-grouping-key(),count(current-group()))"/>
                         <xsl:choose>
                             <xsl:when test="$l != ''">
                                 <xsl:value-of select="$l"/>
@@ -1377,7 +1373,6 @@
                                 <xsl:value-of select="current-grouping-key()"/>
                             </xsl:otherwise>
                         </xsl:choose>
-                        <xsl:if test="count(current-group()) &gt; 1">s</xsl:if>
                     </xsl:variable>
                     <a href="#bibl{$label}" class="btn btn-default">
                         <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
@@ -1423,7 +1418,6 @@
                     </p>
                 </xsl:if>
                 <br class="clearfix"/>
-            
         </xsl:if>
         <xsl:if test="self::t:person">
             <div>
@@ -1771,7 +1765,7 @@
                     <xsl:for-each-group select="t:bibl[exists(@type)][@type != 'lawd:Citation']" group-by="@type">
                         <xsl:sort select="local:bibl-type-order(current-grouping-key())" order="ascending"/>
                         <xsl:variable name="label">
-                            <xsl:variable name="l" select="local:translate-label(current-grouping-key())"/>
+                            <xsl:variable name="l" select="local:translate-label(current-grouping-key(),count(current-group()))"/>
                             <xsl:choose>
                                 <xsl:when test="$l != ''">
                                     <xsl:value-of select="$l"/>
@@ -1780,7 +1774,6 @@
                                     <xsl:value-of select="current-grouping-key()"/>
                                 </xsl:otherwise>
                             </xsl:choose>
-                            <xsl:if test="count(current-group()) &gt; 1">s</xsl:if>
                         </xsl:variable>
                         <h3>
                             <span class="anchor" id="bibl{$label}"/>
