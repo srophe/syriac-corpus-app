@@ -324,8 +324,8 @@
                   <person>
                     <persName ref="http://syriaca.org/person/1718"/>
                     <death>
-                      <date when="0387-04-23" calendar="Gregorian">23 April A. D.
-                        387
+                      <date when="0387-04-23" calendar="Gregorian">
+                        23 April A. D. 387
                       </date>
                       <note type="desc"> <persName ref="http://syriaca.org/person/1718">Eulogios</persName> died on 23 April A. D. 387 </note>
                     </death>
@@ -365,7 +365,8 @@
               <div uri="http://syriaca.org/spear/119-12" resp="#dschwartz">
                 <listEvent>
                   <event>
-                    <desc> In <choice>
+                    <desc> In 
+                      <choice>
                       <reg>
                         <date when="0201-11" calendar="Gregorian">November A. D.
                           201</date>
@@ -373,7 +374,8 @@
                       <orig>
                         <date when-custom="0513-02" datingMethod="Seleucid-SyriacMonths">Teshri II A. Gr. 513</date>
                       </orig>
-                    </choice> during the reign of <persName ref="http://syriaca.org/person/2201"> Abgar the Great </persName>,
+                    </choice>
+                      during the reign of <persName ref="http://syriaca.org/person/2201"> Abgar the Great </persName>,
                       <placeName ref="http://syriaca.org/place/191"> the Daisan river
                       </placeName> flooded <placeName ref="http://syriaca.org/place/78">
                         Edessa </placeName> destroying the western wall of the city,
@@ -394,7 +396,8 @@
               <div uri="http://syriaca.org/spear/119-434" resp="#dschwartz">
                 <listPerson>
                   <personGrp>
-                    <persName ref="http://syriaca.org/person/2219"> Those struck by fire in <choice>
+                    <persName ref="http://syriaca.org/person/2219"> Those struck by fire in 
+                      <choice>
                       <reg>
                         <date notBefore="0511-04-11" notAfter="0512-04-10" calendar="Gregorian">A. D. 511/2</date>
                         <note ana="#calculated">This date was calculated from a regnal
@@ -404,7 +407,8 @@
                         <date datingMethod="regnalYear">the 21st year of the reign of
                           Anastasios</date>
                       </orig>
-                    </choice> because they wanted to remove the book placed in the coffin of
+                    </choice> 
+                      because they wanted to remove the book placed in the coffin of
                       <persName ref="http://syriaca.org/person/479"> Euphemia the martyr
                       </persName> by the <ref target="http://syriaca.org/keyword/councilChalcedon"> Council of
                         <placeName ref="http://syriaca.org/place/622"> Chalcedon
@@ -964,7 +968,6 @@
                       </placeName> in 
                         <date when="0395-07" calendar="Gregorian">July, A. D. 395</date>
                     </persName>
-                    <ptr target="http://syriaca.org/keyword/Huns"/>
                   </personGrp>
                 </listPerson>
                 <bibl>
@@ -1578,7 +1581,7 @@
                     <persName ref="http://syriaca.org/person/2606"/>
                     <occupation ref="http://syriaca.org/keyword/reader">
                       <note type="desc">
-                        <persName ref="http://syriaca.org/person/2606">Archelaus</persName> was a reader in 
+                        <persName ref="http://syriaca.org/person/2606">Archelaus</persName> was a reader in the church of 
                         <placeName ref="http://syriaca.org/place/2729">
                           Tyre
                         </placeName>.
@@ -1743,7 +1746,7 @@
                   <person>
                     <persName ref="http://syriaca.org/person/3119"/>
                     <socecStatus ref="http://syriaca.org/keyword/consul">
-                      <note type="desc">This man was of consular rank.</note>
+                      <note type="desc"><persName ref="http://syriaca.org/person/3119">Anonymous 3119</persName> was of consular rank.</note>
                     </socecStatus>
                   </person>
                 </listPerson>
