@@ -46,13 +46,25 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                         if($coll = ('sbd','q','authors','saints','persons')) then persons:query-string($coll)
                         else if($coll ='spear') then spears:query-string()
                         else if($coll = 'places') then places:query-string()
-                        else if($coll = ('bhse','nhsl')) then bhses:query-string($collection)
+                        else if($coll = ('bhse','nhsl','bible')) then bhses:query-string($collection)
                         else if($coll = 'bibl') then bibls:query-string()
                         else if($coll = 'manuscripts') then ms:query-string()
                         else search:query-string($collection)
                         
-    return map {"hits" := data:search($eval-string) }
-            
+    return map {"hits" := data:search($eval-string) }  
+};
+
+(: for debugging :)
+declare function search:search-xpath($collection as xs:string?){
+   let $coll := if($search:collection != '') then $search:collection else $collection
+    return
+                        if($coll = ('sbd','q','authors','saints','persons')) then persons:query-string($coll)
+                        else if($coll ='spear') then spears:query-string()
+                        else if($coll = 'places') then places:query-string()
+                        else if($coll = ('bhse','nhsl','bible')) then bhses:query-string($collection)
+                        else if($coll = 'bibl') then bibls:query-string()
+                        else if($coll = 'manuscripts') then ms:query-string()
+                        else search:query-string($collection)                    
 };
 
 (:~   
@@ -183,10 +195,8 @@ declare  %templates:wrap function search:hit-count($node as node()*, $model as m
 declare  %templates:wrap function search:pageination($node as node()*, $model as map(*), $collection as xs:string?, $view as xs:string?, $sort-options as xs:string*){
    if($view = 'all') then 
         page:pages($model("hits"), $search:start, $search:perpage, '', $sort-options)
-        (:page:pageination($model("hits"), $search:start, $search:perpage, true()):)
    else if(exists(request:get-parameter-names())) then 
         page:pages($model("hits"), $search:start, $search:perpage, search:search-string($collection), $sort-options)
-        (:page:pageination($model("hits"), $search:start, $search:perpage, true(), $collection, search:search-string($collection)):)
    else ()
 };
 
@@ -290,7 +300,8 @@ declare function search:show-rec($hit, $p, $collection){
                                              }</a>
                                       )}
                         </div>  
-                        else if(request:get-parameter('relation', '') and $collection = 'spear') then <a href="factoid.html?id={string($hit/@uri)}">{rel:build-relationship-sentence($hit/descendant::tei:relation,$spears:relation)}</a>
+                        else if(request:get-parameter('relation', '') and $collection = 'spear') then 
+                            <a href="factoid.html?id={string($hit/@uri)}">{rel:build-relationship-sentence($hit/descendant::tei:relation,$spears:relation)}</a>
                         else global:display-recs-short-view($hit,'')
                     }
             </div>
@@ -307,13 +318,18 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
     <div>{search:build-geojson($node,$model)}</div>
     {
         let $hits := $model("hits")
-        let $tree := data:search-nested-view($model("hits"))
-        for $hit at $p in subsequence($tree, $search:start, $search:perpage)
-        let $id := $hit//tei:idno[1]
-        return
-        <div class="results" style="border-bottom:1px dotted #eee; padding-top:.5em; padding-top:1em;">
-            {search:show-grps(data:get-children($hits, $id[1]), $p, $collection)}
-        </div>
+        return 
+            if($collection = 'spear') then
+                for $hit at $p in subsequence($hits, $search:start, $search:perpage)
+                return search:show-rec($hit, $p, $collection)
+            else
+                let $tree := data:search-nested-view($model("hits"))
+                for $hit at $p in subsequence($tree, $search:start, $search:perpage)
+                let $id := $hit//tei:idno[1]
+                return
+                    <div class="results" style="border-bottom:1px dotted #eee; padding-top:.5em; padding-top:1em;">
+                        {search:show-grps(data:get-children($hits, $id[1]), $p, $collection)}
+                    </div>
      } 
 </div>
 };
