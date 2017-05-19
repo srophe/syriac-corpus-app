@@ -152,6 +152,7 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 .sub-menu .nav-icons{margin-left:2em;}
 
 .icon-container {display:inline-block; line-height:1.5em;}
+.submodule {margin-left:.75em;}
 .icon-nav {font-size:1.75em; display:inline-block; margin-right:.15em;}
 .icon-text {display:inline-block; margin-top:-.85em; vertical-align: middle; font-weight:500;}
 .nav-text {display:inline-block; line-height:1.5em; margin-top:.25em;}
@@ -898,5 +899,9 @@ code.inline{
 select.keyboardSelect {display:none;}
 /* Timeline title styles */
 .slider-item h3{font-size:1.25em !important;}
+.jump-menu {margin:1em;}
+.jump-menu .jump {margin-right:1em;}
 
 button.bibl-show {margin: .5em -1em;}
+.slide {font-weight:400;}
+.more-info a {font-weight:600; color:white;}
