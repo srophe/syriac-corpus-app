@@ -66,7 +66,7 @@
             <collection name="mss" title="A Digital Catalogue of Syriac Manuscripts in the British Library" app-root="mss" data-root="manuscripts" record-URI-pattern="http://syriaca.org/manuscript/"/>
             <collection name="spear" title="SPEAR: Syriac Persons Events and Relations" app-root="spear" data-root="spear" record-URI-pattern="http://syriaca.org/spear/"/>
             <collection name="bibl" title="Syriaca.org Works Cited" app-root="bibl" data-root="bibl" record-URI-pattern="http://syriaca.org/bibl/"/>
-            <collection name="subjects" title="A Taxonomy of Syriac Studies" app-root="taxonomy" data-root="subjects" record-URI-pattern="http://syriaca.org/subject/"/>
+            <collection name="subjects" title="A Taxonomy of Syriac Studies" app-root="taxonomy" data-root="subjects" record-URI-pattern="http://syriaca.org/keyword/"/>
         </collections>
         <!--
     <google_analytics>var _gaq=[['_setAccount','UA-333143-26'],['_trackPageview']];
