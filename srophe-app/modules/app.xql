@@ -18,7 +18,7 @@ declare namespace http="http://expath.org/ns/http-client";
 declare namespace html="http://www.w3.org/1999/xhtml";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
-(:~         
+(:~          
  : Simple get record function, get tei record based on tei:idno
  : Builds URL from the following URL patterns defined in the controller.xql or uses the id paramter
  : Retuns 404 page if record is not found, or has been @depreciated
@@ -154,8 +154,6 @@ if($series != '') then
 else ()
 };
 
-
-
 (:~    
  : Return teiHeader info to be used in citation
 :)
@@ -197,6 +195,7 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                         app:work-toc($data),
                         global:tei2html($infobox),
                         app:external-relationships($node, $model,'dct:isPartOf', 'nhsl','',''),
+                        app:external-relationships($node, $model,'skos:broadMatch', 'nhsl','',''),
                         app:external-relationships($node, $model,'syriaca:sometimesCirculatesWith','nhsl','',''),
                         app:external-relationships($node, $model,'syriaca:part-of-tradition','nhsl','',''),
                         global:tei2html($allData))  
