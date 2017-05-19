@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -191,47 +191,73 @@
         <div class="body">
             <xsl:call-template name="langattr"/>
             <!-- Toggle displays re: milestones/div/line breaks -->
-            <div class="btn-toolbar">
-                <!-- tei:div, tei:ab, tei:p, tei:lg, tei:l -->
-                <!-- tei:milestone (with @type if applicable, also include @ed with syriaca.org/bibl URI to show source, eventually we will use @edRef to contain CTS citation heres as well), tei:pb, tei:cb, tei:lb elements without text nodes should be used. (For these break elements, @ed must included with the syriaca.org/bibl URI as a value, if multiple page numbering from same edition, then include @type or @subtype to distinguish-->
-                <xsl:for-each select="distinct-values(//t:div/@type | 
-                    //t:div1/@type | 
-                    //t:div2/@type |
-                    //t:div3/@type | 
-                    //t:div4/@type | 
-                    //t:div5/@type |
-                    //t:ab/@type |
-                    //t:p/@type |
-                    //t:milestone/@type | 
-                    //t:milestone/@subtype
-                    )">
-                    <xsl:choose>
-                        <xsl:when test=". = ('part','text','rubric','heading')"/>
-                        <xsl:otherwise>
-                            <button type="button" class="btn btn-default toggleDisplay"  data-element="{.}"><xsl:value-of select="."/></button>
-                        </xsl:otherwise>
-                    </xsl:choose>        
-                </xsl:for-each>
-                <xsl:if test="//t:ab[not(@type) and not(@subtype)]">
-                    <button type="button" class="btn btn-default toggleDisplay" data-element="ab"><xsl:text>ab</xsl:text></button>
-                </xsl:if>
-                <xsl:if test="//t:l | //t:lb">
-                    <button type="button" class="btn btn-default toggleDisplay" data-element="l"><xsl:text>line</xsl:text></button>
-                </xsl:if>
-                <xsl:if test="//t:lg">
-                    <button type="button" class="btn btn-default toggleDisplay" data-element="lg"><xsl:text>line group</xsl:text></button>
-                </xsl:if>
-                <xsl:if test="//t:pb">
-                    <button type="button" class="btn btn-default toggleDisplay" data-element="pb"><xsl:text>page break</xsl:text></button>
-                </xsl:if>
-                <xsl:if test="//t:cb">
-                    <button type="button" class="btn btn-default toggleDisplay" data-element="cb"><xsl:text>column break</xsl:text></button>
-                </xsl:if>
-                <xsl:if test="//t:milestone[not(@type) and not(@subtype)]">
-                    <button type="button" class="btn btn-default toggleDisplay" data-element="cb"><xsl:text>milestone</xsl:text></button>
-                </xsl:if>
-            </div>            
-            <div class="section">
+            <xsl:if test="//t:div/@type or //t:div1/@type or //t:div2/@type or //t:div3/@type or //t:div4/@type or                   //t:div5/@type or  //t:ab or //t:p or //t:milestone or //t:l or //t:lb or //t:pb">
+                <ul class="list-inline toggleView menu">
+                    <li>Show: </li>
+                    <xsl:if test="//@type='chapter'">
+                        <li>
+                            <button type="button" class="btn btn-default toggleDisplay active" data-element="chapter">
+                                <xsl:text>chapter</xsl:text>
+                            </button>
+                        </li>
+                    </xsl:if>
+                    <xsl:for-each select="distinct-values(//t:div/@type | //t:div1/@type | //t:div2/@type | //t:div3/@type | //t:div4/@type |                           //t:div5/@type |  //t:ab/@type | //t:p/@type |  //t:milestone/@type | //t:milestone/@subtype )[not(. = ('chapter','SyrChapter'))]">
+                        <xsl:choose>
+                            <xsl:when test=". = ('part','text','rubric','heading')"/>
+                            <xsl:otherwise>
+                                <li>
+                                    <button type="button" class="btn btn-default toggleDisplay" data-element="{.}">
+                                        <xsl:value-of select="."/>
+                                    </button>
+                                </li>
+                            </xsl:otherwise>
+                        </xsl:choose>        
+                    </xsl:for-each>
+                    <xsl:if test="//t:ab[not(@type) and not(@subtype)]">
+                        <li>
+                            <button type="button" class="btn btn-default toggleDisplay" data-element="ab">
+                                <xsl:text>ab</xsl:text>
+                            </button>
+                        </li>
+                    </xsl:if>
+                    <xsl:if test="//t:l | //t:lb">
+                        <li>
+                            <button type="button" class="btn btn-default toggleDisplay" data-element="l">
+                                <xsl:text>line</xsl:text>
+                            </button>
+                        </li>
+                    </xsl:if>
+                    <xsl:if test="//t:lg">
+                        <li>
+                            <button type="button" class="btn btn-default toggleDisplay" data-element="lg">
+                                <xsl:text>line group</xsl:text>
+                            </button>
+                        </li>
+                    </xsl:if>
+                    <xsl:if test="//t:pb">
+                        <li>
+                            <button type="button" class="btn btn-default toggleDisplay" data-element="pb">
+                                <xsl:text>page break</xsl:text>
+                            </button>
+                        </li>
+                    </xsl:if>
+                    <xsl:if test="//t:cb">
+                        <li>
+                            <button type="button" class="btn btn-default toggleDisplay" data-element="cb">
+                                <xsl:text>column break</xsl:text>
+                            </button>
+                        </li>
+                    </xsl:if>
+                    <xsl:if test="//t:milestone[not(@type) and not(@subtype) and not(@unit='SyrChapter')]">
+                        <li>
+                            <button type="button" class="btn btn-default toggleDisplay" data-element="cb">
+                                <xsl:text>milestone</xsl:text>
+                            </button>
+                        </li>
+                    </xsl:if>
+                </ul>
+            </xsl:if> 
+            <div class="section" style="display:block; border:1px solid green;">
                 <xsl:apply-templates/>
             </div>
         </div>
@@ -240,19 +266,19 @@
     <xsl:template match="t:head">
         <xsl:choose>
             <xsl:when test="parent::t:div1">
-                <h2>
+                <h2 class="head {if(parent::*[1]/@type) then concat(' ',parent::*[1]/@type) else ()}">
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                 </h2>
             </xsl:when>
             <xsl:when test="parent::t:div2">
-                <h3>
+                <h3 class="head {if(parent::*[1]/@type) then concat(' ',parent::*[1]/@type) else ()}">
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                 </h3>
             </xsl:when>
             <xsl:otherwise>
-                <span class="{name(parent::*[1])}">
+                <span class="{name(parent::*[1])} {if(parent::*[1]/@type) then concat(' ',parent::*[1]/@type) else ()} head">
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                 </span>
@@ -291,15 +317,48 @@
         </xsl:choose>
     </xsl:template>
     
-    <xsl:template match="t:div | t:div1 | t:div2 | t:div3 | t:div4 | t:div5 | t:milestone | t:ab | t:l | t:lg | t:pb | t:cb | t:lb">
-        <span class="{name(.)}{if(@unit) then concat(' ',@unit) else ()} text-display">
+    <xsl:template match="t:div | t:div1 | t:div2 | t:div3 | t:div4 | t:div5">
+        <div class="{name(.)}{if(@unit) then concat(' ',@unit) else ()} {if(@type) then concat(' ',@type) else ()} text-display">
             <xsl:if test="@n and child::t:head">
                 <xsl:attribute name="id">
                     <xsl:value-of select="concat('head-',@n)"/>
                 </xsl:attribute>
             </xsl:if>
             <xsl:choose>
-                <xsl:when test="@lang"><xsl:call-template name="langattr"/></xsl:when>
+                <xsl:when test="@lang">
+                    <xsl:call-template name="langattr"/>
+                </xsl:when>
+                <xsl:when test="ancestor-or-self::*[@xml:lang][1]/@xml:lang">
+                    <xsl:attribute name="lang">
+                        <xsl:value-of select="ancestor-or-self::*[@xml:lang][1]/@xml:lang"/>
+                    </xsl:attribute>                    
+                </xsl:when>
+                <xsl:otherwise/>
+            </xsl:choose>
+            <xsl:if test="@n">
+                <xsl:choose>
+                    <xsl:when test="child::t:head"/>
+                    <xsl:otherwise>
+                        <span class="text-number badge" id="{local-name(.)}-{@n}">
+                            <xsl:value-of select="@n"/>
+                        </span>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
+            <xsl:apply-templates/>
+        </div>
+    </xsl:template>
+    <xsl:template match="t:milestone | t:ab | t:l | t:lg | t:pb | t:cb | t:lb">
+        <span class="{name(.)}{if(@unit) then concat(' ',@unit) else ()} {if(@type) then concat(' ',@type) else ()} text-display">
+            <xsl:if test="@n and child::t:head">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="concat('head-',@n)"/>
+                </xsl:attribute>
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="@lang">
+                    <xsl:call-template name="langattr"/>
+                </xsl:when>
                 <xsl:when test="ancestor-or-self::*[@xml:lang][1]/@xml:lang">
                     <xsl:attribute name="lang">
                         <xsl:value-of select="ancestor-or-self::*[@xml:lang][1]/@xml:lang"/>
@@ -328,7 +387,9 @@
                 </xsl:attribute>
             </xsl:if>
             <xsl:choose>
-                <xsl:when test="@lang"><xsl:call-template name="langattr"/></xsl:when>
+                <xsl:when test="@lang">
+                    <xsl:call-template name="langattr"/>
+                </xsl:when>
                 <xsl:when test="ancestor-or-self::*[@xml:lang][1]/@xml:lang">
                     <xsl:attribute name="lang">
                         <xsl:value-of select="ancestor-or-self::*[@xml:lang][1]/@xml:lang"/>
@@ -354,8 +415,20 @@
         <xsl:choose>
             <xsl:when test="ancestor-or-self::*[@xml:lang][1]/@xml:lang = 'syr'">
                 <xsl:analyze-string select="." regex="\s+">
-                    <xsl:matching-substring><xsl:value-of select="."/></xsl:matching-substring>
-                    <xsl:non-matching-substring><a href="#" class="sedra"><xsl:value-of select="."/></a><xsl:text> </xsl:text></xsl:non-matching-substring>
+                    <xsl:matching-substring>
+                        <xsl:value-of select="."/>
+                    </xsl:matching-substring>
+                    <xsl:non-matching-substring>
+                        <a href="https://sedra.bethmardutho.org/api/word/{.}.html" class="sedra">
+                            <xsl:value-of select="."/>
+                        </a>
+                        <!--
+                        <a href="{$app-root}/api/lexeme/{.}" class="sedra">
+                            <xsl:value-of select="."/>
+                        </a>
+                        -->
+                        <xsl:text> </xsl:text>
+                    </xsl:non-matching-substring>
                 </xsl:analyze-string>
             </xsl:when>
             <xsl:otherwise>
@@ -1117,7 +1190,7 @@
     <!-- Syriac Corpus Specific templates -->
     <xsl:template match="t:bibl-chicago">
         <span class="results-list-desc desc" dir="ltr" lang="en">
-            <label>Source:&#160;</label>
+            <label>Source: </label>
             <xsl:apply-templates mode="bibliography"/>
         </span>
     </xsl:template>
@@ -1281,7 +1354,7 @@
             </span>
         </xsl:if>
         <xsl:for-each select="distinct-values(t:seriesStmt/t:biblScope/t:title)">
-            <xsl:text>&#160; </xsl:text>
+            <xsl:text>  </xsl:text>
             <xsl:choose>
                 <xsl:when test=". = 'The Syriac Biographical Dictionary'"/>
                 <xsl:when test=". = 'A Guide to Syriac Authors'">
@@ -1491,7 +1564,7 @@
                                 <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
                                 <xsl:choose>
                                     <xsl:when test="not(current-group()/descendant::*:geo)">
-                                        <dt>&#160;</dt>
+                                        <dt> </dt>
                                     </xsl:when>
                                     <xsl:when test="current-grouping-key() = 'born-at'">
                                         <dt>

@@ -868,31 +868,61 @@ pre {
 #showToc.collapsing {
     display: block!important;
 }
+
 #sedraDisplay {
-    display:none; position: fixed; width:20%; min-height:150px;top:150px;
+    display:none; position: fixed; 
+    width:24%; 
+    min-height:150px; 
+    max-height:400px; top:125px;
     box-shadow: 8px 8px 3px #999;
     padding:.15em;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+    overflow-y:scroll;
 } 
+#sedraDisplay .content a {word-wrap: break-word !important;}
+#sedraDisplay .content {word-wrap: break-word !important;}
+
+#sedraDisplay .content ol {
+  display: table;
+}
+
+#sedraDisplay .content li {
+  display: table-row;
+}
+
+#sedraDisplay .content dt:before {
+  content: "";
+  display: block;
+}
+#sedraDisplay .content dt:after {
+  content: ": ";
+}
+#sedraDisplay .content dt, #sedraDisplay .content dd {
+  display: inline;
+}
 
 a.sedra {text-decoration:none; color:#222; font-weight:normal; size:12px;}
+
 .text-number {
     display:none;
+    font-size:x-small;
+    margin:.2em;
+    /*
     background:#bbb;
-    font-size:small;
-   /* background:#eee; padding:.15em;
+    padding:.175em;
     border: 1px solid #ddd;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    border-radius: 0;*/
+    -webkit-border-radius: 1;
+    -moz-border-radius: 1;
+    border-radius: 1;
+    */
     }
     
 .l, .line {display:block; margin:0;padding:0;}    
-/*.div, .div1, .div2, .div3, .div4, .div5 {display:block; margin:1em;}*/
-.body {display:block; border:1px solid red;}
-.textBlock {display:block; border:1px solid green;}
+.div, .div1, .div2, .div3, .div4, .div5 {display:block; margin:1em;}
+.body {display:block; float:none;clear:both;}
+.textBlock {display:block;}
 /*.toggleDisplay + .active {background-color:green;}*/
 /*
 .l,.ab {display:inline;}

@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-sm-2 col-md-2">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Table of Contents &#160;
+                        <div class="panel-heading">Table of Contents  
                             <a href="#" data-toggle="collapse" data-target="#showToc">
                                 <span id="tocIcon" class="glyphicon glyphicon-collapse-up"/>
                             </a>
@@ -47,40 +47,63 @@
                     <div id="sedraDisplay" class="sedra panel panel-default">
                         <div class="panel-body">
                             <h3>Syriac Lexeme</h3>
-                            <div class="sedraContent"/>
+                            <div id="sedraContent"><div class="content"></div></div>
                         </div>
                     </div>
                     <div data-template="app:rec-status"/>
                     <div data-template="app:display-ids"/>
                     <div data-template="app:display-nodes" data-template-paths="/descendant::tei:teiHeader"/>
                     <div class="info-btns">
-                        <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
+                        <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> 
                     </div>
                     <div data-template="app:display-related"/>
                 </div>
             </div>
             <script type="text/javascript">
                 $('button.toggleDisplay').click(function() {
-                var display = $(this).data("element");
-                $('span.text-display' + ' .' + display).toggleClass( "textBlock" );
-                $(this).toggleClass( "active" );
-                console.log(display);
+                    var display = $(this).data("element");
+                    $('.'+ display).children('.text-number').toggle();
+                    $('.'+ display).children('.head').toggle();
+                    //$('span.text-display' + ' .' + display).toggleClass( "textBlock" );
+                    $(this).toggleClass( "active" );
+                    console.log(display);
+                });
+                
+                $('button.toggleHead').click(function() {
+                    $('.head').toggleClass( "hidden" );
                 });
                 
                 $('a.sedra').click(function(e) {
                 //event.preventDefault();
-                e.stopPropagation();
-                e.preventDefault();
-                $('#sedraDisplay').css('display','block');
-                console.log('Sedra link clicked!');
+                    e.stopPropagation();
+                    e.preventDefault();
+                    var href = $(this).attr('href');
+                    $('#sedraDisplay').css('display','block');
+                    $( "#sedraContent div.content" ).load( href );
+                    //$.get( href, function( data ) {
+                    //    xmlDoc = $.parseXML( data ),
+                    //    $xml = $( xmlDoc )
+                    //    $.post( 'http://localhost:8080/exist/apps/syriac-corpus/modules/run-query.xql', function( $xml ) {
+                    //    console.log($xml);
+                    //    });
+                       
+                       
+                    <![CDATA[
+                        //xmlResult = $.parseXML(data);
+                        //var list = $('div#sedraContent dl');
+                        //$('div#sedraContent div.content').append(result)
+                            ]]>
+                        //$('div#sedraContent').html(xmlResult);
+                    //});
                 });
                 
                 $('html').click(function() {
-                $('#sedraDisplay').hide();
+                    $('#sedraDisplay').hide();
+                    $('#sedraContent div.content').empty();
                 })
                 
                 $('#rightCol').click(function(e){
-                e.stopPropagation();
+                    e.stopPropagation();
                 });
             </script>
             
