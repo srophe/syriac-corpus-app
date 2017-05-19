@@ -4,26 +4,35 @@
     <h1 class="banner">Syriaca.org Documentation</h1>
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
-                <p>The creation of any reference work requires making a number of decisions simply in order to bring the project
-                    to a stage of completion where it is useful to the scholarly community.  The documents linked to below describe
-                    decisions taken in the development of the Syriaca.org reference tools. 
-                </p>
-                <h2>Research Tools:</h2>
-                <ul>
-                    <li>
-                        <a href="../geo/index.html">
-                            <em>The Syriac Gazetteer</em>
-                        </a>
-                    </li>
-                </ul>
-                <div>
-                    <a href="#feedback" data-toggle="modal">Feedback?</a>
-                    <div data-template="app:contact-form"/>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Editorial Documentation</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div data-template="app:wiki-menu" data-template-wiki="https://github.com/srophe/srophe-app-data/wiki"/>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <xi:include href="menu.html"/>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Editorial Definitions</h3>
+                    </div>
+                    <div class="panel-body">
+                        <xi:include href="menu.html"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Technical Documentation</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div data-template="app:wiki-menu" data-template-wiki="https://github.com/srophe/srophe-eXist-app/wiki"/>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
