@@ -470,7 +470,14 @@ declare function rel:build-short-relationships($node,$uri){
  : @param $count number of records to return, if empty defaults to 5 with a popup for more. 
 :)
 declare function rel:external-relationships($recid as xs:string, $title as xs:string?, $relType as xs:string*, $collection as xs:string?, $sort as xs:string?, $count as xs:string?){
-let $related := data:search(concat(data:build-collection-path($collection),data:relation-search($recid,$relType)))
+let $related := 
+    for $h in data:search(concat(data:build-collection-path($collection),data:relation-search($recid,$relType)))
+    let $part := 
+        if ($h/descendant::tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('relId', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n castable as  xs:integer)
+            then xs:integer($h/descendant::tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('relId', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
+        else 0
+    order by $part
+    return $h      
 let $total := count($related)
 let $recType := 
     if($collection = ('sbd','authors','q')) then 'person'
