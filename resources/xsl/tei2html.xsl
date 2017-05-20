@@ -257,7 +257,7 @@
                     </xsl:if>
                 </ul>
             </xsl:if> 
-            <div class="section" style="display:block; border:1px solid green;">
+            <div class="section" style="display:block;">
                 <xsl:apply-templates/>
             </div>
         </div>

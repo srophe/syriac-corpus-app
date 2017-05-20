@@ -870,19 +870,22 @@ pre {
 }
 
 #sedraDisplay {
-    display:none; position: fixed; 
+    display:none; 
+    position: fixed; 
     width:24%; 
     min-height:150px; 
-    max-height:400px; top:125px;
+    max-height:400px; 
+    top:125px;
     box-shadow: 8px 8px 3px #999;
-    padding:.15em;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
     overflow-y:scroll;
+    overflow-x:hidden;
 } 
-#sedraDisplay .content a {word-wrap: break-word !important;}
-#sedraDisplay .content {word-wrap: break-word !important;}
+#sedraDisplay .content {margin:0 1em;}
+#sedraDisplay .content li a {word-wrap: break-word !important; word-break:break-word;}
+#sedraDisplay .content {word-wrap: break-word !important; word-break:break-word;}
 
 #sedraDisplay .content ol {
   display: table;
