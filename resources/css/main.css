@@ -883,12 +883,14 @@ pre {
     overflow-y:scroll;
     overflow-x:hidden;
 } 
-#sedraDisplay .content {margin:0 1em;}
+#sedraDisplay .content {margin:0 .5em; padding:0 .5em;}
 #sedraDisplay .content li a {word-wrap: break-word !important; word-break:break-word;}
 #sedraDisplay .content {word-wrap: break-word !important; word-break:break-word;}
 
 #sedraDisplay .content ol {
   display: table;
+  margin:1em; 
+  padding:0;
 }
 
 #sedraDisplay .content li {
