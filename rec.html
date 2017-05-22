@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-sm-2 col-md-2">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Table of Contents &#160;
+                        <div class="panel-heading">Table of Contents  
                             <a href="#" data-toggle="collapse" data-target="#showToc">
                                 <span id="tocIcon" class="glyphicon glyphicon-collapse-up"/>
                             </a>
@@ -43,12 +43,14 @@
                 <div class="col-sm-6 col-md-6 col-lg-7">
                     <div data-template="app:display-nodes" data-template-paths="/descendant::tei:body"/>
                 </div>
-                <div class="col-sm-4 col-md-4 col-lg-3" id="rightCol">
-                    <div id="sedraDisplay" class="sedra panel panel-default">
-                        <div class="panel-body">
-                            <h3>Syriac Lexeme</h3>
-                            <div id="sedraContent">
-                                <div class="content"/>
+                <div class="col-sm-4 col-md-4 col-lg-3">
+                    <div  id="rightCol">
+                        <div id="sedraDisplay" class="sedra panel panel-default">
+                            <div class="panel-body">
+                                <h3>Syriac Lexeme</h3>
+                                <div id="sedraContent">
+                                    <div class="content"/>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -56,43 +58,43 @@
                     <div data-template="app:display-ids"/>
                     <div data-template="app:display-nodes" data-template-paths="/descendant::tei:teiHeader"/>
                     <div class="info-btns">
-                        <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
+                        <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> 
                     </div>
                     <div data-template="app:display-related"/>
                 </div>
             </div>
             <script type="text/javascript">
                 $('button.toggleDisplay').click(function() {
-                    var display = $(this).data("element");
-                    $('.'+ display).children('.text-number').toggle();
-                    $('.'+ display).children('.head').toggle();
-                    //$('span.text-display' + ' .' + display).toggleClass( "textBlock" );
-                    $(this).toggleClass( "active" );
-                    console.log(display);
+                var display = $(this).data("element");
+                $('.'+ display).children('.text-number').toggle();
+                $('.'+ display).children('.head').toggle();
+                //$('span.text-display' + ' .' + display).toggleClass( "textBlock" );
+                $(this).toggleClass( "active" );
+                console.log(display);
                 });
                 
                 $('button.toggleHead').click(function() {
-                    $('.head').toggleClass( "hidden" );
+                $('.head').toggleClass( "hidden" );
                 });
                 
                 $('a.sedra').click(function(e) {
                 //event.preventDefault();
-                    e.stopPropagation();
-                    e.preventDefault();
-                    var href = $(this).attr('href');
-                    $('#sedraDisplay').css('display','block');
-                    $( "#sedraContent div.content" ).load( href );
+                e.stopPropagation();
+                e.preventDefault();
+                var href = $(this).attr('href');
+                $('#sedraDisplay').css('display','block');
+                $( "#sedraContent div.content" ).load( href );
                 });
                 
                 $('html').click(function() {
-                    $('#sedraDisplay').hide();
-                    $('#sedraContent div.content').empty();
+                $('#sedraDisplay').hide();
+                $('#sedraContent div.content').empty();
                 })
-                /*
+                
                 $('#rightCol').click(function(e){
-                    e.stopPropagation();
+                e.stopPropagation();
                 });
-                */
+                
             </script>
             
             <!--<div data-template="app:citation"/>-->
