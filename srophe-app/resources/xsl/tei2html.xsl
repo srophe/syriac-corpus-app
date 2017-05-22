@@ -251,10 +251,12 @@
     <xsl:template match="t:event">
         <!-- There are several desc templates, this 'plain' mode ouputs all the child elements with no p or li tags -->
         <xsl:apply-templates select="child::*" mode="plain"/>
-        <!-- Adds dates if available -->
-        <xsl:text> (</xsl:text>
-        <xsl:sequence select="local:do-dates(.)"/>
-        <xsl:text>)</xsl:text>
+        <xsl:if test="not(empty(local:do-dates(.)))">
+            <!-- Adds dates if available -->
+            <xsl:text> (</xsl:text>
+            <xsl:sequence select="local:do-dates(.)"/>
+            <xsl:text>)</xsl:text>            
+        </xsl:if>
         <!-- Adds footnotes if available -->
         <xsl:if test="@source">
             <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
@@ -1376,7 +1378,7 @@
                     </xsl:variable>
                     <a href="#bibl{$label}" class="btn btn-default">
                         <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
-                    </a> 
+                    </a>&#160;
                 </xsl:for-each-group>            
             </div>
         </xsl:if>
@@ -1607,7 +1609,7 @@
                                 <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
                                 <xsl:choose>
                                     <xsl:when test="not(current-group()/descendant::*:geo)">
-                                        <dt> </dt>
+                                        <dt>&#160;</dt>
                                     </xsl:when>
                                     <xsl:when test="current-grouping-key() = 'born-at'">
                                         <dt>

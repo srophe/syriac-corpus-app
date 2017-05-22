@@ -211,7 +211,7 @@
             </xsl:if>
             <xsl:for-each select="descendant::t:div[@uri]">
                 <xsl:for-each select="child::*[not(self::t:bibl)][not(self::t:listRelation)]">
-                    <xsl:apply-templates mode="spear"/>
+                    <xsl:apply-templates/>
                 </xsl:for-each>
             </xsl:for-each>
             <br/>
