@@ -322,6 +322,9 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
             if($collection = 'spear') then
                 for $hit at $p in subsequence($hits, $search:start, $search:perpage)
                 return search:show-rec($hit, $p, $collection)
+            else if($collection = 'subjects') then
+                for $hit at $p in subsequence($hits, $search:start, $search:perpage)
+                return search:show-rec($hit, $p, $collection)  
             else
                 let $tree := data:search-nested-view($model("hits"))
                 for $hit at $p in subsequence($tree, $search:start, $search:perpage)
