@@ -101,13 +101,17 @@ declare function search:dynamic-paths($search-config as xs:string?){
     let $params := request:get-parameter-names()
     return string-join(
     for $p in $params
-    for $field in $config//input[@name = $p]
     return 
-        if(request:get-parameter($p, '') != '') then
-            if(string($field/@element) = '.') then
-                concat("[ft:query(",string($field/@element),",'",data:clean-string(request:get-parameter($p, '')),"',data:search-options())]")
-            else concat("[ft:query(.//",string($field/@element),",'",data:clean-string(request:get-parameter($p, '')),"',data:search-options())]")    
-        else (),'')
+        if($p = 'q') then
+            concat("[ft:query(.,'",data:clean-string(request:get-parameter($p, '')),"',data:search-options())]")
+        else 
+           for $field in $config//input[@name = $p]
+           return 
+                if(request:get-parameter($p, '') != '') then
+                       if(string($field/@element) = '.') then
+                            concat("[ft:query(",string($field/@element),",'",data:clean-string(request:get-parameter($p, '')),"',data:search-options())]")
+                        else concat("[ft:query(.//",string($field/@element),",'",data:clean-string(request:get-parameter($p, '')),"',data:search-options())]")    
+                    else (),'')
 };
 
 declare function search:persName(){
@@ -324,7 +328,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                 return search:show-rec($hit, $p, $collection)
             else if($collection = 'subjects') then
                 for $hit at $p in subsequence($hits, $search:start, $search:perpage)
-                return search:show-rec($hit, $p, $collection)  
+                return search:show-rec($hit, $p, $collection)            
             else
                 let $tree := data:search-nested-view($model("hits"))
                 for $hit at $p in subsequence($tree, $search:start, $search:perpage)
