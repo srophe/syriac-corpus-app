@@ -106,9 +106,10 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
             (<div class="col-md-4">
                 {if($browse:view='type') then 
                     if($collection = ('geo','places')) then browse:browse-type($collection)
-                    else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($facets)/descendant::facet:facet-definition[@name="Type"]))
+                    else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/descendant::facet:facet-definition[@name="Type"]))
                  else if($browse:view = 'facets') then browse:display-facets($node, $model, $collection, $facets)
-                 else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($facets)/descendant::facet:facet-definition[@name="Century"]))
+                 else if($browse:view = 'date') then facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/descendant::facet:facet-definition[@name="Century"]))
+                 else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/descendant::facet:facet-definition))
                  }
              </div>,
              <div class="col-md-8">{

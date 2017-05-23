@@ -130,16 +130,18 @@ declare function facet:group-by-sub-module($results as item()*, $facet-definitio
     let $path := concat('$results/',$facet-definitions/facet:group-by/facet:sub-path/text())
     let $sort := $facet-definitions/facet:order-by
     for $f in util:eval($path)
-    let $label := 
-        if($f[1] = 'http://syriaca.org/authors') then 'Authors'
-        else if($f[1] = 'http://syriaca.org/q') then 'Saints'
-        else ()
     group by $facet-grp := $f
     order by 
-        if($sort/text() = 'value') then $f[1]
+        if($sort/text() = 'value') then $facet-grp
         else count($f)
-        descending
-    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp}" label="{$label[1]}"/>    
+        descending        
+    return 
+        let $label := 
+            if($facet-grp = 'http://syriaca.org/authors') then 'Authors'
+            else if($facet-grp = 'http://syriaca.org/q') then 'Saints'
+            else ()
+        return 
+            <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp}" label="{$label}"/>    
 };
 
 (:~
@@ -149,14 +151,10 @@ declare function facet:group-place-type($results as item()*, $facet-definitions 
     let $path := concat('$results/',$facet-definitions/facet:group-by/facet:sub-path/text())
     let $sort := $facet-definitions/facet:order-by
     for $f in util:eval($path)
-    let $label := $f[1]
-        (: if($f[1] = 'http://syriaca.org/authors') then 'Authors'
-        else if($f[1] = 'http://syriaca.org/q') then 'Saints'
-        else ()
-        :)
     group by $facet-grp := $f
-    order by $f[1] ascending
-    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp}" label="{$label[1]}"/>    
+    order by $facet-grp ascending
+    return
+        <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp}" label="{$facet-grp}"/>    
 };
 
 (:~
@@ -169,7 +167,7 @@ declare function facet:spear-source-text($results as item()*, $facet-definitions
     let $fg := util:eval(concat('$f/',$facet-definitions/facet:group-by/facet:sub-path/text()))
     group by $facet-grp := $fg
     order by 
-        if($sort/text() = 'value') then $f[1]
+        if($sort/text() = 'value') then $facet-grp
         else count($f)
         descending
     return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp[1]}" label="{$facet-grp[1]}"/>    
@@ -181,7 +179,7 @@ declare function facet:spear-type($results as item()*, $facet-definitions as ele
     for $f in util:eval($path)
     group by $facet-grp := $f
     order by 
-        if($sort/text() = 'value') then $f[1]
+        if($sort/text() = 'value') then $facet-grp
         else count($f)
         descending
     return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp}" label="{substring-after($facet-grp,'list')}"/>
@@ -196,10 +194,10 @@ declare function facet:controlled-labels($results as item()*, $facet-definitions
     for $f in util:eval($path)
     group by $facet-grp := $f
     order by 
-        if($sort/text() = 'value') then $f[1]
+        if($sort/text() = 'value') then $facet-grp
         else count($f)
         descending
-    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp}" label="{global:odd2text(tokenize(replace($path[1],'@|\[|\]',''),'/')[last()],string($f[1]))}"/>    
+    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp}" label="{global:odd2text(tokenize(replace($path[1],'@|\[|\]',''),'/')[last()],string($facet-grp))}"/>    
 };
 
 (:~
