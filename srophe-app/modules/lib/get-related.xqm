@@ -225,7 +225,7 @@ declare function rel:build-relationships($node,$idno){
     {       
         for $related in $node/descendant-or-self::tei:relation
         let $rel-id := index-of($node, $related[1])
-        let $rel-type := if($related/@name) then $related/@name else $related/@ref
+        let $rel-type := if($related/@ref) then $related/@ref else $related/@name
         group by $relationship := $rel-type
         return
             let $names := rel:get-uris(string-join(($related/@active/string(),$related/@passive/string(),$related/@mutual/string()),' '),$idno)
@@ -233,14 +233,14 @@ declare function rel:build-relationships($node,$idno){
             return 
                 (<p class="rel-label"> 
                     {
-                     if(contains($idno,'/subject/') and $rel-type = 'skos:broadMatch') then
+                     if(contains($idno,'/subject/') and $relationship = 'skos:broadMatch') then
                         concat('This keyword has broader match with', $count,' keyword',if($count gt 1) then 's' else())
                      else if($related/@mutual) then 
-                        ('This ', rel:get-subject-type($related[1]/@mutual), ' ', rel:decode-relationship($related), ' ', $count, ' other ', rel:get-subject-type($related[1]/@mutual),'.')
+                        ('This ', rel:get-subject-type($related[1]/@mutual), ' ', rel:decode-relationship($related[1]), ' ', $count, ' other ', rel:get-subject-type($related[1]/@mutual),'.')
                       else if($related/@active) then 
                         ('This ', rel:get-subject-type($related[1]/@active), ' ',
-                        rel:decode-relationship($related), ' ',$count, ' ',rel:get-subject-type($related[1]/@passive),'.')
-                      else rel:decode-relationship($related)
+                        rel:decode-relationship($related[1]), ' ',$count, ' ',rel:get-subject-type($related[1]/@passive),'.')
+                      else rel:decode-relationship($related[1])
                     }
                 </p>,
                 <div class="rel-list">{
@@ -278,11 +278,11 @@ let $count := count($names)
 return 
     (<p class="rel-label">
         {
-if($related/@mutual) then 
-                ('This ', rel:get-subject-type($related[1]/@mutual), ' ', rel:decode-relationship($related), ' ', $count, ' other ', rel:get-subject-type($related[1]/@mutual),'.')
+            if($related/@mutual) then 
+                ('This ', rel:get-subject-type($related[1]/@mutual), ' ', rel:decode-relationship($related[1]), ' ', $count, ' other ', rel:get-subject-type($related[1]/@mutual),'.')
             else if($related/@active) then 
-                ('This ', rel:get-subject-type($related[1]/@active), ' ',rel:decode-relationship($related), ' ', $count, ' ', rel:get-subject-type($related[1]/@passive),'.')
-            else rel:decode-relationship($related)
+                ('This ', rel:get-subject-type($related[1]/@active), ' ',rel:decode-relationship($related[1]), ' ', $count, ' ', rel:get-subject-type($related[1]/@passive),'.')
+            else rel:decode-relationship($related[1])
          }
       </p>,
       <div class="rel-list">{
