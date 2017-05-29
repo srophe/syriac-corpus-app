@@ -309,7 +309,10 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
     {
         for $hit at $p in subsequence($model("hits"), $search:start, $search:perpage)
         let $id := $hit/descendant::tei:idno[1]
-        let $expanded := kwic:expand($hit)
+        let $expanded := 
+                if(request:get-parameter('section', '') != '') then 
+                    kwic:expand($hit//tei:div2[@n = request:get-parameter('section', '')])
+                else kwic:expand($hit) 
         order by ft:score($hit) descending
         return
             <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
