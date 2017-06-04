@@ -19,7 +19,7 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace transform="http://exist-db.org/xquery/transform";
 
-(:~      
+(:~       
  : Parameters passed from the url 
  :)
 declare variable $spear:id {request:get-parameter('id', '')}; 
@@ -59,8 +59,9 @@ return
                     for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = concat($id,'/tei')]/ancestor::tei:TEI
                     return $rec                  
                 else
-                    for $rec in 
-                        collection($global:data-root || "/spear/tei")//tei:div[descendant::*[@ref=$spear:id or @target=$spear:id]] |
+                    for $rec in
+                        collection($global:data-root || "/spear/tei")//tei:div[tei:listEvent/descendant::*[@ref=$spear:id or @target=$spear:id]] |
+                        collection($global:data-root || "/spear/tei")//tei:div[tei:listPerson/child::*/child::*[@ref=$spear:id or @target=$spear:id]] |
                         collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@active, concat($spear:id,"(\W|$)"))]] |
                         collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@passive, concat($spear:id,"(\W|$)"))]] |
                         collection($global:data-root || '/spear/tei')//tei:div[descendant::tei:relation[matches(@mutual, concat($spear:id,"(\W|$)"))]]
@@ -81,7 +82,6 @@ return
 :)
 declare function spear:canonical-rec($id){
   collection($global:data-root)//tei:TEI[.//tei:idno = $id]
-  (:collection($global:data-root)//tei:idno[. = $id]:)
 };
 
 declare function spear:title($id){
@@ -149,18 +149,18 @@ else if($spear:item-type = 'keyword-factoid') then
     spear:events($node,$model)
     )   
 else if($model("data")//tei:listRelation) then
-    ( 
-    <div class="bottom-padding indent">
-        {
-            for $r in spear:relationships($node,$model)
-            return 
-            <p>{$r}</p>
-        }
-    </div>,
+    (
     global:tei2html(  
        <factoid xmlns="http://www.tei-c.org/ns/1.0">
            {$model("data")}
-       </factoid>)   
+       </factoid>),
+      <div class="bottom-padding indent">
+        {
+            for $r in spear:relationships($node,$model)
+            return 
+            <p><span class="srp-label">Relationship: </span>{$r}</p>
+        }
+    </div>
     )
 else    
     global:tei2html(<factoid xmlns="http://www.tei-c.org/ns/1.0">
@@ -268,8 +268,9 @@ return
 
 declare %templates:wrap function spear:relationships($node as node(), $model as map(*)){
 let $relation := $model("data")//tei:listRelation
+let $uri := if($model("data")/@uri) then $model("data")/@uri else ()
 for $r in $relation/descendant::tei:relation
-return rel:build-short-relationships($r,'')
+return rel:build-short-relationships($r, $uri)
 };
 
 (: NOTE: add footnotes to events panel :)
