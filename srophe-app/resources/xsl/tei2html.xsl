@@ -1378,7 +1378,7 @@
                     </xsl:variable>
                     <a href="#bibl{$label}" class="btn btn-default">
                         <xsl:value-of select="concat(upper-case(substring($label,1,1)),substring($label,2))"/>
-                    </a>&#160;
+                    </a> 
                 </xsl:for-each-group>            
             </div>
         </xsl:if>
@@ -1609,7 +1609,7 @@
                                 <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
                                 <xsl:choose>
                                     <xsl:when test="not(current-group()/descendant::*:geo)">
-                                        <dt>&#160;</dt>
+                                        <dt> </dt>
                                     </xsl:when>
                                     <xsl:when test="current-grouping-key() = 'born-at'">
                                         <dt>
@@ -1761,8 +1761,7 @@
         </xsl:if>
         
         <xsl:if test="t:bibl">
-            <xsl:choose>
-                <xsl:when test="self::t:bibl[@type='lawd:Citation' or @type='lawd:ConceptualWork']">
+            <xsl:if test="self::t:bibl[@type='lawd:Citation' or @type='lawd:ConceptualWork'] or parent::t:body">
                     <xsl:variable name="type-order"/>
                     <xsl:for-each-group select="t:bibl[exists(@type)][@type != 'lawd:Citation']" group-by="@type">
                         <xsl:sort select="local:bibl-type-order(current-grouping-key())" order="ascending"/>
@@ -1803,8 +1802,7 @@
                             <xsl:apply-templates/>
                         </div>
                     </xsl:for-each>
-                </xsl:when>
-            </xsl:choose>
+            </xsl:if>
             <xsl:call-template name="sources"/>
         </xsl:if>
         

@@ -163,6 +163,7 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                 {
                     let $data := $model("data")/descendant::tei:body/tei:bibl
                     let $infobox := 
+                        <body xmlns="http://www.tei-c.org/ns/1.0">
                         <bibl xmlns="http://www.tei-c.org/ns/1.0">
                         {(
                             $data/@*,
@@ -176,8 +177,9 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                             $data/tei:idno
                          )}
                         </bibl>
+                        </body>
                      let $allData := 
-                     <bibl xmlns="http://www.tei-c.org/ns/1.0">
+                     <body xmlns="http://www.tei-c.org/ns/1.0"><bibl xmlns="http://www.tei-c.org/ns/1.0">
                         {(
                             $data/@*,
                             $data/child::*
@@ -189,7 +191,7 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                             [not(self::tei:date)]
                             [not(self::tei:extent)]
                             [not(self::tei:idno)])}
-                        </bibl>
+                        </bibl></body>
                      return 
                         (
                         app:work-toc($data),
