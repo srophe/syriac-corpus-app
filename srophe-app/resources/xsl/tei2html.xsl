@@ -87,8 +87,8 @@
     <!-- Hard coded values-->
     <xsl:param name="normalization">NFKC</xsl:param>
     <xsl:param name="editoruriprefix">http://syriaca.org/documentation/editors.xml#</xsl:param>
-    <!--<xsl:variable name="editorssourcedoc" select="concat('xmldb:exist://',$app-root,'/documentation/editors.xml')"/>-->
-    <xsl:variable name="editorssourcedoc">http://syriaca.org/documentation/editors.xml</xsl:variable>
+    <xsl:variable name="editorssourcedoc" select="concat('xmldb:exist://',$app-root,'/documentation/editors.xml')"/>
+    <!--<xsl:variable name="editorssourcedoc">http://syriaca.org/documentation/editors.xml</xsl:variable>-->
     <!-- Resource id -->
     <xsl:variable name="resource-id">
         <xsl:choose>
@@ -1012,7 +1012,7 @@
                             </xsl:choose>
                         </xsl:when>
                         <xsl:otherwise>
-                            Relation
+                            Relationship
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:variable>
