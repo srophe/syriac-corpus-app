@@ -74,6 +74,7 @@
     border:1px solid red;
     */
 }
+
     
 }
 /* Main content blocks */
@@ -151,8 +152,9 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 .sub-menu .nav-icons{margin-left:2em;}
 
 .icon-container {display:inline-block; line-height:1.5em;}
+.submodule {margin-left:.75em;}
 .icon-nav {font-size:1.75em; display:inline-block; margin-right:.15em;}
-.icon-text {display:inline-block; margin-top:-.85em; vertical-align: middle;}
+.icon-text {display:inline-block; margin-top:-.85em; vertical-align: middle; font-weight:500;}
 .nav-text {display:inline-block; line-height:1.5em; margin-top:.25em;}
 
 .banner-container {display:inline-block; line-height:2.5em;}
@@ -201,6 +203,19 @@ body {font-family: arial, sans-serif; background-color:#385978;}
     border-bottom:4px solid #456889;
 }
    
+/* Bibl banner*/
+.banner-bible {
+    position:relative;
+    margin-top:-1em;
+    padding-top:0;
+	background-image:url('../img/bible-banner.png');
+	background-size:cover;
+	background-position:top;
+    height:250px;
+    width:100%;
+    border-bottom:4px solid #456889;
+}
+
 .overlay {
     font-weight:200;
     background: rgb(34,34,34); /* for IE */
@@ -348,17 +363,17 @@ td {
 .browse-alpha {border-bottom:1px solid #ccc; padding-left:1em; padding:0; margin-bottom:1em; text-align: justify;}
 
 .browse-alpha li + li {
-    margin-left: .5em;
+    padding-left: 1em;
 }
 
 .browse-alpha li.syr-menu + li.syr-menu {
-    margin-left: .5em;
+    padding-left: .5em;
 }
 .browse-alpha li.ar-menu + li.ar-menu {
-    font-size:.98em;
-    margin-left: 0;
+    padding-left: .15em;
 }
 
+.browse-alpha li.selected a{color:white; padding-right:.25em;}
 .nav-stacked > .active > a,
     .nav-stacked > .active > a:hover {
       color: #000;
@@ -366,7 +381,6 @@ td {
       background-color: #eee;
       cursor: pointer;
     }
-.browse-alpha .badge a {color:white;}
 
 .browse-map {margin:0;}
 .inline-map {margin-left:-2em; margin-bottom:1em;}
@@ -477,6 +491,7 @@ td {
 .bibl li{line-height: 1.5em;padding-bottom:.5em;}
 .bibl-links {padding:.25em; width:25px;}
 .anchor { 
+    display: block;
     position: relative; 
     top:-75px !important;
     visibility: hidden; 
@@ -487,6 +502,7 @@ td {
   float: left;
   height: 0px;
 }
+.anchorHighlight {display:block; content:" "; background-color:yellow; border:1px solid red;}
 
 .heading-inline {
 	font-weight: bold;
@@ -770,6 +786,7 @@ unpublished
 */
 .title-journal, .title-monographic{font-style:italic;}
 
+
 /* Facet styles */
 .label-facet {background-color:#eee; color:#666; font-weight:normal; margin:.25em; display:inline-block;}
 .facet-label {margin-left:.5em; display:block; text-align:left; white-space: normal;}
@@ -794,6 +811,7 @@ pre code {
 	line-height: 1.6em;
 	font-size: 11px;
 	}
+	
 pre {
 	padding: 0.1em 0.5em 0.3em 0.7em;
 	border-left: 11px solid #ccc;
@@ -808,6 +826,19 @@ pre {
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
 	}
 	
+code.inline{
+    display:inline;
+	padding: 0.1em 0.5em 0.3em 0.7em;
+	border-left: 11px solid #ccc;
+	margin: 1.7em 0 1.7em 0.3em;
+	overflow: auto;
+	max-width:inherit;
+	white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+	}	
 .api-path {width:15%}
 .api-param {width:20%}
 .api-desc {width:55%}
@@ -861,9 +892,16 @@ pre {
     }
 .caret {float:left; margin-left:.5em; margin-top:.5em;}    
 }
+.group {padding-left:2.5em;}
+.results .record {padding-left:1em;}
 .short-relationships {display:block;}
 .wiki-page-link {font-weight:normal;}
 select.keyboardSelect {display:none;}
 /* Timeline title styles */
 .slider-item h3{font-size:1.25em !important;}
+.jump-menu {margin:1em;}
+.jump-menu .jump {margin-right:1em;}
 
+button.bibl-show {margin: .5em -1em;}
+.slide {font-weight:400;}
+.more-info a {font-weight:600; color:white;}
