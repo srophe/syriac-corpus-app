@@ -107,6 +107,16 @@ h3.syr{
     background-image:url('../img/bibl-home.png');        
     background-size:cover;
 }
+
+.nhsl-slide {
+    background-image:url('../img/nhsl-home.png');        
+    background-size:cover;
+}
+
+.bible-slide {
+    background-image:url('../img/bible-home.png');        
+    background-size:cover;
+}
 /* styles for index4 */
 a.gradient{color:white; text-decoration:none;}
 
@@ -187,6 +197,21 @@ a.gradient{color:white; text-decoration:none;}
     background: -o-linear-gradient(#636363,#333333);  
     background: linear-gradient(#636363,#333333);    
     border: 1px solid #333333; 
+}
+
+.nhsl-slide .gradient {
+    background: -webkit-linear-gradient(#689dcf,#333333);  
+    background: -moz-linear-gradient(#689dcf,#333333);  
+    background: -o-linear-gradient(#689dcf,#333333);  
+    background: linear-gradient(#689dcf,#333333);    
+    border: 1px solid #333333; 
+}
+.bible-slide .gradient {
+    background: -webkit-linear-gradient(#ffe065,#795207);  
+    background: -moz-linear-gradient(#ffe065,#795207);  
+    background: -o-linear-gradient(#ffe065,#795207);  
+    background: linear-gradient(#ffe065,#795207);    
+    border: 1px solid #795207; 
 }
 .slide-credit{
     position:absolute;
