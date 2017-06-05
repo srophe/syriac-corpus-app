@@ -492,12 +492,9 @@ return
             {(if($relType = 'dct:isPartOf') then 
                 <h3>{$title} contains {$total} works.</h3>
              else if ($relType = 'skos:broadMatch') then
-                <h3>{$title} refers to {$total}{concat(' ',$recType)}{if($total gt 1) then 's' else()}.</h3>
-             (:
-             else if ($relType = 'syriaca:part-of-tradition') then 
-                (<h3>This tradition comprises at least {$total} branches.</h3>,
-                <p>{$rec/descendant::tei:note[@type='literary-tradition']}</p>)
-                :)
+                if($recType = 'keyword') then 
+                    <h3>{$title} encompasses {$total}{concat(' ',$recType)}{if($total gt 1) then 's' else ''}.</h3>
+                else <h3>{$title} refers to {$total}{concat(' ',$recType)}{if($total gt 1) then 's' else()}.</h3>
              else <h3>{concat($title,' ',global:odd2text('relation', $relType),' ',$total,' ',$recType, if($total gt 1) then 's' else(),'.')}</h3>,
              if($relType = 'syriaca:sometimesCirculatesWith') then
                 <p class="note indent">* Manuscripts of the larger work only sometimes contain the work indicated.</p>
