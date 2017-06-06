@@ -19,7 +19,7 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace transform="http://exist-db.org/xquery/transform";
 
-(:~       
+(:~            
  : Parameters passed from the url 
  :)
 declare variable $spear:id {request:get-parameter('id', '')}; 
@@ -128,26 +128,26 @@ return
                     {$id}
                 </factoid-title>)                     
 };
-    
+     
 declare function spear:data($node as node(), $model as map(*), $view as xs:string?){
 if($spear:item-type = 'place-factoid') then 
     (spear:relationships-aggregate($node,$model),
     spear:events($node,$model),
     spear:person-data($model("data")))
 else if($spear:item-type = 'person-factoid') then
-    (
+    ( 
     spear:person-data($model("data")),
     spear:relationships-aggregate($node,$model),
     spear:events($node,$model)
-    )
+    ) 
 else if($spear:item-type = 'source-factoid' and $view = 'aggregate') then
     spear:source-data($model("data"))
 else if($spear:item-type = 'keyword-factoid') then
     (
     spear:person-data($model("data")),
     spear:relationships-aggregate($node,$model),
-    spear:events($node,$model)
-    )   
+    spear:events($node,$model)     
+    )    
 else if($model("data")//tei:listRelation) then
     (
     global:tei2html(  
@@ -157,12 +157,12 @@ else if($model("data")//tei:listRelation) then
       <div class="bottom-padding indent">
         {
             for $r in spear:relationships($node,$model)
-            return 
-            <p><span class="srp-label">Relationship: </span>{$r}</p>
+            return     
+            <p>{(if($model("data")//tei:div[@uri]/child::*[not(name() = ('listRelation','bibl'))]) then <span class="srp-label">Relationship: </span>  else (),$r)}</p>
         }
     </div>
     )
-else    
+else            
     global:tei2html(<factoid xmlns="http://www.tei-c.org/ns/1.0">
         {(
             $model("data"), 

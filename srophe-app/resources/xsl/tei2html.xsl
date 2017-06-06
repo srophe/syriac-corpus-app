@@ -996,42 +996,47 @@
         </xsl:if>
     </xsl:template>
     <xsl:template match="t:relation">
-        <div>
-            <xsl:variable name="label">
-                <xsl:variable name="labelString">
-                    <xsl:choose>
-                        <xsl:when test="@name">
+        <xsl:choose>
+            <xsl:when test="ancestor::t:div[@uri]"/>
+            <xsl:otherwise>
+                <div>
+                    <xsl:variable name="label">
+                        <xsl:variable name="labelString">
                             <xsl:choose>
-                                <xsl:when test="contains(@name,':')">
-                                    <xsl:value-of select="substring-after(@name,':')"/>
+                                <xsl:when test="@name">
+                                    <xsl:choose>
+                                        <xsl:when test="contains(@name,':')">
+                                            <xsl:value-of select="substring-after(@name,':')"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="@name"/>
+                                            <xsl:text>: </xsl:text>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:value-of select="@name"/>
-                                    <xsl:text>: </xsl:text>
+                                    Relationship
                                 </xsl:otherwise>
                             </xsl:choose>
+                        </xsl:variable>
+                        <xsl:value-of select="concat(upper-case(substring(concat(substring($labelString,1,1),replace(substring($labelString,2),'(\p{Lu})',concat(' ', '$1'))),1,1)),substring(concat(substring($labelString,1,1),replace(substring($labelString,2),'(\p{Lu})',concat(' ', '$1'))),2))"/>
+                    </xsl:variable>
+                    <span class="srp-label">
+                        <xsl:value-of select="concat($label,': ')"/>
+                    </span>
+                    <xsl:choose>
+                        <xsl:when test="@active">
+                            <xsl:value-of select="@active"/>
+                            <xsl:text> - </xsl:text>
+                            <xsl:value-of select="@passive"/>
                         </xsl:when>
                         <xsl:otherwise>
-                            Relationship
+                            <xsl:value-of select="@mutual"/>
                         </xsl:otherwise>
                     </xsl:choose>
-                </xsl:variable>
-                <xsl:value-of select="concat(upper-case(substring(concat(substring($labelString,1,1),replace(substring($labelString,2),'(\p{Lu})',concat(' ', '$1'))),1,1)),substring(concat(substring($labelString,1,1),replace(substring($labelString,2),'(\p{Lu})',concat(' ', '$1'))),2))"/>
-            </xsl:variable>
-            <span class="srp-label">
-                <xsl:value-of select="concat($label,': ')"/>
-            </span>
-            <xsl:choose>
-                <xsl:when test="@active">
-                    <xsl:value-of select="@active"/>
-                    <xsl:text> - </xsl:text>
-                    <xsl:value-of select="@passive"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="@mutual"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </div>
+                </div>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     <!-- General apply templates with no special rules -->
     <xsl:template match="t:term">

@@ -40,9 +40,9 @@ declare function rel:get-names($uris as xs:string?) {
     let $name := 
                 if(not(exists(data:get-rec($uri)))) then $uri
                 else if(contains($uris,'/spear/')) then
-                    let $string := normalize-space(string-join($rec/descendant::text(),' '))
+                    let $string := normalize-space(string-join($rec/child::*/child::*[not(self::tei:bibl)]/descendant::text(),' '))
                     let $last-words := tokenize($string, '\W+')[position() = 5]
-                    return concat(substring-before($string, $last-words),'...')
+                    return $string (:concat(substring-before($string, $last-words),'...'):)
                 else substring-before($rec[1]/descendant::tei:titleStmt[1]/tei:title[1]/text()[1],' — ')
     return
         (
@@ -301,88 +301,12 @@ return
 };
 
 (: Assumes active/passive SPEAR:)
-declare function rel:decode-relationship-name($relationship){
+declare function rel:decode-spear-relationship($relationship as xs:string?){
 let $relationship-name := 
     if(contains($relationship,':')) then 
         substring-after($relationship,':')
     else $relationship
-return    
-    switch ($relationship-name)
-        (: @ana = 'clerical':)
-        case "FellowClergy" return "  were fellow clergy" (: no recip needed:)
-        case "Baptism" return " baptized "
-        case "BishopOver" return " was a bishop with authority over "
-        case "BishopOverBishop" return " was a bishop with authority over bishop "
-        case "BishopOverClergy" return " was a bishop with authority over "
-        case "BishopOverMonk" return "  was a bishop with authority over "
-        case "Ordination" return " ordained "
-        case "ClergyFor" return " was a clergyperson for "
-        case "CarrierOfLetterBetween" return " carried a letter between "
-        case "EpistolaryReferenceTo" return " refered to "
-        case "LetterFrom" return " sent a letter to "
-        case "SenderOfLetterTo" return " sent a letter to "
-        (: @ana = 'family':)
-        case "CousinOf" return " were cousins"
-        case "ExtendedFamilyOf" return " were part of the same extended family"
-        case "ExtendedHouseholdOf" return " were part of the same extended household"
-        case "HouseholdOf" return " were part of the same household"
-        case "KinOf" return " were kin"
-        case "SiblingOf" return " were siblings"
-        case "SpouseOf" return " were spouses"
-        case "GreatGrandparentOf" return " was the great grandparent of "
-        case "AncestorOf" return " was the ancestor of "
-        case "ChildOf" return " was the child of "
-        case "ChildOfSiblingOf" return " was the child of a sibling of "
-        case "descendantOf" return " was a descendant of "
-        case "GrandchildOf" return " was the grandchild of "
-        case "GrandparentOf" return " was the grandparent of "
-        case "ParentOf" return " was the parent of "
-        case "SiblingOfParentOf" return " was the sibling of the parent of "
-        (: @ana = 'general' :)
-        case "EnmityFor" return " had enmity for  "
-        case "MemberOfGroup" return " was part "
-        case "Citation" return " refered to the writings of "
-        case "FollowerOf" return " was a follower of "
-        case "StudentOf" return " was the student of "
-        case "LegallyRecognisedRelationshipWith" return " were part of a legally recognized relationship "
-        case "Judged" return " heard a legal case against "
-        case "LegalChargesAgainst" return " brought legal charges or a petition against "
-        case "Petitioned" return " made a petition to or sought a legal ruling from "
-        case "CommandOver" return " was a military commander over "
-        case "FellowMonastics" return " were monks at the same monastery"
-        case "MonasticHeadOver" return " was a monastic authority over "
-        case "AcknowledgedFamilyRelationship" return " (Acknowledged family relationship) "
-        case "AdoptedFamilyRelationship" return " (Adopted family relationship) "
-        case "ClaimedFamilyRelationship" return " (Claimed family relationship) "
-        case "FosterFamilyRelationship" return " (Foster family relationship) "
-        case "HalfFamilyRelationship" return " (Half family relationship)  "
-        case "InLawFamilyRelationship" return " (In law family relationship) "
-        case "MaternalFamilyRelationship" return " (Maternal family relationship) "        
-        case "PaternalFamilyRelationship" return " (Paternal family relationship) "
-        case "StepFamilyRelationship" return " (Step family relationship) "  
-        case "AllegedRelationship" return " (Alleged relationship) "
-        case "RitualKinship" return " (Ritual kinship) "  
-        case "AllianceWith" return " formed an alliance"
-        case "CasualIntimateRelationshipWith" return " had a casual intimate relationship"  
-        case "FriendshipFor" return " were friends"
-        case "IntimateRelationshipWith" return "had an intimate relationship"  
-        case "SeriousIntimateRelationshipWith" return " had a serious intimate relationship"
-        case "ProfessionalRelationship" return " had a professional relationship"  
-        case "CommuneTogether" return " shared the Eucharist"
-        case "Commemoration" return " commemorated "  
-        case "FreedSlaveOf" return " was a freed slave of "
-        case "HouseSlaveOf" return " was a house slave of "   
-        case "SlaveOf" return " was a slave of "   
-        default return concat(' ', functx:camel-case-to-words($relationship-name,' '),' ') 
-};
-
-(: TODO build text for passive/active SPEAR:)
-declare function rel:decode-relationship-passive($relationship){
-let $relationship-name := 
-    if(contains($relationship,':')) then 
-        substring-after($relationship,':')
-    else $relationship
-return    
+return 
     switch ($relationship-name)
         (: @ana = 'clerical':)
         case "Baptism" return " was baptized by "
@@ -400,6 +324,7 @@ return
         case "GreatGrandparentOf" return " had a great grandparent "
         case "AncestorOf" return " was the descendant of "
         case "ChildOf" return " was the parent of "
+        case "SiblingOf" return " were siblings"
         case "ChildOfSiblingOf" return " was the sibling of a parent of "
         case "descendantOf" return " was the ancestor of "
         case "GrandchildOf" return " was the grandparent of "
@@ -420,16 +345,30 @@ return
         case "Commemoration" return " was commemorated by "  
         case "FreedSlaveOf" return " was released from slavery to "
         case "HouseSlaveOf" return " was held as a house slave "   
-        case "SlaveOf" return " held as a slave "   
+        case "SlaveOf" return " held as a slave "      
+        (: @ana 'event' :)
+        case "SameAs" return " refer to the same event. "
+        case "CloseConnection" return " deal with closely related events."
         default return concat(' ', functx:camel-case-to-words($relationship-name,' '),' ') 
+};
+
+declare function rel:link($uris as xs:string*){
+    let $count := count(tokenize($uris,' '))
+    for $uri at $i in tokenize($uris,' ')
+    return
+        (
+        if($i gt 1 and $count gt 2) then  ', '
+        else if($i = $count and $count gt 1) then  ' and '
+        else (), <a href="{$uri}">{$uri}</a>
+        )
 };
 
 declare function rel:build-relationship-sentence($relationship,$uri){
 (: Will have to add in some advanced prcessing that tests the current id (for aggrigate pages) and subs vocab for active/passive:)
 if($relationship/@mutual) then
-    concat(string-join(rel:get-names($relationship/@mutual),''), rel:decode-relationship-name($relationship/@name),'.')
+    (rel:link($relationship/@mutual), rel:decode-spear-relationship($relationship/@ref),'.')
 else if($relationship/@active) then 
-    concat(string-join(rel:get-names($relationship/@active),''), rel:decode-relationship-name($relationship/@name), string-join(rel:get-names($relationship/@passive),''),'.') 
+    (rel:link($relationship/@active), rel:decode-spear-relationship($relationship/@ref), rel:link($relationship/@passive),'.') 
 else ()
 };
 
@@ -445,7 +384,7 @@ declare function rel:build-short-relationships-list($node,$idno){
         let $uri := string($related/ancestor::tei:div[@uri][1]/@uri)
         return
             <span class="short-relationships">
-               {rel:build-short-relationships($related,$uri)} 
+               {(:rel:build-short-relationships($related,$uri):)rel:build-relationship-sentence($related,$uri)} 
                 &#160;<a href="factoid.html?id={$uri}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/></a>
             </span>
 };
@@ -456,7 +395,7 @@ declare function rel:build-short-relationships-list($node,$idno){
  : @param $idno record idno
 :)
 declare function rel:build-short-relationships($node,$uri){ 
-    rel:build-relationship-sentence($node,$uri)
+    <p>{rel:build-relationship-sentence($node,$uri)}</p>
 };
 
 (:~
