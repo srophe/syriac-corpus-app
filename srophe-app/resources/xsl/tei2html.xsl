@@ -524,6 +524,9 @@
         <xsl:apply-templates/>
         <xsl:text>) </xsl:text>
     </xsl:template>
+    <xsl:template match="t:occupation">
+        <xsl:apply-templates/>
+    </xsl:template>
     <xsl:template match="t:sic">
         <xsl:text> [sic: </xsl:text>
         <xsl:apply-templates/>
@@ -704,7 +707,7 @@
                 </li>
             </xsl:when>
             <xsl:otherwise>
-                <li>
+                <div class="teiNote">
                     <xsl:choose>
                         <xsl:when test="t:quote">
                             <xsl:apply-templates/>
@@ -721,7 +724,7 @@
                     <xsl:if test="@source">
                         <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
                     </xsl:if>
-                </li>
+                </div>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -1434,7 +1437,7 @@
                         <xsl:apply-templates select="t:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')][1] | t:note[@type='abstract']" mode="abstract"/>
                     </div>
                 </xsl:if>
-                <xsl:if test="t:persName">
+                <xsl:if test="t:persName[not(empty(descendant-or-self::text()))]">
                     <p>Names: 
                     <xsl:apply-templates select="t:persName[@syriaca-tags='#syriaca-headword' and starts-with(@xml:lang,'syr')]" mode="list">
                             <xsl:sort lang="syr" select="."/>

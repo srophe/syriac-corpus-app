@@ -221,8 +221,15 @@
                 </xsl:when>
             </xsl:choose>
             <xsl:for-each select="descendant::t:div[@uri]">
-                <xsl:for-each select="child::*[not(self::t:bibl)][not(self::t:listRelation)]">
-                    <xsl:apply-templates/>
+                <xsl:for-each select="child::*[not(self::t:bibl)][not(self::t:listRelation)]/child::*/child::*[not(empty(descendant-or-self::text()))]">
+                    <xsl:variable name="label">
+                        <xsl:choose>
+                            <xsl:when test="name(.) = 'persName'">Name</xsl:when>
+                            <xsl:when test="name(.) = 'desc'">Description</xsl:when>
+                            <xsl:otherwise><xsl:value-of select="concat(upper-case(substring(name(.),1,1)),substring(name(.),2))"></xsl:value-of></xsl:otherwise>
+                        </xsl:choose>                        
+                    </xsl:variable>
+                    <p><strong><xsl:value-of select="$label"/>: </strong><xsl:apply-templates/></p>
                 </xsl:for-each>
             </xsl:for-each>
             <br/>
@@ -451,7 +458,7 @@
                 <xsl:choose>
                     <xsl:when test="count(descendant::t:respStmt) &gt; 2">
                         <xsl:value-of select="count(descendant::t:respStmt)"/> contributors (
-                            <a class="togglelink" data-toggle="collapse" data-target="#show-contributors" href="#show-contributors" data-text-swap="Hide"> See all &#160;<i class="glyphicon glyphicon-circle-arrow-right"/>
+                            <a class="togglelink" data-toggle="collapse" data-target="#show-contributors" href="#show-contributors" data-text-swap="Hide"> See all  <i class="glyphicon glyphicon-circle-arrow-right"/>
                         </a>)
                             <div class="collapse" id="show-contributors">
                             <ul>
@@ -507,7 +514,7 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="t:sex | t:state | t:persName | t:occupation | t:birth | t:death          | t:education | t:nationality | t:residence | t:langKnowledge | t:socecStatus | t:trait" mode="spear">
-        <xsl:apply-templates mode="plain"/>
+        <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="t:listRelation" mode="spear"/>
     <!-- Needs work -->
