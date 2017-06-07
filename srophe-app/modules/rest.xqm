@@ -113,11 +113,12 @@ declare
     %rest:GET
     %rest:path("/srophe/api/search/{$element}")
     %rest:query-param("q", "{$q}", "")
+    %rest:query-param("idno", "{$idno}", "")
     %rest:query-param("collection", "{$collection}", "")
     %rest:query-param("lang", "{$lang}", "")
     %rest:query-param("author", "{$author}", "")
     %output:method("json")
-function api:search-element($element as xs:string?, $q as xs:string*, $collection as xs:string*, $lang as xs:string*, $author as xs:string*){
+function api:search-element($element as xs:string?, $q as xs:string*, $idno as xs:string*, $collection as xs:string*, $lang as xs:string*, $author as xs:string*){
     let $collection := if($collection != '') then
                             if($collection = ('Gateway to the Syriac Saints',
                             'The Syriac Biographical Dictionary',
@@ -143,8 +144,14 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
     let $author := if($author != '') then 
                      concat("[ft:query(.//tei:author,'",$author,"',",$options,")]")
                  else () 
-               
-    let $eval-string := concat("collection('",$global:data-root,"')//tei:TEI[ft:query(.//tei:",$element,",'",$q,"*',",$options,")]",$lang,$collection,$author)
+    let $queryPredicate := 
+        if($q != '') then 
+            concat("[ft:query(.//tei:",$element,",'",$q,"*',",$options,")]")
+        else ()           
+    let $eval-string :=
+        if($idno != '') then  
+            concat("collection('",$global:data-root,"')//tei:TEI[.//tei:idno ='",$idno,"/tei' ]",$queryPredicate,$lang,$collection,$author)
+        else concat("collection('",$global:data-root,"')//tei:TEI",$queryPredicate,$lang,$collection,$author)
     let $hits := util:eval($eval-string)
     return 
         if(count($hits) gt 0) then 
@@ -164,13 +171,15 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
                         | $hit/descendant::tei:body/descendant::tei:death/descendant-or-self::text() | 
                         $hit/descendant::tei:body/descendant::tei:floruit/descendant-or-self::text(),' ')
                     else ()
-                let $element-text := util:eval(concat("$hit//tei:",$element,"[ft:query(.,'",$q,"*',",$options,")]"))                   
+                let $element-text := util:eval(concat("$hit//tei:",$element,$queryPredicate))                   
                 return
                         <json:value json:array="true">
                             <id>{$id}</id>
                             {for $e in $element-text 
                              return 
-                                element {xs:QName($element)} { normalize-space(string-join($e//text(),' ')) }}
+                                if(not($e/text())) then $e
+                                else element {xs:QName($element)} { normalize-space(string-join($e//text(),' ')) }
+                                }
                             {if($dates != '') then <dates>{normalize-space($dates)}</dates> else ()}
                         </json:value>
                 }
@@ -186,6 +195,27 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
                 </json:value>
             </json:value>
 };
+
+(:~
+  : Use resxq to return element affiliated with an idno 
+  : @param $id record id
+  : Serialized as XML
+:)
+declare 
+    %rest:GET
+    %rest:path("/srophe/{$collection}/{$id}/ttl")
+    %output:media-type("text/turtle")
+    %output:method("text")
+function api:get-ttl($collection as xs:string, $id as xs:string){
+   (<rest:response> 
+      <http:response status="200"> 
+        <http:header name="Content-Type" value="text/turtle; charset=utf-8"/> 
+      </http:response> 
+    </rest:response>, 
+    tei2ttl:ttl-output(api:get-tei-rec($collection, $id))
+     )
+}; 
+
 
 (:~
   : Use resxq to format urls for tei
