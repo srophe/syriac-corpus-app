@@ -113,11 +113,12 @@ declare
     %rest:GET
     %rest:path("/srophe/api/search/{$element}")
     %rest:query-param("q", "{$q}", "")
+    %rest:query-param("idno", "{$idno}", "")
     %rest:query-param("collection", "{$collection}", "")
     %rest:query-param("lang", "{$lang}", "")
     %rest:query-param("author", "{$author}", "")
     %output:method("json")
-function api:search-element($element as xs:string?, $q as xs:string*, $collection as xs:string*, $lang as xs:string*, $author as xs:string*){
+function api:search-element($element as xs:string?, $q as xs:string*, $idno as xs:string*, $collection as xs:string*, $lang as xs:string*, $author as xs:string*){
     let $collection := if($collection != '') then
                             if($collection = ('Gateway to the Syriac Saints',
                             'The Syriac Biographical Dictionary',
@@ -143,8 +144,14 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
     let $author := if($author != '') then 
                      concat("[ft:query(.//tei:author,'",$author,"',",$options,")]")
                  else () 
-               
-    let $eval-string := concat("collection('",$global:data-root,"')//tei:TEI[ft:query(.//tei:",$element,",'",$q,"*',",$options,")]",$lang,$collection,$author)
+    let $queryPredicate := 
+        if($q != '') then 
+            concat("[ft:query(.//tei:",$element,",'",$q,"*',",$options,")]")
+        else ()           
+    let $eval-string :=
+        if($idno != '') then  
+            concat("collection('",$global:data-root,"')//tei:TEI[.//tei:idno ='",$idno,"/tei' ]",$queryPredicate,$lang,$collection,$author)
+        else concat("collection('",$global:data-root,"')//tei:TEI",$queryPredicate,$lang,$collection,$author)
     let $hits := util:eval($eval-string)
     return 
         if(count($hits) gt 0) then 
@@ -160,16 +167,20 @@ function api:search-element($element as xs:string?, $q as xs:string*, $collectio
                 let $id := replace($hit/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei','')
                 let $dates := 
                     if($element = 'persName') then 
-                        string-join($hit/descendant::tei:body/descendant::tei:birth/text() 
-                        | $hit/descendant::tei:body/descendant::tei:death/text() | 
-                        $hit/descendant::tei:body/descendant::tei:floruit/text(),' ')
+                        string-join($hit/descendant::tei:body/descendant::tei:birth/descendant-or-self::text() 
+                        | $hit/descendant::tei:body/descendant::tei:death/descendant-or-self::text() | 
+                        $hit/descendant::tei:body/descendant::tei:floruit/descendant-or-self::text(),' ')
                     else ()
-                let $element-text := util:eval(concat("$hit//tei:",$element,"[ft:query(.,'",$q,"*',",$options,")]"))                   
+                let $element-text := util:eval(concat("$hit//tei:",$element,$queryPredicate))                   
                 return
                         <json:value json:array="true">
                             <id>{$id}</id>
-                            {element {xs:QName($element)} { normalize-space(string-join($element-text//text(),' ')) }}
-                            {if($dates != '') then <dates>{$dates}</dates> else ()}
+                            {for $e in $element-text 
+                             return 
+                                if(not($e/text())) then $e
+                                else element {xs:QName($element)} { normalize-space(string-join($e//text(),' ')) }
+                                }
+                            {if($dates != '') then <dates>{normalize-space($dates)}</dates> else ()}
                         </json:value>
                 }
                 </results>)
