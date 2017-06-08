@@ -1088,7 +1088,7 @@
               </valList>
             </attDef>
             <attDef ident="type" mode="add" usage="opt">
-              <datatype>
+              <datatype minOccurs="1" maxOccurs="unbounded">
                 <dataRef key="teidata.enumerated"/>
               </datatype>
               <valList type="closed"><!-- I need to include a brief description of each of these. -->
