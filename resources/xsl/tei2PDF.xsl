@@ -64,8 +64,7 @@
  <!-- set output so we get (mostly) indented HTML -->
  <!-- =================================================================== -->
     <xsl:output name="xml" encoding="UTF-8" indent="yes"/>
-
-    <!-- Local functions-->
+   <!-- Local functions-->
     <xsl:function name="local:do-refs-pdf" as="node()">
         <xsl:param name="refs"/>
         <xsl:param name="lang"/>
@@ -234,6 +233,12 @@
         <xsl:attribute name="margin">8pt</xsl:attribute>
         <xsl:attribute name="font-weight">normal</xsl:attribute>
     </xsl:attribute-set>
+    <xsl:attribute-set name="text-number">
+        <xsl:attribute name="margin">4pt</xsl:attribute>
+        <xsl:attribute name="font-weight">bold</xsl:attribute>
+        <xsl:attribute name="background-color">#eee</xsl:attribute>
+    </xsl:attribute-set>
+    
     <!-- To use the embedded fonts include a fop-config file with references to fonts see /modules/pdf.xql -->
     <xsl:attribute-set name="syr">
         <xsl:attribute name="font-family">EstrangeloEdessa</xsl:attribute>
@@ -286,20 +291,24 @@
                     <xsl:attribute name="font-family">EstrangeloEdessa</xsl:attribute>
                     <xsl:attribute name="direction">rtl</xsl:attribute>
                     <xsl:attribute name="font-size">14pt</xsl:attribute>
+                    <xsl:attribute name="text-align">right</xsl:attribute>
                 </xsl:when>
                 <xsl:when test="$lang = 'syr-Syrj'">
                     <xsl:attribute name="font-family">SertoBatnan</xsl:attribute>
                     <xsl:attribute name="direction">rtl</xsl:attribute>
                     <xsl:attribute name="font-size">14pt</xsl:attribute>
+                    <xsl:attribute name="text-align">right</xsl:attribute>
                 </xsl:when>
                 <xsl:when test="$lang = 'syr-Syre' or $lang = 'syr-Syrn'">
                     <xsl:attribute name="font-family">EastSyriacAdiabene</xsl:attribute>
                     <xsl:attribute name="direction">rtl</xsl:attribute>
                     <xsl:attribute name="font-size">14pt</xsl:attribute>
+                    <xsl:attribute name="text-align">right</xsl:attribute>
                 </xsl:when>
                 <xsl:when test="$lang = 'ar'">
                     <xsl:attribute name="direction">rtl</xsl:attribute>
                     <xsl:attribute name="font-size">14pt</xsl:attribute>
+                    <xsl:attribute name="text-align">right</xsl:attribute>
                 </xsl:when>
             </xsl:choose>
         </xsl:if>
@@ -316,11 +325,20 @@
  <!-- =================================================================== -->
     
     <!-- Parameters passed from app.xql default values if params are empty -->
+    <!-- Parameters passed from global.xqm (set in config.xml) default values if params are empty -->
+    <!-- eXist data app root for gazetteer data -->
+    <xsl:param name="mode" select="'#all'"/>
     <xsl:param name="data-root" select="'/db/apps/srophe-data'"/>
+    <!-- eXist app root for app deployment-->
     <xsl:param name="app-root" select="'/db/apps/srophe'"/>
+    <!-- Root of app for building dynamic links. Default is eXist app root -->
+    <xsl:param name="nav-base" select="'/db/apps/srophe'"/>
+    <!-- Base URI for identifiers in app data -->
+    <xsl:param name="base-uri" select="'/db/apps/srophe'"/>
+    <!-- Hard coded values-->
     <xsl:param name="normalization">NFKC</xsl:param>
     <xsl:param name="editoruriprefix">http://syriaca.org/documentation/editors.xml#</xsl:param>
-    <xsl:variable name="editorssourcedoc" select="concat($app-root,'/documentation/editors.xml')"/>
+    <xsl:variable name="editorssourcedoc" select="concat('xmldb:exist://',$app-root,'/documentation/editors.xml')"/>
     <xsl:variable name="resource-id">
         <xsl:choose>
             <xsl:when test="string(/*/@id)">
@@ -355,7 +373,13 @@
                     <fo:block border-top-style="solid" border-top-color="#666666" border-top-width=".015in" padding-top=".025in" margin-bottom="0in" padding-after="0in" padding-bottom="0">
                         <fo:block color="gray" padding-top="0in" margin-top="-0.015in" border-top-style="solid" border-top-color="#gray" border-top-width=".01in" xsl:use-attribute-sets="font-small">
                             <fo:block margin-top="4pt">
-                                <fo:block text-align="center">Copyright Vanderbilt University, Princeton University, and the Contributor(s), 2014.</fo:block>
+                                <fo:block text-align="center">
+                                    All .xml and .html data copyright Brigham Young University and licensed under the  Creative Commons Attribution 4.0 International Public License.
+                                    Underlying Syriac raw text is in the public domain.
+                                    The Oxford-BYU Syriac Corpus is a joint project of the University of Oxford and Brigham Young University 
+                                    in collaboration with Vanderbilt University and the 
+                                    Initiative for Digital Humanities, Media, and Culture at Texas A&amp;M University.    
+                                </fo:block>
                                 <fo:block text-align="center">
                                     <xsl:text> Page </xsl:text>
                                     <fo:page-number/>
@@ -481,6 +505,37 @@
             </fo:block>
         </xsl:for-each>
     </xsl:template>
+    <xsl:template match="t:head">
+        <xsl:choose>
+            <xsl:when test="parent::t:div1">
+                <fo:block xsl:use-attribute-sets="h2">
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </fo:block>
+            </xsl:when>
+            <xsl:when test="parent::t:div2">
+                <fo:block xsl:use-attribute-sets="h3">
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </fo:block>
+            </xsl:when>
+            <xsl:otherwise>
+                <fo:block xsl:use-attribute-sets="bold">
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </fo:block>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <!-- div types -->
+    <xsl:template match="t:div | t:div1 | t:div2 | t:div3 | t:div4 | t:div5 | t:milestone | t:ab | t:l | t:lg | t:pb | t:cb | t:lb">
+        <fo:block xsl:use-attribute-sets="section">
+            <xsl:call-template name="langattr"/>
+            <xsl:apply-templates/>
+        </fo:block>
+    </xsl:template>
+   
+    
     <xsl:template match="t:place">
         <fo:block xsl:use-attribute-sets="section">
             <!-- Description -->
@@ -890,8 +945,20 @@
     </xsl:template>
     <xsl:template match="t:p">
         <fo:block xsl:use-attribute-sets="p">
+            <xsl:if test="@n">
+                <xsl:choose>
+                    <xsl:when test="child::t:head"/>
+                    <xsl:otherwise>
+                        <fo:inline xsl:use-attribute-sets="text-number">
+                            <xsl:value-of select="@n"/>
+                        </fo:inline>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:if>
+            <fo:inline>
             <xsl:call-template name="langattr"/>
             <xsl:apply-templates/>
+            </fo:inline>
         </fo:block>
     </xsl:template>
     
@@ -1584,7 +1651,10 @@
         <!-- publication date statement -->
         <xsl:text> entry published </xsl:text>
         <xsl:for-each select="../t:publicationStmt/t:date[1]">
-            <xsl:value-of select="format-date(xs:date(.), '[MNn] [D], [Y]')"/>
+            <xsl:choose>
+                <xsl:when test="../t:publicationStmt/t:date[1] castable as xs:date"><xsl:value-of select="format-date(xs:date(.), '[MNn] [D], [Y]')"/></xsl:when>
+                <xsl:otherwise><xsl:value-of select="../t:publicationStmt/t:date[1]"></xsl:value-of></xsl:otherwise>
+            </xsl:choose>
         </xsl:for-each>
         <xsl:text>,</xsl:text>
         
@@ -1627,7 +1697,10 @@
         <!-- publication date statement -->
         <xsl:text> Entry published </xsl:text>
         <xsl:for-each select="../t:publicationStmt/t:date[1]">
-            <xsl:value-of select="format-date(xs:date(.), '[MNn] [D], [Y]')"/>
+            <xsl:choose>
+                <xsl:when test="../t:publicationStmt/t:date[1] castable as xs:date"><xsl:value-of select="format-date(xs:date(.), '[MNn] [D], [Y]')"/></xsl:when>
+                <xsl:otherwise><xsl:value-of select="../t:publicationStmt/t:date[1]"></xsl:value-of></xsl:otherwise>
+            </xsl:choose>
         </xsl:for-each>
         <xsl:text>.</xsl:text>
         
@@ -1662,7 +1735,10 @@
             <fo:inline xsl:use-attribute-sets="bold">Publication Date:</fo:inline>
             <xsl:text> </xsl:text>
             <xsl:for-each select="../t:publicationStmt/t:date[1]">
-                <xsl:value-of select="format-date(xs:date(.), '[MNn] [D], [Y]')"/>
+                <xsl:choose>
+                    <xsl:when test="../t:publicationStmt/t:date[1] castable as xs:date"><xsl:value-of select="format-date(xs:date(.), '[MNn] [D], [Y]')"/></xsl:when>
+                    <xsl:otherwise><xsl:value-of select="../t:publicationStmt/t:date[1]"></xsl:value-of></xsl:otherwise>
+                </xsl:choose>
             </xsl:for-each>
         </fo:block>
         <fo:block>
