@@ -649,38 +649,25 @@
           </classes>
           
           <content>
-            <sequence>
-              <alternate>
-                <elementRef key="listPerson" minOccurs="0" maxOccurs="1"/>
-                <elementRef key="listEvent" minOccurs="0" maxOccurs="1"/>
-                <elementRef key="listRelation" minOccurs="0" maxOccurs="1"/>
-              </alternate>
-              <elementRef key="bibl" minOccurs="1" maxOccurs="unbounded" />
-              <elementRef key="note" minOccurs="0" maxOccurs="1"/>
-            </sequence>
-            
-            <!-- This accomplishes the same thing in a different way. What I have above it better for my auto-fill idea so I will keep that for the time being at least.
-            <alternate>
-              <sequence>
+          <alternate>
+              <sequence preserveOrder="true">
                 <elementRef key="listPerson" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="bibl" minOccurs="1" maxOccurs="unbounded" />
                 <elementRef key="note" minOccurs="0" maxOccurs="1"/>
               </sequence>
             
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="listEvent" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="bibl" minOccurs="1" maxOccurs="unbounded" />
                 <elementRef key="note" minOccurs="0" maxOccurs="1"/>
               </sequence>
             
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="listRelation" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="bibl" minOccurs="1" maxOccurs="unbounded" />
                 <elementRef key="note" minOccurs="0" maxOccurs="1"/>
               </sequence>
             </alternate>
-            -->
-          
           </content>
           <attList>
             <attDef ident="uri" mode="add"><!-- I want to require this attribute on div but ONLY in divs that are children of body - Schematron. -->
@@ -808,14 +795,14 @@
               <datatype>
                 <dataRef key="teidata.enumerated"/>
               </datatype>
-              <valList type="closed">
+              <valList type="closed"><!-- Use schematron to allow incerta/dubia/errata only when note is child of div and requires desc when note is a descendent of person. -->
                 <valItem ident="desc"/>
                 <valItem ident="incerta"/>
                 <valItem ident="dubia"/>
                 <valItem ident="errata"/>
               </valList>
             </attDef>
-            <attDef ident="ana" usage="opt" mode="replace">
+            <attDef ident="ana" usage="opt" mode="replace"> <!-- Use schematron to allow this only in date element. -->
               <datatype>
                 <dataRef key="teidata.enumerated"/>
               </datatype>
