@@ -1375,17 +1375,17 @@
           </classes>
           <content>
             <alternate>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="date" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="note" minOccurs="1" maxOccurs="1"/>
               </sequence>
               
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="choice" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="note" minOccurs="1" maxOccurs="1"/>
               </sequence>
               
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="placeName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="note" minOccurs="1" maxOccurs="1"/>
               </sequence>
@@ -1445,17 +1445,17 @@
           </classes>
           <content>
             <alternate>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="date" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="note" minOccurs="1" maxOccurs="1"/>
               </sequence>
               
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="choice" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="note" minOccurs="1" maxOccurs="1"/>
               </sequence>
               
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="placeName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="note" minOccurs="1" maxOccurs="1"/>
               </sequence>
@@ -1638,7 +1638,7 @@
         
         <elementSpec ident="langKnowledge" module="namesdates" mode="replace">
           <content>
-            <sequence>
+            <sequence preserveOrder="true">
               <elementRef key="langKnown" minOccurs="1" maxOccurs="1"/>
               <elementRef key="note" minOccurs="1" maxOccurs="1"/>
             </sequence>
@@ -1650,44 +1650,8 @@
         
         <elementSpec ident="langKnown" module="namesdates" mode="replace">
           <attList>
-            <attDef ident="tag" mode="replace" usage="rec">
-              <datatype>
-                <dataRef key="teidata.enumerated"/>
-              </datatype>
-              <valList type="semi">
-                <valItem ident="syr">
-                  <desc>Syriac of any variety or period</desc>
-                </valItem>
-                <valItem ident="ar">
-                  <desc>Arabic of any variety or period</desc>
-                </valItem>
-                <valItem ident="cop">
-                  <desc>Coptic of any variety or period</desc>
-                </valItem>
-                <valItem ident="fa">
-                  <desc>Persian of any variety or period</desc>
-                </valItem>
-                <valItem ident="heb">
-                  <desc>Hebrew of any variety or period</desc>
-                </valItem>
-                <valItem ident="gez">
-                  <desc>Ethiopic of any variety or period</desc>
-                </valItem>
-                <valItem ident="grc">
-                  <desc>Ancient Greek to A.D. 1453</desc>
-                </valItem>
-                <valItem ident="la">
-                  <desc>Latin of any variety or period</desc>
-                </valItem>
-                <valItem ident="mal">
-                  <desc>Malayalam of any variety or period</desc>
-                </valItem>
-                <valItem ident="tr">
-                  <desc>Turkish of any variety or period</desc>
-                </valItem>
-              </valList>
-            </attDef>
-            <attDef ident="ref" mode="add" usage="req">
+            <attDef ident="tag" mode="delete"></attDef>
+              <attDef ident="ref" mode="add" usage="req"><!-- Modify this to populate only language options from the keyword list. -->
               <datatype>
                 <dataRef key="teidata.pointer"/>
               </datatype>
