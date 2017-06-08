@@ -27,7 +27,7 @@
         draft</change>
     </revisionDesc>
   </teiHeader>
-  <text><!-- NEXT STEPS: Since all divs must have a bibl and all bibl elements must have a ptr (which must have a target) and a citedRange (which must have a unit) all of this appears automatically. I would like to see if I can use SCHEMATRON along with type attribute on the div to make the "bones" of each kind of person factoid appear. This should be possible! ACTUALLY, it turns out that this is not possible. Schematron is an open schema language that really only lets you articulate a test and then get an error message if that test is not met. I am still looking into using the context attribute to accomplish this but the odds seem worse than even. In the meantime, I will begin experimenting with Schematron to limit options.-->
+  <text>
     <body>
 
       <p>This schema has been created to to constrain the TEI P5 for validating the born-digital
