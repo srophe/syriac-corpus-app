@@ -114,7 +114,6 @@
         <elementSpec ident="listRelation" mode="change" module="namesdates">
           <content>
             <elementRef key="relation" minOccurs="1" maxOccurs="1"/>
-            <elementRef key="desc" minOccurs="0" maxOccurs="1"/>
           </content>
           <exemplum>
             <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -1239,51 +1238,48 @@
           </classes>
           <content>
             <alternate>
-                <sequence>
-                  <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
-                  <elementRef key="ptr" minOccurs="1" maxOccurs="1"/>
-                </sequence>
-              <sequence>
+                <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="sex" minOccurs="1" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="birth" minOccurs="1" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="death" minOccurs="1" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="education" minOccurs="1" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="nationality" minOccurs="0" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="residence" minOccurs="1" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="occupation" minOccurs="1" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="langKnowledge" minOccurs="1" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="state" minOccurs="1" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="trait" minOccurs="0" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="socecStatus" minOccurs="0" maxOccurs="1"/>
               </sequence>
