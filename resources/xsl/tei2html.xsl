@@ -156,7 +156,7 @@
             <div class="panel-body">
                 <div id="citation-note">
                     <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
-                    <div class="collapse" id="showcit">
+                    <div class="collapse" id="showFullCitation">
                         <div id="citation-bibliography">
                             <h4>Bibliography:</h4>
                             <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
@@ -181,7 +181,7 @@
                         </div>
                     </div>
                     <br/>
-                    <a class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showcit" data-text-swap="Hide Publication Information">Show Full Publication Information <i class="glyphicon glyphicon-circle-arrow-right"/>
+                    <a href="#" class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showFullCitation" data-text-swap="Hide Publication Information" style="margin-top:1em;">Show Full Publication Information <i class="glyphicon glyphicon-circle-arrow-right"/>
                     </a>
                 </div>
             </div>
@@ -191,7 +191,7 @@
         <div class="body">
             <xsl:call-template name="langattr"/>
             <!-- Toggle displays re: milestones/div/line breaks -->
-            <xsl:if test="//t:div/@type or //t:div1/@type or //t:div2/@type or //t:div3/@type or //t:div4/@type or                   //t:div5/@type or  //t:ab or //t:p or //t:milestone or //t:l or //t:lb or //t:pb">
+             <xsl:if test="//t:div/@type or //t:div1/@type or //t:div2/@type or //t:div3/@type or //t:div4/@type or                   //t:div5/@type or  //t:ab or //t:p or //t:milestone or //t:l or //t:lb or //t:pb">
                 <ul class="list-inline toggleView menu">
                     <li>Show: </li>
                     <xsl:if test="//@type='chapter'">
@@ -414,7 +414,7 @@
     <xsl:template match="text()">
         <xsl:choose>
             <xsl:when test="ancestor-or-self::*[@xml:lang][1]/@xml:lang = 'syr'">
-                <xsl:analyze-string select="." regex="\s+">
+                <xsl:analyze-string select="." regex="\W">
                     <xsl:matching-substring>
                         <xsl:value-of select="."/>
                     </xsl:matching-substring>
@@ -422,12 +422,6 @@
                         <a href="https://sedra.bethmardutho.org/api/word/{.}.html" class="sedra">
                             <xsl:value-of select="."/>
                         </a>
-                        <!--
-                        <a href="{$app-root}/api/lexeme/{.}" class="sedra">
-                            <xsl:value-of select="."/>
-                        </a>
-                        -->
-                        <xsl:text> </xsl:text>
                     </xsl:non-matching-substring>
                 </xsl:analyze-string>
             </xsl:when>
