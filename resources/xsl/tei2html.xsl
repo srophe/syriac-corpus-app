@@ -1152,10 +1152,6 @@
     <xsl:template match="t:placeName[local-name(..)='desc']" mode="cleanout">
         <xsl:apply-templates select="."/>
     </xsl:template>
-    <!-- NOTE: For SPEAR, could cause issues in the future.  -->
-    <xsl:template match="t:div">
-        <xsl:apply-templates select="*[not(self::t:bibl)]"/>
-    </xsl:template>
     <xsl:template match="t:*" mode="inline" xml:space="preserve">
         <xsl:apply-templates/>
     </xsl:template>
