@@ -679,8 +679,18 @@ function app:google-analytics($node as node(), $model as map(*)){
 
 (: Corpus Specific templates :)
 declare function app:display-ids($node as node(), $model as map(*)){
+let $srophe-title := 
+                try{http:send-request(<http:request href="http://localhost:8080/exist/apps/srophe/api/sparql?qname=label&amp;id={$model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref}" method="GET">
+                     <http:header name="Content-Type" value="application/xml"/>
+                     <http:header name="Accept" value="application/json,application/xml"/>
+                   </http:request>[2]) 
+                   } catch * {
+                    <error>Caught error {$err:code}: {$err:description}</error>
+                   }
+let $title := if(not(empty($srophe-title//*:result))) then $srophe-title//*:literal[@xml:lang='en']/text() else ()                   
+return                   
     <div class="panel panel-default">
-        <div class="panel-heading">{'Syriaca.org Title'(:global:get-syriaca-refs(string($model("data")//tei:titleStmt/tei:title[1]/@ref)):)}</div>
+        <div class="panel-heading">{$title}</div>
         <div class="panel-body">
             <h4>Stable Identifiers</h4>
                 <div class="indent">
