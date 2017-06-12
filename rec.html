@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-sm-2 col-md-2">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Table of Contents  
+                        <div class="panel-heading">Table of Contents &#160;
                             <a href="#" data-toggle="collapse" data-target="#showToc">
                                 <span id="tocIcon" class="glyphicon glyphicon-collapse-up"/>
                             </a>
@@ -44,10 +44,12 @@
                     <div data-template="app:display-nodes" data-template-paths="/descendant::tei:body"/>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-3">
-                    <div  id="rightCol">
+                    <div id="rightCol">
                         <div id="sedraDisplay" class="sedra panel panel-default">
                             <div class="panel-body">
-                                <span style="display:block;text-align:center;margin:.5em;"><a href=" http://sedra.bethmardutho.org" title="SEDRA IV">SEDRA IV</a></span>
+                                <span style="display:block;text-align:center;margin:.5em;">
+                                    <a href=" http://sedra.bethmardutho.org" title="SEDRA IV">SEDRA IV</a>
+                                </span>
                                 <img src="$app-root/resources/img/sedra-logo.png" title="Sedra logo" width="100%"/>
                                 <h3>Syriac Lexeme</h3>
                                 <div id="sedraContent">
@@ -60,7 +62,7 @@
                     <div data-template="app:display-ids"/>
                     <div data-template="app:display-nodes" data-template-paths="/descendant::tei:teiHeader"/>
                     <div class="info-btns">
-                        <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> 
+                        <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
                     </div>
                     <div data-template="app:display-related"/>
                 </div>
@@ -85,7 +87,13 @@
                 e.preventDefault();
                 var href = $(this).attr('href');
                 $('#sedraDisplay').css('display','block');
-                $( "#sedraContent div.content" ).load( href );
+                $.get(href, function( data ) {
+                $( "#sedraContent div.content" ).html( data );
+                var $html = $(data);
+                if(!$.trim($html.html())){
+                $( "#sedraContent div.content" ).html( 'There are no results for this word. Please try using the <a href="http://sedra.bethmardutho.org/">Syriac Dictionary Lookup</a>' );
+                }
+                });
                 });
                 
                 $('html').click(function() {
