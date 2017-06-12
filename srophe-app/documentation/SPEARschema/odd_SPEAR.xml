@@ -27,7 +27,7 @@
         draft</change>
     </revisionDesc>
   </teiHeader>
-  <text><!-- NEXT STEPS: Since all divs must have a bibl and all bibl elements must have a ptr (which must have a target) and a citedRange (which must have a unit) all of this appears automatically. I would like to see if I can use SCHEMATRON along with type attribute on the div to make the "bones" of each kind of person factoid appear. This should be possible! ACTUALLY, it turns out that this is not possible. Schematron is an open schema language that really only lets you articulate a test and then get an error message if that test is not met. I am still looking into using the context attribute to accomplish this but the odds seem worse than even. In the meantime, I will begin experimenting with Schematron to limit options.-->
+  <text>
     <body>
 
       <p>This schema has been created to to constrain the TEI P5 for validating the born-digital
@@ -114,7 +114,6 @@
         <elementSpec ident="listRelation" mode="change" module="namesdates">
           <content>
             <elementRef key="relation" minOccurs="1" maxOccurs="1"/>
-            <elementRef key="desc" minOccurs="0" maxOccurs="1"/>
           </content>
           <exemplum>
             <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -649,38 +648,25 @@
           </classes>
           
           <content>
-            <sequence>
-              <alternate>
-                <elementRef key="listPerson" minOccurs="0" maxOccurs="1"/>
-                <elementRef key="listEvent" minOccurs="0" maxOccurs="1"/>
-                <elementRef key="listRelation" minOccurs="0" maxOccurs="1"/>
-              </alternate>
-              <elementRef key="bibl" minOccurs="1" maxOccurs="unbounded" />
-              <elementRef key="note" minOccurs="0" maxOccurs="1"/>
-            </sequence>
-            
-            <!-- This accomplishes the same thing in a different way. What I have above it better for my auto-fill idea so I will keep that for the time being at least.
-            <alternate>
-              <sequence>
+          <alternate>
+              <sequence preserveOrder="true">
                 <elementRef key="listPerson" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="bibl" minOccurs="1" maxOccurs="unbounded" />
                 <elementRef key="note" minOccurs="0" maxOccurs="1"/>
               </sequence>
             
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="listEvent" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="bibl" minOccurs="1" maxOccurs="unbounded" />
                 <elementRef key="note" minOccurs="0" maxOccurs="1"/>
               </sequence>
             
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="listRelation" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="bibl" minOccurs="1" maxOccurs="unbounded" />
                 <elementRef key="note" minOccurs="0" maxOccurs="1"/>
               </sequence>
             </alternate>
-            -->
-          
           </content>
           <attList>
             <attDef ident="uri" mode="add"><!-- I want to require this attribute on div but ONLY in divs that are children of body - Schematron. -->
@@ -808,14 +794,14 @@
               <datatype>
                 <dataRef key="teidata.enumerated"/>
               </datatype>
-              <valList type="closed">
+              <valList type="closed"><!-- Use schematron to allow incerta/dubia/errata only when note is child of div and requires desc when note is a descendent of person. -->
                 <valItem ident="desc"/>
                 <valItem ident="incerta"/>
                 <valItem ident="dubia"/>
                 <valItem ident="errata"/>
               </valList>
             </attDef>
-            <attDef ident="ana" usage="opt" mode="replace">
+            <attDef ident="ana" usage="opt" mode="replace"> <!-- Use schematron to allow this only in date element. -->
               <datatype>
                 <dataRef key="teidata.enumerated"/>
               </datatype>
@@ -1102,7 +1088,7 @@
               </valList>
             </attDef>
             <attDef ident="type" mode="add" usage="opt">
-              <datatype>
+              <datatype minOccurs="1" maxOccurs="unbounded">
                 <dataRef key="teidata.enumerated"/>
               </datatype>
               <valList type="closed"><!-- I need to include a brief description of each of these. -->
@@ -1252,51 +1238,48 @@
           </classes>
           <content>
             <alternate>
-                <sequence>
-                  <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
-                  <elementRef key="ptr" minOccurs="1" maxOccurs="1"/>
-                </sequence>
-              <sequence>
+                <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="sex" minOccurs="1" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="birth" minOccurs="1" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="death" minOccurs="1" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="education" minOccurs="1" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="nationality" minOccurs="0" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="residence" minOccurs="1" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="occupation" minOccurs="1" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="langKnowledge" minOccurs="1" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="state" minOccurs="1" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="trait" minOccurs="0" maxOccurs="1"/>
               </sequence>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="socecStatus" minOccurs="0" maxOccurs="1"/>
               </sequence>
@@ -1375,17 +1358,17 @@
           </classes>
           <content>
             <alternate>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="date" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="note" minOccurs="1" maxOccurs="1"/>
               </sequence>
               
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="choice" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="note" minOccurs="1" maxOccurs="1"/>
               </sequence>
               
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="placeName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="note" minOccurs="1" maxOccurs="1"/>
               </sequence>
@@ -1445,17 +1428,17 @@
           </classes>
           <content>
             <alternate>
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="date" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="note" minOccurs="1" maxOccurs="1"/>
               </sequence>
               
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="choice" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="note" minOccurs="1" maxOccurs="1"/>
               </sequence>
               
-              <sequence>
+              <sequence preserveOrder="true">
                 <elementRef key="placeName" minOccurs="1" maxOccurs="1"/>
                 <elementRef key="note" minOccurs="1" maxOccurs="1"/>
               </sequence>
@@ -1638,7 +1621,7 @@
         
         <elementSpec ident="langKnowledge" module="namesdates" mode="replace">
           <content>
-            <sequence>
+            <sequence preserveOrder="true">
               <elementRef key="langKnown" minOccurs="1" maxOccurs="1"/>
               <elementRef key="note" minOccurs="1" maxOccurs="1"/>
             </sequence>
@@ -1650,44 +1633,8 @@
         
         <elementSpec ident="langKnown" module="namesdates" mode="replace">
           <attList>
-            <attDef ident="tag" mode="replace" usage="rec">
-              <datatype>
-                <dataRef key="teidata.enumerated"/>
-              </datatype>
-              <valList type="semi">
-                <valItem ident="syr">
-                  <desc>Syriac of any variety or period</desc>
-                </valItem>
-                <valItem ident="ar">
-                  <desc>Arabic of any variety or period</desc>
-                </valItem>
-                <valItem ident="cop">
-                  <desc>Coptic of any variety or period</desc>
-                </valItem>
-                <valItem ident="fa">
-                  <desc>Persian of any variety or period</desc>
-                </valItem>
-                <valItem ident="heb">
-                  <desc>Hebrew of any variety or period</desc>
-                </valItem>
-                <valItem ident="gez">
-                  <desc>Ethiopic of any variety or period</desc>
-                </valItem>
-                <valItem ident="grc">
-                  <desc>Ancient Greek to A.D. 1453</desc>
-                </valItem>
-                <valItem ident="la">
-                  <desc>Latin of any variety or period</desc>
-                </valItem>
-                <valItem ident="mal">
-                  <desc>Malayalam of any variety or period</desc>
-                </valItem>
-                <valItem ident="tr">
-                  <desc>Turkish of any variety or period</desc>
-                </valItem>
-              </valList>
-            </attDef>
-            <attDef ident="ref" mode="add" usage="req">
+            <attDef ident="tag" mode="delete"></attDef>
+              <attDef ident="ref" mode="add" usage="req"><!-- Modify this to populate only language options from the keyword list. -->
               <datatype>
                 <dataRef key="teidata.pointer"/>
               </datatype>
