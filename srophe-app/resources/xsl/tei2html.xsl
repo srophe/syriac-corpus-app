@@ -1538,7 +1538,7 @@
                 <xsl:if test="t:idno">
                     <h3>Reference Numbers</h3>
                     <p class="indent">
-                        <xsl:for-each select="t:idno">
+                        <xsl:for-each select="t:idno[contains(.,$base-uri)]">
                             <xsl:choose>
                                 <xsl:when test="@type='URI'">
                                     <a href="{.}">
