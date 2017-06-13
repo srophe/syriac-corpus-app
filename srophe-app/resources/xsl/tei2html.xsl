@@ -1041,14 +1041,21 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    <!-- General apply templates with no special rules -->
     <xsl:template match="t:term">
         <span class="{name(.)}">
             <!--<xsl:apply-templates select="@*"/>-->
             <xsl:apply-templates/>
         </span>
     </xsl:template>
-
+    <xsl:template match="t:idno">
+        <xsl:choose>
+            <xsl:when test="@type= ('URL','URI')"><a href="."><xsl:value-of select="."/></a></xsl:when>
+            <xsl:otherwise>
+                <span><xsl:value-of select="@type"/>: </span><xsl:value-of select="."/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    
     <!-- NOTE: would really like to get rid of mode=cleanout -->
     <xsl:template match="t:placeName[local-name(..)='desc']" mode="cleanout">
         <xsl:apply-templates select="."/>
@@ -1057,6 +1064,7 @@
     <xsl:template match="t:div">
         <xsl:apply-templates select="*[not(self::t:bibl)]"/>
     </xsl:template>
+    
     <xsl:template match="t:*" mode="inline" xml:space="preserve">
         <xsl:apply-templates/>
     </xsl:template>

@@ -17,7 +17,7 @@ import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.
 declare namespace http="http://expath.org/ns/http-client";
 declare namespace html="http://www.w3.org/1999/xhtml";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
-
+  
 (:~          
  : Simple get record function, get tei record based on tei:idno
  : Builds URL from the following URL patterns defined in the controller.xql or uses the id paramter
@@ -69,23 +69,27 @@ declare function app:h1($node as node(), $model as map(*)){
     )}
  </srophe-title>)
 }; 
-
+  
 (:~  
  : Display any TEI nodes passed to the function via the paths parameter
  : Used by templating module, defaults to tei:body if no nodes are passed. 
  : @param $paths comma separated list of xpaths for display. Passed from html page  
 :)
 declare function app:link-icons-list($node as node(), $model as map(*)){
-let $data := $model("data")
-let $links:=
-        <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
-            {$data//tei:body/descendant::tei:idno, $data//descendant::tei:location}
-        </see-also>
-return
-    <div class="panel panel-default">
-        <div class="panel-heading"><h3 class="panel-title">See Also </h3></div>
-        <div class="panel-body">{global:tei2html($links)}</div>
-    </div>
+let $data := $model("data")//tei:body/descendant::tei:idno[not(contains(., $global:base-uri))]  
+return 
+    if(not(empty($data))) then 
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">See Also </h3></div>
+            <div class="panel-body">
+                <ul>
+                    {for $l in $data
+                     return <li>{global:tei2html($l)}</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    else ()
 }; 
 
 (:~  
@@ -93,12 +97,12 @@ return
  : Used by templating module, defaults to tei:body if no nodes are passed. 
  : @param $paths comma separated list of xpaths for display. Passed from html page  
 :)
-declare function app:display-nodes($node as node(), $model as map(*), $paths as xs:string*){
+declare function app:display-nodes($node as node(), $model as map(*), $paths as xs:string?){
     let $data := $model("data")
     return 
         if($paths != '') then 
             global:tei2html(
-                    for $p in tokenize($paths,',')
+                    for $p in $paths
                     return util:eval(concat('$data',$p)))
         else global:tei2html($model("data")/descendant::tei:body)
 }; 
@@ -174,7 +178,7 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                             $data/tei:note[@type='abstract'],
                             $data/tei:date,
                             $data/tei:extent,
-                            $data/tei:idno
+                            $data/tei:idno[starts-with(.,'http://syriaca.org')]
                          )}
                         </bibl>
                         </body>
@@ -212,7 +216,8 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                 </div>,                
                 if($model("data")//tei:body/child::*/tei:listRelation) then 
                 rel:build-relationships($model("data")//tei:body/child::*/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
-                else ()
+                else (),
+                app:link-icons-list($node, $model)
                 )}  
             </div>
         </div>
@@ -275,15 +280,14 @@ declare function app:display-related($node as node(), $model as map(*), $relType
 :)
 declare %templates:wrap function app:external-relationships($node as node(), $model as map(*), $relType, $collection, $sort, $count){
 let $rec := $model("data")
-let $relType := $relType
+let $relType := $relType 
 let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
 let $title := if(contains($rec/descendant::tei:title[1]/text(),' — ')) then 
                     substring-before($rec/descendant::tei:title[1],' — ') 
                else $rec/descendant::tei:title[1]/text()
 return rel:external-relationships($recid, $title, $relType, $collection, $sort, $count)
 };
-
-
+   
 (:~
  : bibl module relationships
 :)                   
