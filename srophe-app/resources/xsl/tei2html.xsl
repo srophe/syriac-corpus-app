@@ -1470,8 +1470,7 @@
                 </p>
             </div>
         </xsl:if>
-        <xsl:if test="self::t:bibl[starts-with(@xml:id,'work-')] and t:title">
-
+        <xsl:if test="self::t:bibl[starts-with(@xml:id,'work-')] and t:title[not(@type=('initial-rubric','final-rubric','abbreviation'))]">
             <div class="well">
                 <h3>Titles</h3>
                 <ul>                
@@ -1557,7 +1556,7 @@
                     </p>
                 </xsl:if>
             </div>
-            
+        </xsl:if>            
             <xsl:if test="t:title[@type='initial-rubric']">
                 <h3>Initial Rubrics</h3>
                 <ul>
@@ -1582,7 +1581,7 @@
                     </xsl:for-each>
                 </ul>
             </xsl:if>
-        </xsl:if>
+
         <xsl:if test="self::t:place">
             <xsl:if test="t:placeName">
                 <div id="placenames" class="well">

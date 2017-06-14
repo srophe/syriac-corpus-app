@@ -168,10 +168,10 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                     let $data := $model("data")/descendant::tei:body/tei:bibl
                     let $infobox := 
                         <body xmlns="http://www.tei-c.org/ns/1.0">
-                        <bibl xmlns="http://www.tei-c.org/ns/1.0">
+                        <bibl>
                         {(
                             $data/@*,
-                            $data/tei:title,
+                            $data/tei:title[not(@type=('initial-rubric','final-rubric','abbreviation'))],
                             $data/tei:author,
                             $data/tei:editor,
                             $data/tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')],
@@ -183,11 +183,11 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                         </bibl>
                         </body>
                      let $allData := 
-                     <body xmlns="http://www.tei-c.org/ns/1.0"><bibl xmlns="http://www.tei-c.org/ns/1.0">
+                     <body xmlns="http://www.tei-c.org/ns/1.0"><bibl>
                         {(
                             $data/@*,
                             $data/child::*
-                            [not(self::tei:title)]
+                            [not(self::tei:title[not(@type=('initial-rubric','final-rubric','abbreviation'))])]
                             [not(self::tei:author)]
                             [not(self::tei:editor)]
                             [not(self::tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')])]
