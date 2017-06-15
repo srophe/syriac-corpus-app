@@ -6,7 +6,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2017-05-11T12:22:33Z. .
+# Schema generated from ODD source 2017-06-15T14:52:25Z. .
 # TEI Edition: Version 3.1.0. Last updated on
 #	15th December 2016, revision d3f5e70
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.1.0/
@@ -5625,7 +5625,7 @@ tei_relation =
     tei_att.typed.attribute.subtype,
     
     ## (reference) An RDF property applicable to the relation. This may be a custom Syriaca.org property, such as one found at http://syriaca.org/documentation/relations.html or one from an external vocabulary such as SNAP or LAWD.
-    ## Suggested values include: 1] dct:source(is derived from) ; 2] lawd:embodies(embodies) ; 3] syriaca:commemorated(commemorates) ; 4] dct:isPartOf(is part of) ; 5] syriaca:sometimesCirculatesWith(sometimes circulates with) ; 6] skos:broadMatch(has broader match with) ; 7] syriaca:hasRelationToPlace(has relation to place) ; 8] syriaca:bornAt(was born at) ; 9] syriaca:hasLiteraryConnectionToPlace(has literary connection to place) ; 10] syriaca:differentFrom(should be distinguished from) ; 11] syriaca:possiblyIdentical(is possibly identical to) ; 12] syriaca:diedAt(died at) 
+    ## Suggested values include: 1] dct:source(is derived from) ; 2] lawd:embodies(embodies) ; 3] syriaca:commemorated(commemorates) ; 4] dct:isPartOf(is part of) ; 5] syriaca:sometimesCirculatesWith(sometimes circulates with) ; 6] skos:broadMatch(has broader match with) ; 7] syriaca:hasRelationToPlace(has relation to place) ; 8] syriaca:bornAt(was born at) ; 9] syriaca:hasLiteraryConnectionToPlace(has literary connection to place) ; 10] syriaca:differentFrom(should be distinguished from) ; 11] syriaca:possiblyIdentical(is possibly identical to) ; 12] syriaca:diedAt(died at) ; 13] syriaca:sharesAttributionWith(shares attribution with) 
     attribute ref {
       list {
         (
@@ -5664,6 +5664,9 @@ tei_relation =
          | 
            ## (died at) The place where a person died.
            "syriaca:diedAt"
+         | 
+           ## (shares attribution with) Persons (in @mutual) to whom the same works are attributed (e.g., Ephrem, Isaac, and Pseudo-Ephrem).
+           "syriaca:sharesAttributionWith"
          | xsd:anyURI)+
       }
     },

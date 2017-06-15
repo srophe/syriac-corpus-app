@@ -912,6 +912,11 @@
                                     <gloss>died at</gloss>
                                     <desc>The place where a person died.</desc>
                                 </valItem>
+                                <valItem ident="syriaca:sharesAttributionWith">
+                                    <gloss>shares attribution with</gloss>
+                                    <desc>Persons (in @mutual) to whom the same works are attributed (e.g., Ephrem, 
+                                        Isaac, and Pseudo-Ephrem).</desc>
+                                </valItem>
                             </valList>
                         </attDef>
                         <attDef ident="active" mode="change">
