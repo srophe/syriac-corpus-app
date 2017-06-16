@@ -951,17 +951,12 @@
         </li>
     </xsl:template>
     <xsl:template match="t:gloss">
-        <div>
-            <h4>
-                <xsl:value-of select="local:translate-label(@xml:lang,0)"/>
-            </h4>
             <xsl:for-each select="t:term">
                 <xsl:apply-templates/>
                 <xsl:if test="position() != last()">
                     <xsl:text>, </xsl:text>
                 </xsl:if>
             </xsl:for-each>            
-        </div>
     </xsl:template>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of the licence element in the tei header
@@ -1771,7 +1766,18 @@
         <xsl:if test="t:gloss">
             <h3>Gloss</h3>
             <div class="indent">
-                <xsl:apply-templates select="t:gloss"/>                
+                <xsl:for-each-group select="t:gloss" group-by="@xml:lang">
+                    <xsl:sort select="current-grouping-key()"/>
+                    <h4>
+                        <xsl:value-of select="local:translate-label(current-grouping-key(),0)"/>
+                    </h4>
+                    <xsl:for-each select="current-group()">
+                        <xsl:apply-templates/>   
+                        <xsl:if test="position() != last()">
+                            <xsl:text>, </xsl:text>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:for-each-group>                
             </div>
         </xsl:if>
         
