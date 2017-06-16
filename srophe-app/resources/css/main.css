@@ -503,6 +503,9 @@ td {
   float: left;
   height: 0px;
 }
+.anchor:target + span.footnote-tgt{
+   background-color: #ffa;
+}
 .anchorHighlight {display:block; content:" "; background-color:yellow; border:1px solid red;}
 
 .heading-inline {
