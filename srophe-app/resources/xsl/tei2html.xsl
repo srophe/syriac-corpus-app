@@ -374,19 +374,40 @@
                                 </xsl:variable>
                                 <!-- Get related bibs based on @passive -->
                                 <xsl:variable name="bibl-rel">
-                                    <bib-relations xmlns="http://www.tei-c.org/ns/1.0">
-                                        <xsl:for-each select="tokenize(@passive,' ')">
-                                            <xsl:variable name="bibl-id" select="replace(.,'#','')"/>
-                                            <xsl:for-each select="$all-bibs/descendant::t:bibl[@bibid = $bibl-id]">
-                                                <xsl:copy-of select="."/>
-                                            </xsl:for-each>
-                                        </xsl:for-each>
-                                    </bib-relations>
+                                    <xsl:choose>
+                                        <xsl:when test="@ref='lawd:hasCitation'">
+                                            <bib-relations xmlns="http://www.tei-c.org/ns/1.0">
+                                                <xsl:for-each select="tokenize(@active,' ')">
+                                                    <xsl:variable name="bibl-id" select="replace(.,'#','')"/>
+                                                    <xsl:for-each select="$all-bibs/descendant::t:bibl[@bibid = $bibl-id]">
+                                                        <xsl:copy-of select="."/>
+                                                    </xsl:for-each>
+                                                </xsl:for-each>
+                                            </bib-relations>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <bib-relations xmlns="http://www.tei-c.org/ns/1.0">
+                                                <xsl:for-each select="tokenize(@passive,' ')">
+                                                    <xsl:variable name="bibl-id" select="replace(.,'#','')"/>
+                                                    <xsl:for-each select="$all-bibs/descendant::t:bibl[@bibid = $bibl-id]">
+                                                        <xsl:copy-of select="."/>
+                                                    </xsl:for-each>
+                                                </xsl:for-each>
+                                            </bib-relations>                                            
+                                        </xsl:otherwise>
+                                    </xsl:choose>
                                 </xsl:variable>
                                 <!-- Compile sentance -->
                                 <xsl:text> (</xsl:text>
                                 <xsl:value-of select="$bibl-type"/>
-                                <xsl:text> based on  </xsl:text>
+                                <xsl:choose>
+                                    <xsl:when test="@ref='lawd:hasCitation'">
+                                        <xsl:text> cites  </xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:text> based on  </xsl:text>
+                                    </xsl:otherwise>
+                                </xsl:choose>
                                 <xsl:for-each-group select="$bibl-rel/descendant-or-self::t:bibl" group-by="@type">
                                     <xsl:copy-of select="current-group()"/>
                                     <xsl:value-of select="current-grouping-key()"/>
