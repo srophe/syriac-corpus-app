@@ -6,7 +6,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2017-06-15T14:52:25Z. .
+# Schema generated from ODD source 2017-06-21T14:54:01Z. .
 # TEI Edition: Version 3.1.0. Last updated on
 #	15th December 2016, revision d3f5e70
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.1.0/
@@ -606,7 +606,7 @@ tei_att.global.attribute.syriaca-computed-end =
 tei_att.global.attribute.syriaca-tags =
   
   ## tags usable
-  ## Suggested values include: 1] #syriaca-headword; 2] #syriaca-anglicized; 3] #canonical
+  ## Suggested values include: 1] #syriaca-headword; 2] #syriaca-anglicized; 3] #canonical; 4] #ektobe-headword
   attribute syriaca-tags {
     
     ## The name used by Syriaca.org for document titles, citation, and disambiguation. These names have been created according to the Syriaca.org guidelines for headwords: http://syriaca.org/documentation/headwords.html.
@@ -617,6 +617,9 @@ tei_att.global.attribute.syriaca-tags =
     | 
       ## Indicates the content is canonical, i.e., widely agreed upon. Abbreviations of work titles are primarily in view.
       "#canonical"
+    | 
+      ## The name used by e-Ktobe as a standardized name form.
+      "#ektobe-headword"
     | text
   }?
 tei_att.global.attribute.xmlid =
