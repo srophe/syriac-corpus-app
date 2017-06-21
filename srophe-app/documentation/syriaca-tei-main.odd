@@ -234,6 +234,9 @@
                                 <valItem ident="#canonical">
                                     <desc>Indicates the content is canonical, i.e., widely agreed upon. Abbreviations of work titles are primarily in view.</desc>
                                 </valItem>
+                                <valItem ident="#ektobe-headword">
+                                    <desc>The name used by e-Ktobe as a standardized name form.</desc>
+                                </valItem>
                             </valList>
                         </attDef>
                     </attList>
