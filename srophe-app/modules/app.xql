@@ -18,7 +18,7 @@ declare namespace http="http://expath.org/ns/http-client";
 declare namespace html="http://www.w3.org/1999/xhtml";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
   
-(:~          
+(:~            
  : Simple get record function, get tei record based on tei:idno
  : Builds URL from the following URL patterns defined in the controller.xql or uses the id paramter
  : Retuns 404 page if record is not found, or has been @depreciated
@@ -159,7 +159,7 @@ else ()
 };
 
 (:~    
- : Return teiHeader info to be used in citation
+ : Special output for NHSL work records
 :)
 declare %templates:wrap function app:display-work($node as node(), $model as map(*)){
         <div class="row">
@@ -171,7 +171,7 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                         <bibl>
                         {(
                             $data/@*,
-                            $data/tei:title[not(@type=('initial-rubric','final-rubric','abbreviation'))],
+                            $data/tei:title[not(@type=('initial-rubric','final-rubric'))],
                             $data/tei:author,
                             $data/tei:editor,
                             $data/tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')],
@@ -187,7 +187,7 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                         {(
                             $data/@*,
                             $data/child::*
-                            [not(self::tei:title[not(@type=('initial-rubric','final-rubric','abbreviation'))])]
+                            [not(self::tei:title[not(@type=('initial-rubric','final-rubric'))])]
                             [not(self::tei:author)]
                             [not(self::tei:editor)]
                             [not(self::tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')])]
@@ -260,7 +260,15 @@ declare function app:display-timeline($node as node(), $model as map(*)){
         </div>
      else ()
 };
- 
+
+(:
+ : Return tei:body/descendant/tei:bibls for use in sources
+:)
+declare %templates:wrap function app:display-citation($node as node(), $model as map(*)){
+    global:tei2html(<citation xmlns="http://www.tei-c.org/ns/1.0">{$model("data")//tei:teiHeader | $model("data")//tei:bibl}</citation>) 
+
+};
+
 (:~
  : Process relationships uses lib/rel.xqm module
 :)                   
@@ -300,6 +308,18 @@ declare function app:subject-headings($node as node(), $model as map(*)){
 :)                   
 declare function app:cited($node as node(), $model as map(*)){
     rel:cited($model("data")//tei:idno[@type='URI'][ends-with(.,'/tei')], request:get-parameter('start', 1),request:get-parameter('perpage', 5))
+};
+
+(:~      
+ : Return teiHeader info to be used in citation used for Syriaca.org bibl module
+:)
+declare %templates:wrap function app:d($node as node(), $model as map(*)){
+    let $rec := $model("data")
+    let $header := 
+        <srophe-about xmlns="http://www.tei-c.org/ns/1.0">
+            {$rec//tei:teiHeader}
+        </srophe-about>
+    return global:tei2html($header)
 };
 
 (:~      
