@@ -378,20 +378,38 @@
                                         <xsl:when test="@ref='lawd:hasCitation'">
                                             <bib-relations xmlns="http://www.tei-c.org/ns/1.0">
                                                 <xsl:for-each select="tokenize(@active,' ')">
-                                                    <xsl:variable name="bibl-id" select="replace(.,'#','')"/>
-                                                    <xsl:for-each select="$all-bibs/descendant::t:bibl[@bibid = $bibl-id]">
-                                                        <xsl:copy-of select="."/>
-                                                    </xsl:for-each>
+                                                    <xsl:choose>
+                                                        <xsl:when test="contains(.,'#')">
+                                                            <xsl:variable name="bibl-id" select="replace(.,'#','')"/>
+                                                            <xsl:for-each select="$all-bibs/descendant::t:bibl[@bibid = $bibl-id]">
+                                                                <xsl:copy-of select="."/>
+                                                            </xsl:for-each>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <bibl type='ref'>
+                                                                <xsl:value-of select="."/>
+                                                            </bibl>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
                                                 </xsl:for-each>
                                             </bib-relations>
                                         </xsl:when>
                                         <xsl:otherwise>
                                             <bib-relations xmlns="http://www.tei-c.org/ns/1.0">
                                                 <xsl:for-each select="tokenize(@passive,' ')">
-                                                    <xsl:variable name="bibl-id" select="replace(.,'#','')"/>
-                                                    <xsl:for-each select="$all-bibs/descendant::t:bibl[@bibid = $bibl-id]">
-                                                        <xsl:copy-of select="."/>
-                                                    </xsl:for-each>
+                                                    <xsl:choose>
+                                                        <xsl:when test="contains(.,'#')">
+                                                        <xsl:variable name="bibl-id" select="replace(.,'#','')"/>
+                                                        <xsl:for-each select="$all-bibs/descendant::t:bibl[@bibid = $bibl-id]">
+                                                            <xsl:copy-of select="."/>
+                                                        </xsl:for-each>
+                                                        </xsl:when>
+                                                        <xsl:otherwise>
+                                                            <bibl type='ref'>
+                                                                <xsl:value-of select="."/>
+                                                            </bibl>
+                                                        </xsl:otherwise>
+                                                    </xsl:choose>
                                                 </xsl:for-each>
                                             </bib-relations>                                            
                                         </xsl:otherwise>
@@ -409,8 +427,17 @@
                                     </xsl:otherwise>
                                 </xsl:choose>
                                 <xsl:for-each-group select="$bibl-rel/descendant-or-self::t:bibl" group-by="@type">
-                                    <xsl:copy-of select="current-group()"/>
-                                    <xsl:value-of select="current-grouping-key()"/>
+                                    <xsl:choose>
+                                        <xsl:when test="current-grouping-key() = 'ref'">
+                                            <a href="{current-group()/text()}"><xsl:copy-of select="current-group()"/></a>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:copy-of select="current-group()"/>                                            
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                    <xsl:if test="current-grouping-key() != 'ref'">
+                                        <xsl:value-of select="current-grouping-key()"/>
+                                    </xsl:if>
                                     <xsl:for-each select="current-group()">
                                         <xsl:text> </xsl:text>
                                         <xsl:value-of select="string(@position)"/>
