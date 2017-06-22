@@ -386,7 +386,7 @@
                                                             </xsl:for-each>
                                                         </xsl:when>
                                                         <xsl:otherwise>
-                                                            <bibl type='ref'>
+                                                            <bibl type="ref">
                                                                 <xsl:value-of select="."/>
                                                             </bibl>
                                                         </xsl:otherwise>
@@ -405,7 +405,7 @@
                                                         </xsl:for-each>
                                                         </xsl:when>
                                                         <xsl:otherwise>
-                                                            <bibl type='ref'>
+                                                            <bibl type="ref">
                                                                 <xsl:value-of select="."/>
                                                             </bibl>
                                                         </xsl:otherwise>
@@ -1535,6 +1535,14 @@
                         </xsl:apply-templates>
                     </xsl:for-each>
                 </ul>
+                <xsl:if test="t:title[@type='abbreviation']">
+                    <h3>Abbreviations</h3>
+                    <ul>
+                        <xsl:for-each select="t:title[@type='abbreviation']">
+                            <xsl:apply-templates select="." mode="list"/>
+                        </xsl:for-each>
+                    </ul>
+                </xsl:if>
                 <xsl:if test="t:author | t:editor">
                     <h3>Authors</h3>
                     <ul>
@@ -1612,14 +1620,6 @@
                 <h3>Final Rubrics</h3>
                 <ul>
                     <xsl:for-each select="t:title[@type='final-rubric']">
-                        <xsl:apply-templates select="." mode="list"/>
-                    </xsl:for-each>
-                </ul>
-            </xsl:if>
-            <xsl:if test="t:title[@type='abbreviation']">
-                <h3>Abbreviations</h3>
-                <ul>
-                    <xsl:for-each select="t:title[@type='abbreviation']">
                         <xsl:apply-templates select="." mode="list"/>
                     </xsl:for-each>
                 </ul>
