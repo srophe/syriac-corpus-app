@@ -28,7 +28,7 @@
                         Distributed under a Creative Commons Attribution 3.0 Unported License
                     </licence>
                 </availability>
-                <date>2017-03-02</date>
+                <date>2017-06-23</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -41,6 +41,7 @@
         </encodingDesc>
         <revisionDesc>
             <change type="reminder">Please be sure to update the publication date when changes are made here!</change>
+            <change when="2017-06-23" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: André Binggeli, Françoise Briquel-Chatonnet, Alain Desreumaux, Emilie Villey, Youssef Dergham, Margherita Farina, Simone I. M. Pratelli, Flavia Ruani, Eleonora Serra</change>
             <change when="2017-05-09" who="http://syriaca.org/documentation/editors.xml#dschwartz">ADDED: Edward Keogh, Jimmy Daccache, Katayoun Torabi, Reyhan Dumaz, Ashoor Yousif, Simcha Gross, Ralph Barczok, Maria E. Doerfler, Kelli Gibson, Jeffrey Wickes, Joshua Falconer, Ute Possekel, Eric Garret, Erin Galgay Walsh, Muriel Debie, Joshua McManaway, and Nick Elder</change>
             <change when="2017-03-02" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Griogry Kessel and Nicolas Bamballi</change>
             <change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Ugo Zanetti and Claude Detienne</change>
@@ -425,6 +426,60 @@
                     <persName xml:lang="en">
                         <forename>Nick</forename>
                         <surname>Elder</surname>
+                    </persName>
+                </person>
+                <person xml:id="abinggeli">
+                    <persName xml:lang="en">
+                        <forename>André</forename>
+                        <surname>Binggeli</surname>
+                    </persName>
+                </person>
+                <person xml:id="fbriquelchatonnet">
+                    <persName xml:lang="en">
+                        <forename>Françoise</forename>
+                        <surname>Briquel-Chatonnet</surname>
+                    </persName>
+                </person>
+                <person xml:id="adesreumaux">
+                    <persName xml:lang="en">
+                        <forename>Alain</forename>
+                        <surname>Desreumaux</surname>
+                    </persName>
+                </person>
+                <person xml:id="evilley">
+                    <persName xml:lang="en">
+                        <forename>Emilie</forename>
+                        <surname>Villey</surname>
+                    </persName>
+                </person>
+                <person xml:id="ydergham">
+                    <persName xml:lang="en">
+                        <forename>Youssef</forename>
+                        <surname>Dergham</surname>
+                    </persName>
+                </person>
+                <person xml:id="mfarina">
+                    <persName xml:lang="en">
+                        <forename>Margherita</forename>
+                        <surname>Farina</surname>
+                    </persName>
+                </person>
+                <person xml:id="spratelli">
+                    <persName xml:lang="en">
+                        <forename>Simone I. M.</forename>
+                        <surname>Pratelli</surname>
+                    </persName>
+                </person>
+                <person xml:id="fruani">
+                    <persName xml:lang="en">
+                        <forename>Flavia</forename>
+                        <surname>Ruani</surname>
+                    </persName>
+                </person>
+                <person xml:id="eserra">
+                    <persName xml:lang="en">
+                        <forename>Eleonora</forename>
+                        <surname>Serra</surname>
                     </persName>
                 </person>
                 <org xml:id="uasyriacresearchgroup">
