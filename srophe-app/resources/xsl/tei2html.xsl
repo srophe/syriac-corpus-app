@@ -385,7 +385,7 @@
                                                                 <xsl:copy-of select="."/>
                                                             </xsl:for-each>
                                                         </xsl:when>
-                                                        <xsl:otherwise>T4
+                                                        <xsl:otherwise>
                                                             <xsl:variable name="bibl-id" select="."/>
                                                             <xsl:for-each select="$all-bibs/descendant::t:bibl[@ref = $bibl-id]">
                                                                 <xsl:copy-of select="."/>
