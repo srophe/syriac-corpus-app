@@ -366,7 +366,7 @@
                                         <xsl:for-each-group select="ancestor::t:bibl[@type='lawd:ConceptualWork']/t:bibl" group-by="@type">
                                             <bibList>
                                                 <xsl:for-each select="current-group()">
-                                                    <bibl bibid="{@xml:id}" position="{position()}" type="{local:translate-label(string(current-grouping-key()),count(current-group()))}"/>
+                                                    <bibl bibid="{@xml:id}" position="{position()}" type="{local:translate-label(string(current-grouping-key()),count(current-group()))}" ref="{string-join(descendant::t:ptr/@target,' ')}"/>
                                                 </xsl:for-each>
                                             </bibList>
                                         </xsl:for-each-group>
@@ -385,10 +385,11 @@
                                                                 <xsl:copy-of select="."/>
                                                             </xsl:for-each>
                                                         </xsl:when>
-                                                        <xsl:otherwise>
-                                                            <bibl type="ref">
-                                                                <xsl:value-of select="."/>
-                                                            </bibl>
+                                                        <xsl:otherwise>T4
+                                                            <xsl:variable name="bibl-id" select="."/>
+                                                            <xsl:for-each select="$all-bibs/descendant::t:bibl[@ref = $bibl-id]">
+                                                                <xsl:copy-of select="."/>
+                                                            </xsl:for-each>    
                                                         </xsl:otherwise>
                                                     </xsl:choose>
                                                 </xsl:for-each>
@@ -405,9 +406,10 @@
                                                         </xsl:for-each>
                                                         </xsl:when>
                                                         <xsl:otherwise>
-                                                            <bibl type="ref">
-                                                                <xsl:value-of select="."/>
-                                                            </bibl>
+                                                            <xsl:variable name="bibl-id" select="."/>
+                                                            <xsl:for-each select="$all-bibs/descendant::t:bibl[@ref = $bibl-id]">
+                                                                <xsl:copy-of select="."/>
+                                                            </xsl:for-each>   
                                                         </xsl:otherwise>
                                                     </xsl:choose>
                                                 </xsl:for-each>
@@ -429,7 +431,9 @@
                                 <xsl:for-each-group select="$bibl-rel/descendant-or-self::t:bibl" group-by="@type">
                                     <xsl:choose>
                                         <xsl:when test="current-grouping-key() = 'ref'">
-                                            <a href="{current-group()/text()}"><xsl:copy-of select="current-group()"/></a>
+                                            <a href="{current-group()/text()}">
+                                                <xsl:copy-of select="current-group()"/>
+                                            </a>
                                         </xsl:when>
                                         <xsl:otherwise>
                                             <xsl:copy-of select="current-group()"/>                                            
@@ -1092,9 +1096,15 @@
     </xsl:template>
     <xsl:template match="t:idno">
         <xsl:choose>
-            <xsl:when test="@type= ('URL','URI')"><a href="."><xsl:value-of select="."/></a></xsl:when>
+            <xsl:when test="@type= ('URL','URI')">
+                <a href=".">
+                    <xsl:value-of select="."/>
+                </a>
+            </xsl:when>
             <xsl:otherwise>
-                <span><xsl:value-of select="@type"/>: </span><xsl:value-of select="."/>
+                <span>
+                    <xsl:value-of select="@type"/>: </span>
+                <xsl:value-of select="."/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
