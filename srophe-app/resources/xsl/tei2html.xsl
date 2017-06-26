@@ -366,7 +366,7 @@
                                         <xsl:for-each-group select="ancestor::t:bibl[@type='lawd:ConceptualWork']/t:bibl" group-by="@type">
                                             <bibList>
                                                 <xsl:for-each select="current-group()">
-                                                    <bibl bibid="{@xml:id}" position="{position()}" type="{local:translate-label(string(current-grouping-key()),count(current-group()))}" ref="{string-join(descendant::t:ptr/@target,' ')}"/>
+                                                    <bibl bibid="{@xml:id}" position="{position()}" type="{local:translate-label(string(current-grouping-key()),count(current-group()))}" ref="{string-join(child::t:ptr/@target,' ')}"/>
                                                 </xsl:for-each>
                                             </bibList>
                                         </xsl:for-each-group>
@@ -422,23 +422,14 @@
                                 <xsl:value-of select="$bibl-type"/>
                                 <xsl:choose>
                                     <xsl:when test="@ref='lawd:hasCitation'">
-                                        <xsl:text> cites  </xsl:text>
+                                        <xsl:text> cites </xsl:text>
                                     </xsl:when>
                                     <xsl:otherwise>
                                         <xsl:text> based on  </xsl:text>
                                     </xsl:otherwise>
                                 </xsl:choose>
                                 <xsl:for-each-group select="$bibl-rel/descendant-or-self::t:bibl" group-by="@type">
-                                    <xsl:choose>
-                                        <xsl:when test="current-grouping-key() = 'ref'">
-                                            <a href="{current-group()/text()}">
-                                                <xsl:copy-of select="current-group()"/>
-                                            </a>
-                                        </xsl:when>
-                                        <xsl:otherwise>
-                                            <xsl:copy-of select="current-group()"/>                                            
-                                        </xsl:otherwise>
-                                    </xsl:choose>
+                                    <xsl:copy-of select="current-group()"/>
                                     <xsl:if test="current-grouping-key() != 'ref'">
                                         <xsl:value-of select="current-grouping-key()"/>
                                     </xsl:if>
