@@ -9,8 +9,6 @@ import module namespace geojson="http://syriaca.org/geojson" at "lib/geojson.xqm
 import module namespace geokml="http://syriaca.org/geokml" at "lib/geokml.xqm";
 import module namespace tei2ttl="http://syriaca.org/tei2ttl" at "lib/tei2ttl.xqm";
 import module namespace feed="http://syriaca.org/atom" at "lib/atom.xqm";
-import module namespace sprql-queries="http://syriaca.org/sprql-queries" at "lib/sparql.xqm";
-
 declare namespace json="http://www.json.org";
 (: For output annotations  :)
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
@@ -115,12 +113,11 @@ declare
     %rest:GET
     %rest:path("/srophe/api/search/{$element}")
     %rest:query-param("q", "{$q}", "")
-    %rest:query-param("idno", "{$idno}", "")
     %rest:query-param("collection", "{$collection}", "")
     %rest:query-param("lang", "{$lang}", "")
     %rest:query-param("author", "{$author}", "")
     %output:method("json")
-function api:search-element($element as xs:string?, $q as xs:string*, $idno as xs:string*, $collection as xs:string*, $lang as xs:string*, $author as xs:string*){
+function api:search-element($element as xs:string?, $q as xs:string*, $collection as xs:string*, $lang as xs:string*, $author as xs:string*){
     let $collection := if($collection != '') then
                             if($collection = ('Gateway to the Syriac Saints',
                             'The Syriac Biographical Dictionary',
@@ -146,14 +143,8 @@ function api:search-element($element as xs:string?, $q as xs:string*, $idno as x
     let $author := if($author != '') then 
                      concat("[ft:query(.//tei:author,'",$author,"',",$options,")]")
                  else () 
-    let $queryPredicate := 
-        if($q != '') then 
-            concat("[ft:query(.//tei:",$element,",'",$q,"*',",$options,")]")
-        else ()           
-    let $eval-string :=
-        if($idno != '') then  
-            concat("collection('",$global:data-root,"')//tei:TEI[.//tei:idno ='",$idno,"/tei' ]",$queryPredicate,$lang,$collection,$author)
-        else concat("collection('",$global:data-root,"')//tei:TEI",$queryPredicate,$lang,$collection,$author)
+               
+    let $eval-string := concat("collection('",$global:data-root,"')//tei:TEI[ft:query(.//tei:",$element,",'",$q,"*',",$options,")]",$lang,$collection,$author)
     let $hits := util:eval($eval-string)
     return 
         if(count($hits) gt 0) then 
@@ -173,15 +164,13 @@ function api:search-element($element as xs:string?, $q as xs:string*, $idno as x
                         | $hit/descendant::tei:body/descendant::tei:death/descendant-or-self::text() | 
                         $hit/descendant::tei:body/descendant::tei:floruit/descendant-or-self::text(),' ')
                     else ()
-                let $element-text := util:eval(concat("$hit//tei:",$element,$queryPredicate))                   
+                let $element-text := util:eval(concat("$hit//tei:",$element,"[ft:query(.,'",$q,"*',",$options,")]"))                   
                 return
                         <json:value json:array="true">
                             <id>{$id}</id>
                             {for $e in $element-text 
                              return 
-                                if(not($e/text())) then $e
-                                else element {xs:QName($element)} { normalize-space(string-join($e//text(),' ')) }
-                                }
+                                element {xs:QName($element)} { normalize-space(string-join($e//text(),' ')) }}
                             {if($dates != '') then <dates>{normalize-space($dates)}</dates> else ()}
                         </json:value>
                 }
@@ -243,7 +232,6 @@ function api:get-ttl-collection($collection as xs:string, $start as xs:string,$p
      )
 };
 :)
-
 (:~
   : Use resxq to format urls for tei
   : @param $collection syriaca.org subcollection 
@@ -264,7 +252,8 @@ function api:get-tei($collection as xs:string, $id as xs:string){
                   <http:header name="Content-Type" value="application/xml; charset=utf-8"/>
                   <http:header name="Access-Control-Allow-Origin" value="*"/> 
                 </http:response> 
-              </rest:response>, $rec)
+              </rest:response>, 
+              api:get-tei-rec($collection, $id))
         else 
             (<rest:response> 
                 <http:response status="400">
@@ -346,58 +335,6 @@ function api:get-atom-feed($start as xs:integer*, $perpage as xs:integer*){
      feed:build-atom-feed($feed, $start, $perpage,'',$total)
      )
 };
-
-(:~
-  : SPARQL endpoint 
-  : Serialized as XML
-:)
-declare
-    %rest:GET
-    %rest:path("/srophe/api/sparql")
-    %rest:query-param("qname", "{$qname}", "")
-    %rest:query-param("id", "{$id}", "")
-    %output:media-type("application/atom+xml")
-    %output:method("xml")
-function api:sparql-endpoint($qname as xs:string*, $id as item()*){
-  if(not(empty($qname))) then
-    if($qname = 'related-subjects-count') then
-        sprql-queries:related-subjects-count($id)
-    else if($qname = 'related-citations-count') then
-        sprql-queries:related-citations-count($id) 
-    else if($qname = 'label') then
-        sprql-queries:label($id) 
-    else <message>Submitted query is not a valid Syriaca.org named query. Please use the q paramater to submit a custom SPARQL query</message>
-  else <message>No query data submitted</message>
-};
-
-(:~
-  : SPARQL endpoint 
-  : Serialized as XML
-:)
-(:
-declare
-    %rest:POST("{$data}")
-    %rest:path("/srophe/api/sparql")
-function api:sparql-endpoint($qname as xs:string*, $data as item()*){
-  if(not(empty($data))) then
-      sprql-queries:run-query($data)
-  else <message>No query data submitted</message>
-};
-:)
-(:
-declare 
-    %rest:GET
-    %rest:path("/srophe/api/sparql-endpoint")
-    %rest:query-param("query", "{$query}", "")
-    %rest:query-param("qname", "{$qname}", "")
-    %output:media-type("text/xml ")
-    %output:method("xml")
-function api:get-atom-feed($query as xs:string*, $qname as xs:string*){
-    if($query != '') then
-        <p>'Query'</p>
-    else <p>'Named query'</p>
-};
-:)
 
 (:~
  : Returns tei record for syriaca.org subcollections
