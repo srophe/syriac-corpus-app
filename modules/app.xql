@@ -722,7 +722,7 @@ declare function app:toc($nodes){
 for $node in $nodes
 return 
         typeswitch($node)
-            case text() return $node
+            case text() return normalize-space($node)
             case element(tei:div1) return 
                 app:toc($node/node())
             case element(tei:div2) return 
@@ -735,7 +735,7 @@ return
                 let $id := 
                     if($node/@xml:id) then string($node/@xml:id) 
                     else if($node/parent::*[1]/@n) then
-                        concat('head-',string($node/parent::*[1]/@n))
+                        concat('Head-id.',string-join($node/ancestor::*[@n]/@n,'.'))
                     else 'on-parent'
                 return 
                     (<a href="#{$id}" class="toc-item">{string-join($node/descendant-or-self::text(),' ')}</a>, ' ') 

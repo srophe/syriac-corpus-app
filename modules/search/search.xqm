@@ -92,24 +92,31 @@ concat("collection('",$global:data-root,"')//tei:TEI",
     common:keyword(),
     common:xpath-search('.//tei:titleStmt/tei:author',request:get-parameter('author', '')),
     common:xpath-search('.//tei:body/tei:div1/tei:head/tei:title',request:get-parameter('title', '')), 
-    search:section(),
+    common:xpath-search('.//tei:body/tei:div1/tei:div2/tei:head',request:get-parameter('section', '')),
     search:corpus-id(),
     search:syriaca-id(),
-    search:text-id()
+    search:text-id(),
+    search:nhsl-edition(),
+    search:bibl-edition()
     )
 };
 
 (: Corpus specific search fields:) 
- 
-declare function search:section(){
+declare function search:corpus-id(){
     if(request:get-parameter('corpus-uri', '') != '') then 
-        concat("[.//tei:div2/@n[. = '",request:get-parameter('section', ''),"']]") 
+        concat("[.//tei:publicationStmt/tei:idno = '",request:get-parameter('corpus-uri', ''),"']") 
     else '' 
 };
 
-declare function search:corpus-id(){
-    if(request:get-parameter('corpus-uri', '') != '') then 
-        concat("[.//tei:idno[. = '",request:get-parameter('corpus-uri', ''),"']]") 
+declare function search:bibl-edition(){
+    if(request:get-parameter('bibl-edition', '') != '') then 
+        concat("[.//tei:fileDesc/tei:sourceDesc/tei:biblStruct/tei:idno[@type='URI'][. = '",request:get-parameter('bibl-edition', ''),"']]") 
+    else '' 
+};
+
+declare function search:nhsl-edition(){
+    if(request:get-parameter('nhsl-edition', '') != '') then 
+        concat("[.//tei:fileDesc/tei:titleStmt/tei:title[@ref = '",request:get-parameter('nhsl-edition', ''),"']]") 
     else '' 
 };
 
@@ -121,7 +128,7 @@ declare function search:syriaca-id(){
 
 declare function search:text-id(){
     if(request:get-parameter('text-id', '') != '') then 
-        concat("[.//tei:idno[. = 'https://syriaccorpus.org/",request:get-parameter('text-id', ''),"']]") 
+        concat("[.//tei:div1[@n = '",request:get-parameter('text-id', ''),"']]") 
     else '' 
 };
 
@@ -308,18 +315,19 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
     <div>{search:build-geojson($node,$model)}</div>
     {
         for $hit at $p in subsequence($model("hits"), $search:start, $search:perpage)
-        let $id := $hit/descendant::tei:idno[1]
-        let $expanded := 
-                if(request:get-parameter('section', '') != '') then 
-                    kwic:expand($hit//tei:div2[@n = request:get-parameter('section', '')])
-                else kwic:expand($hit) 
+        let $id := $hit//tei:idno[1]
+        let $expanded := kwic:expand($hit)
         order by ft:score($hit) descending
         return
             <div class="row" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
                 <div class="col-md-12">
                       <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">
                         <span class="badge">
-                            {$search:start + $p - 1}
+                            {
+                                if(request:get-parameter('child-rec', '') != '' and ($search:sort-element = '' or not(exists($search:sort-element)))) then
+                                    string($hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order']/@n)
+                                else $search:start + $p - 1
+                            }
                         </span>
                       </div>
                       <div class="col-md-9" xml:lang="en">
@@ -328,8 +336,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                             if($expanded//exist:match) then
                                 <div class="row" xmlns="http://www.w3.org/1999/xhtml">{
                                     for $match in $expanded//exist:match
-                                    let $n := $match/ancestor-or-self::*[@n][1]/@n
-                                    let $link := concat($global:nav-base,'/rec.html?id=',$id,'#head-',$n)
+                                    let $link := concat($global:nav-base,'/rec.html?id=',$id,'#head-',$match/ancestor-or-self::*[@n][1]/@n)
                                     return 
                                         (
                                         <div class="col-md-9" style="padding-left:3em;">
