@@ -346,7 +346,9 @@
             </xsl:choose>
             <xsl:if test="@n">
                 <xsl:choose>
-                    <xsl:when test="child::t:head"/>
+                    <xsl:when test="child::t:head">
+                        <span id="{$currentid}"></span>
+                    </xsl:when>
                     <xsl:otherwise>
                         <span class="text-number badge">
                             <xsl:value-of select="@n"/>
@@ -388,7 +390,9 @@
             </xsl:choose>
             <xsl:if test="@n">
                 <xsl:choose>
-                    <xsl:when test="child::t:head"/>
+                    <xsl:when test="child::t:head">
+                        <span id="{$currentid}"></span>
+                    </xsl:when>
                     <xsl:otherwise>
                         <span class="text-number badge">
                             <xsl:value-of select="@n"/>
@@ -402,12 +406,21 @@
         </span>
     </xsl:template>
     <xsl:template match="t:p">
+        <xsl:param name="parentID"/>
+        <xsl:variable name="currentid" select="concat(if($parentID != '') then $parentID else 'id','.',@n)"/>
         <p class="{name(.)}{if(@unit) then concat(' ',@unit) else ()} text-display">
-            <xsl:if test="@n and child::t:head">
-                <xsl:attribute name="id">
-                    <xsl:value-of select="concat('head-',@n)"/>
-                </xsl:attribute>
-            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="child::t:head">
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="concat('Head-',$currentid)"/>
+                    </xsl:attribute>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="$currentid"/>
+                    </xsl:attribute>
+                </xsl:otherwise>
+            </xsl:choose>
             <xsl:choose>
                 <xsl:when test="@lang">
                     <xsl:call-template name="langattr"/>
@@ -421,15 +434,19 @@
             </xsl:choose>
             <xsl:if test="@n">
                 <xsl:choose>
-                    <xsl:when test="child::t:head"/>
+                    <xsl:when test="child::t:head">
+                        <span id="{$currentid}"></span>
+                    </xsl:when>
                     <xsl:otherwise>
-                        <span class="text-number badge" id="{local-name(.)}-{@n}">
+                        <span class="text-number badge">
                             <xsl:value-of select="@n"/>
                         </span>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:if>
-            <xsl:apply-templates/>
+            <xsl:apply-templates>
+                <xsl:with-param name="parentID" select="$currentid"/>
+            </xsl:apply-templates>
         </p>
     </xsl:template>
     
