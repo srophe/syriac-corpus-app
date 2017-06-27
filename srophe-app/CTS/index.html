@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>CTS URNs resolver</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="White space bug" />
+        <meta name="creator" content="" />
+        <link rel="shortcut icon" href="$shared/resources/images/exist_icon_16x16.ico" />
+        <link rel="stylesheet" type="text/css" href="$shared/resources/css/exist-2.2.css" />
+        <script type="text/javascript" src="$shared/resources/scripts/jquery/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="$shared/resources/scripts/bootstrap-3.0.3.min.js"></script>
+        <script type="text/javascript" src="$shared/resources/scripts/loadsource.js"></script>
+    </head>
+    <body id="grey-top">
+        <div class="grey-bot">
+            <div class="container" id="main-container">
+                <div class="row">
+                    <div class="col-md-12" id="header">
+                        <a href="/" id="logo">CTS URNs</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <div class="navbar-collapse collapse" id="navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown" id="about">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                        >Home</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href=".">CTS URNs</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <div>
+                    <h1>CTS URNs</h1>
+                    <p>A bare-bones resolution service for CTS URNs (<a href="http://cite-architecture.github.io/">http://cite-architecture.github.io/</a>)</p>
+                    <p>Try some example URNs:</p>
+                    <ul>
+                        <li>urn:cts:syriacLit:nhsl8501</li>
+                        <li>urn:cts:syriacLit:nhsl8501.nhsl8503</li>
+                        <li>urn:cts:syriacLit:nhsl8501.nhsl8503.syriacCorpus1</li>
+                        <li>urn:cts:syriacLit:nhsl8501.nhsl8503.syriacCorpus121:4.10</li>
+                    </ul>
+                    <form action="cts-resolver.xql" method="post">
+                        URN: <input type="text" name="urn" value="" />
+                        <input type="submit" value="Submit" />
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <div class="container">
+                <div id="copyright">
+                    <p>Syriaca.org</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
