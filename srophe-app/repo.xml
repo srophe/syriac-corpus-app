@@ -67,6 +67,7 @@
             <collection name="spear" title="SPEAR: Syriac Persons Events and Relations" app-root="spear" data-root="spear" record-URI-pattern="http://syriaca.org/spear/"/>
             <collection name="bibl" title="Syriaca.org Works Cited" app-root="bibl" data-root="bibl" record-URI-pattern="http://syriaca.org/bibl/"/>
             <collection name="subjects" title="A Taxonomy of Syriac Studies" app-root="taxonomy" data-root="subjects" record-URI-pattern="http://syriaca.org/keyword/"/>
+            <collection name="bethqatraye" title="Beth Qatraye Gazetteer" collection-URI="http://syriaca.org/bethqatraye" series="The Syriac Gazetteer" app-root="bethqatraye" data-root="place" record-URI-pattern="http://syriaca.org/place/"/>
         </collections>
         <!--
     <google_analytics>var _gaq=[['_setAccount','UA-333143-26'],['_trackPageview']];
