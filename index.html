@@ -1,80 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
-    <div class="full-page hide-search" style="background-color:#666; border-bottom:4px solid #456889;margin:0 0 1em 0; padding:1em 0;">
-        <!--
-        <ul id="lightSlider">
-            <li class="slide top-button mss-slide overlay">
-                <a href="mss/index.html" class="gradient">
-                    Records
+    <xi:include href="banner.html"/>
+    <div class="banner full-page hide-search" style="margin-bottom:0;">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <form role="search" id="site_search_form" method="GET" class="col-xs-12 col-sm-offset-2 col-sm-8" action="search.html" style="">
+                    <div class="input-group">
+                        <input type="text" class="homepage_search_input form-control input-lg transparent-input" placeholder="Search SBD" name="q" id="q"/>
+                        <input type="hidden" id="collection" value="persons"/>
+                        <div class="input-group-btn">
+                            <button class="btn btn-default input-lg" type="submit">   <span class="glyphicon glyphicon-search"/>
+                            </button>
+                            <a href="search.html" title="advanced search" class="btn btn-default input-lg" style="padding-top:.75em;">  
+                                <span class="glyphicon glyphicon-cog"/> Search Tools
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2"/>
+        </div>
+    </div>
+    <div class="container indent" style="margin:1.5em;">
+        <h2>About The Oxford-BYU Syriac Corpus project</h2>
+        <p class="indent">The Syriac Corpus is a curated digital repository of TEI encoded texts written in classical Syriac. The interface provides effective browse and search functionality. Use the above search box to perform basic string searches, or browse the corpus by title or by author. The Search Tools button accesses more advanced searches. Individual texts may be downloaded to facilitate publishing projects, such as the production of critical editions, and research, such as more advanced corpus linguistic analysis. We invite users to submit corrections and to contribute digital texts.</p>
+        <h3>Editors</h3>        
+        <ul>
+            <li>Prof. David G.K. Taylor, editor-in-chief, University of Oxford</li>
+            <li>Prof. Aaron Butts, The Catholic University of America</li>
+            <li>Prof. Muriel Debié, École pratique des hautes études, Paris</li>
+            <li>Dr. Kristian S. Heal, Brigham Young University</li>
+            <li>Dr. George A. Kiraz, Beth Mardutho: The Syriac Institute</li>
+            <li>Prof. David A. Michelson, Vanderbilt University</li>
+            <li>Prof. Daniel L. Schwartz, Texas A&amp;M University</li>
+            <li>Prof. James E. Walters, Rochester College</li>
+            <li>Prof. Dr. Dorothea Weltecke, Goethe-Universität, Frankfurt am Main</li>
+        </ul>  
+        <hr/>
+        <p>Support for the Syriac Corpus has been provided by the 
+            Initiative for Digital Humanities, Media, and Culture at Texas A&amp;M University, 
+            the Oriental Institute at the University of Oxford, 
+            the Neal A. Maxwell Institute for Religious Scholarship at Brigham Young University, 
+            and Vanderbilt University. The corpus is built on an instance of the Srophe app.</p>
+        <ul class="list-inline funding" style="margin-left:2em;">
+            <li>
+                <a href="http://idhmc.tamu.edu/">
+                    <img src="resources/img/IDHMC-Header-2.png" alt=" Initiative for Digital Humanities, Media, and Culture, Texas A&amp;M" height="65px"/>
                 </a>
-                <span class="more-info">
-                    <br/>
-                    <p>Short description of Module.</p>
-                    <p>
-                        <a href="#" style="color:white;">example record</a>
-                    </p>
-                </span>
-                <span class="slide-credit">
-                    <a href="mss/index.html" class="icon-container">
-                        <span class="syriaca-icon syriaca-mss icon-nav">
-                            <span class="path1"/>
-                            <span class="path2"/>
-                            <span class="path3"/>
-                            <span class="path4"/>
-                        </span>
-                        <span class="icon-text">MSS</span>
-                    </a>
-                </span>
+            </li>
+            <li><span style="display:inline-block; width:200px; border:1px solid #eee;font-size:small;">[Logo and link needed] the Oriental Institute at the University of Oxford</span></li>
+            <li><span style="display:inline-block; width:200px; border:1px solid #eee; font-size:small;">[logo and link needed] Neal A. Maxwell Institute for Religious Scholarship at Brigham Young University</span></li>
+            <li>
+                <a href="http://www.vanderbilt.edu/">
+                    <img src="resources/img/vu07b.gif" alt="Vanderbilt University" height="65px"/>
+                </a>
+            </li>
+            <li>
+                <a href="http://www.library.vanderbilt.edu/">
+                    <img src="resources/img/HeardLogo_b.gif" alt="Jean and Alexander Heard Library, Vanderbilt University" height="45px"/>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/srophe/srophe-eXist-app">
+                    <img src="resources/img/icons/srophe-logo.png" alt="Powered by Srophe" height="75px"/>
+                </a>
             </li>
         </ul>
-        <script type="text/javascript">
-            $(document).ready(function() {
-            $("#lightSlider").lightSlider({
-            item: 2,
-            autoWidth: false,
-            slideMove: 1, // slidemove will be 1 if loop is true
-            loop:false,
-            easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
-            speed:600,
-            slideMargin:5,
-            prevHtml:'<span class="glyphicon glyphicon-chevron-left slider-control" aria-hidden="true"/>',
-            nextHtml:'<span class="glyphicon glyphicon-chevron-right slider-control" aria-hidden="true"/>',
-            responsive : [
-            {
-            breakpoint:768,
-            settings: {
-            item:3,
-            slideMove:1,
-            slideMargin:5
-            }
-            },
-            {
-            breakpoint:320,
-            settings: {
-            item:1,
-            slideMove:1
-            }
-            }
-            ]
-            });
-            });
-            
-        </script>
-        -->
     </div>
-    <div class="row">
-        <div class="col-md-8">
-            <div class="container">
-                <h2>About The Oxford-BYU Syriac Corpus project</h2>
-                <p class="indent">Intro text</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <h3 class="underline">Latest News</h3>
-            <!--<ul class="nav nav-tabs nav-stacked" data-template="app:get-feed"/>-->
-        </div>
-    </div>
-    <hr/>
     <!--
     <div class="row">
         <div class="col-md-12">
@@ -119,7 +111,7 @@
                 </li>
                 <li>
                     <a href="http://idhmc.tamu.edu/">
-                        <img src="resources/img/IDHMC-Header-2.png" alt=" Initiative for Digital Humanities, Media, and Culture, Texas A&amp;M" height="65px"/>
+                        <img src="resources/img/IDHMC-Header-2.png" alt=" Initiative for Digital Humanities, Media, and Culture, Texas A&M" height="65px"/>
                     </a>
                 </li>
                 <li>

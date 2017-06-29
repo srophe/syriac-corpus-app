@@ -1,7 +1,7 @@
 /* Application styles could go here */
 /**
  * Colors: 
- * Bllue: 456889
+ * Dark green: 4E6D59
  */
 /* Import Fonts CSS */ 
 
@@ -78,9 +78,9 @@
     
 }
 /* Main content blocks */
-body {font-family: arial, sans-serif; background-color:#385978;}
-#main { padding: 0; background-color:#999; }
-#content{background-color:white; padding-top: 50px;}
+body {font-family: arial, sans-serif;}
+#content {background-color:white; padding-top: 50px;}
+footer{background-color:#444;}
 
 /* Removed extra padding introduced by Bootstrap for rows. Was causing issues with background images */
 .row { margin-left: 0px; margin-right: 0px;}
@@ -91,11 +91,11 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 .full-page {margin-top:0;}
 
 /* Navbar styles*/
-.navbar {border-bottom:4px solid #456889 !important;}
-.navbar-inner {border-bottom:.5em solid #456889 !important;}
+.navbar {border-bottom:4px solid #4E6D59 !important;}
+.navbar-inner {border-bottom:.5em solid #4E6D59 !important;}
 .navbar-inner .container{height: 45px !important; padding-top:.5em; margin-left:.5em;}
 .navbar-brand {margin-top:-.75em; padding-left:0; margin-left:0; margin-right:-2em;}
-.navbar-brand img {padding:0; margin:0; }
+.navbar-brand img {padding:0; margin-top: -.25em; margin-left: 1em; margin-right:0;}
 
 .brand {margin-top:-.75em; margin-left:40px;padding-left:0;}
 .brand img {margin-left:1.5em;padding-left:0;}
@@ -156,25 +156,12 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 .nav-text {display:inline-block; line-height:1.5em; margin-top:.25em;}
 
 .banner-container {display:inline-block; line-height:2.5em;}
-.banner-icon {font-size:2.5em; display:inline-block; margin-right:.15em;}
+.banner-icon {font-size:2.5em; display:inline-block; padding-top:0;}
 
  * /*
  * font-family: Tahoma, Geneva, sans-serif;
  */
-.banner-text {color: #888; display:inline-block; margin-top:-.95em; vertical-align: middle; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}
-/* Small Syrica.org icons for submodules in nav menus */
-.geo-sm-icon {background-image: url(../img/icons-geo-sm.png);}
-.saints-sm-icon {background-image: url(../img/icons-saints-sm.png);}
-.persons-sm-icon {background-image: url(../img/icons-persons-sm.png);}
-.authors-sm-icon {background-image: url(../img/icons-authors-sm.png);}
-.spear-sm-icon {background-image: url(../img/icons-spear-sm.png);}
-.mss-sm-icon {background-image: url(../img/icons-mss-sm.png);}
-.bhse-sm-icon {background-image: url(../img/icons-bhse-sm.png);}
-.nhsl-sm-icon {background-image: url(../img/icons-nhsl-sm.png);}
-.q-sm-icon {background-image: url(../img/icons-q-sm.png);}
-.syriaca-sm-icon {background-image: url(../img/icons-syriaca-sm.png);}
-.rec-status {display:block; width:100% !important; margin-bottom:1em; padding:1em;}
-.info-btns {width:100%; margin-bottom:1em;}
+.banner-text {color: #888; display:inline-block; margin-top:-.75em; vertical-align: middle; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}
 
 /* Banner styles index page (Colors and images are set by internal css for submodules) */
 .banner-index {
@@ -188,18 +175,6 @@ body {font-family: arial, sans-serif; background-color:#385978;}
     width:100%;
 }
 
-/* Bibl banner*/
-.banner-bibl {
-    position:relative;
-    margin-top:-1em;
-    padding-top:0;
-	background-image:url('../img/bibl-banner.png');
-	background-size:cover;
-	background-position:top;
-    height:250px;
-    width:100%;
-    border-bottom:4px solid #456889;
-}
    
 .overlay {
     font-weight:200;
@@ -216,11 +191,11 @@ body {font-family: arial, sans-serif; background-color:#385978;}
 .banner-interior {
     position:relative;
     padding-top:0;
-    border-bottom:4px solid #456889;
-	background-image:url('../img/resafa_arch.jpg');
+    border-bottom:4px solid #4E6D59;
+	background-image:url('../img/banner.png');
 	background-size:cover;
 	background-position:center;
-	height:150px;
+	height:250px;
     width:100%;
     overflow-x: hidden; 
 } 
@@ -256,18 +231,18 @@ footer {text-align:center; color:white;}
 .content-block {background-color:#ffffff !important;}
 .top-padding {margin-top:2em;}
 .block {display:block;}
-.banner {font-size: 24px; color:white; background-color:#456889; margin:0 0 1em 0; padding:.5em 1em;; border-bottom:4px solid #456889;}
+.banner {font-size: 24px; color:white; background-color:#4E6D59; margin:0 0 1em 0; padding:.5em 1em;; border-bottom:4px solid #4E6D59;}
 .div1 {margin:1em;}
 .div2 {margin:1em;}
 .div3 {margin:1em;}
 .div4 {margin:1em;}
 .div5 {margin:1em;}
 /* Typography */
-h1 {font-size:1.5em; margin:.25em 0 .25em 0; color:#456889; font-weight:500;}
+h1 {font-size:1.5em; margin:.25em 0 .25em 0; color:#666; font-weight:500;}
 h2 {font-size: 1.25em; margin:1em 0 .25em 0; padding-bottom:0; color:#999; font-weight:500;}
 h3 {font-size: 1.2em; margin:1em 0 .25em 0; padding-bottom:0; color:#333; font-weight:500;  padding-bottom:0; margin-bottom:1em;}
 h3.banner-solid {color:white;}
-h3.underline {color:#999; border-bottom:3px solid #456889; padding-bottom:-.75em; margin-bottom:1em; margin-top:0;}
+h3.underline {color:#999; border-bottom:3px solid #4E6D59; padding-bottom:-.75em; margin-bottom:1em; margin-top:0;}
 h4 {font-size: 1em; margin:0 0 .25em 0; padding-bottom:0; font-weight:bold;}
 h3.label {
     background-color:#ccc;
