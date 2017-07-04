@@ -319,7 +319,7 @@ declare
     %templates:default("start", 1)
 function search:show-hits($node as node()*, $model as map(*), $collection as xs:string?) {
 <div class="indent" id="search-results">
-    <div>{search:build-geojson($node,$model)} {search:search-xpath($collection)}</div>
+    <div>{search:build-geojson($node,$model)}</div>
     {
         let $hits := $model("hits")
         return 
