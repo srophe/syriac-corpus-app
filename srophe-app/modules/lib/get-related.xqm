@@ -424,17 +424,22 @@ let $recType :=
     else if($collection = ('nhsl','bhse','bible')) then 'work'
     else if($collection = ('subjects','keywords')) then 'keyword'
     else 'record'
+let $title-string :=     
+    if($relType = 'dct:isPartOf') then 
+        concat($title,' contains ',$total,' works.')
+    else if ($relType = 'skos:broadMatch') then
+        if($recType = 'keyword') then 
+           concat($title,' encompasses ',$total,concat(' ',$recType),if($total gt 1) then 's' else '','.')
+        else if($recType = 'work') then 
+            concat('This tradition comprises at least ',$total,' branches',if($total gt 1) then 's' else(),'.')
+        else concat($title,' refers to ',$total,concat(' ',$recType),if($total gt 1) then 's' else(),'.')
+    else concat($title,' ',global:odd2text('relation', $relType),' ',$total,' ',$recType, if($total gt 1) then 's' else(),'.')
 let $collection-root := string(global:collection-vars($collection)/@app-root)    
 return 
     if($total gt 0) then 
         <div xmlns="http://www.w3.org/1999/xhtml">
-            {(if($relType = 'dct:isPartOf') then 
-                <h3>{$title} contains {$total} works.</h3>
-             else if ($relType = 'skos:broadMatch') then
-                if($recType = 'keyword') then 
-                    <h3>{$title} encompasses {$total}{concat(' ',$recType)}{if($total gt 1) then 's' else ''}.</h3>
-                else <h3>{$title} refers to {$total}{concat(' ',$recType)}{if($total gt 1) then 's' else()}.</h3>
-             else <h3>{concat($title,' ',global:odd2text('relation', $relType),' ',$total,' ',$recType, if($total gt 1) then 's' else(),'.')}</h3>,
+            {(
+            <h3>{$title-string}</h3>,
              if($relType = 'syriaca:sometimesCirculatesWith') then
                 <p class="note indent">* Manuscripts of the larger work only sometimes contain the work indicated.</p>
             else ())}
@@ -463,7 +468,7 @@ return
                            <div>
                             <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
                             data-ref="{$global:nav-base}/{$collection-root}/search.html?relId={$recid}&amp;relType={$relType}&amp;perpage={$total}&amp;showPart=true" 
-                            data-label="{$title} contains {$count} works" id="works">
+                            data-label="{$title-string}" id="works">
                               See all {$total} records
                              </a>
                            </div>
