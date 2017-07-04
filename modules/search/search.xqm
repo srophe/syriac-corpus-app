@@ -370,7 +370,7 @@ declare %templates:wrap function search:build-page($node as node()*, $model as m
  :)
 declare function search:search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal indent" role="form">
-    <h1 class="search-header">Search Syriac Corpus </h1>
+    <h1 class="search-header">Search the Corpus </h1>
     <div class="well well-small">
           <button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#searchTips">
                 Search Help <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
