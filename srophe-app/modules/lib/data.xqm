@@ -55,6 +55,7 @@ declare function data:get-rec($id as xs:string?){
             for $rec in collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][. = concat($id,'/tei')]][1]
             return $rec 
 };
+
 (:~
  : Get record title if record exists, otherwise return $uri
  : @param $uri
@@ -68,14 +69,24 @@ declare function data:get-title($uri as xs:string?) as xs:string?{
 };
 
 (:~
- : Build browse path.
- : @param $collection as xs:string physical eXistdb collection
- : @param $series as xs:string defined by seriesStmt
+ : Build browse/earch path.
+ : @param $collection name from repo.xml
  : @note parameters can be passed to function via the HTML templates or from the requesting url
  : @note there are two ways to define collections, physical collection and tei collection, seriesStmt
  : Enhancement: It would be nice to be able to pass in multiple collections to browse function
 :)
-declare function data:build-browse-path($collection-path as xs:string?, $series-path as xs:string?) as xs:string?{  
+declare function data:build-collection-path($collection) as xs:string?{  
+let $collection-path := 
+        if(global:collection-vars($collection)/@data-root != '') then concat('/',global:collection-vars($collection)/@data-root)
+        else if($collection != '') then concat('/',$collection)
+        else ()
+let $get-series :=  
+        if(global:collection-vars($collection)/@collection-URI != '') then string(global:collection-vars($collection)/@collection-URI)
+        else ()                             
+let $series-path := 
+        if($get-series != '') then concat("//tei:idno[. = '",$get-series,"'][ancestor::tei:seriesStmt]/ancestor::tei:TEI")
+        else '//tei:TEI'
+return         
     concat("collection('",$global:data-root,$collection-path,"')",$series-path)
 };
 
@@ -119,38 +130,22 @@ declare function data:element($element as xs:string?, $series as xs:string?) as 
 (:
  : Main browse function 
  : @param $collection as xs:string name of the collection, defined in the repo.xml
- : @param $series as xs:string defined by seriesStmt
  : @param $element as xs:string, element to be used browse on, xpath: ex: //tei:titleStmt/tei:author defaults to //tei:titleStmt/tei:title
+ : @param $facets facet xml file name, relative to collection directory
  : @note parameters can be passed to function via the HTML templates or from the requesting url
- : @note there are two ways to define collections, physical collection and tei collection, seriesStmt
 :)
-declare function data:get-browse-data($collection as xs:string*, $series as xs:string*, $element as xs:string?){
-    let $collection-path := 
-        if(global:collection-vars($collection)/@data-root != '') then concat('/',global:collection-vars($collection)/@data-root)
-        else if($collection != '') then concat('/',$collection)
-        else ()
-    let $get-series :=  
-        if(global:collection-vars($collection)/@series != '') then string(global:collection-vars($collection)/@series)
-        else if($series != '') then $series
-        else ()                             
-    let $series-path := 
-        if($get-series != '') then concat("//tei:title[. = '",$get-series,"'][ancestor::tei:seriesStmt]/ancestor::tei:TEI")
-        else '//tei:TEI'
-    let $element := 
-        if($series != '') then data:element($element, $collection)
-        else data:element($element, $collection)
-    let $facets := 
-        if($series != '') then $series
-        else $collection
+declare function data:get-browse-data($collection as xs:string*, $element as xs:string?){
+    let $element := data:element($element, $collection)
     let $sort := 
         if(request:get-parameter('sort', '') != '') then request:get-parameter('sort', '') 
         else if(request:get-parameter('sort-element', '') != '') then request:get-parameter('sort-element', '')
         else ()        
-    let $hits-main := util:eval(concat(data:build-browse-path($collection-path, $series-path),facet:facet-filter(facet-defs:facet-definition($facets)),data:lang-filter($element)))
+    let $hits := util:eval(concat(data:build-collection-path($collection),facet:facet-filter(facet-defs:facet-definition($collection)),data:lang-filter($element)))
+    let $hits-main := $hits[not(descendant::tei:relation[@name='skos:broadMatch'])]
     return 
-    (:<p>{concat(data:build-browse-path($collection-path, $series-path),facet:facet-filter(facet-defs:facet-definition($series)),data:lang-filter($element))}</p>:)
+    (:<p>{concat(data:build-collection-path($collection),facet:facet-filter(facet-defs:facet-definition($collection)),data:lang-filter($element))}</p>:)
     (: Special SPEAR options:)
-        if($collection = 'spear') then util:eval(concat(data:build-browse-path($collection-path,''),'//tei:div[parent::tei:body]'))
+        if($collection = 'spear') then util:eval(concat(data:build-collection-path($collection),'//tei:div[parent::tei:body]'))
     (: Special places browse by type:)
         else if($collection = ('places','geo') and request:get-parameter('view', '') = 'type') then 
              let $hits := util:eval(concat("$hits-main[descendant::tei:place[contains(@type,'", request:get-parameter('type', ''),"')]]"))
@@ -158,6 +153,13 @@ declare function data:get-browse-data($collection as xs:string*, $series as xs:s
              let $title := global:build-sort-string($hit,$data:computed-lang)
              order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
              return $hit/ancestor-or-self::tei:TEI
+        (: Special Handling for Subjects 'categories':)             
+        else if($collection = 'subjects' and request:get-parameter('view', '') = 'categories') then 
+             let $hits := util:eval("$hits-main//tei:entryFree[@subtype='category']/tei:term")
+             for $hit in $hits
+             let $title := global:build-sort-string($hit,$data:computed-lang)
+             order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
+             return $hit/ancestor-or-self::tei:TEI             
     (: Special bibl options :)
         else if($collection = 'bibl' and not(request:get-parameter('view', ''))) then
             for $hit in $hits-main//tei:titleStmt/tei:title[1][matches(.,'\p{IsBasicLatin}|\p{IsLatin-1Supplement}|\p{IsLatinExtended-A}|\p{IsLatinExtended-B}','i')]
@@ -207,44 +209,94 @@ declare function data:get-browse-data($collection as xs:string*, $series as xs:s
             let $title := global:build-sort-string($hit,$data:computed-lang)
             order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
             return $hit/ancestor-or-self::tei:TEI
-    
 };
 
 (:
  : Limit results by per-page browse function 
  : @param $collection as xs:string physical eXistdb collection
- : @param $series as xs:string defined by seriesStmt
  : @param $element as xs:string, element to be used browse on, xpath: ex: //tei:titleStmt/tei:author defaults to //tei:titleStmt/tei:title
  : @param $start
  : @part $perpage
  : @note parameters can be passed to function via the HTML templates or from the requesting url
  : @note there are two ways to define collections, physical collection and tei collection, seriesStmt
 :)
-declare function data:browse-data-pages($collection as xs:string*, $series as xs:string*, $element as xs:string?, $start as xs:integer?, $perpage as xs:integer?){
-    for $hit in subsequence(data:get-browse-data($collection, $series, $element), $start, $perpage)
+declare function data:browse-data-pages($collection as xs:string*, $element as xs:string?, $start as xs:integer?, $perpage as xs:integer?){
+    for $hit in subsequence(data:get-browse-data($collection,$element), $start, $perpage)
     return $hit    
 };
 
-(: Search functions :)
+(:~ 
+ : Legacy Search functions 
+ :)
 declare function data:search($query-string as xs:string?){
     if(exists(request:get-parameter-names()) or (request:get-parameter('view', '') = 'all')) then 
-        if(request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance' or request:get-parameter('view', '') = 'all') then 
-            for $hit in util:eval($query-string)
-            order by global:build-sort-string(page:add-sort-options($hit,request:get-parameter('sort-element', '')),'') ascending
-            return $hit   
-        else if(request:get-parameter('rel', '') != '' and (request:get-parameter('sort-element', '') = '' or not(exists(request:get-parameter('sort-element', ''))))) then 
-            for $hit in util:eval($query-string)
-            let $part := xs:integer($hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
-            order by $part
-            return $hit                                                                                               
-        else 
-            for $hit in util:eval($query-string)
-            (: let $expanded := util:expand($hit, "expand-xincludes=no")
-               let $headword := count($expanded/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][descendant::*:match])
-                let $headword := if($headword gt 0) then $headword + 15 else 0:)
-            order by ft:score($hit) + (count($hit/descendant::tei:bibl) div 100) descending
-            return $hit
+        let $hits := util:eval($query-string)
+        return 
+            if(request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance' or request:get-parameter('view', '') = 'all') then 
+                for $h in $hits
+                order by global:build-sort-string(page:add-sort-options($h,request:get-parameter('sort-element', '')),'') ascending
+                return $h
+            else if(request:get-parameter('relId', '') != '' and (request:get-parameter('sort-element', '') = '' or not(exists(request:get-parameter('sort-element', ''))))) then
+                for $h in $hits
+                let $part := 
+                      if ($h/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('relId', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n castable as  xs:integer)
+                      then xs:integer($h/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('relId', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
+                      else 0
+                order by $part
+                return $h        
+            else
+                for $h in $hits
+                order by ft:score($h) + (count($h/descendant::tei:bibl) div 100) descending
+                return $h            
     else ()  
+};
+
+(:~
+ : More dynamic search functions
+ : Unclear on how to do this
+declare function data:search($collection as xs:string?){
+    
+};
+:)
+
+(: 
+ : Search functions
+ : Sort order for nested results. 
+ : Note: Order seems to be lost when a new xpath filter is applied. So this duplicates sort from data:search() 
+:)
+declare function data:search-nested-view($hits as node()*){
+    if(request:get-parameter('sort-element', '') != '' and request:get-parameter('sort-element', '') != 'relevance' or request:get-parameter('view', '') = 'all') then 
+                for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
+                order by global:build-sort-string(page:add-sort-options($h,request:get-parameter('sort-element', '')),'') ascending
+                return $h
+    else if(request:get-parameter('relId', '') != '' and (request:get-parameter('sort-element', '') = '' or not(exists(request:get-parameter('sort-element', ''))))) then
+                for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
+                let $part := 
+                      if ($h/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('relId', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n castable as  xs:integer)
+                      then xs:integer($h/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('relId', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
+                      else 0
+                order by $part
+                return $h        
+    else
+                for $h in $hits[not(descendant::tei:relation[@ref='skos:broadMatch'])]
+                order by ft:score($h) + (count($h/descendant::tei:bibl) div 100) descending
+                return $h              
+};
+(:~
+ : Group results by skos:broadMatch
+ : @param $hits results set 
+ : @param $id current parent id
+ [matches(.,'",$q,"(\W.*)?$')]
+:)
+declare function data:get-children($hits as node()*, $id as node()?) as node()*{
+    <grp head="{$id}" xmlns="http://www.tei-c.org/ns/1.0">
+        <rec xmlns="http://www.tei-c.org/ns/1.0">{for $h in $hits[.//tei:idno[@type='URI'][. = $id]] return $h}</rec>
+        {
+            for $h in $hits[.//tei:relation[@ref='skos:broadMatch'][@passive = $id]]
+            let $i := $h//tei:idno[@type='URI'][1]    
+            return data:get-children($hits, $i)
+        }
+    </grp>
 };
 
 (:
@@ -293,7 +345,7 @@ let $query-string :=
 let $query-string := replace($string,"'","''")	   
 return 
     if(matches($query-string,"(^\*$)|(^\?$)")) then 'Invalid Search String, please try again.' (: Must enter some text with wildcard searches:)
-    else replace(replace($query-string,'<|>|@',''), '(\.|\[|\]|\\|\||\-|\^|\$|\+|\{|\}|\(|\)|(/))','\\$1') (: Escape special characters. Fixes error, but does not return correct results on URIs see: http://viaf.org/viaf/sourceID/SRP|person_308 :)
+    else replace(replace($query-string,'<|>|@|&amp;',''), '(\.|\[|\]|\\|\||\-|\^|\$|\+|\{|\}|\(|\)|(/))','\\$1')
 
 };
 
@@ -312,14 +364,25 @@ declare function data:keyword(){
  : Add a generic relationship search to any search module. 
 :)
 declare function data:relation-search(){
-if(request:get-parameter('rel', '') != '') then
-    let $q := request:get-parameter('rel', '')
+if(request:get-parameter('relId', '') != '') then
+    let $relId := request:get-parameter('relId', '')
     return 
         if(request:get-parameter('relType', '') != '') then
             let $relType := request:get-parameter('relType', '')
             return 
-                concat("[descendant::tei:relation[@passive[matches(.,'",$q,"(\W.*)?$')] or @active[matches(.,'",$q,"(\W.*)?$')] or @mutual[matches(.,'",$q,"(\W.*)?$')]][@ref = '",request:get-parameter('relType', ''),"' or @name = '",request:get-parameter('relType', ''),"']]")
-        else concat("[descendant::tei:relation[@passive[matches(.,'",$q,"(\W.*)?$')] or @active[matches(.,'",$q,"(\W.*)?$')] or @mutual[matches(.,'",$q,"(\W.*)?$')]]]")
+                concat("[descendant::tei:relation[@passive[matches(.,'",$relId,"(\W.*)?$')] or @mutual[matches(.,'",$relId,"(\W.*)?$')]][@ref = '",request:get-parameter('relType', ''),"' or @name = '",request:get-parameter('relType', ''),"']]")
+        else concat("[descendant::tei:relation[@passive[matches(.,'",$relId,"(\W.*)?$')] or @mutual[matches(.,'",$relId,"(\W.*)?$')]]]")
+else ''
+};
+
+(:~
+ : Add a generic relationship search to any search module. 
+:)
+declare function data:relation-search($relId as xs:string?,$relType as xs:string?){
+if($relId != '') then
+    if($relType != '') then
+        concat("[descendant::tei:relation[@passive[matches(.,'",$relId,"(\W.*)?$')] or @mutual[matches(.,'",$relId,"(\W.*)?$')]][@ref = '",$relType,"' or @name = '",$relType,"']]")
+    else concat("[descendant::tei:relation[@passive[matches(.,'",$relId,"(\W.*)?$')] or @mutual[matches(.,'",$relId,"(\W.*)?$')]]]")
 else ''
 };
 
