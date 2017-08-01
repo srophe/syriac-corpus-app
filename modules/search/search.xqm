@@ -42,14 +42,7 @@ declare variable $search:collection {request:get-parameter('collection', '') cas
 :)
 declare %templates:wrap function search:get-results($node as node(), $model as map(*), $collection as xs:string?, $view as xs:string?){
     let $coll := if($search:collection != '') then $search:collection else $collection
-    let $eval-string := 
-                        if($coll = ('sbd','q','authors','saints','persons')) then persons:query-string($coll)
-                        else if($coll ='spear') then spears:query-string()
-                        else if($coll = 'places') then places:query-string()
-                        else if($coll = ('bhse','nhsl')) then bhses:query-string($collection)
-                        else if($coll = 'bibl') then bibls:query-string()
-                        else if($coll = 'manuscripts') then ms:query-string()
-                        else search:query-string($collection)
+    let $eval-string :=  search:query-string($collection)
     return                         
     map {"hits" := 
                 if(exists(request:get-parameter-names()) or ($view = 'all')) then 
@@ -336,7 +329,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                             if($expanded//exist:match) then
                                 <div class="row" xmlns="http://www.w3.org/1999/xhtml">{
                                     for $match in $expanded//exist:match
-                                    let $link := concat($global:nav-base,'/rec.html?id=',$id,'#head-',$match/ancestor-or-self::*[@n][1]/@n)
+                                    let $link := concat($global:nav-base,'/rec.html?id=',$id[1],'#head-',$match/ancestor-or-self::*[@n][1]/@n)
                                     return 
                                         (
                                         <div class="col-md-9" style="padding-left:3em;">
@@ -390,6 +383,12 @@ declare function search:search-form() {
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
                                     {global:keyboard-select-menu('qs')}
+                            </div>
+                            <div class="input-group-btn">
+                                <input type="text" id="keywordProximity" name="keywordProximity" class="form-control"/>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Proximity Operator">
+                                        &#160; Proximity *
+                                 </button>
                             </div>
                          </div> 
                     </div>

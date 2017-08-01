@@ -152,6 +152,22 @@ declare function common:options(){
     </options>
 };
 
+
+(:~
+ : Search options passed to ft:query functions
+:)
+declare function common:options($proximity){
+let $phrase-slop := if($proximity castable as xs:integer) then xs:integer($proximity) else xs:integer(1)
+return
+    <options>
+        <default-operator>and</default-operator>
+        <phrase-slop>{$phrase-slop}</phrase-slop>
+        <leading-wildcard>yes</leading-wildcard>
+        <filter-rewrite>yes</filter-rewrite>
+    </options>
+};
+
+
 (:~
  : Function to cast dates strings from url to xs:date
  : Tests string length, may need something more sophisticated to test dates, 
@@ -188,6 +204,10 @@ declare function common:keyword(){
     if(request:get-parameter('q', '') != '') then 
         if(starts-with(request:get-parameter('q', ''),'http://syriaca.org/')) then
            concat("[ft:query(descendant::*,'&quot;",request:get-parameter('q', ''),"&quot;',common:options())]")
+        else if(request:get-parameter('qProximity', '')) then 
+            if(request:get-parameter('qProximity', '') castable as xs:integer) then 
+                concat("[ft:query(descendant::*,'&quot;",request:get-parameter('q', ''),"&quot;',common:options(",request:get-parameter('qProximity', ''),"))]")
+            else concat("[ft:query(descendant::*,'",common:clean-string(request:get-parameter('q', '')),"',common:options())]")
         else concat("[ft:query(descendant::*,'",common:clean-string(request:get-parameter('q', '')),"',common:options())]")
     else '' 
 };
