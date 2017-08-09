@@ -13,9 +13,21 @@
                 <editor role="general" ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</editor>
                 <editor role="creator" ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</editor>
                 <respStmt>
-                    <resp>List compiled by</resp>
+                    <resp>List compiled and expanded by</resp>
                     <name ref="http://syriaca.org/documentation/editors.xml#tcarlson">Thomas A. Carlson</name>
                 </respStmt>
+                <respStmt>
+                    <resp>List expanded by</resp>
+                    <name ref="http://syriaca.org/documentation/editors.xml#dmichelson">David A. Michelson</name>
+                </respStmt>
+                <respStmt>
+                    <resp>List expanded by</resp>
+                    <name ref="http://syriaca.org/documentation/editors.xml#ngibson">Nathan P. Gibson</name>
+                </respStmt>
+                <respStmt>
+                    <resp>List expanded by</resp>
+                    <name ref="http://syriaca.org/documentation/editors.xml#dschwartz">Daniel L. Schwartz</name>
+                </respStmt>                
             </titleStmt>
             <editionStmt>
                 <edition n="1.0"/>
@@ -28,7 +40,7 @@
                         Distributed under a Creative Commons Attribution 3.0 Unported License
                     </licence>
                 </availability>
-                <date>2017-03-02</date>
+                <date>2017-08-08</date>
             </publicationStmt>
             <sourceDesc>
                 <p>Born digital.</p>
@@ -41,6 +53,8 @@
         </encodingDesc>
         <revisionDesc>
             <change type="reminder">Please be sure to update the publication date when changes are made here!</change>
+            <change when="2017-08-08" who="http://syriaca.org/documentation/editors.xml#tcarlson">ADDED: Mario Kozah, Haya Al Thani, Saif al-Murikhi, Abdul Rahman Chamseddine, Abdulrahim Abu-Husayn, and resp statements for other editors who ahve modified this file</change>
+            <change when="2017-06-23" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: André Binggeli, Françoise Briquel-Chatonnet, Alain Desreumaux, Emilie Villey, Youssef Dergham, Margherita Farina, Simone I. M. Pratelli, Flavia Ruani, Eleonora Serra</change>
             <change when="2017-05-09" who="http://syriaca.org/documentation/editors.xml#dschwartz">ADDED: Edward Keogh, Jimmy Daccache, Katayoun Torabi, Reyhan Dumaz, Ashoor Yousif, Simcha Gross, Ralph Barczok, Maria E. Doerfler, Kelli Gibson, Jeffrey Wickes, Joshua Falconer, Ute Possekel, Eric Garret, Erin Galgay Walsh, Muriel Debie, Joshua McManaway, and Nick Elder</change>
             <change when="2017-03-02" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Griogry Kessel and Nicolas Bamballi</change>
             <change when="2016-08-03" who="http://syriaca.org/documentation/editors.xml#ngibson">ADDED: Ugo Zanetti and Claude Detienne</change>
@@ -425,6 +439,90 @@
                     <persName xml:lang="en">
                         <forename>Nick</forename>
                         <surname>Elder</surname>
+                    </persName>
+                </person>
+                <person xml:id="abinggeli">
+                    <persName xml:lang="en">
+                        <forename>André</forename>
+                        <surname>Binggeli</surname>
+                    </persName>
+                </person>
+                <person xml:id="fbriquelchatonnet">
+                    <persName xml:lang="en">
+                        <forename>Françoise</forename>
+                        <surname>Briquel-Chatonnet</surname>
+                    </persName>
+                </person>
+                <person xml:id="adesreumaux">
+                    <persName xml:lang="en">
+                        <forename>Alain</forename>
+                        <surname>Desreumaux</surname>
+                    </persName>
+                </person>
+                <person xml:id="evilley">
+                    <persName xml:lang="en">
+                        <forename>Emilie</forename>
+                        <surname>Villey</surname>
+                    </persName>
+                </person>
+                <person xml:id="ydergham">
+                    <persName xml:lang="en">
+                        <forename>Youssef</forename>
+                        <surname>Dergham</surname>
+                    </persName>
+                </person>
+                <person xml:id="mfarina">
+                    <persName xml:lang="en">
+                        <forename>Margherita</forename>
+                        <surname>Farina</surname>
+                    </persName>
+                </person>
+                <person xml:id="spratelli">
+                    <persName xml:lang="en">
+                        <forename>Simone I. M.</forename>
+                        <surname>Pratelli</surname>
+                    </persName>
+                </person>
+                <person xml:id="fruani">
+                    <persName xml:lang="en">
+                        <forename>Flavia</forename>
+                        <surname>Ruani</surname>
+                    </persName>
+                </person>
+                <person xml:id="eserra">
+                    <persName xml:lang="en">
+                        <forename>Eleonora</forename>
+                        <surname>Serra</surname>
+                    </persName>
+                </person>
+                <person xml:id="mkozah">
+                    <persName xml:lang="en">
+                        <forename>Mario</forename>
+                        <surname>Kozah</surname>
+                    </persName>
+                </person>
+                <person xml:id="halthani">
+                    <persName xml:lang="en">
+                        <forename>Haya</forename>
+                        <surname>Al Thani</surname>
+                    </persName>
+                </person>
+                <person xml:id="sal-murikhi">
+                    <persName xml:lang="en">
+                        <forename>Saif</forename>
+                        <surname>al-Murikhi</surname>
+                    </persName>
+                </person>
+                <person xml:id="achamseddine">
+                    <persName xml:lang="en">
+                        <forename>Abdul Rahman</forename>
+                        <surname>Chamseddine</surname>
+                    </persName>
+                </person>
+                <person xml:id="aabu-husayn">
+                    <persName xml:lang="en">
+                        <forename>Abdulrahim</forename>
+                        <surname>Abu-Husayn</surname>
                     </persName>
                 </person>
                 <org xml:id="uasyriacresearchgroup">
