@@ -9,6 +9,7 @@ import module namespace geojson="http://syriaca.org/geojson" at "lib/geojson.xqm
 import module namespace geokml="http://syriaca.org/geokml" at "lib/geokml.xqm";
 import module namespace tei2ttl="http://syriaca.org/tei2ttl" at "lib/tei2ttl.xqm";
 import module namespace feed="http://syriaca.org/atom" at "lib/atom.xqm";
+import module namespace sprql-queries="http://syriaca.org/sprql-queries" at "lib/sparql.xqm";
 declare namespace json="http://www.json.org";
 (: For output annotations  :)
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
@@ -207,6 +208,30 @@ function api:get-ttl($collection as xs:string, $id as xs:string){
     tei2ttl:ttl-output(api:get-tei-rec($collection, $id))
      )
 }; 
+
+
+(:~
+  : SPARQL endpoint 
+  : Serialized as XML
+:)
+declare
+    %rest:GET
+    %rest:path("/srophe/api/sparql")
+    %rest:query-param("qname", "{$qname}", "")
+    %rest:query-param("id", "{$id}", "")
+    %output:media-type("application/atom+xml")
+    %output:method("xml")
+function api:sparql-endpoint($qname as xs:string*, $id as item()*){
+  if(not(empty($qname))) then
+    if($qname = 'related-subjects-count') then
+        sprql-queries:related-subjects-count($id)
+    else if($qname = 'related-citations-count') then
+        sprql-queries:related-citations-count($id) 
+    else if($qname = 'label') then
+        sprql-queries:label($id) 
+    else <message>Submitted query is not a valid Syriaca.org named query. Please use the q paramater to submit a custom SPARQL query</message>
+  else <message>No query data submitted</message>
+};
 
 (:~
   : Use resxq to format urls for tei

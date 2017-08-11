@@ -330,6 +330,9 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                 for $hit at $p in subsequence($hits, $search:start, $search:perpage)
                 return search:show-rec($hit, $p, $collection)            
             else
+                for $hit at $p in subsequence($hits, $search:start, $search:perpage)
+                return search:show-rec($hit, $p, $collection)
+            (:
                 let $tree := data:search-nested-view($model("hits"))
                 for $hit at $p in subsequence($tree, $search:start, $search:perpage)
                 let $id := $hit//tei:idno[1]
@@ -337,6 +340,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                     <div class="results" style="border-bottom:1px dotted #eee; padding-top:.5em; padding-top:1em;">
                         {search:show-grps(data:get-children($hits, $id[1]), $p, $collection)}
                     </div>
+             :)       
      } 
 </div>
 };
