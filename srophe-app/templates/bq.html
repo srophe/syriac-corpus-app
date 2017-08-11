@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" data-template="place:get-rec" coll="places">
     <head>
         <meta charset="utf-8"/>
@@ -105,7 +104,10 @@
                         <span class="icon-bar"/>
                     </button>
                     <a class="navbar-brand banner-container" href="$app-root/bethqatraye/index.html">
-                        <span class="banner-text">Beth Qatraye Gazetteer</span>
+                        <span class="banner-icon">
+                            <img src="$app-root/resources/img/bq-icon.svg" alt="" width="50px"/>
+                        </span>
+                        <span class="banner-text">Beth Qaṭraye Gazetteer</span>
                     </a>
                 </div>
                 <div class="navbar-collapse collapse pull-right">
@@ -197,7 +199,14 @@
             <div id="content" typeof="Place"/>
         </div>
         <!-- Footer -->
-        <footer data-template="app:shared-content" data-template-path="/templates/footer.html"/>
+        <footer>
+            <div class="container">
+                <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">
+                    <img alt="Creative Commons License" style="border-width:0" src="$app-root/resources/img/cc.png" height="18px"/>
+                </a> This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a>.
+                <br/>Copyright Vanderbilt University and the Contributors, 2017.  
+            </div>
+        </footer>
         
         <!-- Additional Javascript -->
         <script type="text/javascript" src="$app-root/resources/js/bootstrap.min.js"/>
