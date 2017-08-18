@@ -250,7 +250,7 @@ declare function facet-defs:facet-definition($collection as xs:string?){
             <order-by direction="ascending">count</order-by>
         </facet-definition>
     </facets> 
-    else if($collection = 'places') then 
+    else if($collection = ('places','bethqatraye')) then 
     <facets xmlns="http://expath.org/ns/facet">
         <facet-definition name="Type">
             <group-by function="facet:group-place-type">
