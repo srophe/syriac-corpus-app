@@ -17,8 +17,8 @@ import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.
 declare namespace http="http://expath.org/ns/http-client";
 declare namespace html="http://www.w3.org/1999/xhtml";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
-
-(:~  
+  
+(:~            
  : Simple get record function, get tei record based on tei:idno
  : Builds URL from the following URL patterns defined in the controller.xql or uses the id paramter
  : Retuns 404 page if record is not found, or has been @depreciated
@@ -33,13 +33,14 @@ if(request:get-parameter('id', '') != '') then
         return 
             if(empty($rec)) then response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html')))
             else 
-                if($rec/descendant::tei:revisionDesc[@status='deprecated']) then 
+                if($rec/descendant::tei:idno[@type='redirect']) then 
                     let $redirect := 
                             if($rec/descendant::tei:idno[@type='redirect']) then 
-                                replace(replace($rec/descendant::tei:idno[@type='redirect'][1]/text(),'/tei',''),$global:base-uri,$global:nav-base)
+                                replace(replace($rec/descendant::tei:idno[@type='redirect'][1],'/tei',''),$global:base-uri,$global:nav-base)
                             else concat($global:nav-base,'/',$collection,'/','browse.html')
-                    return response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
-                else map {"data" := $rec }                   
+                    return 
+                    response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
+                else map {"data" := $rec }  
 else map {"data" := <div>'Page data'</div>}    
 };
 
@@ -68,19 +69,27 @@ declare function app:h1($node as node(), $model as map(*)){
     )}
  </srophe-title>)
 }; 
-
+  
 (:~  
  : Display any TEI nodes passed to the function via the paths parameter
  : Used by templating module, defaults to tei:body if no nodes are passed. 
  : @param $paths comma separated list of xpaths for display. Passed from html page  
 :)
 declare function app:link-icons-list($node as node(), $model as map(*)){
-let $data := $model("data")
-let $links:=
-        <see-also title="{substring-before($data//tei:teiHeader/descendant::tei:titleStmt/tei:title[1],'-')}" xmlns="http://www.tei-c.org/ns/1.0">
-            {$data//tei:body/descendant::tei:idno, $data//descendant::tei:location}
-        </see-also>
-return global:tei2html($links)
+let $data := $model("data")//tei:body/descendant::tei:idno[not(contains(., $global:base-uri))]  
+return 
+    if(not(empty($data))) then 
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">See Also </h3></div>
+            <div class="panel-body">
+                <ul>
+                    {for $l in $data
+                     return <li>{global:tei2html($l)}</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    else ()
 }; 
 
 (:~  
@@ -88,12 +97,12 @@ return global:tei2html($links)
  : Used by templating module, defaults to tei:body if no nodes are passed. 
  : @param $paths comma separated list of xpaths for display. Passed from html page  
 :)
-declare function app:display-nodes($node as node(), $model as map(*), $paths as xs:string*){
+declare function app:display-nodes($node as node(), $model as map(*), $paths as xs:string?){
     let $data := $model("data")
     return 
         if($paths != '') then 
             global:tei2html(
-                    for $p in tokenize($paths,',')
+                    for $p in $paths
                     return util:eval(concat('$data',$p)))
         else global:tei2html($model("data")/descendant::tei:body)
 }; 
@@ -106,8 +115,51 @@ declare %templates:wrap function app:display-sources($node as node(), $model as 
     return global:tei2html(<sources xmlns="http://www.tei-c.org/ns/1.0">{$sources}</sources>)
 };
 
+(:~
+ : Display Series information
+ :)
+declare %templates:wrap function app:display-series($node as node(), $model as map(*)){
+let $series := distinct-values($model("data")/descendant::tei:seriesStmt/tei:biblScope/tei:title)
+return 
+if($series != '') then 
+<div class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">Series  
+    <span class="glyphicon glyphicon-question-sign text-info moreInfo pull-right" aria-hidden="true" 
+    data-toggle="tooltip" 
+    title="?"></span></h3></div>
+    <div class="panel-body">
+        {
+        for $f in $series
+        return 
+            if($f = 'A Guide to Syriac Authors') then
+                <p><a href="{$global:nav-base}/authors/index.html">
+                    <span class="syriaca-icon syriaca-authors" style="font-size:1.35em; vertical-align: middle;"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span><span> A Guide to Syriac Authors</span>
+                </a></p>
+            else if($f = 'The Syriac Biographical Dictionary') then
+                <p><a href="{$global:nav-base}/persons/index.html">
+                    <span class="syriaca-icon syriaca-sbd" style="font-size:1.35em; vertical-align: middle;"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span><span class="icon-text">SBD</span>
+                </a></p>
+            else if($f = 'Qadishe: A Guide to the Syriac Saints') then
+                <p><a href="{$global:nav-base}/q/index.html">
+                    <span class="syriaca-icon syriaca-q" style="font-size:1.35em; vertical-align: middle;"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span><span> Qadishe: A Guide to the Syriac Saints</span>
+                </a></p>                
+            else if($f = 'Bibliotheca Hagiographica Syriaca Electronica') then
+               <p><a href="{$global:nav-base}/bhse/index.html">
+                    <span class="syriaca-icon syriaca-bhse" style="font-size:1.35em; vertical-align: middle;"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span><span> Bibliotheca Hagiographica Syriaca Electronica</span>
+                </a></p>
+            else if($f = 'New Handbook of Syriac Literature') then
+               <p><a href="{$global:nav-base}/nhsl/index.html">
+                    <span class="syriaca-icon syriaca-nhsl" style="font-size:1.35em; vertical-align: middle;"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span><span> New Handbook of Syriac Literature</span>
+                </a></p>               
+            else ()
+        }
+    </div>
+</div>
+else ()
+};
+
 (:~    
- : Return teiHeader info to be used in citation
+ : Special output for NHSL work records
 :)
 declare %templates:wrap function app:display-work($node as node(), $model as map(*)){
         <div class="row">
@@ -115,25 +167,27 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                 {
                     let $data := $model("data")/descendant::tei:body/tei:bibl
                     let $infobox := 
-                        <bibl xmlns="http://www.tei-c.org/ns/1.0">
+                        <body xmlns="http://www.tei-c.org/ns/1.0">
+                        <bibl>
                         {(
                             $data/@*,
-                            $data/tei:title,
+                            $data/tei:title[not(@type=('initial-rubric','final-rubric'))],
                             $data/tei:author,
                             $data/tei:editor,
                             $data/tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')],
                             $data/tei:note[@type='abstract'],
                             $data/tei:date,
                             $data/tei:extent,
-                            $data/tei:idno
+                            $data/tei:idno[starts-with(.,'http://syriaca.org')]
                          )}
                         </bibl>
+                        </body>
                      let $allData := 
-                     <bibl xmlns="http://www.tei-c.org/ns/1.0">
+                     <body xmlns="http://www.tei-c.org/ns/1.0"><bibl>
                         {(
                             $data/@*,
                             $data/child::*
-                            [not(self::tei:title)]
+                            [not(self::tei:title[not(@type=('initial-rubric','final-rubric'))])]
                             [not(self::tei:author)]
                             [not(self::tei:editor)]
                             [not(self::tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')])]
@@ -141,11 +195,15 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                             [not(self::tei:date)]
                             [not(self::tei:extent)]
                             [not(self::tei:idno)])}
-                        </bibl>
+                        </bibl></body>
                      return 
-                        (global:tei2html($infobox),
-                        app:display-related-inline($model("data"),'dct:isPartOf'),
-                        app:display-related-inline($model("data"),'syriaca:part-of-tradition'),
+                        (
+                        app:work-toc($data),
+                        global:tei2html($infobox),
+                        app:external-relationships($node, $model,'dct:isPartOf', 'nhsl','',''),
+                        app:external-relationships($node, $model,'skos:broadMatch', 'nhsl','',''),
+                        app:external-relationships($node, $model,'syriaca:sometimesCirculatesWith','nhsl','',''),
+                        app:external-relationships($node, $model,'syriaca:part-of-tradition','nhsl','',''),
                         global:tei2html($allData))  
                 } 
             </div>
@@ -158,10 +216,19 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                 </div>,                
                 if($model("data")//tei:body/child::*/tei:listRelation) then 
                 rel:build-relationships($model("data")//tei:body/child::*/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
-                else ()
+                else (),
+                app:link-icons-list($node, $model)
                 )}  
             </div>
         </div>
+};
+
+(:~    
+ : Works TOC on bibl elements
+:)
+declare function app:work-toc($data){
+let $data := $data/tei:bibl[@type != ('lawd:Citation','lawd:ConceptualWork')]
+return global:tei2html(<work-toc xmlns="http://www.tei-c.org/ns/1.0" >{$data}</work-toc>)
 };
 
 (:~
@@ -193,16 +260,42 @@ declare function app:display-timeline($node as node(), $model as map(*)){
         </div>
      else ()
 };
- 
+
+(:
+ : Return tei:body/descendant/tei:bibls for use in sources
+:)
+declare %templates:wrap function app:display-citation($node as node(), $model as map(*)){
+    global:tei2html(<citation xmlns="http://www.tei-c.org/ns/1.0">{$model("data")//tei:teiHeader | $model("data")//tei:bibl}</citation>) 
+
+};
+
 (:~
  : Process relationships uses lib/rel.xqm module
 :)                   
-declare function app:display-related($node as node(), $model as map(*)){
-    if($model("data")//tei:body/child::*/tei:listRelation) then 
-        rel:build-relationships($model("data")//tei:body/child::*/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
+declare function app:display-related($node as node(), $model as map(*), $relType as xs:string?){
+    if($relType != '') then 
+        rel:build-relationship($model("data")//tei:body/child::*/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''), $relType)
+    else if($model("data")//tei:body/child::*/tei:listRelation) then 
+            rel:build-relationships($model("data")//tei:body/child::*/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
     else ()
 };
 
+(:~      
+ : Get relations to display in body of HTML page
+ : Used by NHSL for displaying child works
+ : @param $data TEI record
+ : @param $relType name/ref of relation to be displayed in HTML page
+:)
+declare %templates:wrap function app:external-relationships($node as node(), $model as map(*), $relType, $collection, $sort, $count){
+let $rec := $model("data")
+let $relType := $relType 
+let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
+let $title := if(contains($rec/descendant::tei:title[1]/text(),' — ')) then 
+                    substring-before($rec/descendant::tei:title[1],' — ') 
+               else $rec/descendant::tei:title[1]/text()
+return rel:external-relationships($recid, $title, $relType, $collection, $sort, $count)
+};
+   
 (:~
  : bibl module relationships
 :)                   
@@ -218,70 +311,15 @@ declare function app:cited($node as node(), $model as map(*)){
 };
 
 (:~      
- : Get relations to display in body of HTML page
- : Used by NHSL for displaying child works
- : @param $data TEI record
- : @param $relType name/ref of relation to be displayed in HTML page
+ : Return teiHeader info to be used in citation used for Syriaca.org bibl module
 :)
-declare %templates:wrap function app:display-related-inline($data, $relType){
-let $rec := $data
-let $relType := $relType
-let $recid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1]/text(),'/tei','')
-let $works := 
-            for $w in collection($global:data-root)//tei:body[child::*/tei:listRelation/tei:relation[@passive[functx:contains-word(.,$recid)]][@ref=$relType or @name=$relType]]
-            let $part := xs:integer($w/child::*/tei:listRelation/tei:relation[@passive[functx:contains-word(.,$recid)]]/tei:desc/tei:label[@type='order'][1]/@n)
-            order by $part
-            return $w
-let $count := count($works)
-let $title := if(contains($rec/descendant::tei:title[1]/text(),' — ')) then 
-                    substring-before($rec/descendant::tei:title[1],' — ') 
-               else $rec/descendant::tei:title[1]/text()
-return 
-    if($count gt 0) then 
-        <div xmlns="http://www.w3.org/1999/xhtml">
-            {if($relType = 'dct:isPartOf') then 
-                <h3>{$title} contains {$count} works.</h3>
-             else if ($relType = 'syriaca:part-of-tradition') then 
-                (<h3>This tradition comprises at least {$count} branches.</h3>,
-                <p>{$data/descendant::tei:note[@type='literary-tradition']}</p>)
-             else <h3>{$title} {$relType} {$count} works.</h3>
-             }
-            {(
-                if($count gt 5) then
-                        <div>
-                         {
-                             for $r in subsequence($works, 1, 3)
-                             let $rec :=  $r/ancestor::tei:TEI
-                             let $workid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
-                             let $part := $rec/descendant::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc/tei:label[@type='order']
-                             return 
-                             <div class="indent row">
-                                <div class="col-md-1"><span class="badge">{string-join($part/@n,' ')}</span></div>
-                                <div class="col-md-11">{global:display-recs-short-view($rec,'',$recid)}</div>
-                             </div>
-                         }
-                           <div>
-                            <a href="#" class="btn btn-info getData" style="width:100%; margin-bottom:1em;" data-toggle="modal" data-target="#moreInfo" 
-                            data-ref="{$global:nav-base}/nhsl/search.html?rel={$recid}&amp;={$relType}&amp;perpage={$count}" 
-                            data-label="{$title} contains {$count} works" id="works">
-                              See all {count($works)} works
-                             </a>
-                           </div>
-                         </div>    
-                else 
-                    for $r in $works
-                    let $workid := replace($r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
-                    let $rec :=  $r/ancestor::tei:TEI
-                    let $workid := replace($rec/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei','')
-                             let $part := $rec/descendant::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc/tei:label[@type='order']
-                             return 
-                             <div class="indent row">
-                                <div class="col-md-1"><span class="badge">{$part/text()}</span></div>
-                                <div class="col-md-11">{global:display-recs-short-view($rec,'',$recid)}</div>
-                             </div>
-            )}
-        </div>
-    else ()     
+declare %templates:wrap function app:d($node as node(), $model as map(*)){
+    let $rec := $model("data")
+    let $header := 
+        <srophe-about xmlns="http://www.tei-c.org/ns/1.0">
+            {$rec//tei:teiHeader}
+        </srophe-about>
+    return global:tei2html($header)
 };
 
 (:~      
@@ -393,7 +431,7 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
                 <input type="hidden" name="id" value="{request:get-parameter('id', '')}"/>
                 <input type="hidden" name="collection" value="{$collection}"/>
                 <!-- start reCaptcha API-->
-                <div class="g-recaptcha" data-sitekey="{$global:recaptcha}" id="recaptchadiv"></div>
+                <div class="g-recaptcha" data-sitekey="{$global:recaptcha}"></div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal">Close</button><input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
@@ -703,5 +741,5 @@ function app:fix-links($node as node(), $model as map(*)) {
 declare  
     %templates:wrap 
 function app:google-analytics($node as node(), $model as map(*)){
-   $global:get-config//repo:google_analytics/text() 
+   $global:get-config//google_analytics/text() 
 };

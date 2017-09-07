@@ -116,6 +116,10 @@ declare function data:element($element as xs:string?, $series as xs:string?) as 
         if($data:computed-lang = ('en','syr')) then 
             'tei:place/tei:placeName[@syriaca-tags="#syriaca-headword"]'
         else 'tei:place/tei:placeName'
+    else if($series = ('bethqatraye')) then 
+        if($data:computed-lang = ('en','syr','ar')) then 
+            'tei:place/tei:placeName[@syriaca-tags="#syriaca-headword"]'
+        else 'tei:place/tei:placeName'        
     else if($series = ('bhse','nhsl')) then 
         if($data:computed-lang = ('en','syr')) then 
             'tei:body/tei:bibl/tei:title[@syriaca-tags="#syriaca-headword"]'

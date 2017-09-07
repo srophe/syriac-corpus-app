@@ -10,11 +10,9 @@ xquery version "3.0";
 module namespace bs="http://syriaca.org/bs";
 
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
-import module namespace common="http://syriaca.org/common" at "search/common.xqm";
 import module namespace functx="http://www.functx.com";
 import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
 import module namespace facet-defs="http://syriaca.org/facet-defs" at "facet-defs.xqm";
-import module namespace facets="http://syriaca.org/facets" at "lib/facets.xqm";
 import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
@@ -40,7 +38,7 @@ declare namespace util="http://exist-db.org/xquery/util";
 declare variable $bs:coll {request:get-parameter('coll', '')};
 declare variable $bs:type {request:get-parameter('type', '')}; 
 declare variable $bs:view {request:get-parameter('view', '')};
-declare variable $bs:sort {request:get-parameter('sort', '')};
+declare variable $bs:sort {request:get-parameter('alpha-filter', '')};
 declare variable $bs:date {request:get-parameter('date', '')};
 declare variable $bs:fq {request:get-parameter('fq', '')};
 declare variable $bs:title {request:get-parameter('title', '')};
@@ -83,7 +81,7 @@ let $data :=
    else if($bs:view = 'events') then 
         util:eval(concat('$hits[descendant::tei:listEvent]',facet:facet-filter(facet-defs:facet-definition('spear-events'))))
    else if($bs:view = 'keywords') then   
-        util:eval(concat('$hits[descendant::tei:listEvent]',facets:facet-filter()))
+        util:eval(concat('$hits[descendant::tei:listEvent]',facet:facet-filter(facet-defs:facet-definition('spear'))))
    else if($bs:view = 'advanced') then 
      util:eval(concat('$hits',facet:facet-filter(facet-defs:facet-definition('spear'))))
    else 
@@ -105,11 +103,11 @@ declare function bs:browse-abc-menu(){
             if($bs:view = 'persons') then  
                 for $letter in tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Anonymous All', ' ')
                 return
-                    <li>{if($bs:sort = $letter) then attribute class {"selected badge"} else()}<a href="?view={$bs:view}&amp;sort={$letter}">{$letter}</a></li>
+                    <li>{if($bs:sort = $letter) then attribute class {"selected badge"} else()}<a href="?view={$bs:view}&amp;alpha-filter={$letter}">{$letter}</a></li>
             else if($bs:view = 'places') then  
                 for $letter in tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z All', ' ')
                 return
-                     <li>{if($bs:sort = $letter) then attribute class {"selected badge"} else()}<a href="?view={$bs:view}&amp;sort={$letter}">{$letter}</a></li>
+                     <li>{if($bs:sort = $letter) then attribute class {"selected badge"} else()}<a href="?view={$bs:view}&amp;alpha-filter={$letter}">{$letter}</a></li>
             else ()  
 
         }
@@ -190,7 +188,6 @@ declare function bs:display-spear($hits){
             else if($bs:view = 'persons' or ($bs:view='sources' and $bs:type = 'persons') or $bs:view = 'places') then 
                 bs:display-canonical-names($hits)
             else bs:hits($hits)
-
         }
     </div>
 </div>

@@ -4,7 +4,8 @@ xquery version "3.0";
  : Search string is passed to search.xqm for processing.  
  :)
 module namespace ms="http://syriaca.org/ms";
-import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
+import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm";
+import module namespace facet-defs="http://syriaca.org/facet-defs" at "../facet-defs.xqm";
 import module namespace functx="http://www.functx.com";
 import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
@@ -25,7 +26,7 @@ declare function ms:facets($node as node(), $model as map(*)){
 :)
 declare function ms:query-string() as xs:string? {
  concat("collection('",$global:data-root,"/manuscripts/tei')//tei:teiHeader",
-    data:keyword(),facets:facet-filter()
+    data:keyword(),facet:facet-filter(facet-defs:facet-definition('mss'))
     )
 };
 

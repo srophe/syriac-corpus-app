@@ -183,6 +183,7 @@ for $collection in $collection-config/repo:collection[@name = $collection]
 return $collection
 };
 
+
 (:~
  : Build uri from short id
  : Uses request:get-parameter('id', '') return string. 
@@ -245,7 +246,7 @@ return
     else $string
 };
 (:~
- : Strips english titles of non-sort characters as established by Syriaca.org
+ : Strips English titles of non-sort characters as established by Syriaca.org
  : Used for alphabetizing
  : @param $titlestring 
  :)
@@ -256,11 +257,20 @@ declare function global:build-sort-string($titlestring as xs:string?, $lang as x
 
 (:~
  : Strips Arabic titles of non-sort characters as established by Syriaca.org
+ : @note: This code normalizes for alphabetization the most common cases, data uses rare Arabic glyphs such as those in the range U0674-U06FF, further normalization may be needed
  : Used for alphabetizing
  : @param $titlestring 
  :)
 declare function global:ar-sort-string($titlestring as xs:string?) as xs:string* {
-    replace(replace(replace(replace($titlestring,'^\s+',''),'^(\sابن|\sإبن|\sبن)',''),'(ال|أل|ٱل)',''),'[U064B-U0656]','')
+replace(
+    replace(
+      replace(
+        replace(
+          replace($titlestring,'^\s+',''), (:remove leading spaces. :)
+            '[ً-ٖ]',''), (:remove vowels and diacritics :)
+                '(^|\s)(ال|أل|ٱل)',''), (: remove all definite articles :)
+                    'آ|إ|أ|ٱ','ا'), (: normalize letter alif :)
+                        '^(ابن|إبن|بن)','') (:remove all forms of (ابن) with leading space :)
 };
 
 (:
@@ -277,10 +287,15 @@ declare function global:odd2text($element as xs:string?, $label as xs:string?) a
     return 
         if($odd-path != '') then
             let $odd := $odd-file
+            (:let $e := if(contains($element,'/@')) then substring-before($element,'/@') else $element
+            let $a := if(contains($element,'@')) then substring-after($element,'/@') else ()
+            :)
             return 
                 try {
                     if($odd/descendant::*[@ident = $element][1]/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()) then 
                         $odd/descendant::*[@ident = $element][1]/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()
+                    else if($odd/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()) then 
+                        $odd/descendant::tei:valItem[@ident=$label][1]/tei:gloss[1]/text()
                     else $label    
                 } catch * {
                     $label (:<error>Caught error {$err:code}: {$err:description}</error>:)

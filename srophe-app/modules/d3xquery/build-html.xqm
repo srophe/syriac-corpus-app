@@ -149,7 +149,7 @@ declare function local:html(){
 (: Get all events for drop down menu :)
 (: Eventually add collection filter :)
 declare function local:get-events(){
-    let $events := distinct-values(for $event in collection($global:data-root || '/spear/tei')//tei:event/@ref
+    let $events := distinct-values(for $event in collection($global:data-root || '/spear/tei')//tei:event/tei:ptr/@target
                     return tokenize($event,'/')[last()])
     for $e in $events
     return 
@@ -159,7 +159,7 @@ declare function local:get-events(){
 (: Get all relationships for drop down menu :)
 (: Eventually add collection filter :)
 declare function local:get-rels(){
-    let $rels := distinct-values(for $rel in collection($global:data-root || '/spear/tei')//tei:relation/@name
+    let $rels := distinct-values(for $rel in collection($global:data-root || '/spear/tei')//tei:relation/@ref
                     return replace($rel,'^(.*?):','')[last()])
     for $r in $rels
     return 
