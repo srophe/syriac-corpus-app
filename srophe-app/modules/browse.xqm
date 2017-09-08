@@ -17,6 +17,7 @@ import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
 import module namespace facet-defs="http://syriaca.org/facet-defs" at "facet-defs.xqm";
 import module namespace page="http://syriaca.org/page" at "lib/paging.xqm";
 import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "lib/tei2html.xqm";
 import module namespace bs="http://syriaca.org/bs" at "browse-spear.xqm";
 import module namespace functx="http://www.functx.com";
 import module namespace templates="http://exist-db.org/xquery/templates";
@@ -191,16 +192,6 @@ return browse:get-map($hits)
 };
 
 (: Display map :)
-(:
- map {
-                    "config": $config,
-                    "data":
-                        if (empty($div)) then
-                            $node/following-sibling::tei:div[1]
-                        else
-                            $div
-                }
-:)
 declare function browse:get-map($hits){
     if($hits/descendant::tei:body/tei:listPlace/descendant::tei:geo) then 
             maps:build-map($hits[descendant::tei:geo], count($hits))
@@ -253,23 +244,24 @@ declare function browse:get-map($hits){
  : Pass each TEI result through xslt stylesheet
 :)
 declare function browse:display-hits($hits){
-    for $data in subsequence($hits, $browse:start,$browse:perpage)
-    let $sort-title := if($browse:computed-lang != ('en','syr')) then string($data/@sort-title) else () 
+    for $hit in subsequence($hits, $browse:start,$browse:perpage)
+    let $sort-title := 
+        if($browse:computed-lang != 'en' and $browse:computed-lang != 'syr') then 
+            <span class="sort-title" lang="{$browse:computed-lang}" xml:lang="{$browse:computed-lang}">{(if($browse:computed-lang='ar') then attribute dir { "rtl" } else (), string($hit/@sort-title))}</span> 
+        else () 
+    let $uri := 
+        if($hit/descendant::tei:publicationStmt/tei:idno) then
+            replace($hit/descendant::tei:publicationStmt/tei:idno[1],'/tei','')
+        else if($hit/descendant::tei:biblStruct/tei:idno[@type='URI'][starts-with(.,$global:base-uri)]) then 
+            $hit/descendant::tei:biblStruct/tei:idno[@type='URI'][starts-with(.,$global:base-uri)]
+        else if($hit/descendant::tei:idno[@type='URI'][starts-with(.,$global:base-uri)]) then 
+            $hit/descendant::tei:biblStruct/tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1]
+        else if($hit/child::tei:bibl or $hit/self::tei:bibl) then 
+            $hit/descendant::tei:ptr[starts-with(@target,$global:base-uri)][1]/@target        
+        else $hit/descendant-or-self::tei:div[1]/@uri
     return 
-        <div xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
-            { 
-             transform:transform($data, doc($global:app-root || '/resources/xsl/rec-short-view.xsl'), 
-                <parameters>
-                    <param name="data-root" value="{$global:data-root}"/>
-                    <param name="app-root" value="{$global:app-root}"/>
-                    <param name="nav-base" value="{$global:nav-base}"/>
-                    <param name="base-uri" value="{$global:base-uri}"/>
-                    <param name="lang" value="{$browse:computed-lang}"/>
-                    <param name="recid" value=" "/>
-                    <param name="sort-title" value="{$sort-title}"/>
-                </parameters>
-                )
-            }
+        <div xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em" class="short-rec-result">
+            {($sort-title, tei2html:summary-view($hit, $browse:computed-lang, $uri)) }
         </div>
 };
 
