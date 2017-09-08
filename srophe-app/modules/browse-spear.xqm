@@ -18,6 +18,8 @@ import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
 import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
 import module namespace page="http://syriaca.org/page" at "lib/paging.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "lib/tei2html.xqm";
+
 import module namespace templates="http://exist-db.org/xquery/templates";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
@@ -241,11 +243,14 @@ return
 :)
 declare function bs:display-canonical-names($hits){
 for $hit in subsequence($hits,$bs:start,$bs:perpage)
+let $id := replace($hit/descendant::tei:idno[1],'/tei','')
 return 
     <div class="results-list">
         {
             if (exists($hit)) then
-                global:display-recs-short-view($hit,'spear')
+                <div xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em" class="short-rec-result">
+                    {tei2html:summary-view-spear($hit, $id)}
+                </div>
             else $hit
         }
     </div>

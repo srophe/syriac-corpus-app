@@ -133,7 +133,7 @@ declare function global:display-recs-short-view($node as node()*, $lang as xs:st
         <param name="lang" value="{$lang}"/>
         <param name="recid" value="{$recid}"/>
     </parameters>
-    )
+    )   
 };
 
 (: 
