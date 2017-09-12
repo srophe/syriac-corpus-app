@@ -16,7 +16,7 @@ import module namespace facet="http://expath.org/ns/facet" at "lib/facet.xqm";
 import module namespace facet-defs="http://syriaca.org/facet-defs" at "facet-defs.xqm";
 import module namespace page="http://syriaca.org/page" at "lib/paging.xqm";
 import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
-import module namespace bs="http://syriaca.org/bs" at "browse-spear.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "lib/tei2html.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -327,8 +327,7 @@ declare function browse:pages($hits, $collection as xs:string?, $sort-options as
 declare function browse:results-panel($node as node(), $model as map(*), $collection, $sort-options as xs:string*){
 let $hits := $model("browse-data")
 return
-if($collection = 'spear') then bs:spear-results-panel($hits)
-else if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then
+if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then
     (<div class="col-md-4">
         {if($browse:view='type') then 
             if($collection = ('geo','places')) then 
@@ -430,23 +429,10 @@ return
 declare function browse:display-hits($hits){
     for $data in subsequence($hits, $browse:start,$browse:perpage)
     let $sort-title := if($data/@sort-title != '') then string($data/@sort-title) else () 
+    let $uri :=  $data/descendant::tei:publicationStmt/tei:idno[@type='URI'][1]
     return 
-        <div xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
-            { 
-             (:$data/matches(substring(global:build-sort-string(.,$browse:computed-lang),1,1),browse:get-sort(),'i'):)
-             transform:transform($data, doc($global:app-root || '/resources/xsl/rec-short-view.xsl'), 
-                <parameters>
-                    <param name="data-root" value="{$global:data-root}"/>
-                    <param name="app-root" value="{$global:app-root}"/>
-                    <param name="nav-base" value="{$global:nav-base}"/>
-                    <param name="base-uri" value="{$global:base-uri}"/>
-                    <param name="lang" value="{$browse:computed-lang}"/>
-                    <param name="recid" value=" "/>
-                    <param name="sort-title" value="{$sort-title}"/>
-                </parameters>
-                )
-             (:global:display-recs-short-view-browse($data, $browse:computed-lang, $sort-title):)
-            }
+        <div xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em" class="short-rec-result">
+            {($sort-title, tei2html:summary-view($data, $browse:computed-lang, $uri)) }
         </div>
 };
 
@@ -602,11 +588,4 @@ return
         {$text}
         </a>
     </li> 
-};
-
-(:~
- : Browse Tabs - SPEAR
-:)
-declare  %templates:wrap function browse:build-tabs-spear($node, $model){    
-    bs:build-tabs-spear($node, $model)
 };

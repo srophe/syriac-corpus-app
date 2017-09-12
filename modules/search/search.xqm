@@ -5,15 +5,10 @@ import module namespace page="http://syriaca.org/page" at "../lib/paging.xqm";
 import module namespace rel="http://syriaca.org/related" at "../lib/get-related.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm";
 import module namespace facet-defs="http://syriaca.org/facet-defs" at "../facet-defs.xqm";
-import module namespace facets="http://syriaca.org/facets" at "../lib/facets.xqm";
-import module namespace persons="http://syriaca.org/persons" at "persons-search.xqm";
-import module namespace places="http://syriaca.org/places" at "places-search.xqm";
-import module namespace spears="http://syriaca.org/spears" at "spear-search.xqm";
-import module namespace bhses="http://syriaca.org/bhses" at "bhse-search.xqm";
 import module namespace bibls="http://syriaca.org/bibls" at "bibl-search.xqm";
-import module namespace ms="http://syriaca.org/ms" at "ms-search.xqm";
 import module namespace common="http://syriaca.org/common" at "common.xqm";
 import module namespace maps="http://syriaca.org/maps" at "../lib/maps.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "../lib/tei2html.xqm";
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 import module namespace functx="http://www.functx.com";
 import module namespace kwic="http://exist-db.org/xquery/kwic";
@@ -187,35 +182,7 @@ declare function search:search-string(){
  : @param $collection passed from search page templates
 :)
 declare function search:search-string($collection as xs:string?){
-    if($collection = ('persons','authors','saints','sbd','q')) then persons:search-string()
-    else if($collection ='spear') then spears:search-string()
-    else if($collection = 'places') then places:search-string()
-    else if($collection = 'bhse') then bhses:search-string()
-    else if($collection = 'bibl') then bibls:search-string()
-    else if($collection = 'manuscripts') then ms:search-string()
-    else search:search-string()
-};
-
-(:~
- : Call facets on search results
- : NOTE: need better template integration
-:)
-declare %templates:wrap function search:facets($node as node()*, $model as map(*), $collection as xs:string*){
-if(exists(request:get-parameter-names())) then
-    <div>
-         {
-         if($collection = 'spear') then
-                <div>
-                    <h4>Narrow Results</h4>
-                       {facet:html-list-facets-as-buttons(facet:count($model("hits"), facet-defs:facet-definition('spear')/child::*))}
-                </div>
-         else 
-            let $facet-nodes := $model("hits")
-            let $facets := $facet-nodes//tei:repository | $facet-nodes//tei:country
-            return facets:facets($facets)
-         }
-    </div>
-else ()
+ search:search-string()
 };
 
 (:~ 
@@ -288,14 +255,7 @@ return
 :)
 declare %templates:wrap  function search:show-form($node as node()*, $model as map(*), $collection as xs:string?) {   
     if(exists(request:get-parameter-names())) then ''
-    else 
-        if($collection = ('persons','sbd','authors','q','saints')) then <div>{persons:search-form($collection)}</div>
-        else if($collection ='spear') then <div>{spears:search-form()}</div>
-        else if($collection ='manuscripts') then <div>{ms:search-form()}</div>
-        else if($collection = ('bhse','nhsl')) then <div>{bhses:search-form($collection)}</div>
-        else if($collection ='bibl') then <div>{bibls:search-form()}</div>
-        else if($collection ='places') then <div>{places:search-form()}</div>
-        else <div>{search:search-form()}</div>
+    else <div>{search:search-form()}</div>
 };
 
 (:~ 
@@ -324,7 +284,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                         </span>
                       </div>
                       <div class="col-md-9" xml:lang="en">
-                        {global:display-recs-short-view($hit,'')} 
+                        {(tei2html:summary-view($hit, (), $id)) }
                         {
                             if($expanded//exist:match) then
                                 <div class="row" xmlns="http://www.w3.org/1999/xhtml">{
