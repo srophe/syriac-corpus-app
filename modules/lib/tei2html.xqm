@@ -293,8 +293,8 @@ declare function tei2html:output-kwic($nodes as node()*, $id as xs:string?){
                                 if($string-length gt 40) then  
                                     concat(substring($s, 1, 40),'...')
                                 else $s
-                let $link := concat($global:nav-base,'/rec.html?id=',$id[1],'#head-',$node/ancestor-or-self::*[@n][1]/@n)
+                let $link := concat($global:nav-base,'/rec.html?id=',$id[1],'#Head-id.',$node/ancestor-or-self::*[@n][1]/@n)
                 return      
-                <span> {$p} <span class="match" style="background-color:yellow;"><a href="{$link}">{$node/text()}</a></span> {$f} </span>
+                <span> {$p} <span class="match" style="background-color:yellow;">&#160;<a href="{$link}">{$node/text()}</a></span> {$f} </span>
             default return tei2html:output-kwic($node/node(), $id)
 };
