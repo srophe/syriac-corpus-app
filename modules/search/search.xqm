@@ -286,19 +286,8 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                       <div class="col-md-9" xml:lang="en">
                         {(tei2html:summary-view($hit, (), $id[1])) }
                         {
-                            if($expanded//exist:match) then
-                                <div class="row" xmlns="http://www.w3.org/1999/xhtml">{
-                                    for $match in $expanded//exist:match
-                                    let $link := concat($global:nav-base,'/rec.html?id=',$id[1],'#head-',$match/ancestor-or-self::*[@n][1]/@n)
-                                    return 
-                                        (
-                                        <div class="col-md-9" style="padding-left:3em;">
-                                        {kwic:get-summary($expanded, $match, <config xmlns="" width="40" link="{$link}"/>)}
-                                        </div>,
-                                        <div class="col-md-3">{string($match/ancestor-or-self::*[@n][@type='section'][1]/@n)}</div>
-                                        )
-                                }</div>         
-
+                            if($expanded//exist:match) then 
+                                <div class="col-md-9" style="padding-left:3em;">{tei2html:output-kwic($expanded, $id[1])}</div>
                             else ()
                         }
                       </div>

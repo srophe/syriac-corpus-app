@@ -144,7 +144,6 @@ declare function tei2html:citation($nodes as node()*) as item()* {
             default return tei2html:tei2html($node/node())
 };
 
-
 declare function tei2html:citation-names($nodes as node()*, $max-output as xs:integer?) as item()* {
 let $persons :=
     if($nodes/tei:author) then 
@@ -188,7 +187,6 @@ declare function tei2html:citation-names-display($nodes as node()*) as item()* {
 declare function tei2html:summary-view($nodes as node()*, $lang as xs:string?, $id as xs:string?) as item()* {
   tei2html:summary-view-generic($nodes,$id)   
 };
-
 
 (: Generic short view template :)
 declare function tei2html:summary-view-generic($nodes as node()*, $id as xs:string?) as item()* {
@@ -252,4 +250,51 @@ declare function tei2html:translate-series($series as xs:string?){
     else if($series = 'Qadishe: A Guide to the Syriac Saints') then 
         <a href="{$global:nav-base}/q/index.html"><img src="{$global:nav-base}/resources/img/icons-q-sm.png" alt="Qadishe: A Guide to the Syriac Saints"/>saint</a>        
     else $series
+};
+
+declare function tei2html:output-kwic($nodes as node()*, $id as xs:string?){
+    for $node in $nodes
+    return 
+        typeswitch($node)
+            case text() return ()
+            case comment() return ()
+            case element(exist:match) return
+                let $p := 
+                    if($node/preceding::exist:match) then 
+                        if($node/preceding::text()[1][parent::exist:match]) then ()
+                        else 
+                            let $s := $node/preceding::text()[1]
+                            let $string-length := string-length($s)
+                            return 
+                                if($string-length gt 60) then 
+                                    concat('...', substring($s, ($string-length - 40), $string-length))
+                                else $s
+                    else
+                        let $s := string-join($node/preceding::text(),' ')
+                        let $string-length := string-length($s)
+                        return 
+                            if($string-length gt 60) then 
+                                concat('...', substring($s, ($string-length - 40), $string-length))
+                            else $s
+                let $f := 
+                    if($node/following::exist:match) then 
+                        if($node/following::text()[1][parent::exist:match]) then ()
+                        else 
+                            let $s := $node/following::text()[1]
+                            let $string-length := string-length($s)
+                            return 
+                                if($string-length gt 40) then  
+                                    concat(substring($s, 1, 40),'...')
+                                else $s
+                    else 
+                            let $s := string-join($node/following::text(),' ')
+                            let $string-length := string-length($s)
+                            return 
+                                if($string-length gt 40) then  
+                                    concat(substring($s, 1, 40),'...')
+                                else $s
+                let $link := concat($global:nav-base,'/rec.html?id=',$id[1],'#head-',$node/ancestor-or-self::*[@n][1]/@n)
+                return      
+                <span> {$p} <span class="match" style="background-color:yellow;"><a href="{$link}">{$node/text()}</a></span> {$f} </span>
+            default return tei2html:output-kwic($node/node(), $id)
 };
