@@ -140,7 +140,7 @@
           <content>
             <sequence>
               <elementRef key="ptr" minOccurs="1" maxOccurs="1"/>
-              <elementRef key="citedRange" minOccurs="1"/>
+              <elementRef key="citedRange" minOccurs="1" maxOccurs="unbounded"/>
             </sequence>
           </content>
           <attList>
