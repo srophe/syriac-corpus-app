@@ -207,7 +207,7 @@
           </remarks>
         </elementSpec>
         
-        <elementSpec ident="citedRange" module="core" mode="change">
+        <elementSpec ident="citedRange" module="core" mode="replace">
           <content>
             <textNode/>
           </content>
