@@ -460,7 +460,7 @@
               </valList>
             </attDef>
             <attDef ident="ref" mode="add" usage="opt">
-              <datatype>
+              <datatype minOccurs="1">
                 <dataRef key="att.canonical"/>
               </datatype>
             </attDef>
@@ -476,7 +476,7 @@
           </classes>
           <attList>
             <attDef ident="ref" mode="add" usage="req">
-              <datatype>
+              <datatype minOccurs="1">
                 <dataRef key="att.canonical"/>
               </datatype>
             </attDef>
@@ -923,7 +923,7 @@
           </classes>
           <attList>
             <attDef ident="ref" usage="req">
-              <datatype>
+              <datatype minOccurs="1">
                 <dataRef key="teidata.pointer"/><!-- I need to figure out a way to require that the attribute value be a syriaca.org person URI. -->
               </datatype>
             </attDef>
@@ -997,7 +997,7 @@
           </classes>
           <attList>
             <attDef ident="ref" usage="req">
-              <datatype>
+              <datatype minOccurs="1">
                 <dataRef key="teidata.pointer"/><!-- I need to figure out a way to require that the attribute value be a syriaca.org place URI. -->
               </datatype>
             </attDef>
@@ -1029,7 +1029,7 @@
           </classes>
           <attList>
             <attDef ident="ref" mode="replace" usage="req">
-              <datatype>
+              <datatype minOccurs="1">
                 <dataRef key="teidata.enumerated"/>
               </datatype>
               <valList type="closed"><!-- I need to include a brief description of each of these. -->
@@ -1462,8 +1462,8 @@
             <elementRef key="note" minOccurs="1" maxOccurs="1"/>
           </content>
           <attList>
-            <attDef ident="ref" mode="add" usage="opt">
-              <datatype>
+            <attDef ident="ref" mode="add" usage="req">
+              <datatype minOccurs="1">
                 <dataRef key="teidata.pointer"/>
               </datatype>
             </attDef>
@@ -1551,7 +1551,7 @@
           </content>
           <attList>
             <attDef ident="ref" usage="req">
-              <datatype>
+              <datatype minOccurs="1">
                 <dataRef key="teidata.pointer"/><!-- I need to modify this to employ a controlled vocabulary from a subset of the keyword list. -->
               </datatype>
             </attDef>
@@ -1635,7 +1635,7 @@
           <attList>
             <attDef ident="tag" mode="delete"></attDef>
               <attDef ident="ref" mode="add" usage="req"><!-- Modify this to populate only language options from the keyword list. -->
-              <datatype>
+              <datatype minOccurs="1">
                 <dataRef key="teidata.pointer"/>
               </datatype>
             </attDef>
@@ -1680,8 +1680,8 @@
             <elementRef key="note" minOccurs="1" maxOccurs="1"/>
           </content>
           <attList>
-            <attDef ident="ref" usage="rec">
-              <datatype>
+            <attDef ident="ref" usage="req">
+              <datatype minOccurs="1">
                 <dataRef key="teidata.pointer"/><!-- I need to modify this to employ a controlled vocabulary from a subset of the keyword list. -->
               </datatype>
             </attDef>
@@ -1729,8 +1729,8 @@
                 </valItem>
               </valList>
             </attDef>
-            <attDef ident="ref" usage="rec">
-              <datatype>
+            <attDef ident="ref" usage="req">
+              <datatype minOccurs="1">
                 <dataRef key="teidata.pointer"/><!-- I need to modify this to employ a controlled vocabulary from a subset of the keyword list. -->
               </datatype>
             </attDef>
@@ -1782,8 +1782,8 @@
             <elementRef key="note" minOccurs="1" maxOccurs="1"/>
           </content>
           <attList>
-            <attDef ident="ref" mode="add" usage="opt">
-              <datatype>
+            <attDef ident="ref" mode="add" usage="req">
+              <datatype minOccurs="1">
                 <dataRef key="teidata.pointer"/>
               </datatype>
             </attDef>
