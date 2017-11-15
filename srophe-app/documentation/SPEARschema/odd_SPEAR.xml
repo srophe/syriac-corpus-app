@@ -461,7 +461,7 @@
             </attDef>
             <attDef ident="ref" mode="add" usage="opt">
               <datatype minOccurs="1">
-                <dataRef key="att.canonical"/>
+                <dataRef key="teidata.pointer"/>
               </datatype>
             </attDef>
           </attList>
@@ -477,7 +477,7 @@
           <attList>
             <attDef ident="ref" mode="add" usage="req">
               <datatype minOccurs="1">
-                <dataRef key="att.canonical"/>
+                <dataRef key="teidata.pointer"/>
               </datatype>
             </attDef>
           </attList>
