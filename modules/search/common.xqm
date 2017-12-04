@@ -146,7 +146,7 @@ declare function common:build-sort-string($titlestring as xs:string*) as xs:stri
 declare function common:options(){
     <options>
         <default-operator>and</default-operator>
-        <phrase-slop>1</phrase-slop>
+        <phrase-slop>3</phrase-slop>
         <leading-wildcard>yes</leading-wildcard>
         <filter-rewrite>yes</filter-rewrite>
     </options>
@@ -166,7 +166,6 @@ return
         <filter-rewrite>yes</filter-rewrite>
     </options>
 };
-
 
 (:~
  : Function to cast dates strings from url to xs:date
@@ -201,13 +200,13 @@ return
  : Build full-text keyword search over full record data 
 :)
 declare function common:keyword(){
-    if(request:get-parameter('q', '') != '') then 
-        if(starts-with(request:get-parameter('q', ''),'http://syriaca.org/')) then
-           concat("[ft:query(descendant::*,'&quot;",request:get-parameter('q', ''),"&quot;',common:options())]")
-        else if(request:get-parameter('qProximity', '')) then 
+    if(request:get-parameter('q', '') != '') then
+        if(request:get-parameter('qProximity', '')) then 
             if(request:get-parameter('qProximity', '') castable as xs:integer) then 
                 concat("[ft:query(descendant::*,'&quot;",request:get-parameter('q', ''),"&quot;',common:options(",request:get-parameter('qProximity', ''),"))]")
             else concat("[ft:query(descendant::*,'",common:clean-string(request:get-parameter('q', '')),"',common:options())]")
+        else if(starts-with(request:get-parameter('q', ''),'http://syriaca.org/')) then
+           concat("[ft:query(descendant::*,'&quot;",request:get-parameter('q', ''),"&quot;',common:options())]")
         else concat("[ft:query(descendant::*,'",common:clean-string(request:get-parameter('q', '')),"',common:options())]")
     else '' 
 };
