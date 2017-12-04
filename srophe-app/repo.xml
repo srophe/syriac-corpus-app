@@ -9,6 +9,7 @@
     <target>srophe</target>
     <prepare>pre-install.xql</prepare>
     <finish>post-install.xql</finish>
+    <permissions user="srophe" group="srophe" mode="rwxrwxr-x"/>
     <config>
         <!-- App title -->
         <title>Syriaca.org: The Syriac Reference Portal</title>

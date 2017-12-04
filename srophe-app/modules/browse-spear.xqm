@@ -65,7 +65,7 @@ let $data :=
             else if($bs:sort = 'Anonymous') then
                 $title[starts-with(.,'Anonym')]
             else $title[not(starts-with(.,'Anonym'))][matches(substring(global:build-sort-string(.,'en'),1,1),data:get-alpha-filter(),'i')] 
-       order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
+       order by $title 
        (:return <hit>{($d,$hit)}</hit>:)
        return $hit
    else if($bs:view = 'places') then 
@@ -78,7 +78,7 @@ let $data :=
         if($bs:sort='All') then 
             $title
         else $title[matches(substring(global:build-sort-string(.,'en'),1,1),data:get-alpha-filter(),'i')]
-       order by $title collation "?lang=en&lt;syr&amp;decomposition=full"
+       order by $title 
        return $hit
    else if($bs:view = 'events') then 
         util:eval(concat('$hits[descendant::tei:listEvent]',facet:facet-filter(facet-defs:facet-definition('spear-events'))))
@@ -90,7 +90,7 @@ let $data :=
         for $r in collection($global:data-root || '/spear/tei')//tei:title[@level='a'][parent::tei:titleStmt]
         let $id := $r/ancestor::tei:TEI/descendant::tei:idno[@type='URI'][1]
         let $num := if($r/tei:num) then xs:double($r/tei:num/text()) else()
-        order by $r, $num collation "?lang=en&lt;syr&amp;decomposition=full"
+        order by $r, $num 
         return <title>{$r, $id}</title>
 return $data   
 };
