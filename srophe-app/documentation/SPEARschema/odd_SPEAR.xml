@@ -138,10 +138,13 @@
             <memberOf key="model.biblPart" mode="add"/>
           </classes>
           <content>
-            <sequence>
+            <alternate>
+              <sequence>
               <elementRef key="ptr" minOccurs="1" maxOccurs="1"/>
               <elementRef key="citedRange" minOccurs="1" maxOccurs="unbounded"/>
             </sequence>
+            <elementRef key="ptr" minOccurs="1" maxOccurs="1"/>
+            </alternate>
           </content>
           <attList>
             <attDef ident="xml:id" mode="add">
@@ -156,6 +159,7 @@
               <valList type="closed">
                 <valItem ident="primary"/>
                 <valItem ident="secondary"/>
+                <valItem ident="urn"/>
               </valList>
             </attDef>
           </attList>
@@ -171,8 +175,15 @@
               </bibl>
             </egXML>
           </exemplum>
+          <exemplum>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <bibl type="urn">
+                <ptr target="urn:cts:syriacLit:nhsl8559.syriacCorpus57:8"/>
+              </bibl>
+            </egXML>
+          </exemplum>
           <remarks>
-            <p>SPEAR only uses xml:id and type attributes on the bibl element. This customization keeps bibl in its model classes bur removes it from its attribite classes. It then allows the bibl element to have only xml:id and type attributes and provides a closed list of attribute values for the type attribute when applied to the bibl element.</p>
+            <p>SPEAR only uses xml:id and type attributes on the bibl element. This customization keeps bibl in its model classes but removes it from its attribite classes. It then allows the bibl element to have only xml:id and type attributes and provides a closed list of attribute values for the type attribute when applied to the bibl element. It also allows a bibl element that contains only a ptr element which is used for encoding references to CTS URNs.</p>
           </remarks>
         </elementSpec>
         
