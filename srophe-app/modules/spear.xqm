@@ -5,6 +5,7 @@ xquery version "3.0";
 
 module namespace spear="http://syriaca.org/spear";
 
+import module namespace cts="http://syriaca.org/cts" at "../CTS/cts-resolver.xqm";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
 import module namespace app="http://syriaca.org/templates" at "app.xql";
@@ -14,7 +15,7 @@ import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
 import module namespace functx="http://www.functx.com";
 
-declare namespace xslt="http://exist-db.org/xquery/transform";
+declare namespace http="http://expath.org/ns/http-client";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace transform="http://exist-db.org/xquery/transform";
@@ -176,6 +177,23 @@ else
                     
 };
 
+declare function spear:cts($node as node(), $model as map(*)){
+    if($model("data")//tei:bibl[@type='urn']) then
+            let $ref := string($model("data")//tei:bibl[@type='urn']/tei:ptr/@target)
+            return
+                <div class="panel panel-default" id="cts">
+                    <div class="panel-heading clearfix">
+                        <h4 class="panel-title">Text from The Oxford-BYU Syriac Corpus</h4>
+                    </div>
+                    <div class="panel-body">
+                        {cts:run($ref, 'xml')
+                        (:http:send-request(<http:request http-version="1.1" href="{xs:anyURI($request)}" method="get"/>)[2]:)
+                        }
+                    </div>
+                </div> 
+    else ()
+
+};
 (:~          
     How to list all the factoids?
     should have the options of by type, in order and using 'advance browse options?'   
