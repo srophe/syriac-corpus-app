@@ -179,18 +179,20 @@ else
 
 declare function spear:cts($node as node(), $model as map(*)){
     if($model("data")//tei:bibl[@type='urn']) then
-            let $ref := string($model("data")//tei:bibl[@type='urn']/tei:ptr/@target)
-            return
+        let $ref := string($model("data")//tei:bibl[@type='urn']/tei:ptr/@target)
+        let $results := cts:run($ref, 'html')
+        return
+            if(not(empty($results))) then 
                 <div class="panel panel-default" id="cts">
                     <div class="panel-heading clearfix">
                         <h4 class="panel-title">Text from The Oxford-BYU Syriac Corpus</h4>
                     </div>
                     <div class="panel-body">
-                        {cts:run($ref, 'xml')
-                        (:http:send-request(<http:request http-version="1.1" href="{xs:anyURI($request)}" method="get"/>)[2]:)
-                        }
+                        {$results}
+                        <span>Go to text <a href="{$global:nav-base}/CTS/cts-resolver.xql?urn={$ref}"><span class="glyphicon glyphicon-circle-arrow-right"> </span></a></span>
                     </div>
                 </div> 
+            else()    
     else ()
 
 };

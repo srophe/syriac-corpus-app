@@ -1,6 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/spear.html" data-template-at="content">
-    <xi:include href="banner.html"/>
+    <div xmlns="" class="banner-interior">
+    <span class="img-credit">
+        <label>Photo Credit:</label> "Funerary moasic of the family of Moqimu with names written in Syriac, 3rd century AD, found in Edessa (now destroyed)."
+        <button class="btn btn-link white-link" data-toggle="collapse" data-target="#img-rights">
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"/>
+        </button>
+        <div id="img-rights" class="collapse">
+            Wikimedia Commons. "Funerary moasic of the family of Moqimu with names written in Syriac, 3rd century AD, found in Edessa (now destroyed)."
+            Last modified January 8, 2012. https://commons.wikimedia.org/wiki/File:Moqimu_mosaic_Edessa.jpg.
+        </div>
+    </span>
+</div>
     <div class="container indent">
         <div data-template="spear:get-rec" data-template-view="factoid">
             <!-- Page title and resource links-->
@@ -9,6 +19,7 @@
                 <!-- Column 1 -->
                 <div class="col-md-8 column1">
                     <div data-template="spear:data" data-template-view="factoid"/>
+                    <div data-template="spear:cts"/>
                     <!-- Bibliography -->
                     <div data-template="spear:bibl"/>
                 </div>

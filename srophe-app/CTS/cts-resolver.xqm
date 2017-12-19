@@ -82,9 +82,11 @@ return
         try {
             let $rec := http:send-request(<http:request http-version="1.1" href="{xs:anyURI(cts:build-request($ref))}" method="get"/>)[2]
             return 
+                <response status="success">{
                 (: Note, switch id's around in xslt so id="Head-id.1" is in an empty span (for toc) and the real id is the surrounding div. for cts:)
                 if($passage != '') then $rec//*[@id = $passage]/parent::*[1]
                 else $rec//html:div[@class="body"]
+                }</response>
             } catch *{
                  <response status="fail">
                      <message>Failed find resource: {concat($err:code, ": ", $err:description)}</message>
@@ -95,9 +97,11 @@ return
             let $url := cts:build-request($ref)
             let $url := if(contains($url,'#')) then concat(substring-before($url,'#'),'/tei') else concat($url,'/tei')
             let $rec := http:send-request(<http:request http-version="1.1" href="{xs:anyURI($url)}" method="get"/>)[2]
-            return (:('URL ',$url, ' Passage: ',$passage, ' pid:',substring-after($passage,'.')):)
-                if($passage != '') then $rec//*[@n = substring-after($passage,'.')]
-                else $rec
+            return 
+                <response status="success">{
+                    if($passage != '') then $rec//*[@n = substring-after($passage,'.')]
+                    else  $rec
+                }</response>
             } catch *{
                  <response status="fail">
                      <message>Failed find resource: {concat($err:code, ": ", $err:description)}</message>

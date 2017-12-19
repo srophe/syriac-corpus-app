@@ -19,8 +19,8 @@
                      
                     var posting = $.post(url, {urn: urn, action: action});
                     posting.done(function(data){
-                        var content = $(data);
-                        $("#ctsResults").empty().append(content);
+                        var content = $(data).children();
+                        $("#ctsResults").html(content);
                     });
                 });
             });
