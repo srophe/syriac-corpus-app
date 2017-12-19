@@ -8,33 +8,37 @@ module namespace geojson="http://syriaca.org/geojson";
  : @authored 2014-06-25
 :)
 
-import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
+import module namespace global="http://syriaca.org/global" at "global.xqm";
 declare namespace output="http://www.w3.org/2010/xslt-xquery-serialization";
 
 declare namespace json = "http://www.json.org";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
-
 (:~
  : Serialize XML as JSON
 :)
 declare function geojson:geojson($nodes as node()*){
-    xqjson:serialize-json(geojson:json-wrapper($nodes))
+    serialize(geojson:json-wrapper($nodes), 
+        <output:serialization-parameters>
+            <output:method>json</output:method>
+        </output:serialization-parameters>)
+    (: xqjson:serialize-json(geojson:json-wrapper($nodes)) :)
 };
 
 (:~
  : Build root element for geojson output
 :)
 declare function geojson:json-wrapper($nodes as node()*) as element()*{
-<json type="object">
-    <pair name="type" type="string">FeatureCollection</pair>
-    <pair name="features"  type="array">
-        {
-             for $n in $nodes[descendant-or-self::tei:geo]
-             return geojson:geojson-object($n)
-        }
-    </pair>
-</json>
+    <root>
+        <type>FeatureCollection</type>
+        <features>
+            {
+            let $nodes := $nodes[descendant-or-self::tei:geo]
+            let $count := count($nodes)
+            for $n in $nodes
+            return geojson:geojson-object($n, $count)}
+        </features>
+    </root>
 };
 
 (:~
@@ -47,7 +51,7 @@ declare function geojson:json-wrapper($nodes as node()*) as element()*{
     <location></location>  
   </place>
 :)
-declare function geojson:geojson-object($node as node()*) as element()*{
+declare function geojson:geojson-object($node as node()*, $count as xs:integer?) as element()*{
 let $id := if($node//tei:idno[@type='URI']) then $node//tei:idno[@type='URI'][1]
            else $node//tei:idno[1]
 let $title := if($node/descendant::*[@syriaca-tags="#syriaca-headword"]) then $node/descendant::*[@syriaca-tags="#syriaca-headword"][1] 
@@ -62,26 +66,24 @@ let $type := if($node//tei:relationType != '') then
               else ()   
 let $coords := $node//tei:geo[1]
 return 
-<item type="object">
-    <pair name="type" type="string">Feature</pair>
-    <pair name="geometry" type="object">
-        <pair name="type" type="string">Point</pair>
-        <pair name="coordinates"  type="array">
-            <item type="number">{substring-after($coords,' ')}</item>
-            <item type="number">{substring-before($coords,' ')}</item>
-        </pair>
-    </pair>
-    <pair name="properties"  type="object">
-        <pair name="uri" type="string">{replace($id,'/tei','')}</pair>
-        <pair name="name" type="string">{string-join($title,' ')}</pair>
-        {if($desc != '') then
-            <pair name="desc" type="string">{string-join($desc,' ')}</pair> 
-        else(),
-        if($type != '') then
-            <pair name="type" type="string">{$type}</pair> 
-        else ()
-        }
-        
-    </pair>
-</item>
+    <json:value>
+        {(if(count($count) = 1) then attribute {xs:QName("json:array")} {'true'} else())}
+        <type>Feature</type>
+        <geometry>
+            <type>Point</type>
+            <coordinates json:literal="true">{tokenize($coords,' ')[2]}</coordinates>
+            <coordinates json:literal="true">{tokenize($coords,' ')[1]}</coordinates>
+        </geometry>
+        <properties>
+            <uri>{replace(replace($id,$global:base-uri,$global:nav-base),'/tei','')}</uri>
+            <name>{string-join($title,' ')}</name>
+            {if($desc != '') then
+                <desc>{string-join($desc,' ')}</desc> 
+            else(),
+            if($type != '') then
+                <type>{$type}</type> 
+            else ()
+            }
+        </properties>
+    </json:value>
 };

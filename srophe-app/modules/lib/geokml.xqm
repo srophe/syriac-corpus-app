@@ -2,18 +2,16 @@ xquery version "3.0";
 
 module namespace geokml="http://syriaca.org/geokml";
 (:~
- : Module returns coordinates as geoJSON
- : Formats include geoJSON 
+ : Module returns coordinates as KML
+ : Formats include KML 
  : @author Winona Salesky <wsalesky@gmail.com>
  : @authored 2014-06-25
 :)
 
-import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
-
 (:~
- : Serialize XML as JSON
+ : Serialize XML as KML
 :)
 declare function geokml:kml($nodes as node()*){
 <kml xmlns="http://www.opengis.net/kml/2.2">
@@ -28,7 +26,7 @@ declare function geokml:kml($nodes as node()*){
 
 (:~
  : Build KML object for each node with coords
- : Sample data passed to geojson-object
+ : Sample data passed to KML wrapper
   <place xmlns="http://www.tei-c.org/ns/1.0">
     <idno></idno>
     <title></title>
