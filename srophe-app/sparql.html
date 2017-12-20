@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+    <meta charset="UTF-8"/>
+    <title>d3sparql.js</title>
+    <link rel="stylesheet" type="text/css" href="$app-root/resources/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>
+    <script>
+        /*
+            $(document).ready(function () {
+                $("#RDF").submit(function(event){
+                    event.preventDefault();
+                    var $form = $(this),
+                     action = $form.find("select[name='action']").val(),
+                     collection = $form.find("select[name='collection']").val(),
+                     url = $form.attr("action");
+                     $.post( url, function( data ) {
+                        var content = $(data);
+                        $("#results").html(content);
+                        });
+                });
+            });*/
+    </script>
+    <body>
+        <div id="query" style="margin: 10px">
+            <h1>Query eXistdb SPARQL endpoint</h1>
+            <form action="/exist/apps/srophe/modules/run-sparql.xql" method="POST" id="RDF">
+                <textarea id="sparql" class="span9" rows="15" cols="150" name="sparql">
+                    <![CDATA[
+                    prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                    prefix owl: <http://www.w3.org/2002/07/owl#>
+                    prefix skos: <http://www.w3.org/2004/02/skos/core#>
+                    prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+                    prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                    prefix lawd: <http://lawd.info/ontology/>
+                    prefix dcterms: <http://purl.org/dc/terms/>
+                    prefix foaf: <http://xmlns.com/foaf/0.1/>
+                    prefix dc: <http://purl.org/dc/terms/>      
+                                            
+                    SELECT *
+                    WHERE {
+                      <http://syriaca.org/place/78> skos:prefLabel ?o;
+                    }
+                ]]></textarea>
+                <br/>
+                <input type="submit" value="Run"/>
+            </form>
+        </div>
+        <h2>Query Results</h2>
+        <div id="results"/>
+    </body>
+</html>
