@@ -117,6 +117,10 @@ else if (contains($exist:path,'/api/')) then
      <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <forward url="{replace($exist:path,'/api/oai','/srophe/modules/oai.xql')}"/>
      </dispatch>
+    else if($exist:resource = 'sparql') then
+     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+        <forward url="{replace($exist:path,'/api/sparql','/srophe/modules/run-sparql.xql')}"/>
+     </dispatch>
     else
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <forward url="{concat('/restxq/srophe', $exist:path)}" absolute="yes"/>
