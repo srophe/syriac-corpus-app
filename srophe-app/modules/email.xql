@@ -9,13 +9,17 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace mail="http://exist-db.org/xquery/mail";
 declare namespace request="http://exist-db.org/xquery/request";
+import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace recap = "http://www.exist-db.org/xquery/util/recapture" at "recaptcha.xqm";
 
 declare option exist:serialize "method=xml media-type=text/xml indent=yes";
 
 (:request:get-parameter("recaptcha_response_field",()):)
 declare function local:recaptcha(){
-let $recapture-private-key := string(environment-variable('secret'))
+let $recapture-private-key := 
+    if($global:get-secret-config//recaptcha/site-key-variable != '') then 
+      environment-variable($git-config//recaptcha/site-key-variable/text())
+    else $git-config//private-key/text()
 return 
     recap:validate($recapture-private-key, request:get-parameter("g-recaptcha-response",()))
 };
@@ -67,7 +71,7 @@ return
     else 
         <cc>david.a.michelson@vanderbilt.edu</cc>
     }
-    <cc>wsalesky@gmail.com</cc>
+    <bc>wsalesky@gmail.com</cc>
     <subject>{request:get-parameter('subject','')} RE: {$uri}</subject>
     <message>
       <xhtml>

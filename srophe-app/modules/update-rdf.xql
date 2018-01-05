@@ -29,11 +29,11 @@ return
     if($action = 'initiate') then
         local:get-records($action,$collection,())
     else if(request:get-parameter('action', '') = 'update') then
-        <response status="200">
+        <response status="200" xmlns="http://www.w3.org/1999/xhtml">
             <message>Update!</message>
         </response>
     else 
-        <response status="400">
+        <response status="400" xmlns="http://www.w3.org/1999/xhtml">
             <message>You did not give me any directions.</message>
         </response>
 };
@@ -49,9 +49,14 @@ declare function local:get-records($action as xs:string?, $collection as xs:stri
         let $pages := xs:integer($total div $perpage)
         let $start := 0
         return 
-            <response status="200">
-                <message>{('Total: ', $total, ' perpage: ', $perpage, ' pages:', $pages, ' collection:', $collection, 'data root: ',$global:data-root)}</message>
-                <output>{local:process-results($records, $total, $start, $perpage)}</output>
+            <response status="200" xmlns="http://www.w3.org/1999/xhtml">
+                <message style="margin:1em;padding:1em; border: 1px solid #eee; display:block;">
+                    <strong>Total: </strong>{$total}<br/>
+                    <strong>Per page: </strong>{$perpage}<br/>
+                    <strong>Pages: </strong>{$pages}<br/>
+                    <strong>Collection: </strong>{$collection}<br/>
+                </message>
+                <output>{local:process-results($records, $total, $start, $perpage, $collection)}</output>
             </response>
     else if($action = 'update') then 
         let $records := 
@@ -63,45 +68,70 @@ declare function local:get-records($action as xs:string?, $collection as xs:stri
         let $pages := xs:integer($total div $perpage)
         let $start := 0
         return 
-            <response status="200">
+            <response status="200" xmlns="http://www.w3.org/1999/xhtml">
                 <message>{('Total: ', $total, ' perpage: ', $perpage, ' pages:', $pages, ' collection:', $collection, 'data root: ',$global:data-root)}</message>
-                <output>{local:process-results($records, $total, $start, $perpage)}</output>
+                <output>{local:process-results($records, $total, $start, $perpage, $collection)}</output>
             </response>            
     else 
-        <response status="200">
+        <response status="200" xmlns="http://www.w3.org/1999/xhtml">
             <message>There is no other hand.</message>
         </response>
 };
 
-declare function local:process-results($records as item()*, $total, $start, $perpage){
+declare function local:process-results($records as item()*, $total, $start, $perpage, $collection){
     let $end := $start + $perpage
     return
-        (
+        (    
+         (: Process collection records :)
          for $r in subsequence($records,$start,$perpage)
          let $uri := document-uri(root($r))
          let $rdf := tei2rdf:rdf-output($r)
          let $file-name := substring-before(tokenize($uri,'/')[last()],'.xml')
-         let $collection := substring-before($uri, $file-name)
-         let $rdf-collection := replace(replace(substring(substring-after($collection, $global:data-root),2),'tei','rdf'),'/','-')
-         let $rdf-filename := concat($rdf-collection,$file-name,'.rdf')
-         return 
+         let $collection := replace(substring-before($uri, $file-name),'/tei/','')
+         let $repository := replace($global:app-root,'/db/apps/','')
+         let $rdf-collection := replace(replace(substring(substring-after($collection, $global:data-root),2),'tei',''),'/','-')
+         let $rdf-filename := concat($repository,'-',$rdf-collection,'-',$file-name,'.rdf')
+         let $rdf-path := concat($repository,'/',$rdf-collection) 
+         return  
              try {
-                 <response status="200">
-                     <message>{xmldb:store('/db/rdftest', xmldb:encode-uri($rdf-filename), $rdf)}</message>
+                 <response status="200" xmlns="http://www.w3.org/1999/xhtml">
+                     <message>{(
+                             (: Check for local collection :)
+                            if(xmldb:collection-available('/db/rdftest/' || $rdf-path)) then ()
+                            else local:mkcol("/db/rdftest", $rdf-path),
+                            xmldb:store('/db/rdftest/' || $rdf-path, xmldb:encode-uri($rdf-filename), $rdf)
+                     )}</message>
                  </response>
                  } catch *{
-                 <response status="fail">
+                 <response status="fail" xmlns="http://www.w3.org/1999/xhtml">
                      <message>Failed to add resource {$rdf-filename}: {concat($err:code, ": ", $err:description)}</message>
                  </response>
                  },
+         (: Go to next :)        
          if($total gt $end) then 
-             local:process-results($records, $total, $end, $perpage)
-         else <message>end of the line end: {$end} total: {$total} start {$start} perpage: {$perpage}</message>
+             local:process-results($records, $total, $end, $perpage, $collection)
+         else ()
          )            
 };
 
+(: Helper function to recursively create a collection hierarchy. :)
+declare function local:mkcol-recursive($collection, $components) {
+    if (exists($components)) then
+        let $newColl := concat($collection, "/", $components[1])
+        return (
+            xmldb:create-collection($collection, $components[1]),
+            local:mkcol-recursive($newColl, subsequence($components, 2))
+        )
+    else ()
+};
+
+(: Helper function to recursively create a collection hierarchy. :)
+declare function local:mkcol($collection, $path) {
+    local:mkcol-recursive($collection, tokenize($path, "/"))
+};
+
 (: Create rdf collection if it does not exist. :)
-declare function local:build-collection(){
+declare function local:build-collection-rdftest(){
     let $rdftest-coll := xmldb:create-collection("/db", "rdftest")
     let $rdftest-conf-coll := xmldb:create-collection("/db/system/config/db", "rdftest")
     let $rdf-conf :=
@@ -120,9 +150,16 @@ declare function local:build-collection(){
 :)
 if(request:get-parameter('action', '') != '') then
     if(xmldb:collection-available('/db/rdftest')) then
-        local:update-rdf()
-    else (local:build-collection(),local:update-rdf())
+        <response xmlns="http://www.w3.org/1999/xhtml">{ local:update-rdf() }</response>
+    else <response xmlns="http://www.w3.org/1999/xhtml">{ (local:build-collection-rdftest(),local:update-rdf()) }</response>
+else if(request:get-parameter('id', '') != '') then
+     let $rec := collection($global:data-root)/tei:TEI[descendant::tei:idno[. = request:get-parameter('id', '')]]
+     return 
+        if(xmldb:collection-available('/db/rdftest')) then         
+            <response xmlns="http://www.w3.org/1999/xhtml">{ local:process-results($rec, 1,1,1,()) }</response>
+        else <response xmlns="http://www.w3.org/1999/xhtml">{(: (local:build-collection-rdftest(),local:update-rdf()) :) 'Error'}</response>
+
 else 
-    <div>
+    <div xmlns="http://www.w3.org/1999/xhtml">
         <p><label>Last Updated: </label> {$last-modified-version}</p>
     </div>

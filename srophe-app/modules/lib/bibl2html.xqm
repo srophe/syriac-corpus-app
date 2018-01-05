@@ -77,11 +77,11 @@ declare function bibl2html:series($nodes as node()*) {(
     if($nodes/preceding-sibling::tei:monogr/tei:title[@level='j']) then ' (=' 
     else if($nodes/preceding-sibling::tei:series) then '; '
     else ', ',
-    tei2html:tei2html($nodes/tei:title[1]),
+    if($nodes/tei:title) then tei2html:tei2html($nodes/tei:title[1]) else (),
     if($nodes/tei:biblScope) then 
         (',', 
         for $r in $nodes/tei:biblScope[@unit='series'] | $nodes/tei:biblScope[@unit='vol'] | $nodes/tei:biblScope[@unit='tomus']
-        return (tei2html:tei2html($r), if(position() != last()) then ',' else ())) 
+        return (tei2html:tei2html($r), if($r[position() != last()]) then ',' else ())) 
     else (),
     if($nodes/preceding-sibling::tei:monogr/tei:title[@level='j']) then ')' else (),
     if($nodes/preceding-sibling::tei:monogr/tei:imprint and not($nodes/following-sibling::tei:series)) then 

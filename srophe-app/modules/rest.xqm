@@ -166,7 +166,7 @@ function api:search-element($api:repo as xs:string?, $element as xs:string?, $q 
 :)
 declare
     %rest:POST("{$data}")
-    %rest:path("/{$api:repo}/api/sparql")
+    %rest:path("/{$api:repo}/api/sparql/query")
     %rest:consumes("application/xml", "text/xml")
     %rest:produces("application/xml")
     %output:method("xml")
@@ -180,7 +180,7 @@ function api:sparql-endpoint($api:repo as xs:string?, $data as item()*){
 :)
 declare
     %rest:GET
-    %rest:path("/{$api:repo}/api/sparql-queries")
+    %rest:path("/{$api:repo}/api/sparql/query")
     %rest:query-param("qname", "{$qname}", "")
     %rest:query-param("id", "{$id}", "")
     %rest:consumes("application/xml", "text/xml")

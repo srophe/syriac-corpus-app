@@ -69,12 +69,7 @@
             <collection name="subjects" title="A Taxonomy of Syriac Studies" app-root="taxonomy" data-root="subjects" record-URI-pattern="http://syriaca.org/keyword/"/>
             <collection name="bethqatraye" title="Beth Qatraye Gazetteer" collection-URI="http://syriaca.org/bethqatraye" series="The Syriac Gazetteer" app-root="bethqatraye" data-root="places" record-URI-pattern="http://syriaca.org/place/"/>
         </collections>
-        <!--
-    <google_analytics>var _gaq=[['_setAccount','UA-333143-26'],['_trackPageview']];
-        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g,s)}(document,'script'));</google_analytics>
-    -->
+       
     </config>
     
     
