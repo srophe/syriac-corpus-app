@@ -287,7 +287,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                         {(tei2html:summary-view($hit, (), $id[1])) }
                         {
                             if($expanded//exist:match) then 
-                                <div class="col-md-9" style="padding-left:3em;">{tei2html:output-kwic($expanded, $id[1])}</div>
+                                <div class="col-md-9" style="padding-left:3em;">{common:output-kwic($expanded, $id[1])}</div>
                             else ()
                         }
                       </div>

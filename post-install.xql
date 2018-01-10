@@ -17,5 +17,5 @@ declare variable $target external;
 (: Register restxq modules. Should be done automatically, but there seems to be an occasional bug :)
 xrest:register-module(xs:anyURI($target || '/modules/rest.xqm')),
 (: Set UID for git-sync. :)
-sm:chmod(xs:anyURI(xs:anyURI($target || '/modules/git-sync.xql'), "rwsr-xr-x")
+sm:chmod(xs:anyURI(xs:anyURI($target || '/modules/git-sync.xql'), "rwsr-xr-x"))
 )
