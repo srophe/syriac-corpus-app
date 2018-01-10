@@ -364,12 +364,21 @@ declare function rel:link($uris as xs:string*){
         )
 };
 
-declare function rel:build-relationship-sentence($relationship,$uri){
+declare function rel:relationship-sentence($relationship as node()*){
 (: Will have to add in some advanced prcessing that tests the current id (for aggrigate pages) and subs vocab for active/passive:)
 if($relationship/@mutual) then
-    (rel:link($relationship/@mutual), rel:decode-spear-relationship($relationship/@ref),'.')
+    (rel:get-names($relationship/@mutual), rel:decode-spear-relationship($relationship/@ref),'.')
 else if($relationship/@active) then 
-    (rel:link($relationship/@active), rel:decode-spear-relationship($relationship/@ref), rel:link($relationship/@passive),'.') 
+    (rel:get-names($relationship/@active), rel:decode-spear-relationship($relationship/@ref), rel:get-names($relationship/@passive),'.') 
+else ()
+};
+
+declare function rel:relationship-sentence-links($relationship,$uri){
+(: Will have to add in some advanced prcessing that tests the current id (for aggrigate pages) and subs vocab for active/passive:)
+if($relationship/@mutual) then
+    (rel:get-names($relationship/@mutual),'[',rel:link($relationship/@mutual),']', rel:decode-spear-relationship($relationship/@ref),'.')
+else if($relationship/@active) then 
+    (rel:get-names($relationship/@active),'[',rel:link($relationship/@active),']', rel:decode-spear-relationship($relationship/@ref), rel:get-names($relationship/@passive),'[',rel:link($relationship/@passive),']','.') 
 else ()
 };
 
@@ -385,7 +394,7 @@ declare function rel:build-short-relationships-list($node,$idno){
         let $uri := string($related/ancestor::tei:div[@uri][1]/@uri)
         return
             <span class="short-relationships">
-               {(:rel:build-short-relationships($related,$uri):)rel:build-relationship-sentence($related,$uri)} 
+               {rel:relationship-sentence-links($related,$uri)} 
                 &#160;<a href="factoid.html?id={$uri}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/></a>
             </span>
 };
@@ -396,7 +405,7 @@ declare function rel:build-short-relationships-list($node,$idno){
  : @param $idno record idno
 :)
 declare function rel:build-short-relationships($node,$uri){ 
-    <p>{rel:build-relationship-sentence($node,$uri)}</p>
+    <p>{rel:relationship-sentence-links($node,$uri)}</p>
 };
 
 (:~

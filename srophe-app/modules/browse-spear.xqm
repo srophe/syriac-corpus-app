@@ -205,7 +205,7 @@ declare function bs:hits($hits){
             (' ', <a href="aggregate.html?id={replace($data//tei:idno,'/tei','')}" class="syr-label">{string-join($data/descendant-or-self::tei:title[1]/node(),' ')}</a>)
         else 
             (if($data/tei:listRelation) then 
-                <span class="srp-label">[{concat(' ', functx:camel-case-to-words(substring-after($data/tei:listRelation/tei:relation/@name,':'),' '))} relation] </span>
+                <span class="srp-label">[Relation factoid] </span>
             else if($data/tei:listPerson) then
                 <span class="srp-label">[Person factoid] </span>
             else if($data/tei:listEvent) then
@@ -216,7 +216,7 @@ declare function bs:hits($hits){
                 if($data/descendant-or-self::tei:titleStmt) then $data/descendant-or-self::tei:titleStmt[1]/text()
                 else if($data/tei:listRelation) then 
                     <span> 
-                     {rel:build-short-relationships($data/tei:listRelation/tei:relation,'')}
+                     {rel:relationship-sentence($data/tei:listRelation/tei:relation)}
                     </span>
                 else substring(string-join($data/child::*[1]/descendant-or-self::*/text(),' '),1,550)
             }                                    

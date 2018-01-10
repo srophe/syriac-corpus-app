@@ -305,7 +305,7 @@ declare function search:show-rec($hit, $p, $collection){
                                       )}
                         </div>  
                         else if(request:get-parameter('relation', '') and $collection = 'spear') then 
-                            <a href="factoid.html?id={string($hit/@uri)}">{rel:build-relationship-sentence($hit/descendant::tei:relation,$spears:relation)}</a>
+                            <a href="factoid.html?id={string($hit/@uri)}">{rel:relationship-sentence($hit/descendant::tei:relation)}</a>
                         else global:display-recs-short-view($hit,'')
                     }
             </div>
