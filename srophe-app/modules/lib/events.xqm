@@ -8,6 +8,7 @@ module namespace ev="http://syriaca.org/events";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 
 import module namespace global="http://syriaca.org/global" at "global.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "tei2html.xqm";
 import module namespace timeline="http://syriaca.org/timeline" at "timeline.xqm";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
@@ -24,19 +25,6 @@ declare variable $ev:date {request:get-parameter('date', '')};
 declare variable $ev:fq {request:get-parameter('fq', '')};
 declare variable $ev:sort {request:get-parameter('sort', 'all') cast as xs:string};
 declare variable $ev:item-type {request:get-parameter('item-type', 'all') cast as xs:string};
-
-declare function ev:display-recs-short-view($node,$lang){
-  transform:transform($node, doc($global:app-root || '/resources/xsl/rec-short-view.xsl'), 
-    <parameters>
-        <param name="data-root" value="{$global:data-root}"/>
-        <param name="app-root" value="{$global:app-root}"/>
-        <param name="nav-base" value="{$global:nav-base}"/>
-        <param name="base-uri" value="{$global:base-uri}"/>
-        <param name="lang" value="en"/>
-        <param name="spear" value="true"/>
-    </parameters>
-    )
-};
 
 (:~ 
  : Include timeline and events list view in xql to adjust for event/person/place view
@@ -61,7 +49,7 @@ return
                                   $data//tei:floruit[@when] | $data//tei:floruit[@notBefore]| $data//tei:floruit[@notAfter] 
                                   | $data//tei:state[@when] | $data//tei:state[@notBefore] | $data//tei:state[@notAfter] | $data//tei:state[@from] | $data//tei:state[@to]
                                   return 
-                                     <li>{ev:display-recs-short-view($date,'')}</li>
+                                     <li>{tei2html:tei2html($date)}</li>
                                  }
                              </ul>
                          </div>
@@ -105,7 +93,7 @@ declare function ev:events($nodes as node()*){
        <ul>
         {
             for $e in $data
-            return <li class="md-line-height">{global:tei2html($e)} {<a href="factoid.html?id={string($e/@uri)}">See factoid page  <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a>}</li>
+            return <li class="md-line-height">{tei2html:tei2html($e)} {<a href="factoid.html?id={string($e/@uri)}">See factoid page  <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a>}</li>
          }
         </ul>
     else
@@ -129,7 +117,7 @@ declare function ev:events($nodes as node()*){
                         for $e in $event
                         return 
                             <li class="md-line-height">
-                                {global:tei2html($e/tei:listEvent/descendant::tei:event)}&#160; 
+                                {tei2html:tei2html($e/tei:listEvent/descendant::tei:event)}&#160; 
                                 {<a href="factoid.html?id={string($e/@uri)}">See factoid page  <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a>   }
                             </li>
                     }
@@ -137,7 +125,6 @@ declare function ev:events($nodes as node()*){
             </li>
          }
          </ul>
-
     }
 </div>
 };

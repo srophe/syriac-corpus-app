@@ -1,24 +1,25 @@
 (:~              
- : Builds spear page  
+ : Builds SPEAR pages  
  :)
 xquery version "3.0";
-
 module namespace spear="http://syriaca.org/spear";
 
-import module namespace cts="http://syriaca.org/cts" at "../CTS/cts-resolver.xqm";
+(: eXistdb modules :)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
-import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
+import module namespace functx="http://www.functx.com";
+
+(:Syriaca.org modules. :)
 import module namespace app="http://syriaca.org/templates" at "app.xql";
+import module namespace cts="http://syriaca.org/cts" at "../CTS/cts-resolver.xqm";
+import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
-import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
-import module namespace functx="http://www.functx.com";
+import module namespace tei2html="http://syriaca.org/tei2html" at "lib/tei2html.xqm";
+import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
 
 declare namespace http="http://expath.org/ns/http-client";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
-declare namespace xlink = "http://www.w3.org/1999/xlink";
-declare namespace transform="http://exist-db.org/xquery/transform";
 
 (:~            
  : Parameters passed from the url 

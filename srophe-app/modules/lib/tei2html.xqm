@@ -45,14 +45,26 @@ declare function tei2html:tei2html($nodes as node()*) as item()* {
                     if($node/following-sibling::tei:biblScope[@unit='series']) then ', ' else ()
             }
             case element(tei:label) return element span {tei2html:tei2html($node/node())}
+            case element(tei:placeName) return 
+                <span class="tei-placeName">{
+                    let $name := tei2html:tei2html($node/node())
+                    return
+                        if($node/@ref) then
+                            element a { attribute href { $node/@ref }, $name }
+                        else $name                                 
+                        }</span>
             case element(tei:persName) return 
                 <span class="tei-persName">{
-                    if($node/child::*) then 
-                        for $part in $node/child::*
-                        order by $part/@sort ascending, string-join($part/descendant-or-self::text(),' ') descending
-                        return tei2html:tei2html($part/node())
-                    else tei2html:tei2html($node/node())
-                }</span>
+                    let $name := if($node/child::*) then 
+                                    for $part in $node/child::*
+                                    order by $part/@sort ascending, string-join($part/descendant-or-self::text(),' ') descending
+                                    return tei2html:tei2html($part/node())
+                                 else tei2html:tei2html($node/node())
+                    return
+                        if($node/@ref) then
+                            element a { attribute href { $node/@ref }, $name }
+                        else $name                                 
+                        }</span>
             case element(tei:title) return 
                 let $titleType := 
                         if($node/@level='a') then 
@@ -77,6 +89,42 @@ declare function tei2html:tei2html($nodes as node()*) as item()* {
                         else tei2html:tei2html($node/node()))                 
                     }</span>
             default return tei2html:tei2html($node/node())
+};
+
+(:~ 
+ : Display idno with copy icon and paging (if relevant)
+:)
+declare function tei2html:idno-title-display($id){
+    let $id-string := substring-after(tokenize($id,'/')[last()],'-')
+    let $id-num := if($id-string castable as xs:integer) then $id-string cast as xs:integer else 0
+    let $next := $id-num + 1
+    let $prev := $id-num - 1
+    let $next-url := concat(substring-before($id,'-'),'-',string($next))
+    let $prev-url := concat(substring-before($id,'-'),'-',string($prev))
+    return 
+        <div style="margin:0 1em 1em; color: #999999;" xmlns="http://www.w3.org/1999/xhtml">
+            <small>
+                <span class="uri">
+                    <a href="{replace($prev-url, $global:base-uri, $global:nav-base)}"><span class="glyphicon glyphicon-backward" aria-hidden="true"/></a>
+                    &#160;<button type="button" class="btn btn-default btn-xs" id="idnoBtn" data-clipboard-action="copy" data-clipboard-target="#syriaca-id">
+                        <span class="srp-label">URI</span>
+                    </button>&#160;
+                    <span id="syriaca-id">{$id}</span>
+                    <script>
+                        <![CDATA[
+                            var clipboard = new Clipboard('#idnoBtn');
+                            clipboard.on('success', function(e) {
+                            console.log(e);
+                            });
+                            
+                            clipboard.on('error', function(e) {
+                            console.log(e);
+                            });]]>
+                    </script>
+                    <a href="{replace($next-url,$global:base-uri, $global:nav-base)}"><span class="glyphicon glyphicon-forward" aria-hidden="true"/></a>
+                </span>
+            </small>
+        </div>
 };
 
 (:
@@ -358,6 +406,27 @@ declare function tei2html:summary-view-spear($nodes as node()*, $id as xs:string
     </div>        
 };
 
+declare function tei2html:title-display($nodes as node()*){
+    <span id="title">
+        {(
+            if($nodes/descendant-or-self::tei:entryFree) then
+                concat('Term: ', tei2html:tei2html($nodes/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][not(empty(node()))][1]))
+            else if($nodes/descendant::*[contains(@syriaca-tags,'#anonymous-description')]) then
+                string-join($nodes/descendant::*[contains(@syriaca-tags,'#anonymous-description')][1],' ')
+            else if($nodes/descendant::*[contains(@syriaca-tags,'#syriaca-headword')]) then
+                (string(tei2html:tei2html($nodes/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'en')][not(empty(node()))][1])),
+                ' - ',
+                if($nodes/descendant::*[contains(@syriaca-tags,'#anonymous-description')]) then 
+                    string(tei2html:tei2html($nodes/descendant::*[contains(@syriaca-tags,'#anonymous-description')][1]))
+                else if($nodes/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')]) then 
+                    <span lang="syr" dir="rtl">{string(tei2html:tei2html($nodes/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][starts-with(@xml:lang,'syr')][1]))}</span>
+                else '[ Syriac Not Available ]'
+                )
+            else tei2html:tei2html($nodes/descendant-or-self::tei:title[1])
+           (:NOTE: need to add dates for persons. see xslt :)
+        )}
+   </span>
+};
 
 declare function tei2html:translate-series($series as xs:string?){
     if($series = 'The Syriac Biographical Dictionary') then ()
