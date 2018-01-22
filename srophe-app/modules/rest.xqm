@@ -33,8 +33,9 @@ declare
     %rest:path("/srophe/api/geo/json")
     %rest:query-param("type", "{$type}", "")
     %rest:query-param("output", "{$output}", "json")
+    %rest:produces("application/json")
     %output:media-type("application/json")
-    (:%output:method("json"):)
+    %output:method("json")
 function api:get-geo-json($type as xs:string*, $output as xs:string*) {
 (<rest:response> 
   <http:response status="200"> 
@@ -117,6 +118,8 @@ declare
     %rest:query-param("collection", "{$collection}", "")
     %rest:query-param("lang", "{$lang}", "")
     %rest:query-param("author", "{$author}", "")
+    %rest:produces("application/json")
+    %output:media-type("application/json")
     %output:method("json")
 function api:search-element($element as xs:string?, $q as xs:string*, $collection as xs:string*, $lang as xs:string*, $author as xs:string*){
     let $collection := if($collection != '') then
