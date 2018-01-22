@@ -8,5 +8,4 @@ import module namespace tei2rdf="http://syriaca.org/tei2rdf" at "lib/tei2rdf.xqm
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
 
-for $r in collection('/db/apps/srophe-data/data/places')
-return tei2rdf:save-rec($r)
+xrest:register-module(xs:anyURI('/db/apps/srophe/modules/rest.xqm'))
