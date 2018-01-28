@@ -18,8 +18,22 @@ declare namespace util="http://exist-db.org/xquery/util";
 declare function bibl2html:citation($nodes as node()*) {
     if($nodes/descendant::tei:monogr and not($nodes/descendant::tei:analytic)) then 
         bibl2html:monograph($nodes/descendant::tei:monogr)
-    else bibl2html:analytic($nodes/descendant::tei:analytic)
+    else if($nodes/descendant::tei:analytic) then bibl2html:analytic($nodes/descendant::tei:analytic)
+    else bibl2html:record($nodes/tei:teiHeader)
 };
+
+(:~
+ : Output monograph citation
+:)
+declare function bibl2html:record($nodes) {
+    let $titleStmt := $nodes/descendant::tei:titleStmt
+    let $persons :=  concat(bibl2html:emit-responsible-persons($titleStmt/tei:editor[@role='creator'],3), 
+                        if(count($titleStmt/tei:editor) gt 1) then ' (eds.), ' else ' (ed.), ')
+    return 
+        ($persons, '"',tei2html:tei2html($titleStmt/tei:title[1]),'" in ',tei2html:tei2html($titleStmt/tei:title[@level='m'][1]),' last modified ',
+        for $d in $nodes/descendant-or-self::tei:publicationStmt/tei:date[1] return if($d castable as xs:date) then format-date(xs:date($d), '[MNn] [D], [Y]') else string($d),', ',replace($nodes/descendant-or-self::tei:publicationStmt/tei:idno[1],'/tei','')) 
+};
+
 
 (:~
  : Output monograph citation

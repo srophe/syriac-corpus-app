@@ -84,8 +84,9 @@ declare function tei2html:tei2html($nodes as node()*) as item()* {
                     <span class="tei-title {$titleType}"> {
                         (if($node/@xml:lang) then attribute lang { $node/@xml:lang } else (),
                         if($node/child::*) then 
+                            ($node/text(),
                             for $part in $node/child::*
-                            return tei2html:tei2html($part/node())
+                            return tei2html:tei2html($part/node()))
                         else tei2html:tei2html($node/node()))                 
                     }</span>
             default return tei2html:tei2html($node/node())
