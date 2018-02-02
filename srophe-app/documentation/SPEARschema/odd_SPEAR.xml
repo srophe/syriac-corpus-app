@@ -111,6 +111,38 @@
           </remarks>
         </elementSpec>
         
+        <elementSpec ident="biblFull" module="header" mode="change">
+          <content>
+            <sequence preserveOrder="false">
+              <elementRef key="titleStmt" minOccurs="1"/>
+              <textNode/>
+              <elementRef key="seriesStmt" minOccurs="1"/>
+            </sequence>
+          </content>
+          <exemplum>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+              <sourceDesc>
+                <p>
+                  This is a born digital prosopography containing data derived from
+                  <biblFull>
+                    <titleStmt>
+                      <title ref="http://syriaca.org/work/794">The Life of Zeʿora</title>
+                      <author>John of Ephesus</author>
+                    </titleStmt>
+                    <seriesStmt>
+                      <title>The Lives of the Eastern Saints</title>
+                      <idno type="URI">http://syriaca.org/work/9501</idno>
+                    </seriesStmt>
+                  </biblFull>
+                </p>
+              </sourceDesc>
+            </egXML>
+          </exemplum>
+          <remarks>
+            <p>This customization allows biblFull to contain only titleStmt, text nodes, and seriesStmt. SPEAR uses biblFull only in sourceDesc to express a containing relationship between the specific work from which data is encoded in a TEI file and a containing work in which that work is collected. </p>
+          </remarks>
+        </elementSpec>
+        
         <elementSpec ident="listRelation" mode="change" module="namesdates">
           <content>
             <elementRef key="relation" minOccurs="1" maxOccurs="1"/>
