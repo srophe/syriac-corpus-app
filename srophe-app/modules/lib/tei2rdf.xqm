@@ -8,6 +8,7 @@ import module namespace global="http://syriaca.org/global" at "global.xqm";
 import module namespace data="http://syriaca.org/data" at "data.xqm";
 import module namespace config="http://syriaca.org/config" at "../config.xqm";
 import module namespace bibl2html="http://syriaca.org/bibl2html" at "bibl2html.xqm";
+import module namespace rel="http://syriaca.org/related" at "get-related.xqm";
 import module namespace functx="http://www.functx.com";
 
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
@@ -15,7 +16,6 @@ declare namespace foaf = "http://xmlns.com/foaf/0.1";
 declare namespace lawd = "http://lawd.info/ontology";
 declare namespace skos = "http://www.w3.org/2004/02/skos/core#";
 declare namespace rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-declare namespace dc = "http://purl.org/dc/terms/";
 declare namespace dcterms = "http://purl.org/dc/terms/";
 declare namespace rdfs = "http://www.w3.org/2000/01/rdf-schema#";
 declare namespace snap = "http://syriaca.org/snap#";
@@ -31,7 +31,7 @@ declare option exist:serialize "method=xml media-type=application/rss+xml omit-x
  : Create a triple element with the rdf qname and content
  : @type indicates if element is literal default is rdf:resources
 :)
-declare function tei2rdf:create-element($element-name as xs:string?, $lang as xs:string?, $content as xs:string*, $type as xs:string?){
+declare function tei2rdf:create-element($element-name as xs:string, $lang as xs:string?, $content as xs:string*, $type as xs:string?){
  if($type='literal') then        
         element { xs:QName($element-name) } {
           (if ($lang) then attribute {xs:QName("xml:lang")} { $lang } else (), $content)
@@ -85,17 +85,19 @@ declare function tei2rdf:rec-type($rec){
     else()
 };
 
-(: Decode record type based on Syriaca.org headwordsif available:)
-declare function tei2rdf:rec-label($rec){
+(: Decode record label and title based on Syriaca.org headwords if available 'rdfs:label' or dcterms:title:)
+declare function tei2rdf:rec-label-and-titles($rec, $element as xs:string?){
     if($rec/descendant::*[@syriaca-tags='#syriaca-headword']) then 
         for $headword in $rec/descendant::*[@syriaca-tags='#syriaca-headword'][node()]
-        return tei2rdf:create-element('rdfs:label', string($headword/@xml:lang), string-join($headword/descendant-or-self::text(),' '), 'literal')
+        return tei2rdf:create-element($element, string($headword/@xml:lang), string-join($headword/descendant-or-self::text(),' '), 'literal')
     else if($rec/descendant::tei:body/tei:listPlace/tei:place) then 
         for $headword in $rec/descendant::tei:body/tei:listPlace/tei:place/tei:placeName[node()]
-        return tei2rdf:create-element('rdfs:label', string($headword/@xml:lang), string-join($headword/descendant-or-self::text(),' '), 'literal')
+        return tei2rdf:create-element($element, string($headword/@xml:lang), string-join($headword/descendant-or-self::text(),' '), 'literal')
     else if($rec[self::tei:div/@uri]) then 
-        tei2rdf:create-element('rdfs:label', (), normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')), 'literal')
-    else tei2rdf:create-element('rdfs:label', string($rec/descendant::tei:title[1]/@xml:lang), string-join($rec/descendant::tei:title[1]/text(),' '), 'literal')
+        if(tei2rdf:rec-type($rec) = 'http://syriaca.org/schema#/relationFactoid') then
+            tei2rdf:create-element($element, (), rel:relationship-sentence($rec/descendant::tei:listRelation/tei:relation), 'literal')
+        else tei2rdf:create-element($element, (), normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')), 'literal')        
+    else tei2rdf:create-element($element, string($rec/descendant::tei:title[1]/@xml:lang), string-join($rec/descendant::tei:title[1]/text(),' '), 'literal')
 };
 
 (: Output place and person names and name varients :)
@@ -139,9 +141,9 @@ declare function tei2rdf:desc($rec)  {
     let $source := $desc/tei:quote/@source
     return 
         if($source != '') then 
-            element { xs:QName('dc:description') } {
+            element { xs:QName('dcterms:description') } {
                 element { xs:QName('rdf:Description') } {(
-                    tei2rdf:create-element('dc:description', string($desc/@xml:lang), string-join($desc/descendant-or-self::text(),' '), 'literal'),
+                    tei2rdf:create-element('dcterms:description', string($desc/@xml:lang), string-join($desc/descendant-or-self::text(),' '), 'literal'),
                     tei2rdf:attestation($rec, $source)
                 )} 
              }
@@ -153,43 +155,60 @@ declare function tei2rdf:desc($rec)  {
  : @param $rec
 :)
 declare function tei2rdf:bibl-citation($rec){
-let $citation := bibl2html:citation($rec)
+let $citation := bibl2html:citation(root($rec))
 return 
     <dcterms:bibliographicCitation xmlns:dc="http://purl.org/dc/terms/">{string-join($citation)}</dcterms:bibliographicCitation>
 };
 
 (: Handle TEI relations:)
-declare function tei2rdf:relations($rec, $id){
+declare function tei2rdf:relations-with-attestation($rec, $id){
     for $rel in $rec/descendant::tei:listRelation/tei:relation
     return 
         if($rel/@mutual) then 
             for $s in tokenize($rel/@mutual,' ')
             return
-                element { xs:QName('rdfs:Resource') } {(
+                element { xs:QName('rdf:Description') } {(
                             attribute {xs:QName("rdf:about")} { $s },
                             for $o in tokenize($rel/@mutual,' ')[. != $s]
-                            let $element-name := string($rel/@ref)
+                            let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
+                            let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms') else $element-name
                             return 
-                                (tei2rdf:create-element($element-name, (), $o, ()),
+                                (tei2rdf:create-element('dcterms:relation', (), $o, ()),
+                                tei2rdf:create-element($element-name, (), $o, ()),
                                 tei2rdf:create-element('lawd:hasAttestation', (), $id, ()))
                         )}
         else 
             for $s in tokenize($rel/@active,' ')
             return 
-                element { xs:QName('rdfs:Resource') } {(
+                    element { xs:QName('rdf:Description') } {(
                             attribute {xs:QName("rdf:about")} { $s },
                             for $o in tokenize($rel/@passive,' ')
-                            let $element-name := string($rel/@ref)
-                            return (tei2rdf:create-element($element-name, (), $o, ()),tei2rdf:create-element('lawd:hasAttestation', (), $id, ()))
+                            let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
+                            let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms') else $element-name
+                            return (tei2rdf:create-element('dcterms:relation', (), $o, ()),tei2rdf:create-element($element-name, (), $o, ()),tei2rdf:create-element('lawd:hasAttestation', (), $id, ()))
                         )}
+};
+
+(: Handle TEI relations:)
+declare function tei2rdf:relations($rec, $id){
+    for $rel in $rec/descendant::tei:listRelation/tei:relation
+    let $ids := distinct-values((
+                    for $r in tokenize($rel/@active,' ') return $r,
+                    for $r in tokenize($rel/@passive,' ') return $r,
+                    for $r in tokenize($rel/@mutual,' ') return $r
+                    ))
+    for $i in $ids 
+    return 
+        if(contains($id,'/spear/')) then tei2rdf:create-element('dcterms:subject', (), $i, ())
+        else tei2rdf:create-element('dcterms:relation', (), $i, ())
 };
 
 (: Internal references :)
 declare function tei2rdf:internal-refs($rec){
-    let $links := distinct-values($rec/descendant::tei:body//@ref[starts-with(.,'http://')] | $rec/descendant::tei:body//@target[starts-with(.,'http://')])
+    let $links := distinct-values($rec//@ref[starts-with(.,'http://')][not(ancestor::tei:teiHeader)])
     return 
         for $i in $links[. != '']
-        return tei2rdf:create-element('dc:relation', (), $i, ()) 
+        return tei2rdf:create-element('dcterms:subject', (), $i, ()) 
 };
 
 (: Special handling for SPEAR :)
@@ -257,7 +276,7 @@ declare function tei2rdf:spear-related-triples($rec, $id){
                 tei2rdf:create-element('lawd:hasAttestation', (), $id, ())
              )}
         else if($rec/descendant::tei:listRelation) then 
-            tei2rdf:relations($rec, $id)
+            tei2rdf:relations-with-attestation($rec,$id)
         else ()
     else ()
 };
@@ -295,12 +314,12 @@ let $id := if($rec/descendant::tei:idno[starts-with(.,$global:base-uri)]) then r
 let $resource-class := if($rec/descendant::tei:body/tei:biblStruct) then 'rdfs:Resource'    
                        else 'skos:Concept'            
 return  
-    (element { xs:QName('rdf:Description') } {(
+    (element { xs:QName('rdfs:Resource') } {(
                 attribute {xs:QName("rdf:resource")} { $id }, 
                 tei2rdf:create-element('rdf:type', (), tei2rdf:rec-type($rec), ()),
                 (:NOTE: Not sure about the resource class, I think this was from Nathan ?:)
                 (:tei2rdf:create-element($resource-class, (), $id, ()),:)
-                tei2rdf:rec-label($rec),
+                tei2rdf:rec-label-and-titles($rec, 'rdfs:label'),
                 tei2rdf:names($rec),
                 tei2rdf:location($rec),
                 tei2rdf:desc($rec),
@@ -312,7 +331,8 @@ return
                 return 
                     tei2rdf:create-element('skos:closeMatch', (), $id, ()),
                 tei2rdf:internal-refs($rec),
-                for $bibl in $rec/descendant::tei:body/descendant::tei:bibl/tei:ptr/@target[. != '']
+                tei2rdf:relations($rec, $id),
+                for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
                 return 
                     tei2rdf:create-element('dcterms:source', (), $bibl, ()),
                 for $s in root($rec)//tei:seriesStmt
@@ -321,36 +341,36 @@ return
                         tei2rdf:create-element('dcterms:isPartOf', (), $s/tei:idno[@type="URI"][1], ())            
                     else tei2rdf:create-element('dcterms:isPartOf', (), $s/tei:title[1], 'literal'),
                 (: Other formats:)
-                tei2rdf:create-element('dc:relation', (), concat($id,'/html'), ()),
-                tei2rdf:create-element('dc:relation', (), concat($id,'/tei'), ()),
-                tei2rdf:create-element('dc:relation', (), concat($id,'/ttl'), ()),
+                tei2rdf:create-element('dcterms:relation', (), concat($id,'/html'), ()),
+                tei2rdf:create-element('dcterms:relation', (), concat($id,'/tei'), ()),
+                tei2rdf:create-element('dcterms:relation', (), concat($id,'/ttl'), ()),
                 tei2rdf:create-element('foaf:primaryTopicOf', (), concat($id,'/html'), ()),
                 tei2rdf:create-element('foaf:primaryTopicOf', (), concat($id,'/tei'), ()),
                 tei2rdf:create-element('foaf:primaryTopicOf', (), concat($id,'/ttl'), ())
         )},
         if(contains($id,'/spear/')) then tei2rdf:spear-related-triples($rec, $id) 
-        else tei2rdf:relations($rec,$id),
+        else tei2rdf:relations-with-attestation($rec,$id),
         <rdfs:Resource rdf:about="{concat($id,'/html')}" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
             {(
-            tei2rdf:create-element('dc:title', (), string-join($rec//tei:titleStmt/tei:title[1]/node(),' '), "literal"),
-            tei2rdf:create-element('dc:subject', (), $id, ()),
-            tei2rdf:create-element('dc:format', (), "text/html", "literal"),
+            tei2rdf:rec-label-and-titles($rec, 'dcterms:title'),
+            tei2rdf:create-element('dcterms:subject', (), $id, ()),
+            tei2rdf:create-element('dcterms:format', (), "text/html", "literal"),
             tei2rdf:bibl-citation($rec)
             )}
         </rdfs:Resource>,
         <rdfs:Resource rdf:about="{concat($id,'/tei')}" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
             {(
-            tei2rdf:create-element('dc:title', (), string-join($rec//tei:titleStmt/tei:title[1]/node(),' '), "literal"),
-            tei2rdf:create-element('dc:subject', (), $id, ()),
-            tei2rdf:create-element('dc:format', (), "text/xml", "literal"),
+            tei2rdf:rec-label-and-titles($rec, 'dcterms:title'),
+            tei2rdf:create-element('dcterms:subject', (), $id, ()),
+            tei2rdf:create-element('dcterms:format', (), "text/xml", "literal"),
             tei2rdf:bibl-citation($rec)
             )}
         </rdfs:Resource>,
         <rdfs:Resource rdf:about="{concat($id,'/ttl')}" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
             {(
-            tei2rdf:create-element('dc:title', (), string-join($rec//tei:titleStmt/tei:title[1]/node(),' '), "literal"),
-            tei2rdf:create-element('dc:subject', (), $id, ()),
-            tei2rdf:create-element('dc:format', (), "text/turle", "literal"),
+            tei2rdf:rec-label-and-titles($rec, 'dcterms:title'),
+            tei2rdf:create-element('dcterms:subject', (), $id, ()),
+            tei2rdf:create-element('dcterms:format', (), "text/turle", "literal"),
             tei2rdf:bibl-citation($rec)
             )}
         </rdfs:Resource>
@@ -363,7 +383,6 @@ return
 declare function tei2rdf:rdf-output($recs){
 element rdf:RDF {namespace {""} {"http://www.w3.org/1999/02/22-rdf-syntax-ns#"}, 
     namespace cwrc {"http://sparql.cwrc.ca/ontologies/cwrc#"},
-    namespace dc {"http://purl.org/dc/terms/"},
     namespace dcterms {"http://purl.org/dc/terms/"},
     namespace foaf {"http://xmlns.com/foaf/0.1"},
     namespace lawd {"http://lawd.info/ontology/"},    

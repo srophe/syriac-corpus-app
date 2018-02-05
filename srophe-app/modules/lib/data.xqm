@@ -38,8 +38,9 @@ declare variable $data:computed-lang{
 declare function data:get-rec($id as xs:string?){  
     if(contains($id,'/spear/')) then 
         for $rec in collection($global:data-root)//tei:div[@uri = $id]
+        let $teiHeader := root($rec)//tei:teiHeader
         return 
-            <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec}</tei:TEI>   
+            <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{($teiHeader,$rec)}</tei:TEI>   
     else if(contains($id,'/manuscript/')) then
     (: Descrepency in how id's are handled, why dont the msPart id's have '/tei'?  :)
         for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = $id]
