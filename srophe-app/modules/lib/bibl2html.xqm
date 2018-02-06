@@ -19,7 +19,7 @@ declare function bibl2html:citation($nodes as node()*) {
     if($nodes/descendant::tei:monogr and not($nodes/descendant::tei:analytic)) then 
         bibl2html:monograph($nodes/descendant::tei:monogr)
     else if($nodes/descendant::tei:analytic) then bibl2html:analytic($nodes/descendant::tei:analytic)
-    else bibl2html:record($nodes/tei:teiHeader)
+    else bibl2html:record($nodes/descendant-or-self::tei:teiHeader)
 };
 
 (:~
@@ -29,11 +29,11 @@ declare function bibl2html:record($nodes) {
     let $titleStmt := $nodes/descendant::tei:titleStmt
     let $persons :=  concat(bibl2html:emit-responsible-persons($titleStmt/tei:editor[@role='creator'],3), 
                         if(count($titleStmt/tei:editor) gt 1) then ' (eds.), ' else ' (ed.), ')
+    let $id := $nodes/descendant-or-self::tei:publicationStmt[1]/tei:idno[1]                         
     return 
         ($persons, '"',tei2html:tei2html($titleStmt/tei:title[1]),'" in ',tei2html:tei2html($titleStmt/tei:title[@level='m'][1]),' last modified ',
-        for $d in $nodes/descendant-or-self::tei:publicationStmt/tei:date[1] return if($d castable as xs:date) then format-date(xs:date($d), '[MNn] [D], [Y]') else string($d),', ',replace($nodes/descendant-or-self::tei:publicationStmt/tei:idno[1],'/tei','')) 
+        for $d in $nodes/descendant-or-self::tei:publicationStmt/tei:date[1] return if($d castable as xs:date) then format-date(xs:date($d), '[MNn] [D], [Y]') else string($d),', ',replace($id[1],'/tei','')) 
 };
-
 
 (:~
  : Output monograph citation
@@ -43,7 +43,7 @@ declare function bibl2html:monograph($nodes as node()*) {
                         concat(bibl2html:emit-responsible-persons($nodes/tei:author,3),', ')
                     else if($nodes/tei:editor[not(@role) or @role!='translator']) then 
                         (bibl2html:emit-responsible-persons($nodes/tei:editor[not(@role) or @role!='translator'],3), 
-                        if(count($nodes/tei:editor[not(@role) or @role!='translator']) gt 1) then ' (eds.), ' else ' (ed.), ')
+                        if(count($nodes/tei:editor[not(@role) or @role!='translator']) gt 1) then ' eds., ' else ' ed., ')
                     else ()
     return (
             if(deep-equal($nodes/tei:editor | $nodes/tei:author, $nodes/preceding-sibling::tei:monogr/tei:editor | $nodes/preceding-sibling::tei:monogr/tei:author )) then () else $persons, 
@@ -73,7 +73,7 @@ declare function bibl2html:analytic($nodes as node()*) {
                         concat(bibl2html:emit-responsible-persons($nodes/tei:author,3),', ')
                     else if($nodes/tei:editor[not(@role) or @role!='translator']) then 
                         (bibl2html:emit-responsible-persons($nodes/tei:editor[not(@role) or @role!='translator'],3), 
-                        if(count($nodes/tei:editor[not(@role) or @role!='translator']) gt 1) then ' (eds.), ' else ' (ed.), ')
+                        if(count($nodes/tei:editor[not(@role) or @role!='translator']) gt 1) then ' eds., ' else ' ed., ')
                     else 'No authors or Editors'
     return (
             $persons, 
@@ -112,22 +112,20 @@ declare function bibl2html:emit-responsible-persons($nodes as node()*, $num as x
         let $count := count($nodes)
         return 
             if($count = 1) then 
-                bibl2html:person($nodes)
-            (:    
+                bibl2html:person($nodes)  
+            (:
             else if($count gt $num) then
                 (for $n in subsequence($nodes, 1, $num)
-                return bibl2html:person($nodes), ' et al.')
-            :)            
+                return normalize-space(bibl2html:person($nodes)), ' et al.')
+            :)                
             else if($count = 2) then
                 (bibl2html:person($nodes[1]),' and ',bibl2html:person($nodes[2]))            
             else 
                 for $n at $p in subsequence($nodes, 1, $num)
                 return 
                     if($p = ($num - 1)) then 
-                        (bibl2html:person($nodes), ' and ')
-                    else if($p gt 1) then
-                        (bibl2html:person($nodes), ', ')
-                    else bibl2html:person($nodes)
+                        (normalize-space(bibl2html:person($n)), ' and ')
+                    else concat(normalize-space(bibl2html:person($n)),', ')
     return replace(string-join($persons),'\s+$','')                    
 };
 

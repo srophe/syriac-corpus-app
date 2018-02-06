@@ -157,7 +157,7 @@ declare function tei2rdf:desc($rec)  {
 declare function tei2rdf:bibl-citation($rec){
 let $citation := bibl2html:citation(root($rec))
 return 
-    <dcterms:bibliographicCitation xmlns:dc="http://purl.org/dc/terms/">{string-join($citation)}</dcterms:bibliographicCitation>
+    <dcterms:bibliographicCitation xmlns:dc="http://purl.org/dc/terms/">{normalize-space(string-join($citation))}</dcterms:bibliographicCitation>
 };
 
 (: Handle TEI relations:)
@@ -171,7 +171,7 @@ declare function tei2rdf:relations-with-attestation($rec, $id){
                             attribute {xs:QName("rdf:about")} { $s },
                             for $o in tokenize($rel/@mutual,' ')[. != $s]
                             let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
-                            let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms') else $element-name
+                            let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms:') else $element-name
                             return 
                                 (tei2rdf:create-element('dcterms:relation', (), $o, ()),
                                 tei2rdf:create-element($element-name, (), $o, ()),
@@ -184,7 +184,7 @@ declare function tei2rdf:relations-with-attestation($rec, $id){
                             attribute {xs:QName("rdf:about")} { $s },
                             for $o in tokenize($rel/@passive,' ')
                             let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
-                            let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms') else $element-name
+                            let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms:') else $element-name
                             return (tei2rdf:create-element('dcterms:relation', (), $o, ()),tei2rdf:create-element($element-name, (), $o, ()),tei2rdf:create-element('lawd:hasAttestation', (), $id, ()))
                         )}
 };
@@ -217,7 +217,7 @@ declare function tei2rdf:spear-related-triples($rec, $id){
         (: Person Factoids :)
         if($rec/tei:listPerson) then  
             element { xs:QName('rdf:Description') } {(
-                attribute {xs:QName("rdf:resource")} { $rec/tei:listPerson/child::*/tei:persName/@ref },
+                attribute {xs:QName("rdf:about")} { $rec/tei:listPerson/child::*/tei:persName/@ref },
                 if($rec/tei:listPerson/child::*/tei:birth/tei:date) then 
                     tei2rdf:create-element('schema:birthDate', (), string-join($rec/tei:listPerson/child::*/tei:birth/tei:date/@when | $rec/tei:listPerson/child::*/tei:birth/tei:date/@notAfter | $rec/tei:listPerson/child::*/tei:birth/tei:date/@notBefore,' '), 'literal')
                 else(),
@@ -299,6 +299,8 @@ declare function tei2rdf:spear($rec, $id){
                 return tei2rdf:create-element('dcterms:date', (), string($date), 'literal')
                 )
         else (),
+        for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
+        return  tei2rdf:create-element('dcterms:source', (), $bibl, ()),
         tei2rdf:create-element('dcterms:isPartOf', (), 'http://syriaca.org/spear', ()))
     else () 
 };
@@ -314,8 +316,8 @@ let $id := if($rec/descendant::tei:idno[starts-with(.,$global:base-uri)]) then r
 let $resource-class := if($rec/descendant::tei:body/tei:biblStruct) then 'rdfs:Resource'    
                        else 'skos:Concept'            
 return  
-    (element { xs:QName('rdfs:Resource') } {(
-                attribute {xs:QName("rdf:resource")} { $id }, 
+    (element { xs:QName('rdf:Description') } {(
+                attribute {xs:QName("rdf:about")} { $id }, 
                 tei2rdf:create-element('rdf:type', (), tei2rdf:rec-type($rec), ()),
                 (:NOTE: Not sure about the resource class, I think this was from Nathan ?:)
                 (:tei2rdf:create-element($resource-class, (), $id, ()),:)
@@ -332,9 +334,6 @@ return
                     tei2rdf:create-element('skos:closeMatch', (), $id, ()),
                 tei2rdf:internal-refs($rec),
                 tei2rdf:relations($rec, $id),
-                for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
-                return 
-                    tei2rdf:create-element('dcterms:source', (), $bibl, ()),
                 for $s in root($rec)//tei:seriesStmt
                 return 
                     if($s/tei:idno[@type="URI"]) then
@@ -354,6 +353,9 @@ return
             {(
             tei2rdf:rec-label-and-titles($rec, 'dcterms:title'),
             tei2rdf:create-element('dcterms:subject', (), $id, ()),
+            if(contains($id,'/spear/')) then ()
+            else for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
+                 return tei2rdf:create-element('dcterms:source', (), $bibl, ()),
             tei2rdf:create-element('dcterms:format', (), "text/html", "literal"),
             tei2rdf:bibl-citation($rec)
             )}
@@ -362,6 +364,9 @@ return
             {(
             tei2rdf:rec-label-and-titles($rec, 'dcterms:title'),
             tei2rdf:create-element('dcterms:subject', (), $id, ()),
+            if(contains($id,'/spear/')) then ()
+            else for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
+                 return tei2rdf:create-element('dcterms:source', (), $bibl, ()),
             tei2rdf:create-element('dcterms:format', (), "text/xml", "literal"),
             tei2rdf:bibl-citation($rec)
             )}
@@ -370,6 +375,9 @@ return
             {(
             tei2rdf:rec-label-and-titles($rec, 'dcterms:title'),
             tei2rdf:create-element('dcterms:subject', (), $id, ()),
+            if(contains($id,'/spear/')) then ()
+            else for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
+                 return tei2rdf:create-element('dcterms:source', (), $bibl, ()),
             tei2rdf:create-element('dcterms:format', (), "text/turle", "literal"),
             tei2rdf:bibl-citation($rec)
             )}
