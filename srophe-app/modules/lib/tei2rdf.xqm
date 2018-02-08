@@ -57,7 +57,7 @@ declare function tei2rdf:translate-relation-property($property as xs:string?) as
 
 (: Create lawd:hasAttestation for elements with a source attribute and a matching bibl element. :)
 declare function tei2rdf:attestation($rec, $source){
-    for $source in tokenize($source)
+    for $source in tokenize($source,' ')
     return 
         let $source := 
             if($rec//tei:bibl[@xml:id = replace($source,'#','')]/tei:ptr) then

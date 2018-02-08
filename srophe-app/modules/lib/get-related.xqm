@@ -367,9 +367,9 @@ declare function rel:link($uris as xs:string*){
 declare function rel:relationship-sentence($relationship as node()*){
 (: Will have to add in some advanced prcessing that tests the current id (for aggrigate pages) and subs vocab for active/passive:)
 if($relationship/@mutual) then
-    (rel:get-names($relationship/@mutual), rel:decode-spear-relationship($relationship/@ref),'.')
+    concat(rel:get-names($relationship/@mutual), rel:decode-spear-relationship($relationship/@ref),'.')
 else if($relationship/@active) then 
-    (rel:get-names($relationship/@active), rel:decode-spear-relationship($relationship/@ref), rel:get-names($relationship/@passive),'.') 
+    concat(rel:get-names($relationship/@active), rel:decode-spear-relationship($relationship/@ref), rel:get-names($relationship/@passive),'.') 
 else ()
 };
 
@@ -378,7 +378,7 @@ declare function rel:relationship-sentence-links($relationship,$uri){
 if($relationship/@mutual) then
     (rel:get-names($relationship/@mutual),'[',rel:link($relationship/@mutual),']', rel:decode-spear-relationship($relationship/@ref),'.')
 else if($relationship/@active) then 
-    (rel:get-names($relationship/@active),'[',rel:link($relationship/@active),']', rel:decode-spear-relationship($relationship/@ref), rel:get-names($relationship/@passive),'[',rel:link($relationship/@passive),']','.') 
+    (rel:get-names($relationship/@active),'[',rel:link($relationship/@active),']', rel:decode-spear-relationship($relationship/@ref), rel:get-names($relationship/@passive),'[',rel:link($relationship/@passive),'].') 
 else ()
 };
 
