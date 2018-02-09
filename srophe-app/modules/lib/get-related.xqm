@@ -367,9 +367,10 @@ declare function rel:link($uris as xs:string*){
 declare function rel:relationship-sentence($relationship as node()*){
 (: Will have to add in some advanced prcessing that tests the current id (for aggrigate pages) and subs vocab for active/passive:)
 if($relationship/@mutual) then
-    concat(rel:get-names($relationship/@mutual), rel:decode-spear-relationship($relationship/@ref),'.')
+    normalize-space(string-join((rel:get-names($relationship/@mutual), rel:decode-spear-relationship($relationship/@ref),'.')))
 else if($relationship/@active) then 
-    concat(rel:get-names($relationship/@active), rel:decode-spear-relationship($relationship/@ref), rel:get-names($relationship/@passive),'.') 
+    normalize-space(string-join((rel:get-names($relationship/@active), 
+    rel:decode-spear-relationship($relationship/@ref), rel:get-names($relationship/@passive),'.'))) 
 else ()
 };
 

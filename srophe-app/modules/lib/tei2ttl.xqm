@@ -357,6 +357,12 @@ declare function tei2ttl:spear($rec, $id){
                 ),' ')
         else (),
         tei2ttl:bibl($rec),
+        string-join((
+        let $work-uris := distinct-values($rec/$rec/ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:sourceDesc//@ref) 
+        for $work-uri in $work-uris[contains(.,'/work/')]
+        return tei2ttl:make-triple('', 'dcterms:source', tei2ttl:make-uri('http://syriaca.org/spear'))
+        )),
+        tei2ttl:make-triple('', 'dcterms:isPartOf', tei2ttl:make-uri(replace($rec/ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:publicationStmt/tei:idno[@type="URI"][1],'/tei',''))),
         tei2ttl:make-triple('', 'dcterms:isPartOf', tei2ttl:make-uri('http://syriaca.org/spear'))
         )
     else () 
@@ -405,19 +411,30 @@ concat(
                         else tei2ttl:make-literal(normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')),())
                 else tei2ttl:make-literal($rec/descendant::tei:title[1]/text(),if($rec/descendant::tei:title[1]/@xml:lang) then string($rec/descendant::tei:title[1]/@xml:lang) else ())),
        tei2ttl:names($rec),
+       if(contains($id,'/spear/')) then ()
+       else tei2ttl:geo($rec),
        tei2ttl:idnos($rec, $id),
        tei2ttl:spear($rec, $id),
        tei2ttl:relations($rec, $id),
-       tei2ttl:make-triple('','dcterms:relation', 
-            concat(tei2ttl:make-uri(concat($id,'/html')),', ',tei2ttl:make-uri(concat($id,'/tei')),', ',tei2ttl:make-uri(concat($id,'/ttl')))),
+       if(contains($id,'/spear/')) then
+        tei2ttl:bibl-citation($rec)
+       else ()
+       tei2ttl:make-triple('','dcterms:hasFormat', 
+            concat(tei2ttl:make-uri(concat($id,'/html')),
+            ', ',tei2ttl:make-uri(concat($id,'/tei')),
+            ', ',tei2ttl:make-uri(concat($id,'/ttl')),
+            ', ',tei2ttl:make-uri(concat($id,'/rdf')))),
        tei2ttl:make-triple('','foaf:primaryTopicOf', tei2ttl:make-uri(concat($id,'/html'))),
        tei2ttl:make-triple('','foaf:primaryTopicOf', tei2ttl:make-uri(concat($id,'/tei'))),
        tei2ttl:make-triple('','foaf:primaryTopicOf', tei2ttl:make-uri(concat($id,'/ttl'))),
+       tei2ttl:make-triple('','foaf:primaryTopicOf', tei2ttl:make-uri(concat($id,'/rdf'))),
        tei2ttl:internal-refs($rec)
     )),
     if(contains($id,'/spear/')) then tei2ttl:spear-related-triples($rec, $id) 
     else tei2ttl:relations-with-attestation($rec,$id)
     ,
+    if(contains($id,'/spear/')) then () 
+    else string-join((
     (: rdfs:Resource, html :)
     tei2ttl:record(concat(
         tei2ttl:make-triple(tei2ttl:make-uri(concat($id,'/html')), 'a', 'rdfs:Resource;'),
@@ -477,7 +494,7 @@ concat(
         if(contains($id,'/spear/')) then () else tei2ttl:bibl($rec),         
         tei2ttl:make-triple('','dcterms:format', tei2ttl:make-literal('text/turtle','')),
         tei2ttl:bibl-citation($rec)
-    ))
+    ))))
     )
 };
 

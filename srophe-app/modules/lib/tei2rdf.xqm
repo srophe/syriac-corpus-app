@@ -57,7 +57,7 @@ declare function tei2rdf:translate-relation-property($property as xs:string?) as
 
 (: Create lawd:hasAttestation for elements with a source attribute and a matching bibl element. :)
 declare function tei2rdf:attestation($rec, $source){
-    for $source in tokenize($source,' ')
+    for $source in tokenize($source)
     return 
         let $source := 
             if($rec//tei:bibl[@xml:id = replace($source,'#','')]/tei:ptr) then
@@ -301,7 +301,12 @@ declare function tei2rdf:spear($rec, $id){
         else (),
         for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
         return  tei2rdf:create-element('dcterms:source', (), $bibl, ()),
-        tei2rdf:create-element('dcterms:isPartOf', (), 'http://syriaca.org/spear', ()))
+        tei2rdf:create-element('dcterms:isPartOf', (), replace($rec/ancestor::tei:TEI/descendant::tei:publicationStmt/tei:idno[@type="URI"][1],'/tei',''), ()),
+        let $work-uris := distinct-values($rec/ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:sourceDesc//@ref) 
+        for $work-uri in $work-uris[contains(.,'/work/')]
+        return  tei2rdf:create-element('dcterms:source', (), $work-uri, ()),        
+        tei2rdf:create-element('dcterms:isPartOf', (), 'http://syriaca.org/spear', ())
+        )
     else () 
 };
 
@@ -323,7 +328,8 @@ return
                 (:tei2rdf:create-element($resource-class, (), $id, ()),:)
                 tei2rdf:rec-label-and-titles($rec, 'rdfs:label'),
                 tei2rdf:names($rec),
-                tei2rdf:location($rec),
+                if(contains($id,'/spear/')) then ()
+                else tei2rdf:location($rec),
                 tei2rdf:desc($rec),
                 tei2rdf:spear($rec, $id),
                 for $temporal in $rec/descendant::tei:state[@type="existence"]
@@ -334,54 +340,55 @@ return
                     tei2rdf:create-element('skos:closeMatch', (), $id, ()),
                 tei2rdf:internal-refs($rec),
                 tei2rdf:relations($rec, $id),
-                for $s in root($rec)//tei:seriesStmt
+                for $s in root($rec)/descendant::tei:seriesStmt
                 return 
                     if($s/tei:idno[@type="URI"]) then
                         tei2rdf:create-element('dcterms:isPartOf', (), $s/tei:idno[@type="URI"][1], ())            
-                    else tei2rdf:create-element('dcterms:isPartOf', (), $s/tei:title[1], 'literal'),
+                    else tei2rdf:create-element('dcterms:isPartOf', (), $s/tei:title[1], 'literal'),                    
+                if(contains($id,'/spear/')) then tei2rdf:bibl-citation($rec) else (),
                 (: Other formats:)
-                tei2rdf:create-element('dcterms:relation', (), concat($id,'/html'), ()),
-                tei2rdf:create-element('dcterms:relation', (), concat($id,'/tei'), ()),
-                tei2rdf:create-element('dcterms:relation', (), concat($id,'/ttl'), ()),
+                tei2rdf:create-element('dcterms:hasFormat', (), concat($id,'/html'), ()),
+                tei2rdf:create-element('dcterms:hasFormat', (), concat($id,'/tei'), ()),
+                tei2rdf:create-element('dcterms:hasFormat', (), concat($id,'/ttl'), ()),
+                tei2rdf:create-element('dcterms:hasFormat', (), concat($id,'/rdf'), ()),
                 tei2rdf:create-element('foaf:primaryTopicOf', (), concat($id,'/html'), ()),
                 tei2rdf:create-element('foaf:primaryTopicOf', (), concat($id,'/tei'), ()),
-                tei2rdf:create-element('foaf:primaryTopicOf', (), concat($id,'/ttl'), ())
+                tei2rdf:create-element('foaf:primaryTopicOf', (), concat($id,'/ttl'), ()),
+                tei2rdf:create-element('foaf:primaryTopicOf', (), concat($id,'/rdf'), ())
         )},
         if(contains($id,'/spear/')) then tei2rdf:spear-related-triples($rec, $id) 
-        else tei2rdf:relations-with-attestation($rec,$id),
-        <rdfs:Resource rdf:about="{concat($id,'/html')}" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-            {(
-            tei2rdf:rec-label-and-titles($rec, 'dcterms:title'),
-            tei2rdf:create-element('dcterms:subject', (), $id, ()),
-            if(contains($id,'/spear/')) then ()
-            else for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
-                 return tei2rdf:create-element('dcterms:source', (), $bibl, ()),
-            tei2rdf:create-element('dcterms:format', (), "text/html", "literal"),
-            tei2rdf:bibl-citation($rec)
-            )}
-        </rdfs:Resource>,
-        <rdfs:Resource rdf:about="{concat($id,'/tei')}" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-            {(
-            tei2rdf:rec-label-and-titles($rec, 'dcterms:title'),
-            tei2rdf:create-element('dcterms:subject', (), $id, ()),
-            if(contains($id,'/spear/')) then ()
-            else for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
-                 return tei2rdf:create-element('dcterms:source', (), $bibl, ()),
-            tei2rdf:create-element('dcterms:format', (), "text/xml", "literal"),
-            tei2rdf:bibl-citation($rec)
-            )}
-        </rdfs:Resource>,
-        <rdfs:Resource rdf:about="{concat($id,'/ttl')}" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-            {(
-            tei2rdf:rec-label-and-titles($rec, 'dcterms:title'),
-            tei2rdf:create-element('dcterms:subject', (), $id, ()),
-            if(contains($id,'/spear/')) then ()
-            else for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
-                 return tei2rdf:create-element('dcterms:source', (), $bibl, ()),
-            tei2rdf:create-element('dcterms:format', (), "text/turle", "literal"),
-            tei2rdf:bibl-citation($rec)
-            )}
-        </rdfs:Resource>
+        else 
+            (tei2rdf:relations-with-attestation($rec,$id),
+            <rdfs:Resource rdf:about="{concat($id,'/html')}" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+                {(
+                tei2rdf:rec-label-and-titles($rec, 'dcterms:title'),
+                tei2rdf:create-element('dcterms:subject', (), $id, ()),
+                for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
+                return tei2rdf:create-element('dcterms:source', (), $bibl, ()),
+                tei2rdf:create-element('dcterms:format', (), "text/html", "literal"),
+                tei2rdf:bibl-citation($rec)
+                )}
+            </rdfs:Resource>,
+            <rdfs:Resource rdf:about="{concat($id,'/tei')}" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+                {(
+                tei2rdf:rec-label-and-titles($rec, 'dcterms:title'),
+                tei2rdf:create-element('dcterms:subject', (), $id, ()),
+                for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
+                return tei2rdf:create-element('dcterms:source', (), $bibl, ()),
+                tei2rdf:create-element('dcterms:format', (), "text/xml", "literal"),
+                tei2rdf:bibl-citation($rec)
+                )}
+            </rdfs:Resource>,
+            <rdfs:Resource rdf:about="{concat($id,'/ttl')}" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+                {(
+                tei2rdf:rec-label-and-titles($rec, 'dcterms:title'),
+                tei2rdf:create-element('dcterms:subject', (), $id, ()),
+                for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
+                return tei2rdf:create-element('dcterms:source', (), $bibl, ()),
+                tei2rdf:create-element('dcterms:format', (), "text/turle", "literal"),
+                tei2rdf:bibl-citation($rec)
+                )}
+            </rdfs:Resource>)
         )
 };        
     
