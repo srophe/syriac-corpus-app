@@ -1094,9 +1094,9 @@
                 <valItem ident="syriaca:Ordination"/>
                 <valItem ident="syriaca:Petitioned"/>
                 <valItem ident="syriaca:StudentOf"/>
-                <valItem ident="syriaca:CloseConnection"/>
-                <valItem ident="syriaca:SameAs"/>
-                <valItem ident="dcterms:isPartOf"/>
+                <valItem ident="syriaca:ProximateEvent"/>
+                <valItem ident="syriaca:SameEvent"/>
+                <valItem ident="dcterms:isPartOf"/><!-- Remove this if we can successfully run browse by part/whole via RDF. -->
               </valList>
             </attDef>
             <attDef ident="type" mode="add" usage="opt">
@@ -1122,19 +1122,7 @@
               <datatype minOccurs="0" maxOccurs="unbounded">
                 <dataRef key="teidata.enumerated"/>
               </datatype>
-              <valList type="closed"><!-- I need to include a brief description of each of these. -->
-                <valItem ident="clerical"></valItem>
-                <valItem ident="epistolary"></valItem>
-                <valItem ident="family"></valItem>
-                <valItem ident="general"></valItem>
-                <valItem ident="intellectual"></valItem>
-                <valItem ident="legal"></valItem>
-                <valItem ident="military"></valItem>
-                <valItem ident="monastic"></valItem>
-                <valItem ident="personal"></valItem>
-                <valItem ident="professional"></valItem>
-                <valItem ident="religious"></valItem>
-                <valItem ident="slavery"></valItem>
+              <valList type="closed"><!-- I need to include a brief description. -->
                 <valItem ident="event"></valItem>
               </valList>
             </attDef>
