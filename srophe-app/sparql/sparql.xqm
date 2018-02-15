@@ -99,7 +99,7 @@ let $q :=
                                 
         SELECT *
         WHERE {
-          <",$ref,"> rdfs:prefLabel ?o;
+          <",$ref,"> rdfs:label ?o;
         }")
 return sparql:query($q) 
 };
