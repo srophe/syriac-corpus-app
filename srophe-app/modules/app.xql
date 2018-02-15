@@ -248,7 +248,7 @@ declare %templates:wrap function app:display-work($node as node(), $model as map
                         (
                         app:work-toc($data),
                         global:tei2html($infobox),
-                        app:external-relationships($node, $model,'dct:isPartOf', 'nhsl','',''),
+                        app:external-relationships($node, $model,'dcterms:isPartOf', 'nhsl','',''),
                         app:external-relationships($node, $model,'skos:broadMatch', 'nhsl','',''),
                         app:external-relationships($node, $model,'syriaca:sometimesCirculatesWith','nhsl','',''),
                         app:external-relationships($node, $model,'syriaca:part-of-tradition','nhsl','',''),

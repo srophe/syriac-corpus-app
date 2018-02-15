@@ -436,7 +436,7 @@ let $recType :=
     else if($collection = ('subjects','keywords')) then 'keyword'
     else 'record'
 let $title-string :=     
-    if($relType = 'dct:isPartOf') then 
+    if($relType = 'dcterms:isPartOf') then 
         concat($title,' contains ',$total,' works.')
     else if ($relType = 'skos:broadMatch') then
         if($recType = 'keyword') then 
