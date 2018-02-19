@@ -7,6 +7,7 @@ import module namespace rel="http://syriaca.org/related" at "../lib/get-related.
 import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm";
 import module namespace facet-defs="http://syriaca.org/facet-defs" at "../facet-defs.xqm";
 import module namespace maps="http://syriaca.org/maps" at "../lib/maps.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "../lib/tei2html.xqm";
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 (: Search modules :)
 import module namespace persons="http://syriaca.org/persons" at "persons-search.xqm";
@@ -306,7 +307,7 @@ declare function search:show-rec($hit, $p, $collection){
                         </div>  
                         else if(request:get-parameter('relation', '') and $collection = 'spear') then 
                             <a href="factoid.html?id={string($hit/@uri)}">{rel:relationship-sentence($hit/descendant::tei:relation)}</a>
-                        else global:display-recs-short-view($hit,'')
+                        else tei2html:summary-view($hit, (), $hit/descendant::tei:idno[1])
                     }
             </div>
     </div>                   
