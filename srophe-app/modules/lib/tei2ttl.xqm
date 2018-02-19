@@ -33,23 +33,17 @@ declare function tei2ttl:make-uri($uri){
     concat('<',normalize-space($uri),'>')
 };
 
-(:~
- : Add language tag to triple
- : @param $lang language code as xs:string 
- :)
-declare function tei2ttl:make-lang($lang) as xs:string?{
-    concat('@',$lang)
-};
 
 (:~ 
  : Build literal string, normalize spaces and strip "", add lang if specified
  : @param $string string for literal
  : @param $lang language code as xs:string  
  :)
-declare function tei2ttl:make-literal($string as xs:string*, $lang as xs:string*) as xs:string?{
+declare function tei2ttl:make-literal($string as xs:string*, $lang as xs:string*, $datatype as xs:string?) as xs:string?{
     concat('"',replace(normalize-space(string-join($string,' ')),'"',''),'"',
-        if($lang != '') then tei2ttl:make-lang($lang) 
-        else ()) 
+        if($lang != '') then concat('@',$lang) 
+        else (), 
+        if($datatype != '') then concat('^^',$datatype) else()) 
 };
 
 (:~ 
@@ -73,6 +67,60 @@ declare function tei2ttl:attestation($rec, $source){
         return tei2ttl:make-triple('','lawd:hasAttestation', tei2ttl:make-uri($source))
 };
 
+(: Create dates :)
+declare function tei2ttl:make-date-triples($date){
+    concat('&#xa; time:hasDateTimeDescription [',string-join((
+            if($date/descendant-or-self::text()) then 
+               tei2ttl:make-triple('','skos:prefLabel', tei2ttl:make-literal(normalize-space(string-join($date/descendant-or-self::text(),' ')), (),()))
+            else (),
+            if($date/@when) then
+                tei2ttl:make-triple('','time:year',
+                   if($date/@when castable as xs:date) then 
+                        tei2ttl:make-literal(string($date/@when), (),'xsd:date')
+                    else if($date/@when castable as xs:dateTime) then 
+                        tei2ttl:make-literal(string($date/@when), (),'xsd:dateTime')                        
+                    else if($date/@when castable as xs:gYear) then 
+                        tei2ttl:make-literal(string($date/@when), (),'xsd:gYear')
+                    else if($date/@when castable as xs:gYearMonth) then
+                        tei2ttl:make-literal(string($date/@when), (),'xsd:gYearMonth')
+                    else tei2ttl:make-literal(string($date/@when), (),())
+                    )
+           else(),
+           if($date/@notBefore or $date/@from) then
+                tei2ttl:make-triple('','periodo:earliestYear',
+                    let $date := if($date/@notAfter) then $date/@notAfter else $date/@to
+                    return
+                        if($date castable as xs:date) then 
+                            tei2ttl:make-literal(string($date), (),'xsd:date')
+                        else if($date castable as xs:dateTime) then 
+                            tei2ttl:make-literal(string($date), (),'xsd:dateTime')                        
+                        else if($date castable as xs:gYear) then 
+                            tei2ttl:make-literal(string($date), (),'xsd:gYear')
+                        else if($date castable as xs:gYearMonth) then
+                            tei2ttl:make-literal(string($date), (),'xsd:gYearMonth')
+                        else tei2ttl:make-literal(string($date), (),())
+                    )    
+            else (),
+            if($date/@notAfter or $date/@to) then
+                tei2ttl:make-triple('','periodo:latestYear',
+                    let $date := if($date/@notAfter) then $date/@notAfter else $date/@to
+                    return
+                        if($date castable as xs:date) then 
+                            tei2ttl:make-literal(string($date), (),'xsd:date')
+                        else if($date castable as xs:dateTime) then 
+                            tei2ttl:make-literal(string($date), (),'xsd:dateTime')                        
+                        else if($date castable as xs:gYear) then 
+                            tei2ttl:make-literal(string($date), (),'xsd:gYear')
+                        else if($date castable as xs:gYearMonth) then
+                            tei2ttl:make-literal(string($date), (),'xsd:gYearMonth')
+                        else tei2ttl:make-literal(string($date), (),())
+                    )    
+            else ()            
+        ),''),'];'
+     )        
+};
+
+
 (:~ 
  : TEI descriptions
  : @param $rec TEI record. 
@@ -83,11 +131,11 @@ for $desc in $rec/descendant::tei:desc
 let $source := $desc/tei:quote/@source
 return
     if($desc[@type='abstract'][not(@source)][not(tei:quote/@source)] or $desc[contains(@xml:id,'abstract')][not(@source)][not(tei:quote/@source)][. != '']) then 
-        tei2ttl:make-triple('', 'dcterms:description', tei2ttl:make-literal($desc/text(),()))
+        tei2ttl:make-triple('', 'dcterms:description', tei2ttl:make-literal($desc,(),()))
     else 
         if($desc/child::* != '' or $desc != '') then 
             concat('&#xa; dcterms:description [',
-                tei2ttl:make-triple('','rdfs:label', tei2ttl:make-literal($desc, string($desc/@xml:lang))),
+                tei2ttl:make-triple('','rdfs:label', tei2ttl:make-literal($desc, string($desc/@xml:lang),())),
                     if($source != '') then
                        if($desc/ancestor::tei:TEI/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence/tei:p/tei:listBibl/tei:bibl/tei:ptr/@target = $source) then 
                             tei2ttl:make-triple('','dcterms:license', tei2ttl:make-uri(string($desc/ancestor::tei:TEI/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence/@target)))
@@ -142,10 +190,10 @@ return
     if($name/parent::tei:place or $name/parent::tei:person) then  
             concat('&#xa; lawd:hasName [',
                 if($name/@syriaca-tags='#syriaca-headword') then
-                    string-join((tei2ttl:make-triple('','lawd:primaryForm',tei2ttl:make-literal($name/text(),$name/@xml:lang)),
+                    string-join((tei2ttl:make-triple('','lawd:primaryForm',tei2ttl:make-literal($name/text(),$name/@xml:lang, ())),
                     tei2ttl:attestation($rec, $name/@source))) 
                 else 
-                    string-join((tei2ttl:make-triple('','lawd:variantForm',tei2ttl:make-literal($name/text(),$name/@xml:lang)),
+                    string-join((tei2ttl:make-triple('','lawd:variantForm',tei2ttl:make-literal($name/text(),$name/@xml:lang, ())),
                     tei2ttl:attestation($rec, $name/@source)))
             ,'];')
     else 
@@ -165,8 +213,8 @@ string-join((
 for $geo in $rec/descendant::tei:location[tei:geo]
 return 
     concat('&#xa;geo:location [',
-        tei2ttl:make-triple('','geo:lat',tei2ttl:make-literal(tokenize($geo/tei:geo,' ')[1],())),
-        tei2ttl:make-triple('','geo:long',tei2ttl:make-literal(tokenize($geo/tei:geo,' ')[2],())),
+        tei2ttl:make-triple('','geo:lat',tei2ttl:make-literal(tokenize($geo/tei:geo,' ')[1],(),())),
+        tei2ttl:make-triple('','geo:long',tei2ttl:make-literal(tokenize($geo/tei:geo,' ')[2],(),())),
     '];')),'')
 };
 
@@ -177,7 +225,7 @@ return
 declare function tei2ttl:bibl-citation($rec) as xs:string*{
 let $citation := string-join(bibl2html:citation(root($rec)))
 return 
-    tei2ttl:make-triple('','dcterms:bibliographicCitation', tei2ttl:make-literal($citation,()))
+    tei2ttl:make-triple('','dcterms:bibliographicCitation', tei2ttl:make-literal($citation,(),()))
 };
 
 declare function tei2ttl:internal-refs($rec) as xs:string*{
@@ -219,35 +267,62 @@ declare function tei2ttl:resource-class($rec) as xs:string?{
  : @param $rec TEI record. 
  :)
 declare function tei2ttl:relations-with-attestation($rec,$id){
-string-join((for $rel in $rec/descendant::tei:listRelation/tei:relation
+string-join((
+    for $rel in $rec/descendant::tei:listRelation/tei:relation
     return 
         if($rel/@mutual) then 
             for $s in tokenize($rel/@mutual,' ')
             return
-                tei2ttl:record(string-join((
+                string-join((
                     for $o in tokenize($rel/@mutual,' ')[. != $s]
                     let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
                     let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms:') else $element-name
+                    let $relationshipURI := concat($o,'#',$element-name,'-',$s)
                     return 
-                        concat(tei2ttl:make-triple('', $element-name, tei2ttl:make-uri($o)),
-                               tei2ttl:make-triple('', 'lawd:hasAttestation', tei2ttl:make-uri($id)))
-                                ),' '))
+                        tei2ttl:record(
+                            concat(
+                               tei2ttl:make-triple('', 'rdf:about', tei2ttl:make-uri($s)),
+                               tei2ttl:make-triple('', 'dcterms:relation', tei2ttl:make-uri($o)),
+                               tei2ttl:make-triple('', 'snap:has-bond', tei2ttl:make-uri($relationshipURI)))),
+                    for $o in tokenize($rel/@mutual,' ')[. != $s]
+                    let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
+                    let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms:') else $element-name
+                    let $relationshipURI := concat($o,'#',$element-name,'-',$s)
+                    return 
+                       tei2ttl:record(concat(tei2ttl:make-triple('', 'rdf:about', tei2ttl:make-uri($relationshipURI)),
+                              tei2ttl:make-triple('', $element-name, tei2ttl:make-uri($o)),
+                              tei2ttl:make-triple('', 'lawd:hasAttestation', tei2ttl:make-uri($id))))
+                ),'')
         else 
             for $s in tokenize($rel/@active,' ')
             return 
-                tei2ttl:record(string-join((
+                string-join((
                     for $o in tokenize($rel/@passive,' ')
                     let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
                     let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms:') else $element-name
+                    let $relationshipURI := concat($o,'#',$element-name,'-',$s)
                     return 
-                        concat(tei2ttl:make-triple('', $element-name, tei2ttl:make-uri($o)),
-                            tei2ttl:make-triple('', 'lawd:hasAttestation', tei2ttl:make-uri($id)))
-                            ),''))
- ),'')                            
+                        tei2ttl:record(
+                            concat(
+                               tei2ttl:make-triple('', 'rdf:about', tei2ttl:make-uri($s)),
+                               tei2ttl:make-triple('', 'dcterms:relation', tei2ttl:make-uri($o)),
+                               tei2ttl:make-triple('', 'snap:has-bond', tei2ttl:make-uri($relationshipURI)))),
+                     for $o in tokenize($rel/@passive,' ')
+                     let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
+                     let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms:') else $element-name
+                     let $relationshipURI := concat($o,'#',$element-name,'-',$s)
+                     return
+                           tei2ttl:record(concat(tei2ttl:make-triple('', 'rdf:about', tei2ttl:make-uri($relationshipURI)),
+                              tei2ttl:make-triple('', $element-name, tei2ttl:make-uri($o)),
+                              tei2ttl:make-triple('', 'lawd:hasAttestation', tei2ttl:make-uri($id))))
+                     ),'')
+),'')
 };
 
 declare function tei2ttl:relations($rec, $id){
-string-join((for $rel in $rec/descendant::tei:listRelation/tei:relation
+string-join(
+ ((
+    for $rel in $rec/descendant::tei:listRelation/tei:relation
     let $ids := distinct-values((
                     for $r in tokenize($rel/@active,' ') return $r,
                     for $r in tokenize($rel/@passive,' ') return $r,
@@ -258,9 +333,26 @@ string-join((for $rel in $rec/descendant::tei:listRelation/tei:relation
         if(contains($id,'/spear/')) then 
             tei2ttl:make-triple('', 'dcterms:subject', tei2ttl:make-uri($i))
         else tei2ttl:make-triple('', 'dcterms:relation', tei2ttl:make-uri($i))
-    ),' ')
+    ,
+    for $rel in $rec/descendant::tei:listRelation/tei:relation
+    return 
+        if($rel/@mutual) then 
+            for $s in tokenize($rel/@mutual,' ')
+            for $o in tokenize($rel/@mutual,' ')[. != $s]
+            let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
+            let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms:') else $element-name
+            let $relationshipURI := concat($o,'#',$element-name,'-',$s)
+            return tei2ttl:make-triple('', 'snap:has-bond', tei2ttl:make-uri($relationshipURI)) 
+        else 
+            for $s in tokenize($rel/@active,' ')
+            for $o in tokenize($rel/@passive,' ')
+            let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
+            let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms:') else $element-name
+            let $relationshipURI := concat($o,'#',$element-name,'-',$s)
+            return tei2ttl:make-triple('', 'snap:has-bond', tei2ttl:make-uri($relationshipURI)) 
+    ))
+    ,' ')
 };
-
 
 (: Special handling for SPEAR :)
 declare function tei2ttl:spear-related-triples($rec, $id){
@@ -273,7 +365,7 @@ declare function tei2ttl:spear-related-triples($rec, $id){
                      tei2ttl:make-triple('', 'schema:birthDate', 
                         tei2ttl:make-literal(($rec/tei:listPerson/child::*/tei:birth/tei:date/@when | 
                         $rec/tei:listPerson/child::*/tei:birth/tei:date/@notAfter | 
-                        $rec/tei:listPerson/child::*/tei:birth/tei:date/@notBefore),()))
+                        $rec/tei:listPerson/child::*/tei:birth/tei:date/@notBefore),(),()))
                 else(),
                 if($rec/tei:listPerson/child::*/tei:birth/tei:placeName[@ref]) then
                     tei2ttl:make-triple('', 'schema:birthPlace', tei2ttl:make-uri($rec/tei:listPerson/child::*/tei:birth/tei:placeName/@ref))
@@ -285,7 +377,7 @@ declare function tei2ttl:spear-related-triples($rec, $id){
                     tei2ttl:make-triple('', 'schema:deathDate', 
                         tei2ttl:make-literal(($rec/tei:listPerson/child::*/tei:death/tei:date/@when | 
                         $rec/tei:listPerson/child::*/tei:death/tei:date/@notAfter | 
-                        $rec/tei:listPerson/child::*/tei:death/tei:date/@notBefore),()))
+                        $rec/tei:listPerson/child::*/tei:death/tei:date/@notBefore),(),()))
                 else(),
                 if($rec/tei:listPerson/child::*/tei:death/tei:placeName[@ref]) then 
                     tei2ttl:make-triple('', 'schema:deathPlace', tei2ttl:make-uri($rec/tei:listPerson/child::*/tei:death/tei:placeName/@ref))
@@ -318,7 +410,7 @@ declare function tei2ttl:spear-related-triples($rec, $id){
                     tei2ttl:make-triple('', 'syriaca:sanctity', tei2ttl:make-uri($rec/tei:listPerson/child::*/tei:state[@type='sanctity']/@ref))
                 else(),
                 if($rec/tei:listPerson/child::*/tei:sex) then
-                    tei2ttl:make-triple('', 'syriaca:sex', tei2ttl:make-literal($rec/tei:listPerson/child::*/tei:sex/@value,()))
+                    tei2ttl:make-triple('', 'syriaca:sex', tei2ttl:make-literal($rec/tei:listPerson/child::*/tei:sex/@value,(),()))
                 else(),
                 if($rec/tei:listPerson/child::*/tei:socecStatus[@ref]) then 
                     tei2ttl:make-triple('', 'syriaca:hasSocialRank', tei2ttl:make-uri($rec/tei:listPerson/child::*/tei:socecStatus/@ref))
@@ -328,7 +420,7 @@ declare function tei2ttl:spear-related-triples($rec, $id){
                 else(),
                 if($rec/tei:listPerson/child::*/tei:persName[descendant-or-self::text()]) then 
                     for $name in $rec/tei:listPerson/child::*/tei:persName[descendant-or-self::text()]
-                    return tei2ttl:make-triple('', 'foaf:name', tei2ttl:make-literal(string-join($name//text(),' '),()))
+                    return tei2ttl:make-triple('', 'foaf:name', tei2ttl:make-literal(string-join($name//text(),' '),(),()))
                 else (),
                 tei2ttl:make-triple('', 'lawd:hasAttestation', tei2ttl:make-uri($id))
              ),' '))
@@ -353,7 +445,7 @@ declare function tei2ttl:spear($rec, $id){
                 let $dates := $rec/descendant::tei:event/descendant::tei:date/@when | $rec/descendant::tei:event/descendant::tei:date/@notBefore
                 | $rec/descendant::tei:event/descendant::tei:date/@notAfter
                 for $date in $dates
-                return tei2ttl:make-triple('', 'dcterms:date', tei2ttl:make-literal(string($date),()))
+                return tei2ttl:make-triple('', 'dcterms:date', tei2ttl:make-literal(string($date),(),()))
                 ),' ')
         else (),
         tei2ttl:bibl($rec),
@@ -369,20 +461,28 @@ declare function tei2ttl:spear($rec, $id){
 };
 
 (: Prefixes :)
-declare function tei2ttl:prefix() as xs:string{
-"@prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+(: May not need these
 @prefix geosparql: <http://www.opengis.net/ont/geosparql#> .
 @prefix gn: <http://www.geonames.org/ontology#> .
+:)
+declare function tei2ttl:prefix() as xs:string{
+"@prefix cwrc: <http://sparql.cwrc.ca/ontologies/cwrc#>.
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
 @prefix lawd: <http://lawd.info/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix periodo: <http://n2t.net/ark:/99152/p0v#>.
+@prefix person: <https://www.w3.org/ns/person>,
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <http://schema.org/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix syriaca: <http://syriaca.org/schema#> .
-@prefix snap: <http://syriaca.org/snap#> .
-@prefix wdata: <https://www.wikidata.org/wiki/Special:EntityData/> .&#xa;"
+@prefix snap: <http://data.snapdrgn.net/ontology/snap#> .
+@prefix time: <http://www.w3.org/2006/time#>.
+@prefix wdata: <https://www.wikidata.org/wiki/Special:EntityData/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>. &#xa;"
 };
 
 (: Triples for a single record :)
@@ -394,31 +494,39 @@ let $id := if($rec/descendant::tei:idno[starts-with(.,$global:base-uri)]) then r
 let $resource-class := if($rec/descendant::tei:body/tei:biblStruct) then 'rdfs:Resource'    
                        else 'skos:Concept'    
 return 
-concat(
-    (: skos:Concept :)
-    tei2ttl:record(concat(
+    string-join((: start string-join-1:)(
+        tei2ttl:record((:start record-1:) string-join((:start string-join-2:)(
         tei2ttl:make-triple(tei2ttl:make-uri($id), 'a', tei2ttl:rec-type($rec)),
         tei2ttl:make-triple((),'rdfs:label',
                 if($rec/descendant::*[@syriaca-tags='#syriaca-headword']) then
                     string-join(for $headword in $rec/descendant::*[@syriaca-tags='#syriaca-headword'][. != '']
-                        return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else ()),', ')
+                        return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else (),()),', ')
                 else if($rec/descendant::tei:body/tei:listPlace/tei:place) then
                     string-join(for $headword in $rec/descendant::tei:body/tei:listPlace/tei:place/tei:placeName[. != '']
-                        return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else ()),', ')                        
+                        return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else (),()),', ')                        
                 else if($rec[self::tei:div/@uri]) then
                         if(tei2ttl:rec-type($rec) = 'syriaca:relationFactoid') then
-                            tei2ttl:make-literal(normalize-space(string-join(rel:relationship-sentence($rec/descendant::tei:listRelation/tei:relation),' ')),())
-                        else tei2ttl:make-literal(normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')),())
-                else tei2ttl:make-literal($rec/descendant::tei:title[1]/text(),if($rec/descendant::tei:title[1]/@xml:lang) then string($rec/descendant::tei:title[1]/@xml:lang) else ())),
+                            tei2ttl:make-literal(normalize-space(string-join(rel:relationship-sentence($rec/descendant::tei:listRelation/tei:relation),' ')),(),())
+                        else tei2ttl:make-literal(normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')),(),())
+                else tei2ttl:make-literal($rec/descendant::tei:title[1]/text(),if($rec/descendant::tei:title[1]/@xml:lang) then string($rec/descendant::tei:title[1]/@xml:lang) else (),())),
        tei2ttl:names($rec),
        if(contains($id,'/spear/')) then ()
        else tei2ttl:geo($rec),
        tei2ttl:idnos($rec, $id),
        tei2ttl:spear($rec, $id),
        tei2ttl:relations($rec, $id),
+       for $temporal in $rec/descendant::tei:state[@type="existence"]
+       return tei2ttl:make-date-triples($temporal),        
+       for $date in $rec/descendant::tei:event/descendant::tei:date
+       return tei2ttl:make-date-triples($date),
        if(contains($id,'/spear/')) then
         tei2ttl:bibl-citation($rec)
-       else ()
+       else (),
+       for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
+       return  
+            if(starts-with($bibl, "urn:cts:")) then 
+                tei2ttl:make-triple('','lawd:hasAttestation', tei2ttl:make-uri($bibl))
+            else tei2ttl:make-triple('','lawd:hasCitation', tei2ttl:make-uri($bibl)),
        tei2ttl:make-triple('','dcterms:hasFormat', 
             concat(tei2ttl:make-uri(concat($id,'/html')),
             ', ',tei2ttl:make-uri(concat($id,'/tei')),
@@ -429,77 +537,82 @@ concat(
        tei2ttl:make-triple('','foaf:primaryTopicOf', tei2ttl:make-uri(concat($id,'/ttl'))),
        tei2ttl:make-triple('','foaf:primaryTopicOf', tei2ttl:make-uri(concat($id,'/rdf'))),
        tei2ttl:internal-refs($rec)
-    )),
+    ),'') (:end string-join-2:) )(:end record-1:),
     if(contains($id,'/spear/')) then tei2ttl:spear-related-triples($rec, $id) 
-    else tei2ttl:relations-with-attestation($rec,$id)
-    ,
+    else tei2ttl:relations-with-attestation($rec,$id),
     if(contains($id,'/spear/')) then () 
-    else string-join((
-    (: rdfs:Resource, html :)
-    tei2ttl:record(concat(
-        tei2ttl:make-triple(tei2ttl:make-uri(concat($id,'/html')), 'a', 'rdfs:Resource;'),
-        tei2ttl:make-triple((),'dcterms:title',
-                if($rec/descendant::*[@syriaca-tags='#syriaca-headword']) then
-                    string-join(for $headword in $rec/descendant::*[@syriaca-tags='#syriaca-headword'][. != '']
-                        return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else ()),', ')
-                else if($rec/descendant::tei:body/tei:listPlace/tei:place) then
-                    string-join(for $headword in $rec/descendant::tei:body/tei:listPlace/tei:place/tei:placeName[. != '']
-                        return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else ()),', ')                        
-                else if($rec[self::tei:div/@uri]) then
-                        if(tei2ttl:rec-type($rec) = 'syriaca:relationFactoid') then
-                            tei2ttl:make-literal(normalize-space(string-join(rel:relationship-sentence($rec/descendant::tei:listRelation/tei:relation),' ')),())
-                        else tei2ttl:make-literal(normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')),())
-                else tei2ttl:make-literal($rec/descendant::tei:title[1]/text(),if($rec/descendant::tei:title[1]/@xml:lang) then string($rec/descendant::tei:title[1]/@xml:lang) else ())),
-        tei2ttl:make-triple('','dcterms:subject', tei2ttl:make-uri($id)),
-        if(contains($id,'/spear/')) then () else tei2ttl:bibl($rec),
-        tei2ttl:make-triple('','dcterms:format', tei2ttl:make-literal('text/html','')),
-        tei2ttl:bibl-citation($rec)
-    )),
-    (: rdfs:Resource, tei :)
-    tei2ttl:record(concat(
-        tei2ttl:make-triple(tei2ttl:make-uri(concat($id,'/tei')), 'a', 'rdfs:Resource;'),
-        tei2ttl:make-triple((),'dcterms:title',
-                if($rec/descendant::*[@syriaca-tags='#syriaca-headword']) then
-                    string-join(for $headword in $rec/descendant::*[@syriaca-tags='#syriaca-headword'][. != '']
-                        return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else ()),', ')
-                else if($rec/descendant::tei:body/tei:listPlace/tei:place) then
-                    string-join(for $headword in $rec/descendant::tei:body/tei:listPlace/tei:place/tei:placeName[. != '']
-                        return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else ()),', ')                        
-                else if($rec[self::tei:div/@uri]) then
-                        if(tei2ttl:rec-type($rec) = 'syriaca:relationFactoid') then
-                            tei2ttl:make-literal(normalize-space(string-join(rel:relationship-sentence($rec/descendant::tei:listRelation/tei:relation),' ')),())
-                        else tei2ttl:make-literal(normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')),())
-                else tei2ttl:make-literal($rec/descendant::tei:title[1]/text(),if($rec/descendant::tei:title[1]/@xml:lang) then string($rec/descendant::tei:title[1]/@xml:lang) else ())),
-        tei2ttl:make-triple('','dcterms:subject', tei2ttl:make-uri($id)),
-        if(contains($id,'/spear/')) then () else tei2ttl:bibl($rec), 
-        tei2ttl:make-triple('','dcterms:format', tei2ttl:make-literal('text/xml','')),
-        tei2ttl:bibl-citation($rec)
-    )),
-    (: rdfs:Resource, ttl :)
-    tei2ttl:record(concat(
-        tei2ttl:make-triple(tei2ttl:make-uri(concat($id,'/ttl')), 'a', 'rdfs:Resource;'),
-        tei2ttl:make-triple((),'dcterms:title',
-                if($rec/descendant::*[@syriaca-tags='#syriaca-headword']) then
-                    string-join(for $headword in $rec/descendant::*[@syriaca-tags='#syriaca-headword'][. != '']
-                        return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else ()),', ')
-                else if($rec/descendant::tei:body/tei:listPlace/tei:place) then
-                    string-join(for $headword in $rec/descendant::tei:body/tei:listPlace/tei:place/tei:placeName[. != '']
-                        return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else ()),', ')                        
-                else if($rec[self::tei:div/@uri]) then
-                        if(tei2ttl:rec-type($rec) = 'syriaca:relationFactoid') then
-                            tei2ttl:make-literal(normalize-space(string-join(rel:relationship-sentence($rec/descendant::tei:listRelation/tei:relation),' ')),())
-                        else tei2ttl:make-literal(normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')),())
-                else tei2ttl:make-literal($rec/descendant::tei:title[1]/text(),if($rec/descendant::tei:title[1]/@xml:lang) then string($rec/descendant::tei:title[1]/@xml:lang) else ())),        tei2ttl:make-triple('','dcterms:subject', tei2ttl:make-uri($id)),
-        tei2ttl:make-triple('','dcterms:subject', tei2ttl:make-uri($id)),
-        if(contains($id,'/spear/')) then () else tei2ttl:bibl($rec),         
-        tei2ttl:make-triple('','dcterms:format', tei2ttl:make-literal('text/turtle','')),
-        tei2ttl:bibl-citation($rec)
-    ))))
-    )
+    else 
+        (
+        (: rdfs:Resource, html :)
+        tei2ttl:record(string-join((
+            tei2ttl:make-triple(tei2ttl:make-uri(concat($id,'/html')), 'a', 'rdfs:Resource;'),
+            tei2ttl:make-triple((),'dcterms:title',
+                    if($rec/descendant::*[@syriaca-tags='#syriaca-headword']) then
+                        string-join(for $headword in $rec/descendant::*[@syriaca-tags='#syriaca-headword'][. != '']
+                            return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else (),()),', ')
+                    else if($rec/descendant::tei:body/tei:listPlace/tei:place) then
+                        string-join(for $headword in $rec/descendant::tei:body/tei:listPlace/tei:place/tei:placeName[. != '']
+                            return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else (),()),', ')                        
+                    else if($rec[self::tei:div/@uri]) then
+                            if(tei2ttl:rec-type($rec) = 'syriaca:relationFactoid') then
+                                tei2ttl:make-literal(normalize-space(string-join(rel:relationship-sentence($rec/descendant::tei:listRelation/tei:relation),' ')),(),())
+                            else tei2ttl:make-literal(normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')),(),())
+                    else tei2ttl:make-literal($rec/descendant::tei:title[1]/text(),if($rec/descendant::tei:title[1]/@xml:lang) then string($rec/descendant::tei:title[1]/@xml:lang) else (),())),
+            tei2ttl:make-triple('','dcterms:subject', tei2ttl:make-uri($id)),
+            if(contains($id,'/spear/')) then () else tei2ttl:bibl($rec),
+            tei2ttl:make-triple('','dcterms:format', tei2ttl:make-literal('text/html',(),())),
+            tei2ttl:bibl-citation($rec)
+        ))),
+        (: rdfs:Resource, tei :)
+        tei2ttl:record(string-join((
+            tei2ttl:make-triple(tei2ttl:make-uri(concat($id,'/tei')), 'a', 'rdfs:Resource;'),
+            tei2ttl:make-triple((),'dcterms:title',
+                    if($rec/descendant::*[@syriaca-tags='#syriaca-headword']) then
+                        string-join(for $headword in $rec/descendant::*[@syriaca-tags='#syriaca-headword'][. != '']
+                            return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else (),()),', ')
+                    else if($rec/descendant::tei:body/tei:listPlace/tei:place) then
+                        string-join(for $headword in $rec/descendant::tei:body/tei:listPlace/tei:place/tei:placeName[. != '']
+                            return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else (),()),', ')                        
+                    else if($rec[self::tei:div/@uri]) then
+                            if(tei2ttl:rec-type($rec) = 'syriaca:relationFactoid') then
+                                tei2ttl:make-literal(normalize-space(string-join(rel:relationship-sentence($rec/descendant::tei:listRelation/tei:relation),' ')),(),())
+                            else tei2ttl:make-literal(normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')),(),())
+                    else tei2ttl:make-literal($rec/descendant::tei:title[1]/text(),if($rec/descendant::tei:title[1]/@xml:lang) then string($rec/descendant::tei:title[1]/@xml:lang) else (),())),
+            tei2ttl:make-triple('','dcterms:subject', tei2ttl:make-uri($id)),
+            if(contains($id,'/spear/')) then () else tei2ttl:bibl($rec), 
+            tei2ttl:make-triple('','dcterms:format', tei2ttl:make-literal('text/xml',(),())),
+            tei2ttl:bibl-citation($rec)
+        ))),
+        (: rdfs:Resource, ttl :)
+        tei2ttl:record(string-join((
+            tei2ttl:make-triple(tei2ttl:make-uri(concat($id,'/ttl')), 'a', 'rdfs:Resource;'),
+            tei2ttl:make-triple((),'dcterms:title',
+                    if($rec/descendant::*[@syriaca-tags='#syriaca-headword']) then
+                        string-join(for $headword in $rec/descendant::*[@syriaca-tags='#syriaca-headword'][. != '']
+                            return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else (),()),', ')
+                    else if($rec/descendant::tei:body/tei:listPlace/tei:place) then
+                        string-join(for $headword in $rec/descendant::tei:body/tei:listPlace/tei:place/tei:placeName[. != '']
+                            return tei2ttl:make-literal($headword/descendant::text(),if($headword/@xml:lang) then string($headword/@xml:lang) else (),()),', ')                        
+                    else if($rec[self::tei:div/@uri]) then
+                            if(tei2ttl:rec-type($rec) = 'syriaca:relationFactoid') then
+                                tei2ttl:make-literal(normalize-space(string-join(rel:relationship-sentence($rec/descendant::tei:listRelation/tei:relation),' ')),(),())
+                            else tei2ttl:make-literal(normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')),(),())
+                    else tei2ttl:make-literal($rec/descendant::tei:title[1]/text(),if($rec/descendant::tei:title[1]/@xml:lang) then string($rec/descendant::tei:title[1]/@xml:lang) else (),())),        
+                    tei2ttl:make-triple('','dcterms:subject', tei2ttl:make-uri($id)),
+            tei2ttl:make-triple('','dcterms:subject', tei2ttl:make-uri($id)),
+            if(contains($id,'/spear/')) then () else tei2ttl:bibl($rec),         
+            tei2ttl:make-triple('','dcterms:format', tei2ttl:make-literal('text/turtle',(),())),
+            tei2ttl:bibl-citation($rec)
+        )))        
+    
+        )
+    
+    ),'')(: end string-join-1:) 
+    
 };
 
 (: Make sure record ends with a '.' :)
-declare function tei2ttl:record($triple) as xs:string*{
+declare function tei2ttl:record($triple as xs:string*) as xs:string*{
     replace($triple,';$','.&#xa;')
 };
 
