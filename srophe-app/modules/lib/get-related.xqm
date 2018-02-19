@@ -457,11 +457,10 @@ return
             {(
                if($count='all') then 
                     for $r in $related
-                    let $id := $r/descendant::tei:idno[1]
                     return 
                              <div class="indent row">
                                 <div class="col-md-1"><span class="badge results">{$r/descendant::tei:relation[@passive[matches(.,$recid)]][1]/descendant::tei:label[@type='order'][1]/text()}</span></div>
-                                <div class="col-md-11">{tei2html:summary-view($r, (), $id)}</div>
+                                <div class="col-md-11">{tei2html:summary-view($r, (), ())}</div>
                              </div>
                 else if($total gt 5) then
                         <div>
@@ -470,12 +469,11 @@ return
                              let $part := 
                                    if ($r/descendant::tei:relation[@passive[matches(.,$recid)]]/tei:desc[1]/tei:label[@type='order'][1]/@n castable as  xs:integer)
                                    then xs:integer($r/child::*/tei:listRelation/tei:relation[@passive[matches(.,$recid)]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
-                                   else ''
-                             let $id := $r/descendant::tei:idno[1]                                   
+                                   else ''                                  
                              return 
                              <div class="indent row">
                                 <div class="col-md-1"><span class="badge results">{$r/descendant::tei:relation[@passive[matches(.,$recid)]][1]/descendant::tei:label[@type='order'][1]/text()}</span></div>
-                                <div class="col-md-11">{tei2html:summary-view($r, (), $id)}</div>
+                                <div class="col-md-11">{tei2html:summary-view($r, (), ())}</div>
                              </div>
                          }
                            <div>
@@ -488,11 +486,10 @@ return
                          </div>
                 else 
                     for $r in $related
-                    let $id := $r/descendant::tei:idno[1]
                     return 
                              <div class="indent row">
                                 <div class="col-md-1"><span class="badge results">{$r/descendant::tei:relation[@passive[matches(.,$recid)]][1]/descendant::tei:label[@type='order'][1]/text()}</span></div>
-                                <div class="col-md-11">{tei2html:summary-view($r, (), $id)}</div>
+                                <div class="col-md-11">{tei2html:summary-view($r, (), ())}</div>
                              </div>
             )}
         </div>

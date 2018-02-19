@@ -132,11 +132,13 @@ declare function tei2html:idno-title-display($id){
  : Used for short views of records, browse, search or related items display. 
 :)
 declare function tei2html:summary-view($nodes as node()*, $lang as xs:string?, $id as xs:string?) as item()* {
-  if(contains($id,'/person/')) then tei2html:summary-view-persons($nodes,$id)
-  else if(contains($id,'/place/')) then tei2html:summary-view-places($nodes,$id)
-  else if(contains($id,'/keyword/')) then tei2html:summary-view-keyword($nodes, $id)
-  else if(contains($id,'/bibl/')) then tei2html:summary-view-bibl($nodes, $id)
-  else tei2html:summary-view-generic($nodes,$id)   
+  let $id := if($id) then $id else replace($nodes/descendant-or-self::tei:idno[starts-with(.,$global:base-uri)][1],'/tei','')
+  return 
+      if(contains($id,'/person/')) then tei2html:summary-view-persons($nodes,$id)
+      else if(contains($id,'/place/')) then tei2html:summary-view-places($nodes,$id)
+      else if(contains($id,'/keyword/')) then tei2html:summary-view-keyword($nodes, $id)
+      else if(contains($id,'/bibl/')) then tei2html:summary-view-bibl($nodes, $id)
+      else tei2html:summary-view-generic($nodes,$id)   
 };
 
 (: Special short view template for Persons :)
