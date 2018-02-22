@@ -64,23 +64,6 @@ declare function app:h1($node as node(), $model as map(*)){
 }; 
 
 (:~  
- : Display any TEI body passed to the function via the paths parameter
- : Used by templating module, defaults to tei:body if no nodes are passed. 
- : @param $paths comma separated list of xpaths for display. Passed from html page  
-:)
-declare function app:display-body($node as node(), $model as map(*), $paths as xs:string*){
-    let $toc := app:toc($model("data")/descendant::tei:body/child::*)
-    let $data-display := app:display-nodes($node, $model, $paths)
-    return 
-        if($toc) then 
-            <div class="col-sm-6 col-md-6 col-lg-7 mssBody">{$data-display}</div>
-        else 
-            <div class="col-sm-8 col-md-8 col-lg-9 mssBody">{$data-display}</div>
-            
-        
-}; 
-
-(:~  
  : Display any TEI nodes passed to the function via the paths parameter
  : Used by templating module, defaults to tei:body if no nodes are passed. 
  : @param $paths comma separated list of xpaths for display. Passed from html page  
@@ -102,64 +85,6 @@ declare function app:display-nodes($node as node(), $model as map(*), $paths as 
 declare %templates:wrap function app:display-sources($node as node(), $model as map(*)){
     let $sources := $model("data")/descendant::tei:body/descendant::tei:bibl
     return global:tei2html(<sources xmlns="http://www.tei-c.org/ns/1.0">{$sources}</sources>)
-};
-
-(:~    
- : Return teiHeader info to be used in citation
-:)
-declare %templates:wrap function app:display-work($node as node(), $model as map(*)){
-        <div class="row">
-            <div class="col-md-8 column1">
-                {
-                    let $data := $model("data")/descendant::tei:body/tei:bibl
-                    let $infobox := 
-                        <bibl xmlns="http://www.tei-c.org/ns/1.0">
-                        {(
-                            $data/@*,
-                            $data/tei:title,
-                            $data/tei:author,
-                            $data/tei:editor,
-                            $data/tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')],
-                            $data/tei:note[@type='abstract'],
-                            $data/tei:date,
-                            $data/tei:extent,
-                            $data/tei:idno
-                         )}
-                        </bibl>
-                     let $allData := 
-                     <bibl xmlns="http://www.tei-c.org/ns/1.0">
-                        {(
-                            $data/@*,
-                            $data/child::*
-                            [not(self::tei:title)]
-                            [not(self::tei:author)]
-                            [not(self::tei:editor)]
-                            [not(self::tei:desc[@type='abstract' or starts-with(@xml:id, 'abstract-en')])]
-                            [not(self::tei:note[@type='abstract'])]
-                            [not(self::tei:date)]
-                            [not(self::tei:extent)]
-                            [not(self::tei:idno)])}
-                        </bibl>
-                     return 
-                        (global:tei2html($infobox),
-                        app:display-related-inline($model("data"),'dct:isPartOf'),
-                        app:display-related-inline($model("data"),'syriaca:part-of-tradition'),
-                        global:tei2html($allData))  
-                } 
-            </div>
-            <div class="col-md-4 column2">
-                {(
-                app:rec-status($node, $model,''),
-                <div class="info-btns">  
-                    <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button>&#160;
-                    <a href="#" class="btn btn-default" data-toggle="modal" data-target="#selection" data-ref="../documentation/faq.html" id="showSection">Is this record complete?</a>
-                </div>,                
-                if($model("data")//tei:body/child::*/tei:listRelation) then 
-                rel:build-relationships($model("data")//tei:body/child::*/tei:listRelation, replace($model("data")//tei:idno[@type='URI'][starts-with(.,$global:base-uri)][1],'/tei',''))
-                else ()
-                )}  
-            </div>
-        </div>
 };
 
 (:~
@@ -700,6 +625,23 @@ function app:google-analytics($node as node(), $model as map(*)){
 };
 
 (: Corpus Specific templates :)
+
+(:~  
+ : Display any TEI body passed to the function via the paths parameter
+ : Used by templating module, defaults to tei:body if no nodes are passed. 
+ : @param $paths comma separated list of xpaths for display. Passed from html page  
+:)
+declare function app:display-body($node as node(), $model as map(*), $paths as xs:string*){
+    let $toc := app:toc($model("data")/descendant::tei:body/child::*)
+    let $data-display := app:display-nodes($node, $model, $paths)
+    return 
+        if($toc) then 
+            <div class="col-sm-6 col-md-6 col-lg-7 mssBody">{$data-display}</div>
+        else 
+            <div class="col-sm-8 col-md-8 col-lg-9 mssBody">{$data-display}</div>     
+}; 
+
+(: Display ids :)
 declare function app:display-ids($node as node(), $model as map(*)){
 let $srophe-title := 
                 try{http:send-request(<http:request href="wwwb.library.vanderbilt.edu/api/sparql?qname=label&amp;id={$model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref}" method="GET">
@@ -726,7 +668,7 @@ return
                 {
                     if($model("data")/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc) then
                         for $msName in $model("data")/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc/descendant::tei:msName
-                        return <span><label>Source: </label>  {$msName}<br/></span>
+                        return <span><label>Source: </label> {$msName}<br/></span>
                     else <p><label>Source: </label> {bibl2html:citation($model("data")/descendant::tei:sourceDesc)}</p> 
                 }
         </div>
