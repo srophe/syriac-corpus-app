@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -190,73 +189,6 @@
     <xsl:template match="t:body">
         <div class="body">
             <xsl:call-template name="langattr"/>
-            <!-- Toggle displays re: milestones/div/line breaks -->
-             <xsl:if test="//t:div/@type or //t:div1/@type or //t:div2/@type or //t:div3/@type or //t:div4/@type or                   //t:div5/@type or  //t:ab or //t:p or //t:milestone or //t:l or //t:lb or //t:pb">
-                <ul class="list-inline toggleView menu">
-                    <li>Show: </li>
-                    <xsl:if test="//@type='chapter'">
-                        <li>
-                            <button type="button" class="btn btn-default toggleDisplay active" data-element="chapter">
-                                <xsl:text>chapter</xsl:text>
-                            </button>
-                        </li>
-                    </xsl:if>
-                    <xsl:for-each select="distinct-values(//t:div/@type | //t:div1/@type | //t:div2/@type | //t:div3/@type | //t:div4/@type |                           //t:div5/@type |  //t:ab/@type | //t:p/@type |  //t:milestone/@type | //t:milestone/@subtype )[not(. = ('chapter','SyrChapter'))]">
-                        <xsl:choose>
-                            <xsl:when test=". = ('part','text','rubric','heading')"/>
-                            <xsl:otherwise>
-                                <li>
-                                    <button type="button" class="btn btn-default toggleDisplay" data-element="{.}">
-                                        <xsl:value-of select="."/>
-                                    </button>
-                                </li>
-                            </xsl:otherwise>
-                        </xsl:choose>        
-                    </xsl:for-each>
-                    <xsl:if test="//t:ab[not(@type) and not(@subtype)]">
-                        <li>
-                            <button type="button" class="btn btn-default toggleDisplay" data-element="ab">
-                                <xsl:text>ab</xsl:text>
-                            </button>
-                        </li>
-                    </xsl:if>
-                    <xsl:if test="//t:l | //t:lb">
-                        <li>
-                            <button type="button" class="btn btn-default toggleDisplay" data-element="l">
-                                <xsl:text>line</xsl:text>
-                            </button>
-                        </li>
-                    </xsl:if>
-                    <xsl:if test="//t:lg">
-                        <li>
-                            <button type="button" class="btn btn-default toggleDisplay" data-element="lg">
-                                <xsl:text>line group</xsl:text>
-                            </button>
-                        </li>
-                    </xsl:if>
-                    <xsl:if test="//t:pb">
-                        <li>
-                            <button type="button" class="btn btn-default toggleDisplay" data-element="pb">
-                                <xsl:text>page break</xsl:text>
-                            </button>
-                        </li>
-                    </xsl:if>
-                    <xsl:if test="//t:cb">
-                        <li>
-                            <button type="button" class="btn btn-default toggleDisplay" data-element="cb">
-                                <xsl:text>column break</xsl:text>
-                            </button>
-                        </li>
-                    </xsl:if>
-                    <xsl:if test="//t:milestone[not(@type) and not(@subtype) and not(@unit='SyrChapter')]">
-                        <li>
-                            <button type="button" class="btn btn-default toggleDisplay" data-element="cb">
-                                <xsl:text>milestone</xsl:text>
-                            </button>
-                        </li>
-                    </xsl:if>
-                </ul>
-            </xsl:if> 
             <div class="section" style="display:block;">
                 <xsl:apply-templates/>
             </div>
@@ -266,19 +198,19 @@
     <xsl:template match="t:head">
         <xsl:choose>
             <xsl:when test="parent::t:div1">
-                <h2 class="head {if(parent::*[1]/@type) then concat(' ',parent::*[1]/@type) else ()}">
+                <h2 class="tei-head {if(parent::*[1]/@type) then concat(' tei-',parent::*[1]/@type) else ()}">
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                 </h2>
             </xsl:when>
             <xsl:when test="parent::t:div2">
-                <h3 class="head {if(parent::*[1]/@type) then concat(' ',parent::*[1]/@type) else ()}">
+                <h3 class="tei-head {if(parent::*[1]/@type) then concat(' tei-',parent::*[1]/@type) else ()}">
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                 </h3>
             </xsl:when>
             <xsl:otherwise>
-                <span class="{name(parent::*[1])} {if(parent::*[1]/@type) then concat(' ',parent::*[1]/@type) else ()} head">
+                <span class="{concat('tei-',name(parent::*[1]))} {if(parent::*[1]/@type) then concat(' tei-',parent::*[1]/@type) else ()} tei-head">
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                 </span>
@@ -320,7 +252,7 @@
     <xsl:template match="t:div | t:div1 | t:div2 | t:div3 | t:div4 | t:div5">
         <xsl:param name="parentID"/>
         <xsl:variable name="currentid" select="concat(if($parentID != '') then $parentID else 'id','.',@n)"/>
-        <div class="{name(.)}{if(@unit) then concat(' ',@unit) else ()} {if(@type) then concat(' ',@type) else ()} text-display">
+        <div class="{concat('tei-',name(.))}{if(@unit) then concat(' tei-',@unit) else ()} {if(@type) then concat(' tei-',@type) else ()}">
             <xsl:choose>
                 <xsl:when test="child::t:head">
                     <xsl:attribute name="id">
@@ -342,12 +274,30 @@
                         <xsl:value-of select="ancestor-or-self::*[@xml:lang][1]/@xml:lang"/>
                     </xsl:attribute>                    
                 </xsl:when>
+                <xsl:when test="@type='title'">
+                    <xsl:choose>
+                        <xsl:when test="@xml:lang">
+                            <xsl:call-template name="langattr"/>
+                        </xsl:when>
+                        <xsl:when test="child::*[1]/@xml:lang">
+                            <xsl:copy-of select="child::*[1]/@xml:lang"/>
+                            <xsl:attribute name="lang">
+                                <xsl:value-of select="child::*[1]/@xml:lang"/>    
+                            </xsl:attribute>
+                        </xsl:when>
+                    </xsl:choose>
+                </xsl:when>
                 <xsl:otherwise/>
             </xsl:choose>
             <xsl:if test="@n">
                 <xsl:choose>
                     <xsl:when test="child::t:head">
-                        <span id="{$currentid}"></span>
+                        <span id="{$currentid}">
+                            <xsl:if test="@n != child::t:head/text()">
+                                <xsl:attribute name="class">text-number</xsl:attribute>
+                                <xsl:value-of select="@n"/>
+                            </xsl:if>
+                        </span>
                     </xsl:when>
                     <xsl:otherwise>
                         <span class="text-number badge">
@@ -364,7 +314,9 @@
     <xsl:template match="t:milestone | t:ab | t:l | t:lg | t:pb | t:cb | t:lb">
         <xsl:param name="parentID"/>
         <xsl:variable name="currentid" select="concat(if($parentID != '') then $parentID else 'id','.',@n)"/>
-        <span class="{name(.)}{if(@unit) then concat(' ',@unit) else ()} {if(@type) then concat(' ',@type) else ()} text-display">
+        <span class="{concat('tei-',name(.))}
+            {if(@unit) then concat(' tei-',@unit) else ()} {if(@type) then concat(' tei-',@type) else ()}">
+            <!-- {if(self::t:l) then concat(name(.),'-display') else ()} -->
             <xsl:choose>
                 <xsl:when test="child::t:head">
                     <xsl:attribute name="id">
@@ -391,11 +343,11 @@
             <xsl:if test="@n">
                 <xsl:choose>
                     <xsl:when test="child::t:head">
-                        <span id="{$currentid}"></span>
+                        <span id="{$currentid}"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <span class="text-number badge">
-                            <xsl:value-of select="@n"/>
+                           <xsl:if test="self::t:pb">pb. </xsl:if> <xsl:value-of select="@n"/>
                         </span>
                     </xsl:otherwise>
                 </xsl:choose>
@@ -408,7 +360,7 @@
     <xsl:template match="t:p">
         <xsl:param name="parentID"/>
         <xsl:variable name="currentid" select="concat(if($parentID != '') then $parentID else 'id','.',@n)"/>
-        <p class="{name(.)}{if(@unit) then concat(' ',@unit) else ()} text-display">
+        <p class="{concat('tei-',name(.))}{if(@unit) then concat(' tei-',@unit) else ()} text-display">
             <xsl:choose>
                 <xsl:when test="child::t:head">
                     <xsl:attribute name="id">
@@ -435,7 +387,7 @@
             <xsl:if test="@n">
                 <xsl:choose>
                     <xsl:when test="child::t:head">
-                        <span id="{$currentid}"></span>
+                        <span id="{$currentid}"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <span class="text-number badge">

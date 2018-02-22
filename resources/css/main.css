@@ -62,21 +62,11 @@
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
    z-index: 1500;
-   /*
-    height:150;
-    top: -10px;
-    left: 25px;
-    position: fixed;
-    margin:1em;
-    padding-top:25px;
-    padding-left:50px;
-    z-index: 1499;
-    border:1px solid red;
-    */
 }
 
     
 }
+
 /* Main content blocks */
 body {font-family: arial, sans-serif;}
 #content {background-color:white; padding-top: 50px;}
@@ -237,6 +227,7 @@ footer {text-align:center; color:white;}
 .div3 {margin:1em;}
 .div4 {margin:1em;}
 .div5 {margin:1em;}
+
 /* Typography */
 h1 {font-size:1.5em; margin:.25em 0 .25em 0; color:#666; font-weight:500;}
 h2 {font-size: 1.25em; margin:1em 0 .25em 0; padding-bottom:0; color:#999; font-weight:500;}
@@ -317,6 +308,7 @@ td {
 .right-padding{padding-right:1em;}
 .bottom-padding{padding-bottom:1em;}
 .indent{padding-left:1em;}
+
 /*.section ul {padding-left:0;}*/
 .section.type ul {padding-left:0;}
 
@@ -755,6 +747,7 @@ unpublished
     background-color: #F5F5F5;
     width:90%;
 }
+
 /* API documentation */
 pre code {
 	line-height: 1.6em;
@@ -783,25 +776,19 @@ pre {
 .huge {font-size:2.5em;}
 .dashboard  .panel-heading .glyphicon{font-size:3em; padding-top: .25em;}
 .panel-heading {font-weight:500;}
+.panel-heading a:after {
+    font-family:'Glyphicons Halflings';
+    content:"\e114";
+    float: right;
+    color: grey;
+}
+.panel-heading a.collapsed:after {
+    content:"\e080";
+}
 #dashboardOne h4.panel-title {color:#666; font-weight:500; font-size:1.25em;}
 
-/* TEST home page styles*/
-.sub-module {
-  margin: 1.5em;
-  overflow:hidden;
-  background:#eee; 
-  padding:1em;
-  width:250px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-}
 
-.geo { 
-  border-top:10px solid #753C28;
-}
-
-  /* Popover */
+/* Popover */
   .tooltip {
       padding:.25em;
       overflow:visible;
@@ -818,18 +805,40 @@ pre {
 /* new search */
 .mobile-submenu{display:none;}
 
-@media screen and (max-width: 480px) {
-.navbar-collapse, .dropdown-menu {float:none; width:100% !important;}
-.navbar-nav li {width:100% !important; float:none;}
-.mobile-submenu {
-    display: block;
-    float:left;
-    margin-left:3em;
-    }
-.caret {float:left; margin-left:.5em; margin-top:.5em;}    
-}
 .short-relationships {display:block;}
 .wiki-page-link {font-weight:normal;}
+
+/* Corpus Styles */
+/* Corpus text sections styles */
+.tei-head.display {display:block;}
+.tei-section.display {display:block;}
+/*.tei-div-display, .div1-display, .div2-display, .div3-display, .div4-display, .div5-display {display:block; margin:1em;}*/
+.body {display:block; float:none;clear:both;}
+.textBlock {display:block;}
+.tei-l.display, .line.display {display:block; margin:0; padding:0;}
+.tei-ab.display {display:inline;}
+.tei-line-num.display {font-size:medium; float:right; clear:right; margin-top:.5em;}
+.tei-milestone-number.display {float:right; padding:0 1em;}
+.tei-milestone.section.display {display:block; height:1em;}
+.tei-milestone.chapter.display {display:block; height:1em; width:100%; border:bottom:1px solid #eee;}
+.tei-milestone.verse.display {display:block;}
+.tei-lg.display, .tei-lb.display {display:block; margin-bottom:1.25em;}
+.text-number {
+    display:none;
+    background:#bbb;
+    font-size:x-small;
+    margin:.5em;
+    /*
+    background:#bbb;
+    padding:.175em;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 1;
+    -moz-border-radius: 1;
+    border-radius: 1;
+    */
+    }
+    
+/* Table of Contents */
 .toc {display:block; margin-left:.75em;}
 .toc-item {display:block; font-size: small;}
 :target:before {
@@ -844,6 +853,7 @@ pre {
     display: block!important;
 }
 
+/* Sedra display */
 #sedraDisplay {
     display:none; 
     position: fixed; 
@@ -885,31 +895,58 @@ pre {
 
 a.sedra {text-decoration:none; color:#222; font-weight:normal; size:12px;}
 
-.text-number {
-    display:none;
-    font-size:x-small;
-    margin:.2em;
-    /*
-    background:#bbb;
-    padding:.175em;
-    border: 1px solid #ddd;
-    -webkit-border-radius: 1;
-    -moz-border-radius: 1;
-    border-radius: 1;
-    */
+/* Toggle button styles */
+div.toggle-buttons input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+div.toggle-buttons label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 40px;
+	height: 20px;
+	background: grey;
+	display: block;
+	border-radius: 26px;
+	position: relative;
+	display: inline-block;
+}
+
+div.toggle-buttons label:after {
+	content: '';
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 16px;
+	height: 16px;
+	background: #fff;
+	border-radius: 16px;
+	transition: 0.3s;
+}
+
+div.toggle-buttons input:checked + label {
+	background: /*#bada55*/ #5FC0DD;
+}
+
+div.toggle-buttons input:checked + label:after {
+	left: calc(100% - 5px);
+	transform: translateX(-100%);
+}
+
+div.toggle-buttons label:active:after {
+	width: 26px;
+}
+div.toggle-buttons .toggle-label {font-size: 1em; font-weight:600}
+
+@media screen and (max-width: 480px) {
+.navbar-collapse, .dropdown-menu {float:none; width:100% !important;}
+.navbar-nav li {width:100% !important; float:none;}
+.mobile-submenu {
+    display: block;
+    float:left;
+    margin-left:3em;
     }
-    
-.l, .line {display:block; margin:0;padding:0;}    
-.div, .div1, .div2, .div3, .div4, .div5 {display:block; margin:1em;}
-.body {display:block; float:none;clear:both;}
-.textBlock {display:block;}
-/*.toggleDisplay + .active {background-color:green;}*/
-/*
-.l,.ab {display:inline;}
-.line-num {font-size:medium; float:right; clear:right; margin-top:.5em;}
- .milestone-number {float:right; padding:0 1em;}
-.milestone.section {display:block; height:1em;}
-.milestone.chapter {display:block; height:1em; width:100%; border:bottom:1px solid #eee;}
-.milestone.verse {display:block;}
-.lg {display:block;margin-bottom:1.25em;}
-*/
+.caret {float:left; margin-left:.5em; margin-top:.5em;}    
+}
