@@ -27,8 +27,8 @@ declare function bibl2html:citation($nodes as node()*) {
 declare function bibl2html:msDesc($nodes) {
    (if($nodes/tei:settlement) then concat($nodes/tei:settlement,', ') else (),
     if($nodes/tei:repository) then concat($nodes/tei:repository,
-        if($nodes/tei:repository/following-sibling::tei:idno[@type='shelfmark']) then ', ' else()) else (),
-    if($nodes/tei:idno[@type='shelfmark']) then concat($nodes/tei:idno[@type='shelfmark']) else ()
+        if($nodes/tei:repository/following-sibling::tei:idno[@type='shelfmark']) then ', ' else '') else (),
+    if($nodes/tei:idno[@type='shelfmark']) then $nodes/tei:idno[@type='shelfmark'] else ()
     )            
 };
 
