@@ -211,6 +211,6 @@ declare function tei2html:output-kwic($nodes as node()*, $id as xs:string?){
                                 else $s
                 let $link := concat($global:nav-base,'/rec.html?id=',$id[1],'#Head-id.',$node/ancestor-or-self::*[@n][1]/@n)
                 return      
-                <span> {$p} <span class="match" style="background-color:yellow;">&#160;<a href="{$link}">{$node/text()}</a></span> {$f} </span>
+                <span> {$p} <span style="background-color:yellow;">&#160;<a href="{$link}">{$node/text()}</a></span> {$f} </span>
             default return tei2html:output-kwic($node/node(), $id)
 };
