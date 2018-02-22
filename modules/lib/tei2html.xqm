@@ -105,9 +105,18 @@ declare function tei2html:summary-view-generic($nodes as node()*, $id as xs:stri
                             <label>Source: </label> {bibl2html:citation($nodes/descendant::tei:fileDesc/tei:sourceDesc/tei:biblStruct)}
                         </span>                        
                     else ()
-            else if($nodes/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc/descendant::tei:msName) then 
-                for $msName in $nodes/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc/descendant::tei:msName
-                return <span><label>Source: </label> {$msName}<br/></span>
+            else if($nodes/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc) then 
+                for $msDesc in $nodes/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier
+                return 
+                    if($msDesc/tei:settlement or $msDesc/tei:repository or $msDesc/tei:idno[@type='shelfmark']) then
+                        <span class="results-list-desc desc" dir="ltr" lang="en">
+                            <label>Source: </label>
+                            {bibl2html:msDesc($nodes/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier)}
+                        </span>
+                    else if($msDesc/tei:msName) then 
+                        for $msName in $msDesc/tei:msName
+                        return <span class="results-list-desc desc" dir="ltr" lang="en"><label>Source: </label> {$msName}<br/></span>
+                    else ()
             else ()}
             {if($nodes/descendant-or-self::*[starts-with(@xml:id,'abstract')]) then 
                 for $abstract in $nodes/descendant::*[starts-with(@xml:id,'abstract')]

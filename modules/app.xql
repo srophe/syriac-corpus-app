@@ -665,9 +665,17 @@ return
                     else()
                 }</div> 
                 {
-                    if($model("data")/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc) then
-                        for $msName in $model("data")/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc/descendant::tei:msName
-                        return <span><label>Source: </label> {$msName}<br/></span>
+                    if($model("data")/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc) then 
+                        for $msDesc in $model("data")/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier
+                        return 
+                            if($msDesc/tei:settlement or $msDesc/tei:repository or $msDesc/tei:idno[@type='shelfmark']) then
+                                <span><label>Source: </label>
+                                    {bibl2html:msDesc($msDesc)}
+                                </span>
+                            else if($msDesc/tei:msName) then 
+                                for $msName in $msDesc/tei:msName
+                                return <span class="results-list-desc desc" dir="ltr" lang="en"><label>Source: </label> {$msName}<br/></span>
+                            else ()
                     else <p><label>Source: </label> {bibl2html:citation($model("data")/descendant::tei:sourceDesc)}</p> 
                 }
         </div>
@@ -732,20 +740,6 @@ return
  : TOC for Syriac Corpus records. 
 :)  
 declare function app:toggle-text-display($node as node(), $model as map(*)){
-(:if($model("data")/descendant::tei:body/descendant::tei:div[@type][@n] or 
-    $model("data")/descendant::tei:body/descendant::tei:div1[@type][@n] or 
-    $model("data")/descendant::tei:body/descendant::tei:div2[@type][@n] or 
-    $model("data")/descendant::tei:body/descendant::tei:div3[@type][@n] or 
-    $model("data")/descendant::tei:body/descendant::tei:div4[@type][@n] or
-    $model("data")/descendant::tei:body/descendant::tei:div5[@type][@n] or
-    $model("data")/descendant::tei:body/descendant::tei:ab[@n] or 
-    $model("data")/descendant::tei:body/descendant::tei:p[@n] or 
-    $model("data")/descendant::tei:body/descendant::tei:milestone[@n] or 
-    $model("data")/descendant::tei:body/descendant::tei:l[@n] or 
-    $model("data")/descendant::tei:body/descendant::tei:lb[@n] or 
-    $model("data")/descendant::tei:body/descendant::tei:pb[@n]) then 
-    let $types := distinct-values(local-name($model("data")/descendant::tei:body/descendant::*[@n]))
-    :)
 if($model("data")/descendant::tei:body/descendant::*[@n]) then     
         <div class="panel panel-default">
             <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#toggleText">Show  </a>
