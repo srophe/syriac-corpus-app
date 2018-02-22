@@ -632,10 +632,9 @@ function app:google-analytics($node as node(), $model as map(*)){
  : @param $paths comma separated list of xpaths for display. Passed from html page  
 :)
 declare function app:display-body($node as node(), $model as map(*), $paths as xs:string*){
-    let $toc := app:toc($model("data")/descendant::tei:body/child::*)
     let $data-display := app:display-nodes($node, $model, $paths)
     return 
-        if($toc) then 
+        if($model("data")/descendant::tei:body/descendant::*[@n] or (app:toc($model("data")/descendant::tei:body/child::*) != '')) then 
             <div class="col-sm-6 col-md-6 col-lg-7 mssBody">{$data-display}</div>
         else 
             <div class="col-sm-8 col-md-8 col-lg-9 mssBody">{$data-display}</div>     
@@ -678,43 +677,25 @@ return
 (:~
  : TOC for Syriac Corpus records. 
 :)  
-declare function app:display-toc($node as node(), $model as map(*)){
+declare function app:display-left-menu($node as node(), $model as map(*)){
 let $toc := app:toc($model("data")/descendant::tei:body/child::*)
 return 
-    if($toc) then 
-    <div class="col-sm-2 col-md-2 noprint" xmlns="http://www.w3.org/1999/xhtml">
-        <div class="panel panel-default">
-            <div class="panel-heading">Table of Contents  
-                <a href="#" data-toggle="collapse" data-target="#showToc"><span id="tocIcon" class="glyphicon glyphicon-collapse-up"/></a>
-            </div>
-            <div class="panel-body collapse" id="showToc">
-                {app:toc($model("data")/descendant::tei:body/child::*)}
-            </div>
-        </div>
-        <script type="text/javascript">
-                        <![CDATA[
-                        $(window).bind('resize load', function() {
-                            if ($(this).width() < 767) {
-                                $('#showToc').removeClass('in');
-                                $('#showToc').addClass('out');
-                                $("#tocIcon").removeClass("glyphicon-collapse-up").addClass("glyphicon-collapse-down");
-                            } else {
-                                $('#showToc').removeClass('out');
-                                $('#showToc').addClass('in');
-                                $('#showToc').removeAttr( "style" );
-                                $("#tocIcon").removeClass("glyphicon-collapse-down").addClass("glyphicon-collapse-up");
-                            }
-                            $('#showToc').on('shown.bs.collapse', function () {
-                                $("#tocIcon").removeClass("glyphicon-collapse-down").addClass("glyphicon-collapse-up");
-                            });
-                            
-                            $('#showToc').on('hidden.bs.collapse', function () {
-                                $("#tocIcon").removeClass("glyphicon-collapse-up").addClass("glyphicon-collapse-down");
-                            });                                
-                        });
-                        ]]>
-                    </script>
-    </div> 
+    if($toc != '' or $model("data")/descendant::tei:body/descendant::*[@n]) then 
+        <div class="col-sm-2 col-md-2 noprint" xmlns="http://www.w3.org/1999/xhtml">
+            {(
+            app:toggle-text-display($node,$model),
+            if($toc != '') then 
+                <div class="panel panel-default">
+                  <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showToc">Table of Contents  </a>
+                  <!--<a href="#" data-toggle="collapse" data-target="#showToc"><span id="tocIcon" class="glyphicon glyphicon-collapse-up"/></a>-->
+                  </div>
+                  <div class="panel-body collapse in" id="showToc">
+                      {app:toc($model("data")/descendant::tei:body/child::*)}
+                  </div>
+                </div>  
+            else ()
+            )}
+        </div>        
     else ()
 }; 
 
@@ -726,6 +707,8 @@ for $node in $nodes
 return 
         typeswitch($node)
             case text() return normalize-space($node)
+            case element(tei:div) return 
+                app:toc($node/node())
             case element(tei:div1) return 
                 app:toc($node/node())
             case element(tei:div2) return 
@@ -744,3 +727,97 @@ return
                     (<a href="#{$id}" class="toc-item">{string-join($node/descendant-or-self::text(),' ')}</a>, ' ') 
             default return ()          
 };
+
+(:~
+ : TOC for Syriac Corpus records. 
+:)  
+declare function app:toggle-text-display($node as node(), $model as map(*)){
+(:if($model("data")/descendant::tei:body/descendant::tei:div[@type][@n] or 
+    $model("data")/descendant::tei:body/descendant::tei:div1[@type][@n] or 
+    $model("data")/descendant::tei:body/descendant::tei:div2[@type][@n] or 
+    $model("data")/descendant::tei:body/descendant::tei:div3[@type][@n] or 
+    $model("data")/descendant::tei:body/descendant::tei:div4[@type][@n] or
+    $model("data")/descendant::tei:body/descendant::tei:div5[@type][@n] or
+    $model("data")/descendant::tei:body/descendant::tei:ab[@n] or 
+    $model("data")/descendant::tei:body/descendant::tei:p[@n] or 
+    $model("data")/descendant::tei:body/descendant::tei:milestone[@n] or 
+    $model("data")/descendant::tei:body/descendant::tei:l[@n] or 
+    $model("data")/descendant::tei:body/descendant::tei:lb[@n] or 
+    $model("data")/descendant::tei:body/descendant::tei:pb[@n]) then 
+    let $types := distinct-values(local-name($model("data")/descendant::tei:body/descendant::*[@n]))
+    :)
+if($model("data")/descendant::tei:body/descendant::*[@n]) then     
+        <div class="panel panel-default">
+            <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#toggleText">Show  </a>
+            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" 
+            title="Toggle the text display to show line numbers, section numbers and other structural divisions"></span>
+            <!--<a href="#" data-toggle="collapse" data-target="#showToc"><span id="tocIcon" class="glyphicon glyphicon-collapse-up"/></a>-->
+            </div>
+            <div class="panel-body collapse in" id="toggleText">
+                {( 
+                    let $types := distinct-values($model("data")/descendant::tei:body/descendant::tei:div[@n]/@type)
+                    for $type in $types
+                    order by $type
+                    return 
+                        if($type = ('part','text','rubric','heading')) then ()
+                        else
+                            <div class="toggle-buttons">
+                               <span class="toggle-label"> {$type} : </span>
+                               <input class="toggleDisplay" type="checkbox" id="toggle{$type}" data-element="{concat('tei-',$type)}"/>
+                                 {if($type = 'section') then attribute checked {"checked" } else ()}
+                                 <label for="toggle{$type}"> {$type}</label>
+                            </div>,
+                    if($model("data")/descendant::tei:body/descendant::tei:ab[not(@type) and not(@subtype)][@n]) then 
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> ab : </span>
+                            <input class="toggleDisplay" type="checkbox" id="toggleab" data-element="tei-ab"/>
+                                <label for="toggleab">ab</label>
+                         </div>
+                    else (),    
+                    if($model("data")/descendant::tei:body/descendant::tei:l) then 
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> line : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglel" data-element="tei-l"/>
+                                <label for="togglel">line</label>
+                        </div>
+                    else (),
+                    if($model("data")/descendant::tei:body/descendant::tei:lb) then 
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> line break : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglelb" data-element="tei-lb"/>
+                                <label for="togglelb">line break</label>
+                        </div>
+                    else (),                    
+                    if($model("data")/descendant::tei:body/descendant::tei:lg) then 
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> line group : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglelg" data-element="tei-lg"/>
+                                <label for="togglelg">line group</label>
+                         </div>                        
+                    else (),
+                    if($model("data")/descendant::tei:body/descendant::tei:pb) then
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> page break : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglepb" data-element="tei-pb"/>
+                                <label for="togglepb">page break</label>
+                         </div>                                            
+                    else (),
+                    if($model("data")/descendant::tei:body/descendant::tei:cb) then 
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> column break : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglecb" data-element="tei-cb"/>
+                                <label for="togglecb">column break</label>
+                         </div>                         
+                    else (),
+                    if($model("data")/descendant::tei:body/descendant::tei:milestone[not(@type) and not(@subtype) and not(@unit='SyrChapter')]) then 
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> milestone : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglemilestone" data-element="tei-milestone"/>
+                                <label for="togglemilestone">milestone</label>
+                         </div>                                                 
+                    else () 
+                )}
+            </div>
+        </div>
+else ()
+}; 
