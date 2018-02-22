@@ -6,7 +6,7 @@ default namespace tei = "http://www.tei-c.org/ns/1.0"
 namespace teix = "http://www.tei-c.org/ns/Examples"
 namespace xlink = "http://www.w3.org/1999/xlink"
 
-# Schema generated from ODD source 2017-01-04T20:27:08Z. .
+# Schema generated from ODD source 2017-06-21T14:54:01Z. .
 # TEI Edition: Version 3.1.0. Last updated on
 #	15th December 2016, revision d3f5e70
 # TEI Edition Location: http://www.tei-c.org/Vault/P5/Version 3.1.0/
@@ -606,7 +606,7 @@ tei_att.global.attribute.syriaca-computed-end =
 tei_att.global.attribute.syriaca-tags =
   
   ## tags usable
-  ## Suggested values include: 1] #syriaca-headword; 2] #syriaca-anglicized
+  ## Suggested values include: 1] #syriaca-headword; 2] #syriaca-anglicized; 3] #canonical; 4] #ektobe-headword
   attribute syriaca-tags {
     
     ## The name used by Syriaca.org for document titles, citation, and disambiguation. These names have been created according to the Syriaca.org guidelines for headwords: http://syriaca.org/documentation/headwords.html.
@@ -614,6 +614,12 @@ tei_att.global.attribute.syriaca-tags =
     | 
       ## An anglicized version of a name created by Syriaca.org used to facilitate searching in English.
       "#syriaca-anglicized"
+    | 
+      ## Indicates the content is canonical, i.e., widely agreed upon. Abbreviations of work titles are primarily in view.
+      "#canonical"
+    | 
+      ## The name used by e-Ktobe as a standardized name form.
+      "#ektobe-headword"
     | text
   }?
 tei_att.global.attribute.xmlid =
@@ -632,40 +638,43 @@ tei_att.global.attribute.xmllang =
     ## (Arabic) Arabic of any variety or period
     "ar"
     | 
-      ## (Garshuni) Arabic Garshuni in unvocalized or undetermined Syriac script
+      ## (Arabic—Garshuni) Arabic Garshuni in unvocalized or undetermined Syriac script
       "ar-Syrc"
     | 
-      ## (Garshuni in West Syriac script) Arabic Garshuni in vocalized West Syriac script
+      ## (Arabic—Garshuni—Estrangela) Arabic Garshuni in Estrangela Syriac script
+      "ar-Syre"
+    | 
+      ## (Arabic—Garshuni—West Syriac) Arabic Garshuni in vocalized West Syriac script
       "ar-Syrj"
     | 
-      ## (Garshuni in East Syriac script) Arabic Garshuni in vocalized East Syriac script
+      ## (Arabic—Garshuni—East Syriac) Arabic Garshuni in vocalized East Syriac script
       "ar-Syrn"
     | 
       ## (Coptic) Coptic of any variety or period
       "cop"
     | 
-      ## (Old Church Slavonic) Old Church Slavonic
+      ## (Slavonic—Old Church) Old Church Slavonic
       "cu"
     | 
       ## (German) German of any variety or period
       "de"
     | 
-      ## (Baumstark German Romanization) Names or terms Romanized into German according to the standards adopted by Anton Baumstark's Geschichte der syrischen Literatur.
+      ## (German—Baumstark Romanization) Names or terms Romanized into German according to the standards adopted by Anton Baumstark's Geschichte der syrischen Literatur.
       "de-x-baumstrk"
     | 
-      ## (Modern Greek) Modern Greek after A.D. 1453
+      ## (Greek—Modern) Modern Greek after A.D. 1453
       "el"
     | 
       ## (English) English of any variety or period
       "en"
     | 
-      ## (GEDSH English Romanization) Names or terms Romanized into English according to the standards adopted by the Gorgias Encyclopedic Dictionary of the Syriac Heritage
+      ## (English—GEDSH Romanization) Names or terms Romanized into English according to the standards adopted by the Gorgias Encyclopedic Dictionary of the Syriac Heritage
       "en-x-gedsh"
     | 
-      ## (LAH English Romanization) Names or terms Romanized into English according to the standards adopted by the Late Antique Historiography project.
-      "en-x-gedsh"
+      ## (English—LAH Romanization) Names or terms Romanized into English according to the standards adopted by the Late Antique Historiography project.
+      "en-x-lah"
     | 
-      ## (Syriaca.org Alternate English Romanization) Names or terms Romanized into English by Syriaca.org using alternate methods for indexing purposes.
+      ## (English—Syriaca.org Alternate Romanization) Names or terms Romanized into English by Syriaca.org using alternate methods for indexing purposes.
       "en-x-srp1"
     | 
       ## (Spanish) Spanish
@@ -674,16 +683,16 @@ tei_att.global.attribute.xmllang =
       ## (French) French of any variety or period
       "fr"
     | 
-      ## (BHS French Romanization) Names or terms Romanized into French according to the standards adopted by the Bibliotheca Hagiographica Syriaca
+      ## (French—BHS Romanization) Names or terms Romanized into French according to the standards adopted by the Bibliotheca Hagiographica Syriaca
       "fr-x-bhs"
     | 
-      ## (BHS French Romanization) Names or terms Romanized into French according to the standards adopted by the Bibliotheca Hagiographica Syriaca
+      ## (French—Fiey Romanization) Names or terms Romanized into French according to the standards adopted by Fiey, Saints Syriaques
       "fr-x-fiey"
     | 
       ## (Ge'ez) Ge'ez
       "gez"
     | 
-      ## (Ancient Greek) Ancient Greek to A.D. 1453
+      ## (Greek—Ancient) Ancient Greek to A.D. 1453
       "grc"
     | 
       ## (Armenian) Classical or Modern Armenian
@@ -701,7 +710,16 @@ tei_att.global.attribute.xmllang =
       ## (Malayalam) Malayalam of any variety or period
       "mal"
     | 
-      ## (Malayalam Garshuni) Malayalam Garshuni in vocalized East Syriac script
+      ## (Malayalam—Garshuni) Malayalam Garshuni in unvocalized or undetermined Syriac script
+      "mal-Syrc"
+    | 
+      ## (Malayalam—Garshuni—Estrangela) Malayalam Garshuni in Estrangela Syriac script
+      "mal-Syre"
+    | 
+      ## (Malayalam—Garshuni—West Syriac) Malayalam Garshuni in vocalized West Syriac script
+      "mal-Syrj"
+    | 
+      ## (Malayalam—Garshuni—East Syriac) Malayalam Garshuni in vocalized East Syriac script
       "mal-Syrn"
     | 
       ## (Dutch) Dutch
@@ -716,16 +734,16 @@ tei_att.global.attribute.xmllang =
       ## (Syriac) Syriac of any variety or period
       "syr"
     | 
-      ## (Syriac in Estrangela script) Syriac in Estrangela script
+      ## (Syriac—Estrangela script) Syriac in Estrangela script
       "syr-Syre"
     | 
-      ## (West Syriac) Syriac in vocalized West Syriac script
+      ## (Syriac—West) Syriac in vocalized West Syriac script
       "syr-Syrj"
     | 
-      ## (East Syriac) Syriac in vocalized East Syriac script
+      ## (Syriac—East) Syriac in vocalized East Syriac script
       "syr-Syrn"
     | 
-      ## (Syriac in Melkite script) Syriac in Melkite script. Note: This is not an ISO code but a private use code for Melkite employed by Syriaca.org until an ISO code is created
+      ## (Syriac—Melkite script) Syriac in Melkite script. Note: This is not an ISO code but a private use code for Melkite employed by Syriaca.org until an ISO code is created
       "syr-x-syrm"
     | 
       ## (Sogdian) Sogdian
@@ -1454,6 +1472,7 @@ tei_model.stageLike_sequence = empty
 tei_model.stageLike_sequenceOptional = empty
 tei_model.stageLike_sequenceOptionalRepeatable = empty
 tei_model.stageLike_sequenceRepeatable = notAllowed
+tei_model.entryPart = notAllowed
 tei_model.eventLike = tei_event | tei_listEvent
 tei_model.global.edit =
   tei_gap | tei_addSpan | tei_damageSpan | tei_delSpan
@@ -2797,10 +2816,25 @@ tei_title =
     tei_att.typed.attribute.subtype,
     tei_att.datable.attributes,
     
-    ## classifies the title according to some convenient typology.
-    ## Sample values include: 1] main; 2] sub(subordinate) ; 3] alt(alternate) ; 4] short; 5] desc(descriptive) 
+    ## Describes the function of the title. This attribute is optional. Certain non-blank values (such as "final-rubric") may cause the title to be moved to a different section of the page.
+    ## Suggested values include: 1] main; 2] sub; 3] alt; 4] short; 5] desc
     attribute type {
-      xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
+      
+      ##
+      "main"
+      | 
+        ##
+        "sub"
+      | 
+        ##
+        "alt"
+      | 
+        ##
+        "short"
+      | 
+        ##
+        "desc"
+      | xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
     }?,
     
     ## indicates the bibliographic level for a title, that is, whether it identifies an article, book, journal, series, or unpublished material.
@@ -2956,29 +2990,41 @@ tei_bibl =
     }?,
     
     ## The type attribute on bibl elements may be an RDF class defining the type of work or item. These will typically begin with either the prefix lawd: (http://lawd.info/ontology) or syriaca:
-    ## Suggested values include: 1] lawd:ConceptualWork(Work) ; 2] lawd:Edition(Edition) ; 3] lawd:Citation(Citation) ; 4] syriaca:Manuscript(Manuscript) ; 5] syriaca:Catalogue(Catalogue) ; 6] syriaca:ModernTranslation(Modern Translation) ; 7] syriaca:AncientVersion(Ancient Version) 
+    ## Suggested values include: 1] lawd:ConceptualWork(WorkWorks) ; 2] lawd:Edition(EditionEditions) ; 3] lawd:Citation(CitationCitations) ; 4] syriaca:Manuscript(ManuscriptManuscripts) ; 5] syriaca:PrintCatalogue(Print CataloguePrint Catalogues) ; 6] syriaca:DigitalCatalogue(Digital CatalogueDigital Catalogues) ; 7] syriaca:ModernTranslation(Modern TranslationModern Translation) ; 8] syriaca:AncientVersion(Ancient VersionAncient Versions) ; 9] syriaca:OriginalWithSyriacEvidence(Original Language Edition with Syriac EvidenceOriginal Language Editions with Syriac Evidence) ; 10] syriaca:Glossary(GlossaryGlossaries) ; 11] syriaca:Apparatus(ApparatusApparatuses) 
     attribute type {
       
-      ## (Work) A Conceptual Work groups together one or more Written Works which have the same intellectual source. E.g. The Iliad, as opposed to a particular manuscript witness or edition of the Iliad. See http://lawd.info/ontology/ConceptualWork.
+      ## (Work) (Works) A Conceptual Work groups together one or more Written Works which have the same intellectual source. E.g. The Iliad, as opposed to a particular manuscript witness or edition of the Iliad. See http://lawd.info/ontology/ConceptualWork.
       "lawd:ConceptualWork"
       | 
-        ## (Edition) A published (whether officially or not) Written Work that relies on one or more Written Works as sources. See http://lawd.info/ontology/Edition.
+        ## (Edition) (Editions) A published (whether officially or not) Written Work that relies on one or more Written Works as sources. See http://lawd.info/ontology/Edition.
         "lawd:Edition"
       | 
-        ## (Citation) A Citation models a bibliographic reference as a resource. See http://lawd.info/ontology/Citation.
+        ## (Citation) (Citations) A Citation models a bibliographic reference as a resource. See http://lawd.info/ontology/Citation.
         "lawd:Citation"
       | 
-        ## (Manuscript) Any text-bearing object, which usually embodies a Conceptual Work and which may be a source for an Edition or Translation.
+        ## (Manuscript) (Manuscripts) Any text-bearing object, which usually embodies a Conceptual Work and which may be a source for an Edition or Translation.
         "syriaca:Manuscript"
       | 
-        ## (Catalogue) A Citation of a catalogue.
-        "syriaca:Catalogue"
+        ## (Print Catalogue) (Print Catalogues) A Citation of a print catalogue, such as a manuscript catalogue.
+        "syriaca:PrintCatalogue"
       | 
-        ## (Modern Translation) A modern Written Work that translates one or more other Written Works that embody the same Conceptual Work. A subtype of http://lawd.info/ontology/Translation.
+        ## (Digital Catalogue) (Digital Catalogues) A Citation of a digital catalogue, such as a manuscript catalogue.
+        "syriaca:DigitalCatalogue"
+      | 
+        ## (Modern Translation) (Modern Translation) A modern Written Work that translates one or more other Written Works that embody the same Conceptual Work. A subtype of http://lawd.info/ontology/Translation.
         "syriaca:ModernTranslation"
       | 
-        ## (Ancient Version) An ancient Written Work that translates one or more other Written Works that embody the same Conceptual Work. A subtype of http://lawd.info/ontology/Translation.
+        ## (Ancient Version) (Ancient Versions) An ancient Written Work that translates one or more other Written Works that embody the same Conceptual Work. A subtype of http://lawd.info/ontology/Translation.
         "syriaca:AncientVersion"
+      | 
+        ## (Original Language Edition with Syriac Evidence) (Original Language Editions with Syriac Evidence) An edition of a non-Syriac text that incorporates evidence from Syriac versions.
+        "syriaca:OriginalWithSyriacEvidence"
+      | 
+        ## (Glossary) (Glossaries) A bibliographic reference to a resource that provides glosses or explanations for terms. A subtype of http://lawd.info/ontology/Citation.
+        "syriaca:Glossary"
+      | 
+        ## (Apparatus) (Apparatuses) A bibliographic reference to a resource that contains notes regarding the witnesses, versions, or reconstruction of a text. A subtype of http://lawd.info/ontology/Citation.
+        "syriaca:Apparatus"
       | xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
     }?,
     empty
@@ -5582,7 +5628,7 @@ tei_relation =
     tei_att.typed.attribute.subtype,
     
     ## (reference) An RDF property applicable to the relation. This may be a custom Syriaca.org property, such as one found at http://syriaca.org/documentation/relations.html or one from an external vocabulary such as SNAP or LAWD.
-    ## Suggested values include: 1] dct:source(is derived from) ; 2] lawd:embodies(embodies) ; 3] syriaca:commemorated(commemorates) ; 4] dct:isPartOf(is part of) 
+    ## Suggested values include: 1] dct:source(is derived from) ; 2] lawd:embodies(embodies) ; 3] syriaca:commemorated(commemorates) ; 4] dct:isPartOf(is part of) ; 5] syriaca:sometimesCirculatesWith(sometimes circulates with) ; 6] skos:broadMatch(has broader match with) ; 7] syriaca:hasRelationToPlace(has relation to place) ; 8] syriaca:bornAt(was born at) ; 9] syriaca:hasLiteraryConnectionToPlace(has literary connection to place) ; 10] syriaca:differentFrom(should be distinguished from) ; 11] syriaca:possiblyIdentical(is possibly identical to) ; 12] syriaca:diedAt(died at) ; 13] syriaca:sharesAttributionWith(shares attribution with) 
     attribute ref {
       list {
         (
@@ -5597,6 +5643,33 @@ tei_relation =
          | 
            ## (is part of) A related resource in which the described resource is physically or logically included. (http://purl.org/dc/terms/isPartOf).
            "dct:isPartOf"
+         | 
+           ## (sometimes circulates with) A related resource with which the described resource may sometimes circulate, depending on the tradition.
+           "syriaca:sometimesCirculatesWith"
+         | 
+           ## (has broader match with) A resource with a broader or more generic definition that encompasses the current resource along with others. Syriaca.org describes the broader resource using a "composite URI". SKOS definition: skos:broadMatch is used to state a hierarchical mapping link between two conceptual resources in different concept schemes. (https://www.w3.org/2009/08/skos-reference/skos.rdf#broadMatch).
+           "skos:broadMatch"
+         | 
+           ## (has relation to place) A place to which an entity (e.g., person) has an unspecified relation.
+           "syriaca:hasRelationToPlace"
+         | 
+           ## (was born at) The place where a person was born.
+           "syriaca:bornAt"
+         | 
+           ## (has literary connection to place) A place to which an entity (e.g., person) has a literary connection.
+           "syriaca:hasLiteraryConnectionToPlace"
+         | 
+           ## (should be distinguished from) Entities (in @mutual) that are not identical but have been or could be confused.
+           "syriaca:differentFrom"
+         | 
+           ## (is possibly identical to) Entities (in @mutual) that are possibly identical to each other.
+           "syriaca:possiblyIdentical"
+         | 
+           ## (died at) The place where a person died.
+           "syriaca:diedAt"
+         | 
+           ## (shares attribution with) Persons (in @mutual) to whom the same works are attributed (e.g., Ephrem, Isaac, and Pseudo-Ephrem).
+           "syriaca:sharesAttributionWith"
          | xsd:anyURI)+
       }
     },
@@ -7343,7 +7416,37 @@ tei_interpGrp =
     tei_att.interpLike.attributes,
     empty
   }
-tei_model.entryLike = notAllowed
+tei_model.entryLike = tei_entryFree
+tei_att.entryLike.attributes = tei_att.entryLike.attribute.type
+tei_att.entryLike.attribute.type =
+  
+  ## indicates type of entry, in dictionaries with multiple types.
+  ## Suggested values include: 1] main; 2] hom(homograph) ; 3] xref(cross reference) ; 4] affix; 5] abbr(abbreviation) ; 6] supplemental; 7] foreign
+  [ a:defaultValue = "main" ]
+  attribute type {
+    
+    ## a main entry (default).
+    "main"
+    | 
+      ## (homograph) groups information relating to one homograph within an entry.
+      "hom"
+    | 
+      ## (cross reference) a reduced entry whose only function is to point to another main entry (e.g. for forms of an irregular verb or for variant spellings: was pointing to be, or esthete to aesthete).
+      "xref"
+    | 
+      ## an entry for a prefix, infix, or suffix.
+      "affix"
+    | 
+      ## (abbreviation) an entry for an abbreviation.
+      "abbr"
+    | 
+      ## a supplemental entry (for use in dictionaries which issue supplements to their main work in which they include updated information about entries).
+      "supplemental"
+    | 
+      ## an entry for a foreign word in a monolingual dictionary.
+      "foreign"
+    | xsd:token { pattern = "(\p{L}|\p{N}|\p{P}|\p{S})+" }
+  }?
 tei_att.lexicographic.attributes =
   tei_att.datcat.attributes,
   tei_att.lexicographic.attribute.expand,
@@ -7386,7 +7489,25 @@ tei_att.lexicographic.attribute.opt =
   
   ## (optional) indicates whether the element is optional or not
   [ a:defaultValue = "false" ] attribute opt { xsd:boolean }?
+tei_model.morphLike = notAllowed
 tei_model.ptrLike.form = notAllowed
+tei_entryFree =
+  
+  ## (unstructured entry) contains a single unstructured entry in any kind of lexical resource, such as a dictionary or lexicon. [9.1. Dictionary Body and Overall Structure 9.2. The Structure of Dictionary Entries]
+  element entryFree {
+    (text
+     | tei_model.gLike
+     | tei_model.entryPart
+     | tei_model.morphLike
+     | tei_model.phrase
+     | tei_model.inter
+     | tei_model.global)*,
+    tei_att.global.attributes,
+    tei_att.entryLike.attributes,
+    tei_att.lexicographic.attributes,
+    tei_att.sortable.attributes,
+    empty
+  }
 tei_lang =
   
   ## (language name) contains the name of a language mentioned in etymological or other linguistic discussion. Inside a bibl element, this refers to the language of the version to which the bibl refers. The contents of lang should be a BCP-47 code. [9.3.4. Etymological Information]

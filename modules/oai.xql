@@ -20,6 +20,7 @@ xquery version "3.0";
  : @version 1.4
  :)
 import module namespace tei2="http://syriaca.org/tei2dc" at "lib/tei2dc.xqm";
+import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 (: declare namespaces for each metadata schema we care about :)
 declare namespace rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
@@ -36,9 +37,9 @@ declare option exist:serialize "method=xml media-type=text/xml omit-xml-declarat
 declare variable $base-url           := 'http://syriaca.org/api/oai';
 declare variable $repository-name    := 'Syriaca.org';
 declare variable $admin-email        := 'david.a.michelson@vanderbilt.edu';
-declare variable $hits-per-page      := 10;
+declare variable $hits-per-page      := 25;
 declare variable $earliest-datestamp := '2012-01-01';
-declare variable $_docs              := string("collection('/db/apps/srophe/data')//tei:TEI");
+declare variable $_docs              := collection($global:data-root)//tei:TEI;
 declare variable $oai-domain         := 'syriaca.org';
 declare variable $id-scheme          := 'oai';
 
@@ -108,7 +109,7 @@ declare function local:validateParams(){
     let $parameters :=  request:get-parameter-names()
     for $param in $parameters
     return
-        if($param = 'verb' or $param = 'identifier' or $param = 'from' or $param = 'until' or $param = 'set' or $param = 'metadataPrefix' or $param = 'resumptionToken' or $param = 'start') 
+        if($param = 'verb' or $param = 'identifier' or $param = 'from' or $param = 'until' or $param = 'set' or $param = 'metadataPrefix' or $param = 'resumptionToken' or $param = 'perpage' or $param = 'start') 
             then ''
         else <error code="badArgument">Invalid OAI-PMH parameter : {$param}</error>
 };
@@ -179,17 +180,19 @@ declare function local:modDate($date){
     return if(exists($shortDate) and $shortDate != '') then $shortDate else '2006-01-01' 
 };
 
+(:~
+ : Filter by set title
+:)
 declare function local:set-paths(){
-    if($set != '') then concat("[descendant::tei:title[@level='m'][. ='",$set,"']]")
+    if($set != '') then concat("[.//tei:title[. = '",$set,"']]")
     else ()
 };
 
 (:~
  : Build xpath for selecting records based on date range or sets
- : NOTE: srophe currently does not support sets
 :)
 declare function local:buildPath(){
-let $results := util:eval(concat($_docs,local:set-paths()))
+let $results := util:eval(concat("$_docs",local:set-paths()))
 return 
     if($from != '' and $until != '') then $results[local:modDate(descendant::tei:publicationStmt/descendant::tei:date[1]) gt $from and local:modDate(descendant::tei:publicationStmt/descendant::tei:date[1]) lt $until]
     else if($from != '' and not($until)) then $results[local:modDate(descendant::tei:publicationStmt/descendant::tei:date[1]) gt $from]
@@ -228,8 +231,12 @@ declare function local:oai-response() {
 declare function local:oai-metadata($record) {
       <metadata xmlns="http://www.openarchives.org/OAI/2.0/">
       {
+        if($metadataPrefix = 'oai_dc') then
+            local:get-dc($record)
+        else local:get-TEI($record)
+            
           (:local:buildDC($record),:)
-          local:get-TEI($record)
+          
           (:,
           local:buildRDF($record):)
       }
@@ -272,24 +279,23 @@ declare function local:print-token($_end, $_count) {
  : @param $_hits a sequence of XML docs
  : @return XML corresponding to a single OAI record
  :)
-declare function local:oai-get-record() {
-    let $_hits := $_docs[descendant::tei:idno[@type='URI'][starts-with(.,'http://syriaca.org/')] = $identifier]
-    let $record := $_hits
+declare function local:oai-get-record() { 
+    let $record := $_docs[descendant::tei:body/descendant::tei:idno[. = $identifier]]
     let $date := string($record/descendant::tei:publicationStmt/descendant::tei:date[1])
     let $oaiDate := concat(string($date),'Z')
     return 
-        if($_hits !='') then
+        if($record !='') then
         <GetRecord xmlns="http://www.openarchives.org/OAI/2.0/">
             <record>{
                         (<header>
                         <identifier>{local:get-identifier($record)}</identifier>
                         <datestamp>{$oaiDate}</datestamp>
                         {
-                        let $set := $record//tei:title[@level='m']
-                        for $oaiSet in $set
-                        let $idString := string($set)
-                        return
-                            <setSpec>{$idString}</setSpec>
+                            let $set := $record//tei:title[@level='m'][1] | $record//tei:title[@level='s'][1]
+                            for $oaiSet in $set
+                            let $idString := $set
+                            return
+                                <setSpec>{$idString}</setSpec>
                          }
                     </header>, local:oai-metadata($record) )
             }</record>
@@ -332,7 +338,12 @@ declare function local:oai-identify() {
 declare function local:oai-list-identifiers() {
 let $_hits := local:buildPath()
 let $_count := count($_hits)
-let $max := $hits-per-page
+let $max := 
+    if(request:get-parameter('perpage','') != '') then 
+        if(request:get-parameter('perpage','') cast as xs:integer lt 101) then 
+            (request:get-parameter('perpage','') cast as xs:integer)
+        else $hits-per-page    
+    else $hits-per-page
 let $_end := if ($start + $max - 1 < $_count) then 
                 $start + $max - 1 
             else 
@@ -395,7 +406,12 @@ declare function local:oai-list-metadata-formats() {
 declare function local:oai-list-records() {
 let $_hits := local:buildPath()
 let $_count := count($_hits)
-let $max := $hits-per-page
+let $max :=     
+        if(request:get-parameter('perpage','') != '') then 
+            if(request:get-parameter('perpage','') cast as xs:integer lt 101) then 
+                (request:get-parameter('perpage','') cast as xs:integer)
+            else $hits-per-page    
+        else $hits-per-page   
 let $_end := if ($start + $max - 1 < $_count) then 
                 $start + $max - 1 
             else 
@@ -440,22 +456,26 @@ return
 declare function local:oai-list-sets() {
     <ListSets xmlns="http://www.openarchives.org/OAI/2.0/">
        {
-        for $record in util:eval($_docs)
-        group by $set := $record/descendant::tei:titleStmt/tei:title[@level='m']
-        order by $set
+        for $set in $global:get-config//*:collections/*:collection
         return
             <set>
-                <setSpec>{string($set)}</setSpec>
-                <setName>{string($set)}</setName>
+                <setSpec>{string($set/@name)}</setSpec>
+                <setName>{if(string($set/@series != '')) then string($set/@series) else string($set/@title)}</setName>
+                <setDescription>
+                    <dc:relation xml:lang="en">{concat('http://syriaca.org/',string($set/@app-root),'/index.html')}</dc:relation>
+                </setDescription>
             </set>
         }
    </ListSets>
 };
 
 declare function local:get-TEI($record){
-    $record/child::*
+    root($record)
 };
 
+declare function local:get-dc($record){
+    tei2:tei2dc(root($record))
+};
 (: OAI-PMH wrapper for request and response elements :)
 <OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
          { 

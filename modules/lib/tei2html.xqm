@@ -5,7 +5,8 @@ xquery version "3.0";
  :)
  
 module namespace tei2html="http://syriaca.org/tei2html";
-import module namespace global="http://syriaca.org/global" at "global.xqm";
+import module namespace bibl2html="http://syriaca.org/bibl2html" at "bibl2html.xqm";
+import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 
 declare namespace html="http://purl.org/dc/elements/1.1/";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -22,163 +23,61 @@ declare function tei2html:tei2html($nodes as node()*) as item()* {
         typeswitch($node)
             case text() return $node
             case comment() return ()
-            case element(tei:title) return 
-                <span class="teiTitle">{
-                    tei2html:tei2html($node/node())
-                }</span>
-            case element(tei:foreign) return 
-                <span dir="{if($node/@xml:lang = ('syr','ar','^syr')) then 'rtl' else 'ltr'}">{
-                    tei2html:tei2html($node/node())
-                }</span>                
+            case element(tei:biblScope) return element span {
+                let $unit := if($node/@unit = 'vol') then concat($node/@unit,'.') 
+                             else if($node[@unit != '']) then string($node/@unit) 
+                             else if($node[@type != '']) then string($node/@type)
+                             else () 
+                return 
+                    if(matches($node/text(),'^\d')) then concat($unit,' ',$node/text())
+                    else if(not($node/text()) and ($node/@to or $node/@from)) then  concat($unit,' ',$node/@from,' - ',$node/@to)
+                    else $node/text()
+            }
+            case element(tei:category) return element ul {tei2html:tei2html($node/node())}
+            case element(tei:catDesc) return element li {tei2html:tei2html($node/node())}
+            case element(tei:imprint) return element span {
+                    if($node/tei:pubPlace/text()) then $node/tei:pubPlace[1]/text() else (),
+                    if($node/tei:pubPlace/text() and $node/tei:publisher/text()) then ': ' else (),
+                    if($node/tei:publisher/text()) then $node/tei:publisher[1]/text() else (),
+                    if(not($node/tei:pubPlace) and not($node/tei:publisher) and $node/tei:title[@level='m']) then <abbr title="no publisher">n.p.</abbr> else (),
+                    if($node/tei:date/preceding-sibling::*) then ', ' else (),
+                    if($node/tei:date) then $node/tei:date else <abbr title="no date of publication">n.d.</abbr>,
+                    if($node/following-sibling::tei:biblScope[@unit='series']) then ', ' else ()
+            }
+            case element(tei:label) return element span {tei2html:tei2html($node/node())}
             case element(tei:persName) return 
-                <span class="persName">{
+                <span class="tei-persName">{
                     if($node/child::*) then 
                         for $part in $node/child::*
                         order by $part/@sort ascending, string-join($part/descendant-or-self::text(),' ') descending
                         return tei2html:tei2html($part/node())
                     else tei2html:tei2html($node/node())
                 }</span>
-            case element(tei:biblStruct) return 
-                tei2html:citation($node)
-            case element(tei:category) return element ul {tei2html:tei2html($node/node())}
-            case element(tei:catDesc) return element li {tei2html:tei2html($node/node())}
-            case element(tei:label) return element span {tei2html:tei2html($node/node())}
+            case element(tei:title) return 
+                let $titleType := 
+                        if($node/@level='a') then 
+                            'title-analytic'
+                        else if($node/@level='m') then 
+                            'title-monographic'
+                        else if($node/@level='j') then 
+                            'title-journal'
+                        else if($node/@level='s') then 
+                            'title-series'
+                        else if($node/@level='u') then 
+                            'title-unpublished'
+                        else if($node/parent::tei:persName) then 
+                            'title-person'                             
+                        else ()
+                return  
+                    <span class="tei-title {$titleType}">{
+                        (if($node/@xml:lang) then attribute lang { $node/@xml:lang } else (),
+                        tei2html:tei2html($node/node()))                 
+                    }</span>
+            case element(tei:foreign) return 
+                <span dir="{if($node/@xml:lang = ('syr','ar','^syr')) then 'rtl' else 'ltr'}">{
+                    tei2html:tei2html($node/node())
+                }</span>
             default return tei2html:tei2html($node/node())
-};
-
-declare function tei2html:citation($nodes as node()*) as item()* {
-    for $node in $nodes
-    return 
-        typeswitch($node)
-            case text() return $node
-            case comment() return ()
-            case element(tei:biblStruct) return tei2html:citation($node/node())
-            case element(tei:analytic) return 
-                (
-                (: Ouput author/editors :)
-                tei2html:citation-names($node,2),
-                (: Ouput titles :)
-                if($node/tei:title[starts-with(@xml:lang,'en')]) then 
-                    ('"',tei2html:citation($node/tei:title[starts-with(@xml:lang,'en')][1]),if(not(ends-with($node/tei:title[starts-with(@xml:lang,'en')][1]/text(),'.|:|,'))) then '.' else(),'"')
-                else ('"',tei2html:citation($node/tei:title[1]), if(not(ends-with($node/tei:title[1]/text(),'.|:|,'))) then '.' else(),'"'),
-                if($node/following-sibling::tei:monogr/tei:title[1][@level='m']) then ' In'
-                else ()                
-                )
-            case element(tei:monogr) return 
-                (
-                (: Title:)
-                tei2html:citation($node/tei:title[1]),
-                if($node/preceding-sibling::*[1][self::tei:analytic]) then 
-                    (', ', tei2html:citation-names($node,2),
-                    if($node/tei:title[@level='m'] and $node/tei:biblScope[(@unit != 'vol' and @unit != 'series') or not(@unit)]) then 
-                        for $b in $node/tei:biblScope[(@unit != 'vol' and @unit != 'series') or not(@unit)]
-                        return (', ', tei2html:citation($b))
-                    else ()
-                    )
-                else '.',
-                (: Tranlators :)
-                if(count($node/tei:editor[@role='translator']) gt 0) then 
-                    (' Translated by ', tei2html:citation-names($node/tei:editor[@role='translator'], 2))
-                else (),
-                (: Edition :)
-                if($node/tei:edition) then
-                    ('. ', if($node/tei:edition[starts-with(@xml:lang,'en')]) then tei2html:citation($node/tei:edition[starts-with(@xml:lang,'en')][1]) else tei2html:citation($node/tei:edition))
-                else (),
-                (: BiblScope :)
-                if($node/tei:biblScope[@unit='vol']) then 
-                    (' ',tei2html:citation($node/tei:biblScope[@unit='vol']),' ')
-                else (),
-                (: Series :)
-                if($node/following-sibling::*[1][self::tei:series]) then 
-                    (' ',tei2html:citation($node/following-sibling::*[1][self::tei:series]),' ')
-                else if($node/following-sibling::*[1][self::tei:monogr]) then (', T5')
-                else if($node/preceding-sibling::*[1][self::tei:monogr]) then 
-                    (' ',tei2html:citation($node/preceding-sibling::*[1][self::tei:monogr]/tei:imprint))
-                else if($node/preceding-sibling::*[1][self::tei:analytic]) then 
-                        if($node/tei:title[@level='j'] and $node/tei:imprint[child::*[string-length(.) gt 0]]) then 
-                            ('(', tei2html:citation($node/tei:imprint) ,')')
-                        else (' ',tei2html:citation($node/tei:imprint))
-                else (' ',tei2html:citation($node/tei:imprint)),
-                if($node/following-sibling::*[1][self::tei:monogr]) then ', ' else (),
-                if($node/tei:title[@level='j'] and $node/tei:biblScope[(@unit != 'vol' and @unit != 'series') or not(@unit)]) then
-                    for $n in $node/tei:biblScope[(@unit != 'vol' and @unit != 'series') or not(@unit)]
-                    return (': ', $n)
-                else()
-                )
-            case element(tei:imprint) return    
-                (if($node/tei:pubPlace[starts-with(@xml:lang,'en')]) then
-                    tei2html:citation($node/tei:pubPlace[starts-with(@xml:lang,'en')][1])
-                else if($node/tei:pubPlace) then     
-                    tei2html:citation($node/tei:pubPlace[1])
-                else (),
-                if($node/tei:pubPlace and $node/tei:publisher) then ': '
-                else (),
-                if($node/tei:publisher[starts-with(@xml:lang,'en')]) then 
-                    tei2html:citation($node/tei:publisher[starts-with(@xml:lang,'en')][1])
-                else if($node/tei:publisher) then 
-                    tei2html:citation($node/tei:publisher[1])
-                else (),
-                if(not($node/tei:pubPlace) and not($node/tei:publisher) and $node/tei:title[@level='m']) then
-                    <abbr title="no publisher">n.p.</abbr>        
-                else (),
-                if($node/tei:date/preceding-sibling::*) then ', '
-                else (),
-                if($node/tei:date) then 
-                    tei2html:citation($node/tei:date[1])
-                else <abbr title="no date of publication">n.d.</abbr>,
-                if($node/following-sibling::tei:biblScope[@unit='series']) then 
-                    (',', tei2html:citation($node/parent::tei:biblScope[@unit='series']))
-                else ())
-            case element(tei:title) return
-                <span>{(attribute class {
-                if($node/@level='a') then 'title-analytic'
-                else if($node/@level='m') then 'title-monographic'
-                else if($node/@level='j') then 'title-journal'
-                else if($node/@level='s') then 'title-series'
-                else if($node/@level='u') then 'title-unpublished'
-                else if($node/parent::tei:persName) then 'title-person'
-                else 'title'},
-                attribute dir {if($node/ancestor-or-self::tei:*[@xml:lang][1] = ('ar','^syr')) then 'rtl' else 'ltr'},
-                tei2html:tei2html($node/node())
-                )}</span>
-            default return tei2html:tei2html($node/node())
-};
-
-declare function tei2html:citation-names($nodes as node()*, $max-output as xs:integer?) as item()* {
-let $persons :=
-    if($nodes/tei:author) then 
-        let $count := count($nodes/tei:author)
-        return tei2html:emit-responsible-persons($nodes/tei:author,$max-output,$count)
-    else if($nodes/tei:editor[not(@role) or @role!='translator']) then 
-        let $count := count($nodes/descendant::tei:editor[not(@role) or @role!='translator'])
-        return (tei2html:emit-responsible-persons($nodes/tei:editor[not(@role) or @role!='translator'],$max-output,$count),if($count = 1) then ', ed.' else ', eds.')
-    else ()  
-return if(not(ends-with(normalize-space(string-join($persons,' ')),'.'))) then ($persons,'.') else $persons        
-};
-
-declare function tei2html:emit-responsible-persons($nodes as node()*, $max-output as xs:integer?, $count as xs:integer?){
-    if(not(empty($max-output))) then 
-        for $n at $p in subsequence($nodes,1,$max-output)
-        return 
-            if($count = 1) then tei2html:citation-names-display($n)
-            else if($p = $max-output) then 
-                (' and ',tei2html:citation-names-display($n), if($count gt $max-output) then ' et al.'  else ())
-            else if($p gt 1) then 
-                (', ',tei2html:citation-names-display($n))         
-            else tei2html:citation-names-display($n)
-    else 
-        for $n at $p in subsequence($nodes,1,$count)
-        return 
-            if($count = 1) then tei2html:citation-names-display($n)
-            else if($p = $max-output) then 
-                (' and ',tei2html:citation-names-display($n), if($count gt $max-output) then ' et al.'  else ())
-            else if($p gt 1) then 
-                (', ',tei2html:citation-names-display($n))         
-            else tei2html:citation-names-display($n)
-};
-
-declare function tei2html:citation-names-display($nodes as node()*) as item()* {
-    $nodes
 };
 
 (:
@@ -200,7 +99,7 @@ declare function tei2html:summary-view-generic($nodes as node()*, $id as xs:stri
             else ()}
             {if($nodes/descendant::tei:biblStruct) then 
                 <span class="results-list-desc desc" dir="ltr" lang="en">
-                    <label>Source: </label> {tei2html:citation($nodes/descendant::tei:biblStruct)}
+                    <label>Source: </label> {bibl2html:citation($nodes/descendant::tei:biblStruct)}
                 </span>
             else ()}
             {if($nodes/descendant-or-self::*[starts-with(@xml:id,'abstract')]) then 
@@ -240,7 +139,7 @@ declare function tei2html:summary-view-generic($nodes as node()*, $id as xs:stri
             <span class="results-list-desc uri"><span class="srp-label">URI: </span><a href="{replace($id,$global:base-uri,$global:nav-base)}">{$id}</a></span>
             else()
             }
-        </div>   
+        </div>    
 };
 
 declare function tei2html:translate-series($series as xs:string?){
@@ -250,4 +149,52 @@ declare function tei2html:translate-series($series as xs:string?){
     else if($series = 'Qadishe: A Guide to the Syriac Saints') then 
         <a href="{$global:nav-base}/q/index.html"><img src="{$global:nav-base}/resources/img/icons-q-sm.png" alt="Qadishe: A Guide to the Syriac Saints"/>saint</a>        
     else $series
+};
+
+
+declare function tei2html:output-kwic($nodes as node()*, $id as xs:string?){
+    for $node in $nodes
+    return 
+        typeswitch($node)
+            case text() return ()
+            case comment() return ()
+            case element(exist:match) return
+                let $p := 
+                    if($node/preceding::exist:match) then 
+                        if($node/preceding::text()[1][parent::exist:match]) then ()
+                        else 
+                            let $s := $node/preceding::text()[1]
+                            let $string-length := string-length($s)
+                            return 
+                                if($string-length gt 60) then 
+                                    concat('...', substring($s, ($string-length - 40), $string-length))
+                                else $s
+                    else
+                        let $s := string-join($node/preceding::text(),' ')
+                        let $string-length := string-length($s)
+                        return 
+                            if($string-length gt 60) then 
+                                concat('...', substring($s, ($string-length - 40), $string-length))
+                            else $s
+                let $f := 
+                    if($node/following::exist:match) then 
+                        if($node/following::text()[1][parent::exist:match]) then ()
+                        else 
+                            let $s := $node/following::text()[1]
+                            let $string-length := string-length($s)
+                            return 
+                                if($string-length gt 40) then  
+                                    concat(substring($s, 1, 40),'...')
+                                else $s
+                    else 
+                            let $s := string-join($node/following::text(),' ')
+                            let $string-length := string-length($s)
+                            return 
+                                if($string-length gt 40) then  
+                                    concat(substring($s, 1, 40),'...')
+                                else $s
+                let $link := concat($global:nav-base,'/rec.html?id=',$id[1],'#Head-id.',$node/ancestor-or-self::*[@n][1]/@n)
+                return      
+                <span> {$p} <span class="match" style="background-color:yellow;">&#160;<a href="{$link}">{$node/text()}</a></span> {$f} </span>
+            default return tei2html:output-kwic($node/node(), $id)
 };

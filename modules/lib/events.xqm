@@ -7,10 +7,7 @@ module namespace ev="http://syriaca.org/events";
 
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 
-import module namespace facets="http://syriaca.org/facets" at "facets.xqm";
 import module namespace global="http://syriaca.org/global" at "global.xqm";
-import module namespace rec="http://syriaca.org/short-rec-view" at "short-rec-view.xqm";
-import module namespace geo="http://syriaca.org/geojson" at "geojson.xqm";
 import module namespace timeline="http://syriaca.org/timeline" at "timeline.xqm";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
@@ -108,15 +105,7 @@ declare function ev:events($nodes as node()*){
        <ul>
         {
             for $e in $data
-            return 
-                    <li class="md-line-height">{global:tei2html($e)} 
-                                 {
-                                     <a href="factoid.html?id={string($e/parent::*[1]/parent::*[1]/@uri)}">
-                                         See factoid page  
-                                         <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
-                                     </a>
-                                 }
-                            </li>
+            return <li class="md-line-height">{global:tei2html($e)} {<a href="factoid.html?id={string($e/@uri)}">See factoid page  <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a>}</li>
          }
         </ul>
     else
@@ -139,14 +128,9 @@ declare function ev:events($nodes as node()*){
                     {
                         for $e in $event
                         return 
-                            <li class="md-line-height">{global:tei2html($e)} 
-                                 {
-                                     <a href="factoid.html?id={string($e/parent::*[1]/parent::*[1]/@uri)}">
-                                         See factoid page  
-                                         <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
-                                     </a>
-                                     
-                                 }
+                            <li class="md-line-height">
+                                {global:tei2html($e/tei:listEvent/descendant::tei:event)}&#160; 
+                                {<a href="factoid.html?id={string($e/@uri)}">See factoid page  <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span></a>   }
                             </li>
                     }
                 </ul>

@@ -9,13 +9,14 @@ import module namespace functx="http://www.functx.com";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xi = "http://www.w3.org/2001/XInclude";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
+
 (:~ 
  : Adds sort filter based on sort prameter
 :)
 declare function page:add-sort-options($hit, $sort-element as xs:string*){
     if($sort-element != '') then
         if($sort-element = 'title') then 
-            $hit/ancestor::tei:TEI/descendant::tei:title[1]
+            global:build-sort-string($hit/ancestor::tei:TEI/descendant::tei:title[1],'')
         else if($sort-element = 'author') then 
             if($hit/ancestor::tei:TEI/descendant::tei:author[1]) then 
                 if($hit/ancestor::tei:TEI/descendant::tei:author[1]/descendant-or-self::tei:surname) then 

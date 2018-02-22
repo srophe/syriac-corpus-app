@@ -38,6 +38,7 @@ declare variable $browse:view {request:get-parameter('view', '')};
 declare variable $browse:sort {request:get-parameter('sort', '')};
 declare variable $browse:sort-element {request:get-parameter('sort-element', 'title')};
 declare variable $browse:sort-order {request:get-parameter('sort-order', '')};
+declare variable $browse:alpha-filter {request:get-parameter('alpha-filter', '')};
 declare variable $browse:date {request:get-parameter('date', '')};
 declare variable $browse:start {request:get-parameter('start', 1) cast as xs:integer};
 declare variable $browse:perpage {request:get-parameter('perpage', 25) cast as xs:integer};
@@ -326,85 +327,38 @@ declare function browse:pages($hits, $collection as xs:string?, $sort-options as
 declare function browse:results-panel($node as node(), $model as map(*), $collection, $sort-options as xs:string*){
 let $hits := $model("browse-data")
 return
-if($browse:view = 'type' or $browse:view = 'date' or $browse:view = 'facets') then
-    (<div class="col-md-4">
-        {if($browse:view='type') then 
-            if($collection = ('geo','places')) then 
-                browse:browse-type($collection)
-            else facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/descendant::facet:facet-definition[@name="Type"]))
-         else if($browse:view = 'facets') then 
-            facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/child::*))
-         else 
-            facet:html-list-facets-as-buttons(facet:count($hits, facet-defs:facet-definition($collection)/descendant::facet:facet-definition[@name="Century"]))
-         }
-     </div>,
-     <div class="col-md-8">{
-        if($browse:view='type') then
-            if($browse:type != '') then
-                (
-                browse:pages($hits, $collection, ''),
-                <h3>{concat(upper-case(substring($browse:type,1,1)),substring($browse:type,2))}</h3>,
-                <div>
-                    {(        
-                        <div class="col-md-12 map-md">
-                            {browse:get-map($hits)}
-                        </div>,
-                        browse:display-hits($hits)
-                        )}
-                </div>)
-            else <h3>Select Type</h3>    
-        else if($browse:view='date') then 
-            if($browse:date !='') then 
-                (browse:pages($hits, $collection, $sort-options),
-                <h3>{$browse:date}</h3>,
-                 <div>{browse:display-hits($hits)}</div>)
-            else <h3>Select Date</h3>  
-        else (
-                browse:pages($hits, $collection, ''),
-                <h3>Results {concat(upper-case(substring($browse:type,1,1)),substring($browse:type,2))} ({count($hits)})</h3>,
-                <div>
-                    {(
-                        <div class="col-md-12 map-md">
-                            {browse:get-map($hits)}
-                        </div>,
-                        browse:display-hits($hits)
-                        )}
-                </div>)
-        }</div>)
-else if($browse:view = 'map') then 
-    <div class="col-md-12 map-lg">
-        {browse:get-map($hits)}
-    </div>
-else if($browse:view = 'all' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then 
-    <div class="col-md-12">
-        <div>{browse:pages($hits, $collection, $sort-options)}</div>
-        <div>{browse:display-hits($hits)}</div>
-    </div>
-else 
-    <div class="col-md-12">
-        {(
-        if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),
-        <div class="float-container">
-            <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right"}">
-                 <div>{browse:pages($hits, $collection, $sort-options)}</div>
-            </div>
-            {browse:browse-abc-menu()}
-        </div>,
-        <h3>{(
-            if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then 
-                (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) 
-            else attribute class {"label"},
-                if($browse:sort != '') then $browse:sort else 'A')}</h3>,
-        <div class="{if($browse:lang = 'syr' or $browse:lang = 'ar') then 'syr-list' else 'en-list'}">
-            <div class="row">
-                <div class="col-sm-12">
-                {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else()}
-                {browse:display-hits($hits)}
+    if($browse:view = 'map') then 
+        <div class="col-md-12 map-lg">{browse:get-map($hits)}</div>
+    else if($browse:view = 'all' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then 
+        <div class="col-md-12">
+            <div>{page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)}</div>
+            <div>{browse:display-hits($hits)}</div>
+        </div>
+    else 
+        <div class="col-md-12">
+            {(
+            if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),
+            <div class="float-container">
+                <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right"}">
+                     <div>{page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)}</div>
+                </div>
+                {browse:browse-abc-menu()}
+            </div>,
+            <h3>{(
+                if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then 
+                    (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) 
+                else attribute class {"label"},
+                    if($browse:sort != '') then $browse:sort else 'A')}</h3>,
+            <div class="{if($browse:lang = 'syr' or $browse:lang = 'ar') then 'syr-list' else 'en-list'}">
+                <div class="row">
+                    <div class="col-sm-12">
+                    {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else()}
+                    {browse:display-hits($hits)}
+                    </div>
                 </div>
             </div>
+            )}
         </div>
-        )}
-    </div>
 };
 
 (:
@@ -496,7 +450,7 @@ declare function browse:browse-abc-menu(){
             else                
                 for $letter in tokenize('A B C D E F G H I J K L M N O P Q R S T U V W X Y Z', ' ')
                 return
-                    <li><a href="?lang={$browse:lang}&amp;sort={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else ()}">{$letter}</a></li>
+                    <li><a href="?lang={$browse:lang}&amp;sort={$letter}{if($browse:view != '') then concat('&amp;view=',$browse:view) else '&amp;view=author'}">{$letter}</a></li>
         }
         </ul>
     </div>
@@ -545,44 +499,24 @@ declare function browse:browse-type($collection){
 };
 
 (:
- : Browse by date
- : Precomputed values
- : NOTE: would be nice to use facets, however, it is currently inefficient 
-:)
-declare function browse:browse-date(){
-    <ul class="nav nav-tabs nav-stacked pull-left type-nav">
-        {   
-            let $all-dates := 'BC dates, 0-100, 100-200, 200-300, 300-400, 400-500, 500-600, 700-800, 800-900, 900-1000, 1100-1200, 1200-1300, 1300-1400, 1400-1500, 1500-1600, 1600-1700, 1700-1800, 1800-1900, 1900-2000, 2000-'
-            for $date in tokenize($all-dates,', ')
-            return
-                    <li>{if($browse:date = $date) then attribute class {'active'} else '' }
-                        <a href="?view=date&amp;date={$date}">
-                            {$date}  <!--<span class="count"> ({count($types)})</span>-->
-                        </a>
-                    </li>
-            }
-    </ul>
-};
-
-(:
  : Build Tabs dynamically.
  : @param $text tab text, from template
  : @param $param tab parameter passed to url from template
  : @param $value value of tab parameter passed to url from template
- : @param $sort-value for abc menus.
-not(request:get-parameter-names()) 
+ : @param $alpha-filter-value for abc menus. 
+ : @param $default indicates initial active tab
 :)
-declare function browse:tabs($node as node(), $model as map(*), $text as xs:string?, $param as xs:string?, $value as xs:string?, $sort-value as xs:string?){
-let $s := if($sort-value != '') then $sort-value else if($browse:sort != '') then $browse:sort else 'A'
+declare function browse:tabs($node as node(), $model as map(*), $text as xs:string?, $param as xs:string?, $value as xs:string?, $alpha-filter-value as xs:string?, $element as xs:string?, $default as xs:string?){ 
+let $s := if($alpha-filter-value != '') then $alpha-filter-value else if($browse:alpha-filter != '') then $browse:alpha-filter else 'A'
 return
     <li xmlns="http://www.w3.org/1999/xhtml">{
-        if(($value='en' and $browse:computed-lang = 'en')) then attribute class {'active'} 
+        if($default = 'true' and empty(request:get-parameter-names())) then  attribute class {'active'} 
         else if($value = $browse:view) then attribute class {'active'}
         else if($value = $browse:lang) then attribute class {'active'}
-        else if($value = 'author' and empty(request:get-parameter-names())) then attribute class {'active'}  
+        (:else if($value = 'English' and empty(request:get-parameter-names())) then attribute class {'active'}:)
         else ()
         }
-        <a href="browse.html?{$param}={$value}{if($param = 'lang') then concat('&amp;sort=',$s) else ()}">
+        <a href="browse.html?{$param}={$value}{if($param = 'lang') then concat('&amp;alpha-filter=',$s) else ()}{if($element != '') then concat('&amp;element=',$element) else()}">
         {if($value = 'syr' or $value = 'ar') then (attribute lang {$value},attribute dir {'ltr'}) else ()}
         {$text}
         </a>

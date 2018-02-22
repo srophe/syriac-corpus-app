@@ -9,65 +9,44 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace mail="http://exist-db.org/xquery/mail";
 declare namespace request="http://exist-db.org/xquery/request";
+import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace recap = "http://www.exist-db.org/xquery/util/recapture" at "recaptcha.xqm";
 
 declare option exist:serialize "method=xml media-type=text/xml indent=yes";
 
+(: Access recaptcha-api configuration file :) 
+declare variable $recaptcha-config := doc('../config.xml');
+
+(: Private key for authentication :)
+declare variable $secret-key := if($recaptcha-config//*:recaptcha-secret-key-variable != '') then 
+                                    environment-variable($recaptcha-config//*:recaptcha-secret-key-variable/text())
+                                 else $recaptcha-config//*:recaptcha-secret-key/text();
+
+(:request:get-parameter("recaptcha_response_field",()):)
 declare function local:recaptcha(){
-let $recapture-private-key := string(environment-variable('secret'))
+let $recapture-private-key := string($secret-key)
 return 
     recap:validate($recapture-private-key, request:get-parameter("g-recaptcha-response",()))
 };
 
+(:~ 
+ : Populate email addresses. 
+ : Uses values defined in config.xml
+:)
+
+declare function local:get-emails(){
+for $e-address in $global:get-config//*:contact/text()
+return 
+    <to>{$e-address}</to>
+};
+
 declare function local:build-message(){
-let $id := request:get-parameter('id','')
-let $collection := request:get-parameter('collection','')
-let $uri := 
-    if($collection = 'places') then concat('Place: ',$id)
-    else if($collection = ('q','authors','sbd')) then concat('Person: ',$id)
-    else if($collection = ('bhse','nhsl')) then concat('Work: ',$id)
-    else if($collection = 'bibl') then concat('Work Cited: ',$id)
-    else if($collection = 'spear') then concat('SPEAR: ',$id)
-    else if($collection = 'mss') then concat('Manuscript: ',$id)
-    else request:get-parameter('id','')
+let $rec-uri := if(request:get-parameter('id','')) then concat('for ',request:get-parameter('id','')) else ()
 return
   <mail>
-    <from>Syriaca.org &lt;david.a.michelson@vanderbilt.edu&gt;</from>
-    {
-    if($collection = 'places') then
-        (<to>david.a.michelson@vanderbilt.edu</to>,
-        <to>thomas.a.carlson@okstate.edu</to>)
-    else if($collection = 'q') then
-        (<to>david.a.michelson@vanderbilt.edu</to>,
-        <to>jeannenicolesaint@gmail.com</to>)
-    else if($collection = 'bhse') then
-        (<to>david.a.michelson@vanderbilt.edu</to>,
-        <to>jeannenicolesaint@gmail.com</to>,  
-        <to>nathan.p.gibson@vanderbilt.edu</to>)
-    else if($collection = 'nhsl') then
-        (<to>david.a.michelson@vanderbilt.edu</to>,
-        <to>jeannenicolesaint@gmail.com</to>,  
-        <to>nathan.p.gibson@vanderbilt.edu</to>)     
-    else if($collection = 'sbd') then
-        (<to>david.a.michelson@vanderbilt.edu</to>,
-        <to>jeannenicolesaint@gmail.com</to>,  
-        <to>nathan.p.gibson@vanderbilt.edu</to>,
-        <to>daniel.schwartz@tamu.edu</to>)     
-    else if($collection = 'authors') then
-        (<to>david.a.michelson@vanderbilt.edu</to>,
-        <to>nathan.p.gibson@vanderbilt.edu</to>)
-    else if($collection = 'bibl') then
-        (<to>david.a.michelson@vanderbilt.edu</to>,
-        <to>nathan.p.gibson@vanderbilt.edu</to>)
-    else if($collection = 'spear') then
-        <to>daniel.schwartz@tamu.edu</to>
-    else if($collection = 'mss') then
-        <to>david.a.michelson@vanderbilt.edu</to>        
-    else 
-        <cc>david.a.michelson@vanderbilt.edu</cc>
-    }
-    <cc>wsalesky@gmail.com</cc>
-    <subject>{request:get-parameter('subject','')} RE: {$uri}</subject>
+    <from>Bibliography of the Arabic Bible &lt;{$global:get-config//*:contact/text()[1]}&gt;</from>
+    {local:get-emails()}
+    <subject>{request:get-parameter('subject','')} {$rec-uri}</subject>
     <message>
       <xhtml>
            <html>
@@ -77,8 +56,8 @@ return
                <body>
                  <p>Name: {request:get-parameter('name','')}</p>
                  <p>e-mail: {request:get-parameter('email','')}</p>
-                 <p>Subject: {request:get-parameter('subject','')}</p>
-                 <p>{$uri}</p>
+                 <p>Subject: {request:get-parameter('subject','')} {$rec-uri}</p>
+                 <p>{$rec-uri}</p>
                  <p>{request:get-parameter('comments','')}</p>
               </body>
            </html>
@@ -87,15 +66,14 @@ return
   </mail>
 };
 
-
 let $cache := current-dateTime()
 return 
     if(exists(request:get-parameter('email','')) and request:get-parameter('email','') != '') 
         then 
             if(exists(request:get-parameter('comments','')) and request:get-parameter('comments','') != '') 
               then
-               if(local:recaptcha()//*:pair[@name='success'] = 'true') then 
-                 if (mail:send-email(local:build-message(),"library.vanderbilt.edu", ()) ) then
+               if(local:recaptcha() = true()) then 
+                 if (mail:send-email(local:build-message(),$recaptcha-config//*:email-server/text(), ()) ) then
                    <h4>Thank you. Your message has been sent.</h4>
                  else
                    <h4>Could not send message.</h4>

@@ -1,15 +1,16 @@
 xquery version "3.0";        
  
 module namespace search="http://syriaca.org/search";
+import module namespace data="http://syriaca.org/data" at "../lib/data.xqm";
 import module namespace page="http://syriaca.org/page" at "../lib/paging.xqm";
 import module namespace rel="http://syriaca.org/related" at "../lib/get-related.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm";
 import module namespace facet-defs="http://syriaca.org/facet-defs" at "../facet-defs.xqm";
-import module namespace bibls="http://syriaca.org/bibls" at "bibl-search.xqm";
-import module namespace common="http://syriaca.org/common" at "common.xqm";
-import module namespace maps="http://syriaca.org/maps" at "../lib/maps.xqm";
 import module namespace tei2html="http://syriaca.org/tei2html" at "../lib/tei2html.xqm";
+import module namespace maps="http://syriaca.org/maps" at "../lib/maps.xqm";
+import module namespace common="http://syriaca.org/common" at "common.xqm";
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
+
 import module namespace functx="http://www.functx.com";
 import module namespace kwic="http://exist-db.org/xquery/kwic";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
@@ -38,8 +39,7 @@ declare variable $search:collection {request:get-parameter('collection', '') cas
 declare %templates:wrap function search:get-results($node as node(), $model as map(*), $collection as xs:string?, $view as xs:string?){
     let $coll := if($search:collection != '') then $search:collection else $collection
     let $eval-string :=  search:query-string($collection)
-    return                         
-    map {"hits" := 
+    return map {"hits" := 
                 if(exists(request:get-parameter-names()) or ($view = 'all')) then 
                     if($search:sort-element != '' and $search:sort-element != 'relevance' or $view = 'all') then 
                         for $hit in util:eval($eval-string)
@@ -58,23 +58,33 @@ declare %templates:wrap function search:get-results($node as node(), $model as m
                         order by ft:score($hit) + (count($hit/descendant::tei:bibl) div 100) descending
                         return $hit
                 else ()                        
-         }
+         } 
 };
 
+(: for debugging :)
+declare function search:search-xpath($collection as xs:string?){
+   let $coll := if($search:collection != '') then $search:collection else $collection
+    return search:query-string($collection)                    
+};
 
 (:~   
  : Builds general search string from main syriaca.org page and search api.
 :)
 declare function search:query-string($collection as xs:string?) as xs:string?{
-if($collection !='') then 
-    concat("collection('",$global:data-root,"/",$collection,"')//tei:TEI",
-    common:keyword(),
-    search:persName(),
-    search:placeName(), 
-    search:title(),
-    search:bibl(),
-    common:uri()
-    )
+let $search-config := concat($global:app-root, '/', string(global:collection-vars($collection)/@app-root),'/','search-config.xml')
+return
+if($collection != '') then 
+    if(doc-available($search-config)) then 
+       concat("collection('",$global:data-root,"/",$collection,"')//tei:body",search:dynamic-paths($search-config))
+    else
+        concat("collection('",$global:data-root,"/",$collection,"')//tei:body",
+        data:keyword(),
+        search:persName(),
+        search:placeName(), 
+        search:title(),
+        search:bibl(),
+        data:uri()
+      )
 else 
 concat("collection('",$global:data-root,"')//tei:TEI",
     common:keyword(),
@@ -88,6 +98,25 @@ concat("collection('",$global:data-root,"')//tei:TEI",
     search:bibl-edition()
     )
 };
+
+declare function search:dynamic-paths($search-config as xs:string?){
+    let $config := if(doc-available($search-config)) then doc($search-config) else ()
+    let $params := request:get-parameter-names()
+    return string-join(
+    for $p in $params
+    return 
+        if($p = 'q') then
+            concat("[ft:query(.,'",data:clean-string(request:get-parameter($p, '')),"',data:search-options())]")
+        else 
+           for $field in $config//input[@name = $p]
+           return 
+                if(request:get-parameter($p, '') != '') then
+                       if(string($field/@element) = '.') then
+                            concat("[ft:query(",string($field/@element),",'",data:clean-string(request:get-parameter($p, '')),"',data:search-options())]")
+                        else concat("[ft:query(.//",string($field/@element),",'",data:clean-string(request:get-parameter($p, '')),"',data:search-options())]")    
+                    else (),'')
+};
+
 
 (: Corpus specific search fields:) 
 declare function search:corpus-id(){
@@ -182,7 +211,7 @@ declare function search:search-string(){
  : @param $collection passed from search page templates
 :)
 declare function search:search-string($collection as xs:string?){
- search:search-string()
+    search:search-string()
 };
 
 (:~ 
@@ -199,10 +228,8 @@ declare  %templates:wrap function search:hit-count($node as node()*, $model as m
 declare  %templates:wrap function search:pageination($node as node()*, $model as map(*), $collection as xs:string?, $view as xs:string?, $sort-options as xs:string*){
    if($view = 'all') then 
         page:pages($model("hits"), $search:start, $search:perpage, '', $sort-options)
-        (:page:pageination($model("hits"), $search:start, $search:perpage, true()):)
    else if(exists(request:get-parameter-names())) then 
         page:pages($model("hits"), $search:start, $search:perpage, search:search-string($collection), $sort-options)
-        (:page:pageination($model("hits"), $search:start, $search:perpage, true(), $collection, search:search-string($collection)):)
    else ()
 };
 
@@ -211,7 +238,7 @@ declare  %templates:wrap function search:pageination($node as node()*, $model as
  : @param $node search resuls with coords
 :)
 declare function search:build-geojson($node as node()*, $model as map(*)){
-let $data := $model("hits")
+let $data := $model("hits")//tei:rec
 let $geo-hits := $data//tei:geo
 return
     if(count($geo-hits) gt 0) then
@@ -254,8 +281,34 @@ return
  : @param $collection
 :)
 declare %templates:wrap  function search:show-form($node as node()*, $model as map(*), $collection as xs:string?) {   
-    if(exists(request:get-parameter-names())) then ''
-    else <div>{search:search-form()}</div>
+    if(exists(request:get-parameter-names())) then ()
+    else <div>{search:search-form($collection)}</div>
+};
+
+declare function search:show-grps($nodes, $p, $collection){
+    for $node in $nodes
+    return 
+        typeswitch($node)
+            case element(tei:grp) return 
+                <div class="indent group">{search:show-grps($node/node(),$p,$collection)}</div>
+            case element(tei:rec) return search:show-rec($node, $p,$collection)
+            default return search:show-grps($node/node(),$p,$collection)
+};
+
+declare function search:show-rec($hit, $p, $collection){
+    <div class="row record" xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em">
+            <div class="col-md-1" style="margin-right:-1em; padding-top:.25em;">
+                <span class="badge" style="margin-right:1em;">
+                    {$search:start + $p - 1}
+                </span>
+             </div>
+            <div class="col-md-11" style="margin-right:-1em; padding-top:.25em;">
+                {
+                let $uri := $hit/descendant::tei:idno[@type='URI'][1]/text()
+                return tei2html:summary-view($hit,'',$uri) 
+                } 
+            </div>
+    </div>                   
 };
 
 (:~ 
@@ -266,7 +319,7 @@ declare
 function search:show-hits($node as node()*, $model as map(*), $collection as xs:string?) {
 <div class="indent" id="search-results">
     <div>{search:build-geojson($node,$model)}</div>
-    {
+        {
         for $hit at $p in subsequence($model("hits"), $search:start, $search:perpage)
         let $id := $hit//tei:idno[1]
         let $expanded := kwic:expand($hit)
@@ -287,7 +340,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                         {(tei2html:summary-view($hit, (), $id[1])) }
                         {
                             if($expanded//exist:match) then 
-                                <div class="col-md-9" style="padding-left:3em;">{common:output-kwic($expanded, $id[1])}</div>
+                                <div class="col-md-9" style="padding-left:3em;">{tei2html:output-kwic($expanded, $id[1])}</div>
                             else ()
                         }
                       </div>
@@ -296,7 +349,6 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
        } 
 </div>
 };
-
 
 (:~          
  : Checks to see if there are any parameters in the URL, if yes, runs search, if no displays search form. 
@@ -310,7 +362,68 @@ declare %templates:wrap function search:build-page($node as node()*, $model as m
 (:~
  : Builds advanced search form
  :)
-declare function search:search-form() {   
+declare function search:search-form($collection) {  
+let $search-config := concat($global:app-root, '/', string(global:collection-vars($collection)/@app-root),'/','search-config.xml')
+return 
+    if(doc-available($search-config)) then 
+        search:build-form($search-config) 
+    else search:default-search-form()
+};
+
+declare function search:build-form($search-config){
+let $config := if(doc-available($search-config)) then doc($search-config) else ()
+return 
+<form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal indent" role="form">
+    <h1 class="search-header">{if($config//label != '') then $config//label else 'Search'}</h1>
+    {if($config//desc != '') then 
+        <p class="indent">{$config//desc}</p>
+    else() 
+    }
+    <div class="well well-small">
+        <div class="well well-small" style="background-color:white; margin-top:2em;">
+            <div class="row">
+                <div class="col-md-10">
+                    {
+                        for $input in $config//input
+                        let $label := string($input/@label)
+                        let $name := string($input/@name)
+                        let $id := concat('s',$name)
+                        (:<input type="text" label="Headword" name="headword" element="tei:term[@type='headword']" keyboard="yes"/>:)
+                        return 
+                            <div class="form-group">
+                                <label for="{$name}" class="col-sm-2 col-md-3  control-label">{$label}: </label>
+                                <div class="col-sm-10 col-md-9 ">
+                                    <div class="input-group">
+                                        <input type="text" id="{$id}" name="{$name}" class="form-control keyboard"/>
+                                        {
+                                            if($input/@keyboard='yes') then 
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                                        &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
+                                                    </button>{global:keyboard-select-menu($id)}
+                                                </div>
+                                            else ()
+                                        }
+                                    </div> 
+                                </div>
+                            </div>     
+                    }
+            </div>
+         </div> 
+         </div>
+         <div class="pull-right">
+            <button type="submit" class="btn btn-info">Search</button>&#160;
+            <button type="reset" class="btn">Clear</button>
+         </div>
+        <br class="clearfix"/><br/>
+    </div>
+</form>
+};
+
+(:~
+ : Builds advanced search form
+ :)
+declare function search:default-search-form() {   
 <form method="get" action="search.html" xmlns:xi="http://www.w3.org/2001/XInclude"  class="form-horizontal indent" role="form">
     <h1 class="search-header">Search the Corpus </h1>
     <div class="well well-small">

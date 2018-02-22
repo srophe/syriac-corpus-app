@@ -3,11 +3,13 @@ xquery version "3.0";
 module namespace app="http://syriaca.org/templates";
 (: eXist modules :)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
-import module namespace config="http://syriaca.org/config" at "config.xqm";   
+import module namespace config="http://syriaca.org/config" at "config.xqm";
 import module namespace functx="http://www.functx.com";
-(: Srophe modules :)    
+(: Srophe modules :)
+import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace teiDocs="http://syriaca.org/teiDocs" at "teiDocs/teiDocs.xqm";
 import module namespace tei2html="http://syriaca.org/tei2html" at "lib/tei2html.xqm";
+import module namespace bibl2html="http://syriaca.org/bibl2html" at "lib/bibl2html.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
 import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
@@ -16,7 +18,7 @@ import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.
 declare namespace http="http://expath.org/ns/http-client";
 declare namespace html="http://www.w3.org/1999/xhtml";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
-
+  
 (:~     
  : Simple get record function, get tei record based on tei:idno
  : Builds URL from the following URL patterns defined in the controller.xql or uses the id paramter
@@ -28,7 +30,7 @@ declare function app:get-rec($node as node(), $model as map(*), $collection as x
 if(request:get-parameter('id', '') != '') then 
     let $id := global:resolve-id()   
     return 
-        let $rec := global:get-rec($id)
+        let $rec := collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][text() = $id]] 
         return 
             if(empty($rec)) then response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html')))
             else 
@@ -62,6 +64,23 @@ declare function app:h1($node as node(), $model as map(*)){
 }; 
 
 (:~  
+ : Display any TEI body passed to the function via the paths parameter
+ : Used by templating module, defaults to tei:body if no nodes are passed. 
+ : @param $paths comma separated list of xpaths for display. Passed from html page  
+:)
+declare function app:display-body($node as node(), $model as map(*), $paths as xs:string*){
+    let $toc := app:toc($model("data")/descendant::tei:body/child::*)
+    let $data-display := app:display-nodes($node, $model, $paths)
+    return 
+        if($toc) then 
+            <div class="col-sm-6 col-md-6 col-lg-7 mssBody">{$data-display}</div>
+        else 
+            <div class="col-sm-8 col-md-8 col-lg-9 mssBody">{$data-display}</div>
+            
+        
+}; 
+
+(:~  
  : Display any TEI nodes passed to the function via the paths parameter
  : Used by templating module, defaults to tei:body if no nodes are passed. 
  : @param $paths comma separated list of xpaths for display. Passed from html page  
@@ -75,6 +94,7 @@ declare function app:display-nodes($node as node(), $model as map(*), $paths as 
                     return util:eval(concat('$data',$p)))
         else global:tei2html($model("data")/descendant::tei:body)
 }; 
+
 
 (:
  : Return tei:body/descendant/tei:bibls for use in sources
@@ -368,7 +388,9 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
                 <input type="hidden" name="id" value="{request:get-parameter('id', '')}"/>
                 <input type="hidden" name="collection" value="{$collection}"/>
                 <!-- start reCaptcha API-->
+                <!--
                 <div class="g-recaptcha" data-sitekey="{$global:recaptcha}"></div>
+                -->
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal">Close</button><input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
@@ -680,7 +702,7 @@ function app:google-analytics($node as node(), $model as map(*)){
 (: Corpus Specific templates :)
 declare function app:display-ids($node as node(), $model as map(*)){
 let $srophe-title := 
-                try{http:send-request(<http:request href="http://localhost:8080/exist/apps/srophe/api/sparql?qname=label&amp;id={$model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref}" method="GET">
+                try{http:send-request(<http:request href="wwwb.library.vanderbilt.edu/api/sparql?qname=label&amp;id={$model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref}" method="GET">
                      <http:header name="Content-Type" value="application/xml"/>
                      <http:header name="Accept" value="application/json,application/xml"/>
                    </http:request>[2]) 
@@ -693,17 +715,20 @@ return
         <div class="panel-heading">{$title}</div>
         <div class="panel-body">
             <h4>Stable Identifiers</h4>
-                <div class="indent">
-                {
+                <div class="indent">{
                     if($model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']) then
                         <div><label>Corpus Text ID:&#160;</label>{$model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']}</div>
                     else(),
                     if($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref) then
                         <div><label>NHSL Work ID(s):&#160;</label>{string($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref)}</div>
                     else()
+                }</div> 
+                {
+                    if($model("data")/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc) then
+                        for $msName in $model("data")/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc/descendant::tei:msName
+                        return <span><label>Source: </label>  {$msName}<br/></span>
+                    else <p><label>Source: </label> {bibl2html:citation($model("data")/descendant::tei:sourceDesc)}</p> 
                 }
-                </div> 
-                <p>{global:tei2html(<bibl-chicago xmlns="http://www.tei-c.org/ns/1.0">{$model("data")/descendant::tei:sourceDesc/tei:biblStruct}</bibl-chicago>)}</p>
         </div>
     </div>        
 };
@@ -712,7 +737,43 @@ return
  : TOC for Syriac Corpus records. 
 :)  
 declare function app:display-toc($node as node(), $model as map(*)){
-    app:toc($model("data")/descendant::tei:body/child::*)
+let $toc := app:toc($model("data")/descendant::tei:body/child::*)
+return 
+    if($toc) then 
+    <div class="col-sm-2 col-md-2 noprint" xmlns="http://www.w3.org/1999/xhtml">
+        <div class="panel panel-default">
+            <div class="panel-heading">Table of Contents  
+                <a href="#" data-toggle="collapse" data-target="#showToc"><span id="tocIcon" class="glyphicon glyphicon-collapse-up"/></a>
+            </div>
+            <div class="panel-body collapse" id="showToc">
+                {app:toc($model("data")/descendant::tei:body/child::*)}
+            </div>
+        </div>
+        <script type="text/javascript">
+                        <![CDATA[
+                        $(window).bind('resize load', function() {
+                            if ($(this).width() < 767) {
+                                $('#showToc').removeClass('in');
+                                $('#showToc').addClass('out');
+                                $("#tocIcon").removeClass("glyphicon-collapse-up").addClass("glyphicon-collapse-down");
+                            } else {
+                                $('#showToc').removeClass('out');
+                                $('#showToc').addClass('in');
+                                $('#showToc').removeAttr( "style" );
+                                $("#tocIcon").removeClass("glyphicon-collapse-down").addClass("glyphicon-collapse-up");
+                            }
+                            $('#showToc').on('shown.bs.collapse', function () {
+                                $("#tocIcon").removeClass("glyphicon-collapse-down").addClass("glyphicon-collapse-up");
+                            });
+                            
+                            $('#showToc').on('hidden.bs.collapse', function () {
+                                $("#tocIcon").removeClass("glyphicon-collapse-up").addClass("glyphicon-collapse-down");
+                            });                                
+                        });
+                        ]]>
+                    </script>
+    </div> 
+    else ()
 }; 
 
 (:~

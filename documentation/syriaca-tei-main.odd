@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xml:lang="en">
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:rng="http://relaxng.org/ns/structure/1.0" xml:lang="en">
     <teiHeader>
         <fileDesc>
             <titleStmt>
@@ -29,7 +28,7 @@
                         <attDef ident="syriaca-computed-start" mode="add">
                             <desc>start date</desc>
                             <datatype maxOccurs="unbounded" minOccurs="1">
-                                <rng:text xmlns:rng="http://relaxng.org/ns/structure/1.0"/>
+                                <rng:text/>
                             </datatype>
                         </attDef>
                         <attDef ident="xml:lang" mode="change">
@@ -39,15 +38,19 @@
                                     <desc>Arabic of any variety or period</desc>
                                 </valItem>
                                 <valItem ident="ar-Syrc">
-                                    <gloss>Garshuni</gloss>
+                                    <gloss>Arabic—Garshuni</gloss>
                                     <desc>Arabic Garshuni in unvocalized or undetermined Syriac script</desc>
                                 </valItem>
+                                <valItem ident="ar-Syre">
+                                    <gloss>Arabic—Garshuni—Estrangela</gloss>
+                                    <desc>Arabic Garshuni in Estrangela Syriac script</desc>
+                                </valItem>
                                 <valItem ident="ar-Syrj">
-                                    <gloss>Garshuni in West Syriac script</gloss>
+                                    <gloss>Arabic—Garshuni—West Syriac</gloss>
                                     <desc>Arabic Garshuni in vocalized West Syriac script</desc>
                                 </valItem>
                                 <valItem ident="ar-Syrn">
-                                    <gloss>Garshuni in East Syriac script</gloss>
+                                    <gloss>Arabic—Garshuni—East Syriac</gloss>
                                     <desc>Arabic Garshuni in vocalized East Syriac script</desc>
                                 </valItem>
                                 <valItem ident="cop">
@@ -55,7 +58,7 @@
                                     <desc>Coptic of any variety or period</desc>
                                 </valItem>
                                 <valItem ident="cu">
-                                    <gloss>Old Church Slavonic</gloss>
+                                    <gloss>Slavonic—Old Church</gloss>
                                     <desc>Old Church Slavonic</desc>
                                 </valItem>
                                 <valItem ident="de">
@@ -63,13 +66,13 @@
                                     <desc>German of any variety or period</desc>
                                 </valItem>
                                 <valItem ident="de-x-baumstrk">
-                                    <gloss>Baumstark German Romanization</gloss>
+                                    <gloss>German—Baumstark Romanization</gloss>
                                     <desc>Names or terms Romanized into German according to
                                         the standards adopted by Anton Baumstark's 
                                         Geschichte der syrischen Literatur.</desc>
                                 </valItem>
                                 <valItem ident="el">
-                                    <gloss>Modern Greek</gloss>
+                                    <gloss>Greek—Modern</gloss>
                                     <desc>Modern Greek after A.D. 1453</desc>
                                 </valItem>
                                 <valItem ident="en">
@@ -77,18 +80,18 @@
                                     <desc>English of any variety or period</desc>
                                 </valItem>
                                 <valItem ident="en-x-gedsh">
-                                    <gloss>GEDSH English Romanization</gloss>
+                                    <gloss>English—GEDSH Romanization</gloss>
                                     <desc>Names or terms Romanized into English according to
                                         the standards adopted by the Gorgias Encyclopedic Dictionary of the Syriac
                                         Heritage</desc>
                                 </valItem>
-                                <valItem ident="en-x-gedsh">
-                                    <gloss>LAH English Romanization</gloss>
+                                <valItem ident="en-x-lah">
+                                    <gloss>English—LAH Romanization</gloss>
                                     <desc>Names or terms Romanized into English according to
                                         the standards adopted by the Late Antique Historiography project.</desc>
                                 </valItem>
                                 <valItem ident="en-x-srp1">
-                                    <gloss>Syriaca.org Alternate English Romanization</gloss>
+                                    <gloss>English—Syriaca.org Alternate Romanization</gloss>
                                     <desc>Names or terms Romanized into English by Syriaca.org using alternate methods 
                                         for indexing purposes.</desc>
                                 </valItem>
@@ -101,21 +104,21 @@
                                     <desc>French of any variety or period</desc>
                                 </valItem>
                                 <valItem ident="fr-x-bhs">
-                                    <gloss>BHS French Romanization</gloss>
+                                    <gloss>French—BHS Romanization</gloss>
                                     <desc>Names or terms Romanized into French according to the
                                         standards adopted by the Bibliotheca Hagiographica Syriaca</desc>
                                 </valItem>
                                 <valItem ident="fr-x-fiey">
-                                    <gloss>BHS French Romanization</gloss>
+                                    <gloss>French—Fiey Romanization</gloss>
                                     <desc>Names or terms Romanized into French according to the
-                                        standards adopted by the Bibliotheca Hagiographica Syriaca</desc>
+                                        standards adopted by Fiey, Saints Syriaques</desc>
                                 </valItem>
                                 <valItem ident="gez">
                                     <gloss>Ge'ez</gloss>
                                     <desc>Ge'ez</desc>
                                 </valItem>
                                 <valItem ident="grc">
-                                    <gloss>Ancient Greek</gloss>
+                                    <gloss>Greek—Ancient</gloss>
                                     <desc>Ancient Greek to A.D. 1453</desc>
                                 </valItem>
                                 <valItem ident="hy">
@@ -138,8 +141,20 @@
                                     <gloss>Malayalam</gloss>
                                     <desc>Malayalam of any variety or period</desc>
                                 </valItem>
+                                <valItem ident="mal-Syrc">
+                                    <gloss>Malayalam—Garshuni</gloss>
+                                    <desc>Malayalam Garshuni in unvocalized or undetermined Syriac script</desc>
+                                </valItem>
+                                <valItem ident="mal-Syre">
+                                    <gloss>Malayalam—Garshuni—Estrangela</gloss>
+                                    <desc>Malayalam Garshuni in Estrangela Syriac script</desc>
+                                </valItem>
+                                <valItem ident="mal-Syrj">
+                                    <gloss>Malayalam—Garshuni—West Syriac</gloss>
+                                    <desc>Malayalam Garshuni in vocalized West Syriac script</desc>
+                                </valItem>
                                 <valItem ident="mal-Syrn">
-                                    <gloss>Malayalam Garshuni</gloss>
+                                    <gloss>Malayalam—Garshuni—East Syriac</gloss>
                                     <desc>Malayalam Garshuni in vocalized East Syriac script</desc>
                                 </valItem>
                                 <valItem ident="nl">
@@ -159,19 +174,19 @@
                                     <desc>Syriac of any variety or period</desc>
                                 </valItem>
                                 <valItem ident="syr-Syre">
-                                    <gloss>Syriac in Estrangela script</gloss>
+                                    <gloss>Syriac—Estrangela script</gloss>
                                     <desc>Syriac in Estrangela script</desc>
                                 </valItem>
                                 <valItem ident="syr-Syrj">
-                                    <gloss>West Syriac</gloss>
+                                    <gloss>Syriac—West</gloss>
                                     <desc>Syriac in vocalized West Syriac script</desc>
                                 </valItem>
                                 <valItem ident="syr-Syrn">
-                                    <gloss>East Syriac</gloss>
+                                    <gloss>Syriac—East</gloss>
                                     <desc>Syriac in vocalized East Syriac script</desc>
                                 </valItem>
                                 <valItem ident="syr-x-syrm">
-                                    <gloss>Syriac in Melkite script</gloss>
+                                    <gloss>Syriac—Melkite script</gloss>
                                     <desc>Syriac in Melkite script. Note: This is not an ISO code but a private use code for Melkite employed by Syriaca.org until an ISO code is created</desc>
                                 </valItem>
                                 <valItem ident="sog">
@@ -197,13 +212,13 @@
                         <attDef ident="syriaca-computed-end" mode="add">
                             <desc>End date</desc>
                             <datatype maxOccurs="unbounded" minOccurs="1">
-                                <rng:text xmlns:rng="http://relaxng.org/ns/structure/1.0"/>
+                                <rng:text/>
                             </datatype>
                         </attDef>
                         <attDef ident="syriaca-tags" mode="add">
                             <desc>tags usable</desc>
                             <datatype maxOccurs="unbounded" minOccurs="1">
-                                <rng:text xmlns:rng="http://relaxng.org/ns/structure/1.0"/>
+                                <rng:text/>
                             </datatype>
                             <valList mode="change" type="semi">
                                 <valItem ident="#syriaca-headword">
@@ -215,40 +230,31 @@
                                     <desc>An anglicized version of a name created by Syriaca.org used to
                                         facilitate searching in English.</desc>
                                 </valItem>
+                                <valItem ident="#canonical">
+                                    <desc>Indicates the content is canonical, i.e., widely agreed upon. Abbreviations of work titles are primarily in view.</desc>
+                                </valItem>
+                                <valItem ident="#ektobe-headword">
+                                    <desc>The name used by e-Ktobe as a standardized name form.</desc>
+                                </valItem>
                             </valList>
                         </attDef>
                     </attList>
                 </classSpec>
-                <moduleRef
-                    except="binaryObject cit distinct email emph gb headItem headLabel index measureGrp media meeting mentioned num postBox postCode rs said soCalled sp speaker stage street teiCorpus term time"
-                    key="core"/>
+                <moduleRef except="binaryObject cit distinct email emph gb headItem headLabel index measureGrp media meeting mentioned num postBox postCode rs said soCalled sp speaker stage street teiCorpus term time" key="core"/>
                 <moduleRef key="tei"/>
-                <moduleRef
-                    except="abstract appInfo application att.patternReplacement biblFull cRefPattern calendar calendarDesc correction creation distributor hyphenation listChange listPrefixDef namespace normalization notesStmt prefixDef quotation refState refsDecl samplingDecl scriptNote segmentation stdVals styleDefDecl tagUsage tagsDecl typeNote rendition"
-                    key="header"/>
+                <moduleRef except="abstract appInfo application att.patternReplacement biblFull cRefPattern calendar calendarDesc correction creation distributor hyphenation listChange listPrefixDef namespace normalization notesStmt prefixDef quotation refState refsDecl samplingDecl scriptNote segmentation stdVals styleDefDecl tagUsage tagsDecl typeNote rendition" key="header"/>
                 <moduleRef except="cell row table notatedMusic" key="figures"/>
                 <moduleRef key="gaiji"/>
                 <moduleRef except="alt altGrp join joinGrp linkGrp timeline when" key="linking"/>
-                <moduleRef except="dim heraldry msItemStruct objectType scriptDesc secFol typeDesc"
-                    key="msdescription"/>
-                <moduleRef
-                    except="bloc listNym geogFeat geogName nym population relationGrp terrain"
-                    key="namesdates"/>
-                <moduleRef
-                    except="app lacunaEnd lacunaStart lem listApp listWit rdg rdgGrp variantEncoding"
-                    key="textcrit"/>
-                <moduleRef
-                    except="line listTranspose metamark mod redo retrace sourceDoc space substJoin surface surfaceGrp surplus transpose undo zone"
-                    key="transcr"/>
-                <moduleRef
-                    except="argument byline dateline div1 div2 div3 div4 div5 div6 div7 docDate group imprimatur trailer floatingText"
-                    key="textstructure"/>
-                <moduleRef
-                    except="altIdent alternate att attDef attList attRef classRef classSpec classes code constraint constraintSpec content datatype defaultVal eg egXML elementRef elementSpec equiv exemplum ident listRef macroRef macroSpec memberOf moduleRef moduleSpec remarks sequence specDesc specGrp specGrpRef specList tag val valDesc valItem valList att.combinable att.deprecated att.identified att.namespaceable att.repeatable"
-                    key="tagdocs"/>
+                <moduleRef except="dim heraldry msItemStruct objectType scriptDesc secFol typeDesc" key="msdescription"/>
+                <moduleRef except="bloc listNym geogFeat geogName nym population relationGrp terrain" key="namesdates"/>
+                <moduleRef except="app lacunaEnd lacunaStart lem listApp listWit rdg rdgGrp variantEncoding" key="textcrit"/>
+                <moduleRef except="line listTranspose metamark mod redo retrace sourceDoc space substJoin surface surfaceGrp surplus transpose undo zone" key="transcr"/>
+                <moduleRef except="argument byline dateline div1 div2 div3 div4 div5 div6 div7 docDate group imprimatur trailer floatingText" key="textstructure"/>
+                <moduleRef except="altIdent alternate att attDef attList attRef classRef classSpec classes code constraint constraintSpec content datatype defaultVal eg egXML elementRef elementSpec equiv exemplum ident listRef macroRef macroSpec memberOf moduleRef moduleSpec remarks sequence specDesc specGrp specGrpRef specList tag val valDesc valItem valList att.combinable att.deprecated att.identified att.namespaceable att.repeatable" key="tagdocs"/>
                 <moduleRef except="certainty respons" key="certainty"/>
                 <moduleRef key="analysis"/>
-                <moduleRef key="dictionaries" include="lang"/>
+                <moduleRef key="dictionaries" include="lang entryFree"/>
                 <!-- If the TEI organization changes "precision" so that it can be a child of state and have notBefore notAfter attributes, this change may be removed. -->
                 <elementSpec ident="precision" module="certainty" mode="change">
                     <classes mode="replace">
@@ -315,16 +321,14 @@
                             <sequence>
                                 <!-- requiring attribute doesn't seem to be working -->
                                 <classRef key="att.typed" minOccurs="1" context="body/bibl/bibl"/>
-                                <elementRef key="lang" minOccurs="0" maxOccurs="unbounded"
-                                    context="body/bibl/bibl[@type='lawd:Translation']"/>
+                                <elementRef key="lang" minOccurs="0" maxOccurs="unbounded" context="body/bibl/bibl[@type='lawd:Translation']"/>
                                 <elementRef key="idno" minOccurs="0" maxOccurs="unbounded" context="body/bibl/bibl[@type='syriaca:Manuscript']"/>
                                 <alternate minOccurs="0" maxOccurs="unbounded">
                                     <elementRef key="author" context="body/bibl/bibl"/>
                                     <elementRef key="editor" context="body/bibl/bibl"/>
                                 </alternate>
                                 <elementRef key="title" minOccurs="0" maxOccurs="unbounded" context="body/bibl/bibl"/>
-                                <elementRef key="ptr" 
-                                        context="body/bibl/bibl[@type=('lawd:Edition','lawd:Translation','lawd:Citation')]"/>
+                                <elementRef key="ptr" context="body/bibl/bibl[@type=('lawd:Edition','lawd:Translation','lawd:Citation')]"/>
                                 <elementRef key="textLang" minOccurs="0" context="body/bibl/bibl"/>
                                 <elementRef key="date" minOccurs="0" maxOccurs="unbounded" context="body/bibl/bibl"/>
                                 <elementRef key="extent" minOccurs="0" context="body/bibl/bibl"/>
@@ -335,8 +339,7 @@
                             </sequence>
                             <!-- Model for references to works in an unstructured format. 
                             This could be locked down more so that it interferes less with the above two models. -->
-                            <alternate minOccurs="0"
-                                maxOccurs="unbounded">
+                            <alternate minOccurs="0" maxOccurs="unbounded">
                                 <textNode/>
                                 <classRef key="model.gLike" context="not(body/bibl[@type='lawd:ConceptualWork']) and not(body/bibl/bibl[@type=('lawd:Edition','lawd:Translation','lawd:Citation','syriaca:Manuscript')])"/>
                                 <classRef key="model.highlighted" context="not(body/bibl[@type='lawd:ConceptualWork']) and not(body/bibl/bibl[@type=('lawd:Edition','lawd:Translation','lawd:Citation','syriaca:Manuscript')])"/>
@@ -363,40 +366,69 @@
                                 These will typically begin with either the prefix lawd: (http://lawd.info/ontology) or syriaca:</desc>
                             <valList mode="change" type="semi">
                                 <valItem ident="lawd:ConceptualWork">
-                                    <gloss>Work</gloss>
+                                    <gloss type="sg">Work</gloss>
+                                    <gloss type="pl">Works</gloss>
                                     <desc>A Conceptual Work groups together one or more Written Works which
                                         have the same intellectual source. E.g. The Iliad, as opposed to a particular manuscript witness or edition of the Iliad. 
                                         See http://lawd.info/ontology/ConceptualWork.</desc>
                                 </valItem>
                                 <valItem ident="lawd:Edition">
-                                    <gloss>Edition</gloss>
+                                    <gloss type="sg">Edition</gloss>
+                                    <gloss type="pl">Editions</gloss>
                                     <desc>A published (whether officially or not) Written Work that relies on
                                         one or more Written Works as sources.
                                         See http://lawd.info/ontology/Edition.</desc>
                                 </valItem>
                                 <valItem ident="lawd:Citation">
-                                    <gloss>Citation</gloss>
+                                    <gloss type="sg">Citation</gloss>
+                                    <gloss type="pl">Citations</gloss>
                                     <desc>A Citation models a bibliographic reference as a resource.
                                         See http://lawd.info/ontology/Citation.</desc>
                                 </valItem>
                                 <valItem ident="syriaca:Manuscript">
-                                    <gloss>Manuscript</gloss>
+                                    <gloss type="sg">Manuscript</gloss>
+                                    <gloss type="pl">Manuscripts</gloss>
                                     <desc>Any text-bearing object, which usually embodies a Conceptual Work and which may be a source 
                                         for an Edition or Translation.</desc>
                                 </valItem>
-                                <valItem ident="syriaca:Catalogue">
-                                    <gloss>Catalogue</gloss>
-                                    <desc>A Citation of a catalogue.</desc>
+                                <valItem ident="syriaca:PrintCatalogue">
+                                    <gloss type="sg">Print Catalogue</gloss>
+                                    <gloss type="pl">Print Catalogues</gloss>
+                                    <desc>A Citation of a print catalogue, such as a manuscript catalogue.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:DigitalCatalogue">
+                                    <gloss type="sg">Digital Catalogue</gloss>
+                                    <gloss type="pl">Digital Catalogues</gloss>
+                                    <desc>A Citation of a digital catalogue, such as a manuscript catalogue.</desc>
                                 </valItem>
                                 <valItem ident="syriaca:ModernTranslation">
-                                    <gloss>Modern Translation</gloss>
+                                    <gloss type="sg">Modern Translation</gloss>
+                                    <gloss type="pl">Modern Translation</gloss>
                                     <desc>A modern Written Work that translates one or more other Written Works that embody the same Conceptual Work.
                                         A subtype of http://lawd.info/ontology/Translation.</desc>
                                 </valItem>
                                 <valItem ident="syriaca:AncientVersion">
-                                    <gloss>Ancient Version</gloss>
+                                    <gloss type="sg">Ancient Version</gloss>
+                                    <gloss type="pl">Ancient Versions</gloss>
                                     <desc>An ancient Written Work that translates one or more other Written Works that embody the same Conceptual Work.
                                         A subtype of http://lawd.info/ontology/Translation.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:OriginalWithSyriacEvidence">
+                                    <gloss type="sg">Original Language Edition with Syriac Evidence</gloss>
+                                    <gloss type="pl">Original Language Editions with Syriac Evidence</gloss>
+                                    <desc>An edition of a non-Syriac text that incorporates evidence from Syriac versions.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:Glossary">
+                                    <gloss type="sg">Glossary</gloss>
+                                    <gloss type="pl">Glossaries</gloss>
+                                    <desc>A bibliographic reference to a resource that provides glosses or explanations for terms.
+                                        A subtype of http://lawd.info/ontology/Citation.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:Apparatus">
+                                    <gloss type="sg">Apparatus</gloss>
+                                    <gloss type="pl">Apparatuses</gloss>
+                                    <desc>A bibliographic reference to a resource that contains notes regarding the witnesses, versions, or reconstruction of a text.
+                                        A subtype of http://lawd.info/ontology/Citation.</desc>
                                 </valItem>
                             </valList>
                         </attDef>
@@ -405,6 +437,40 @@
                                 http://syriaca.org/subject/</desc>
                         </attDef>
                     </attList>
+                </elementSpec>
+                <elementSpec ident="title" module="core" mode="change">
+                    <attList>
+                        <attDef ident="type" mode="change" usage="opt">
+                            <desc>Describes the function of the title. This attribute is optional. Certain non-blank values (such as "final-rubric") may 
+                            cause the title to be moved to a different section of the page.</desc>
+                            <valList mode="change" type="semi">
+                                <valItem ident="initial-rubric">
+                                    <gloss>Initial Rubric</gloss>
+                                    <desc>Text denoting the beginning of a work, usually derived from a manuscript exemplar. This may include a title of the work, 
+                                        but should be distinguished from other titles because it also includes non-title text.</desc>
+                                </valItem>
+                                <valItem ident="final-rubric">
+                                    <gloss>Final Rubric</gloss>
+                                    <desc>Text denoting the end of a work, usually derived from a manuscript exemplar. This may include a title of the work, 
+                                    but should be distinguished from other titles because it also includes non-title text.</desc>
+                                </valItem>
+                                <valItem ident="abbreviation">
+                                    <gloss>Abbreviation</gloss>
+                                    <desc>An abbreviation of a work's title.</desc>
+                                </valItem>
+                            </valList>
+                        </attDef>
+                    </attList>
+                    <exemplum versionDate="2017-03-23">
+                        <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                            <title xml:id="name1-1" xml:lang="en" syriaca-tags="#syriaca-headword">Genesis (Peshitta Version)</title>
+                            <title xml:id="name1-2" xml:lang="syr" syriaca-tags="#syriaca-headword" source="#bib1-1">ܣܦܪܐ ܕܒܪܝܫܝܬ</title>
+                            <title xml:id="name1-3" xml:lang="syr" source="#bib1-1">ܣܦܪܐ ܕܒܪܝܬܐ</title>
+                            <title xml:id="name1-4" xml:lang="en" type="abbreviation" syriaca-tags="#canonical" source="#bib1-9">Gen</title>
+                            <title xml:id="name1-5" xml:lang="en" source="#bib1-9">Genesis</title>
+                            <title xml:id="name1-6" xml:lang="syr" source="#bib1-1">ܐܣ̣ܬܝܟ ܣܦ̣ܪܐ ܗܢܐ ܩܕܡܝܐ ܕܐܘܪܝܬܐ ܒܦ̈ܬܓܡܐ ܐܪ̈ܒܥܐ ܐܠܦ̈ܝܢ ܘܚܡܫ ܡ̈ܠܐ ܘܬܫܥܐ ܕܒܨ̈ܚܚܐ ܠ̅ܕ̅.</title>
+                        </egXML>
+                    </exemplum>
                 </elementSpec>
                 <elementSpec ident="idno" module="header" mode="change">
                     <attList>
@@ -618,16 +684,36 @@
                         <attDef ident="quantity" mode="change" usage="req"/>
                         <attDef ident="unit" mode="change" usage="req">
                             <valList mode="change" type="semi">
-                                <valItem ident="pp"><desc>page</desc></valItem>
-                                <valItem ident="ff"><desc>folio</desc></valItem>
-                                <valItem ident="part"><desc>part</desc></valItem>
-                                <valItem ident="chapter"><desc>chapter</desc></valItem>
-                                <valItem ident="stanza"><desc>stanza</desc></valItem>
-                                <valItem ident="verse"><desc>verse</desc></valItem>
-                                <valItem ident="paragraph"><desc>paragraph</desc></valItem>
-                                <valItem ident="section"><desc>section</desc></valItem>
-                                <valItem ident="word"><desc>word</desc></valItem>
-                                <valItem ident="character"><desc>character</desc></valItem>
+                                <valItem ident="pp">
+                                    <desc>page</desc>
+                                </valItem>
+                                <valItem ident="ff">
+                                    <desc>folio</desc>
+                                </valItem>
+                                <valItem ident="part">
+                                    <desc>part</desc>
+                                </valItem>
+                                <valItem ident="chapter">
+                                    <desc>chapter</desc>
+                                </valItem>
+                                <valItem ident="stanza">
+                                    <desc>stanza</desc>
+                                </valItem>
+                                <valItem ident="verse">
+                                    <desc>verse</desc>
+                                </valItem>
+                                <valItem ident="paragraph">
+                                    <desc>paragraph</desc>
+                                </valItem>
+                                <valItem ident="section">
+                                    <desc>section</desc>
+                                </valItem>
+                                <valItem ident="word">
+                                    <desc>word</desc>
+                                </valItem>
+                                <valItem ident="character">
+                                    <desc>character</desc>
+                                </valItem>
                             </valList>
                             <remarks versionDate="2011-11-24">
                                 <p>When describing the extent of written or conceptual works, the unit is required, but may 
@@ -729,7 +815,8 @@
                                 particularly valuable for its representation of events during <persName ref="http://syriaca.org/person/239">Bar Hebraeus</persName>' 
                                 own lifetime.</note>
                             <note type="scope">Secular world history from Creation through the 13th century A.D. Part of a larger work which also contains 
-                                <bibl>an ecclesiastical history<ptr target="http:/syriaca.org/work/2502"/></bibl>.</note>
+                                <bibl>an ecclesiastical history<ptr target="http:/syriaca.org/work/2502"/>
+                                </bibl>.</note>
                             <note xml:lang="syr" type="incipit" source="#bib2501-2">
                                 <quote>ܐܠܗܐ ܥܕܪ ܠܡܚܝܠܘܬܝ. ܡܒܪܟ ܐܢܬ ܗܘ ܡܪܝܐ ܘܡܪܐ ܕܟܠ ܫܘܪܝܐ ܘܫܪܝܐ: ܐܢܬ ܗܘ ܩܕܡܝܐ ܘܐܢܬ ܗܘ ܐܚܪܝܐ. ܘܠܘܬܟ ܡܬܛܝܒܐ ܟܠ ܡܪܕܝܬܐ:</quote>
                             </note>
@@ -760,11 +847,21 @@
                             <desc>Describes the general category of relationship, which may be used in addition to <att>ref</att> to determine how the 
                                 relation should be displayed in the interface.</desc>
                             <valList mode="change" type="semi">
-                                <valItem ident="part"><desc>A relation between a work and the larger work of which it is a part. See <gi>label</gi>.</desc></valItem>
-                                <valItem ident="disambiguation"><desc>A relation that disambiguates an entity from others.</desc></valItem>
-                                <valItem ident="general"><desc>A relation that does not belong in a more specific category.</desc></valItem>
-                                <valItem ident="mssWitnesses"><desc>A relation pointing to the manuscript witnesses of an edition or translation.</desc></valItem>
-                                <valItem ident="translationSource"><desc>A relation pointing to the original (or other-) language source of a translation.</desc></valItem>
+                                <valItem ident="part">
+                                    <desc>A relation between a work and the larger work of which it is a part. See <gi>label</gi>.</desc>
+                                </valItem>
+                                <valItem ident="disambiguation">
+                                    <desc>A relation that disambiguates an entity from others.</desc>
+                                </valItem>
+                                <valItem ident="general">
+                                    <desc>A relation that does not belong in a more specific category.</desc>
+                                </valItem>
+                                <valItem ident="mssWitnesses">
+                                    <desc>A relation pointing to the manuscript witnesses of an edition or translation.</desc>
+                                </valItem>
+                                <valItem ident="translationSource">
+                                    <desc>A relation pointing to the original (or other-) language source of a translation.</desc>
+                                </valItem>
                             </valList>
                         </attDef>
                         <attDef ident="ref" mode="change" usage="req">
@@ -789,23 +886,69 @@
                                     <gloss>is part of</gloss>
                                     <desc>A related resource in which the described resource is physically or logically included. (<ref target="http://purl.org/dc/terms/isPartOf">http://purl.org/dc/terms/isPartOf</ref>).</desc>
                                 </valItem>
+                                <valItem ident="syriaca:sometimesCirculatesWith">
+                                    <gloss>sometimes circulates with</gloss>
+                                    <desc>A related resource with which the described resource may sometimes circulate, depending on the tradition.</desc>
+                                </valItem>
+                                <valItem ident="skos:broadMatch">
+                                    <gloss>has broader match with</gloss>
+                                    <desc>A resource with a broader or more generic definition that encompasses the current resource along with others. 
+                                        Syriaca.org describes the broader resource using a "composite URI". 
+                                        SKOS definition: <quote>skos:broadMatch is used to state a hierarchical mapping link between two conceptual resources in different concept schemes.</quote>
+                                        (<ref target="https://www.w3.org/2009/08/skos-reference/skos.rdf#broadMatch">https://www.w3.org/2009/08/skos-reference/skos.rdf#broadMatch</ref>).</desc>
+                                </valItem>
+                                <valItem ident="syriaca:hasRelationToPlace">
+                                    <gloss>has relation to place</gloss>
+                                    <desc>A place to which an entity (e.g., person) has an unspecified relation.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:bornAt">
+                                    <gloss>was born at</gloss>
+                                    <desc>The place where a person was born.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:hasLiteraryConnectionToPlace">
+                                    <gloss>has literary connection to place</gloss>
+                                    <desc>A place to which an entity (e.g., person) has a literary connection.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:differentFrom">
+                                    <gloss>should be distinguished from</gloss>
+                                    <desc>Entities (in @mutual) that are not identical but have been or could be confused.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:possiblyIdentical">
+                                    <gloss>is possibly identical to</gloss>
+                                    <desc>Entities (in @mutual) that are possibly identical to each other.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:diedAt">
+                                    <gloss>died at</gloss>
+                                    <desc>The place where a person died.</desc>
+                                </valItem>
+                                <valItem ident="syriaca:sharesAttributionWith">
+                                    <gloss>shares attribution with</gloss>
+                                    <desc>Persons (in @mutual) to whom the same works are attributed (e.g., Ephrem, 
+                                        Isaac, and Pseudo-Ephrem).</desc>
+                                </valItem>
                             </valList>
                         </attDef>
                         <attDef ident="active" mode="change">
-                            <remarks versionDate="2016-11-24"><p>This should contain either the full URI of a Syriaca.org entity (person, place, work, etc.), 
+                            <remarks versionDate="2016-11-24">
+                                <p>This should contain either the full URI of a Syriaca.org entity (person, place, work, etc.), 
                             or a hash URI (fragment identifier introduced with #) for a node within the document. A full URI is preferred where one exists. 
-                            When the relation is serialized as RDF, the value of <att>active</att> identifies the subject resource.</p></remarks>
+                            When the relation is serialized as RDF, the value of <att>active</att> identifies the subject resource.</p>
+                            </remarks>
                         </attDef>
                         <attDef ident="passive" mode="change">
-                            <remarks versionDate="2016-11-24"><p>This should contain either the full URI of a Syriaca.org entity (person, place, work, etc.), 
+                            <remarks versionDate="2016-11-24">
+                                <p>This should contain either the full URI of a Syriaca.org entity (person, place, work, etc.), 
                                 or a hash URI (fragment identifier introduced with #) for a node within the document. A full URI is preferred where one exists. 
-                                When the relation is serialized as RDF, the value of <att>passive</att> identifies the object resource.</p></remarks>
+                                When the relation is serialized as RDF, the value of <att>passive</att> identifies the object resource.</p>
+                            </remarks>
                         </attDef>
                         <attDef ident="mutual" mode="change">
-                            <remarks versionDate="2016-11-24"><p>This should contain identifiers for two or more Syriaca.org entities or nodes, either as full URIs, 
+                            <remarks versionDate="2016-11-24">
+                                <p>This should contain identifiers for two or more Syriaca.org entities or nodes, either as full URIs, 
                                 or as hash URIs (fragment identifiers introduced with #) in the case of nodes within the document. When the relation is serialized as RDF, 
                                 a triple is created for each pairing of values in <att>mutual</att>, such that each entity referenced in <att>mutual</att> 
-                                is represented in different triples as a subject and as an object.</p></remarks>
+                                is represented in different triples as a subject and as an object.</p>
+                            </remarks>
                         </attDef>
                     </attList>
                     <exemplum versionDate="2016-11-24">
@@ -826,13 +969,16 @@
                     <exemplum versionDate="2016-11-24">
                         <egXML xmlns="http://www.tei-c.org/ns/Examples">
                             <relation xml:id="relation2501-1" type="part" active="http://syriaca.org/work/2501" ref="dct:isPartOf" passive="http://syriaca.org/work/2500">
-                                <desc><label type="order" subtype="part" n="1">part 1</label></desc>
+                                <desc>
+                                    <label type="order" subtype="part" n="1">part 1</label>
+                                </desc>
                             </relation>
                         </egXML>
                         <p>This relation shows that the work described in this record is part 1 of a larger work.</p>
                     </exemplum>
                     <remarks versionDate="2011-11-24">
-                        <p><gi>relation</gi> is used to link Syriaca.org entities to each other, when possible in a semantically robust, RDF-friendly way. 
+                        <p>
+                            <gi>relation</gi> is used to link Syriaca.org entities to each other, when possible in a semantically robust, RDF-friendly way. 
                         The values of <att>active</att>, <att>ref</att>, and <att>passive</att> should be construable as RDF triples. For this reason, 
                             <att>ref</att> is required, as is either <att>active</att> and <att>passive</att>, or <att>mutual</att>. The <gi>relation</gi> 
                         may also contain text inside a <gi>desc</gi> if such must be visualized on the record, but this text should be standardized 
@@ -851,8 +997,10 @@
                     <attList>
                         <attDef ident="type" mode="change">
                             <valList mode="change" type="semi">
-                                <valItem ident="order"><desc>Indicates that the label is used to designate the order of the parent item within a larger sequence, 
-                                for example, as part of a larger work. If this type is used, a <att>subtype</att> and <att>n</att> are also required.</desc></valItem>
+                                <valItem ident="order">
+                                    <desc>Indicates that the label is used to designate the order of the parent item within a larger sequence, 
+                                for example, as part of a larger work. If this type is used, a <att>subtype</att> and <att>n</att> are also required.</desc>
+                                </valItem>
                             </valList>
                         </attDef>
                         <attDef ident="subtype" mode="change">
@@ -875,7 +1023,9 @@
                     <exemplum versionDate="2016-11-24">
                         <egXML xmlns="http://www.tei-c.org/ns/Examples">
                             <relation xml:id="relation2501-1" type="part" active="http://syriaca.org/work/2501" ref="dct:isPartOf" passive="http://syriaca.org/work/2500">
-                                <desc><label type="order" subtype="part" n="1">part 1</label></desc>
+                                <desc>
+                                    <label type="order" subtype="part" n="1">part 1</label>
+                                </desc>
                             </relation>
                         </egXML>
                         <p>This relation shows that the work described in this record is part 1 of a larger work.</p>

@@ -57,10 +57,10 @@ declare function facet:count($results as item()*, $facet-definitions as element(
 :) 
 (:  TODO: Handle nested facet-definition  :)
 declare function facet:facet($results as item()*, $facet-definitions as element(facet:facet-definition)?) as item()*{
-    if($facet-definitions/facet:range) then
-        facet:group-by-range($results, $facet-definitions)
-    else if ($facet-definitions/facet:group-by/@function) then
+    if ($facet-definitions/facet:group-by/@function) then
         util:eval(concat($facet-definitions/facet:group-by/@function,'($results,$facet-definitions)'))
+    else if($facet-definitions/facet:range) then
+        facet:group-by-range($results, $facet-definitions)        
     else facet:group-by($results, $facet-definitions)
 };
 
@@ -80,7 +80,7 @@ declare function facet:group-by($results as item()*, $facet-definitions as eleme
         if($sort/text() = 'value') then $f[1]
         else count($f)
         descending
-    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$f[1]}" label="{$f[1]}"/>
+    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp}" label="{(:global:odd2text($f[1],string($f[1])):)$facet-grp}"/>
 };
 
 
@@ -97,7 +97,7 @@ declare function facet:group-by-array($results as item()*, $facet-definitions as
         if($sort/text() = 'value') then $f[1]
         else count($f)
         descending
-    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$f[1]}" label="{$f[1]}"/>
+    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp}" label="{$facet-grp}"/>
 };
 
 (:~
@@ -111,7 +111,11 @@ declare function facet:group-by-range($results as item()*, $facet-definitions as
     let $ranges := $facet-definitions/facet:range
     let $sort := $facet-definitions/facet:order-by 
     for $range in $ranges/facet:bucket
-    let $path := concat('$results/',$facet-definitions/descendant::facet:sub-path/text(),'[. gt "', facet:type($range/@gt, $ranges/@type),'" and . lt "',facet:type($range/@lt, $ranges/@type),'"]')
+    let $path := if($range/@lt and $range/@lt != '') then
+                    concat('$results/',$facet-definitions/descendant::facet:sub-path/text(),'[. >= "', facet:type($range/@gt, $ranges/@type),'" and . <= "',facet:type($range/@lt, $ranges/@type),'"]')
+                 else if($range/@eq) then
+                    concat('$results/',$facet-definitions/descendant::facet:sub-path/text(),'[', $range/@eq ,']')
+                 else concat('$results/',$facet-definitions/descendant::facet:sub-path/text(),'[. >= "', facet:type($range/@gt, $ranges/@type),'"]')
     let $f := util:eval($path)
     order by 
             if($sort/text() = 'value') then $f[1]
@@ -130,16 +134,31 @@ declare function facet:group-by-sub-module($results as item()*, $facet-definitio
     let $path := concat('$results/',$facet-definitions/facet:group-by/facet:sub-path/text())
     let $sort := $facet-definitions/facet:order-by
     for $f in util:eval($path)
-    let $label := 
-        if($f[1] = 'http://syriaca.org/authors') then 'Authors'
-        else if($f[1] = 'http://syriaca.org/q') then 'Saints'
-        else ()
     group by $facet-grp := $f
     order by 
-        if($sort/text() = 'value') then $f[1]
+        if($sort/text() = 'value') then $facet-grp
         else count($f)
-        descending
-    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$f[1]}" label="{$label[1]}"/>    
+        descending        
+    return 
+        let $label := 
+            if($facet-grp = 'http://syriaca.org/authors') then 'Authors'
+            else if($facet-grp = 'http://syriaca.org/q') then 'Saints'
+            else ()
+        return 
+            <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp}" label="{$label}"/>    
+};
+
+(:~
+ : Syriaca.org specific group-by function for correctly labeling submodules.
+:)
+declare function facet:group-place-type($results as item()*, $facet-definitions as element(facet:facet-definition)?) {
+    let $path := concat('$results/',$facet-definitions/facet:group-by/facet:sub-path/text())
+    let $sort := $facet-definitions/facet:order-by
+    for $f in util:eval($path)
+    group by $facet-grp := $f
+    order by $facet-grp ascending
+    return
+        <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp}" label="{$facet-grp}"/>    
 };
 
 (:~
@@ -152,7 +171,7 @@ declare function facet:spear-source-text($results as item()*, $facet-definitions
     let $fg := util:eval(concat('$f/',$facet-definitions/facet:group-by/facet:sub-path/text()))
     group by $facet-grp := $fg
     order by 
-        if($sort/text() = 'value') then $f[1]
+        if($sort/text() = 'value') then $facet-grp
         else count($f)
         descending
     return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp[1]}" label="{$facet-grp[1]}"/>    
@@ -164,10 +183,47 @@ declare function facet:spear-type($results as item()*, $facet-definitions as ele
     for $f in util:eval($path)
     group by $facet-grp := $f
     order by 
-        if($sort/text() = 'value') then $f[1]
+        if($sort/text() = 'value') then $facet-grp
         else count($f)
         descending
-    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$f[1]}" label="{substring-after($f[1],'list')}"/>
+    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp}" label="{substring-after($facet-grp,'list')}"/>
+};
+
+(: biblia-arabica special facet :)
+declare function facet:viewable-online($results as item()*, $facet-definitions as element(facet:facet-definition)*) as element(facet:key)*{
+    let $r := $results[descendant::tei:idno[not(matches(.,'^(http://biblia-arabica.com|https://www.zotero.org|https://api.zotero.org)'))] or descendant::tei:ref/@target[not(matches(.,'^(http://biblia-arabica.com|https://www.zotero.org|https://api.zotero.org)'))]]
+    return 
+         <key xmlns="http://expath.org/ns/facet" count="{count($r)}" value="true" label="Online"/>
+};
+
+(: biblia-arabica special facet :)
+declare function facet:authors($results as item()*, $facet-definitions as element(facet:facet-definition)*) as element(facet:key)*{
+    let $sort := $facet-definitions/facet:order-by
+    for $f in $results/descendant::tei:body/tei:biblStruct/child::*/child::*[self::tei:author or self::tei:editor]
+    group by $facet-grp := string-join($f/descendant::text(),' ')
+    order by 
+        if($sort/text() = 'value') then $facet-grp
+        else count($f)
+        descending
+   return    
+        <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{normalize-space($facet-grp[1])}" label="{concat($f[1]/tei:surname,', ', $f[1]/tei:forename)}"/>   
+
+};
+
+
+(: Syriaca.org specific function that uses the syiraca.org ODD file to establish labels for controlled values 
+ : Uses global:odd2text($element-name,$label)) for translation. 
+:)
+declare function facet:controlled-labels($results as item()*, $facet-definitions as element(facet:facet-definition)?) {
+    let $path := concat('$results/',$facet-definitions/facet:group-by/facet:sub-path/text())
+    let $sort := $facet-definitions/facet:order-by
+    for $f in util:eval($path)
+    group by $facet-grp := $f
+    order by 
+        if($sort/text() = 'value') then $facet-grp
+        else count($f)
+        descending
+    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp}" label="{global:odd2text(tokenize(replace($path[1],'@|\[|\]',''),'/')[last()],string($facet-grp))}"/>    
 };
 
 (:~
@@ -222,14 +278,22 @@ declare function facet:facet-filter($facet-definitions as node()*)  as item()*{
             return 
             if($facet-value != '') then 
                 if($facet/facet:range) then
-                    concat('[',$path,'[string(.) gt "', facet:type($facet/facet:range/facet:bucket[@name = $facet-value]/@gt, $facet/facet:range/facet:bucket[@name = $facet-value]/@type),'" and string(.) lt "',facet:type($facet/facet:range/facet:bucket[@name = $facet-value]/@lt, $facet/facet:range/facet:bucket[@name = $facet-value]/@type),'"]]')
+                    if($facet/facet:range/facet:bucket[@name = $facet-value]/@lt and $facet/facet:range/facet:bucket[@name = $facet-value]/@lt != '') then
+                        concat('[',$path,'[string(.) >= "', facet:type($facet/facet:range/facet:bucket[@name = $facet-value]/@gt, $facet/facet:range/facet:bucket[@name = $facet-value]/@type),'" and string(.) <= "',facet:type($facet/facet:range/facet:bucket[@name = $facet-value]/@lt, $facet/facet:range/facet:bucket[@name = $facet-value]/@type),'"]]')                        
+                    else if($facet/facet:range/facet:bucket[@name = $facet-value]/@eq and $facet/facet:range/facet:bucket[@name = $facet-value]/@eq != '') then
+                        concat('[',$path,'[', $facet/facet:range/facet:bucket[@name = $facet-value]/@eq ,']]')
+                    else concat('[',$path,'[string(.) >= "', facet:type($facet/facet:range/facet:bucket[@name = $facet-value]/@gt, $facet/facet:range/facet:bucket[@name = $facet-value]/@type),'" ]]')
                 else if($facet/facet:group-by[@function="facet:group-by-array"]) then 
                     concat('[',$path,'[matches(., "',$facet-value,'(\W|$)")]',']')
+                else if($facet/facet:group-by[@function="facet:viewable-online"]) then 
+                    "[descendant::tei:idno[not(matches(.,'^(http://biblia-arabica.com|https://www.zotero.org|https://api.zotero.org)'))] or descendant::tei:ref/@target[not(matches(.,'^(http://biblia-arabica.com|https://www.zotero.org|https://api.zotero.org)'))]]"    
                 else if($facet/facet:group-by[@function="facet:spear-type"]) then 
-                    concat('[',substring-before($path,'/name(.)'),'[name(.) = "',$facet-value,'"]',']')                    
+                    concat('[',substring-before($path,'/name(.)'),'[name(.) = "',$facet-value,'"]',']')
+                else if($facet/facet:group-by[@function="facet:authors"]) then
+                    concat("[descendant::tei:biblStruct/child::*/child::*[self::tei:author or self::tei:editor][normalize-space(string-join(descendant::text(),' ')) = '",$facet-value,"']]")                 
                 else concat('[',$path,'[normalize-space(.) = "',replace($facet-value,'"','""'),'"]',']')
             else(),'')    
-    else () 
+    else ()   
 };
 
 (:~ 
@@ -269,7 +333,6 @@ declare function facet:selected-facets-display(){
         else()
 };
 
-
 (:~
  : Create 'Add' button 
  : Constructs new URL for user action 'Add facet'
@@ -289,7 +352,7 @@ return
         for $f in $facets/facet:facet[@name = $facet-name]
         let $fn := string($f/@name)
         let $label := string($f/facet:key[@value = substring-after($facet,concat($facet-name,':'))]/@label)
-        let $value := if(starts-with($label,'http://syriaca.org/')) then 
+        let $value := if(starts-with($label,$global:app-root)) then 
                          facet:get-label($label)   
                       else $label
         return 
@@ -310,10 +373,10 @@ return
                     if($facet:fq) then concat('fq=',$facet:fq,$facet-query)
                     else concat('fq=',normalize-space($facet-query))
                 let $active := if(contains($facet:fq,concat(';fq-',string($f/@name),':',string($key/@value)))) then 'active' else ()    
-                return <a href="?{$new-fq}{facet:url-params()}" class="facet-label btn btn-default {$active}">{facet:get-label(string($key/@label))} <span class="count"> ({string($key/@count)})</span></a> 
+                return <a href="?{$new-fq}{facet:url-params()}" class="facet-label btn btn-default {$active}"><bdi>{facet:get-label(string($key/@label))}</bdi> <span class="count"> ({string($key/@count)})</span></a> 
                 }
             </div>
-            <div class="facet-list collapse" id="{concat('show',replace(string($f/@name),' ',''))}">{
+            <div class="facet-list collapse" id="{concat('show',replace(string($f/@name),'\s|/',''))}">{
                 for $key at $l in subsequence($f/facet:key,$f/@show + 1,$f/@max)
                 let $facet-query := replace(replace(concat(';fq-',string($f/@name),':',string($key/@value)),';fq-;fq-;',';fq-'),';fq- ','')
                 let $new-fq := 
@@ -324,7 +387,7 @@ return
             </div>
             {if($count gt ($f/@show - 1)) then 
                 <a class="facet-label togglelink btn btn-info" 
-                data-toggle="collapse" data-target="#{concat('show',replace(string($f/@name),' ',''))}" href="#{concat('show',replace(string($f/@name),' ',''))}" 
+                data-toggle="collapse" data-target="#{concat('show',replace(string($f/@name),'\s|/',''))}" href="#{concat('show',replace(string($f/@name),'\s|/',''))}" 
                 data-text-swap="Less"> More &#160;<i class="glyphicon glyphicon-circle-arrow-right"></i></a>
             else()}
     </div>
@@ -340,7 +403,7 @@ return
 :)
 
 declare function facet:get-label($uri as item()*){
-if(starts-with($uri,'http://syriaca.org/')) then 
+if(starts-with($uri, $global:app-root)) then 
   if(contains($uri,'/keyword/')) then
     lower-case(functx:camel-case-to-words(substring-after($uri,'/keyword/'),' '))
   else 
