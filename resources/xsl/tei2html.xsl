@@ -274,7 +274,7 @@
                         <xsl:value-of select="ancestor-or-self::*[@xml:lang][1]/@xml:lang"/>
                     </xsl:attribute>                    
                 </xsl:when>
-                <xsl:when test="@type='title'">
+                <xsl:when test="@type='title' or @type='ab'">
                     <xsl:choose>
                         <xsl:when test="@xml:lang">
                             <xsl:call-template name="langattr"/>
@@ -314,8 +314,7 @@
     <xsl:template match="t:milestone | t:ab | t:l | t:lg | t:pb | t:cb | t:lb">
         <xsl:param name="parentID"/>
         <xsl:variable name="currentid" select="concat(if($parentID != '') then $parentID else 'id','.',@n)"/>
-        <span class="{concat('tei-',name(.))}
-            {if(@unit) then concat(' tei-',@unit) else ()} {if(@type) then concat(' tei-',@type) else ()}">
+        <span class="{concat('tei-',name(.))}             {if(@unit) then concat(' tei-',@unit) else ()} {if(@type) then concat(' tei-',@type) else ()}">
             <!-- {if(self::t:l) then concat(name(.),'-display') else ()} -->
             <xsl:choose>
                 <xsl:when test="child::t:head">
