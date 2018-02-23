@@ -64,11 +64,11 @@
                     $('#sedraDisplay').css('display','block');
                     $.get(href, function( data ) {
                         $( "#sedraContent div.content" ).html( data );
-                        var $html = $(data);
-                        if(!$.trim($html.html())){
-                            $( "#sedraContent div.content" ).html( 'There are no results for this word. Please try using the <a href="http://sedra.bethmardutho.org/">Syriac Dictionary Lookup</a>' );
-                        }
-                    });
+                        })    
+                        .fail(function() {
+                           $('#sedraContent div.content').empty();
+                           $( "#sedraContent div.content" ).html( 'There are no results for this word. Please try using the <a href="http://sedra.bethmardutho.org/">Syriac Dictionary Lookup</a>' );
+                        });
                 });
                 
                 $('html').click(function() {
