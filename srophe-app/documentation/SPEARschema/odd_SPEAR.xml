@@ -1092,6 +1092,7 @@
                 <valItem ident="syriaca:MemberOfGroup"/>
                 <valItem ident="syriaca:MonasticHeadOver"/>
                 <valItem ident="syriaca:Ordination"/>
+                <valItem ident="syriaca:PatronOf"/>
                 <valItem ident="syriaca:Petitioned"/>
                 <valItem ident="syriaca:StudentOf"/>
                 <valItem ident="syriaca:ProximateEvent"/>
