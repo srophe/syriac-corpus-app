@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <meta xmlns="http://exist-db.org/xquery/repo">
-    <description>The Oxford-BYU Syriac Corpus project</description>
-    <author>Winona Salesky</author>
-    <website>http://syriac-corpus.org/</website>
+    <description>Hugoye: Journal of Syriac Studies</description>
+    <author></author>
+    <website>http://hugoye.org/</website>
     <status>beta</status>
     <license>GNU-LGPL</license>
     <copyright>true</copyright>
     <type>application</type>
-    <target>syriac-corpus</target>
+    <target>hugoye</target>
     <prepare>pre-install.xql</prepare>
     <finish>post-install.xql</finish>
     <config>
         <!-- App title -->
-        <title>The Oxford-BYU Syriac Corpus projectl</title>
+        <title>Hugoye: Journal of Syriac Studies</title>
         <!-- App description -->
         <description/>
         <!-- Contact email -->
-        <contact>info@syriaca.org</contact>
+        <contact>info@hugoye.org</contact>
         <!-- Logo name (assumes path to logo is $app-root/resources/img/) -->
-        <logo>syriaca-logo.png</logo>
+        <logo></logo>
         <!-- Web Site URL -->
-        <url>http://syriac-corpus.org/</url>
+        <url>http://hugoye.org/</url>
         <!-- Root of app for building dynamic links. Default is eXist app root -->
-        <nav-base>/exist/apps/syriac-corpus</nav-base>
+        <nav-base>/exist/apps/hugoye</nav-base>
         <!-- eXist app root for app deployment-->
-        <app-root>syriac-corpus</app-root>
+        <app-root>hugoye</app-root>
         <!-- eXist data app root for gazetteer data -->
-        <data-root>syriac-corpus-data</data-root>
+        <data-root>hugoye-data</data-root>
         <!-- Base URI for identifiers in app data -->
-        <base_uri>https://syriaccorpus.org</base_uri>
+        <base_uri>https://hugoye.org</base_uri>
         <!-- Map rendering -->
         <maps>
             <option>google</option>
@@ -46,7 +46,7 @@
             -->
         </keyboard-options>
         <collections>
-            <collection name="corpus" title="Syriac Corpus" app-root="/" data-root="/" record-URI-pattern="https://syriaccorpus.org/"/>
+            <collection name="corpus" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://syriaccorpus.org/"/>
         </collections>
     </config>
     
