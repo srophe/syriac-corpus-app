@@ -127,7 +127,7 @@ declare function tei2ttl:make-date-triples($date){
  :)
 declare function tei2ttl:desc($rec) as xs:string* {
 string-join((
-for $desc in $rec/descendant::tei:desc
+for $desc in $rec/descendant::tei:desc[not(ancestor-or-self::tei:relation)]
 let $source := $desc/tei:quote/@source
 return
     if($desc[@type='abstract'][not(@source)][not(tei:quote/@source)] or $desc[contains(@xml:id,'abstract')][not(@source)][not(tei:quote/@source)][. != '']) then 
@@ -267,6 +267,7 @@ declare function tei2ttl:resource-class($rec) as xs:string?{
  : @param $rec TEI record. 
  :)
 declare function tei2ttl:relations-with-attestation($rec,$id){
+if(contains($id,'/spear/')) then 
 string-join((
     for $rel in $rec/descendant::tei:listRelation/tei:relation
     return 
@@ -317,6 +318,7 @@ string-join((
                               tei2ttl:make-triple('', 'lawd:hasAttestation', tei2ttl:make-uri($id))))
                      ),'')
 ),'')
+else()
 };
 
 declare function tei2ttl:relations($rec, $id){
@@ -342,14 +344,20 @@ string-join(
             let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
             let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms:') else $element-name
             let $relationshipURI := concat($o,'#',$element-name,'-',$s)
-            return tei2ttl:make-triple('', 'snap:has-bond', tei2ttl:make-uri($relationshipURI)) 
+            return 
+            if(contains($id,'/spear/')) then 
+                tei2ttl:make-triple('', 'snap:has-bond', tei2ttl:make-uri($relationshipURI))
+            else tei2ttl:make-triple('', $element-name, tei2ttl:make-uri($o)),    
         else 
             for $s in tokenize($rel/@active,' ')
             for $o in tokenize($rel/@passive,' ')
             let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
             let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms:') else $element-name
             let $relationshipURI := concat($o,'#',$element-name,'-',$s)
-            return tei2ttl:make-triple('', 'snap:has-bond', tei2ttl:make-uri($relationshipURI)) 
+            return
+                if(contains($id,'/spear/')) then  
+                    tei2ttl:make-triple('', 'snap:has-bond', tei2ttl:make-uri($relationshipURI))
+                else tei2ttl:make-triple('', $element-name, tei2ttl:make-uri($o)),   
     ))
     ,' ')
 };
@@ -515,6 +523,9 @@ return
        tei2ttl:idnos($rec, $id),
        tei2ttl:spear($rec, $id),
        tei2ttl:relations($rec, $id),
+       let $links := distinct-values($rec//@ref[starts-with(.,'http://')][not(ancestor::tei:teiHeader)]) 
+       for $i in $links[. != '']
+       return tei2ttl:make-triple('', 'dcterms:relation', tei2ttl:make-uri($i)), 
        for $temporal in $rec/descendant::tei:state[@type="existence"]
        return tei2ttl:make-date-triples($temporal),        
        for $date in $rec/descendant::tei:event/descendant::tei:date

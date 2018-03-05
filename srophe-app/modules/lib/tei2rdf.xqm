@@ -192,7 +192,7 @@ declare function tei2rdf:location($rec){
  : See if there is an abstract element?
  :)
 declare function tei2rdf:desc($rec)  {
-    for $desc in $rec/descendant::tei:body/descendant::tei:desc | $rec/descendant::tei:body/descendant::tei:note
+    for $desc in $rec/descendant::tei:body/descendant::tei:desc[not(ancestor-or-self::tei:relation)] | $rec/descendant::tei:body/descendant::tei:note
     let $source := $desc/tei:quote/@source
     return 
         if($source != '') then 
@@ -217,6 +217,7 @@ return
 
 (: Handle TEI relations:)
 declare function tei2rdf:relations-with-attestation($rec, $id){
+if(contains($id,'/spear/')) then 
     for $rel in $rec/descendant::tei:listRelation/tei:relation
     return 
         if($rel/@mutual) then 
@@ -267,6 +268,7 @@ declare function tei2rdf:relations-with-attestation($rec, $id){
                                 tei2rdf:create-element('lawd:hasAttestation', (), $id, ()))
                             )}
                         )
+else ()                        
 };
 
 (: Handle TEI relations:)
@@ -282,7 +284,6 @@ declare function tei2rdf:relations($rec, $id){
     return 
         if(contains($id,'/spear/')) then tei2rdf:create-element('dcterms:subject', (), $i, ())
         else tei2rdf:create-element('dcterms:relation', (), $i, ()),
-    
     for $rel in $rec/descendant::tei:listRelation/tei:relation
     return 
         if($rel/@mutual) then 
@@ -291,23 +292,27 @@ declare function tei2rdf:relations($rec, $id){
             let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
             let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms:') else $element-name
             let $relationshipURI := concat($o,'#',$element-name,'-',$s)
-            return tei2rdf:create-element('snap:has-bond', (), $relationshipURI, ()) 
+            return if(contains($id,'/spear/')) then 
+                    tei2rdf:create-element('snap:has-bond', (), $relationshipURI, ())
+                   else tei2rdf:create-element($element-name, (), $o, ()) 
         else 
             for $s in tokenize($rel/@active,' ')
             for $o in tokenize($rel/@passive,' ')
             let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
             let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms:') else $element-name
             let $relationshipURI := concat($o,'#',$element-name,'-',$s)
-            return tei2rdf:create-element('snap:has-bond', (), $relationshipURI, ())  
+            return 
+                if(contains($id,'/spear/')) then 
+                    tei2rdf:create-element('snap:has-bond', (), $relationshipURI, ())
+                else tei2rdf:create-element($element-name, (), $o, ())
    )
 };
 
 (: Internal references :)
 declare function tei2rdf:internal-refs($rec){
     let $links := distinct-values($rec//@ref[starts-with(.,'http://')][not(ancestor::tei:teiHeader)])
-    return 
-        for $i in $links[. != '']
-        return tei2rdf:create-element('dcterms:subject', (), $i, ()) 
+    for $i in $links[. != '']
+    return tei2rdf:create-element('dcterms:relation', (), $i, ()) 
 };
 
 (: Special handling for SPEAR :)
