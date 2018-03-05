@@ -810,7 +810,7 @@ pre {
 
 /* Corpus Styles */
 /* Corpus text sections styles */
-.tei-head.display {display:block;}
+.tei-head.display {display:block; color:red;}
 .tei-section.display {display:block;}
 /*.tei-div-display, .div1-display, .div2-display, .div3-display, .div4-display, .div5-display {display:block; margin:1em;}*/
 .body {display:block; float:none;clear:both;}
@@ -837,7 +837,8 @@ pre {
     border-radius: 1;
     */
     }
-    
+.text-number.display {display:inline;}
+
 /* Table of Contents */
 .toc {display:block; margin-left:.75em;}
 .toc-item {display:block; font-size: small;}
