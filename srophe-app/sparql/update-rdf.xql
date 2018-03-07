@@ -41,15 +41,17 @@ return
 declare function local:get-records($action as xs:string?, $collection as xs:string?, $date as xs:dateTime?){
     if($action = 'initiate') then
         let $records := 
-            if($collection != '') then 
                 (: Special handling for SPEAR, to process every div[@uri] as a record. :)
                 if($collection = 'spear') then
-                    for $r in collection($global:data-root || '/' || $collection)//tei:div[@uri][ancestor::tei:TEI/descendant::tei:title[. = 'Chronicle of Edessa']]
+                    (
+                    for $r in collection($global:data-root || '/' || $collection)/tei:TEI/tei:teiHeader
+                    return <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$r}</tei:TEI>,
+                    for $r in collection($global:data-root || '/' || $collection)//tei:div[@uri]
                     let $teiHeader := root($r)//tei:teiHeader
                     return 
-                        <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{($teiHeader,$r)}</tei:TEI> 
-                else collection($global:data-root || '/' || $collection)/tei:TEI 
-            else collection($global:data-root)/tei:TEI
+                        <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{($teiHeader,$r)}</tei:TEI>
+                        ) 
+                else collection($global:data-root || '/' || $collection)/tei:TEI
         let $total := count($records)
         let $perpage := 50
         let $pages := xs:integer($total div $perpage)
@@ -62,7 +64,7 @@ declare function local:get-records($action as xs:string?, $collection as xs:stri
                     <strong>Pages: </strong>{$pages}<br/>
                     <strong>Collection: </strong>{$collection}<br/>
                 </message>
-                <output>{local:process-results($records, $total, $start, $perpage, $collection)}</output>
+                <output>{(local:process-results($records, $total, $start, $perpage, $collection),local:create-void-record($records, $total, $start, $perpage, $collection))}</output>
             </response>
     else if($action = 'update') then 
         let $records := 
@@ -89,9 +91,146 @@ declare function local:get-records($action as xs:string?, $collection as xs:stri
         </response>
 };
 
-declare function local:process-results($records as item()*, $total, $start, $perpage, $collection){
+declare function local:create-void-record($records, $total, $start, $perpage, $collection) {
+let $void-file :=
+    if($collection = 'bibl') then
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:void="http://rdfs.org/ns/void#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/">
+            <void:Dataset rdf:about="http://syriaca.org/bibl">
+                <dcterms:title>yriaca.org: Works Cited RDF Dataset</dcterms:title>
+                <dcterms:publisher>Syriaca.org: The Syriac Reference Portal</dcterms:publisher>
+                <foaf:homepage rdf:resource="http://syriaca.org/bibl"/>
+                <dcterms:description>Syriaca.org: Works Cited RDF Dataset is a linked dataset derived from Syriaca.org: Works Cited data set.</dcterms:description>
+                <dcterms:creator>David A. Michelson</dcterms:creator>
+                <dcterms:date>2016</dcterms:date>
+                <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/3.0/"/>
+                <dcterms:source>Syriaca.org: Works Cited</dcterms:source>
+                <dcterms:created>{current-date()}</dcterms:created>
+                <void:documents>{$total}</void:documents>
+                <void:dataDump rdf:resource="https://github.com/srophe/srophe-data-rdf/tree/master/rdf/srophe/bibl"/>
+            </void:Dataset>
+        </rdf:RDF>
+    else if($collection = 'persons') then
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:void="http://rdfs.org/ns/void#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/">
+            <void:Dataset rdf:about="http://syriaca.org/persons">
+                <dcterms:title>The Syriac Biographical Dictionary RDF Dataset</dcterms:title>
+                <dcterms:publisher>Syriaca.org: The Syriac Reference Portal</dcterms:publisher>
+                <foaf:homepage rdf:resource="http://syriaca.org/persons"/>
+                <dcterms:description>The Syriac Biographical Dictionary RDF Dataset is a linked dataset derived from The Syriac Biographical Dictionary, a multi-volume name and biographic authority record documenting persons relevant to the field of Syriac studies.</dcterms:description>
+                <dcterms:creator>David A. Michelson</dcterms:creator>
+                <dcterms:creator>Jeanne-Nicole Mellon Saint-Laurent</dcterms:creator>
+                <dcterms:date>2016</dcterms:date>
+                <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/3.0/"/>
+                <dcterms:source>The Syriac Biographical Dictionary</dcterms:source>
+                <dcterms:created>{current-date()}</dcterms:created>
+                <void:documents>{$total}</void:documents>
+                <void:dataDump rdf:resource="https://github.com/srophe/srophe-data-rdf/tree/master/rdf/srophe/persons"/>
+            </void:Dataset>
+        </rdf:RDF>
+    else if($collection = 'places') then
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:void="http://rdfs.org/ns/void#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/">
+            <void:Dataset rdf:about="http://syriaca.org/geo">
+                <dcterms:title>The Syriac Gazetteer RDF Dataset</dcterms:title>
+                <dcterms:publisher>Syriaca.org: The Syriac Reference Portal</dcterms:publisher>
+                <foaf:homepage rdf:resource="http://syriaca.org/geo"/>
+                <dcterms:description>The Syriac Gazetteer RDF Dataset is a linked dataset derived from The Syriac Gazetteer, a geographical reference work of Syriaca.org for places relevant to Syriac studies.</dcterms:description>
+                <dcterms:creator>Thomas A. Carlson</dcterms:creator>
+                <dcterms:creator>David A. Michelson</dcterms:creator>
+                <dcterms:date>2014</dcterms:date>
+                <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/3.0/"/>
+                <dcterms:source>The Syriac Gazetteer</dcterms:source>
+                <dcterms:created>{current-date()}</dcterms:created>
+                <void:documents>{$total}</void:documents>
+                <void:dataDump rdf:resource="https://github.com/srophe/srophe-data-rdf/tree/master/rdf/srophe/places"/>
+            </void:Dataset>
+        </rdf:RDF>
+    else if($collection = 'subjects') then
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:void="http://rdfs.org/ns/void#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/">
+            <void:Dataset rdf:about="http://syriaca.org/taxonomy">
+                <dcterms:title>A Taxonomy of Syriac Studies</dcterms:title>
+                <dcterms:publisher>Syriaca.org: The Syriac Reference Portal</dcterms:publisher>
+                <foaf:homepage rdf:resource="http://syriaca.org/taxonomy"/>
+                <dcterms:description>A Taxonomy of Syriac Studies RDF Dataset is a linked dataset derived from A Taxonomy of Syriac Studies.</dcterms:description>
+                <dcterms:creator>David A. Michelson</dcterms:creator>
+                <dcterms:date>2016</dcterms:date>
+                <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/3.0/"/>
+                <dcterms:source>A Taxonomy of Syriac Studies</dcterms:source>
+                <dcterms:created>{current-date()}</dcterms:created>
+                <void:documents>{$total}</void:documents>
+                <void:dataDump rdf:resource="https://github.com/srophe/srophe-data-rdf/tree/master/rdf/srophe/subjects"/>
+            </void:Dataset>
+        </rdf:RDF>
+    else if($collection = 'spear') then
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:void="http://rdfs.org/ns/void#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/">
+            <void:Dataset rdf:about="http://syriaca.org/spear">
+                <dcterms:title>SPEAR: Syriac Persons Events and Relations RDF Dataset</dcterms:title>
+                <dcterms:publisher>Syriaca.org: The Syriac Reference Portal</dcterms:publisher>
+                <foaf:homepage rdf:resource="http://syriaca.org/spear"/>
+                <dcterms:description>SPEAR: Syriac Persons Events and Relations RDF Dataset is a linked dataset derived from SPEAR: Syriac Persons Events and Relations, is a prosopographical reference work designed to provide information about persons and their relationships within the context of historical events.</dcterms:description>
+                <dcterms:creator>Daniel L. Schwartz</dcterms:creator>
+                <dcterms:date>2016</dcterms:date>
+                <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/3.0/"/>
+                <dcterms:source>SPEAR: Syriac Persons Events and Relations</dcterms:source>
+                <dcterms:created>{current-date()}</dcterms:created>
+                <void:documents>{$total}</void:documents>
+                <void:dataDump rdf:resource="https://github.com/srophe/srophe-data-rdf/tree/master/rdf/srophe/spear"/>
+            </void:Dataset>
+        </rdf:RDF>        
+    else if($collection = 'works') then
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:void="http://rdfs.org/ns/void#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/">
+            <void:Dataset rdf:about="http://syriaca.org/works">
+                <dcterms:title>The New Handbook of Syriac Literature RDF Dataset</dcterms:title>
+                <dcterms:publisher>Syriaca.org: The Syriac Reference Portal</dcterms:publisher>
+                <foaf:homepage rdf:resource="http://syriaca.org/works"/>
+                <dcterms:description>The New Handbook of Syriac Literature RDF Dataset is a linked dataset derived from The New Handbook of Syriac Literature.</dcterms:description>
+                <dcterms:creator>Nathan P. Gibson</dcterms:creator>
+                <dcterms:creator>David A. Michelson</dcterms:creator>
+                <dcterms:creator>Jeanne-Nicole Mellon Saint-Laurent</dcterms:creator>
+                <dcterms:date>2016</dcterms:date>
+                <dcterms:license rdf:resource="http://creativecommons.org/licenses/by/3.0/"/>
+                <dcterms:source>The New Handbook of Syriac Literature</dcterms:source>
+                <dcterms:created>{current-date()}</dcterms:created>
+                <void:documents>{$total}</void:documents>
+                <void:dataDump rdf:resource="https://github.com/srophe/srophe-data-rdf/tree/master/rdf/srophe/works"/>
+            </void:Dataset>
+        </rdf:RDF>
+    else ()  
+let $repository := replace($global:app-root,'/db/apps/','')    
+return xmldb:store('/db/rdftest/' || $repository, xmldb:encode-uri(concat($collection,'.void.rdf')), $void-file)
+};
+
+declare function local:process-results($records as item()*, $total, $start, $perpage, $collection-name){
     let $end := $start + $perpage
-    return
+    return 
         (    
          (: Process collection records :)
          for $r in subsequence($records,$start,$perpage)
@@ -102,12 +241,12 @@ declare function local:process-results($records as item()*, $total, $start, $per
          let $uri := document-uri(root($r))
          let $rdf := tei2rdf:rdf-output($r)
          let $file-name := substring-before(tokenize($uri,'/')[last()],'.xml')
-         let $collection := replace(substring-before($uri, $file-name),'/tei/','')
+         let $collection := substring-before(substring-before($uri, $file-name),'/tei/')
          let $repository := replace($global:app-root,'/db/apps/','')
-         let $rdf-collection := if($collection = 'spear' or $r/descendant-or-self::tei:div[@uri]) then 'spear' else replace(replace(substring(substring-after($collection, $global:data-root),2),'tei',''),'/','-')
+         let $rdf-collection := if($collection-name = 'spear' or $r/descendant-or-self::tei:div[@uri] or contains($uri,'/spear/')) then 'spear' else replace(substring(substring-after($collection, $global:data-root),2),'tei','')
          let $rdf-filename := concat(replace(substring-after($id,'http://'),'/|\.','-'),'.rdf')
          let $rdf-path := concat($repository,'/',$rdf-collection) 
-         return  
+         return 
              try {
                  <response status="200" xmlns="http://www.w3.org/1999/xhtml">
                      <message>{(
@@ -124,7 +263,7 @@ declare function local:process-results($records as item()*, $total, $start, $per
                  },
          (: Go to next :)        
          if($total gt $end) then 
-             local:process-results($records, $total, $end, $perpage, $collection)
+             local:process-results($records, $total, $end, $perpage, $collection-name)
          else ()
          )            
 };

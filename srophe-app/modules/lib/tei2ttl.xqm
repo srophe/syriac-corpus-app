@@ -33,7 +33,6 @@ declare function tei2ttl:make-uri($uri){
     concat('<',normalize-space($uri),'>')
 };
 
-
 (:~ 
  : Build literal string, normalize spaces and strip "", add lang if specified
  : @param $string string for literal
@@ -119,7 +118,6 @@ declare function tei2ttl:make-date-triples($date){
         ),''),'];'
      )        
 };
-
 
 (:~ 
  : TEI descriptions
@@ -254,12 +252,6 @@ declare function tei2ttl:rec-type($rec){
     else if($rec/tei:listRelation) then
         'syriaca:relationFactoid'
     else()
-};
-
-declare function tei2ttl:resource-class($rec) as xs:string?{
-     if($rec/descendant::tei:body/tei:biblStruct) then
-        'rdfs:Resource'    
-    else 'skos:Concept'
 };
 
 (: 
@@ -504,7 +496,8 @@ let $resource-class := if($rec/descendant::tei:body/tei:biblStruct) then 'rdfs:R
 return 
     string-join((: start string-join-1:)(
         tei2ttl:record((:start record-1:) string-join((:start string-join-2:)(
-        tei2ttl:make-triple(tei2ttl:make-uri($id), 'a', tei2ttl:rec-type($rec)),
+        tei2ttl:make-triple(tei2ttl:make-uri($id), 'rdf:type', tei2ttl:rec-type($rec)),
+        tei2ttl:make-triple((), 'a', tei2ttl:rec-type($rec)),
         tei2ttl:make-triple((),'rdfs:label',
                 if($rec/descendant::*[@syriaca-tags='#syriaca-headword']) then
                     string-join(for $headword in $rec/descendant::*[@syriaca-tags='#syriaca-headword'][. != '']
@@ -517,6 +510,19 @@ return
                             tei2ttl:make-literal(normalize-space(string-join(rel:relationship-sentence($rec/descendant::tei:listRelation/tei:relation),' ')),(),())
                         else tei2ttl:make-literal(normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')),(),())
                 else tei2ttl:make-literal($rec/descendant::tei:title[1]/text(),if($rec/descendant::tei:title[1]/@xml:lang) then string($rec/descendant::tei:title[1]/@xml:lang) else (),())),
+       if($rec/descendant::tei:body/tei:bibl[@type="lawd:ConceptualWork"] or $rec/descendant::tei:body/tei:biblStruct) then
+               (for $author in $rec/descendant::tei:body/tei:bibl[@type="lawd:ConceptualWork"]/tei:author | $rec/descendant::tei:body/tei:biblStruct/descendant::tei:author
+                    return  
+                        if($author/@ref) then
+                            tei2ttl:make-triple((), 'dcterms:contributor', tei2ttl:make-uri($author/@ref))
+                        else tei2ttl:make-triple((), 'dcterms:contributor', tei2ttl:make-literal(string-join($author/descendant-or-self::text(),' '))),
+                    for $editor in $rec/descendant::tei:body/tei:bibl[@type="lawd:ConceptualWork"]/tei:editor | $rec/descendant::tei:body/tei:biblStruct/descendant::tei:editor
+                    return 
+                        if($editor/@ref) then
+                            tei2ttl:make-triple((), 'dcterms:contributor', tei2ttl:make-uri($editor/@ref))
+                        else tei2ttl:make-triple((), 'dcterms:contributor', tei2ttl:make-literal(string-join($editor/descendant-or-self::text(),' '))),
+               )
+       else (),
        tei2ttl:names($rec),
        if(contains($id,'/spear/')) then ()
        else tei2ttl:geo($rec),

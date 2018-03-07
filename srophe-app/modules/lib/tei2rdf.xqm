@@ -35,12 +35,12 @@ declare option exist:serialize "method=xml media-type=application/rss+xml omit-x
 declare function tei2rdf:create-element($element-name as xs:string, $lang as xs:string?, $content as xs:string*, $type as xs:string?){
  if($type='literal') then        
         element { xs:QName($element-name) } {
-          (if ($lang) then attribute {xs:QName("xml:lang")} { $lang } else (), $content)
+          (if ($lang) then attribute {xs:QName("xml:lang")} { $lang } else (), normalize-space($content))
         } 
  else 
     element { xs:QName($element-name) } {
             (if ($lang) then attribute {xs:QName("xml:lang")} { $lang } else (),
-            attribute {xs:QName("rdf:resource")} { $content }
+            attribute {xs:QName("rdf:resource")} { normalize-space($content) }
             )
         }
 };
@@ -137,7 +137,7 @@ declare function tei2rdf:rec-type($rec){
         'http://syriaca.org/schema#/eventFactoid'
     else if($rec/tei:listRelation) then
         'http://syriaca.org/schema#/relationFactoid'
-    else()
+    else ()
 };
 
 (: Decode record label and title based on Syriaca.org headwords if available 'rdfs:label' or dcterms:title:)
@@ -420,12 +420,23 @@ let $id := if($rec/descendant::tei:idno[starts-with(.,$global:base-uri)]) then r
 let $resource-class := if($rec/descendant::tei:body/tei:biblStruct) then 'rdfs:Resource'    
                        else 'skos:Concept'            
 return  
-    (element { xs:QName('rdf:Description') } {(
+    (element { xs:QName($resource-class) } {(
                 attribute {xs:QName("rdf:about")} { $id }, 
                 tei2rdf:create-element('rdf:type', (), tei2rdf:rec-type($rec), ()),
-                (:NOTE: Not sure about the resource class, I think this was from Nathan ?:)
-                (:tei2rdf:create-element($resource-class, (), $id, ()),:)
                 tei2rdf:rec-label-and-titles($rec, 'rdfs:label'),
+                if($rec/descendant::tei:body/tei:bibl[@type="lawd:ConceptualWork"] or $rec/descendant::tei:body/tei:biblStruct) then
+                   (for $author in $rec/descendant::tei:body/tei:bibl[@type="lawd:ConceptualWork"]/tei:author | $rec/descendant::tei:body/tei:biblStruct/descendant::tei:author
+                    return  
+                        if($author/@ref) then
+                            tei2rdf:create-element('dcterms:contributor', (), $author/@ref, ())
+                        else tei2rdf:create-element('dcterms:contributor', (), string-join($author/descendant-or-self::text(),' '), 'literal'),
+                    for $editor in $rec/descendant::tei:body/tei:bibl[@type="lawd:ConceptualWork"]/tei:editor | $rec/descendant::tei:body/tei:biblStruct/descendant::tei:editor
+                    return 
+                        if($editor/@ref) then
+                            tei2rdf:create-element('dcterms:contributor', (), $editor/@ref, ())
+                        else tei2rdf:create-element('dcterms:contributor', (), string-join($editor/descendant-or-self::text(),' '), 'literal')
+                    )
+                else (),
                 tei2rdf:names($rec),
                 if(contains($id,'/spear/')) then ()
                 else tei2rdf:location($rec),
@@ -491,6 +502,16 @@ return
                 for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
                 return tei2rdf:create-element('dcterms:source', (), $bibl, ()),
                 tei2rdf:create-element('dcterms:format', (), "text/turle", "literal"),
+                tei2rdf:bibl-citation($rec)
+                )}
+            </rdfs:Resource>,
+            <rdfs:Resource rdf:about="{concat($id,'/rdf')}" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+                {(
+                tei2rdf:rec-label-and-titles($rec, 'dcterms:title'),
+                tei2rdf:create-element('dcterms:subject', (), $id, ()),
+                for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
+                return tei2rdf:create-element('dcterms:source', (), $bibl, ()),
+                tei2rdf:create-element('dcterms:format', (), "text/xml", "literal"),
                 tei2rdf:bibl-citation($rec)
                 )}
             </rdfs:Resource>)
