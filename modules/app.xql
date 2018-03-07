@@ -767,6 +767,18 @@ if($model("data")/descendant::tei:body/descendant::*[@n][not(@type='section') an
                             <input class="toggleDisplay" type="checkbox" id="toggleab" data-element="tei-ab"/>
                                 <label for="toggleab">ab</label>
                          </div>
+                    else (),   
+                    if($model("data")/descendant::tei:body/descendant::tei:ab[@type][@n]) then  
+                        let $types := distinct-values($model("data")/descendant::tei:body/descendant::tei:ab[@n]/@type)
+                        for $type in $types
+                        order by $type
+                        return 
+                            <div class="toggle-buttons">
+                               <span class="toggle-label"> {$type} : </span>
+                               <input class="toggleDisplay" type="checkbox" id="toggle{$type}" data-element="{concat('tei-',$type)}"/>
+                                 {if($type = 'section') then attribute checked {"checked" } else ()}
+                                 <label for="toggle{$type}"> {$type}</label>
+                            </div>
                     else (),    
                     if($model("data")/descendant::tei:body/descendant::tei:l) then 
                         <div class="toggle-buttons">
