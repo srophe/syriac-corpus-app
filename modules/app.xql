@@ -740,7 +740,7 @@ return
  : TOC for Syriac Corpus records. 
 :)  
 declare function app:toggle-text-display($node as node(), $model as map(*)){
-if($model("data")/descendant::tei:body/descendant::*[@n][not(@type='section') and not(@type='part')]) then     
+if($model("data")/descendant::tei:body/descendant::*[@n]) then     
         <div class="panel panel-default">
             <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#toggleText">Show  </a>
             <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" 
@@ -753,7 +753,7 @@ if($model("data")/descendant::tei:body/descendant::*[@n][not(@type='section') an
                     for $type in $types
                     order by $type
                     return 
-                        if($type = ('part','text','rubric','heading','title')) then ()
+                        if($type = ('part','text','rubric','heading')) then ()
                         else
                             <div class="toggle-buttons">
                                <span class="toggle-label"> {$type} : </span>
@@ -767,23 +767,11 @@ if($model("data")/descendant::tei:body/descendant::*[@n][not(@type='section') an
                             <input class="toggleDisplay" type="checkbox" id="toggleab" data-element="tei-ab"/>
                                 <label for="toggleab">ab</label>
                          </div>
-                    else (),   
-                    if($model("data")/descendant::tei:body/descendant::tei:ab[@type][@n]) then  
-                        let $types := distinct-values($model("data")/descendant::tei:body/descendant::tei:ab[@n]/@type)
-                        for $type in $types
-                        order by $type
-                        return 
-                            <div class="toggle-buttons">
-                               <span class="toggle-label"> {$type} : </span>
-                               <input class="toggleDisplay" type="checkbox" id="toggle{$type}" data-element="{concat('tei-',$type)}"/>
-                                 {if($type = 'section') then attribute checked {"checked" } else ()}
-                                 <label for="toggle{$type}"> {$type}</label>
-                            </div>
                     else (),    
                     if($model("data")/descendant::tei:body/descendant::tei:l) then 
                         <div class="toggle-buttons">
                             <span class="toggle-label"> line : </span>
-                            <input class="toggleDisplay" type="checkbox" id="togglel" data-element="tei-l" checked="checked"/>
+                            <input class="toggleDisplay" type="checkbox" id="togglel" data-element="tei-l"/>
                                 <label for="togglel">line</label>
                         </div>
                     else (),

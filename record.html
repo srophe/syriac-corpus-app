@@ -37,46 +37,47 @@
             </div>
             <script type="text/javascript">
                 $('input.toggleDisplay').click(function() {
-                var display = $(this).data("element");
-                $('.'+ display).children('.text-number').toggle();
-                //$('.'+ display).children('.head').toggle();
-                var section = $('.'+ display).hasClass("tei-head");
-                if(section){
-                $(' .' + display + '.tei-head').toggle();
-                }else{
-                $(' .' + display).toggleClass( 'display' );
-                }
-                //Change checkbox to active
-                $(this).toggleClass( "active" );
-                console.log(display);
+                    var display = $(this).data("element");
+                    $('.'+ display).children('.text-number').toggle();
+                    //$('.'+ display).children('.head').toggle();
+                    var section = $('.'+ display).hasClass("tei-head");
+                    if(section){
+                        $(' .' + display + '.tei-head').toggle();
+                        console.log('hide headers')
+                    }else{
+                        $(' .' + display).toggleClass( 'display' );
+                    }
+                    //Change checkbox to active
+                    $(this).toggleClass( "active" );
+                    console.log(display);
                 });
                 
                 $('button.toggleHead').click(function() {
-                $('.head').toggleClass( "hidden" );
+                    $('.head').toggleClass( "hidden" );
                 });
                 
                 $('a.sedra').click(function(e) {
-                //event.preventDefault();
-                e.stopPropagation();
-                e.preventDefault();
-                var href = $(this).attr('href');
-                $('#sedraDisplay').css('display','block');
-                $.get(href, function( data ) {
-                $( "#sedraContent div.content" ).html( data );
-                })    
-                .fail(function() {
-                $('#sedraContent div.content').empty();
-                $( "#sedraContent div.content" ).html( 'There are no results for this word. Please try using the <a href="http://sedra.bethmardutho.org/">Syriac Dictionary Lookup</a>' );
-                });
+                    //event.preventDefault();
+                    e.stopPropagation();
+                    e.preventDefault();
+                    var href = $(this).attr('href');
+                    $('#sedraDisplay').css('display','block');
+                    $.get(href, function( data ) {
+                        $( "#sedraContent div.content" ).html( data );
+                        })    
+                        .fail(function() {
+                           $('#sedraContent div.content').empty();
+                           $( "#sedraContent div.content" ).html( 'There are no results for this word. Please try using the <a href="http://sedra.bethmardutho.org/">Syriac Dictionary Lookup</a>' );
+                        });
                 });
                 
                 $('html').click(function() {
-                $('#sedraDisplay').hide();
-                $('#sedraContent div.content').empty();
+                    $('#sedraDisplay').hide();
+                    $('#sedraContent div.content').empty();
                 })
                 
                 $('#rightCol').click(function(e){
-                e.stopPropagation();
+                    e.stopPropagation();
                 });
                 
             </script>
