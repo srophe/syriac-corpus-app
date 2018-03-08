@@ -314,7 +314,10 @@
     <xsl:template match="t:milestone | t:ab | t:l | t:lg | t:pb | t:cb | t:lb">
         <xsl:param name="parentID"/>
         <xsl:variable name="currentid" select="concat(if($parentID != '') then $parentID else 'id','.',@n)"/>
-        <span class="{concat('tei-',name(.))}             {if(@unit) then concat(' tei-',@unit) else ()} {if(@type) then concat(' tei-',@type) else ()}">
+        <span class="{concat('tei-',name(.))}              
+            {if(@unit) then concat(' tei-',@unit) else ()}              
+            {if(@type) then concat(' tei-',@type) else ()}             
+            {if(self::t:l) then 'display' else ()}">
             <!-- {if(self::t:l) then concat(name(.),'-display') else ()} -->
             <xsl:choose>
                 <xsl:when test="child::t:head">
@@ -345,7 +348,7 @@
                         <span id="{$currentid}"/>
                     </xsl:when>
                     <xsl:otherwise>
-                        <span class="text-number badge">
+                        <span class="text-number badge {if(self::t:l) then 'display' else ()}">
                            <xsl:if test="self::t:pb">pb. </xsl:if> <xsl:value-of select="@n"/>
                         </span>
                     </xsl:otherwise>
