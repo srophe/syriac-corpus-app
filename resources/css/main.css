@@ -788,11 +788,13 @@ pre {
 
 /* Corpus Styles */
 /* Corpus text sections styles */
-.tei-head.display {display:block;}
+.tei-head.display {display:block; color:red;}
 .tei-section.display {display:block;}
+.tei-div {display:block; margin:1em 0;}
 /*.tei-div-display, .div1-display, .div2-display, .div3-display, .div4-display, .div5-display {display:block; margin:1em;}*/
 .body {display:block; float:none;clear:both;}
 .textBlock {display:block;}
+.tei-pb.display {display:block;}
 .tei-l.display, .line.display {display:block; margin:0; padding:0;}
 .tei-ab.display {display:inline;}
 .tei-line-num.display {font-size:medium; float:right; clear:right; margin-top:.5em;}
@@ -815,7 +817,8 @@ pre {
     border-radius: 1;
     */
     }
-    
+.text-number.display {display:inline;}
+
 /* Table of Contents */
 .toc {display:block; margin-left:.75em;}
 .toc-item {display:block; font-size: small;}
