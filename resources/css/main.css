@@ -1,7 +1,7 @@
 /* Application styles could go here */
 /**
  * Colors: 
- * Dark green: 4E6D59
+ * light green: 8C982A
  */
 /* Import Fonts CSS */ 
 
@@ -64,9 +64,6 @@
    z-index: 1500;
 }
 
-    
-}
-
 /* Main content blocks */
 body {font-family: arial, sans-serif;}
 #content {background-color:white; padding-top: 50px;}
@@ -80,25 +77,23 @@ footer{background-color:#444;}
 .interior-content {padding:0; padding-top: 50px;}
 .full-page {margin-top:0;}
 
-/* Navbar styles*/
-.navbar {border-bottom:4px solid #4E6D59 !important;}
-.navbar-inner {border-bottom:.5em solid #4E6D59 !important;}
-.navbar-inner .container{height: 45px !important; padding-top:.5em; margin-left:.5em;}
-.navbar-brand {margin-top:-.75em; padding-left:0; margin-left:0; margin-right:-2em;}
-.navbar-brand img {padding:0; margin-top: -.25em; margin-left: 1em; margin-right:0;}
-
+/* Branding */
 .brand {margin-top:-.75em; margin-left:40px;padding-left:0;}
 .brand img {margin-left:1.5em;padding-left:0;}
 
+/* Navbar styles*/
+.navbar {border-bottom:4px solid #8C982A !important;}
+.navbar-inner {border-bottom:.5em solid #8C982A !important;}
+.navbar-inner .container{height: 45px !important; padding-top:.5em; margin-left:.5em;}
+.navbar-brand {margin-top:-.75em; padding-left:0; margin-left:0; margin-right:-2em;}
+.navbar-brand img {padding:0; margin-top: -.25em; margin-left: 1em; margin-right:0;}
 .navbar-inner .nav > li > a:hover, .advanced-search > a:hover {
         border-bottom: 4px solid #DDEAF1 !important;  
 }
 .navbar-inner > .container > .nav > li.selected {border-bottom: 4px solid #E69849 !important; }
 .advanced-search > a {color:#999; text-decoration:none;}
-
 .navbar .advanced-search{margin-top:-.5em;}
 .navbar-form {overflow:hidden;}
-
 .navbar-input-group {
   font-size: 0px; /*removes whitespace between button and input*/
 }
@@ -125,6 +120,7 @@ footer{background-color:#444;}
   left: -100%;
   margin-left: 10px;
 }
+.sub-menu .nav-icons{margin-left:2em;}
 
 /* Nav bar icons for submodules */
 .dropdown-menu li a{margin-left:.5em;}
@@ -138,8 +134,6 @@ footer{background-color:#444;}
     text-indent:14px;
 }
 
-.sub-menu .nav-icons{margin-left:2em;}
-
 .icon-container {display:inline-block; line-height:1.5em;}
 .icon-nav {font-size:1.75em; display:inline-block; margin-right:.15em;}
 .icon-text {display:inline-block; margin-top:-.85em; vertical-align: middle;}
@@ -152,19 +146,16 @@ footer{background-color:#444;}
  * font-family: Tahoma, Geneva, sans-serif;
  */
 .banner-text {color: #888; display:inline-block; margin-top:-.75em; vertical-align: middle; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}
-
+.banner {font-size: 24px; color:white; background-color:#666; margin:0 0 1em 0; padding:.5em 1em;; border-top:4px solid #8C982A;}
 /* Banner styles index page (Colors and images are set by internal css for submodules) */
-.banner-index {
-    position:relative;
-    margin-top:0;
-    padding-top:0;
-	background-image:url('../img/resafa_arch.jpg');
-	background-size:cover;
-	background-position:center;
-	height:200px;
-    width:100%;
+.hugoye-banner {
+    height:200px; 
+    overflow:hidden;
+    background-color:#010101; 
+    text-align: center;
 }
 
+.hugoye-banner img {width:auto; height:100%;}
    
 .overlay {
     font-weight:200;
@@ -176,19 +167,6 @@ footer{background-color:#444;}
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
 }
-
-/* Banner styles banner internal pages */
-.banner-interior {
-    position:relative;
-    padding-top:0;
-    border-bottom:4px solid #4E6D59;
-	background-image:url('../img/banner.png');
-	background-size:cover;
-	background-position:center;
-	height:250px;
-    width:100%;
-    overflow-x: hidden; 
-} 
 
 /* Image citation styles */
 .img-credit{
@@ -221,7 +199,7 @@ footer {text-align:center; color:white;}
 .content-block {background-color:#ffffff !important;}
 .top-padding {margin-top:2em;}
 .block {display:block;}
-.banner {font-size: 24px; color:white; background-color:#4E6D59; margin:0 0 1em 0; padding:.5em 1em;; border-bottom:4px solid #4E6D59;}
+
 .div1 {margin:1em;}
 .div2 {margin:1em;}
 .div3 {margin:1em;}
@@ -943,7 +921,9 @@ div.toggle-buttons label:active:after {
 }
 div.toggle-buttons .toggle-label {font-size: 1em; font-weight:600}
 
-@media screen and (max-width: 480px) {
+
+/* Small screens */
+@media screen and (max-width: 768px) {
 .navbar-collapse, .dropdown-menu {float:none; width:100% !important;}
 .navbar-nav li {width:100% !important; float:none;}
 .mobile-submenu {
@@ -952,4 +932,13 @@ div.toggle-buttons .toggle-label {font-size: 1em; font-weight:600}
     margin-left:3em;
     }
 .caret {float:left; margin-left:.5em; margin-top:.5em;}    
+.hugoye-banner {
+    height:100px !important;
+    }
+}
+/* Medium screens */
+@media screen and (max-width: 992px) {   
+.hugoye-banner {
+    height:125px !important;
+    }
 }
