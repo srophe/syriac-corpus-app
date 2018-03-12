@@ -1,0 +1,17 @@
+<facets xmlns="http://expath.org/ns/facet">
+    <facet-definition name="Author">
+        <group-by>
+            <sub-path>descendant::tei:titleStmt/tei:author</sub-path>
+        </group-by>
+        <max-values show="10">60</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+    <!-- Add title to display of facets, make sure they sort alphabetically. -->
+    <facet-definition name="Title">
+        <group-by function="facet:titles">
+            <sub-path>descendant::tei:titleStmt/tei:title[@level="s"]/@ref</sub-path>
+        </group-by>
+        <max-values show="10">60</max-values>
+        <order-by direction="ascending">value</order-by>
+    </facet-definition>
+</facets>

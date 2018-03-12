@@ -25,11 +25,8 @@ declare function bibl2html:citation($nodes as node()*) {
 };
 
 declare function bibl2html:msDesc($nodes) {
-   (if($nodes/tei:settlement) then concat($nodes/tei:settlement,', ') else (),
-    if($nodes/tei:repository) then concat($nodes/tei:repository,
-        if($nodes/tei:repository/following-sibling::tei:idno[@type='shelfmark']) then ', ' else '') else (),
-    if($nodes/tei:idno[@type='shelfmark']) then $nodes/tei:idno[@type='shelfmark'] else ()
-    )            
+    for $node in $nodes//tei:msName
+    return ($node, '. ')               
 };
 
 (:~
@@ -92,9 +89,7 @@ declare function bibl2html:analytic($nodes as node()*) {
                     else 'No authors or Editors'
     return (
             $persons, 
-            if($nodes/tei:title[1]) then 
-            concat('"',tei2html:tei2html($nodes/tei:title[1]),if(not(ends-with($nodes/tei:title[1][starts-with(@xml:lang,'en')][1],'.|:|,'))) then '.' else (),'"')    
-            else (),
+            concat('"',tei2html:tei2html($nodes/tei:title[1]),if(not(ends-with($nodes/tei:title[1][starts-with(@xml:lang,'en')][1],'.|:|,'))) then '.' else (),'"'),            
             if(count($nodes/tei:editor[@role='translator']) gt 0) then (bibl2html:emit-responsible-persons($nodes/tei:editor[@role!='translator'],3),', trans. ') else (),
             if($nodes/following-sibling::tei:monogr/tei:title[1][@level='m']) then 'in' else(),
             if($nodes/following-sibling::tei:monogr) then bibl2html:monograph($nodes/following-sibling::tei:monogr) else()
