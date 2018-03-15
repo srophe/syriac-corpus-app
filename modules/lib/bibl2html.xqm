@@ -70,11 +70,21 @@ declare function bibl2html:monograph($nodes as node()*) {
             if($nodes/tei:biblScope[@unit='vol']) then
                 (' ',tei2html:tei2html($nodes/tei:biblScope[@unit='vol']),' ')
             else (),
+            if($nodes/tei:title[@level="j"]) then 
+                let $vol := $nodes/tei:biblScope[@type="vol"]
+                let $issue := concat(' no. ',$nodes/tei:biblScope[@type="issue"])
+                let $imprint := concat(' (',$nodes/tei:imprint/tei:date,').')
+                let $pp :=  
+                    if($nodes/tei:biblScope[@type="pp"]) then 
+                        concat(' ',$nodes/tei:biblScope[@type="pp"],'.')
+                    else ()
+                return concat($vol,', ',$issue,$imprint,$pp)    
+            else (),
             if($nodes/following-sibling::tei:series) then bibl2html:series($nodes/following-sibling::tei:series)
             else if($nodes/following-sibling::tei:monogr) then ', '
             else if($nodes/preceding-sibling::tei:monogr and $nodes/preceding-sibling::tei:monogr/tei:imprint[child::*[string-length(.) gt 0]]) then   
             (' (', $nodes/preceding-sibling::tei:monogr/tei:imprint,')')
-            else if($nodes/tei:imprint[child::*[string-length(.) gt 0]]) then 
+            else if($nodes/tei:imprint[child::*[string-length(.) gt 0]] and not($nodes/tei:title[@level="j"])) then 
                 concat(' (',tei2html:tei2html($nodes/tei:imprint[child::*[string-length(.) gt 0]]),')', if($nodes/following-sibling::tei:monogr) then ', ' else() )
             else ()
         )
@@ -96,7 +106,7 @@ declare function bibl2html:analytic($nodes as node()*) {
             concat('"',tei2html:tei2html($nodes/tei:title[1]),if(not(ends-with($nodes/tei:title[1][starts-with(@xml:lang,'en')][1],'.|:|,'))) then '.' else (),'"')    
             else (),
             if(count($nodes/tei:editor[@role='translator']) gt 0) then (bibl2html:emit-responsible-persons($nodes/tei:editor[@role!='translator'],3),', trans. ') else (),
-            if($nodes/following-sibling::tei:monogr/tei:title[1][@level='m']) then 'in' else(),
+            if($nodes/following-sibling::tei:monogr/tei:title[1][@level='m']) then 'in' else ' ',
             if($nodes/following-sibling::tei:monogr) then bibl2html:monograph($nodes/following-sibling::tei:monogr) else()
         )
 };

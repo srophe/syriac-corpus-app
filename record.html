@@ -3,14 +3,10 @@
     <div class="grey-dark">
         <div class="container interior-content white">
             <div data-template="app:h1"/>
+            <div data-template="app:other-data-formats" data-template-formats="print,tei"/>
             <div class="row">
                 <div data-template="app:display-left-menu"/>
-                <div data-template="app:display-body"/>
-                <!--
-                <div class="col-sm-6 col-md-6 col-lg-7 mssBody">
-                    <div data-template="app:display-nodes" data-template-paths="/descendant::tei:body"/>
-                </div>
-                -->
+                <div data-template="app:display-body" data-template-paths="/descendant-or-self::tei:TEI"/>
                 <div class="col-sm-4 col-md-4 col-lg-3 noprint">
                     <div id="rightCol">
                         <div id="sedraDisplay" class="sedra panel panel-default">
@@ -28,7 +24,7 @@
                     </div>
                     <div data-template="app:rec-status"/>
                     <div data-template="app:display-ids"/>
-                    <div data-template="app:display-nodes" data-template-paths="/descendant::tei:teiHeader"/>
+                    <div data-template="app:display-cite"/>
                     <div class="info-btns">
                         <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> 
                     </div>
