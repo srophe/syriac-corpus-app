@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -137,24 +137,24 @@
     <xsl:template match="/">
         <xsl:apply-templates/>
     </xsl:template>
-    <xsl:template match="t:TEI">
-        <!-- Header -->
-        <xsl:call-template name="h1"/>
-        <!-- MSS display -->
-        <xsl:if test="descendant::t:sourceDesc/t:msDesc">
-            <xsl:apply-templates select="descendant::t:sourceDesc/t:msDesc"/>
-        </xsl:if>
-        <!-- Body -->
-        <xsl:apply-templates select="descendant::t:body"/>
-        <!-- Citation Information -->
-        <xsl:apply-templates select="t:teiHeader" mode="citation"/>
+    <xsl:template match="t:TEI">   
+        <xsl:apply-templates select="//t:titleStmt" mode="huyoye-article"/>
+        <xsl:apply-templates select="//t:text"/>
+        
     </xsl:template>
+    <xsl:template match="t:titleStmt" mode="huyoye-article">
+        <div class="article-header text-center">
+           <xsl:apply-templates /> 
+        </div>
+    </xsl:template>
+    
     <xsl:template match="t:teiHeader" mode="#all">
         <div class="panel panel-default">
             <div class="panel-heading">How to Cite this Electronic Edition</div>
             <div class="panel-body">
                 <div id="citation-note">
                     <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
+                    <!--
                     <div class="collapse" id="showFullCitation">
                         <div id="citation-bibliography">
                             <h4>Bibliography:</h4>
@@ -180,10 +180,15 @@
                         </div>
                     </div>
                     <br/>
-                    <a href="#" class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showFullCitation" data-text-swap="Hide Publication Information" style="margin-top:1em;">Show Full Publication Information <i class="glyphicon glyphicon-circle-arrow-right"/>
-                    </a>
+                    <a href="#" class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showFullCitation" data-text-swap="Hide Publication Information" style="margin-top:1em;">Show Full Publication Information <i class="glyphicon glyphicon-circle-arrow-right"/></a>
+                -->
                 </div>
             </div>
+        </div>
+    </xsl:template>
+    <xsl:template match="t:text | t:front | t:back">
+        <div class="section {concat('tei-',name(.))}">
+            <xsl:apply-templates/>
         </div>
     </xsl:template>
     <xsl:template match="t:body">
@@ -209,6 +214,12 @@
                     <xsl:apply-templates/>
                 </h3>
             </xsl:when>
+            <xsl:when test="parent::t:div and parent::t:div/parent::t:body">
+                <h3 class="tei-head {if(parent::*[1]/@type) then concat(' tei-',parent::*[1]/@type) else ()}">
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </h3>
+            </xsl:when>
             <xsl:otherwise>
                 <span class="{concat('tei-',name(parent::*[1]))} {if(parent::*[1]/@type) then concat(' tei-',parent::*[1]/@type) else ()} tei-head">
                     <xsl:call-template name="langattr"/>
@@ -219,6 +230,12 @@
     </xsl:template>
     <xsl:template match="t:title">
         <xsl:choose>
+            <xsl:when test="@type='main'">
+                <h1><xsl:apply-templates/></h1>
+            </xsl:when>
+            <xsl:when test="@type='sub'">
+                <h2><xsl:apply-templates/></h2>
+            </xsl:when>
             <xsl:when test="@ref">
                 <a href="{@ref}">
                     <xsl:call-template name="langattr"/>
@@ -251,20 +268,24 @@
     
     <xsl:template match="t:div | t:div1 | t:div2 | t:div3 | t:div4 | t:div5">
         <xsl:param name="parentID"/>
-        <xsl:variable name="currentid" select="concat(if($parentID != '') then $parentID else 'id','.',@n)"/>
-        <div class="{concat('tei-',name(.))}{if(@unit) then concat(' tei-',@unit) else ()} {if(@type) then concat(' tei-',@type) else ()}">
+        <xsl:variable name="currentid">
             <xsl:choose>
-                <xsl:when test="child::t:head">
-                    <xsl:attribute name="id">
-                        <xsl:value-of select="concat('Head-',$currentid)"/>
-                    </xsl:attribute>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:attribute name="id">
-                        <xsl:value-of select="$currentid"/>
-                    </xsl:attribute>
-                </xsl:otherwise>
+                <xsl:when test="$parentID"><xsl:value-of select="$parentID"/></xsl:when>
+                <xsl:when test="@n"><xsl:value-of select="concat('id','.',@n)"/></xsl:when>
+                <xsl:when test="@xml:id"><xsl:value-of select="concat('id','.',@xml:id)"/></xsl:when>
             </xsl:choose>
+        </xsl:variable> 
+        <div class="{concat('tei-',name(.))}{if(@unit) then concat(' tei-',@unit) else ()} {if(@type) then concat(' tei-',@type) else ()}">
+            <xsl:if test="$currentid != ''">
+                <xsl:attribute name="id">
+                    <xsl:choose>
+                        <xsl:when test="child::t:head">
+                            <xsl:value-of select="concat('Head-',$currentid)"/>
+                        </xsl:when>
+                        <xsl:otherwise><xsl:value-of select="$currentid"/></xsl:otherwise>
+                    </xsl:choose>
+                </xsl:attribute>
+            </xsl:if>
             <xsl:choose>
                 <xsl:when test="@lang">
                     <xsl:call-template name="langattr"/>
@@ -306,12 +327,32 @@
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:if>
-            <xsl:apply-templates>
-                <xsl:with-param name="parentID" select="$currentid"/>
-            </xsl:apply-templates>
+            <xsl:choose>
+                <xsl:when test="@type='abstract'">
+                    <h3>Abstract</h3>
+                </xsl:when>
+                <xsl:when test="@type='acknowledgements'">
+                    <h3>Acknowledgements</h3>
+                </xsl:when>
+            </xsl:choose>
+            <xsl:choose>
+                <xsl:when test="@type='footnotes'">
+                    <div id="sources">
+                        <xsl:apply-templates select="t:head"/>
+                        <ul>
+                            <xsl:apply-templates select="t:note" mode="footnote"/>
+                        </ul>                        
+                    </div>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:apply-templates>
+                        <xsl:with-param name="parentID" select="$currentid"/>
+                    </xsl:apply-templates>                    
+                </xsl:otherwise>
+            </xsl:choose>
         </div>
     </xsl:template>
-    <xsl:template match="t:milestone | t:ab | t:l | t:lg | t:pb | t:cb | t:lb">
+    <xsl:template match="t:milestone | t:cit | t:ab | t:l | t:lg | t:pb | t:cb | t:lb">
         <xsl:param name="parentID"/>
         <xsl:variable name="currentid" select="concat(if($parentID != '') then $parentID else 'id','.',@n)"/>
         <span class="{concat('tei-',name(.))}             {if(@unit) then concat(' tei-',@unit) else ()} {if(@type) then concat(' tei-',@type) else ()}">
@@ -870,6 +911,21 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    <xsl:template match="t:note" mode="footnote">
+        <!-- When ptr is available, use full bibl record (indicated by ptr) -->
+        <li id="{@xml:id}">
+            <span class="anchor"/>
+            <!-- Display footnote number -->
+            <span class="footnote-tgt">
+                <xsl:value-of select="@n"/>
+            </span>
+            <xsl:text> </xsl:text>
+            <span class="footnote-content">
+                <xsl:apply-templates/>
+                <!--<xsl:call-template name="footnote"/>-->
+            </span>
+        </li>
+    </xsl:template>
     <xsl:template match="t:note" mode="abstract">
         <p>
             <xsl:apply-templates/>
@@ -939,6 +995,11 @@
                 <span dir="ltr">
                     <xsl:text>”  </xsl:text>
                 </span>
+            </xsl:when>
+            <xsl:when test="parent::t:cit">
+                <div class="tei-cit">
+                    <xsl:apply-templates/>
+                </div>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text> “</xsl:text>
@@ -1082,6 +1143,7 @@
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:ref">
         <a href="{@target}">
+            <xsl:if test="@type='noteAnchor'"><xsl:attribute name="class">note-anchor footnote-refs</xsl:attribute></xsl:if>
             <xsl:apply-templates/>
         </a>
     </xsl:template>
