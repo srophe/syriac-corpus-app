@@ -89,8 +89,7 @@ else
 concat("collection('",$global:data-root,"')//tei:TEI",
     common:keyword(),
     common:xpath-search('.//tei:titleStmt/tei:author',request:get-parameter('author', '')),
-    common:xpath-search('.//tei:body/tei:div1/tei:head/tei:title',request:get-parameter('title', '')), 
-    common:xpath-search('.//tei:body/tei:div1/tei:div2/tei:head',request:get-parameter('section', '')),
+    common:xpath-search('.//tei:titleStmt/tei:title',request:get-parameter('title', '')), 
     search:corpus-id(),
     search:syriaca-id(),
     search:text-id(),
@@ -321,7 +320,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
     <div>{search:build-geojson($node,$model)}</div>
         {
         for $hit at $p in subsequence($model("hits"), $search:start, $search:perpage)
-        let $id := $hit//tei:idno[1]
+        let $id := $hit//tei:idno[@type='URI'][1]
         let $expanded := kwic:expand($hit)
         order by ft:score($hit) descending
         return
@@ -446,12 +445,14 @@ declare function search:default-search-form() {
                                     </button>
                                     {global:keyboard-select-menu('qs')}
                             </div>
+                            <!--
                             <div class="input-group-btn">
                                 <input type="text" id="keywordProximity" name="keywordProximity" class="form-control"/>
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Proximity Operator">
                                         &#160; Proximity *
                                  </button>
                             </div>
+                            -->
                          </div> 
                     </div>
                   </div>
@@ -471,7 +472,7 @@ declare function search:default-search-form() {
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
+                    <label for="title" class="col-sm-2 col-md-3  control-label">Paper Title: </label>
                     <div class="col-sm-10 col-md-9 ">
                         <div class="input-group">
                             <input type="text" id="title" name="title" class="form-control keyboard"/>
@@ -484,30 +485,7 @@ declare function search:default-search-form() {
                          </div>   
                     </div>
                   </div>
-                <div class="form-group">
-                    <label for="section" class="col-sm-2 col-md-3  control-label">Section number: </label>
-                    <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="section" name="section" class="form-control"/>
-                    </div>
-               </div>                   
-               <div class="form-group">
-                    <label for="corpus-uri" class="col-sm-2 col-md-3  control-label">Corpus URI: </label>
-                    <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="corpus-uri" name="corpus-uri" class="form-control"/>
-                    </div>
-               </div>                   
-              <div class="form-group">
-                    <label for="syriaca-uri" class="col-sm-2 col-md-3  control-label">Syriaca URI: </label>
-                    <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="syriaca-uri" name="syriaca-uri" class="form-control"/>
-                    </div>
-               </div> 
-               <div class="form-group">
-                    <label for="text-id" class="col-sm-2 col-md-3  control-label">Text ID Number: </label>
-                    <div class="col-sm-10 col-md-9 ">
-                        <input type="text" id="text-id" name="text-id" class="form-control"/>
-                    </div>
-               </div>
+                  
                </div>
             </div>    
         </div>
