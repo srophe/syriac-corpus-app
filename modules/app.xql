@@ -821,7 +821,7 @@ return
  : TOC for Syriac Corpus records. 
 :)  
 declare function app:toggle-text-display($node as node(), $model as map(*)){
-if($model("data")/descendant::tei:body/descendant::*[@n]) then     
+if($model("data")/descendant::tei:body/descendant::tei:pb) then     
         <div class="panel panel-default">
             <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#toggleText">Show  </a>
             <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" 
@@ -829,7 +829,15 @@ if($model("data")/descendant::tei:body/descendant::*[@n]) then
             <!--<a href="#" data-toggle="collapse" data-target="#showToc"><span id="tocIcon" class="glyphicon glyphicon-collapse-up"/></a>-->
             </div>
             <div class="panel-body collapse in" id="toggleText">
-                {( 
+                {
+                if($model("data")/descendant::tei:body/descendant::tei:pb) then
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> page break : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglepb" data-element="tei-pb"/>
+                                <label for="togglepb">page break</label>
+                         </div>                                            
+                    else ()
+                (: 
                     let $types := distinct-values($model("data")/descendant::tei:body/descendant::tei:div[@n]/@type)
                     for $type in $types
                     order by $type
@@ -891,7 +899,7 @@ if($model("data")/descendant::tei:body/descendant::*[@n]) then
                                 <label for="togglemilestone">milestone</label>
                          </div>                                                 
                     else () 
-                )}
+                :)}
             </div>
         </div>
 else ()

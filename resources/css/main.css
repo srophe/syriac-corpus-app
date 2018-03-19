@@ -803,6 +803,7 @@ pre {
 /*.tei-div-display, .div1-display, .div2-display, .div3-display, .div4-display, .div5-display {display:block; margin:1em;}*/
 .body {display:block; float:none;clear:both;}
 .textBlock {display:block;}
+.tei-pb.display {display:block; text-align:center;}
 .tei-cit {display:block; margin:1em; padding-left:1em;}
 .tei-l, .line {display:block; margin:0; padding:0;}
 .tei-ab.display {display:inline;}
