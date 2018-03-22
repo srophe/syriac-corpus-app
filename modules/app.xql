@@ -60,9 +60,29 @@ declare function app:display-rec($node as node(), $model as map(*), $collection 
  : Used by templating module, not needed if full record is being displayed 
 :)
 declare function app:h1($node as node(), $model as map(*)){
- global:tei2html(<srophe-title xmlns="http://www.tei-c.org/ns/1.0">{($model("data")/descendant::tei:titleStmt[1]/tei:title[1], $model("data")/descendant::tei:idno[1])}</srophe-title>)
-}; 
-
+    let $title := tei2html:tei2html($model("data")/descendant::tei:titleStmt/tei:title[1])
+    let $author := tei2html:tei2html($model("data")/descendant::tei:titleStmt/tei:author)
+    return   
+        <div class="title">
+            <h1>{($author, ': ' , $title)}</h1>
+            <span class="uri">
+                <button type="button" class="btn btn-default btn-xs" id="idnoBtn" data-clipboard-action="copy" data-clipboard-target="#syriaca-id">
+                    <span class="srp-label">URI</span>
+                </button>
+                <span id="syriaca-id">{replace($model("data")/descendant::tei:idno[1],'/tei','')}</span>
+                <script><![CDATA[
+                        var clipboard = new Clipboard('#idnoBtn');
+                        clipboard.on('success', function(e) {
+                        console.log(e);
+                        });
+                        
+                        clipboard.on('error', function(e) {
+                        console.log(e);
+                        });]]>
+                </script>   
+            </span>
+        </div>
+};
 (:~  
  : Display any TEI nodes passed to the function via the paths parameter
  : Used by templating module, defaults to tei:body if no nodes are passed. 

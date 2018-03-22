@@ -291,7 +291,9 @@ td {
 .sort-title {background-color:none; color:#666; font-weight:500; display:block; }
 .textBox {display:block;}
 .caveat, .note {font-size: .785em; font-style:italic; margin-top:-.5em; padding-top:0;}
-.title {border-bottom:2px solid #666666;margin-bottom:1em; margin-top:0;padding:0;}
+.title {display:block; margin-bottom:1em;}
+.title h1{border-bottom:2px solid #666666; margin-bottom:.5em; margin-top:0; padding:0 1em;}
+.title .uri{padding:0 1em; color: #999999;}
 .about {padding-top: .5em; border-bottom:2px solid #666666;margin-bottom:1em;}
 .caption{text-align:center; font-size:.75em;color:grey;}
 .funding {margin:1em;}
