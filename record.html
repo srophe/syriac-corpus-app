@@ -25,6 +25,12 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="footnoteDisplay" class="footnote panel panel-default">
+                            <div class="panel-body">
+                                <h3>Footnote</h3>
+                                <div class="content"/>
+                            </div>
+                        </div>
                     </div>
                     <div data-template="app:rec-status"/>
                     <div data-template="app:display-ids"/>
@@ -77,6 +83,16 @@
                 
                 $('#rightCol').click(function(e){
                 e.stopPropagation();
+                });
+                
+                $('.footnote-ref a').click(function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    var link = $(this);
+                    var href = $(this).attr('href');
+                    var content = $(href).parent().html()
+                    $('#footnoteDisplay').css('display','block');
+                    $('#footnoteDisplay div.content').html( content );    
                 });
                 
             </script>

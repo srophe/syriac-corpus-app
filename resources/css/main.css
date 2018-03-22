@@ -857,7 +857,7 @@ pre {
 }
 
 /* Sedra display */
-#sedraDisplay {
+#sedraDisplay, #footnoteDisplay {
     display:none; 
     position: fixed; 
     width:24%; 
