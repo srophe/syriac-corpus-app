@@ -841,6 +841,13 @@ if($model("data")/descendant::tei:body/descendant::*[@n][not(@type='section') an
                             <input class="toggleDisplay" type="checkbox" id="togglemilestone" data-element="tei-milestone"/>
                                 <label for="togglemilestone">milestone</label>
                          </div>                                                 
+                    else (),
+                    if($model("data")/descendant::tei:body/descendant::tei:note[@place = ('foot','footer','footnote')]) then 
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> footnote : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglemilestone" data-element="tei-footnote" checked="checked"/>
+                                <label for="togglemilestone">footnote</label>
+                         </div>                                                 
                     else () 
                 )}
             </div>

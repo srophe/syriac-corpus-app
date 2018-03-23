@@ -420,12 +420,11 @@ td {
 
 /* footnote styles */
 .footnote-refs, .footnote-tgt {
-    font-size: .7em;
+    font-size: .5em;
     line-height: 0.5em;
     vertical-align: baseline;
     position: relative;
     top: -0.4em;
-
 }
 .footnote-tgt {
     margin-left:-1.5em;
@@ -841,6 +840,8 @@ pre {
     border-radius: 1;
     */
     }
+.tei-footnote {display:none; font-size:x-small;}    
+.tei-footnote.display {display:inline;}   
 .text-number.display {display:inline;}
 
 /* Table of Contents */

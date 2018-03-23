@@ -860,7 +860,7 @@
                 </li>
             </xsl:when>
             <xsl:when test="@rend=('footer','foot','footnote') or @place=('footer','foot','footnote')">
-                <span class="footnote-refs" dir="ltr" lang="en">
+                <span class="tei-footnote display footnote-refs" dir="ltr" lang="en">
                     <span class="footnote-ref">
                         <a href="{concat('#note',@n)}">
                             <xsl:value-of select="@n"/>
