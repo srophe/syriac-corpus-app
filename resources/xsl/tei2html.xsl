@@ -187,7 +187,8 @@
         </div>
     </xsl:template>
     <xsl:template match="t:body">
-        <bdi><div class="body">
+        <bdi>
+            <div class="body">
             <xsl:call-template name="langattr"/>
             <div class="section" style="display:block;">
                 <xsl:apply-templates/>
@@ -201,7 +202,8 @@
                     </bdi>
                 </div>    
             </xsl:if>
-        </div></bdi>
+        </div>
+        </bdi>
     </xsl:template>
   <!-- Generic title formating -->
     <xsl:template match="t:head">
@@ -858,7 +860,7 @@
                 </li>
             </xsl:when>
             <xsl:when test="@rend=('footer','foot','footnote') or @place=('footer','foot','footnote')">
-                <span class="footnote-refs" dir="ltr">
+                <span class="footnote-refs" dir="ltr" lang="en">
                     <span class="footnote-ref">
                         <a href="{concat('#note',@n)}">
                             <xsl:value-of select="@n"/>
