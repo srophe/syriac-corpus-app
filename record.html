@@ -25,12 +25,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="footnoteDisplay" class="footnote panel panel-default">
-                            <div class="panel-body">
-                                <h3>Footnote</h3>
-                                <div class="content"/>
-                            </div>
-                        </div>
                     </div>
                     <div data-template="app:rec-status"/>
                     <div data-template="app:display-ids"/>
@@ -39,6 +33,12 @@
                         <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> 
                     </div>
                     <div data-template="app:display-related"/>
+                </div>
+            </div>
+            <div id="footnoteDisplay" class="footnote panel panel-default">
+                <div class="panel-body">
+                    <h3>Footnote</h3>
+                    <div class="content"/>
                 </div>
             </div>
             <script type="text/javascript">
@@ -78,7 +78,9 @@
                 
                 $('html').click(function() {
                 $('#sedraDisplay').hide();
+                $('#footnoteDisplay').hide();
                 $('#sedraContent div.content').empty();
+                $('#footnoteDisplay div.content').empty();
                 })
                 
                 $('#rightCol').click(function(e){
@@ -92,6 +94,7 @@
                     var href = $(this).attr('href');
                     var content = $(href).parent().html()
                     $('#footnoteDisplay').css('display','block');
+                    $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
                     $('#footnoteDisplay div.content').html( content );    
                 });
                 
