@@ -187,7 +187,7 @@
         </div>
     </xsl:template>
     <xsl:template match="t:body">
-        <div class="body">
+        <bdi><div class="body">
             <xsl:call-template name="langattr"/>
             <div class="section" style="display:block;">
                 <xsl:apply-templates/>
@@ -196,10 +196,12 @@
                 <div class="footnotes" lang="en">
                     <hr/>
                     <h2>Footnotes</h2>
-                    <bdi><xsl:apply-templates select="//t:note[@place='foot']" mode="footnote"/></bdi>
+                    <bdi>
+                        <xsl:apply-templates select="//t:note[@place='foot']" mode="footnote"/>
+                    </bdi>
                 </div>    
             </xsl:if>
-        </div>
+        </div></bdi>
     </xsl:template>
   <!-- Generic title formating -->
     <xsl:template match="t:head">
