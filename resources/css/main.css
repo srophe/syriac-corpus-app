@@ -419,6 +419,8 @@ td {
 .relation .results-list-desc.uri{margin-left:0; }
 
 /* footnote styles */
+.footnotes {display:block;border-top: 1px dotted gray; text-align:left;}
+.footnote-text {display:block;}
 .footnote-refs, .footnote-tgt {
     font-size: .5em;
     line-height: 0.5em;

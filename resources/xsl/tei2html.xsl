@@ -195,7 +195,6 @@
             </div>
             <xsl:if test="//t:note[@place='foot']">
                 <div class="footnotes" lang="en">
-                    <hr/>
                     <h2>Footnotes</h2>
                     <bdi>
                         <xsl:apply-templates select="//t:note[@place='foot']" mode="footnote"/>
@@ -891,7 +890,7 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="t:note" mode="footnote">
-        <p class="footnote">
+        <p class="footnote-text">
             <xsl:if test="@n">
                 <xsl:attribute name="id" select="concat('note',@n)"/>
                 <span class="notes footnote-refs">
@@ -902,6 +901,9 @@
             <xsl:choose>
                 <xsl:when test="t:quote">
                     <xsl:apply-templates/>
+                </xsl:when>
+                <xsl:when test="t:p">
+                    <xsl:apply-templates mode="plain"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <span>
