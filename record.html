@@ -92,7 +92,7 @@
                     e.preventDefault();
                     var link = $(this);
                     var href = $(this).attr('href');
-                    var content = $(href).parent().html()
+                    var content = $(href).html()
                     $('#footnoteDisplay').css('display','block');
                     $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
                     $('#footnoteDisplay div.content').html( content );    

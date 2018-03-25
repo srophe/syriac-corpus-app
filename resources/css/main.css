@@ -421,6 +421,7 @@ td {
 /* footnote styles */
 .footnotes {display:block;border-top: 1px dotted gray; text-align:left;}
 .footnote-text {display:block;}
+.footnote-text .footnote-refs {font-size: .75em; border:1px solid red;}
 .footnote-refs, .footnote-tgt {
     font-size: .5em;
     line-height: 0.5em;
