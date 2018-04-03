@@ -57,15 +57,21 @@ declare function local:get-records($action as xs:string?, $collection as xs:stri
         let $pages := xs:integer($total div $perpage)
         let $start := 0
         return 
-            <response status="200" xmlns="http://www.w3.org/1999/xhtml">
-                <message style="margin:1em;padding:1em; border: 1px solid #eee; display:block;">
-                    <strong>Total: </strong>{$total}<br/>
-                    <strong>Per page: </strong>{$perpage}<br/>
-                    <strong>Pages: </strong>{$pages}<br/>
-                    <strong>Collection: </strong>{$collection}<br/>
-                </message>
-                <output>{(local:process-results($records, $total, $start, $perpage, $collection),local:create-void-record($records, $total, $start, $perpage, $collection))}</output>
-            </response>
+            if(request:get-parameter('pelagios', '') = 'dump') then 
+                let $rdf := tei2rdf:rdf-output($records)
+                return 
+                (response:set-header("Content-Disposition", fn:concat("attachment; filename=", concat($collection,'-','pelagios','.rdf'))),$rdf)
+                    (:file:serialize($rdf, '/Users/wsalesky/Desktop', ()) :)
+            else 
+                <response status="200" xmlns="http://www.w3.org/1999/xhtml">
+                    <message style="margin:1em;padding:1em; border: 1px solid #eee; display:block;">
+                        <strong>Total: </strong>{$total}<br/>
+                        <strong>Per page: </strong>{$perpage}<br/>
+                        <strong>Pages: </strong>{$pages}<br/>
+                        <strong>Collection: </strong>{$collection}<br/>
+                    </message>
+                    <output>{(local:process-results($records, $total, $start, $perpage, $collection),local:create-void-record($records, $total, $start, $perpage, $collection))}</output>
+                </response>
     else if($action = 'update') then 
         let $records := 
             if($collection != '') then 

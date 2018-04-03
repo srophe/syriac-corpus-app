@@ -69,6 +69,18 @@ declare function tei2rdf:attestation($rec, $source){
 
 (: Create Dates :)
 declare function tei2rdf:make-date-triples($date){
+tei2rdf:create-element('dcterms:temporal', (), 
+    if($date/@when) then
+        string($date/@when)
+    else if($date/@notBefore or $date/@from) then 
+        if($date/@notAfter or $date/@to) then 
+            concat(string($date/@notBefore | $date/@from),'-',string($date/@notAfter | $date/@to))
+        else string($date/@notBefore or $date/@from)
+    else if($date/@notBefore or $date/@from) then
+        string($date/@notAfter | $date/@to)
+    else ()
+, 'literal')
+(:
     element { xs:QName('time:hasDateTimeDescription') } {
         element { xs:QName('rdf:Description') } {
             (if($date/descendant-or-self::text()) then  
@@ -118,7 +130,8 @@ declare function tei2rdf:make-date-triples($date){
                     }                
             else ()
             )}
-         }   
+         } 
+    :)         
 };
 
 (: Decode record type based on TEI elements:)
