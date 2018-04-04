@@ -868,7 +868,26 @@ pre {
     position: fixed; 
     width:24%; 
     min-height:150px; 
-    max-height:400px; 
+    max-height:200px; 
+    top:125px;
+    box-shadow: 8px 8px 3px #999;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+} 
+#footnoteDisplay {
+    display:none; 
+    position: fixed;
+    padding: 0 1em;
+    /*width:24%; 
+    min-height:150px;*/ 
+/*    max-height:150px;*/
+    min-height: 25px;
+    min-width: 25px;
+    background-color:white;
+    border:1px solid #ccc;
     top:125px;
     box-shadow: 8px 8px 3px #999;
     -webkit-border-radius: 10px;
