@@ -233,6 +233,10 @@ declare  %templates:wrap function search:pageination($node as node()*, $model as
    else ()
 };
 
+declare function search:display-facets($node as node()*, $model as map(*), $collection as xs:string?) {
+    <div xmlns="http://www.w3.org/1999/xhtml">{facet:html-list-facets-as-buttons(facet:count($model("hits"), facet-defs:facet-definition($collection)/descendant::facet:facet-definition[not(@xml:lang)]))}</div>
+};
+
 (:~
  : Build Map view of search results with coordinates
  : @param $node search resuls with coords
