@@ -31,6 +31,10 @@
                     <div data-template="app:display-related"/>
                 </div>
             </div>
+            <!-- Floating footnotes display -->
+            <div id="footnoteDisplay" class="footnote">
+                <div class="content"/>  
+            </div>
             <script type="text/javascript">
                 $('input.toggleDisplay').click(function() {
                     var display = $(this).data("element");
@@ -68,12 +72,25 @@
                 });
                 
                 $('html').click(function() {
-                    $('#sedraDisplay').hide();
-                    $('#sedraContent div.content').empty();
+                $('#sedraDisplay').hide();
+                $('#footnoteDisplay').hide();
+                $('#sedraContent div.content').empty();
+                $('#footnoteDisplay div.content').empty();
                 })
                 
                 $('#rightCol').click(function(e){
-                    e.stopPropagation();
+                e.stopPropagation();
+                });
+                
+                $('a.footnote-refs').click(function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var link = $(this);
+                var href = $(this).attr('href');
+                var content = $(href).html()
+                $('#footnoteDisplay').css('display','block');
+                $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
+                $('#footnoteDisplay div.content').html( content );    
                 });
                 
             </script>

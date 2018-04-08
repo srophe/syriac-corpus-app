@@ -420,6 +420,26 @@ td {
 
 /*.footnote-links {float:right; overflow:hidden; clear:right;}*/
 .footnote-icon {padding-left:.5em; font-size:12px;}
+#footnoteDisplay {
+    display:none; 
+    position: fixed;
+    padding: .5em 1.5em;
+    /*width:24%; 
+    min-height:150px;*/ 
+/*    max-height:150px;*/
+    min-height: 25px;
+    min-width: 25px;
+    max-width: 450px;
+    background-color:white;
+    border:1px solid #ccc;
+    top:125px;
+    box-shadow: 8px 8px 3px #999;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+} 
 .bibl li{line-height: 1.5em;padding-bottom:.5em;}
 .bibl-links {padding:.25em; width:25px;}
 .anchor { 
