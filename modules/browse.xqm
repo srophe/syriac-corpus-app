@@ -52,13 +52,47 @@ declare variable $browse:fq {request:get-parameter('fq', '')};
 :)  
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string*, $element as xs:string?){
     let $hits := 
-        if($browse:view = 'title')  then
-            data:get-browse-data($collection, 'tei:titleStmt/tei:title[@level="s"][@ref]')
-        (: data:get-browse-data($collection, 'tei:titleStmt/tei:title[@level="a"]') :)    
+        if($browse:view = 'title') then
+            data:get-browse-data($collection, 'tei:titleStmt/tei:title[@level="s"][@ref]')    
         else data:get-browse-data($collection, "tei:titleStmt/tei:author[1]")
     return map{"browse-data" := $hits }    
 };
 
+declare function browse:group-results($node as node(), $model as map(*), $collection as xs:string?){
+    let $hits := $model("browse-data")
+    let $groups := distinct-values($hits//tei:author)
+    return 
+        map {"group-by-authors" :=            
+            for $rec in $hits 
+            let $author := $rec/descendant::tei:author
+            group by $facet-grp-p := $author[1]
+            order by $facet-grp-p
+            return  
+                if($author != '') then 
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="margin:.71em 0; border-bottom:1px dotted #eee; padding:.25em 0;" class="short-rec-result">
+                            <a class="togglelink text-info" 
+                            data-toggle="collapse" data-target="#show{replace($facet-grp-p,'\s|,|\.','')}" 
+                            href="#show{replace($facet-grp-p,'\s|,|\.','')}" data-text-swap=" - "> + </a>&#160; 
+                            <span class="browse-author-name">{$facet-grp-p}</span> ({count($rec)} works)
+                            <div class="indent collapse" style="background-color:#F7F7F9;" id="show{replace($facet-grp-p,'\s|,|\.','')}">{
+                                for $r in $rec
+                                let $id := replace($r/descendant::tei:idno[1],'/tei','')
+                                return 
+                                    <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view(root($r), '', $id)}</div>
+                            }</div>
+                    </div>
+                else if($author = '' or not($author)) then
+                    for $r in $rec
+                    let $id := replace($r/descendant::tei:idno[1],'/tei','')
+                    return
+                        if($groups[. = $id]) then () 
+                        else 
+                            <div class="col-md-11" style="margin-right:-1em; padding-top:.5em;">
+                                 {tei2html:summary-view(root($r), '', $id)}
+                            </div>
+                else ()
+        } 
+};
 (:~
  : Display in html templates
 :)
@@ -91,41 +125,66 @@ return
  : @param $collection passed from html 
 :)
 declare function browse:results-panel($node as node(), $model as map(*), $collection, $sort-options as xs:string*){
-    let $hits := $model("browse-data")
-    let $facet-config := facet:facet-definition((),())/child::*                        (:if($browse:view = 'title') then 
-                            facet:facet-definition((),())/descendant::facet:facet-definition[@name="Title"]
-                         else facet:facet-definition((),())/descendant::facet:facet-definition[@name="Author"] 
-:)    return
-        if($browse:view = 'map') then 
+   if($browse:view = 'map') then 
+        let $hits := $model("browse-data")
+        return 
             <div class="col-md-12 map-lg">{browse:get-map($hits)}</div>
-        else if($browse:view = 'all' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then 
-            <div class="col-md-12">
-                <div>{page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)}</div>
-                <div>{browse:display-hits($hits)}</div>
-            </div>
-        else 
-            <div>{
-                if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),
-                    <div class="float-container">
-                        <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right"}">
-                             <div>{page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)}</div>
-                        </div>
-                        {browse:browse-abc-menu()}
-                    </div>}
-                <div class="row">
-                    <div class="col-md-4">{facet:html-list-facets-as-buttons(facet:count($hits, $facet-config))}</div>
-                    <div  class="col-md-8">
-                       <h3>{(
-                        if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then 
-                            (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) 
-                        else attribute class {"label"},
-                            if($browse:alpha-filter != '') then $browse:alpha-filter else 'A')}</h3>
-                        <div class="{if($browse:lang = 'syr' or $browse:lang = 'ar') then 'syr-list' else 'en-list'}">
-                            {browse:display-hits($hits)}
+   else if($browse:view = 'title') then
+       let $hits := $model("browse-data")
+       let $facet-config := facet:facet-definition((),())/child::*
+       return
+            if($browse:view = 'all' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then 
+                <div class="col-md-12">
+                    <div>{page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)}</div>
+                    <div>{browse:display-hits($hits)}</div>
+                </div>
+            else 
+                <div>{
+                    if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),
+                        <div class="float-container">
+                            <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right"}">
+                                 <div>{page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)}</div>
+                            </div>
+                            {browse:browse-abc-menu()}
+                        </div>}
+                    <div class="row">
+                        {if($facet-config != '') then
+                            <div class="col-md-4">{facet:html-list-facets-as-buttons(facet:count($hits, $facet-config))}</div>    
+                        else ()}
+                        <div  class="{if($facet-config != '') then 'col-md-8' else 'col-md-12'}">
+                           <h3>{(
+                            if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then 
+                                (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) 
+                            else attribute class {"label"},
+                                if($browse:alpha-filter != '') then $browse:alpha-filter else 'A')}</h3>
+                            <div class="{if($browse:lang = 'syr' or $browse:lang = 'ar') then 'syr-list' else 'en-list'}">
+                                {browse:display-hits($hits)}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+   else 
+    let $hits := $model("group-by-authors")
+    return
+        <div>
+            {(
+                if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),
+                    <div class="float-container">
+                         <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right"}">
+                             <div>{page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)}</div>
+                         </div>{browse:browse-abc-menu()}
+                    </div>,
+                    <div class="row">
+                    <div class="col-md-1 text-center"><h3 class="label">{(if($browse:alpha-filter != '') then $browse:alpha-filter else 'ALL')}</h3></div>
+                    <div class="col-md-11" style="margin-top:1em;">
+                        {                 
+                         for $hit at $p in subsequence($hits, $browse:start,$browse:perpage)
+                         return $hit 
+                         }
+                    </div>
+                    </div>
+                 )}
+        </div>
 };
 
 declare function browse:display-hits($hits){

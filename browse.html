@@ -6,7 +6,7 @@
             <div class="tabbable">
                 <!-- Browse Tabs -->
                 <ul class="nav nav-tabs" id="nametabs">
-                    <li data-template="browse:tabs" data-template-text="Ancient Author" data-template-param="view" data-template-value="author" data-template-alpha-filter-value="A" data-template-default="true"/>
+                    <li data-template="browse:tabs" data-template-text="Ancient Author" data-template-param="view" data-template-value="author" data-template-alpha-filter-value="ALL" data-template-default="true"/>
                     <li data-template="browse:tabs" data-template-text="Title" data-template-param="view" data-template-value="title" data-template-alpha-filter-value="A"/>
                     <!--<li data-template="browse:tabs" data-template-text="Advanced Browse" data-template-param="view" data-template-value="facets"/>-->
                 </ul>
@@ -14,7 +14,9 @@
                 <div class="tab-content">
                     <div class="tab-pane active">
                         <div class="row">
-                            <div data-template="browse:results-panel"/>
+                            <div data-template="browse:group-results" id="browse-results-panel">
+                                <div data-template="browse:results-panel"/>
+                            </div>
                         </div>
                     </div>
                 </div>

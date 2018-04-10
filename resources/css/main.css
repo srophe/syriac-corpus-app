@@ -331,7 +331,7 @@ td {
 .browse-alpha li.ar-menu + li.ar-menu {
     padding-left: .15em;
 }
-
+.browse-author-name {font-weight:400; font-size:1.125em;}
 .nav-stacked > .active > a,
     .nav-stacked > .active > a:hover {
       color: #000;

@@ -158,7 +158,7 @@ declare function data:get-browse-data($collection as xs:string*, $element as xs:
                 order by $hit/text()[1], $num
                 return <browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$hit}">{$hit/ancestor::tei:TEI}</browse>             
         else
-            if(data:get-alpha-filter() = 'ALL') then
+            if(data:get-alpha-filter() = 'ALL' or request:get-parameter('alpha-filter', '') = '') then
                 for $hit in $hits-main
                 order by global:build-sort-string(page:add-sort-options($hit/text()[1],$element),'') 
                 return <browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$hit}">{$hit/ancestor::tei:TEI}</browse>
