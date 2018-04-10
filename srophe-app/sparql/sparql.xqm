@@ -61,7 +61,9 @@ let $q :=
                                 
         SELECT *
         WHERE {
-          <",$ref,"> dcterms:relation ?o;
+          <",$ref,"> lawd:hasCitation ?o.
+          OPTIONAL{
+          <",$ref,"> skos:closeMatch ?o.}
         }")
 return sparql:query($q)
 };
@@ -80,7 +82,9 @@ let $q :=
                                 
         SELECT (COUNT(*) AS ?count)
         WHERE {
-          <",$ref,"> dcterms:relation ?o;
+          <",$ref,"> lawd:hasCitation ?o.
+          OPTIONAL{
+          <",$ref,"> skos:closeMatch ?o.}
         }")
 return sparql:query($q)
 };
