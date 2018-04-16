@@ -33,16 +33,20 @@ declare option exist:serialize "method=xml media-type=application/rss+xml omit-x
  : @type indicates if element is literal default is rdf:resources
 :)
 declare function tei2rdf:create-element($element-name as xs:string, $lang as xs:string?, $content as xs:string*, $type as xs:string?){
- if($type='literal') then        
+    if($type='literal') then        
         element { xs:QName($element-name) } {
           (if ($lang) then attribute {xs:QName("xml:lang")} { $lang } else (), normalize-space($content))
         } 
- else 
-    element { xs:QName($element-name) } {
+    else if(starts-with($content,'http')) then  
+        element { xs:QName($element-name) } {
             (if ($lang) then attribute {xs:QName("xml:lang")} { $lang } else (),
             attribute {xs:QName("rdf:resource")} { normalize-space($content) }
             )
         }
+    else
+        element { xs:QName($element-name) } {
+          (if ($lang) then attribute {xs:QName("xml:lang")} { $lang } else (), normalize-space($content))
+        } 
 };
 
 (:~
@@ -60,11 +64,16 @@ declare function tei2rdf:translate-relation-property($property as xs:string?) as
 declare function tei2rdf:attestation($rec, $source){
     for $source in tokenize($source,' ')
     return 
+         if($rec//tei:bibl[@xml:id = replace($source,'#','')]/tei:ptr) then
+                tei2rdf:create-element('lawd:hasAttestation', (), string($rec//tei:bibl[@xml:id = replace($source,'#','')]/tei:ptr/@target), ())
+         else ()
+    (:
         let $source := 
             if($rec//tei:bibl[@xml:id = replace($source,'#','')]/tei:ptr) then
                 string($rec//tei:bibl[@xml:id = replace($source,'#','')]/tei:ptr/@target)
             else string($source)
-        return tei2rdf:create-element('lawd:hasAttestation', (), $source, ())
+        return 
+    :)    
 };
 
 (: Create Dates :)
@@ -225,7 +234,7 @@ declare function tei2rdf:desc($rec)  {
 declare function tei2rdf:bibl-citation($rec){
 let $citation := bibl2html:citation(root($rec))
 return 
-    <dcterms:bibliographicCitation xmlns:dc="http://purl.org/dc/terms/">{normalize-space(string-join($citation))}</dcterms:bibliographicCitation>
+    <dcterms:bibliographicCitation xmlns:dcterms="http://purl.org/dc/terms/">{normalize-space(string-join($citation))}</dcterms:bibliographicCitation>
 };
 
 (: Handle TEI relations:)
@@ -514,7 +523,7 @@ return
                 tei2rdf:create-element('dcterms:subject', (), $id, ()),
                 for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
                 return tei2rdf:create-element('dcterms:source', (), $bibl, ()),
-                tei2rdf:create-element('dcterms:format', (), "text/turle", "literal"),
+                tei2rdf:create-element('dcterms:format', (), "text/turtle", "literal"),
                 tei2rdf:bibl-citation($rec)
                 )}
             </rdfs:Resource>,
