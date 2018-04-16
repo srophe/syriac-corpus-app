@@ -337,9 +337,9 @@ string-join(
             let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms:') else $element-name
             let $relationshipURI := concat($o,'#',$element-name,'-',$s)
             return 
-            if(contains($id,'/spear/')) then 
-                tei2ttl:make-triple('', 'snap:has-bond', tei2ttl:make-uri($relationshipURI))
-            else tei2ttl:make-triple('', $element-name, tei2ttl:make-uri($o)),    
+                if(contains($id,'/spear/')) then 
+                    tei2ttl:make-triple('', 'snap:has-bond', tei2ttl:make-uri($relationshipURI))
+                else tei2ttl:make-triple('', $element-name, tei2ttl:make-uri($o))    
         else 
             for $s in tokenize($rel/@active,' ')
             for $o in tokenize($rel/@passive,' ')
@@ -349,7 +349,7 @@ string-join(
             return
                 if(contains($id,'/spear/')) then  
                     tei2ttl:make-triple('', 'snap:has-bond', tei2ttl:make-uri($relationshipURI))
-                else tei2ttl:make-triple('', $element-name, tei2ttl:make-uri($o)),   
+                else tei2ttl:make-triple('', $element-name, tei2ttl:make-uri($o))   
     ))
     ,' ')
 };
@@ -512,15 +512,15 @@ return
                 else tei2ttl:make-literal($rec/descendant::tei:title[1]/text(),if($rec/descendant::tei:title[1]/@xml:lang) then string($rec/descendant::tei:title[1]/@xml:lang) else (),())),
        if($rec/descendant::tei:body/tei:bibl[@type="lawd:ConceptualWork"] or $rec/descendant::tei:body/tei:biblStruct) then
                (for $author in $rec/descendant::tei:body/tei:bibl[@type="lawd:ConceptualWork"]/tei:author | $rec/descendant::tei:body/tei:biblStruct/descendant::tei:author
-                    return  
+                return  
                         if($author/@ref) then
                             tei2ttl:make-triple((), 'dcterms:contributor', tei2ttl:make-uri($author/@ref))
-                        else tei2ttl:make-triple((), 'dcterms:contributor', tei2ttl:make-literal(string-join($author/descendant-or-self::text(),' '))),
-                    for $editor in $rec/descendant::tei:body/tei:bibl[@type="lawd:ConceptualWork"]/tei:editor | $rec/descendant::tei:body/tei:biblStruct/descendant::tei:editor
-                    return 
+                        else tei2ttl:make-triple((), 'dcterms:contributor', tei2ttl:make-literal(string-join($author/descendant-or-self::text(),' '),(),())),
+                for $editor in $rec/descendant::tei:body/tei:bibl[@type="lawd:ConceptualWork"]/tei:editor | $rec/descendant::tei:body/tei:biblStruct/descendant::tei:editor
+                return 
                         if($editor/@ref) then
                             tei2ttl:make-triple((), 'dcterms:contributor', tei2ttl:make-uri($editor/@ref))
-                        else tei2ttl:make-triple((), 'dcterms:contributor', tei2ttl:make-literal(string-join($editor/descendant-or-self::text(),' '))),
+                        else tei2ttl:make-triple((), 'dcterms:contributor', tei2ttl:make-literal(string-join($editor/descendant-or-self::text(),' '),(),()))
                )
        else (),
        tei2ttl:names($rec),

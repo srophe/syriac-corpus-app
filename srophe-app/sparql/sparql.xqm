@@ -4,12 +4,10 @@ xquery version "3.1";
 :)
 module namespace sprql-queries="http://syriaca.org/sprql-queries";
 
-import module namespace sparql="http://exist-db.org/xquery/sparql" at "java:org.exist.xquery.modules.rdf.SparqlModule";
 declare namespace rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
 (: Subjects counts all the records that reference this idno  :)
 declare function sprql-queries:related-subjects($ref){
-let $q :=
     concat("prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         prefix owl: <http://www.w3.org/2002/07/owl#>
         prefix skos: <http://www.w3.org/2004/02/skos/core#>
@@ -24,12 +22,10 @@ let $q :=
         WHERE {
           ?s dcterms:relation <",$ref,">.}
     ")
-return sparql:query($q)
 };
 
 (: Subjects counts all the records that reference this idno  :)
 declare function sprql-queries:related-subjects-count($ref){
-let $q :=
     concat("prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         prefix owl: <http://www.w3.org/2002/07/owl#>
         prefix skos: <http://www.w3.org/2004/02/skos/core#>
@@ -44,11 +40,9 @@ let $q :=
         WHERE {
           ?s dcterms:relation <",$ref,">.}
     ")
-return sparql:query($q)
 };
 
 declare function sprql-queries:related-citations($ref){
-let $q :=
     concat("prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         prefix owl: <http://www.w3.org/2002/07/owl#>
         prefix skos: <http://www.w3.org/2004/02/skos/core#>
@@ -65,11 +59,9 @@ let $q :=
           OPTIONAL{
           <",$ref,"> skos:closeMatch ?o.}
         }")
-return sparql:query($q)
 };
 
 declare function sprql-queries:related-citations-count($ref){
-let $q :=
     concat("prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         prefix owl: <http://www.w3.org/2002/07/owl#>
         prefix skos: <http://www.w3.org/2004/02/skos/core#>
@@ -86,11 +78,9 @@ let $q :=
           OPTIONAL{
           <",$ref,"> skos:closeMatch ?o.}
         }")
-return sparql:query($q)
 };
 
 declare function sprql-queries:label($ref){
-let $q := 
     concat("prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         prefix owl: <http://www.w3.org/2002/07/owl#>
         prefix skos: <http://www.w3.org/2004/02/skos/core#>
@@ -105,11 +95,9 @@ let $q :=
         WHERE {
           <",$ref,"> rdfs:label ?o;
         }")
-return sparql:query($q) 
 };
 
 declare function sprql-queries:label-desc($ref){
-let $q := 
     concat("prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         prefix owl: <http://www.w3.org/2002/07/owl#>
         prefix skos: <http://www.w3.org/2004/02/skos/core#>
@@ -125,14 +113,12 @@ let $q :=
           <",$ref,"> rdfs:label ?o;
             
         }")
-return sparql:query($q) 
 };
 
 
 (:SPEAR relationship and events Queries :)
 (: relationships and counts :)
 declare function sprql-queries:personFactoids(){
-let $q := 
     "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         prefix owl: <http://www.w3.org/2002/07/owl#>
         prefix skos: <http://www.w3.org/2004/02/skos/core#>
@@ -149,12 +135,10 @@ let $q :=
           ?factoid syriaca:personFactoid ?person;
             rdfs:label  ?factoidLabel.
         }"
-return sparql:query($q) 
 };
 
 (: Test query :)
 declare function sprql-queries:test-q(){
-let $q := 
     "prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         prefix owl: <http://www.w3.org/2002/07/owl#>
         prefix skos: <http://www.w3.org/2004/02/skos/core#>
@@ -233,10 +217,5 @@ let $q := "
                     LIMIT 25
 
     :)
-    
-return sparql:query($q)   
-};
-
-declare function sprql-queries:run-query($data){
-    sparql:query($data)
+       
 };
