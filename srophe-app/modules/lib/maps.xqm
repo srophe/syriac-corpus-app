@@ -9,7 +9,7 @@ module namespace maps = "http://syriaca.org/maps";
  : @author Winona Salesky <wsalesky@gmail.com>
  : @authored 2014-06-25
 :)
-import module namespace geojson = "http://syriaca.org/geojson" at "geojson.xqm";
+import module namespace geojson = "http://syriaca.org/geojson" at "../content-negotiation/geojson.xqm";
 import module namespace global = "http://syriaca.org/global" at "global.xqm";
 
 declare namespace tei = "http://www.tei-c.org/ns/1.0";

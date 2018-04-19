@@ -57,13 +57,14 @@ let $dates :=
                 <credit>Syriaca.org</credit>
                 <caption>Events for {$timeline-title}</caption>
             </asset>
-            <date>{(
-                timeline:get-birth($data), 
-                timeline:get-death($data), 
-                timeline:get-floruit($data), 
-                timeline:get-state($data), 
-                timeline:get-events($data)
-                )}</date>
+            <date>
+                {(
+                    timeline:get-birth($data), 
+                    timeline:get-death($data), 
+                    timeline:get-floruit($data), 
+                    timeline:get-state($data), 
+                    timeline:get-events($data)
+                    )}</date>
         </timeline>
     </root>
 return
@@ -76,7 +77,7 @@ return
 
 declare function timeline:format-dates($start as xs:string*, $end as xs:string*, $headline as xs:string*, $text as xs:string* ){
     if($start != '' or $end != '') then 
-        <json:value>
+        <json:value json:array="true">
             {(
                 if($start != '' or $end != '') then 
                     <startDate>
@@ -128,7 +129,7 @@ declare function timeline:get-birth($data as node()*) as node()?{
                       else if($birth-date/tei:date/@notAfter) then string($birth-date/tei:date[@notAfter][2]/@notAfter)
                       else ()                    
         return
-            timeline:format-dates($start, $end, concat(string-join($birth-date/descendant-or-self::text(),' '), 'Birth'), '')
+            timeline:format-dates($start, $end, concat(string-join($birth-date/descendant-or-self::text(),' '), ' Birth'), '')
     else () 
 };
 
@@ -153,7 +154,7 @@ declare function timeline:get-death($data as node()*) as node()?{
                       else if($death-date/tei:date/@to) then string($death-date/tei:date[@to][2]/@to)
                       else if($death-date/tei:date/@notAfter) then string($death-date/tei:date[@notAfter][2]/@notAfter)
                       else () 
-        return timeline:format-dates($start, $end, concat(string-join($death-date/descendant-or-self::text(),' '), 'Death'), '')        
+        return timeline:format-dates($start, $end, concat(string-join($death-date/descendant-or-self::text(),' '), ' Death'), '')        
     else () 
 };
 
@@ -178,7 +179,7 @@ declare function timeline:get-floruit($data as node()*) as node()*{
                       else if($floruit-date/tei:date/@to) then string($floruit-date/tei:date[@to][2]/@to)
                       else if($floruit-date/tei:date/@notAfter) then string($floruit-date/tei:date[@notAfter][2]/@notAfter)
                       else () 
-        return timeline:format-dates($start, $end, concat(string-join($floruit-date/descendant-or-self::text(),' '), 'Floruit'), '')        
+        return timeline:format-dates($start, $end, concat(string-join($floruit-date/descendant-or-self::text(),' '), ' Floruit'), '')        
     else () 
 };
 

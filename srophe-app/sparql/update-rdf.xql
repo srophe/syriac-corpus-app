@@ -309,7 +309,9 @@ declare function local:build-collection-rdf(){
  : Run Zotero request. 
 :)
 if(request:get-parameter('action', '') != '') then
-    if(xmldb:collection-available('/db/rdftest')) then
+    if(request:get-parameter('pelagios', '') = 'dump') then
+        local:update-rdf()
+    else if(xmldb:collection-available('/db/rdftest')) then
         <response xmlns="http://www.w3.org/1999/xhtml">{ local:update-rdf() }</response>
     else <response xmlns="http://www.w3.org/1999/xhtml">{ (local:build-collection-rdf(),local:update-rdf()) }</response>
 else if(request:get-parameter('id', '') != '') then

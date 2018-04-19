@@ -7,7 +7,7 @@ import module namespace rel="http://syriaca.org/related" at "../lib/get-related.
 import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm";
 import module namespace facet-defs="http://syriaca.org/facet-defs" at "../facet-defs.xqm";
 import module namespace maps="http://syriaca.org/maps" at "../lib/maps.xqm";
-import module namespace tei2html="http://syriaca.org/tei2html" at "../lib/tei2html.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "../content-negotiation/tei2html.xqm";
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 (: Search modules :)
 import module namespace persons="http://syriaca.org/persons" at "persons-search.xqm";

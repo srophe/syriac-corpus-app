@@ -439,3 +439,60 @@ declare function tei2html:translate-series($series as xs:string?){
         <a href="{$global:nav-base}/q/index.html"><img src="{$global:nav-base}/resources/img/icons-q-sm.png" alt="Qadishe: A Guide to the Syriac Saints"/>saint</a>        
     else $series
 };
+
+(:~ 
+ : Reworked KWIC to be more 'Google like' used examples from: http://ctb.kantl.be/download/kwic.xql for preceding and following content. 
+ : Pass content through tei2html:tei2html() to handle simple things like suppression of tei:orig, etc. Could be made more robust to hide URI's as well. 
+ :
+ : @see : https://rvdb.wordpress.com/2011/07/20/from-kwic-display-to-kwicer-processing-with-exist/
+          http://ctb.kantl.be/download/kwic.xql
+:)
+declare function tei2html:output-kwic($nodes as node()*){
+    for $node in subsequence($nodes//exist:match,1,8)
+    return
+        <span>{tei2html:kwic-truncate-previous($node/ancestor-or-self::tei:div[@type='entry'], $node, (), 40)} 
+                &#160;<span class="match">{$node/text()}</span>
+                {tei2html:kwic-truncate-following($node/ancestor-or-self::tei:div[@type='entry'], $node, (), 40)} </span>
+};
+
+(:~
+	Generate the left-hand context of the match. Returns a normalized string, 
+	whose total string length is less than or equal to $width characters.
+	Note: this function calls itself recursively until $node is empty or
+	the returned sequence has the desired total string length.
+:)
+declare function tei2html:kwic-truncate-previous($root as node()?, $node as node()?, $truncated as item()*, $width as xs:int) {
+  let $nextProbe := $node/preceding::text()[1]
+  let $next := if ($root[not(. intersect $nextProbe/ancestor::*)]) then () else tei2html:tei2html($nextProbe)  
+  let $probe :=  concat($nextProbe, ' ', $truncated)
+  return
+    if (string-length($probe) gt $width) then
+      let $norm := concat(normalize-space($probe), ' ')
+      return 
+        if (string-length($norm) le $width and $next) then
+          tei2html:kwic-truncate-previous($root, $next, $norm, $width)
+        else if ($next) then
+          concat('...', substring($norm, string-length($norm) - $width + 1))
+        else $norm
+    else if ($next) then 
+      tei2html:kwic-truncate-previous($root, $next, $probe, $width)
+    else for $str in normalize-space($probe)[.] return concat($str, ' ')
+};
+
+declare function tei2html:kwic-truncate-following($root as node()?, $node as node()?, $truncated as item()*, $width as xs:int) {
+  let $nextProbe := $node/following::text()[1]
+  let $next := if ($root[not(. intersect $nextProbe/ancestor::*)]) then () else tei2html:tei2html($nextProbe)  
+  let $probe :=  concat($nextProbe, ' ', $truncated)
+  return
+    if (string-length($probe) gt $width) then
+      let $norm := concat(normalize-space($probe), ' ')
+      return 
+        if (string-length($norm) le $width and $next) then
+          tei2html:kwic-truncate-following($root, $next, $norm, $width)
+        else if ($next) then
+          concat('...', substring($norm, string-length($norm) - $width + 1))
+        else $norm
+    else if ($next) then 
+      tei2html:kwic-truncate-following($root, $next, $probe, $width)
+    else for $str in normalize-space($probe)[.] return concat($str, ' ')
+};

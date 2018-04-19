@@ -16,9 +16,9 @@ import module namespace facet-defs="http://syriaca.org/facet-defs" at "facet-def
 import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
-import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
+import module namespace geo="http://syriaca.org/geojson" at "content-negotiation/geojson.xqm";
 import module namespace page="http://syriaca.org/page" at "lib/paging.xqm";
-import module namespace tei2html="http://syriaca.org/tei2html" at "lib/tei2html.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "content-negotiation/tei2html.xqm";
 
 import module namespace templates="http://exist-db.org/xquery/templates";
 

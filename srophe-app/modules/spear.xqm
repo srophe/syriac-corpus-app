@@ -15,7 +15,7 @@ import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
-import module namespace tei2html="http://syriaca.org/tei2html" at "lib/tei2html.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "content-negotiation/tei2html.xqm";
 import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
 
 declare namespace http="http://expath.org/ns/http-client";
