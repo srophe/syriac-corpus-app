@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<meta xmlns="http://exist-db.org/xquery/repo">
+    <description>Hugoye: Journal of Syriac Studies</description>
+    <author></author>
+    <website>http://hugoye.org/</website>
+    <status>beta</status>
+    <license>GNU-LGPL</license>
+    <copyright>true</copyright>
+    <type>application</type>
+    <target>hugoye</target>
+    <prepare>pre-install.xql</prepare>
+    <finish>post-install.xql</finish>
+    <config>
+        <!-- App title -->
+        <title>Hugoye: Journal of Syriac Studies</title>
+        <!-- App description -->
+        <description/>
+        <!-- Contact email -->
+        <contact>info@hugoye.org</contact>
+        <!-- Logo name (assumes path to logo is $app-root/resources/img/) -->
+        <logo></logo>
+        <!-- Web Site URL -->
+        <url>http://hugoye.org/</url>
+        <!-- Root of app for building dynamic links. Default is eXist app root -->
+        <nav-base>/exist/apps/hugoye</nav-base>
+        <!-- eXist app root for app deployment-->
+        <app-root>hugoye</app-root>
+        <!-- eXist data app root for gazetteer data -->
+        <data-root>hugoye-data</data-root>
+        <!-- Base URI for identifiers in app data -->
+        <base_uri>https://hugoye.org</base_uri>
+        <!-- Map rendering -->
+        <maps>
+            <option>google</option>
+            <option selected="true">leaflet</option>
+        </maps>
+        <!-- Keyboard options -->
+        <keyboard-options>
+            <option id="syriac-phonetic">Syriac Phonetic</option>
+            <option id="syriac-standard">Syriac Standard</option>
+            <!--<option id="ms-Arabic (101)">Arabic Mod. Standard</option>-->
+            <option id="qwerty">English QWERTY</option>
+            <!--
+                <option id="ms-Greek">Greek Mod. Standard</option>
+                <option id="ms-Russian">Russian Mod. Standard</option>
+            -->
+        </keyboard-options>
+        <collections>
+            <collection name="corpus" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://syriaccorpus.org/"/>
+        </collections>
+    </config>
+    
+<deployed>2017-05-15T08:52:37.648-04:00</deployed>
+</meta>

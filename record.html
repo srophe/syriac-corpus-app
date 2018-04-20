@@ -3,14 +3,10 @@
     <div class="grey-dark">
         <div class="container interior-content white">
             <div data-template="app:h1"/>
+            <div data-template="app:other-data-formats" data-template-formats="print,tei"/>
             <div class="row">
                 <div data-template="app:display-left-menu"/>
-                <div data-template="app:display-body"/>
-                <!--
-                <div class="col-sm-6 col-md-6 col-lg-7 mssBody">
-                    <div data-template="app:display-nodes" data-template-paths="/descendant::tei:body"/>
-                </div>
-                -->
+                <div data-template="app:display-body" data-template-paths="/descendant-or-self::tei:TEI"/>
                 <div class="col-sm-4 col-md-4 col-lg-3 noprint">
                     <div id="rightCol">
                         <div id="sedraDisplay" class="sedra panel panel-default">
@@ -28,55 +24,73 @@
                     </div>
                     <div data-template="app:rec-status"/>
                     <div data-template="app:display-ids"/>
-                    <div data-template="app:display-nodes" data-template-paths="/descendant::tei:teiHeader"/>
+                    <div data-template="app:display-cite"/>
                     <div class="info-btns">
                         <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> 
                     </div>
                     <div data-template="app:display-related"/>
                 </div>
             </div>
+            <!-- Floating footnotes display -->
+            <div id="footnoteDisplay" class="footnote">
+                <div class="content"/>  
+            </div>
             <script type="text/javascript">
                 $('input.toggleDisplay').click(function() {
-                var display = $(this).data("element");
-                $('.'+ display).children('.text-number').toggle();
-                //$('.'+ display).children('.head').toggle();
-                var section = $('.'+ display).hasClass("tei-head");
-                if(section){
-                $(' .' + display + '.tei-head').toggle();
-                }else{
-                $(' .' + display).toggleClass( 'display' );
-                }
-                //Change checkbox to active
-                $(this).toggleClass( "active" );
-                console.log(display);
+                    var display = $(this).data("element");
+                    $('.'+ display).children('.text-number').toggle();
+                    //$('.'+ display).children('.head').toggle();
+                    var section = $('.'+ display).hasClass("tei-head");
+                    if(section){
+                        $(' .' + display + '.tei-head').toggle();
+                        console.log('hide headers')
+                    }else{
+                        $(' .' + display).toggleClass( 'display' );
+                    }
+                    //Change checkbox to active
+                    $(this).toggleClass( "active" );
+                    console.log(display);
                 });
                 
                 $('button.toggleHead').click(function() {
-                $('.head').toggleClass( "hidden" );
+                    $('.head').toggleClass( "hidden" );
                 });
                 
                 $('a.sedra').click(function(e) {
-                //event.preventDefault();
-                e.stopPropagation();
-                e.preventDefault();
-                var href = $(this).attr('href');
-                $('#sedraDisplay').css('display','block');
-                $.get(href, function( data ) {
-                $( "#sedraContent div.content" ).html( data );
-                })    
-                .fail(function() {
-                $('#sedraContent div.content').empty();
-                $( "#sedraContent div.content" ).html( 'There are no results for this word. Please try using the <a href="http://sedra.bethmardutho.org/">Syriac Dictionary Lookup</a>' );
-                });
+                    //event.preventDefault();
+                    e.stopPropagation();
+                    e.preventDefault();
+                    var href = $(this).attr('href');
+                    $('#sedraDisplay').css('display','block');
+                    $.get(href, function( data ) {
+                        $( "#sedraContent div.content" ).html( data );
+                        })    
+                        .fail(function() {
+                           $('#sedraContent div.content').empty();
+                           $( "#sedraContent div.content" ).html( 'There are no results for this word. Please try using the <a href="http://sedra.bethmardutho.org/">Syriac Dictionary Lookup</a>' );
+                        });
                 });
                 
                 $('html').click(function() {
                 $('#sedraDisplay').hide();
+                $('#footnoteDisplay').hide();
                 $('#sedraContent div.content').empty();
+                $('#footnoteDisplay div.content').empty();
                 })
                 
                 $('#rightCol').click(function(e){
                 e.stopPropagation();
+                });
+                
+                $('a.footnote-refs').click(function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var link = $(this);
+                var href = $(this).attr('href');
+                var content = $(href).html()
+                $('#footnoteDisplay').css('display','block');
+                $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
+                $('#footnoteDisplay div.content').html( content );    
                 });
                 
             </script>

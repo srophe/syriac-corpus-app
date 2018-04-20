@@ -60,8 +60,77 @@ declare function app:display-rec($node as node(), $model as map(*), $collection 
  : Used by templating module, not needed if full record is being displayed 
 :)
 declare function app:h1($node as node(), $model as map(*)){
- global:tei2html(<srophe-title xmlns="http://www.tei-c.org/ns/1.0">{($model("data")/descendant::tei:titleStmt[1]/tei:title[1], $model("data")/descendant::tei:idno[1])}</srophe-title>)
-}; 
+    let $main := <span class="main-title">{$model("data")/descendant::tei:titleStmt/tei:title[@type="main"]//text()}</span>
+    let $sub := if($model("data")/descendant::tei:titleStmt/tei:title[@type="sub"]) then <span class="sub-title">{$model("data")/descendant::tei:titleStmt/tei:title[@type="sub"]//text()}</span> else ()
+    return   
+        <div class="title">
+            <h1 id="mainTitle">{($main, ' ' , $sub)}</h1>
+            <span class="uri">
+                <button type="button" class="btn btn-default btn-xs" id="idnoBtn" data-clipboard-action="copy" data-clipboard-target="#syriaca-id">
+                    <span class="srp-label">URI</span>
+                </button>
+                <span id="syriaca-id">{replace($model("data")/descendant::tei:idno[@type='URI'][1],'/tei','')}</span>
+                <script><![CDATA[
+                        var clipboard = new Clipboard('#idnoBtn');
+                        clipboard.on('success', function(e) {
+                        console.log(e);
+                        });
+                        
+                        clipboard.on('error', function(e) {
+                        console.log(e);
+                        });]]>
+                </script>   
+            </span>
+        </div>
+};
+
+(:~ 
+ : Data formats and sharing
+ : to replace app-link
+ :)
+declare %templates:wrap function app:other-data-formats($node as node(), $model as map(*), $formats as xs:string?){
+let $id := replace($model("data")/descendant::tei:idno[contains(., $global:base-uri)][1],'/tei','')
+return 
+    if($formats) then
+        <div class="container" style="width:100%;clear:both;margin-bottom:1em; text-align:right;">
+            {
+                for $f in tokenize($formats,',')
+                return 
+                    if($f = 'tei') then
+                        (<a href="{concat(replace($id,$global:base-uri,$global:nav-base),'.tei')}" class="btn btn-default btn-xs" id="teiBtn" data-toggle="tooltip" title="Click to view the TEI XML data for this record." >
+                             <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> TEI/XML
+                        </a>, '&#160;')
+                    else if($f = 'print') then                        
+                        (<a href="javascript:window.print();" type="button" class="btn btn-default btn-xs" id="teiBtn" data-toggle="tooltip" title="Click to send this page to the printer." >
+                             <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                        </a>, '&#160;')  
+                   else if($f = 'rdf') then
+                        (<a href="{concat(replace($id,$global:base-uri,$global:nav-base),'.rdf')}" class="btn btn-default btn-xs" id="teiBtn" data-toggle="tooltip" title="Click to view the RDF-XML data for this record." >
+                             <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> RDF/XML
+                        </a>, '&#160;')
+                  else if($f = 'ttl') then
+                        (<a href="{concat(replace($id,$global:base-uri,$global:nav-base),'.ttl')}" class="btn btn-default btn-xs" id="teiBtn" data-toggle="tooltip" title="Click to view the RDF-Turtle data for this record." >
+                             <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> RDF/TTL
+                        </a>, '&#160;')
+                  else if($f = 'geojson') then
+                        if($model("data")/descendant::tei:location/tei:geo) then 
+                        (<a href="{concat(replace($id,$global:base-uri,$global:nav-base),'.geojson')}" class="btn btn-default btn-xs" id="teiBtn" data-toggle="tooltip" title="Click to view the GeoJSON data for this record." >
+                             <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> GeoJSON
+                        </a>, '&#160;')
+                        else()
+                  else if($f = 'kml') then
+                        if($model("data")/descendant::tei:location/tei:geo) then
+                            (<a href="{concat(replace($id,$global:base-uri,$global:nav-base),'.kml')}" class="btn btn-default btn-xs" id="teiBtn" data-toggle="tooltip" title="Click to view the KML data for this record." >
+                             <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> KML
+                            </a>, '&#160;')
+                         else()   
+                   else () 
+                
+            }
+            <br/>
+        </div>
+    else ()
+};
 
 (:~  
  : Display any TEI nodes passed to the function via the paths parameter
@@ -656,16 +725,15 @@ return
         <div class="panel-heading">{$title}</div>
         <div class="panel-body">
             <h4>Stable Identifiers</h4>
-                <div class="indent">{
+                <div class="indent">{(
                     if($model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']) then
                         <div><label>Corpus Text ID:&#160;</label>{$model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']}</div>
                     else(),
                     if($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref) then
                         <div><label>NHSL Work ID(s):&#160;</label>{string($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref)}</div>
-                    else()
-                }</div> 
-                {
+                    else(),
                     if($model("data")/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc) then 
+                        <div style="margin-top:1em;">{
                         for $msDesc in $model("data")/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier
                         return 
                             if($msDesc/tei:settlement or $msDesc/tei:repository or $msDesc/tei:idno[@type='shelfmark']) then
@@ -676,8 +744,19 @@ return
                                 for $msName in $msDesc/tei:msName
                                 return <span class="results-list-desc desc" dir="ltr" lang="en"><label>Source: </label> {$msName}<br/></span>
                             else ()
-                    else <p><label>Source: </label> {bibl2html:citation($model("data")/descendant::tei:sourceDesc)}</p> 
-                }
+                         }</div>
+                    else <p style="margin-top:1em;"><label>Source: </label> {bibl2html:citation($model("data")/descendant::tei:sourceDesc)}</p> 
+                )}</div>
+        </div>
+    </div>        
+};
+
+(: Display ids :)
+declare function app:display-cite($node as node(), $model as map(*)){                 
+    <div class="panel panel-default">
+        <div class="panel-heading">How to Cite this Electronic Edition</div>
+        <div class="panel-body">
+            <div>{bibl2html:citation($model("data")/descendant::tei:teiHeader), replace($model("data")/descendant-or-self::tei:publicationStmt[1]/tei:idno[@type='URI'][1],'/tei','')}</div>
         </div>
     </div>        
 };
@@ -730,7 +809,9 @@ return
                     if($node/@xml:id) then string($node/@xml:id) 
                     else if($node/parent::*[1]/@n) then
                         concat('Head-id.',string-join($node/ancestor::*[@n]/@n,'.'))
-                    else 'on-parent'
+                    else if($node/parent::*[1]/@xml:id) then 
+                        concat('Head-id.',string-join($node/ancestor::*[@xml:id]/@xml:id,'.')) 
+                    else ()    
                 return 
                     (<a href="#{$id}" class="toc-item">{string-join($node/descendant-or-self::text(),' ')}</a>, ' ') 
             default return ()          
@@ -740,7 +821,7 @@ return
  : TOC for Syriac Corpus records. 
 :)  
 declare function app:toggle-text-display($node as node(), $model as map(*)){
-if($model("data")/descendant::tei:body/descendant::*[@n][not(@type='section') and not(@type='part')]) then     
+if($model("data")/descendant::tei:body/descendant::tei:pb) then     
         <div class="panel panel-default">
             <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#toggleText">Show  </a>
             <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" 
@@ -748,12 +829,20 @@ if($model("data")/descendant::tei:body/descendant::*[@n][not(@type='section') an
             <!--<a href="#" data-toggle="collapse" data-target="#showToc"><span id="tocIcon" class="glyphicon glyphicon-collapse-up"/></a>-->
             </div>
             <div class="panel-body collapse in" id="toggleText">
-                {( 
+                {
+                if($model("data")/descendant::tei:body/descendant::tei:pb) then
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> page break : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglepb" data-element="tei-pb"/>
+                                <label for="togglepb">page break</label>
+                         </div>                                            
+                    else ()
+                (: 
                     let $types := distinct-values($model("data")/descendant::tei:body/descendant::tei:div[@n]/@type)
                     for $type in $types
                     order by $type
                     return 
-                        if($type = ('part','text','rubric','heading','title')) then ()
+                        if($type = ('part','text','rubric','heading')) then ()
                         else
                             <div class="toggle-buttons">
                                <span class="toggle-label"> {$type} : </span>
@@ -767,23 +856,11 @@ if($model("data")/descendant::tei:body/descendant::*[@n][not(@type='section') an
                             <input class="toggleDisplay" type="checkbox" id="toggleab" data-element="tei-ab"/>
                                 <label for="toggleab">ab</label>
                          </div>
-                    else (),   
-                    if($model("data")/descendant::tei:body/descendant::tei:ab[@type][@n]) then  
-                        let $types := distinct-values($model("data")/descendant::tei:body/descendant::tei:ab[@n]/@type)
-                        for $type in $types
-                        order by $type
-                        return 
-                            <div class="toggle-buttons">
-                               <span class="toggle-label"> {$type} : </span>
-                               <input class="toggleDisplay" type="checkbox" id="toggle{$type}" data-element="{concat('tei-',$type)}"/>
-                                 {if($type = 'section') then attribute checked {"checked" } else ()}
-                                 <label for="toggle{$type}"> {$type}</label>
-                            </div>
                     else (),    
                     if($model("data")/descendant::tei:body/descendant::tei:l) then 
                         <div class="toggle-buttons">
                             <span class="toggle-label"> line : </span>
-                            <input class="toggleDisplay" type="checkbox" id="togglel" data-element="tei-l" checked="checked"/>
+                            <input class="toggleDisplay" type="checkbox" id="togglel" data-element="tei-l"/>
                                 <label for="togglel">line</label>
                         </div>
                     else (),
@@ -822,7 +899,7 @@ if($model("data")/descendant::tei:body/descendant::*[@n][not(@type='section') an
                                 <label for="togglemilestone">milestone</label>
                          </div>                                                 
                     else () 
-                )}
+                :)}
             </div>
         </div>
 else ()
