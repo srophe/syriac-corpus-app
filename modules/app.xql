@@ -903,3 +903,126 @@ if($model("data")/descendant::tei:body/descendant::*[@n][not(@type='section') an
         </div>
 else ()
 }; 
+
+
+(:
+ : Display related Syriaca.org names
+:)
+declare %templates:wrap function app:srophe-related($node as node(), $model as map(*)){ 
+    if($model("data")//@ref[contains(.,'http://syriaca.org/') and not(contains(.,'http://syriaca.org/persons.xml'))]) then
+        <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
+            <div class="panel-heading"><h3 class="panel-title">Linked Data <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via Syriaca.org to additional resources beyond those mentioned by the author of this record."></span></h3></div>
+            <div class="panel-body">
+                {(
+                 if($model("data")//@ref[contains(.,'http://syriaca.org/')]) then
+                    let $other-resources := distinct-values($model("data")//@ref[contains(.,'http://syriaca.org/') and not(contains(.,'http://syriaca.org/person.xml'))])
+                    let $count := count($other-resources)
+                    return 
+                        <div class="other-resources" xmlns="http://www.w3.org/1999/xhtml">
+                            <h4>Resources related to other topics in this record. </h4>
+                            <div class="collapse in" id="showOtherResources">
+                                <form class="form-inline hidden" action="http://wwwb.library.vanderbilt.edu/exist/apps/srophe/api/sparql" method="post">
+                                    <input type="hidden" name="format" id="format" value="json"/>
+                                    <textarea id="query" class="span9" rows="15" cols="150" name="query" type="hidden">
+                                      <![CDATA[
+                                        prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                                        prefix lawd: <http://lawd.info/ontology/>
+                                        prefix skos: <http://www.w3.org/2004/02/skos/core#>
+                                        prefix dcterms: <http://purl.org/dc/terms/>
+                                        
+                                        SELECT ?uri ?label ?subjects ?citations
+                                        {
+                                            ?uri rdfs:label ?label
+                                            FILTER (?uri IN ( ]]>{string-join(for $r in subsequence($other-resources,1,10) return concat('<',$r,'>'),',')}<![CDATA[))
+                                            FILTER ( langMatches(lang(?label), 'en')) .
+                                            {SELECT ?uri ( count(?s) as ?subjects ) { ?s dcterms:relation ?uri } GROUP BY ?uri }  
+                                            {SELECT ?uri ( count(?o) as ?citations ) { 
+                                              ?uri lawd:hasCitation ?o 
+                                            	OPTIONAL{
+                                                  ?uri skos:closeMatch ?o.}
+                                            } GROUP BY ?uri }   
+                                        }
+                                      ]]>  
+                                    </textarea>
+                                </form>
+                                <div id="listOtherResources"></div>
+                                {if($count gt 10) then
+                                    <div>
+                                        <div class="collapse" id="showMoreResources">
+                                            <form class="form-inline hidden" action="http://wwwb.library.vanderbilt.edu/exist/apps/srophe/api/sparql" method="post">
+                                                <input type="hidden" name="format" id="format" value="json"/>
+                                                <textarea id="query" class="span9" rows="15" cols="150" name="query" type="hidden">
+                                                  <![CDATA[
+                                                    prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                                                    prefix lawd: <http://lawd.info/ontology/>
+                                                    prefix skos: <http://www.w3.org/2004/02/skos/core#>
+                                                    prefix dcterms: <http://purl.org/dc/terms/>
+                                                    
+                                                    SELECT ?uri ?label ?subjects ?citations
+                                                    {
+                                                        ?uri rdfs:label ?label
+                                                        FILTER (?uri IN ( ]]>{string-join(for $r in subsequence($other-resources,12,$count) return concat('<',$r,'>'),',')}<![CDATA[))
+                                                        FILTER ( langMatches(lang(?label), 'en')) .
+                                                        {SELECT ?uri ( count(?s) as ?subjects ) { ?s dcterms:relation ?uri } GROUP BY ?uri }  
+                                                        {SELECT ?uri ( count(?o) as ?citations ) { 
+                                                          ?uri lawd:hasCitation ?o 
+                                                        	OPTIONAL{
+                                                              ?uri skos:closeMatch ?o.}
+                                                        } GROUP BY ?uri }   
+                                                    }
+                                                  ]]>  
+                                                </textarea>
+                                            </form>
+                                        </div>
+                                        <a href="#" class="togglelink" data-toggle="collapse" data-target="#showMoreResources" data-text-swap="Less" id="getMoreLinkedData">See more ...</a>
+                                    </div>
+                                else ()
+                                }
+                            </div>
+                            <a href="#" class="btn btn-default togglelink" style="width:100%;" data-toggle="collapse" data-target="#showOtherResources" data-text-swap="Show Other Resources" id="getLinkedData">Hide Other Resources</a>
+                            <script>
+                            <![CDATA[
+                                $(document).ready(function() {
+                                    $('#showOtherResources').children('form').each(function () {
+                                        var url = $(this).attr('action');
+                                            $.post(url, $(this).serialize(), function(data) {
+                                                console.log(data);
+                                                var showOtherResources = $("#listOtherResources");
+                                                var dataArray = data.results.bindings;
+                                                if (!jQuery.isArray(dataArray)) dataArray = [dataArray];
+                                                $.each(dataArray, function (currentIndex, currentElem) {
+                                                    showOtherResources.append(
+                                                        '<div>Resources related to <a href="'+ currentElem.uri.value +'">'+ currentElem.label.value + '</a> <div class="indent">' + currentElem.citations.value + ' related citations</div><div class="indent">' + currentElem.subjects.value + ' related subjects</div></div>'
+                                                    );
+                                                });
+                                            }).fail( function(jqXHR, textStatus, errorThrown) {
+                                                console.log(textStatus);
+                                            }); 
+                                        });
+                                        $('#getMoreLinkedData').one("click", function(e){
+                                           $('#showMoreResources').children('form').each(function () {
+                                                var url = $(this).attr('action');
+                                                    $.post(url, $(this).serialize(), function(data) {
+                                                        var showOtherResources = $("#showMoreResources"); 
+                                                        var dataArray = data.results.bindings;
+                                                        if (!jQuery.isArray(dataArray)) dataArray = [dataArray];
+                                                        $.each(dataArray, function (currentIndex, currentElem) {
+                                                            showOtherResources.append(
+                                                               '<div>Resources related to <a href="'+ currentElem.uri.value +'">'+ currentElem.label.value + '</a> <div class="indent">' + currentElem.citations.value + ' related citations</div><div class="indent">' + currentElem.subjects.value + ' related subjects</div></div>'
+                                                          );
+                                                        });
+                                                    }).fail( function(jqXHR, textStatus, errorThrown) {
+                                                        console.log(textStatus);
+                                                    }); 
+                                                }); 
+                                        });
+                                });
+                            ]]>
+                            </script>
+                        </div>
+                 else () 
+                )}
+            </div>
+        </div>       
+    else()
+};
