@@ -38,7 +38,7 @@ declare variable $search:collection {request:get-parameter('collection', '') cas
 :)
 declare %templates:wrap function search:get-results($node as node(), $model as map(*), $collection as xs:string?, $view as xs:string?){
     let $coll := if($search:collection != '') then $search:collection else $collection
-    let $eval-string :=  search:query-string($collection)
+    let $eval-string :=  concat(search:query-string($collection),facet:facet-filter(facet-defs:facet-definition($collection)))
     return map {"hits" := 
                 if(exists(request:get-parameter-names()) or ($view = 'all')) then 
                     if($search:sort-element != '' and $search:sort-element != 'relevance' or $view = 'all') then 
@@ -197,7 +197,7 @@ declare function search:search-string(){
     for  $parameter in $parameters
     return 
         if(request:get-parameter($parameter, '') != '') then
-            if($parameter = 'start' or $parameter = 'sort-element') then ()
+            if($parameter = 'start' or $parameter = 'sort-element' or $parameter = 'fq') then ()
             else if($parameter = 'q') then 
                 (<span class="param">Keyword: </span>,<span class="match">{$search:q}&#160;</span>)
             else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
