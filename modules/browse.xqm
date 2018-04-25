@@ -156,7 +156,7 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
                             if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then 
                                 (attribute dir {"rtl"}, attribute lang {"syr"}, attribute class {"label pull-right"}) 
                             else attribute class {"label"},
-                                if($browse:alpha-filter != '') then $browse:alpha-filter else 'A')}</h3>
+                                if($browse:alpha-filter != '') then $browse:alpha-filter else 'ALL')}</h3>    
                             <div class="{if($browse:lang = 'syr' or $browse:lang = 'ar') then 'syr-list' else 'en-list'}">
                                 {browse:display-hits($hits)}
                             </div>

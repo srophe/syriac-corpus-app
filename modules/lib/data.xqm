@@ -36,18 +36,6 @@ declare variable $data:computed-lang{
  : @param $id syriaca.org uri for record or part. 
 :)
 declare function data:get-rec($id as xs:string?){  
-    if(contains($id,'/spear/')) then 
-        for $rec in collection($global:data-root)//tei:div[@uri = $id]
-        return 
-            <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec}</tei:TEI>   
-    else if(contains($id,'/manuscript/')) then
-    (: Descrepency in how id's are handled, why dont the msPart id's have '/tei'?  :)
-        for $rec in collection($global:data-root)//tei:idno[@type='URI'][. = $id]
-        return 
-            if($rec/ancestor::tei:msPart) then
-               <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec/ancestor::tei:msPart}</tei:TEI>
-            else $rec/ancestor::tei:TEI
-    else 
         if($global:id-path != '') then
             for $rec in util:eval(concat('collection($global:data-root)//tei:TEI[',$global:id-path,' = $id]'))
             return $rec
@@ -106,29 +94,12 @@ declare function data:lang-filter($element as xs:string?) as xs:string? {
   : Persons use tei:person/tei:persName
   : Defaults to tei:title
 :)
-declare function data:element($element as xs:string?, $series as xs:string?) as xs:string?{
-    (: Syriaca.org defaults :)
-    if($series = ('persons','sbd','saints','q','authors')) then 
-        if($data:computed-lang = ('en','syr')) then 
-            'tei:person/tei:persName[@syriaca-tags="#syriaca-headword"]'
-        else 'tei:person/tei:persName'
-    else if($series = ('places','geo','The Syriac Gazetteer')) then 
-        if($data:computed-lang = ('en','syr')) then 
-            'tei:place/tei:placeName[@syriaca-tags="#syriaca-headword"]'
-        else 'tei:place/tei:placeName'
-    else if($series = ('bethqatraye')) then 
-        if($data:computed-lang = ('en','syr','ar')) then 
-            'tei:place/tei:placeName[@syriaca-tags="#syriaca-headword"]'
-        else 'tei:place/tei:placeName'        
-    else if($series = ('bhse','nhsl')) then 
-        if($data:computed-lang = ('en','syr')) then 
-            'tei:body/tei:bibl/tei:title[@syriaca-tags="#syriaca-headword"]'
-        else 'tei:body/tei:bibl/tei:title'            
+declare function data:element($element as xs:string?, $series as xs:string?) as xs:string?{            
     (: Default browse is by tei:title:)   
-    else if(request:get-parameter('element', '') != '') then 
+    if(request:get-parameter('element', '') != '') then 
         request:get-parameter('element', '') 
     else if($element) then $element        
-    else "tei:title"  
+    else "tei:titleStmt/tei:title"  
 };
 
 (:
@@ -147,7 +118,7 @@ declare function data:get-browse-data($collection as xs:string*, $element as xs:
     let $hits-main := util:eval(concat(data:build-collection-path($collection),facet:facet-filter(facet:facet-definition($collection,())),data:lang-filter($element)))
     return  
         if(request:get-parameter('view', '') = 'title') then 
-            if(data:get-alpha-filter() = 'ALL') then
+            if(request:get-parameter('alpha-filter', '') = 'ALL' or request:get-parameter('alpha-filter', '') = '') then
                 for $hit in $hits-main
                 let $num := if(xs:integer($hit/@n)) then xs:integer($hit/@n) else 0
                 order by $hit/text()[1], $num
@@ -158,7 +129,7 @@ declare function data:get-browse-data($collection as xs:string*, $element as xs:
                 order by $hit/text()[1], $num
                 return <browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$hit}">{$hit/ancestor::tei:TEI}</browse>             
         else
-            if(data:get-alpha-filter() = 'ALL' or request:get-parameter('alpha-filter', '') = '') then
+            if(request:get-parameter('alpha-filter', '') = 'ALL' or request:get-parameter('alpha-filter', '') = '') then
                 for $hit in $hits-main
                 order by global:build-sort-string(page:add-sort-options($hit/text()[1],$element),'') 
                 return <browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$hit}">{$hit/ancestor::tei:TEI}</browse>
