@@ -1,4 +1,17 @@
 @media print {
+    @page  
+    { 
+        size: auto;   /* auto is the initial value */ 
+    
+        /* this affects the margin in the printer settings */ 
+        margin: 15mm 15mm 15mm 15mm;  
+    } 
+    
+    body  
+    { 
+        /* this affects the margin on the content before sending to printer */ 
+        margin: 0px;  
+    } 
 
   * {
     text-shadow: none !important;
@@ -6,27 +19,28 @@
     background: transparent !important;
     box-shadow: none !important;
   }
-
+/*
   a,
   a:visited {
     text-decoration: underline;
   }
-
+*/
   a[href]:after {
-    content: " (" attr(href) ")";
+   /* content: " (" attr(href) ")"; */
+   content: "";
   }
 
   abbr[title]:after {
     content: " (" attr(title) ")";
   }
 
-  /* Don't show links for images, or javascript/internal links */
-  a.sedra:after, .ir a:after,
+  // Don't show links for images, or javascript/internal links
+  .ir a:after,
   a[href^="javascript:"]:after,
   a[href^="#"]:after {
-    content: "" !important;
+    content: "";
   }
-  .mssBody {border:1px solid blue;}
+
   pre,
   blockquote {
     border: 1px solid #999;
@@ -46,10 +60,6 @@
     max-width: 100% !important;
   }
 
-  @page {
-    margin: 0.5cm;
-  }
-
   p,
   h2,
   h3 {
@@ -63,7 +73,7 @@
   }
   
   /* Syriaca.org specific styles */
-  .noprint, .navbar  {display:none;}
+  .noprint, .navbar, .no-print {display:none;}
   .footnote-refs {display:block; margin:.5em;line-height:1em;}
   /* Show hidden citation information*/
   #citation {display:block;}
@@ -82,9 +92,11 @@
    a:not(:local-link):after {
    content:" <" attr(href) "> ";
     }
+    /*
     a, a:visited { text-decoration: underline; }
     a[href]:after { content: " (" attr(href) ")"; }
      abbr[title]:after { content: " (" attr(title) ")"; }
+     */
     .ir a:after, a.no-print-link:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; text-decoration:none !important;}  /* Don't show links for images, or javascript/internal links */
 
 }
