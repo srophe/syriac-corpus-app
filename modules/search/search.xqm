@@ -89,7 +89,7 @@ else
 concat("collection('",$global:data-root,"')//tei:TEI",
     common:keyword(),
     common:xpath-search('.//tei:titleStmt/tei:author',request:get-parameter('author', '')),
-    common:xpath-search('.//tei:body/tei:div1/tei:head/tei:title',request:get-parameter('title', '')), 
+    common:xpath-search('.//tei:titleStmt/tei:title',request:get-parameter('title', '')), 
     common:xpath-search('.//tei:body/tei:div1/tei:div2/tei:head',request:get-parameter('section', '')),
     search:corpus-id(),
     search:syriaca-id(),
