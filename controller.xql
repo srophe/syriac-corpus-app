@@ -110,7 +110,7 @@ else if (contains($exist:path,'/api/')) then
     </dispatch>
     else if($exist:resource = 'oai') then
      <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <forward url="{replace($exist:path,'/api/oai','/srophe/modules/oai.xql')}"/>
+        <forward url="{replace($exist:path,'/api/oai','/syriac-corpus/modules/oai.xql')}"/>
      </dispatch>
     else
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
