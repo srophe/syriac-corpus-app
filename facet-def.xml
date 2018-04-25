@@ -7,7 +7,7 @@
         <order-by direction="ascending">value</order-by>
     </facet-definition>
     <!-- Add title to display of facets, make sure they sort alphabetically. -->
-    <facet-definition name="Title">
+    <facet-definition name="Catalog">
         <group-by function="facet:titles">
             <sub-path>descendant::tei:titleStmt/tei:title[@level="s"]/@ref</sub-path>
         </group-by>

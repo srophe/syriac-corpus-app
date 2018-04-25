@@ -190,6 +190,13 @@ declare function search:idno(){
     else () 
 };
 
+declare function search:catalog-limit(){
+    for $r in collection($global:data-root)//tei:titleStmt/tei:title[@level="s"]
+    group by $group := $r/@ref
+    order by global:build-sort-string($r[1]/text(),'')
+    return <option value="{concat(';fq-Catalog:',$group)}">{$r[1]/text()}</option>
+};
+
 declare function search:search-string(){
 <span xmlns="http://www.w3.org/1999/xhtml">
 {(
@@ -437,7 +444,7 @@ declare function search:default-search-form() {
             <xi:include href="{$global:app-root}/searchTips.html"/>
         <div class="well well-small" style="background-color:white; margin-top:2em;">
             <div class="row">
-                <div class="col-md-7">
+                <div class="col-md-10">
                 <!-- Keyword -->
                  <div class="form-group">
                     <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
@@ -476,7 +483,7 @@ declare function search:default-search-form() {
                 </div>
                 <div class="form-group">
                     <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
-                    <div class="col-sm-10 col-md-9 ">
+                    <div class="col-sm-10 col-md-9">
                         <div class="input-group">
                             <input type="text" id="title" name="title" class="form-control keyboard"/>
                             <div class="input-group-btn">
@@ -484,6 +491,12 @@ declare function search:default-search-form() {
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
                                     {global:keyboard-select-menu('title')}
+                            </div>
+                            <div class="input-group-btn" style="width:50%;">
+                                <select name="fq" class="form-control">
+                                <option value=""> -- Limit by Catalog -- </option>
+                                {search:catalog-limit()}
+                                </select>
                             </div>
                          </div>   
                     </div>
