@@ -53,7 +53,9 @@ declare variable $browse:fq {request:get-parameter('fq', '')};
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string*, $element as xs:string?){
     let $hits := 
         if($browse:view = 'title') then
-            data:get-browse-data($collection, 'tei:titleStmt/tei:title[@level="s"][@ref]')    
+            data:get-browse-data($collection, 'tei:titleStmt/tei:title[@level="s"][@ref]')
+        else if($browse:lang = 'syr') then 
+            data:get-browse-data($collection, 'tei:titleStmt/tei:title[@level="s"][@ref]/tei:foreign')
         else data:get-browse-data($collection, "tei:titleStmt/tei:author[1]")
     return map{"browse-data" := $hits }    
 };
@@ -129,7 +131,7 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
         let $hits := $model("browse-data")
         return 
             <div class="col-md-12 map-lg">{browse:get-map($hits)}</div>
-   else if($browse:view = 'title') then
+   else if($browse:view = 'title' or  $browse:lang = 'syr') then
        let $hits := $model("browse-data")
        let $facet-config := facet:facet-definition((),())/child::*
        return
@@ -140,8 +142,8 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
                 </div>
             else 
                 <div>{
-                    if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),
                         <div class="float-container">
+                            {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else()}
                             <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right"}">
                                  <div>{page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)}</div>
                             </div>
@@ -244,13 +246,13 @@ declare function browse:browse-abc-menu(){
         <ul class="list-inline">
         {
             if(($browse:lang = 'syr')) then  
-                for $letter in tokenize('ܐ ܒ ܓ ܕ ܗ ܘ ܙ ܚ ܛ ܝ ܟ ܠ ܡ ܢ ܣ ܥ ܦ ܩ ܪ ܫ ܬ', ' ')
+                for $letter in tokenize('ALL ܐ ܒ ܓ ܕ ܗ ܘ ܙ ܚ ܛ ܝ ܟ ܠ ܡ ܢ ܣ ܥ ܦ ܩ ܪ ܫ ܬ', ' ')
                 return 
-                    <li class="syr-menu" lang="syr"><a href="?lang={$browse:lang}&amp;alpha-filter={$letter}">{$letter}</a></li>
+                    <li class="syr-menu" lang="{if($letter = 'ALL') then 'en' else 'syr'}"><a href="?lang={$browse:lang}&amp;alpha-filter={$letter}">{$letter}</a></li>
             else if(($browse:lang = 'ar')) then  
-                for $letter in tokenize('ا ب ت ث ج ح  خ  د  ذ  ر  ز  س  ش  ص  ض  ط  ظ  ع  غ  ف  ق  ك ل م ن ه  و ي', ' ')
+                for $letter in tokenize('ALL ا ب ت ث ج ح  خ  د  ذ  ر  ز  س  ش  ص  ض  ط  ظ  ع  غ  ف  ق  ك ل م ن ه  و ي', ' ')
                 return 
-                    <li class="ar-menu" lang="ar"><a href="?lang={$browse:lang}&amp;alpha-filter={$letter}">{$letter}</a></li>
+                    <li class="ar-menu" lang="{if($letter = 'ALL') then 'en' else 'ar'}"><a href="?lang={$browse:lang}&amp;alpha-filter={$letter}">{$letter}</a></li>
             else if($browse:lang = 'ru') then 
                 for $letter in tokenize('А Б В Г Д Е Ё Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я',' ')
                 return 
