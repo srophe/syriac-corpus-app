@@ -382,9 +382,14 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
                 <input type="hidden" name="id" value="{request:get-parameter('id', '')}"/>
                 <input type="hidden" name="collection" value="{$collection}"/>
                 <!-- start reCaptcha API-->
-                <!--
-                <div class="g-recaptcha" data-sitekey="{$global:recaptcha}"></div>
-                -->
+                {
+                let $config := doc($global:app-root || '/config.xml')
+                let $recaptcha-site-key := $config//*:recaptcha-site-key/text()
+                return 
+                    if($recaptcha-site-key != '') then <div class="g-recaptcha" data-sitekey="{$recaptcha-site-key}"></div> else ()
+                
+                }
+                
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal">Close</button><input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
