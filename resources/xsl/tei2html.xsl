@@ -186,6 +186,11 @@
             </div>
         </div>
     </xsl:template>
+    <xsl:template match="t:text | t:front | t:back">
+        <div class="section {concat('tei-',name(.))}">
+            <xsl:apply-templates/>
+        </div>
+    </xsl:template>
     <xsl:template match="t:body">
         <bdi>
             <div class="body">
@@ -213,7 +218,7 @@
                     <xsl:apply-templates/>
                 </h2>
             </xsl:when>
-            <xsl:when test="parent::t:div2">
+            <xsl:when test="parent::t:div2 or parent::t:div[@type='preface']">
                 <h3 class="tei-head {if(parent::*[1]/@type) then concat(' tei-',parent::*[1]/@type) else ()}">
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
@@ -501,6 +506,19 @@
     <xsl:template match="t:bibl" mode="title"/>
     <xsl:template match="t:bibl">
         <xsl:choose>
+            <xsl:when test="ancestor::t:front">
+                <xsl:if test="t:title">
+                    <h2><xsl:apply-templates select="t:title"/></h2>
+                </xsl:if>
+                <xsl:if test="t:editor | t:author">
+                    <span class="tei-author">
+                        <xsl:apply-templates select="t:editor | t:author"/>
+                    </span>
+                </xsl:if>
+                <xsl:if test="t:date">
+                    <span class="tei-date"><xsl:apply-templates select="t:date"/></span>
+                </xsl:if>
+            </xsl:when>
             <xsl:when test="@type=('lawd:Edition','lawd:Translation','lawd:WrittenWork','syriaca:Manuscript','syriaca:ModernTranslation','syriaca:AncientVersion')">
                 <li>
                     <xsl:if test="descendant::t:lang/text()">
