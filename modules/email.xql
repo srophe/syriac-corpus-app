@@ -35,6 +35,7 @@ return
 :)
 
 declare function local:get-emails(){
+let $email-config := doc($global:app-root || 'config.xml');
 for $e-address in $global:get-config//*:contact/text()
 return 
     <to>{$e-address}</to>
