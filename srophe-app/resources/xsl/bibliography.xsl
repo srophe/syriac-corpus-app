@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
     <!-- ================================================================== 
        Copyright 2013 New York University
@@ -451,15 +451,11 @@
                 <xsl:text>, </xsl:text>
             </xsl:when>
             <xsl:when test="preceding-sibling::t:monogr and preceding-sibling::t:monogr/t:imprint[child::*[string-length(.) &gt; 0]]">
-                <xsl:text> (</xsl:text>
-                <xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/>
-                <xsl:text>)</xsl:text>
+                <xsl:text> (</xsl:text><xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/><xsl:text>)</xsl:text>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:if test="t:imprint[child::*[string-length(.) &gt; 0]]">
-                    <xsl:text> (</xsl:text>
-                    <xsl:apply-templates select="t:imprint" mode="footnote"/>
-                    <xsl:text>)</xsl:text>
+                    <xsl:text> (</xsl:text><xsl:apply-templates select="t:imprint" mode="footnote"/><xsl:text>)</xsl:text>
                 </xsl:if>
                 <xsl:if test="following-sibling::t:monogr">
                     <xsl:text>, </xsl:text>
@@ -478,13 +474,13 @@
                 <xsl:choose>
                     <xsl:when test="deep-equal(t:editor | t:author, preceding-sibling::t:monogr[1]/t:editor | preceding-sibling::t:monogr[1]/t:author )"/>
                     <xsl:otherwise>
-                        <xsl:call-template name="persons-bibliography"/>
+                        <xsl:call-template name="persons-bibliography"/><xsl:text>, </xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
                 <!-- Check authors against preceding, suppress if equivalent -->
             </xsl:when>
             <xsl:otherwise>
-                <xsl:call-template name="persons-bibliography"/>
+                <xsl:call-template name="persons-bibliography"/><xsl:text>, </xsl:text>
             </xsl:otherwise>
         </xsl:choose>
         <!-- Titles -->
@@ -510,7 +506,8 @@
                 </xsl:if>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text>. </xsl:text>
+                <!-- Suppress '.' based on feedback here: https://github.com/srophe/syriac-corpus-app/issues/111 open to re-evaluate -->
+<!--                <xsl:text>. </xsl:text>-->
             </xsl:otherwise>
         </xsl:choose>
 
@@ -557,13 +554,10 @@
                     <xsl:when test="preceding-sibling::*[1][self::t:analytic]">
                         <xsl:choose>
                             <xsl:when test="t:title[@level='j'] and t:imprint[child::*[string-length(.) &gt; 0]]">
-                                <xsl:text> (</xsl:text>
-                                <xsl:apply-templates select="t:imprint" mode="footnote"/>
-                                <xsl:text>)</xsl:text>
+                                <xsl:text> (</xsl:text><xsl:apply-templates select="t:imprint" mode="footnote"/><xsl:text>)</xsl:text>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:text> </xsl:text>
-                                <xsl:apply-templates select="t:imprint" mode="footnote"/>
+                                <xsl:text> </xsl:text><xsl:apply-templates select="t:imprint" mode="footnote"/>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
@@ -619,9 +613,7 @@
             <xsl:text>)</xsl:text>
         </xsl:if>
         <xsl:if test="preceding-sibling::t:monogr/t:imprint and not(following-sibling::t:series)">
-            <xsl:text> (</xsl:text>
-            <xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/>
-            <xsl:text>)</xsl:text>
+            <xsl:text> (</xsl:text><xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/><xsl:text>)</xsl:text>
         </xsl:if>
     </xsl:template>
 
@@ -881,7 +873,7 @@
      levels)
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:date | t:publisher | t:pubPlace | t:placeName | t:foreign" mode="footnote" priority="1">
-        <xsl:if test="(preceding-sibling::* and not(self::t:pubPlace)) or preceding-sibling::text()">
+        <xsl:if test="(preceding-sibling::* and name(.) != 'pubPlace')">
             <xsl:text> </xsl:text>
         </xsl:if>
         <span class="{local-name()}">
