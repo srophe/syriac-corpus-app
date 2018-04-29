@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -160,24 +160,7 @@
                             <h4>Bibliography:</h4>
                             <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
                         </div>
-                        <xsl:call-template name="aboutEntry"/>
-                        <div id="license">
-                            <h3>Copyright and License for Reuse</h3>
-                            <div>
-                                <xsl:text>Except otherwise noted, this page is © </xsl:text>
-                                <xsl:value-of select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:authority"/>
-                                <xsl:choose>
-                                    <xsl:when test="//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]/text() castable as xs:date">
-                                        <xsl:value-of select="format-date(xs:date(//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]), '[Y]')"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:value-of select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:date[1]"/>
-                                    </xsl:otherwise>
-                                </xsl:choose>
-                                <xsl:text> and released under a </xsl:text>
-                                <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:publicationStmt/t:availability/t:licence"/>
-                            </div>
-                        </div>
+                        <xsl:call-template name="aboutEntry"/>                        
                     </div>
                     <br/>
                     <a href="#" class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showFullCitation" data-text-swap="Hide Publication Information" style="margin-top:1em;">Show Full Publication Information <i class="glyphicon glyphicon-circle-arrow-right"/>
@@ -508,7 +491,9 @@
         <xsl:choose>
             <xsl:when test="ancestor::t:front">
                 <xsl:if test="t:title">
-                    <h2><xsl:apply-templates select="t:title"/></h2>
+                    <h2>
+                        <xsl:apply-templates select="t:title"/>
+                    </h2>
                 </xsl:if>
                 <xsl:if test="t:editor | t:author">
                     <span class="tei-author">
@@ -516,7 +501,9 @@
                     </span>
                 </xsl:if>
                 <xsl:if test="t:date">
-                    <span class="tei-date"><xsl:apply-templates select="t:date"/></span>
+                    <span class="tei-date">
+                        <xsl:apply-templates select="t:date"/>
+                    </span>
                 </xsl:if>
             </xsl:when>
             <xsl:when test="@type=('lawd:Edition','lawd:Translation','lawd:WrittenWork','syriaca:Manuscript','syriaca:ModernTranslation','syriaca:AncientVersion')">
@@ -620,7 +607,7 @@
                 </div>
             </xsl:when>
             <xsl:otherwise>
-                <span class="section indent">
+                <span class="citation">
                     <xsl:apply-templates mode="footnote"/>
                 </span>
             </xsl:otherwise>

@@ -382,14 +382,9 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
                 <input type="hidden" name="id" value="{request:get-parameter('id', '')}"/>
                 <input type="hidden" name="collection" value="{$collection}"/>
                 <!-- start reCaptcha API-->
-                {
-                let $config := doc($global:app-root || '/config.xml')
-                let $recaptcha-site-key := $config//*:recaptcha-site-key/text()
-                return 
-                    if($recaptcha-site-key != '') then <div class="g-recaptcha" data-sitekey="{$recaptcha-site-key}"></div> else ()
-                
-                }
-                
+                <!--
+                <div class="g-recaptcha" data-sitekey="{$global:recaptcha}"></div>
+                -->
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal">Close</button><input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
@@ -715,43 +710,32 @@ declare function app:display-body($node as node(), $model as map(*), $paths as x
 }; 
 
 (: Display ids :)
-declare function app:display-ids($node as node(), $model as map(*)){
-let $srophe-title := 
-                try{http:send-request(<http:request href="wwwb.library.vanderbilt.edu/api/sparql?qname=label&amp;id={$model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref}" method="GET">
-                     <http:header name="Content-Type" value="application/xml"/>
-                     <http:header name="Accept" value="application/json,application/xml"/>
-                   </http:request>[2]) 
-                   } catch * {
-                    <error>Caught error {$err:code}: {$err:description}</error>
-                   }
-let $title := if(not(empty($srophe-title//*:result))) then $srophe-title//*:literal[@xml:lang='en']/text() else ()                   
-return                   
+declare function app:display-ids($node as node(), $model as map(*)){                 
     <div class="panel panel-default">
-        <div class="panel-heading">{$title}</div>
-        <div class="panel-body">
+        <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#aboutDigitalText">About This Digital Text </a></div>
+        <div class="panel-body collapse in" id="aboutDigitalText">
             <h4>Stable Identifiers</h4>
                 <div class="indent">{
                     if($model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']) then
-                        <div><label>Corpus Text ID:&#160;</label>{$model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']}</div>
+                        <span class="idno"><span class="srp-label">Corpus Text ID:&#160;</span>{$model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']}<br/></span>
                     else(),
                     if($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref) then
-                        <div><label>NHSL Work ID(s):&#160;</label>{string($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref)}</div>
+                        <span class="idno"><span class="srp-label">NHSL Work ID(s):&#160;</span>{string($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref)}<br/></span>
                     else()
                 }</div> 
-                {
-                    if($model("data")/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc) then 
-                        for $msDesc in $model("data")/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier
-                        return 
-                            if($msDesc/tei:settlement or $msDesc/tei:repository or $msDesc/tei:idno[@type='shelfmark']) then
-                                <span><label>Source: </label>
-                                    {bibl2html:msDesc($msDesc)}
-                                </span>
-                            else if($msDesc/tei:msName) then 
-                                for $msName in $msDesc/tei:msName
-                                return <span class="results-list-desc desc" dir="ltr" lang="en"><label>Source: </label> {$msName}<br/></span>
-                            else ()
-                    else <p><label>Source: </label> {bibl2html:citation($model("data")/descendant::tei:sourceDesc)}</p> 
-                }
+                {(
+                <p style="padding-top:.75em"><label>Source: </label>{global:tei2html($model("data")/descendant::tei:sourceDesc/tei:biblStruct)
+                (:bibl2html:citation($model("data")/descendant::tei:biblStruct):)}</p>, 
+                <p style="padding-top:.75em"><label>Type of Text: </label></p>,
+                <p style="padding-top:.75em"><label>Status: </label></p>,
+                <p style="padding-top:.75em"><label>Preparation of Electronic Edition: </label><br/>
+                TEI XML encoding by James E. Walters. <br/>
+                Syriac text transcribed by {$model("data")//tei:titleStmt/descendant::tei:respStmt[tei:resp[. = 'Syriac text transcribed by']]/tei:name/text()}.
+                </p>,
+                <p style="padding-top:.75em"><label>Open Access and Copyright: </label><br/>
+                    {$model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab/tei:note/text()}
+                </p>
+                )}
         </div>
     </div>        
 };
