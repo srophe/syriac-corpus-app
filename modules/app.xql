@@ -733,7 +733,15 @@ declare function app:display-ids($node as node(), $model as map(*)){
                 Syriac text transcribed by {$model("data")//tei:titleStmt/descendant::tei:respStmt[tei:resp[. = 'Syriac text transcribed by']]/tei:name/text()}.
                 </p>,
                 <p style="padding-top:.75em"><label>Open Access and Copyright: </label><br/>
-                    {$model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab/tei:note/text()}
+                    {($model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab/tei:note/text(),
+                    if($model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence[contains(@target, 'http://creativecommons.org/licenses/')]) then 
+                        <p>
+                        <a rel="license" href="{string($model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence/@target)}">
+                            <img alt="Creative Commons License" style="border-width:0;display:inline;" src="{$global:nav-base}/resources/img/cc.png" height="18px"/>
+                        </a>
+                        </p>
+                    else()
+                    )}
                 </p>
                 )}
         </div>
