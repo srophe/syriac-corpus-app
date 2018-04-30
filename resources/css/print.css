@@ -74,6 +74,7 @@
   
   /* Syriaca.org specific styles */
   .noprint, .navbar, .no-print {display:none;}
+  .collapse {display:block !important;}
   .footnote-refs {display:block; margin:.5em;line-height:1em;}
   /* Show hidden citation information*/
   #citation {display:block;}
