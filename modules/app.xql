@@ -133,6 +133,7 @@ return
                              <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Text
                             </a>, '&#160;')
                     else () 
+                
             }
             <br/>
         </div>
@@ -721,25 +722,38 @@ declare function app:display-ids($node as node(), $model as map(*)){
     <div class="panel panel-default">
         <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#aboutDigitalText">About This Digital Text </a></div>
         <div class="panel-body collapse in" id="aboutDigitalText">
-            <h4>Stable Identifiers</h4>
-                <div class="indent">{
-                    if($model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']) then
-                        <span class="idno"><span class="srp-label">Corpus Text ID:&#160;</span>{$model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']}<br/></span>
-                    else(),
-                    if($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref) then
-                        <span class="idno"><span class="srp-label">NHSL Work ID(s):&#160;</span>{string($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref)}<br/></span>
-                    else()
-                }</div> 
-                {(
-                <p style="padding-top:.75em"><label>Source: </label>{global:tei2html($model("data")/descendant::tei:sourceDesc/tei:biblStruct)
-                (:bibl2html:citation($model("data")/descendant::tei:biblStruct):)}</p>, 
-                <p style="padding-top:.75em"><label>Type of Text: </label></p>,
-                <p style="padding-top:.75em"><label>Status: </label></p>,
-                <p style="padding-top:.75em"><label>Preparation of Electronic Edition: </label><br/>
+            {(
+              if($model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']) then
+                <div>
+                    <h5>Corpus Text ID:</h5>
+                    <span>{$model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']}</span>
+                </div>
+              else(),
+              if($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref) then
+                <div>
+                    <h5>NHSL Work ID(s):</h5>
+                    {for $r in $model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[@ref]
+                    return <span><a href="{string($r/@ref)}">{string($r/@ref)}</a><br/></span>}
+                </div>
+              else(), 
+              <div>
+                <h5>Source:</h5>
+                {global:tei2html($model("data")/descendant::tei:sourceDesc/tei:biblStruct)}
+              </div>, 
+              <div>
+                <h5>Type of Text:</h5>
+              </div>,
+              <div>
+                <h5>Status:</h5>
+              </div>,
+              <div>
+                <h4>Preparation of Electronic Edition:</h4>
                 TEI XML encoding by James E. Walters. <br/>
                 Syriac text transcribed by {$model("data")//tei:titleStmt/descendant::tei:respStmt[tei:resp[. = 'Syriac text transcribed by']]/tei:name/text()}.
-                </p>,
-                <p style="padding-top:.75em"><label>Open Access and Copyright: </label><br/>
+              </div>,
+              <div>
+                <h5>Open Access and Copyright:</h5>
+                <div class="small">
                     {($model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab/tei:note/text(),
                     if($model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence[contains(@target, 'http://creativecommons.org/licenses/')]) then 
                         <p>
@@ -749,8 +763,10 @@ declare function app:display-ids($node as node(), $model as map(*)){
                         </p>
                     else()
                     )}
-                </p>
-                )}
+                </div>
+              </div>
+              
+             )}
         </div>
     </div>        
 };
