@@ -164,7 +164,7 @@
                        <!-- <xsl:call-template name="aboutEntry"/>-->                        
                     </div>
                     <br/>
-                    <a href="#" class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showFullCitation" data-text-swap="Hide Publication Information" style="margin-top:1em;">Show Full Publication Information <i class="glyphicon glyphicon-circle-arrow-right"/>
+                    <a href="#" class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showFullCitation" data-text-swap="Hide Citation Styles" style="margin-top:1em;">Show Citation Styles <i class="glyphicon glyphicon-circle-arrow-right"/>
                     </a>
                 </div>
             </div>
