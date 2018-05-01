@@ -745,10 +745,10 @@ declare function app:display-ids($node as node(), $model as map(*)){
                 <h5>Open Access and Copyright:</h5>
                 <div class="small">
                     {(
-                    <p>{$model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab[1]/tei:note[1]/text()}</p>,
+                    $model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab[1]/tei:note[1]/text(),
                     <div id="showMoreAccess" class="collapse">
                         {(
-                        <p>{$model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab[2]/tei:note[1]/text()}</p>,
+                        $model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab[2]/tei:note[1]/text(),
                         if($model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence[contains(@target, 'http://creativecommons.org/licenses/')]) then 
                             <p>
                             <a rel="license" href="{string($model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence/@target)}">
