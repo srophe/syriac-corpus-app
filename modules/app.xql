@@ -745,6 +745,7 @@ declare function app:display-ids($node as node(), $model as map(*)){
               </div>,
               <div>
                 <h5>Status:</h5>
+                <span>{functx:capitalize-first(functx:camel-case-to-words(string($model("data")/descendant::tei:revisionDesc/@status),' '))}</span>
               </div>,
               <div>
                 <h4>Preparation of Electronic Edition:</h4>
