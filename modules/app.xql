@@ -65,22 +65,6 @@ declare function app:h1($node as node(), $model as map(*)){
     return   
         <div class="title">
             <h1>{($author, ': ' , $title)}</h1>
-            <span class="uri">
-                <button type="button" class="btn btn-default btn-xs" id="idnoBtn" data-clipboard-action="copy" data-clipboard-target="#syriaca-id">
-                    <span class="srp-label">URI</span>
-                </button>
-                <span id="syriaca-id">{replace($model("data")/descendant::tei:idno[1],'/tei','')}</span>
-                <script><![CDATA[
-                        var clipboard = new Clipboard('#idnoBtn');
-                        clipboard.on('success', function(e) {
-                        console.log(e);
-                        });
-                        
-                        clipboard.on('error', function(e) {
-                        console.log(e);
-                        });]]>
-                </script>   
-            </span>
         </div>
 };
 
