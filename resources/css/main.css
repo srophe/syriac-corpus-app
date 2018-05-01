@@ -478,6 +478,7 @@ td {
   text-align: right;
 }
 
+.panel-body :lang(syr) {font-size:20px; }
 :lang(syr-Syrj), :lang(syc-Syrj) {
  font-family: "SertoBatnan", "Serto Batnan", Verdana, Arial, Helvetica, sans-serif;
   font-size:24px; 
