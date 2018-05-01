@@ -68,8 +68,8 @@
         <xsl:text> </xsl:text>
         <xsl:value-of select="//t:fileDesc/t:editionStmt/t:respStmt[1]/t:resp"></xsl:value-of>
         <xsl:text> </xsl:text>
-        
         <xsl:call-template name="responsibility"/>
+        <xsl:text>, </xsl:text>
         
         <!-- monographic title -->
         <xsl:text> in </xsl:text>
@@ -127,8 +127,8 @@
         <xsl:variable name="resp" select="//t:fileDesc/t:editionStmt/t:respStmt[1]/t:resp"></xsl:variable>
         <xsl:value-of select="concat(upper-case(substring($resp,1,1)),substring($resp, 2))"/>
         <xsl:text> </xsl:text>
-        
         <xsl:call-template name="responsibility"/>
+        <xsl:text>. </xsl:text>
         
         <!-- monographic title -->
         <xsl:text> In </xsl:text>
@@ -147,7 +147,7 @@
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each>
-        <xsl:text>,</xsl:text>
+        <xsl:text>.</xsl:text>
         
         <xsl:text> </xsl:text>
         <a href="{$uri}">
@@ -189,17 +189,14 @@
                         </xsl:for-each>
                     </xsl:otherwise>
                 </xsl:choose>
-                <xsl:text>,</xsl:text> 
             </xsl:when>
             <xsl:otherwise> 
                 <xsl:text> </xsl:text>
-                <xsl:value-of select="/t:teiHeader/t:fileDesc/t:editionStmt/t:respStmt/t:resp"/>
-                <xsl:text> </xsl:text>
                 <xsl:value-of select="/t:teiHeader/t:fileDesc/t:editionStmt/t:respStmt/t:name"/>
-                <xsl:text>, </xsl:text>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      generate an "about this entry" section for the matched titleStmt element
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
