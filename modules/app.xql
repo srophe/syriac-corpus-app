@@ -732,6 +732,10 @@ declare function app:display-ids($node as node(), $model as map(*)){
                 <span class="h5-inline">Status: </span>
                 <span>{functx:capitalize-first(functx:camel-case-to-words(string($model("data")/descendant::tei:revisionDesc/@status),' '))}</span>
               </div>,
+              <div style="margin-top:1em;">
+                <span class="h5-inline">Publication Date: </span>
+                {format-date(xs:date($model("data")/descendant::tei:revisionDesc/tei:change[1]/@when), '[MNn] [D], [Y]')}
+              </div>, 
               <div>
                 <h5>Preparation of Electronic Edition:</h5>
                 TEI XML encoding by James E. Walters. <br/>
