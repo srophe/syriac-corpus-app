@@ -724,15 +724,16 @@ declare function app:display-ids($node as node(), $model as map(*)){
                 <h5>Source:</h5>
                 {global:tei2html($model("data")/descendant::tei:sourceDesc/tei:biblStruct)}
               </div>, 
-              <div>
-                <h5>Type of Text:</h5>
+              <div style="margin-top:1em;">
+                <span class="h5-inline">Type of Text: </span>
+                <span>{functx:capitalize-first(functx:camel-case-to-words(string($model("data")/descendant::tei:text/@type),' '))}</span>
               </div>,
-              <div>
-                <h5>Status:</h5>
+              <div style="margin-top:1em;">
+                <span class="h5-inline">Status: </span>
                 <span>{functx:capitalize-first(functx:camel-case-to-words(string($model("data")/descendant::tei:revisionDesc/@status),' '))}</span>
               </div>,
               <div>
-                <h4>Preparation of Electronic Edition:</h4>
+                <h5>Preparation of Electronic Edition:</h5>
                 TEI XML encoding by James E. Walters. <br/>
                 Syriac text transcribed by {$model("data")//tei:titleStmt/descendant::tei:respStmt[tei:resp[. = 'Syriac text transcribed by']]/tei:name/text()}.
               </div>,
