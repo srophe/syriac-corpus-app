@@ -285,6 +285,8 @@ td {
     padding-left:.5em;
     padding-right:1.25em;
 }
+.panel-body {word-wrap: break-word;}
+.panel-body :lang(syr) {font-size:20px; }
 
 /* Lables */
 .get-syriac {font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none}
@@ -478,7 +480,7 @@ td {
   text-align: right;
 }
 
-.panel-body :lang(syr) {font-size:20px; }
+
 :lang(syr-Syrj), :lang(syc-Syrj) {
  font-family: "SertoBatnan", "Serto Batnan", Verdana, Arial, Helvetica, sans-serif;
   font-size:24px; 
@@ -793,6 +795,7 @@ pre {
 .panel-heading a.collapsed:after {
     content:"\e080";
 }
+
 #dashboardOne h4.panel-title {color:#666; font-weight:500; font-size:1.25em;}
 
 
