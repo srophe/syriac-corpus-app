@@ -154,10 +154,11 @@
             <div class="panel-heading">How to Cite this Electronic Edition</div>
             <div class="panel-body">
                 <div id="citation-note">
+                    <h5>Note:</h5>
                     <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-foot"/>
                     <div class="collapse" id="showFullCitation">
                         <div id="citation-bibliography">
-                            <h4>Bibliography:</h4>
+                            <h5>Bibliography:</h5>
                             <xsl:apply-templates select="//t:teiHeader/t:fileDesc/t:titleStmt" mode="cite-biblist"/>
                         </div>
                        <!-- <xsl:call-template name="aboutEntry"/>-->                        
