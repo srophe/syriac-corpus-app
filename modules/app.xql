@@ -925,17 +925,18 @@ else ()
  : Display related Syriaca.org names
 :)
 declare %templates:wrap function app:srophe-related($node as node(), $model as map(*)){ 
-    if($model("data")//@ref[contains(.,'http://syriaca.org/') and not(contains(.,'http://syriaca.org/persons.xml'))]) then
+    if($model("data")//@ref[contains(.,'http://syriaca.org/') and not(contains(.,'http://syriaca.org/persons.xml'))] or $model("data")//tei:idno[@type='URI']) then
         <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
-            <div class="panel-heading"><h3 class="panel-title">Linked Data <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via Syriaca.org to additional resources beyond those mentioned by the author of this record."></span></h3></div>
-            <div class="panel-body">
+            <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
+            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via Syriaca.org to additional resources beyond this record."></span>
+            </div>
+            <div class="panel-body collapse in" id="showLinkedData">
                 {(
-                 if($model("data")//@ref[contains(.,'http://syriaca.org/')]) then
-                    let $other-resources := distinct-values($model("data")//@ref[contains(.,'http://syriaca.org/') and not(contains(.,'http://syriaca.org/person.xml'))])
+                 if($model("data")//@ref[contains(.,'http://syriaca.org/')] or $model("data")//tei:idno[@type='URI']) then
+                    let $other-resources := distinct-values($model("data")//@ref[contains(.,'http://syriaca.org/') and not(contains(.,'http://syriaca.org/person.xml'))] | $model("data")//tei:idno[@type='URI'])
                     let $count := count($other-resources)
                     return 
                         <div class="other-resources" xmlns="http://www.w3.org/1999/xhtml">
-                            <h4>Resources related to other topics in this record. </h4>
                             <div class="collapse in" id="showOtherResources">
                                 <form class="form-inline hidden" action="http://wwwb.library.vanderbilt.edu/exist/apps/srophe/api/sparql" method="post">
                                     <input type="hidden" name="format" id="format" value="json"/>
@@ -995,7 +996,6 @@ declare %templates:wrap function app:srophe-related($node as node(), $model as m
                                 else ()
                                 }
                             </div>
-                            <a href="#" class="btn btn-default togglelink" style="width:100%;" data-toggle="collapse" data-target="#showOtherResources" data-text-swap="Show Other Resources" id="getLinkedData">Hide Other Resources</a>
                             <script>
                             <![CDATA[
                                 $(document).ready(function() {
