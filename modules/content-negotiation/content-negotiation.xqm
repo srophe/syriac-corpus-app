@@ -98,7 +98,7 @@ declare function cntneg:content-negotiation($data as item()*, $content-type as x
                     <output:method value='text'/>
                     <output:media-type value='text/plain'/>
                 </output:serialization-parameters>
-            </rest:response>, tei2ttl:ttl-output($data)):)
+            </rest:response>, tei2ttl:ttl-output($data))
         else if($flag = 'geojson') then 
             (<rest:response> 
                 <http:response status="200"> 
@@ -123,6 +123,13 @@ declare function cntneg:content-negotiation($data as item()*, $content-type as x
                     <http:header name="Access-Control-Allow-Origin" value="application/json; charset=utf-8"/> 
                 </http:response> 
              </rest:response>, jsonld:jsonld($data))
+        else if($flag = 'txt') then 
+            (<rest:response> 
+                <http:response status="200"> 
+                    <http:header name="Content-Type" value="text/plain; charset=utf-8"/>
+                    <http:header name="Access-Control-Allow-Origin" value="text/plain; charset=utf-8"/> 
+                </http:response> 
+             </rest:response>, tei2txt:tei2txt($data))             
         (: Output as html using existdb templating module or tei2html.xqm :)
         else
             (:
@@ -211,6 +218,7 @@ declare function cntneg:determine-extension($header){
     else if (contains(string-join($header),"application/atom+xml") or $header = 'atom') then "atom"
     else if (contains(string-join($header),"application/vnd.google-earth.kmz") or $header = 'kml') then "kml"
     else if (contains(string-join($header),"application/geo+json") or $header = 'geojson') then "geojson"
+    else if (contains(string-join($header),"text/plain") or $header = 'txt') then "txt"    
     else "html"
 };
 
@@ -224,6 +232,7 @@ declare function cntneg:determine-media-type($extension){
     case "json" return "application/ld+json"
     case "kml" return "application/vnd.google-earth.kmz"
     case "geojson" return "application/geo+json"
+    case "txt" return "text/plain"
     default return "text/html"
 };
 
@@ -240,5 +249,6 @@ declare function cntneg:determine-type-flag($extension){
     case "geojson" return "geojson"
     case "html" return "html"
     case "htm" return "html"
+    case "text" return "txt"
     default return "html"
 };
