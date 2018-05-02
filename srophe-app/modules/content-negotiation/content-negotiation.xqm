@@ -25,6 +25,7 @@ import module namespace global="http://syriaca.org/global" at "../lib/global.xqm
 :)
 import module namespace tei2ttl="http://syriaca.org/tei2ttl" at "tei2ttl.xqm";
 import module namespace tei2rdf="http://syriaca.org/tei2rdf" at "tei2rdf.xqm";
+import module namespace tei2txt="http://syriaca.org/tei2txt" at "tei2txt.xqm";
 import module namespace tei2html="http://syriaca.org/tei2html" at "tei2html.xqm";
 import module namespace geojson="http://syriaca.org/geojson" at "geojson.xqm";
 import module namespace jsonld="http://syriaca.org/jsonld" at "jsonld.xqm";
@@ -123,6 +124,13 @@ declare function cntneg:content-negotiation($data as item()*, $content-type as x
                     <http:header name="Access-Control-Allow-Origin" value="application/json; charset=utf-8"/> 
                 </http:response> 
              </rest:response>, jsonld:jsonld($data))
+        else if($flag = 'txt') then 
+            (<rest:response> 
+                <http:response status="200"> 
+                    <http:header name="Content-Type" value="text/plain; charset=utf-8"/>
+                    <http:header name="Access-Control-Allow-Origin" value="text/plain; charset=utf-8"/> 
+                </http:response> 
+             </rest:response>, tei2txt:tei2txt($data))             
         (: Output as html using existdb templating module or tei2html.xqm :)
         else
             (:
@@ -211,6 +219,7 @@ declare function cntneg:determine-extension($header){
     else if (contains(string-join($header),"application/atom+xml") or $header = 'atom') then "atom"
     else if (contains(string-join($header),"application/vnd.google-earth.kmz") or $header = 'kml') then "kml"
     else if (contains(string-join($header),"application/geo+json") or $header = 'geojson') then "geojson"
+    else if (contains(string-join($header),"text/plain") or $header = 'txt') then "txt"    
     else "html"
 };
 
@@ -224,6 +233,7 @@ declare function cntneg:determine-media-type($extension){
     case "json" return "application/ld+json"
     case "kml" return "application/vnd.google-earth.kmz"
     case "geojson" return "application/geo+json"
+    case "txt" return "text/plain"
     default return "text/html"
 };
 
@@ -240,5 +250,6 @@ declare function cntneg:determine-type-flag($extension){
     case "geojson" return "geojson"
     case "html" return "html"
     case "htm" return "html"
+    case "text" return "txt"
     default return "html"
 };
