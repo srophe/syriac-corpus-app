@@ -4,11 +4,11 @@ xquery version "3.0";
  : 
 :)
 module namespace tei2rdf="http://syriaca.org/tei2rdf";
-import module namespace global="http://syriaca.org/global" at "global.xqm";
-import module namespace data="http://syriaca.org/data" at "data.xqm";
+import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
+import module namespace data="http://syriaca.org/data" at "../lib/data.xqm";
 import module namespace config="http://syriaca.org/config" at "../config.xqm";
 import module namespace bibl2html="http://syriaca.org/bibl2html" at "bibl2html.xqm";
-import module namespace rel="http://syriaca.org/related" at "get-related.xqm";
+import module namespace rel="http://syriaca.org/related" at "../lib/get-related.xqm";
 import module namespace functx="http://www.functx.com";
 
 declare namespace tei = "http://www.tei-c.org/ns/1.0";

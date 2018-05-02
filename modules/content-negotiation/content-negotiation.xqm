@@ -18,7 +18,7 @@ module namespace cntneg="http://syriaca.org/cntneg";
  : @authored 2018-04-12
 :)
 
-import module namespace global="http://syriaca.org/global" at "global.xqm";
+import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 (:
  : Syriaca.org content serialization modules.
  : Additional modules can be added. 
