@@ -54,11 +54,11 @@ else if (contains($exist:path, "/$shared/")) then
     </dispatch>
 
 (: Checks for any record uri patterns as defined in repo.xml :)    
-else if(replace($exist:path, $exist:resource,'') =  ($exist:record-uris) or ends-with($exist:path, ("/atom","/tei","/rdf","/ttl",'.tei','.atom','.rdf','.ttl'))) then
+else if(replace($exist:path, $exist:resource,'') =  ($exist:record-uris) or ends-with($exist:path, ("/atom","/tei","/rdf","/txt","/ttl",'.tei','.atom','.rdf','.ttl',".txt"))) then
     (: Sends to restxql to handle /atom, /tei,/rdf:)
-    if (ends-with($exist:path, ("/atom","/tei","/rdf","/ttl",'.tei','.atom','.rdf','.ttl'))) then
+    if (ends-with($exist:path, ("/atom","/tei","/rdf","/ttl","/txt",".tei",".atom",".rdf",".ttl",".txt"))) then
         let $path := 
-            if(ends-with($exist:path, (".atom",".tei",".rdf",".ttl"))) then 
+            if(ends-with($exist:path, (".atom",".tei",".rdf",".ttl",".txt"))) then 
                 replace($exist:path, "\.(atom|tei|rdf|ttl)", "/$1")
             else $exist:path
         return 
@@ -66,7 +66,7 @@ else if(replace($exist:path, $exist:resource,'') =  ($exist:record-uris) or ends
                 <forward url="{concat('/restxq/syriac-corpus', $path)}" absolute="yes"/>
             </dispatch>
     (: Special handling for collections with app-root that matches record-URI-pattern sends html pages to html, others are assumed to be records :)
-    else if($exist:resource = ('index.html','search.html','browse.html','about.html','record.html','404.html','500.html','301.html')) then 
+    else if($exist:resource = ('index.html','search.html','browse.html','about.html','record.html')) then 
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
            <view>
                <forward url="{$exist:controller}/modules/view.xql"/>
