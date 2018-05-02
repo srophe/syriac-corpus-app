@@ -8,7 +8,7 @@ module namespace geojson="http://syriaca.org/geojson";
  : @authored 2014-06-25
 :)
 
-import module namespace global="http://syriaca.org/global" at "global.xqm";
+import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 declare namespace output="http://www.w3.org/2010/xslt-xquery-serialization";
 
 declare namespace json = "http://www.json.org";
