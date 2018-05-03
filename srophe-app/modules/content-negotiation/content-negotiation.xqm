@@ -18,15 +18,15 @@ module namespace cntneg="http://syriaca.org/cntneg";
  : @authored 2018-04-12
 :)
 
-import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
+import module namespace global="http://syriaca.org/global" at "global.xqm";
 (:
  : Syriaca.org content serialization modules.
  : Additional modules can be added. 
 :)
-import module namespace tei2ttl="http://syriaca.org/tei2ttl" at "tei2ttl.xqm";
-import module namespace tei2rdf="http://syriaca.org/tei2rdf" at "tei2rdf.xqm";
-import module namespace tei2txt="http://syriaca.org/tei2txt" at "tei2txt.xqm";
+(:import module namespace tei2ttl="http://syriaca.org/tei2ttl" at "tei2ttl.xqm";:)
+(:import module namespace tei2rdf="http://syriaca.org/tei2rdf" at "tei2rdf.xqm";:)
 import module namespace tei2html="http://syriaca.org/tei2html" at "tei2html.xqm";
+import module namespace tei2txt="http://syriaca.org/tei2txt" at "tei2txt.xqm";
 import module namespace geojson="http://syriaca.org/geojson" at "geojson.xqm";
 import module namespace jsonld="http://syriaca.org/jsonld" at "jsonld.xqm";
 import module namespace geokml="http://syriaca.org/geokml" at "geokml.xqm";
@@ -77,8 +77,8 @@ declare function cntneg:content-negotiation($data as item()*, $content-type as x
                 </output:serialization-parameters>
              </rest:response>,$data)
         else if($flag = 'atom') then <message>Not an available data format.</message>
-        else if($flag = 'rdf') then 
-            (<rest:response> 
+        else if($flag = 'rdf') then <message>Not an available data format.</message>
+            (:(<rest:response> 
                 <http:response status="200"> 
                     <http:header name="Content-Type" value="application/xml; charset=utf-8"/>  
                     <http:header name="media-type" value="application/xml"/>
@@ -87,9 +87,9 @@ declare function cntneg:content-negotiation($data as item()*, $content-type as x
                     <output:method value='xml'/>
                     <output:media-type value='application/xml'/>
                 </output:serialization-parameters>
-             </rest:response>, tei2rdf:rdf-output($data))
-        else if($flag = ('turtle','ttl')) then 
-            (<rest:response> 
+             </rest:response>, tei2rdf:rdf-output($data)):)
+        else if($flag = ('turtle','ttl')) then <message>Not an available data format.</message>
+            (:(<rest:response> 
                 <http:response status="200"> 
                     <http:header name="Content-Type" value="text/plain; charset=utf-8"/>
                     <http:header name="method" value="text"/>
@@ -99,7 +99,7 @@ declare function cntneg:content-negotiation($data as item()*, $content-type as x
                     <output:method value='text'/>
                     <output:media-type value='text/plain'/>
                 </output:serialization-parameters>
-            </rest:response>, tei2ttl:ttl-output($data))
+            </rest:response>, tei2ttl:ttl-output($data)):)
         else if($flag = 'geojson') then 
             (<rest:response> 
                 <http:response status="200"> 
@@ -130,7 +130,7 @@ declare function cntneg:content-negotiation($data as item()*, $content-type as x
                     <http:header name="Content-Type" value="text/plain; charset=utf-8"/>
                     <http:header name="Access-Control-Allow-Origin" value="text/plain; charset=utf-8"/> 
                 </http:response> 
-             </rest:response>, tei2txt:tei2txt($data))             
+             </rest:response>, tei2txt:tei2txt($data))
         (: Output as html using existdb templating module or tei2html.xqm :)
         else
             (:
@@ -219,7 +219,7 @@ declare function cntneg:determine-extension($header){
     else if (contains(string-join($header),"application/atom+xml") or $header = 'atom') then "atom"
     else if (contains(string-join($header),"application/vnd.google-earth.kmz") or $header = 'kml') then "kml"
     else if (contains(string-join($header),"application/geo+json") or $header = 'geojson') then "geojson"
-    else if (contains(string-join($header),"text/plain") or $header = 'txt') then "txt"    
+    else if (contains(string-join($header),"text/plain") or $header = 'txt') then "txt"
     else "html"
 };
 
@@ -250,6 +250,7 @@ declare function cntneg:determine-type-flag($extension){
     case "geojson" return "geojson"
     case "html" return "html"
     case "htm" return "html"
+    case "txt" return "txt"
     case "text" return "txt"
     default return "html"
 };

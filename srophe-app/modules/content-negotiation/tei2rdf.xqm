@@ -166,15 +166,15 @@ declare function tei2rdf:rec-type($rec){
 declare function tei2rdf:rec-label-and-titles($rec, $element as xs:string?){
     if($rec/descendant::*[@syriaca-tags='#syriaca-headword']) then 
         for $headword in $rec/descendant::*[@syriaca-tags='#syriaca-headword'][node()]
-        return tei2rdf:create-element($element, string($headword/@xml:lang), string-join($headword/descendant-or-self::text(),' '), 'literal')
+        return tei2rdf:create-element($element, string($headword/@xml:lang), string-join($headword/descendant-or-self::text(),''), 'literal')
     else if($rec/descendant::tei:body/tei:listPlace/tei:place) then 
         for $headword in $rec/descendant::tei:body/tei:listPlace/tei:place/tei:placeName[node()]
-        return tei2rdf:create-element($element, string($headword/@xml:lang), string-join($headword/descendant-or-self::text(),' '), 'literal')
+        return tei2rdf:create-element($element, string($headword/@xml:lang), string-join($headword/descendant-or-self::text(),''), 'literal')
     else if($rec[self::tei:div/@uri]) then 
         if(tei2rdf:rec-type($rec) = 'http://syriaca.org/schema#/relationFactoid') then
             tei2rdf:create-element($element, (), rel:relationship-sentence($rec/descendant::tei:listRelation/tei:relation), 'literal')
-        else tei2rdf:create-element($element, (), normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')), 'literal')        
-    else tei2rdf:create-element($element, string($rec/descendant::tei:title[1]/@xml:lang), string-join($rec/descendant::tei:title[1]/text(),' '), 'literal')
+        else tei2rdf:create-element($element, (), normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),'')), 'literal')        
+    else tei2rdf:create-element($element, string($rec/descendant::tei:title[1]/@xml:lang), string-join($rec/descendant::tei:title[1]/text(),''), 'literal')
 };
 
 (: Output place and person names and name varients :)
@@ -184,14 +184,14 @@ declare function tei2rdf:names($rec){
         if($name/@syriaca-tags='#syriaca-headword') then 
                 element { xs:QName('lawd:hasName') } {
                     element { xs:QName('rdf:Description') } {(
-                        tei2rdf:create-element('lawd:primaryForm', string($name/@xml:lang), string-join($name/descendant-or-self::text(),' '), 'literal'),
+                        tei2rdf:create-element('lawd:primaryForm', string($name/@xml:lang), normalize-space(string-join($name/descendant-or-self::text(),'')), 'literal'),
                         tei2rdf:attestation($rec, $name/@source)   
                     )} 
                 } 
         else 
                 element { xs:QName('lawd:hasName') } {
                         element { xs:QName('rdf:Description') } {(
-                            tei2rdf:create-element('lawd:variantForm', string($name/@xml:lang), string-join($name/descendant-or-self::text(),' '), 'literal'),
+                            tei2rdf:create-element('lawd:variantForm', string($name/@xml:lang), string-join($name/descendant-or-self::text(),''), 'literal'),
                             tei2rdf:attestation($rec, $name/@source)   
                         )} 
                     }
@@ -451,12 +451,12 @@ return
                     return  
                         if($author/@ref) then
                             tei2rdf:create-element('dcterms:contributor', (), $author/@ref, ())
-                        else tei2rdf:create-element('dcterms:contributor', (), string-join($author/descendant-or-self::text(),' '), 'literal'),
+                        else tei2rdf:create-element('dcterms:contributor', (), string-join($author/descendant-or-self::text(),''), 'literal'),
                     for $editor in $rec/descendant::tei:body/tei:bibl[@type="lawd:ConceptualWork"]/tei:editor | $rec/descendant::tei:body/tei:biblStruct/descendant::tei:editor
                     return 
                         if($editor/@ref) then
                             tei2rdf:create-element('dcterms:contributor', (), $editor/@ref, ())
-                        else tei2rdf:create-element('dcterms:contributor', (), string-join($editor/descendant-or-self::text(),' '), 'literal')
+                        else tei2rdf:create-element('dcterms:contributor', (), string-join($editor/descendant-or-self::text(),''), 'literal')
                     )
                 else (),
                 tei2rdf:names($rec),
