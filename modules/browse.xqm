@@ -77,12 +77,17 @@ declare function browse:group-results($node as node(), $model as map(*), $collec
                             href="#show{replace($facet-grp-p,'\s|,|\.','')}" data-text-swap=" - "> + </a>&#160; 
                             <span class="browse-author-name">{$facet-grp-p}</span> ({count($rec)} works)
                             <div class="indent collapse" style="background-color:#F7F7F9;" id="show{replace($facet-grp-p,'\s|,|\.','')}">{
-                                for $r in $rec
-                                let $id := replace($r/descendant::tei:idno[1],'/tei','')
-                                let $sort := if($r/descendant::tei:titleStmt/tei:title[1]/@n) then xs:integer($r/descendant::tei:titleStmt/tei:title[1]/@n) else 0                                
-                                order by $sort, global:build-sort-string($r/descendant::tei:titleStmt/tei:title[1],'')
+                                for $titles in $rec
+                                let $title := $rec/descendant::tei:titleStmt/tei:title[1]
+                                group by $facet-grp-title := $title[1]
+                                order by global:build-sort-string($facet-grp-title,'')
                                 return 
-                                    <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view(root($r), '', $id)}</div>
+                                    for $r in $titles
+                                    let $id := replace($r/descendant::tei:idno[1],'/tei','')
+                                    let $sort := if($r/descendant::tei:titleStmt/tei:title[1]/@n) then xs:integer($r/descendant::tei:titleStmt/tei:title[1]/@n) else 0                                
+                                    order by $sort, global:build-sort-string($r/descendant::tei:titleStmt/tei:title[1],'')
+                                    return 
+                                        <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view(root($r), '', $id)}</div>
                             }</div>
                     </div>
                 else if($author = '' or not($author)) then
