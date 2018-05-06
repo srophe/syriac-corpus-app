@@ -763,7 +763,6 @@
                 <xsl:value-of select="t:settlement"/>,
                 <xsl:value-of select="t:repository"/>
                 <xsl:text> </xsl:text>
-                <xsl:value-of select="t:repository"/>
                 <xsl:choose>
                     <xsl:when test="t:altIdentifier[@type='preferred']">
                         <br/>(<xsl:value-of select="t:altIdentifier[@type='preferred']"/>)
