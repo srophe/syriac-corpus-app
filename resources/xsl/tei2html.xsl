@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -761,8 +761,10 @@
         <xsl:for-each select="descendant::t:msIdentifier">
             <span class="tei-msDesc">
                 <xsl:value-of select="t:settlement"/>,
+                <xsl:text> </xsl:text>
                 <xsl:value-of select="t:repository"/>
                 <xsl:text> </xsl:text>
+                <xsl:value-of select="t:idno[@type='shelfmark']"/>
                 <xsl:choose>
                     <xsl:when test="t:altIdentifier[@type='preferred']">
                         <br/>(<xsl:value-of select="normalize-space(t:altIdentifier[@type='preferred'])"/>)
