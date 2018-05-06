@@ -79,6 +79,8 @@ declare function browse:group-results($node as node(), $model as map(*), $collec
                             <div class="indent collapse" style="background-color:#F7F7F9;" id="show{replace($facet-grp-p,'\s|,|\.','')}">{
                                 for $r in $rec
                                 let $id := replace($r/descendant::tei:idno[1],'/tei','')
+                                let $sort := if($r/descendant::tei:titleStmt/tei:title[1]/@n) then xs:integer($r/descendant::tei:titleStmt/tei:title[1]/@n) else 0                                
+                                order by $sort, global:build-sort-string($r/descendant::tei:titleStmt/tei:title[1],'')
                                 return 
                                     <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view(root($r), '', $id)}</div>
                             }</div>
