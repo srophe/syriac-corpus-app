@@ -765,10 +765,10 @@
                 <xsl:text> </xsl:text>
                 <xsl:choose>
                     <xsl:when test="t:altIdentifier[@type='preferred']">
-                        <br/>(<xsl:value-of select="t:altIdentifier[@type='preferred']"/>)
+                        <br/>(<xsl:value-of select="normalize-space(t:altIdentifier[@type='preferred'])"/>)
                     </xsl:when>
                     <xsl:otherwise>
-                        <br/>(<xsl:value-of select="t:altIdentifier[1]"/>)
+                        <br/>(<xsl:value-of select="normalize-space(t:altIdentifier[1])"/>)
                     </xsl:otherwise>
                 </xsl:choose>
             </span>            
