@@ -34,7 +34,7 @@
     content: " (" attr(title) ")";
   }
 
-  // Don't show links for images, or javascript/internal links
+  /* Don't show links for images, or javascript/internal links*/
   .ir a:after,
   a[href^="javascript:"]:after,
   a[href^="#"]:after {
@@ -48,7 +48,7 @@
   }
 
   thead {
-    display: table-header-group; // h5bp.com/t
+    display: table-header-group; 
   }
 
   tr,
@@ -73,7 +73,8 @@
   }
   
   /* Syriaca.org specific styles */
-  .noprint, .navbar, .no-print {display:none;}
+  .mssBody, .right-menu {width:100%}
+  .noprint, .navbar, .no-print,.tooltip {display:none !important;}
   .collapse {display:block !important;}
   .footnote-refs {display:block; margin:.5em;line-height:1em;}
   /* Show hidden citation information*/
@@ -82,22 +83,10 @@
   #link-icons, #moreInfo,.btn, .helper {display:none;}
   .footnote-refs {display:inline !important; text-decoration:none;}
     
-   /* 
-   a[href^=http]:after {
-      content:" <" attr(href) "> ";
-   }
-    $a:after > img {
-    content: "";
-   }
-   */
    a:not(:local-link):after {
    content:" <" attr(href) "> ";
     }
-    /*
-    a, a:visited { text-decoration: underline; }
-    a[href]:after { content: " (" attr(href) ")"; }
-     abbr[title]:after { content: " (" attr(title) ")"; }
-     */
+   
     .ir a:after, a.no-print-link:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; text-decoration:none !important;}  /* Don't show links for images, or javascript/internal links */
 
 }
