@@ -166,12 +166,15 @@ let $parse-id :=
     else if(starts-with(request:get-uri(),$global:base-uri)) then string(request:get-uri())
     else if(contains(request:get-uri(),$global:nav-base) and $global:nav-base != '') then 
         replace(request:get-uri(),$global:nav-base, $global:base-uri)
+    else if(contains(request:get-uri(),string($global:get-config//repo:collection/@app-root))) then
+        concat($global:get-config//repo:collection[contains(request:get-uri(), @app-root)]/@record-URI-pattern,$id)
     else if(starts-with(request:get-uri(),'/exist/apps')) then 
-        replace(request:get-uri(),concat('/exist/apps/',replace($global:app-root,'/db/apps/','')), $global:base-uri)   
+        replace(request:get-uri(),concat('/exist/apps/',replace($global:app-root,'/db/apps/','')), $global:base-uri)
     else $id
 let $final-id := if(ends-with($parse-id,'.html')) then substring-before($parse-id,'.html') else $parse-id
 return $final-id
 };
+
 
 (:~
  : Get collection data
