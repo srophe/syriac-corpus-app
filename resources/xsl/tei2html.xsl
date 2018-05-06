@@ -757,6 +757,24 @@
         <xsl:sequence select="local:do-refs(@source,ancestor::t:*[@xml:lang][1])"/>
     </xsl:template>
 
+    <xsl:template match="t:msDesc">
+        <xsl:for-each select="descendant::t:msIdentifier">
+            <span class="tei-msDesc">
+                <xsl:value-of select="t:settlement"/>,
+                <xsl:value-of select="t:repository"/>
+                <xsl:text> </xsl:text>
+                <xsl:value-of select="t:repository"/>
+                <xsl:choose>
+                    <xsl:when test="t:altIdentifier[@type='preferred']">
+                        <br/>(<xsl:value-of select="t:altIdentifier[@type='preferred']"/>)
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <br/>(<xsl:value-of select="t:altIdentifier[1]"/>)
+                    </xsl:otherwise>
+                </xsl:choose>
+            </span>            
+        </xsl:for-each>
+    </xsl:template>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of a note element 
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
