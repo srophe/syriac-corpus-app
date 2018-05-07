@@ -303,7 +303,7 @@ declare function tei2html:summary-view-generic($nodes as node()*, $id as xs:stri
             <a href="{replace($id,$global:base-uri,$global:nav-base)}" dir="ltr">{$title}</a>
             <button type="button" class="btn btn-sm btn-default copy-sm clipboard"  
                 data-toggle="tooltip" title="Copies record title &amp; URI to clipboard." 
-                data-clipboard-action="copy" data-clipboard-text="{normalize-space($title)} - {normalize-space($id)}">
+                data-clipboard-action="copy" data-clipboard-text="{normalize-space($title[1])} - {normalize-space($id[1])}">
                     <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
             </button>
             {if($series != '') then <span class="results-list-desc type" dir="ltr" lang="en">{(' (',$series,') ')}</span> else ()}
@@ -340,7 +340,7 @@ declare function tei2html:summary-view-bibl($nodes as node()*, $id as xs:string?
             <a href="{replace($id,$global:base-uri,$global:nav-base)}" dir="ltr">{$title}</a>
             <button type="button" class="btn btn-sm btn-default copy-sm clipboard"  
                 data-toggle="tooltip" title="Copies record title &amp; URI to clipboard." 
-                data-clipboard-action="copy" data-clipboard-text="{normalize-space($title)} - {normalize-space($id)}">
+                data-clipboard-action="copy" data-clipboard-text="{normalize-space($title[1])} - {normalize-space($id[1])}">
                     <span class="glyphicon glyphicon-copy" aria-hidden="true"/>
             </button>
             <span class="results-list-desc desc" dir="ltr" lang="en">{
