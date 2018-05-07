@@ -8,8 +8,8 @@ import module namespace functx="http://www.functx.com";
 (: Srophe modules :)
 import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace teiDocs="http://syriaca.org/teiDocs" at "teiDocs/teiDocs.xqm";
-import module namespace tei2html="http://syriaca.org/tei2html" at "content-negotiation/tei2html.xqm";
-import module namespace bibl2html="http://syriaca.org/bibl2html" at "content-negotiation/bibl2html.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "content-negotiation//tei2html.xqm";
+import module namespace bibl2html="http://syriaca.org/bibl2html" at "content-negotiation//bibl2html.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
 import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
@@ -61,10 +61,10 @@ declare function app:display-rec($node as node(), $model as map(*), $collection 
 :)
 declare function app:h1($node as node(), $model as map(*)){
     let $title := tei2html:tei2html($model("data")/descendant::tei:titleStmt/tei:title[1])
-    let $author := tei2html:tei2html($model("data")/descendant::tei:titleStmt/tei:author)
+    let $author := tei2html:tei2html($model("data")/descendant::tei:titleStmt/tei:author[not(@type='anonymous')])
     return   
         <div class="title">
-            <h1>{($author, ': ' , $title)}</h1>
+            <h1>{(if($author != '') then ($author, ': ') else (), $title)}</h1>
         </div>
 };
 
