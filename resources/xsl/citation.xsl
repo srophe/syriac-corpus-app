@@ -66,7 +66,7 @@
         
         <!-- fileDesc/editionStmt/respStmt/resp] -->
         <xsl:text> </xsl:text>
-        <xsl:value-of select="//t:fileDesc/t:editionStmt/t:respStmt[1]/t:resp"></xsl:value-of>
+        <xsl:value-of select="//t:fileDesc/t:editionStmt/t:respStmt[1]/t:resp"/>
         <xsl:text> </xsl:text>
         <xsl:call-template name="responsibility"/>
         <xsl:text>, </xsl:text>
@@ -124,7 +124,7 @@
         
         <!-- fileDesc/editionStmt/respStmt/resp] -->
         <xsl:text> </xsl:text>
-        <xsl:variable name="resp" select="//t:fileDesc/t:editionStmt/t:respStmt[1]/t:resp"></xsl:variable>
+        <xsl:variable name="resp" select="//t:fileDesc/t:editionStmt/t:respStmt[1]/t:resp"/>
         <xsl:value-of select="concat(upper-case(substring($resp,1,1)),substring($resp, 2))"/>
         <xsl:text> </xsl:text>
         <xsl:call-template name="responsibility"/>
@@ -171,7 +171,9 @@
                                 <xsl:when test="t:msDesc">
                                     <xsl:value-of select="t:msDesc/t:msIdentifier/t:altIdentifier[@type='preferred']/t:idno/text()"/>
                                 </xsl:when>
-                                <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
+                                <xsl:otherwise>
+                                    <xsl:apply-templates/>
+                                </xsl:otherwise>
                             </xsl:choose>
                         </xsl:for-each>
                     </xsl:when>
@@ -184,7 +186,9 @@
                                 <xsl:when test="t:msDesc">
                                     <xsl:value-of select="t:msDesc/t:msIdentifier/t:altIdentifier[@type='preferred']/t:idno/text()"/>
                                 </xsl:when>
-                                <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
+                                <xsl:otherwise>
+                                    <xsl:apply-templates/>
+                                </xsl:otherwise>
                             </xsl:choose>
                         </xsl:for-each>
                     </xsl:otherwise>

@@ -465,7 +465,9 @@
                 <xsl:if test="following-sibling::t:monogr">
                     <xsl:text>, </xsl:text>
                 </xsl:if>
-                <xsl:if test="not(following-sibling::*)"><xsl:text>.</xsl:text></xsl:if>
+                <xsl:if test="not(following-sibling::*) and not(ancestor::t:sourceDesc)">
+                    <xsl:text>.</xsl:text>
+                </xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

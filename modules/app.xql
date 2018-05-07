@@ -721,11 +721,12 @@ declare function app:display-ids($node as node(), $model as map(*)){
                     return <span><a href="{string($r/@ref)}">{string($r/@ref)}</a><br/></span>}
                 </div>
               else(), 
-              <div style="margin-top:1em;">
-                <span class="h5-inline">Source: <span class="pull-right">
+              <div>
+                <sh5>Source: </h5>
+                {global:tei2html($model("data")/descendant::tei:sourceDesc)}
                 {if($model("data")/descendant::tei:sourceDesc/descendant::tei:idno[starts-with(., 'http://syriaca.org/bibl')]) then 
                     <span class="footnote-links">
-                        <span class="footnote-icon">
+                        <span class="footnote-icon"> 
                          <a href="{$model("data")/descendant::tei:sourceDesc/descendant::tei:idno[starts-with(., 'http://syriaca.org/bibl')][1]/text()}" title="Link to Syriaca.org Bibliographic Record" 
                              data-toggle="tooltip" data-placement="top" class="bibl-links">
                              <img src="{$global:nav-base}/resources/img/icons-syriaca-sm.png" 
@@ -734,8 +735,6 @@ declare function app:display-ids($node as node(), $model as map(*)){
                         </span>
                     </span>
                 else()}
-                </span></span><br/>
-                {global:tei2html($model("data")/descendant::tei:sourceDesc)}
               </div>, 
               <div style="margin-top:1em;">
                 <span class="h5-inline">Type of Text: </span>
