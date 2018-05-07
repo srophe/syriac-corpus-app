@@ -29,21 +29,17 @@ return
     recap:validate($recapture-private-key, request:get-parameter("g-recaptcha-response",()))
 };
 
-(:~ 
- : Populate email addresses. 
- : Uses values defined in config.xml
-:)
-declare function local:get-emails(){
-for $e-address in $config//*:contact/child::*
-return $e-address
-};
-
 declare function local:build-message(){
 let $rec-uri := if(request:get-parameter('id','')) then concat('for ',request:get-parameter('id','')) else ()
 return
   <mail>
-    <from>The Oxford-BYU Syriac Corpus {concat('&lt;',local:get-emails()[1]//text(),'&gt;')}</from>
-    {local:get-emails()}
+    <from>The Oxford-BYU Syriac Corpus {concat('&lt;',$config//*:contact/child::*[1]//text(),'&gt;')}</from>
+    {
+        for $e-address in $config//*:contact/*:to
+        return <to>{$e-address}</to>,
+        for $e-address in $config//*:contact/*:cc
+        return <cc>{$e-address}</cc>
+    }
     <subject>{request:get-parameter('subject','')} {$rec-uri}</subject>
     <message>
       <xhtml>
