@@ -61,7 +61,7 @@ declare function app:display-rec($node as node(), $model as map(*), $collection 
 :)
 declare function app:h1($node as node(), $model as map(*)){
     let $title := tei2html:tei2html($model("data")/descendant::tei:titleStmt/tei:title[1])
-    let $author := tei2html:tei2html($model("data")/descendant::tei:titleStmt/tei:author[not(@type='anonymous')])
+    let $author := tei2html:tei2html($model("data")/descendant::tei:titleStmt/tei:author[not(@style='anonymous')])
     return   
         <div class="title">
             <h1>{(if($author != '') then ($author, ': ') else (), $title)}</h1>

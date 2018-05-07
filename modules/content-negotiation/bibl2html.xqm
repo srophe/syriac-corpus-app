@@ -167,5 +167,5 @@ declare function bibl2html:emit-responsible-persons($nodes as node()*, $num as x
  : Output authors/editors child elements. 
 :)
 declare function bibl2html:person($nodes as node()*) {
-    if($nodes[@type='anonymous']) then () else string-join($nodes/descendant::text(),' ')
+    if($nodes[@style='anonymous']) then () else string-join($nodes/descendant::text(),' ')
 };

@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
     
     <!-- ================================================================== 
        Copyright 2013 New York University
@@ -56,8 +56,8 @@
     <xsl:template match="t:titleStmt" mode="cite-foot">
         <!-- creator(s) of the entry -->
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-        <xsl:sequence select="local:emit-responsible-persons(t:author[not(@type='anonymous')],'footnote',1)"/>
-        <xsl:if test="t:author[not(@type='anonymous')]">
+        <xsl:sequence select="local:emit-responsible-persons(t:author[not(@style='anonymous')],'footnote',1)"/>
+        <xsl:if test="t:author[not(@style='anonymous')]">
             <xsl:text>, </xsl:text>            
         </xsl:if>
 
@@ -117,8 +117,8 @@
     <xsl:template match="t:titleStmt" mode="cite-biblist">
         <!-- creator(s) of the entry -->
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-        <xsl:sequence select="local:emit-responsible-persons(t:author[not(@type='anonymous')],'footnote',1)"/>
-        <xsl:if test="t:author[not(@type='anonymous')]">
+        <xsl:sequence select="local:emit-responsible-persons(t:author[not(@style='anonymous')],'footnote',1)"/>
+        <xsl:if test="t:author[not(@style='anonymous')]">
             <xsl:text>. </xsl:text>            
         </xsl:if>
         
