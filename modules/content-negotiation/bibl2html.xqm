@@ -16,9 +16,12 @@ declare namespace util="http://exist-db.org/xquery/util";
  : Select citation type based on child elements
 :)
 declare function bibl2html:citation($nodes as node()*) {
-    if($nodes/descendant::tei:monogr and not($nodes/descendant::tei:analytic)) then 
-        bibl2html:monograph($nodes/descendant::tei:monogr)
-    else if($nodes/descendant::tei:analytic) then bibl2html:analytic($nodes/descendant::tei:analytic)
+    if($nodes/descendant-or-self::tei:teiHeader) then 
+       bibl2html:record($nodes/descendant-or-self::tei:teiHeader)
+    else if($nodes/descendant::tei:monogr and not($nodes/descendant::tei:analytic)) then 
+       bibl2html:monograph($nodes/descendant::tei:monogr)
+    else if($nodes/descendant::tei:analytic) then 
+       bibl2html:analytic($nodes/descendant::tei:analytic)
     else bibl2html:record($nodes/descendant-or-self::tei:teiHeader)
 };
 
@@ -27,12 +30,46 @@ declare function bibl2html:citation($nodes as node()*) {
 :)
 declare function bibl2html:record($nodes) {
     let $titleStmt := $nodes/descendant::tei:titleStmt
-    let $persons :=  concat(bibl2html:emit-responsible-persons($titleStmt/tei:editor[@role='creator'],3), 
-                        if(count($titleStmt/tei:editor) gt 1) then ' (eds.), ' else ' (ed.), ')
-    let $id := $nodes/descendant-or-self::tei:publicationStmt[1]/tei:idno[1]                         
+    let $sourceDesc := $nodes/descendant::tei:sourceDesc
+    let $persons :=  if($titleStmt/tei:author) then 
+                         if(bibl2html:emit-responsible-persons($titleStmt/tei:author,3) != '') then 
+                            concat(bibl2html:emit-responsible-persons($titleStmt/tei:author,3),'. ')
+                         else ()
+                     else concat(bibl2html:emit-responsible-persons($titleStmt/tei:editor[@role='creator'],3), 
+                        if(count($titleStmt/tei:editor) gt 1) then ' eds. ' else ' ed. ')
+    let $id := $nodes/descendant-or-self::tei:publicationStmt[1]/tei:idno[1] 
+    let $rspStmt := $nodes/descendant::tei:fileDesc/tei:editionStmt/tei:respStmt[1]/tei:resp
+    let $rspStmtString := concat(upper-case(substring($rspStmt,1,1)),substring($rspStmt, 2))
     return 
-        ($persons, '"',tei2html:tei2html($titleStmt/tei:title[1]),'" in ',tei2html:tei2html($titleStmt/tei:title[@level='m'][1]),' last modified ',
-        for $d in $nodes/descendant-or-self::tei:publicationStmt/tei:date[1] return if($d castable as xs:date) then format-date(xs:date($d), '[MNn] [D], [Y]') else string($d),', ',replace($id[1],'/tei','')) 
+        ($persons,' “',tei2html:tei2html($titleStmt/tei:title[1]),'.” ',$rspStmtString,' ', 
+        if(bibl2html:responsibility($nodes) != '') then 
+            (bibl2html:responsibility($nodes),'.')  else (), 
+        ' In ', tei2html:tei2html($titleStmt/tei:title[@level='s'][position()=last()]),'. Last modified ',
+        if($nodes/descendant::tei:revisionDesc/tei:change[1]/@when castable as xs:date) then 
+            concat(format-date(xs:date($nodes/descendant::tei:revisionDesc/tei:change[1]/@when), '[MNn] [D], [Y]'),'. ') 
+        else concat(string($nodes/descendant::tei:revisionDesc/tei:change[1]/@when), '. '),
+        concat(replace($id[1],'/tei',''),'.')
+        )
+};
+
+declare function bibl2html:responsibility($nodes) {
+    if($nodes/descendant::tei:fileDesc/tei:editionStmt/tei:respStmt/tei:name/tei:ptr) then
+        let $source := replace(string($nodes/descendant::tei:fileDesc/tei:editionStmt/tei:respStmt/tei:name/tei:ptr/@target),'#','')
+        return 
+            if($nodes/descendant::tei:sourceDesc[@xml:id = $source]) then
+                for $s in $nodes/descendant::tei:sourceDesc[@xml:id = $source]
+                return 
+                    if($s/tei:msDesc) then 
+                        $s/tei:msDesc/tei:msIdentifier/tei:altIdentifier[@type='preferred']/tei:idno/text()
+                    else bibl2html:citation($s)     
+            else 
+                for $s in $nodes/descendant::tei:teiHeader/tei:fileDesc/tei:sourceDesc[1]
+                return 
+                    if($s/tei:msDesc) then 
+                        $s/tei:msDesc/tei:msIdentifier/tei:altIdentifier[@type='preferred']/tei:idno/text()
+                    else bibl2html:citation($s)    
+    else if($nodes/descendant::tei:teiHeader/tei:fileDesc/tei:editionStmt/tei:respStmt/tei:name) then  $nodes/descendant::tei:teiHeader/tei:fileDesc/tei:editionStmt/tei:respStmt/tei:name
+    else ()
 };
 
 (:~
@@ -112,12 +149,7 @@ declare function bibl2html:emit-responsible-persons($nodes as node()*, $num as x
         let $count := count($nodes)
         return 
             if($count = 1) then 
-                bibl2html:person($nodes)  
-            (:
-            else if($count gt $num) then
-                (for $n in subsequence($nodes, 1, $num)
-                return normalize-space(bibl2html:person($nodes)), ' et al.')
-            :)                
+                bibl2html:person($nodes)                
             else if($count = 2) then
                 (bibl2html:person($nodes[1]),' and ',bibl2html:person($nodes[2]))            
             else 
@@ -125,6 +157,8 @@ declare function bibl2html:emit-responsible-persons($nodes as node()*, $num as x
                 return 
                     if($p = ($num - 1)) then 
                         (normalize-space(bibl2html:person($n)), ' and ')
+                    else if($p = $num) then 
+                        concat(normalize-space(bibl2html:person($n)),' ')
                     else concat(normalize-space(bibl2html:person($n)),', ')
     return replace(string-join($persons),'\s+$','')                    
 };
@@ -133,5 +167,5 @@ declare function bibl2html:emit-responsible-persons($nodes as node()*, $num as x
  : Output authors/editors child elements. 
 :)
 declare function bibl2html:person($nodes as node()*) {
-    string-join($nodes/descendant::text(),' ')
+    if($nodes[@type='anonymous']) then () else string-join($nodes/descendant::text(),' ')
 };

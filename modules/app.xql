@@ -8,8 +8,8 @@ import module namespace functx="http://www.functx.com";
 (: Srophe modules :)
 import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace teiDocs="http://syriaca.org/teiDocs" at "teiDocs/teiDocs.xqm";
-import module namespace tei2html="http://syriaca.org/tei2html" at "content-negotiation//tei2html.xqm";
-import module namespace bibl2html="http://syriaca.org/bibl2html" at "content-negotiation//bibl2html.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "content-negotiation/tei2html.xqm";
+import module namespace bibl2html="http://syriaca.org/bibl2html" at "content-negotiation/bibl2html.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
 import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";

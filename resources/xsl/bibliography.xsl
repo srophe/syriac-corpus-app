@@ -703,10 +703,10 @@
                 <xsl:if test="$edited">
                     <xsl:choose>
                         <xsl:when test="$rcount = 1">
-                            <xsl:text> (ed.)</xsl:text>
+                            <xsl:text> ed.</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:text> (eds.)</xsl:text>
+                            <xsl:text> eds.</xsl:text>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:if>

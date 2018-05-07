@@ -100,7 +100,7 @@ declare function tei2html:summary-view-generic($nodes as node()*, $id as xs:stri
             else ()}
             {if($nodes/descendant::tei:biblStruct) then 
                 <span class="results-list-desc desc" dir="ltr" lang="en">
-                    <label>Source: </label> {bibl2html:citation($nodes/descendant::tei:biblStruct)}
+                    <label>Source: </label> {bibl2html:citation($nodes/descendant::tei:teiHeader)}
                 </span>
             else ()}
             {if($nodes/descendant-or-self::*[starts-with(@xml:id,'abstract')]) then 

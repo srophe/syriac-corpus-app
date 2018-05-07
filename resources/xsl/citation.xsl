@@ -56,8 +56,11 @@
     <xsl:template match="t:titleStmt" mode="cite-foot">
         <!-- creator(s) of the entry -->
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-        <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',1)"/>
-        <xsl:text>, </xsl:text>
+        <xsl:sequence select="local:emit-responsible-persons(t:author[not(@type='anonymous')],'footnote',1)"/>
+        <xsl:if test="t:author[not(@type='anonymous')]">
+            <xsl:text>, </xsl:text>            
+        </xsl:if>
+
         
         <!-- title of the entry -->
         <xsl:text>“</xsl:text>
@@ -114,8 +117,10 @@
     <xsl:template match="t:titleStmt" mode="cite-biblist">
         <!-- creator(s) of the entry -->
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-        <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',1)"/>
-        <xsl:text>. </xsl:text>
+        <xsl:sequence select="local:emit-responsible-persons(t:author[not(@type='anonymous')],'footnote',1)"/>
+        <xsl:if test="t:author[not(@type='anonymous')]">
+            <xsl:text>. </xsl:text>            
+        </xsl:if>
         
         <!-- title of the entry -->
         <xsl:text>“</xsl:text>
@@ -136,7 +141,7 @@
         <xsl:text>. </xsl:text>
         
         <!-- publication date statement -->
-        <xsl:text> last modified </xsl:text>
+        <xsl:text> Last modified </xsl:text>
         <xsl:for-each select="../../t:revisionDesc/t:change[1]">
             <xsl:choose>
                 <xsl:when test="@when castable as xs:date">
