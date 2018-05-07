@@ -1,5 +1,5 @@
 <meta xmlns="http://exist-db.org/xquery/repo">
-    <description>The Oxford-BYU Syriac Corpus project</description>
+    <description>Digital Syriac Corpus</description>
     <author>Winona Salesky</author>
     <website>http://syriac-corpus.org/</website>
     <status>beta</status>
@@ -11,7 +11,7 @@
     <finish>post-install.xql</finish>
     <config>
         <!-- App title -->
-        <title>The Oxford-BYU Syriac Corpus project</title>
+        <title>Digital Syriac Corpus</title>
         <!-- App description -->
         <description/>
         <!-- Contact email -->
