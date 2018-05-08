@@ -4,11 +4,11 @@ xquery version "3.0";
  : 
 :)
 module namespace tei2rdf="http://syriaca.org/tei2rdf";
-import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
-import module namespace data="http://syriaca.org/data" at "../lib/data.xqm";
+import module namespace global="http://syriaca.org/global" at "global.xqm";
+import module namespace data="http://syriaca.org/data" at "data.xqm";
 import module namespace config="http://syriaca.org/config" at "../config.xqm";
 import module namespace bibl2html="http://syriaca.org/bibl2html" at "bibl2html.xqm";
-import module namespace rel="http://syriaca.org/related" at "../lib/get-related.xqm";
+import module namespace rel="http://syriaca.org/related" at "get-related.xqm";
 import module namespace functx="http://www.functx.com";
 
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
@@ -164,8 +164,8 @@ declare function tei2rdf:rec-type($rec){
 
 (: Decode record label and title based on Syriaca.org headwords if available 'rdfs:label' or dcterms:title:)
 declare function tei2rdf:rec-label-and-titles($rec, $element as xs:string?){
-    if($rec/descendant::*[@syriaca-tags='#syriaca-headword']) then 
-        for $headword in $rec/descendant::*[@syriaca-tags='#syriaca-headword'][node()]
+    if($rec/descendant::*[contains(@syriaca-tags,'#syriaca-headword')]) then 
+        for $headword in $rec/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][node()]
         return tei2rdf:create-element($element, string($headword/@xml:lang), string-join($headword/descendant-or-self::text(),''), 'literal')
     else if($rec/descendant::tei:body/tei:listPlace/tei:place) then 
         for $headword in $rec/descendant::tei:body/tei:listPlace/tei:place/tei:placeName[node()]
@@ -173,7 +173,7 @@ declare function tei2rdf:rec-label-and-titles($rec, $element as xs:string?){
     else if($rec[self::tei:div/@uri]) then 
         if(tei2rdf:rec-type($rec) = 'http://syriaca.org/schema#/relationFactoid') then
             tei2rdf:create-element($element, (), rel:relationship-sentence($rec/descendant::tei:listRelation/tei:relation), 'literal')
-        else tei2rdf:create-element($element, (), normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),'')), 'literal')        
+        else tei2rdf:create-element($element, (), normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' )), 'literal')        
     else tei2rdf:create-element($element, string($rec/descendant::tei:title[1]/@xml:lang), string-join($rec/descendant::tei:title[1]/text(),''), 'literal')
 };
 
@@ -181,17 +181,17 @@ declare function tei2rdf:rec-label-and-titles($rec, $element as xs:string?){
 declare function tei2rdf:names($rec){ 
     for $name in $rec/descendant::tei:body/tei:listPlace/tei:place/tei:placeName | $rec/descendant::tei:body/tei:listPerson/tei:person/tei:persName
     return 
-        if($name/@syriaca-tags='#syriaca-headword') then 
+        if($name[contains(@syriaca-tags,'#syriaca-headword')]) then 
                 element { xs:QName('lawd:hasName') } {
                     element { xs:QName('rdf:Description') } {(
-                        tei2rdf:create-element('lawd:primaryForm', string($name/@xml:lang), normalize-space(string-join($name/descendant-or-self::text(),'')), 'literal'),
+                        tei2rdf:create-element('lawd:primaryForm', string($name/@xml:lang), string-join($name/descendant-or-self::text(),' '), 'literal'),
                         tei2rdf:attestation($rec, $name/@source)   
                     )} 
                 } 
         else 
                 element { xs:QName('lawd:hasName') } {
                         element { xs:QName('rdf:Description') } {(
-                            tei2rdf:create-element('lawd:variantForm', string($name/@xml:lang), string-join($name/descendant-or-self::text(),''), 'literal'),
+                            tei2rdf:create-element('lawd:variantForm', string($name/@xml:lang), string-join($name/descendant-or-self::text(),' '), 'literal'),
                             tei2rdf:attestation($rec, $name/@source)   
                         )} 
                     }
