@@ -115,7 +115,7 @@ function api:search(
                         return
                         <result>
                             <id>{$id}</id>
-                            {tei2html:output-kwic($kwic)}
+                            {tei2html:output-kwic($kwic,$id)}
                         </result>
                     }
                 </results>
