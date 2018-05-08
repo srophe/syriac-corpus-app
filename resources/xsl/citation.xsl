@@ -56,8 +56,8 @@
     <xsl:template match="t:titleStmt" mode="cite-foot">
         <!-- creator(s) of the entry -->
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-        <xsl:sequence select="local:emit-responsible-persons(t:author[not(@type='anonymous')],'footnote',1)"/>
-        <xsl:if test="t:author[not(@type='anonymous')]">
+        <xsl:sequence select="local:emit-responsible-persons(t:author[not(@role='anonymous')],'footnote',1)"/>
+        <xsl:if test="t:author[not(@role='anonymous')]">
             <xsl:text>, </xsl:text>            
         </xsl:if>
 
@@ -117,8 +117,8 @@
     <xsl:template match="t:titleStmt" mode="cite-biblist">
         <!-- creator(s) of the entry -->
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-        <xsl:sequence select="local:emit-responsible-persons(t:author[not(@type='anonymous')],'footnote',1)"/>
-        <xsl:if test="t:author[not(@type='anonymous')]">
+        <xsl:sequence select="local:emit-responsible-persons(t:author[not(@role='anonymous')],'footnote',1)"/>
+        <xsl:if test="t:author[not(@role='anonymous')]">
             <xsl:text>. </xsl:text>            
         </xsl:if>
         
