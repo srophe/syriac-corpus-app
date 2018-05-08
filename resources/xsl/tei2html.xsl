@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -344,9 +344,11 @@
                         <span id="{$currentid}"/>
                     </xsl:when>
                     <xsl:otherwise>
+                        <xsl:text> </xsl:text>
                         <span class="text-number badge {if(self::t:l) then 'display' else ()}">
                            <xsl:if test="self::t:pb">pb. </xsl:if> <xsl:value-of select="@n"/>
                         </span>
+                        <xsl:text> </xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:if>
