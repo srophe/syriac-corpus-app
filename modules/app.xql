@@ -111,11 +111,31 @@ return
                     else if($f = 'corrections') then
                         (<a class="btn btn-default btn-xs" data-toggle="modal" data-target="#feedback"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Corrections?</a>,'&#160;') 
                     else if($f = 'copy') then
-                        (<a class="btn btn-default btn-xs" id="copyBtn" 
+                        (
+                        <a class="btn btn-default btn-xs" id="copyBtn" 
                         data-toggle="tooltip" 
                         title="To preserve right-to-left text, paste with options 'unformatted text' or 'keep text only.'"
-                        data-clipboard-action="copy" data-clipboard-target="#syriaca-id"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span> Copy</a>,'&#160;')
-                    else if($f = 'text') then
+                        data-clipboard-action="copy">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> Copy</a>,'&#160;',
+                        <script>
+                           <![CDATA[
+                                var fullText;
+                                $(document).ready(function() {
+                                    $.get(']]>{concat(replace($id,$global:base-uri,$global:nav-base),'.txt')}<![CDATA[', $(this).serialize(), function(data) {
+                                        fullText = data;
+                                       }).fail( function(jqXHR, textStatus, errorThrown) {
+                                         console.log(textStatus);
+                                    });
+                                    new Clipboard('#copyBtn', {
+                                    text: function(trigger) {
+                                      return fullText
+                                    }
+                                     });
+                                });                           
+                            ]]>
+                        </script>
+                        )
+                   else if($f = 'text') then
                             (<a href="{concat(replace($id,$global:base-uri,$global:nav-base),'.txt')}" class="btn btn-default btn-xs" id="txtBtn" data-toggle="tooltip" title="Click to view the plain text version of this data." >
                              <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Text
                             </a>, '&#160;')
