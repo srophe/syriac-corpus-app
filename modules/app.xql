@@ -1010,7 +1010,7 @@ declare %templates:wrap function app:srophe-related($node as node(), $model as m
                                                     SELECT ?uri ?label ?subjects ?citations
                                                     {
                                                         ?uri rdfs:label ?label
-                                                        FILTER (?uri IN ( ]]>{string-join(for $r in subsequence($other-resources,12,$count) return concat('<',$r,'>'),',')}<![CDATA[))
+                                                        FILTER (?uri IN ( ]]>{string-join(for $r in subsequence($other-resources,10,$count) return concat('<',$r,'>'),',')}<![CDATA[))
                                                         FILTER ( langMatches(lang(?label), 'en')) .
                                                         {SELECT ?uri ( count(?s) as ?subjects ) { ?s dcterms:relation ?uri } GROUP BY ?uri }  
                                                         {SELECT ?uri ( count(?o) as ?citations ) { 
