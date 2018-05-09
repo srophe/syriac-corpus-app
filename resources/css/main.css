@@ -424,7 +424,7 @@ td {
 .relation .results-list-desc.uri{margin-left:0; }
 
 /* footnote styles */
-.footnotes {display:block;border-top: 1px dotted gray; text-align:right;}
+.footnotes {display:block;border-top: 1px dotted gray; text-align:left;}
 .footnote-text {display:block;}
 .footnote-text .footnote-refs {font-size: .75em;}
 .footnote-refs, .footnote-tgt {
