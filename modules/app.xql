@@ -977,20 +977,22 @@ declare %templates:wrap function app:srophe-related($node as node(), $model as m
                                         prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                                         prefix lawd: <http://lawd.info/ontology/>
                                         prefix skos: <http://www.w3.org/2004/02/skos/core#>
-                                        prefix dcterms: <http://purl.org/dc/terms/>
-                                        
-                                        SELECT ?uri ?label ?subjects ?citations
-                                        {
-                                            ?uri rdfs:label ?label
-                                            FILTER (?uri IN ( ]]>{string-join(for $r in subsequence($other-resources,1,10) return concat('<',$r,'>'),',')}<![CDATA[))
-                                            FILTER ( langMatches(lang(?label), 'en')) .
-                                            {SELECT ?uri ( count(?s) as ?subjects ) { ?s dcterms:relation ?uri } GROUP BY ?uri }  
-                                            {SELECT ?uri ( count(?o) as ?citations ) { 
-                                              ?uri lawd:hasCitation ?o 
-                                            	OPTIONAL{
-                                                  ?uri skos:closeMatch ?o.}
-                                            } GROUP BY ?uri }   
-                                        }
+                                        prefix dcterms: <http://purl.org/dc/terms/>  
+                                                                                	        
+                                        SELECT ?uri (SAMPLE(?l) AS ?label) (SAMPLE(?uriSubject) AS ?subjects) (SAMPLE(?uriCitations) AS ?citations)
+                                            {
+                                                ?uri rdfs:label ?l
+                                                FILTER (?uri IN (]]>{string-join(for $r in subsequence($other-resources,1,10) return concat('<',$r,'>'),',')}<![CDATA[)).
+                                                FILTER ( langMatches(lang(?l), 'en')).
+                                                OPTIONAL{
+                                                    {SELECT ?uri ( count(?s) as ?uriSubject ) { ?s dcterms:relation ?uri } GROUP BY ?uri }  }
+                                                    OPTIONAL{
+                                                        {SELECT ?uri ( count(?o) as ?uriCitations ) { ?uri lawd:hasCitation ?o 
+                                                                OPTIONAL{ ?uri skos:closeMatch ?o.}
+                                                        } GROUP BY ?uri }
+                                                    }           
+                                            }
+                                        GROUP BY ?uri  
                                       ]]>  
                                     </textarea>
                                 </form>
@@ -1005,21 +1007,23 @@ declare %templates:wrap function app:srophe-related($node as node(), $model as m
                                                     prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                                                     prefix lawd: <http://lawd.info/ontology/>
                                                     prefix skos: <http://www.w3.org/2004/02/skos/core#>
-                                                    prefix dcterms: <http://purl.org/dc/terms/>
-                                                    
-                                                    SELECT ?uri ?label ?subjects ?citations
-                                                    {
-                                                        ?uri rdfs:label ?label
-                                                        FILTER (?uri IN ( ]]>{string-join(for $r in subsequence($other-resources,10,$count) return concat('<',$r,'>'),',')}<![CDATA[))
-                                                        FILTER ( langMatches(lang(?label), 'en')) .
-                                                        {SELECT ?uri ( count(?s) as ?subjects ) { ?s dcterms:relation ?uri } GROUP BY ?uri }  
-                                                        {SELECT ?uri ( count(?o) as ?citations ) { 
-                                                          ?uri lawd:hasCitation ?o 
-                                                        	OPTIONAL{
-                                                              ?uri skos:closeMatch ?o.}
-                                                        } GROUP BY ?uri }   
-                                                    }
-                                                  ]]>  
+                                                    prefix dcterms: <http://purl.org/dc/terms/>  
+                                                                                            	        
+                                                    SELECT ?uri (SAMPLE(?l) AS ?label) (SAMPLE(?uriSubject) AS ?subjects) (SAMPLE(?uriCitations) AS ?citations)
+                                                        {
+                                                            ?uri rdfs:label ?l
+                                                            FILTER (?uri IN (]]>{string-join(for $r in subsequence($other-resources,10,$count) return concat('<',$r,'>'),',')}<![CDATA[)).
+                                                            FILTER ( langMatches(lang(?l), 'en')).
+                                                            OPTIONAL{
+                                                                {SELECT ?uri ( count(?s) as ?uriSubject ) { ?s dcterms:relation ?uri } GROUP BY ?uri }  }
+                                                                OPTIONAL{
+                                                                    {SELECT ?uri ( count(?o) as ?uriCitations ) { ?uri lawd:hasCitation ?o 
+                                                                            OPTIONAL{ ?uri skos:closeMatch ?o.}
+                                                                    } GROUP BY ?uri }
+                                                                }           
+                                                        }
+                                                    GROUP BY ?uri  
+                                                  ]]>
                                                 </textarea>
                                             </form>
                                         </div>
