@@ -82,10 +82,12 @@ declare function bibl2html:monograph($nodes as node()*) {
                         (bibl2html:emit-responsible-persons($nodes/tei:editor[not(@role) or @role!='translator'],3), 
                         if(count($nodes/tei:editor[not(@role) or @role!='translator']) gt 1) then ' eds., ' else ' ed., ')
                     else ()
-    return (
-            if(deep-equal($nodes/tei:editor | $nodes/tei:author, $nodes/preceding-sibling::tei:monogr/tei:editor | $nodes/preceding-sibling::tei:monogr/tei:author )) then () else $persons, 
-            tei2html:tei2html($nodes/tei:title[1]),
-            if(count($nodes/tei:editor[@role='translator']) gt 0) then (bibl2html:emit-responsible-persons($nodes/tei:editor[@role!='translator'],3),', trans. ') else (),
+    return (if(deep-equal($nodes/tei:editor | 
+                $nodes/tei:author, 
+                $nodes/preceding-sibling::tei:monogr/tei:editor | 
+                $nodes/preceding-sibling::tei:monogr/tei:author )) then () else $persons,tei2html:tei2html($nodes/tei:title[1]),
+            if(count($nodes/tei:editor[@role='translator']) gt 0) then 
+                (bibl2html:emit-responsible-persons($nodes/tei:editor[@role!='translator'],3),', trans. ') else (),
             if($nodes/tei:edition) then 
                 (', ', $nodes/tei:edition[1]/text(),' ')
             else (),
@@ -97,9 +99,9 @@ declare function bibl2html:monograph($nodes as node()*) {
             else if($nodes/preceding-sibling::tei:monogr and $nodes/preceding-sibling::tei:monogr/tei:imprint[child::*[string-length(.) gt 0]]) then   
             (' (', $nodes/preceding-sibling::tei:monogr/tei:imprint,')')
             else if($nodes/tei:imprint[child::*[string-length(.) gt 0]]) then 
-                concat(' (',tei2html:tei2html($nodes/tei:imprint[child::*[string-length(.) gt 0]]),')', if($nodes/following-sibling::tei:monogr) then ', ' else() )
-            else ()
-        )
+                concat(' (',tei2html:tei2html($nodes/tei:imprint[child::*[string-length(.) gt 0]]),')', 
+                if($nodes/following-sibling::tei:monogr) then ', ' else '.' )
+            else())
 };
 
 (:~
