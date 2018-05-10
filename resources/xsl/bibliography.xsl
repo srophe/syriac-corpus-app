@@ -462,12 +462,10 @@
                     <xsl:apply-templates select="t:imprint" mode="footnote"/>
                     <xsl:text>)</xsl:text>
                 </xsl:if>
-                <xsl:if test="following-sibling::t:monogr">
-                    <xsl:text>, </xsl:text>
-                </xsl:if>
-                <xsl:if test="not(following-sibling::*) and not(ancestor::t:sourceDesc)">
-                    <xsl:text>.</xsl:text>
-                </xsl:if>
+                <xsl:choose>
+                    <xsl:when test="following-sibling::t:monogr"><xsl:text>, </xsl:text></xsl:when>
+                    <xsl:when test="not(following-sibling::*) and not(ancestor::t:teiHeader)"><xsl:text>.</xsl:text></xsl:when>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -631,6 +629,7 @@
             <xsl:apply-templates select="preceding-sibling::t:monogr/t:imprint" mode="footnote"/>
             <xsl:text>)</xsl:text>
         </xsl:if>
+        <xsl:if test="not(following-sibling::*) and not(ancestor::t:teiHeader)"><xsl:text>.</xsl:text></xsl:if>
     </xsl:template>
 
     <!-- Series output -->
