@@ -743,7 +743,7 @@ declare function app:display-ids($node as node(), $model as map(*)){
               else(), 
               <div>
                 <h5>Source: </h5>
-                {bibl2html:citation($model("data")/descendant::tei:sourceDesc)}
+                {(global:tei2html($model("data")/descendant::tei:sourceDesc),'.')}
                 {if($model("data")/descendant::tei:sourceDesc/descendant::tei:idno[starts-with(., 'http://syriaca.org/bibl')]) then 
                     <span class="footnote-links">
                         <span class="footnote-icon"> 
@@ -1055,7 +1055,6 @@ declare %templates:wrap function app:srophe-related($node as node(), $model as m
                                            $('#showMoreResources').children('form').each(function () {
                                                 var url = $(this).attr('action');
                                                     $.post(url, $(this).serialize(), function(data) {
-                                                        var showOtherResources = $("#showMoreResources"); 
                                                         var dataArray = data.results.bindings;
                                                         if (!jQuery.isArray(dataArray)) dataArray = [dataArray];
                                                         $.each(dataArray, function (currentIndex, currentElem) {
