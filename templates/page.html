@@ -3,7 +3,7 @@
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title data-template="app:app-title">Syriaca.org: The Syriac Reference Portal</title>
+        <title data-template="app:app-title">Digital Syriac Corpus</title>
         <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"/>
         <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/"/>
         <meta name="DC.type" property="dc.type" content="Text"/>
@@ -41,7 +41,7 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
-                <![CDATA[
+                
                 $('.keyboard').keyboard({
                     openOn: null,
                     stayOpen: false,
@@ -62,8 +62,8 @@
                     //var kb = $('#searchField').getkeyboard();
                     // change layout based on link ID
                     kb.options.layout = this.id
-                    // open keyboard if layout is different, or time from it last closing is > 200 ms
-                    if (kb.last.layout !== kb.options.layout || (new Date().getTime() - kb.last.eventTime) > 200) {
+                    // open keyboard if layout is different, or time from it last closing is &gt; 200 ms
+                    if (kb.last.layout !== kb.options.layout || (new Date().getTime() - kb.last.eventTime) &gt; 200) {
                         kb.reveal();
                     }
                 });
@@ -73,7 +73,7 @@
                     $('.selectableFont').not('.syr').css('font-family', selectedFont);
                     $("*:lang(syr)").css('font-family', selectedFont)
                 });
-                ]]>
+                
             })
         </script>
     </head>
@@ -102,7 +102,7 @@ West Syriac (what font do we current use here)
                         <span class="banner-icon">
                             <img src="$app-root/resources/img/syriac-corpus.svg" alt="" width="50px"/>
                         </span>
-                        <span class="banner-text">The Oxford-BYU Syriac Corpus</span>
+                        <span class="banner-text">Digital Syriac Corpus</span>
                     </a>
                 </div>
                 <div class="navbar-collapse collapse pull-right">
@@ -135,7 +135,7 @@ West Syriac (what font do we current use here)
                                     <a href="$app-root/documentation/documentation.html">Documentation</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>                        
                     </ul>
                     <ul class="nav navbar-nav navbar-right keboard-btn">
                         <li>
