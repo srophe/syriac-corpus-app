@@ -38,6 +38,7 @@ declare variable $search:collection {request:get-parameter('collection', '') cas
 :)
 declare %templates:wrap function search:get-results($node as node(), $model as map(*), $collection as xs:string?, $view as xs:string?){
     let $coll := if($search:collection != '') then $search:collection else $collection
+    let $keyword-query := common:query()
     let $eval-string :=  concat(search:query-string($collection),facet:facet-filter(facet-defs:facet-definition($collection)))
     return map {"hits" := 
                 if(exists(request:get-parameter-names()) or ($view = 'all')) then 
@@ -351,7 +352,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                         {(tei2html:summary-view($hit, (), $id[1])) }
                         {
                             if($expanded//exist:match) then 
-                                <div class="col-md-9" style="padding-left:3em;">{tei2html:output-kwic($expanded, $id[1])}</div>
+                                tei2html:output-kwic($expanded, $id)
                             else ()
                         }
                       </div>
