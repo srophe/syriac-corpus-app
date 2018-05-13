@@ -171,15 +171,16 @@ declare function tei2html:translate-series($series as xs:string?){
 declare function tei2html:output-kwic($nodes as node()*, $id as xs:string*){
     let $results := <results xmlns="http://www.w3.org/1999/xhtml">{tei2html:kwic-format($nodes)}</results>
     let $count := count($results//*:match)
-    for $node in subsequence($results//*:match,1,8)
+    for $node at $p in subsequence($results//*:match,1,8)
     let $prev := $node/preceding-sibling::text()[1]
     let $next := $node/following-sibling::text()[1]
-    (:if($prev[not(. intersect $node/following-sibling::text()[1])]) then () else $node/following-sibling::text()[1]:)
     let $prevString := 
         if(string-length($prev) gt 60) then 
-            concat('...',substring($prev,string-length($prev) - 100, 100))
+            concat(' ...',substring($prev,string-length($prev) - 100, 100))
         else $prev
-    let $nextString := if(string-length($next) lt 60 ) then () else concat(substring($next,1,100),'...')
+    let $nextString := 
+        if(string-length($next) lt 100 ) then () 
+        else concat(substring($next,1,100),'... ')
     let $link := concat($global:nav-base,'/',tokenize($id,'/')[last()],'#',$node/@n)
     return 
         <span>{$prevString}&#160;<span class="match" style="background-color:yellow;"><a href="{$link}">{$node/text()}</a></span>&#160;{$nextString}</span>
@@ -205,5 +206,3 @@ declare function tei2html:kwic-format($nodes as node()*){
                 </match>
             default return tei2html:kwic-format($node/node())                
 };
-
-
