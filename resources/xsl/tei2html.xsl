@@ -768,11 +768,22 @@
                 <xsl:text> </xsl:text>
                 <xsl:value-of select="t:idno[@type='shelfmark']"/>
                 <xsl:choose>
-                    <xsl:when test="t:altIdentifier[@type='preferred']"><br/>(<xsl:value-of select="normalize-space(t:altIdentifier[@type='preferred'])"/>)</xsl:when>
-                    <xsl:otherwise><br/>(<xsl:value-of select="normalize-space(t:altIdentifier[1])"/>)</xsl:otherwise>
-                </xsl:choose><xsl:if test="not(following-sibling::*) and not(ancestor::t:teiHeader)"><xsl:text>.</xsl:text></xsl:if>
+                    <xsl:when test="t:altIdentifier[@type='preferred']">
+                        <br/>(<xsl:value-of select="normalize-space(t:altIdentifier[@type='preferred'])"/>)</xsl:when>
+                    <xsl:otherwise>
+                        <br/>(<xsl:value-of select="normalize-space(t:altIdentifier[1])"/>)</xsl:otherwise>
+                </xsl:choose>
+                <xsl:if test="not(following-sibling::*) and not(ancestor::t:teiHeader)">
+                    <xsl:text>.</xsl:text>
+                </xsl:if>
             </span>            
         </xsl:for-each>
+    </xsl:template>
+    
+    <xsl:template match="*:match">
+        <span class="match" style="background-color:yellow;">
+            <xsl:apply-templates/>
+        </span>
     </xsl:template>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of a note element 
@@ -918,8 +929,8 @@
                 <xsl:attribute name="id" select="concat('note',@n)"/>
                 <span class="notes footnote-refs">
                     <span class="footnote-ref">
-                        <xsl:value-of select="@n"/>
-                    </span> </span>
+                        &#8206;<xsl:value-of select="@n"/>
+                    </span>&#160;</span>
             </xsl:if>
             <xsl:choose>
                 <xsl:when test="t:quote">
