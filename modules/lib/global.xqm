@@ -58,12 +58,12 @@ declare variable $global:map-api-key := $global:get-config//repo:maps/repo:optio
 (: Recaptcha Key, Store as environemnt variable. :)
 (: Recaptcha Key :)
 declare variable $global:recaptcha := 
-    if(doc('../config.xml')) then
-        let $config := doc('../config.xml')
+    if(doc($global:app-root || '/config.xml')) then
+        let $config := doc($global:app-root || '/config.xml')
         return 
-                if($config//recaptcha/site-key-variable != '') then 
-                    environment-variable($config//recaptcha/site-key-variable/text())
-                else $config//private-key/text()
+                if($config//recaptcha/recaptcha-site-key != '') then 
+                    $config//recaptcha/recaptcha-site-key/text()
+                else ()
     else ();
 
 (: Global functions used throughout Srophe app :)
