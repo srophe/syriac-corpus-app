@@ -621,7 +621,7 @@ div[id|=place] > div:last-of-type {
 .page-bottom .hit-count {display:none;}
 
 .match {
-    font-style:italic; color:gray;
+   background-color:yellow; color:gray;
 }
 .param {font-weight:600; color:#666; padding-left:.5em;}
 

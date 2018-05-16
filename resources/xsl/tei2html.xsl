@@ -937,7 +937,10 @@
                     <xsl:apply-templates/>
                 </xsl:when>
                 <xsl:when test="t:p">
-                    <xsl:apply-templates mode="plain"/>
+                    <span>
+                        <xsl:call-template name="langattr"/>
+                        <xsl:apply-templates mode="plain"/>
+                    </span>
                 </xsl:when>
                 <xsl:otherwise>
                     <span>
