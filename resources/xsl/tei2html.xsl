@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -410,9 +410,14 @@
                         <xsl:value-of select="."/>
                     </xsl:matching-substring>
                     <xsl:non-matching-substring>
-                        <a href="https://sedra.bethmardutho.org/api/word/{.}.html" class="sedra">
-                            <xsl:value-of select="."/>
-                        </a>
+                        <xsl:choose>
+                            <xsl:when test="matches(., '\p{IsSyriac}')">
+                                <a href="https://sedra.bethmardutho.org/api/word/{.}.html" class="sedra">
+                                    <xsl:value-of select="."/>
+                                </a>
+                            </xsl:when>
+                            <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+                        </xsl:choose>
                     </xsl:non-matching-substring>
                 </xsl:analyze-string>
             </xsl:when>
@@ -927,20 +932,19 @@
         <p class="footnote-text">
             <xsl:if test="@n">
                 <xsl:attribute name="id" select="concat('note',@n)"/>
-                <span class="notes footnote-refs">
-                    <span class="footnote-ref">
-                        &#8206;<xsl:value-of select="@n"/>
-                    </span>&#160;</span>
+                <span class="notes footnote-refs"><span class="footnote-ref">‎<xsl:value-of select="@n"/></span> </span>
             </xsl:if>
             <xsl:choose>
                 <xsl:when test="t:quote">
                     <xsl:apply-templates/>
                 </xsl:when>
                 <xsl:when test="t:p">
-                    <span>
-                        <xsl:call-template name="langattr"/>
-                        <xsl:apply-templates mode="plain"/>
-                    </span>
+                    <xsl:for-each select="t:p">
+                        <span>
+                            <xsl:call-template name="langattr"/>
+                            <xsl:apply-templates/>
+                        </span>                        
+                    </xsl:for-each>
                 </xsl:when>
                 <xsl:otherwise>
                     <span>
