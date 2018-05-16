@@ -56,19 +56,19 @@ declare function bibl2html:responsibility($nodes) {
     if($nodes/descendant::tei:fileDesc/tei:editionStmt/tei:respStmt/tei:name/tei:ptr) then
         let $source := replace(string($nodes/descendant::tei:fileDesc/tei:editionStmt/tei:respStmt/tei:name/tei:ptr/@target),'#','')
         return 
-            if($nodes/descendant::tei:sourceDesc[@xml:id = $source]) then
+            if($nodes/descendant::tei:sourceDesc[@xml:id = $source]) then 
                 for $s in $nodes/descendant::tei:sourceDesc[@xml:id = $source]
                 return 
                     if($s/tei:msDesc) then 
-                        $s/tei:msDesc/tei:msIdentifier/tei:altIdentifier[@type='preferred']/tei:idno/text()
-                    else bibl2html:citation($s)     
+                      $s/tei:msDesc/tei:msIdentifier/tei:altIdentifier[1]//text()
+                    else bibl2html:citation($s)
             else 
                 for $s in $nodes/descendant::tei:teiHeader/tei:fileDesc/tei:sourceDesc[1]
                 return 
                     if($s/tei:msDesc) then 
-                        $s/tei:msDesc/tei:msIdentifier/tei:altIdentifier[@type='preferred']/tei:idno/text()
-                    else bibl2html:citation($s)    
-    else if($nodes/descendant::tei:teiHeader/tei:fileDesc/tei:editionStmt/tei:respStmt/tei:name) then  $nodes/descendant::tei:teiHeader/tei:fileDesc/tei:editionStmt/tei:respStmt/tei:name
+                        $s/tei:msDesc/tei:msIdentifier/tei:altIdentifier[@type='preferred']//text()
+                    else bibl2html:citation($s)     
+    else if($nodes/descendant::tei:teiHeader/tei:fileDesc/tei:editionStmt/tei:respStmt/tei:name) then string-join($nodes/descendant::tei:teiHeader/tei:fileDesc/tei:editionStmt/tei:respStmt/tei:name/text(),' ')
     else ()
 };
 
