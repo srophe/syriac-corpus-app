@@ -56,7 +56,15 @@ declare variable $global:app-map-option := $global:get-config//repo:maps/repo:op
 declare variable $global:map-api-key := $global:get-config//repo:maps/repo:option[@selected='true']/@api-key;
 
 (: Recaptcha Key, Store as environemnt variable. :)
-declare variable $global:recaptcha := '6Lc8sQ4TAAAAAEDR5b52CLAsLnqZSQ1wzVPdl0rO';
+(: Recaptcha Key :)
+declare variable $global:recaptcha := 
+    if(doc('../config.xml')) then
+        let $config := doc('../config.xml')
+        return 
+                if($config//recaptcha/site-key-variable != '') then 
+                    environment-variable($config//recaptcha/site-key-variable/text())
+                else $config//private-key/text()
+    else ();
 
 (: Global functions used throughout Srophe app :)
 (:~
@@ -166,15 +174,12 @@ let $parse-id :=
     else if(starts-with(request:get-uri(),$global:base-uri)) then string(request:get-uri())
     else if(contains(request:get-uri(),$global:nav-base) and $global:nav-base != '') then 
         replace(request:get-uri(),$global:nav-base, $global:base-uri)
-    else if(contains(request:get-uri(),string($global:get-config//repo:collection/@app-root))) then
-        concat($global:get-config//repo:collection[contains(request:get-uri(), @app-root)]/@record-URI-pattern,$id)
     else if(starts-with(request:get-uri(),'/exist/apps')) then 
-        replace(request:get-uri(),concat('/exist/apps/',replace($global:app-root,'/db/apps/','')), $global:base-uri)
+        replace(request:get-uri(),concat('/exist/apps/',replace($global:app-root,'/db/apps/','')), $global:base-uri)   
     else $id
 let $final-id := if(ends-with($parse-id,'.html')) then substring-before($parse-id,'.html') else $parse-id
 return $final-id
 };
-
 
 (:~
  : Get collection data
@@ -255,7 +260,7 @@ return
  :)
 declare function global:build-sort-string($titlestring as xs:string?, $lang as xs:string?) as xs:string* {
     if($lang = 'ar') then global:ar-sort-string($titlestring)
-    else replace($titlestring,'^[^\p{L}]+|^[aA]\s+|^[aA]l-|^[aA]n\s|^[oO]n\s+[aA]\s+|^[oO]n\s+|^[tT]he\s+[^\p{L}]+|^[tT]he\s+|^A\s+|^''De','')
+    else replace($titlestring,'^[^\p{L}]+|^[aA]\s+|^[aA]l-|^[aA]n\s|^[oO]n\s+[aA]\s+|^[oO]n\s+|^[tT]he\s+[^\p{L}]+|^[tT]he\s+|^A\s+|^''De|[0-9]*','')
 };
 
 (:~
