@@ -21,12 +21,12 @@ declare function tei2txt:typeswitch($nodes) {
             case element(tei:head) return 
                 (tei2txt:typeswitch($node/node()),'&#xd;')
             case element(tei:pb) return 
-                if($node/@n) then ('&#xd; pb.', $node/@n,' &#xd;')
+                if($node/@n) then ('&#xd; pb.', string($node/@n),' &#xd;')
                 else ()                       
             case element(tei:teiHeader) return 
-                concat(normalize-space(string-join((bibl2html:citation($node)),'')),'&#xd;')                
+                (normalize-space(string-join((bibl2html:citation($node)),'')),'&#xd;')                
             case element() return 
-                if($node/@n) then (concat(' ', $node/@n,' '),tei2txt:typeswitch($node/node()))
+                if($node/@n) then (concat(' ', string($node/@n),' '),tei2txt:typeswitch($node/node()))
                 else tei2txt:typeswitch($node/node())
             (:case element (html:span) return 
                 if($node/@class[contains(.,'title-monographic') or contains(.,'title-journal')]) then 
