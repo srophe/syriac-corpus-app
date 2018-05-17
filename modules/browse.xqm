@@ -53,7 +53,7 @@ declare variable $browse:fq {request:get-parameter('fq', '')};
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string*, $element as xs:string?){
     let $hits := 
         if($browse:view = 'title') then
-            data:get-browse-data($collection, 'tei:titleStmt/tei:title[@level="s"][@ref]')
+            data:get-browse-data($collection, 'tei:titleStmt/tei:title[1]')
         else if($browse:lang = 'syr') then 
             data:get-browse-data($collection, 'tei:titleStmt/tei:title[1]/tei:foreign')
         else data:get-browse-data($collection, "tei:titleStmt/tei:author[1]")
@@ -198,7 +198,7 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
 
 declare function browse:display-hits($hits){
     for $data in subsequence($hits, $browse:start,$browse:perpage)
-    let $sort-title := if($data/@sort-title != '') then string($data/@sort-title) else () 
+    let $sort-title := if($browse:lang = '' and $browse:view = 'title') then () else if($data/@sort-title != '') then string($data/@sort-title) else () 
     let $uri :=  $data/descendant::tei:publicationStmt/tei:idno[@type='URI'][1]
     return 
         <div xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em" class="short-rec-result">
