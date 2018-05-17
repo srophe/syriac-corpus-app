@@ -55,7 +55,7 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
         if($browse:view = 'title') then
             data:get-browse-data($collection, 'tei:titleStmt/tei:title[@level="s"][@ref]')
         else if($browse:lang = 'syr') then 
-            data:get-browse-data($collection, 'tei:titleStmt/tei:title[@level="s"][@ref]/tei:foreign')
+            data:get-browse-data($collection, 'tei:titleStmt/tei:title[1]/tei:foreign')
         else data:get-browse-data($collection, "tei:titleStmt/tei:author[1]")
     return map{"browse-data" := $hits }    
 };
