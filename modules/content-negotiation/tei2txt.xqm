@@ -14,19 +14,20 @@ declare function tei2txt:typeswitch($nodes) {
     for $node in $nodes
     return 
         typeswitch($node)
-            case text() return $node
+            case text() return normalize-space($node)
             case comment() return ()
+            case element(tei:div) return 
+                ('&#xd;',tei2txt:typeswitch($node/node()),'&#xd;')
+            case element(tei:head) return 
+                (tei2txt:typeswitch($node/node()),'&#xd;')
             case element(tei:pb) return 
-                if($node/@n) then concat(' ', $node/@n,' ')
-                else ()       
-            case element(tei:lb) return 
-                if($node/@n) then concat(' ', $node/@n,' ')
-                else ()
-            case element(tei:l) return 
-                if($node/@n) then concat(' ', $node/@n,' ',tei2txt:typeswitch($node/node()))
-                else tei2txt:typeswitch($node/node())
+                if($node/@n) then ('&#xd; pb.', string($node/@n),' &#xd;')
+                else ()                       
             case element(tei:teiHeader) return 
-                normalize-space(string-join((bibl2html:citation($node)),''))
+                (normalize-space(string-join((bibl2html:citation($node)),'')),'&#xd;')                
+            case element() return 
+                if($node/@n) then (concat(' ', string($node/@n),' '),tei2txt:typeswitch($node/node()))
+                else tei2txt:typeswitch($node/node())
             (:case element (html:span) return 
                 if($node/@class[contains(.,'title-monographic') or contains(.,'title-journal')]) then 
                     ('\i',tei2txt:typeswitch($node/node()))
