@@ -198,7 +198,11 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
 
 declare function browse:display-hits($hits){
     for $data in subsequence($hits, $browse:start,$browse:perpage)
-    let $sort-title := if($browse:lang = '' and $browse:view = 'title') then () else if($data/@sort-title != '') then string($data/@sort-title) else () 
+    let $sort-title := 
+        if($browse:lang = '' and $browse:view = 'title') then () 
+        else if($data/@sort-title != '') then 
+            <span lang="{$browse:lang}">{string($data/@sort-title)}</span> 
+        else () 
     let $uri :=  $data/descendant::tei:publicationStmt/tei:idno[@type='URI'][1]
     return 
         <div xmlns="http://www.w3.org/1999/xhtml" style="border-bottom:1px dotted #eee; padding-top:.5em" class="short-rec-result">
