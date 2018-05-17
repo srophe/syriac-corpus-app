@@ -43,7 +43,7 @@ declare function bibl2html:record($nodes) {
     return 
         ($persons,' “',tei2html:tei2html($titleStmt/tei:title[1]),'.” ',$rspStmtString,' ', 
         if(bibl2html:responsibility($nodes) != '') then 
-            if(ends-with(bibl2html:responsibility($nodes),'.')) then bibl2html:responsibility($nodes) else (bibl2html:responsibility($nodes),'.') else (), 
+            if(ends-with(bibl2html:responsibility($nodes),'.')) then bibl2html:responsibility($nodes) else (normalize-space(string-join(bibl2html:responsibility($nodes),'')),'.') else (), 
         ' ', tei2html:tei2html($titleStmt/tei:title[@level='s'][position()=last()]),'. Last modified ',
         if($nodes/descendant::tei:revisionDesc/tei:change[1]/@when castable as xs:date) then 
             concat(format-date(xs:date($nodes/descendant::tei:revisionDesc/tei:change[1]/@when), '[MNn] [D], [Y]'),'. ') 
