@@ -121,12 +121,12 @@ declare function data:get-browse-data($collection as xs:string*, $element as xs:
             if(request:get-parameter('alpha-filter', '') = 'ALL' or request:get-parameter('alpha-filter', '') = '') then
                 for $hit in $hits-main
                 let $num := if(xs:integer($hit/@n)) then xs:integer($hit/@n) else 0
-                order by $hit/text()[1], $num
+                order by global:build-sort-string($hit/text()[1],''), $num
                 return <browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$hit}">{$hit/ancestor::tei:TEI}</browse>
             else 
                 for $hit in $hits-main[matches(substring(global:build-sort-string(.,$data:computed-lang),1,1),data:get-alpha-filter(),'i')]
                 let $num := if(xs:integer($hit/@n)) then xs:integer($hit/@n) else 0
-                order by $hit/text()[1], $num
+                order by global:build-sort-string($hit/text()[1],$data:computed-lang), $num
                 return <browse xmlns="http://www.tei-c.org/ns/1.0" sort-title="{$hit}">{$hit/ancestor::tei:TEI}</browse>             
         else
             if(request:get-parameter('alpha-filter', '') = 'ALL' or request:get-parameter('alpha-filter', '') = '') then
