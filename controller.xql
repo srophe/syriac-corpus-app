@@ -57,17 +57,17 @@ else if (contains($exist:path, "/$shared/")) then
 else if(replace($exist:path, $exist:resource,'') =  ($exist:record-uris) or ends-with($exist:path, ("/atom","/tei","/rdf","/txt","/ttl",'.tei','.atom','.rdf','.ttl',".txt"))) then
     (: Sends to restxql to handle /atom, /tei,/rdf:)
     if (ends-with($exist:path, ("/atom","/tei","/rdf","/ttl","/txt",".tei",".atom",".rdf",".ttl",".txt"))) then
-        let $path := 
+      let $path := 
             if(ends-with($exist:path, (".atom",".tei",".rdf",".ttl",".txt"))) then 
-                replace($exist:path, "\.(atom|tei|rdf|ttl)", "/$1")
+                replace($exist:path, "\.(atom|tei|rdf|ttl|txt)", "/$1")
             else $exist:path
         return 
             <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
                 <forward url="{concat('/restxq/syriac-corpus', $path)}" absolute="yes"/>
             </dispatch>
     (: Special handling for collections with app-root that matches record-URI-pattern sends html pages to html, others are assumed to be records :)
-    else if($exist:resource = ('index.html','search.html','browse.html','about.html','record.html')) then 
-        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+    else if($exist:resource = ('index.html','search.html','browse.html','about.html','contact-us.html','history.html','project-team.html','record.html')) then 
+     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
            <view>
                <forward url="{$exist:controller}/modules/view.xql"/>
            </view>
@@ -78,15 +78,15 @@ else if(replace($exist:path, $exist:resource,'') =  ($exist:record-uris) or ends
        </dispatch>
     (: parses out record id to be passed to correct collection view, based on values in repo.xml :)       
     else if($exist:resource = '') then 
-        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+      <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
             <redirect url="index.html"/>
         </dispatch>
     else 
-        let $id := replace(xmldb:decode($exist:resource), "^(.*)\..*$", "$1")
+       let $id := replace(xmldb:decode($exist:resource), "^(.*)\..*$", "$1")
         let $record-uri-root := replace($exist:path,$exist:resource,'')
         let $html-path := concat('/',$global:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)][1]/@app-root,'/record.html')
-        return
-            <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+        return 
+        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
             <forward url="{$exist:controller}{$html-path}"></forward>
                 <view>
                     <forward url="{$exist:controller}/modules/view.xql">
