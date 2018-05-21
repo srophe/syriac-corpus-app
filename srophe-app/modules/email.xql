@@ -36,7 +36,8 @@ return
     <from>Syriaca.org &lt;david.a.michelson@vanderbilt.edu&gt;</from>
     {
     if($collection = 'places') then
-        (<to>david.a.michelson@vanderbilt.edu</to>)
+        (<to>david.a.michelson@vanderbilt.edu</to>,
+        <to>syriac.gazetteer@gmail.com</to>)
     else if($collection = 'q') then
         (<to>david.a.michelson@vanderbilt.edu</to>,
         <to>jeannenicolesaint@gmail.com</to>)
