@@ -28,6 +28,28 @@ declare namespace time =  "http://www.w3.org/2006/time#";
 declare namespace periodo = "http://n2t.net/ark:/99152/p0v#";
 declare option exist:serialize "method=xml media-type=application/rss+xml omit-xml-declaration=no indent=yes";
 
+(: Keep track of all the namespace being used. :)
+declare variable $tei2rdf:namespaces := 
+    <namespaceList>
+        <item name="cwrc" qname="http://sparql.cwrc.ca/ontologies/cwrc#"/>
+        <item name="dcterms" qname="http://purl.org/dc/terms/"/>
+        <item name="foaf" qname="http://xmlns.com/foaf/0.1/"/>
+        <item name="geo" qname="http://www.w3.org/2003/01/geo/wgs84_pos#"/>
+        <item name="lawd" qname="http://lawd.info/ontology/"/>
+        <item name="owl" qname="http://www.w3.org/2002/07/owl#"/>
+        <item name="periodo" qname="http://n2t.net/ark:/99152/p0v#"/>
+        <item name="person" qname="https://www.w3.org/ns/person"/>
+        <item name="rdf" qname="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+        <item name="rdfs" qname="http://www.w3.org/2000/01/rdf-schema#"/>
+        <item name="schema" qname="http://schema.org/"/>
+        <item name="skos" qname="http://www.w3.org/2004/02/skos/core#"/>
+        <item name="snap" qname="http://data.snapdrgn.net/ontology/snap#"/>
+        <item name="syriaca" qname="http://syriaca.org/schema#"/>
+        <item name="time" qname="http://www.w3.org/2006/time#"/>
+        <item name="xsd" qname="http://www.w3.org/2001/XMLSchema#"/>
+    </namespaceList>
+;
+
 (:~
  : Create a triple element with the rdf qname and content
  : @type indicates if element is literal default is rdf:resources
@@ -47,6 +69,14 @@ declare function tei2rdf:create-element($element-name as xs:string, $lang as xs:
         element { xs:QName($element-name) } {
           (if ($lang) then attribute {xs:QName("xml:lang")} { $lang } else (), normalize-space($content))
         } 
+};
+
+(: Resolve namespaces. :)
+declare function tei2rdf:expand-namespace($property as xs:string){
+    if(starts-with($property,'http')) then $property
+    else if($tei2rdf:namespaces/*[@name = substring-before($property,':')]) then 
+        concat($tei2rdf:namespaces/*[@name = substring-before($property,':')]/@qname,'/',substring-after($property,':'))
+    else ()
 };
 
 (:~
@@ -173,7 +203,7 @@ declare function tei2rdf:rec-label-and-titles($rec, $element as xs:string?){
     else if($rec[self::tei:div/@uri]) then 
         if(tei2rdf:rec-type($rec) = 'http://syriaca.org/schema#/relationFactoid') then
             tei2rdf:create-element($element, (), rel:relationship-sentence($rec/descendant::tei:listRelation/tei:relation), 'literal')
-        else tei2rdf:create-element($element, (), normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' )), 'literal')        
+        else tei2rdf:create-element($element, (), normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),'')), 'literal')        
     else tei2rdf:create-element($element, string($rec/descendant::tei:title[1]/@xml:lang), string-join($rec/descendant::tei:title[1]/text(),''), 'literal')
 };
 
@@ -245,7 +275,7 @@ if(contains($id,'/spear/')) then
         if($rel/@mutual) then 
             for $s in tokenize($rel/@mutual,' ')
             return
-                (element { xs:QName('rdf:Description') } {(
+                element { xs:QName('rdf:Description') } {(
                             attribute {xs:QName("rdf:about")} { $s },
                             for $o in tokenize($rel/@mutual,' ')[. != $s]
                             let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
@@ -253,23 +283,12 @@ if(contains($id,'/spear/')) then
                             let $relationshipURI := concat($o,'#',$element-name,'-',$s)
                             return 
                                 (tei2rdf:create-element('dcterms:relation', (), $o, ()),
-                                tei2rdf:create-element('snap:has-bond', (), $relationshipURI, ()))
-                        )},
-                 for $o in tokenize($rel/@mutual,' ')[. != $s]
-                 let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
-                 let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms:') else $element-name
-                 let $relationshipURI := concat($o,'#',$element-name,'-',$s)
-                 return 
-                    element { xs:QName('rdf:Description') } {(
-                                attribute {xs:QName("rdf:about")} { $relationshipURI },
-                                (tei2rdf:create-element($element-name, (), $o, ()),
-                                tei2rdf:create-element('lawd:hasAttestation', (), $id, ()))
-                            )}
-                        )
+                                tei2rdf:create-element('snap:hasBond', (), $id, ()))
+                        )}
         else 
             for $s in tokenize($rel/@active,' ')
             return 
-                    (element { xs:QName('rdf:Description') } {(
+                   element { xs:QName('rdf:Description') } {(
                             attribute {xs:QName("rdf:about")} { $s },
                             for $o in tokenize($rel/@passive,' ')
                             let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
@@ -277,19 +296,8 @@ if(contains($id,'/spear/')) then
                             let $relationshipURI := concat($o,'#',$element-name,'-',$s)
                             return 
                                 (tei2rdf:create-element('dcterms:relation', (), $o, ()),
-                                tei2rdf:create-element('snap:has-bond', (), $relationshipURI, ()))
-                            )},
-                     for $o in tokenize($rel/@passive,' ')
-                     let $element-name := if($rel/@ref and $rel/@ref != '') then string($rel/@ref) else if($rel/@name and $rel/@name != '') then string($rel/@name) else 'dcterms:relation'
-                     let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms:') else $element-name
-                     let $relationshipURI := concat($o,'#',$element-name,'-',$s)
-                     return
-                            element { xs:QName('rdf:Description') } {(
-                                attribute {xs:QName("rdf:about")} { $relationshipURI },
-                                (tei2rdf:create-element($element-name, (), $o, ()),
-                                tei2rdf:create-element('lawd:hasAttestation', (), $id, ()))
+                                tei2rdf:create-element('snap:hasBond', (), $id, ()))
                             )}
-                        )
 else ()                        
 };
 
@@ -315,7 +323,8 @@ declare function tei2rdf:relations($rec, $id){
             let $element-name := if(starts-with($element-name,'dct:')) then replace($element-name,'dct:','dcterms:') else $element-name
             let $relationshipURI := concat($o,'#',$element-name,'-',$s)
             return if(contains($id,'/spear/')) then 
-                    tei2rdf:create-element('snap:has-bond', (), $relationshipURI, ())
+                    (tei2rdf:create-element('rdf:type', (), tei2rdf:expand-namespace($element-name), ()),
+                    tei2rdf:create-element('snap:bondWith', (), $o, ()))
                    else tei2rdf:create-element($element-name, (), $o, ()) 
         else 
             for $s in tokenize($rel/@active,' ')
@@ -325,7 +334,8 @@ declare function tei2rdf:relations($rec, $id){
             let $relationshipURI := concat($o,'#',$element-name,'-',$s)
             return 
                 if(contains($id,'/spear/')) then 
-                    tei2rdf:create-element('snap:has-bond', (), $relationshipURI, ())
+                    (tei2rdf:create-element('rdf:type', (), tei2rdf:expand-namespace($element-name), ()),
+                    tei2rdf:create-element('snap:bondWith', (), $o, ()))
                 else tei2rdf:create-element($element-name, (), $o, ())
    )
 };
@@ -408,8 +418,11 @@ declare function tei2rdf:spear-related-triples($rec, $id){
 };
 
 declare function tei2rdf:spear($rec, $id){
-   if(contains($id,'/spear/')) then
-        (if($rec/tei:listEvent) then ( 
+    (element { xs:QName('skos:Concept') } {(
+        attribute {xs:QName("rdf:about")} { $id },         
+        tei2rdf:create-element('rdf:type', (), tei2rdf:rec-type($rec), ()),
+        tei2rdf:rec-label-and-titles($rec, 'rdfs:label'),
+        if($rec/tei:listEvent) then ( 
                 (: Subjects:)
                 let $subjects := tokenize($rec/descendant::tei:event/tei:ptr/@target,' ')
                 for $subject in $subjects
@@ -420,15 +433,46 @@ declare function tei2rdf:spear($rec, $id){
                 return tei2rdf:create-element('schema:location', (), $place, ())
                 )
         else (),
+        tei2rdf:names($rec),
+        tei2rdf:desc($rec),
+        for $temporal in $rec/descendant::tei:state[@type="existence"]
+        return tei2rdf:make-date-triples($temporal),        
+        for $date in $rec/descendant::tei:event/descendant::tei:date
+        return tei2rdf:make-date-triples($date),
+        let $links := distinct-values($rec//@ref[starts-with(.,'http://')][not(ancestor::tei:teiHeader)])
+        for $i in $links[. != '']
+        return tei2rdf:create-element('dcterms:subject', (), $i, ()), 
+        tei2rdf:relations($rec, $id),
+        for $id in $rec/descendant::tei:body/descendant::tei:idno[@type='URI'][text() != $id and text() != '']/text() 
+        return tei2rdf:create-element('skos:closeMatch', (), $id, ()),
+        for $s in root($rec)/descendant::tei:seriesStmt
+        return 
+            if($s/tei:idno[@type="URI"]) then tei2rdf:create-element('dcterms:isPartOf', (), $s/tei:idno[@type="URI"][1], ())            
+            else tei2rdf:create-element('dcterms:isPartOf', (), $s/tei:title[1], 'literal'),                    
+        tei2rdf:bibl-citation($rec),
+        for $bibl in $rec//tei:bibl[not(ancestor::tei:teiHeader)]/tei:ptr/@target[. != '']
+        return  
+            if(starts-with($bibl, "urn:cts:")) then tei2rdf:create-element('lawd:hasAttestation', (), $bibl, ())
+            else tei2rdf:create-element('lawd:hasCitation', (), $bibl, ()),
         for $bibl in $rec//tei:teiHeader/descendant::tei:sourceDesc/descendant::*/@ref[contains(.,'/work/')]
         return tei2rdf:create-element('lawd:hasAttestation', (), $bibl, ()),
         tei2rdf:create-element('dcterms:isPartOf', (), replace($rec/ancestor::tei:TEI/descendant::tei:publicationStmt/tei:idno[@type="URI"][1],'/tei',''), ()),
-        let $work-uris := distinct-values($rec/ancestor::tei:TEI/descendant::tei:teiHeader/descendant::tei:sourceDesc//@ref) 
+        let $work-uris := distinct-values(root($rec)/descendant::tei:teiHeader/descendant::tei:sourceDesc//@ref) 
         for $work-uri in $work-uris[contains(.,'/work/')]
         return  tei2rdf:create-element('dcterms:source', (), $work-uri, ()),        
-        tei2rdf:create-element('dcterms:isPartOf', (), 'http://syriaca.org/spear', ())
-        )
-    else () 
+        tei2rdf:create-element('dcterms:isPartOf', (), 'http://syriaca.org/spear', ()), 
+        (: Other formats:)
+        tei2rdf:create-element('dcterms:hasFormat', (), concat($id,'/html'), ()),
+        tei2rdf:create-element('dcterms:hasFormat', (), concat($id,'/tei'), ()),
+        tei2rdf:create-element('dcterms:hasFormat', (), concat($id,'/ttl'), ()),
+        tei2rdf:create-element('dcterms:hasFormat', (), concat($id,'/rdf'), ()),
+        tei2rdf:create-element('foaf:primaryTopicOf', (), concat($id,'/html'), ()),
+        tei2rdf:create-element('foaf:primaryTopicOf', (), concat($id,'/tei'), ()),
+        tei2rdf:create-element('foaf:primaryTopicOf', (), concat($id,'/ttl'), ()),
+        tei2rdf:create-element('foaf:primaryTopicOf', (), concat($id,'/rdf'), ())
+        )},
+        tei2rdf:spear-related-triples($rec, $id) 
+        )    
 };
 
 (:~
@@ -442,6 +486,8 @@ let $id := if($rec/descendant::tei:idno[starts-with(.,$global:base-uri)]) then r
 let $resource-class := if($rec/descendant::tei:body/tei:biblStruct) then 'rdfs:Resource'    
                        else 'skos:Concept'            
 return  
+    if(contains($id,'/spear/')) then tei2rdf:spear($rec, $id)
+    else 
     (element { xs:QName($resource-class) } {(
                 attribute {xs:QName("rdf:about")} { $id }, 
                 tei2rdf:create-element('rdf:type', (), tei2rdf:rec-type($rec), ()),
@@ -542,6 +588,7 @@ return
     
 (:~ 
  : Build RDF output for records. 
+ <namespace namspace="cwrc" qname="http://sparql.cwrc.ca/ontologies/cwrc#"/>
 :)
 declare function tei2rdf:rdf-output($recs){
 element rdf:RDF {namespace {""} {"http://www.w3.org/1999/02/22-rdf-syntax-ns#"}, 

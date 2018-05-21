@@ -44,8 +44,6 @@ declare function local:get-records($action as xs:string?, $collection as xs:stri
                 (: Special handling for SPEAR, to process every div[@uri] as a record. :)
                 if($collection = 'spear') then
                     (
-                    for $r in collection($global:data-root || '/' || $collection)/tei:TEI/tei:teiHeader
-                    return <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$r}</tei:TEI>,
                     for $r in collection($global:data-root || '/' || $collection)//tei:div[@uri]
                     let $teiHeader := root($r)//tei:teiHeader
                     return 
