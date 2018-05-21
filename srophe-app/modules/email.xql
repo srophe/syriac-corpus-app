@@ -16,12 +16,16 @@ declare option exist:serialize "method=xml media-type=text/xml indent=yes";
 
 (:request:get-parameter("recaptcha_response_field",()):)
 declare function local:recaptcha(){
-let $recapture-private-key := 
-    if($global:get-secret-config//recaptcha/site-key-variable != '') then 
-      environment-variable($git-config//recaptcha/site-key-variable/text())
-    else $git-config//private-key/text()
+let $recapture-private-key := "6Lc8sQ4TAAAAALsZFuT6UWGtHNygEDMGZgQAryxe" 
 return 
     recap:validate($recapture-private-key, request:get-parameter("g-recaptcha-response",()))
+};
+
+declare function local:get-emails(){
+let $email-config := doc($global:app-root || 'config.xml')
+for $e-address in $global:get-config//*:contact/text()
+return 
+    <to>{$e-address}</to>
 };
 
 declare function local:build-message(){
@@ -41,7 +45,7 @@ return
     {
     if($collection = 'places') then
         (<to>david.a.michelson@vanderbilt.edu</to>,
-        <to>thomas.a.carlson@okstate.edu</to>)
+        <to>syriac.gazetteer@gmail.com</to>)
     else if($collection = 'q') then
         (<to>david.a.michelson@vanderbilt.edu</to>,
         <to>jeannenicolesaint@gmail.com</to>)
@@ -71,7 +75,7 @@ return
     else 
         <cc>david.a.michelson@vanderbilt.edu</cc>
     }
-    <bc>wsalesky@gmail.com</cc>
+    <cc>wsalesky@gmail.com</cc>
     <subject>{request:get-parameter('subject','')} RE: {$uri}</subject>
     <message>
       <xhtml>
