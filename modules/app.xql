@@ -410,6 +410,37 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
 </div>
 };
 
+declare %templates:wrap function app:contact-form-linked-data($node as node(), $model as map(*), $collection)
+{
+        <div class="modal fade" id="submitLinkedData" tabindex="-1" role="dialog" aria-labelledby="submitLinkedDataLabel" 
+            aria-hidden="true" xmlns="http://www.w3.org/1999/xhtml">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+                        <h2 class="modal-title" id="feedbackLabel">Submit Linked Data</h2>
+                    </div>
+                    <form action="{$global:nav-base}/modules/email.xql" method="post" id="email" role="form">
+                        <div class="modal-body" id="modal-body">
+                            <input type="text" name="name" placeholder="Name" class="form-control" style="max-width:300px"/>
+                            <br/>
+                            <input type="text" name="email" placeholder="email" class="form-control" style="max-width:300px"/>
+                            <br/>
+                            <input type="text" name="subject" placeholder="subject" class="form-control" style="max-width:300px"/>
+                            <br/>
+                            <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
+                            <!-- start reCaptcha API-->
+                            <div class="g-recaptcha" data-sitekey="{$global:recaptcha}"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal">Close</button><input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+};
+
 (:~
  : Grabs latest news for Syriaca.org home page
  : http://syriaca.org/feed/
@@ -961,8 +992,10 @@ else ()
 declare %templates:wrap function app:srophe-related($node as node(), $model as map(*)){ 
     if($model("data")//@ref[contains(.,'http://syriaca.org/') and not(contains(.,'http://syriaca.org/persons.xml'))] or $model("data")//tei:idno[@type='URI']) then
         <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
-            <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
-            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via Syriaca.org to additional resources beyond this record."></span>
+            <div class="panel-heading">
+            <a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
+            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via Syriaca.org to additional resources beyond this record. We welcome your additions, please use the e-mail button on the right to submit additional links to Syriaca.org."></span>
+            <button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#submitLinkedData" style="margin-right:1em;"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
             </div>
             <div class="panel-body collapse in" id="showLinkedData">
                 {(
