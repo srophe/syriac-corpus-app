@@ -429,6 +429,8 @@ declare %templates:wrap function app:contact-form-linked-data($node as node(), $
                             <input type="text" name="subject" placeholder="subject" class="form-control" style="max-width:300px"/>
                             <br/>
                             <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
+                            <input type="hidden" name="id" value="{request:get-parameter('id', '')}"/>
+                            <input type="hidden" name="formID" value="linkedData"/>
                             <!-- start reCaptcha API-->
                             <div class="g-recaptcha" data-sitekey="{$global:recaptcha}"></div>
                         </div>
@@ -790,12 +792,16 @@ declare function app:display-ids($node as node(), $model as map(*)){
                 else()}
               </div>, 
               <div style="margin-top:1em;">
-                <span class="h5-inline">Type of Text: </span>
+                <span class="h5-inline">Type of Text: 
+                </span>
                 <span>{functx:capitalize-first(functx:camel-case-to-words(string($model("data")/descendant::tei:text/@type),' '))}</span>
+                 &#160;<a href="{$global:nav-base}/documentation/wiki.html?wiki-page=/Types-of-Text-in-the-Digital-Syriac-Corpus&amp;wiki-uri=https://github.com/srophe/syriac-corpus/wiki"><span class="glyphicon glyphicon-question-sign text-info moreInfo"></span></a>
               </div>,
               <div style="margin-top:1em;">
-                <span class="h5-inline">Status: </span>
+                <span class="h5-inline">Status: 
+            </span>
                 <span>{functx:capitalize-first(functx:camel-case-to-words(string($model("data")/descendant::tei:revisionDesc/@status),' '))}</span>
+              &#160;<a href="{$global:nav-base}/documentation/wiki.html?wiki-page=/Status-of-Texts-in-the-Digital-Syriac-Corpus&amp;wiki-uri=https://github.com/srophe/syriac-corpus/wiki"><span class="glyphicon glyphicon-question-sign text-info moreInfo"></span></a>
               </div>,
               <div style="margin-top:1em;">
                 <span class="h5-inline">Publication Date: </span>
@@ -994,7 +1000,10 @@ declare %templates:wrap function app:srophe-related($node as node(), $model as m
         <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
             <div class="panel-heading">
             <a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
-            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via Syriaca.org to additional resources beyond this record. We welcome your additions, please use the e-mail button on the right to submit additional links to Syriaca.org."></span>
+            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" 
+            title="This sidebar provides links via Syriaca.org to 
+            additional resources beyond this record. 
+            We welcome your additions, please use the e-mail button on the right to contact Syriaca.org about submitting additional links."></span>
             <button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#submitLinkedData" style="margin-right:1em;"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
             </div>
             <div class="panel-body collapse in" id="showLinkedData">
