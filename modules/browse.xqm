@@ -68,7 +68,7 @@ declare function browse:group-results($node as node(), $model as map(*), $collec
             for $rec in $hits 
             let $author := $rec/descendant::tei:author
             group by $facet-grp-p := $author[1]
-            order by $facet-grp-p
+            order by global:build-sort-string($facet-grp-p,'')
             return  
                 if($author != '') then 
                     <div xmlns="http://www.w3.org/1999/xhtml" style="margin:.71em 0; border-bottom:1px dotted #eee; padding:.25em 0;" class="short-rec-result">
