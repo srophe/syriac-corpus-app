@@ -884,8 +884,8 @@ pre {
     display:none; 
     position: fixed; 
     width:24%; 
-    min-height:150px; 
-    max-height:200px; 
+    min-height:250px; 
+    max-height:400px; 
     top:125px;
     box-shadow: 8px 8px 3px #999;
     -webkit-border-radius: 10px;
@@ -893,6 +893,7 @@ pre {
     border-radius: 10px;
     overflow-y:scroll;
     overflow-x:hidden;
+    z-index: 125;
 } 
 #footnoteDisplay {
     display:none; 
