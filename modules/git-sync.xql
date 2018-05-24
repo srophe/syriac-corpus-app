@@ -237,4 +237,3 @@ else
 
 let $post-data := request:get-data()
 return local:execute-webhook($post-data)
-    

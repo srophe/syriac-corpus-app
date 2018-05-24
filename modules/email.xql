@@ -29,17 +29,25 @@ return
     recap:validate($recapture-private-key, request:get-parameter("g-recaptcha-response",()))
 };
 
+declare function local:email-list(){
+if(request:get-parameter('formID','') != '') then 
+    if($config//*:contact[@listID =  request:get-parameter('formID','')]) then 
+        for $contact in $config//*:contact[@listID =  request:get-parameter('formID','')]/child::*
+        return $contact
+    else 
+        for $contact in $config//*:contact[not(@listID)]/child::*
+        return $contact
+else 
+    for $contact in $config//*:contact[not(@listID)]/child::*
+    return $contact
+};
+
 declare function local:build-message(){
 let $rec-uri := if(request:get-parameter('id','')) then concat('for ',request:get-parameter('id','')) else ()
 return
   <mail>
     <from>The Oxford-BYU Syriac Corpus {concat('&lt;',$config//*:contact/child::*[1]//text(),'&gt;')}</from>
-    {
-        for $e-address in $config//*:contact/*:to
-        return <to>{$e-address}</to>,
-        for $e-address in $config//*:contact/*:cc
-        return <cc>{$e-address}</cc>
-    }
+    {local:email-list()}
     <subject>{request:get-parameter('subject','')} {$rec-uri}</subject>
     <message>
       <xhtml>

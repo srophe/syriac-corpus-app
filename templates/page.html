@@ -17,7 +17,7 @@
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/lightslider.css"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/sm-core-css.css"/>
         <link rel="stylesheet" type="text/css" media="print" href="$app-root/resources/css/print.css"/>
-        <!-- Leaflet 
+        <!-- Leaflet
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
         <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>
         -->
@@ -42,7 +42,7 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
-                
+
                 $('.keyboard').keyboard({
                     openOn: null,
                     stayOpen: false,
@@ -56,7 +56,7 @@
                        //  keyboard.destroy();
                      }
                 });
-                
+
                 $('.keyboard-select').click(function () {
                     var keyboardID = '#' + $(this).data("keyboard-id")
                     var kb = $(keyboardID).getkeyboard();
@@ -74,12 +74,12 @@
                     $('.selectableFont').not('.syr').css('font-family', selectedFont);
                     $("*:lang(syr)").css('font-family', selectedFont)
                 });
-                
+
             })
         </script>
     </head>
     <body>
-        <!-- 
+        <!--
         Estrangela (use Estrangelo Edessa Font)
 East Syriac (what font do we current use here)
 West Syriac (what font do we current use here)
@@ -111,33 +111,36 @@ West Syriac (what font do we current use here)
                         <li>
                             <a href="$app-root/browse.html">Browse</a>
                         </li>
-                        <!--
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 About<b class="caret"/>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="$app-root/project-overview.html">Project Overview</a>
+                                    <a href="$app-root/about.html">About the Project</a>
                                 </li>
                                 <li role="presentation" class="divider"/>
                                 <li>
-                                    <a href="$app-root/project-origins.html">Origins of the Project</a>
+                                    <a href="$app-root/history.html">History of the Project</a>
                                 </li>
                                 <li role="presentation" class="divider"/>
                                 <li>
-                                    <a href="$app-root/support.html">Support our Work</a>
+                                    <a href="$app-root/project-team.html">Project Team</a>
                                 </li>
                                 <li role="presentation" class="divider"/>
                                 <li>
-                                    <a href="$app-root/contact.html">Contact Us</a>
+                                    <a href="$app-root/submissions.html">Submissions to the Corpus</a>
+                                </li>
+                                <li role="presentation" class="divider"/>
+                                <li>
+                                    <a href="$app-root/contact-us.html">Contact Us</a>
                                 </li>
                                 <li role="presentation" class="divider"/>
                                 <li>
                                     <a href="$app-root/documentation/documentation.html">Documentation</a>
                                 </li>
                             </ul>
-                        </li>  -->                      
+                        </li>                      
                     </ul>
                     <ul class="nav navbar-nav navbar-right keboard-btn">
                         <li>
@@ -200,7 +203,7 @@ West Syriac (what font do we current use here)
         </div>
         <!-- Footer -->
         <footer data-template="app:shared-content" data-template-path="/templates/footer.html"/>
-        
+
         <!-- Additional Javascript -->
         <script type="text/javascript" src="$app-root/resources/js/bootstrap.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/jquery.validate.min.js"/>
