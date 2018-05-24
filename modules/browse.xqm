@@ -72,11 +72,11 @@ declare function browse:group-results($node as node(), $model as map(*), $collec
             return  
                 if($author != '') then 
                     <div xmlns="http://www.w3.org/1999/xhtml" style="margin:.71em 0; border-bottom:1px dotted #eee; padding:.25em 0;" class="short-rec-result">
-                            <a class="togglelink text-info" 
-                            data-toggle="collapse" data-target="#show{replace($facet-grp-p,'\s|,|\.','')}" 
-                            href="#show{replace($facet-grp-p,'\s|,|\.','')}" data-text-swap=" - "> + </a>&#160; 
+                            <a class="togglelink text-info"  
+                            data-toggle="collapse" data-target="#show{replace($facet-grp-p,'\s|,|\.|\[|\]|\(|\)|\-|\?','')}" 
+                            href="#show{replace($facet-grp-p,'\s|,|\.|\[|\]|\(|\)|\-|\?','')}" data-text-swap=" - "> + </a>&#160; 
                             <span class="browse-author-name">{$facet-grp-p}</span> ({count($rec)} works)
-                            <div class="indent collapse" style="background-color:#F7F7F9;" id="show{replace($facet-grp-p,'\s|,|\.','')}">{
+                            <div class="indent collapse" style="background-color:#F7F7F9;" id="show{replace($facet-grp-p,'\s|,|\.|\[|\]|\(|\)|\-|\?','')}">{
                                 for $titles in $rec
                                 let $title := $rec/descendant::tei:titleStmt/tei:title[1]
                                 group by $facet-grp-title := $title[1]
