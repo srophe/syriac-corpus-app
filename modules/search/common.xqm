@@ -103,11 +103,11 @@ declare function common:lucene2xml($node) {
         }
     case text() return 
       if ($node/parent::*[self::query or self::bool]) then
-        for $tok at $p in tokenize($node, '\s+')[normalize-space()]
+        for $tok at $p in tokenize($node, '\s+|\+')[normalize-space()]
         (: here is the place for further differentiation between  term / wildcard / regex elements :)
         let $el-name := 
-          if (matches($tok, '(^|[^\\])[$^|+\p{P}-[,]]')) then 
-            if (matches($tok, '(^|[^\\.])[?*+]|\[!')) then 'wildcard'
+          if (matches($tok, '(^|[^\\])[$^|\p{P}-[,]]')) then 
+            if (matches($tok, '(^|[^\\.])[?*]|\[!')) then 'wildcard'
             else 'regex' 
           else 'term'
         return element { $el-name } {
@@ -130,14 +130,14 @@ declare function common:lucene2xml($node) {
     $node
 };
 
-(:~
- : @depreciated use global:build-sort-string()
- : Strips english titles of non-sort characters as established by Syriaca.org
- : Used for sorting for browse and search modules
- : @param $titlestring 
- :)
-declare function common:build-sort-string($titlestring as xs:string*) as xs:string* {
-    replace(replace(replace(replace($titlestring,'^\s+',''),'^al-',''),'[‘ʻʿ]',''),'On ','')
+declare function common:query(){
+    let $string := 
+        if(request:get-parameter('keywordProximity', '') castable as xs:integer) then
+            concat(request:get-parameter('q', ''),'~',request:get-parameter('keywordProximity', ''))
+        else request:get-parameter('q', '')
+    let $luceneParse := common:parse-lucene($string)
+    let $luceneXML := util:parse($luceneParse)
+    return common:lucene2xml($luceneXML/node())
 };
 
 (:~
@@ -151,7 +151,6 @@ declare function common:options(){
         <filter-rewrite>yes</filter-rewrite>
     </options>
 };
-
 
 (:~
  : Search options passed to ft:query functions
@@ -201,6 +200,7 @@ return
 :)
 declare function common:keyword(){
     if(request:get-parameter('q', '') != '') then
+    (:    
         if(request:get-parameter('qProximity', '')) then 
             if(request:get-parameter('qProximity', '') castable as xs:integer) then 
                 concat("[ft:query(descendant::*,'&quot;",request:get-parameter('q', ''),"&quot;',common:options(",request:get-parameter('qProximity', ''),"))]")
@@ -208,6 +208,9 @@ declare function common:keyword(){
         else if(starts-with(request:get-parameter('q', ''),'http://syriaca.org/')) then
            concat("[ft:query(descendant::*,'&quot;",request:get-parameter('q', ''),"&quot;',common:options())]")
         else concat("[ft:query(descendant::*,'",common:clean-string(request:get-parameter('q', '')),"',common:options())]")
+    :)
+
+        "[ft:query(descendant::*,$keyword-query)]"
     else '' 
 };
 

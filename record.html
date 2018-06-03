@@ -82,23 +82,13 @@
                 e.stopPropagation();
                 });
                 
-                $('a.footnote-refs').click(function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                var link = $(this);
-                var href = $(this).attr('href');
-                var content = $(href).html()
-                $('#footnoteDisplay').css('display','block');
-                $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
-                $('#footnoteDisplay div.content').html( content );    
-                });
-                
             </script>
             
             <!--<div data-template="app:citation"/>-->
         </div>
         <!-- Modal email form-->
         <div data-template="app:contact-form"/>
+        <div data-template="app:contact-form-linked-data"/>
         <div class="modal fade" id="moreInfo" tabindex="-1" role="dialog" aria-labelledby="moreInfoLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">

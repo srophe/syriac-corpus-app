@@ -56,7 +56,15 @@ declare variable $global:app-map-option := $global:get-config//repo:maps/repo:op
 declare variable $global:map-api-key := $global:get-config//repo:maps/repo:option[@selected='true']/@api-key;
 
 (: Recaptcha Key, Store as environemnt variable. :)
-declare variable $global:recaptcha := '6Lc8sQ4TAAAAAEDR5b52CLAsLnqZSQ1wzVPdl0rO';
+(: Recaptcha Key :)
+declare variable $global:recaptcha := 
+    if(doc($global:app-root || '/config.xml')) then
+        let $config := doc($global:app-root || '/config.xml')
+        return 
+                if($config//recaptcha/recaptcha-site-key != '') then 
+                    $config//recaptcha/recaptcha-site-key/text()
+                else ()
+    else ();
 
 (: Global functions used throughout Srophe app :)
 (:~
@@ -252,7 +260,7 @@ return
  :)
 declare function global:build-sort-string($titlestring as xs:string?, $lang as xs:string?) as xs:string* {
     if($lang = 'ar') then global:ar-sort-string($titlestring)
-    else replace($titlestring,'^[^\p{L}]+|^[aA]\s+|^[aA]l-|^[aA]n\s|^[oO]n\s+[aA]\s+|^[oO]n\s+|^[tT]he\s+[^\p{L}]+|^[tT]he\s+|^A\s+|^''De','')
+    else replace($titlestring,'^[^\p{L}]+|^[aA]\s+|^[aA]l-|^[aA]n\s|^[oO]n\s+[aA]\s+|^[oO]n\s+|^[tT]he\s+[^\p{L}]+|^[tT]he\s+|^A\s+|^''De|[0-9]*','')
 };
 
 (:~

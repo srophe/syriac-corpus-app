@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
     
     <!-- ================================================================== 
        Copyright 2013 New York University
@@ -57,23 +56,29 @@
     <xsl:template match="t:titleStmt" mode="cite-foot">
         <!-- creator(s) of the entry -->
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-        <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',1)"/>
-        <xsl:text>, </xsl:text>
+        <xsl:sequence select="local:emit-responsible-persons(t:author[not(@role='anonymous')],'footnote',1)"/>
+        <xsl:if test="t:author[not(@role='anonymous')]">
+            <xsl:text>, </xsl:text>            
+        </xsl:if>
+
         
         <!-- title of the entry -->
         <xsl:text>“</xsl:text>
-        <xsl:apply-templates select="descendant::t:title[1]" mode="footnote"/>
-        <xsl:text>”</xsl:text>
+        <xsl:apply-templates select="t:title[@level='a']" mode="footnote"/>
+        <xsl:text>,”</xsl:text>
+        
+        <!-- fileDesc/editionStmt/respStmt/resp] -->
+        <xsl:text> </xsl:text>
+        <xsl:value-of select="//t:fileDesc/t:editionStmt/t:respStmt[1]/t:resp"/>
+        <xsl:text> </xsl:text>
+        <xsl:call-template name="responsibility"/>
+        <xsl:text>, </xsl:text>
         
         <!-- monographic title -->
-        <xsl:text> in </xsl:text>
-        <xsl:apply-templates select="../descendant::t:title[@level='s'][position()=last()]" mode="footnote"/>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates select="t:title[@level='s'][position()=last()]" mode="footnote"/>
         <xsl:text>, </xsl:text>
-        <!-- general editors 
-        <xsl:text>, eds. </xsl:text>
-        <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='general'],'footnote',2)"/>
-        <xsl:text>,</xsl:text>
-        -->
+
         <!-- publication date statement -->
         <xsl:text> last modified </xsl:text>
         <xsl:for-each select="../../t:revisionDesc/t:change[1]">
@@ -112,24 +117,31 @@
     <xsl:template match="t:titleStmt" mode="cite-biblist">
         <!-- creator(s) of the entry -->
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-        <xsl:sequence select="local:emit-responsible-persons(t:author,'footnote',1)"/>
-        <xsl:text>, </xsl:text>
+        <xsl:sequence select="local:emit-responsible-persons(t:author[not(@role='anonymous')],'footnote',1)"/>
+        <xsl:if test="t:author[not(@role='anonymous')]">
+            <xsl:text>. </xsl:text>            
+        </xsl:if>
         
         <!-- title of the entry -->
         <xsl:text>“</xsl:text>
-        <xsl:apply-templates select="descendant::t:title[1]" mode="footnote"/>
+        <xsl:apply-templates select="t:title[@level='a']" mode="footnote"/>
         <xsl:text>.”</xsl:text>
         
-        <!-- monographic title -->
-        <xsl:text> In </xsl:text>
-        <xsl:apply-templates select="../descendant::t:title[@level='s'][position()=last()]" mode="footnote"/>
+        <!-- fileDesc/editionStmt/respStmt/resp] -->
+        <xsl:text> </xsl:text>
+        <xsl:variable name="resp" select="//t:fileDesc/t:editionStmt/t:respStmt[1]/t:resp"/>
+        <xsl:value-of select="concat(upper-case(substring($resp,1,1)),substring($resp, 2))"/>
+        <xsl:text> </xsl:text>
+        <xsl:call-template name="responsibility"/>
+        <xsl:text>. </xsl:text>
         
-        <!-- general editors -->
-        <xsl:text>, edited by </xsl:text>
-        <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-        <xsl:sequence select="local:emit-responsible-persons(t:principal,'footnote',20)"/>
-        <xsl:text>.</xsl:text>
-        <xsl:text> last modified </xsl:text>
+        <!-- monographic title -->
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates select="t:title[@level='s'][position()=last()]" mode="footnote"/>
+        <xsl:text>. </xsl:text>
+        
+        <!-- publication date statement -->
+        <xsl:text> Last modified </xsl:text>
         <xsl:for-each select="../../t:revisionDesc/t:change[1]">
             <xsl:choose>
                 <xsl:when test="@when castable as xs:date">
@@ -141,17 +153,57 @@
             </xsl:choose>
         </xsl:for-each>
         <xsl:text>.</xsl:text>
-        <!-- project 
-        <xsl:text> </xsl:text>
-        <xsl:value-of select="t:sponsor[1]"/>
-        <xsl:text>, edited by </xsl:text>
-        <xsl:sequence select="local:emit-responsible-persons(t:principal,'footnote',1)"/>
-        -->
+        
         <xsl:text> </xsl:text>
         <a href="{$uri}">
             <xsl:value-of select="$uri"/>
         </a>
         <xsl:text>.</xsl:text>
+    </xsl:template>
+    
+    <!-- Named template to output responsibility statement -->
+    <xsl:template name="responsibility">
+        <xsl:choose>
+            <xsl:when test="//t:fileDesc/t:editionStmt/t:respStmt/t:name/t:ptr"> 
+                <xsl:variable name="source" select="replace(string(//t:fileDesc/t:editionStmt/t:respStmt/t:name/t:ptr/@target),'#','')"/>
+                <xsl:choose>
+                    <xsl:when test="//t:sourceDesc[@xml:id = $source]">
+                        <xsl:for-each select="//t:sourceDesc[@xml:id = $source]">
+                            <xsl:choose>
+                                <xsl:when test="t:biblStruct">
+                                    <xsl:apply-templates select="t:biblStruct" mode="footnote"/>
+                                </xsl:when>
+                                <xsl:when test="t:msDesc">
+                                    <xsl:value-of select="t:msDesc/t:msIdentifier/t:altIdentifier[@type='preferred']/t:idno/text()"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:apply-templates/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:for-each select="//t:teiHeader/t:fileDesc/t:sourceDesc[1]">
+                            <xsl:choose>
+                                <xsl:when test="t:biblStruct">
+                                    <xsl:apply-templates select="t:biblStruct" mode="footnote"/>
+                                </xsl:when>
+                                <xsl:when test="t:msDesc">
+                                    <xsl:value-of select="t:msDesc/t:msIdentifier/t:altIdentifier[@type='preferred']/t:idno/text()"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:apply-templates/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:for-each>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise> 
+                <xsl:text> </xsl:text>
+                <xsl:value-of select="/t:teiHeader/t:fileDesc/t:editionStmt/t:respStmt/t:name"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -184,6 +236,7 @@
                 </xsl:for-each>
             </ul>
         </div>
+        <!--
         <xsl:if test="t:respStmt">
             <div>
                 <h4>Additional Credit:</h4>
@@ -198,12 +251,15 @@
                 </ul>
             </div>
         </xsl:if>
+        -->
         <xsl:if test="t:funder and not(empty(t:funder/node()))">
             <div>
                 <h4>Funder:</h4>
                 <ul>
                     <xsl:for-each select="t:funder">
-                        <li><xsl:value-of select="."/></li>
+                        <li>
+                            <xsl:value-of select="."/>
+                        </li>
                     </xsl:for-each>
                 </ul>
             </div>

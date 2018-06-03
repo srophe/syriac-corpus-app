@@ -3,7 +3,7 @@
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title data-template="app:app-title">Syriaca.org: The Syriac Reference Portal</title>
+        <title data-template="app:app-title">Digital Syriac Corpus</title>
         <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"/>
         <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/"/>
         <meta name="DC.type" property="dc.type" content="Text"/>
@@ -17,14 +17,15 @@
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/lightslider.css"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/sm-core-css.css"/>
         <link rel="stylesheet" type="text/css" media="print" href="$app-root/resources/css/print.css"/>
-        <!-- Leaflet -->
+        <!-- Leaflet
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
-        <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>   
+        <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>
+        -->
         <!-- jquery -->
-        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/ui-lightness/jquery-ui.css" rel="stylesheet"/>
+        <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/ui-lightness/jquery-ui.css" rel="stylesheet"/>
         <!-- temporary until migrate to bootstrap 3.0 -->
         <script type="text/javascript" src="$app-root/resources/js/jquery.min.js"/>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"/>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/jquery.smartmenus.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/clipboard.min.js"/>
         <script src="https://www.google.com/recaptcha/api.js"/>
@@ -41,7 +42,7 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
-                <![CDATA[
+
                 $('.keyboard').keyboard({
                     openOn: null,
                     stayOpen: false,
@@ -52,18 +53,18 @@
                     rtl : true,
                     layout: 'syriac-phonetic',
                     hidden: function(event, keyboard, el){
-                         keyboard.destroy();
+                       //  keyboard.destroy();
                      }
                 });
-                
+
                 $('.keyboard-select').click(function () {
                     var keyboardID = '#' + $(this).data("keyboard-id")
                     var kb = $(keyboardID).getkeyboard();
                     //var kb = $('#searchField').getkeyboard();
                     // change layout based on link ID
                     kb.options.layout = this.id
-                    // open keyboard if layout is different, or time from it last closing is > 200 ms
-                    if (kb.last.layout !== kb.options.layout || (new Date().getTime() - kb.last.eventTime) > 200) {
+                    // open keyboard if layout is different, or time from it last closing is &gt; 200 ms
+                    if (kb.last.layout !== kb.options.layout || (new Date().getTime() - kb.last.eventTime) &gt; 200) {
                         kb.reveal();
                     }
                 });
@@ -73,11 +74,16 @@
                     $('.selectableFont').not('.syr').css('font-family', selectedFont);
                     $("*:lang(syr)").css('font-family', selectedFont)
                 });
-                ]]>
+
             })
         </script>
     </head>
     <body>
+        <!-- 
+        Estrangela (use Estrangelo Edessa Font)
+East Syriac (what font do we current use here)
+West Syriac (what font do we current use here)
+        -->
         <!--[if lt IE 7]>
                 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
             <![endif]-->
