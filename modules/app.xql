@@ -30,17 +30,18 @@ declare function app:get-rec($node as node(), $model as map(*), $collection as x
 if(request:get-parameter('id', '') != '') then 
     let $id := global:resolve-id()   
     return 
-        let $rec := collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][text() = $id]] 
+        let $rec := collection($global:data-root)//tei:TEI[descendant::tei:publicationStmt/descendant::tei:idno[@type='URI'][text() = $id]] 
         return 
             if(empty($rec)) then response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html')))
-            else 
+            else map {"data" := $rec }
+                (:
                 if($rec/descendant::tei:revisionDesc[@status='deprecated']) then 
                     let $redirect := 
                             if($rec/descendant::tei:idno[@type='redirect']) then 
                                 replace(replace($rec/descendant::tei:idno[@type='redirect'][1]/text(),'/tei',''),$global:base-uri,$global:nav-base)
                             else concat($global:nav-base,'/',$collection,'/','browse.html')
                     return response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
-                else map {"data" := $rec } 
+                else :) 
 else map {"data" := <div>'Page data'</div>}    
 };
 
@@ -110,6 +111,7 @@ return
                          else() 
                     else if($f = 'corrections') then
                         (<a class="btn btn-default btn-xs" data-toggle="modal" data-target="#feedback"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Corrections?</a>,'&#160;') 
+                    (:
                     else if($f = 'copy') then
                         (
                         <a class="btn btn-default btn-xs" id="copyBtn" 
@@ -139,6 +141,15 @@ return
                             (<a href="{concat(replace($id,$global:base-uri,$global:nav-base),'.txt')}" class="btn btn-default btn-xs" id="txtBtn" data-toggle="tooltip" title="Click to view the plain text version of this data." >
                              <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Text
                             </a>, '&#160;')
+                            :)
+                    else if($f = 'uri') then
+                        (<a class="btn btn-default btn-xs" id="copyBtn" 
+                        data-toggle="tooltip" 
+                        title="Copy URI to clipboard: {$id}"
+                        data-clipboard-action="copy" data-clipboard-text="{string($id)}">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> URI</a>,'&#160;',
+                        <script><![CDATA[new Clipboard('#copyBtn');]]></script>)
+                    
                     else () 
                 
             }
@@ -159,7 +170,7 @@ declare function app:display-nodes($node as node(), $model as map(*), $paths as 
             global:tei2html(
                     for $p in tokenize($paths,',')
                     return util:eval(concat('$data',$p)))
-        else global:tei2html($model("data")/descendant::tei:body)
+        else global:tei2html($model("data"))
 }; 
 
 
@@ -754,37 +765,82 @@ declare function app:display-body($node as node(), $model as map(*), $paths as x
         if($model("data")/descendant::tei:body/descendant::*[@n] or (app:toc($model("data")/descendant::tei:body/child::*) != '')) then 
             <div class="col-sm-6 col-md-6 col-lg-7 mssBody">{$data-display}</div>
         else 
-            <div class="col-sm-8 col-md-8 col-lg-9 mssBody">{$data-display}</div>     
+            <div class="col-sm-8 col-md-8 col-lg-9 mssBody">{$data-display}</div>
 }; 
 
 (: Display ids :)
 declare function app:display-ids($node as node(), $model as map(*)){                 
     <div class="panel panel-default">
-        <div class="panel-heading">{$title}</div>
-        <div class="panel-body">
-            <h4>Stable Identifiers</h4>
-                <div class="indent">{
-                    if($model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']) then
-                        <div><label>Corpus Text ID:&#160;</label>{$model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']}</div>
-                    else(),
-                    if($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref) then
-                        <div><label>NHSL Work ID(s):&#160;</label>{string($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref)}</div>
-                    else()
-                }</div> 
-                {
-                    if($model("data")/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc) then 
-                        for $msDesc in $model("data")/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier
-                        return 
-                            if($msDesc/tei:settlement or $msDesc/tei:repository or $msDesc/tei:idno[@type='shelfmark']) then
-                                <span><label>Source: </label>
-                                    {bibl2html:msDesc($msDesc)}
-                                </span>
-                            else if($msDesc/tei:msName) then 
-                                for $msName in $msDesc/tei:msName
-                                return <span class="results-list-desc desc" dir="ltr" lang="en"><label>Source: </label> {$msName}<br/></span>
-                            else ()
-                    else <p><label>Source: </label> {bibl2html:citation($model("data")/descendant::tei:sourceDesc)}</p> 
-                }
+        <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#aboutDigitalText">About This Digital Text </a></div>
+        <div class="panel-body collapse in" id="aboutDigitalText">
+            {(
+              if($model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']) then
+                <div>
+                    <h5>Record ID:</h5>
+                    <span>{$model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']}</span>
+                </div>
+              else(),
+              if($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref) then
+                <div>
+                    <h5>NHSL Work ID(s):</h5>
+                    {for $r in $model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[@ref]
+                    return <span><a href="{string($r/@ref)}">{string($r/@ref)}</a><br/></span>}
+                </div>
+              else(), 
+              <div>
+                <h5>Citation: </h5>
+                {global:tei2html($model("data")/descendant::tei:sourceDesc)}
+                {if($model("data")/descendant::tei:sourceDesc/descendant::tei:idno[starts-with(., 'http://syriaca.org/bibl')]) then 
+                    <span class="footnote-links">
+                        <span class="footnote-icon"> 
+                         <a href="{$model("data")/descendant::tei:sourceDesc/descendant::tei:idno[starts-with(., 'http://syriaca.org/bibl')][1]/text()}" title="Link to Syriaca.org Bibliographic Record" 
+                             data-toggle="tooltip" data-placement="top" class="bibl-links">
+                             <img src="{$global:nav-base}/resources/img/icons-syriaca-sm.png" 
+                                 alt="Link to Syriaca.org Bibliographic Record" height="18px"/>
+                         </a>
+                        </span>
+                    </span>
+                else()}
+              </div>, 
+              <div style="margin-top:1em;">
+                <span class="h5-inline">Status: 
+            </span>
+                <span>{functx:capitalize-first(functx:camel-case-to-words(string($model("data")/descendant::tei:revisionDesc/@status),' '))}</span>
+              &#160;<a href="{$global:nav-base}/documentation/wiki.html?wiki-page=/Status-of-Texts-in-the-Digital-Syriac-Corpus&amp;wiki-uri=https://github.com/srophe/syriac-corpus/wiki"><span class="glyphicon glyphicon-question-sign text-info moreInfo"></span></a>
+              </div>,
+              <div style="margin-top:1em;">
+                <span class="h5-inline">Publication Date: </span>
+                {format-date(xs:date($model("data")/descendant::tei:revisionDesc/tei:change[1]/@when), '[MNn] [D], [Y]')}
+              </div>, 
+              <div>
+                <h5>Preparation of Electronic Edition:</h5>
+                TEI XML encoding by James E. Walters. <br/>
+                Syriac text transcribed by {$model("data")//tei:titleStmt/descendant::tei:respStmt[tei:resp[. = 'Syriac text transcribed by']]/tei:name/text()}.
+              </div>,
+              if($model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab[1]/tei:note[1]/text()) then 
+              <div>
+                <h5>Open Access and Copyright:</h5>
+                <div class="small">
+                    {(
+                    $model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab[1]/tei:note[1]/text(),
+                    <div id="showMoreAccess" class="collapse">
+                        {(
+                        $model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab[2]/tei:note[1]/text(),
+                        if($model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence[contains(@target, 'http://creativecommons.org/licenses/')]) then 
+                            <p>
+                            <a rel="license" href="{string($model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence/@target)}">
+                                <img alt="Creative Commons License" style="border-width:0;display:inline;" src="{$global:nav-base}/resources/img/cc.png" height="18px"/>
+                            </a>
+                            </p>
+                        else())}                   
+                    </div>,
+                    '&#160;',<a href="#" class="togglelink" data-toggle="collapse" data-target="#showMoreAccess" data-text-swap="Hide details">See details...</a>
+                    )}
+                </div>
+              </div>
+              else()
+              
+             )}
         </div>
     </div>        
 };
@@ -836,10 +892,10 @@ return
                 let $id := 
                     if($node/@xml:id) then string($node/@xml:id) 
                     else if($node/parent::*[1]/@n) then
-                        concat('Head-id.',string-join($node/ancestor::*[@n]/@n,'.'))
+                        concat('Head-id.',string-join($node/ancestor::*[@n][1]/@n,'.'))
                     else if($node/parent::*[1]/@xml:id) then 
-                        concat('Head-id.',string-join($node/ancestor::*[@xml:id]/@xml:id,'.')) 
-                    else ()    
+                        concat('Head-id.',string-join($node/ancestor::*[@xml:id][1]/@xml:id,'.'))                        
+                    else ()
                 return 
                     (<a href="#{$id}" class="toc-item">{string-join($node/descendant-or-self::text(),' ')}</a>, ' ') 
             default return ()          
@@ -849,7 +905,7 @@ return
  : TOC for Syriac Corpus records. 
 :)  
 declare function app:toggle-text-display($node as node(), $model as map(*)){
-if($model("data")/descendant::tei:body/descendant::tei:pb) then     
+if($model("data")/descendant::tei:body/descendant::*[@n][not(@type='section') and not(@type='part')]) then     
         <div class="panel panel-default">
             <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#toggleText">Show  </a>
             <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" 
@@ -858,19 +914,19 @@ if($model("data")/descendant::tei:body/descendant::tei:pb) then
             </div>
             <div class="panel-body collapse in" id="toggleText">
                 {
-                if($model("data")/descendant::tei:body/descendant::tei:pb) then
+                 if($model("data")/descendant::tei:body/descendant::tei:pb) then
                         <div class="toggle-buttons">
                             <span class="toggle-label"> page break : </span>
                             <input class="toggleDisplay" type="checkbox" id="togglepb" data-element="tei-pb"/>
                                 <label for="togglepb">page break</label>
                          </div>                                            
                     else ()
-                (: 
+                (:
                     let $types := distinct-values($model("data")/descendant::tei:body/descendant::tei:div[@n]/@type)
                     for $type in $types
                     order by $type
                     return 
-                        if($type = ('part','text','rubric','heading')) then ()
+                        if($type = ('part','text','rubric','heading','title')) then ()
                         else
                             <div class="toggle-buttons">
                                <span class="toggle-label"> {$type} : </span>
@@ -884,6 +940,18 @@ if($model("data")/descendant::tei:body/descendant::tei:pb) then
                             <input class="toggleDisplay" type="checkbox" id="toggleab" data-element="tei-ab"/>
                                 <label for="toggleab">ab</label>
                          </div>
+                    else (),   
+                    if($model("data")/descendant::tei:body/descendant::tei:ab[@type][@n]) then  
+                        let $types := distinct-values($model("data")/descendant::tei:body/descendant::tei:ab[@n]/@type)
+                        for $type in $types
+                        order by $type
+                        return 
+                            <div class="toggle-buttons">
+                               <span class="toggle-label"> {$type} : </span>
+                               <input class="toggleDisplay" type="checkbox" id="toggle{$type}" data-element="{concat('tei-',$type)}"/>
+                                 {if($type = 'section') then attribute checked {"checked" } else ()}
+                                 <label for="toggle{$type}"> {$type}</label>
+                            </div>
                     else (),    
                     if($model("data")/descendant::tei:body/descendant::tei:l) then 
                         <div class="toggle-buttons">
@@ -934,7 +1002,7 @@ if($model("data")/descendant::tei:body/descendant::tei:pb) then
                                 <label for="togglemilestone">footnote</label>
                          </div>                                                 
                     else () 
-                )}
+                ):)}
             </div>
         </div>
 else ()
