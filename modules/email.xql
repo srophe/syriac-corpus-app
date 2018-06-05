@@ -40,10 +40,10 @@ return
 if($list != '') then 
     if($config/descendant::contact[@listID =  $list]) then 
         for $contact in $config/descendant::contact[@listID =  $list]/child::*
-        return $contact
+        return element { fn:local-name($contact) } {$contact/text()}
     else 
         for $contact in $config/descendant::contact[1]/child::*
-        return $contact
+        return element { fn:local-name($contact) } {$contact/text()}
 else 
     for $contact in $config/descendant::contact[1]/child::*
     return 
