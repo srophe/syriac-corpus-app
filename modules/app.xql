@@ -8,8 +8,8 @@ import module namespace functx="http://www.functx.com";
 (: Srophe modules :)
 import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace teiDocs="http://syriaca.org/teiDocs" at "teiDocs/teiDocs.xqm";
-import module namespace tei2html="http://syriaca.org/tei2html" at "lib/tei2html.xqm";
-import module namespace bibl2html="http://syriaca.org/bibl2html" at "lib/bibl2html.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "content-negotiation//tei2html.xqm";
+import module namespace bibl2html="http://syriaca.org/bibl2html" at "content-negotiation//bibl2html.xqm";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
 import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
@@ -30,17 +30,18 @@ declare function app:get-rec($node as node(), $model as map(*), $collection as x
 if(request:get-parameter('id', '') != '') then 
     let $id := global:resolve-id()   
     return 
-        let $rec := collection($global:data-root)//tei:TEI[.//tei:idno[@type='URI'][text() = $id]] 
+        let $rec := collection($global:data-root)//tei:TEI[descendant::tei:publicationStmt/descendant::tei:idno[@type='URI'][text() = $id]] 
         return 
             if(empty($rec)) then response:redirect-to(xs:anyURI(concat($global:nav-base, '/404.html')))
-            else 
+            else map {"data" := $rec }
+                (:
                 if($rec/descendant::tei:revisionDesc[@status='deprecated']) then 
                     let $redirect := 
                             if($rec/descendant::tei:idno[@type='redirect']) then 
                                 replace(replace($rec/descendant::tei:idno[@type='redirect'][1]/text(),'/tei',''),$global:base-uri,$global:nav-base)
                             else concat($global:nav-base,'/',$collection,'/','browse.html')
                     return response:redirect-to(xs:anyURI(concat($global:nav-base, '/301.html?redirect=',$redirect)))
-                else map {"data" := $rec } 
+                else :) 
 else map {"data" := <div>'Page data'</div>}    
 };
 
@@ -60,27 +61,11 @@ declare function app:display-rec($node as node(), $model as map(*), $collection 
  : Used by templating module, not needed if full record is being displayed 
 :)
 declare function app:h1($node as node(), $model as map(*)){
-    let $main := <span class="main-title">{$model("data")/descendant::tei:titleStmt/tei:title[@type="main"]//text()}</span>
-    let $sub := if($model("data")/descendant::tei:titleStmt/tei:title[@type="sub"]) then <span class="sub-title">{$model("data")/descendant::tei:titleStmt/tei:title[@type="sub"]//text()}</span> else ()
+    let $title := tei2html:tei2html($model("data")/descendant::tei:titleStmt/tei:title[1])
+    let $author := tei2html:tei2html($model("data")/descendant::tei:titleStmt/tei:author[not(@role='anonymous')])
     return   
         <div class="title">
-            <h1 id="mainTitle">{($main, ' ' , $sub)}</h1>
-            <span class="uri">
-                <button type="button" class="btn btn-default btn-xs" id="idnoBtn" data-clipboard-action="copy" data-clipboard-target="#syriaca-id">
-                    <span class="srp-label">URI</span>
-                </button>
-                <span id="syriaca-id">{replace($model("data")/descendant::tei:idno[@type='URI'][1],'/tei','')}</span>
-                <script><![CDATA[
-                        var clipboard = new Clipboard('#idnoBtn');
-                        clipboard.on('success', function(e) {
-                        console.log(e);
-                        });
-                        
-                        clipboard.on('error', function(e) {
-                        console.log(e);
-                        });]]>
-                </script>   
-            </span>
+            <h1>{(if($author != '') then ($author, ': ') else (), $title)}</h1>
         </div>
 };
 
@@ -98,33 +83,74 @@ return
                 return 
                     if($f = 'tei') then
                         (<a href="{concat(replace($id,$global:base-uri,$global:nav-base),'.tei')}" class="btn btn-default btn-xs" id="teiBtn" data-toggle="tooltip" title="Click to view the TEI XML data for this record." >
-                             <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> TEI/XML
+                             <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> TEI
                         </a>, '&#160;')
                     else if($f = 'print') then                        
                         (<a href="javascript:window.print();" type="button" class="btn btn-default btn-xs" id="teiBtn" data-toggle="tooltip" title="Click to send this page to the printer." >
                              <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
                         </a>, '&#160;')  
-                   else if($f = 'rdf') then
+                    else if($f = 'rdf') then
                         (<a href="{concat(replace($id,$global:base-uri,$global:nav-base),'.rdf')}" class="btn btn-default btn-xs" id="teiBtn" data-toggle="tooltip" title="Click to view the RDF-XML data for this record." >
                              <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> RDF/XML
                         </a>, '&#160;')
-                  else if($f = 'ttl') then
+                    else if($f = 'ttl') then
                         (<a href="{concat(replace($id,$global:base-uri,$global:nav-base),'.ttl')}" class="btn btn-default btn-xs" id="teiBtn" data-toggle="tooltip" title="Click to view the RDF-Turtle data for this record." >
                              <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> RDF/TTL
                         </a>, '&#160;')
-                  else if($f = 'geojson') then
+                    else if($f = 'geojson') then
                         if($model("data")/descendant::tei:location/tei:geo) then 
                         (<a href="{concat(replace($id,$global:base-uri,$global:nav-base),'.geojson')}" class="btn btn-default btn-xs" id="teiBtn" data-toggle="tooltip" title="Click to view the GeoJSON data for this record." >
                              <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> GeoJSON
                         </a>, '&#160;')
                         else()
-                  else if($f = 'kml') then
+                    else if($f = 'kml') then
                         if($model("data")/descendant::tei:location/tei:geo) then
                             (<a href="{concat(replace($id,$global:base-uri,$global:nav-base),'.kml')}" class="btn btn-default btn-xs" id="teiBtn" data-toggle="tooltip" title="Click to view the KML data for this record." >
                              <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> KML
                             </a>, '&#160;')
-                         else()   
-                   else () 
+                         else() 
+                    else if($f = 'corrections') then
+                        (<a class="btn btn-default btn-xs" data-toggle="modal" data-target="#feedback"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Corrections?</a>,'&#160;') 
+                    (:
+                    else if($f = 'copy') then
+                        (
+                        <a class="btn btn-default btn-xs" id="copyBtn" 
+                        data-toggle="tooltip" 
+                        title="To preserve right-to-left text, paste with options 'unformatted text' or 'keep text only.'"
+                        data-clipboard-action="copy">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> Copy</a>,'&#160;',
+                        <script>
+                           <![CDATA[
+                                var fullText;
+                                $(document).ready(function() {
+                                    $.get(']]>{concat(replace($id,$global:base-uri,$global:nav-base),'.txt')}<![CDATA[', $(this).serialize(), function(data) {
+                                        fullText = data;
+                                       }).fail( function(jqXHR, textStatus, errorThrown) {
+                                         console.log(textStatus);
+                                    });
+                                    new Clipboard('#copyBtn', {
+                                    text: function(trigger) {
+                                      return fullText
+                                    }
+                                     });
+                                });                           
+                            ]]>
+                        </script>
+                        )
+                   else if($f = 'text') then
+                            (<a href="{concat(replace($id,$global:base-uri,$global:nav-base),'.txt')}" class="btn btn-default btn-xs" id="txtBtn" data-toggle="tooltip" title="Click to view the plain text version of this data." >
+                             <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Text
+                            </a>, '&#160;')
+                            :)
+                    else if($f = 'uri') then
+                        (<a class="btn btn-default btn-xs" id="copyBtn" 
+                        data-toggle="tooltip" 
+                        title="Copy URI to clipboard: {$id}"
+                        data-clipboard-action="copy" data-clipboard-text="{string($id)}">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> URI</a>,'&#160;',
+                        <script><![CDATA[new Clipboard('#copyBtn');]]></script>)
+                    
+                    else () 
                 
             }
             <br/>
@@ -144,7 +170,7 @@ declare function app:display-nodes($node as node(), $model as map(*), $paths as 
             global:tei2html(
                     for $p in tokenize($paths,',')
                     return util:eval(concat('$data',$p)))
-        else global:tei2html($model("data")/descendant::tei:body)
+        else global:tei2html($model("data"))
 }; 
 
 
@@ -324,22 +350,24 @@ else $global:app-title
 :)
 declare function app:metadata($node as node(), $model as map(*)) {
     if(request:get-parameter('id', '')) then 
-    (
-    (: some rdf examples
-    <link type="application/rdf+xml" href="id.rdf" rel="alternate"/>
-    <link type="text/turtle" href="id.ttl" rel="alternate"/>
-    <link type="text/plain" href="id.nt" rel="alternate"/>
-    <link type="application/json+ld" href="id.jsonld" rel="alternate"/>
-    :)
+    (  
     <meta name="DC.title " property="dc.title " content="{$model("data")/ancestor::tei:TEI/descendant::tei:title[1]/text()}"/>,
-    if($model("data")/ancestor::tei:TEI/descendant::tei:desc or $model("data")/ancestor::tei:TEI/descendant::tei:note[@type="abstract"]) then 
-        <meta name="DC.description " property="dc.description " content="{$model("data")/ancestor::tei:TEI/descendant::tei:desc[1]/text() | $model("data")/ancestor::tei:TEI/descendant::tei:note[@type="abstract"]}"/>
+    for $author in $model("data")/descendant::tei:teiHeader/descendant::tei:titleStmt/tei:author
+    return <meta name="DC.creator"  content="{normalize-space(string-join($author/text(),' '))}"/>,
+    (:<meta name="DC.source" content=""/>,:)
+    <meta name="DC.publisher" content="{$global:app-title}"/>,
+    <meta name="bibo.uri" content="{normalize-space($model("data")/descendant::tei:idno[@type='URI'][1]/text())}"/>,
+    <meta name="DC.type" content="{string($model("data")/descendant::tei:text/@type)}"/>,
+    <meta name="DC.identifier " content="{normalize-space($model("data")/descendant::tei:idno[@type='URI'][1]/text())}"/>,
+    if($model("data")/descendant::tei:note[@type='abstract']) then 
+        <meta name="DCTERMS.abstract" content="{normalize-space($model("data")/descendant::tei:note[@type='abstract'][1])}"/>
     else (),
     <link xmlns="http://www.w3.org/1999/xhtml" type="text/html" href="{request:get-parameter('id', '')}.html" rel="alternate"/>,
-    <link xmlns="http://www.w3.org/1999/xhtml" type="text/xml" href="{request:get-parameter('id', '')}/tei" rel="alternate"/>,
-    <link xmlns="http://www.w3.org/1999/xhtml" type="application/atom+xml" href="{request:get-parameter('id', '')}/atom" rel="alternate"/>
+    <link xmlns="http://www.w3.org/1999/xhtml" type="text/xml" href="{request:get-parameter('id', '')}.tei" rel="alternate"/>,
+    <link xmlns="http://www.w3.org/1999/xhtml" type="application/rdf+xml" href="{replace(request:get-parameter('id', ''),$global:base-uri,concat($global:nav-base,'/entry'))}.rdf" rel="meta"/>
     )
     else ()
+    
 };
 
 (:~
@@ -382,9 +410,7 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
                 <input type="hidden" name="id" value="{request:get-parameter('id', '')}"/>
                 <input type="hidden" name="collection" value="{$collection}"/>
                 <!-- start reCaptcha API-->
-                <!--
                 <div class="g-recaptcha" data-sitekey="{$global:recaptcha}"></div>
-                -->
             </div>
             <div class="modal-footer">
                 <button class="btn btn-default" data-dismiss="modal">Close</button><input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
@@ -393,6 +419,39 @@ declare %templates:wrap function app:contact-form($node as node(), $model as map
         </div>
     </div>
 </div>
+};
+
+declare %templates:wrap function app:contact-form-linked-data($node as node(), $model as map(*), $collection)
+{
+        <div class="modal fade" id="submitLinkedData" tabindex="-1" role="dialog" aria-labelledby="submitLinkedDataLabel" 
+            aria-hidden="true" xmlns="http://www.w3.org/1999/xhtml">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+                        <h2 class="modal-title" id="feedbackLabel">Submit Linked Data</h2>
+                    </div>
+                    <form action="{$global:nav-base}/modules/email.xql" method="post" id="email" role="form">
+                        <div class="modal-body" id="modal-body">
+                            <input type="text" name="name" placeholder="Name" class="form-control" style="max-width:300px"/>
+                            <br/>
+                            <input type="text" name="email" placeholder="email" class="form-control" style="max-width:300px"/>
+                            <br/>
+                            <input type="text" name="subject" placeholder="subject" class="form-control" style="max-width:300px"/>
+                            <br/>
+                            <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
+                            <input type="hidden" name="id" value="{request:get-parameter('id', '')}"/>
+                            <input type="hidden" name="formID" value="linkedData"/>
+                            <!-- start reCaptcha API-->
+                            <div class="g-recaptcha" data-sitekey="{$global:recaptcha}"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal">Close</button><input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 };
 
 (:~
@@ -706,57 +765,82 @@ declare function app:display-body($node as node(), $model as map(*), $paths as x
         if($model("data")/descendant::tei:body/descendant::*[@n] or (app:toc($model("data")/descendant::tei:body/child::*) != '')) then 
             <div class="col-sm-6 col-md-6 col-lg-7 mssBody">{$data-display}</div>
         else 
-            <div class="col-sm-8 col-md-8 col-lg-9 mssBody">{$data-display}</div>     
+            <div class="col-sm-8 col-md-8 col-lg-9 mssBody">{$data-display}</div>
 }; 
 
 (: Display ids :)
-declare function app:display-ids($node as node(), $model as map(*)){
-let $srophe-title := 
-                try{http:send-request(<http:request href="wwwb.library.vanderbilt.edu/api/sparql?qname=label&amp;id={$model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref}" method="GET">
-                     <http:header name="Content-Type" value="application/xml"/>
-                     <http:header name="Accept" value="application/json,application/xml"/>
-                   </http:request>[2]) 
-                   } catch * {
-                    <error>Caught error {$err:code}: {$err:description}</error>
-                   }
-let $title := if(not(empty($srophe-title//*:result))) then $srophe-title//*:literal[@xml:lang='en']/text() else ()                   
-return                   
+declare function app:display-ids($node as node(), $model as map(*)){                 
     <div class="panel panel-default">
-        <div class="panel-heading">{$title}</div>
-        <div class="panel-body">
-            <h4>Stable Identifiers</h4>
-                <div class="indent">{(
-                    if($model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']) then
-                        <div><label>Corpus Text ID:&#160;</label>{$model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']}</div>
-                    else(),
-                    if($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref) then
-                        <div><label>NHSL Work ID(s):&#160;</label>{string($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref)}</div>
-                    else(),
-                    if($model("data")/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc) then 
-                        <div style="margin-top:1em;">{
-                        for $msDesc in $model("data")/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier
-                        return 
-                            if($msDesc/tei:settlement or $msDesc/tei:repository or $msDesc/tei:idno[@type='shelfmark']) then
-                                <span><label>Source: </label>
-                                    {bibl2html:msDesc($msDesc)}
-                                </span>
-                            else if($msDesc/tei:msName) then 
-                                for $msName in $msDesc/tei:msName
-                                return <span class="results-list-desc desc" dir="ltr" lang="en"><label>Source: </label> {$msName}<br/></span>
-                            else ()
-                         }</div>
-                    else <p style="margin-top:1em;"><label>Source: </label> {bibl2html:citation($model("data")/descendant::tei:sourceDesc)}</p> 
-                )}</div>
-        </div>
-    </div>        
-};
-
-(: Display ids :)
-declare function app:display-cite($node as node(), $model as map(*)){                 
-    <div class="panel panel-default">
-        <div class="panel-heading">How to Cite this Electronic Edition</div>
-        <div class="panel-body">
-            <div>{bibl2html:citation($model("data")/descendant::tei:teiHeader), replace($model("data")/descendant-or-self::tei:publicationStmt[1]/tei:idno[@type='URI'][1],'/tei','')}</div>
+        <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#aboutDigitalText">About This Digital Text </a></div>
+        <div class="panel-body collapse in" id="aboutDigitalText">
+            {(
+              if($model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']) then
+                <div>
+                    <h5>Record ID:</h5>
+                    <span>{$model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']}</span>
+                </div>
+              else(),
+              if($model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref) then
+                <div>
+                    <h5>NHSL Work ID(s):</h5>
+                    {for $r in $model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[@ref]
+                    return <span><a href="{string($r/@ref)}">{string($r/@ref)}</a><br/></span>}
+                </div>
+              else(), 
+              <div>
+                <h5>Citation: </h5>
+                {global:tei2html($model("data")/descendant::tei:sourceDesc)}
+                {if($model("data")/descendant::tei:sourceDesc/descendant::tei:idno[starts-with(., 'http://syriaca.org/bibl')]) then 
+                    <span class="footnote-links">
+                        <span class="footnote-icon"> 
+                         <a href="{$model("data")/descendant::tei:sourceDesc/descendant::tei:idno[starts-with(., 'http://syriaca.org/bibl')][1]/text()}" title="Link to Syriaca.org Bibliographic Record" 
+                             data-toggle="tooltip" data-placement="top" class="bibl-links">
+                             <img src="{$global:nav-base}/resources/img/icons-syriaca-sm.png" 
+                                 alt="Link to Syriaca.org Bibliographic Record" height="18px"/>
+                         </a>
+                        </span>
+                    </span>
+                else()}
+              </div>, 
+              <div style="margin-top:1em;">
+                <span class="h5-inline">Status: 
+            </span>
+                <span>{functx:capitalize-first(functx:camel-case-to-words(string($model("data")/descendant::tei:revisionDesc/@status),' '))}</span>
+              &#160;<a href="{$global:nav-base}/documentation/wiki.html?wiki-page=/Status-of-Texts-in-the-Digital-Syriac-Corpus&amp;wiki-uri=https://github.com/srophe/syriac-corpus/wiki"><span class="glyphicon glyphicon-question-sign text-info moreInfo"></span></a>
+              </div>,
+              <div style="margin-top:1em;">
+                <span class="h5-inline">Publication Date: </span>
+                {format-date(xs:date($model("data")/descendant::tei:revisionDesc/tei:change[1]/@when), '[MNn] [D], [Y]')}
+              </div>, 
+              <div>
+                <h5>Preparation of Electronic Edition:</h5>
+                TEI XML encoding by James E. Walters. <br/>
+                Syriac text transcribed by {$model("data")//tei:titleStmt/descendant::tei:respStmt[tei:resp[. = 'Syriac text transcribed by']]/tei:name/text()}.
+              </div>,
+              if($model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab[1]/tei:note[1]/text()) then 
+              <div>
+                <h5>Open Access and Copyright:</h5>
+                <div class="small">
+                    {(
+                    $model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab[1]/tei:note[1]/text(),
+                    <div id="showMoreAccess" class="collapse">
+                        {(
+                        $model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab[2]/tei:note[1]/text(),
+                        if($model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence[contains(@target, 'http://creativecommons.org/licenses/')]) then 
+                            <p>
+                            <a rel="license" href="{string($model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence/@target)}">
+                                <img alt="Creative Commons License" style="border-width:0;display:inline;" src="{$global:nav-base}/resources/img/cc.png" height="18px"/>
+                            </a>
+                            </p>
+                        else())}                   
+                    </div>,
+                    '&#160;',<a href="#" class="togglelink" data-toggle="collapse" data-target="#showMoreAccess" data-text-swap="Hide details">See details...</a>
+                    )}
+                </div>
+              </div>
+              else()
+              
+             )}
         </div>
     </div>        
 };
@@ -808,10 +892,10 @@ return
                 let $id := 
                     if($node/@xml:id) then string($node/@xml:id) 
                     else if($node/parent::*[1]/@n) then
-                        concat('Head-id.',string-join($node/ancestor::*[@n]/@n,'.'))
+                        concat('Head-id.',string-join($node/ancestor::*[@n][1]/@n,'.'))
                     else if($node/parent::*[1]/@xml:id) then 
-                        concat('Head-id.',string-join($node/ancestor::*[@xml:id]/@xml:id,'.')) 
-                    else ()    
+                        concat('Head-id.',string-join($node/ancestor::*[@xml:id][1]/@xml:id,'.'))                        
+                    else ()
                 return 
                     (<a href="#{$id}" class="toc-item">{string-join($node/descendant-or-self::text(),' ')}</a>, ' ') 
             default return ()          
@@ -821,7 +905,7 @@ return
  : TOC for Syriac Corpus records. 
 :)  
 declare function app:toggle-text-display($node as node(), $model as map(*)){
-if($model("data")/descendant::tei:body/descendant::tei:pb) then     
+if($model("data")/descendant::tei:body/descendant::*[@n][not(@type='section') and not(@type='part')]) then     
         <div class="panel panel-default">
             <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#toggleText">Show  </a>
             <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" 
@@ -830,19 +914,19 @@ if($model("data")/descendant::tei:body/descendant::tei:pb) then
             </div>
             <div class="panel-body collapse in" id="toggleText">
                 {
-                if($model("data")/descendant::tei:body/descendant::tei:pb) then
+                 if($model("data")/descendant::tei:body/descendant::tei:pb) then
                         <div class="toggle-buttons">
                             <span class="toggle-label"> page break : </span>
                             <input class="toggleDisplay" type="checkbox" id="togglepb" data-element="tei-pb"/>
                                 <label for="togglepb">page break</label>
                          </div>                                            
                     else ()
-                (: 
+                (:
                     let $types := distinct-values($model("data")/descendant::tei:body/descendant::tei:div[@n]/@type)
                     for $type in $types
                     order by $type
                     return 
-                        if($type = ('part','text','rubric','heading')) then ()
+                        if($type = ('part','text','rubric','heading','title')) then ()
                         else
                             <div class="toggle-buttons">
                                <span class="toggle-label"> {$type} : </span>
@@ -856,11 +940,23 @@ if($model("data")/descendant::tei:body/descendant::tei:pb) then
                             <input class="toggleDisplay" type="checkbox" id="toggleab" data-element="tei-ab"/>
                                 <label for="toggleab">ab</label>
                          </div>
+                    else (),   
+                    if($model("data")/descendant::tei:body/descendant::tei:ab[@type][@n]) then  
+                        let $types := distinct-values($model("data")/descendant::tei:body/descendant::tei:ab[@n]/@type)
+                        for $type in $types
+                        order by $type
+                        return 
+                            <div class="toggle-buttons">
+                               <span class="toggle-label"> {$type} : </span>
+                               <input class="toggleDisplay" type="checkbox" id="toggle{$type}" data-element="{concat('tei-',$type)}"/>
+                                 {if($type = 'section') then attribute checked {"checked" } else ()}
+                                 <label for="toggle{$type}"> {$type}</label>
+                            </div>
                     else (),    
                     if($model("data")/descendant::tei:body/descendant::tei:l) then 
                         <div class="toggle-buttons">
                             <span class="toggle-label"> line : </span>
-                            <input class="toggleDisplay" type="checkbox" id="togglel" data-element="tei-l"/>
+                            <input class="toggleDisplay" type="checkbox" id="togglel" data-element="tei-l" checked="checked"/>
                                 <label for="togglel">line</label>
                         </div>
                     else (),
@@ -898,9 +994,154 @@ if($model("data")/descendant::tei:body/descendant::tei:pb) then
                             <input class="toggleDisplay" type="checkbox" id="togglemilestone" data-element="tei-milestone"/>
                                 <label for="togglemilestone">milestone</label>
                          </div>                                                 
+                    else (),
+                    if($model("data")/descendant::tei:body/descendant::tei:note[@place = ('foot','footer','footnote')]) then 
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> footnote : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglemilestone" data-element="tei-footnote" checked="checked"/>
+                                <label for="togglemilestone">footnote</label>
+                         </div>                                                 
                     else () 
-                :)}
+                ):)}
             </div>
         </div>
 else ()
 }; 
+
+
+(:
+ : Display related Syriaca.org names
+:)
+declare %templates:wrap function app:srophe-related($node as node(), $model as map(*)){ 
+    if($model("data")//@ref[contains(.,'http://syriaca.org/') and not(contains(.,'http://syriaca.org/persons.xml'))] or $model("data")//tei:idno[@type='URI']) then
+        <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
+            <div class="panel-heading">
+            <a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
+            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" 
+            title="This sidebar provides links via Syriaca.org to 
+            additional resources beyond this record. 
+            We welcome your additions, please use the e-mail button on the right to contact Syriaca.org about submitting additional links."></span>
+            <button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#submitLinkedData" style="margin-right:1em;"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
+            </div>
+            <div class="panel-body collapse in" id="showLinkedData">
+                {(
+                 if($model("data")//@ref[contains(.,'http://syriaca.org/')] or $model("data")//tei:idno[@type='URI']) then
+                    let $other-resources := distinct-values($model("data")//@ref[contains(.,'http://syriaca.org/') and not(contains(.,'http://syriaca.org/person.xml'))] | $model("data")//tei:idno[@type='URI'])
+                    let $count := count($other-resources)
+                    return 
+                        <div class="other-resources" xmlns="http://www.w3.org/1999/xhtml">
+                            <div class="collapse in" id="showOtherResources">
+                                <form class="form-inline hidden" action="modules/sparql-requests.xql" method="post">
+                                    <input type="hidden" name="format" id="format" value="json"/>
+                                    <textarea id="query" class="span9" rows="15" cols="150" name="query" type="hidden">
+                                      <![CDATA[
+                                        prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                                        prefix lawd: <http://lawd.info/ontology/>
+                                        prefix skos: <http://www.w3.org/2004/02/skos/core#>
+                                        prefix dcterms: <http://purl.org/dc/terms/>  
+                                                                                	        
+                                        SELECT ?uri (SAMPLE(?l) AS ?label) (SAMPLE(?uriSubject) AS ?subjects) (SAMPLE(?uriCitations) AS ?citations)
+                                            {
+                                                ?uri rdfs:label ?l
+                                                FILTER (?uri IN (]]>{string-join(for $r in subsequence($other-resources,1,10) return concat('<',$r,'>'),',')}<![CDATA[)).
+                                                FILTER ( langMatches(lang(?l), 'en')).
+                                                OPTIONAL{
+                                                    {SELECT ?uri ( count(?s) as ?uriSubject ) { ?s dcterms:relation ?uri } GROUP BY ?uri }  }
+                                                    OPTIONAL{
+                                                        {SELECT ?uri ( count(?o) as ?uriCitations ) { ?uri lawd:hasCitation ?o 
+                                                                OPTIONAL{ ?uri skos:closeMatch ?o.}
+                                                        } GROUP BY ?uri }
+                                                    }           
+                                            }
+                                        GROUP BY ?uri  
+                                      ]]>  
+                                    </textarea>
+                                </form>
+                                <div id="listOtherResources"></div>
+                                {if($count gt 10) then
+                                    <div>
+                                        <div class="collapse" id="showMoreResources">
+                                            <form class="form-inline hidden" action="modules/sparql-requests.xql" method="post">
+                                                <input type="hidden" name="format" id="format" value="json"/>
+                                                <textarea id="query" class="span9" rows="15" cols="150" name="query" type="hidden">
+                                                  <![CDATA[
+                                                    prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                                                    prefix lawd: <http://lawd.info/ontology/>
+                                                    prefix skos: <http://www.w3.org/2004/02/skos/core#>
+                                                    prefix dcterms: <http://purl.org/dc/terms/>  
+                                                                                            	        
+                                                    SELECT ?uri (SAMPLE(?l) AS ?label) (SAMPLE(?uriSubject) AS ?subjects) (SAMPLE(?uriCitations) AS ?citations)
+                                                        {
+                                                            ?uri rdfs:label ?l
+                                                            FILTER (?uri IN (]]>{string-join(for $r in subsequence($other-resources,10,$count) return concat('<',$r,'>'),',')}<![CDATA[)).
+                                                            FILTER ( langMatches(lang(?l), 'en')).
+                                                            OPTIONAL{
+                                                                {SELECT ?uri ( count(?s) as ?uriSubject ) { ?s dcterms:relation ?uri } GROUP BY ?uri }  }
+                                                                OPTIONAL{
+                                                                    {SELECT ?uri ( count(?o) as ?uriCitations ) { ?uri lawd:hasCitation ?o 
+                                                                            OPTIONAL{ ?uri skos:closeMatch ?o.}
+                                                                    } GROUP BY ?uri }
+                                                                }           
+                                                        }
+                                                    GROUP BY ?uri  
+                                                  ]]>
+                                                </textarea>
+                                            </form>
+                                        </div>
+                                        <a href="#" class="togglelink" data-toggle="collapse" data-target="#showMoreResources" data-text-swap="Less" id="getMoreLinkedData">See more ...</a>
+                                    </div>
+                                else ()
+                                }
+                            </div>
+                            <script>
+                            <![CDATA[
+                                $(document).ready(function() {
+                                    $('#showOtherResources').children('form').each(function () {
+                                        var url = $(this).attr('action');
+                                            $.post(url, $(this).serialize(), function(data) {
+                                                console.log(data);
+                                                var showOtherResources = $("#listOtherResources");
+                                                var dataArray = data.results.bindings;
+                                                if (!jQuery.isArray(dataArray)) dataArray = [dataArray];
+                                                $.each(dataArray, function (currentIndex, currentElem) {
+                                                            var relatedResources = 'Resources related to <a href="'+ currentElem.uri.value +'">'+ currentElem.label.value + '</a> '
+                                                            var relatedSubjects = (currentElem.subjects) ? '<div class="indent">' + currentElem.subjects.value + ' related subjects</div>' : ''
+                                                            var relatedCitations = (currentElem.citations) ? '<div class="indent">' + currentElem.citations.value + ' related citations</div>' : ''
+                                                                showOtherResources.append(
+                                                                   '<div>' + relatedResources + relatedCitations + relatedSubjects + '</div>'
+                                                                );
+                                                        });
+                                            }).fail( function(jqXHR, textStatus, errorThrown) {
+                                                console.log(textStatus);
+                                            }); 
+                                        });
+                                        $('#getMoreLinkedData').one("click", function(e){
+                                           $('#showMoreResources').children('form').each(function () {
+                                                var url = $(this).attr('action');
+                                                    $.post(url, $(this).serialize(), function(data) {
+                                                        var showOtherResources = $("#showMoreResources"); 
+                                                        var dataArray = data.results.bindings;
+                                                        if (!jQuery.isArray(dataArray)) dataArray = [dataArray];
+                                                        $.each(dataArray, function (currentIndex, currentElem) {
+                                                            var relatedResources = 'Resources related to <a href="'+ currentElem.uri.value +'">'+ currentElem.label.value + '</a> '
+                                                            var relatedSubjects = (currentElem.subjects) ? '<div class="indent">' + currentElem.subjects.value + ' related subjects</div>' : ''
+                                                            var relatedCitations = (currentElem.citations) ? '<div class="indent">' + currentElem.citations.value + ' related citations</div>' : ''
+                                                                showOtherResources.append(
+                                                                   '<div>' + relatedResources + relatedCitations + relatedSubjects + '</div>'
+                                                                );
+                                                        });
+                                                    }).fail( function(jqXHR, textStatus, errorThrown) {
+                                                        console.log(textStatus);
+                                                    }); 
+                                                }); 
+                                        });
+                                });
+                            ]]>
+                            </script>
+                        </div>
+                 else () 
+                )}
+            </div>
+        </div>       
+    else()
+};

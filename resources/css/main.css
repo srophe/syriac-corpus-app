@@ -217,7 +217,7 @@ h4 {font-size: 1em; margin:0 0 .25em 0; padding-bottom:0; font-weight:bold;}
 h3.label {
     background-color:#ccc;
     line-height: 1.2em;
-    font-size: 2em;
+    font-size: 1.25em;
     float:left;
 }
 h3.syr{
@@ -227,6 +227,9 @@ h3.syr{
 }
 
 h4 {font-size: 1em; margin-top:1em;}
+h5 {margin: 1em 0 0 0;}
+
+.h5-inline {font-size: 1em; font-weight:500;}
 
 .hi {background-color:yellow;}
 
@@ -261,6 +264,8 @@ td {
     padding-left:.5em;
     padding-right:1.25em;
 }
+.panel-body {word-wrap: break-word;}
+.panel-body :lang(syr) {font-size:20px; }
 
 /* Lables */
 .get-syriac {font-size:.55em; margin-left:1em;vertical-align:super;font-weight:normal; color: rgb(0,136,204);display:none}
@@ -405,13 +410,15 @@ td {
 .relation .results-list-desc.uri{margin-left:0; }
 
 /* footnote styles */
+.footnotes {display:block;border-top: 1px dotted gray; text-align:left;}
+.footnote-text {display:block;}
+.footnote-text .footnote-refs {font-size: .75em;}
 .footnote-refs, .footnote-tgt {
-    font-size: .7em;
+    font-size: .5em;
     line-height: 0.5em;
     vertical-align: baseline;
     position: relative;
     top: -0.4em;
-
 }
 .footnote-tgt {
     margin-left:-1.5em;
@@ -420,26 +427,7 @@ td {
 
 /*.footnote-links {float:right; overflow:hidden; clear:right;}*/
 .footnote-icon {padding-left:.5em; font-size:12px;}
-#footnoteDisplay {
-    display:none; 
-    position: fixed;
-    padding: .5em 1.5em;
-    /*width:24%; 
-    min-height:150px;*/ 
-/*    max-height:150px;*/
-    min-height: 25px;
-    min-width: 25px;
-    max-width: 450px;
-    background-color:white;
-    border:1px solid #ccc;
-    top:125px;
-    box-shadow: 8px 8px 3px #999;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    overflow-y:scroll;
-    overflow-x:hidden;
-} 
+
 .bibl li{line-height: 1.5em;padding-bottom:.5em;}
 .bibl-links {padding:.25em; width:25px;}
 .anchor { 
@@ -477,13 +465,16 @@ td {
   font-size:24px; 
   line-height:24px;
   text-align: right;
+  font-style: normal !important;
 }
+
 
 :lang(syr-Syrj), :lang(syc-Syrj) {
  font-family: "SertoBatnan", "Serto Batnan", Verdana, Arial, Helvetica, sans-serif;
   font-size:24px; 
   line-height:24px;
  text-align: right;
+ font-style: normal !important;
 }
 
 :lang(syr-Syre), :lang(syc-Syre) {
@@ -491,6 +482,7 @@ td {
   font-size:24px; 
   line-height:24px;
   text-align: right;
+  font-style: normal !important;
 }
 
 :lang(ar) {
@@ -498,6 +490,7 @@ td {
   font-size:24px; 
   line-height:24px;
  text-align: right;
+ font-style: normal !important;
 }
 
 
@@ -619,7 +612,7 @@ div[id|=place] > div:last-of-type {
 .page-bottom .hit-count {display:none;}
 
 .match {
-    font-style:italic; color:gray;
+   background-color:yellow; color:gray;
 }
 .param {font-weight:600; color:#666; padding-left:.5em;}
 
@@ -793,6 +786,7 @@ pre {
 .panel-heading a.collapsed:after {
     content:"\e080";
 }
+
 #dashboardOne h4.panel-title {color:#666; font-weight:500; font-size:1.25em;}
 
 
@@ -818,21 +812,27 @@ pre {
 
 /* Corpus Styles */
 /* Corpus text sections styles */
-.tei-head.display {display:block;}
+.tei-text h3 {text-align:center; margin:1em; }
+.tei-front {margin-bottom: 3em; padding-bottom:1em; border-bottom:1px dotted grey;}
+.tei-front .tei-title {text-align:center;}
+.tei-front .tei-author {display:block; font-size: 1em;}
+.tei-front .tei-date {display:block; font-size: 1em;}
+.tei-front .tei-preface h3 {display:block; text-align:center;  margin:1em; } 
+.tei-head.display {display:block; color:red;}
 .tei-section.display {display:block;}
+.tei-div {display:block; margin:1em 0;}
 /*.tei-div-display, .div1-display, .div2-display, .div3-display, .div4-display, .div5-display {display:block; margin:1em;}*/
 .body {display:block; float:none;clear:both;}
 .textBlock {display:block;}
-.tei-pb.display {display:block; text-align:center;}
-.tei-cit {display:block; margin:1em; padding-left:1em;}
-.tei-l, .line {display:block; margin:0; padding:0;}
+.tei-pb.display {display:block; text-align:center; margin:1em;}
+.tei-l.display, .line.display {display:block; margin:0; padding:0;}
 .tei-ab.display {display:inline;}
 .tei-line-num.display {font-size:medium; float:right; clear:right; margin-top:.5em;}
 .tei-milestone-number.display {float:right; padding:0 1em;}
 .tei-milestone.section.display {display:block; height:1em;}
 .tei-milestone.chapter.display {display:block; height:1em; width:100%; border:bottom:1px solid #eee;}
 .tei-milestone.verse.display {display:block;}
-.tei-lg, .tei-lb {display:block; margin-bottom:1.25em;}
+.tei-lg.display, .tei-lb.display {display:block; margin-bottom:1.25em;}
 .text-number {
     display:none;
     background:#bbb;
@@ -847,7 +847,10 @@ pre {
     border-radius: 1;
     */
     }
-    
+.tei-footnote {display:none; font-size:x-small;}    
+.tei-footnote.display {display:inline;}   
+.text-number.display {display:inline;}
+
 /* Table of Contents */
 .toc {display:block; margin-left:.75em;}
 .toc-item {display:block; font-size: small; padding:.5em; border-bottom:1px dotted #ccc;}
@@ -862,14 +865,55 @@ pre {
 #showToc.collapsing {
     display: block!important;
 }
+/*
+#footnoteDisplay {
+    display:none; 
+    position: fixed;
+    padding: .5em 1.5em;
+    min-height: 25px;
+    min-width: 25px;
+    max-width: 450px;
+    background-color:white;
+    border:1px solid #ccc;
+    top:125px;
+    box-shadow: 8px 8px 3px #999;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+*/
+#footnoteDisplay .footnote-ref {margin-left: -1em;};
 
 /* Sedra display */
-#sedraDisplay {
+#sedraDisplay, #footnoteDisplay {
     display:none; 
     position: fixed; 
     width:24%; 
-    min-height:150px; 
+    min-height:250px; 
     max-height:400px; 
+    top:125px;
+    box-shadow: 8px 8px 3px #999;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    z-index: 125;
+} 
+#footnoteDisplay {
+    display:none; 
+    position: fixed;
+    padding: 1em;
+    /*width:24%; 
+    min-height:150px;*/ 
+/*    max-height:150px;*/
+    min-height: 25px;
+    min-width: 25px;
+    max-width: 55%;
+    background-color:white;
+    border:1px solid #ccc;
     top:125px;
     box-shadow: 8px 8px 3px #999;
     -webkit-border-radius: 10px;
@@ -896,6 +940,7 @@ pre {
   content: "";
   display: block;
 }
+
 #sedraDisplay .content dt:after {
   content: ": ";
 }

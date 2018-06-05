@@ -144,7 +144,7 @@
     </xsl:template>
     <xsl:template match="t:titleStmt" mode="huyoye-article">
         <div class="article-header text-center">
-           <xsl:apply-templates /> 
+           <xsl:apply-templates/> 
         </div>
     </xsl:template>
     
@@ -197,6 +197,14 @@
             <div class="section" style="display:block;">
                 <xsl:apply-templates/>
             </div>
+            <xsl:if test="//t:note[@place='foot']">
+                <div class="footnotes" lang="en">
+                    <h2>Footnotes</h2>
+                    <bdi>
+                        <xsl:apply-templates select="//t:note[@place='foot']" mode="footnote"/>
+                    </bdi>
+                </div>    
+            </xsl:if>
         </div>
     </xsl:template>
   <!-- Generic title formating -->
@@ -204,24 +212,28 @@
         <xsl:choose>
             <xsl:when test="parent::t:div1">
                 <h2 class="tei-head {if(parent::*[1]/@type) then concat(' tei-',parent::*[1]/@type) else ()}">
+                    <xsl:call-template name="id"/>
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                 </h2>
             </xsl:when>
             <xsl:when test="parent::t:div2">
                 <h3 class="tei-head {if(parent::*[1]/@type) then concat(' tei-',parent::*[1]/@type) else ()}">
+                    <xsl:call-template name="id"/>
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                 </h3>
             </xsl:when>
             <xsl:when test="parent::t:div and parent::t:div/parent::t:body">
                 <h3 class="tei-head {if(parent::*[1]/@type) then concat(' tei-',parent::*[1]/@type) else ()}">
+                    <xsl:call-template name="id"/>
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                 </h3>
             </xsl:when>
             <xsl:otherwise>
                 <span class="{concat('tei-',name(parent::*[1]))} {if(parent::*[1]/@type) then concat(' tei-',parent::*[1]/@type) else ()} tei-head">
+                    <xsl:call-template name="id"/>
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                 </span>
@@ -231,10 +243,14 @@
     <xsl:template match="t:title">
         <xsl:choose>
             <xsl:when test="@type='main'">
-                <h1><xsl:apply-templates/></h1>
+                <h1>
+                    <xsl:apply-templates/>
+                </h1>
             </xsl:when>
             <xsl:when test="@type='sub'">
-                <h2><xsl:apply-templates/></h2>
+                <h2>
+                    <xsl:apply-templates/>
+                </h2>
             </xsl:when>
             <xsl:when test="@ref">
                 <a href="{@ref}">
@@ -270,9 +286,15 @@
         <xsl:param name="parentID"/>
         <xsl:variable name="currentid">
             <xsl:choose>
-                <xsl:when test="$parentID"><xsl:value-of select="$parentID"/></xsl:when>
-                <xsl:when test="@n"><xsl:value-of select="concat('id','.',@n)"/></xsl:when>
-                <xsl:when test="@xml:id"><xsl:value-of select="concat('id','.',@xml:id)"/></xsl:when>
+                <xsl:when test="$parentID">
+                    <xsl:value-of select="$parentID"/>
+                </xsl:when>
+                <xsl:when test="@n">
+                    <xsl:value-of select="concat('id','.',@n)"/>
+                </xsl:when>
+                <xsl:when test="@xml:id">
+                    <xsl:value-of select="concat('id','.',@xml:id)"/>
+                </xsl:when>
             </xsl:choose>
         </xsl:variable> 
         <div class="{concat('tei-',name(.))}{if(@unit) then concat(' tei-',@unit) else ()} {if(@type) then concat(' tei-',@type) else ()}">
@@ -282,7 +304,9 @@
                         <xsl:when test="child::t:head">
                             <xsl:value-of select="concat('Head-',$currentid)"/>
                         </xsl:when>
-                        <xsl:otherwise><xsl:value-of select="$currentid"/></xsl:otherwise>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$currentid"/>
+                        </xsl:otherwise>
                     </xsl:choose>
                 </xsl:attribute>
             </xsl:if>
@@ -804,9 +828,9 @@
                 <li>
                     <span>
                         <xsl:apply-templates select="../t:link[contains(@target,$xmlid)]"/>:
-                            <xsl:apply-templates/>
-                            <!-- Check for ending punctuation, if none, add . -->
-                            <!-- NOTE not working -->
+                        <xsl:apply-templates/>
+                        <!-- Check for ending punctuation, if none, add . -->
+                        <!-- NOTE not working -->
                     </span>
                     <xsl:if test="@source">
                         <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
@@ -889,6 +913,15 @@
                     </xsl:if>
                 </li>
             </xsl:when>
+            <xsl:when test="@rend=('footer','foot','footnote') or @place=('footer','foot','footnote')">
+                <span class="tei-footnote display footnote-refs" dir="ltr" lang="en">
+                    <span class="footnote-ref">
+                        <a href="{concat('#note',@n)}">
+                            <xsl:value-of select="@n"/>
+                        </a>
+                    </span>
+                </span>
+            </xsl:when>
             <xsl:otherwise>
                 <li>
                     <xsl:choose>
@@ -912,19 +945,36 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="t:note" mode="footnote">
-        <!-- When ptr is available, use full bibl record (indicated by ptr) -->
-        <li id="{@xml:id}">
-            <span class="anchor"/>
-            <!-- Display footnote number -->
-            <span class="footnote-tgt">
-                <xsl:value-of select="@n"/>
-            </span>
-            <xsl:text> </xsl:text>
-            <span class="footnote-content">
-                <xsl:apply-templates/>
-                <!--<xsl:call-template name="footnote"/>-->
-            </span>
-        </li>
+        <p class="footnote-text">
+            <xsl:if test="@n">
+                <xsl:attribute name="id" select="concat('note',@n)"/>
+                <span class="notes footnote-refs">
+                    <span class="footnote-ref">‎<xsl:value-of select="@n"/>
+                    </span> </span>
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="t:quote">
+                    <xsl:apply-templates/>
+                </xsl:when>
+                <xsl:when test="t:p">
+                    <xsl:for-each select="t:p">
+                        <span>
+                            <xsl:call-template name="langattr"/>
+                            <xsl:apply-templates/>
+                        </span>                        
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <span>
+                        <xsl:call-template name="langattr"/>
+                        <xsl:apply-templates/>
+                    </span>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:if test="@source">
+                <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
+            </xsl:if>
+        </p>   
     </xsl:template>
     <xsl:template match="t:note" mode="abstract">
         <p>
@@ -1125,7 +1175,7 @@
             <xsl:apply-templates/>
         </li>
     </xsl:template>
-    
+
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of the licence element in the tei header
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -1143,7 +1193,9 @@
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:ref">
         <a href="{@target}">
-            <xsl:if test="@type='noteAnchor'"><xsl:attribute name="class">note-anchor footnote-refs</xsl:attribute></xsl:if>
+            <xsl:if test="@type='noteAnchor'">
+                <xsl:attribute name="class">note-anchor footnote-refs</xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates/>
         </a>
     </xsl:template>
@@ -1226,6 +1278,20 @@
             <xsl:otherwise>
                 <xsl:text/>
             </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+    <xsl:template name="id">
+        <xsl:choose>
+            <xsl:when test="@xml:id">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="@xml:id"/>
+                </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="@n">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="@n"/>
+                </xsl:attribute>
+            </xsl:when>
         </xsl:choose>
     </xsl:template>
     

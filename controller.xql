@@ -19,6 +19,12 @@ declare variable $exist:collection-uris  :=
     return concat('/',$short-path,'/'))    
 ; 
 
+(: White list of html pages :)
+declare variable $exist:white-list  := 
+    distinct-values(for $page in $global:get-config//repo:white-list/repo:page/text()
+    return $page)    
+;
+
 (: Used to test vars
 <div>
     <p>$exist:path: {$exist:path}</p>
@@ -54,20 +60,22 @@ else if (contains($exist:path, "/$shared/")) then
     </dispatch>
 
 (: Checks for any record uri patterns as defined in repo.xml :)    
-else if(replace($exist:path, $exist:resource,'') =  ($exist:record-uris) or ends-with($exist:path, ("/atom","/tei","/rdf","/ttl",'.tei','.atom','.rdf','.ttl'))) then
+else if(replace($exist:path, $exist:resource,'') =  ($exist:record-uris) or ends-with($exist:path, ("/atom","/tei","/rdf","/txt","/ttl",'.tei','.atom','.rdf','.ttl',".txt"))) then
     (: Sends to restxql to handle /atom, /tei,/rdf:)
-    if (ends-with($exist:path, ("/atom","/tei","/rdf","/ttl",'.tei','.atom','.rdf','.ttl'))) then
-        let $path := 
-            if(ends-with($exist:path, (".atom",".tei",".rdf",".ttl"))) then 
-                replace($exist:path, "\.(atom|tei|rdf|ttl)", "/$1")
+    if (ends-with($exist:path, ("/atom","/tei","/rdf","/ttl","/txt",".tei",".atom",".rdf",".ttl",".txt"))) then
+      let $path := 
+            if(ends-with($exist:path, (".atom",".tei",".rdf",".ttl",".txt"))) then 
+                replace($exist:path, "\.(atom|tei|rdf|ttl|txt)", "/$1")
             else $exist:path
         return 
             <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-                <forward url="{concat('/restxq/syriac-corpus', $path)}" absolute="yes"/>
+                <forward url="{concat('/restxq/hugoye', $path)}" absolute="yes"/>
             </dispatch>
-    (: Special handling for collections with app-root that matches record-URI-pattern sends html pages to html, others are assumed to be records :)
-    else if($exist:resource = ('index.html','search.html','browse.html','about.html','record.html')) then 
-        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+    (: Special handling for collections 
+    with app-root that matches record-URI-pattern sends html pages to html, 
+    others are assumed to be records :)
+    else if($exist:resource = ($exist:white-list)) then 
+     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
            <view>
                <forward url="{$exist:controller}/modules/view.xql"/>
            </view>
@@ -85,8 +93,8 @@ else if(replace($exist:path, $exist:resource,'') =  ($exist:record-uris) or ends
         let $id := replace(xmldb:decode($exist:resource), "^(.*)\..*$", "$1")
         let $record-uri-root := replace($exist:path,$exist:resource,'')
         let $html-path := concat('/',$global:get-config//repo:collection[ends-with(@record-URI-pattern, $record-uri-root)][1]/@app-root,'/record.html')
-        return
-            <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+        return 
+        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
             <forward url="{$exist:controller}{$html-path}"></forward>
                 <view>
                     <forward url="{$exist:controller}/modules/view.xql">
@@ -98,6 +106,7 @@ else if(replace($exist:path, $exist:resource,'') =  ($exist:record-uris) or ends
                     <forward url="{$exist:controller}/modules/view.xql"/>
                 </error-handler>
          </dispatch> 
+
 (: Passes any api requests to restxq:)    
 else if (contains($exist:path,'/api/')) then
   if (ends-with($exist:path,"/")) then
@@ -110,11 +119,11 @@ else if (contains($exist:path,'/api/')) then
     </dispatch>
     else if($exist:resource = 'oai') then
      <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <forward url="{replace($exist:path,'/api/oai','/srophe/modules/oai.xql')}"/>
+        <forward url="{replace($exist:path,'/api/oai','/hugoye/modules/oai.xql')}"/>
      </dispatch>
     else
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <forward url="{concat('/restxq/syriac-corpus', $exist:path)}" absolute="yes"/>
+        <forward url="{concat('/restxq/hugoye', $exist:path)}" absolute="yes"/>
     </dispatch>
 
 else if ($exist:resource eq '' or ends-with($exist:path,"/")) then 

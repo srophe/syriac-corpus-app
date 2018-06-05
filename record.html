@@ -2,14 +2,14 @@
     <!--<xi:include href="banner.html"/>-->
     <div class="grey-dark">
         <div class="container interior-content white">
-            <div data-template="app:h1"/>
-            <div data-template="app:other-data-formats" data-template-formats="print,tei"/>
+            <!--<div data-template="app:h1"/>-->
+            <div data-template="app:other-data-formats" data-template-formats="uri,print,tei"/>
             <div class="row">
                 <div data-template="app:display-left-menu"/>
-                <div data-template="app:display-body" data-template-paths="/descendant-or-self::tei:TEI"/>
-                <div class="col-sm-4 col-md-4 col-lg-3 noprint">
-                    <div id="rightCol">
-                        <div id="sedraDisplay" class="sedra panel panel-default">
+                <div data-template="app:display-body"/>
+                <div class="col-sm-4 col-md-4 col-lg-3 right-menu">
+                    <div id="rightCol" class="noprint">
+                        <div id="sedraDisplay" class="sedra panel panel-default hide">
                             <div class="panel-body">
                                 <span style="display:block;text-align:center;margin:.5em;">
                                     <a href=" http://sedra.bethmardutho.org" title="SEDRA IV">SEDRA IV</a>
@@ -22,102 +22,73 @@
                             </div>
                         </div>
                     </div>
-                    <div data-template="app:rec-status"/>
                     <div data-template="app:display-ids"/>
-                    <div data-template="app:display-cite"/>
-                    <div class="info-btns">
-                        <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> 
-                    </div>
-                    <div data-template="app:display-related"/>
+                    <!--<div data-template="app:display-cite"/>-->
                 </div>
-            </div>
-            <!-- Floating footnotes display -->
-            <div id="footnoteDisplay" class="footnote">
-                <div class="content"/>  
-            </div>
-            <script type="text/javascript">
-                $('input.toggleDisplay').click(function() {
-                    var display = $(this).data("element");
-                    $('.'+ display).children('.text-number').toggle();
-                    //$('.'+ display).children('.head').toggle();
-                    var section = $('.'+ display).hasClass("tei-head");
-                    if(section){
-                        $(' .' + display + '.tei-head').toggle();
-                        console.log('hide headers')
-                    }else{
-                        $(' .' + display).toggleClass( 'display' );
-                    }
-                    //Change checkbox to active
-                    $(this).toggleClass( "active" );
-                    console.log(display);
-                });
-                
-                $('button.toggleHead').click(function() {
-                    $('.head').toggleClass( "hidden" );
-                });
-                
-                $('a.sedra').click(function(e) {
-                    //event.preventDefault();
-                    e.stopPropagation();
-                    e.preventDefault();
-                    var href = $(this).attr('href');
-                    $('#sedraDisplay').css('display','block');
-                    $.get(href, function( data ) {
-                        $( "#sedraContent div.content" ).html( data );
-                        })    
-                        .fail(function() {
-                           $('#sedraContent div.content').empty();
-                           $( "#sedraContent div.content" ).html( 'There are no results for this word. Please try using the <a href="http://sedra.bethmardutho.org/">Syriac Dictionary Lookup</a>' );
-                        });
-                });
-                
-                $('html').click(function() {
-                $('#sedraDisplay').hide();
-                $('#footnoteDisplay').hide();
-                $('#sedraContent div.content').empty();
-                $('#footnoteDisplay div.content').empty();
-                })
-                
-                $('#rightCol').click(function(e){
-                e.stopPropagation();
-                });
-                
-                $('a.footnote-refs').click(function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                var link = $(this);
-                var href = $(this).attr('href');
-                var content = $(href).html()
-                $('#footnoteDisplay').css('display','block');
-                $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
-                $('#footnoteDisplay div.content').html( content );    
-                });
-                
-            </script>
-            
-            <!--<div data-template="app:citation"/>-->
-        </div>
-        <!-- Modal email form-->
-        <div data-template="app:contact-form"/>
-        <div class="modal fade" id="moreInfo" tabindex="-1" role="dialog" aria-labelledby="moreInfoLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span aria-hidden="true">x</span>
-                            <span class="sr-only">Close</span>
-                        </button>
-                        <h2 class="modal-title" id="moreInfoLabel"/>
-                    </div>
-                    <div class="modal-body" id="modal-body">
-                        <div id="moreInfo-box"/>
-                        <br style="clear:both;"/>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
+               
             </div>
         </div>
     </div>
+    <!-- Floating footnotes display -->
+    <div id="footnoteDisplay" class="footnote">
+        <div class="content"/>  
+    </div>
+    
+    <script type="text/javascript">
+        $('input.toggleDisplay').click(function() {
+        var display = $(this).data("element");
+        $('.'+ display).children('.text-number').toggle();
+        //$('.'+ display).children('.head').toggle();
+        var section = $('.'+ display).hasClass("tei-head");
+        if(section){
+        $(' .' + display + '.tei-head').toggle();
+        }else{
+        $(' .' + display).toggleClass( 'display' );
+        }
+        //Change checkbox to active
+        $(this).toggleClass( "active" );
+        console.log(display);
+        });
+        
+        $('button.toggleHead').click(function() {
+        $('.head').toggleClass( "hidden" );
+        });
+        
+        $('a.sedra').click(function(e) {
+        //event.preventDefault();
+        e.stopPropagation();
+        e.preventDefault();
+        var href = $(this).attr('href');
+        $('#sedraDisplay').css('display','block');
+        $.get(href, function( data ) {
+        $( "#sedraContent div.content" ).html( data );
+        })    
+        .fail(function() {
+        $('#sedraContent div.content').empty();
+        $( "#sedraContent div.content" ).html( 'There are no results for this word. Please try using the <a href="http://sedra.bethmardutho.org/">Syriac Dictionary Lookup</a>' );
+        });
+        });
+        
+        $('html').click(function() {
+        $('#sedraDisplay').hide();
+        $('#footnoteDisplay').hide();
+        $('#sedraContent div.content').empty();
+        $('#footnoteDisplay div.content').empty();
+        })
+        
+        $('#rightCol').click(function(e){
+        e.stopPropagation();
+        });
+        
+        $('.footnote-ref a').click(function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var link = $(this);
+        var href = $(this).attr('href');
+        var content = $(href).html()
+        $('#footnoteDisplay').css('display','block');
+        $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
+        $('#footnoteDisplay div.content').html( content );    
+        });
+    </script>
 </div>

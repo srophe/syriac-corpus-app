@@ -6,7 +6,7 @@ import module namespace page="http://syriaca.org/page" at "../lib/paging.xqm";
 import module namespace rel="http://syriaca.org/related" at "../lib/get-related.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm";
 import module namespace facet-defs="http://syriaca.org/facet-defs" at "../facet-defs.xqm";
-import module namespace tei2html="http://syriaca.org/tei2html" at "../lib/tei2html.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "../content-negotiation/tei2html.xqm";
 import module namespace maps="http://syriaca.org/maps" at "../lib/maps.xqm";
 import module namespace common="http://syriaca.org/common" at "common.xqm";
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
@@ -38,7 +38,8 @@ declare variable $search:collection {request:get-parameter('collection', '') cas
 :)
 declare %templates:wrap function search:get-results($node as node(), $model as map(*), $collection as xs:string?, $view as xs:string?){
     let $coll := if($search:collection != '') then $search:collection else $collection
-    let $eval-string :=  search:query-string($collection)
+    let $keyword-query := common:query()
+    let $eval-string :=  concat(search:query-string($collection),facet:facet-filter(facet-defs:facet-definition($collection)))
     return map {"hits" := 
                 if(exists(request:get-parameter-names()) or ($view = 'all')) then 
                     if($search:sort-element != '' and $search:sort-element != 'relevance' or $view = 'all') then 
@@ -189,6 +190,13 @@ declare function search:idno(){
     else () 
 };
 
+declare function search:catalog-limit(){
+    for $r in collection($global:data-root)//tei:titleStmt/tei:title[@level="s"]
+    group by $group := $r/@ref
+    order by global:build-sort-string($r[1]/text(),'')
+    return <option value="{concat(';fq-Catalog:',$group)}">{$r[1]/text()}</option>
+};
+
 declare function search:search-string(){
 <span xmlns="http://www.w3.org/1999/xhtml">
 {(
@@ -196,7 +204,7 @@ declare function search:search-string(){
     for  $parameter in $parameters
     return 
         if(request:get-parameter($parameter, '') != '') then
-            if($parameter = 'start' or $parameter = 'sort-element') then ()
+            if($parameter = 'start' or $parameter = 'sort-element' or $parameter = 'fq') then ()
             else if($parameter = 'q') then 
                 (<span class="param">Keyword: </span>,<span class="match">{$search:q}&#160;</span>)
             else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
@@ -230,6 +238,10 @@ declare  %templates:wrap function search:pageination($node as node()*, $model as
    else if(exists(request:get-parameter-names())) then 
         page:pages($model("hits"), $search:start, $search:perpage, search:search-string($collection), $sort-options)
    else ()
+};
+
+declare function search:display-facets($node as node()*, $model as map(*), $collection as xs:string?) {
+    <div xmlns="http://www.w3.org/1999/xhtml">{facet:html-list-facets-as-buttons(facet:count($model("hits"), facet-defs:facet-definition($collection)/descendant::facet:facet-definition[not(@xml:lang)]))}</div>
 };
 
 (:~
@@ -339,7 +351,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                         {(tei2html:summary-view($hit, (), $id[1])) }
                         {
                             if($expanded//exist:match) then 
-                                <div class="col-md-9" style="padding-left:3em;">{tei2html:output-kwic($expanded, $id[1])}</div>
+                                tei2html:output-kwic($expanded, $id)
                             else ()
                         }
                       </div>
@@ -432,7 +444,7 @@ declare function search:default-search-form() {
             <xi:include href="{$global:app-root}/searchTips.html"/>
         <div class="well well-small" style="background-color:white; margin-top:2em;">
             <div class="row">
-                <div class="col-md-7">
+                <div class="col-md-10">
                 <!-- Keyword -->
                  <div class="form-group">
                     <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
@@ -472,8 +484,8 @@ declare function search:default-search-form() {
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="title" class="col-sm-2 col-md-3  control-label">Paper Title: </label>
-                    <div class="col-sm-10 col-md-9 ">
+                    <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
+                    <div class="col-sm-10 col-md-9">
                         <div class="input-group">
                             <input type="text" id="title" name="title" class="form-control keyboard"/>
                             <div class="input-group-btn">
@@ -481,6 +493,12 @@ declare function search:default-search-form() {
                                         &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span><span class="caret"/>
                                     </button>
                                     {global:keyboard-select-menu('title')}
+                            </div>
+                            <div class="input-group-btn" style="width:50%;">
+                                <select name="fq" class="form-control">
+                                <option value=""> -- Limit by Catalog -- </option>
+                                {search:catalog-limit()}
+                                </select>
                             </div>
                          </div>   
                     </div>

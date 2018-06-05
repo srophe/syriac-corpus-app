@@ -97,26 +97,10 @@ declare function tei2html:summary-view-generic($nodes as node()*, $id as xs:stri
             <a href="{replace($id,$global:base-uri,$global:nav-base)}" dir="ltr">{tei2html:tei2html($title)}</a> 
             {if($nodes/descendant::tei:titleStmt/tei:author) then (' by ', tei2html:tei2html($nodes/descendant::tei:titleStmt/tei:author))
             else ()}
-            {if($nodes/descendant::tei:fileDesc/tei:sourceDesc/tei:biblStruct) then 
-                let $citation := bibl2html:citation($nodes/descendant::tei:fileDesc/tei:sourceDesc/tei:biblStruct)
-                return 
-                    if($citation != '') then 
-                        <span class="results-list-desc desc" dir="ltr" lang="en">
-                            <label>Source: </label> {bibl2html:citation($nodes/descendant::tei:fileDesc/tei:sourceDesc/tei:biblStruct)}
-                        </span>                        
-                    else ()
-            else if($nodes/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc) then 
-                for $msDesc in $nodes/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier
-                return 
-                    if($msDesc/tei:settlement or $msDesc/tei:repository or $msDesc/tei:idno[@type='shelfmark']) then
-                        <span class="results-list-desc desc" dir="ltr" lang="en">
-                            <label>Source: </label>
-                            {bibl2html:msDesc($nodes/descendant::tei:fileDesc/tei:sourceDesc/tei:msDesc/tei:msIdentifier)}
-                        </span>
-                    else if($msDesc/tei:msName) then 
-                        for $msName in $msDesc/tei:msName
-                        return <span class="results-list-desc desc" dir="ltr" lang="en"><label>Source: </label> {$msName}<br/></span>
-                    else ()
+            {if($nodes/descendant::tei:biblStruct) then 
+                <span class="results-list-desc desc" dir="ltr" lang="en">
+                    <label>Source: </label> {bibl2html:citation($nodes/descendant::tei:biblStruct)}
+                </span>
             else ()}
             {if($nodes/descendant-or-self::*[starts-with(@xml:id,'abstract')]) then 
                 for $abstract in $nodes/descendant::*[starts-with(@xml:id,'abstract')]
@@ -167,50 +151,59 @@ declare function tei2html:translate-series($series as xs:string?){
     else $series
 };
 
-
+(:~ 
+ : Reworked KWIC to be more 'Google like' used examples from: http://ctb.kantl.be/download/kwic.xql for preceding and following content. 
+ : Pass content through tei2html:tei2html() to handle simple things like suppression of tei:orig, etc. Could be made more robust to hide URI's as well. 
+ :
+ : @see : https://rvdb.wordpress.com/2011/07/20/from-kwic-display-to-kwicer-processing-with-exist/
+          http://ctb.kantl.be/download/kwic.xql
+:)
 declare function tei2html:output-kwic($nodes as node()*, $id as xs:string?){
-    for $node in $nodes
-    return 
-        typeswitch($node)
-            case text() return ()
-            case comment() return ()
-            case element(exist:match) return
-                let $p := 
-                    if($node/preceding::exist:match) then 
-                        if($node/preceding::text()[1][parent::exist:match]) then ()
-                        else 
-                            let $s := $node/preceding::text()[1]
-                            let $string-length := string-length($s)
-                            return 
-                                if($string-length gt 60) then 
-                                    concat('...', substring($s, ($string-length - 40), $string-length))
-                                else $s
-                    else
-                        let $s := string-join($node/preceding::text(),' ')
-                        let $string-length := string-length($s)
-                        return 
-                            if($string-length gt 60) then 
-                                concat('...', substring($s, ($string-length - 40), $string-length))
-                            else $s
-                let $f := 
-                    if($node/following::exist:match) then 
-                        if($node/following::text()[1][parent::exist:match]) then ()
-                        else 
-                            let $s := $node/following::text()[1]
-                            let $string-length := string-length($s)
-                            return 
-                                if($string-length gt 40) then  
-                                    concat(substring($s, 1, 40),'...')
-                                else $s
-                    else 
-                            let $s := string-join($node/following::text(),' ')
-                            let $string-length := string-length($s)
-                            return 
-                                if($string-length gt 40) then  
-                                    concat(substring($s, 1, 40),'...')
-                                else $s
-                let $link := concat($global:nav-base,'/rec.html?id=',$id[1],'#Head-id.',$node/ancestor-or-self::*[@n][1]/@n)
-                return      
-                <span> {$p} <span style="background-color:yellow;">&#160;<a href="{$link}">{$node/text()}</a></span> {$f} </span>
-            default return tei2html:output-kwic($node/node(), $id)
+    for $node in subsequence($nodes//exist:match,1,8)
+    return
+        <span>{tei2html:kwic-truncate-previous($node/ancestor-or-self::tei:div[@type='entry'], $node, (), 40)} 
+                &#160;<span class="match" style="background-color:yellow;">{$node/text()}</span>
+                {tei2html:kwic-truncate-following($node/ancestor-or-self::tei:div[@type='entry'], $node, (), 40)} </span>
+};
+
+(:~
+	Generate the left-hand context of the match. Returns a normalized string, 
+	whose total string length is less than or equal to $width characters.
+	Note: this function calls itself recursively until $node is empty or
+	the returned sequence has the desired total string length.
+:)
+declare function tei2html:kwic-truncate-previous($root as node()?, $node as node()?, $truncated as item()*, $width as xs:int) {
+  let $nextProbe := $node/preceding::text()[1]
+  let $next := if ($root[not(. intersect $nextProbe/ancestor::*)]) then () else tei2html:tei2html($nextProbe)  
+  let $probe :=  concat($nextProbe, ' ', $truncated)
+  return
+    if (string-length($probe) gt $width) then
+      let $norm := concat(normalize-space($probe), ' ')
+      return 
+        if (string-length($norm) le $width and $next) then
+          tei2html:kwic-truncate-previous($root, $next, $norm, $width)
+        else if ($next) then
+          concat('...', substring($norm, string-length($norm) - $width + 1))
+        else $norm
+    else if ($next) then 
+      tei2html:kwic-truncate-previous($root, $next, $probe, $width)
+    else for $str in normalize-space($probe)[.] return concat($str, ' ')
+};
+
+declare function tei2html:kwic-truncate-following($root as node()?, $node as node()?, $truncated as item()*, $width as xs:int) {
+  let $nextProbe := $node/following::text()[1]
+  let $next := if ($root[not(. intersect $nextProbe/ancestor::*)]) then () else tei2html:tei2html($nextProbe)  
+  let $probe :=  concat($nextProbe, ' ', $truncated)
+  return
+    if (string-length($probe) gt $width) then
+      let $norm := concat(normalize-space($probe), ' ')
+      return 
+        if (string-length($norm) le $width and $next) then
+          tei2html:kwic-truncate-following($root, $next, $norm, $width)
+        else if ($next) then
+          concat('...', substring($norm, string-length($norm) - $width + 1))
+        else $norm
+    else if ($next) then 
+      tei2html:kwic-truncate-following($root, $next, $probe, $width)
+    else for $str in normalize-space($probe)[.] return concat($str, ' ')
 };
