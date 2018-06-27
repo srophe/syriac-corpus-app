@@ -32,7 +32,7 @@ declare variable $api:repo {replace($global:app-root, '/db/apps/','')};
 :)
 declare
     %rest:GET
-    %rest:path("/syriac-corpus/api/geo/json")
+    %rest:path("/hugoye/api/geo/json")
     %rest:query-param("type", "{$type}", "")
     %rest:query-param("collection", "{$collection}", "")
 function api:coordinates($type as xs:string*, $collection as xs:string*) {
@@ -47,7 +47,7 @@ function api:coordinates($type as xs:string*, $collection as xs:string*) {
 :)
 declare
     %rest:GET
-    %rest:path("/syriac-corpus/api/geo/kml")
+    %rest:path("/hugoye/api/geo/kml")
     %rest:query-param("type", "{$type}", "")
     %rest:query-param("collection", "{$collection}", "")
 function api:coordinates($type as xs:string*, $collection as xs:string*) {
@@ -64,7 +64,7 @@ function api:coordinates($type as xs:string*, $collection as xs:string*) {
 :)
 declare
     %rest:GET
-    %rest:path("/syriac-corpus/api/search")
+    %rest:path("/hugoye/api/search")
     %rest:query-param("q", "{$q}", "")
     %rest:query-param("element", "{$element}", "")
     %rest:query-param("collection", "{$collection}", "")
@@ -131,7 +131,7 @@ function api:search(
 :)(:
 declare
     %rest:GET
-    %rest:path("/syriac-corpus/api/sparql")
+    %rest:path("/hugoye/api/sparql")
     %rest:query-param("query", "{$query}", "")
     %rest:query-param("format", "{$format}", "")
     %rest:header-param("Content-Type", "{$content-type}")
@@ -155,7 +155,7 @@ function api:coordinates($query as xs:string*, $format as xs:string*, $content-t
 (:
 declare
     %rest:POST('{$data}')
-    %rest:path("/syriac-corpus/api/sparql")
+    %rest:path("/hugoye/api/sparql")
     %rest:header-param("Content-Type", "{$content-type}")
 function api:data-serialize($data as item()*, $content-type as item()*) {
    (<rest:response> 
@@ -176,7 +176,7 @@ function api:data-serialize($data as item()*, $content-type as item()*) {
 :)
 declare
     %rest:GET
-    %rest:path("/syriac-corpus/api/data")
+    %rest:path("/hugoye/api/data")
     %rest:query-param("collection", "{$collection}", "")
     %rest:query-param("format", "{$format}", "")
     %rest:query-param("start", "{$start}", 1)
@@ -202,7 +202,7 @@ function api:data-dump(
 :)
 declare
     %rest:POST('{$data}')
-    %rest:path('/syriac-corpus/api/data/serialize')
+    %rest:path('/hugoye/api/data/serialize')
     %rest:header-param("Content-Type", "{$content-type}")
 function api:data-serialize($data as item()*, $content-type as item()*) {
    cntneg:content-negotiation($data, $content-type,())
@@ -216,7 +216,7 @@ function api:data-serialize($data as item()*, $content-type as item()*) {
   :)
 declare
     %rest:GET
-    %rest:path("/syriac-corpus/{$page}")
+    %rest:path("/hugoye/{$page}")
     %rest:header-param("Content-Type", "{$content-type}")
 function api:get-page($page as xs:string?, $content-type as item()*) {
     let $path := concat('/',$page)      
@@ -236,7 +236,7 @@ function api:get-page($page as xs:string?, $content-type as item()*) {
   :)
 declare
     %rest:GET
-    %rest:path("/syriac-corpus/{$page}/{$extension}")
+    %rest:path("/hugoye/{$page}/{$extension}")
     %rest:header-param("Content-Type", "{$content-type}")
 function api:get-page($page as xs:string?, $extension as xs:string, $content-type as item()*) {
     let $path := concat('/',$page,'.',$extension)

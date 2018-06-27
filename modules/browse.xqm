@@ -60,48 +60,56 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
     return map{"browse-data" := $hits }    
 };
 
-declare function browse:group-results($node as node(), $model as map(*), $collection as xs:string?){
+declare function browse:group-volumes($node as node(), $model as map(*), $collection as xs:string?){
     let $hits := $model("browse-data")
-    let $groups := distinct-values($hits//tei:author)
-    return 
-        map {"group-by-authors" :=            
-            for $rec in $hits 
-            let $author := $rec/descendant::tei:author
-            group by $facet-grp-p := $author[1]
-            order by global:build-sort-string($facet-grp-p,'')
-            return  
-                if($author != '') then 
-                    <div xmlns="http://www.w3.org/1999/xhtml" style="margin:.71em 0; border-bottom:1px dotted #eee; padding:.25em 0;" class="short-rec-result">
-                            <a class="togglelink text-info"  
-                            data-toggle="collapse" data-target="#show{replace($facet-grp-p,'\s|,|\.|\[|\]|\(|\)|\-|\?','')}" 
-                            href="#show{replace($facet-grp-p,'\s|,|\.|\[|\]|\(|\)|\-|\?','')}" data-text-swap=" - "> + </a>&#160; 
-                            <span class="browse-author-name">{$facet-grp-p}</span> ({count($rec)} works)
-                            <div class="indent collapse" style="background-color:#F7F7F9;" id="show{replace($facet-grp-p,'\s|,|\.|\[|\]|\(|\)|\-|\?','')}">{
-                                for $titles in $rec
-                                let $title := $rec/descendant::tei:titleStmt/tei:title[1]
-                                group by $facet-grp-title := $title[1]
-                                order by global:build-sort-string($facet-grp-title,'')
-                                return 
-                                    for $r in $titles
-                                    let $id := replace($r/descendant::tei:idno[1],'/tei','')
-                                    let $sort := if($r/descendant::tei:titleStmt/tei:title[1]/@n) then xs:integer($r/descendant::tei:titleStmt/tei:title[1]/@n) else 0                                
-                                    order by $sort, global:build-sort-string($r/descendant::tei:titleStmt/tei:title[1],'')
-                                    return 
-                                        <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view(root($r), '', $id)}</div>
+    return
+        map {"group-by-volume" :=     
+                     for $article in $hits
+                     let $vol := $article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"][1]
+                     group by $vol-facet := $vol
+                     let $label := concat('Volume ',$vol-facet/text())
+                     let $sort := if($vol-facet castable as xs:integer) then xs:integer($vol-facet) else 0
+                     order by $sort
+                     return
+                        <div class="indent" xmlns="http://www.w3.org/1999/xhtml" style="margin-bottom:1em;">
+                            <a class="togglelink text-info" 
+                            data-toggle="collapse" data-target="#show{replace($label,' ','')}" href="#show{replace($label,' ','')}" data-text-swap=" - "> + </a>&#160; 
+                            <a href="{replace($vol-facet,$global:base-uri,$global:nav-base)}">{$label}</a>
+                            <div class="indent collapse" style="background-color:#F7F7F9;" id="show{replace($label,' ','')}">{
+                            for $a in $article
+                            let $id := replace($a/descendant::tei:idno[@type='URI'][1],'/tei','')
+                            return 
+                                <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view(root($a), '', $id)}</div>
                             }</div>
-                    </div>
-                else if($author = '' or not($author)) then
-                    for $r in $rec
-                    let $id := replace($r/descendant::tei:idno[1],'/tei','')
-                    return
-                        if($groups[. = $id]) then () 
-                        else 
-                            <div class="col-md-11" style="margin-right:-1em; padding-top:.5em;">
-                                 {tei2html:summary-view(root($r), '', $id)}
-                            </div>
-                else ()
-        } 
+                        </div>
+                   } 
 };
+
+declare function browse:group-author($node as node(), $model as map(*), $collection as xs:string?){
+    let $hits := $model("browse-data")
+    return
+        map {"group-by-author" :=     
+                    for $article in $hits
+                    let $author := $article/descendant::tei:titleStmt/descendant::tei:author[1]/tei:name
+                    group by $author-facet := $author
+                    let $label := if($author-facet/tei:surname/text()) then concat($author-facet/tei:surname/text(),', ',$author-facet/tei:forename/text()) else $author-facet 
+                    order by $author-facet/tei:surname, $author-facet/tei:forename
+                    return 
+                        <div class="indent" xmlns="http://www.w3.org/1999/xhtml" style="margin-bottom:1em;">
+                            <a class="togglelink text-info" 
+                            data-toggle="collapse" data-target="#show{replace($label,'\s|\.|, ','')}" 
+                                                                  href="#show{replace($label,'\s|\.|, ','')}" data-text-swap=" - "> + </a>&#160; 
+                            <span class="srp-label">{$label}</span>
+                            <div class="indent collapse" style="background-color:#F7F7F9;" id="show{replace($label,'\s|\.|, ','')}">{
+                            for $a in $article
+                            let $id := replace($a/descendant::tei:idno[@type='URI'][1],'/tei','')
+                            return 
+                                <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view(root($a), '', $id)}</div>
+                            }</div>
+                        </div>
+                   } 
+};
+
 (:~
  : Display in html templates
 :)
@@ -193,6 +201,37 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
                     </div>
                     </div>
                  )}
+        </div>
+};
+
+(:
+ : Hugoye specific browse for volumes
+ : Group all articles under volume, expandable list. 
+ : NOTE: Will have to add paging at some point. 
+:)
+declare function browse:browse-volumes($node as node(), $model as map(*), $collection, $sort-options as xs:string*){
+    let $hits := $model("group-by-volume")
+    let $facet-config := facet:facet-definition((),())/child::*                        
+    for $data in subsequence($hits, $browse:start,$browse:perpage)
+    return
+        <div xmlns="http://www.w3.org/1999/xhtml" class="results-panel">
+            <div>{page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)}</div>
+            <div  style="border-bottom:1px dotted #eee; padding-top:.5em" class="short-rec-result">
+                { $data }
+            </div>  
+        </div>
+};
+
+declare function browse:browse-authors($node as node(), $model as map(*), $collection, $sort-options as xs:string*){
+    let $hits := $model("group-by-author")
+    let $facet-config := facet:facet-definition((),())/child::*                        
+    for $data in subsequence($hits, $browse:start,$browse:perpage)
+    return
+        <div xmlns="http://www.w3.org/1999/xhtml" class="results-panel">
+            <div>{page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)}</div>
+            <div  style="border-bottom:1px dotted #eee; padding-top:.5em" class="short-rec-result">
+                { $data }
+            </div>  
         </div>
 };
 
