@@ -61,39 +61,10 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
 };
 
 declare function browse:group-volumes($node as node(), $model as map(*), $collection as xs:string?){
-    let $hits := $model("browse-data")
-    return
-        map {"group-by-volume" :=     
-                     for $article in $hits
-                     let $vol := $article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"][1]
-                     group by $vol-facet := $vol
-                     let $label := concat('Volume ',$vol-facet/text())
-                     let $sort := if($vol-facet castable as xs:integer) then xs:integer($vol-facet) else 0
-                     order by $sort
-                     return 
-                        <li class="indent" xmlns="http://www.w3.org/1999/xhtml" style="margin-bottom:1em;">
-                            <a href="{concat($global:nav-base,'/volume/', $vol-facet)}"> {$label} </a>&#160; 
-                        </li>
-                     (:
-                        <div class="indent" xmlns="http://www.w3.org/1999/xhtml" style="margin-bottom:1em;">
-                            <a class="togglelink text-info" 
-                            data-toggle="collapse" data-target="#show{replace($label,' ','')}" href="#show{replace($label,' ','')}" data-text-swap=" - {$label}"> + {$label}</a>&#160; 
-                            <div class="indent collapse" style="background-color:#F7F7F9;" id="show{replace($label,' ','')}">{
-                            for $a in $article
-                            let $id := replace($a/descendant::tei:idno[@type='URI'][1],'/tei','')
-                            return 
-                                <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view(root($a), '', $id)}</div>
-                            }</div>
-                        </div>
-                      :)  
-                   } 
-};
-
-(: Get voume content :)
-declare function browse:group-volumes($node as node(), $model as map(*), $collection as xs:string?){
-    let $hits := $model("browse-data")
-    return
-        map {"get-volume" :=     
+    if(request:get-parameter('volume', '') != '') then 
+        let $hits := $model("browse-data")
+        return
+            map {"get-volume" :=     
                      for $article in $hits[descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"] = request:get-parameter('volume', '')]
                      let $id :=  $article/descendant::tei:idno[@type='URI'][1]
                      let $n :=  $article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="order"][1]
@@ -101,6 +72,22 @@ declare function browse:group-volumes($node as node(), $model as map(*), $collec
                      order by $sort
                      return 
                         <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view(root($article), '', $id)}</div>
+                   } 
+    else 
+        let $hits := $model("browse-data")
+        return
+            map {"group-by-volume" :=     
+                     for $article in $hits
+                     let $vol := $article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"][1]
+                     group by $vol-facet := $vol
+                     let $label := concat('Volume ',$vol-facet/text())
+                     let $sort := if($vol-facet castable as xs:integer) then xs:integer($vol-facet) else 0
+                     order by $sort
+                     return 
+
+                        <li class="indent" xmlns="http://www.w3.org/1999/xhtml" style="margin-bottom:1em;">
+                            <a href="{concat($global:nav-base,'/volume/', $vol-facet)}"> {$label} </a>&#160; 
+                        </li>
                    } 
 };
 
@@ -232,22 +219,19 @@ declare function browse:browse-volumes($node as node(), $model as map(*), $colle
         <div xmlns="http://www.w3.org/1999/xhtml" class="results-panel">
             <h1>Volume {request:get-parameter('volume', '')}</h1>        
             {
-            let $hits := $model("get-volume")
-            let $facet-config := facet:facet-definition((),())/child::*                        
+            let $hits := $model("get-volume")                    
             for $data in $hits
             return  $data
              }
          </div>   
     else 
-        let $hits := $model("group-by-volume")
-        let $facet-config := facet:facet-definition((),())/child::*                        
-        for $data in subsequence($hits, $browse:start,$browse:perpage)
-        return 
-            <div xmlns="http://www.w3.org/1999/xhtml" class="results-panel">
-                <div>{page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)}</div>
-                <ul  style="border-bottom:1px dotted #eee; padding-top:.5em" class="short-rec-result">
-                    { $data }
-                </ul>  
+        <div xmlns="http://www.w3.org/1999/xhtml" class="results-panel">
+            <ul>{
+            let $hits := $model("group-by-volume")                        
+            for $data in $hits
+            return $data 
+            }
+            </ul>
             </div>
 };
 
