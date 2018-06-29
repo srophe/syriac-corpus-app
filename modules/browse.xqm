@@ -85,9 +85,9 @@ declare function browse:group-volumes($node as node(), $model as map(*), $collec
                      order by $sort
                      return 
 
-                        <li class="indent" xmlns="http://www.w3.org/1999/xhtml" style="margin-bottom:1em;">
+                        <div class="indent" xmlns="http://www.w3.org/1999/xhtml" style="margin-bottom:1em;">
                             <a href="{concat($global:nav-base,'/volume/', $vol-facet)}"> {$label} </a>&#160; 
-                        </li>
+                        </div>
                    } 
 };
 
@@ -226,12 +226,12 @@ declare function browse:browse-volumes($node as node(), $model as map(*), $colle
          </div>   
     else 
         <div xmlns="http://www.w3.org/1999/xhtml" class="results-panel">
-            <ul>{
+            <div class="indent">{
             let $hits := $model("group-by-volume")                        
             for $data in $hits
             return $data 
             }
-            </ul>
+            </div>
             </div>
 };
 
