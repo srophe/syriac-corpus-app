@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <meta xmlns="http://exist-db.org/xquery/repo">
     <description>Hugoye: Journal of Syriac Studies</description>
-    <author></author>
+    <author/>
     <website>http://hugoye.org/</website>
     <status>beta</status>
     <license>GNU-LGPL</license>
@@ -18,9 +17,9 @@
         <!-- Contact email -->
         <contact>info@hugoye.org</contact>
         <!-- Logo name (assumes path to logo is $app-root/resources/img/) -->
-        <logo></logo>
+        <logo/>
         <!-- Web Site URL -->
-        <url>http://hugoye.org/</url>
+        <url>https://hugoye.bethmardutho.org/</url>
         <!-- Root of app for building dynamic links. Default is eXist app root -->
         <nav-base>/exist/apps/hugoye</nav-base>
         <!-- eXist app root for app deployment-->
@@ -28,7 +27,7 @@
         <!-- eXist data app root for gazetteer data -->
         <data-root>hugoye-data</data-root>
         <!-- Base URI for identifiers in app data -->
-        <base_uri>https://hugoye.org</base_uri>
+        <base_uri>https://hugoye.bethmardutho.org</base_uri>
         <!-- Map rendering -->
         <maps>
             <option>google</option>
@@ -45,8 +44,36 @@
                 <option id="ms-Russian">Russian Mod. Standard</option>
             -->
         </keyboard-options>
+        <white-list>
+            <page>301.html</page>
+            <page>404.html</page>
+            <page>500.html</page>
+            <page>about.html</page>
+            <page>authors.html</page>
+            <page>browse.html</page>
+            <page>citing.html</page>
+            <page>contact-us.html</page>
+            <page>current-issue.html</page>
+            <page>editorial-board.html</page>
+            <page>error-page.html</page>
+            <page>history.html</page>
+            <page>hugoye-pre-publication-drafts.html</page>
+            <page>hugoye-subscription.html</page>
+            <page>index.html</page>
+            <page>project-team.html</page>
+            <page>search.html</page>
+            <page>submissions.html</page>
+            <page>volumes.html</page>
+        </white-list>
         <collections>
-            <collection name="corpus" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://syriaccorpus.org/"/>
+            <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/article/"/>
+            <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/advertisement/"/>
+            <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/conferenceAnnouncement/"/>
+            <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/letterFromTheGeneralEditor/"/>
+            <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/bookReview/"/>
+            <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/conferenceReport/"/>
+            <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/obituary/"/>
+            <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/responseToBookReview/"/>
         </collections>
     </config>
     

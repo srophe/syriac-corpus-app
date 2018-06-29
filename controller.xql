@@ -59,6 +59,24 @@ else if (contains($exist:path, "/$shared/")) then
         </forward>
     </dispatch>
 
+(: Passes any api requests to volume index :)  
+else if (contains($exist:path,'/volume/')) then
+    let $id := replace(xmldb:decode($exist:resource), "^(.*)\..*$", "$1")
+    let $record-uri-root := replace($exist:path,$exist:resource,'')
+    let $html-path := '/volumes.html'
+    return 
+        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+            <forward url="{$exist:controller}{$html-path}"></forward>
+                <view>
+                    <forward url="{$exist:controller}/modules/view.xql">
+                       <add-parameter name="volume" value="{$id}"/>
+                    </forward>
+                </view>
+                <error-handler>
+                    <forward url="{$exist:controller}/error-page.html" method="get"/>
+                    <forward url="{$exist:controller}/modules/view.xql"/>
+                </error-handler>
+         </dispatch> 
 (: Checks for any record uri patterns as defined in repo.xml :)    
 else if(replace($exist:path, $exist:resource,'') =  ($exist:record-uris) or ends-with($exist:path, ("/atom","/tei","/rdf","/txt","/ttl",'.tei','.atom','.rdf','.ttl',".txt"))) then
     (: Sends to restxql to handle /atom, /tei,/rdf:)
