@@ -60,18 +60,30 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
     return map{"browse-data" := $hits }    
 };
 
-declare function browse:group-volumes($node as node(), $model as map(*), $collection as xs:string?){
-    if(request:get-parameter('volume', '') != '') then 
+declare function browse:group-volumes($node as node(), $model as map(*), $collection as xs:string?, $volume as xs:string?){
+    let $volume := 
+        if($volume = 'current') then 
+            distinct-values(
+                for $a in collection('/db/apps/hugoye-data/data/tei')//descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"]
+                let $sort := if($a castable as xs:integer) then xs:integer($a) else 0
+                order by $sort
+                return $a
+            )[last()]
+        else if($volume != '') then $volume
+        else if(request:get-parameter('volume', '') != '') then request:get-parameter('volume', '')
+        else () 
+    return 
+    if($volume != '') then 
         let $hits := $model("browse-data")
         return
-            map {"get-volume" :=     
-                     for $article in $hits[descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"] = request:get-parameter('volume', '')]
+            map {"group-by-volume" :=     
+                     for $article in $hits[descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"] = $volume]
                      let $id :=  $article/descendant::tei:idno[@type='URI'][1]
                      let $n :=  $article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="order"][1]
                      let $sort := if($n castable as xs:integer) then xs:integer($n) else 0
                      order by $sort
                      return 
-                        <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view(root($article), '', $id)}</div>
+                        <div class="indent" style="border-bottom:1px dotted #eee; padding:1em" volume="{$article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"]}">{tei2html:summary-view(root($article), '', $id)}</div>
                    } 
     else 
         let $hits := $model("browse-data")
@@ -215,24 +227,22 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
  : NOTE: Will have to add paging at some point. 
 :)
 declare function browse:browse-volumes($node as node(), $model as map(*), $collection, $sort-options as xs:string*){
-    if(request:get-parameter('volume', '') != '') then
-        <div xmlns="http://www.w3.org/1999/xhtml" class="results-panel">
-            <h1>Volume {request:get-parameter('volume', '')}</h1>        
-            {
-            let $hits := $model("get-volume")                    
-            for $data in $hits
-            return  $data
-             }
-         </div>   
-    else 
-        <div xmlns="http://www.w3.org/1999/xhtml" class="results-panel">
-            <div class="indent">{
-            let $hits := $model("group-by-volume")                        
-            for $data in $hits
-            return $data 
-            }
-            </div>
-            </div>
+    let $hits := $model("group-by-volume")
+    let $volumes := distinct-values($hits/@volume)
+    return
+        if(count($volumes) = 1) then
+            <div xmlns="http://www.w3.org/1999/xhtml" class="results-panel">
+                <h1>Volume {string($hits[1]/@volume)}</h1>        
+                { $hits }
+             </div> 
+        else 
+            <div xmlns="http://www.w3.org/1999/xhtml" class="results-panel">
+                <div class="indent">{                     
+                for $data in $hits
+                return $data 
+                }
+                </div>
+            </div>                   
 };
 
 declare function browse:browse-authors($node as node(), $model as map(*), $collection, $sort-options as xs:string*){
