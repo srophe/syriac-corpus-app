@@ -290,6 +290,7 @@ td {
 .funding {margin:1em;}
 .no-logo {font-size:1.25em; font-weight:600; font-family:serif; color:#333; margin:1em;}
 .label, .badge {white-space: normal;}
+.access-pills {padding:.5em 1em; margin:.5em; font-weight:300; color:white; background-color:#ccc;}
 .about-tables td {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc; 
@@ -833,6 +834,7 @@ pre {
 .tei-milestone.chapter.display {display:block; height:1em; width:100%; border:bottom:1px solid #eee;}
 .tei-milestone.verse.display {display:block;}
 .tei-lg.display, .tei-lb.display {display:block; margin-bottom:1.25em;}
+.tei-p {text-align: justify; text-justify: inter-word;}
 .text-number {
     display:none;
     background:#bbb;
