@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -144,7 +144,7 @@
     </xsl:template>
     <xsl:template match="t:titleStmt" mode="huyoye-article">
         <div class="article-header text-center">
-           <xsl:apply-templates/> 
+            <xsl:apply-templates select="t:title | t:author"/>
         </div>
     </xsl:template>
     
@@ -192,6 +192,11 @@
         </div>
     </xsl:template>
     <xsl:template match="t:body">
+        <xsl:if test="empty(t:body)">
+            <div id="pdf" style="width:100%; align:center;">
+                <embed src="/exist/apps/hugoye-data/pdf/vol12/HV12N1Brock.pdf" width="800px" height="2100px"/>                
+            </div>
+        </xsl:if>
         <div class="body">
             <xsl:call-template name="langattr"/>
             <div class="section" style="display:block;">
@@ -1072,7 +1077,7 @@
             </span>
         </xsl:if>
     </xsl:template>
-    <xsl:template match="t:persName | t:region | t:settlement | t:placeName | t:author | t:editor">
+    <xsl:template match="t:persName | t:region | t:settlement | t:placeName | t:author | t:editor ">
         <xsl:if test="@role">
             <span class="srp-label">
                 <xsl:value-of select="concat(upper-case(substring(@role,1,1)),substring(@role,2))"/>: 
