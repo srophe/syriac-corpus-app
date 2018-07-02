@@ -96,16 +96,16 @@ declare function browse:group-author($node as node(), $model as map(*), $collect
     return
         map {"group-by-author" :=     
                     for $article in $hits
-                    let $author := $article/descendant::tei:titleStmt/descendant::tei:author[1]/tei:name[1]
-                    group by $author-facet := $author
-                    let $label := if($author-facet/tei:surname/text()) then concat($author-facet/tei:surname/text(),', ',$author-facet/tei:forename/text()) else $author-facet 
-                    order by $author-facet/tei:surname, $author-facet/tei:forename
+                    for $author in $article/descendant::tei:titleStmt/descendant::tei:author[1]/tei:name
+                    let $label := if($author/tei:surname/text()) then concat($author/tei:surname/text(),', ',$author/tei:forename/text()) else $author
+                    group by $author-facet := $label
+                    order by $author-facet
                     return 
                         <div class="indent" xmlns="http://www.w3.org/1999/xhtml" style="margin-bottom:1em;">
                             <a class="togglelink text-info" 
-                            data-toggle="collapse" data-target="#show{replace($label,'\s|\.|, ','')}" 
-                                                                  href="#show{replace($label,'\s|\.|, ','')}" data-text-swap=" - {$label}"> + {$label} </a>&#160; 
-                            <div class="indent collapse" style="background-color:#F7F7F9;" id="show{replace($label,'\s|\.|, ','')}">{
+                            data-toggle="collapse" data-target="#show{replace($author-facet,'\s|\.|, ','')}" 
+                                                                  href="#show{replace($author-facet,'\s|\.|, ','')}" data-text-swap=" - {$author-facet}"> + {$author-facet} </a>&#160; 
+                            <div class="indent collapse" style="background-color:#F7F7F9;" id="show{replace($author-facet,'\s|\.|, ','')}">{
                             for $a in $article
                             let $id := replace($a/descendant::tei:idno[@type='URI'][1],'/tei','')
                             return 
