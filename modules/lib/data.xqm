@@ -75,7 +75,7 @@ let $series-path :=
         if($get-series != '') then concat("//tei:idno[. = '",$get-series,"'][ancestor::tei:seriesStmt]/ancestor::tei:TEI")
         else '/tei:TEI'
 return         
-    concat("collection('",$global:data-root,$collection-path,"')",$series-path)
+    concat("collection('",$global:data-root,$collection-path,"')",$series-path,"[descendant::tei:revisionDesc[@status != 'preview']]")
 };
 
 (:~
