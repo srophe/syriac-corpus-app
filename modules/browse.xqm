@@ -119,7 +119,9 @@ declare function browse:group-author($node as node(), $model as map(*), $collect
                                                                   href="#show{replace($author-facet,'\s|\.|, ','')}" data-text-swap=" - {$author-facet}"> + {$author-facet} </a>&#160; 
                             <div class="indent collapse" style="background-color:#F7F7F9;" id="show{replace($author-facet,'\s|\.|, ','')}">{
                             for $a in $article
+                            let $date := $a/descendant::tei:publicationStmt/tei:date
                             let $id := replace($a/descendant::tei:idno[@type='URI'][1],'/tei','')
+                            order by $date descending
                             return 
                                 <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view(root($a), '', $id)}</div>
                             }</div>
