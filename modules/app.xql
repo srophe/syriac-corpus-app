@@ -111,7 +111,17 @@ return
                          else() 
                     else if($f = 'corrections') then
                         (<a class="btn btn-default btn-xs" data-toggle="modal" data-target="#feedback"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Corrections?</a>,'&#160;') 
-                    (:
+                    else if($f = 'pdf') then
+                        let $uri := replace($model("data")//tei:idno[@type="PDF"]//text(),
+                                         $global:base-uri,'https://github.com/Beth-Mardutho/hugoye-data/raw/master/'
+                                     )
+                        return    
+                            if($model("data")//tei:idno[@type="PDF"]) then
+                                (<a href="{$uri}" class="btn btn-default btn-xs" id="pdfBtn" data-toggle="tooltip" title="Click to download the PDF version of this article." >
+                                     <i class="fas fa-file-pdf"></i> PDF
+                                </a>, '&#160;')        
+                            else ()
+                   (:
                     else if($f = 'copy') then
                         (
                         <a class="btn btn-default btn-xs" id="copyBtn" 
@@ -760,12 +770,23 @@ function app:google-analytics($node as node(), $model as map(*)){
  : @param $paths comma separated list of xpaths for display. Passed from html page  
 :)
 declare function app:display-body($node as node(), $model as map(*), $paths as xs:string*){
+    let $rec := $model("data")
     let $data-display := app:display-nodes($node, $model, $paths)
+    let $pdf := 
+        if($rec//tei:idno[@type="PDF"] and $rec//tei:revisionDesc[@status="PDF"]) then
+            let $url := 
+                replace($rec//tei:idno[@type="PDF"]//text(),
+                    $global:base-uri,'https://github.com/Beth-Mardutho/hugoye-data/raw/master/'
+                )
+            return
+            <embed src="https://drive.google.com/viewerng/viewer?embedded=true&amp;url={$url}" width="100%" height="800"/>
+        else ()
     return 
         if($model("data")/descendant::tei:body/descendant::*[@n] or (app:toc($model("data")/descendant::tei:body/child::*) != '')) then 
             <div class="col-sm-6 col-md-6 col-lg-7 mssBody">{$data-display}</div>
         else 
-            <div class="col-sm-8 col-md-8 col-lg-9 mssBody">{$data-display}</div>
+            <div class="col-sm-8 col-md-8 col-lg-9 mssBody">
+                {$data-display,<div class="PDFviewer text-center" style="width:100%;">{$pdf}</div>}</div>
 }; 
 
 (: Display ids :)
