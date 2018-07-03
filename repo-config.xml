@@ -79,12 +79,12 @@
         <!-- Hugoye specific configuration -->
         <!-- Article type order on volume pages -->
         <article-display-order>
-            <article-type type="introductions" label="Introductions" sub-types="" peer-reviewed="no"/>
-            <article-type type="Articles" label="articles" sub-types="" peer-reviewed="yes"/>
-            <article-type type="shortArticles" label="Short Articles" sub-types="" peer-reviewed="no"/>
-            <article-type type="bibliographies" label="Bibliographies" sub-types="" peer-reviewed="no"/>
-            <article-type type="reports" label="Reports" sub-types="" peer-reviewed="no"/>
-            <article-type type="bookReviews" label="Book Reviews" sub-types="" peer-reviewed="no"/>
+            <article-type type="introduction" label="Introductions" sub-types="" peer-reviewed="no"/>
+            <article-type type="article" label="Articles" sub-types="" peer-reviewed="yes"/>
+            <article-type type="shortArticle" label="Short Articles" sub-types="" peer-reviewed="no"/>
+            <article-type type="bibliography" label="Bibliographies" sub-types="" peer-reviewed="no"/>
+            <article-type type="report" label="Reports" sub-types="" peer-reviewed="no"/>
+            <article-type type="bookReview" label="Book Reviews" sub-types="" peer-reviewed="no"/>
             <!-- 
                 <article-type type="" label="" sub-types="" peer-reviewed=""/>
             -->

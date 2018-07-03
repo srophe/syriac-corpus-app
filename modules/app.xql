@@ -1166,3 +1166,12 @@ declare %templates:wrap function app:srophe-related($node as node(), $model as m
         </div>       
     else()
 };
+
+(: Hugoye specific functions :)
+declare %templates:wrap function app:peer-review($node as node(), $model as map(*)){
+    let $type := substring-before(substring-after($model("data")//tei:idno[@type='URI'][1],concat($global:base-uri,'/')),'/')
+    return
+        if($global:get-config//repo:article-type[@type = $type][@peer-reviewed='yes']) then
+            <span class="badge access-pills"><a href="#" style="color:#555">peer reviewed <i class="fas fa-check"></i></a></span>
+        else ()
+};
