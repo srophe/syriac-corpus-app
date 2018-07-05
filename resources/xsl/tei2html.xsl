@@ -192,11 +192,6 @@
         </div>
     </xsl:template>
     <xsl:template match="t:body">
-        <xsl:if test="empty(t:body)">
-            <div id="pdf" style="width:100%; align:center;">
-                <embed src="/exist/apps/hugoye-data/pdf/vol12/HV12N1Brock.pdf" width="800px" height="2100px"/>                
-            </div>
-        </xsl:if>
         <div class="body">
             <xsl:call-template name="langattr"/>
             <div class="section" style="display:block;">
