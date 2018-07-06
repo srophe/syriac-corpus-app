@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -1007,6 +1007,7 @@
         <br/>
     </xsl:template>
     -->
+
     <xsl:template match="t:quote">
         <xsl:choose>
             <xsl:when test="@xml:lang">
@@ -1025,7 +1026,6 @@
                 </span>
             </xsl:when>
             <xsl:when test="parent::*/@xml:lang">
-                <!-- Quotes need to be outside langattr for Syriac and arabic characters to render correctly.  -->
                 <span dir="ltr">
                     <xsl:text> “</xsl:text>
                 </span>
@@ -1046,10 +1046,8 @@
                     <xsl:text>”  </xsl:text>
                 </span>
             </xsl:when>
-            <xsl:when test="parent::t:cit">
-                <div class="tei-cit">
-                    <xsl:apply-templates/>
-                </div>
+            <xsl:when test="parent::t:cit">    
+                <span class="tei-quote"><xsl:call-template name="langattr"/><xsl:apply-templates/></span>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text> “</xsl:text>
@@ -1072,7 +1070,12 @@
             </span>
         </xsl:if>
     </xsl:template>
-    <xsl:template match="t:affiliation"><span class="tei-affiliation"><xsl:apply-templates/></span></xsl:template>
+   
+    <xsl:template match="t:affiliation">
+        <span class="tei-affiliation">
+            <xsl:apply-templates/>
+        </span>
+    </xsl:template>
     <xsl:template match="t:persName | t:region | t:settlement | t:placeName | t:author | t:editor ">
         <xsl:if test="@role">
             <span class="srp-label">
