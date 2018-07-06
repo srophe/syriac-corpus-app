@@ -1072,6 +1072,7 @@
             </span>
         </xsl:if>
     </xsl:template>
+    <xsl:template match="t:affiliation"><span class="tei-affiliation"><xsl:apply-templates/></span></xsl:template>
     <xsl:template match="t:persName | t:region | t:settlement | t:placeName | t:author | t:editor ">
         <xsl:if test="@role">
             <span class="srp-label">
