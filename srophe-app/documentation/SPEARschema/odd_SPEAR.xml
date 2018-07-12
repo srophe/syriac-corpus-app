@@ -934,7 +934,7 @@
           </classes>
           <attList>
             <attDef ident="ref" usage="req">
-              <datatype minOccurs="1">
+              <datatype minOccurs="1" maxOccurs="1">
                 <dataRef key="teidata.pointer"/><!-- I need to figure out a way to require that the attribute value be a syriaca.org person URI. -->
               </datatype>
             </attDef>
@@ -1238,13 +1238,6 @@
           <classes mode="replace">
             <memberOf key="model.personLike"/>
           </classes>
-          <attList>
-            <attDef ident="ref" usage="req">
-              <datatype minOccurs="1" maxOccurs="1">
-                <dataRef key="teidata.pointer"/><!-- I need to figure out a way to require that the attribute value be a syriaca.org person URI. -->
-              </datatype>
-            </attDef>
-          </attList>
           <content>
             <alternate>
                 <elementRef key="persName" minOccurs="1" maxOccurs="1"/>
