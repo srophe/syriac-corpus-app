@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
     
     <!-- Function to add correct ordinal suffix to numbers used in citation creation.  -->
@@ -320,12 +319,12 @@
                     <xsl:apply-templates select="$node/node()|$node/text()"/>
                 </i>
             </xsl:when>
-            <xsl:when test="$node/@rend = 'superscript'">
+            <xsl:when test="$node/@rend = ('superscript','sup')">
                 <sup>
                     <xsl:apply-templates select="$node/node()|$node/text()"/>
                 </sup>
             </xsl:when>
-            <xsl:when test="$node/@rend = 'subscript'">
+            <xsl:when test="$node/@rend = ('subscript','sub')">
                 <sub>
                     <xsl:apply-templates select="$node/node()|$node/text()"/>
                 </sub>
