@@ -92,17 +92,25 @@ declare function tei2html:summary-view($nodes as node()*, $lang as xs:string?, $
 
 (: Generic short view template :)
 declare function tei2html:summary-view-generic($nodes as node()*, $id as xs:string?) as item()* {
-    let $title := $nodes/descendant-or-self::tei:title[1]      
+    let $title := if($nodes/descendant-or-self::tei:title[@type='main']) then 
+                    ($nodes/descendant-or-self::tei:title[@type='main']/text(),
+                    if($nodes/descendant-or-self::tei:title[@type='sub']) then 
+                        (': ', $nodes/descendant-or-self::tei:title[@type='sub']/text())
+                    else () )
+                    (:$nodes/descendant-or-self::tei:title[@type='sub']//text()[not(parent::tei:note)],''):)
+                  else $nodes/descendant-or-self::tei:title[1]      
     let $series := for $a in distinct-values($nodes/descendant::tei:seriesStmt/tei:biblScope/tei:title)
                    return tei2html:translate-series($a)
     return 
         <div class="short-rec-view">
-            <a href="{replace($id,$global:base-uri,$global:nav-base)}" dir="ltr">{tei2html:tei2html($title)}</a> 
-            {if($nodes/descendant::tei:titleStmt/tei:author) then (' by ', tei2html:tei2html($nodes/descendant::tei:titleStmt/tei:author))
+            <a href="{replace($id,$global:base-uri,$global:nav-base)}" dir="ltr">{$title}</a> 
+            {if($nodes/descendant::tei:titleStmt/tei:author) then 
+                (:(' by ', tei2html:tei2html($nodes/descendant::tei:titleStmt/tei:author/tei:name)):)
+                (' by ', bibl2html:emit-responsible-persons($nodes/descendant::tei:titleStmt/tei:author,3))
             else ()}
             {if($nodes/descendant::tei:biblStruct) then 
                 <span class="results-list-desc desc" dir="ltr" lang="en">
-                    <label>Source: </label> {bibl2html:citation($nodes/descendant::tei:teiHeader)}
+                    <label>Source: </label> {bibl2html:citation($nodes/descendant::tei:sourceDesc/descendant::tei:monogr)}
                 </span>
             else ()}
             {if($nodes/descendant-or-self::*[starts-with(@xml:id,'abstract')]) then 
