@@ -106,7 +106,7 @@ declare function tei2html:summary-view-generic($nodes as node()*, $id as xs:stri
             <a href="{replace($id,$global:base-uri,$global:nav-base)}" dir="ltr">{$title}</a> 
             {if($nodes/descendant::tei:titleStmt/tei:author) then 
                 (:(' by ', tei2html:tei2html($nodes/descendant::tei:titleStmt/tei:author/tei:name)):)
-                (' by ', bibl2html:emit-responsible-persons($nodes/descendant::tei:titleStmt/tei:author,3))
+                (' by ', bibl2html:emit-responsible-persons($nodes/descendant::tei:titleStmt/tei:author,10))
             else ()}
             {if($nodes/descendant::tei:biblStruct) then 
                 <span class="results-list-desc desc" dir="ltr" lang="en">

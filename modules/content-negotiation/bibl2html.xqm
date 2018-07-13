@@ -164,19 +164,19 @@ declare function bibl2html:series($nodes as node()*) {(
 :)
 declare function bibl2html:emit-responsible-persons($nodes as node()*, $num as xs:integer?) {
     let $persons := 
-        let $limit := if($num) then $num else 3
         let $count := count($nodes)
+        let $limit := if($num and $num lt $count) then $num else $count
         return 
             if($count = 1) then 
                 bibl2html:person($nodes)                
             else if($count = 2) then
                 (bibl2html:person($nodes[1]),' and ',bibl2html:person($nodes[2]))            
             else 
-                for $n at $p in subsequence($nodes, 1, $num)
+                for $n at $p in subsequence($nodes, 1, $limit)
                 return 
-                    if($p = ($num - 1)) then 
+                    if($p = ($limit - 1)) then 
                         (normalize-space(bibl2html:person($n)), ' and ')
-                    else if($p = $num) then 
+                    else if($p = $limit) then 
                         concat(normalize-space(bibl2html:person($n)),' ')
                     else concat(normalize-space(bibl2html:person($n)),', ')
     return replace(string-join($persons),'\s+$','')                    
