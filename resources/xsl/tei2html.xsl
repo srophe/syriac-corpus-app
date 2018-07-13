@@ -1047,7 +1047,10 @@
                 </span>
             </xsl:when>
             <xsl:when test="parent::t:cit">    
-                <span class="tei-quote"><xsl:call-template name="langattr"/><xsl:apply-templates/></span>
+                <span class="tei-quote">
+                    <xsl:call-template name="langattr"/>
+                    <xsl:apply-templates/>
+                </span>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text> “</xsl:text>
@@ -1179,7 +1182,17 @@
             <xsl:apply-templates/>
         </li>
     </xsl:template>
-
+    <xsl:template match="t:table">
+        <table>
+            <xsl:apply-templates/>
+        </table>
+    </xsl:template>
+    <xsl:template match="t:row">
+        <tr><xsl:apply-templates/></tr>
+    </xsl:template>
+    <xsl:template match="t:cell">
+        <td><xsl:apply-templates/></td>
+    </xsl:template>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of the licence element in the tei header
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
