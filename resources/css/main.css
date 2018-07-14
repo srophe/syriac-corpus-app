@@ -267,6 +267,10 @@ td {
 .sort-title {background-color:none; color:#666; font-weight:500; display:block; }
 .textBox {display:block;}
 .caveat, .note {font-size: .785em; font-style:italic; margin-top:-.5em; padding-top:0;}
+.listBibl {list-style-type: none;}
+.listBibl li { 
+    padding-left: 1em;
+    text-indent: -1em;}
 /*.title {border-bottom:2px solid #666666;margin-bottom:1em; margin-top:0;padding:0;}*/
 .title {display:block; margin-bottom:1em;}
 .title h1{border-bottom:2px solid #666666; margin-bottom:.5em; margin-top:0; padding:0 1em;}
