@@ -79,7 +79,7 @@ declare function browse:group-volumes($node as node(), $model as map(*), $collec
             map {"group-by-volume" :=     
                      for $article in $hits[descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"] = $volume]
                      let $id :=  $article/descendant::tei:idno[@type='URI'][1]
-                     let $n :=  string($article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="pp"]/@from)
+                     let $n :=  if($article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="order"]) then string($article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="order"]/@n) else string($article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="pp"]/@from)
                      let $sort := if($n castable as xs:integer) then xs:integer($n) else 0
                      order by $sort
                      return 
