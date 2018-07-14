@@ -9,7 +9,6 @@
 
 /* Dev only: corner ribbon */
 /* The ribbons */
-
 .corner-ribbon{
   width: 200px;
   background: #e43;
@@ -25,8 +24,6 @@
    z-index: 1500;
 }
 
-/* Custom styles */
-
 .corner-ribbon.sticky{
   position: fixed;
 }
@@ -35,8 +32,6 @@
   box-shadow: 0 0 3px rgba(0,0,0,.3);
 }
 
-/* Different positions */
-
 .corner-ribbon.top-left{
   top: 25px;
   left: -50px;
@@ -44,7 +39,6 @@
   -webkit-transform: rotate(-45deg);
 }
 
-/* Colors */
 .corner-ribbon.grey{background: #999; background-color: rgba(128,128,128, 0.75);}
 .corner-ribbon.blue{background: #39d;}
 
@@ -142,7 +136,7 @@ footer{background-color:#444;}
 .banner-container {display:inline-block; line-height:2.5em;}
 .banner-icon {font-size:2.5em; display:inline-block; padding-top:0;}
 
- * /*
+ /*
  * font-family: Tahoma, Geneva, sans-serif;
  */
 .banner-text {color: #888; display:inline-block; margin-top:-.75em; vertical-align: middle; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}
@@ -186,7 +180,6 @@ footer{background-color:#444;}
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
 }
-
 
 /* Footer styles */
 footer {text-align:center; color:white;}
@@ -244,8 +237,7 @@ h5 {margin: 1em 0 0 0;}
     /* default fallback */
     background: rgb(255, 255, 255) transparent;
     /* nice browsers */
-    background: rgba(255, 255, 255, 0.8);
-    
+    background: rgba(255, 255, 255, 0.8);   
 }
 
 /* Table styles*/
@@ -447,12 +439,10 @@ td {
 	font-weight: bold;
 }
 
-
 /* Subject headings */
 .sh {margin-right:.5em; margin-bottom: .5em; line-height:14px; font-weight:normal;}
 .sh-search {text-decoration:none; color:white; margin-left:.5em;}
 .sh .placeName, .sh .pers-label {font-weight:normal; }
-
 .sh .footnote-refs{display:none;}
 
 /* styles for languages and scripts */
@@ -468,7 +458,6 @@ td {
   text-align: right;
   font-style: normal !important;
 }
-
 
 :lang(syr-Syrj), :lang(syc-Syrj) {
  font-family: "SertoBatnan", "Serto Batnan", Verdana, Arial, Helvetica, sans-serif;
@@ -493,7 +482,6 @@ td {
  text-align: right;
  font-style: normal !important;
 }
-
 
 /* link icon styles (inline) */
 .copy {font-size:1.125em; color:graytext; padding: .035em .2em; margin-right:1em; margin-bottom: 0; box-shadow: 2px 2px 2px #888888;}
@@ -597,7 +585,6 @@ div[id|=place] > div:last-of-type {
 /* Search styles */
 .search-header {margin-bottom: 1em;}
 .search-inner {margin-top:2em;}
-
 
 /* Transparent styles for search box on home pages */
 .transparent-input{
@@ -728,7 +715,6 @@ unpublished
 */
 .citation-bibliography {margin-top:1em; margin-bottom:1em;}
 .title-journal, .title-monographic{font-style:italic;}
-
 
 /* Facet styles */
 .label-facet {background-color:#eee; color:#666; font-weight:normal; margin:.25em; display:inline-block;}
@@ -871,29 +857,11 @@ pre {
 #showToc.collapsing {
     display: block!important;
 }
-/*
-#footnoteDisplay {
-    display:none; 
-    position: fixed;
-    padding: .5em 1.5em;
-    min-height: 25px;
-    min-width: 25px;
-    max-width: 450px;
-    background-color:white;
-    border:1px solid #ccc;
-    top:125px;
-    box-shadow: 8px 8px 3px #999;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    overflow-y:scroll;
-    overflow-x:hidden;
-}
-*/
-#footnoteDisplay .footnote-ref {margin-left: -1em;};
+
+#footnoteDisplay .footnote-ref {margin-left: -1em;}
 
 /* Sedra display */
-#sedraDisplay, #footnoteDisplay {
+#sedraDisplay {
     display:none; 
     position: fixed; 
     width:24%; 
@@ -1000,23 +968,23 @@ div.toggle-buttons label:active:after {
 	width: 26px;
 }
 div.toggle-buttons .toggle-label {font-size: 1em; font-weight:600}
-
+.PDFviewer iframe {width:95%; min-height:600px; max-height:2100px}
 
 /* Small screens */
 @media screen and (max-width: 768px) {
-.navbar-collapse, .dropdown-menu {float:none; width:100% !important;}
-.navbar-nav li {width:100% !important; float:none;}
-.mobile-submenu {
-    display: block;
-    float:left;
-    margin-left:3em;
+    .navbar-collapse, .dropdown-menu {float:none; width:100% !important;}
+    .navbar-nav li {width:100% !important; float:none;}
+    .mobile-submenu {
+        display: block;
+        float:left;
+        margin-left:3em;
+        }
+    .caret {float:left; margin-left:.5em; margin-top:.5em;}    
+    .hugoye-banner {
+        height:100px !important;
+        }
     }
-.caret {float:left; margin-left:.5em; margin-top:.5em;}    
-.hugoye-banner {
-    height:100px !important;
-    }
-}
-.PDFviewer iframe {width:95%; min-height:600px; max-height:2100px}
+
 /* Medium screens */
 @media screen and (max-width: 992px) {   
 .hugoye-banner {
