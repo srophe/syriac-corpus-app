@@ -810,7 +810,8 @@ declare function app:display-ids($node as node(), $model as map(*)){
               else(), 
               <div>
                 <h5>Citation: </h5>
-                {global:tei2html($model("data")/descendant::tei:sourceDesc)}
+                {(:global:tei2html($model("data")/descendant::tei:sourceDesc):)
+                bibl2html:citation($model("data")/descendant::tei:sourceDesc)}
                 {if($model("data")/descendant::tei:sourceDesc/descendant::tei:idno[starts-with(., 'http://syriaca.org/bibl')]) then 
                     <span class="footnote-links">
                         <span class="footnote-icon"> 
