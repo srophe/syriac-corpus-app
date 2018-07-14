@@ -9,7 +9,7 @@
                 <div data-template="app:display-body"/>
                 <div class="col-sm-4 col-md-4 col-lg-3 right-menu">
                     <div id="rightCol" class="noprint">
-                        <div id="sedraDisplay" class="sedra panel panel-default hide">
+                        <div id="sedraDisplay" class="sedra panel panel-default">
                             <div class="panel-body">
                                 <span style="display:block;text-align:center;margin:.5em;">
                                     <a href=" http://sedra.bethmardutho.org" title="SEDRA IV">SEDRA IV</a>
@@ -23,9 +23,10 @@
                         </div>
                     </div>
                     <div data-template="app:display-ids"/>
+                    <div data-template="app:srophe-related"/>
                     <!--<div data-template="app:display-cite"/>-->
                     <span class="badge access-pills">
-                        <a href="#" style="color:#555">open access <i class="fas fa-unlock-alt"></i>
+                        <a href="#" style="color:#555">open access <i class="fas fa-unlock-alt"/>
                         </a>
                     </span>
                     <span data-template="app:peer-review"/>
@@ -39,60 +40,67 @@
     </div>
     
     <script type="text/javascript">
+        <![CDATA[
+      $(document).ready(function () {
+        //$('#sedraDisplay').hide();
+        
         $('input.toggleDisplay').click(function() {
-        var display = $(this).data("element");
-        $('.'+ display).children('.text-number').toggle();
-        //$('.'+ display).children('.head').toggle();
-        var section = $('.'+ display).hasClass("tei-head");
-        if(section){
-        $(' .' + display + '.tei-head').toggle();
-        }else{
-        $(' .' + display).toggleClass( 'display' );
-        }
-        //Change checkbox to active
-        $(this).toggleClass( "active" );
-        console.log(display);
+            var display = $(this).data("element");
+            $('.'+ display).children('.text-number').toggle();
+            //$('.'+ display).children('.head').toggle();
+            var section = $('.'+ display).hasClass("tei-head");
+            if(section){
+                $(' .' + display + '.tei-head').toggle();
+            }else{
+                $(' .' + display).toggleClass( 'display' );
+            }
+            //Change checkbox to active
+            $(this).toggleClass( "active" );
         });
         
         $('button.toggleHead').click(function() {
-        $('.head').toggleClass( "hidden" );
+            $('.head').toggleClass( "hidden" );
         });
         
         $('a.sedra').click(function(e) {
-        //event.preventDefault();
-        e.stopPropagation();
-        e.preventDefault();
-        var href = $(this).attr('href');
-        $('#sedraDisplay').css('display','block');
-        $.get(href, function( data ) {
-        $( "#sedraContent div.content" ).html( data );
-        })    
-        .fail(function() {
-        $('#sedraContent div.content').empty();
-        $( "#sedraContent div.content" ).html( 'There are no results for this word. Please try using the <a href="http://sedra.bethmardutho.org/">Syriac Dictionary Lookup</a>' );
-        });
+            //event.preventDefault();
+            e.stopPropagation();
+            e.preventDefault();
+            console.log('sedra clicked')
+            var href = $(this).attr('href');
+            $('#sedraDisplay').css('display','block');
+            $.get(href, function( data ) {
+                $( "#sedraContent div" ).html( data );
+            })    
+            .fail(function() {
+                $('#sedraContent div.content').empty();
+                $( "#sedraContent div.content" ).html( 'There are no results for this word. Please try using the <a href="http://sedra.bethmardutho.org/">Syriac Dictionary Lookup</a>' );
+            });
         });
         
         $('html').click(function() {
-        $('#sedraDisplay').hide();
-        $('#footnoteDisplay').hide();
-        $('#sedraContent div.content').empty();
-        $('#footnoteDisplay div.content').empty();
+            $('#sedraDisplay').hide();
+            $('#footnoteDisplay').hide();
+            $('#sedraContent div.content').empty();
+            $('#footnoteDisplay div.content').empty();
         })
-        
+       
         $('#rightCol').click(function(e){
-        e.stopPropagation();
+            e.stopPropagation();
         });
         
         $('.footnote-ref a').click(function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        var link = $(this);
-        var href = $(this).attr('href');
-        var content = $(href).html()
-        $('#footnoteDisplay').css('display','block');
-        $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
-        $('#footnoteDisplay div.content').html( content );    
+            e.stopPropagation();
+            e.preventDefault();
+            var link = $(this);
+            var href = $(this).attr('href');
+            var content = $(href).html()
+            $('#footnoteDisplay').css('display','block');
+            $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
+            $('#footnoteDisplay div.content').html( content );    
         });
+       });
+        ]]>
     </script>
+    
 </div>

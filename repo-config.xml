@@ -78,6 +78,7 @@
             <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/responseToBookReview/"/>
             <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/commemorativeIssue/"/>
             <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/review/"/>
+            <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/memoriam/"/>
         </collections>
         <!-- Hugoye specific configuration -->
         <!-- Article type order on volume pages multiple types maybe grouped together, see bookReview example -->

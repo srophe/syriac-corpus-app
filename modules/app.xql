@@ -1053,7 +1053,7 @@ declare %templates:wrap function app:srophe-related($node as node(), $model as m
                     return 
                         <div class="other-resources" xmlns="http://www.w3.org/1999/xhtml">
                             <div class="collapse in" id="showOtherResources">
-                                <form class="form-inline hidden" action="modules/sparql-requests.xql" method="post">
+                                <form class="form-inline hidden" action="{$global:nav-base}/modules/sparql-requests.xql" method="post">
                                     <input type="hidden" name="format" id="format" value="json"/>
                                     <textarea id="query" class="span9" rows="15" cols="150" name="query" type="hidden">
                                       <![CDATA[
@@ -1083,7 +1083,7 @@ declare %templates:wrap function app:srophe-related($node as node(), $model as m
                                 {if($count gt 10) then
                                     <div>
                                         <div class="collapse" id="showMoreResources">
-                                            <form class="form-inline hidden" action="modules/sparql-requests.xql" method="post">
+                                            <form class="form-inline hidden" action="{$global:nav-base}/modules/sparql-requests.xql" method="post">
                                                 <input type="hidden" name="format" id="format" value="json"/>
                                                 <textarea id="query" class="span9" rows="15" cols="150" name="query" type="hidden">
                                                   <![CDATA[
