@@ -1104,7 +1104,7 @@
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <span class="{local-name(.)}">
+                <span class="tei-{local-name(.)}">
                     <xsl:call-template name="langattr"/>
                     <xsl:apply-templates/>
                     <xsl:sequence select="local:do-refs(@source,@xml:lang)"/>
