@@ -94,7 +94,7 @@ declare function browse:group-volumes($node as node(), $model as map(*), $collec
                      group by $vol-facet := $vol
                      let $label := concat('Volume ',$vol-facet/text())
                      let $sort := if($vol-facet castable as xs:integer) then xs:integer($vol-facet) else 0
-                     order by $sort
+                     order by $sort descending
                      return 
 
                         <div class="indent" xmlns="http://www.w3.org/1999/xhtml" style="margin-bottom:1em;">
