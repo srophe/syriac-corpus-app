@@ -66,6 +66,7 @@
             <page>submissions.html</page>
             <page>volumes.html</page>
         </white-list>
+        <!-- Current list creats paths for any article type, if it appears in the URI, it needs to be also listed here -->
         <collections>
             <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/article/"/>
             <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/advertisement/"/>
@@ -75,19 +76,18 @@
             <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/conferenceReport/"/>
             <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/obituary/"/>
             <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/responseToBookReview/"/>
+            <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/commemorativeIssue/"/>
+            <collection name="hugoye" title="Hugoye: Journal of Syriac Studies" app-root="/" data-root="/" record-URI-pattern="https://hugoye.bethmardutho.org/review/"/>
         </collections>
         <!-- Hugoye specific configuration -->
-        <!-- Article type order on volume pages -->
+        <!-- Article type order on volume pages multiple types maybe grouped together, see bookReview example -->
         <article-display-order>
-            <article-type type="introduction" label="Introductions" sub-types="" peer-reviewed="no"/>
-            <article-type type="article" label="Articles" sub-types="" peer-reviewed="yes"/>
-            <article-type type="shortArticle" label="Short Articles" sub-types="" peer-reviewed="no"/>
-            <article-type type="bibliography" label="Bibliographies" sub-types="" peer-reviewed="no"/>
-            <article-type type="report" label="Reports" sub-types="" peer-reviewed="no"/>
-            <article-type type="bookReview" label="Book Reviews" sub-types="" peer-reviewed="no"/>
-            <!-- 
-                <article-type type="" label="" sub-types="" peer-reviewed=""/>
-            -->
+            <article-type type="introduction" label="Introductions" peer-reviewed="no" order="1"/>
+            <article-type type="article" label="Articles" peer-reviewed="yes" order="2"/>
+            <article-type type="shortArticle" label="Short Articles" peer-reviewed="no" order="3"/>
+            <article-type type="bibliography" label="Bibliographies" peer-reviewed="no" order="4"/>
+            <article-type type="report" label="Reports" peer-reviewed="no" order="5"/>
+            <article-type type="review,bookReview" label="Reviews" peer-reviewed="no" order="6"/>
         </article-display-order>
     </config>
     

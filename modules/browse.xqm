@@ -79,11 +79,12 @@ declare function browse:group-volumes($node as node(), $model as map(*), $collec
             map {"group-by-volume" :=     
                      for $article in $hits[descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"] = $volume]
                      let $id :=  $article/descendant::tei:idno[@type='URI'][1]
+                     let $type := tokenize(substring-after($id,$global:base-uri),'/')[2]
                      let $n :=  if($article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="order"]) then string($article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="order"]/@n) else string($article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="pp"]/@from)
                      let $sort := if($n castable as xs:integer) then xs:integer($n) else 0
                      order by $sort
-                     return 
-                        <div class="indent" style="border-bottom:1px dotted #eee; padding:1em" volume="{$article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"]}">{tei2html:summary-view(root($article), '', $id)}</div>
+                     return  
+                        <div class="indent" style="border-bottom:1px dotted #eee; padding:1em" type="{$type}" volume="{$article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"]}">{tei2html:summary-view(root($article), '', $id)}</div>
                    } 
     else 
         let $hits := $model("browse-data")
@@ -235,7 +236,19 @@ declare function browse:browse-volumes($node as node(), $model as map(*), $colle
         if(count($volumes) = 1) then
             <div xmlns="http://www.w3.org/1999/xhtml" class="results-panel">
                 <h1>Volume {string($hits[1]/@volume)}</h1>        
-                { $hits }
+                { for $h in $hits
+                  let $type := string($h/@type)
+                  group by $type-facet := $type
+                  let $type-config := $global:get-config//repo:article-type[matches(@type,$type-facet)]
+                  let $type-order := string($type-config[1]/@order)
+                  let $sort := if($type-order castable as xs:integer) then xs:integer($type-order) else 100
+                  order by $sort
+                  return 
+                    <div>
+                        <h3>{string($type-config[1]/@label)}</h3>
+                        {$h}
+                    </div>
+                }
              </div> 
         else 
             <div xmlns="http://www.w3.org/1999/xhtml" class="results-panel">
