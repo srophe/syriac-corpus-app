@@ -62,6 +62,7 @@
 body {font-family: arial, sans-serif;}
 #content {background-color:white; padding-top: 50px;}
 footer{background-color:#444;}
+/*#toc {position: fixed; top:125px;}*/
 
 /* Removed extra padding introduced by Bootstrap for rows. Was causing issues with background images */
 .row { margin-left: 0px; margin-right: 0px;}
@@ -815,6 +816,7 @@ pre {
 .tei-div {display:block; margin:1em 0;}
 /*.tei-div-display, .div1-display, .div2-display, .div3-display, .div4-display, .div5-display {display:block; margin:1em;}*/
 .body {display:block; float:none;clear:both; text-align: justify; text-justify: inter-word;}
+.footnote-text {text-align: justify; text-justify: inter-word;}
 .textBlock {display:block;}
 .tei-pb.display {display:block; text-align:center; margin:1em;}
 /*.tei-l.display, .line.display {display:block; margin:0; padding:0;}*/
