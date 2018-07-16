@@ -216,9 +216,9 @@ function api:data-serialize($data as item()*, $content-type as item()*) {
   :)
 declare
     %rest:GET
-    %rest:path("/hugoye/{$page}")
+    %rest:path("/hugoye/{$folder}/{$page}")
     %rest:header-param("Content-Type", "{$content-type}")
-function api:get-page($page as xs:string?, $content-type as item()*) {
+function api:get-page($folder as xs:string?, $page as xs:string?, $content-type as item()*) {
     let $path := concat('/',$page)      
     return  
         let $id :=  if(contains($page,'.')) then
@@ -236,9 +236,9 @@ function api:get-page($page as xs:string?, $content-type as item()*) {
   :)
 declare
     %rest:GET
-    %rest:path("/hugoye/{$page}/{$extension}")
+    %rest:path("/hugoye/{$folder}/{$page}/{$extension}")
     %rest:header-param("Content-Type", "{$content-type}")
-function api:get-page($page as xs:string?, $extension as xs:string, $content-type as item()*) {
+function api:get-page($folder as xs:string?, $page as xs:string?, $extension as xs:string, $content-type as item()*) {
     let $path := concat('/',$page,'.',$extension)
     return  
             let $id :=  if(contains($page,'.')) then
