@@ -816,9 +816,11 @@ pre {
 .tei-div {display:block; margin:1em 0;}
 /*.tei-div-display, .div1-display, .div2-display, .div3-display, .div4-display, .div5-display {display:block; margin:1em;}*/
 .body {display:block; float:none;clear:both; text-align: justify; text-justify: inter-word;}
-.footnote-text {text-align: justify; text-justify: inter-word;}
+.tei-text, .footnote-text {text-align: justify; text-justify: inter-word;}
 .textBlock {display:block;}
 .tei-pb.display {display:block; text-align:center; margin:1em;}
+.tei-abstract, .tei-acknowledgements {margin: 0 2.5em;}
+.tei-abstract .tei-head, .tei-acknowledgements .tei-head {display:block; font-size:medium; font-weight:400; margin:1em; text-align:center;} 
 /*.tei-l.display, .line.display {display:block; margin:0; padding:0;}*/
 .tei-l, .line {display:block; margin:0; padding:0;}
 .tei-ab.display {display:inline;}
@@ -828,6 +830,7 @@ pre {
 .tei-milestone.chapter.display {display:block; height:1em; width:100%; border:bottom:1px solid #eee;}
 .tei-milestone.verse.display {display:block;}
 .tei-lg.display, .tei-lb.display {display:block; margin-bottom:1.25em;}
+tei-text
 /*.tei-p {text-align: justify; text-justify: inter-word;}*/
 .tei-cite {display:block; margin:1em; padding:1em; border-left:1px soldi #eee;}
 .tei-quote {display:block; margin:1em; padding:1em;}

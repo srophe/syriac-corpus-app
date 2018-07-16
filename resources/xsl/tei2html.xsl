@@ -352,14 +352,6 @@
                 </xsl:choose>
             </xsl:if>
             <xsl:choose>
-                <xsl:when test="@type='abstract'">
-                    <h3>Abstract</h3>
-                </xsl:when>
-                <xsl:when test="@type='acknowledgements'">
-                    <h3>Acknowledgements</h3>
-                </xsl:when>
-            </xsl:choose>
-            <xsl:choose>
                 <xsl:when test="@type='footnotes'">
                     <div id="sources">
                         <xsl:apply-templates select="t:head"/>
@@ -1188,10 +1180,14 @@
         </table>
     </xsl:template>
     <xsl:template match="t:row">
-        <tr><xsl:apply-templates/></tr>
+        <tr>
+            <xsl:apply-templates/>
+        </tr>
     </xsl:template>
     <xsl:template match="t:cell">
-        <td><xsl:apply-templates/></td>
+        <td>
+            <xsl:apply-templates/>
+        </td>
     </xsl:template>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      handle standard output of the licence element in the tei header
