@@ -56,7 +56,7 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
             data:get-browse-data($collection, 'tei:titleStmt/tei:title[1]')
         else if($browse:lang = 'syr') then 
             data:get-browse-data($collection, 'tei:titleStmt/tei:title[1]/tei:foreign')
-        else data:get-browse-data($collection, "tei:titleStmt/tei:author[1]")
+        else data:get-browse-data($collection, "tei:titleStmt/tei:author/tei:name/tei:surname")
     return map{"browse-data" := $hits }    
 };
 
@@ -108,8 +108,29 @@ declare function browse:group-author($node as node(), $model as map(*), $collect
     let $hits := $model("browse-data")
     return
         map {"group-by-author" :=     
+                if(request:get-parameter('alpha-filter', '') = 'ALL' or request:get-parameter('alpha-filter', '') = '') then
                     for $article in $hits
-                    for $author in $article/descendant::tei:titleStmt/descendant::tei:author[1]/tei:name
+                    for $author in $article/descendant::tei:titleStmt/descendant::tei:author/tei:name
+                    let $label := if($author/tei:surname/text()) then concat($author/tei:surname/text(),', ',$author/tei:forename/text()) else $author
+                    group by $author-facet := $label
+                    order by $author-facet
+                    return 
+                        <div class="indent" xmlns="http://www.w3.org/1999/xhtml" style="margin-bottom:1em;">
+                            <a class="togglelink text-info" 
+                            data-toggle="collapse" data-target="#show{replace($author-facet,'\s|\.|, ','')}" 
+                                                                  href="#show{replace($author-facet,'\s|\.|, ','')}" data-text-swap=" - {$author-facet}"> + {$author-facet} </a>&#160; 
+                            <div class="indent collapse" style="background-color:#F7F7F9;" id="show{replace($author-facet,'\s|\.|, ','')}">{
+                            for $a in $article
+                            let $date := $a/descendant::tei:publicationStmt/tei:date
+                            let $id := replace($a/descendant::tei:idno[@type='URI'][1],'/tei','')
+                            order by $date descending
+                            return 
+                                <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view(root($a), '', $id)}</div>
+                            }</div>
+                        </div>
+                  else 
+                    for $article in $hits
+                    for $author in $article/descendant::tei:titleStmt/descendant::tei:author/tei:name[matches(substring(global:build-sort-string(tei:surname,$data:computed-lang),1,1),data:get-alpha-filter(),'i')]
                     let $label := if($author/tei:surname/text()) then concat($author/tei:surname/text(),', ',$author/tei:forename/text()) else $author
                     group by $author-facet := $label
                     order by $author-facet
@@ -273,6 +294,7 @@ declare function browse:browse-volumes($node as node(), $model as map(*), $colle
 };
 
 declare function browse:browse-authors($node as node(), $model as map(*), $collection, $sort-options as xs:string*){
+    (browse:browse-abc-menu(),
     let $hits := $model("group-by-author")
     let $facet-config := facet:facet-definition((),())/child::*                        
     (:for $data in subsequence($hits, $browse:start,$browse:perpage):)
@@ -283,6 +305,7 @@ declare function browse:browse-authors($node as node(), $model as map(*), $colle
                 { $data }
             </div>  
         </div>
+        )
 };
 
 declare function browse:display-hits($hits){
