@@ -864,6 +864,7 @@ tei-text
 /* Table of Contents */
 .toc {display:block; margin-left:.75em;}
 .toc-item {display:block; font-size: small; padding:.5em; border-bottom:1px dotted #ccc;}
+.toc-item:last-child {border-bottom:none;}
 :target:before {
     content:"";
     display:block;
