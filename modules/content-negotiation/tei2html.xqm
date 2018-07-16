@@ -179,17 +179,16 @@ declare function tei2html:translate-series($series as xs:string?){
 declare function tei2html:output-kwic($nodes as node()*, $id as xs:string*){
     let $results := <results xmlns="http://www.w3.org/1999/xhtml">{tei2html:kwic-format($nodes)}</results>
     let $count := count($results//*:match)
-    for $node at $p in subsequence($results//*:match,1,8)
+    for $node in subsequence($results//*:match,1,8)
     let $prev := $node/preceding-sibling::text()[1]
     let $next := $node/following-sibling::text()[1]
+    (:if($prev[not(. intersect $node/following-sibling::text()[1])]) then () else $node/following-sibling::text()[1]:)
     let $prevString := 
         if(string-length($prev) gt 60) then 
-            concat(' ...',substring($prev,string-length($prev) - 100, 100))
+            concat('...',substring($prev,string-length($prev) - 100, 100))
         else $prev
-    let $nextString := 
-        if(string-length($next) lt 100 ) then () 
-        else concat(substring($next,1,100),'... ')
-    let $link := concat($global:nav-base,'/',tokenize($id,'/')[last()],'#',$node/@n)
+    let $nextString := if(string-length($next) lt 60 ) then () else concat(substring($next,1,100),'...')
+    let $link := concat(replace($id,$global:base-uri,$global:nav-base),'#',$node/@n)
     return 
         <span>{$prevString}&#160;<span class="match" style="background-color:yellow;"><a href="{$link}">{$node/text()}</a></span>&#160;{$nextString}</span>
 };
@@ -205,7 +204,12 @@ declare function tei2html:kwic-format($nodes as node()*){
             case text() return $node
             case comment() return ()
             case element(exist:match) return 
-                let $n := if($node/ancestor-or-self::*[@n]) then concat('Head-id.',$node/ancestor-or-self::*[@n][1]/@n) else ()
+                let $n := 
+                    if($node/ancestor-or-self::*[@n]) then 
+                        concat('Head-id.',$node/ancestor-or-self::*[@n][1]/@n)
+                    else if($node/ancestor-or-self::*[@xml:id]) then 
+                       string($node/ancestor-or-self::*[@xml:id][1]/@xml:id) 
+                    else ()
                 return 
                 <match xmlns="http://www.w3.org/1999/xhtml">
                     {(if($n != '') then attribute n {$n} else (), 
@@ -214,3 +218,5 @@ declare function tei2html:kwic-format($nodes as node()*){
                 </match>
             default return tei2html:kwic-format($node/node())                
 };
+
+
