@@ -792,7 +792,7 @@ declare function app:display-body($node as node(), $model as map(*), $paths as x
 (: Display ids :)
 declare function app:display-ids($node as node(), $model as map(*)){                 
     <div class="panel panel-default">
-        <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#aboutDigitalText">About This Digital Text </a></div>
+        <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#aboutDigitalText">About This Digital Text</a></div>
         <div class="panel-body collapse in" id="aboutDigitalText">
             {(
               if($model("data")/descendant::tei:publicationStmt/tei:idno[@type='URI']) then
@@ -878,8 +878,8 @@ return
             {(
             app:toggle-text-display($node,$model),
             if($toc != '') then 
-                <div class="panel panel-default">
-                  <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showToc">Table of Contents  </a>
+                <div class="panel panel-default" id="toc">
+                  <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showToc">Table of Contents</a>
                   <!--<a href="#" data-toggle="collapse" data-target="#showToc"><span id="tocIcon" class="glyphicon glyphicon-collapse-up"/></a>-->
                   </div>
                   <div class="panel-body collapse in" id="showToc">
@@ -1038,7 +1038,7 @@ declare %templates:wrap function app:srophe-related($node as node(), $model as m
     if($model("data")//@ref[contains(.,'http://syriaca.org/') and not(contains(.,'http://syriaca.org/persons.xml'))] or $model("data")//tei:idno[@type='URI']) then
         <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
             <div class="panel-heading">
-            <a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
+            <a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data</a>
             <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" 
             title="This sidebar provides links via Syriaca.org to 
             additional resources beyond this record. 
