@@ -1,6 +1,6 @@
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
     <!--<xi:include href="banner.html"/>-->
-    <div class="grey-dark">
+    <div class="grey-dark" data-template="app:fix-links">
         <div class="container interior-content white">
             <!--<div data-template="app:h1"/>-->
             <div data-template="app:other-data-formats" data-template-formats="pdf,uri,print,tei"/>
@@ -26,7 +26,7 @@
                     <div data-template="app:srophe-related"/>
                     <!--<div data-template="app:display-cite"/>-->
                     <span class="badge access-pills">
-                        <a href="#" style="color:#555">open access <i class="fas fa-unlock-alt"/>
+                        <a href="$app-root/open-access.html" style="color:#555">open access <i class="fas fa-unlock-alt"/>
                         </a>
                     </span>
                     <span data-template="app:peer-review"/>
