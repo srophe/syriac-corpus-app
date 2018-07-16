@@ -113,7 +113,7 @@ return
                         (<a class="btn btn-default btn-xs" data-toggle="modal" data-target="#feedback"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Corrections?</a>,'&#160;') 
                     else if($f = 'pdf') then
                         let $uri := replace($model("data")//tei:idno[@type="PDF"]//text(),
-                                         $global:base-uri,'https://github.com/Beth-Mardutho/hugoye-data/raw/master/'
+                                         $global:base-uri,'https://github.com/Beth-Mardutho/hugoye-data/raw/master'
                                      )
                         return    
                             if($model("data")//tei:idno[@type="PDF"]) then
@@ -791,7 +791,7 @@ declare function app:display-body($node as node(), $model as map(*), $paths as x
 
 (: Display ids :)
 declare function app:display-ids($node as node(), $model as map(*)){                 
-    <div class="panel panel-default">
+    (<div class="panel panel-default">
         <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#aboutDigitalText">About This Digital Text</a></div>
         <div class="panel-body collapse in" id="aboutDigitalText">
             {(
@@ -807,23 +807,7 @@ declare function app:display-ids($node as node(), $model as map(*)){
                     {for $r in $model("data")/descendant::tei:fileDesc/tei:titleStmt/tei:title[@ref]
                     return <span><a href="{string($r/@ref)}">{string($r/@ref)}</a><br/></span>}
                 </div>
-              else(), 
-              <div>
-                <h5>Citation: </h5>
-                {(:global:tei2html($model("data")/descendant::tei:sourceDesc):)
-                bibl2html:citation($model("data")/descendant::tei:sourceDesc)}
-                {if($model("data")/descendant::tei:sourceDesc/descendant::tei:idno[starts-with(., 'http://syriaca.org/bibl')]) then 
-                    <span class="footnote-links">
-                        <span class="footnote-icon"> 
-                         <a href="{$model("data")/descendant::tei:sourceDesc/descendant::tei:idno[starts-with(., 'http://syriaca.org/bibl')][1]/text()}" title="Link to Syriaca.org Bibliographic Record" 
-                             data-toggle="tooltip" data-placement="top" class="bibl-links">
-                             <img src="{$global:nav-base}/resources/img/icons-syriaca-sm.png" 
-                                 alt="Link to Syriaca.org Bibliographic Record" height="18px"/>
-                         </a>
-                        </span>
-                    </span>
-                else()}
-              </div>, 
+              else(),  
               <div style="margin-top:1em;">
                 <span class="h5-inline">Status: 
             </span>
@@ -838,33 +822,22 @@ declare function app:display-ids($node as node(), $model as map(*)){
                 <h5>Preparation of Electronic Edition:</h5>
                 TEI XML encoding by James E. Walters. <br/>
                 Syriac text transcribed by {$model("data")//tei:titleStmt/descendant::tei:respStmt[tei:resp[. = 'Syriac text transcribed by']]/tei:name/text()}.
-              </div>,
-              if($model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab[1]/tei:note[1]/text()) then 
-              <div>
-                <h5>Open Access and Copyright:</h5>
-                <div class="small">
-                    {(
-                    $model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab[1]/tei:note[1]/text(),
-                    <div id="showMoreAccess" class="collapse">
-                        {(
-                        $model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab[2]/tei:note[1]/text(),
-                        if($model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence[contains(@target, 'http://creativecommons.org/licenses/')]) then 
-                            <p>
-                            <a rel="license" href="{string($model("data")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence/@target)}">
-                                <img alt="Creative Commons License" style="border-width:0;display:inline;" src="{$global:nav-base}/resources/img/cc.png" height="18px"/>
-                            </a>
-                            </p>
-                        else())}                   
-                    </div>,
-                    '&#160;',<a href="#" class="togglelink" data-toggle="collapse" data-target="#showMoreAccess" data-text-swap="Hide details">See details...</a>
-                    )}
-                </div>
               </div>
-              else()
-              
              )}
         </div>
-    </div>        
+    </div>,
+    <div class="panel panel-default">
+        <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#citationText">How to Cite this Article</a></div>
+        <div class="panel-body collapse in" id="citationText">
+            {(
+              <div>
+                {(:global:tei2html($model("data")/descendant::tei:sourceDesc):)
+                bibl2html:citation($model("data")/descendant::tei:sourceDesc)}
+              </div>
+             )}
+        </div>
+    </div>
+    )       
 };
 
 (:~
@@ -875,19 +848,21 @@ let $toc := app:toc($model("data")/descendant::tei:body/child::*)
 return 
     if($toc != '' or $model("data")/descendant::tei:body/descendant::*[@n]) then 
         <div class="col-sm-2 col-md-2 noprint" xmlns="http://www.w3.org/1999/xhtml">
-            {(
-            app:toggle-text-display($node,$model),
-            if($toc != '') then 
-                <div class="panel panel-default" id="toc">
-                  <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showToc">Table of Contents</a>
-                  <!--<a href="#" data-toggle="collapse" data-target="#showToc"><span id="tocIcon" class="glyphicon glyphicon-collapse-up"/></a>-->
-                  </div>
-                  <div class="panel-body collapse in" id="showToc">
-                      {app:toc($model("data")/descendant::tei:body/child::*)}
-                  </div>
-                </div>  
-            else ()
-            )}
+            <div class="left-menu">
+                {(
+                app:toggle-text-display($node,$model),
+                if($toc != '') then 
+                    <div class="panel panel-default" id="toc">
+                      <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showToc">Table of Contents</a>
+                      <!--<a href="#" data-toggle="collapse" data-target="#showToc"><span id="tocIcon" class="glyphicon glyphicon-collapse-up"/></a>-->
+                      </div>
+                      <div class="panel-body collapse in" id="showToc">
+                          {app:toc($model("data")/descendant::tei:body/child::*)}
+                      </div>
+                    </div>  
+                else ()
+                )}
+            </div>
         </div>        
     else ()
 }; 
