@@ -1,17 +1,17 @@
 <facets xmlns="http://expath.org/ns/facet">
     <facet-definition name="Author">
-        <group-by>
+        <group-by function="facet:authors">
             <sub-path>descendant::tei:titleStmt/tei:author</sub-path>
         </group-by>
         <max-values show="10">60</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
     <!-- Add title to display of facets, make sure they sort alphabetically. -->
-    <facet-definition name="Catalog">
-        <group-by function="facet:titles">
-            <sub-path>descendant::tei:titleStmt/tei:title[@level="s"]/@ref</sub-path>
+    <facet-definition name="Volume">
+        <group-by>
+            <sub-path>descendant::tei:biblScope[@type='vol']/@n</sub-path>
         </group-by>
         <max-values show="10">60</max-values>
-        <order-by direction="ascending">value</order-by>
+        <order-by direction="descending">count</order-by>
     </facet-definition>
 </facets>
