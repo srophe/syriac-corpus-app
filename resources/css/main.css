@@ -140,7 +140,15 @@ footer{background-color:#444;}
  /*
  * font-family: Tahoma, Geneva, sans-serif;
  */
-.banner-text {color: #888; display:inline-block; margin-top:-.75em; vertical-align: middle; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}
+.banner-text {
+    line-height: 200px;
+    color: #888; 
+    display:inline-block; 
+/*    margin-top:-.75em; */
+/*    vertical-align: middle; */
+    letter-spacing: -1px; 
+    font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
 .banner {font-size: 24px; color:white; background-color:#666; margin:0 0 1em 0; padding:.5em 1em;}
 /* Banner styles index page (Colors and images are set by internal css for submodules) */
 .hugoye-banner {
