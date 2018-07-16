@@ -183,7 +183,8 @@ footer{background-color:#444;}
 }
 
 /* Footer styles */
-footer {text-align:center; color:white;}
+footer {text-align:center; color:#ccc;}
+footer a{text-align:center; color:white !important;}
 
 /* Simple background color styles */
 .grey {background-color:#eee;}
