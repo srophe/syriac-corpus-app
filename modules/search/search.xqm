@@ -348,7 +348,7 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                         </span>
                       </div>
                       <div class="col-md-9" xml:lang="en">
-                        {(tei2html:summary-view($hit, (), $id[1])) }
+                        {tei2html:summary-view($hit, '', $id) }
                         {
                             if($expanded//exist:match) then 
                                 tei2html:output-kwic($expanded, $id)
@@ -401,10 +401,10 @@ return
                         let $id := concat('s',$name)
                         (:<input type="text" label="Headword" name="headword" element="tei:term[@type='headword']" keyboard="yes"/>:)
                         return 
-                            <div class="form-group">
+                            <div class="form-group row">
                                 <label for="{$name}" class="col-sm-2 col-md-3  control-label">{$label}: </label>
-                                <div class="col-sm-10 col-md-9 ">
-                                    <div class="input-group">
+                                <div>
+                                    <div class="input-group col-sm-8 col-md-6">
                                         <input type="text" id="{$id}" name="{$name}" class="form-control keyboard"/>
                                         {
                                             if($input/@keyboard='yes') then 

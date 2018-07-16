@@ -1,0 +1,8 @@
+<search-config>
+    <label>Advanced Search</label>
+    <desc></desc>
+    <!-- index=full-text/range full-text uses Lucene full text search, range is used for exact matches -->                            
+    <input type="text" label="Keywords" element="." name="qs" keyboard="no"/>
+    <input type="text" label="Author" name="author" element="tei:author" keyboard="no"/>
+    <input type="text" label="Title" element="tei:title" name="title" keyboard="no"/>
+</search-config>
