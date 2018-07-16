@@ -1,7 +1,15 @@
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
-    <xi:include href="banner.html"/>
+    <div class="banner-interior" data-template="app:fix-links">
+        <div class="hugoye-banner">
+            <img src="$app-root/resources/img/hugoye_banner.png"/>
+        </div>
+    </div>
     <h1 class="banner indent">Pre-Publication Drafts</h1>
-    <div class="container indent" style="margin:1.5em">
-        <p class="note">This will be dynamically generated content</p>
-   </div>
+    <div class="container indent" style="margin:2em">
+        <div data-template="browse:get-all">
+            <div data-template="browse:group-volumes" data-template-volume="pre-publication">
+                <div data-template="browse:browse-volumes"/>
+            </div>
+        </div>
+    </div>
 </div>

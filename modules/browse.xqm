@@ -61,10 +61,17 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
 };
 
 declare function browse:group-volumes($node as node(), $model as map(*), $collection as xs:string?, $volume as xs:string?){
-    let $volume := 
+    let $volumeNum := 
         if($volume = 'current') then 
             distinct-values(
-                for $a in collection('/db/apps/hugoye-data/data/tei')//descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"]
+                for $a in collection('/db/apps/hugoye-data/data/tei')//tei:TEI[descendant::tei:revisionDesc[@status=('Published','published')]]/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"]
+                let $sort := if($a castable as xs:integer) then xs:integer($a) else 0
+                order by $sort
+                return $a
+            )[last()]
+        else if($volume = 'pre-publication') then 
+            distinct-values(
+                for $a in collection('/db/apps/hugoye-data/data/tei')//tei:TEI[descendant::tei:revisionDesc[@status=('preview','Preview')]]/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"]
                 let $sort := if($a castable as xs:integer) then xs:integer($a) else 0
                 order by $sort
                 return $a
@@ -73,10 +80,11 @@ declare function browse:group-volumes($node as node(), $model as map(*), $collec
         else if(request:get-parameter('volume', '') != '') then request:get-parameter('volume', '')
         else () 
     return 
-    if($volume != '') then 
-        let $hits := $model("browse-data")
-        return
-            map {"group-by-volume" :=     
+    if($volume = 'pre-publication') then 
+        if($volumeNum != '') then 
+            let $hits := $model("browse-data")
+            return
+             map {"group-by-volume" :=     
                      for $article in $hits[descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"] = $volume]
                      let $id :=  $article/descendant::tei:idno[@type='URI'][1]
                      let $type := string($article/descendant::tei:text/@type)
@@ -85,6 +93,20 @@ declare function browse:group-volumes($node as node(), $model as map(*), $collec
                      order by $sort
                      return  
                         <div class="indent" style="border-bottom:1px dotted #eee; padding:1em" type="{$type}" issue="{string($article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="issue"]/@n)}" volume="{$article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"]}">{tei2html:summary-view(root($article), '', $id)}</div>
+                   } 
+        else 'No drafts available'
+    else if($volumeNum != '') then 
+        let $hits := $model("browse-data")
+        return
+            map {"group-by-volume" :=     
+                     for $article in $hits[descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"] = $volumeNum]
+                     let $id :=  $article/descendant::tei:idno[@type='URI'][1]
+                     let $type := string($article/descendant::tei:text/@type)
+                     let $n :=  if($article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="order"]) then string($article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="order"]/@n) else string($article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="pp"]/@from)
+                     let $sort := if($n castable as xs:integer) then xs:integer($n) else 0
+                     order by $sort
+                     return  
+                        <div class="indent" style="border-bottom:1px dotted #eee; padding:1em" type="{$type}" issue="{string($article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="issue"]/@n)}" volume="{$volumeNum}">{tei2html:summary-view(root($article), '', $id)}</div>
                    } 
     else 
         let $hits := $model("browse-data")
