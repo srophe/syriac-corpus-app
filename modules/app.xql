@@ -817,11 +817,6 @@ declare function app:display-ids($node as node(), $model as map(*)){
               <div style="margin-top:1em;">
                 <span class="h5-inline">Publication Date: </span>
                 {format-date(xs:date($model("data")/descendant::tei:revisionDesc/tei:change[1]/@when), '[MNn] [D], [Y]')}
-              </div>, 
-              <div>
-                <h5>Preparation of Electronic Edition:</h5>
-                TEI XML encoding by James E. Walters. <br/>
-                Syriac text transcribed by {$model("data")//tei:titleStmt/descendant::tei:respStmt[tei:resp[. = 'Syriac text transcribed by']]/tei:name/text()}.
               </div>
              )}
         </div>
