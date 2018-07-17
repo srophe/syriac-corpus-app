@@ -56,7 +56,9 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
             data:get-browse-data($collection, 'tei:titleStmt/tei:title[1]')
         else if($browse:lang = 'syr') then 
             data:get-browse-data($collection, 'tei:titleStmt/tei:title[1]/tei:foreign')
-        else data:get-browse-data($collection, "tei:titleStmt/tei:author/tei:name/tei:surname")
+        else if($element != '') then
+            data:get-browse-data($collection, $element)
+        else data:get-browse-data($collection, "tei:titleStmt/tei:author/tei:name/tei:surname")    
     return map{"browse-data" := $hits }    
 };
 
@@ -79,12 +81,11 @@ declare function browse:group-volumes($node as node(), $model as map(*), $collec
         else if($volume != '') then $volume
         else if(request:get-parameter('volume', '') != '') then request:get-parameter('volume', '')
         else () 
-    return 
-    if($volume = 'pre-publication') then 
-        if($volumeNum != '') then 
-            let $hits := $model("browse-data")
-            return
-             map {"group-by-volume" :=     
+    let $results := 
+        if($volume = 'pre-publication') then 
+            if($volumeNum != '') then 
+                let $hits := $model("browse-data")
+                return     
                      for $article in $hits[descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"] = $volume]
                      let $id :=  $article/descendant::tei:idno[@type='URI'][1]
                      let $type := string($article/descendant::tei:text/@type)
@@ -93,12 +94,10 @@ declare function browse:group-volumes($node as node(), $model as map(*), $collec
                      order by $sort
                      return  
                         <div class="indent" style="border-bottom:1px dotted #eee; padding:1em" type="{$type}" issue="{string($article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="issue"]/@n)}" volume="{$article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"]}">{tei2html:summary-view(root($article), '', $id)}</div>
-                   } 
-        else 'No drafts available'
-    else if($volumeNum != '') then 
-        let $hits := $model("browse-data")
-        return
-            map {"group-by-volume" :=     
+            else 'No drafts available'
+        else if($volumeNum != '') then 
+            let $hits := $model("browse-data")
+            return     
                      for $article in $hits[descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"] = $volumeNum]
                      let $id :=  $article/descendant::tei:idno[@type='URI'][1]
                      let $type := string($article/descendant::tei:text/@type)
@@ -106,12 +105,10 @@ declare function browse:group-volumes($node as node(), $model as map(*), $collec
                      let $sort := if($n castable as xs:integer) then xs:integer($n) else 0
                      order by $sort
                      return  
-                        <div class="indent" style="border-bottom:1px dotted #eee; padding:1em" type="{$type}" issue="{string($article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="issue"]/@n)}" volume="{$volumeNum}">{tei2html:summary-view(root($article), '', $id)}</div>
-                   } 
-    else 
-        let $hits := $model("browse-data")
-        return
-            map {"group-by-volume" :=     
+                        <div class="indent" style="border-bottom:1px dotted #eee; padding:1em" type="{$type}" issue="{string($article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="issue"]/@n)}" volume="{$volumeNum}">{tei2html:summary-view(root($article), '', $id)}</div> 
+        else 
+            let $hits := $model("browse-data")
+            return     
                      for $article in $hits
                      let $vol := $article/descendant::tei:sourceDesc/descendant::tei:biblScope[@type="vol"][1]
                      group by $vol-facet := $vol
@@ -122,8 +119,8 @@ declare function browse:group-volumes($node as node(), $model as map(*), $collec
 
                         <div class="indent" xmlns="http://www.w3.org/1999/xhtml" style="margin-bottom:1em;">
                             <a href="{concat($global:nav-base,'/volume/', $vol-facet)}"> {$label} </a>&#160; 
-                        </div>
-                   } 
+                        </div> 
+        return  map {"group-by-volume" := $results}
 };
 
 declare function browse:group-author($node as node(), $model as map(*), $collection as xs:string?){
@@ -209,17 +206,8 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
         let $hits := $model("browse-data")
         return 
             <div class="col-md-12 map-lg">{browse:get-map($hits)}</div>
-   else if($browse:view = 'title' or  $browse:lang = 'syr') then
-       let $hits := $model("browse-data")
-       let $facet-config := facet:facet-definition((),())/child::*
-       return
-            if($browse:view = 'all' or $browse:view = 'ܐ-ܬ' or $browse:view = 'ا-ي' or $browse:view = 'other') then 
-                <div class="col-md-12">
-                    <div>{page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)}</div>
-                    <div>{browse:display-hits($hits)}</div>
-                </div>
-            else 
-                <div>{
+   else         
+        <div>{
                         <div class="float-container">
                             {if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else()}
                             <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right"}">
@@ -243,28 +231,6 @@ declare function browse:results-panel($node as node(), $model as map(*), $collec
                         </div>
                     </div>
                 </div>
-   else 
-    let $hits := $model("group-by-authors")
-    return
-        <div>
-            {(
-                if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then (attribute dir {"rtl"}) else(),
-                    <div class="float-container">
-                         <div class="{if(($browse:lang = 'syr') or ($browse:lang = 'ar')) then "pull-left" else "pull-right"}">
-                             <div>{page:pages($hits, $browse:start, $browse:perpage,'', $sort-options)}</div>
-                         </div>{browse:browse-abc-menu()}
-                    </div>,
-                    <div class="row">
-                    <div class="col-md-1 text-center"><h3 class="label">{(if($browse:alpha-filter != '') then $browse:alpha-filter else 'ALL')}</h3></div>
-                    <div class="col-md-11" style="margin-top:1em;">
-                        {                 
-                         for $hit at $p in subsequence($hits, $browse:start,$browse:perpage)
-                         return $hit 
-                         }
-                    </div>
-                    </div>
-                 )}
-        </div>
 };
 
 (:
@@ -279,7 +245,7 @@ declare function browse:browse-volumes($node as node(), $model as map(*), $colle
         if(count($volumes) = 1) then
             <div xmlns="http://www.w3.org/1999/xhtml" class="results-panel">
                 <h1>Volume {string($hits[1]/@volume)}</h1>        
-                { 
+                {
                   for $issue in $hits 
                   group by $issue-num := $issue/@issue
                   order by $issue-num

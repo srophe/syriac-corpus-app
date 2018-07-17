@@ -1,13 +1,13 @@
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
     <div class="banner-interior" data-template="app:fix-links">
-    <div class="hugoye-banner">
-        <img src="$app-root/resources/img/hugoye_banner.png"/>
+        <div class="hugoye-banner">
+            <img src="$app-root/resources/img/hugoye_banner.png"/>
+        </div>
     </div>
-</div>
     <h1 class="banner indent">Author Index</h1>
     <div class="section white top-padding indent">
         <!-- Calls xquery functions -->
-        <div data-template="browse:get-all">
+        <div data-template="browse:get-all" data-template-element="tei:titleStmt/tei:author/tei:name/tei:surname">
             <div data-template="browse:group-author">
                 <div data-template="browse:browse-authors"/>
             </div>
