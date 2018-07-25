@@ -53,9 +53,13 @@
         </elementSpec>
         
         <elementSpec ident="entryFree" mode="change" module="dictionaries">
-          <classes mode="change">
-            <memberOf mode="add" key="att.typed"/>
-          </classes>
+          <attList>
+            <attDef ident="subtype" mode="add">
+              <valList type="closed">
+                <valItem ident="category"/>
+              </valList>
+            </attDef>
+          </attList>
         </elementSpec>
 
       </schemaSpec>
