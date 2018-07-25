@@ -34,7 +34,7 @@
 
       <schemaSpec ident="taxonomy" source="tei:current" start="TEI">
 
-        <moduleRef key="core" include="date editor name note p ref resp respStmt term title"/>
+        <moduleRef key="core" include="date editor gloss name note p ref resp respStmt term title"/>
         <moduleRef key="tei"/>
         <moduleRef key="header"/>
         <moduleRef key="textstructure" include="body TEI text"/>
@@ -50,6 +50,12 @@
               </valList>
             </attDef>
           </attList>
+        </elementSpec>
+        
+        <elementSpec ident="entryFree" mode="change" module="dictionaries">
+          <classes mode="change">
+            <memberOf mode="add" key="att.typed"/>
+          </classes>
         </elementSpec>
 
       </schemaSpec>
