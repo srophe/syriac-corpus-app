@@ -41,7 +41,7 @@ declare function rel:get-names($uris as xs:string?) {
     let $name := 
                 if(not(exists(data:get-rec($uri)))) then $uri
                 else if(contains($uris,'/spear/')) then
-                    let $string := normalize-space(string-join($rec/child::*/child::*[not(self::tei:bibl)]/descendant::text(),' '))
+                    let $string := normalize-space(string-join($rec/descendant-or-self::tei:div[@uri=$uri]/descendant::*[not(self::tei:bibl)]/descendant::text(),' '))
                     let $last-words := tokenize($string, '\W+')[position() = 5]
                     return $string (:concat(substring-before($string, $last-words),'...'):)
                 else substring-before($rec[1]/descendant::tei:titleStmt[1]/tei:title[1]/text()[1],' — ')

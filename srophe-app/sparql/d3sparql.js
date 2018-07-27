@@ -28,49 +28,52 @@ var d3sparql = {
 /*
 * Build d3 visualization based on Type
 * */
-d3sparql.graphType = function (data, type){
-  console.log(type);
+d3sparql.graphType = function (data, type, config){
   if (type === "Table") {
-        var config = {"selector": "#result"}
+        config = config || {"selector": "#result"}
         d3sparql.htmltable(data,config)
+  } 
+  else if(type === 'List'){
+        config = config || {"selector": "#result"}
+        d3sparql.htmllist(data,config)
   } else if(type === 'HTML Hash'){
-        var config = {"selector": "#result"}
+        config = config || {"selector": "#result"}
         d3sparql.htmlhash(data,config)
   } else if(type === 'Bar Chart'){
-        var config = {"selector": "#result"}
+        config = config || {"selector": "#result"}
         d3sparql.barchart(data,config)
   } else if(type === 'Pie Chart'){
-        var config = {"selector": "#result"}
+        config = config || {"selector": "#result"}
         d3sparql.piechart(data,config)        
   } else if(type === 'Scatterplot'){
-        var config = {"selector": "#result"}
+        config = config || {"selector": "#result"}
         d3sparql.scatterplot(data,config)     
   } else if(type === 'Force'){
-        var config = {"selector": "#result"}
+        config = config || {"selector": "#result"}
         d3sparql.forcegraph(data,config)
   } else if(type === 'Bundle'){
-        var config = {"selector": "#result"}
+        config = config || {"selector": "#result"}
         d3sparql.bundle(data,config)
   } else if(type === 'Sankey'){
-        var config = {"selector": "#result"}
+        config = config || {"selector": "#result"}
         d3sparql.sankey(data,config)
   } else if(type === 'Round Tree'){
-        var config = {"selector": "#result"}
+        config = config || {"selector": "#result"}
         d3sparql.roundtree(data,config)
   } else if(type === 'Dendrogram'){
-        var config = {"selector": "#result"}
+        config = config || {"selector": "#result"}
         d3sparql.dendrogram(data,config)
   } else if(type === 'Sunburst'){
-        var config = {"selector": "#result"}
+        config = config || {"selector": "#result"}
         d3sparql.sunburst(data,config)
   } else if(type === 'Circle Pack'){
-        var config = {"selector": "#result"}
+        config = config || {"selector": "#result"}
         d3sparql.circlepack(data,config)      
   } else if(type === 'Tree Map'){
-        var config = {"selector": "#result"}
+        config = config || {"selector": "#result"}
         d3sparql.treemap(data,config)      
   } else if(type === 'Bubble'){
-        var config = {"selector": "#result"}
+        config = config || {"selector": "#result"}
         d3sparql.bubble(data,config)
   } else if(type === 'Raw XML'){
         var config = {"selector": "HTML"}
@@ -79,7 +82,8 @@ d3sparql.graphType = function (data, type){
         var config = {"selector": "HTML"}
         d3sparql.raw(data,config)             
   } else {
-        console.log(type + ' cant do that one yet');
+        config = config || {"selector": "#result"}
+        d3sparql.htmllist(data,config)
   }
   //var json = JSON.parse (data);
   //console.log(JSON.parse (data));
@@ -120,9 +124,9 @@ d3sparql.graph = function(json, config) {
 
   var opts = {
     "key1":   config.key1   || head[0] || "key1",
-    "key2":   config.key2   || head[1] || "key2",
-    "label1": config.label1 || head[0] || false,
-    "label2": config.label2 || head[1] || false,
+    "key2":   config.key2   || head[2] || "key2",
+    "label1": config.label1 || head[1] || "label1",
+    "label2": config.label2 || head[3] || "label2",
     "value1": config.value1 || head[0] || false,
     "value2": config.value2 || head[1] || false,
   }
@@ -307,6 +311,35 @@ d3sparql.htmltable = function(json, config) {
     "background": "#eeeeee",
     "text-transform": "capitalize",
   })
+}
+
+d3sparql.htmllist = function(json, config) {
+  config = config || {}
+
+  var head = json.head.vars
+  var data = json.results.bindings
+
+  var opts = {
+    "selector": config.selector || null
+  }
+  var list = d3sparql.select(opts.selector, "htmllist").append("div").attr("class", "results")
+  
+  var enterSelection = list.selectAll("p").data(data).enter()
+  enterSelection.append("p")
+    .attr("class", "result")
+    .text(function(d, i) { return d.title.value })
+     .append("a").attr("href", function(d) {
+        if (d.uri.value.indexOf("/spear/") != -1) {
+            return 'factoid.html?id=' + d.uri.value;
+        } else if (d.uri.value.indexOf("http://syriaca.org/") != -1) {
+            return 'aggregate.html?id=' + d.uri.value;
+        };
+     }
+     
+     )
+     //.attr("href", function(d) {"/exist/apps/srophe/spear/factoid.html?id=" + d.s.value})
+     //.attr("href", "/exist/apps/srophe/spear/factoid.html?id=" + d.s.value )
+     .text(" See more ")      
 }
 
 /*
@@ -796,21 +829,16 @@ d3sparql.forcegraph = function(json, config) {
   var scale = d3.scale.linear()
     .domain(d3.extent(graph.nodes, function(d) { return parseFloat(d.value) }))
     .range([1, 20])
-
+  console.log('Config width: ' + config.width);
   var opts = {
     "radius":    config.radius    || function(d) { d.weight * .5 },
     "charge":    config.charge    || -300,
     "distance":  config.distance  || 175,
-    "width":     config.width     || 1000,
-    "height":    config.height    || 750,
+    "width":     config.width     || 900,
+    "height":    config.height    || 500,
     "label":     config.label     || false,
     "selector":  config.selector  || null
   }
-
-  console.log('nodes');
-  console.log(graph.nodes);
-  console.log('links');
-  console.log(graph.links);
   
   var svg = d3sparql.select(opts.selector, "forcegraph").append("svg")
     .attr("width", opts.width)
@@ -831,13 +859,33 @@ d3sparql.forcegraph = function(json, config) {
     .attr("class", "node")
     //.attr("r", opts.radius)
     .attr("r", 8)
-    .attr("fill", "#E6550D")
-    .attr("stroke-width", 2);
-    //.attr("fill", function (d) {
-     //       return color(opts.label);
-      //  }).attr("stroke-width", 2).attr("stroke", function (d) {
-      //      return d3.rgb(color(opts.label)).darker();
-      //  });
+    //.attr("fill", "#E6550D")
+    .attr("fill", function (d) {
+           return color(opts.label);
+      }).attr("stroke-width", 1).attr("stroke", function (d) {
+          return d3.rgb(color(opts.label)).darker();
+      })
+    //.attr("stroke-width", 2)
+    .on('dblclick', function(d,i){ 
+       // window.location.href = d.key;
+       var uri = d.key;
+       if (uri.indexOf("/spear/") != -1) {
+            window.location.href = 'factoid.html?id=' + uri;
+        } else if (uri.indexOf("http://syriaca.org/") != -1) {
+            window.location.href = 'aggregate.html?id=' + uri;
+        };
+    })
+    .on("mouseover", function (d) {
+            d3.select(this).attr("r", function (d) {
+                return (d.weight * .75) + 15
+            });
+        })
+    .on("mouseout", function (d) {
+            d3.select(this).attr("r", function (d) {
+                return (d.weight * .5) + 6
+            });
+        });
+    
         
   var text = node.append("text")
     .text(function(d) { return d[opts.label || "label"] })
@@ -870,6 +918,42 @@ d3sparql.forcegraph = function(json, config) {
   })
   node.call(force.drag)
 
+ //Connecting linked nodes on click
+  node.on("mouseover", fade(.1));
+  node.on("mouseout", fade(1));
+        var linkedByIndex = {
+    };
+        
+  graph.links.forEach(function (d) {
+        linkedByIndex[d.source.index + "," + d.target.index] = 1;
+    });
+        
+  function isConnected(a, b) {
+        return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
+    }
+        
+  function neighboring(a, b) {
+    return graph.links.some(function (d) {
+            return (d.source === a && d.target === b) || (d.source === b && d.target === a) ? d.type: d.type;
+        });
+    }
+        
+ //Highlight related
+  function fade(opacity) {
+    return function (d) {
+        node.style("stroke-opacity", function (o) {
+            thisOpacity = isConnected(d, o) ? 1: opacity;
+            this.setAttribute('fill-opacity', thisOpacity);
+                return thisOpacity;
+                return isConnected(d, o);
+        });
+                
+    link.style("stroke-opacity", opacity).style("stroke-opacity", function (o) {
+        return o.source === d || o.target === d ? 1: opacity;
+    });
+                
+    };
+  };
   // default CSS/SVG
   link.attr({
     "stroke": "#999999",

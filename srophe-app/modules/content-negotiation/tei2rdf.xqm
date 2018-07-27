@@ -4,11 +4,11 @@ xquery version "3.0";
  : 
 :)
 module namespace tei2rdf="http://syriaca.org/tei2rdf";
-import module namespace global="http://syriaca.org/global" at "global.xqm";
-import module namespace data="http://syriaca.org/data" at "data.xqm";
+import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
+import module namespace data="http://syriaca.org/data" at "../lib/data.xqm";
 import module namespace config="http://syriaca.org/config" at "../config.xqm";
 import module namespace bibl2html="http://syriaca.org/bibl2html" at "bibl2html.xqm";
-import module namespace rel="http://syriaca.org/related" at "get-related.xqm";
+import module namespace rel="http://syriaca.org/related" at "../lib/get-related.xqm";
 import module namespace functx="http://www.functx.com";
 
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
@@ -18,6 +18,7 @@ declare namespace skos = "http://www.w3.org/2004/02/skos/core#";
 declare namespace rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 declare namespace dcterms = "http://purl.org/dc/terms/";
 declare namespace rdfs = "http://www.w3.org/2000/01/rdf-schema#";
+declare namespace owl = "http://www.w3.org/2002/07/owl#";
 declare namespace snap = "http://data.snapdrgn.net/ontology/snap#";
 declare namespace syriaca = "http://syriaca.org/schema#";
 declare namespace schema = "http://schema.org/";
@@ -108,21 +109,24 @@ declare function tei2rdf:attestation($rec, $source){
 
 (: Create Dates :)
 declare function tei2rdf:make-date-triples($date){
-tei2rdf:create-element('dcterms:temporal', (), 
-    if($date/@when) then
-        string($date/@when)
-    else if($date/@notBefore or $date/@from) then 
-        if($date/@notAfter or $date/@to) then 
-            concat(string($date/@notBefore | $date/@from),'-',string($date/@notAfter | $date/@to))
-        else string($date/@notBefore or $date/@from)
-    else if($date/@notBefore or $date/@from) then
-        string($date/@notAfter | $date/@to)
-    else ()
-, 'literal')
-(:
+    (
+       for $d in $date/@when[. != ''] | $date/@notBefore[. != ''] | $date/@from[. != ''] | $date/@notAfter[. != ''] | $date/@to[. != '']
+       let $d := if(starts-with($d,'-')) then substring($d,1,5) else substring($d,1,4) 
+       let $d := concat($d,'-01-01T00:00:00.000')
+       return 
+        element { xs:QName('dcterms:temporal') } {
+            if($d castable as xs:dateTime) then 
+            (attribute {xs:QName("rdf:datatype")} { "http://www.w3.org/2001/XMLSchema#dateTime" }, xs:dateTime($d))                     
+            else ()
+            (:
+            if($d castable as xs:integer) then 
+                (attribute {xs:QName("rdf:datatype")} { "http://www.w3.org/2001/XMLSchema#integer" }, xs:integer($d))
+            else ()
+            :)
+        },
     element { xs:QName('time:hasDateTimeDescription') } {
         element { xs:QName('rdf:Description') } {
-            (if($date/descendant-or-self::text()) then  
+            (if($date//text()) then  
                 tei2rdf:create-element('skos:prefLabel', (), normalize-space(string-join($date/descendant-or-self::text(),' ')), 'literal')
             else (),
             if($date/@when) then
@@ -170,7 +174,7 @@ tei2rdf:create-element('dcterms:temporal', (),
             else ()
             )}
          } 
-    :)         
+    )         
 };
 
 (: Decode record type based on TEI elements:)
@@ -203,7 +207,7 @@ declare function tei2rdf:rec-label-and-titles($rec, $element as xs:string?){
     else if($rec[self::tei:div/@uri]) then 
         if(tei2rdf:rec-type($rec) = 'http://syriaca.org/schema#/relationFactoid') then
             tei2rdf:create-element($element, (), rel:relationship-sentence($rec/descendant::tei:listRelation/tei:relation), 'literal')
-        else tei2rdf:create-element($element, (), normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),'')), 'literal')        
+        else tei2rdf:create-element($element, (), normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')), 'literal')        
     else tei2rdf:create-element($element, string($rec/descendant::tei:title[1]/@xml:lang), string-join($rec/descendant::tei:title[1]/text(),''), 'literal')
 };
 
@@ -335,7 +339,7 @@ declare function tei2rdf:relations($rec, $id){
             return 
                 if(contains($id,'/spear/')) then 
                     (tei2rdf:create-element('rdf:type', (), tei2rdf:expand-namespace($element-name), ()),
-                    tei2rdf:create-element('snap:bondWith', (), $o, ()))
+                     tei2rdf:create-element('snap:bondWith', (), $o, ()))
                 else tei2rdf:create-element($element-name, (), $o, ())
    )
 };
@@ -354,56 +358,73 @@ declare function tei2rdf:spear-related-triples($rec, $id){
         if($rec/tei:listPerson) then  
             element { xs:QName('rdf:Description') } {(
                 attribute {xs:QName("rdf:about")} { $rec/tei:listPerson/child::*/tei:persName/@ref },
+                if($rec/tei:listPerson/tei:personGrp) then 
+                    tei2rdf:create-element('rdf:type', (), 'http://xmlns.com/foaf/0.1/group', ())
+                else (),
                 if($rec/tei:listPerson/child::*/tei:birth/tei:date) then 
                     tei2rdf:create-element('schema:birthDate', (), string-join($rec/tei:listPerson/child::*/tei:birth/tei:date/@when | $rec/tei:listPerson/child::*/tei:birth/tei:date/@notAfter | $rec/tei:listPerson/child::*/tei:birth/tei:date/@notBefore,' '), 'literal')
                 else(),
                 if($rec/tei:listPerson/child::*/tei:birth/tei:placeName[@ref]) then 
-                    tei2rdf:create-element('schema:birthPlace', (), string($rec/tei:listPerson/child::*/tei:birth/tei:placeName/@ref), ())
+                    for $r in tokenize($rec/tei:listPerson/child::*/tei:birth/tei:placeName/@ref,' ')
+                    return tei2rdf:create-element('schema:birthPlace', (), $r, ())
                 else(),
-                if($rec/tei:listPerson/child::*/tei:nationality/tei:placeName/@ref) then 
-                    tei2rdf:create-element('person:citizenship', (), string($rec/tei:listPerson/child::*/tei:nationality/tei:placeName/@ref), ())
+                if($rec/tei:listPerson/child::*/tei:nationality/tei:placeName[@ref]) then 
+                    for $r in tokenize($rec/tei:listPerson/child::*/tei:nationality/tei:placeName/@ref,' ')
+                    return tei2rdf:create-element('person:citizenship', (), $r, ())
                 else(),
                 if($rec/tei:listPerson/child::*/tei:death/tei:date) then 
                     tei2rdf:create-element('person:citizenship', (), string-join($rec/tei:listPerson/child::*/tei:death/tei:date/@when | $rec/tei:listPerson/child::*/tei:death/tei:date/@notAfter | $rec/tei:listPerson/child::*/tei:death/tei:date/@notBefore,' '), 'literal')
                 else(),
                 if($rec/tei:listPerson/child::*/tei:death/tei:placeName[@ref]) then 
-                    tei2rdf:create-element('schema:deathPlace', (), string($rec/tei:listPerson/child::*/tei:death/tei:placeName/@ref), ())
+                    for $r in tokenize($rec/tei:listPerson/child::*/tei:death/tei:placeName/@ref,' ')
+                    return tei2rdf:create-element('schema:deathPlace', (), $r, ())
                 else(),
                 if($rec/tei:listPerson/child::*/tei:education[@ref]) then 
-                    tei2rdf:create-element('syriaca:studiedSubject', (), string($rec/tei:listPerson/child::*/tei:education/@ref), ())
+                    for $r in tokenize($rec/tei:listPerson/child::*/tei:education/@ref,' ')
+                    return tei2rdf:create-element('syriaca:studiedSubject', (), $r, ())
                 else(),
-                if($rec/tei:listPerson/child::*/tei:trait[@type='ethnicLabel'][@ref]) then 
-                    tei2rdf:create-element('cwrc:hasEthnicity', (), string($rec/tei:listPerson/child::*/tei:trait[@type='ethnicLabel']/@ref), ())
+                if($rec/tei:listPerson/child::*/tei:trait[@type='ethnicLabel'][@ref != '']) then 
+                    for $r in tokenize($rec/tei:listPerson/child::*/tei:trait[@type='ethnicLabel']/@ref,' ')
+                    return tei2rdf:create-element('cwrc:hasEthnicity', (), $r, ())
                 else(),
                 if($rec/tei:listPerson/child::*/tei:trait[@type='gender'][@ref]) then 
-                    tei2rdf:create-element('schema:gender', (), string($rec/tei:listPerson/child::*/tei:trait[@type='ethnicLabel']/@ref), ())
+                    for $r in tokenize($rec/tei:listPerson/child::*/tei:trait[@type='gender']/@ref,' ')
+                    return tei2rdf:create-element('schema:gender', (), $r, ())
                 else(),
                 if($rec/descendant::tei:person/tei:langKnowledge/tei:langKnown[@ref]) then 
-                    tei2rdf:create-element('cwrc:hasLinguisticAbility', (), string($rec/descendant::tei:person/tei:langKnowledge/tei:langKnown/@ref), ())
+                    for $r in tokenize($rec/descendant::tei:person/tei:langKnowledge/tei:langKnown/@ref,' ')
+                    return tei2rdf:create-element('cwrc:hasLinguisticAbility', (), $r, ())
                 else(),
-                if($rec/tei:listPerson/child::*/tei:state[@type='mental'][@ref]) then 
-                    tei2rdf:create-element('syriaca:hasMentalState', (), string($rec/tei:listPerson/child::*/tei:state/@ref), ())
+                if($rec/tei:listPerson/child::*/tei:state[@type='mental'][@ref]) then
+                    for $r in tokenize($rec/tei:listPerson/child::*/tei:state[@type='mental']/@ref,' ')
+                    return tei2rdf:create-element('syriaca:hasMentalState', (), $r, ())
                 else(),
                 if($rec/tei:listPerson/child::*/tei:occupation[@ref]) then 
-                    tei2rdf:create-element('snap:occupation', (), string($rec/tei:listPerson/child::*/tei:occupation/@ref), ())
+                    for $r in tokenize($rec/tei:listPerson/child::*/tei:occupation/@ref,' ')
+                    return tei2rdf:create-element('snap:occupation', (), $r, ())
                 else(),
                 if($rec/tei:listPerson/child::*/tei:trait[@type='physical'][@ref]) then 
-                    tei2rdf:create-element('syriaca:hasPhysicalTrait', (), string($rec/tei:listPerson/child::*/tei:trait[@type='physical']/@ref), ())
+                    for $r in tokenize($rec/tei:listPerson/child::*/tei:trait[@type='physical']/@ref,' ')
+                    return tei2rdf:create-element('syriaca:hasPhysicalTrait', (), $r, ())
                 else(),
-                if($rec/tei:listPerson/child::*/tei:residence/tei:placeName[@type='physical'][@ref]) then 
-                    tei2rdf:create-element('person:residency', (), string($rec/tei:listPerson/child::*/tei:residence/tei:placeName[@type='physical']/@ref), ())
+                if($rec/tei:listPerson/child::*/tei:residence/tei:placeName[@ref]) then 
+                    for $r in tokenize($rec/tei:listPerson/child::*/tei:residence/tei:placeName/@ref,' ')
+                    return tei2rdf:create-element('person:residency', (), $r, ())
                 else(),
                 if($rec/tei:listPerson/child::*/tei:state[@type='sanctity'][@ref]) then
-                    tei2rdf:create-element('syriaca:sanctity', (), string($rec/tei:listPerson/child::*/tei:state[@type='sanctity']/@ref), ())
+                    for $r in tokenize($rec/tei:listPerson/child::*/tei:state[@type='sanctity']/@ref,' ')
+                    return tei2rdf:create-element('syriaca:sanctity', (), $r, ())
                 else(),
                 if($rec/tei:listPerson/child::*/tei:sex) then 
                     tei2rdf:create-element('syriaca:sex', (), string($rec/tei:listPerson/child::*/tei:sex/@value), 'literal')
                 else(),
                 if($rec/tei:listPerson/child::*/tei:socecStatus[@ref]) then 
-                    tei2rdf:create-element('syriaca:hasSocialRank', (), string($rec/tei:listPerson/child::*/tei:socecStatus/@ref), ())
+                    for $r in tokenize($rec/tei:listPerson/child::*/tei:socecStatus/@ref,' ')
+                    return tei2rdf:create-element('syriaca:hasSocialRank', (), $r, ())
                 else(),
                 if($rec/tei:listPerson/child::*/tei:trait[@type='physical'][@ref]) then 
-                    tei2rdf:create-element('syriaca:hasPhysicalTrait', (), string($rec/tei:listPerson/child::*/tei:trait[@type='physical']/@ref), ())                    
+                    for $r in tokenize($rec/tei:listPerson/child::*/tei:trait[@type='physical']/@ref,' ')
+                    return tei2rdf:create-element('syriaca:hasPhysicalTrait', (), $r, ())                    
                 else(),
                 if($rec/tei:listPerson/child::*/tei:persName[descendant-or-self::text()]) then 
                     for $name in $rec/tei:listPerson/child::*/tei:persName[descendant-or-self::text()]
@@ -457,7 +478,7 @@ declare function tei2rdf:spear($rec, $id){
         for $bibl in $rec//tei:teiHeader/descendant::tei:sourceDesc/descendant::*/@ref[contains(.,'/work/')]
         return tei2rdf:create-element('lawd:hasAttestation', (), $bibl, ()),
         tei2rdf:create-element('dcterms:isPartOf', (), replace($rec/ancestor::tei:TEI/descendant::tei:publicationStmt/tei:idno[@type="URI"][1],'/tei',''), ()),
-        let $work-uris := distinct-values(root($rec)/descendant::tei:teiHeader/descendant::tei:sourceDesc//@ref) 
+        let $work-uris := distinct-values(root($rec)/descendant::tei:teiHeader/descendant::tei:sourceDesc/descendant::tei:title/@ref) 
         for $work-uri in $work-uris[contains(.,'/work/')]
         return  tei2rdf:create-element('dcterms:source', (), $work-uri, ()),        
         tei2rdf:create-element('dcterms:isPartOf', (), 'http://syriaca.org/spear', ()), 
@@ -509,14 +530,19 @@ return
                 if(contains($id,'/spear/')) then ()
                 else tei2rdf:location($rec),
                 tei2rdf:desc($rec),
-                tei2rdf:spear($rec, $id),
                 for $temporal in $rec/descendant::tei:state[@type="existence"]
                 return tei2rdf:make-date-triples($temporal),        
                 for $date in $rec/descendant::tei:event/descendant::tei:date
                 return tei2rdf:make-date-triples($date),
-                for $id in $rec/descendant::tei:body/descendant::tei:idno[@type='URI'][text() != $id and text() != '']/text() 
+                for $otherid in $rec/descendant::tei:body/descendant::tei:idno[@type='URI'][text() != $id and text() != '']/text() 
                 return 
-                    tei2rdf:create-element('skos:closeMatch', (), $id, ()),
+                    tei2rdf:create-element('skos:closeMatch', (), $otherid, ()),
+                for $rdfID in $rec/descendant::tei:body/descendant::tei:idno[not(@type='URI')][text() != $id and text() != '']/text() 
+                let $expand := tei2rdf:expand-namespace($rdfID)
+                return 
+                    if($expand != '') then
+                        tei2rdf:create-element('owl:sameAs', (), $expand, ())
+                    else (),
                 tei2rdf:internal-refs($rec),
                 tei2rdf:relations($rec, $id),
                 for $s in root($rec)/descendant::tei:seriesStmt

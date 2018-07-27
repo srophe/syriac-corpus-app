@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:s="http://syriaca.org" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t s saxon" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:s="http://syriaca.org" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:tei="http://www.tei-c.org/ns/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t s saxon" version="2.0">
     
     <!-- ================================================================== 
        Copyright 2013 New York University
@@ -226,10 +225,16 @@
                         <xsl:choose>
                             <xsl:when test="name(.) = 'persName'">Name</xsl:when>
                             <xsl:when test="name(.) = 'desc'">Description</xsl:when>
-                            <xsl:otherwise><xsl:value-of select="concat(upper-case(substring(name(.),1,1)),substring(name(.),2))"></xsl:value-of></xsl:otherwise>
+                            <xsl:otherwise>
+                                <xsl:value-of select="concat(upper-case(substring(name(.),1,1)),substring(name(.),2))"/>
+                            </xsl:otherwise>
                         </xsl:choose>                        
                     </xsl:variable>
-                    <p><strong><xsl:value-of select="$label"/>: </strong><xsl:apply-templates/></p>
+                    <p>
+                        <strong>
+                            <xsl:value-of select="$label"/>: </strong>
+                        <xsl:apply-templates/>
+                    </p>
                 </xsl:for-each>
             </xsl:for-each>
             <br/>
@@ -239,15 +244,14 @@
         <div class="spear-aggregate">
         <xsl:choose>
             <xsl:when test="t:div">
-                <xsl:for-each-group select="t:div/t:listPerson/t:person/t:persName[. != ''] | t:div/t:listPerson/t:person/t:persName[. != '']" group-by="name(.)">
+                <xsl:for-each-group select="t:div/t:listPerson/t:person/t:persName[. != ''] | t:div/t:listPerson/t:personGrp/t:persName[. != '']" group-by="name(.)">
                     <h4>Name variant(s): </h4>
                     <xsl:for-each select="current-group()">
                        <xsl:sort select="xs:integer(substring-after(ancestor::t:div[1]/@uri,'-'))" order="ascending"/>
                         <p class="indent">
                             <xsl:copy-of select="."/>
 
-                            <a href="factoid.html?id={string(ancestor::t:div[1]/@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/>
-                            </a>
+                            <a href="factoid.html?id={string(ancestor::t:div[1]/@uri)}">See factoid page <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"/></a>
                         </p>
                     </xsl:for-each>
                 </xsl:for-each-group>

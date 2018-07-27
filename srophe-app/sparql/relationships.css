@@ -9,7 +9,6 @@
 */
 
 body {
-  padding:30px;
   font:14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color:#777;
   font-weight:300;
@@ -184,12 +183,39 @@ hr {
   margin:0 0 20px;
 }
 
-footer {
-  width:200px;
-  float:left;
-  position:fixed;
-  bottom:50px;
+/* Map overlay */
+.browse-map .map-overlay{
+    position: absolute; /* Sit on top of the page content */
+    width: 25%; /* Full width (cover the whole page) */
+    max-height:400px;
+    overflow-y:scroll;
+    top: 20px; 
+    float:right;
 }
+
+.optionsOverlay
+{
+    position: fixed; /* Sit on top of the page content */
+    width: 30%; /* Full width (cover the whole page) */
+    min-height:300px;
+    max-height:800px;
+    overflow-y:scroll;
+    top: 70px; 
+    left: 45px;
+    /* default fallback */
+    background: rgb(255, 255, 255) transparent;
+    /* nice browsers */
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 2;
+    border-radius: 12px;
+    padding:1em;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    padding: 12px;
+    /*box-shadow: 4px 8px #eee;*/
+}
+.optionsOverlay .btn {font-size: 12px !important;}
+.optionsOverlay .filter-label {font-size: 14px !important; font-weight: 600; color:#666; margin:.5em;}
 
 .graph {
     display: inline-block;

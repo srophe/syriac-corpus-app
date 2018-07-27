@@ -71,6 +71,7 @@ h4 {font-weight:500;}
 .literary {
     background-position: -56px 0;
 }
+.short-relationships { margin:1em;}
 .relation {
     background-position: -42px 0;
 }
@@ -84,3 +85,9 @@ h4 {font-weight:500;}
 .spear-aggregate h4 {margin-top:1.5em;}
 .spear-aggregate p {margin:.25em;}
 .teiNote {margin-left:1em;}
+
+.tab-pane {border:none;}
+/* Facets */
+.selectedFacet {background-color:#eee; color:#666; font-weight:normal; margin:.25em; padding:.2sm; display:inline-block;}
+.facet-group {margin-bottom:1.5em;}
+.facet {display:block; margin-left:1em;}
