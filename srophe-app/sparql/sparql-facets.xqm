@@ -211,20 +211,19 @@ else if(matches($parameters/parameter[name = 'facet-name']/value/text(),'relatio
 else if(matches($parameters/parameter[name = 'facet-name']/value/text(),'uri')) then
 let $uri := tokenize($parameters/parameter[name = 'uri']/value/text(),' ')
 return
-    concat("<",$uri,"> rdfs:label ?uriLabel;
-                    dcterms:subject ?uriSubject.                    
-            FILTER(LANG(?uriLabel) = '' || LANGMATCHES(LANG(?uriLabel), 'en'))
-            ?uriSubject rdfs:label ?uriSubjectLabel.
-            FILTER(LANG(?uriSubjectLabel) = '' || LANGMATCHES(LANG(?uriSubjectLabel), 'en'))            
-            OPTIONAL{ 
+    concat("{<",$uri,"> rdfs:label ?factoidLabel;
+                    dcterms:subject ?s.                    
+            FILTER(LANG(?factoidLabel) = '' || LANGMATCHES(LANG(?factoidLabel), 'en'))
+            ?s rdfs:label ?label.
+            FILTER(LANG(?label) = '' || LANGMATCHES(LANG(?label), 'en'))
+            BIND(if(bound(?factoidURI), ?factoidURI, <",$uri,">) as ?factoid)            
+            } UNION { 
                 ?factoid  dcterms:subject <",$uri,">.  
                 ?factoid rdfs:label ?factoidLabel.
-                ?factoid  dcterms:subject ?subject.
-                ?subject rdfs:label ?subjectLabel.
-                FILTER(LANG(?subjectLabel) = '' || LANGMATCHES(LANG(?subjectLabel), 'en'))
-                }    
-            BIND(if(bound(?uriSubject), ?uriSubject, ?subject) as ?s)
-            BIND(if(bound(?uriSubjectLabel), ?uriSubjectLabel, ?subjectLabel) as ?label)
+                ?factoid  dcterms:subject ?s.
+                ?s rdfs:label ?label.
+                FILTER(LANG(?label) = '' || LANGMATCHES(LANG(?label), 'en'))
+             }    
             ")                  
 else 
     concat("?s dcterms:isPartOf <http://syriaca.org/spear>;
