@@ -318,7 +318,8 @@ d3sparql.htmllist = function(json, config) {
 
   var head = json.head.vars
   var data = json.results.bindings
-
+  if (data[0] == undefined) data = [data];
+  
   var opts = {
     "selector": config.selector || null
   }

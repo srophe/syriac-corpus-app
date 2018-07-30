@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/spear.html" data-template-at="content">
     <h1 class="banner">Browse SPEAR</h1>
     <div class="row white top-padding">
@@ -52,7 +53,7 @@
             //Find facets to display on page load. Uses facets.html to load facet menus
             facetName  = $('.nav-tabs .active > a').data('facet');
             $('#' + facetName).load('facets.html #' + facetName + 'Facets');
-
+            
             //Build URLs
             var facetsURL = baseURL + '?qname=facets&facet-name=' + facetName
             var datesURL = baseURL + '?qname='+ facetName + '-dates' + '&facet-name=' + facetName
@@ -224,13 +225,14 @@
              } 
             $.get(url + '&format=json', function(data) {
                 var dataArray = data.results.bindings;
+                if (dataArray[0]==undefined) dataArray = [dataArray];
                 if(dataArray[0].facet_count.value != '0'){
                     var getMin = dataArray[0].facet_value.value;
                     var minValue = (getMin.startsWith('-0')) ? getMin.substring(0, 5).replace('-0', '-00') : getMin.substring(0, 4); 
                     //minValue.substring(0, 4)
                     var getMax = dataArray[dataArray.length - 1].facet_value.value;
                     var maxValue = (getMax.startsWith('-0')) ? getMax.substring(0, 5).replace('-0', '-00') : getMax.substring(0, 4);
-                    var minPadding = -00300; //(parseInt(minValue) - 25)
+                    var minPadding = -00500; //(parseInt(minValue) - 25)
                     var maxPadding = 1900; //(parseInt(maxValue) + 25)
                     $("#slider").dateRangeSlider({  
                                     bounds: {

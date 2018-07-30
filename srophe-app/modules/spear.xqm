@@ -539,13 +539,13 @@ declare function spear:sparql-relationships($node as node(), $model as map(*)){
         <![CDATA[
         var facetParams = [];
         var enlarged = false;
-         
+        var uri = ']]>{$spear:id}<![CDATA[';
+        var baseURL = 'http://wwwb.library.vanderbilt.edu/exist/apps/srophe/api/sparql';
+        var mainQueryURL = baseURL + '?buildSPARQL=true&facet-name=uri&uri=' + uri;
+        
         $(document).ready(function () {
-            var uri = ']]>{$spear:id}<![CDATA[';
-            var baseURL = 'wwwb.library.vanderbilt.edu/exist/apps/srophe/api/sparql'
-            var mainQueryURL = baseURL + '?buildSPARQL=true&facet-name=uri&uri=' + uri
+
             mainQuery(mainQueryURL);
-            
             //Submit results on format change
             $('.facetLists').on('change', '#type', function() {
                 mainQuery(mainQueryURL);
@@ -556,7 +556,7 @@ declare function spear:sparql-relationships($node as node(), $model as map(*)){
         $('.expand').on('click', function() {
             $('#sparqlFacetsBox').toggleClass('clicked');
             $(this).toggleClass('glyphicon glyphicon-resize-full').toggleClass('glyphicon glyphicon-resize-small');
-
+            mainQuery(mainQueryURL);
         })
            
         //Submit main SPARQL query based on facet parameters
@@ -569,7 +569,7 @@ declare function spear:sparql-relationships($node as node(), $model as map(*)){
                   "margin":  0,
                   "selector": "#result"
                 }
-            }else{
+            } else {
                 var config = {
                   "width":  350,
                   "height": 300,

@@ -110,7 +110,7 @@ declare function tei2rdf:attestation($rec, $source){
 (: Create Dates :)
 declare function tei2rdf:make-date-triples($date){
     (
-       for $d in $date/@when[. != ''] | $date/@notBefore[. != ''] | $date/@from[. != ''] | $date/@notAfter[. != ''] | $date/@to[. != '']
+       for $d in $date/@when[. != ''][@calendar='Gregorian'][not(parent::tei:orig)] | $date/@notBefore[. != ''][@calendar='Gregorian'][not(parent::tei:orig)] | $date/@from[. != ''][@calendar='Gregorian'][not(parent::tei:orig)] | $date/@notAfter[. != ''][@calendar='Gregorian'][not(parent::tei:orig)] | $date/@to[. != ''][@calendar='Gregorian'][not(parent::tei:orig)]
        let $d := if(starts-with($d,'-')) then substring($d,1,5) else substring($d,1,4) 
        let $d := concat($d,'-01-01T00:00:00.000')
        return 
@@ -207,7 +207,11 @@ declare function tei2rdf:rec-label-and-titles($rec, $element as xs:string?){
     else if($rec[self::tei:div/@uri]) then 
         if(tei2rdf:rec-type($rec) = 'http://syriaca.org/schema#/relationFactoid') then
             tei2rdf:create-element($element, (), rel:relationship-sentence($rec/descendant::tei:listRelation/tei:relation), 'literal')
-        else tei2rdf:create-element($element, (), normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')), 'literal')        
+        else 
+        tei2rdf:create-element($element, (),
+        (:normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')):)
+        normalize-space(string-join(tei2html:tei2html($rec/descendant::*[not(self::tei:citedRange)]),' '))
+        , 'literal')        
     else tei2rdf:create-element($element, string($rec/descendant::tei:title[1]/@xml:lang), string-join($rec/descendant::tei:title[1]/text(),''), 'literal')
 };
 
