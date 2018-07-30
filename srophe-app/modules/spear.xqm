@@ -542,7 +542,7 @@ declare function spear:sparql-relationships($node as node(), $model as map(*)){
          
         $(document).ready(function () {
             var uri = ']]>{$spear:id}<![CDATA[';
-            var baseURL = 'http://localhost:8080/exist/apps/srophe/api/sparql'
+            var baseURL = 'wwwb.library.vanderbilt.edu/exist/apps/srophe/api/sparql'
             var mainQueryURL = baseURL + '?buildSPARQL=true&facet-name=uri&uri=' + uri
             mainQuery(mainQueryURL);
             
