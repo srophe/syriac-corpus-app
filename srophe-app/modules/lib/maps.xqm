@@ -27,10 +27,10 @@ else maps:build-leaflet-map($nodes,$total-count)
 :)
 declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:integer?){
     <div id="map-data" style="margin-bottom:3em;">
-        <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2"/>
+        <script type="text/javascript" src="{$global:nav-base}/resources/leaflet/leaflet.js"/>
         <script src="http://isawnyu.github.com/awld-js/lib/requirejs/require.min.js" type="text/javascript"/>
         <script src="http://isawnyu.github.com/awld-js/awld.js?autoinit" type="text/javascript"/>
-        <script type="text/javascript" src="{$global:nav-base}/resources/leaflet/leaflet.awesome-markers.js"/>
+        <script type="text/javascript" src="{$global:nav-base}/resources/leaflet/leaflet.awesome-markers.min.js"/>
         <div id="map"/>
         {
             if($total-count gt 0) then 

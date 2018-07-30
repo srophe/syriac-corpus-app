@@ -337,11 +337,7 @@ else
                             {maps:build-map($geo,0)}
                         </div>
                         <div>
-                            <div id="type">
-                                 <p><strong>Place Type: </strong>
-                                     <a href="../documentation/place-types.html#{normalize-space($type)}" class="no-print-link">{$type}</a>
-                                 </p>
-                             </div>
+                            <p><strong>Place Type: </strong><a href="../documentation/place-types.html#{normalize-space($type)}" class="no-print-link">{$type}</a></p>
                              {
                                 if($data//tei:location) then
                                     <div id="location">
@@ -519,18 +515,20 @@ return
 };
  
 declare function spear:sparql-relationships($node as node(), $model as map(*)){
-     <div class="panel panel-default" xmlns="http://www.w3.org/1999/xhtml">
+     <div id="sparqlFacetsBox" class="panel panel-default" xmlns="http://www.w3.org/1999/xhtml">
         <div class="panel-heading clearfix"><h4 class="panel-title">
         Related Persons, Places and Keywords
-        <small><span class="input-append facetLists pull-right ">
-            <span class="form-group">
+        <small>
+        <span class="input-append facetLists pull-right ">
+            <span class="form-group facetLists">
                 <label for="type">View:  </label>
                 <select id="type" name="type">
                     <option id="List">List</option>
                     <option id="Tabel">Table</option>
                     <option id="Force">Force</option>
                     <option id="Sankey">Sankey</option>
-                </select>     
+                </select>  
+                <span class="glyphicon glyphicon-resize-full pull-right expand"></span>
             </span>
         </span></small>
         </h4></div>
@@ -540,30 +538,45 @@ declare function spear:sparql-relationships($node as node(), $model as map(*)){
        <script>
         <![CDATA[
         var facetParams = [];
+        var enlarged = false;
+         
         $(document).ready(function () {
             var uri = ']]>{$spear:id}<![CDATA[';
-            console.log('Testing');
-            var baseURL = 'http://wwwb.library.vanderbilt.edu/exist/apps/srophe/api/sparql'
+            var baseURL = 'http://localhost:8080/exist/apps/srophe/api/sparql'
             var mainQueryURL = baseURL + '?buildSPARQL=true&facet-name=uri&uri=' + uri
             mainQuery(mainQueryURL);
             
             //Submit results on format change
             $('.facetLists').on('change', '#type', function() {
                 mainQuery(mainQueryURL);
-                console.log(this.value);
             })
             
         });
         
+        $('.expand').on('click', function() {
+            $('#sparqlFacetsBox').toggleClass('clicked');
+            $(this).toggleClass('glyphicon glyphicon-resize-full').toggleClass('glyphicon glyphicon-resize-small');
+
+        })
+           
         //Submit main SPARQL query based on facet parameters
         function mainQuery(url){
             type = $("#type option:selected").val();
-            var config = {
+              if($( "#sparqlFacetsBox" ).hasClass( "clicked" )){
+                var config = {
+                  "width":  750,
+                  "height": 500,
+                  "margin":  0,
+                  "selector": "#result"
+                }
+            }else{
+                var config = {
                   "width":  350,
                   "height": 300,
                   "margin":  0,
                   "selector": "#result"
                 }
+            }  
             // Otherwise send to d3 visualization, set format to json.  
             $.get(url + '&type=' + type + '&format=json', function(data) {
                 d3sparql.graphType(data, type, config);
