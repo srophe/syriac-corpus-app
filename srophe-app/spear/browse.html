@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/spear.html" data-template-at="content">
     <h1 class="banner">Browse SPEAR</h1>
     <div class="row white top-padding">
@@ -45,7 +44,7 @@
          //Get facet name to build SPARQL url
          var facetName;
          
-         var baseURL = 'http://wwwb.library.vanderbilt.edu/exist/apps/srophe/api/sparql'
+         var baseURL = 'http://localhost:8080/exist/apps/srophe/api/sparql'
          
          $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
@@ -228,10 +227,9 @@
                 if (dataArray[0]==undefined) dataArray = [dataArray];
                 if(dataArray[0].facet_count.value != '0'){
                     var getMin = dataArray[0].facet_value.value;
-                    var minValue = (getMin.startsWith('-0')) ? getMin.substring(0, 5).replace('-0', '-00') : getMin.substring(0, 4); 
-                    //minValue.substring(0, 4)
+                    var minValue = (getMin.startsWith('-0')) ? getMin.replace('-0', '-000') : getMin; 
                     var getMax = dataArray[dataArray.length - 1].facet_value.value;
-                    var maxValue = (getMax.startsWith('-0')) ? getMax.substring(0, 5).replace('-0', '-00') : getMax.substring(0, 4);
+                    var maxValue = (getMax.startsWith('-0')) ? getMax.replace('-0', '-000') : getMax;
                     var minPadding = -00500; //(parseInt(minValue) - 25)
                     var maxPadding = 1900; //(parseInt(maxValue) + 25)
                     $("#slider").dateRangeSlider({  
@@ -239,7 +237,7 @@
                                             min:  new Date(minPadding, 0,0),
                                            	max:  new Date(maxPadding,0,0)
                                            	},
-                                    defaultValues: {min: new Date(minValue,0,0), max: new Date(maxValue,0,0)},
+                                    defaultValues: {min: new Date(minValue), max: new Date(maxValue)},
             		        		formatter:function(val){
             		        		     var year = val.getFullYear();
             		        		     return year;

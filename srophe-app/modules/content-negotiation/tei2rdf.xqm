@@ -7,6 +7,7 @@ module namespace tei2rdf="http://syriaca.org/tei2rdf";
 import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
 import module namespace data="http://syriaca.org/data" at "../lib/data.xqm";
 import module namespace config="http://syriaca.org/config" at "../config.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "tei2html.xqm";
 import module namespace bibl2html="http://syriaca.org/bibl2html" at "bibl2html.xqm";
 import module namespace rel="http://syriaca.org/related" at "../lib/get-related.xqm";
 import module namespace functx="http://www.functx.com";
@@ -110,7 +111,7 @@ declare function tei2rdf:attestation($rec, $source){
 (: Create Dates :)
 declare function tei2rdf:make-date-triples($date){
     (
-       for $d in $date/@when[. != ''][@calendar='Gregorian'][not(parent::tei:orig)] | $date/@notBefore[. != ''][@calendar='Gregorian'][not(parent::tei:orig)] | $date/@from[. != ''][@calendar='Gregorian'][not(parent::tei:orig)] | $date/@notAfter[. != ''][@calendar='Gregorian'][not(parent::tei:orig)] | $date/@to[. != ''][@calendar='Gregorian'][not(parent::tei:orig)]
+       for $d in $date[@calendar='Gregorian'][not(parent::tei:orig)][@when != '']/@when | $date[@calendar='Gregorian'][not(parent::tei:orig)][@notBefore != '']/@notBefore | $date[@calendar='Gregorian'][not(parent::tei:orig)][@from != '']/@from | $date[@calendar='Gregorian'][not(parent::tei:orig)][@notAfter != '']/@notAfter | $date[@calendar='Gregorian'][not(parent::tei:orig)][@to != '']/@to
        let $d := if(starts-with($d,'-')) then substring($d,1,5) else substring($d,1,4) 
        let $d := concat($d,'-01-01T00:00:00.000')
        return 
@@ -209,8 +210,7 @@ declare function tei2rdf:rec-label-and-titles($rec, $element as xs:string?){
             tei2rdf:create-element($element, (), rel:relationship-sentence($rec/descendant::tei:listRelation/tei:relation), 'literal')
         else 
         tei2rdf:create-element($element, (),
-        (:normalize-space(string-join($rec/descendant::*[not(self::tei:citedRange)]/text(),' ')):)
-        normalize-space(string-join(tei2html:tei2html($rec/descendant::*[not(self::tei:citedRange)]),' '))
+        normalize-space(string-join((tei2html:tei2html($rec/child::*[not(self::tei:bibl)])/descendant-or-self::text()),''))
         , 'literal')        
     else tei2rdf:create-element($element, string($rec/descendant::tei:title[1]/@xml:lang), string-join($rec/descendant::tei:title[1]/text(),''), 'literal')
 };

@@ -35,6 +35,7 @@ declare function tei2html:tei2html($nodes as node()*) as item()* {
             }
             case element(tei:category) return element ul {tei2html:tei2html($node/node())}
             case element(tei:catDesc) return element li {tei2html:tei2html($node/node())}
+            
             case element(tei:imprint) return element span {
                     if($node/tei:pubPlace/text()) then $node/tei:pubPlace[1]/text() else (),
                     if($node/tei:pubPlace/text() and $node/tei:publisher/text()) then ': ' else (),
@@ -45,6 +46,12 @@ declare function tei2html:tei2html($nodes as node()*) as item()* {
                     if($node/following-sibling::tei:biblScope[@unit='series']) then ', ' else ()
             }
             case element(tei:label) return element span {tei2html:tei2html($node/node())}
+            case element(tei:orig) return 
+                <span class="tei-orig">{
+                if($node/tei:date) then 
+                    <span class="tei-date">{(' (',tei2html:tei2html($node/tei:date),')')}</span>
+                else tei2html:tei2html($node/node())
+                }</span>
             case element(tei:placeName) return 
                 <span class="tei-placeName">{
                     let $name := tei2html:tei2html($node/node())
