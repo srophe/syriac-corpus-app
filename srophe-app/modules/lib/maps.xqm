@@ -74,6 +74,10 @@ declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:in
                                 icon:'glyphicon-user',
                                 markerColor: 'blue'
                              });
+                defaultIcon =   L.AwesomeMarkers.icon({
+                                icon:'fa-circle',
+                                markerColor: 'blue'
+                             });                             
                                         
             var geojson = L.geoJson(placesgeo, {onEachFeature: function (feature, layer){
                             var popupContent = 
@@ -87,7 +91,7 @@ declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:in
                                     case 'died-at':   return layer.setIcon(redIcon);
                                     case 'has-literary-connection-to-place':   return layer.setIcon(purpleIcon);
                                     case 'has-relation-to-place':   return layer.setIcon(blueIcon);
-                                    default : return layer.setIcon(blueIcon);
+                                    default : return layer.setIcon(defaultIcon);
                                  }               
                                 }
                             })
