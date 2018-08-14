@@ -25,7 +25,7 @@
        ================================================================== --> 
  
  <!-- ================================================================== 
-       manuscripts.xsl
+       tei2html.xsl
        
        This XSLT transforms tei.xml to html.
        
@@ -153,7 +153,8 @@
                         <xsl:text> (</xsl:text>
                         <xsl:value-of select="@notBefore|@from|@when"/>
                         <xsl:if test="@notAfter or @to">
-                            <xsl:text> - </xsl:text><xsl:value-of select="@notAfter|@to"/>
+                            <xsl:text> - </xsl:text>
+                            <xsl:value-of select="@notAfter|@to"/>
                         </xsl:if>
                         <xsl:text>)</xsl:text>
                     </xsl:if>

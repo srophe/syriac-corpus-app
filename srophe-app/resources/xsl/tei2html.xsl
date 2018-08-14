@@ -277,65 +277,7 @@
             </xsl:if>
         </li>
     </xsl:template>
-
-    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-     handle standard output of a listBibl element 
-     ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <xsl:template match="t:listBibl">
-        <xsl:choose>
-            <xsl:when test="parent::t:note">
-                <xsl:choose>
-                    <xsl:when test="t:bibl/t:msIdentifier">
-                        <xsl:choose>
-                            <xsl:when test="t:bibl/t:msIdentifier/t:altIdentifier">
-                                <xsl:text> </xsl:text>
-                                <a href="{t:bibl/t:msIdentifier/t:altIdentifier/t:idno[@type='URI']/text()}">
-                                    <xsl:value-of select="t:bibl/t:msIdentifier/t:idno"/>
-                                </a>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="t:idno"/>
-                            </xsl:otherwise>
-                        </xsl:choose>
-                    </xsl:when>
-                    <xsl:otherwise>
-                        <xsl:apply-templates mode="plain"/>
-                    </xsl:otherwise>
-                </xsl:choose>
-            </xsl:when>
-            <xsl:when test="ancestor::t:licence">
-                <ul class="listBibl">
-                    <xsl:for-each select="t:bibl">
-                        <li>
-                            <xsl:if test="@xml:id">
-                                <xsl:attribute name="id">
-                                    <xsl:value-of select="@xml:id"/>
-                                </xsl:attribute>
-                            </xsl:if>
-                            <xsl:apply-templates mode="biblist"/>
-                            <xsl:text>.</xsl:text>
-                        </li>
-                    </xsl:for-each>
-                </ul>
-            </xsl:when>
-            <xsl:otherwise>
-                <ul class="listBibl">
-                    <xsl:for-each select="t:bibl">
-                        <li>
-                            <xsl:if test="@xml:id">
-                                <xsl:attribute name="id">
-                                    <xsl:value-of select="@xml:id"/>
-                                </xsl:attribute>
-                            </xsl:if>
-                            <xsl:apply-templates/>
-                            <xsl:text>.</xsl:text>
-                        </li>
-                    </xsl:for-each>
-                </ul>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
-    <!-- suppress bibl in titles -->
+    <!-- suppress bibl -->
     <xsl:template match="t:bibl" mode="title"/>
     <xsl:template match="t:bibl">
         <xsl:choose>
@@ -557,22 +499,6 @@
             <xsl:text> </xsl:text>
         </xsl:if>
         <xsl:apply-templates select="." mode="plain"/>
-    </xsl:template>
-    <xsl:template match="t:choice" mode="#all">
-        <xsl:apply-templates/>
-    </xsl:template>
-    <xsl:template match="t:orig">
-        <xsl:text> (</xsl:text>
-        <xsl:apply-templates/>
-        <xsl:text>) </xsl:text>
-    </xsl:template>
-    <xsl:template match="t:occupation">
-        <xsl:apply-templates/>
-    </xsl:template>
-    <xsl:template match="t:sic">
-        <xsl:text> [sic: </xsl:text>
-        <xsl:apply-templates/>
-        <xsl:text>] </xsl:text>
     </xsl:template>
     
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 

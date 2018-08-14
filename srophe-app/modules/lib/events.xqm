@@ -26,6 +26,18 @@ declare variable $ev:fq {request:get-parameter('fq', '')};
 declare variable $ev:sort {request:get-parameter('sort', 'all') cast as xs:string};
 declare variable $ev:item-type {request:get-parameter('item-type', 'all') cast as xs:string};
 
+declare function ev:display-recs-short-view($node,$lang){
+  transform:transform($node, doc($global:app-root || '/resources/xsl/rec-short-view.xsl'), 
+    <parameters>
+        <param name="data-root" value="{$global:data-root}"/>
+        <param name="app-root" value="{$global:app-root}"/>
+        <param name="nav-base" value="{$global:nav-base}"/>
+        <param name="base-uri" value="{$global:base-uri}"/>
+        <param name="lang" value="en"/>
+        <param name="spear" value="true"/>
+    </parameters>
+    )
+};
 (:~ 
  : Include timeline and events list view in xql to adjust for event/person/place view
 :)

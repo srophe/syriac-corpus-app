@@ -16,9 +16,13 @@ import module namespace sparql="http://exist-db.org/xquery/sparql" at "java:org.
 
 (: For output annotations :)
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
-declare namespace http="http://expath.org/ns/http-client";
+
+(: For REST annotations :)
 declare namespace rest = "http://exquery.org/ns/restxq";
+
+(: For interacting with the TEI document :)
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
+declare namespace http="http://expath.org/ns/http-client";
 
 (: Establish root directory for restxq :)
 declare variable $api:repo {replace($global:app-root, '/db/apps/','')};
@@ -140,32 +144,32 @@ function api:coordinates($query as xs:string*, $format as xs:string*, $content-t
    let $request-format := if($format != '') then $format  else if($content-type) then $content-type else 'xml'
    return
    (<rest:response> 
-        <http:response status="200"> 
-        <http:header name="Access-Control-Allow-Origin" value="*"/>
-        <http:header name="Access-Control-Allow-Methods" value="GET, POST"/>
-        </http:response> 
-      </rest:response>,sparql:query($query))
-     (:cntneg:content-negotiation(sparql:query($query), $request-format,())):)
-};
-:)
+      <http:response status="200"> 
+        <http:header name="Content-Type" value="text/turtle; charset=utf-8"/> 
+      </http:response> 
+    </rest:response>, 
+    tei2ttl:make-triples(api:get-tei-rec($collection, $id))
+     )
+}; 
 
 (:
  : SPARQL endpoint POST 
  : NOTE having trouble with POST, using controller for SPARQL endpoint instead.
 :)
-(:
-declare
-    %rest:POST('{$data}')
-    %rest:path("/srophe/api/sparql")
-    %rest:header-param("Content-Type", "{$content-type}")
-function api:data-serialize($data as item()*, $content-type as item()*) {
+declare 
+    %rest:GET
+    %rest:path("/{$collection}/{$id}/tei")
+    %output:media-type("text/xml")
+    %output:method("xml")
+function api:get-tei($collection as xs:string, $id as xs:string){
    (<rest:response> 
-        <http:response status="200"> 
-        <http:header name="Access-Control-Allow-Origin" value="*"/>
-        </http:response> 
-      </rest:response>,sparql:query($data))
-};
-:)
+      <http:response status="200"> 
+        <http:header name="Content-Type" value="application/xml; charset=utf-8"/> 
+      </http:response> 
+    </rest:response>, 
+     api:get-tei-rec($collection, $id)
+     )
+}; 
 
 (:
  : Data dump for all records
