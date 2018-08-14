@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" data-template="app:get-rec">
     <head>
         <meta charset="utf-8"/>
@@ -20,7 +19,8 @@
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/saints.css"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/sm-core-css.css"/>
         <link rel="stylesheet" type="text/css" media="print" href="$app-root/resources/css/print.css"/>
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
+        <!-- Leaflet -->
+        <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.css"/>
         <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>
         <!-- temporary until migrate to bootstrap 3.0 -->
         <!-- jquery -->
@@ -30,7 +30,7 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/jquery.smartmenus.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/clipboard.min.js"/>
-        <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"></script>
+        <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"/>
         <!-- keyboard widget css & script -->
         <link href="$app-root/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
         <link href="$app-root/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
@@ -93,7 +93,12 @@
                         <span class="icon-bar"/>
                     </button>
                     <a class="navbar-brand banner-container" href="$app-root/saints/index.html">
-                        <span class="syriaca-icon syriaca-saints banner-icon"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                        <span class="syriaca-icon syriaca-saints banner-icon">
+                            <span class="path1"/>
+                            <span class="path2"/>
+                            <span class="path3"/>
+                            <span class="path4"/>
+                        </span>
                         <span class="banner-text">Gateway to the Syriac Saints</span>
                     </a>
                 </div>
@@ -101,19 +106,34 @@
                     <ul class="nav navbar-nav">
                         <li>
                             <a href="$app-root/q/index.html" class="icon-container">
-                                <span class="syriaca-icon syriaca-q icon-nav"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                                <span class="syriaca-icon syriaca-q icon-nav">
+                                    <span class="path1"/>
+                                    <span class="path2"/>
+                                    <span class="path3"/>
+                                    <span class="path4"/>
+                                </span>
                                 <span class="icon-text">Qadishe</span>
                             </a>
                         </li>
                         <li>
                             <a href="$app-root/bhse/index.html" class="icon-container">
-                                <span class="syriaca-icon syriaca-bhse icon-nav"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                                <span class="syriaca-icon syriaca-bhse icon-nav">
+                                    <span class="path1"/>
+                                    <span class="path2"/>
+                                    <span class="path3"/>
+                                    <span class="path4"/>
+                                </span>
                                 <span class="icon-text">BHSE</span>
                             </a>
                         </li>
                         <li>
                             <a href="$app-root/index.html" class="icon-container">
-                                <span class="syriaca-icon syriaca-syriaca icon-nav"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                                <span class="syriaca-icon syriaca-syriaca icon-nav">
+                                    <span class="path1"/>
+                                    <span class="path2"/>
+                                    <span class="path3"/>
+                                    <span class="path4"/>
+                                </span>
                                 <span class="icon-text">Syriaca.org</span>
                             </a>
                         </li>

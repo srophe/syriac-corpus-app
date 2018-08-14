@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" data-template="person:get-rec" data-template-collection="q">
     <head>
         <meta charset="utf-8"/>
@@ -19,7 +18,8 @@
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/saints.css"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/sm-core-css.css"/>
         <link rel="stylesheet" type="text/css" media="print" href="$app-root/resources/css/print.css"/>
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
+        <!-- Leaflet -->
+        <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.css"/>
         <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>
         <!-- jquery -->
         <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/ui-lightness/jquery-ui.css" rel="stylesheet"/>
@@ -97,7 +97,12 @@
                     </button>
                     <a class="navbar-brand banner-container" href="$app-root/q/index.html">
                         <!--<img property="logo" class="img-responsive" alt="Syriac.org" src="$app-root/resources/img/syriaca-logo.png"/> Draft-->
-                        <span class="syriaca-icon syriaca-q banner-icon"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                        <span class="syriaca-icon syriaca-q banner-icon">
+                            <span class="path1"/>
+                            <span class="path2"/>
+                            <span class="path3"/>
+                            <span class="path4"/>
+                        </span>
                         <span class="banner-text">Qadishe: Guide to the Syriac Saints</span>
                     </a>
                 </div>
@@ -120,13 +125,23 @@
                         </li>
                         <li>
                             <a href="$app-root/bhse/index.html" class="icon-container">
-                                <span class="syriaca-icon syriaca-bhse icon-nav"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                                <span class="syriaca-icon syriaca-bhse icon-nav">
+                                    <span class="path1"/>
+                                    <span class="path2"/>
+                                    <span class="path3"/>
+                                    <span class="path4"/>
+                                </span>
                                 <span class="icon-text">BHSE</span>
                             </a>
                         </li>
                         <li>
                             <a href="$app-root/index.html" class="icon-container">
-                                <span class="syriaca-icon syriaca-syriaca icon-nav"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                                <span class="syriaca-icon syriaca-syriaca icon-nav">
+                                    <span class="path1"/>
+                                    <span class="path2"/>
+                                    <span class="path3"/>
+                                    <span class="path4"/>
+                                </span>
                                 <span class="icon-text">Syriaca.org</span>
                             </a>
                         </li>
@@ -137,7 +152,7 @@
                         <li>
                             <div class="btn-nav">
                                 <a class="btn btn-default navbar-btn dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
-                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span>
+                                     <span class="syriaca-icon syriaca-keyboard">  </span>
                                     <span class="caret"/>
                                 </a>
                                 <ul data-template="app:keyboard-select-menu" data-template-input-id="q"/>
@@ -146,7 +161,7 @@
                         <li>
                             <div class="btn-nav">
                                 <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Search Tools">
-                                    &#160;<span class="glyphicon glyphicon-cog"/>&#160;<span class="caret"/>
+                                     <span class="glyphicon glyphicon-cog"/> <span class="caret"/>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
@@ -158,7 +173,7 @@
                         <li>
                             <div class="btn-nav">
                                 <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
-                                    Font&#160;<span class="caret"/>
+                                    Font <span class="caret"/>
                                 </a>
                                 <ul class="dropdown-menu" id="swap-font">
                                     <li>
