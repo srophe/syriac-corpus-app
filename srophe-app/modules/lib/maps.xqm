@@ -90,7 +90,7 @@ declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:in
                                     case 'died-at':   return layer.setIcon(redIcon);
                                     case 'has-literary-connection-to-place':   return layer.setIcon(purpleIcon);
                                     case 'has-relation-to-place':   return layer.setIcon(blueIcon);
-                                    default : return layer.setIcon(defaultIcon);
+                                    default : return layer.setIcon(blueIcon);
                                  }               
                                 }
                             })
