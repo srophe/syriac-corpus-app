@@ -16,9 +16,9 @@ import module namespace facet-defs="http://syriaca.org/facet-defs" at "facet-def
 import module namespace data="http://syriaca.org/data" at "lib/data.xqm";
 import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
 import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
-import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
+import module namespace geo="http://syriaca.org/geojson" at "content-negotiation/geojson.xqm";
 import module namespace page="http://syriaca.org/page" at "lib/paging.xqm";
-import module namespace tei2html="http://syriaca.org/tei2html" at "lib/tei2html.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "content-negotiation/tei2html.xqm";
 
 import module namespace templates="http://exist-db.org/xquery/templates";
 
@@ -205,7 +205,7 @@ declare function bs:hits($hits){
             (' ', <a href="aggregate.html?id={replace($data//tei:idno,'/tei','')}" class="syr-label">{string-join($data/descendant-or-self::tei:title[1]/node(),' ')}</a>)
         else 
             (if($data/tei:listRelation) then 
-                <span class="srp-label">[{concat(' ', functx:camel-case-to-words(substring-after($data/tei:listRelation/tei:relation/@name,':'),' '))} relation] </span>
+                <span class="srp-label">[Relation factoid] </span>
             else if($data/tei:listPerson) then
                 <span class="srp-label">[Person factoid] </span>
             else if($data/tei:listEvent) then
@@ -216,7 +216,7 @@ declare function bs:hits($hits){
                 if($data/descendant-or-self::tei:titleStmt) then $data/descendant-or-self::tei:titleStmt[1]/text()
                 else if($data/tei:listRelation) then 
                     <span> 
-                     {rel:build-short-relationships($data/tei:listRelation/tei:relation,'')}
+                     {rel:relationship-sentence($data/tei:listRelation/tei:relation)}
                     </span>
                 else substring(string-join($data/child::*[1]/descendant-or-self::*/text(),' '),1,550)
             }                                    

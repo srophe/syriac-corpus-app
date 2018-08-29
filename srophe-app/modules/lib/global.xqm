@@ -23,7 +23,10 @@ declare variable $global:app-root :=
         substring-before($modulePath, "/modules")
     ;
 (: Get repo.xml to parse global varaibles :)
-declare variable $global:get-config := doc($global:app-root || '/repo.xml');
+declare variable $global:get-config := doc($global:app-root || '/repo-config.xml');
+
+(: Get repo.xml to parse global varaibles :)
+declare variable $global:get-secret-config := doc($global:app-root || '/config.xml');
 
 (: Establish data root defined in repo.xml 'data-root' name of eXist app :)
 declare variable $global:data-root := 
@@ -55,8 +58,16 @@ declare variable $global:app-map-option := $global:get-config//repo:maps/repo:op
 (: Map rendering, google or leaflet :)
 declare variable $global:map-api-key := $global:get-config//repo:maps/repo:option[@selected='true']/@api-key;
 
-(: Recaptcha Key, Store as environemnt variable. :)
-declare variable $global:recaptcha := '6Lc8sQ4TAAAAAEDR5b52CLAsLnqZSQ1wzVPdl0rO';
+(: Recaptcha Key :)
+declare variable $global:recaptcha := 
+    if(doc('../config.xml')) then
+        let $config := doc('../config.xml')
+        return 
+                if($config//recaptcha/site-key-variable != '') then 
+                    environment-variable($config//recaptcha/site-key-variable/text())
+                else $config//private-key/text()
+    else ();
+
 
 (: Global functions used throughout Srophe app :)
 (:~

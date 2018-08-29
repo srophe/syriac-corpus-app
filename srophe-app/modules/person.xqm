@@ -202,14 +202,14 @@ for $item-uri in tokenize($uris,' ')
 let $rec := collection($global:data-root)//tei:idno[. = $item-uri]
 let $geo := if($rec/ancestor::tei:TEI//tei:geo) then $rec/ancestor::tei:TEI//tei:geo
                 else ()
-let $title := string($rec/ancestor::tei:TEI/descendant::*[@syriaca-tags="#syriaca-headword"][1])
-let $type := if($rec/ancestor::tei:TEI/descendant::tei:place/@type) then concat(' - ', string($rec/ancestor::tei:TEI/descendant::tei:place/@type)) else ()
+let $title := string(root($rec)/descendant::*[@syriaca-tags="#syriaca-headword"][1])
+let $type := if(root($rec)/descendant::tei:place/@type) then concat(' - ', string($rec/ancestor::tei:TEI/descendant::tei:place/@type)) else ()
 let $desc := string($related/tei:desc)
 return 
       <place xmlns="http://www.tei-c.org/ns/1.0">
         <idno>{$item-uri}</idno>
         <title>{concat($title,$type)}</title>
-        <relationType>{string($related/@name)}</relationType>
+        <relationType>{if(string($related/@name) != '') then string($related/@name) else string($related/@ref)}</relationType>
         <desc>{$desc}</desc>
         <location>{$geo}</location>  
       </place>

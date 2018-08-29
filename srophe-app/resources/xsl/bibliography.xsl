@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
     <!-- ================================================================== 
        Copyright 2013 New York University
@@ -76,8 +75,8 @@
             </xsl:choose>
         </xsl:variable>
         <!-- When ptr is available, use full bibl record (indicated by ptr) -->
-        <li id="{@xml:id}">
-            <span class="anchor"/>
+        <li>
+            <span class="anchor" id="{@xml:id}"/>
             <!-- Display footnote number -->
             <span class="footnote-tgt">
                 <xsl:value-of select="$thisnum"/>
@@ -343,13 +342,13 @@
             <xsl:when test="t:title[starts-with(@xml:lang,'en')]">
                 <xsl:text> "</xsl:text>
                 <xsl:apply-templates select="t:title[starts-with(@xml:lang,'en')][1]" mode="footnote"/>
-                <xsl:if test="not(ends-with(t:title[starts-with(@xml:lang,'en')][1],'.|:|,'))">,</xsl:if>
+                <xsl:if test="not(ends-with(t:title[starts-with(@xml:lang,'en')][1],'.|:|,'))">.</xsl:if>
                 <xsl:text>"</xsl:text>
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text> "</xsl:text>
                 <xsl:apply-templates select="t:title[1]" mode="footnote"/>
-                <xsl:if test="not(ends-with(t:title[starts-with(@xml:lang,'en')][1],'.|:|,'))">,</xsl:if>
+                <xsl:if test="not(ends-with(t:title[starts-with(@xml:lang,'en')][1],'.|:|,'))">.</xsl:if>
                 <xsl:text>"</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
@@ -367,6 +366,7 @@
     <xsl:template match="t:analytic" mode="bibliography">
         <!-- Display authors/editors -->
         <xsl:call-template name="persons-bibliography"/>
+        <xsl:text>, </xsl:text>
         <!-- Analytic title(s) -->
         <xsl:choose>
             <xsl:when test="t:title[starts-with(@xml:lang,'en')]">
@@ -465,6 +465,7 @@
                 <xsl:if test="following-sibling::t:monogr">
                     <xsl:text>, </xsl:text>
                 </xsl:if>
+                <xsl:if test="not(following-sibling::*)"><xsl:text>.</xsl:text></xsl:if>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -480,12 +481,14 @@
                     <xsl:when test="deep-equal(t:editor | t:author, preceding-sibling::t:monogr[1]/t:editor | preceding-sibling::t:monogr[1]/t:author )"/>
                     <xsl:otherwise>
                         <xsl:call-template name="persons-bibliography"/>
+                        <xsl:text>, </xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
                 <!-- Check authors against preceding, suppress if equivalent -->
             </xsl:when>
             <xsl:otherwise>
                 <xsl:call-template name="persons-bibliography"/>
+                <xsl:text>, </xsl:text>
             </xsl:otherwise>
         </xsl:choose>
         <!-- Titles -->
@@ -511,7 +514,8 @@
                 </xsl:if>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text>. </xsl:text>
+                <!-- Suppress '.' based on feedback here: https://github.com/srophe/syriac-corpus-app/issues/111 open to re-evaluate -->
+<!--                <xsl:text>. </xsl:text>-->
             </xsl:otherwise>
         </xsl:choose>
 
@@ -569,8 +573,9 @@
                         </xsl:choose>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:text> </xsl:text>
+                        <xsl:text>, (</xsl:text>
                         <xsl:apply-templates select="t:imprint" mode="footnote"/>
+                        <xsl:text>)</xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:if test="following-sibling::*[1][self::t:monogr]">
@@ -777,9 +782,11 @@
         </xsl:variable>
         <xsl:if test="$rcount &gt; 0">
             <xsl:value-of select="normalize-space($bookAuth)"/>
+            <!--
             <xsl:if test="not(ends-with(normalize-space($bookAuth),'.'))">
                 <xsl:text>. </xsl:text>
             </xsl:if>
+            -->
         </xsl:if>
     </xsl:template>
 
@@ -882,7 +889,7 @@
      levels)
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:date | t:publisher | t:pubPlace | t:placeName | t:foreign" mode="footnote" priority="1">
-        <xsl:if test="(preceding-sibling::* and not(self::t:pubPlace)) or preceding-sibling::text()">
+        <xsl:if test="(preceding-sibling::* and name(.) != 'pubPlace')">
             <xsl:text> </xsl:text>
         </xsl:if>
         <span class="{local-name()}">
@@ -1033,10 +1040,12 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="t:idno" mode="footnote">
+        <!-- IDNO should use mode="links" not mode footnote. 
         <xsl:text> </xsl:text>
         <span class="footnote idno">
             <xsl:apply-templates/>
         </span>
+        -->
     </xsl:template>
 
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -1069,17 +1078,7 @@
                     </xsl:choose>
                 </xsl:attribute>
                 <xsl:for-each select="./node()">
-                    <xsl:if test="not(self::text()) or string-length(normalize-space(.))&gt;0 or count(following-sibling::node())=0">
-                        <bdi>
-                            <xsl:for-each select="ancestor-or-self::t:*[@xml:lang][1]">
-                                <xsl:attribute name="dir">
-                                    <xsl:call-template name="getdirection"/>
-                                </xsl:attribute>
-                                <xsl:call-template name="langattr"/>
-                            </xsl:for-each>
-                            <xsl:apply-templates select="." mode="plain"/>
-                        </bdi>
-                    </xsl:if>
+                    <xsl:apply-templates select="."/>
                 </xsl:for-each>
             </span>
         </xsl:if>
@@ -1175,7 +1174,7 @@
             <xsl:choose>
                 <xsl:when test="@type='URI'">
                     <a href="{text()}">
-                        <xsl:value-of select="text()"/>&#160; <xsl:call-template name="ref-icons">
+                        <xsl:value-of select="text()"/>  <xsl:call-template name="ref-icons">
                             <xsl:with-param name="ref" select="text()"/>
                         </xsl:call-template>
                     </a>
@@ -1197,7 +1196,7 @@
                     <xsl:otherwise>
                         <xsl:value-of select="@target"/>
                     </xsl:otherwise>
-                </xsl:choose> &#160;<xsl:call-template name="ref-icons">
+                </xsl:choose>  <xsl:call-template name="ref-icons">
                     <xsl:with-param name="ref" select="text()"/>
                 </xsl:call-template>
             </a>

@@ -9,7 +9,7 @@ module namespace maps = "http://syriaca.org/maps";
  : @author Winona Salesky <wsalesky@gmail.com>
  : @authored 2014-06-25
 :)
-import module namespace geojson = "http://syriaca.org/geojson" at "geojson.xqm";
+import module namespace geojson = "http://syriaca.org/geojson" at "../content-negotiation/geojson.xqm";
 import module namespace global = "http://syriaca.org/global" at "global.xqm";
 
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
@@ -27,10 +27,10 @@ else maps:build-leaflet-map($nodes,$total-count)
 :)
 declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:integer?){
     <div id="map-data" style="margin-bottom:3em;">
-        <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2"/>
+        <script type="text/javascript" src="{$global:nav-base}/resources/leaflet/leaflet.js"/>
+        <script type="text/javascript" src="{$global:nav-base}/resources/leaflet/leaflet.awesome-markers.min.js"/>
         <script src="http://isawnyu.github.com/awld-js/lib/requirejs/require.min.js" type="text/javascript"/>
         <script src="http://isawnyu.github.com/awld-js/awld.js?autoinit" type="text/javascript"/>
-        <script type="text/javascript" src="{$global:nav-base}/resources/leaflet/leaflet.awesome-markers.js"/>
         <div id="map"/>
         {
             if($total-count gt 0) then 
@@ -53,47 +53,52 @@ declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:in
             <![CDATA[                                
             var sropheIcon = L.Icon.extend({
                                             options: {
-                                                iconSize:     [38, 38],
+                                                iconSize:     [35, 35],
                                                 iconAnchor:   [22, 94],
                                                 popupAnchor:  [-3, -76]
                                                 }
                                             });
                                             var redIcon =
                                                 L.AwesomeMarkers.icon({
-                                                    icon:'fa-circle',
+                                                    icon:'glyphicon-flag',
                                                     markerColor: 'red'
                                                 }),
                                             orangeIcon =  
                                                 L.AwesomeMarkers.icon({
-                                                    icon:'fa-circle',
+                                                    icon:'glyphicon-flag',
                                                     markerColor: 'orange'
                                                 }),
                                             purpleIcon = 
                                                 L.AwesomeMarkers.icon({
-                                                    icon:'fa-circle',
+                                                    icon:'glyphicon-flag',
                                                     markerColor: 'purple'
                                                 }),
                                             blueIcon =  L.AwesomeMarkers.icon({
-                                                    icon:'fa-circle',
+                                                    icon:'glyphicon-flag',
                                                     markerColor: 'blue'
                                                 });
                                         
             var geojson = L.geoJson(placesgeo, {onEachFeature: function (feature, layer){
-                                            var popupContent = 
-                                            "<a href='" + feature.properties.uri + "' class='map-pop-title'>" +
-                                            feature.properties.name + "</a>" + 
-                                            (feature.properties.type ? "Type: " + feature.properties.type : "") +
-                                            (feature.properties.desc ? "<span class='map-pop-desc'>"+ feature.properties.desc +"</span>" : "");
-                                            layer.bindPopup(popupContent);
-                                            switch (feature.properties.type) {
-                                                case 'born-at': return layer.setIcon(orangeIcon);
-                                                case 'died-at':   return layer.setIcon(redIcon);
-                                                case 'has-literary-connection-to-place':   return layer.setIcon(purpleIcon);
-                                                case 'has-relation-to-place':   return layer.setIcon(blueIcon);
-                                            }
-                                            
-                                        }
-                                })
+                            var typeText 
+                            var popupContent = 
+                                "<a href='" + feature.properties.uri + "' class='map-pop-title'>" +
+                                feature.properties.name + "</a>" + (feature.properties.type ? "Type: " + typeText : "") +
+                                (feature.properties.desc ? "<span class='map-pop-desc'>"+ feature.properties.desc +"</span>" : "");
+                                layer.bindPopup(popupContent);
+        
+                                switch (feature.properties.type) {
+                                    case 'born-at': return layer.setIcon(orangeIcon);
+                                    case 'syriaca:bornAt' : return layer.setIcon(orangeIcon);
+                                    case 'died-at':   return layer.setIcon(redIcon);
+                                    case 'syriaca:diedAt' : return layer.setIcon(redIcon);
+                                    case 'has-literary-connection-to-place':   return layer.setIcon(purpleIcon);
+                                    case 'syriaca:hasLiteraryConnectionToPlace' : return layer.setIcon(purpleIcon);
+                                    case 'has-relation-to-place':   return layer.setIcon(blueIcon);
+                                    case 'syriaca:hasRelationToPlace' :   return layer.setIcon(blueIcon);
+                                    default : '';
+                                 }               
+                                }
+                            })
         var map = L.map('map').fitBounds(geojson.getBounds(),{maxZoom: 5});     
         terrain.addTo(map);
                                         

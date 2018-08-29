@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml" data-template="spear:get-rec" data-template-collection="spear">
+<html xmlns="http://www.w3.org/1999/xhtml" data-template="app:get-rec" data-template-collection="spear">
     <head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -19,16 +19,31 @@
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/spear.css"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/sm-core-css.css"/>
         <link rel="stylesheet" type="text/css" media="print" href="$app-root/resources/css/print.css"/>
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
+        <!-- Leaflet -->
+        <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.css"/>
         <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>
+        
+        <link rel="stylesheet" href="$app-root/sparql/relationships.css"/>
+        <link rel="stylesheet" href="$app-root/modules/d3xquery/pygment_trac.css"/>
+        
+        <!-- Date Slider -->
+        <link rel="stylesheet" type="text/css" href="$app-root/resources/dateSlider/css/slider.css"/>
+        <link rel="stylesheet" type="text/css" href="$app-root/resources/dateSlider/css/slider-classic-min.css"/>
+        
         <!-- jquery -->
-        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/ui-lightness/jquery-ui.css" rel="stylesheet"/>
+        <!--<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/ui-lightness/jquery-ui.css" rel="stylesheet"/>-->
         <!-- temporary until migrate to bootstrap 3.0 -->
         <script type="text/javascript" src="$app-root/resources/js/jquery.min.js"/>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/jquery.smartmenus.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/clipboard.min.js"/>
-        <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"></script>
+        <!-- SPARQL Facets -->
+        <script type="text/javascript" src="http://d3js.org/d3.v3.js"/>
+        <script src="$app-root/sparql/d3sparql.js"/>
+        <script src="$app-root/sparql/sankey.js"/>
+        <script src="$app-root/resources/dateSlider/js/jQDateRangeSlider-min.js"/>
+        
+        <!--<script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"/>-->
         <!-- keyboard widget css & script -->
         <link href="$app-root/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
         <link href="$app-root/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
@@ -86,7 +101,6 @@
                 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
             <![endif]-->
         <!-- Fixed navbar -->
-        <div data-template="app:shared-content" data-template-path="/templates/draft-info.html"/>
         <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
             <div class="container">
                 <div class="navbar-header">
@@ -123,7 +137,7 @@
                         <li>
                             <div class="btn-nav">
                                 <a class="btn btn-default navbar-btn dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
-                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span>
+                                     <span class="syriaca-icon syriaca-keyboard">  </span>
                                     <span class="caret"/>
                                 </a>
                                 <ul data-template="app:keyboard-select-menu" data-template-input-id="q"/>
@@ -132,7 +146,7 @@
                         <li>
                             <div class="btn-nav">
                                 <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Search Tools">
-                                    &#160;<span class="glyphicon glyphicon-cog"/>&#160;<span class="caret"/>
+                                     <span class="glyphicon glyphicon-cog"/> <span class="caret"/>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
@@ -144,7 +158,7 @@
                         <li>
                             <div class="btn-nav">
                                 <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
-                                    Font&#160;<span class="caret"/>
+                                    Font <span class="caret"/>
                                 </a>
                                 <ul class="dropdown-menu" id="swap-font">
                                     <li>
@@ -160,7 +174,7 @@
                                         <a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a>
                                     </li>
                                     <li>
-                                        <a href="$app-root/documentation/view-syriac.html">Help <span class="glyphicon glyphicon-question-sign"/>
+                                        <a href="$app-root/documentation/wiki.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/srophe-app-data/wiki">Help <span class="glyphicon glyphicon-question-sign"/>
                                         </a>
                                     </li>
                                 </ul>

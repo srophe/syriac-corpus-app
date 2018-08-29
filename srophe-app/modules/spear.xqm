@@ -1,23 +1,25 @@
 (:~              
- : Builds spear page  
+ : Builds SPEAR pages  
  :)
 xquery version "3.0";
-
 module namespace spear="http://syriaca.org/spear";
 
+(: eXistdb modules :)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
-import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
-import module namespace app="http://syriaca.org/templates" at "app.xql";
-import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
-import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
-import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
-import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
 import module namespace functx="http://www.functx.com";
 
-declare namespace xslt="http://exist-db.org/xquery/transform";
+(:Syriaca.org modules. :)
+import module namespace app="http://syriaca.org/templates" at "app.xql";
+import module namespace cts="http://syriaca.org/cts" at "../CTS/cts-resolver.xqm";
+import module namespace ev="http://syriaca.org/events" at "lib/events.xqm";
+import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
+import module namespace maps="http://syriaca.org/maps" at "lib/maps.xqm";
+import module namespace rel="http://syriaca.org/related" at "lib/get-related.xqm";
+import module namespace tei2html="http://syriaca.org/tei2html" at "content-negotiation/tei2html.xqm";
+import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
+
+declare namespace http="http://expath.org/ns/http-client";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
-declare namespace xlink = "http://www.w3.org/1999/xlink";
-declare namespace transform="http://exist-db.org/xquery/transform";
 
 (:~            
  : Parameters passed from the url 
@@ -176,6 +178,25 @@ else
                     
 };
 
+declare function spear:cts($node as node(), $model as map(*)){
+    if($model("data")//tei:bibl[@type='urn']) then
+        let $ref := string($model("data")//tei:bibl[@type='urn']/tei:ptr/@target)
+        let $results := cts:run($ref, 'html')
+        return
+            if(not(empty($results))) then 
+                <div class="panel panel-default" id="cts">
+                    <div class="panel-heading clearfix">
+                        <h4 class="panel-title">Text from The Oxford-BYU Syriac Corpus</h4>
+                    </div>
+                    <div class="panel-body">
+                        {$results}
+                        <span>Go to text <a href="{$global:nav-base}/CTS/cts-resolver.xql?urn={$ref}"><span class="glyphicon glyphicon-circle-arrow-right"> </span></a></span>
+                    </div>
+                </div> 
+            else()    
+    else ()
+
+};
 (:~          
     How to list all the factoids?
     should have the options of by type, in order and using 'advance browse options?'   
@@ -225,14 +246,14 @@ return
              <div class="panel-heading clearfix">
                  <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Person Factoids {if($spear:item-type = 'person-factoid') then ' about ' else ' referencing '} {spear:title($spear:id)}</h4>
              </div>
-             <div class="panel-body">
+             <div class="panel-body"> 
                 {global:tei2html(
                     <aggregate xmlns="http://www.tei-c.org/ns/1.0">
                         {$personInfo}
                     </aggregate>)}
              </div>
         </div>
-    else ()
+    else () 
 };
 
 declare %templates:wrap function spear:relationships-aggregate($node as node(), $model as map(*)){
@@ -316,11 +337,7 @@ else
                             {maps:build-map($geo,0)}
                         </div>
                         <div>
-                            <div id="type">
-                                 <p><strong>Place Type: </strong>
-                                     <a href="../documentation/place-types.html#{normalize-space($type)}" class="no-print-link">{$type}</a>
-                                 </p>
-                             </div>
+                            <p><strong>Place Type: </strong><a href="../documentation/place-types.html#{normalize-space($type)}" class="no-print-link">{$type}</a></p>
                              {
                                 if($data//tei:location) then
                                     <div id="location">
@@ -337,12 +354,15 @@ else
                         </div>    
                     </div>
                 else (),
-                <div class="indent">
-                    {global:tei2html(<factoid xmlns="http://www.tei-c.org/ns/1.0">{$abstract}</factoid>)}
-                </div>          
+                if($abstract//text() != '') then 
+                    <div class="indent">
+                        {global:tei2html(<factoid xmlns="http://www.tei-c.org/ns/1.0">{$abstract}</factoid>)}
+                    <hr/>
+                    </div>    
+                else ()
                 )}
-               <p><hr/>View entry in <a href="{$spear:id}">{if(contains($spear:id,'person')) then 'Syriac Biographical Dictionary' else 'The Syriac Gazetteer' }</a></p>
-                 </div>
+               <p>View entry in <a href="{$spear:id}">{if(contains($spear:id,'person')) then 'Syriac Biographical Dictionary' else 'The Syriac Gazetteer' }</a></p>
+              </div>
             </div> 
         else ()       
 };
@@ -355,7 +375,10 @@ declare function spear:related-factiods($node as node(), $model as map(*), $view
 let $data := $model("data")  
 let $title := $data/descendant::tei:titleStmt/tei:title[1]/text()
 return
-    if($data/ancestor::tei:body//tei:ref[@type='additional-attestation'][@target=$spear:id] or $data/descendant::tei:persName or $data/descendant::tei:placeName or $data/descendant::tei:relation) then 
+    if($data/ancestor::tei:body//tei:ref[@type='additional-attestation'][@target=$spear:id] 
+    or $data/descendant::tei:persName 
+    or $data/descendant::tei:placeName 
+    or $data/descendant::tei:relation) then 
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
                 {
@@ -491,6 +514,82 @@ return
     else ()
 };
  
+declare function spear:sparql-relationships($node as node(), $model as map(*)){
+     <div id="sparqlFacetsBox" class="panel panel-default" xmlns="http://www.w3.org/1999/xhtml">
+        <div class="panel-heading clearfix"><h4 class="panel-title">
+        Related Persons, Places and Keywords
+        <small>
+        <span class="input-append facetLists pull-right ">
+            <span class="form-group facetLists">
+                <label for="type">View:  </label>
+                <select id="type" name="type">
+                    <option id="List">List</option>
+                    <option id="Tabel">Table</option>
+                    <option id="Force">Force</option>
+                    <option id="Sankey">Sankey</option>
+                </select>  
+                <span class="glyphicon glyphicon-resize-full pull-right expand"></span>
+            </span>
+        </span></small>
+        </h4></div>
+        <div class="panel-body">
+            <div id="result"/>
+        </div>
+       <script>
+        <![CDATA[
+        var facetParams = [];
+        var enlarged = false;
+        var uri = ']]>{$spear:id}<![CDATA[';
+        var baseURL = 'http://wwwb.library.vanderbilt.edu/exist/apps/srophe/api/sparql';
+        var mainQueryURL = baseURL + '?buildSPARQL=true&facet-name=uri&uri=' + uri;
+        
+        $(document).ready(function () {
+
+            mainQuery(mainQueryURL);
+            //Submit results on format change
+            $('.facetLists').on('change', '#type', function() {
+                mainQuery(mainQueryURL);
+            })
+            
+        });
+        
+        $('.expand').on('click', function() {
+            $('#sparqlFacetsBox').toggleClass('clicked');
+            $(this).toggleClass('glyphicon glyphicon-resize-full').toggleClass('glyphicon glyphicon-resize-small');
+            mainQuery(mainQueryURL);
+        })
+           
+        //Submit main SPARQL query based on facet parameters
+        function mainQuery(url){
+            type = $("#type option:selected").val();
+              if($( "#sparqlFacetsBox" ).hasClass( "clicked" )){
+                var config = {
+                  "width":  750,
+                  "height": 500,
+                  "margin":  0,
+                  "selector": "#result"
+                }
+            } else {
+                var config = {
+                  "width":  350,
+                  "height": 300,
+                  "margin":  0,
+                  "selector": "#result"
+                }
+            }  
+            // Otherwise send to d3 visualization, set format to json.  
+            $.get(url + '&type=' + type + '&format=json', function(data) {
+                d3sparql.graphType(data, type, config);
+            }).fail( function(jqXHR, textStatus, errorThrown) {
+                console.log("JavaScript error: " + textStatus);
+            });
+        }
+        ]]>
+    </script>
+    </div>            
+                        
+};
+
 declare function spear:get-title($uri){
 let $doc := spear:canonical-rec($uri)
 (:collection($global:data-root)/tei:TEI[.//tei:idno = concat($uri,"/tei")]:)

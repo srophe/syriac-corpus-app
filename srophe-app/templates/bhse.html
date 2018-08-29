@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" data-template="app:get-rec" data-template-collection="bhse">
     <head>
         <meta charset="utf-8"/>
@@ -18,7 +19,8 @@
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/saints.css"/>
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/sm-core-css.css"/>
         <link rel="stylesheet" type="text/css" media="print" href="$app-root/resources/css/print.css"/>
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
+        <!-- Leaflet -->
+        <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.css"/>
         <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>
         <!-- jquery -->
         <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/ui-lightness/jquery-ui.css" rel="stylesheet"/>
@@ -85,7 +87,6 @@
                 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
             <![endif]-->
         <!-- Fixed navbar -->
-        <div data-template="app:shared-content" data-template-path="/templates/draft-info.html"/>
         <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
             <div class="container">
                 <div class="navbar-header">
@@ -96,7 +97,9 @@
                         <span class="icon-bar"/>
                     </button>
                     <a class="navbar-brand banner-container" href="$app-root/bhse/index.html">
-                        <span class="syriaca-icon syriaca-bhse banner-icon"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                        <span class="syriaca-icon syriaca-bhse banner-icon">
+                            <span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/>
+                        </span>
                         <span class="banner-text">Bibliotheca Hagiographica Syriaca Electronica</span>
                     </a>
                 </div>
@@ -118,13 +121,17 @@
                         -->
                         <li>
                             <a href="$app-root/saints/index.html" class="icon-container">
-                                <span class="syriaca-icon syriaca-saints icon-nav"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                                <span class="syriaca-icon syriaca-saints icon-nav">
+                                    <span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/>
+                                </span>
                                 <span class="icon-text">Gateway to the Saints</span>
                             </a>
                         </li>
                         <li>
                             <a href="$app-root/index.html" class="icon-container">
-                                <span class="syriaca-icon syriaca-syriaca icon-nav"><span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/></span>
+                                <span class="syriaca-icon syriaca-syriaca icon-nav">
+                                    <span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/>
+                                </span>
                                 <span class="icon-text">Syriaca.org</span>
                             </a>
                         </li>

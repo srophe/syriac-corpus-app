@@ -20,8 +20,8 @@
         <link rel="stylesheet" type="text/css" href="$app-root/resources/css/sm-core-css.css"/>
         <link rel="stylesheet" type="text/css" media="print" href="$app-root/resources/css/print.css"/>
         <!-- Leaflet -->
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
-        <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>   
+        <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.css"/>
+        <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>
         <!-- jquery -->
         <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/ui-lightness/jquery-ui.css" rel="stylesheet"/>
         <!-- temporary until migrate to bootstrap 3.0 -->
@@ -29,7 +29,7 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/jquery.smartmenus.min.js"/>
         <script type="text/javascript" src="$app-root/resources/js/clipboard.min.js"/>
-        <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"></script>
+        <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"/>
         <!-- keyboard widget css & script -->
         <link href="$app-root/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
         <link href="$app-root/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
@@ -60,9 +60,7 @@
                        //  keyboard.destroy();
                      }
                 });
-                
-                
-                
+                 
                 $('.keyboard-select').click(function () {
                     var keyboardID = '#' + $(this).data("keyboard-id")
                     var kb = $(keyboardID).getkeyboard();
@@ -73,6 +71,17 @@
                     if (kb.last.layout !== kb.options.layout || (new Date().getTime() - kb.last.eventTime) > 200) {
                         kb.reveal();
                     }
+
+                    /*
+                    if (this.checked) {
+            			$kb.keyboard();
+            		} else {
+            			kb = $kb.getkeyboard();
+            			if (kb) {
+            				kb.destroy();
+            			}
+            		}
+                    */
                 });
                 //Change fonts
                 $('.swap-font').on('click', function(){
@@ -89,7 +98,6 @@
                 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
             <![endif]-->
         <!-- Fixed navbar -->
-        <div data-template="app:shared-content" data-template-path="/templates/draft-info.html"/>
         <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
             <div class="container">
                 <div class="navbar-header">
@@ -99,7 +107,7 @@
                         <span class="icon-bar"/>
                         <span class="icon-bar"/>
                     </button>
-                    <a class="navbar-brand banner-container" href="$app-root/index.html">
+                    <a class="navbar-brand banner-container" href="$app-root/index.html"> 
                         <!--<img property="logo" class="img-responsive" alt="Syriac.org" src="$app-root/resources/img/syriaca-logo.png"/> Draft-->
                         <span class="syriaca-icon syriaca-syriaca banner-icon">
                             <span class="path1"/><span class="path2"/><span class="path3"/><span class="path4"/>
@@ -176,7 +184,7 @@
                         <li>
                             <div class="btn-nav">
                                 <a class="btn btn-default navbar-btn dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
-                                    &#160;<span class="syriaca-icon syriaca-keyboard">&#160; </span>
+                                     <span class="syriaca-icon syriaca-keyboard">  </span>
                                     <span class="caret"/>
                                 </a>
                                 <ul data-template="app:keyboard-select-menu" data-template-input-id="q"/>
@@ -185,7 +193,7 @@
                         <li>
                             <div class="btn-nav">
                                 <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Search Tools">
-                                    &#160;<span class="glyphicon glyphicon-cog"/>&#160;<span class="caret"/>
+                                     <span class="glyphicon glyphicon-cog"/> <span class="caret"/>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
@@ -197,7 +205,7 @@
                         <li>
                             <div class="btn-nav">
                                 <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
-                                    Font&#160;<span class="caret"/>
+                                    Font <span class="caret"/>
                                 </a>
                                 <ul class="dropdown-menu" id="swap-font">
                                     <li>

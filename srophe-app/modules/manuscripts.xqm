@@ -8,7 +8,7 @@ module namespace mss="http://syriaca.org/manuscripts";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace app="http://syriaca.org/templates" at "app.xql";
 import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
-import module namespace geo="http://syriaca.org/geojson" at "lib/geojson.xqm";
+import module namespace geo="http://syriaca.org/geojson" at "content-negotiation/geojson.xqm";
 import module namespace timeline="http://syriaca.org/timeline" at "lib/timeline.xqm";
 
 declare namespace xslt="http://exist-db.org/xquery/transform";
