@@ -1591,23 +1591,23 @@
                 <xsl:if test="t:related-items/t:relation[contains(@uri,'place')]">
                     <div>
                         <dl class="dl-horizontal dl-srophe">
-                            <xsl:for-each-group select="t:related-items/t:relation[contains(@uri,'place')]" group-by="@name">
+                            <xsl:for-each-group select="t:related-items/t:relation[contains(@uri,'place')]" group-by="@ref">
                                 <xsl:variable name="desc-ln" select="string-length(t:desc)"/>
                                 <xsl:choose>
                                     <xsl:when test="not(current-group()/descendant::*:geo)">
                                         <dt> </dt>
                                     </xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'born-at'">
+                                    <xsl:when test="current-grouping-key() = ('born-at','syriaca:bornAt')">
                                         <dt>
                                             <i class="srophe-marker born-at"/>
                                         </dt>
                                     </xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'died-at'">
+                                    <xsl:when test="current-grouping-key() = ('died-at','syriaca:diedAt')">
                                         <dt>
                                             <i class="srophe-marker died-at"/>
                                         </dt>
                                     </xsl:when>
-                                    <xsl:when test="current-grouping-key() = 'has-literary-connection-to-place'">
+                                    <xsl:when test="current-grouping-key() = ('has-literary-connection-to-place','syriaca:hasLiteraryConnectionToPlace')">
                                         <dt>
                                             <i class="srophe-marker literary"/>
                                         </dt>
