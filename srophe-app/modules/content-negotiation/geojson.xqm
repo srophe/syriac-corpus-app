@@ -52,19 +52,19 @@ declare function geojson:json-wrapper($nodes as node()*) as element()*{
   </place>
 :)
 declare function geojson:geojson-object($node as node()*, $count as xs:integer?) as element()*{
-let $id := if($node//tei:idno[@type='URI']) then $node//tei:idno[@type='URI'][1]
-           else $node//tei:idno[1]
+let $id := if($node/descendant::tei:idno[@type='URI']) then $node/descendant::tei:idno[@type='URI'][1]
+           else $node/descendant::tei:idno[1]
 let $title := if($node/descendant::*[@syriaca-tags="#syriaca-headword"]) then $node/descendant::*[@syriaca-tags="#syriaca-headword"][1] 
-              else $node//tei:title[1]
+              else $node/descendant::tei:title[1]
 let $desc := if($node/descendant::tei:desc[1]/tei:quote) then 
                 concat('"',$node/descendant::tei:desc[1]/tei:quote,'"')
-             else $node//tei:desc[1]
-let $type := if($node//tei:relationType != '') then 
-                string($node//tei:relationType)
-              else if($node//tei:place/@type) then 
-                string($node//tei:place/@type)
+             else $node/descendant::tei:desc[1]
+let $type := if($node/descendant::tei:relationType != '') then 
+                string($node/descendant::tei:relationType)
+              else if($node/descendant::tei:place/@type) then 
+                string($node/descendant::tei:place/@type)
               else ()   
-let $coords := $node//tei:geo[1]
+let $coords := $node/descendant::tei:geo[1]
 return 
     <json:value>
         {(if(count($count) = 1) then attribute {xs:QName("json:array")} {'true'} else())}

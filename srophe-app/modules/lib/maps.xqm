@@ -87,9 +87,13 @@ declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:in
         
                                 switch (feature.properties.type) {
                                     case 'born-at': return layer.setIcon(orangeIcon);
+                                    case 'syriaca:bornAt' : return layer.setIcon(orangeIcon);
                                     case 'died-at':   return layer.setIcon(redIcon);
+                                    case 'syriaca:diedAt' : return layer.setIcon(redIcon);
                                     case 'has-literary-connection-to-place':   return layer.setIcon(purpleIcon);
+                                    case 'syriaca:hasLiteraryConnectionToPlace' : return layer.setIcon(purpleIcon);
                                     case 'has-relation-to-place':   return layer.setIcon(blueIcon);
+                                    case 'syriaca:hasRelationToPlace' :   return layer.setIcon(blueIcon);
                                     default : return layer.setIcon(blueIcon);
                                  }               
                                 }
