@@ -56,7 +56,7 @@
                 compliant URIs to discrete sections of a TEI document. xml:ids are not sufficient
                 for this purpose. This attribute is designed to accomplish this task.</desc>
               <datatype>
-                <dataRef key="data.pointer"/>
+                <dataRef key="teidata.pointer"/>
               </datatype>
             </attDef>
           </attList>
@@ -73,7 +73,7 @@
                 Winona Salesky created this date attribute in order to visualize our event data on a
                 timeline. </desc>
               <datatype>
-                <dataRef key="data.temporal.w3c"/>
+                <dataRef key="teidata.temporal.w3c"/>
               </datatype>
             </attDef>
             <attDef ident="syriaca-computed-end" mode="add">
@@ -85,7 +85,7 @@
                 Winona Salesky created this date attribute in order to visualize our event data on a
                 timeline. </desc>
               <datatype>
-                <dataRef key="data.temporal.w3c"/>
+                <dataRef key="teidata.temporal.w3c"/>
               </datatype>
             </attDef>
           </attList>
@@ -154,7 +154,7 @@
             </attDef>
             <attDef ident="type" mode="add" usage="req">
               <datatype>
-                <dataRef key="data.enumerated"/>
+                <dataRef key="teidata.enumerated"/>
               </datatype>
               <valList type="closed">
                 <valItem ident="primary"/>
@@ -682,12 +682,12 @@
           <attList>
             <attDef ident="uri" mode="add"><!-- I want to require this attribute on div but ONLY in divs that are children of body - Schematron. -->
               <datatype>
-                <dataRef key="data.pointer"/>
+                <dataRef key="teidata.pointer"/>
               </datatype>
             </attDef>
             <attDef ident="resp" usage="opt" mode="add"><!-- I want to require this attribute on div but ONLY in divs that are children of body - Schematron. -->
               <datatype minOccurs="1" maxOccurs="unbounded">
-                <dataRef key="data.pointer"/>
+                <dataRef key="teidata.pointer"/>
               </datatype>
             </attDef>
           </attList>
