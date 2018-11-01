@@ -1,8 +1,11 @@
 Syriaca.org
 =======
-
 Application data for Syriaca.org [http://syriaca.org]: The Syriac Reference Portal
 All publications of Syriaca.org are made available online in a free and open format using the Creative Commons licenses.
+
+This is a customization of The Srophé Application [https://github.com/srophe/srophe]. Version 3.0 of this software represents a major code refactor 
+and is not backwards compatible with earlier versions of the code. To access an earlier version use tag v2.x. To use the software with your own data
+fork or clone a version of the The Srophé Application [https://github.com/srophe/srophe].
 
 ### Dependencies
 #### TEI data 
@@ -45,5 +48,4 @@ Syrica.org uses Github webhooks [https://developer.github.com/webhooks/] to keep
     </config>
     ```
 * Setup webhooks on your github repository, Syriaca.org XQuery endpoint: http://localhost:8080/exist/apps/srophe/modules/git-sync.xql. [https://developer.github.com/webhooks/creating/]   
-
 
