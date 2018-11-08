@@ -2,8 +2,8 @@ xquery version "3.1";
 
 (:~ 
  : Webhook endpoint for tcadrt.com data repository, /master/ branch: 
- : XQuery endpoint to respond to Github webhook requests. Query responds only to push requests from the master branch.¨ 
- : The EXPath Crypto library supplies the HMAC-SHA1 algorithm for matching Github secret. ¨
+ : XQuery endpoint to respond to Github webhook requests. Query responds only to push requests from the master branch.  
+ : The EXPath Crypto library supplies the HMAC-SHA1 algorithm for matching Github secret.  
  :
  : Secret can be stored as environmental variable.
  : Will need to be run with administrative privileges, suggest creating a git user with privileges only to relevant app.
@@ -47,8 +47,8 @@ declare variable $exist-collection := $git-config//exist-collection/text();
 (: Github repository :)
 declare variable $repo-name := $git-config//repo-name/text();
 
-(:~â¨ 
- : Recursively creates new collections if necessaryâ¨ 
+(:~  
+ : Recursively creates new collections if necessary  
  : @param $uri url to resource being added to db 
  :)
 declare function local:create-collections($uri as xs:string){
@@ -61,20 +61,16 @@ return
     else xmldb:create-collection($parent-collection, $collections)
 };
 
-declare function local:get-file-data($file-name, $contents-url){       
-let $branch := if($git-config//github-branch/text() != '') then concat('?ref=',$git-config//github-branch/text())  else '?ref=master'
-let $url := concat($contents-url,$file-name,$branch)
+declare function local:get-file-data($file-name, $contents-url){
+let $url := concat($contents-url,'/',$file-name)         
 let $raw-url := concat(replace(replace($contents-url,'https://api.github.com/repos/','https://raw.githubusercontent.com/'),'/contents','/master'),$file-name)            
-let $response :=  
-        http:send-request(<http:request http-version="1.1" href="{xs:anyURI($url)}" method="get">
+return 
+        http:send-request(<http:request http-version="1.1" href="{xs:anyURI($raw-url)}" method="get">
                             {if($gitToken != '') then
                                 <http:header name="Authorization" value="{concat('token ',$gitToken)}"/>
                             else() }
                             <http:header name="Connection" value="close"/>
                         </http:request>)[2]
-let $responseJSON := parse-json(util:base64-decode($response))
-let $content := $responseJSON?content
-return util:base64-decode($content)                      
 };
 
 (:~
@@ -129,11 +125,11 @@ declare function local:do-add($commits as xs:string*, $contents-url as xs:string
              if(contains($file-name,'.xar')) then ()
              else if(xmldb:collection-available($exist-collection-url)) then 
                 <response status="okay">
-                    <message>{xmldb:store($exist-collection-url, xmldb:encode-uri($file-name), xs:base64Binary($file-data))}</message>
+                    <message>{xmldb:store($exist-collection-url, xmldb:encode-uri($file-name), $file-data)}</message>
                 </response>
              else
                 <response status="okay">
-                 {(local:create-collections($exist-collection-url),xmldb:store($exist-collection-url, xmldb:encode-uri($file-name), xs:base64Binary($file-data)))}
+                 {(local:create-collections($exist-collection-url),xmldb:store($exist-collection-url, xmldb:encode-uri($file-name), $file-data))}
                </response>  
                } catch * {
                (response:set-status-code( 500 ),
@@ -201,7 +197,7 @@ declare function local:execute-webhook($post-data){
 if(not(empty($post-data))) then 
     let $payload := util:base64-decode($post-data)
     let $json-data := parse-json($payload)
-    let $branch := if($git-config//github-branch/text() != '') then concat('refs/heads/',$git-config//github-branch/text()) else 'refs/heads/master'
+    let $branch := if($git-config//github-branch/text() != '') then $git-config//github-branch/text() else 'refs/heads/master'
     return
         if($json-data?ref[. = $branch]) then 
              try {
@@ -237,3 +233,4 @@ else
 
 let $post-data := request:get-data()
 return local:execute-webhook($post-data)
+    

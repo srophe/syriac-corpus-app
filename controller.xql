@@ -19,19 +19,6 @@ declare variable $exist:collection-uris  :=
     return concat('/',$short-path,'/'))    
 ; 
 
-(: Used to test vars
-<div>
-    <p>$exist:path: {$exist:path}</p>
-    <p>$exist:resource: {$exist:resource}</p>
-    <p>$exist:controller: {$exist:controller}</p>
-    <p>$exist:prefix: {$exist:prefix}</p>
-    <p>$exist:root: {$exist:root}</p>
-    <p>Srophe record uris: {$exist:record-uris}</p>
-    <p>Srophe coleection uris: {$exist:collection-uris}</p>
-</div>
-:)
-
-
 if ($exist:path eq '') then
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <redirect url="{request:get-uri()}/"/>
