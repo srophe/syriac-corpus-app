@@ -622,10 +622,31 @@ declare %templates:wrap function app:dashboard($node as node(), $model as map(*)
 };
 
 (:~
+ : Select page view, record or html content
+ : If no record is found redirect to 404
+ : @param $node the HTML node with the attribute which triggered this call
+ : @param $model a map containing arbitrary data - used to pass information between template calls
+ :)
+declare function app:get-wiki($node as node(), $model as map(*), $wiki-uri as xs:string?) {
+    let $wiki-uri := 
+        if(request:get-parameter('wiki-uri', '')) then 
+            request:get-parameter('wiki-uri', '')
+        else if($wiki-uri != '') then 
+                    $wiki-uri
+        else 'https://github.com/srophe/srophe/wiki'            
+    let $uri := 
+        if(request:get-parameter('wiki-page', '')) then 
+            concat($wiki-uri, request:get-parameter('wiki-page', ''))
+        else $wiki-uri
+    let $wiki-data := app:wiki-rest-request($uri)
+    return map {"hits" := $wiki-data}
+};
+
+(:~
  : Pulls github wiki data into Syriaca.org documentation pages. 
  : @param $wiki-uri pulls content from specified wiki or wiki page. 
 :)
-declare function app:get-wiki($wiki-uri as xs:string?){
+declare function app:wiki-rest-request($wiki-uri as xs:string?){
     http:send-request(
             <http:request href="{xs:anyURI($wiki-uri)}" method="get">
                 <http:header name="Connection" value="close"/>
@@ -636,32 +657,15 @@ declare function app:get-wiki($wiki-uri as xs:string?){
  : Pulls github wiki data H1.  
 :)
 declare function app:wiki-page-title($node, $model){
-    let $wiki-uri := 
-        if(request:get-parameter('wiki-uri', '')) then 
-            request:get-parameter('wiki-uri', '')
-        else 'https://github.com/srophe/srophe-eXist-app/wiki' 
-    let $uri := 
-        if(request:get-parameter('wiki-page', '')) then 
-            concat($wiki-uri, request:get-parameter('wiki-page', ''))
-        else $wiki-uri
-    let $wiki-data := app:get-wiki($uri)
-    let $content := $wiki-data//html:div[@id='wiki-body']
-    return $wiki-data/descendant::html:h1[1]
+    let $content := $model("hits")//html:div[@id='wiki-body']
+    return $content/descendant::html:h1[1]
 };
 
 (:~
  : Pulls github wiki content.  
 :)
 declare function app:wiki-page-content($node, $model){
-    let $wiki-uri := 
-        if(request:get-parameter('wiki-uri', '')) then 
-            request:get-parameter('wiki-uri', '')
-        else 'https://github.com/srophe/srophe-eXist-app/wiki' 
-    let $uri := 
-        if(request:get-parameter('wiki-page', '')) then 
-            concat($wiki-uri, request:get-parameter('wiki-page', ''))
-        else $wiki-uri
-    let $wiki-data := app:get-wiki($uri)
+    let $wiki-data := $model("hits")
     return $wiki-data//html:div[@id='wiki-body'] 
 };
 
@@ -670,10 +674,32 @@ declare function app:wiki-page-content($node, $model){
  : Grabs wiki menus to add to Syraica.org pages
  : @param $wiki pulls content from specified wiki or wiki page. 
 :)
-declare function app:wiki-menu($node, $model, $wiki){
-    let $wiki-data := app:get-wiki($wiki)
-    let $menu := app:wiki-links($wiki-data//html:div[@id='wiki-rightbar']/descendant::*:ul[@class='wiki-pages'], $wiki)
+declare function app:wiki-menu($node, $model, $wiki-uri){
+    let $wiki-data := app:wiki-rest-request($wiki-uri)
+    let $menu := app:wiki-links($wiki-data//html:div[@id='wiki-rightbar']/descendant::html:ul, $wiki-uri)
     return $menu
+};
+
+(:~
+ : Typeswitch to processes wiki menu links for use with Syriaca.org documentation pages. 
+ : @param $wiki pulls content from specified wiki or wiki page. 
+:)
+declare function app:wiki-links($nodes as node()*, $wiki) {
+    for $node in $nodes
+    return 
+        typeswitch($node)
+            case element(html:a) return
+                let $wiki-path := substring-after($wiki,'https://github.com')
+                let $href := concat($global:nav-base, replace($node/@href, $wiki-path, "/documentation/wiki.html?wiki-page="),'&amp;wiki-uri=', $wiki)
+                return
+                    <a href="{$href}">
+                        {$node/@* except $node/@href, $node/node()}
+                    </a>
+            case element() return
+                element { node-name($node) } {
+                    $node/@*, app:wiki-links($node/node(), $wiki)
+                }
+            default return $node               
 };
 
 (:~
