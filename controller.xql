@@ -160,12 +160,17 @@ else if (contains($exist:path, "/$shared/")) then
 (: Redirect folder roots to index.html:)    
 else if ($exist:resource eq '' or ends-with($exist:path,"/")) then 
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
-        <redirect url="index.html"/>
-    </dispatch>    
+        <redirect url="{concat($config:nav-base,'/',$exist:path,'/index.html')}"/>
+    </dispatch>   
+    
+(: Redirects paths with directory, and no trailing slash to index.html in that directory :)    
+else if (matches($exist:resource, "^([^.]+)$")) then
+    <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+        <redirect url="{concat($config:nav-base,'/',$exist:path,'/index.html')}"/>
+    </dispatch>  
+
 else
     (: everything else is passed through :)
     <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <cache-control cache="yes"/>
     </dispatch>
-
-
