@@ -1,6 +1,6 @@
 xquery version "3.0";
 
-module namespace geojson="http://syriaca.org/geojson";
+module namespace geojson="http://syriaca.org/srophe/geojson";
 (:~
  : Module returns coordinates as geoJSON
  : Formats include geoJSON 
@@ -8,7 +8,7 @@ module namespace geojson="http://syriaca.org/geojson";
  : @authored 2014-06-25
 :)
 
-import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
+import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
 declare namespace output="http://www.w3.org/2010/xslt-xquery-serialization";
 
 declare namespace json = "http://www.json.org";
@@ -52,19 +52,19 @@ declare function geojson:json-wrapper($nodes as node()*) as element()*{
   </place>
 :)
 declare function geojson:geojson-object($node as node()*, $count as xs:integer?) as element()*{
-let $id := if($node//tei:idno[@type='URI']) then $node//tei:idno[@type='URI'][1]
-           else $node//tei:idno[1]
+let $id := if($node/descendant::tei:idno[@type='URI']) then $node/descendant::tei:idno[@type='URI'][1]
+           else $node/descendant::tei:idno[1]
 let $title := if($node/descendant::*[@syriaca-tags="#syriaca-headword"]) then $node/descendant::*[@syriaca-tags="#syriaca-headword"][1] 
-              else $node//tei:title[1]
+              else $node/descendant::tei:title[1]
 let $desc := if($node/descendant::tei:desc[1]/tei:quote) then 
                 concat('"',$node/descendant::tei:desc[1]/tei:quote,'"')
-             else $node//tei:desc[1]
-let $type := if($node//tei:relationType != '') then 
-                string($node//tei:relationType)
-              else if($node//tei:place/@type) then 
-                string($node//tei:place/@type)
+             else $node/descendant::tei:desc[1]
+let $type := if($node/descendant::tei:relationType != '') then 
+                string($node/descendant::tei:relationType)
+              else if($node/descendant::tei:place/@type) then 
+                string($node/descendant::tei:place/@type)
               else ()   
-let $coords := $node//tei:geo[1]
+let $coords := $node/descendant::tei:geo[1]
 return 
     <json:value>
         {(if(count($count) = 1) then attribute {xs:QName("json:array")} {'true'} else())}
@@ -75,7 +75,7 @@ return
             <coordinates json:literal="true">{tokenize($coords,' ')[1]}</coordinates>
         </geometry>
         <properties>
-            <uri>{replace(replace($id,$global:base-uri,$global:nav-base),'/tei','')}</uri>
+            <uri>{replace(replace($id,$config:base-uri,$config:nav-base),'/tei','')}</uri>
             <name>{string-join($title,' ')}</name>
             {if($desc != '') then
                 <desc>{string-join($desc,' ')}</desc> 

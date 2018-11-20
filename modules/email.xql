@@ -1,32 +1,38 @@
 xquery version "3.1";
 
 (:~
- : Build email from form returns error or sucess message to ajax function
+ : Build email form returns. error or sucess message to ajax function.
+ : Use reCaptcha to filter out spam. 
  :)
-
-declare namespace xslt="http://exist-db.org/xquery/transform";
+import module namespace config="http://syriaca.org/srophe/config" at "config.xqm";
+import module namespace http="http://expath.org/ns/http-client";
+declare namespace httpclient = "http://exist-db.org/xquery/httpclient";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
-declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace mail="http://exist-db.org/xquery/mail";
 declare namespace request="http://exist-db.org/xquery/request";
-import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
-import module namespace recap = "http://www.exist-db.org/xquery/util/recapture" at "recaptcha.xqm";
 
 declare option exist:serialize "method=xml media-type=text/xml indent=yes";
 
-(: Access recaptcha-api configuration file :) 
-declare variable $config := doc($global:app-root || '/config.xml');
+declare variable $VALIDATE_URI as xs:anyURI := xs:anyURI("https://www.google.com/recaptcha/api/siteverify");
 
-(: Private key for authentication :)
-declare variable $secret-key := if($config//*:recaptcha-secret-key-variable != '') then 
-                                    environment-variable($config//*:recaptcha-secret-key-variable/text())
-                                 else $config//*:recaptcha-secret-key/text();
-
-(:request:get-parameter("recaptcha_response_field",()):)
-declare function local:recaptcha(){
-let $recapture-private-key := string($secret-key)
-return 
-    recap:validate($recapture-private-key, request:get-parameter("g-recaptcha-response",()))
+(: Get reCaptcha private key for authentication :)
+declare variable $secret-key := if($config:get-access-config//*:recaptcha-secret-key-variable != '') then 
+                                    environment-variable($config:get-access-config//*:recaptcha-secret-key-variable/text())
+                                 else $config:get-access-config//*:recaptcha-secret-key/text();
+ 
+(: Validate reCaptcha :)
+declare function local:recaptcha() {
+    let $client-ip := request:get-header("X-Real-IP")
+    let $response := http:send-request(<http:request http-version="1.1" href="{xs:anyURI(concat($VALIDATE_URI,
+                                            '?secret=',string($secret-key),
+                                            '&amp;response=',request:get-parameter("g-recaptcha-response",()),
+                                            '&amp;remoteip=',$client-ip))}" method="post">
+                                        </http:request>)[2]
+    let $payload := util:base64-decode($response)
+    let $json-data := parse-json($payload)
+    return 
+        if($json-data?success = true()) then true()
+        else false()  
 };
 
 declare function local:email-list(){
@@ -38,23 +44,26 @@ let $list :=
     else ()
 return 
 if($list != '') then 
-    if($config/descendant::contact[@listID =  $list]) then 
-        for $contact in $config/descendant::contact[@listID =  $list]/child::*
+    if($config:get-access-config/descendant::contact[@listID =  $list]) then 
+        for $contact in $config:get-access-config/descendant::contact[@listID =  $list]/child::*[not(local-name(.) = 'from')]
         return element { fn:local-name($contact) } {$contact/text()}
     else 
-        for $contact in $config/descendant::contact[1]/child::*
+        for $contact in $config:get-access-config/descendant::contact[1]/child::*[not(local-name(.) = 'from')]
         return element { fn:local-name($contact) } {$contact/text()}
 else 
-    for $contact in $config/descendant::contact[1]/child::*
+    for $contact in $config:get-access-config/descendant::contact[1]/child::*[not(local-name(.) = 'from')]
     return 
          element { fn:local-name($contact) } {$contact/text()}
 };
 
 declare function local:build-message(){
 let $rec-uri := if(request:get-parameter('id','')) then concat('for ',request:get-parameter('id','')) else ()
+let $from := if($config:get-access-config//*:contact[not(@listID)]//*:from) then
+               concat('&lt;',$config:get-access-config//*:contact[not(@listID)]//*:from[1]//text(),'&gt;')
+             else concat('&lt;',$config:get-access-config//*:contact[not(@listID)]/child::*[1]//text(),'&gt;')
 return
     <mail>
-    <from>{$global:app-title} &#160;{concat('&lt;',$config//*:contact[not(@listID)]/child::*[1]//text(),'&gt;')}</from>
+    <from>{$config:app-title} &#160;{$from}</from>
     {local:email-list()}
     <subject>{request:get-parameter('subject','')}&#160; {$rec-uri}</subject>
     <message>
@@ -77,16 +86,25 @@ return
 };
 
 let $cache := current-dateTime()
+let $smtp := if($config:get-access-config//*:smtp/text() != '') then $config:get-access-config//*:smtp/text() else ()
 return 
     if(exists(request:get-parameter('email','')) and request:get-parameter('email','') != '')  then 
         if(exists(request:get-parameter('comments','')) and request:get-parameter('comments','') != '') then 
-            if(local:recaptcha() = true()) then 
-               let $mail := local:build-message()
-               return 
-                   if (mail:send-email($mail,'localhost', ()) ) then
-                   <h4>Thank you. Your message has been sent.</h4>
-                   else
-                   <h4>Could not send message.</h4>
-            else 'Recaptcha fail'
+          if($secret-key != '') then
+                if(local:recaptcha() = true()) then 
+                   let $mail := local:build-message()
+                   return 
+                       if(mail:send-email($mail,$smtp, ()) ) then
+                           <h4>Thank you. Your message has been sent.</h4>
+                       else
+                           <h4>Could not send message.</h4>
+                else 'Recaptcha fail'
+            else 
+                let $mail := local:build-message()
+                return 
+                    if(mail:send-email($mail,$smtp, ()) ) then
+                       <h4>Thank you. Your message has been sent.</h4>
+                    else
+                       <h4>Could not send message.</h4>      
         else  <h4>Incomplete form.</h4>
    else  <h4>Incomplete form.</h4>
