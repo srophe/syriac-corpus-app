@@ -1,44 +1,46 @@
-<html xmlns="http://www.w3.org/1999/xhtml" data-template="app:get-rec">
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" data-template="app:get-work">
     <head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title data-template="app:app-title">Digital Syriac Corpus</title>
-        <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"/>
-        <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/"/>
-        <meta name="DC.type" property="dc.type" content="Text"/>
-        <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title data-template="config:app-title">Digital Syriac Corpus</title>
         <link data-template="app:metadata"/>
-        <link rel="shortcut icon" href="$app-root/resources/img/favicon.ico"/>
-        <!-- Syriaca.org css -->
-        <link rel="stylesheet" href="$app-root/resources/css/syr-icon-fonts.css"/>
-        <link rel="stylesheet" type="text/css" href="$app-root/resources/css/bootstrap.min.css"/>
-        <link rel="stylesheet" type="text/css" href="$app-root/resources/css/main.css"/>
-        <link rel="stylesheet" type="text/css" href="$app-root/resources/css/lightslider.css"/>
-        <link rel="stylesheet" type="text/css" href="$app-root/resources/css/sm-core-css.css"/>
-        <link rel="stylesheet" type="text/css" media="print" href="$app-root/resources/css/print.css"/>
-        <!-- Leaflet
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
-        <link rel="stylesheet" href="$app-root/resources/leaflet/leaflet.awesome-markers.css"/>
+        <link rel="shortcut icon" href="$nav-base/resources/images/favicon.ico"/>
+        <!-- Bootstrap 3 -->
+        <link rel="stylesheet" type="text/css" href="$nav-base/resources/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/sm-core-css.css"/>
+        <!-- Srophe styles -->
+        <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/syr-icon-fonts.css"/>
+        <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="$nav-base/resources/css/main.css"/>
+        <!--<link rel="stylesheet" type="text/css" href="$nav-base/resources/css/slider.css"/>-->
+        <!--<link rel="stylesheet" type="text/css" href="$nav-base/resources/css/lightslider.css"/>-->
+        <link rel="stylesheet" type="text/css" media="print" href="$nav-base/resources/css/print.css"/>
+        <!-- Leaflet 
+        <link rel="stylesheet" href="$nav-base/resources/leaflet/leaflet.css"/>
+        <link rel="stylesheet" href="$nav-base/resources/leaflet/leaflet.awesome-markers.css"/>
         -->
-        <!-- jquery -->
-        <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/ui-lightness/jquery-ui.css" rel="stylesheet"/>
-        <!-- temporary until migrate to bootstrap 3.0 -->
-        <script type="text/javascript" src="$app-root/resources/js/jquery.min.js"/>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"/>
-        <script type="text/javascript" src="$app-root/resources/js/jquery.smartmenus.min.js"/>
-        <script type="text/javascript" src="$app-root/resources/js/clipboard.min.js"/>
-        <script src="https://www.google.com/recaptcha/api.js"/>
+        <!-- JQuery -->
+        <link href="$nav-base/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
+        <script type="text/javascript" src="$nav-base/resources/js/jquery.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/jquery-ui/jquery-ui.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/js/jquery.smartmenus.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/js/clipboard.min.js"/>
+        <!-- Bootstrap -->
+        <script type="text/javascript" src="$nav-base/resources/bootstrap/js/bootstrap.min.js"/>
+        <!-- ReCaptcha -->
+        <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"/>
         <!-- keyboard widget css & script -->
-        <link href="$app-root/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
-        <link href="$app-root/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
-        <link href="$app-root/resources/keyboard/syr/syr.css" rel="stylesheet"/>
-        <script type="text/javascript" src="$app-root/resources/keyboard/syr/jquery.keyboard.js"/>
-        <script type="text/javascript" src="$app-root/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"/>
-        <script type="text/javascript" src="$app-root/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"/>
-        <script type="text/javascript" src="$app-root/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"/>
-        <script type="text/javascript" src="$app-root/resources/keyboard/syr/keyboardSupport.js"/>
-        <script type="text/javascript" src="$app-root/resources/keyboard/syr/syr.js"/>
+        <link href="$nav-base/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
+        <link href="$nav-base/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
+        <link href="$nav-base/resources/keyboard/syr/syr.css" rel="stylesheet"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/syr/jquery.keyboard.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/syr/keyboardSupport.js"/>
+        <script type="text/javascript" src="$nav-base/resources/keyboard/syr/syr.js"/>
         <script type="text/javascript">
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip({ container: 'body' })
@@ -78,7 +80,7 @@
             })
         </script>
     </head>
-    <body>
+    <body id="body">
         <!--
         Estrangela (use Estrangelo Edessa Font)
 East Syriac (what font do we current use here)
@@ -88,9 +90,8 @@ West Syriac (what font do we current use here)
                 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
             <![endif]-->
         <!-- Fixed navbar -->
-        <div data-template="app:shared-content" data-template-path="/templates/draft-info.html"/>
+        <!--<div data-template="app:shared-content" data-template-path="/templates/draft-info.html"/>-->
         <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
-            <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
@@ -98,10 +99,10 @@ West Syriac (what font do we current use here)
                         <span class="icon-bar"/>
                         <span class="icon-bar"/>
                     </button>
-                    <a class="navbar-brand banner-container" href="$app-root/index.html">
-                        <!--<img property="logo" class="img-responsive" alt="Syriac.org" src="$app-root/resources/img/syriaca-logo.png"/> Draft-->
+                    <a class="navbar-brand banner-container" href="$nav-base/index.html">
+                        <!--<img property="logo" class="img-responsive" alt="Syriac.org" src="$nav-base/resources/images/syriaca-logo.png"/> Draft-->
                         <span class="banner-icon">
-                            <img src="$app-root/resources/img/syriac-corpus.svg" alt="" width="50px"/>
+                            <img src="$nav-base/resources/images/syriac-corpus.svg" alt="" width="50px"/>
                         </span>
                         <span class="banner-text">Digital Syriac Corpus</span>
                     </a>
@@ -109,7 +110,7 @@ West Syriac (what font do we current use here)
                 <div class="navbar-collapse collapse pull-right">
                     <ul class="nav navbar-nav sm sm-vertical" id="main-menu">
                         <li>
-                            <a href="$app-root/browse.html">Browse</a>
+                            <a href="$nav-base/browse.html">Browse</a>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -117,51 +118,57 @@ West Syriac (what font do we current use here)
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="$app-root/about.html">About the Project</a>
+                                    <a href="$nav-base/about.html">About the Project</a>
                                 </li>
                                 <li role="presentation" class="divider"/>
                                 <li>
-                                    <a href="$app-root/history.html">History of the Project</a>
+                                    <a href="$nav-base/history.html">History of the Project</a>
                                 </li>
                                 <li role="presentation" class="divider"/>
                                 <li>
-                                    <a href="$app-root/project-team.html">Project Team</a>
+                                    <a href="$nav-base/project-team.html">Project Team</a>
                                 </li>
                                 <li role="presentation" class="divider"/>
                                 <li>
-                                    <a href="$app-root/submissions.html">Submissions to the Corpus</a>
+                                    <a href="$nav-base/submissions.html">Submissions to the Corpus</a>
                                 </li>
                                 <li role="presentation" class="divider"/>
                                 <li>
-                                    <a href="$app-root/contact-us.html">Contact Us</a>
+                                    <a href="$nav-base/contact-us.html">Contact Us</a>
                                 </li>
                                 <li role="presentation" class="divider"/>
                                 <li>
-                                    <a href="$app-root/documentation/index.html">Documentation</a>
+                                    <a href="$nav-base/documentation/index.html">Documentation</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>                      
                     </ul>
+                    <form class="navbar-form navbar-left navbar-input-group" role="search" action="$nav-base/search.html" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control keyboard" placeholder="search" name="keyword" id="keywordNav" title="Search by keyword"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit" data-toggle="tooltip" title="Search">
+                                    <span class="glyphicon glyphicon-search"/>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                     <ul class="nav navbar-nav navbar-right keboard-btn">
                         <li>
                             <div class="btn-nav">
-                                <a class="btn btn-default navbar-btn dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
-                                     <span class="syriaca-icon syriaca-keyboard">  </span>
-                                    <span class="caret"/>
-                                </a>
-                                <ul data-template="app:keyboard-select-menu" data-template-input-id="q"/>
+                                <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                                <b class="caret"/>
+                            </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="$nav-base/search.html">Advanced Search</a>
+                                    </li>
+                                </ul>
                             </div>
                         </li>
                         <li>
-                            <div class="btn-nav">
-                                <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Search Tools">
-                                     <span class="glyphicon glyphicon-cog"/> <span class="caret"/>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="search.html">Advanced Search</a>
-                                    </li>
-                                </ul>
+                            <div class="btn-nav navbar-btn">
+                                <span data-template="app:keyboard-select-menu" data-template-input-id="keywordNav"/>
                             </div>
                         </li>
                         <li>
@@ -183,33 +190,26 @@ West Syriac (what font do we current use here)
                                         <a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a>
                                     </li>
                                     <li>
-                                        <a href="$app-root/documentation/wiki.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/srophe-app-data/wiki">Help <span class="glyphicon glyphicon-question-sign"/>
+                                        <a href="$nav-base/documentation/wiki.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/srophe-app-data/wiki">Help <span class="glyphicon glyphicon-question-sign"/>
                                         </a>
                                     </li>
                                 </ul>
                             </div>
                         </li>
                     </ul>
-                    <form class="navbar-form navbar-right navbar-input-group" role="search" action="$app-root/search.html" method="get">
-                        <div class="input-group">
-                            <input type="text" class="form-control keyboard" placeholder="search" name="q" id="q"/>
-                        </div>
-                    </form>
                 </div><!--/.nav-collapse -->
-            </div>
         </div>
         <div id="main">
             <div id="content"/>
         </div>
         <!-- Footer -->
         <footer data-template="app:shared-content" data-template-path="/templates/footer.html"/>
-
-        <!-- Additional Javascript -->
-        <script type="text/javascript" src="$app-root/resources/js/bootstrap.min.js"/>
-        <script type="text/javascript" src="$app-root/resources/js/jquery.validate.min.js"/>
-        <script type="text/javascript" src="$app-root/resources/js/main.js"/>
-        <script type="text/javascript" src="$app-root/resources/js/lightslider.min.js"/>
-        <!-- Google analytics. Values pulled from config.xml -->
-        <script data-template="app:google-analytics"/>
     </body>
+    <!-- Additional Javascript -->
+    <script type="text/javascript" src="$nav-base/resources/js/jquery.validate.min.js"/>
+    <script type="text/javascript" src="$nav-base/resources/js/require.min.js"/>
+    <script type="text/javascript" src="$nav-base/resources/js/srophe.js"/>
+    <script type="text/javascript" src="$nav-base/resources/js/lightslider.min.js"/>
+    <script type="text/javascript" src="$nav-base/resources/js/lightslider-functions.js"/>
+    <script data-template="app:google-analytics"/>
 </html>

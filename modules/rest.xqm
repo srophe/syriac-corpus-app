@@ -270,7 +270,7 @@ declare function api:not-found($path as xs:string?){
  : Builds full uri based on repo.xml
 :)
 declare function api:get-tei($id){
-    root(collection($global:data-root)//tei:idno[. = $id])
+    collection($global:data-root)//tei:TEI[descendant::tei:idno[. = $id]]
 };
 
 (:~

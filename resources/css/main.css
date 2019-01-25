@@ -1,11 +1,8 @@
 /* Application styles could go here */
 /**
  * Colors: 
- * Dark green: 4E6D59
+ * Bllue: 456889
  */
-/* Import Fonts CSS */ 
-
-@import url("syr-font-families.css");
 
 /* Dev only: corner ribbon */
 /* The ribbons */
@@ -84,8 +81,8 @@ footer{background-color:#444;}
 .navbar {border-bottom:4px solid #4E6D59 !important;}
 .navbar-inner {border-bottom:.5em solid #4E6D59 !important;}
 .navbar-inner .container{height: 45px !important; padding-top:.5em; margin-left:.5em;}
-.navbar-brand {margin-top:-.75em; padding-left:0; margin-left:0; margin-right:-2em;}
-.navbar-brand img {padding:0; margin-top: -.25em; margin-left: 1em; margin-right:0;}
+.navbar-brand {margin-right:-1em;}
+.navbar-brand img {padding:0; margin-top: -.25em; margin-left: 0em; margin-right:0;}
 
 .brand {margin-top:-.75em; margin-left:40px;padding-left:0;}
 .brand img {margin-left:1.5em;padding-left:0;}
@@ -145,7 +142,7 @@ footer{background-color:#444;}
 .icon-text {display:inline-block; margin-top:-.85em; vertical-align: middle;}
 .nav-text {display:inline-block; line-height:1.5em; margin-top:.25em;}
 
-.banner-container {display:inline-block; line-height:2.5em;}
+.banner-container {display:inline-block;}
 .banner-icon {font-size:2.5em; display:inline-block; padding-top:0;}
 
  * /*
@@ -158,7 +155,7 @@ footer{background-color:#444;}
     position:relative;
     margin-top:0;
     padding-top:0;
-	background-image:url('../img/resafa_arch.jpg');
+	background-image:url('../images/resafa_arch.jpg');
 	background-size:cover;
 	background-position:center;
 	height:200px;
@@ -182,7 +179,7 @@ footer{background-color:#444;}
     position:relative;
     padding-top:0;
     border-bottom:4px solid #4E6D59;
-	background-image:url('../img/banner.png');
+	background-image:url('../images/banner.png');
 	background-size:cover;
 	background-position:center;
 	height:250px;
@@ -214,7 +211,7 @@ footer {text-align:center; color:white;}
 
 /* Simple background color styles */
 .grey {background-color:#eee;}
-.grey-dark {background-color:#ccc;}
+.grey-dark {background-color:#ccc; margin-top:-1em; margin-bottom:-1em;}
 .white {background-color:white;}
 
 /* Block styles */
@@ -296,9 +293,10 @@ td {
 .sort-title {background-color:none; color:#666; font-weight:500; display:block; }
 .textBox {display:block;}
 .caveat, .note {font-size: .785em; font-style:italic; margin-top:-.5em; padding-top:0;}
-.title {display:block; margin-bottom:1em;}
+.title {display:block; margin-bottom:1em; border:none;}
 .title h1{border-bottom:2px solid #666666; margin-bottom:.5em; margin-top:0; padding:0 1em;}
 .title .uri{padding:0 1em; color: #999999;}
+.data-formats {margin-right:2em;}
 .about {padding-top: .5em; border-bottom:2px solid #666666;margin-bottom:1em;}
 .caption{text-align:center; font-size:.75em;color:grey;}
 .funding {margin:1em;}
@@ -331,8 +329,9 @@ td {
 }
 
 .browse-alpha li.syr-menu + li.syr-menu {
-    padding-left: .5em;
+    padding-left: .35em;
 }
+
 .browse-alpha li.ar-menu + li.ar-menu {
     padding-left: .15em;
 }

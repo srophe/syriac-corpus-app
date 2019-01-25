@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <meta xmlns="http://exist-db.org/xquery/repo">
     <description>Digital Syriac Corpus</description>
     <author>Winona Salesky</author>
@@ -16,7 +17,7 @@
         <description/>
         <!-- Contact email -->
         <contact>info@syriaca.org</contact>
-        <!-- Logo name (assumes path to logo is $app-root/resources/img/) -->
+        <!-- Logo name (assumes path to logo is $app-root/resources/images/) -->
         <logo>syriaca-logo.png</logo>
         <!-- Web Site URL -->
         <url>http://syriac-corpus.org/</url>
@@ -28,6 +29,7 @@
         <data-root>syriac-corpus-data</data-root>
         <!-- Base URI for identifiers in app data -->
         <base_uri>https://syriaccorpus.org</base_uri>
+        <html-render type="xslt"/>
         <!-- Map rendering -->
         <maps>
             <option>google</option>

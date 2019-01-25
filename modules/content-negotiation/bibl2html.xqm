@@ -3,14 +3,15 @@ xquery version "3.0";
  : Builds tei conversions. Citation module. 
  :)
  
-module namespace bibl2html="http://syriaca.org/bibl2html";
-import module namespace tei2html="http://syriaca.org/tei2html" at "tei2html.xqm";
-import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
+module namespace bibl2html="http://syriaca.org/srophe/bibl2html";
+import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "tei2html.xqm";
+import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
 
 declare namespace html="http://purl.org/dc/elements/1.1/";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
 declare namespace util="http://exist-db.org/xquery/util";
+
 
 (:~
  : Select citation type based on child elements

@@ -17,7 +17,7 @@
         <description/>
         <!-- Contact email -->
         <contact>info@syriaca.org</contact>
-        <!-- Logo name (assumes path to logo is $app-root/resources/img/) -->
+        <!-- Logo name (assumes path to logo is $app-root/resources/images/) -->
         <logo>syriaca-logo.png</logo>
         <!-- Web Site URL -->
         <url>http://syriac-corpus.org/</url>

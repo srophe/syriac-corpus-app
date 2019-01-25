@@ -1,18 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
     <!--<xi:include href="banner.html"/>-->
     <div class="grey-dark">
         <div class="container interior-content white">
             <div data-template="app:h1"/>
-            <div data-template="app:other-data-formats" data-template-formats="corrections,copy,print,tei,text" style="margin-right:1em;" class="noprint"/>
-            
+            <div data-template="app:other-data-formats" data-template-formats="corrections,copy,print,tei,text" class="data-formats noprint"/>
+
             <div class="row">
                 <div data-template="app:display-left-menu"/>
                 <div data-template="app:display-body" data-template-paths="/descendant::tei:text"/>
-                <!--
-                <div class="col-sm-6 col-md-6 col-lg-7 mssBody">
-                    <div data-template="app:display-nodes" data-template-paths="/descendant::tei:body"/>
-                </div>
-                -->
+                
                 <div class="col-sm-4 col-md-4 col-lg-3 right-menu">
                     <div id="rightCol" class="noprint">
                         <div id="sedraDisplay" class="sedra panel panel-default">
@@ -20,7 +17,7 @@
                                 <span style="display:block;text-align:center;margin:.5em;">
                                     <a href=" http://sedra.bethmardutho.org" title="SEDRA IV">SEDRA IV</a>
                                 </span>
-                                <img src="$app-root/resources/img/sedra-logo.png" title="Sedra logo" width="100%"/>
+                                <img src="$nav-base/resources/images/sedra-logo.png" title="Sedra logo" width="100%"/>
                                 <h3>Syriac Lexeme</h3>
                                 <div id="sedraContent">
                                     <div class="content"/>
@@ -35,7 +32,7 @@
                 </div>
             </div>
             <div id="footnoteDisplay" class="footnote">
-              <div class="content"/>  
+                <div class="content"/>  
             </div>
             <script type="text/javascript">
                 $('input.toggleDisplay').click(function() {
@@ -84,14 +81,14 @@
                 });
                 
                 $('.footnote-ref a').click(function(e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    var link = $(this);
-                    var href = $(this).attr('href');
-                    var content = $(href).html()
-                    $('#footnoteDisplay').css('display','block');
-                    $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
-                    $('#footnoteDisplay div.content').html( content );    
+                e.stopPropagation();
+                e.preventDefault();
+                var link = $(this);
+                var href = $(this).attr('href');
+                var content = $(href).html()
+                $('#footnoteDisplay').css('display','block');
+                $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
+                $('#footnoteDisplay div.content').html( content );    
                 });
                 
             </script>

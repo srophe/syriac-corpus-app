@@ -1,15 +1,17 @@
 xquery version "3.0";
 (:
- : Build ttl output for Gazetteer data. 
- : Updated to work with Persons/Places and Works:
- : https://github.com/srophe/srophe-app-data/issues/702#issuecomment-280301046 
+ : Build Srophe TEI to ttl 
 :)
 
-module namespace tei2ttl="http://syriaca.org/tei2ttl";
-import module namespace global="http://syriaca.org/global" at "../lib/global.xqm";
-import module namespace bibl2html="http://syriaca.org/bibl2html" at "bibl2html.xqm";
-import module namespace rel="http://syriaca.org/related" at "../lib/get-related.xqm";
+module namespace tei2ttl="http://syriaca.org/srophe/tei2ttl";
+import module namespace bibl2html="http://syriaca.org/srophe/bibl2html" at "bibl2html.xqm";
+import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "tei2html.xqm";
+import module namespace rel="http://syriaca.org/srophe/related" at "../lib/get-related.xqm";
+import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
+
 import module namespace functx="http://www.functx.com";
+
+declare namespace output="http://www.w3.org/2010/xslt-xquery-serialization";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
 declare option exist:serialize "method=text media-type=text/turtle indent=yes";
@@ -195,9 +197,9 @@ return
                     tei2ttl:attestation($rec, $name/@source)))
             ,'];')
     else 
-        if($name/ancestor::tei:location[@type='nested'][starts-with(@ref,$global:base-uri)]) then
+        if($name/ancestor::tei:location[@type='nested'][starts-with(@ref,$config:base-uri)]) then
            tei2ttl:make-triple('','dcterms:isPartOf',tei2ttl:make-uri($name/@ref)) 
-        else if($name[starts-with(@ref,$global:base-uri)]) then  
+        else if($name[starts-with(@ref,$config:base-uri)]) then  
             tei2ttl:make-triple('','skos:related',tei2ttl:make-uri($name/@ref))
         else ()),' ')        
 };
@@ -487,9 +489,9 @@ declare function tei2ttl:prefix() as xs:string{
 
 (: Triples for a single record :)
 declare function tei2ttl:make-triple-set($rec){
-let $rec := if($rec/tei:div[@uri[starts-with(.,$global:base-uri)]]) then $rec/tei:div[@uri[starts-with(.,$global:base-uri)]] else $rec
-let $id := if($rec/descendant::tei:idno[starts-with(.,$global:base-uri)]) then replace($rec/descendant::tei:idno[starts-with(.,$global:base-uri)][1],'/tei','')
-           else if($rec/@uri[starts-with(.,$global:base-uri)]) then $rec/@uri[starts-with(.,$global:base-uri)]
+let $rec := if($rec/tei:div[@uri[starts-with(.,$config:base-uri)]]) then $rec/tei:div[@uri[starts-with(.,$config:base-uri)]] else $rec
+let $id := if($rec/descendant::tei:idno[starts-with(.,$config:base-uri)]) then replace($rec/descendant::tei:idno[starts-with(.,$config:base-uri)][1],'/tei','')
+           else if($rec/@uri[starts-with(.,$config:base-uri)]) then $rec/@uri[starts-with(.,$config:base-uri)]
            else $rec/descendant::tei:idno[1]
 let $resource-class := if($rec/descendant::tei:body/tei:biblStruct) then 'rdfs:Resource'    
                        else 'skos:Concept'    
@@ -634,5 +636,9 @@ declare function tei2ttl:record($triple as xs:string*) as xs:string*{
 };
 
 declare function tei2ttl:ttl-output($recs) {
-    (concat(tei2ttl:prefix(), tei2ttl:make-triple-set($recs)))
+    serialize((concat(tei2ttl:prefix(), tei2ttl:make-triple-set($recs))), 
+        <output:serialization-parameters>
+            <output:method>text</output:method>
+            <output:media-type>text/plain</output:media-type>
+        </output:serialization-parameters>)
 };
