@@ -18,10 +18,6 @@ import module namespace app="http://syriaca.org/srophe/templates" at "app.xql";
 import module namespace browse="http://syriaca.org/srophe/browse" at "lib/browse.xqm";
 import module namespace search="http://syriaca.org/srophe/search" at "search/search.xqm";
 
-(: Syriaca.org specific functions :)
-import module namespace place="http://syriaca.org/srophe/place" at "place.xqm";
-import module namespace person="http://syriaca.org/srophe/person" at "person.xqm";
-
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
 
 declare option output:method "html5";

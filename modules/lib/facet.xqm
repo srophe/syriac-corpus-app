@@ -335,3 +335,16 @@ declare function facet:controlled-labels($results as item()*, $facet-definitions
         descending
     return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp}" label="{global:odd2text(tokenize(replace($path[1],'@|\[|\]',''),'/')[last()],string($facet-grp))}"/>    
 };
+
+(: Corpus special facet titles :)
+declare function facet:titles($results as item()*, $facet-definitions as element(facet:facet-definition)*) as element(facet:key)*{
+    let $path := concat('$results/',$facet-definitions/facet:group-by/facet:sub-path/text())
+    let $sort := $facet-definitions/facet:order-by
+    for $f in util:eval($path)
+    group by $facet-grp := $f
+    order by 
+        if($sort/text() = 'value') then $f[1]
+        else count($f)
+        ascending
+    return <key xmlns="http://expath.org/ns/facet" count="{count($f)}" value="{$facet-grp}" label="{normalize-space(string-join($f[1]/ancestor-or-self::tei:title[1]//text()))}"/>
+};

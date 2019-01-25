@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
     <!-- ================================================================== 
@@ -74,8 +75,8 @@
     
    <xsl:param name="editoruriprefix">http://syriaca.org/documentation/editors.xml#</xsl:param>
    <xsl:variable name="editorssourcedoc">
-       <xsl:if test="doc-available(concat('xmldb:exist://',$app-root,'/documentation/editors.xml'))">
-           <xsl:sequence select="doc(concat('xmldb:exist://',$app-root,'/documentation/editors.xml'))"/>
+       <xsl:if test="doc-available(concat('xmldb:exist://',$nav-base,'/documentation/editors.xml'))">
+           <xsl:sequence select="doc(concat('xmldb:exist://',$nav-base,'/documentation/editors.xml'))"/>
        </xsl:if>
    </xsl:variable>
    
@@ -479,12 +480,14 @@
                     <xsl:apply-templates select="t:imprint" mode="footnote"/>
                     <xsl:text>)</xsl:text>
                 </xsl:if>
-                <xsl:if test="following-sibling::t:monogr">
-                    <xsl:text>, </xsl:text>
-                </xsl:if>
-                <xsl:if test="not(following-sibling::*)">
-                    <xsl:text>.</xsl:text>
-                </xsl:if>
+                <xsl:choose>
+                    <xsl:when test="following-sibling::t:monogr">
+                        <xsl:text>, </xsl:text>
+                    </xsl:when>
+                    <xsl:when test="not(following-sibling::*) and not(ancestor::t:teiHeader)">
+                        <xsl:text>.</xsl:text>
+                    </xsl:when>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

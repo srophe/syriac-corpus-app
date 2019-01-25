@@ -1,30 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/geo.html" data-template-at="content">
-    <div data-template="app:fix-links" class="record">
-        <div class="main-content-block">
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+    <!--<xi:include href="banner.html"/>-->
+    <div class="grey-dark">
+        <div class="container interior-content white">
             <div data-template="app:h1"/>
-            <div data-template="app:other-data-formats" data-template-formats="print,tei,rdf,ttl,json,text"/>
+            <div data-template="app:other-data-formats" data-template-formats="corrections,copy,print,tei,text" class="data-formats noprint"/>
+
             <div class="row">
-                <div class="col-md-7 col-lg-8">
-                    <div data-template="app:display-nodes" data-template-paths="descendant::tei:text"/>
-                </div>
-                <div class="col-md-5 col-lg-4 right-menu">
-                    <div data-template="app:display-map"/>
-                    <div data-template="app:display-timeline"/>
-                    
-                    <div data-template="app:internal-relationships" data-template-display="list-description"/>
-                    <!--<div data-template="app:internal-relationships" data-template-display="sentence"/>--> 
-                    <div data-template="app:external-relationships"/>
-                    <!-- Button trigger corrections email modal -->
-                    <button class="btn btn-default" data-toggle="modal" data-target="#feedback">Corrections/Additions?</button> 
+                <div data-template="app:display-left-menu"/>
+                <div data-template="app:display-body" data-template-paths="/descendant::tei:text"/>
+                
+                <div class="col-sm-4 col-md-4 col-lg-3 right-menu">
+                    <div id="rightCol" class="noprint">
+                        <div id="sedraDisplay" class="sedra panel panel-default">
+                            <div class="panel-body">
+                                <span style="display:block;text-align:center;margin:.5em;">
+                                    <a href=" http://sedra.bethmardutho.org" title="SEDRA IV">SEDRA IV</a>
+                                </span>
+                                <img src="$nav-base/resources/img/sedra-logo.png" title="Sedra logo" width="100%"/>
+                                <h3>Syriac Lexeme</h3>
+                                <div id="sedraContent">
+                                    <div class="content"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-template="app:display-ids"/>
+                    <div data-template="app:display-nodes" data-template-paths="/descendant::tei:teiHeader"/>
+                    <div data-template="app:srophe-related" class="noprint"/>
+                    <div data-template="app:display-related" class="noprint"/>
                 </div>
             </div>
-            <div>
-                <!-- Entry Citation information, pass TEI header to citation.xsl -->
-                <div data-template="app:display-nodes" data-template-paths="descendant::tei:teiHeader"/>
+            <div id="footnoteDisplay" class="footnote">
+                <div class="content"/>  
+            </div>
+            <script type="text/javascript">
+                $('input.toggleDisplay').click(function() {
+                var display = $(this).data("element");
+                $('.'+ display).children('.text-number').toggle();
+                //$('.'+ display).children('.head').toggle();
+                var section = $('.'+ display).hasClass("tei-head");
+                if(section){
+                $(' .' + display + '.tei-head').toggle();
+                }else{
+                $(' .' + display).toggleClass( 'display' );
+                }
+                //Change checkbox to active
+                $(this).toggleClass( "active" );
+                console.log(display);
+                });
+                
+                $('button.toggleHead').click(function() {
+                $('.head').toggleClass( "hidden" );
+                });
+                
+                $('a.sedra').click(function(e) {
+                //event.preventDefault();
+                e.stopPropagation();
+                e.preventDefault();
+                var href = $(this).attr('href');
+                $('#sedraDisplay').css('display','block');
+                $.get(href, function( data ) {
+                $( "#sedraContent div.content" ).html( data );
+                })    
+                .fail(function() {
+                $('#sedraContent div.content').empty();
+                $( "#sedraContent div.content" ).html( 'There are no results for this word. Please try using the <a href="http://sedra.bethmardutho.org/">Syriac Dictionary Lookup</a>' );
+                });
+                });
+                
+                $('html').click(function() {
+                $('#sedraDisplay').hide();
+                $('#footnoteDisplay').hide();
+                $('#sedraContent div.content').empty();
+                $('#footnoteDisplay div.content').empty();
+                })
+                
+                $('#rightCol').click(function(e){
+                e.stopPropagation();
+                });
+                
+                $('.footnote-ref a').click(function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var link = $(this);
+                var href = $(this).attr('href');
+                var content = $(href).html()
+                $('#footnoteDisplay').css('display','block');
+                $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
+                $('#footnoteDisplay div.content').html( content );    
+                });
+                
+            </script>
+            
+            <!--<div data-template="app:citation"/>-->
+        </div>
+        <!-- Modal email form-->
+        <div data-template="app:contact-form"/>
+        <div data-template="app:contact-form-linked-data"/>
+        <div class="modal fade" id="moreInfo" tabindex="-1" role="dialog" aria-labelledby="moreInfoLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">x</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <h2 class="modal-title" id="moreInfoLabel"/>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                        <div id="moreInfo-box"/>
+                        <br style="clear:both;"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <!-- Modal email form-->
-    <div data-template="app:contact-form"/>
 </div>

@@ -97,7 +97,7 @@ else if(ends-with($exist:resource,('.tei','.xml','.txt','.pdf','.json','.geojson
     
 (: Checks for any record uri patterns as defined in repo.xml :)    
 else if(replace($exist:path, $exist:resource,'') =  $exist:record-uris) then
-    if($exist:resource = ('index.html','search.html','browse.html','about.html')) then    
+    if($exist:resource = ('301.html','500.html','404.html','index.html','search.html','browse.html','about.html','contact-us.html','history.html','project-team.html','submissions.html','record.html')) then    
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
             <view>
                 <forward url="{$exist:controller}/modules/view.xql"/>

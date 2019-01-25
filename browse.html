@@ -1,34 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<div xmlns="http://www.w3.org/1999/xhtml" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
-    <div class="main-content-block">
-        <h1>Browse</h1>
-        <p class="indent">Listings of records.</p>
-        <div data-template="browse:get-all" data-template-element="tei:titleStmt/tei:title[@level='a']">
-        <!-- Example limits data to places collection, see example entry in repo-config.xml -->    
-<!--        <div data-template="browse:get-all" data-template-collection="places">-->
-            <div class="tabbable"> 
-                <!-- Browse Tabs Configurable. -->
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+    <h1 class="banner indent bhse">Browse Syriac Works</h1>
+    <div class="section white indent">
+        <!-- Calls xquery functions -->
+        <div data-template="browse:get-all">
+            <div class="tabbable">
+                <!-- Browse Tabs -->
                 <ul class="nav nav-tabs" id="nametabs">
                     <li>
-                        <a href="browse.html" default="default">All</a>
+                        <a href="browse.html">Ancient Author</a>
                     </li>
                     <li>
-                        <a href="browse.html?alpha-filter-value=A&amp;element=tei:place/tei:placeName">Places</a>
+                        <a href="browse.html?view=title">Title</a>
                     </li>
                     <li>
-                        <a href="browse.html?alpha-filter-value=A&amp;element=tei:person/tei:persName">Persons</a>
-                    </li>
-                    <li>
-                        <a href="browse.html?view=map">Map</a>
+                        <a href="browse.html?lang=syr&amp;alpha-filter=ALL">ܠܫܢܐ ܣܘܪܝܝܐ</a>
                     </li>
                 </ul>
                 <!-- Browse Content -->
                 <div class="tab-content">
                     <div class="tab-pane active">
                         <div class="row">
-                            <div data-template="browse:show-hits"/>
+                            <div data-template="browse:group-results" id="browse-results-panel">
+                                <div data-template="browse:show-hits"/>
+                            </div>
                         </div>
-                        <div data-template="app:pageination"/>
                     </div>
                 </div>
             </div>

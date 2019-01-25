@@ -28,8 +28,8 @@
 }
 .banner-container {display:inline-block; line-height:2.35em;}
 .banner-text {color: #888; display:inline-block; margin-top:-1.25em; vertical-align: middle; letter-spacing: -1px; font:1.35em Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;}
-.banner-icon img{height:40px; overflow:hidden; padding-left: 1em; vertical-align: middle; margin:-.25em .5em 0 .5em; padding:0;}
-body {font-family: arial, sans-serif; background-color:#385978;}
+.banner-icon img{overflow:hidden; padding-left: .5em; vertical-align: middle; margin:-.25em .25em 0 .5em; padding:0;}
+body {font-family: arial, sans-serif;}
 /* browse menus*/
 .browse-alpha {border-bottom:1px solid #ccc; padding:.5em 1em; margin:1em 0; text-align: justify;}
 .browse-alpha li + li {padding-left: .75em;}
@@ -91,6 +91,7 @@ footer .poweredby img { width: 120px; }
 
 /* I */
 .indent {margin-left: 2em;}
+.input-url {display:none;}
 img{ margin:0px }
 .img-credit{
     position:absolute;

@@ -1,11 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
     
     <!-- =================================================================== -->
     <!-- Helper Functions  -->
     <!-- =================================================================== -->
     <xsl:variable name="odd">
-        <xsl:if test="doc-available(concat('xmldb:exist://',$app-root,'/documentation/syriaca-tei-main.odd'))">
-            <xsl:sequence select="doc(concat('xmldb:exist://',$app-root,'/documentation/syriaca-tei-main.odd'))"/>
+        <xsl:if test="doc-available(concat('xmldb:exist://',$nav-base,'/documentation/syriaca-tei-main.odd'))">
+            <xsl:sequence select="doc(concat('xmldb:exist://',$nav-base,'/documentation/syriaca-tei-main.odd'))"/>
         </xsl:if>
     </xsl:variable>
     

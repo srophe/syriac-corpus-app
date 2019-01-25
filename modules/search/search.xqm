@@ -13,18 +13,10 @@ import module namespace kwic="http://exist-db.org/xquery/kwic";
 (: Import Srophe application modules. :)
 import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
 import module namespace data="http://syriaca.org/srophe/data" at "../lib/data.xqm";
+import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm";
 import module namespace global="http://syriaca.org/srophe/global" at "../lib/global.xqm";
 import module namespace page="http://syriaca.org/srophe/page" at "../lib/paging.xqm";
 import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
-
-(: Syriaca.org search modules :)
-import module namespace bhses="http://syriaca.org/srophe/bhses" at "bhse-search.xqm";
-import module namespace bibls="http://syriaca.org/srophe/bibls" at "bibl-search.xqm";
-import module namespace ms="http://syriaca.org/srophe/ms" at "ms-search.xqm";
-import module namespace nhsls="http://syriaca.org/srophe/nhsls" at "nhsl-search.xqm";
-import module namespace persons="http://syriaca.org/srophe/persons" at "persons-search.xqm";
-import module namespace places="http://syriaca.org/srophe/places" at "places-search.xqm";
-import module namespace spears="http://syriaca.org/srophe/spears" at "spear-search.xqm";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
@@ -41,31 +33,112 @@ declare variable $search:perpage {request:get-parameter('perpage', 20) cast as x
  data:search($collection)
 :)
 declare %templates:wrap function search:search-data($node as node(), $model as map(*), $collection as xs:string?){
-    let $search-string := 
-        if($collection = ('sbd','q','authors','saints','persons')) then persons:query-string($collection)
-        else if($collection ='spear') then spears:query-string()
-        else if($collection = 'places') then places:query-string()
-        else if($collection = ('bhse','nhsl','bible')) then bhses:query-string($collection)
-        else if($collection = 'bibl') then bibls:query-string()
-        else if($collection = 'manuscripts') then ms:query-string()
-        else ()
-    let $queryExpr :=  
-        if($collection = ('sbd','q','authors','saints','persons')) then persons:query-string($collection)
-        else if($collection ='spear') then spears:query-string()
-        else if($collection = 'places') then places:query-string()
-        else if($collection = ('bhse','nhsl','bible')) then bhses:query-string($collection)
-        else if($collection = 'bibl') then bibls:query-string()
-        else if($collection = 'manuscripts') then ms:query-string()
-        else data:create-query($collection)                    
-    return
-        if(empty($queryExpr) or $queryExpr = "" or empty(request:get-parameter-names())) then ()
-        else 
-            let $hits := data:search($collection,$search-string)
-            return
-                map {
-                        "hits" := $hits,
-                        "query" := $queryExpr
-                    } 
+    let $coll := if($search:collection != '') then $search:collection else $collection
+    let $keyword-query := data:keyword-search()
+    let $eval-string :=  concat(search:query-string($collection),facet:facet-filter(global:facet-definition-file($collection)))
+    return map {"hits" := 
+                if(exists(request:get-parameter-names()) or ($view = 'all')) then 
+                    if($search:sort-element != '' and $search:sort-element != 'relevance' or $view = 'all') then 
+                        for $hit in util:eval($eval-string)
+                        order by global:build-sort-string(data:add-sort-options($hit,$search:sort-element),'') ascending
+                        return $hit   
+                    else if(request:get-parameter('rel', '') != '' and ($search:sort-element = '' or not(exists($search:sort-element)))) then 
+                        for $hit in util:eval($eval-string)
+                        let $part := xs:integer($hit/child::*/tei:listRelation/tei:relation[@passive[matches(.,request:get-parameter('child-rec', ''))]]/tei:desc[1]/tei:label[@type='order'][1]/@n)
+                        order by $part
+                        return $hit                                                                                               
+                    else 
+                        for $hit in util:eval($eval-string)
+                       (: let $expanded := util:expand($hit, "expand-xincludes=no")
+                        let $headword := count($expanded/descendant::*[contains(@syriaca-tags,'#syriaca-headword')][descendant::*:match])
+                        let $headword := if($headword gt 0) then $headword + 15 else 0:)
+                        order by ft:score($hit) + (count($hit/descendant::tei:bibl) div 100) descending
+                        return $hit
+                else ()
+                }
+};
+
+(:~   
+ : Builds general search string from main syriaca.org page and search api.
+:)
+declare function search:query-string($collection as xs:string?) as xs:string?{
+concat("collection('",$global:data-root,"')//tei:TEI",
+    data:keyword-search(),
+    data:element-search('author',request:get-parameter('author', '')),
+    data:element-search('title',request:get-parameter('title', '')),
+    search:section(),
+    search:corpus-id(),
+    search:syriaca-id(),
+    search:text-id(),
+    search:nhsl-edition(),
+    search:bibl-edition()
+    )
+};
+
+(: Corpus specific search fields:) 
+declare function search:corpus-id(){
+    if(request:get-parameter('corpus-uri', '') != '') then 
+        concat("[.//tei:publicationStmt/tei:idno = '",request:get-parameter('corpus-uri', ''),"']") 
+    else () 
+};
+
+declare function search:bibl-edition(){
+    if(request:get-parameter('bibl-edition', '') != '') then 
+        concat("[.//tei:fileDesc/tei:sourceDesc/tei:biblStruct/tei:idno[@type='URI'][. = '",request:get-parameter('bibl-edition', ''),"']]") 
+    else () 
+};
+
+declare function search:nhsl-edition(){
+    if(request:get-parameter('nhsl-edition', '') != '') then 
+        concat("[.//tei:fileDesc/tei:titleStmt/tei:title[@ref = '",request:get-parameter('nhsl-edition', ''),"']]") 
+    else () 
+};
+
+declare function search:syriaca-id(){
+    if(request:get-parameter('syriaca-uri', '') != '') then 
+        concat("[.//tei:titleStmt/tei:title[@ref = '",request:get-parameter('syriaca-uri', ''),"']]") 
+    else ()
+};
+
+declare function search:text-id(){
+    if(request:get-parameter('text-id', '') != '') then 
+        concat("[.//tei:div1[@n = '",request:get-parameter('text-id', ''),"']]") 
+    else () 
+};
+
+declare function search:bibl(){
+    if($search:bibl != '') then  
+        let $terms := data:clean-string($search:bibl)
+        let $ids := 
+            if(matches($search:bibl,'^http://syriaca.org/')) then
+                normalize-space($search:bibl)
+            else 
+                string-join(distinct-values(
+                for $r in collection($global:data-root || '/bibl')//tei:body[ft:query(.,$terms, data:search-options())]/ancestor::tei:TEI/descendant::tei:publicationStmt/tei:idno[starts-with(.,'http://syriaca.org')][1]
+                return concat(substring-before($r,'/tei'),'(\s|$)')),'|')
+        return concat("[descendant::tei:bibl/tei:ptr[@target[matches(.,'",$ids,"')]]]")
+    else ()  
+};
+
+(: NOTE add additional idno locations, ptr/@target @ref, others? :)
+declare function search:idno(){
+    if($search:idno != '') then 
+         (:concat("[ft:query(descendant::tei:idno, '&quot;",$search:idno,"&quot;')]"):)
+         concat("[.//tei:idno = '",$search:idno,"']")
+    else () 
+};
+
+declare function search:catalog-limit(){
+    for $r in collection($global:data-root)//tei:titleStmt/tei:title[@level="s"]
+    group by $group := $r/@ref
+    order by global:build-sort-string($r[1]/text(),'')
+    return <option value="{concat(';fq-Catalog:',$group)}">{$r[1]/text()}</option>
+};
+
+declare function search:section(){
+    if(request:get-parameter('section', '') != '') then 
+        concat("[ft:query(.//tei:body/tei:div1/tei:div2/tei:head,'",request:get-parameter('section', ''),"',data:search-options())]") 
+    else ()
 };
 
 (:~ 
@@ -112,16 +185,7 @@ else
     let $search-config := 
         if($collection != '') then concat($config:app-root, '/', string(config:collection-vars($collection)/@app-root),'/','search-config.xml')
         else concat($config:app-root, '/','search-config.xml')
-    return
-        if(doc-available($search-config)) then 
-            search:build-form($search-config)
-        else if($collection = ('persons','sbd','authors','q','saints')) then <div>{persons:search-form($collection)}</div>
-        else if($collection ='spear') then <div>{spears:search-form()}</div>
-        else if($collection ='manuscripts') then <div>{ms:search-form()}</div>
-        else if($collection = ('bhse','nhsl')) then <div>{bhses:search-form($collection)}</div>
-        else if($collection ='bibl') then <div>{bibls:search-form()}</div>
-        else if($collection ='places') then <div>{places:search-form()}</div> 
-        else search:default-search-form()
+    return search:default-search-form()
 };
 
 (:~
