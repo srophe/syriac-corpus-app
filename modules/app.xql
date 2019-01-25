@@ -608,7 +608,7 @@ declare function app:display-ids($node as node(), $model as map(*)){
                         <span class="footnote-icon"> 
                          <a href="{$model("hits")/descendant::tei:sourceDesc/descendant::tei:idno[starts-with(., 'http://syriaca.org/bibl')][1]/text()}" title="Link to Syriaca.org Bibliographic Record" 
                              data-toggle="tooltip" data-placement="top" class="bibl-links">
-                             <img src="{$config:nav-base}/resources/img/icons-syriaca-sm.png" 
+                             <img src="{$config:nav-base}/resources/images/icons-syriaca-sm.png" 
                                  alt="Link to Syriaca.org Bibliographic Record" height="18px"/>
                          </a>
                         </span>
@@ -647,7 +647,7 @@ declare function app:display-ids($node as node(), $model as map(*)){
                         if($model("hits")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence[contains(@target, 'http://creativecommons.org/licenses/')]) then 
                             <p>
                             <a rel="license" href="{string($model("hits")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence/@target)}">
-                                <img alt="Creative Commons License" style="border-width:0;display:inline;" src="{$config:nav-base}/resources/img/cc.png" height="18px"/>
+                                <img alt="Creative Commons License" style="border-width:0;display:inline;" src="{$config:nav-base}/resources/images/cc.png" height="18px"/>
                             </a>
                             </p>
                         else())}                   

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
@@ -491,7 +490,9 @@
                     <xsl:apply-templates/>
                 </span>
                 <xsl:text>) </xsl:text>
-                <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                <xsl:if test="@source">
+                    <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                </xsl:if>
             </xsl:when>
             <!-- Adds definition list for depreciated names -->
             <xsl:when test="@type='deprecation'">
@@ -502,35 +503,41 @@
                         <!-- Check for ending punctuation, if none, add . -->
                         <!-- NOTE not working -->
                     </span>
-                    <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                    <xsl:if test="@source">
+                        <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                    </xsl:if>
                 </li>
             </xsl:when>
             <xsl:when test="@type='ancientVersion'">
                 <li class="note">
                     <xsl:if test="descendant::t:lang/text()">
                         <span class="srp-label">
-                            <xsl:value-of select="local:expand-lang(descendant::t:lang[1]/text(),'ancientVersion')"/>:
+                            <xsl:value-of select="local:expand-lang(descendant::t:lang/text(),'ancientVersion')"/>:
                         </span>
                     </xsl:if>
                     <span>
                         <xsl:sequence select="local:attributes(.)"/>
                         <xsl:apply-templates/>
                     </span>
-                    <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                    <xsl:if test="@source">
+                        <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                    </xsl:if>
                 </li>
             </xsl:when>
             <xsl:when test="@type='modernTranslation'">
                 <li>
                     <xsl:if test="descendant::t:lang/text()">
                         <span class="srp-label">
-                            <xsl:value-of select="local:expand-lang(descendant::t:lang[1]/text(),'modernTranslation')"/>:
+                            <xsl:value-of select="local:expand-lang(descendant::t:lang/text(),'modernTranslation')"/>:
                         </span>
                     </xsl:if>
                     <span>
                         <xsl:sequence select="local:attributes(.)"/>
                         <xsl:apply-templates/>
                     </span>
-                    <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                    <xsl:if test="@source">
+                        <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                    </xsl:if>
                 </li>
             </xsl:when>
             <xsl:when test="@type='editions'">
@@ -572,11 +579,22 @@
                             <xsl:text>. See below.)</xsl:text>
                         </xsl:if>
                     </span>
-                    <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                    <xsl:if test="@source">
+                        <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                    </xsl:if>
                 </li>
             </xsl:when>
+            <xsl:when test="@rend=('footer','foot','footnote') or @place=('footer','foot','footnote')">
+                <span class="tei-footnote display footnote-refs" dir="ltr" lang="en">
+                    <span class="footnote-ref">
+                        <a href="{concat('#note',@n)}">
+                            <xsl:value-of select="@n"/>
+                        </a>
+                    </span>
+                </span>
+            </xsl:when>
             <xsl:otherwise>
-                <div class="tei-note">  
+                <li>
                     <xsl:choose>
                         <xsl:when test="t:quote">
                             <xsl:apply-templates/>
@@ -590,10 +608,50 @@
                             </span>
                         </xsl:otherwise>
                     </xsl:choose>
-                    <xsl:sequence select="local:add-footnotes(@source,.)"/>
-                </div>
+                    <xsl:if test="@source">
+                        <xsl:sequence select="local:add-footnotes(@source,.)"/>
+                    </xsl:if>
+                </li>
             </xsl:otherwise>
         </xsl:choose>
+    </xsl:template>
+    <xsl:template match="t:note" mode="footnote">
+        <p class="footnote-text">
+            <xsl:if test="@n">
+                <xsl:attribute name="id" select="concat('note',@n)"/>
+                <span class="notes footnote-refs"><span class="footnote-ref">‎<xsl:value-of select="@n"/></span> </span>
+            </xsl:if>
+            <xsl:choose>
+                <xsl:when test="t:quote">
+                    <xsl:apply-templates/>
+                </xsl:when>
+                <xsl:when test="t:p">
+                    <xsl:for-each select="t:p">
+                        <span>
+                            <xsl:sequence select="local:attributes(.)"/>
+                            <xsl:apply-templates/>
+                        </span>                        
+                    </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                    <span>
+                        <xsl:sequence select="local:attributes(.)"/>
+                        <xsl:apply-templates/>
+                    </span>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:if test="@source">
+                <xsl:sequence select="local:add-footnotes(@source,.)"/>
+            </xsl:if>
+        </p>   
+    </xsl:template>
+    <xsl:template match="t:note" mode="abstract">
+        <p>
+            <xsl:apply-templates/>
+            <xsl:if test="@source">
+                <xsl:sequence select="local:add-footnotes(@source,.)"/>
+            </xsl:if>
+        </p>
     </xsl:template>
     
     <!-- M -->
