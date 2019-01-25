@@ -13,7 +13,7 @@
                     G.K. Taylor, University of Oxford</editor>
                 <editor role="editor" ref="http://syriaca.org/person.xml#abutts">Aaron Butts, The
                     Catholic University of America</editor>
-                <editor role="editor" ref="http://syriaca.org/person.xml#mdebie">Muriel Debi√©, √âcole pratique des hautes √©tudes, Paris</editor>
+                <editor role="editor" ref="http://syriaca.org/person.xml#mdebie">Muriel Debié, École pratique des hautes études, Paris</editor>
                 <editor role="editor" ref="http://syriaca.org/person.xml#kheal">Kristian S. Heal,
                     Brigham Young University</editor>
                 <editor role="editor" ref="http://syriaca.org/person.xml#gkiraz">George A. Kiraz,
@@ -24,7 +24,7 @@
                     Schwartz, Texas A&amp;M University</editor>
                 <editor role="general-editor" ref="http://syriaca.org/person.xml#jwalters">James E. Walters,
                     Rochester College</editor>
-                <editor role="editor" ref="http://syriaca.org/person.xml#dweltecke">Dorothea Weltecke, Goethe-Universit√§t, Frankfurt am Main</editor>
+                <editor role="editor" ref="http://syriaca.org/person.xml#dweltecke">Dorothea Weltecke, Goethe-Universität, Frankfurt am Main</editor>
                 <respStmt>
                     <resp>List compiled and expanded by</resp>
                     <name ref="http://syriaca.org/documentation/editors.xml#jwalters">James E. Walters</name>
@@ -149,7 +149,7 @@
                 <person xml:id="mdebie">
                     <persName xml:lang="en">
                         <forename>Muriel</forename>
-                        <surname>Debi√©</surname>
+                        <surname>Debié</surname>
                     </persName>
                 </person>
                 <person xml:id="dweltecke">
