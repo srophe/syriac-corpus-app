@@ -23,6 +23,14 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 (: Variables:)
 declare variable $search:start {request:get-parameter('start', 1) cast as xs:integer};
 declare variable $search:perpage {request:get-parameter('perpage', 20) cast as xs:integer};
+declare variable $search:q {request:get-parameter('q', '') cast as xs:string};
+declare variable $search:persName {request:get-parameter('persName', '') cast as xs:string};
+declare variable $search:placeName {request:get-parameter('placeName', '') cast as xs:string};
+declare variable $search:title {request:get-parameter('title', '') cast as xs:string};
+declare variable $search:bibl {request:get-parameter('bibl', '') cast as xs:string};
+declare variable $search:idno {request:get-parameter('uri', '') cast as xs:string};
+declare variable $search:sort-element {request:get-parameter('sort-element', '') cast as xs:string};
+declare variable $search:collection {request:get-parameter('collection', '') cast as xs:string};
 
 (:~
  : Builds search result, saves to model("hits") for use in HTML display
@@ -32,7 +40,7 @@ declare variable $search:perpage {request:get-parameter('perpage', 20) cast as x
  : Search results stored in map for use by other HTML display functions
  data:search($collection)
 :)
-declare %templates:wrap function search:search-data($node as node(), $model as map(*), $collection as xs:string?){
+declare %templates:wrap function search:search-data($node as node(), $model as map(*), $collection as xs:string?, $view as xs:string?){
     let $coll := if($search:collection != '') then $search:collection else $collection
     let $keyword-query := data:keyword-search()
     let $eval-string :=  concat(search:query-string($collection),facet:facet-filter(global:facet-definition-file($collection)))
@@ -62,7 +70,7 @@ declare %templates:wrap function search:search-data($node as node(), $model as m
  : Builds general search string from main syriaca.org page and search api.
 :)
 declare function search:query-string($collection as xs:string?) as xs:string?{
-concat("collection('",$global:data-root,"')//tei:TEI",
+concat("collection('",$config:data-root,"')//tei:TEI",
     data:keyword-search(),
     data:element-search('author',request:get-parameter('author', '')),
     data:element-search('title',request:get-parameter('title', '')),
@@ -114,7 +122,7 @@ declare function search:bibl(){
                 normalize-space($search:bibl)
             else 
                 string-join(distinct-values(
-                for $r in collection($global:data-root || '/bibl')//tei:body[ft:query(.,$terms, data:search-options())]/ancestor::tei:TEI/descendant::tei:publicationStmt/tei:idno[starts-with(.,'http://syriaca.org')][1]
+                for $r in collection($config:data-root || '/bibl')//tei:body[ft:query(.,$terms, data:search-options())]/ancestor::tei:TEI/descendant::tei:publicationStmt/tei:idno[starts-with(.,'http://syriaca.org')][1]
                 return concat(substring-before($r,'/tei'),'(\s|$)')),'|')
         return concat("[descendant::tei:bibl/tei:ptr[@target[matches(.,'",$ids,"')]]]")
     else ()  
@@ -129,7 +137,7 @@ declare function search:idno(){
 };
 
 declare function search:catalog-limit(){
-    for $r in collection($global:data-root)//tei:titleStmt/tei:title[@level="s"]
+    for $r in collection($config:data-root)//tei:titleStmt/tei:title[@level="s"]
     group by $group := $r/@ref
     order by global:build-sort-string($r[1]/text(),'')
     return <option value="{concat(';fq-Catalog:',$group)}">{$r[1]/text()}</option>
@@ -161,11 +169,11 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                       </div>
                       <div class="col-md-9" xml:lang="en">
                         {(tei2html:summary-view($hit, (), $id[1])) }
-                        {(:
+                        {
                             if($expanded//exist:match) then 
                                 tei2html:output-kwic($expanded, $id)
                             else ()
-                        :)()}
+                        }
                       </div>
                 </div>
             </div>
@@ -252,6 +260,7 @@ declare function search:build-form($search-config) {
         </form> 
 };
 
+
 (:~
  : Simple default search form to us if not search-config.xml file is present. Can be customized. 
 :)
@@ -293,30 +302,59 @@ declare function search:default-search-form() {
                             </div> 
                         </div>
                     </div>
-                    <!-- Title-->
-                    <div class="form-group">
-                        <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
-                        <div class="col-sm-10 col-md-9 ">
-                            <div class="input-group">
-                                <input type="text" id="title" name="title" class="form-control keyboard"/>
-                                <div class="input-group-btn">
-                                {global:keyboard-select-menu('title')}
-                                </div>
-                            </div>   
-                        </div>
+                     <!-- Author-->
+                  <div class="form-group">
+                    <label for="author" class="col-sm-2 col-md-3  control-label">Author: </label>
+                    <div class="col-sm-10 col-md-9 ">
+                        <div class="input-group">
+                            <input type="text" id="author" name="author" class="form-control keyboard"/>
+                            <div class="input-group-btn">
+                                   {global:keyboard-select-menu('author')}
+                            </div>
+                         </div>   
                     </div>
-                   <!-- Place Name-->
-                    <div class="form-group">
-                        <label for="placeName" class="col-sm-2 col-md-3  control-label">Place Name: </label>
-                        <div class="col-sm-10 col-md-9 ">
-                            <div class="input-group">
-                                <input type="text" id="placeName" name="placeName" class="form-control keyboard"/>
-                                <div class="input-group-btn">
-                                {global:keyboard-select-menu('placeName')}
-                                </div>
-                            </div>   
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
+                    <div class="col-sm-10 col-md-9">
+                        <div class="input-group">
+                            <input type="text" id="title" name="title" class="form-control keyboard"/>
+                            <div class="input-group-btn">
+                                    {global:keyboard-select-menu('title')}
+                            </div>
+                            <div class="input-group-btn" style="width:50%;">
+                                <select name="fq" class="form-control">
+                                <option value=""> -- Limit by Catalog -- </option>
+                                {search:catalog-limit()}
+                                </select>
+                            </div>
+                         </div>   
                     </div>
+                  </div>
+                <div class="form-group">
+                    <label for="section" class="col-sm-2 col-md-3  control-label">Section number: </label>
+                    <div class="col-sm-10 col-md-9 ">
+                        <input type="text" id="section" name="section" class="form-control"/>
+                    </div>
+               </div>                   
+               <div class="form-group">
+                    <label for="corpus-uri" class="col-sm-2 col-md-3  control-label">Corpus URI: </label>
+                    <div class="col-sm-10 col-md-9 ">
+                        <input type="text" id="corpus-uri" name="corpus-uri" class="form-control"/>
+                    </div>
+               </div>                   
+              <div class="form-group">
+                    <label for="syriaca-uri" class="col-sm-2 col-md-3  control-label">Syriaca URI: </label>
+                    <div class="col-sm-10 col-md-9 ">
+                        <input type="text" id="syriaca-uri" name="syriaca-uri" class="form-control"/>
+                    </div>
+               </div> 
+               <div class="form-group">
+                    <label for="text-id" class="col-sm-2 col-md-3  control-label">Text ID Number: </label>
+                    <div class="col-sm-10 col-md-9 ">
+                        <input type="text" id="text-id" name="text-id" class="form-control"/>
+                    </div>
+               </div>
                 <!-- end col  -->
                 </div>
                 <!-- end row  -->

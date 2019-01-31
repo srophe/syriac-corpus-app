@@ -245,9 +245,9 @@ h3.syr{
 }
 
 h4 {font-size: 1em; margin-top:1em;}
-h5 {margin: 1em 0 0 0;}
+h5 {margin: 1em 0 0 0; font-weight:600;}
 
-.h5-inline {font-size: 1em; font-weight:500;}
+.h5-inline {font-size: 1em; font-weight:600;}
 
 .hi {background-color:yellow;}
 
@@ -861,7 +861,7 @@ pre {
     }
 .tei-footnote {display:none; font-size:x-small;}    
 .tei-footnote.display {display:inline;}   
-.text-number.display {display:inline;}
+/*.text-number.display {display:inline;}*/
 
 /* Table of Contents */
 .toc {display:block; margin-left:.75em;}

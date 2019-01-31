@@ -386,8 +386,9 @@ declare function tei2html:summary-view-generic($nodes as node()*, $id as xs:stri
             <span class="results-list-desc uri"><span class="srp-label">URI: </span><a href="{replace($id,$config:base-uri,$config:nav-base)}">{$id}</a></span>
             else()
             }
-        </div> 
+        </div>    
 };
+
 
 declare function tei2html:summary-view-bibl($nodes as node()*, $id as xs:string?) as item()* {
     let $title := if($nodes/descendant-or-self::tei:title[@syriaca-tags='#syriaca-headword'][@xml:lang='en']) then 
