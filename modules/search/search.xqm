@@ -206,10 +206,10 @@ declare function search:default-search-form() {
                     else if(doc-available($config:app-root || '/searchTips.html')) then doc($config:app-root || '/searchTips.html')
                     else ())
                 else ()}
-            <div class="row">
+            <div class="row top-padding">
                 <div class="col-md-10">
                     <!-- Keyword -->
-                    <br/>
+                    
                  <div class="form-group">
                     <label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
                     <div class="col-sm-10 col-md-9 ">
