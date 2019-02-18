@@ -105,7 +105,38 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                     <div class="col-md-11" style="margin-top:1em;">
                         {                 
                          for $hit at $p in subsequence($hits, $browse:start,$browse:perpage)
-                         return $hit 
+                         let $works := count($hit/descendant::tei:TEI)
+                         return 
+                            if(request:get-parameter('author-exact', '')) then
+                                <div xmlns="http://www.w3.org/1999/xhtml" style="margin:.71em 0; border-bottom:1px dotted #eee; padding:.25em 0;" class="short-rec-result">
+                                    <a class="togglelink text-info"  
+                                    data-toggle="collapse" data-target="#show{replace($hit/@name,'\s|,|\.|\[|\]|\(|\)|\-|\?','')}" 
+                                    href="#show{replace($hit/@name,'\s|,|\.|\[|\]|\(|\)|\-|\?','')}" data-text-swap=" - "> + </a>&#160; 
+                                    <span class="browse-author-name">{string($hit/@name)}</span> ({$works} works)
+                                    <div class="indent collapse in" style="background-color:#F7F7F9;" id="show{replace($hit/@name,'\s|,|\.|\[|\]|\(|\)|\-|\?','')}">{
+                                         for $r in $hit/descendant::tei:TEI
+                                         let $id := replace($r/descendant::tei:idno[1],'/tei','')
+                                         return 
+                                            <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view($r, '', $id)}</div>
+                                    }</div>
+                                </div>
+                            else 
+                            <div xmlns="http://www.w3.org/1999/xhtml" style="margin:.71em 0; border-bottom:1px dotted #eee; padding:.25em 0;" class="short-rec-result">
+                                <a class="togglelink text-info"  
+                                data-toggle="collapse" data-target="#show{replace($hit/@name,'\s|,|\.|\[|\]|\(|\)|\-|\?','')}" 
+                                href="#show{replace($hit/@name,'\s|,|\.|\[|\]|\(|\)|\-|\?','')}" data-text-swap=" - "> + </a>&#160; 
+                                <span class="browse-author-name">{string($hit/@name)}</span> ({$works} works)
+                                <div class="indent collapse" style="background-color:#F7F7F9;" id="show{replace($hit/@name,'\s|,|\.|\[|\]|\(|\)|\-|\?','')}">{
+                                    (for $r in subsequence($hit/descendant::tei:TEI, 1,5)
+                                    let $id := replace($r/descendant::tei:idno[1],'/tei','')
+                                    return 
+                                        <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view($r, '', $id)}</div>,
+                                    if($works gt 20) then
+                                        <div class="indent"><a href="browse.html?author-exact={string($hit/@name)}">Show all works</a></div>
+                                    else ()
+                                        )
+                                }</div>
+                            </div>
                          }
                     </div>
                     </div>
@@ -221,24 +252,27 @@ declare function browse:browse-abc-menu(){
     </div>
 };
 
+(:
+if(request:get-parameter('author-exact', '')) then 
+               for $author in $authors[. = request:get-parameter('author-exact', '')]
+               order by $author 
+               return 
+                    <browse xmlns="http://www.w3.org/1999/xhtml" author="{$author}"/>
+:)
 (: Syriac Corpus Customizations :)
 declare function browse:group-results($node as node(), $model as map(*), $collection as xs:string?){
     let $hits := $model("hits")
     let $groups := distinct-values($hits//tei:author) 
     return 
-        map {"group-by-authors" :=   
-            for $rec in $hits 
-            let $author := $rec/descendant::tei:author
-            group by $facet-grp-p := $author[1]
-            order by global:build-sort-string($facet-grp-p,'')
-            return  
-                if($author != '') then 
-                    <div xmlns="http://www.w3.org/1999/xhtml" style="margin:.71em 0; border-bottom:1px dotted #eee; padding:.25em 0;" class="short-rec-result">
-                            <a class="togglelink text-info"  
-                            data-toggle="collapse" data-target="#show{replace($facet-grp-p,'\s|,|\.|\[|\]|\(|\)|\-|\?','')}" 
-                            href="#show{replace($facet-grp-p,'\s|,|\.|\[|\]|\(|\)|\-|\?','')}" data-text-swap=" - "> + </a>&#160; 
-                            <span class="browse-author-name">{$facet-grp-p}</span> ({count($rec)} works)
-                            <div class="indent collapse" style="background-color:#F7F7F9;" id="show{replace($facet-grp-p,'\s|,|\.|\[|\]|\(|\)|\-|\?','')}">{
+        map {"group-by-authors" :=  
+            if(request:get-parameter('author-exact', '')) then 
+                for $rec in $hits[descendant::tei:author//text() = request:get-parameter('author-exact', '')] 
+                let $author := $rec/descendant::tei:author
+                group by $facet-grp-p := $author[1]
+                order by global:build-sort-string($facet-grp-p,'')
+                return   
+                    <author xmlns="http://www.w3.org/1999/xhtml" name="{normalize-space(string-join($facet-grp-p,' '))}">
+                            {
                                 for $titles in $rec
                                 let $title := $rec/descendant::tei:titleStmt/tei:title[1]
                                 group by $facet-grp-title := $title[1]
@@ -248,19 +282,39 @@ declare function browse:group-results($node as node(), $model as map(*), $collec
                                     let $id := replace($r/descendant::tei:idno[1],'/tei','')
                                     let $sort := if($r/descendant::tei:titleStmt/tei:title[1]/@n) then xs:integer($r/descendant::tei:titleStmt/tei:title[1]/@n) else 0                                
                                     order by $sort, global:build-sort-string($r/descendant::tei:titleStmt/tei:title[1],'')
-                                    return 
-                                        <div class="indent" style="border-bottom:1px dotted #eee; padding:1em">{tei2html:summary-view(root($r), '', $id)}</div>
-                            }</div>
-                    </div>
-                else if($author = '' or not($author)) then
-                    for $r in $rec
-                    let $id := replace($r/descendant::tei:idno[1],'/tei','')
-                    return
-                        if($groups[. = $id]) then () 
-                        else 
-                            <div class="col-md-11" style="margin-right:-1em; padding-top:.5em;">
-                                 {tei2html:summary-view(root($r), '', $id)}
-                            </div>
-                else ()
+                                    return $r 
+                            }
+                      </author>
+            else         
+                for $rec in $hits 
+                let $author := $rec/descendant::tei:author
+                group by $facet-grp-p := $author[1]
+                order by global:build-sort-string($facet-grp-p,'')
+                return  
+                    if($author != '') then 
+                        <author xmlns="http://www.w3.org/1999/xhtml" name="{normalize-space(string($facet-grp-p))}">
+                            {
+                                for $titles in $rec
+                                let $title := $rec/descendant::tei:titleStmt/tei:title[1]
+                                group by $facet-grp-title := $title[1]
+                                order by global:build-sort-string($facet-grp-title,'')
+                                return 
+                                    for $r in $titles
+                                    let $id := replace($r/descendant::tei:idno[1],'/tei','')
+                                    let $sort := if($r/descendant::tei:titleStmt/tei:title[1]/@n) then xs:integer($r/descendant::tei:titleStmt/tei:title[1]/@n) else 0                                
+                                    order by $sort, global:build-sort-string($r/descendant::tei:titleStmt/tei:title[1],'')
+                                    return $r 
+                            }
+                        </author>
+                    else if($author = '' or not($author)) then
+                        for $r in $rec
+                        let $id := replace($r/descendant::tei:idno[1],'/tei','')
+                        return 
+                            if($groups[. = $id]) then () 
+                            else $r
+                                (:<div class="col-md-11" style="margin-right:-1em; padding-top:.5em;">
+                                     {tei2html:summary-view(root($r), '', $id)}
+                                </div>:)
+                    else ()
         } 
 };

@@ -3,9 +3,9 @@ xquery version "3.0";
 (: Syriaca.org restxq file. :)
 module namespace api="http://syriaca.org/api";
 (: Syriaca.org modules :)
-import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
-import module namespace tei2html="http://syriaca.org/tei2html" at "content-negotiation/tei2html.xqm";
-import module namespace cntneg="http://syriaca.org/cntneg" at "content-negotiation/content-negotiation.xqm";
+import module namespace global="http://syriaca.org/srophe/global" at "lib/global.xqm";
+import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "content-negotiation/tei2html.xqm";
+import module namespace cntneg="http://syriaca.org/srophe/cntneg" at "content-negotiation/content-negotiation.xqm";
 
 (:eXist modules:)
 import module namespace req="http://exquery.org/ns/request";
@@ -18,9 +18,6 @@ declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
 declare namespace http="http://expath.org/ns/http-client";
 declare namespace rest = "http://exquery.org/ns/restxq";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
-
-(: Establish root directory for restxq :)
-declare variable $api:repo {replace($global:app-root, '/db/apps/','')};
 
 (: Establish API endpoints :)
 

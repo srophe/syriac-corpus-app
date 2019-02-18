@@ -19,8 +19,8 @@ xquery version "3.0";
  : @since April, 2010
  : @version 1.4
  :)
-import module namespace tei2="http://syriaca.org/tei2dc" at "lib/tei2dc.xqm";
-import module namespace global="http://syriaca.org/global" at "lib/global.xqm";
+import module namespace tei2="http://syriaca.org/srophe/tei2dc" at "lib/tei2dc.xqm";
+import module namespace global="http://syriaca.org/srophe/global" at "lib/global.xqm";
 (: declare namespaces for each metadata schema we care about :)
 declare namespace rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 declare namespace xlink = "http://www.w3.org/1999/xlink";
