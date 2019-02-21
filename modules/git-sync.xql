@@ -1,8 +1,8 @@
 xquery version "3.1";
 
 (:~ 
- : Webhook endpoint for Srophe Web Application 
- : XQuery endpoint to respond to Github webhook requests.  
+ : Webhook endpoint for Syrica.org data repository, /master/ branch: 
+ : XQuery endpoint to respond to Github webhook requests. Query responds only to push requests from the master branch.  
  : The EXPath Crypto library supplies the HMAC-SHA1 algorithm for matching Github secret.  
  :
  : Secret can be stored as environmental variable.
@@ -11,12 +11,6 @@ xquery version "3.1";
  : @Notes 
  : This module is for the PRODUCTION server and picks up calls from refs/heads/master
  : This version uses eXistdb's native JSON parser elminating the need for the xqjson library
- : 
- : Requirements 
- :  - EXPath Crypto library : http://expath.org/spec/crypto
- :  - eXist-db 3.0 or greater
- :  - access-config.xml file with github secret, or environment variable with secret. 
- :  - Must be run with elevated privileges: sm:chmod(xs:anyURI('/db/apps/srophe/modules/git-sync.xql'), "rwsr-xr-x")
  :
  : @author Winona Salesky
  : @version 2.0 
@@ -28,7 +22,6 @@ xquery version "3.1";
  
 import module namespace xmldb="http://exist-db.org/xquery/xmldb";
 import module namespace templates="http://exist-db.org/xquery/templates" ;
-
 (:import module namespace xqjson="http://xqilla.sourceforge.net/lib/xqjson";:)
 import module namespace crypto="http://expath.org/ns/crypto";
 import module namespace http="http://expath.org/ns/http-client";
@@ -38,7 +31,7 @@ declare namespace syriaca = "http://syriaca.org";
 declare option exist:serialize "method=xml media-type=text/xml indent=yes";
 
 (: Access git-api configuration file :) 
-declare variable $git-config := if(doc('../access-config.xml')) then doc('../access-config.xml') else <response status="fail"><message>Load config.xml file please.</message></response>;
+declare variable $git-config := if(doc('../config.xml')) then doc('../config.xml') else <response status="fail"><message>Load config.xml file please.</message></response>;
 
 (: Private key for authentication :)
 declare variable $private-key := if($git-config//private-key-variable != '') then 
@@ -53,6 +46,9 @@ declare variable $exist-collection := $git-config//exist-collection/text();
 
 (: Github repository :)
 declare variable $repo-name := $git-config//repo-name/text();
+
+(: GitHub Branch :)
+declare variable $branch := $git-config//github-branch/text();
 
 (:~  
  : Recursively creates new collections if necessary  
@@ -69,8 +65,9 @@ return
 };
 
 declare function local:get-file-data($file-name, $contents-url){
-let $url := concat($contents-url,'/',$file-name)         
-let $raw-url := concat(replace(replace($contents-url,'https://api.github.com/repos/','https://raw.githubusercontent.com/'),'/contents','/master'),$file-name)            
+let $url := concat($contents-url,'/',$file-name)       
+let $branch := if($branch != '') then concat('/',$branch)  else '/master'
+let $raw-url := concat(replace(replace($contents-url,'https://api.github.com/repos/','https://raw.githubusercontent.com/'),'/contents',$branch),$file-name)            
 return 
         http:send-request(<http:request http-version="1.1" href="{xs:anyURI($raw-url)}" method="get">
                             {if($gitToken != '') then
@@ -132,11 +129,11 @@ declare function local:do-add($commits as xs:string*, $contents-url as xs:string
              if(contains($file-name,'.xar')) then ()
              else if(xmldb:collection-available($exist-collection-url)) then 
                 <response status="okay">
-                    <message>{xmldb:store($exist-collection-url, xmldb:encode-uri($file-name), xs:base64Binary($file-data))}</message>
+                    <message>{xmldb:store($exist-collection-url, xmldb:encode-uri($file-name), $file-data)}</message>
                 </response>
              else
                 <response status="okay">
-                 {(local:create-collections($exist-collection-url),xmldb:store($exist-collection-url, xmldb:encode-uri($file-name), xs:base64Binary($file-data)))}
+                 {(local:create-collections($exist-collection-url),xmldb:store($exist-collection-url, xmldb:encode-uri($file-name), $file-data))}
                </response>  
                } catch * {
                (response:set-status-code( 500 ),
@@ -204,7 +201,7 @@ declare function local:execute-webhook($post-data){
 if(not(empty($post-data))) then 
     let $payload := util:base64-decode($post-data)
     let $json-data := parse-json($payload)
-    let $branch := if($git-config//github-branch/text() != '') then $git-config//github-branch/text() else 'refs/heads/master'
+    let $branch := if($branch != '') then concat('refs/heads/',$branch) else 'refs/heads/master'
     return
         if($json-data?ref[. = $branch]) then 
              try {
@@ -219,7 +216,7 @@ if(not(empty($post-data))) then
                         let $condition := contains(normalize-space($expected-result/text()),normalize-space($actual-result/text()))                	
                         return
                             if ($condition) then 
-                                local:parse-request($json-data)
+                              local:parse-request($json-data)
             			    else 
             			     (response:set-status-code( 401 ),<response status="fail"><message>Invalid secret. </message></response>)
                     else (response:set-status-code( 401 ),<response status="fail"><message>Invalid trigger.</message></response>)
@@ -230,7 +227,7 @@ if(not(empty($post-data))) then
                     <message>Unacceptable headers {concat($err:code, ": ", $err:description)}</message>
                 </response>)
             }
-        else (response:set-status-code( 401 ),<response status="fail"><message>Not from the master branch.</message></response>)
+        else (response:set-status-code( 401 ),<response status="fail"><message>Not from the {$branch} branch.</message></response>)  
 else    
             (response:set-status-code( 401 ),
             <response status="fail">
@@ -240,4 +237,3 @@ else
 
 let $post-data := request:get-data()
 return local:execute-webhook($post-data)
-    
