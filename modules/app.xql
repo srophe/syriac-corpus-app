@@ -28,8 +28,8 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare namespace html="http://www.w3.org/1999/xhtml";
 
 (: Global Variables:)
-declare variable $app:start {request:get-parameter('start', 1) cast as xs:integer};
-declare variable $app:perpage {request:get-parameter('perpage', 25) cast as xs:integer};
+declare variable $app:start {for $r in request:get-parameter('start', 1)[1] return $r cast as xs:integer};
+declare variable $app:perpage {for $r in request:get-parameter('perpage', 10)[1] return $r cast as xs:integer};
 
 (:~
  : Get app logo. Value passed from repo-config.xml  
