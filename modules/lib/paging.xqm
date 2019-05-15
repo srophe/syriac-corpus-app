@@ -186,6 +186,18 @@ declare function page:display-search-params($collection as xs:string?){
                    (<span class="param">{string($search-config//input[@name = $parameter]/@name)}: </span>,<span class="param-string">{request:get-parameter($parameter, '')}</span>) 
                 else if($parameter = 'q') then 
                     (<span class="param">Keyword: </span>,<span class="param-string">{request:get-parameter($parameter, '')}</span>)
+                else if($parameter = 'startDate') then 
+                    (<span class="param">Start Date: </span>,<span class="param-string">{
+                        if(contains(request:get-parameter($parameter, ''),'-')) then 
+                            replace(substring-before(request:get-parameter($parameter, ''),'-'),'^0','')
+                        else replace(request:get-parameter($parameter, ''),'^0','')
+                        }&#160; </span>)
+                else if($parameter = 'endDate') then 
+                    (<span class="param">End Date: </span>,<span class="param-string">{
+                    if(contains(request:get-parameter($parameter, ''),'-')) then 
+                            replace(substring-before(request:get-parameter($parameter, ''),'-'),'^0','')
+                        else replace(request:get-parameter($parameter, ''),'^0','')
+                    }&#160; </span>)                    
                 else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="param-string">{request:get-parameter($parameter, '')}</span>)    
             else ())
             }
@@ -237,7 +249,7 @@ declare function page:place-search-string(){
             else if($parameter = 'syr' and request:get-parameter($parameter, '') != '') then 
                 (<span class="param">Syriac </span>)
             else if($parameter = 'ar' and request:get-parameter($parameter, '') != '') then 
-                (<span class="param">Arabic </span>)    
+                (<span class="param">Arabic </span>)                  
             else (<span class="param"> {replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="match">{request:get-parameter($parameter, '')}&#160; </span>)    
         else ())
         }

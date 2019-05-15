@@ -278,6 +278,14 @@ declare function search:default-search-form() {
                         <input type="text" id="text-id" name="text-id" class="form-control"/>
                     </div>
                </div>
+               <div class="form-group">
+                    <label for="cds" class="col-sm-2 col-md-3 control-label">Dates: </label>
+                    <div class="col-sm-10 col-md-9 form-inline">
+                        <input type="text" id="startDate" name="startDate" placeholder="Start Date" class="form-control"/>&#160;
+                        <input type="text" id="endDate" name="endDate" placeholder="End Date" class="form-control"/>
+                        <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
+                    </div>
+                </div>
                 <!-- end col  -->
                 </div>
                 <!-- end row  -->
@@ -304,7 +312,8 @@ concat("collection('",$config:data-root,"')//tei:TEI",
     search:syriaca-id(),
     search:text-id(),
     search:nhsl-edition(),
-    search:bibl-edition()
+    search:bibl-edition(),
+    search:dates()
     )
 };
 
@@ -515,3 +524,36 @@ declare function search:keyword(){
         "[ft:query(descendant::*,$keyword-query)]"
     else '' 
 };
+
+(: Courpus date range :)
+(:~
+ : Build date range for origDate 
+ : tei:origDate[@to|@from|@when]
+:)
+declare function search:dates(){
+let $start := request:get-parameter('startDate', '')
+let $end := request:get-parameter('endDate', '')
+return 
+    if($start != '') then 
+        if($end != '') then 
+            concat("[descendant::tei:origDate
+                [(@from gt '",global:make-iso-date($start),"' and @to lt '",global:make-iso-date($end),"') 
+                or (@from gt '",global:make-iso-date($start),"' and not(exists(@to)))
+                or (@when gt '",global:make-iso-date($start),"' and @when lt '",global:make-iso-date($end),"')
+                ]]")
+                
+        else
+            concat("[descendant::tei:origDate
+                [@from gt '",global:make-iso-date($start),"' 
+                or @to gt '",global:make-iso-date($start),"'
+                or @when gt '",global:make-iso-date($start),"'
+                ]]")
+    else if ($end != '') then 
+        concat("[descendant::tei:origDate
+            [@to lt '",global:make-iso-date($end),"' 
+            or @from lt '",global:make-iso-date($end),"' and not(@to)]
+            or @when lt '",global:make-iso-date($end),"'
+            ]")
+    else ''
+};
+
