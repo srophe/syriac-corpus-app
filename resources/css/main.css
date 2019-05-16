@@ -1,7 +1,7 @@
 /* Application styles could go here */
 /**
  * Colors: 
- * Bllue: 456889
+ * Blue: 456889
  */
 
 /* Dev only: corner ribbon */
@@ -995,3 +995,38 @@ div.toggle-buttons .toggle-label {font-size: 1em; font-weight:600}
     }
 .caret {float:left; margin-left:.5em; margin-top:.5em;}    
 }
+
+/* Date slider options*/
+h4.slider {margin-bottom:2.5em;}
+.sliderContainer {margin-left:1.5em;}
+.ui-rangeSlider-label {
+  background-image:none !important;
+  background-color: rgb(81,122,95, .75);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  color:white;
+  font-size:.95em;
+  font-weight:500;
+  position: relative;
+  width: 45px;
+  bottom: 20px;
+  text-align: center;
+  padding: 3px 3px 3px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  border-radius: 25px;
+  margin-bottom:9px !important;
+}
+
+.ui-rangeSlider-label::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: calc(50% - 5px);
+  background-color: rgb(81,122,95, .75);
+  width: 8px;
+  height: 8px;
+  
+  /* The points are: (left top: x y, right top: x y, center bottom: x y) */
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+

@@ -18,6 +18,7 @@ import module namespace global="http://syriaca.org/srophe/global" at "lib/global
 import module namespace maps="http://syriaca.org/srophe/maps" at "lib/maps.xqm";
 import module namespace page="http://syriaca.org/srophe/page" at "lib/paging.xqm";
 import module namespace rel="http://syriaca.org/srophe/related" at "lib/get-related.xqm";
+import module namespace slider = "http://syriaca.org/srophe/slider" at "lib/date-slider.xqm";
 import module namespace teiDocs="http://syriaca.org/srophe/teiDocs" at "teiDocs/teiDocs.xqm";
 import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "content-negotiation/tei2html.xqm";
 
@@ -220,7 +221,9 @@ return
  : Used by browse and search pages. 
 :)
 declare %templates:wrap function app:pageination($node as node()*, $model as map(*), $collection as xs:string?, $sort-options as xs:string*, $search-string as xs:string?){
+if($model("hits") != '') then
    page:pages($model("hits"), $collection, $app:start, $app:perpage,$search-string, $sort-options)
+else ()
 };
 
 (:~
@@ -996,4 +999,11 @@ declare function app:display-related($node as node(), $model as map(*)){
     if($model("hits")//tei:body/child::*/tei:listRelation) then 
         rel:build-relationships($model("hits")//tei:body/child::*/tei:listRelation, replace($model("hits")//tei:idno[@type='URI'][starts-with(.,$config:base-uri)][1],'/tei',''),'','','','Related')
     else ()
+};
+
+(: Show date slider used with search/browse tools :)
+declare function app:display-slider($node as node(), $model as map(*), $collection as xs:string*){
+if($model("hits") != '') then 
+    slider:browse-date-slider($model("hits"),())
+else ()    
 };
