@@ -223,6 +223,8 @@ return
 declare %templates:wrap function app:pageination($node as node()*, $model as map(*), $collection as xs:string?, $sort-options as xs:string*, $search-string as xs:string?){
 if($model("hits") != '') then
    page:pages($model("hits"), $collection, $app:start, $app:perpage,$search-string, $sort-options)
+else if(request:get-query-string() != '') then
+    page:pages($model("hits"), $collection, $app:start, $app:perpage,$search-string, $sort-options)
 else ()
 };
 
