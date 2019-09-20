@@ -73,11 +73,11 @@ declare
     %templates:default("start", 1)
 function search:show-hits($node as node()*, $model as map(*), $collection as xs:string?, $kwic as xs:string?) {
 <div class="indent" id="search-results" xmlns="http://www.w3.org/1999/xhtml">
+<!--<div>{search:query-string($collection)}</div>-->
     {
         let $hits := $model("hits")
         for $hit at $p in subsequence($hits, $search:start, $search:perpage)
-        let $id := $hit//tei:idno[1]
-        let $expanded := kwic:expand($hit)
+        let $id := replace($hit/descendant-or-self::tei:idno[starts-with(.,$config:base-uri)][1],'/tei','')
         return 
             <div class="result row">
                 <div class="col-md-12">
@@ -85,13 +85,16 @@ function search:show-hits($node as node()*, $model as map(*), $collection as xs:
                         <span class="badge">{$search:start + $p - 1}</span>
                       </div>
                       <div class="col-md-9" xml:lang="en">
-                        {(tei2html:summary-view($hit, (), $id[1])) }
-                        {
-                        if(request:get-parameter('keywordProximity', '') castable as xs:integer) then 
+                        {(tei2html:summary-view-generic($hit, $id)) }
+                        {if(request:get-parameter('keywordProximity', '') castable as xs:integer) then 
                            tei2html:output-kwic($hit,$id)  
-                        else if($expanded//exist:match) then 
-                            tei2html:output-kwic($expanded, $id)
-                        else ()}
+                         else
+                            let $expanded := util:expand($hit)
+                            return
+                                if($expanded//exist:match) then 
+                                    tei2html:output-kwic($expanded, $id)
+                                else ()
+                          }
                       </div>
                 </div>
             </div>
@@ -423,10 +426,10 @@ return
 :)
 declare function search:keyword(){
     if(request:get-parameter('q', '') != '') then
-        if(request:get-parameter('keywordProximity', '') castable as xs:integer) then
-            let $string := concat('"',search:strip-chars(request:get-parameter('q', '')),'"','~',request:get-parameter('keywordProximity', ''))
-            return concat("[ft:query(descendant::*,'",$string,"')]")
-        else concat("[ft:query(descendant::*,'",search:strip-chars(request:get-parameter('q', '')),"')]")
+        let $string := if(request:get-parameter('keywordProximity', '') castable as xs:integer) then
+                            concat('"',search:strip-chars(request:get-parameter('q', '')),'"','~',request:get-parameter('keywordProximity', ''))
+                       else search:strip-chars(request:get-parameter('q', ''))
+        return concat("[descendant::tei:teiHeader[ft:query(.,'",$string,"')] or descendant::tei:div[ft:query(.,'",$string,"')]]") 
     else () 
 };
 

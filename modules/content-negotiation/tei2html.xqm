@@ -337,8 +337,6 @@ declare function tei2html:summary-view-keyword($nodes as node()*, $id as xs:stri
 (: Generic short view template :)
 declare function tei2html:summary-view-generic($nodes as node()*, $id as xs:string?) as item()* {
     let $title := $nodes/descendant-or-self::tei:title[1]      
-    let $series := for $a in distinct-values($nodes/descendant::tei:seriesStmt/tei:biblScope/tei:title)
-                   return tei2html:translate-series($a)
     return 
         <div class="short-rec-view">
             <a href="{replace($id,$config:base-uri,$config:nav-base)}" dir="ltr">{tei2html:tei2html($title)}</a> 
@@ -362,24 +360,6 @@ declare function tei2html:summary-view-generic($nodes as node()*, $id as xs:stri
                         if($abstract/descendant-or-self::tei:quote) then concat('"',normalize-space($blurb),'"')
                         else $blurb
                     }</span>
-            else()}
-            {if($nodes/descendant::*:match) then
-              <div>
-                <span class="results-list-desc srp-label">Matches:</span>
-                {
-                 for $r in $nodes/descendant::*:match/parent::*[1]
-                 return   
-                    if(position() lt 8) then 
-                        <span class="results-list-desc container">
-                            <span class="srp-label">
-                                {concat(position(),'. (', name(.),') ')}
-                            </span>
-                            {tei2html:tei2html(.)}
-                            {if(position() = 8) then <span class="results-list-desc container">more ...</span> else()}
-                        </span>
-                    else ()
-                }
-              </div>
             else()}
             {
             if($id != '') then 
@@ -519,14 +499,11 @@ declare function tei2html:output-kwic($nodes as node()*, $id as xs:string*){
     let $results := <results xmlns="http://www.w3.org/1999/xhtml">{
                       if(request:get-parameter('keywordProximity', '') castable as xs:integer) then
                         let $wordList := 
-                                (: reverse order for regex, not sure if this is needed
-                                if(matches(request:get-parameter('q', ''),'\p{IsSyriac}','i')) then
-                                    string-join(for $word in reverse(tokenize(request:get-parameter('q', ''),'\s+'))
+                                (:string-join(for $word in tokenize(request:get-parameter('q', ''),'\s+')
                                             return $word,concat('\W+(\w+\W+){1,',request:get-parameter('keywordProximity', ''),'}?'))
-                                else
-                                :)
+                                            :)
                                 string-join(for $word in tokenize(request:get-parameter('q', ''),'\s+')
-                                            return $word,concat('\W+(\w+\W+){1,',request:get-parameter('keywordProximity', ''),'}?'))                      
+                                            return $word,concat('.*(\w+\W+){1,',request:get-parameter('keywordProximity', ''),'}?'))                                            
                         let $highlight := function($string as xs:string) { <match xmlns="http://www.w3.org/1999/xhtml">{$string}</match> }
                         return tei2html:highlight-matches($nodes, $wordList, $highlight)
                       else tei2html:kwic-format($nodes)
@@ -542,8 +519,8 @@ declare function tei2html:output-kwic($nodes as node()*, $id as xs:string*){
     let $nextString := 
                 if(string-length($next) lt 100 ) then () 
                 else concat(substring($next,1,100),'... ')
-    let $link := concat($config:nav-base,'/',tokenize($id,'/')[last()],'#',$node/@n)
-    return <span>{$prevString}&#160;<span class="match" style="background-color:yellow;"><a href="{$link}">{$node/text()}</a></span>&#160;{$nextString}</span>
+    (:let $link := concat($config:nav-base,'/',tokenize($id,'/')[last()],'#',$node/@n):)
+    return <span>{$prevString}&#160;<span class="match" style="background-color:yellow;">{$node/text()}</span>&#160;{$nextString}</span>
 };
 
 (:~
@@ -557,13 +534,7 @@ declare function tei2html:kwic-format($nodes as node()*){
             case text() return $node
             case comment() return ()
             case element(exist:match) return 
-                let $n := if($node/ancestor-or-self::*[@n]) then concat('Head-id.',$node/ancestor-or-self::*[@n][1]/@n) else ()
-                return 
-                <match xmlns="http://www.w3.org/1999/xhtml">
-                    {(if($n != '') then attribute n {$n} else (), 
-                    $node/node()
-                    )}
-                </match>
+                <match xmlns="http://www.w3.org/1999/xhtml">{(if($node/*[@n]) then attribute n {concat('n-id.',$node/@n)} else (), $node/node())}</match>
             default return tei2html:kwic-format($node/node())                
 };
 
@@ -578,8 +549,7 @@ declare function tei2html:highlight-matches($nodes as node()*, $pattern as xs:st
             case element() return
                 tei2html:highlight-matches($node/node(), $pattern, $highlight)
             case text() return
-                let $normalized := replace($node, '\s+', ' ')
-                for $segment in analyze-string($normalized, $pattern, 'i')/node()
+                for $segment in analyze-string($node, $pattern, 'i')/node()
                 return
                     if ($segment instance of element(fn:match)) then 
                         $highlight($segment/string())
