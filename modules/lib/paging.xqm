@@ -25,8 +25,8 @@ declare function page:pages(
     $perpage as xs:integer?, 
     $search-string as xs:string*,
     $sort-options as xs:string*){
-let $perpage := if($perpage) then xs:integer($perpage) else 20
-let $start := if($start) then $start else 1
+let $perpage := if($perpage and  $perpage castable as xs:integer) then xs:integer($perpage) else 20
+let $start := if($start and $start castable as xs:integer) then xs:integer($start) else 1
 let $total-result-count := count($hits)
 let $end := 
     if ($total-result-count lt $perpage) then 
