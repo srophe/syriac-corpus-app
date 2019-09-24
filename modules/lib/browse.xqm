@@ -107,8 +107,8 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                         {                 
                          for $author at $p in subsequence($authors, $browse:start,$browse:perpage)
                          let $name := string($author/@name)
-                         let $works := $hits[descendant::tei:author//text() = $name]
-                         let $count-works := count($hits[descendant::tei:author//text() = $name])
+                         let $works := $hits[descendant::tei:titleStmt//tei:author = $name]
+                         let $count-works := count($works)
                          where $count-works gt 0
                          return 
                             if(request:get-parameter('author-exact', '')) then
