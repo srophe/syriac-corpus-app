@@ -273,7 +273,7 @@ return
                 for $key at $l in subsequence($f/facet:key,1,$f/@show)
                 let $facet-query := replace(replace(concat(';fq-',string($f/@name),':',string($key/@value)),';fq-;fq-;',';fq-'),';fq- ','')
                 let $new-fq := 
-                    if($facet:fq) then concat('fq=',$facet:fq,$facet-query)
+                    if($facet:fq) then concat('fq=',replace($facet:fq,$facet-query,''),$facet-query)
                     else concat('fq=',normalize-space($facet-query))
                 let $active := if(contains($facet:fq,concat(';fq-',string($f/@name),':',string($key/@value)))) then 'active' else ()    
                 return <a href="?{$new-fq}{facet:url-params()}" class="facet-label btn btn-default {$active}">{string($key/@label)} <span class="count" dir="ltr"> ({string($key/@count)})</span></a> 
@@ -283,7 +283,7 @@ return
                 for $key at $l in subsequence($f/facet:key,$f/@show + 1,$f/@max)
                 let $facet-query := replace(replace(concat(';fq-',string($f/@name),':',string($key/@value)),';fq-;fq-;',';fq-'),';fq- ','')
                 let $new-fq := 
-                    if($facet:fq) then concat('fq=',$facet:fq,$facet-query)
+                    if($facet:fq) then concat('fq=',replace($facet:fq,$facet-query,''),$facet-query)
                     else concat('fq=',$facet-query)
                 return <a href="?{$new-fq}{facet:url-params()}" class="facet-label btn btn-default">{string($key/@label)} <span class="count" dir="ltr"> ({string($key/@count)})</span></a>
                 }
