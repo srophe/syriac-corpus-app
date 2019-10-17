@@ -96,7 +96,7 @@ declare function cntneg:content-negotiation($data as item()*, $content-type as x
             response:set-header("media-type", "text/plain"),
             tei2ttl:ttl-output($data))
         else if($flag = ('tei','xml')) then 
-            (response:set-header("Content-Type", "application/xml; charset=utf-8"),$data)                               
+            (response:set-header("Access-Control-Allow-Origin", "*"),response:set-header("Content-Type", "application/xml; charset=utf-8"),$data)                               
         else if($flag = ('txt','text')) then
             (response:set-header("Content-Type", "text/plain; charset=utf-8"),
              response:set-header("Access-Control-Allow-Origin", "text/plain; charset=utf-8"),
