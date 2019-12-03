@@ -75,7 +75,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                     </div>
                     <div class="row">
                         {if(not(empty($facet-config))) then 
-                           <div class="col-md-4">{facet:html-list-facets-as-buttons(facet:count($hits, $facet-config/descendant::facet:facet-definition))}</div>
+                           <div class="col-md-4">{(facet:selected-facets-display($facet-config/descendant::facet:facets/facet:facet-definition), facet:output-html-facets($hits, $facet-config/descendant::facet:facets/facet:facet-definition))}</div>
                          else ()}
                         <div class="{if($facet-config != '') then 'col-md-8' else 'col-md-12'}">
                            <h3>{(
