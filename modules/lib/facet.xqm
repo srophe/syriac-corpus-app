@@ -250,14 +250,21 @@ else ()
 };
 
 declare function facet:key($label, $value, $count, $facet-definition){
-   let $facet-query := replace(replace(concat(';fq-',string($facet-definition/@name),':',string($value)),';fq-;fq-;',';fq-'),';fq- ','')
-   let $new-fq := 
-        if($facet:fq) then concat('fq=',encode-for-uri($facet:fq),encode-for-uri($facet-query))
-        else concat('fq=',normalize-space($facet-query))
-   let $active := if(contains($facet:fq,concat(';fq-',string($facet-definition/@name),':',string($value)))) then 'active' else ()    
+   let $facet-query := concat(string($facet-definition/@name),':',$value)
+   (:replace(replace(concat(';fq-',string($facet-definition/@name),':',string($value)),';fq-;fq-;',';fq-'),';fq- ',''):)
+   let $active := if(contains($facet:fq,concat(';fq-',string($facet-definition/@name),':',string($value)))) then 'active' else ()
+   let $new-fq :=
+        if($active) then 
+            concat('fq=',
+                string-join(for $facet-param in tokenize($facet:fq,';fq-') 
+                        return 
+                            if($facet-param = '' or $facet-param = $facet-query) then () 
+                            else concat(';fq-',$facet-param),''))
+        else if($facet:fq) then concat('fq=',encode-for-uri($facet:fq),encode-for-uri(concat(';fq-',$facet-query)))
+        else concat('fq=',encode-for-uri(concat(';fq-',$facet-query)))
    return 
         if($count gt 0) then 
-            <a href="?{$new-fq}{facet:url-params()}" class="facet-label btn btn-default {$active}">{global:get-label(string($label))} <span class="count"> ({string($count)})</span></a>
+           <a href="?{$new-fq}{facet:url-params()}" class="facet-label btn btn-default {$active}">{if($active) then <span class="glyphicon glyphicon-remove facet-remove"></span> else ()}{global:get-label(string($label))} <span class="count"> ({string($count)})</span> </a>
         else ()        
 };
 
@@ -349,7 +356,7 @@ declare function facet:titles($results as item()*, $facet-definition as element(
                     if($sort/text() = 'value') then $f[1]
                     else count($f)
                     ascending
-                return facet:key(normalize-space(string-join($f[1]/ancestor-or-self::tei:title[1]//text())), $facet-grp, count($f), $facet-definition)
+                return facet:key(normalize-space(string-join($f[1]/ancestor-or-self::tei:title[1]/text())), $facet-grp, count($f), $facet-definition)
             let $count := count($facets)
             return facet:list-keys($facets, $count, $facet-definition) 
         else 
@@ -360,7 +367,7 @@ declare function facet:titles($results as item()*, $facet-definition as element(
                     if($sort/text() = 'value') then $f[1]
                     else count($f)
                     descending
-                return facet:key(normalize-space(string-join($f[1]/ancestor-or-self::tei:title[1]//text())), $facet-grp, count($f), $facet-definition)
+                return facet:key(normalize-space(string-join($f[1]/ancestor-or-self::tei:title[1]/text())), $facet-grp, count($f), $facet-definition)
             let $count := count($facets)   
             return facet:list-keys($facets, $count, $facet-definition)
 };
