@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <cts-registry>
     <namespace value="syriacLit" resolvesTo="https://syriaccorpus.org/">
         <workIdentifiers value="nhsl" resolvesTo="http://syriaca.org/work/"/>
