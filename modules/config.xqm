@@ -48,8 +48,8 @@ declare variable $config:data-root :=
 
 (: Establish main navigation for app, used in templates for absolute links. :)
 declare variable $config:nav-base := 
-    if($config:get-config//repo:nav-base/text() != '') then $config:get-config//repo:nav-base/text()
-    else if($config:get-config//repo:nav-base/text() = '/') then ''
+    if($config:get-config//repo:nav-base/text() = '/') then ''
+    else if($config:get-config//repo:nav-base/text() != '') then $config:get-config//repo:nav-base/text()
     else '';
 
 (: Base URI used in record tei:idno :)
