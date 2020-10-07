@@ -77,6 +77,7 @@ footer .poweredby { float: right; margin: 33px 10px 0 0;}
 footer .poweredby img { width: 120px; }
 
 /* facets */
+.facet-title {display:block; font-weight:bold; margin: 1em 0 .5em 0;}
 .facet-label {
     margin-left:.5em; 
     display:block; 
