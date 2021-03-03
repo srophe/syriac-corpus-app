@@ -10,4 +10,5 @@
     <target>syriac-corpus</target>
     <prepare>pre-install.xql</prepare>
     <finish>post-install.xql</finish>
+<deployed>2021-03-03T13:28:36.1Z</deployed>
 </meta>

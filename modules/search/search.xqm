@@ -45,7 +45,8 @@ declare variable $search:collection {request:get-parameter('collection', '') cas
 declare %templates:wrap function search:search-data($node as node(), $model as map(*), $collection as xs:string?, $view as xs:string?){
     let $coll := if($search:collection != '') then $search:collection else $collection
     let $eval-string :=  concat(search:query-string($collection),facet:facet-filter(global:facet-definition-file($collection)))
-    let $hits := 
+    let $hits := data:search($collection, $eval-string, ())
+    (:
                 if(exists(request:get-parameter-names()) or ($view = 'all')) then 
                     if(($search:sort-element != '') and ($search:sort-element != 'relevance') or ($view = 'all')) then 
                         for $hit in util:eval($eval-string)
@@ -64,7 +65,8 @@ declare %templates:wrap function search:search-data($node as node(), $model as m
                         order by ft:score($hit) + (count($hit/descendant::tei:bibl) div 100) descending
                         return $hit
                 else ()
-    return map {"hits" : $hits[descendant::tei:body[ft:query(., (),sf:facet-query())]]}
+    :)                
+    return map {"hits" : $hits}
 };
 
 (:~ 

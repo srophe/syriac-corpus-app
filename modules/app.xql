@@ -8,7 +8,6 @@ module namespace app="http://srophe.org/srophe/templates";
 
 (:eXist templating module:)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
-import module namespace functx="http://www.functx.com";
 
 (: Import Srophe application modules. :)
 import module namespace config="http://srophe.org/srophe/config" at "config.xqm";
@@ -97,17 +96,6 @@ declare function app:metadata($node as node(), $model as map(*)) {
     <link xmlns="http://www.w3.org/1999/xhtml" type="application/atom+xml" href="{request:get-parameter('id', '')}/atom" rel="alternate"/>
     )
     else ()
-};
-
-(:~ 
- : Adds google analytics from repo-config.xml
- : @param $node
- : @param $model 
-:)
-declare  
-    %templates:wrap 
-function app:google-analytics($node as node(), $model as map(*)){
-  $config:get-config//google_analytics/text()
 };
 
 (:~  
@@ -457,29 +445,6 @@ declare function app:wiki-links($nodes as node()*, $wiki) {
             default return $node               
 };
 
-(:~
- : Typeswitch to processes wiki menu links for use with Syriaca.org documentation pages. 
- : @param $wiki pulls content from specified wiki or wiki page. 
-:)
-declare function app:wiki-links($nodes as node()*, $wiki) {
-    for $node in $nodes
-    return 
-        typeswitch($node)
-            case element(html:a) return
-                let $wiki-path := substring-after($wiki,'https://github.com')
-                let $href := concat($config:nav-base, replace($node/@href, $wiki-path, "/documentation/wiki.html?wiki-page="),'&amp;wiki-uri=', $wiki)
-                return
-                    <a href="{$href}">
-                        {$node/@* except $node/@href, $node/node()}
-                    </a>
-            case element() return
-                element { node-name($node) } {
-                    $node/@*, app:wiki-links($node/node(), $wiki)
-                }
-            default return
-                $node               
-};
-
 (:~ 
  : Enables shared content with template expansion.  
  : Used for shared menus in navbar where relative links can be problematic 
@@ -642,13 +607,22 @@ declare function app:display-ids($node as node(), $model as map(*)){
               <div style="margin-top:1em;">
                 <span class="h5-inline">Type of Text: 
                 </span>
-                <span>{functx:capitalize-first(functx:camel-case-to-words(string($model("hits")/descendant::tei:text/@type),' '))}</span>
+                <span>{
+                 let $string := string($model("hits")/descendant::tei:text/@type)
+                 let $title := concat(substring($string,1,1),replace(substring($string,2),'(\p{Lu})',concat(' ', '$1')))
+                 let $title := concat(upper-case(substring($title,1,1)),substring($title,2))
+                 return $title}</span>
                  &#160;<a href="{$config:nav-base}/documentation/wiki.html?wiki-page=/Types-of-Text-in-the-Digital-Syriac-Corpus&amp;wiki-uri=https://github.com/srophe/syriac-corpus/wiki"><span class="glyphicon glyphicon-question-sign text-info moreInfo"></span></a>
               </div>,
               <div style="margin-top:1em;">
                 <span class="h5-inline">Status: 
             </span>
-                <span>{functx:capitalize-first(functx:camel-case-to-words(string($model("hits")/descendant::tei:revisionDesc/@status),' '))}</span>
+                <span>{
+                 let $string := string($model("hits")/descendant::tei:revisionDesc/@status)
+                 let $title := concat(substring($string,1,1),replace(substring($string,2),'(\p{Lu})',concat(' ', '$1')))
+                 let $title := concat(upper-case(substring($title,1,1)),substring($title,2))
+                 return $title
+                 }</span>
               &#160;<a href="{$config:nav-base}/documentation/wiki.html?wiki-page=/Status-of-Texts-in-the-Digital-Syriac-Corpus&amp;wiki-uri=https://github.com/srophe/syriac-corpus/wiki"><span class="glyphicon glyphicon-question-sign text-info moreInfo"></span></a>
               </div>,
               <div style="margin-top:1em;">
