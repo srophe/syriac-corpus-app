@@ -212,7 +212,7 @@ declare function data:get-records($collection as xs:string*, $element as xs:stri
                 for $hit in $hits
                 let $s := 
                         if(contains($sort, 'author')) then ft:field($hit, "author")[1]
-                        else if(request:get-parameter('sort', '') = 'title') then 
+                        else if($sort = 'title') then 
                             if(request:get-parameter('lang', '') = 'syr') then ft:field($hit, "titleSyriac")[1]
                             else if(request:get-parameter('lang', '') = 'ar') then ft:field($hit, "titleArabic")[1]
                             else ft:field($hit, "title")[1]

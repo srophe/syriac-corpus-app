@@ -37,13 +37,22 @@ declare variable $browse:perpage {for $r in request:get-parameter('perpage', 10)
  : @param $facets facet xml file name, relative to collection directory
 :)  
 declare function browse:get-all($node as node(), $model as map(*), $collection as xs:string*, $element as xs:string?, $facets as xs:string?){
+    let $collectionPath := 
+            if(config:collection-vars($collection)/@data-root != '') then concat('/',config:collection-vars($collection)/@data-root)
+            else if($collection != '') then concat('/',$collection)
+            else ()
+    let $hits := data:get-records($collection, $element)
+    return 
+        map{"hits" : $hits }
+        (:
     let $hits := 
         if($browse:view = 'title') then
             data:get-records($collection, 'tei:titleStmt/tei:title[1]')
         else if($browse:lang = 'syr') then 
             data:get-records($collection, 'tei:titleStmt/tei:title[1]/tei:foreign')
         else data:get-records($collection, "tei:titleStmt/tei:author[1]")
-    return map{"hits" : $hits[descendant::tei:body[ft:query(., (),sf:facet-query())]] }   
+    return map{"hits" : $hits }
+    :)
 };
 
 (:
@@ -155,10 +164,12 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
 declare function browse:display-hits($hits){
     for $hit in subsequence($hits, $browse:start,$browse:perpage)
     let $sort-title := 
-        if($browse:lang = '' and $browse:view = 'title') then () 
-        else if($hit/@sort-title != '') then 
-            <span lang="{$browse:lang}">{string($hit/@sort-title)}</span> 
-        else ()  
+       <span class="sort-title" lang="{$browse:lang}" xml:lang="{$browse:lang}">
+            {(if($browse:lang='ar') then attribute dir { "rtl" } else (), 
+                if($browse:lang='ar') then ft:field($hit, "titleArabic")[matches(global:build-sort-string(., $browse:lang),global:get-alpha-filter())]
+                else if($browse:lang='syr') then ft:field($hit, "titleSyriac")[matches(global:build-sort-string(., $browse:lang),global:get-alpha-filter())] 
+                else ())}
+            </span>  
     let $uri := replace($hit/descendant::tei:publicationStmt/tei:idno[1],'/tei','')
     return 
         <div xmlns="http://www.w3.org/1999/xhtml" class="result">
