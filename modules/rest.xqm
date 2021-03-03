@@ -3,9 +3,9 @@ xquery version "3.0";
 (: Syriaca.org restxq file. :)
 module namespace api="http://syriaca.org/api";
 (: Syriaca.org modules :)
-import module namespace global="http://syriaca.org/srophe/global" at "lib/global.xqm";
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "content-negotiation/tei2html.xqm";
-import module namespace cntneg="http://syriaca.org/srophe/cntneg" at "content-negotiation/content-negotiation.xqm";
+import module namespace global="http://srophe.org/srophe/global" at "lib/global.xqm";
+import module namespace tei2html="http://srophe.org/srophe/tei2html" at "content-negotiation/tei2html.xqm";
+import module namespace cntneg="http://srophe.org/srophe/cntneg" at "content-negotiation/content-negotiation.xqm";
 
 (:eXist modules:)
 import module namespace req="http://exquery.org/ns/request";

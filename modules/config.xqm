@@ -4,7 +4,7 @@ xquery version "3.0";
  : A set of helper functions to access the application context from
  : within a module.
  :)
-module namespace config="http://syriaca.org/srophe/config";
+module namespace config="http://srophe.org/srophe/config";
 
 declare namespace templates="http://exist-db.org/xquery/templates";
 
@@ -48,8 +48,8 @@ declare variable $config:data-root :=
 
 (: Establish main navigation for app, used in templates for absolute links. :)
 declare variable $config:nav-base := 
-    if($config:get-config//repo:nav-base/text() != '') then $config:get-config//repo:nav-base/text()
-    else if($config:get-config//repo:nav-base/text() = '/') then ''
+    if($config:get-config//repo:nav-base/text() = '/') then ''
+    else if($config:get-config//repo:nav-base/text() != '') then $config:get-config//repo:nav-base/text()
     else '';
 
 (: Base URI used in record tei:idno :)

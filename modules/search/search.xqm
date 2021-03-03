@@ -2,7 +2,7 @@ xquery version "3.1";
 (:~  
  : Builds HTML search forms and HTMl search results Srophe Collections and sub-collections   
  :) 
-module namespace search="http://syriaca.org/srophe/search";
+module namespace search="http://srophe.org/srophe/search";
 
 (:eXist templating module:)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
@@ -11,12 +11,13 @@ import module namespace templates="http://exist-db.org/xquery/templates" ;
 import module namespace kwic="http://exist-db.org/xquery/kwic";
 
 (: Import Srophe application modules. :)
-import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
-import module namespace data="http://syriaca.org/srophe/data" at "../lib/data.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
+import module namespace data="http://srophe.org/srophe/data" at "../lib/data.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "../lib/facet.xqm";
-import module namespace global="http://syriaca.org/srophe/global" at "../lib/global.xqm";
-import module namespace page="http://syriaca.org/srophe/page" at "../lib/paging.xqm";
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
+import module namespace sf="http://srophe.org/srophe/facets" at "facets.xql";
+import module namespace global="http://srophe.org/srophe/global" at "../lib/global.xqm";
+import module namespace page="http://srophe.org/srophe/page" at "../lib/paging.xqm";
+import module namespace tei2html="http://srophe.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
 import module namespace functx="http://www.functx.com";
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -44,9 +45,9 @@ declare variable $search:collection {request:get-parameter('collection', '') cas
 declare %templates:wrap function search:search-data($node as node(), $model as map(*), $collection as xs:string?, $view as xs:string?){
     let $coll := if($search:collection != '') then $search:collection else $collection
     let $eval-string :=  concat(search:query-string($collection),facet:facet-filter(global:facet-definition-file($collection)))
-    return map {"hits" := 
+    let $hits := 
                 if(exists(request:get-parameter-names()) or ($view = 'all')) then 
-                    if($search:sort-element != '' and $search:sort-element != 'relevance' or $view = 'all') then 
+                    if(($search:sort-element != '') and ($search:sort-element != 'relevance') or ($view = 'all')) then 
                         for $hit in util:eval($eval-string)
                         order by global:build-sort-string(data:add-sort-options($hit,$search:sort-element),'') ascending
                         return $hit   
@@ -63,7 +64,7 @@ declare %templates:wrap function search:search-data($node as node(), $model as m
                         order by ft:score($hit) + (count($hit/descendant::tei:bibl) div 100) descending
                         return $hit
                 else ()
-                }
+    return map {"hits" : $hits[descendant::tei:body[ft:query(., (),sf:facet-query())]]}
 };
 
 (:~ 

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
@@ -619,7 +620,9 @@
         <p class="footnote-text">
             <xsl:if test="@n">
                 <xsl:attribute name="id" select="concat('note',@n)"/>
-                <span class="notes footnote-refs"><span class="footnote-ref">‎<xsl:value-of select="@n"/></span> </span>
+                <span class="notes footnote-refs">
+                    <span class="footnote-ref">‎<xsl:value-of select="@n"/>
+                    </span> </span>
             </xsl:if>
             <xsl:choose>
                 <xsl:when test="t:quote">

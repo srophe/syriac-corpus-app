@@ -3,19 +3,20 @@ xquery version "3.1";
  : Builds HTML browse pages for Srophe Collections and sub-collections 
  : Alphabetical English and Syriac Browse lists, browse by type, browse by date, map browse. 
  :)
-module namespace browse="http://syriaca.org/srophe/browse";
+module namespace browse="http://srophe.org/srophe/browse";
 
 (:eXist templating module:)
 import module namespace templates="http://exist-db.org/xquery/templates" ;
 
 (: Import Srophe application modules. :)
-import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
-import module namespace global="http://syriaca.org/srophe/global" at "global.xqm";
-import module namespace data="http://syriaca.org/srophe/data" at "data.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
+import module namespace global="http://srophe.org/srophe/global" at "global.xqm";
+import module namespace data="http://srophe.org/srophe/data" at "data.xqm";
 import module namespace facet="http://expath.org/ns/facet" at "facet.xqm";
-import module namespace tei2html="http://syriaca.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
-import module namespace maps="http://syriaca.org/srophe/maps" at "maps.xqm";
-import module namespace page="http://syriaca.org/srophe/page" at "paging.xqm";
+import module namespace sf="http://srophe.org/srophe/facets" at "facets.xql";
+import module namespace tei2html="http://srophe.org/srophe/tei2html" at "../content-negotiation/tei2html.xqm";
+import module namespace maps="http://srophe.org/srophe/maps" at "maps.xqm";
+import module namespace page="http://srophe.org/srophe/page" at "paging.xqm";
 
 (: Namespaces :)
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -42,7 +43,7 @@ declare function browse:get-all($node as node(), $model as map(*), $collection a
         else if($browse:lang = 'syr') then 
             data:get-records($collection, 'tei:titleStmt/tei:title[1]/tei:foreign')
         else data:get-records($collection, "tei:titleStmt/tei:author[1]")
-    return map{"hits" := $hits }   
+    return map{"hits" : $hits[descendant::tei:body[ft:query(., (),sf:facet-query())]] }   
 };
 
 (:
@@ -75,7 +76,7 @@ declare function browse:show-hits($node as node(), $model as map(*), $collection
                     </div>
                     <div class="row">
                         {if(not(empty($facet-config))) then 
-                           <div class="col-md-4">{(facet:output-html-facets($hits, $facet-config/descendant::facet:facets/facet:facet-definition))}</div>
+                           <div class="col-md-4">{sf:display($hits, $facet-config)}</div>
                          else ()}
                         <div class="{if($facet-config != '') then 'col-md-8' else 'col-md-12'}">
                            <h3>{(
@@ -264,7 +265,7 @@ declare function browse:group-results($node as node(), $model as map(*), $collec
                 else $model("hits")
     let $authors := distinct-values($hits//tei:author) 
     return 
-        map {"group-by-authors" := 
+        map {"group-by-authors" : 
                 if(request:get-parameter('author-exact', '')) then 
                    for $author in $authors[. = request:get-parameter('author-exact', '')]
                    order by global:build-sort-string($author,'')

@@ -1,6 +1,6 @@
 xquery version "3.0";
 
-module namespace maps = "http://syriaca.org/srophe/maps";
+module namespace maps = "http://srophe.org/srophe/maps";
 
 (:~
  : Module builds leafletjs maps and/or Google maps
@@ -9,8 +9,8 @@ module namespace maps = "http://syriaca.org/srophe/maps";
  : @author Winona Salesky <wsalesky@gmail.com>
  : @authored 2014-06-25
 :)
-import module namespace geojson = "http://syriaca.org/srophe/geojson" at "../content-negotiation/geojson.xqm";
-import module namespace config="http://syriaca.org/srophe/config" at "../config.xqm";
+import module namespace geojson = "http://srophe.org/srophe/geojson" at "../content-negotiation/geojson.xqm";
+import module namespace config="http://srophe.org/srophe/config" at "../config.xqm";
 
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
@@ -40,7 +40,7 @@ declare function maps:build-leaflet-map($nodes as node()*, $total-count as xs:in
             }
         <script type="text/javascript">
             <![CDATA[
-            var terrain = L.tileLayer('http://api.tiles.mapbox.com/v3/sgillies.map-ac5eaoks/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});
+            var terrain = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'});
                                 
             /* Not added by default, only through user control action */
             var streets = L.tileLayer('http://api.tiles.mapbox.com/v3/sgillies.map-pmfv2yqx/{z}/{x}/{y}.png', {attribution: "ISAW, 2012"});

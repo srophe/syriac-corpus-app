@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <meta xmlns="http://exist-db.org/xquery/repo">
-    <description>The Oxford-BYU Syriac Corpus project</description>
+    <description>Digital Syriac Corpus</description>
     <author>Winona Salesky</author>
     <website>http://syriac-corpus.org/</website>
     <status>beta</status>
@@ -10,45 +10,4 @@
     <target>syriac-corpus</target>
     <prepare>pre-install.xql</prepare>
     <finish>post-install.xql</finish>
-    <config>
-        <!-- App title -->
-        <title>The Oxford-BYU Syriac Corpus projectl</title>
-        <!-- App description -->
-        <description/>
-        <!-- Contact email -->
-        <contact>info@syriaca.org</contact>
-        <!-- Logo name (assumes path to logo is $app-root/resources/images/) -->
-        <logo>syriaca-logo.png</logo>
-        <!-- Web Site URL -->
-        <url>http://syriac-corpus.org/</url>
-        <!-- Root of app for building dynamic links. Default is eXist app root -->
-        <nav-base>/exist/apps/syriac-corpus</nav-base>
-        <!-- eXist app root for app deployment-->
-        <app-root>syriac-corpus</app-root>
-        <!-- eXist data app root for gazetteer data -->
-        <data-root>syriac-corpus-data</data-root>
-        <!-- Base URI for identifiers in app data -->
-        <base_uri>https://syriaccorpus.org</base_uri>
-        <!-- Map rendering -->
-        <maps>
-            <option>google</option>
-            <option selected="true">leaflet</option>
-        </maps>
-        <!-- Keyboard options -->
-        <keyboard-options>
-            <option id="syriac-phonetic">Syriac Phonetic</option>
-            <option id="syriac-standard">Syriac Standard</option>
-            <!--<option id="ms-Arabic (101)">Arabic Mod. Standard</option>-->
-            <option id="qwerty">English QWERTY</option>
-            <!--
-                <option id="ms-Greek">Greek Mod. Standard</option>
-                <option id="ms-Russian">Russian Mod. Standard</option>
-            -->
-        </keyboard-options>
-        <collections>
-            <collection name="corpus" title="Syriac Corpus" app-root="/" data-root="/" record-URI-pattern="https://syriaccorpus.org/"/>
-        </collections>
-    </config>
-    
-<deployed>2017-05-15T08:52:37.648-04:00</deployed>
 </meta>

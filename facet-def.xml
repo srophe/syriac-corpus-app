@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <facets xmlns="http://expath.org/ns/facet">
-    <facet-definition name="Author">
-        <group-by>
-            <sub-path>descendant::tei:titleStmt/tei:author</sub-path>
+    <facet-definition name="author" label="Author">
+        <group-by function="corpusAuthors">
+            <sub-path>ancestor::tei:TEI/descendant::tei:titleStmt/tei:author/@ref</sub-path>
         </group-by>
         <max-values show="10">60</max-values>
         <order-by direction="ascending">value</order-by>
     </facet-definition>
     <!-- Add title to display of facets, make sure they sort alphabetically. -->
-    <facet-definition name="Catalog">
-        <group-by function="facet:titles">
-            <sub-path>descendant::tei:titleStmt/tei:title[@level="s"]/@ref</sub-path>
+    <facet-definition name="catalog" label="Catalog">
+        <group-by function="corpusTitles">
+            <sub-path>ancestor::tei:TEI/descendant::tei:titleStmt/tei:title[@level="s"]/@ref</sub-path>
         </group-by>
         <max-values show="10">60</max-values>
         <order-by direction="ascending">value</order-by>
