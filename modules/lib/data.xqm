@@ -34,18 +34,12 @@ declare function data:get-document() {
                     if($rec/ancestor::tei:msPart) then
                        <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec/ancestor::tei:msPart}</tei:TEI>
                     else $rec/ancestor::tei:TEI
-        else if($config:document-id) then 
+        else 
            for $r in collection($config:data-root)//tei:idno[. = request:get-parameter('id', '')]
            let $root := $r/ancestor::tei:TEI
            let $location := document-uri($root)
            where not(contains($location,'deprecated'))
            return $r/ancestor::tei:TEI
-        else 
-            for $r in collection($config:data-root)/id(request:get-parameter('id', ''))
-            let $root := $r/ancestor::tei:TEI
-            let $location := document-uri($root)
-            where not(contains($location,'deprecated'))
-            return $r/ancestor::tei:TEI
     (: Get document by document path. :)
     else if(request:get-parameter('doc', '') != '') then 
         if(starts-with(request:get-parameter('doc', ''),$config:data-root)) then 
@@ -65,18 +59,11 @@ declare function data:get-document($id as xs:string?) {
                 <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{$rec/ancestor::tei:msPart}</tei:TEI>
             else $rec/ancestor::tei:TEI
     else if(starts-with($id,'http')) then
-        if($config:document-id) then 
            for $r in collection($config:data-root)//tei:idno[. = $id]
             let $root := $r/ancestor::tei:TEI
            let $location := document-uri($root)
            where not(contains($location,'deprecated'))
            return $r/ancestor::tei:TEI
-        else 
-            for $r in collection($config:data-root)/id($id)/ancestor::tei:TEI
-            let $root := $r/ancestor::tei:TEI
-            let $location := document-uri($root)
-            where not(contains($location,'deprecated'))
-            return $r/ancestor::tei:TEI
     else if(starts-with($id,$config:data-root)) then 
             doc(xmldb:encode-uri($id || '.xml'))
     else doc(xmldb:encode-uri($config:data-root || "/" || $id || '.xml'))
