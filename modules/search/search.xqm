@@ -23,8 +23,8 @@ import module namespace functx="http://www.functx.com";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 (: Variables:)
-declare variable $search:start {request:get-parameter('start', 1) cast as xs:integer};
-declare variable $search:perpage {request:get-parameter('perpage', 20) cast as xs:integer};
+declare variable $search:start {request:get-parameter('start', 1)[1] cast as xs:integer};
+declare variable $search:perpage {request:get-parameter('perpage', 20)[1] cast as xs:integer};
 declare variable $search:q {request:get-parameter('q', '') cast as xs:string};
 declare variable $search:persName {request:get-parameter('persName', '') cast as xs:string};
 declare variable $search:placeName {request:get-parameter('placeName', '') cast as xs:string};
@@ -442,8 +442,8 @@ declare function search:keyword(){
  : tei:origDate[@to|@from|@when]
 :)
 declare function search:dates(){
-let $start := request:get-parameter('startDate', '')
-let $end := request:get-parameter('endDate', '')
+let $start := request:get-parameter('startDate', '')[1]
+let $end := request:get-parameter('endDate', '')[1]
 return 
     if($start != '') then 
         if($end != '') then 

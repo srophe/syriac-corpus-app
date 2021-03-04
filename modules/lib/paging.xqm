@@ -188,15 +188,15 @@ declare function page:display-search-params($collection as xs:string?){
                     (<span class="param">Keyword: </span>,<span class="param-string">{request:get-parameter($parameter, '')}</span>)
                 else if($parameter = 'startDate') then 
                     (<span class="param">Start Date: </span>,<span class="param-string">{
-                        if(contains(request:get-parameter($parameter, ''),'-')) then 
-                            replace(substring-before(request:get-parameter($parameter, ''),'-'),'^0','')
-                        else replace(request:get-parameter($parameter, ''),'^0','')
+                        if(contains(request:get-parameter($parameter, '')[1],'-')) then 
+                            replace(substring-before(request:get-parameter($parameter, '')[1],'-'),'^0','')
+                        else replace(request:get-parameter($parameter, '')[1],'^0','')
                         }&#160; </span>)
                 else if($parameter = 'endDate') then 
                     (<span class="param">End Date: </span>,<span class="param-string">{
-                    if(contains(request:get-parameter($parameter, ''),'-')) then 
-                            replace(substring-before(request:get-parameter($parameter, ''),'-'),'^0','')
-                        else replace(request:get-parameter($parameter, ''),'^0','')
+                        if(contains(request:get-parameter($parameter, '')[1],'-')) then 
+                            replace(substring-before(request:get-parameter($parameter, '')[1],'-'),'^0','')
+                        else replace(request:get-parameter($parameter, '')[1],'^0','')
                     }&#160; </span>)                    
                 else (<span class="param">{replace(concat(upper-case(substring($parameter,1,1)),substring($parameter,2)),'-',' ')}: </span>,<span class="param-string">{request:get-parameter($parameter, '')}</span>)    
             else ())
