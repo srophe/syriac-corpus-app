@@ -28,11 +28,11 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare function slider:date-filter($mode) {
 let $startDate := 
                if(request:get-parameter('startDate', '') != '') then
-                    request:get-parameter('startDate', '')
+                    request:get-parameter('startDate', '')[1]
                 else()   
 let $endDate := 
                 if(request:get-parameter('endDate', '') != '') then  
-                     request:get-parameter('endDate', '')
+                     request:get-parameter('endDate', '')[1]
                 else() 
 return                 
     if(not(empty($startDate)) and not(empty($endDate))) then 
@@ -81,8 +81,8 @@ return
  : @param $mode selects which date element to use for filter. Current modes are 'inscription' and 'bibl'
 :)
 declare function slider:browse-date-slider($hits, $mode as xs:string?){                  
-let $startDate := request:get-parameter('startDate', '')
-let $endDate := request:get-parameter('endDate', '')
+let $startDate := request:get-parameter('startDate', '')[1]
+let $endDate := request:get-parameter('endDate', '')[1]
 (: Dates in current results set :)  
 let $d := 
         for $dates in $hits/descendant::tei:origDate/@to | 
@@ -105,7 +105,7 @@ let $params :=
         else if($param = 'endDate') then ()
         else if($param = 'start') then ()
         else if(request:get-parameter($param, '') = ' ') then ()
-        else concat('&amp;',$param, '=',request:get-parameter($param, '')),'')
+        else concat('&amp;',$param[1], '=',request:get-parameter($param, '')[1]),'')
 return 
 if(not(empty($min)) and not(empty($max))) then
     <div>
