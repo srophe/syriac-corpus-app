@@ -608,8 +608,8 @@ declare function app:display-ids($node as node(), $model as map(*)){
                 <span class="h5-inline">Type of Text: 
                 </span>
                 <span>{
-                 let $string := string($model("hits")/descendant::tei:text/@type)
-                 let $title := concat(substring($string,1,1),replace(substring($string,2),'(\p{Lu})',concat(' ', '$1')))
+                 let $string := string($model("hits")/descendant::tei:text[1]/@type)
+                 let $title := concat(substring($string[1],1,1),replace(substring($string[1],2),'(\p{Lu})',concat(' ', '$1')))
                  let $title := concat(upper-case(substring($title,1,1)),substring($title,2))
                  return $title}</span>
                  &#160;<a href="{$config:nav-base}/documentation/wiki.html?wiki-page=/Types-of-Text-in-the-Digital-Syriac-Corpus&amp;wiki-uri=https://github.com/srophe/syriac-corpus/wiki"><span class="glyphicon glyphicon-question-sign text-info moreInfo"></span></a>
@@ -618,8 +618,8 @@ declare function app:display-ids($node as node(), $model as map(*)){
                 <span class="h5-inline">Status: 
             </span>
                 <span>{
-                 let $string := string($model("hits")/descendant::tei:revisionDesc/@status)
-                 let $title := concat(substring($string,1,1),replace(substring($string,2),'(\p{Lu})',concat(' ', '$1')))
+                 let $string := string($model("hits")/descendant::tei:revisionDesc[1]/@status)
+                 let $title := concat(substring($string[1],1,1),replace(substring($string[1],2),'(\p{Lu})',concat(' ', '$1')))
                  let $title := concat(upper-case(substring($title,1,1)),substring($title,2))
                  return $title
                  }</span>
