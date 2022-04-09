@@ -474,7 +474,7 @@ td {
 :lang(syr),:lang(syc) {
  font-family: "EstrangeloEdessa", "Estrangelo Edessa", Verdana, Arial, Helvetica, sans-serif;
   /*font-size:large;*/
-  font-size:24px; 
+/*  font-size:24px; */
   line-height:24px;
   text-align: right;
   font-style: normal !important;
@@ -483,7 +483,7 @@ td {
 
 :lang(syr-Syrj), :lang(syc-Syrj) {
  font-family: "SertoBatnan", "Serto Batnan", Verdana, Arial, Helvetica, sans-serif;
-  font-size:24px; 
+/*  font-size:24px; */
   line-height:24px;
  text-align: right;
  font-style: normal !important;
@@ -491,7 +491,7 @@ td {
 
 :lang(syr-Syre), :lang(syc-Syre) {
  font-family: "EastSyriacAdiabene", "East Syriac Adiabene", Verdana, Arial, Helvetica, sans-serif;
-  font-size:24px; 
+/*  font-size:24px; */
   line-height:24px;
   text-align: right;
   font-style: normal !important;
@@ -499,7 +499,7 @@ td {
 
 :lang(ar) {
  font-family: arial, sans-serif;
-  font-size:24px; 
+/*  font-size:24px; */
   line-height:24px;
  text-align: right;
  font-style: normal !important;
