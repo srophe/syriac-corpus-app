@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.torg/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
 
  <!-- ================================================================== 
        Copyright 2013 New York University  
@@ -661,7 +660,7 @@
     <xsl:template match="t:milestone | t:ab | t:l | t:lg | t:pb | t:cb | t:lb">
         <xsl:param name="parentID"/>
         <xsl:variable name="currentid" select="concat(if($parentID != '') then $parentID else 'id','.',@n)"/>
-        <span class="{concat('tei-',name(.))}                           {if(@unit) then concat(' tei-',@unit) else ()}                           {if(@type) then concat(' tei-',@type) else ()}                          {if(self::t:l) then 'display' else ()}">
+        <span class="{concat('tei-',name(.))} {if(@unit) then concat(' tei-',@unit) else ()} {if(@type) then concat(' tei-',@type) else ()} {if(self::t:l) then 'display' else ()}">
             <!-- {if(self::t:l) then concat(name(.),'-display') else ()} -->
             <xsl:choose>
                 <xsl:when test="child::t:head">
@@ -669,14 +668,14 @@
                         <xsl:value-of select="concat('Head-',$currentid)"/>
                     </xsl:attribute>
                 </xsl:when>
-                <xsl:otherwise>
+                <xsl:when test="$currentid != ''">
                     <xsl:attribute name="id">
                         <xsl:value-of select="$currentid"/>
                     </xsl:attribute>
-                </xsl:otherwise>
+                </xsl:when>
             </xsl:choose>
             <xsl:choose>
-                <xsl:when test="@lang">
+                <xsl:when test="@lang ">
                     <xsl:attribute name="lang">
                         <xsl:value-of select="@lang"/>
                     </xsl:attribute>                    
@@ -695,7 +694,7 @@
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:text> </xsl:text>
-                        <span class="text-number badge {if(self::t:l) then 'display' else ()}">
+                        <span lang="en" class="text-number {if(self::t:l) then 'display' else ()}">
                             <xsl:if test="self::t:pb">pb. </xsl:if> <xsl:value-of select="@n"/>
                         </span>
                         <xsl:text> </xsl:text>

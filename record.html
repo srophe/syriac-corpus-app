@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
     <!--<xi:include href="banner.html"/>-->
     <div class="grey-dark">
         <div class="container interior-content white">
             <div data-template="app:h1"/>
             <div data-template="app:other-data-formats" data-template-formats="corrections,copy,print,tei,text" class="data-formats noprint"/>
-
+            
             <div class="row">
                 <div data-template="app:display-left-menu"/>
                 <div data-template="app:display-body" data-template-paths="/descendant::tei:text"/>
@@ -37,14 +36,14 @@
             <script type="text/javascript">
                 $('input.toggleDisplay').click(function() {
                 var display = $(this).data("element");
-                $('.'+ display).children('.text-number').toggle();
-                //$('.'+ display).children('.head').toggle();
+                $('.'+ display).toggle();
                 var section = $('.'+ display).hasClass("tei-head");
+                /*
                 if(section){
                 $(' .' + display + '.tei-head').toggle();
                 }else{
                 $(' .' + display).toggleClass( 'display' );
-                }
+                }*/
                 //Change checkbox to active
                 $(this).toggleClass( "active" );
                 console.log(display);

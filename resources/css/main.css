@@ -837,6 +837,7 @@ pre {
 .body {display:block; float:none;clear:both;}
 .textBlock {display:block;}
 .tei-pb.display {display:block;}
+.tei-pb {display:none; text-align:center;}
 .tei-l.display, .line.display {display:block; margin:0; padding:0;}
 .tei-ab.display {display:inline;}
 .tei-line-num.display {font-size:medium; float:right; clear:right; margin-top:.5em;}
@@ -846,18 +847,14 @@ pre {
 .tei-milestone.verse.display {display:block;}
 .tei-lg.display, .tei-lb.display {display:block; margin-bottom:1.25em;}
 .text-number {
-    display:none;
-    background:#bbb;
-    font-size:x-small;
+    display:block;
+    font-size:small;
     margin:.5em;
-    /*
-    background:#bbb;
     padding:.175em;
-    border: 1px solid #ddd;
+    border-top: 1px solid #ddd;
     -webkit-border-radius: 1;
     -moz-border-radius: 1;
     border-radius: 1;
-    */
     }
 .tei-footnote {display:none; font-size:x-small;}    
 .tei-footnote.display {display:inline;}   
