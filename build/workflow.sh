@@ -74,7 +74,7 @@ DOCKER_URL=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DEV_ECR_REPOSITORY
 echo "Loging in to AWS"
 # Get the aws docker login creds. Note: only works if the github repo is allowed access from OIDC
 aws ecr get-login-password --region $AWS_REGION | \
-docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com 
 echo "Logged in successfully"
 
 docker tag $PACKAGE_NAME:$VERSION $DOCKER_URL

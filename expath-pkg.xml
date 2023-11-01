@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package xmlns="http://expath.org/ns/pkg" name="http://syriac-corpus.org/syriac-corpus" abbrev="syriac-corpus" version="3.19" spec="1.0">
+<package xmlns="http://expath.org/ns/pkg" name="http://syriac-corpus.org/syriac-corpus" abbrev="syriac-corpus" version="3.19.dev" spec="1.0">
     <title>Digital Syriac Corpus</title>
 </package>
