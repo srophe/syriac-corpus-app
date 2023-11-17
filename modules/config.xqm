@@ -33,7 +33,6 @@ declare variable $config:repo-descriptor := doc(concat($config:app-root, "/repo.
 
 declare variable $config:expath-descriptor := doc(concat($config:app-root, "/expath-pkg.xml"))/expath:package;
 
-(: Srophe variables :)
 (: Get repo-config.xml to parse global varaibles :)
 declare variable $config:get-config := doc($config:app-root || '/repo-config.xml');
 
@@ -42,14 +41,14 @@ declare variable $config:get-access-config := doc($config:app-root || '/access-c
 
 (: Establish eXist-db data root defined in repo.xml 'data-root':)
 declare variable $config:data-root := 
-    let $nav-base := $config:get-config//repo:app-root/text()  
+    let $app-root := $config:get-config//repo:app-root/text()  
     let $data-root := concat($config:get-config//repo:data-root/text(),'/data') 
-    return replace($config:app-root, $nav-base, $data-root);
+    return replace($config:app-root, $app-root, $data-root);
 
 (: Establish main navigation for app, used in templates for absolute links. :)
 declare variable $config:nav-base := 
-    if($config:get-config//repo:nav-base/text() = '/') then ''
-    else if($config:get-config//repo:nav-base/text() != '') then $config:get-config//repo:nav-base/text()
+    if($config:get-config//repo:nav-base/text() != '') then $config:get-config//repo:nav-base/text()
+    else if($config:get-config//repo:nav-base/text() = '/') then ''
     else '';
 
 (: Base URI used in record tei:idno :)
@@ -73,30 +72,8 @@ declare variable $config:map-api-key := $config:get-config//repo:maps/repo:optio
 declare variable $config:recaptcha := 
     if($config:get-access-config//recaptcha/site-key-variable != '') then 
         environment-variable($config:get-access-config//recaptcha/site-key-variable/text())
-    else if($config:get-access-config//recaptcha-site-key/text() != '') then $config:get-access-config//recaptcha-site-key/text() 
+    else if($config:get-access-config//private-key/text() != '') then $config:get-access-config//private-key/text() 
     else ();
-
-(:~
- : Get collection data
- : @param $collection match collection name in repo-config.xml 
-:)
-declare function config:collection-vars($collection as xs:string?) as node()?{
-    let $collection-config := $config:get-config//repo:collections
-    for $collection in $collection-config/repo:collection[@name = $collection]
-    return $collection
-};
-
-(:~
- : Get collection data
- : @param $collection match collection name in repo-config.xml 
-:)
-declare %templates:wrap function config:collection-title($node as node(), $model as map(*), $collection as xs:string?) as xs:string?{
-    if(config:collection-vars($collection)/@title != '') then 
-        string(config:collection-vars($collection)/@title)
-    else $config:app-title
-  
-};
-
 (:~
  : Resolve the given path using the current application context.
  : If the app resides in the file system,
@@ -159,4 +136,25 @@ declare function config:app-info($node as node(), $model as map(*)) {
                 <td>{ request:get-attribute("$exist:controller") }</td>
             </tr>
         </table>
+};
+
+(:~
+ : Get collection data
+ : @param $collection match collection name in repo-config.xml 
+:)
+declare function config:collection-vars($collection as xs:string?) as node()?{
+    let $collection-config := $config:get-config//repo:collections
+    for $collection in $collection-config/repo:collection[@name = $collection]
+    return $collection
+};
+
+(:~
+ : Get collection data
+ : @param $collection match collection name in repo-config.xml 
+:)
+declare function config:collection-title($node as node(), $model as map(*), $collection as xs:string?) as xs:string?{
+    if(config:collection-vars($collection)/@title != '') then 
+        string(config:collection-vars($collection)/@title)
+    else $config:app-title
+  
 };

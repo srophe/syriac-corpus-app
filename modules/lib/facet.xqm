@@ -1,5 +1,6 @@
 xquery version "3.1";
 (:~ 
+ : @depreciated, use facets.xql for eXist v5+ to take advantage of built in Lucene facets and fields
  : Srophe facets v2.0 
  : Removes in memory nodes created by orginal 
  : 
@@ -59,20 +60,6 @@ declare function facet:facet-filter($facet-definitions as node()*)  as item()*{
         ,'')
     else  ()  
 };
-
-(:
-if($facet-value != '') then 
-                    if($facet/facet:range) then
-                        if($facet/facet:range/facet:bucket[@name = $facet-value]/@lt and $facet/facet:range/facet:bucket[@name = $facet-value]/@lt != '') then
-                            concat('[',$path,'[string(.) >= "', facet:type($facet/facet:range/facet:bucket[@name = $facet-value]/@gt, $facet/facet:range/facet:bucket[@name = $facet-value]/@type),'" and string(.) <= "',facet:type($facet/facet:range/facet:bucket[@name = $facet-value]/@lt, $facet/facet:range/facet:bucket[@name = $facet-value]/@type),'"]]')                        
-                        else if($facet/facet:range/facet:bucket[@name = $facet-value]/@eq and $facet/facet:range/facet:bucket[@name = $facet-value]/@eq != '') then
-                            concat('[',$path,'[', $facet/facet:range/facet:bucket[@name = $facet-value]/@eq ,']]')
-                        else concat('[',$path,'[string(.) >= "', facet:type($facet/facet:range/facet:bucket[@name = $facet-value]/@gt, $facet/facet:range/facet:bucket[@name = $facet-value]/@type),'" ]]')
-                    else if($facet/facet:group-by[@function="facet:group-by-array"]) then 
-                        concat('[',$path,'[matches(., "',$facet-value,'(\W|$)")]',']')                     
-                    else concat('[',$path,'[normalize-space(.) = "',replace($facet-value,'"','""'),'"]',']')
-                else()
-:)
 
 (:~
  : Adds type casting when type is specified facet:facet:group-by/@type
@@ -149,22 +136,24 @@ declare function facet:group-by($results as item()*, $facet-definition as elemen
             let $facets := 
                 for $f in util:eval($path)
                 group by $facet-grp := $f
+                let $label := if($f[self::attribute()]) then $f[1]/parent::*[1]/text() else $facet-grp
                 order by 
-                    if($sort/text() = 'value') then $f[1]
+                    if($sort/text() = 'value') then $label
                     else count($f)
                     ascending
-                return facet:key($facet-grp, $facet-grp, count($f), $facet-definition)
+                return facet:key($label, $facet-grp, count($f), $facet-definition)
             let $count := count($facets)
             return facet:list-keys($facets, $count, $facet-definition) 
         else 
             let $facets := 
                 for $f in util:eval($path)
                 group by $facet-grp := $f
+                let $label := if($f[self::attribute()]) then $f[1]/parent::*[1]/text() else $facet-grp
                 order by 
-                    if($sort/text() = 'value') then $f[1]
+                    if($sort/text() = 'value') then $label
                     else count($f)
                     descending
-                return facet:key($facet-grp, $facet-grp, count($f), $facet-definition)
+                return facet:key($label, $facet-grp, count($f), $facet-definition)
             let $count := count($facets)   
             return facet:list-keys($facets, $count, $facet-definition)
 };
@@ -264,7 +253,7 @@ declare function facet:key($label, $value, $count, $facet-definition){
         else concat('fq=',encode-for-uri(concat(';fq-',$facet-query)))
    return 
         if($count gt 0) then 
-           <a href="?{$new-fq}{facet:url-params()}" class="facet-label btn btn-default {$active}">{if($active) then <span class="glyphicon glyphicon-remove facet-remove"></span> else ()}{global:get-label(string($label))} <span class="count"> ({string($count)})</span> </a>
+           <a href="?{$new-fq}{facet:url-params()}" class="facet-label btn btn-default {$active}">{if($active) then <span class="glyphicon glyphicon-remove facet-remove"></span> else ()}{$label} <span class="count"> ({string($count)})</span> </a>
         else ()        
 };
 
@@ -328,46 +317,3 @@ declare function facet:url-params(){
 
 (: END :)
 
-(: Syriaca.org specific function that uses the syiraca.org ODD file to establish labels for controlled values 
- : Uses global:odd2text($element-name,$label)) for translation. 
-:)
-declare function facet:controlled-labels($results as item()*, $facet-definitions as element(facet:facet-definition)?) {
-    let $path := concat('$results/',$facet-definitions/facet:group-by/facet:sub-path/text())
-    let $sort := $facet-definitions/facet:order-by
-    for $f in util:eval($path)
-    group by $facet-grp := $f
-    order by 
-        if($sort/text() = 'value') then $facet-grp
-        else count($f)
-        descending
-    return facet:key(global:odd2text(tokenize(replace($path[1],'@|\[|\]',''),'/')[last()],string($facet-grp)), $facet-grp, count($f), $facet-definition)    
-};
-
-(: Corpus special facet titles :)
-declare function facet:titles($results as item()*, $facet-definition as element(facet:facet-definition)*) as element(facet:key)*{
-    let $path := concat('$results/',$facet-definition/facet:group-by/facet:sub-path/text())
-    let $sort := $facet-definition/facet:order-by
-    return 
-        if($sort/@direction = 'ascending') then 
-            let $facets := 
-                for $f in util:eval($path)
-                group by $facet-grp := $f
-                order by 
-                    if($sort/text() = 'value') then $f[1]
-                    else count($f)
-                    ascending
-                return facet:key(normalize-space(string-join($f[1]/ancestor-or-self::tei:title[1]/text())), $facet-grp, count($f), $facet-definition)
-            let $count := count($facets)
-            return facet:list-keys($facets, $count, $facet-definition) 
-        else 
-            let $facets := 
-                for $f in util:eval($path)
-                group by $facet-grp := $f
-                order by 
-                    if($sort/text() = 'value') then $f[1]
-                    else count($f)
-                    descending
-                return facet:key(normalize-space(string-join($f[1]/ancestor-or-self::tei:title[1]/text())), $facet-grp, count($f), $facet-definition)
-            let $count := count($facets)   
-            return facet:list-keys($facets, $count, $facet-definition)
-};

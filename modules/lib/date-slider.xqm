@@ -28,18 +28,23 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
 declare function slider:date-filter($mode) {
 let $startDate := 
                if(request:get-parameter('startDate', '') != '') then
-                    request:get-parameter('startDate', '')[1]
+                    request:get-parameter('startDate', '')
                 else()   
 let $endDate := 
                 if(request:get-parameter('endDate', '') != '') then  
-                     request:get-parameter('endDate', '')[1]
+                     request:get-parameter('endDate', '')
                 else() 
-return                 
-    if(not(empty($startDate)) and not(empty($endDate))) then 
-           concat('[descendant::tei:origDate[
+return   
+    if(not(empty($startDate)) and not(empty($endDate))) then
+        if($mode != '') then 
+            concat('[descendant::',$mode,'[
             (@from gt "', $startDate,'" and @from lt "', $endDate,'") and
             (@to gt "', $startDate,'" and @to lt "', $endDate,'")
-            or (@when gt "', $startDate,'" and @when lt "', $endDate,'") 
+            ]]')
+        else
+           concat('[descendant::tei:state[@type="existence"][
+            (@from gt "', $startDate,'" and @from lt "', $endDate,'") and
+            (@to gt "', $startDate,'" and @to lt "', $endDate,'")
             ]]')
     else ()
 };
@@ -52,15 +57,6 @@ return
  : @param $dates accepts xs:gYear (YYYY) or xs:date (YYYY-MM-DD)
 :)
 declare function slider:expand-dates($date){
-let $date := 
-    if($date castable as xs:date) then $date 
-    else if($date = '0-100') then '0001-01-01'
-    else if($date = '2000-') then '2100-01-01'
-    else if(matches($date,'\d{4}')) then concat($date,'-01-01')
-    else if(matches($date,'\d{3}')) then concat('0',$date,'-01-01')
-    else if(matches($date,'\d{2}')) then concat('00',$date,'-01-01')
-    else if(matches($date,'\d{1}')) then concat('000',$date,'-01-01')
-    else '0100-01-01'
 let $year := 
         if(matches($date, '^\-')) then 
             if(matches($date, '^\-\d{6}')) then $date
@@ -81,12 +77,12 @@ return
  : @param $mode selects which date element to use for filter. Current modes are 'inscription' and 'bibl'
 :)
 declare function slider:browse-date-slider($hits, $mode as xs:string?){                  
-let $startDate := request:get-parameter('startDate', '')[1]
-let $endDate := request:get-parameter('endDate', '')[1]
+let $startDate := request:get-parameter('startDate', '')
+let $endDate := request:get-parameter('endDate', '')
 (: Dates in current results set :)  
 let $d := 
-        for $dates in $hits/descendant::tei:origDate/@to | 
-        $hits/descendant::tei:origDate/@from | $hits/descendant::tei:origDate/@when
+        for $dates in $hits/descendant::tei:state[@type="existence"]/@to | 
+        $hits/descendant::tei:state[@type="existence"]/@from
         order by xs:date(slider:expand-dates($dates)) 
         return $dates    
 let $min := if($startDate) then 
@@ -105,7 +101,7 @@ let $params :=
         else if($param = 'endDate') then ()
         else if($param = 'start') then ()
         else if(request:get-parameter($param, '') = ' ') then ()
-        else concat('&amp;',$param[1], '=',request:get-parameter($param, '')[1]),'')
+        else concat('&amp;',$param, '=',request:get-parameter($param, '')),'')
 return 
 if(not(empty($min)) and not(empty($max))) then
     <div>

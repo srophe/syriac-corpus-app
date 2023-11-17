@@ -1,16 +1,16 @@
-xquery version "3.1";
+xquery version "3.0";
 (:~
  : XQuery RDF generation
  : Checks for updates since last modified version using:
      eXistdb's xmldb:find-last-modified-since($node-set as node()*, $since as xs:dateTime) as node()*
- : Converts TEI records to RDF using $config:public-view-base/modules/lib/rei2rdf.xqm 
+ : Converts TEI records to RDF using $global:public-view-base/modules/lib/rei2rdf.xqm 
  : Adds new RDF records to RDF store.
  :
 :)
 
 import module namespace http="http://expath.org/ns/http-client";
 import module namespace config="http://srophe.org/srophe/config" at "../modules/config.xqm";
-import module namespace tei2rdf="http://syriaca.org/tei2rdf" at "../modules/content-negotiation/tei2rdf.xqm";
+import module namespace tei2rdf="http://srophe.org/srophe/tei2rdf" at "../modules/content-negotiation/tei2rdf.xqm ";
 import module namespace sparql="http://exist-db.org/xquery/sparql" at "java:org.exist.xquery.modules.rdf.SparqlModule";
 
 declare namespace rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#";
@@ -45,13 +45,13 @@ declare function local:get-records($action as xs:string?, $collection as xs:stri
                 if($collection = 'spear') then
                     (
                     for $r in collection($config:data-root || '/' || $collection)//tei:div[@uri]
-                    let $teiHeader := $r/ancestor::teiTEI//tei:teiHeader
+                    let $teiHeader := root($r)//tei:teiHeader
                     return 
                         <tei:TEI xmlns="http://www.tei-c.org/ns/1.0">{($teiHeader,$r)}</tei:TEI>
                         ) 
                 else collection($config:data-root || '/' || $collection)/tei:TEI
         let $total := count($records)
-        let $perpage := 10
+        let $perpage := 50
         let $pages := xs:integer($total div $perpage)
         let $start := 0
         return 
@@ -76,7 +76,7 @@ declare function local:get-records($action as xs:string?, $collection as xs:stri
                 collection($config:data-root || '/' || $collection)/tei:TEI[xmldb:find-last-modified-since(., xs:dateTime($date))] 
             else collection($config:data-root)/tei:TEI[xmldb:find-last-modified-since(., xs:dateTime($date))]
         let $total := count($records)
-        let $perpage := 10
+        let $perpage := 50
         let $pages := xs:integer($total div $perpage)
         let $start := 0
         return 
@@ -242,8 +242,8 @@ declare function local:process-results($records as item()*, $total, $start, $per
                 if($r/descendant-or-self::tei:div[@uri]) then 
                     string($r/descendant-or-self::tei:div[@uri][1]/@uri) 
                 else replace($r/descendant::tei:idno[starts-with(.,$config:base-uri)][1],'/tei','')
-         let $uri := document-uri($r/ancestor::tei:TEI)
-         let $rdf := try {tei2rdf:rdf-output($r)} catch *{
+         let $uri := document-uri(root($r))
+         let $rdf := try {tei2rdf:rdf-output($r)}catch *{
                  <response status="fail" xmlns="http://www.w3.org/1999/xhtml">
                      <message>RDF fail {$uri} {concat($err:code, ": ", $err:description)}</message>
                  </response>
@@ -312,10 +312,11 @@ declare function local:build-collection-rdf(){
  : If $action is not empty, check for specified collection, create if it does not exist. 
  : Run Zotero request. 
 :)
-
 if(request:get-parameter('action', '') != '') then
     if(request:get-parameter('pelagios', '') = 'dump') then
         local:update-rdf()
+    if(request:get-parameter('download', '') = 'true') then
+        local:update-rdf()        
     else if(xmldb:collection-available('/db/rdftest')) then
         <response xmlns="http://www.w3.org/1999/xhtml">{ local:update-rdf() }</response>
     else <response xmlns="http://www.w3.org/1999/xhtml">{ (local:build-collection-rdf(),local:update-rdf()) }</response>
@@ -329,4 +330,3 @@ else
     <div xmlns="http://www.w3.org/1999/xhtml">
         <p><label>Last Updated: </label> {$last-modified-version}</p>
     </div>
-    
