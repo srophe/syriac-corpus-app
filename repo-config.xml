@@ -24,9 +24,9 @@
         <!--<nav-base/>-->
         <nav-base>/</nav-base>
         <!-- eXist app root for app deployment-->
-        <app-root>syriaccorpus</app-root>
+        <app-root>syriac-corpus</app-root>
         <!-- eXist data app root for gazetteer data -->
-        <data-root>syriaccorpus-data</data-root>
+        <data-root>syriac-corpus-data</data-root>
         <!-- Base URI for identifiers in app data -->
         <base_uri>https://syriaccorpus.org</base_uri>
         <html-render type="xslt"/>

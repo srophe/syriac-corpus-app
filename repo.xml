@@ -8,7 +8,7 @@
   <license>GPL-3.0</license>
   <copyright>true</copyright>
   <type>application</type>
-  <target>syriaccorpus</target>
+  <target>syriac-corpus</target>
   <prepare>pre-install.xq</prepare>
   <finish>post-install.xq</finish>
 </meta>
