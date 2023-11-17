@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <facets xmlns="http://expath.org/ns/facet">
     <facet-definition name="author" label="Author">
         <group-by function="corpusAuthors">

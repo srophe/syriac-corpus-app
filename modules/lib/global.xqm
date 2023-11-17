@@ -25,7 +25,6 @@ declare function global:tei2html($nodes as node()*) {
     )
 };
 
-
 (:~
  : Transform tei to html via xslt
  : @param $node data passed to transform
@@ -39,7 +38,7 @@ if($config:get-config//repo:collection[@name=$collection]/@xslt != '') then
         <param name="app-root" value="{$config:app-root}"/>
         <param name="nav-base" value="{$config:nav-base}"/>
         <param name="base-uri" value="{$config:base-uri}"/>
-        <param name="base-uri" value="{$collection}"/>
+        <param name="collection" value="{$collection}"/>
     </parameters>
     )      
 else 
@@ -49,7 +48,7 @@ else
         <param name="app-root" value="{$config:app-root}"/>
         <param name="nav-base" value="{$config:nav-base}"/>
         <param name="base-uri" value="{$config:base-uri}"/>
-        <param name="base-uri" value="{$collection}"/>
+        <param name="collection" value="{$collection}"/>
     </parameters>
     )
 };
@@ -124,7 +123,7 @@ declare function global:odd2text($element as xs:string?, $label as xs:string?) a
  : Strips English title or sort string of non-sort characters as established by Syriaca.org
  : Used for alphabetizing in search/browse and elsewhere
  : @param $titlestring 
- : @param $lang
+ : @param $lang   
  :)
 declare function global:build-sort-string($titlestring as xs:string?, $lang as xs:string?) as xs:string* {
     if($lang = 'ar') then global:ar-sort-string($titlestring)
@@ -195,8 +194,7 @@ return
  :)
 declare function global:make-iso-date($date as xs:string?) as xs:date* {
 xs:date(
-    if($date castable as xs:date) then $date 
-    else if($date = '0-100') then '0001-01-01'
+    if($date = '0-100') then '0001-01-01'
     else if($date = '2000-') then '2100-01-01'
     else if(matches($date,'\d{4}')) then concat($date,'-01-01')
     else if(matches($date,'\d{3}')) then concat('0',$date,'-01-01')
@@ -230,7 +228,7 @@ if(starts-with($uri,$config:base-uri)) then
       let $doc := collection($config:data-root)//tei:idno[@type='URI'][. = concat($uri,"/tei")]
       return 
           if(exists($doc)) then
-            string-join($doc/ancestor::tei:TEI/descendant::tei:titleStmt[1]/tei:title[1]/text()[1],' ')
+            string-join($doc/ancestor::tei:TEI//tei:titleStmt[1]/tei:title[1]/text()[1],' ')
           else $uri 
 else $uri
 };

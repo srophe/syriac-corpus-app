@@ -5,7 +5,7 @@ xquery version "3.1";
 module namespace search="http://srophe.org/srophe/search";
 
 (:eXist templating module:)
-import module namespace templates="http://exist-db.org/xquery/templates" ;
+import module namespace templates="http://exist-db.org/xquery/html-templating" ;
 
 (: Import KWIC module:)
 import module namespace kwic="http://exist-db.org/xquery/kwic";
@@ -23,8 +23,6 @@ import module namespace functx="http://www.functx.com";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 (: Variables:)
-declare variable $search:start {request:get-parameter('start', 1)[1] cast as xs:integer};
-declare variable $search:perpage {request:get-parameter('perpage', 20)[1] cast as xs:integer};
 declare variable $search:q {request:get-parameter('q', '') cast as xs:string};
 declare variable $search:persName {request:get-parameter('persName', '') cast as xs:string};
 declare variable $search:placeName {request:get-parameter('placeName', '') cast as xs:string};
@@ -33,7 +31,16 @@ declare variable $search:bibl {request:get-parameter('bibl', '') cast as xs:stri
 declare variable $search:idno {request:get-parameter('uri', '') cast as xs:string};
 declare variable $search:sort-element {request:get-parameter('sort-element', '') cast as xs:string};
 declare variable $search:collection {request:get-parameter('collection', '') cast as xs:string};
-
+declare variable $search:start {
+ if(request:get-parameter('start', 1)[1] castable as xs:integer) then 
+        xs:integer(request:get-parameter('start', 1)[1]) 
+ else 1};
+declare variable $search:perpage {
+ if(request:get-parameter('perpage', 25)[1] castable as xs:integer) then 
+        xs:integer(request:get-parameter('perpage', 25)[1]) 
+ else 25
+ };
+ 
 (:~
  : Builds search result, saves to model("hits") for use in HTML display
 :)

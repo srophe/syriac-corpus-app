@@ -1,3 +1,30 @@
+/*
+body{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+}
+
+h1{
+	text-align:center;
+	font-weight:normal;
+	font-size:25px;
+}
+
+h2{
+	margin-bottom:50px;
+}
+
+h3{
+	clear:both;
+}
+
+hr{
+	border:none;
+	clear: both;
+	margin: 0;
+	padding: 0;
+}
+*/
 .ui-sliderDemo{
 	margin-bottom:50px;
 }
@@ -54,7 +81,7 @@ pre code .comment{
 	color:#5e7f5f;
 }
 
-.slider dt{
+dt{
 	font-weight:bold;
 	float:left;
 	clear:left;
@@ -62,11 +89,11 @@ pre code .comment{
 	margin-bottom:2px;
 }
 
-.slider dt+dd{
+dt+dd{
 	margin-top:2px;
 }
 
-.slider dd{
+dd{
 	padding-left:15px;
 	margin-left:0;
 	margin-left:150px;

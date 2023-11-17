@@ -1,34 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
-    <xi:include href="../banner.html"/>
-    <h1 class="banner indent bhse">Digital Syriac Corpus Documentation</h1>
+<div xmlns="http://www.w3.org/1999/xhtml" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+    <h1 class="banner">Srophé Application : Documentation</h1>
     <div class="container">
         <div class="container">
             <div data-template="app:get-wiki">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div data-template="app:wiki-page-content"/>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Editorial Documentation</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div data-template="app:wiki-menu" data-template-wiki-uri="https://github.com/srophe/syriac-corpus/wiki"/>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Technical Documentation</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div data-template="app:wiki-menu" data-template-wiki-uri="https://github.com/srophe/syriac-corpus-app/wiki"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>     
+            <h1 data-template="app:wiki-page-title"/>
+             <div class="row">
+                 <div class="col-md-8">
+                     <div data-template="app:wiki-page-content"/>
+                 </div>
+                 <div class="col-md-4">
+                     <div class="panel panel-default">
+                         <div class="panel-heading">
+                             <h3 class="panel-title">Technical Documentation</h3>
+                         </div>
+                         <div class="panel-body">
+                             <div data-template="app:wiki-menu"/>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+            </div>
         </div>
     </div>
 </div>
