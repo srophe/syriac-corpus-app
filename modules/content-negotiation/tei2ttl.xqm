@@ -212,7 +212,7 @@ declare function tei2ttl:geo($rec) as xs:string*{
 string-join((
 for $geo in $rec/descendant::tei:location[tei:geo]
 return 
-    concat('&#xa;geo:location [',
+    concat('&#xa;[',
         tei2ttl:make-triple('','geo:lat',tei2ttl:make-literal(tokenize($geo/tei:geo,' ')[1],(),())),
         tei2ttl:make-triple('','geo:long',tei2ttl:make-literal(tokenize($geo/tei:geo,' ')[2],(),())),
     '];')),'')
@@ -223,7 +223,7 @@ return
  : @param $rec
 :)
 declare function tei2ttl:bibl-citation($rec) as xs:string*{
-let $citation := string-join(bibl2html:citation(root($rec)))
+let $citation := string-join(bibl2html:citation($rec/ancestor::tei:TEI))
 return 
     tei2ttl:make-triple('','dcterms:bibliographicCitation', tei2ttl:make-literal($citation,(),()))
 };

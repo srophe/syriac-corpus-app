@@ -64,11 +64,11 @@ declare function feed:format-dates($date as xs:string?) as xs:string?{
  : @return As atom feed element
 :)
 declare function feed:get-entry($node as node()?) as element()?{ 
-    let $rec := $node/ancestor::tei:TEI
+    let $rec := if($node/self::tei:TEI) then $node else $node/ancestor::tei:TEI
     let $subtitle := if($rec//tei:titleStmt/tei:title[2]) then concat(': ',$rec//tei:titleStmt/tei:title[2]) else ()
-    let $title := concat(string($rec//tei:titleStmt/tei:title[1]),' ',$subtitle)
+    let $title := concat(string($rec//tei:titleStmt/tei:title[1]),$subtitle)
     let $date := $node[1]//tei:publicationStmt[1]/tei:date[1]/text()
-    let $rec-id := replace($rec//tei:idno[@type='URI'][1],'/tei','')
+    let $rec-id := substring-before($rec//tei:idno[@type='URI'][starts-with(.,'http://syriaca.org/')][1],'/tei')
     return 
         <feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss"> 
             <title>{$title}</title>
@@ -85,7 +85,7 @@ declare function feed:get-entry($node as node()?) as element()?{
  : @return A atom entry element
 :)
 declare function feed:build-entry($node as element()*) as element(entry){
-    let $rec := $node
+    let $rec := if($node/self::tei:TEI) then $node else $node/ancestor::tei:TEI
     let $rec-id := substring-before($rec//tei:idno[@type='URI'][starts-with(.,'http://syriaca.org/')][1],'/tei')
     let $subtitle := if($rec//tei:titleStmt/tei:title[2]) then concat(': ',$rec//tei:titleStmt/tei:title[2]) else ()
     let $title := concat(string($rec//tei:titleStmt/tei:title[1]),$subtitle)
