@@ -36,7 +36,7 @@ import module namespace tei2txt="http://srophe.org/srophe/tei2txt" at "tei2txt.x
 
 (: These are needed for rending as HTML via existdb templating module, can be removed if not using 
 import module namespace config="http://syriaca.org/config" at "config.xqm";
-import module namespace templates="http://exist-db.org/xquery/templates" ;
+import module namespace templates="http://exist-db.org/xquery/html-templating" ;
 :)
 
 (: Namespaces :)
@@ -68,7 +68,8 @@ declare function cntneg:content-negotiation($data as item()*, $content-type as x
     let $flag := cntneg:determine-type-flag($type)
     return 
         if($flag = 'atom') then 
-            (response:set-header("Content-Type", "application/atom+xml; charset=utf-8"), feed:get-entry($data))
+           <message>Not an available data format.</message>
+           (: (response:set-header("Content-Type", "application/atom+xml; charset=utf-8"), feed:build-atom-feed($data,(),(),(),())):)
         else if($flag = 'geojson') then 
             (response:set-header("Content-Type", "application/json; charset=utf-8"),
             response:set-header("Access-Control-Allow-Origin", "application/json; charset=utf-8"),
@@ -96,7 +97,7 @@ declare function cntneg:content-negotiation($data as item()*, $content-type as x
             response:set-header("media-type", "text/plain"),
             tei2ttl:ttl-output($data))
         else if($flag = ('tei','xml')) then 
-            (response:set-header("Access-Control-Allow-Origin", "*"),response:set-header("Content-Type", "application/xml; charset=utf-8"),$data)                               
+            (response:set-header("Content-Type", "application/xml; charset=utf-8"),$data)                               
         else if($flag = ('txt','text')) then
             (response:set-header("Content-Type", "text/plain; charset=utf-8"),
              response:set-header("Access-Control-Allow-Origin", "text/plain; charset=utf-8"),

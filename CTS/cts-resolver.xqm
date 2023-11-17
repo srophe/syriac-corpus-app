@@ -118,3 +118,15 @@ return
        
     else <error>ERROR: no data recieved. </error>
 };
+
+    
+(: TEST records
+let $t1 := 'urn:cts:syriacLit:nhsl8501'
+let $t2 := 'urn:cts:syriacLit:nhsl8501.nhsl8503'
+let $t3 := 'urn:cts:syriacLit:nhsl8501.nhsl8503.syriacCorpus1'
+let $t4 := 'urn:cts:syriacLit:nhsl8501.nhsl8503.syriacCorpus1:3.5'
+let $t5 := 'urn:cts:syriacLit:nhsl70.nhsl75.syriacCorpus121:5@10'
+rn:cts:syriacLit:nhsl70.nhsl75.syriacCorpus121:4.10
+let $t6 := 'urn:cts:syriacLit:nhsl8528.nhsl8602.bibl1765'
+let $t6alt := 'urn:cts:syriacLit:nhsl8528.nhsl8602.bibl1765 = urn:cts:syriacLit:nhsl8528.nhsl8602.syriacCorpus101'
+:)

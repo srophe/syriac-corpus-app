@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<search-config>
-    <field name="title" expression="descendant-or-self::tei:body" function="title"/>
-    <field name="type" expression="descendant-or-self::tei:body" function="type"/>
-    <field name="idno" expression="descendant::tei:idno" function="uri"/>
-</search-config>

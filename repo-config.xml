@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <meta xmlns="http://exist-db.org/xquery/repo">
     <description>Digital Syriac Corpus</description>
     <author>Winona Salesky</author>
@@ -7,7 +6,7 @@
     <license>GNU-LGPL</license>
     <copyright>true</copyright>
     <type>application</type>
-    <target>syriac-corpus</target>
+    <target>syriaccorpus</target>
     <prepare>pre-install.xql</prepare>
     <finish>post-install.xql</finish>
     <config>
@@ -20,14 +19,14 @@
         <!-- Logo name (assumes path to logo is $app-root/resources/images/) -->
         <logo>syriaca-logo.png</logo>
         <!-- Web Site URL -->
-        <url>http://syriac-corpus.org/</url>
+        <url>http://syriaccorpus.org/</url>
         <!-- Root of app for building dynamic links. Default is eXist app root -->
         <!--<nav-base/>-->
         <nav-base>/</nav-base>
         <!-- eXist app root for app deployment-->
-        <app-root>syriac-corpus</app-root>
+        <app-root>syriaccorpus</app-root>
         <!-- eXist data app root for gazetteer data -->
-        <data-root>syriac-corpus-data</data-root>
+        <data-root>syriaccorpus-data</data-root>
         <!-- Base URI for identifiers in app data -->
         <base_uri>https://syriaccorpus.org</base_uri>
         <html-render type="xslt"/>
@@ -52,5 +51,5 @@
         </collections>
     </config>
     
-<deployed>2017-05-15T08:52:37.648-04:00</deployed>
+    <deployed>2017-05-15T08:52:37.648-04:00</deployed>
 </meta>
