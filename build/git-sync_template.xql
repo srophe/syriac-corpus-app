@@ -21,6 +21,6 @@ return
     githubxq:execute-webhook($data, 
         '/db/apps/syriac-corpus',
         'https://github.com/srophe/syriac-corpus',
-        'development',
+        'main',
         '${SECRET_KEY}',
         '')
