@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<meta 
-  xmlns="http://exist-db.org/xquery/repo">
+<meta xmlns="http://exist-db.org/xquery/repo">
   <description>Digital Syriac Corpus</description>
   <author>Winona Salesky</author>
   <website>wsalesky.com</website>
@@ -11,4 +9,4 @@
   <target>syriac-corpus</target>
   <prepare>pre-install.xq</prepare>
   <finish>post-install.xq</finish>
-</meta>
+<deployed>2023-11-17T08:09:54.178-05:00</deployed></meta>
