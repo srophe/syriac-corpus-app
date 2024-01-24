@@ -13,10 +13,11 @@
     <copy file="node_modules/bootstrap/dist/css/bootstrap.min.css" todir="resources/css"/>
     <copy file="node_modules/bootstrap/dist/css/bootstrap.min.css.map" todir="resources/css"/>
   </target>
-  <!-- Dev build (includes everything unoptimized) -->
+  <!-- Dev build (includes everything unoptimized) 
   <target name="dev" depends="init" description="compile all source files">
     <zip basedir="." destfile="${build.dir}/${project.app}-${project.version}-dev.xar" excludes="**/${build.dir}/**, **/node_modules/**"/>
   </target>
+  -->
   <!-- Release build -->
   <target name="deploy" depends="init" description="compile release build">
     <zip basedir="." destfile="${build.dir}/${project.app}-${project.version}.xar" excludes="**/${build.dir}/**, .existdb.json, .yo-rc.json, **/node_modules/**, **/reports/**, README.md, **/.git*/** "/>
