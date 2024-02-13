@@ -61,7 +61,7 @@ declare function app:get-work($node as node(), $model as map(*)) {
         let $rec := data:get-document()
         return 
             if(empty($rec)) then 
-                ('No record found. ',xmldb:encode-uri($config:data-root || "/" || request:get-parameter('doc', '') || '.xml'))
+                ('No record found. ',request:get-parameter('id', ''))
                 (: Debugging ('No record found. ',xmldb:encode-uri($config:data-root || "/" || request:get-parameter('doc', '') || '.xml')):)
                (:response:redirect-to(xs:anyURI(concat($config:nav-base, '/404.html'))):)
             else map {"hits" : $rec }
@@ -582,4 +582,464 @@ declare %templates:wrap function app:build-editor-list($node as node(), $model a
             <li>{normalize-space($name)}</li>
             else ''
         else ''  
+};
+
+(: Corpus functions :)
+
+(:~  
+ : Display any TEI body passed to the function via the paths parameter
+ : Used by templating module, defaults to tei:body if no nodes are passed. 
+ : @param $paths comma separated list of xpaths for display. Passed from html page  
+:)
+declare function app:display-body($node as node(), $model as map(*), $paths as xs:string*){
+    let $data-display := app:display-nodes($node, $model, $paths,'')
+    return 
+        if($model("hits")/descendant::tei:body/descendant::*[@n] or (app:toc($model("hits")/descendant::tei:body/child::*) != '')) then 
+            <div class="col-sm-6 col-md-6 col-lg-7 mssBody">{$data-display}</div>
+        else 
+            <div class="col-sm-8 col-md-8 col-lg-9 mssBody">{$data-display}</div>     
+}; 
+(: Display ids :)
+declare function app:display-ids($node as node(), $model as map(*)){                 
+    <div class="panel panel-default">
+        <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#aboutDigitalText">About This Digital Text </a></div>
+        <div class="panel-body collapse in" id="aboutDigitalText">
+            {(
+              if($model("hits")/descendant::tei:publicationStmt/tei:idno[@type='URI']) then
+                <div>
+                    <h5>Corpus Text ID:</h5>
+                    <span>{$model("hits")/descendant::tei:publicationStmt/tei:idno[@type='URI']}</span>
+                </div>
+              else(),
+              if($model("hits")/descendant::tei:fileDesc/tei:titleStmt/tei:title[1]/@ref) then
+                <div>
+                    <h5>NHSL Work ID(s):</h5>
+                    {for $r in $model("hits")/descendant::tei:fileDesc/tei:titleStmt/tei:title[@ref]
+                    return <span><a href="{string($r/@ref)}">{string($r/@ref)}</a><br/></span>}
+                </div>
+              else(), 
+              <div>
+                <h5>Source: </h5>
+                {global:tei2html($model("hits")/descendant::tei:sourceDesc)}
+                {if($model("hits")/descendant::tei:sourceDesc/descendant::tei:idno[starts-with(., 'http://syriaca.org/bibl')]) then 
+                    <span class="footnote-links">
+                        <span class="footnote-icon"> 
+                         <a href="{$model("hits")/descendant::tei:sourceDesc/descendant::tei:idno[starts-with(., 'http://syriaca.org/bibl')][1]/text()}" title="Link to Syriaca.org Bibliographic Record" 
+                             data-toggle="tooltip" data-placement="top" class="bibl-links">
+                             <img src="{$config:nav-base}/resources/images/icons-syriaca-sm.png" 
+                                 alt="Link to Syriaca.org Bibliographic Record" height="18px"/>
+                         </a>
+                        </span>
+                    </span>
+                else()}
+              </div>, 
+              <div style="margin-top:1em;">
+                <span class="h5-inline">Type of Text: 
+                </span>
+                <span>{
+                 let $string := string($model("hits")/descendant::tei:text[1]/@type)
+                 let $title := concat(substring($string[1],1,1),replace(substring($string[1],2),'(\p{Lu})',concat(' ', '$1')))
+                 let $title := concat(upper-case(substring($title,1,1)),substring($title,2))
+                 return $title}</span>
+                 &#160;<a href="{$config:nav-base}/documentation/wiki.html?wiki-page=/Types-of-Text-in-the-Digital-Syriac-Corpus&amp;wiki-uri=https://github.com/srophe/syriac-corpus/wiki"><span class="glyphicon glyphicon-question-sign text-info moreInfo"></span></a>
+              </div>,
+              <div style="margin-top:1em;">
+                <span class="h5-inline">Status: 
+            </span>
+                <span>{
+                 let $string := string($model("hits")/descendant::tei:revisionDesc[1]/@status)
+                 let $title := concat(substring($string[1],1,1),replace(substring($string[1],2),'(\p{Lu})',concat(' ', '$1')))
+                 let $title := concat(upper-case(substring($title,1,1)),substring($title,2))
+                 return $title
+                 }</span>
+              &#160;<a href="{$config:nav-base}/documentation/wiki.html?wiki-page=/Status-of-Texts-in-the-Digital-Syriac-Corpus&amp;wiki-uri=https://github.com/srophe/syriac-corpus/wiki"><span class="glyphicon glyphicon-question-sign text-info moreInfo"></span></a>
+              </div>,
+              <div style="margin-top:1em;">
+                <span class="h5-inline">Publication Date: </span>
+                {format-date(xs:date($model("hits")/descendant::tei:revisionDesc/tei:change[1]/@when), '[MNn] [D], [Y]')}
+              </div>, 
+              <div>
+                <h5>Preparation of Electronic Edition:</h5>
+                TEI XML encoding by James E. Walters. <br/>
+                Syriac text transcribed by {$model("hits")//tei:titleStmt/descendant::tei:respStmt[tei:resp[. = 'Syriac text transcribed by']]/tei:name/text()}.
+              </div>,
+              <div>
+                <h5>Open Access and Copyright:</h5>
+                <div class="small">
+                    {(
+                    $model("hits")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab[1]/tei:note[1]/text(),
+                    <div id="showMoreAccess" class="collapse">
+                        {(
+                        $model("hits")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:ab[2]/tei:note[1]/text(),
+                        if($model("hits")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence[contains(@target, 'http://creativecommons.org/licenses/')]) then 
+                            <p>
+                            <a rel="license" href="{string($model("hits")/descendant::tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:availability/tei:licence/@target)}">
+                                <img alt="Creative Commons License" style="border-width:0;display:inline;" src="{$config:nav-base}/resources/images/cc.png" height="18px"/>
+                            </a>
+                            </p>
+                        else())}                   
+                    </div>,
+                    '&#160;',<a href="#" class="togglelink" data-toggle="collapse" data-target="#showMoreAccess" data-text-swap="Hide details">See details...</a>
+                    )}
+                </div>
+              </div>
+              
+             )}
+        </div>
+    </div>        
+};
+
+(:~
+ : TOC for Syriac Corpus records. 
+:)  
+declare function app:display-left-menu($node as node(), $model as map(*)){
+let $toc := app:toc($model("hits")/descendant::tei:body/child::*)
+return 
+    if($toc != '' or $model("hits")/descendant::tei:body/descendant::*[@n]) then 
+        <div class="col-sm-2 col-md-2 noprint" xmlns="http://www.w3.org/1999/xhtml">
+            {(
+            app:toggle-text-display($node,$model),
+            if($toc != '') then 
+                <div class="panel panel-default">
+                  <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showToc">Table of Contents  </a>
+                  <!--<a href="#" data-toggle="collapse" data-target="#showToc"><span id="tocIcon" class="glyphicon glyphicon-collapse-up"/></a>-->
+                  </div>
+                  <div class="panel-body collapse in" id="showToc">
+                      {app:toc($model("hits")/descendant::tei:body/child::*)}
+                  </div>
+                </div>  
+            else ()
+            )}
+        </div>        
+    else ()
+}; 
+
+(:~
+ : Transform TOC for Syriac Corpus records. 
+:)
+declare function app:toc($nodes){
+for $node in $nodes
+return 
+        typeswitch($node)
+            case text() return normalize-space($node)
+            case element(tei:div) return 
+                app:toc($node/node())
+            case element(tei:div1) return 
+                app:toc($node/node())
+            case element(tei:div2) return 
+                <span class="toc div2">{app:toc($node/node())}</span>
+            case element(tei:div3) return 
+                <span class="toc div3">{app:toc($node/node())}</span>
+            case element(tei:div4) return 
+                <span class="toc div4">{app:toc($node/node())}</span>
+            case element(tei:head) return 
+                let $id := 
+                    if($node/@xml:id) then string($node/@xml:id) 
+                    else if($node/parent::*[1]/@n) then
+                        concat('Head-id.',string-join($node/ancestor::*[@n]/@n,'.'))
+                    else 'on-parent'
+                return 
+                    (<a href="#{$id}" class="toc-item">{string-join($node/descendant-or-self::text(),' ')}</a>, ' ') 
+            default return ()          
+};
+
+(:~
+ : TOC for Syriac Corpus records. 
+:)  
+declare function app:toggle-text-display($node as node(), $model as map(*)){
+if($model("hits")/descendant::tei:body/descendant::*[@n][not(@type='section') and not(@type='part')]) then     
+        <div class="panel panel-default">
+            <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#toggleText">Show  </a>
+            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" 
+            title="Toggle the text display to show line numbers, section numbers and other structural divisions"></span>
+            <!--<a href="#" data-toggle="collapse" data-target="#showToc"><span id="tocIcon" class="glyphicon glyphicon-collapse-up"/></a>-->
+            </div>
+            <div class="panel-body collapse in" id="toggleText">
+                {( 
+                    let $types := distinct-values($model("hits")/descendant::tei:body/descendant::tei:div[@n]/@type)
+                    for $type in $types
+                    order by $type
+                    return 
+                        if($type = ('part','text','rubric','heading','title')) then ()
+                        else
+                            <div class="toggle-buttons">
+                               <span class="toggle-label"> {$type} : </span>
+                               <input class="toggleDisplay" type="checkbox" id="toggle{$type}" data-element="{concat('tei-',$type)}"/>
+                                 {if($type = 'section') then attribute checked {"checked" } else ()}
+                                 <label for="toggle{$type}"> {$type}</label>
+                            </div>,
+                    if($model("hits")/descendant::tei:body/descendant::tei:ab[not(@type) and not(@subtype)][@n]) then 
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> ab : </span>
+                            <input class="toggleDisplay" type="checkbox" id="toggleab" data-element="tei-ab"/>
+                                <label for="toggleab">ab</label>
+                         </div>
+                    else (),   
+                    if($model("hits")/descendant::tei:body/descendant::tei:ab[@type][@n]) then  
+                        let $types := distinct-values($model("hits")/descendant::tei:body/descendant::tei:ab[@n]/@type)
+                        for $type in $types
+                        order by $type
+                        return 
+                            <div class="toggle-buttons">
+                               <span class="toggle-label"> {$type} : </span>
+                               <input class="toggleDisplay" type="checkbox" id="toggle{$type}" data-element="{concat('tei-',$type)}"/>
+                                 {if($type = 'section') then attribute checked {"checked" } else ()}
+                                 <label for="toggle{$type}"> {$type}</label>
+                            </div>
+                    else (),    
+                    if($model("hits")/descendant::tei:body/descendant::tei:l) then 
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> line : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglel" data-element="tei-l" checked="checked"/>
+                                <label for="togglel">line</label>
+                        </div>
+                    else (),
+                    if($model("hits")/descendant::tei:body/descendant::tei:lb) then 
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> line break : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglelb" data-element="tei-lb"/>
+                                <label for="togglelb">line break</label>
+                        </div>
+                    else (),                    
+                    if($model("hits")/descendant::tei:body/descendant::tei:lg) then 
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> line group : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglelg" data-element="tei-lg"/>
+                                <label for="togglelg">line group</label>
+                         </div>                        
+                    else (),
+                    if($model("hits")/descendant::tei:body/descendant::tei:pb) then
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> page break : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglepb" data-element="tei-pb"/>
+                                <label for="togglepb">page break</label>
+                         </div>                                            
+                    else (),
+                    if($model("hits")/descendant::tei:body/descendant::tei:cb) then 
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> column break : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglecb" data-element="tei-cb"/>
+                                <label for="togglecb">column break</label>
+                         </div>                         
+                    else (),
+                    if($model("hits")/descendant::tei:body/descendant::tei:milestone[not(@type) and not(@subtype) and not(@unit='SyrChapter')]) then 
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> milestone : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglemilestone" data-element="tei-milestone"/>
+                                <label for="togglemilestone">milestone</label>
+                         </div>                                                 
+                    else (),
+                    if($model("hits")/descendant::tei:body/descendant::tei:note[@place = ('foot','footer','footnote')]) then 
+                        <div class="toggle-buttons">
+                            <span class="toggle-label"> footnote : </span>
+                            <input class="toggleDisplay" type="checkbox" id="togglemilestone" data-element="tei-footnote" checked="checked"/>
+                                <label for="togglemilestone">footnote</label>
+                         </div>                                                 
+                    else () 
+                )}
+            </div>
+        </div>
+else ()
+}; 
+
+
+(:
+ : Display related Syriaca.org names
+:)
+declare %templates:wrap function app:srophe-related($node as node(), $model as map(*)){ 
+    if($model("hits")//@ref[contains(.,'http://syriaca.org/') and not(contains(.,'http://syriaca.org/persons.xml'))] or $model("hits")//tei:idno[@type='URI']) then
+        <div class="panel panel-default" style="margin-top:1em;" xmlns="http://www.w3.org/1999/xhtml">
+            <div class="panel-heading">
+            <a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a>
+            <span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" 
+            title="This sidebar provides links via Syriaca.org to 
+            additional resources beyond this record. 
+            We welcome your additions, please use the e-mail button on the right to contact Syriaca.org about submitting additional links."></span>
+            <button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#submitLinkedData" style="margin-right:1em;"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
+            </div>
+            <div class="panel-body collapse in" id="showLinkedData">
+                {(
+                 if($model("hits")//@ref[contains(.,'http://syriaca.org/')] or $model("hits")//tei:idno[@type='URI']) then
+                    let $other-resources := distinct-values($model("hits")//@ref[contains(.,'http://syriaca.org/') and not(contains(.,'http://syriaca.org/person.xml'))] | $model("hits")//tei:idno[@type='URI'])
+                    let $count := count($other-resources)
+                    return 
+                        <div class="other-resources" xmlns="http://www.w3.org/1999/xhtml">
+                            <div class="collapse in" id="showOtherResources">
+                                <form class="form-inline hidden" action="https://sparql.vanderbilt.edu/sparql" method="get" id="lod1">
+                                    <input type="hidden" name="format" id="format" value="json"/>
+                                    <textarea id="query" class="span9" rows="15" cols="150" name="query" type="hidden">
+                                      <![CDATA[
+                                        prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                                        prefix lawd: <http://lawd.info/ontology/>
+                                        prefix skos: <http://www.w3.org/2004/02/skos/core#>
+                                        prefix dcterms: <http://purl.org/dc/terms/>  
+                                                                                	        
+                                        SELECT ?uri (SAMPLE(?l) AS ?label) (SAMPLE(?uriSubject) AS ?subjects) (SAMPLE(?uriCitations) AS ?citations)
+                                            {
+                                                ?uri rdfs:label ?l
+                                                FILTER (?uri IN (]]>{string-join(for $r in subsequence($other-resources,1,10) return concat('<',$r,'>'),',')}<![CDATA[)).
+                                                FILTER ( langMatches(lang(?l), 'en')).
+                                                OPTIONAL{
+                                                    {SELECT ?uri ( count(?s) as ?uriSubject ) { ?s dcterms:relation ?uri } GROUP BY ?uri }  }
+                                                    OPTIONAL{
+                                                        {SELECT ?uri ( count(?o) as ?uriCitations ) { ?uri lawd:hasCitation ?o 
+                                                                OPTIONAL{ ?uri skos:closeMatch ?o.}
+                                                        } GROUP BY ?uri }
+                                                    }           
+                                            }
+                                        GROUP BY ?uri  
+                                      ]]>  
+                                    </textarea>
+                                </form>
+                                <div id="listOtherResources"></div>
+                                {if($count gt 10) then
+                                    <div>
+                                        <div class="collapse" id="showMoreResources">
+                                            <form class="form-inline hidden" action="https://sparql.vanderbilt.edu/sparql" method="get" id="lod2">
+                                                <input type="hidden" name="format" id="format" value="json"/>
+                                                <textarea id="query" class="span9" rows="15" cols="150" name="query" type="hidden">
+                                                  <![CDATA[
+                                                    prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                                                    prefix lawd: <http://lawd.info/ontology/>
+                                                    prefix skos: <http://www.w3.org/2004/02/skos/core#>
+                                                    prefix dcterms: <http://purl.org/dc/terms/>  
+                                                                                            	        
+                                                    SELECT ?uri (SAMPLE(?l) AS ?label) (SAMPLE(?uriSubject) AS ?subjects) (SAMPLE(?uriCitations) AS ?citations)
+                                                        {
+                                                            ?uri rdfs:label ?l
+                                                            FILTER (?uri IN (]]>{string-join(for $r in subsequence($other-resources,10,$count) return concat('<',$r,'>'),',')}<![CDATA[)).
+                                                            FILTER ( langMatches(lang(?l), 'en')).
+                                                            OPTIONAL{
+                                                                {SELECT ?uri ( count(?s) as ?uriSubject ) { ?s dcterms:relation ?uri } GROUP BY ?uri }  }
+                                                                OPTIONAL{
+                                                                    {SELECT ?uri ( count(?o) as ?uriCitations ) { ?uri lawd:hasCitation ?o 
+                                                                            OPTIONAL{ ?uri skos:closeMatch ?o.}
+                                                                    } GROUP BY ?uri }
+                                                                }           
+                                                        }
+                                                    GROUP BY ?uri  
+                                                  ]]>
+                                                </textarea>
+                                            </form>
+                                        </div>
+                                        <a href="#" class="togglelink" data-toggle="collapse" data-target="#showMoreResources" data-text-swap="Less" id="getMoreLinkedData">See more ...</a>
+                                    </div>
+                                else ()
+                                }
+                            </div>
+                            <script><![CDATA[
+            $(document).ready(function () {
+            $('#relatedResources').children('form').each(function () {
+                var url = $(this).attr('action');
+                $.get(url, $(this).serialize(), function (data) {
+                    var showOtherResources = $("#listRelatedResources");
+                    var dataArray = data.results.bindings;
+                    if (! jQuery.isArray(dataArray)) dataArray =[dataArray];
+                    $.each(dataArray, function (currentIndex, currentElem) {
+                        var relatedResources = 'Resources related to <a href="' + currentElem.uri.value + '">' + currentElem.label.value + '</a> '
+                        var relatedSubjects = (currentElem.subjects) ? '<div class="indent">' + currentElem.subjects.value + ' related subjects</div>': ''
+                        var relatedCitations = (currentElem.citations) ? '<div class="indent">' + currentElem.citations.value + ' related citations</div>': ''
+                        showOtherResources.append(
+                        '<div>' + relatedCitations + relatedSubjects + '</div>');
+                    });
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                });
+            });
+            $('#showOtherResources').children('form').each(function () {
+                var url = $(this).attr('action');
+                $.get(url, $(this).serialize(), function (data) {
+                    var showOtherResources = $("#listOtherResources");
+                    var dataArray = data.results.bindings;
+                    if (! jQuery.isArray(dataArray)) dataArray =[dataArray];
+                    $.each(dataArray, function (currentIndex, currentElem) {
+                        var relatedResources = 'Resources related to <a href="' + currentElem.uri.value + '">' + currentElem.label.value + '</a> '
+                        var relatedSubjects = (currentElem.subjects) ? '<div class="indent">' + currentElem.subjects.value + ' related subjects</div>': ''
+                        var relatedCitations = (currentElem.citations) ? '<div class="indent">' + currentElem.citations.value + ' related citations</div>': ''
+                        showOtherResources.append(
+                        '<div>' + relatedResources + relatedCitations + relatedSubjects + '</div>');
+                    });
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                });
+            });
+            $('#getMoreLinkedData').one("click", function (e) {
+                $('#showMoreResources').children('form').each(function () {
+                    var url = $(this).attr('action');
+                    $.get(url, $(this).serialize(), function (data) {
+                        var showOtherResources = $("#showMoreResources");
+                        var dataArray = data.results.bindings;
+                        if (! jQuery.isArray(dataArray)) dataArray =[dataArray];
+                        $.each(dataArray, function (currentIndex, currentElem) {
+                            var relatedResources = 'Resources related to <a href="' + currentElem.uri.value + '">' + currentElem.label.value + '</a> '
+                            var relatedSubjects = (currentElem.subjects) ? '<div class="indent">' + currentElem.subjects.value + ' related subjects</div>': ''
+                            var relatedCitations = (currentElem.citations) ? '<div class="indent">' + currentElem.citations.value + ' related citations</div>': ''
+                            showOtherResources.append(
+                            '<div>' + relatedResources + relatedCitations + relatedSubjects + '</div>');
+                        });
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus);
+                    });
+                });
+            });
+        });
+        ]]></script>
+                        </div>
+                 else () 
+                )}
+            </div>
+        </div>       
+    else()
+};
+
+
+declare %templates:wrap function app:contact-form-linked-data($node as node(), $model as map(*), $collection)
+{
+        <div class="modal fade" id="submitLinkedData" tabindex="-1" role="dialog" aria-labelledby="submitLinkedDataLabel" 
+            aria-hidden="true" xmlns="http://www.w3.org/1999/xhtml">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+                        <h2 class="modal-title" id="feedbackLabel">Submit Linked Data</h2>
+                    </div>
+                    <form action="{$config:nav-base}/modules/email.xql" method="post" id="email" role="form">
+                        <div class="modal-body" id="modal-body">
+                            <input class="input-url" type="hidden" name="formLoaded" value="{util:system-time()}" />
+                            <input class="input-url" name="url" tabindex="-1" autocomplete="false" value=""></input>
+                            <input type="text" name="name" placeholder="Name" class="form-control" style="max-width:300px"/>
+                            <br/>
+                            <input type="text" name="email" placeholder="email" class="form-control" style="max-width:300px"/>
+                            <br/>
+                            <input type="text" name="subject" placeholder="subject" class="form-control" style="max-width:300px"/>
+                            <br/>
+                            <textarea name="comments" id="comments" rows="3" class="form-control" placeholder="Comments" style="max-width:500px"/>
+                            <input type="hidden" name="id" value="{request:get-parameter('id', '')}"/>
+                            <input type="hidden" name="formID" value="linkedData"/>
+                            <!-- start reCaptcha API-->
+                            <div class="g-recaptcha" data-sitekey="{$config:recaptcha}"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal">Close</button><input id="email-submit" type="submit" value="Send e-mail" class="btn"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+};
+
+(:~
+ : Process relationships uses lib/rel.xqm module
+:)                   
+declare function app:display-related($node as node(), $model as map(*)){
+    if($model("hits")//tei:body/child::*/tei:listRelation) then 
+        rel:build-relationships($model("hits")//tei:body/child::*/tei:listRelation, replace($model("hits")//tei:idno[@type='URI'][starts-with(.,$config:base-uri)][1],'/tei',''),'','','','Related')
+    else ()
+};
+
+(: Show date slider used with search/browse tools :)
+declare function app:display-slider($node as node(), $model as map(*), $collection as xs:string*){
+if($model("hits") != '') then 
+    slider:browse-date-slider($model("hits"),())
+else ()    
 };
