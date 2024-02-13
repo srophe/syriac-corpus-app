@@ -2,7 +2,7 @@
   <description>Digital Syriac Corpus</description>
   <xmlproperty file="expath-pkg.xml"/>
   <property name="project.version" value="${package(version)}"/>
-  <property name="project.app" value="syriac-corpus"/>
+  <property name="project.app" value="asyriac-corpus"/>
   <property name="build.dir" value="build"/>
   <!-- Start it -->
   <target name="init" description="create build directory">

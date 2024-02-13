@@ -3,16 +3,15 @@ GITHUB_REPOSITORY="syriac-corpus"
 
 ### CREATE NECESSARY CONFIG FOR THE BUILD, AND POPULATE VERSION AND PACKAGE_NAME
 # use sed to replace the template git-sync with secrets and other
-# Application git-sync
 TEMPLATE_FILE="./build/git-sync_template.xql"
-DESTINATION_FILE="./modules/git-sync.xql"
+DESTINATION_FILE="./conf/git-sync.xql"
 
 echo "Copying secret key over"
 # SECRET_KEY, $ADMIN_PASSWORD
 sed \
     -e "s/\${SECRET_KEY}/$SECRET_KEY/" \
     $TEMPLATE_FILE > $DESTINATION_FILE
-echo "Copied secret key over successfully - app directory"
+echo "Copied secret key over successfully"
 
 # GET the version of the project from the expath-pkg.xml
 VERSION=$(cat expath-pkg.xml | grep package | grep version=  | awk -F'version="' '{ print $2 }' | awk -F'"' '{ print $1 }')
@@ -32,22 +31,9 @@ ant
 echo "Ran app build successfully"
 
 echo "Fetching the data repository to build a data xar"
-git clone https://github.com/$GITHUB_ORG/$GITHUB_REPOSITORY --branch development --single-branch
+git clone https://github.com/$GITHUB_ORG/$GITHUB_REPOSITORY
 
 cd $GITHUB_REPOSITORY
-### CREATE NECESSARY CONFIG FOR THE BUILD, AND POPULATE VERSION AND PACKAGE_NAME
-# use sed to replace the template git-sync with secrets and other
-# Application git-sync
-TEMPLATE_FILE="./build/git-sync_template.xql"
-DESTINATION_FILE="./modules/git-sync.xql"
-
-echo "Copying secret key over"
-# SECRET_KEY, $ADMIN_PASSWORD
-sed \
-    -e "s/\${SECRET_KEY}/$SECRET_KEY/" \
-    $TEMPLATE_FILE > $DESTINATION_FILE
-echo "Copied secret key over successfully - data directory"
-
 rm -rf build
 mkdir build
 echo "Running data build ..."
@@ -67,7 +53,7 @@ docker build -t "$PACKAGE_NAME:$VERSION" --build-arg ADMIN_PASSWORD="$ADMIN_PASS
 echo docker build -t "$PACKAGE_NAME:$VERSION" --build-arg ADMIN_PASSWORD="$ADMIN_PASSWORD" --no-cache .
 echo "Built successfully"
 
-DOCKER_URL=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DEV_ECR_REPOSITORY:latest
+DOCKER_URL=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:latest
 
 ### UPLOAD TO ECR
 echo "Loging in to AWS"
