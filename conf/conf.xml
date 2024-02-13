@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!--
+<!--
     This is the central configuration file for the database. If the database
     is running in a servlet-context, the configuration file will be read from
     the WEB-INF directory of the web application. Otherwise, the configuration
