@@ -141,7 +141,7 @@ else if(request:get-parameter('doc', '') != '') then
         </dispatch>
 (: Checks for any record uri patterns as defined in repo.xml :)    
 else if(replace($exist:path, $exist:resource,'') =  $exist:record-uris) then
-    if($exist:resource = ('index.html','search.html','browse.html','about.html','build-index.html')) then    
+    if($exist:resource = ('index.html','search.html','browse.html','about.html','build-index.html') or ends-with($exist:resource,'.html')) then    
         <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
             <view>
                 <forward url="{$exist:controller}/modules/view.xq"/>
