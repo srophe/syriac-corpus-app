@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package xmlns="http://expath.org/ns/pkg" name="http://syriaca.org/syriac-corpus" abbrev="syriac-corpus" version="3.4.8-prod" spec="1.0">
+<package xmlns="http://expath.org/ns/pkg" name="http://syriaca.org/syriac-corpus" abbrev="syriac-corpus" version="3.4.9-prod" spec="1.0">
   <title>Digital Syriac Corpus</title>
   <dependency processor="http://exist-db.org" semver-min="6.0.0"/>
   <dependency package="http://exist-db.org/html-templating" semver-min="1.0.2"/>
