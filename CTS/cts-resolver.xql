@@ -16,7 +16,7 @@ import module namespace cts="http://syriaca.org/cts" at "cts-resolver.xqm";
 let $ref := request:get-parameter("urn",())
 let $action := request:get-parameter("action",())
 return 
-(response:set-header("Content-Type", "text/xml; charset=utf-8"),
-            response:set-header("Access-Control-Allow-Origin", "text/xml; charset=utf-8"),
+    (response:set-header("Content-Type", "text/xml; charset=utf-8"),
+            response:set-header("Access-Control-Allow-Origin", "*"),
             cts:run($ref, $action))
             
