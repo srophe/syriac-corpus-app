@@ -99,6 +99,10 @@ else if (contains($exist:path,'/api/')) then
      <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
         <forward url="{replace($exist:path,'/api/sparql',concat($exist:controller,'/sparql/run-sparql.xql'))}"/>
      </dispatch>
+    else if($exist:resource = 'cts') then
+        <dispatch xmlns="http://exist.sourceforge.net/NS/exist">
+           <forward url="{replace($exist:path,'/api/cts',concat($exist:controller,'/CTS/cts-resolver.xql'))}"/>
+        </dispatch>     
     else if(contains($exist:path, '/search/')) then
         let $element := tokenize($exist:path,'/')[last()]
         return 
