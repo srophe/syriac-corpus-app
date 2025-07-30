@@ -20,7 +20,7 @@ let $data := request:get-data()
 return 
     githubxq:execute-webhook($data, 
         '/db/apps/syriac-corpus',
-        'https://github.com/srophe/syriac-corpus',
+        'https://github.com/srophe/syriac-corpus-app',
         'main',
         '${SECRET_KEY}',
         '')
