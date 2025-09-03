@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      
+      <meta charset="utf-8" />
+      
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      
+      <title data-template="app:app-title">Digital Syriac Corpus</title>
+      
+      <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+      
+      <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+      
+      <meta name="DC.type" property="dc.type" content="Text" />
+      
+      <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org" />
+      
+      <link data-template="app:metadata" />
+      
+      <link rel="shortcut icon" href="/resources/img/favicon.ico" />
+      
+      <!-- Font Awesome, installed in eXist -->
+      
+      <!--<link rel="stylesheet" type="text/css" href="$shared/resources/css/all.css"/>-->
+      
+      <!-- Syriaca.org css -->
+      
+      <!-- Bootstrap 3 -->
+      
+      <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css" />
+      
+      <link rel="stylesheet" type="text/css" href="/resources/css/sm-core-css.css" />
+      
+      <link rel="stylesheet" href="/resources/css/syr-icon-fonts.css" />
+      
+      <link rel="stylesheet" type="text/css" href="/resources/css/main.css" />
+      
+      <link rel="stylesheet" type="text/css" media="print" href="/resources/css/print.css" />
+      
+      <!-- Leaflet
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
+        <link rel="stylesheet" href="/resources/leaflet/leaflet.awesome-markers.css"/>
+        -->
+      
+      <!-- JQuery -->
+      
+      <link href="/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+      <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+      <script type="text/javascript" src="/resources/jquery-ui/jquery-ui.min.js"></script>
+      <script type="text/javascript" src="/resources/js/jquery.smartmenus.min.js"></script>
+      <script type="text/javascript" src="/resources/js/clipboard.min.js"></script>
+      
+      <!-- Bootstrap -->
+      <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script>
+      
+      <script src="https://www.google.com/recaptcha/api.js"></script>
+      
+      <!-- keyboard widget css & script -->
+      <link href="/resources/keyboard/css/keyboard.min.css" rel="stylesheet" />
+      
+      <link href="/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet" />
+      
+      <link href="/resources/keyboard/syr/syr.css" rel="stylesheet" />
+      <script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/syr/keyboardSupport.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/syr/syr.js"></script>
+      <script type="text/javascript" src="/resources/js/keyboard.js"></script>
+      </head>
+   <body id="body">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
+         
+         <div class="container">
+            
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  </button>
+               <a class="navbar-brand banner-container" href="/index.html">
+                  
+                  <!--<img property="logo" class="img-responsive" alt="Syriac.org" src="/resources/img/syriaca-logo.png"/> Draft-->
+                  <span class="banner-icon">
+                     
+                     </span>
+                  <span class="banner-text">Hugoye: Journal of Syriac Studies</span>
+                  </a>
+               
+            </div>
+            
+            <div class="navbar-collapse collapse pull-right">
+               
+               <ul class="nav navbar-nav sm sm-vertical" id="main-menu">
+                  
+                  <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        About Hugoye  <b class="caret"></b>
+                        </a>
+                     
+                     <ul class="dropdown-menu">
+                        
+                        <li>
+                           <a href="/editorial-board.html">Editorial Board</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/submissions.html">Submissions</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/open-access.html">Open Access</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="https://www.gorgiaspress.com/hugoye-journal-of-syriac-studies" target="_blank">Printed Edition Subscription</a>
+                           
+                        </li>
+                        
+                     </ul>
+                     
+                  </li>
+                  
+                  <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Indexes  <b class="caret"></b>
+                        </a>
+                     
+                     <ul class="dropdown-menu">
+                        
+                        <li>
+                           <a href="/current-issue.html">Current Issue</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/hugoye-pre-publication-drafts.html">Next Issue Preview Drafts</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/volumes.html">Volume Index</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/authors.html">Author Index</a>
+                           
+                        </li>                                
+                        
+                     </ul>
+                     
+                  </li>
+                  
+                  
+               </ul>
+               
+               <ul class="nav navbar-nav navbar-right keboard-btn">
+                  
+                  <li>
+                     
+                     <div class="btn-nav">
+                        <a class="btn btn-default navbar-btn dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                            <span class="syriaca-icon syriaca-keyboard">  </span>
+                           <span class="caret"></span>
+                           </a>
+                        
+                        <ul data-template="app:keyboard-select-menu" data-template-input-id="q"></ul>
+                        
+                     </div>
+                     
+                  </li>
+                  
+                  <li>
+                     
+                     <div class="btn-nav">
+                        <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Search Tools">
+                            <span class="glyphicon glyphicon-search"></span> <span class="caret"></span>
+                           </a>
+                        
+                        <ul class="dropdown-menu">
+                           
+                           <li>
+                              <a href="/search.html">Advanced Search</a>
+                              
+                           </li>
+                           
+                        </ul>
+                        
+                     </div>
+                     
+                  </li>
+                  
+                  <li>
+                     
+                     <div class="btn-nav">
+                        <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                           Font <span class="caret"></span>
+                           </a>
+                        
+                        <ul class="dropdown-menu" id="swap-font">
+                           
+                           <li>
+                              <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
+                              
+                           </li>
+                           
+                           <li>
+                              <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
+                              
+                           </li>
+                           
+                           <li>
+                              <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
+                              
+                           </li>
+                           
+                           <li>
+                              <a href="#" class="swap-font" id="SertoJerusalemSelect" data-font-id="SertoJerusalem">Serto Jerusalem</a>
+                              
+                           </li>
+                           
+                        </ul>
+                        
+                     </div>
+                     
+                  </li>
+                  
+               </ul>
+               
+               <form class="navbar-form navbar-right navbar-input-group" role="search" action="/search.html" method="get">
+                  
+                  <div class="input-group">
+                     <input type="text" class="form-control keyboard" placeholder="search" name="q" id="q" />
+                     
+                  </div>
+                  
+               </form>
+               
+            </div>
+            <!--/.nav-collapse -->
+            
+         </div>
+         
+      </div>
+      <div class="banner-interior" data-template="app:fix-links">
+         <div class="hugoye-banner"><img src="/resources/img/hugoye_banner.png" /></div>
+      </div>
+      <h1 class="banner indent">Volume Index</h1>
+      <div class="issue indent">
+         <div class="results-panel">
+            <h2>Volume 26</h2>
+            <h3>Issue 1</h3>
+            <h3>In Memoriam</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="1" type="In Memoriam" issue="1" typeOrder="2">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n1obbadwi.html">In Memoriam: Fr. Abdo Badwi, O.L.M.</a><br />By Ephrem Aboud
+                  Ishac
+               </div>
+            </div>
+            <h3>Articles</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="3" type="Articles" issue="1" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n1bunce.html">Flawed Forensics: Miaphysites on Trial in the Courts of Justin
+                     II</a><br />By 
+                  William
+                  Bunce
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="2" type="Articles" issue="1" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n1bcheiry.html">West-Syriac Synodal Decrees of Callinicos 818: The Syriac Fragment of Oim Syr. A12001</a><br />By 
+                  Iskandar
+                  Bcheiry
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="4" type="Articles" issue="1" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n1kessel1.html">A
+                     Concordance to Addai Scher’s Catalogues of Chaldean Collections of Manuscripts in
+                     Diyarbakır and Mardin and the Holdings of the Joint Collection in Mardin Digitized
+                     by HMML in Collaboration with CNMO</a><br />By 
+                  Grigory
+                  Kessel
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="5" type="Articles" issue="1" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n1kessel2.html">Field Notes on Syriac Manuscripts IV: Six Philosophical
+                     Manuscripts in the Collection of the Chaldean Antonian Order of St. Hormizd
+                     (O.A.O.C.)</a><br />By 
+                  Grigory
+                  Kessel
+               </div>
+            </div>
+            <h3>Bibliographies</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="6" type="Bibliographies" issue="1" typeOrder="5">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n1bib.html">Recent Publication on Syriac Topics: 2022</a><br />By Sergey
+                  Minov and 
+                  Grigory
+                  Kessel
+               </div>
+            </div>
+            <h3>Reviews</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="7" type="Reviews" issue="1" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n1prcalabro.html">J. F. Coakley, A Catalogue of the Syriac Manuscripts in Cambridge University
+                     Library and College Libraries Acquired since 1901 (Ely, Cambridgeshire,
+                     U.K.: The Jericho Press, 2018)</a><br />By 
+                  David
+                  Calabro
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="11" type="Reviews" issue="1" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n1prdickens.html">Samuel N.C. Lieu and Glen L. Thompson, eds., The Church of the East in Central Asia
+                     and China (Turnhout: Brepols,
+                     2020)</a><br />By 
+                  Mark
+                  Dickens
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="10" type="Reviews" issue="1" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n1prwalters.html">Alberto Rigolio, Christians in Conversation:
+                     A Guide to Late Antique Dialogues in Greek and Syriac (Oxford: University
+                     Press, 2019)</a><br />By 
+                  J. Edward
+                  Walters
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="8" type="Reviews" issue="1" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n1prheal.html">Jeffrey Wickes, Bible and Poetry in Late
+                     Antique Mesopotamia: Ephrem's Hymns on Faith (Oakland: University of
+                     California Press, 2019)</a><br />By 
+                  Kristian S.
+                  Heal
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="9" type="Reviews" issue="1" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n1prpopa.html">Andrew Palmer, transl., The Life of the
+                     Syrian Saint Barsauma: Eulogy of a Hero of the Resistance to the Council of
+                     Chalcedon, Transformation of the Classical Heritage 61 (Oakland: University
+                     of California Press, 2020)</a><br />By 
+                  Catalin-Stefan
+                  Popa
+               </div>
+            </div>
+            <h3>Issue 2</h3>
+            <h3>In Memoriam</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="6" type="In Memoriam" issue="2" typeOrder="2">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n2obgignoux.html">In Memoriam: Philippe
+                     Gignoux (1931–2023)</a><br />By 
+                  Florence
+                  Jullien
+               </div>
+            </div>
+            <h3>Articles</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="4" type="Articles" issue="2" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n2venturini.html">The Arabic Life of John the Merciful and its relationship with
+                     the Syriac version and the Greek text</a><br />By 
+                  Guido
+                  Venturini
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="2" type="Articles" issue="2" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n2jackel.html">Arabic nuṭfah
+                     and Syriac nuṭptā in Avicenna’s and Barhebraeus’s Works: Substantial Change, Embryology,
+                     and Ensoulment</a><br />By 
+                  Florian U.
+                  Jäckel
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="1" type="Articles" issue="2" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n2innemee.html">Pages of a Chronicle on the Wall: Texts, paintings, and chronology in Deir al-Surian</a><br />By 
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="3" type="Articles" issue="2" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n2minov.html">East Syrian Identity in the Early Qajar Period (Early 19th c.): Sāḇā of Ūlā’s Book
+                     of the Rule on Syriac Language and
+                     Ethnicity</a><br />By 
+                  Sergey
+                  Minov
+               </div>
+            </div>
+            <h3>Bibliographies</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="5" type="Bibliographies" issue="2" typeOrder="5">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n2bibliographies.html">A Select Bibliography of Recent Chinese and Japanese
+                     Publications on Syriac Christianity: 2019/2020-2022</a><br />By 
+                  James Harry
+                  Morris
+                  and 
+                  Mariana
+                  Zorkina
+               </div>
+            </div>
+            <h3>Reviews</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="7" type="Reviews" issue="2" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n2brperkams.html">Hubert Kaufhold, Ebedjesus von Nisibis,
+                     „Ordo iudiciorum ecclesiasticorum”. Eine Zusammenstellung der kirchlichen
+                     Rechtsbestimmungen der ostsyrischen Kirche im 14. Jahrhundert (Wiesbaden:
+                     Harrassowitz, 2019)</a><br />By 
+                  Matthias
+                  Perkams
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2023" sort="8" type="Reviews" issue="2" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv26n2brminets.html">Aaron M. Butts and Robin Darling Young, eds. Syriac Christian Culture: Beginnings
+                     to Renaissance (Washington, DC:
+                     Catholic University of America Press, 2021)</a><br />By 
+                  Yuliya
+                  Minets
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

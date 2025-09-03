@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      
+      <meta charset="utf-8" />
+      
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      
+      <title data-template="app:app-title">Digital Syriac Corpus</title>
+      
+      <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+      
+      <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+      
+      <meta name="DC.type" property="dc.type" content="Text" />
+      
+      <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org" />
+      
+      <link data-template="app:metadata" />
+      
+      <link rel="shortcut icon" href="/resources/img/favicon.ico" />
+      
+      <!-- Font Awesome, installed in eXist -->
+      
+      <!--<link rel="stylesheet" type="text/css" href="$shared/resources/css/all.css"/>-->
+      
+      <!-- Syriaca.org css -->
+      
+      <!-- Bootstrap 3 -->
+      
+      <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css" />
+      
+      <link rel="stylesheet" type="text/css" href="/resources/css/sm-core-css.css" />
+      
+      <link rel="stylesheet" href="/resources/css/syr-icon-fonts.css" />
+      
+      <link rel="stylesheet" type="text/css" href="/resources/css/main.css" />
+      
+      <link rel="stylesheet" type="text/css" media="print" href="/resources/css/print.css" />
+      
+      <!-- Leaflet
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
+        <link rel="stylesheet" href="/resources/leaflet/leaflet.awesome-markers.css"/>
+        -->
+      
+      <!-- JQuery -->
+      
+      <link href="/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+      <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+      <script type="text/javascript" src="/resources/jquery-ui/jquery-ui.min.js"></script>
+      <script type="text/javascript" src="/resources/js/jquery.smartmenus.min.js"></script>
+      <script type="text/javascript" src="/resources/js/clipboard.min.js"></script>
+      
+      <!-- Bootstrap -->
+      <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script>
+      
+      <script src="https://www.google.com/recaptcha/api.js"></script>
+      
+      <!-- keyboard widget css & script -->
+      <link href="/resources/keyboard/css/keyboard.min.css" rel="stylesheet" />
+      
+      <link href="/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet" />
+      
+      <link href="/resources/keyboard/syr/syr.css" rel="stylesheet" />
+      <script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/syr/keyboardSupport.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/syr/syr.js"></script>
+      <script type="text/javascript" src="/resources/js/keyboard.js"></script>
+      </head>
+   <body id="body">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
+         
+         <div class="container">
+            
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  </button>
+               <a class="navbar-brand banner-container" href="/index.html">
+                  
+                  <!--<img property="logo" class="img-responsive" alt="Syriac.org" src="/resources/img/syriaca-logo.png"/> Draft-->
+                  <span class="banner-icon">
+                     
+                     </span>
+                  <span class="banner-text">Hugoye: Journal of Syriac Studies</span>
+                  </a>
+               
+            </div>
+            
+            <div class="navbar-collapse collapse pull-right">
+               
+               <ul class="nav navbar-nav sm sm-vertical" id="main-menu">
+                  
+                  <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        About Hugoye  <b class="caret"></b>
+                        </a>
+                     
+                     <ul class="dropdown-menu">
+                        
+                        <li>
+                           <a href="/editorial-board.html">Editorial Board</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/submissions.html">Submissions</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/open-access.html">Open Access</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="https://www.gorgiaspress.com/hugoye-journal-of-syriac-studies" target="_blank">Printed Edition Subscription</a>
+                           
+                        </li>
+                        
+                     </ul>
+                     
+                  </li>
+                  
+                  <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Indexes  <b class="caret"></b>
+                        </a>
+                     
+                     <ul class="dropdown-menu">
+                        
+                        <li>
+                           <a href="/current-issue.html">Current Issue</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/hugoye-pre-publication-drafts.html">Next Issue Preview Drafts</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/volumes.html">Volume Index</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/authors.html">Author Index</a>
+                           
+                        </li>                                
+                        
+                     </ul>
+                     
+                  </li>
+                  
+                  
+               </ul>
+               
+               <ul class="nav navbar-nav navbar-right keboard-btn">
+                  
+                  <li>
+                     
+                     <div class="btn-nav">
+                        <a class="btn btn-default navbar-btn dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                            <span class="syriaca-icon syriaca-keyboard">  </span>
+                           <span class="caret"></span>
+                           </a>
+                        
+                        <ul data-template="app:keyboard-select-menu" data-template-input-id="q"></ul>
+                        
+                     </div>
+                     
+                  </li>
+                  
+                  <li>
+                     
+                     <div class="btn-nav">
+                        <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Search Tools">
+                            <span class="glyphicon glyphicon-search"></span> <span class="caret"></span>
+                           </a>
+                        
+                        <ul class="dropdown-menu">
+                           
+                           <li>
+                              <a href="/search.html">Advanced Search</a>
+                              
+                           </li>
+                           
+                        </ul>
+                        
+                     </div>
+                     
+                  </li>
+                  
+                  <li>
+                     
+                     <div class="btn-nav">
+                        <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                           Font <span class="caret"></span>
+                           </a>
+                        
+                        <ul class="dropdown-menu" id="swap-font">
+                           
+                           <li>
+                              <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
+                              
+                           </li>
+                           
+                           <li>
+                              <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
+                              
+                           </li>
+                           
+                           <li>
+                              <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
+                              
+                           </li>
+                           
+                           <li>
+                              <a href="#" class="swap-font" id="SertoJerusalemSelect" data-font-id="SertoJerusalem">Serto Jerusalem</a>
+                              
+                           </li>
+                           
+                        </ul>
+                        
+                     </div>
+                     
+                  </li>
+                  
+               </ul>
+               
+               <form class="navbar-form navbar-right navbar-input-group" role="search" action="/search.html" method="get">
+                  
+                  <div class="input-group">
+                     <input type="text" class="form-control keyboard" placeholder="search" name="q" id="q" />
+                     
+                  </div>
+                  
+               </form>
+               
+            </div>
+            <!--/.nav-collapse -->
+            
+         </div>
+         
+      </div>
+      <div class="banner-interior" data-template="app:fix-links">
+         <div class="hugoye-banner"><img src="/resources/img/hugoye_banner.png" /></div>
+      </div>
+      <h1 class="banner indent">Volume Index</h1>
+      <div class="issue indent">
+         <div class="results-panel">
+            <h2>Volume 13</h2>
+            <h3>Issue 1</h3>
+            <h3>Introduction</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="1" type="Introduction" issue="1" typeOrder="1">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n1introduction.html">Introduction to Hugoye 13: A Double Issue on Philoxenos of Mabbug</a><br />By 
+                  David A.
+                  Michelson
+               </div>
+            </div>
+            <h3>Articles</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="2" type="Articles" issue="1" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n1King.html">New Evidence on the Philoxenian Versions of the New Testament and Nicene Creed</a><br />By 
+                  Daniel
+                  King
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="5" type="Articles" issue="1" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n1kitchen2.html">Philoxene de Mabboug Homelies: Introduction, Traduction et Notes par Eugene Lemoine</a><br />By 
+                  Robert A.
+                  Kitchen
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="4" type="Articles" issue="1" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n1kitchen1.html">The lust of the Belly is the Beginning of All Sin: A Practical Theology of Asceticism
+                     in the Discourses of Philoxenos of Mabbug</a><br />By 
+                  Robert A.
+                  Kitchen
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="3" type="Articles" issue="1" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n1akhrass.html">La Vierge Mere de Dieu Dans la Pensee de Philoxene de Mabboug</a><br />By 
+                  P. Roger-Youssef
+                  Akhrass
+               </div>
+            </div>
+            <h3>Bibliographies</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="6" type="Bibliographies" issue="1" typeOrder="5">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n1prbrock.html"> Recent Books on Syriac Topics. Part 13</a><br />By 
+                  Sebastian P.
+                  Brock
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="7" type="Bibliographies" issue="1" typeOrder="5">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n1prseleznyov.html">Annotated Bibliography of Syriac Studies in Russian </a><br />By 
+                  Nikolai N.
+                  Seleznyov
+               </div>
+            </div>
+            <h3>Reports</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="12" type="Reports" issue="1" typeOrder="6">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n1crsbl.html">Report on SBL 2009 Annual Meeting: International Syriac Language Project Sessions
+                     (ISLP)</a><br />By 
+                  George A.
+                  Kiraz
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="11" type="Reports" issue="1" typeOrder="6">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n1crphiloxenos.html">Conference Reports: "Reconsidering Philoxenos of Mabbug"</a><br />By 
+                  David A.
+                  Michelson
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="13" type="Reports" issue="1" typeOrder="6">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n1crserapion.html">The Letter of Mara Bar Serapion in Context: Utrecht University, 10-12 December, 2009</a><br />By 
+                  Ilaria
+                  Ramelli
+               </div>
+            </div>
+            <h3>Reviews</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="9" type="Reviews" issue="1" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n1prstevenson.html">Language and Interpretation in the Syriac Text of Ben Sira: A Comparative Linguistic
+                     and Literary Study</a><br />By 
+                  Paul S.
+                  Stevenson
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="8" type="Reviews" issue="1" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n1prmorrison.html">Transmission and Reception: New Testament Text-critical and Exegetical Studies </a><br />By 
+                  Craig E.
+                  Morrison
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="8" type="Reviews" issue="1" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n1prchilders.html">Anti-Judaism and Christian Orthodoxy. Ephrem's Hymns in Fourth-Century Syria</a><br />By 
+                  J. W.
+                  Childers
+               </div>
+            </div>
+            <h3>Issue 2</h3>
+            <h3>Introduction</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="1" type="Introduction" issue="2" typeOrder="1">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n2introduction.html">Introduction to Hugoye 13.2: Philoxenos of Mabbug One More Time</a><br />By 
+                  Robert A.
+                  Kitchen
+               </div>
+            </div>
+            <h3>Articles</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="3" type="Articles" issue="2" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n2viezure.html">Argumentative Strategies in Philoxenos of Mabbug&#x92;’s Correspondence: From the Syriac
+                     Model to the Greek Model</a><br />By 
+                  Dana Iuliana
+                  Viezure
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="4" type="Articles" issue="2" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n2walters.html">The Philoxenian Gospels as Reconstructed From the Writings of Philoxenos of Mabbug</a><br />By 
+                  J. Edward
+                  Walters
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="2" type="Articles" issue="2" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n2mccollum.html">An Arabic Scholion to Genesis 9:18&#x96;–21 (Noah&#x92;’s Drunkenness) Attributed to Philoxenos
+                     of Mabbug</a><br />By 
+                  Adam C.
+                  McCollum
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="6" type="Articles" issue="2" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n2michelson.html">A Biblographic Clavis to the Works of Philoxenos of Mabbug</a><br />By 
+                  David A.
+                  Michelson
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="5" type="Articles" issue="2" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n2odorisio.html">Thomas Merton&#x92;’s Novitiate Conferences on Philoxenos of Mabbug (April-June 1965):
+                     Philoxenos on the Foundations of the Spiritual Life and the Recovery of Simplicity</a><br />By 
+                  David M.
+                  Odorisio
+               </div>
+            </div>
+            <h3>Reviews</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="7" type="Reviews" issue="2" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n2prbhayro.html">A Syriac Lexicon. A Translation from the Latin, Correction, Expansion, and Update
+                     of C. Brockelmann's Lexicon Syriacum</a><br />By 
+                  Siam
+                  Bhayro
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="11" type="Reviews" issue="2" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n2prtaylor1.html"> Antioch and Canterbury: The Syrian Orthodox Church and the Church of England, 1874-1928</a><br />By 
+                  David G. K.
+                  Taylor
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="10" type="Reviews" issue="2" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n2prloosley.html"> Identity Puzzles. Medieval Christian Art in Syria and Lebanon</a><br />By 
+                  Emma
+                  Loosley
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="12" type="Reviews" issue="2" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n2prtaylor2.html"> A Glossary of Targum Onkelos According to Alexander Sperber's Edition </a><br />By 
+                  David G. K.
+                  Taylor
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="13" type="Reviews" issue="2" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n2prwalker.html"> The Church of the East: An Illustrated History of Assyrian Christianity</a><br />By 
+                  Joel
+                  Walker
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="9" type="Reviews" issue="2" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n2prkeough.html"> The History of the Holy Mar in with a Guide to the Persian Martyr Acts</a><br />By 
+                  Shawn W.J.
+                  Keough
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2010" sort="8" type="Reviews" issue="2" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv13n2prcassis.html">Le martyrion Saint-Jean dans la moyenne vallée de Euphrate: Fouilles de la Direction
+                     Générale des Antiquités à Nabgha au nord-est de Jarablus</a><br />By 
+                  Marica
+                  Cassis
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

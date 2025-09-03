@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      
+      <meta charset="utf-8" />
+      
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      
+      <title data-template="app:app-title">Digital Syriac Corpus</title>
+      
+      <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+      
+      <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+      
+      <meta name="DC.type" property="dc.type" content="Text" />
+      
+      <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org" />
+      
+      <link data-template="app:metadata" />
+      
+      <link rel="shortcut icon" href="/resources/img/favicon.ico" />
+      
+      <!-- Font Awesome, installed in eXist -->
+      
+      <!--<link rel="stylesheet" type="text/css" href="$shared/resources/css/all.css"/>-->
+      
+      <!-- Syriaca.org css -->
+      
+      <!-- Bootstrap 3 -->
+      
+      <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css" />
+      
+      <link rel="stylesheet" type="text/css" href="/resources/css/sm-core-css.css" />
+      
+      <link rel="stylesheet" href="/resources/css/syr-icon-fonts.css" />
+      
+      <link rel="stylesheet" type="text/css" href="/resources/css/main.css" />
+      
+      <link rel="stylesheet" type="text/css" media="print" href="/resources/css/print.css" />
+      
+      <!-- Leaflet
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
+        <link rel="stylesheet" href="/resources/leaflet/leaflet.awesome-markers.css"/>
+        -->
+      
+      <!-- JQuery -->
+      
+      <link href="/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+      <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+      <script type="text/javascript" src="/resources/jquery-ui/jquery-ui.min.js"></script>
+      <script type="text/javascript" src="/resources/js/jquery.smartmenus.min.js"></script>
+      <script type="text/javascript" src="/resources/js/clipboard.min.js"></script>
+      
+      <!-- Bootstrap -->
+      <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script>
+      
+      <script src="https://www.google.com/recaptcha/api.js"></script>
+      
+      <!-- keyboard widget css & script -->
+      <link href="/resources/keyboard/css/keyboard.min.css" rel="stylesheet" />
+      
+      <link href="/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet" />
+      
+      <link href="/resources/keyboard/syr/syr.css" rel="stylesheet" />
+      <script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/syr/keyboardSupport.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/syr/syr.js"></script>
+      <script type="text/javascript" src="/resources/js/keyboard.js"></script>
+      </head>
+   <body id="body">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
+         
+         <div class="container">
+            
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  </button>
+               <a class="navbar-brand banner-container" href="/index.html">
+                  
+                  <!--<img property="logo" class="img-responsive" alt="Syriac.org" src="/resources/img/syriaca-logo.png"/> Draft-->
+                  <span class="banner-icon">
+                     
+                     </span>
+                  <span class="banner-text">Hugoye: Journal of Syriac Studies</span>
+                  </a>
+               
+            </div>
+            
+            <div class="navbar-collapse collapse pull-right">
+               
+               <ul class="nav navbar-nav sm sm-vertical" id="main-menu">
+                  
+                  <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        About Hugoye  <b class="caret"></b>
+                        </a>
+                     
+                     <ul class="dropdown-menu">
+                        
+                        <li>
+                           <a href="/editorial-board.html">Editorial Board</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/submissions.html">Submissions</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/open-access.html">Open Access</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="https://www.gorgiaspress.com/hugoye-journal-of-syriac-studies" target="_blank">Printed Edition Subscription</a>
+                           
+                        </li>
+                        
+                     </ul>
+                     
+                  </li>
+                  
+                  <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Indexes  <b class="caret"></b>
+                        </a>
+                     
+                     <ul class="dropdown-menu">
+                        
+                        <li>
+                           <a href="/current-issue.html">Current Issue</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/hugoye-pre-publication-drafts.html">Next Issue Preview Drafts</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/volumes.html">Volume Index</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/authors.html">Author Index</a>
+                           
+                        </li>                                
+                        
+                     </ul>
+                     
+                  </li>
+                  
+                  
+               </ul>
+               
+               <ul class="nav navbar-nav navbar-right keboard-btn">
+                  
+                  <li>
+                     
+                     <div class="btn-nav">
+                        <a class="btn btn-default navbar-btn dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                            <span class="syriaca-icon syriaca-keyboard">  </span>
+                           <span class="caret"></span>
+                           </a>
+                        
+                        <ul data-template="app:keyboard-select-menu" data-template-input-id="q"></ul>
+                        
+                     </div>
+                     
+                  </li>
+                  
+                  <li>
+                     
+                     <div class="btn-nav">
+                        <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Search Tools">
+                            <span class="glyphicon glyphicon-search"></span> <span class="caret"></span>
+                           </a>
+                        
+                        <ul class="dropdown-menu">
+                           
+                           <li>
+                              <a href="/search.html">Advanced Search</a>
+                              
+                           </li>
+                           
+                        </ul>
+                        
+                     </div>
+                     
+                  </li>
+                  
+                  <li>
+                     
+                     <div class="btn-nav">
+                        <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                           Font <span class="caret"></span>
+                           </a>
+                        
+                        <ul class="dropdown-menu" id="swap-font">
+                           
+                           <li>
+                              <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
+                              
+                           </li>
+                           
+                           <li>
+                              <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
+                              
+                           </li>
+                           
+                           <li>
+                              <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
+                              
+                           </li>
+                           
+                           <li>
+                              <a href="#" class="swap-font" id="SertoJerusalemSelect" data-font-id="SertoJerusalem">Serto Jerusalem</a>
+                              
+                           </li>
+                           
+                        </ul>
+                        
+                     </div>
+                     
+                  </li>
+                  
+               </ul>
+               
+               <form class="navbar-form navbar-right navbar-input-group" role="search" action="/search.html" method="get">
+                  
+                  <div class="input-group">
+                     <input type="text" class="form-control keyboard" placeholder="search" name="q" id="q" />
+                     
+                  </div>
+                  
+               </form>
+               
+            </div>
+            <!--/.nav-collapse -->
+            
+         </div>
+         
+      </div>
+      <div class="banner-interior" data-template="app:fix-links">
+         <div class="hugoye-banner"><img src="/resources/img/hugoye_banner.png" /></div>
+      </div>
+      <h1 class="banner indent">Volume Index</h1>
+      <div class="issue indent">
+         <div class="results-panel">
+            <h2>Volume 4</h2>
+            <h3>Issue 1</h3>
+            <h3>In Memoriam</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="2" type="In Memoriam" issue="1" typeOrder="2">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n1obassfalg.html">Professor Julius Assfalg: (1919-2001)</a><br />By 
+                  Hubert
+                  Kaufhold
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="1" type="In Memoriam" issue="1" typeOrder="2">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n1obhabbi.html">Fr. Yousef Habbi: (1938-2000)</a><br />By 
+                  George A.
+                  Kiraz
+               </div>
+            </div>
+            <h3>Articles</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="4" type="Articles" issue="1" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n1takahashi.html">Simeon of Qal'a Rumaita, Patriarch Philoxenus Nemrod and Bar 'Ebroyo</a><br />By 
+                  Hidemi
+                  Takahashi
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="3" type="Articles" issue="1" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n1fathi.html">l’origine du nom bar ‛ebroyo : une vieille histoire d’homonymes</a><br />By 
+                  Jean
+                  Fathi-Chelhod
+               </div>
+            </div>
+            <h3>Short Articles</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="7" type="Short Articles" issue="1" typeOrder="4">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n1vanrompay_schmidt.html">A New Syriac Inscription in Deir Al-Surian</a><br />By 
+                  Lucas
+                  Van Rompay
+                  and 
+                  Andrea
+                  Schmidt
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="5" type="Short Articles" issue="1" typeOrder="4">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n1el-souriany_vanrompay.html">Syriac Papyrus Fragments Recently Discovered in Deir Al-Surian (Egypt)</a><br />By 
+                  Fr. Bigoul
+                  El-Souriany
+                  and 
+                  Lucas
+                  Van Rompay
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="6" type="Short Articles" issue="1" typeOrder="4">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n1harrak.html">Recent Archeaological Excavations in Takrit and the Discovery of Syriac Inscriptions</a><br />By 
+                  Amir
+                  Harrak
+               </div>
+            </div>
+            <h3>Bibliographies</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="8" type="Bibliographies" issue="1" typeOrder="5">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n1prbrock.html"> Recent Books on Syriac Topics  </a><br />By 
+                  Sebastian P.
+                  Brock
+               </div>
+            </div>
+            <h3>Reports</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="11" type="Reports" issue="1" typeOrder="6">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n1crtheodora.html">Conference Reports: Notes on "The Age of Theodora"</a><br />By 
+                  Joseph D.
+                  Alchermes
+               </div>
+            </div>
+            <h3>Reviews</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="9" type="Reviews" issue="1" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n1praydin.html"> Turabidn: Lebendiges Kulturerbe / Living Cultural Heritage / Canli Kültür Mirasi</a><br />By 
+                  Edip
+                  Aydin
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="10" type="Reviews" issue="1" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n1prjuckel.html"> A Key to the Peshitta Gospels, vol. 1, Alaph-Dalath </a><br />By 
+                  Andreas
+                  Juckel
+               </div>
+            </div>
+            <h3>Announcements</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="13" type="Announcements" issue="1" typeOrder="8">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n1crpeshitta.html">The Peshitta: Its use in Literature and Liturgy: Third Peshitta Symposium</a><br />By 
+                  Konrad D.
+                  Jenner
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="14" type="Announcements" issue="1" typeOrder="8">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n1crcanadiansyriacstudies.html">Schedule of Public Lectures: The Canadian Society for Syriac Studies</a><br />By 
+                  Amir
+                  Harrak
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="12" type="Announcements" issue="1" typeOrder="8">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n1cphugoyespecial.html">Call for Papers: Hugoye: Special Issue on Women</a><br />By 
+                  George A.
+                  Kiraz
+               </div>
+            </div>
+            <h3>Issue 2</h3>
+            <h3>Introduction</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="1" type="Introduction" issue="2" typeOrder="1">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n2introduction.html">Introduction to the Special Issue on Women in the Syriac tradition</a><br />By 
+                  Susan A.
+                  Harvey
+               </div>
+            </div>
+            <h3>Articles</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="4" type="Articles" issue="2" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n2harvey.html">Theodora the &#x93;“Believing Queen:&#x94;” A Study in Syriac Historiographical Tradition</a><br />By 
+                  Susan A.
+                  Harvey
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="5" type="Articles" issue="2" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n2makhlouf.html">Hindiyya Anne 'ajaymi and Her Spiritual Journey: the Essential Lightness of Being</a><br />By 
+                  Avril M.
+                  Makhlouf
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="2" type="Articles" issue="2" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n2penn.html">“Bold and Having no Shame:&#x94;” Ambiguous Widows, Controlling Clergy, and Early Syrian
+                     Communities</a><br />By 
+                  Michael Philip
+                  Penn
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="3" type="Articles" issue="2" typeOrder="3">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n2lehto.html">Women in Aphrahat: Some Observations</a><br />By 
+                  Adam
+                  Lehto
+               </div>
+            </div>
+            <h3>Short Articles</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="7" type="Short Articles" issue="2" typeOrder="4">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n2kiraz.html">eBetharke: The Syriac Digital Library: First Report</a><br />By 
+                  George A.
+                  Kiraz
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="6" type="Short Articles" issue="2" typeOrder="4">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n2innemee.html">Deir Al Surian (Egypt): Conservation Work of Autumn 2000</a><br />By 
+                  Karel C.
+                  Innemée
+               </div>
+            </div>
+            <h3>Reports</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="11" type="Reports" issue="2" typeOrder="6">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n2crwritingsyriac.html">Conference Report: "Writing Syriac: From Stone to Bytes"</a><br />By 
+                  Marica
+                  Cassis
+                  and 
+                  Debra
+                  Foran
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="12" type="Reports" issue="2" typeOrder="6">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n2crnaps.html">Syriac Papers: The North American Patristic Society Annual Meeting</a><br />By 
+                  Kristian S.
+                  Heal
+               </div>
+            </div>
+            <h3>Reviews</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="9" type="Reviews" issue="2" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n2prvanginkel.html"> The Chronicle of Pseudo-Joshua the Stylite </a><br />By 
+                  J.J.
+                  Van Ginkel
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="10" type="Reviews" issue="2" typeOrder="7">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n2prvanrompay.html"> Compendious Syriac Grammar. With a Table of Characters by Julius Euting </a><br />By 
+                  Lucas
+                  Van Rompay
+               </div>
+            </div>
+            <h3>Announcements</h3>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="14" type="Announcements" issue="2" typeOrder="8">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n2crwoodbrooke-mingana.html">The Fourth Woodbrooke-Mingana Symposium on Arab Christianity and Islam: Arab Christianity
+                     in Iraq in the Abbasid Period (750-1258)</a><br />By 
+                  Carol
+                  Bebawi
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="13" type="Announcements" issue="2" typeOrder="8">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n2crgermanspeakingsyriac.html">Call for Papers: Third Symposium of German-speaking Syracists, Bamburg</a><br />By 
+                  Christian
+                  Lange
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="16" type="Announcements" issue="2" typeOrder="8">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n2crprayerspirituality.html">Prayer and Spirituality in the Early Church: A Conference Exploring the Development
+                     of Christianity in the Ancient World</a><br />By 
+                  George A.
+                  Kiraz
+               </div>
+            </div>
+            <div xmlns="" class="indent" style="border-bottom:1px dotted #eee; padding:1em" date="2001 [printed 2010]" sort="15" type="Announcements" issue="2" typeOrder="8">
+               <div xmlns="http://www.w3.org/1999/xhtml" class="short-rec-view"><a href="/article/hv4n2croriginssyriacchristianity.html">The Origins of Syriac Christianity: November 24, 2011</a><br />By 
+                  Amir
+                  Harrak
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

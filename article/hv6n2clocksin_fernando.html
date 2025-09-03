@@ -1,0 +1,1345 @@
+<?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:srophe="https://srophe.app">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>Towards Automatic Transcription of Estrangelo Script</title>
+      <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+      <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+      <meta name="DC.type" property="dc.type" content="Text" />
+      <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org" />
+      <link data-template="app:metadata" />
+      <link rel="shortcut icon" href="/resources/img/favicon.ico" />
+      <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css" />
+      <link rel="stylesheet" type="text/css" href="/resources/css/sm-core-css.css" />
+      <link rel="stylesheet" href="/resources/css/syr-icon-fonts.css" />
+      <link rel="stylesheet" type="text/css" href="/resources/css/main.css" />
+      <link rel="stylesheet" type="text/css" media="print" href="/resources/css/print.css" />
+      <link href="/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet" /><script type="text/javascript" src="/resources/js/jquery.min.js"></script><script type="text/javascript" src="/resources/jquery-ui/jquery-ui.min.js"></script><script type="text/javascript" src="/resources/js/jquery.smartmenus.min.js"></script><script type="text/javascript" src="/resources/js/clipboard.min.js"></script><script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script><script src="https://www.google.com/recaptcha/api.js"></script><link href="/resources/keyboard/css/keyboard.min.css" rel="stylesheet" />
+      <link href="/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet" />
+      <link href="/resources/keyboard/syr/syr.css" rel="stylesheet" /><script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.js"></script><script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"></script><script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"></script><script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"></script><script type="text/javascript" src="/resources/keyboard/syr/keyboardSupport.js"></script><script type="text/javascript" src="/resources/keyboard/syr/syr.js"></script><script type="text/javascript" src="/resources/js/keyboard.js"></script></head>
+   <body id="body">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
+         
+         <div class="container">
+            
+            <div class="navbar-header">
+               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  </button>
+               <a class="navbar-brand banner-container" href="/index.html">
+                  
+                  <!--<img property="logo" class="img-responsive" alt="Syriac.org" src="/resources/img/syriaca-logo.png"/> Draft-->
+                  <span class="banner-icon">
+                     
+                     </span>
+                  <span class="banner-text">Hugoye: Journal of Syriac Studies</span>
+                  </a>
+               
+            </div>
+            
+            <div class="navbar-collapse collapse pull-right">
+               
+               <ul class="nav navbar-nav sm sm-vertical" id="main-menu">
+                  
+                  <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        About Hugoye  <b class="caret"></b>
+                        </a>
+                     
+                     <ul class="dropdown-menu">
+                        
+                        <li>
+                           <a href="/editorial-board.html">Editorial Board</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/submissions.html">Submissions</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/open-access.html">Open Access</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="https://www.gorgiaspress.com/hugoye-journal-of-syriac-studies" target="_blank">Printed Edition Subscription</a>
+                           
+                        </li>
+                        
+                     </ul>
+                     
+                  </li>
+                  
+                  <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Indexes  <b class="caret"></b>
+                        </a>
+                     
+                     <ul class="dropdown-menu">
+                        
+                        <li>
+                           <a href="/current-issue.html">Current Issue</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/hugoye-pre-publication-drafts.html">Next Issue Preview Drafts</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/volumes.html">Volume Index</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/authors.html">Author Index</a>
+                           
+                        </li>                                
+                        
+                     </ul>
+                     
+                  </li>
+                  
+                  
+               </ul>
+               
+               <ul class="nav navbar-nav navbar-right keboard-btn">
+                  
+                  <li>
+                     
+                     <div class="btn-nav">
+                        <a class="btn btn-default navbar-btn dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                            <span class="syriaca-icon syriaca-keyboard">  </span>
+                           <span class="caret"></span>
+                           </a>
+                        
+                        <ul data-template="app:keyboard-select-menu" data-template-input-id="q"></ul>
+                        
+                     </div>
+                     
+                  </li>
+                  
+                  <li>
+                     
+                     <div class="btn-nav">
+                        <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Search Tools">
+                            <span class="glyphicon glyphicon-search"></span> <span class="caret"></span>
+                           </a>
+                        
+                        <ul class="dropdown-menu">
+                           
+                           <li>
+                              <a href="/search.html">Advanced Search</a>
+                              
+                           </li>
+                           
+                        </ul>
+                        
+                     </div>
+                     
+                  </li>
+                  
+                  <li>
+                     
+                     <div class="btn-nav">
+                        <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                           Font <span class="caret"></span>
+                           </a>
+                        
+                        <ul class="dropdown-menu" id="swap-font">
+                           
+                           <li>
+                              <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
+                              
+                           </li>
+                           
+                           <li>
+                              <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
+                              
+                           </li>
+                           
+                           <li>
+                              <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
+                              
+                           </li>
+                           
+                           <li>
+                              <a href="#" class="swap-font" id="SertoJerusalemSelect" data-font-id="SertoJerusalem">Serto Jerusalem</a>
+                              
+                           </li>
+                           
+                        </ul>
+                        
+                     </div>
+                     
+                  </li>
+                  
+               </ul>
+               
+               <form class="navbar-form navbar-right navbar-input-group" role="search" action="/search.html" method="get">
+                  
+                  <div class="input-group">
+                     <input type="text" class="form-control keyboard" placeholder="search" name="q" id="q" />
+                     
+                  </div>
+                  
+               </form>
+               
+            </div>
+            <!--/.nav-collapse -->
+            
+         </div>
+         
+      </div>
+      <div class="main-content-block">
+         <div class="interior-content">
+            <div class="container otherFormats"><a href="javascript:window.print();" type="button" class="btn btn-default btn-xs" id="printBtn" data-toggle="tooltip" title="Click to send this page to the printer."><span class="glyphicon glyphicon-print" aria-hidden="true"></span></a> <a href="hv6n2clocksin_fernando.xml" class="btn btn-default btn-xs" id="teiBtn" data-toggle="tooltip" title="Click to view the TEI XML data for this record."><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> TEI/XML
+                  </a> 
+            </div>
+            <div class="row">
+               <div class="col-sm-9 col-md-9 col-lg-9 mssBody">
+                  <div class="article-header text-center">
+                     <h1>Towards Automatic Transcription of Estrangelo Script</h1>
+                     <h2></h2><span class="tei-author">
+                        <span class="tei-name">
+                           William F.
+                           <span class="tei-surname">Clocksin</span>
+                           </span>
+                        <span class="tei-affiliation">
+                           <span class="tei-orgName">Department of Computing<span class="tei-lb              " id="id."><span class="text-number badge"></span></span>Oxford Brookes University</span>
+                           </span>
+                        </span><span class="tei-author">
+                        <span class="tei-name">
+                           Prem P. J.
+                           <span class="tei-surname">Fernando</span>
+                           </span>
+                        <span class="tei-affiliation">
+                           <span class="tei-orgName">Computer Laboratory<span class="tei-lb              " id="id."><span class="text-number badge"></span></span>University of Cambridge</span>
+                           </span>
+                        </span></div>
+                  <div class="section tei-text">
+                     
+                     <div class="section tei-front">
+                        
+                        <div class="tei-div  tei-abstract" lang="en">
+                           <span class="tei-div  tei-abstract tei-head">Abstract</span>
+                           
+                           <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">This paper surveys several computer-based techniques we have devel-
+                              oped for the automatic transcription of Estrangelo handwriting from historical
+                              manuscripts. The Syriac language has been a neglected area for research into
+                              automatic handwriting transcription, yet is interest- ing because the
+                              preponderance of scribe-written manuscripts offers a challenging yet tractable
+                              medium between the extremes of type-written text and free handwriting. The
+                              methods described here do not need to find strokes or contours of the
+                              characters, but exploit characteristic measures of shape that are calculated by
+                              geometric moment functions. Both whole words and character shapes are used in
+                              recognition ex- periments. After segmentation using a novel probabilistic
+                              method, fea- tures of character-like shapes are found that tolerate variation in
+                              for- mation and image quality. Each shape is recognised individually us- ing a
+                              discriminative support vector machine with 10-fold cross- validation. We
+                              describe experiments using a variety of segmentation methods and combinations of
+                              features. Images from scribe-written his- torical manuscripts are used, and the
+                              recognition results are compared with those for images taken from clearer 19th
+                              century typeset documents. Recognition rates vary from 61–100% depending on the
+                              algo- rithms used and the size and source of the data set.
+                           </p>
+                           
+                        </div>
+                        
+                     </div>
+                     
+                     <div class="body">
+                        <div class="section" style="display:block;">        
+                           
+                           <div class="tei-div ">
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">INTRODUCTION</p>
+                              
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Syriac manuscripts dating back to before the 6th century CE are available in large
+                                 quantities and are undergoing the process of manual transcription into
+                                 machine-readable form for scholarly analysis, commentary, and publication. Manual
+                                 transcription and keyboarding is a tedious and laborious task that few are willing
+                                 and qualified to undertake. Syriac scholars would welcome a computer- based system
+                                 that is able to provide transcriptions into machine- readable form with a reasonable
+                                 accuracy. Any errors made by the automatic transcriber could then be corrected
+                                 manually as part of on-line proofreading. Syriac is a useful vehicle for automatic
+                                 hand- writing transcription research because many sources are carefully written by
+                                 scribes. Therefore, as far as the designers of optical character recognition (OCR)
+                                 algorithms are concerned, Syriac manuscripts present a large corpus that is
+                                 intermediate in difficulty between type-written text and unconstrained handwriting.
+                                 OCR of clearly typewritten Roman-style text is essentially solved, and OCR of
+                                 unconstrained handwriting will continue to be a challenging re- search problem far
+                                 into the foreseeable future. By contrast, in scribe-written texts there is
+                                 sufficient regularity for the OCR prob- lem to be tractable, while there is
+                                 sufficient variation to require the development of techniques more sophisticated
+                                 than standard OCR methods. This rationale has also motivated our previous work in
+                                 automatic transcription of scribe-written Arabic [14, 6]. Syriac is one of the
+                                 simpler early Semitic languages, lacking the grammatical complexity of classical
+                                 Arabic and the unpredictability of biblical Hebrew. Although the system described
+                                 in
+                                 this paper does not have comprehensive competence, the relative simplicity of Syriac
+                                 offers motivation for further development of a complete system for Syriac
+                                 handwriting transcription. Of the several script forms in use, here we focus on
+                                 Estrangelo, found in the oldest manuscripts, also later widely used in Europe for
+                                 printed books.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image1.jpeg" class="center" width="80%" /></span>
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Fig. 1. The word
+                                 ܩܢܘܡܐ
+                                 qnoma ‘person, self’ from MS.
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">No previous work has been published on automatic recognition of Syriac handwriting,
+                                 but this work falls into the general category of off-line cursive script
+                                 recognition, an area in which there has been much effort [23, 21, 2]. However, from
+                                 a character recognition per- spective, Syriac is similar to Arabic, and the existing
+                                 research in Arabic character recognition has been comprehensively surveyed
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">[15] recently. The system described in this paper implements a standard statistical
+                                 classification framework [12]. Figure 2 shows the components of the system. In the
+                                 training mode, a model is constructed using the input data as training data. In the
+                                 recognition mode, the model is used to classify the previously unseen input
+                                 data.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">The results described below were obtained from a handwritten manuscript source (MS)
+                                 and a typeset source (TS). Both sources were written in Estrangelo. The MS is a
+                                 leaf
+                                 <div class="tei-note"><span id="ftn1"><span class="tei-attr-n">1</span>
+                                       
+                                       <p class="tei-p text-display" id="id." lang="en">British Library Add. MS 7191, Folio 100va-101rb, which
+                                          contains the end of Chapter XXIV and the beginning of Chapter XXV of Book
+                                          III.
+                                       </p>
+                                       </span></div> taken
+                                 from Peter of Callinicum’s Adversus Damianum, a 6th century commentary on the
+                                 Trinity [8]. The TS consists of the 36 pages of Mark’s Gospel taken from Burkitt’s
+                                 1904 edition [3] of the <i>Evangelion Da- Mepharreshe</i> typeset in
+                                 the late 19th century. Pages were scanned at 300 dpi and saved as 8-bit greyscale
+                                 images. Any editorial apparatus
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">(brackets, verse numbers, footnotes) was removed manually. Figure 1 shows an example
+                                 of the word ) ܩܢܘܡܐ
+                                 <i>qnoma</i> ‘person, self’
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">from MS.</p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">The trials described in Section 4 are mainly concerned with recognizing characters
+                                 within the word. However, for comparison purposes, a few trials on the recognition
+                                 of whole words are also described. Practically, word recognition [23] or ‘word
+                                 spotting’ [19] techniques are less useful for Syriac because it is a highly
+                                 inflected language: Spellings change according to grammatical function, and almost
+                                 all grammatical functions are written as word prefixes or suffixes instead of as
+                                 separate words. Therefore, a combinatorially large lexicon would be required to
+                                 support a word recognition ap- proach. For this reason, we focus on a character
+                                 recognition ap- proach and remain attentive to relevant insights arising from the
+                                 word recognition approach.
+                              </p>
+                              
+                           </div>
+                           
+                           <div class="tei-div ">
+                              
+                              <h3 class="tei-head ">IMAGE PROCESSING</h3>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Given a page image from a source, image processing proceeds as follows. First, the
+                                 connected components of the image are extracted using the standard two-pass algorithm
+                                 [13] in which a label is assigned to
+                                 each pixel in the first pass, with label equivalence based on pixel connectivity
+                                 with its eight neighbours. Equivalence classes are determined, and a second pass
+                                 updates each pixel in a connected component with a label unique to the component.
+                                 This algorithm has a running time of approximately O(N) in the number of pixels. The
+                                 bounding boxes of each component are then deter- mined. Next, words are found by
+                                 calculating the frequency distri- bution (histogram) of the horizontal separation
+                                 between neighbouring bounding boxes. The idea is that the distance be- tween words
+                                 tends to be larger than the distance between compo- nents within a word [22]. The
+                                 minima between two maxima in the histogram is located to determine a threshold above
+                                 which inter- component separations are interpreted as inter-word spaces (Figure 4).
+                                 In the data we have considered, there is a clear gap between modes of the histogram,
+                                 leading to successful use of this method on both MS and TS sources (see Figure
+                                 3).
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image2.jpeg" class="center" width="80%" /></span>
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id.">Fig. 2. Block diagram of
+                                 recognition system. The system operates in train- ing mode or recognition mode.
+                                 Recognition mode requires that a model is available; the model is built during
+                                 training mode.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image3.jpeg" class="center" width="80%" /></span>
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id.">Fig. 3. Portion of MS showing
+                                 bounding boxes around words spotted automatically.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image4.jpeg" class="center" width="80%" /></span>
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image5.jpeg" class="center" width="80%" /></span>Fig. 4. A
+                                 frequency distribution of the horizontal separation between neighbouring
+                                 bounding boxes of connected components.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Fig. 5. Illustration of projections used by the
+                                 segmentation algorithm.
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">(a) The horizontal projection from the word sample of
+                                 Figure 1, showing the upper and lower baseline. The normal density estimated
+                                 from data near the lower baseline is superimposed in grey. (b) At point P within
+                                 a shape, the vertical run V and horizontal run H through P are shown. The number
+                                 of pixels in these runs gives the respective run lengths.
+                                 
+                              </p>
+                              
+                              <div class="tei-div ">
+                                 <span class="tei-div  tei-head">Character Segmentation</span>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">One of the main difficulties in cursive word recognition comes from segmentation
+                                    of the connected characters within the word. In most cases the precise point of
+                                    segmentation is indeterminate, and in some cases segmentation points can be
+                                    ambiguous without using higher level contextual information such as the spelling
+                                    of a word.
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image6.jpeg" class="center" width="80%" /></span>
+                                    <b>(1)</b></p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Our approach is to score each pixel in a word with a likelihood of being a valid
+                                    segmentation point based on general principles.
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Because segmentation points lie on horizontal strokes near the baseline, pixels
+                                    are given a score based on the distance from the lower baseline and
+                                    approximations to the thickness and direction of the stroke. All measurements
+                                    are efficiently calculated from horizontal and vertical projections and run
+                                    lengths of the pixels in the image (Figure 5). For the purposes of definition,
+                                    let pixels in a word image be represented as the array
+                                    <i>W </i>[<i>r, c</i>]
+                                    having rows 1 to <i>R </i>and columns 1 to
+                                    <i>C</i>; the lower left corner pixel is
+                                    <i>W </i>[1, 1]. The like- lihood that a
+                                    pixel at <i>r, c</i> is a segmentation point <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image7.jpeg" class="center" width="80%" /></span> may be conveniently modelled as
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image8.jpeg" class="center" width="80%" /></span>
+                                    <b>(1)</b></p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">The baseline likelihood <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image9.jpeg" class="center" width="80%" /></span> is
+                                    estimated by using the horizontal projection h of the whole word
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image10.jpeg" class="center" width="80%" /></span>
+                                    <b>(2)</b></p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">for each row <i>i</i>, then normalising
+                                    <i>h </i>so that <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image11.jpeg" class="center" width="80%" /></span> Syriac words tend to be formed so
+                                    that <i>h </i>has two modes: one at the
+                                    upper baseline and one at the lower baseline. The data between the lower mode
+                                    and a point halfway between the modes is used to estimate the mean <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image12.jpeg" class="center" width="80%" /></span> and variance 
+                                    <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image13.jpeg" class="center" width="80%" /></span> of a normal density modelling the
+                                    horizontal projection of the word near the baseline. The likelihood of a pixel
+                                    at row r being on the baseline is therefore
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image14.jpeg" class="center" width="80%" /></span>
+                                    <b>(3)</b></p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">
+                                    <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image15.jpeg" class="center" width="80%" /></span>
+                                    
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id.">Fig. 6.(a) Segmented word
+                                    showing oversegmentation. (b) Detail of the two spurious cuts made within
+                                    the rightmost letter
+                                    ܩ
+                                    (qoph). (b)
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id.">Segmentation corrected by
+                                    eliminating ‘nested’ segmentations.
+                                    
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">The horizontal and vertical run lengths of the pixels connected to r, c are
+                                    measured and normalised by dividing by C and R respectively:
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id."><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image16.jpeg" class="center" width="80%" /></span>
+                                    <b>(4)</b></p>
+                                 
+                                 <p class="tei-p text-display" id="id."><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image17.jpeg" class="center" width="80%" /></span>
+                                    <b>(5)</b></p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Equation 1 therefore expresses the dependency of segmentation upon proximity to
+                                    the baseline, and width of the horizontal and vertical run lengths of the
+                                    neighbouring pixels. The probability of segmentation is maximised when a point
+                                    is closest to the baseline, within a narrow horizontal stroke. This probability
+                                    is maximised, for example, at the trough of a ‘V’ shape, which explains why some
+                                    segmentation techniques use curvature (e.g. [2]).
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Pixels where <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image18.jpeg" class="center" width="80%" /></span> is
+                                    maximal are chosen as segmentation points, and a vertical cut is made is at the
+                                    point, stopping when the background is reached (Figure 6). The result is usually
+                                    overseg- mented in a systematic way. To correct this, spurious ‘nested’ seg-
+                                    mentations are detected in the following way. First, the bounding boxes of
+                                    segments are found. If a bounding box is entirely en- closed by another bounding
+                                    box, the segmentation points given by the inner box are ignored. Also, single
+                                    cuts within an enclosing bounding box are also ignored.
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">The segmentation method fails in two particular cases: for the unconnected letter
+                                    ܢ (<i>nun</i>) because it crosses the baseline, and for the letter
+                                    ܚ (<i>Heth</i>) because it contains two places resembling
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">plausible points of segmentation. The segmentation algorithm finds usable
+                                    segmentations for about 70% of the characters. For the pur- poses of
+                                    constructing a database of segmented characters to which classification trials
+                                    could be applied, the remaining 30% were cor- rected manually. Curiously, this
+                                    is the same over-segmentation rate as recently reported using a very
+                                    sophisticated segmentation algo- rithm on neat italic English handwriting
+                                    [2].
+                                 </p>
+                                 
+                              </div>
+                              
+                              <div class="tei-div ">
+                                 <span class="tei-div  tei-head">Feature Extraction</span>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">It is useful to represent character image data as a small set of features, partly
+                                    to reduce the size of the model, and partly to char- acterise the data in ways
+                                    that are invariant to typically encountered transformations and deformations.
+                                    Geometric moments invariant to a variety of transformations are widely used in
+                                    computer vision [13]. We have considered several alternative methods using mo-
+                                    ment functions. The first method follows the well known approach of using a set
+                                    of predefined moment functions (e.g. [17]). The sec-
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">ond method starts from the generalized moment functions (GMFs) recently
+                                    introduced by Chang and Grover [4].
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">
+                                    <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image19.jpeg" class="center" width="80%" /></span>
+                                    
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id.">Fig. 7. Image of the letter r&lt; alaph and its size normalised polar map.</p>
+                                 
+                                 <ul>
+                                    
+                                    <li><b>Pre-defined Moment
+                                          Functions</b></li>
+                                    
+                                 </ul>
+                                 
+                                 <p class="tei-p text-display" id="id.">We use the feature set defined as follows. Given an
+                                    image function with mass
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image22.jpeg" class="center" width="80%" /></span> the normalised central moments
+                                    are
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image23.jpeg" class="center" width="80%" /></span>
+                                    <b>(6)</b></p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image24.jpeg" class="center" width="80%" /></span>where
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Following [17], selected moment functions are</p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">
+                                    <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image23.jpeg" class="center" width="80%" /></span>
+                                    
+                                 </p>
+                                 
+                                 
+                              </div>
+                              
+                              <div class="tei-div ">
+                                 <span class="tei-div  tei-head">(7)</span>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><b>(8)</b></p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><b>(9)</b></p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><b>(10)</b></p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">In the experiments described in the next section, these moments are applied to
+                                    images of several kinds: the whole image of the char- acter, subimages of
+                                    overlapping and non-overlapping windows, and
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><i>O </i>and all
+                                    pixels ina polar transformed image (with windows). The polar transforma- tion,
+                                    similar to the log-polar transform [25] widely used in com- puter vision
+                                    research, is a conformal mapping from points in image <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image32.jpeg" class="center" width="80%" /></span> to points in the polar image We adapt this by defining an
+                                    ‘origin’ given by the centroid
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Where d is the maximum distance between the mapping is described by</p>
+                                 
+                                 
+                                 <p class="tei-p text-display" id="id."><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image33.jpeg" class="center" width="80%" /></span></p>
+                                 
+                                 <p class="tei-p text-display" id="id."><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image34.jpeg" class="center" width="80%" /></span>(11)
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id."><b>(12)</b></p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">We map <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image35.jpeg" class="center" width="80%" /></span>onto a
+                                    polar image of size 64 × 64, giving a representa- tion that is size invariant
+                                    and for which rotations have been trans- formed to translations (Figure 7).
+                                    Because the resampling is dense and data is reduced, there is also a certain
+                                    degree of smoothing of shape distortions. We have used this adaptation of the
+                                    polar image previously for Arabic handwriting recognition [6], with comparable
+                                    results.
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">
+                                    <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image36.jpeg" class="center" width="80%" /></span>
+                                    
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id.">Fig. 8. Four probing
+                                    functions used by Chang and Grover (here redrawn from [4]). The leftmost
+                                    function gives a result equivalent to the mass cen- troid. Each function is
+                                    used in both the x and y directions.
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">
+                                    <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image37.jpeg" class="center" width="80%" /></span>
+                                    
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id."><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image38.jpeg" class="center" width="80%" /></span>Fig. 9. Six degree polynomial signature superimposed
+                                    onto the letter
+                                    
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id.">r&lt; (alaph).</p>
+                                 
+                                 <ul>
+                                    
+                                    <li><b>More Generalized Moment
+                                          Functions</b></li>
+                                    
+                                 </ul>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">The method of Chang and Grover [4] convolves the object with up to four different
+                                    predefined ‘probing’ functions (better described as basis functions <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image39.jpeg" class="center" width="80%" /></span>) as shown in Fig. 8. The basis
+                                    functions are one-dimensional, so following [9] are combined using a complex
+                                    convolution to scan the input image <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image40.jpeg" class="center" width="80%" /></span>, so that a moment
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image41.jpeg" class="center" width="80%" /></span> Within a window, convolu- tion of
+                                    each basis function with the image will result in a distinct generalized
+                                    centroid (G-centroid) at the convolution’s zero- crossing point. Chang and
+                                    Grover pair G-centroids into phasers that are used as features. However, we
+                                    further generalise the GMF method by
+                                    <i>generating a set of basis functions from each character in a train- ing set </i>instead
+                                    of using predefined basis functions. Furthermore, because our basis functions
+                                    are not necessarily symmetric about an origin, the concept of a G-centroid is
+                                    not justified, so we must use a pair of basis functions, <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image42.jpeg" class="center" width="80%" /></span> and 
+                                    <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image43.jpeg" class="center" width="80%" /></span>, and use the moment value as a feature. Thus the ‘more
+                                    generalized’ generalized moment <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image44.jpeg" class="center" width="80%" /></span> over
+                                    the image function <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image45.jpeg" class="center" width="80%" /></span> is
+                                    defined
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">
+                                    <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image46.jpeg" class="center" width="80%" /></span>
+                                    
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image47.jpeg" class="center" width="80%" /></span>Using our More Generalized GMF method
+                                    (MGGMF), a model is defined by selecting one sample from each of the 25
+                                    letter
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image48.jpeg" class="center" width="80%" /></span>
+                                    <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image49.jpeg" class="center" width="80%" /></span>
+                                    <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image50.jpeg" class="center" width="80%" /></span>shapes. A pair of
+                                    basis functions <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image51.jpeg" class="center" width="80%" /></span> and
+                                    is generated for each shape in the model, giving a total of 50 basis functions.
+                                    The func- tion <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image51.jpeg" class="center" width="80%" /></span> is
+                                    found by regressing an -degree polynomial in to the
+                                    pixels of image 
+                                    <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image52.jpeg" class="center" width="80%" /></span>
+                                    of character  
+                                    <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image53.jpeg" class="center" width="80%" /></span>
+                                    interpreted as unit weighted
+                                    
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image54.jpeg" class="center" width="80%" /></span>
+                                    <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image54.jpeg" class="center" width="80%" /></span>points in an - scatterplot, as shown
+                                    in Fig. 9. Function is
+                                    similarly found using image 
+                                    <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image55.jpeg" class="center" width="80%" /></span>
+                                    of character  
+                                    <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image53.jpeg" class="center" width="80%" /></span>. The justifica- tion for
+                                    this approach lay with the basis polynomial representing a
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image49.jpeg" class="center" width="80%" /></span>
+                                    <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image54.jpeg" class="center" width="80%" /></span>’signature’: a representation of the
+                                    distribution of the mass of the character as functions of and of . The fitting
+                                    method mini-
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">mizes the squared mean error. Goodness of fit is not really an is- sue, as the
+                                    resulting curve is intended as simply a discriminable sig- nature of the shape,
+                                    and not a faithful copy of the shape.
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id.">Given a character, a feature vector of length 25 is
+                                    found by convolving the character image with each <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image56.jpeg" class="center" width="80%" /></span> or
+                                 </p>
+                                 
+                                 <p class="tei-p text-display" id="id.">. We have experimented with polynomials of degree</p>
+                                 
+                                 <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">, and have also experimented with increasing the resolution of the method by
+                                    finding signatures for the four quarters of the bounding box of each character.
+                                    This increases the number of val- ues in the feature vector to 100.
+                                 </p>
+                                 
+                              </div>
+                              
+                           </div>
+                           
+                           <div class="tei-div ">
+                              
+                              <h3 class="tei-head ">CLASSIFICATION</h3>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Each letter in the alphabet is associated with one or more classes. Some letters
+                                 are associated with more than one class because their variants are quite
+                                 different shapes.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image56.jpeg" class="center" width="80%" /></span>
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id.">Fig 10. Recognition rate (in percent) obtained with tenfold cross- validation for
+                                 tabulated values of 
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image60.jpeg" class="center" width="80%" /></span>
+                                 for the trial FW2-PW2-FW8 on source TS.
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">For example, the letter <i>mim</i> is associated with two
+                                 classes, one for each variant and . We use the ‘one against one’ approach in
+                                 which for classes, classifiers are constructed and each classifier trains data
+                                 from two different classes. Each classifier
+                                 is a support vector machine (SVM) [7, 26], in which  
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image65.jpeg" class="center" width="80%" /></span>-dimensional training vectors
+                                 are mapped into a sufficiently high dimensional space where linear separation
+                                 exists. In practice, a separating hy- perplane may not exist, for example in
+                                 cases of high noise level. Therefore, slack variables can be introduced in order
+                                 to relax classi-
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image66.jpeg" class="center" width="80%" /></span>fication constraints at a risk of
+                                 misclassification. By using a kernel function, it is possible to compute the
+                                 separating hyperplane with- out explicitly mapping into the higher dimensional
+                                 space. We use the radial basis function (RBF) kernel, defined for patterns
+                                 and
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image70.jpeg" class="center" width="80%" /></span>
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image71.jpeg" class="center" width="80%" /></span>: . Given training pat-
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image72.jpeg" class="center" width="80%" /></span>terns with associated labels , the
+                                 SVM algorithm solves a dual quadratic optimisation problem to find Lagrange ex-
+                                 pansion coefficients that specify the separating hyperplane [20]:
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id.">
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image73.jpeg" class="center" width="80%" /></span><b>(13)</b></p>
+                              
+                              <p class="tei-p text-display" id="id."><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image74.jpeg" class="center" width="80%" /></span>
+                                 <b>(14)</b></p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image75.jpeg" class="center" width="80%" /></span>
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image76.jpeg" class="center" width="80%" /></span>Those patterns whose are non-zero are
+                                 called support vectors. This leads to the nonlinear decision function
+                                 (classifier)
+                              </p>
+                              
+                           </div>
+                           
+                           <div class="tei-div ">
+                              
+                              <h3 class="tei-head ">(15)</h3>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image77.jpeg" class="center" width="80%" /></span>
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image78.jpeg" class="center" width="80%" /></span>
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image79.jpeg" class="center" width="80%" /></span>The classifier tends to be very
+                                 efficient because most become 0, so the support vectors are the only ones
+                                 needed. The SVM model we use has two parameters: the kernel ‘spread’ 
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image80.jpeg" class="center" width="80%" /></span> and the relaxation cost trade-off
+                                 C. Model selection is performed by enumerating values of the parameter pairs
+                                 <span class="tei-graphic"><img src="media/image60.jpeg" class="inline" width="1.0583333333333333cm" /></span> to
+                                 find the pair that gives the highest cross-validation accuracy for each fold of
+                                 a 10-fold cross-validation procedure (CV-10). In the CV- proce- dure, the
+                                 samples are randomly divided into disjoint sets; the
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image78.jpeg" class="center" width="80%" /></span><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image78.jpeg" class="center" width="80%" /></span>
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image81.jpeg" class="center" width="80%" /></span>classifier is trained times, each with a different set held
+                                 out as a validation set. The estimated performance is the mean of these errors.
+                                 Figure 10 shows an example of the recognition rate as a function of <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image82.jpeg" class="center" width="80%" /></span>. Note the ridge along which the
+                                 highest recog- nition rates are obtained, suggesting
+                                 correlation between
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image83.jpeg" class="center" width="80%" /></span>and
+                                 .
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image77.jpeg" class="center" width="80%" /></span>
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id.">Table 1. Results (in
+                                 percent recognition rate) of 28- and 25-class trials using features of
+                                 character and word samples. Each column is headed with c/s, indicating the
+                                 class size c and sample size s per class. Results for the feature set F were
+                                 considered too unpromising to be included in later trials
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Once a satisfactory is found, the one-against-one method is used for training a
+                                 -class discrimination problem in which all <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image87.jpeg" class="center" width="80%" /></span> classifiers use the same 
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image82.jpeg" class="center" width="80%" /></span> model.
+                              </p>
+                              
+                           </div>
+                           
+                           <div class="tei-div ">
+                              
+                              <h3 class="tei-head ">RESULTS</h3>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image88.jpeg" class="center" width="80%" /></span>
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image89.jpeg" class="center" width="80%" /></span>
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image90.jpeg" class="center" width="80%" /></span>A
+                                 database of character images was obtained from both MS and TS sources. Character
+                                 images were size-normalised to 64 × 64 pixels, and a polar transformed image was
+                                 also obtained. Several classifica- tion trials were carried out, variously using
+                                 the image, polar image, and regions within the images. To take into account the
+                                 context- sensitive variations of character shape in Syriac, the model built
+                                 during the training mode used 28 classes, depending on how the training set was
+                                 constructed. For example, the variants of the letter <i>mim</i>,
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image91.jpeg" class="center" width="80%" /></span> and , were assigned different
+                                 classes during training. Most variants are distinguished by having a longer
+                                 baseline (e.g. and ), and these variants were assigned to the same class because
+                                 the segmentation tended to trim the baseline to an approximately uniform length.
+                                 This study did not use the vowels, as the sources were not vowelled.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">The classification trials are identified as follows:</p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><b>F</b>
+                                 The five features were obtained from the 64 × 64
+                                 pixel character image, giving a feature vector of length 5.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id."><b>F/PW2 </b>The character/polar image was divided into 2
+                                 non-overlapping
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id.">windows of 64 rows and 32
+                                 columns, and the five features ob-
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">tained from each window resulting in a feature vector
+                                 of length 10.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><b>F/PS2W8 </b>The character/polar image was divided into 29 regions
+                                 of 8 ×
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">8 pixels overlapped by 6 pixels, and the five features
+                                 obtained from each window resulting in a feature vector of length
+                                 145.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><b>F/PS4W8 </b>The character/polar image was
+                                 divided into 15 8 × 8 pixels overlapped by 4 pixels, and the five features
+                                 obtained from each window resulting in a feature vector of length 75.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image84.jpeg" class="center" width="80%" /></span>
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id.">Table 2. Results (in
+                                 percent recognition rate) for composite feature vec- tors. Comparing like
+                                 trials in Table 4, a composite vector gives the highest recognition rate for
+                                 the MSC source.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Table 4 shows the results from the trials carried out. Columns MSC and TSC refer
+                                 to character samples taken from the manuscript source and the typeset source
+                                 respectively. Under each source are columns showing results for different sample
+                                 sizes and class sizes. The first trial used ten samples of each character. A
+                                 second charac- ter recognition trial was undertaken using a a different
+                                 association of character shapes to classes. In this trial 25 classes were
+                                 defined by merging classes having insignificant differences according to the
+                                 previous trial. A larger sample set used for the third trial was con- structed
+                                 by duplicating the original sample size.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">We also evaluated the classifier on a word recognition task, for which character
+                                 segmentation is un-necessary. Column TSW of the table refers to trials carried
+                                 out on a sample of 990 word images taken from the typeset source TS. The sample
+                                 consisted of 10 ex- amples of each of the 99 most frequent words in TS. This
+                                 trial was done only for comparison to other cursive word recognition stud- ies
+                                 [6], and the recognition rates are comparable. A relatively high word
+                                 recognition rate is expected because of the uniform quality of the TS sample and
+                                 the inherent more pronounced distinctions be- tween word shapes relative to
+                                 character shapes. A word recognition
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">trial was not carried out for the MS source because an insufficient sample of
+                                 each word was available.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Table 2 illustrates character recognition trials in which long feature vectors
+                                 were generated by concatenating the vectors ob- tained from previous trials. The
+                                 trials using concatenated feature vectors, such as FW2-PW2-FW8, show higher
+                                 recognition rates, possibly because these trials use both the character image
+                                 and the polar transformed image in the same feature vector, as well as a
+                                 combination of window sizes. Despite the longer feature vectors for these
+                                 trials, the peaking phenomenon [11] is not in evidence. With a few exceptions,
+                                 the recognition rate in Table 4 increases as the number of samples is increased,
+                                 even if the new samples are simply duplicates. In other trials not shown in the
+                                 table, the recog- nition rate reached 100% when the number of samples per
+                                 charac- ter was replicated to 200 (i.e. still only 10 unique samples). This
+                                 result should be treated with caution because of two sources of bias when sample
+                                 size is increased. First, because cross-validation con- structs the training set
+                                 essentially by sampling without replacement, it is more likely that the training
+                                 set of a larger sample size repre- sents more diversity within the sample, even
+                                 if the proportion held out is unchanged. Second, if the classifier shows poor
+                                 generalisa- tion, then a small increase in the diversity of the training set
+                                 might cause a disproportionally higher recognition rate. The cross- validation
+                                 procedure is designed to limit bias [12], but some com- bination of these
+                                 effects may account for an increase in recognition rate in certain trials.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Table 2 illustrates character recognition trials in which long feature vectors
+                                 were generated by concatenating the vectors ob- tained from previous trials. The
+                                 trials using concatenated feature vectors, such as FW2-PW2-FW8, show higher
+                                 recognition rates, possibly because these trials use both the character image
+                                 and the polar transformed image in the same feature vector, as well as a
+                                 combination of window sizes. Despite the longer feature vectors for these
+                                 trials, the peaking phenomenon [11] is not in evidence. With a few exceptions,
+                                 the recognition rate in Table 4 increases as the number of samples is increased,
+                                 even if the new samples are simply duplicates. In other trials not shown in the
+                                 table, the recog- nition rate reached 100% when the number of samples per
+                                 charac- ter was replicated to 200 (i.e. still only 10 unique samples). This
+                                 result should be treated with caution because of two sources of bias when sample
+                                 size is increased. First, because cross-validation con- structs the training set
+                                 essentially by sampling without replacement, it is more likely that the training
+                                 set of a larger sample size repre-
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">sents more diversity within the sample, even if the proportion held out is
+                                 unchanged. Second, if the classifier shows poor generalisa- tion, then a small
+                                 increase in the diversity of the training set might cause a disproportionally
+                                 higher recognition rate. The cross- validation procedure is designed to limit
+                                 bias [12], but some com- bination of these effects may account for an increase
+                                 in recognition rate in certain trials.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">We then considered a situation where the classifier was trained on the typeset
+                                 source TS, then the resulting model used for charac- ter recognition on the
+                                 manuscript source MS (Table 3). The moti- vation for this was to test the
+                                 performance of the system on a multi-font problem in which no training data were
+                                 obtained from the test source. Although classification repeatability is
+                                 confirmed by the high recognition rate when the model is tested with samples
+                                 taken solely from the training set, a low rate is shown when the model is tested
+                                 against samples from the manuscript source. A number of factors may account for
+                                 this. First, the uniformity of the characters in the TS source provide
+                                 insufficient variation needed for the model to have good generalization
+                                 behaviour. Second, there are systematic differences in design between the
+                                 characters in the MS and TS. In general, the MS characters have a thicker stroke
+                                 width and a lower width/height ratio. Also, individual characters have slight
+                                 differences in shape. These factors suggest that the sys- tem is unable to treat
+                                 the TS and MS sources as interchangeable, and that further work will be required
+                                 to design a system with multi-font capability.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">
+                                 <span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image85.jpeg" class="center" width="80%" /></span>
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><span class="tei-graphic"><img src="https://github.com/Beth-Mardutho/hugoye-data/raw/master/resources/images/articles/HV6N2Clocksin_Fernando_image94.jpeg" class="center" width="80%" /></span>Table 3.
+                                 Results of recognition trials on MSC using model obtained from characters
+                                 from TS source.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id.">Table 4. Results (in
+                                 percent recognition rate) of trials using features of character samples from
+                                 the manuscript source (MS) and typeset source (TS). To provide a basis for
+                                 comparison, training and recognition was also performed with ten geometric
+                                 moment features [16], seven Hu features [10], and ten Legendre polynomial
+                                 features [24]. The MGGMF method used a 6-degree polynomial signature on
+                                 whole character image; MGGMF 6Q used a 6-degree signature on each of four
+                                 quarters of the character image. All recognition trials used twenty samples
+                                 of each character from each source.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">The final experiments concern the use of our More General Generalized Moment
+                                 function, comparing the performance of well-known non-generalized moment
+                                 functions. Table 4 shows the results from the trials carried out. Columns MS and
+                                 TS refer to character samples taken from the manuscript source and the type- set
+                                 source respectively. Under each source are columns showing results for different
+                                 moment functions. As one might expect, rec- ognition rate is better for the
+                                 typeset source than the manuscript source, no doubt owing to the regularity of
+                                 the TS. The perform- ance of the MGGMF method applied to the whole character
+                                 image suggests that the signature is insufficiently discriminative. However,
+                                 when signatures are found for each quarter of the character image, a dramatic
+                                 improvement is noticed. One explanation is that signa- tures are thereby more
+                                 closely identified with separate strokes of the character.
+                              </p>
+                              
+                           </div>
+                           
+                           <div class="tei-div ">
+                              
+                              <h3 class="tei-head ">CONCLUSION</h3>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">This paper has described a system for recognising cursive Syriac text
+                                 (Estrangelo) from ancient scribe-written and early modern typeset sources. Given
+                                 a document, the system finds words and then segments each word into characters.
+                                 These preliminary stages require some manual intervention to remove editorial
+                                 apparatus and to correct certain systematic oversegmentations. Each charac- ter
+                                 is then recognized using a trainable classifier constructed using a support
+                                 vector machine. Recognition rates vary from 61% to 100% based on the method used
+                                 and the source of text. Some trials may exhibit methodological bias, and these
+                                 results should be treated with caution. Excluding these, the highest recognition
+                                 rate on scribe-written manuscript samples, 94%, has been obtained using a the
+                                 MGGMF 6Q feature vector of length 24. The support vector classifier has been
+                                 tested using a 10-fold cross-validation proce- dure, which has provided a high
+                                 accuracy of classification. Because the number of support vectors is minimised
+                                 during the training stage, recognition is more efficient than the Hidden Markov Model
+                                 classifier used
+                                 by our previous work on similar sized data sets [6].
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">It is important to stress that the system described here is at a most preliminary
+                                 stage of development. It has been a useful labora- tory research tool, but is
+                                 not ready to be used on arbitrary docu- ments, nor may it be conveniently used
+                                 by people other than the developers. The entire system is essentially ‘knowledge
+                                 free’ in the sense that no knowledge of characteristic Syriac letter shapes or
+                                 statistics has been used in the system design. Future work should concentrate on
+                                 improving the segmentation algorithm, and extend- ing the system to deal with
+                                 articulation marks and punctuation. Steps can also be taken to improve the
+                                 robustness of the system on documents that have been badly reproduced. Both
+                                 these areas of work might benefit from building in knowledge of Syriac from the
+                                 letter-formation level to the morphological and lexical levels [18]. At the
+                                 letter-formation level, matching flexible templates might be a productive
+                                 approach instead of geometric moment functions, and a start in this direction
+                                 has been recently reported for Arabic [1]. However, that method treats each
+                                 character as an isolated shape, thus presuming some type of segmentation will
+                                 have been applied. Finally, because Syriac is written in several forms, it would
+                                 also be useful to investigate whether the system could be trained and tested
+                                 equally well on the East Syriac and Serto (West Syriac) forms, as well as
+                                 font-specific variants within the main script systems.
+                              </p>
+                              
+                           </div>
+                           
+                           <div class="tei-div ">
+                              
+                              <h3 class="tei-head ">ACKNOWLEDGMENTS</h3>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">We thank Chih-Jen Lin of National Taiwan University for assistance in using his
+                                 LIBSVM library. P.P.J. Fernando is sup- ported by a studentship from the
+                                 Bishop’s Conference of Sri Lanka. We are grateful to Sebastian Brock of the
+                                 University of Ox- ford, Rifaat Ebied of the University of Sydney and George
+                                 Kiraz of Beth Mardutho: The Syriac Institute, for valuable advice, source
+                                 manuscripts and encouragement. This paper is an expanded ver- sion of [5].
+                              </p>
+                              
+                           </div>
+                           
+                           <div class="tei-div ">
+                              
+                              <h3 class="tei-head ">BIBLIOGRAPHY</h3>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Al-Shaher A. and E.R. Hancock. Arabic character
+                                 recognition with shape mixtures. In Proc. 13th British Machine Vision
+                                 Conference, Cardiff, Wales, September 2002.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Arica N. and F.T. Yarman-Vural. Optical character recognition for cursive handwriting.
+                                 <i>IEEE Transactions on Pattern Analysis
+                                    and Machine In- telligence</i>,
+                                 24(6):801&#x96;–813, 2002.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Crawford Burkitt, F. <i>Evangelion Da-Mepharreshe. </i>Cambridge University Press, 1904.
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Chang, S. and C.P. Grover. Generalized moment functions and conformal transforms.
+                                 <i>Proceedings of SPIE</i>, 4790:102&#x96;–113, 2002.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Clocksin, W.F. and P.P.J. Fernando. Towards automatic
+                                 recognition of Syriac handwriting. In Proceedings of the IEEE International
+                                 Conference on Image Analysis and Processing, Mantova, Italy, September
+                                 2003.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Clocksin, W.F. and M. Khorsheed. Word recognition in
+                                 Arabic handwrit- ing. In
+                                 <i>Proc. 8th Int. Conf. on Artificial
+                                    Intelligence Applications,</i>
+                                 pages 271&#x96;–279, Cairo, February 2000.
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Cortes, C. and V. Vapnik. Support-vector network. <i>Machine Learning,</i></p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">20:273&#x96;–297, 1995.</p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Ebied, R.Y ., A. Van Roey, and L.R. Wickham.
+                                 <i>Petri Callinicensis Patriarchae
+                                    Antiocheni: Tractatus contra
+                                    Damianum</i>, volume 32 of <i>Corpus Chris- tianorum, Series
+                                    Graeca</i>. University of Louvain Press,
+                                 Louvain, 1996.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Freeman, M.O. and B.E.A. Saleh. &#x93;“Optical location of centroids of non- overlapping
+                                 objects.&#x94;” 
+                                 <i>Applied Optics, </i>26(14):2752&#x96;–2759, 1987.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Hu, M.K. &#x93;“Visual pattern recognition by moment
+                                 invariants.&#x94;”
+                                 <i>IRE Trans.</i></p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr"><i>Information Theory</i>, IT-8:179&#x96;–187, 1962.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Jain, A.K. and B. Chandrasekaran. &#x93;“Dimension and
+                                 sample size considera- tions
+                                 in
+                                 pattern
+                                 recognition
+                                 practice.&#x94;”
+                                 In
+                                 P.R.
+                                 Krishnaiah
+                                 and
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">L.N. Kanal, editors,
+                                 <i>Handbook of Statistics</i>, pages 835&#x96;–855. North-
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Holland, Amsterdam, 1982.</p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Jain, A.K., R.P.W. Duin, and J. Mao.
+                                 &#x93;“Statistical pattern recognition: A review.&#x94;”
+                                 <i>IEEE Transactions on Pattern Analysis
+                                    and Machine Intelli- gence</i>, 22(1):
+                                 4&#x96;–37, 2000.
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Jain,R., R. Kasturi, and B.G. Schunck. <i>Machine Vision. </i>McGraw Hill, New
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">York, 1995.</p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Khorsheed, M. and W.F. Clocksin. &#x93;“Structural
+                                 features of cursive Arabic script.&#x94;” In
+                                 <i>Proc. 10th British Machine Vision
+                                    Conference</i>, pages 422&#x96;– 431,
+                                 Nottingham, England, 1999.
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Khorsheed, M. &#x93;“Off-line Arabic character
+                                 recognition &#x96;– a review.&#x94;”
+                                 <i>Pattern Analysis and
+                                    Applications</i>, 5(1):31&#x96;–45,
+                                 2002.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Kim, J.H., K.K. Kim, and C.Y. Suen. &#x93;“An HMM-MLP
+                                 hybrid model for cursive
+                                 script
+                                 recognition.&#x94;”
+                                 <i>Pattern</i>
+                                 <i>Analysis</i>
+                                 <i>and</i>
+                                 <i>Applications,</i>
+                                 3(4):314&#x96;–324, 2000.
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Kiraz, G.A. &#x93;“Syriac morphology: From a linguistic model to a computa- tional implementation.&#x94;”
+                                 In R. Lavenant, (ed.), <i>VII Symposium Syriacum, </i>Rome, 1996. Orientalia Christiana Analecta.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Manmatha, R. Chengfeng Han, and E.M. Riseman. Word
+                                 spotting: A new approach to indexing handwriting. In
+                                 <i>Proc. of the IEEE Conf. on Computer
+                                    Vision and Pattern Recognition,</i>
+                                 pages 631&#x96;–637, San Fran- cisco, June 1996.
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Müller, Klaus-Robert, Sebastian Mika, Gunnar Rätsch,
+                                 Koji Tsuda, and Bernhard Schölkopf. &#x93;“An introduction to kernel-based
+                                 learning
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">algorithms.&#x94;”
+                                 <i>IEEE Transactions on Neural
+                                    Networks,</i>
+                                 12(2):181&#x96;– 202, 2001.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Plamondon, R. and S.N. Srihari. &#x93;“On-line and off-line handwriting recog- nition:
+                                 A comprehensive review.&#x94;” 
+                                 <i>IEEE Transactions on Pattern Analysis
+                                    and Machine Intelligence</i>, 22(1):63&#x96;–84,
+                                 2000.
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Seni, G. and E. Cohen. &#x93;“External word segmentation of off-line hand- written text
+                                 lines.&#x94;” <i>Pattern Recognition, </i>27(1):41&#x96;–52, 1994.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Steinherz, Tal, Ehud Rivlin, and Nathan Intrator.
+                                 &#x93;“Offline cursive script word
+                                 recognition
+                                 &#x96;–
+                                 A
+                                 survey.&#x94;”
+                                 <i>International</i>
+                                 <i>Journal</i>
+                                 <i>on</i>
+                                 <i>Document Analysis and Recognition,</i>
+                                 2(2/3):90&#x96;–110, 1999.
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Teague, M.R. &#x93;“Image analysis via the general
+                                 theory of moments.&#x94;”
+                                 <i>Journal of the Optical Society of America, </i>70(8):375&#x96;–397, 1980.
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Tistarelli, M. and G. Sandini. On the advantage of
+                                 polar and log-polar mapping for direct estimation of time-to-impact from
+                                 optical flow.
+                                 <i>IEEE Transactions on Pattern Analysis and Machine Intelligence, </i>15(4):401&#x96;–410, 1993.
+                                 
+                              </p>
+                              
+                              <p class="tei-p text-display" id="id." xml:lang="en" lang="en" dir="ltr">Vapnik, V. <i>Statistical Learning Theory. </i>Wiley, New York, 1998.
+                              </p>
+                              
+                           </div>
+                           
+                        </div>
+                        <div class="footnotes" lang="en">
+                           <h2>Footnotes</h2>
+                           <bdi>
+                              <p class="footnote-text" id="note1"><span class="notes footnote-refs"><span class="footnote-ref">‎1</span> </span><span>British Library Add. MS 7191, Folio 100va-101rb, which
+                                    contains the end of Chapter XXIV and the beginning of Chapter XXV of Book
+                                    III.</span></p>
+                           </bdi>
+                        </div>
+                     </div>
+                     
+                  </div>
+                  <div class="PDFviewer text-center" style="width:100%;">
+                     <embed src="https://drive.google.com/viewerng/viewer?embedded=true&amp;url=https://github.com/Beth-Mardutho/hugoye-data/raw/master//pdf/vol6/HV6N2Clocksin_Fernando.pdf" width="100%" height="800" />
+                  </div>
+               </div>
+               <div class="col-md-3 col-lg-3 right-menu">
+                  <div id="rightCol" class="noprint">
+                     <div id="sedraDisplay" class="sedra panel panel-default">
+                        <div class="panel-body"><span style="display:block;text-align:center;margin:.5em;"><a href=" http://sedra.bethmardutho.org" title="SEDRA IV">SEDRA IV</a></span><img src="/resources/img/sedra-logo.png" title="Sedra logo" width="100%" /><h3>Syriac Lexeme</h3>
+                           <div id="sedraContent">
+                              <div class="content"></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="panel panel-default">
+                     <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#aboutDigitalText">About This Digital Text</a></div>
+                     <div class="panel-body collapse in" id="aboutDigitalText">
+                        <div>
+                           <h5>Record ID:</h5><span>https://hugoye.bethmardutho.org/article/hv6n2clocksin_fernando</span></div>
+                        <div style="margin-top:1em;"><span class="h5-inline">Status: </span><span>Published</span>
+                            <a href="/documentation/wiki.html?wiki-page=/Status-of-Contents-in-Hugoye&amp;wiki-uri=https://github.com/Beth-Mardutho/hugoye-data/wiki"><span class="glyphicon glyphicon-question-sign text-info moreInfo"></span></a></div>
+                        <div style="margin-top:1em;"><span class="h5-inline">Publication Date: </span>August 28, 2019
+                        </div>
+                     </div>
+                  </div>
+                  <div class="panel panel-default">
+                     <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#citationText">How to Cite this Article</a></div>
+                     <div class="panel-body collapse in" id="citationText">
+                        <div><span class="tei-sourceDesc">
+                              <span class="section indent">
+                                 William F. Clocksin and Prem P. J. Fernando,  "<span class="title-analytic">Towards Automatic Transcription of Estrangelo Script</span>." 
+                                 <span class="title-journal">Hugoye: Journal of Syriac Studies</span> (<span class="publisher">Beth Mardutho: The Syriac Institute</span>,  <span class="date">2003</span>).
+                                 </span>
+                              </span></div>
+                     </div>
+                  </div><span class="badge access-pills"><a href="/open-access.html" style="color:#555">open access <i class="fas fa-unlock-alt"></i></a></span><span class="badge access-pills"><a href="/documentation/wiki.html?wiki-page=/Peer-Review-Policy&amp;wiki-uri=https://github.com/Beth-Mardutho/hugoye-data/wiki" style="color:#555">peer reviewed <i class="fas fa-check"></i></a></span></div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
