@@ -1,11 +1,11 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
     
     <!-- =================================================================== -->
     <!-- Helper Functions  -->
     <!-- =================================================================== -->
     <xsl:variable name="odd">
-        <xsl:if test="doc-available(concat($applicationPath,'/documentation/syriaca-tei-main.odd'))">
-            <xsl:sequence select="doc(concat($applicationPath,'/documentation/syriaca-tei-main.odd'))"/>
+        <xsl:if test="doc-available(concat('xmldb:exist://',$app-root,'/documentation/syriaca-tei-main.odd'))">
+            <xsl:sequence select="doc(concat('xmldb:exist://',$app-root,'/documentation/syriaca-tei-main.odd'))"/>
         </xsl:if>
     </xsl:variable>
     
@@ -287,6 +287,22 @@
         <xsl:param name="lang" as="xs:string"/>
         <xsl:param name="type" as="xs:string"/>
         <xsl:choose>
+            <!-- BL values from https://github.com/srophe/britishLibrary/issues/310 -->
+            <xsl:when test="$lang='ar'">Unspecified Arabic script</xsl:when>
+            <xsl:when test="$lang='ar-Syrc'">Arabic Garshuni script</xsl:when>
+            <xsl:when test="$lang='cop'">Unspecified Coptic script</xsl:when>
+            <xsl:when test="$lang='fr'">Unspecified French script</xsl:when>
+            <xsl:when test="$lang='grc'">Unspecified Greek script</xsl:when>
+            <xsl:when test="$lang='he'">Unspecified Hebrew script</xsl:when>
+            <xsl:when test="$lang='hy'">Unspecified Armenian script</xsl:when>
+            <xsl:when test="$lang='la'">Unspecified Latin script</xsl:when>
+            <xsl:when test="$lang='syr'">Unspecified Syriac script</xsl:when>
+            <xsl:when test="$lang='syr-Syre'">Estrangela script</xsl:when>
+            <xsl:when test="$lang='syr-Syrj'">West Syriac script</xsl:when>
+            <xsl:when test="$lang='syr-Syrn'">East Syriac script</xsl:when>
+            <xsl:when test="$lang='syr-x-syrm'">Melkite Syriac script</xsl:when>
+            <xsl:when test="$lang='qhy-x-cpas'">Christian Palestinian Aramaic script</xsl:when>
+            <xsl:when test="$lang='mixed'">Mixed scripts</xsl:when>
             <xsl:when test="$lang='la'">
                 <xsl:text>Latin</xsl:text>
             </xsl:when>
@@ -431,7 +447,7 @@
         <xsl:variable name="file">
             <xsl:choose>
                 <xsl:when test="contains($file-name,$base-uri)">
-                    <xsl:value-of select="replace($file-name,$base-uri,$nav-base)"/>
+                    <xsl:value-of select="replace($file-name,$base-uri,concat('xmldb:exist://',$nav-base))"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:value-of select="doc($ref)"/>
@@ -472,23 +488,51 @@
         <xsl:choose>
             <xsl:when test="@rend">
                 <xsl:choose>
-                    <xsl:when test="@rend = 'bold'"><b><xsl:call-template name="ref"/></b></xsl:when>
-                    <xsl:when test="@rend = 'italic'"><i><xsl:call-template name="ref"/></i></xsl:when>
-                    <xsl:when test="@rend = ('superscript','sup')"><sup><xsl:call-template name="ref"/></sup></xsl:when>
-                    <xsl:when test="@rend = ('subscript','sub')"><sub><xsl:call-template name="ref"/></sub></xsl:when>
-                    <xsl:otherwise><span class="tei-rend-{string(@rend)}"><xsl:call-template name="ref"/></span></xsl:otherwise>
+                    <xsl:when test="@rend = 'bold'">
+                        <b>
+                            <xsl:call-template name="ref"/>
+                        </b>
+                    </xsl:when>
+                    <xsl:when test="@rend = 'italic'">
+                        <i>
+                            <xsl:call-template name="ref"/>
+                        </i>
+                    </xsl:when>
+                    <xsl:when test="@rend = ('superscript','sup')">
+                        <sup>
+                            <xsl:call-template name="ref"/>
+                        </sup>
+                    </xsl:when>
+                    <xsl:when test="@rend = ('subscript','sub')">
+                        <sub>
+                            <xsl:call-template name="ref"/>
+                        </sub>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <span class="tei-rend-{string(@rend)}">
+                            <xsl:call-template name="ref"/>
+                        </span>
+                    </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
-            <xsl:otherwise><xsl:call-template name="ref"/></xsl:otherwise>
+            <xsl:otherwise>
+                <xsl:call-template name="ref"/> 
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <xsl:template name="ref">
         <xsl:choose>
-            <xsl:when test="parent::t:ref or parent::t:ptr or parent::*[1]/@ref"><xsl:apply-templates/></xsl:when>
-            <xsl:when test="@ref">
-                <a href="{@ref}"><xsl:apply-templates/></a>
+            <xsl:when test="parent::t:ref or parent::t:ptr or parent::*[1]/@ref">
+                <xsl:apply-templates/>
             </xsl:when>
-            <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
+            <xsl:when test="@ref">
+                <a href="{@ref}">
+                    <xsl:apply-templates/>
+                </a>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:apply-templates/>
+            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>

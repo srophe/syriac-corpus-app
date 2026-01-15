@@ -1,314 +1,312 @@
-<?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:srophe="https://srophe.app">
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:srophe="https://srophe.app">
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      
       <meta charset="utf-8" />
-      
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      
-      <title data-template="app:app-title">Digital Syriac Corpus</title>
-      
-      <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
-      
-      <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
-      
-      <meta name="DC.type" property="dc.type" content="Text" />
-      
-      <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org" />
-      
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Syriac Corpus: Advanced Search </title>
       <link data-template="app:metadata" />
-      
-      <link rel="shortcut icon" href="/resources/img/favicon.ico" />
-      
-      <!-- Font Awesome, installed in eXist -->
-      
-      <!--<link rel="stylesheet" type="text/css" href="$shared/resources/css/all.css"/>-->
-      
-      <!-- Syriaca.org css -->
-      
-      <!-- Bootstrap 3 -->
-      
+      <link rel="shortcut icon" href="/resources/images/favicon.ico" />
       <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css" />
-      
       <link rel="stylesheet" type="text/css" href="/resources/css/sm-core-css.css" />
-      
-      <link rel="stylesheet" href="/resources/css/syr-icon-fonts.css" />
-      
+      <link rel="stylesheet" type="text/css" href="/resources/css/syr-icon-fonts.css" />
+      <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
       <link rel="stylesheet" type="text/css" href="/resources/css/main.css" />
-      
       <link rel="stylesheet" type="text/css" media="print" href="/resources/css/print.css" />
-      
-      <!-- Leaflet
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
-        <link rel="stylesheet" href="/resources/leaflet/leaflet.awesome-markers.css"/>
-        -->
-      
-      <!-- JQuery -->
-      
-      <link href="/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
-      <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
-      <script type="text/javascript" src="/resources/jquery-ui/jquery-ui.min.js"></script>
-      <script type="text/javascript" src="/resources/js/jquery.smartmenus.min.js"></script>
-      <script type="text/javascript" src="/resources/js/clipboard.min.js"></script>
-      
-      <!-- Bootstrap -->
-      <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script>
-      
-      <script src="https://www.google.com/recaptcha/api.js"></script>
-      
-      <!-- keyboard widget css & script -->
-      <link href="/resources/keyboard/css/keyboard.min.css" rel="stylesheet" />
-      
+      <link rel="stylesheet" type="text/css" href="/resources/dateSlider/css/slider.css" />
+      <link rel="stylesheet" type="text/css" href="/resources/dateSlider/css/slider-classic-min.css" />
+      <link href="/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet" /><script defer="defer" data-domain="syriaccorpus.org" src="https://plausible.io/js/plausible.js"></script><script type="text/javascript" src="/resources/js/jquery.min.js"></script><script type="text/javascript" src="/resources/jquery-ui/jquery-ui.min.js"></script><script type="text/javascript" src="/resources/js/jquery.smartmenus.min.js"></script><script type="text/javascript" src="/resources/js/clipboard.min.js"></script><script src="/resources/dateSlider/js/jQDateRangeSlider-min.js"></script><script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script><script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"></script><link href="/resources/keyboard/css/keyboard.min.css" rel="stylesheet" />
       <link href="/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet" />
-      
-      <link href="/resources/keyboard/syr/syr.css" rel="stylesheet" />
-      <script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.js"></script>
-      <script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"></script>
-      <script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"></script>
-      <script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"></script>
-      <script type="text/javascript" src="/resources/keyboard/syr/keyboardSupport.js"></script>
-      <script type="text/javascript" src="/resources/keyboard/syr/syr.js"></script>
-      <script type="text/javascript" src="/resources/js/keyboard.js"></script>
-      </head>
+      <link href="/resources/keyboard/syr/syr.css" rel="stylesheet" /><script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script><script type="text/javascript" src="/resources/js/require.min.js"></script><script type="text/javascript" src="/resources/js/srophe.js"></script></head>
    <body id="body">
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation"> 
+         <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand banner-container" href="/index.html"> 
+               <span class="banner-icon">
+                  <img src="/resources/images/syriac-corpus.svg" alt="" width="50px" />
+               </span>
+               <span class="banner-text">Digital Syriac Corpus</span>
+            </a>
+         </div>
+         <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
+            <ul class="nav navbar-nav">
+               <li>
+                  <a href="/browse.html" class="nav-text">Browse</a>
+               </li>
+               <li class="dropdown">
+                  <a href="#" class="dropdown-toggle lonely-caret" data-toggle="dropdown">About  <b class="caret"></b></a>
+                  <ul class="dropdown-menu pull-right">
+                     <li>
+                        <a href="/about.html">About the Project</a>
+                     </li>
+                     <li role="presentation" class="divider"></li>
+                     <li>
+                        <a href="/history.html">History of the Project</a>
+                     </li>
+                     <li role="presentation" class="divider"></li>
+                     <li>
+                        <a href="/project-team.html">Project Team</a>
+                     </li>
+                     <li role="presentation" class="divider"></li>
+                     <li>
+                        <a href="/submissions.html">Submissions to the Corpus</a>
+                     </li>
+                     <li role="presentation" class="divider"></li>
+                     <li>
+                        <a href="/contact-us.html">Contact Us</a>
+                     </li>
+                     <li role="presentation" class="divider"></li>
+                     <li>
+                        <a href="/documentation/index.html">Documentation</a>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <a href="/search.html" class="nav-text">Advanced Search</a>
+               </li>
+               <li>
+                  <div id="search-wrapper">
+                     <form class="navbar-form navbar-right search-box" role="search" action="/search.html" method="get">
+                        <div class="form-group">
+                           <input type="text" class="form-control keyboard" placeholder="search" name="keyword" id="keywordNav" />
+                           <div class="keyboard-menu">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard"> <span class="syriaca-icon syriaca-keyboard">  </span><span class="caret"></span></button>                                          
+                              <ul class="dropdown-menu">                 
+                                 <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="keywordNav">Syriac Phonetic</a></li>                
+                                 <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="keywordNav">Syriac Standard</a></li>                 
+                                 <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="keywordNav">English QWERTY</a></li>             
+                              </ul>        
+                           </div>
+                           <button class="btn btn-default search-btn" id="searchbtn" type="submit" title="Search">
+                              <span class="glyphicon glyphicon-search"></span>
+                           </button>                                    
+                        </div>
+                     </form>
+                  </div>
+               </li>
+               <li>
+                  <div class="btn-nav">
+                     <button class="btn btn-default navbar-btn" id="font" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                        <span class="glyphicon glyphicon-font"></span>
+                     </button>    
+                     <ul class="dropdown-menu dropdown-menu-right" id="swap-font">
+                        <li>
+                           <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
+                        </li>
+                        <li>
+                           <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
+                        </li>
+                        <li>
+                           <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
+                        </li>
+                        <li>
+                           <a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a>
+                        </li>
+                        <li>
+                           <a href="/documentation/wiki.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/syriaca-data/wiki">Help <span class="glyphicon glyphicon-question-sign"></span></a>                           
+                        </li>                        
+                     </ul>
+                  </div>
+               </li>
+            </ul>
+         </div>
+      </nav>
+      <div class="main-content-block"> 
+         <h1 style="padding-left:1em; color:white; margin-top:3em;">Advanced Search</h1>
+         <div class="container" style="margin:0;padding:0; width: 100%; background-color:white;">
+            <div class="row">
+               <div class="col-md-4">
+                  <form method="get" action="search.html" class="form-horizontal search" role="form" id="advancedSearch">
+                     <!-- Keyword -->
+                     <div class="form-group"><label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
+                        <div class="col-sm-10 col-md-9 ">
+                           <div class="input-group">
+                              <input type="text" id="qs" name="q" class="form-control keyboard ui-keyboard-input ui-widget-content ui-corner-all" aria-haspopup="true" role="textbox">
+                              <div class="input-group-btn"><span class="keyboard-menu"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                 &nbsp;<span class="syriaca-icon syriaca-keyboard">&nbsp; </span><span class="caret"></span></button>
+                                 <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="qs">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="qs">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="qs">English QWERTY</a></li>
+                                 </ul></span></div>
+                              <!-- NOTE how to do proximity
+                              <div class="input-group-btn"><input type="text" id="keywordProximity" name="keywordProximity" class="form-control"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Proximity Operator">
+                                 &nbsp; Proximity *
+                              </button></div>
+                              -->
+                           </div>
+                        </div>
+                     </div>
+                     <!-- Author-->
+                     <div class="form-group"><label for="author" class="col-sm-2 col-md-3  control-label">Author: </label>
+                        <div class="col-sm-10 col-md-9 ">
+                           <div class="input-group"><input type="text" id="author" name="author" class="form-control keyboard ui-keyboard-input ui-widget-content ui-corner-all" aria-haspopup="true" role="textbox">
+                              <div class="input-group-btn"><span class="keyboard-menu"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                 &nbsp;<span class="syriaca-icon syriaca-keyboard">&nbsp; </span><span class="caret"></span></button>
+                                 <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="author">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="author">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="author">English QWERTY</a></li>
+                                 </ul></span></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group"><label for="title" class="col-sm-2 col-md-3  control-label">Title: </label>
+                        <div class="col-sm-10 col-md-9">
+                           <div class="input-group">
+                              <input type="text" id="title" name="title" class="form-control keyboard ui-keyboard-input ui-widget-content ui-corner-all" aria-haspopup="true" role="textbox">
+                              <div class="input-group-btn"><span class="keyboard-menu"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                 &nbsp;<span class="syriaca-icon syriaca-keyboard">&nbsp; </span><span class="caret"></span></button>
+                                 <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="title">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="title">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="title">English QWERTY</a></li>
+                                 </ul></span></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group"><label for="title" class="col-sm-2 col-md-3  control-label">&#160;</label>
+                        <div class="col-sm-10 col-md-9">
+                           <div class="input-group">
+                              <div class="input-group-btn" style="width:50%;"><select name="fq" class="form-control">
+                                 <option value=""> -- Limit by Catalog -- </option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/10513">Acts and the
+                                    Catholic Epistles (Peshitta Version)</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8876">Ascetic
+                                    Discourses, Part 1</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8661">Book of the Laws of the Countries - </option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/160">Catholic Epistles
+                                    (Peshitta Version)</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8992">Cause of all
+                                    Causes - </option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8559">Chronicle of
+                                    Edessa - </option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/9005">Chronicle of
+                                    Zuqnin</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8819">Dialogue on the
+                                    Soul - </option>
+                                 <option value=";fq-Catalog:">Digital Syriac Corpus</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8961">Ecclesiastical
+                                    History</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8854">Ecclesiastical
+                                    History - </option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/159">Epistles of Paul
+                                    (Peshitta Version)</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/9041">Hymns on Nativity -
+                                 </option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8737">Hymns on Nisibis -
+                                 </option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8527">Memre on
+                                    Joseph</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8705">Old Testament
+                                    Commentaries of Dionysius bar Salibi</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8870">Persian Martyr Acts</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/9016">Prose Refutations
+                                    of Mani, Marcion, and Bardaisan</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8811">The Apocryphal
+                                    Acts of the Apostles - </option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/210">The Apostolic
+                                    Epistles (Peshitta Version)</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8693">The Book of Steps</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8501">The
+                                    Demonstrations</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8855">The Discourses of Philoxenos</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/71">The Four Gospels
+                                    (Peshitta Version)</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8528">The Homilies of
+                                    Mar Narsai</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8820">The Memre of Jacob
+                                    of Serugh</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8620">The Odes of
+                                    Solomon</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/70">The Peshitta New
+                                    Testament</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/8695">The
+                                    Pseudo-Clementine Recognitions and Homilies</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/209">The remaining
+                                    Apostolic Epistles (Peshitta Version)</option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/9028">Treatise of
+                                    Treatises - </option>
+                                 <option value=";fq-Catalog:http://syriaca.org/work/9032">On the
+                                    Ecclesiastical Mysteries - </option></select></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group"><label for="section" class="col-sm-2 col-md-3  control-label">Section number: </label>
+                        <div class="col-sm-10 col-md-9 "><input type="text" id="section" name="section" class="form-control"></div>
+                     </div>
+                     <div class="form-group"><label for="corpus-uri" class="col-sm-2 col-md-3  control-label">Corpus URI: </label>
+                        <div class="col-sm-10 col-md-9 "><input type="text" id="corpus-uri" name="corpus-uri" class="form-control"></div>
+                     </div>
+                     <div class="form-group"><label for="syriaca-uri" class="col-sm-2 col-md-3  control-label">Syriaca URI: </label>
+                        <div class="col-sm-10 col-md-9 "><input type="text" id="syriaca-uri" name="syriaca-uri" class="form-control"></div>
+                     </div>
+                     <div class="form-group"><label for="text-id" class="col-sm-2 col-md-3  control-label">Text ID Number: </label>
+                        <div class="col-sm-10 col-md-9 "><input type="text" id="text-id" name="text-id" class="form-control"></div>
+                     </div>
+                     <div class="form-group"><label for="cds" class="col-sm-2 col-md-3 control-label">Dates: </label>
+                        <div class="col-sm-10 col-md-9 form-inline"><input type="text" id="startDate" name="startDate" placeholder="Start Date" class="form-control">&nbsp;
+                           <input type="text" id="endDate" name="endDate" placeholder="End Date" class="form-control">
+                           <p class="hint" style="margin:.5em; color: grey; font-style:italic;">* Dates should be entered as YYYY or YYYY-MM-DD</p>
+                        </div>
+                     </div><!-- end col  -->
+                     
+                     <hr>
+                     <div class="pull-right"><button type="submit" class="btn btn-info">Search</button>&nbsp;
+                     <button type="reset" class="btn">Clear</button></div><br class="clearfix"><br>
+                  </form>
+               </div>
+               <div class="col-md-8">
+                  <h2>Search Results</h2>
+                  <div class="row alpha-pages">
+                     <div class="col-md-5">
+                        <div id="search-info"></div>
+                     </div>
+                     <div class="col-md-7" class="pull-right">
+                        <div id="pagination" class="pagination-container pull-right paging">
+                           <ul class="searchPagination pagination pull-right"></ul>
+                        </div>      
+                     </div>
+                  </div>
+                  <div id="search-results"></div>
+                  <div class="col-md-7" class="pull-right">
+                     <div id="pagination" class="pagination-container pull-right paging">
+                        <ul class="searchPagination pagination pull-right"></ul>
+                     </div>      
+                  </div>
+               </div>
+            </div>
+         </div>
+         <script type="text/javascript" src="/resources/js/search.js"></script>
+         <script type="text/javascript">
+         $(document).ready(function () {
+               runSearch();
+            });
+      </script>
+         
+      </div>
+      <!-- Footer with Syriaca.org branding -->
+      <footer>
          
          <div class="container">
-            
-            <div class="navbar-header">
-               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  </button>
-               <a class="navbar-brand banner-container" href="/index.html">
-                  
-                  <!--<img property="logo" class="img-responsive" alt="Syriac.org" src="/resources/img/syriaca-logo.png"/> Draft-->
-                  <span class="banner-icon">
-                     
-                     </span>
-                  <span class="banner-text">Hugoye: Journal of Syriac Studies</span>
-                  </a>
-               
-            </div>
-            
-            <div class="navbar-collapse collapse pull-right">
-               
-               <ul class="nav navbar-nav sm sm-vertical" id="main-menu">
-                  
-                  <li class="dropdown">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        About Hugoye  <b class="caret"></b>
-                        </a>
-                     
-                     <ul class="dropdown-menu">
-                        
-                        <li>
-                           <a href="/editorial-board.html">Editorial Board</a>
-                           
-                        </li>
-                        
-                        <li>
-                           <a href="/submissions.html">Submissions</a>
-                           
-                        </li>
-                        
-                        <li>
-                           <a href="/open-access.html">Open Access</a>
-                           
-                        </li>
-                        
-                        <li>
-                           <a href="https://www.gorgiaspress.com/hugoye-journal-of-syriac-studies" target="_blank">Printed Edition Subscription</a>
-                           
-                        </li>
-                        
-                     </ul>
-                     
-                  </li>
-                  
-                  <li class="dropdown">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        Indexes  <b class="caret"></b>
-                        </a>
-                     
-                     <ul class="dropdown-menu">
-                        
-                        <li>
-                           <a href="/current-issue.html">Current Issue</a>
-                           
-                        </li>
-                        
-                        <li>
-                           <a href="/hugoye-pre-publication-drafts.html">Next Issue Preview Drafts</a>
-                           
-                        </li>
-                        
-                        <li>
-                           <a href="/volumes.html">Volume Index</a>
-                           
-                        </li>
-                        
-                        <li>
-                           <a href="/authors.html">Author Index</a>
-                           
-                        </li>                                
-                        
-                     </ul>
-                     
-                  </li>
-                  
-                  
-               </ul>
-               
-               <ul class="nav navbar-nav navbar-right keboard-btn">
-                  
-                  <li>
-                     
-                     <div class="btn-nav">
-                        <a class="btn btn-default navbar-btn dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
-                            <span class="syriaca-icon syriaca-keyboard">  </span>
-                           <span class="caret"></span>
-                           </a>
-                        
-                        <ul data-template="app:keyboard-select-menu" data-template-input-id="q"></ul>
-                        
-                     </div>
-                     
-                  </li>
-                  
-                  <li>
-                     
-                     <div class="btn-nav">
-                        <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Search Tools">
-                            <span class="glyphicon glyphicon-search"></span> <span class="caret"></span>
-                           </a>
-                        
-                        <ul class="dropdown-menu">
-                           
-                           <li>
-                              <a href="/search.html">Advanced Search</a>
-                              
-                           </li>
-                           
-                        </ul>
-                        
-                     </div>
-                     
-                  </li>
-                  
-                  <li>
-                     
-                     <div class="btn-nav">
-                        <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
-                           Font <span class="caret"></span>
-                           </a>
-                        
-                        <ul class="dropdown-menu" id="swap-font">
-                           
-                           <li>
-                              <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
-                              
-                           </li>
-                           
-                           <li>
-                              <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
-                              
-                           </li>
-                           
-                           <li>
-                              <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
-                              
-                           </li>
-                           
-                           <li>
-                              <a href="#" class="swap-font" id="SertoJerusalemSelect" data-font-id="SertoJerusalem">Serto Jerusalem</a>
-                              
-                           </li>
-                           
-                        </ul>
-                        
-                     </div>
-                     
-                  </li>
-                  
-               </ul>
-               
-               <form class="navbar-form navbar-right navbar-input-group" role="search" action="/search.html" method="get">
-                  
-                  <div class="input-group">
-                     <input type="text" class="form-control keyboard" placeholder="search" name="q" id="q" />
-                     
-                  </div>
-                  
-               </form>
-               
-            </div>
-            <!--/.nav-collapse -->
+            <img alt="Creative Commons License" style="border-width:0" src="$app-root/resources/img/cc.png" height="18px" />
+            This work is licensed under a 
+            <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" style="color:white;">Creative Commons Attribution-NonCommercial 4.0 license (CC BY-NC 4.0)</a>.
+            <br />Copyright © 2011 Beth Mardutho: The Syriac Institute.
             
          </div>
          
-      </div>
-      <div xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
-         <div class="banner-interior" data-template="app:fix-links">
-            
-            <div class="hugoye-banner">
-               <img src="/resources/img/hugoye_banner.png" />
-               
-            </div>
-            
-         </div>
-         <div class="row top-padding indent">
-            
-            <div class="container">
-               
-               <!-- To do -->
-               
-               <div class="col-md-12">
-                  
-                  <div data-template="search:show-form"></div>
-                  
-                  <div data-template="search:get-results" class="search-results">
-                     
-                     <!-- Calls paging and search parameters string  -->
-                     
-                     <div data-template="search:pageination" data-template-sort-options="relevance,title,author,volume"></div>
-                     
-                     <!-- Prints search results  -->
-                     
-                     <div class="row">
-                        
-                        <!--
-                        <div class="col-md-4">
-                            <div data-template="search:display-facets"/>
-                        </div>
-                        -->
-                        
-                        <div class="col-md-12">
-                           
-                           <div data-template="search:build-page"></div>
-                           
-                        </div>
-                        
-                     </div>
-                     
-                     <div class="page-bottom">
-                        
-                        <div data-template="search:pageination" data-template-sort-options="relevance,title,author,volume"></div>
-                        
-                     </div>
-                     
-                  </div>
-                  
-               </div>
-               
-            </div>
-            
-         </div>
-         
-      </div>
-   </body>
-</html>
+         <!-- Additional Javascript -->
+         <script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
+         <script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script>
+         <script type="text/javascript" src="/resources/js/main.js"></script>
+         <script type="text/javascript" src="/resources/js/lightslider.min.js"></script>
+         </footer>
+   </body><script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script><script type="text/javascript" src="/resources/js/require.min.js"></script><script type="text/javascript" src="/resources/js/srophe.js"></script><script data-template="app:google-analytics"></script></html>

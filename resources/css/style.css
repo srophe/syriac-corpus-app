@@ -206,7 +206,7 @@ img{ margin:0px }
 /* Nav bar icons for submodules */
 .navbar .dropdown-menu li a{margin-left:.5em;}
 /* Used for dropdowns next to syriaca.org icon, so both icon and caret are "clickable" */
-.navbar .lonely-caret {margin-left:-2em;}
+.navbar .lonely-caret {margin-top:.25em;}
 .navbar .nav-icons {
     background-position: left center;
     background-repeat: no-repeat;

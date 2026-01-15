@@ -65,7 +65,7 @@ $('a.getData').click(function(event) {
     
 $('#showSection').click(function(event) {
     event.preventDefault();
-    $('#recComplete').load('/exist/apps/srophe/documentation/faq.html #selection');
+    $('#recComplete').load('/documentation/faq.html #selection');
 });
 
 //Changes text on toggle buttons, toggle funtion handled by Bootstrap
@@ -103,7 +103,77 @@ $('.getContent').click(function(index, element) {
         console.log('Getting data...')
     }); 
    });
-   
+
+ 
+//RDF
+$('#getRDF').children('form').each(function () {
+    var url = $(this).attr('action');
+    $.get(url, $(this).serialize(), function (data) {
+        var showOtherResources = $("#showRDF");
+        var dataArray = data.results.bindings;
+        if (! jQuery.isArray(dataArray)) dataArray =[dataArray];
+        $.each(dataArray, function (currentIndex, currentElem) {
+            var relatedResources = 'Resources related to <a href="' + currentElem.uri.value + '">' + currentElem.label.value + '</a> '
+            var relatedSubjects = (currentElem.subjects) ? '<div class="indent">' + currentElem.subjects.value + ' related subjects</div>': ''
+            var relatedCitations = (currentElem.citations) ? '<div class="indent">' + currentElem.citations.value + ' related citations</div>': ''
+            showOtherResources.append('<div>' + relatedResources + relatedCitations + relatedSubjects + '</div>');
+        });
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+    });      
+});
+
+//TOC Toggle options
+
+$('input.toggleDisplay').click(function() {
+    var display = $(this).data("element");
+    $('.'+ display).toggle();
+    var section = $('.'+ display).hasClass("tei-head");
+    //Change checkbox to active
+    $(this).toggleClass( "active" );
+        console.log(display);
+    });
+    
+$('button.toggleHead').click(function() {
+    $('.head').toggleClass( "hidden" );
+    });
+    
+$('a.sedra').click(function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var href = $(this).attr('href');
+    $('#sedraDisplay').css('display','block');
+    $.get(href, function( data ) {
+        $( "#sedraContent div.content" ).html( data );
+    }).fail(function() {
+        $('#sedraContent div.content').empty();
+        $( "#sedraContent div.content" ).html( 'There are no results for this word. Please try using the <a href="http://sedra.bethmardutho.org/">Syriac Dictionary Lookup</a>' );
+    });
+});
+                
+$('html').click(function() {
+    $('#sedraDisplay').hide();
+    $('#footnoteDisplay').hide();
+    $('#sedraContent div.content').empty();
+    $('#footnoteDisplay div.content').empty();
+    })
+    
+$('#rightCol').click(function(e){
+    e.stopPropagation();
+    });
+                
+$('.footnote-ref a').click(function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var link = $(this);
+    var href = $(this).attr('href');
+    var content = $(href).html()
+        $('#footnoteDisplay').css('display','block');
+        $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
+        $('#footnoteDisplay div.content').html( content );    
+});
+
+//END TOC
 if (navigator.appVersion.indexOf("Mac") > -1 || navigator.appVersion.indexOf("Linux") > -1) {
     $('.get-syriac').show();
 }
@@ -134,5 +204,6 @@ if(params !== 'undefined' && params !== ''){
 } else {
     $('.nav-tabs li').first().addClass('active');
 }
+
 
 });

@@ -6,27 +6,13 @@
       
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       
-      <title data-template="app:app-title">Digital Syriac Corpus</title>
-      
-      <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
-      
-      <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
-      
-      <meta name="DC.type" property="dc.type" content="Text" />
-      
-      <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org" />
+      <title data-template="config:app-title">Digital Syriac Corpus</title>
       
       <link data-template="app:metadata" />
       
-      <link rel="shortcut icon" href="/resources/img/favicon.ico" />
-      
-      <!-- Font Awesome, installed in eXist -->
-      
-      <!--<link rel="stylesheet" type="text/css" href="$shared/resources/css/all.css"/>-->
-      
-      <!-- Syriaca.org css -->
+      <link rel="shortcut icon" href="/resources/images/favicon.ico" />
       
       <!-- Bootstrap 3 -->
       
@@ -34,29 +20,48 @@
       
       <link rel="stylesheet" type="text/css" href="/resources/css/sm-core-css.css" />
       
-      <link rel="stylesheet" href="/resources/css/syr-icon-fonts.css" />
+      <!-- Srophe styles -->
+      
+      <link rel="stylesheet" type="text/css" href="/resources/css/syr-icon-fonts.css" />
+      
+      <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
       
       <link rel="stylesheet" type="text/css" href="/resources/css/main.css" />
       
+      <!--<link rel="stylesheet" type="text/css" href="/resources/css/slider.css"/>-->
+      
+      <!--<link rel="stylesheet" type="text/css" href="/resources/css/lightslider.css"/>-->
+      
       <link rel="stylesheet" type="text/css" media="print" href="/resources/css/print.css" />
       
-      <!-- Leaflet
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
+      <!-- Leaflet 
+        <link rel="stylesheet" href="/resources/leaflet/leaflet.css"/>
         <link rel="stylesheet" href="/resources/leaflet/leaflet.awesome-markers.css"/>
         -->
+      
+      <!-- Date Slider -->
+      
+      <link rel="stylesheet" type="text/css" href="/resources/dateSlider/css/slider.css" />
+      
+      <link rel="stylesheet" type="text/css" href="/resources/dateSlider/css/slider-classic-min.css" />
       
       <!-- JQuery -->
       
       <link href="/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+      <script defer="defer" data-domain="syriaccorpus.org" src="https://plausible.io/js/plausible.js"></script>
       <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
       <script type="text/javascript" src="/resources/jquery-ui/jquery-ui.min.js"></script>
       <script type="text/javascript" src="/resources/js/jquery.smartmenus.min.js"></script>
       <script type="text/javascript" src="/resources/js/clipboard.min.js"></script>
       
+      <!-- Date Slider -->
+      <script src="/resources/dateSlider/js/jQDateRangeSlider-min.js"></script>
+      
       <!-- Bootstrap -->
       <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script>
       
-      <script src="https://www.google.com/recaptcha/api.js"></script>
+      <!-- ReCaptcha -->
+      <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"></script>
       
       <!-- keyboard widget css & script -->
       <link href="/resources/keyboard/css/keyboard.min.css" rel="stylesheet" />
@@ -64,211 +69,129 @@
       <link href="/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet" />
       
       <link href="/resources/keyboard/syr/syr.css" rel="stylesheet" />
-      <script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.js"></script>
-      <script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"></script>
-      <script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"></script>
-      <script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"></script>
-      <script type="text/javascript" src="/resources/keyboard/syr/keyboardSupport.js"></script>
-      <script type="text/javascript" src="/resources/keyboard/syr/syr.js"></script>
-      <script type="text/javascript" src="/resources/js/keyboard.js"></script>
+      
+      <!-- Additional Javascript -->
+      <script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script>
+      <script type="text/javascript" src="/resources/js/require.min.js"></script>
+      <script type="text/javascript" src="/resources/js/srophe.js"></script>
       </head>
    <body id="body">
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
-         
-         <div class="container">
-            
-            <div class="navbar-header">
-               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  </button>
-               <a class="navbar-brand banner-container" href="/index.html">
-                  
-                  <!--<img property="logo" class="img-responsive" alt="Syriac.org" src="/resources/img/syriaca-logo.png"/> Draft-->
-                  <span class="banner-icon">
-                     
-                     </span>
-                  <span class="banner-text">Hugoye: Journal of Syriac Studies</span>
-                  </a>
-               
-            </div>
-            
-            <div class="navbar-collapse collapse pull-right">
-               
-               <ul class="nav navbar-nav sm sm-vertical" id="main-menu">
-                  
-                  <li class="dropdown">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        About Hugoye  <b class="caret"></b>
-                        </a>
-                     
-                     <ul class="dropdown-menu">
-                        
-                        <li>
-                           <a href="/editorial-board.html">Editorial Board</a>
-                           
-                        </li>
-                        
-                        <li>
-                           <a href="/submissions.html">Submissions</a>
-                           
-                        </li>
-                        
-                        <li>
-                           <a href="/open-access.html">Open Access</a>
-                           
-                        </li>
-                        
-                        <li>
-                           <a href="https://www.gorgiaspress.com/hugoye-journal-of-syriac-studies" target="_blank">Printed Edition Subscription</a>
-                           
-                        </li>
-                        
-                     </ul>
-                     
-                  </li>
-                  
-                  <li class="dropdown">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        Indexes  <b class="caret"></b>
-                        </a>
-                     
-                     <ul class="dropdown-menu">
-                        
-                        <li>
-                           <a href="/current-issue.html">Current Issue</a>
-                           
-                        </li>
-                        
-                        <li>
-                           <a href="/hugoye-pre-publication-drafts.html">Next Issue Preview Drafts</a>
-                           
-                        </li>
-                        
-                        <li>
-                           <a href="/volumes.html">Volume Index</a>
-                           
-                        </li>
-                        
-                        <li>
-                           <a href="/authors.html">Author Index</a>
-                           
-                        </li>                                
-                        
-                     </ul>
-                     
-                  </li>
-                  
-                  
-               </ul>
-               
-               <ul class="nav navbar-nav navbar-right keboard-btn">
-                  
-                  <li>
-                     
-                     <div class="btn-nav">
-                        <a class="btn btn-default navbar-btn dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
-                            <span class="syriaca-icon syriaca-keyboard">  </span>
-                           <span class="caret"></span>
-                           </a>
-                        
-                        <ul data-template="app:keyboard-select-menu" data-template-input-id="q"></ul>
-                        
-                     </div>
-                     
-                  </li>
-                  
-                  <li>
-                     
-                     <div class="btn-nav">
-                        <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Search Tools">
-                            <span class="glyphicon glyphicon-search"></span> <span class="caret"></span>
-                           </a>
-                        
-                        <ul class="dropdown-menu">
-                           
-                           <li>
-                              <a href="/search.html">Advanced Search</a>
-                              
-                           </li>
-                           
-                        </ul>
-                        
-                     </div>
-                     
-                  </li>
-                  
-                  <li>
-                     
-                     <div class="btn-nav">
-                        <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
-                           Font <span class="caret"></span>
-                           </a>
-                        
-                        <ul class="dropdown-menu" id="swap-font">
-                           
-                           <li>
-                              <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
-                              
-                           </li>
-                           
-                           <li>
-                              <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
-                              
-                           </li>
-                           
-                           <li>
-                              <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
-                              
-                           </li>
-                           
-                           <li>
-                              <a href="#" class="swap-font" id="SertoJerusalemSelect" data-font-id="SertoJerusalem">Serto Jerusalem</a>
-                              
-                           </li>
-                           
-                        </ul>
-                        
-                     </div>
-                     
-                  </li>
-                  
-               </ul>
-               
-               <form class="navbar-form navbar-right navbar-input-group" role="search" action="/search.html" method="get">
-                  
-                  <div class="input-group">
-                     <input type="text" class="form-control keyboard" placeholder="search" name="q" id="q" />
-                     
-                  </div>
-                  
-               </form>
-               
-            </div>
-            <!--/.nav-collapse -->
-            
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation"> 
+         <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand banner-container" href="/index.html"> 
+               <span class="banner-icon">
+                  <img src="/resources/images/syriac-corpus.svg" alt="" width="50px" />
+               </span>
+               <span class="banner-text">Digital Syriac Corpus</span>
+            </a>
          </div>
-         
-      </div>
-      <div xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
-         
+         <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
+            <ul class="nav navbar-nav">
+               <li>
+                  <a href="/browse.html" class="nav-text">Browse</a>
+               </li>
+               <li class="dropdown">
+                  <a href="#" class="dropdown-toggle lonely-caret" data-toggle="dropdown">About  <b class="caret"></b></a>
+                  <ul class="dropdown-menu pull-right">
+                     <li>
+                        <a href="/about.html">About the Project</a>
+                     </li>
+                     <li role="presentation" class="divider"></li>
+                     <li>
+                        <a href="/history.html">History of the Project</a>
+                     </li>
+                     <li role="presentation" class="divider"></li>
+                     <li>
+                        <a href="/project-team.html">Project Team</a>
+                     </li>
+                     <li role="presentation" class="divider"></li>
+                     <li>
+                        <a href="/submissions.html">Submissions to the Corpus</a>
+                     </li>
+                     <li role="presentation" class="divider"></li>
+                     <li>
+                        <a href="/contact-us.html">Contact Us</a>
+                     </li>
+                     <li role="presentation" class="divider"></li>
+                     <li>
+                        <a href="/documentation/index.html">Documentation</a>
+                     </li>
+                  </ul>
+               </li>
+               <li>
+                  <a href="/search.html" class="nav-text">Advanced Search</a>
+               </li>
+               <li>
+                  <div id="search-wrapper">
+                     <form class="navbar-form navbar-right search-box" role="search" action="/search.html" method="get">
+                        <div class="form-group">
+                           <input type="text" class="form-control keyboard" placeholder="search" name="keyword" id="keywordNav" />
+                           <div class="keyboard-menu">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard"> <span class="syriaca-icon syriaca-keyboard">  </span><span class="caret"></span></button>                                          
+                              <ul class="dropdown-menu">                 
+                                 <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="keywordNav">Syriac Phonetic</a></li>                
+                                 <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="keywordNav">Syriac Standard</a></li>                 
+                                 <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="keywordNav">English QWERTY</a></li>             
+                              </ul>        
+                           </div>
+                           <button class="btn btn-default search-btn" id="searchbtn" type="submit" title="Search">
+                              <span class="glyphicon glyphicon-search"></span>
+                           </button>                                    
+                        </div>
+                     </form>
+                  </div>
+               </li>
+               <li>
+                  <div class="btn-nav">
+                     <button class="btn btn-default navbar-btn" id="font" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                        <span class="glyphicon glyphicon-font"></span>
+                     </button>    
+                     <ul class="dropdown-menu dropdown-menu-right" id="swap-font">
+                        <li>
+                           <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
+                        </li>
+                        <li>
+                           <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
+                        </li>
+                        <li>
+                           <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
+                        </li>
+                        <li>
+                           <a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a>
+                        </li>
+                        <li>
+                           <a href="/documentation/wiki.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/syriaca-data/wiki">Help <span class="glyphicon glyphicon-question-sign"></span></a>                           
+                        </li>                        
+                     </ul>
+                  </div>
+               </li>
+            </ul>
+         </div>
+      </nav>
+      <div class="main-content-block">    
          <!--<xi:include href="banner.html"/>-->
          
-         <div class="grey-dark" data-template="app:fix-links">
+         <div class="grey-dark">
             
             <div class="container interior-content white">
                
-               <!--<div data-template="app:h1"/>-->
+               <div data-template="app:h1"></div>
                
-               <div data-template="app:other-data-formats" data-template-formats="pdf,uri,tei"></div>
+               <div data-template="app:other-data-formats" data-template-formats="corrections,copy,print,tei,text" class="data-formats noprint"></div>
+               
                
                <div class="row">
                   
                   <div data-template="app:display-left-menu"></div>
                   
-                  <div data-template="app:display-body"></div>
+                  <div data-template="app:display-body" data-template-paths="/descendant::tei:text"></div>
+                  
                   
                   <div class="col-sm-4 col-md-4 col-lg-3 right-menu">
                      
@@ -280,7 +203,7 @@
                               <span style="display:block;text-align:center;margin:.5em;">
                                  <a href=" http://sedra.bethmardutho.org" title="SEDRA IV">SEDRA IV</a>
                                  </span>
-                              <img src="/resources/img/sedra-logo.png" title="Sedra logo" width="100%" />
+                              <img src="$nav-base/resources/images/sedra-logo.png" title="Sedra logo" width="100%" />
                               
                               <h3>Syriac Lexeme</h3>
                               
@@ -298,14 +221,117 @@
                      
                      <div data-template="app:display-ids"></div>
                      
-                     <!-- Linked Data Box, saved for later. <div data-template="app:srophe-related"/>-->
+                     <div data-template="app:display-nodes" data-template-paths="/descendant::tei:teiHeader"></div>
                      
-                     <!--<div data-template="app:display-cite"/>-->
-                     <span class="badge access-pills">
-                        <a href="/open-access.html" style="color:#555">open access <i class="fas fa-unlock-alt"></i>
-                           </a>
-                        </span>
-                     <span data-template="app:peer-review"></span>
+                     <div data-template="app:srophe-related" class="noprint"></div>
+                     
+                     <div data-template="app:display-related" class="noprint"></div>
+                     
+                  </div>
+                  
+               </div>
+               
+               <div id="footnoteDisplay" class="footnote">
+                  
+                  <div class="content"></div>  
+                  
+               </div>
+               <script type="text/javascript">
+                $('input.toggleDisplay').click(function() {
+                var display = $(this).data("element");
+                $('.'+ display).toggle();
+                var section = $('.'+ display).hasClass("tei-head");
+                /*
+                if(section){
+                $(' .' + display + '.tei-head').toggle();
+                }else{
+                $(' .' + display).toggleClass( 'display' );
+                }*/
+                //Change checkbox to active
+                $(this).toggleClass( "active" );
+                console.log(display);
+                });
+                
+                $('button.toggleHead').click(function() {
+                $('.head').toggleClass( "hidden" );
+                });
+                
+                $('a.sedra').click(function(e) {
+                //event.preventDefault();
+                e.stopPropagation();
+                e.preventDefault();
+                var href = $(this).attr('href');
+                $('#sedraDisplay').css('display','block');
+                $.get(href, function( data ) {
+                $( "#sedraContent div.content" ).html( data );
+                })    
+                .fail(function() {
+                $('#sedraContent div.content').empty();
+                $( "#sedraContent div.content" ).html( 'There are no results for this word. Please try using the <a href="http://sedra.bethmardutho.org/">Syriac Dictionary Lookup</a>' );
+                });
+                });
+                
+                $('html').click(function() {
+                $('#sedraDisplay').hide();
+                $('#footnoteDisplay').hide();
+                $('#sedraContent div.content').empty();
+                $('#footnoteDisplay div.content').empty();
+                })
+                
+                $('#rightCol').click(function(e){
+                e.stopPropagation();
+                });
+                
+                $('.footnote-ref a').click(function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var link = $(this);
+                var href = $(this).attr('href');
+                var content = $(href).html()
+                $('#footnoteDisplay').css('display','block');
+                $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
+                $('#footnoteDisplay div.content').html( content );    
+                });
+                
+            </script>
+               
+               
+               <!--<div data-template="app:citation"/>-->
+               </div>
+            
+            <!-- Modal email form-->
+            
+            <div data-template="app:contact-form"></div>
+            
+            <div data-template="app:contact-form-linked-data"></div>
+            
+            <div class="modal fade" id="moreInfo" tabindex="-1" role="dialog" aria-labelledby="moreInfoLabel" aria-hidden="true">
+               
+               <div class="modal-dialog modal-lg">
+                  
+                  <div class="modal-content">
+                     
+                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                           <span aria-hidden="true">x</span>
+                           <span class="sr-only">Close</span>
+                           </button>
+                        
+                        <h2 class="modal-title" id="moreInfoLabel"></h2>
+                        
+                     </div>
+                     
+                     <div class="modal-body" id="modal-body">
+                        
+                        <div id="moreInfo-box"></div>
+                        <br style="clear:both;" />
+                        
+                     </div>
+                     
+                     <div class="modal-footer">
+                        <button class="btn btn-default" data-dismiss="modal">Close</button>
+                        
+                     </div>
                      
                   </div>
                   
@@ -315,96 +341,25 @@
             
          </div>
          
-         <!-- Floating footnotes display -->
+      </div>
+      <!-- Footer with Syriaca.org branding -->
+      <footer>
          
-         <div id="footnoteDisplay" class="footnote">
+         <div class="container" style="width: 60%">
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+               <img alt="Creative Commons License" style="border-width:0" src="/resources/images/cc.png" height="18px" />
+               </a>
+            Digital Syriac Corpus is a collaboration of University of Oxford, Brigham Young University,
             
-            <div class="content" id="contentText"></div>  
-            <a class="badge access-pills pull-right" id="copyFootnote" data-toggle="tooltip" title="Copy footnote text to clipboard." data-clipboard-action="copy" data-clipboard-target="#contentText" style="color:#555;">
-               <span class="glyphicon glyphicon-copy" aria-hidden="true"></span> Copy footnote text</a>
+            Vanderbilt University, and the Center of Digital Humanities Research (CoDHR) at Texas
+            A&amp;M University. 
+            This HTML page is copyrighted by Vanderbilt University and released under a under
+            a 
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/" style="color:#C0C0C0;">Creative Commons Attribution 4.0 International Public License (CC-BY 4.0)</a>. 
+            The TEI XML editions are copyrighted by the encoders and released under 
+            CC-BY 4.0. All Syriac base texts are in the public domain.
             
          </div>
          
-         <script type="text/javascript">
-        
-      $(document).ready(function () {
-      
-        //$('#sedraDisplay').hide();
-            
-        $('input.toggleDisplay').click(function() {
-            var display = $(this).data("element");
-            $('.'+ display).children('.text-number').toggle();
-            //$('.'+ display).children('.head').toggle();
-            var section = $('.'+ display).hasClass("tei-head");
-            if(section){
-                $(' .' + display + '.tei-head').toggle();
-            }else{
-                $(' .' + display).toggleClass( 'display' );
-            }
-            //Change checkbox to active
-            $(this).toggleClass( "active" );
-        });
-        
-        $('button.toggleHead').click(function() {
-            $('.head').toggleClass( "hidden" );
-        });
-        
-        $('a.sedra').click(function(e) {
-            //event.preventDefault();
-            e.stopPropagation();
-            e.preventDefault();
-            console.log('sedra clicked')
-            var href = $(this).attr('href');
-            $('#sedraDisplay').css('display','block');
-            $.get(href, function( data ) {
-                $( "#sedraContent div" ).html( data );
-            })    
-            .fail(function() {
-                $('#sedraContent div.content').empty();
-                $( "#sedraContent div.content" ).html( 'There are no results for this word. Please try using the &amp;lt;a href="http://sedra.bethmardutho.org/"&amp;gt;Syriac Dictionary Lookup&amp;lt;/a&amp;gt;' );
-            });
-        });
-        
-        $('html').click(function() {
-            $('#sedraDisplay').hide();
-            $('#footnoteDisplay').hide();
-            $('#sedraContent div.content').empty();
-            $('#footnoteDisplay div.content').empty();
-        })
-       
-        $('#rightCol').click(function(e){
-            e.stopPropagation();
-        });
-        
-        $('.footnote-ref a').click(function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            var link = $(this);
-            var href = $(this).attr('href');
-            var content = $(href).html()
-            $('#footnoteDisplay').css('display','block');
-            $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
-            $('#footnoteDisplay div.content').html( content );
-            
-        });
-        
-        $('#footnoteDisplay').click(function(e) {
-            e.stopPropagation();
-        });
-        
-        /* Copy footnote to clipboard */
-        var btn = document.getElementById('copyFootnote');
-        var clipboard = new Clipboard(btn);
-            clipboard.on('success', function(e) {
-                console.log(e);
-            });
-        clipboard.on('error', function(e) {
-                console.log(e);
-            });        
-       });
-        
-    </script>
-         
-         </div>
-   </body>
-</html>
+      </footer>
+   </body><script data-template="app:google-analytics"></script></html>

@@ -61,8 +61,7 @@
    z-index: 1500;
 }
 
-    
-}
+
 
 /* Main content blocks */
 body {font-family: arial, sans-serif;}
@@ -77,70 +76,67 @@ footer{background-color:#444;}
 .interior-content {padding:0; padding-top: 50px;}
 .full-page {margin-top:0;}
 
-/* Navbar styles*/
-.navbar {border-bottom:4px solid #4E6D59 !important;}
-.navbar-inner {border-bottom:.5em solid #4E6D59 !important;}
-.navbar-inner .container{height: 45px !important; padding-top:.5em; margin-left:.5em;}
-.navbar-brand {margin-right:-1em;}
-.navbar-brand img {padding:0; margin-top: -.25em; margin-left: 0em; margin-right:0;}
-
-.brand {margin-top:-.75em; margin-left:40px;padding-left:0;}
-.brand img {margin-left:1.5em;padding-left:0;}
-
-.navbar-inner .nav > li > a:hover, .advanced-search > a:hover {
-        border-bottom: 4px solid #DDEAF1 !important;  
-}
-.navbar-inner > .container > .nav > li.selected {border-bottom: 4px solid #E69849 !important; }
-.advanced-search > a {color:#999; text-decoration:none;}
-
-.navbar .advanced-search{margin-top:-.5em;}
-.navbar-form {overflow:hidden;}
-
-.navbar-input-group {
-  font-size: 0px; /*removes whitespace between button and input*/
+/* Navbar search */
+#search-wrapper {
+  margin-top: .75em;
+  margin-left:.5em;
+  margin-right:.5em; 
+  padding:0;
+  display:flex;
+  flex-direction:row;
+  border:1px solid grey;
+  height: 32px;
+  background-color: rgba(255,255,255, .80);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  border-radius: 25px;
 }
 
-/*.navbar-form {max-width: 350px;}*/
-/* Nav submenus*/
-.dropdown-submenu {position: relative;}
-.dropdown-submenu > .dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-}
-.dropdown-submenu:hover > .dropdown-menu {
-  display: block;
-}
-.dropdown-submenu:hover > a:after {
-  border-left-color: #fff;
-}
-.dropdown-submenu.pull-left {
-  float: none;
-}
-.dropdown-submenu.pull-left > .dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
+#search-wrapper form {margin: 0; border:0 !important; padding:0;display:flex;}
+#search-wrapper input {
+  border-radius: 25px;
+  height: 32px;
+  background-color:transparent !important;
+  border:none;
+  flex-grow:2;
+  border:none;
+/*  color:white;  */
 }
 
-/* Nav bar icons for submodules */
-.dropdown-menu li a{margin-left:.5em;}
-
-/* Used for dropdowns next to syriaca.org icon, so both icon and caret are "clickable" */
-.lonely-caret {margin-left:-2em; padding-left:0;}
-
-.nav-icons {
-    background-position: left center;
-    background-repeat: no-repeat;
-    text-indent:14px;
+#search-wrapper .form-group {display:flex;}
+#search-wrapper input:focus{
+  outline: none;
 }
 
-.sub-menu .nav-icons{margin-left:2em;}
+.navbar-btn {
+  margin-top: .75em;
+  margin-right:4px;
+  height: 32px;
+  color: #3596e0;
+  border-radius: 25px;
+  height: 32px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
 
-.icon-container {display:inline-block; line-height:1.5em;}
-.icon-nav {font-size:1.75em; display:inline-block; margin-right:.15em;}
-.icon-text {display:inline-block; margin-top:-.85em; vertical-align: middle;}
-.nav-text {display:inline-block; line-height:1.5em; margin-top:.25em;}
+.search-box .search-btn {
+  margin-left:-.5em !important;
+  width: 32px;
+  height: 32px;
+  border: none !important;
+  color: #3596e0;
+  background-color:transparent !important;
+}
+
+.search-box .keyboard-menu .btn-default {
+   height: 32px;
+   border:none;
+   background-color:transparent !important;
+}
+
+.search-box .navbar-form {overflow:visible;}
+
+#search-info {
+  scroll-margin-top: 80px; /* Match header height */
+}
 
 .banner-container {display:inline-block;}
 .banner-icon {font-size:2.5em; display:inline-block; padding-top:0;}

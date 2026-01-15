@@ -1,31 +1,327 @@
-<div xmlns="http://www.w3.org/1999/xhtml" xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
-    <div class="banner-interior">
-    <span class="img-credit">
-        <label>Photo Credit: </label>Image Colchester 1932.228 f. 4b
-    </span>
-</div>
-    <h1 class="banner">About Syriac</h1>
-    <div class="row main-content-block">
-        <div class="col-md-8">
-            <div class="indent">
-                <!--
+<?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:srophe="https://srophe.app">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      
+      <meta charset="utf-8" />
+      
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      
+      <title data-template="config:app-title">Digital Syriac Corpus</title>
+      
+      <link data-template="app:metadata" />
+      
+      <link rel="shortcut icon" href="/resources/images/favicon.ico" />
+      
+      <!-- Bootstrap 3 -->
+      
+      <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css" />
+      
+      <link rel="stylesheet" type="text/css" href="/resources/css/sm-core-css.css" />
+      
+      <!-- Srophe styles -->
+      
+      <link rel="stylesheet" type="text/css" href="/resources/css/syr-icon-fonts.css" />
+      
+      <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
+      
+      <link rel="stylesheet" type="text/css" href="/resources/css/main.css" />
+      
+      <!--<link rel="stylesheet" type="text/css" href="/resources/css/slider.css"/>-->
+      
+      <!--<link rel="stylesheet" type="text/css" href="/resources/css/lightslider.css"/>-->
+      
+      <link rel="stylesheet" type="text/css" media="print" href="/resources/css/print.css" />
+      
+      <!-- Leaflet 
+        <link rel="stylesheet" href="/resources/leaflet/leaflet.css"/>
+        <link rel="stylesheet" href="/resources/leaflet/leaflet.awesome-markers.css"/>
+        -->
+      
+      <!-- Date Slider -->
+      
+      <link rel="stylesheet" type="text/css" href="/resources/dateSlider/css/slider.css" />
+      
+      <link rel="stylesheet" type="text/css" href="/resources/dateSlider/css/slider-classic-min.css" />
+      
+      <!-- JQuery -->
+      
+      <link href="/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+      <script defer="defer" data-domain="syriaccorpus.org" src="https://plausible.io/js/plausible.js"></script>
+      <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+      <script type="text/javascript" src="/resources/jquery-ui/jquery-ui.min.js"></script>
+      <script type="text/javascript" src="/resources/js/jquery.smartmenus.min.js"></script>
+      <script type="text/javascript" src="/resources/js/clipboard.min.js"></script>
+      
+      <!-- Date Slider -->
+      <script src="/resources/dateSlider/js/jQDateRangeSlider-min.js"></script>
+      
+      <!-- Bootstrap -->
+      <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script>
+      
+      <!-- ReCaptcha -->
+      <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"></script>
+      
+      <!-- keyboard widget css & script -->
+      <link href="/resources/keyboard/css/keyboard.min.css" rel="stylesheet" />
+      
+      <link href="/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet" />
+      
+      <link href="/resources/keyboard/syr/syr.css" rel="stylesheet" />
+      
+      <!-- Additional Javascript -->
+      <script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script>
+      <script type="text/javascript" src="/resources/js/require.min.js"></script>
+      <script type="text/javascript" src="/resources/js/srophe.js"></script>
+      </head>
+   <body id="body">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation" data-template="app:fix-links">
+         
+         <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+            <a class="navbar-brand banner-container" href="/index.html">
+               <span class="banner-icon">
+                  <img src="/resources/images/syriac-corpus.svg" alt="" width="50px" />
+                  </span>
+               <span class="banner-text">Digital Syriac Corpus</span>
+               </a>
+            
+         </div>
+         
+         <div class="navbar-collapse collapse pull-right">
+            
+            <ul class="nav navbar-nav sm sm-vertical" id="main-menu">
+               
+               <li>
+                  <a href="/browse.html">Browse</a>
+                  
+               </li>
+               
+               <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                     About<b class="caret"></b>
+                     </a>
+                  
+                  <ul class="dropdown-menu">
+                     
+                     <li>
+                        <a href="/about.html">About the Project</a>
+                        
+                     </li>
+                     
+                     <li role="presentation" class="divider"></li>
+                     
+                     <li>
+                        <a href="/history.html">History of the Project</a>
+                        
+                     </li>
+                     
+                     <li role="presentation" class="divider"></li>
+                     
+                     <li>
+                        <a href="/project-team.html">Project Team</a>
+                        
+                     </li>
+                     
+                     <li role="presentation" class="divider"></li>
+                     
+                     <li>
+                        <a href="/submissions.html">Submissions to the Corpus</a>
+                        
+                     </li>
+                     
+                     <li role="presentation" class="divider"></li>
+                     
+                     <li>
+                        <a href="/contact-us.html">Contact Us</a>
+                        
+                     </li>
+                     
+                     <li role="presentation" class="divider"></li>
+                     
+                     <li>
+                        <a href="/documentation/index.html">Documentation</a>
+                        
+                     </li>
+                     
+                  </ul>
+                  
+               </li>                      
+               
+            </ul>
+            
+            <form class="navbar-form navbar-left navbar-input-group" role="search" action="/search.html" method="get">
+               
+               <div class="input-group">
+                  <input type="text" class="form-control keyboard" placeholder="search" name="q" id="keywordNav" title="Search by keyword" />
+                  
+                  <div class="input-group-btn">
+                     <button class="btn btn-default" type="submit" data-toggle="tooltip" title="Search">
+                        <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                     
+                  </div>
+                  
+               </div>
+               
+            </form>
+            
+            <ul class="nav navbar-nav navbar-right keboard-btn">
+               
+               <li>
+                  
+                  <div class="btn-nav">
+                     <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                        <b class="caret"></b>
+                        </a>
+                     
+                     <ul class="dropdown-menu">
+                        
+                        <li>
+                           <a href="/search.html">Advanced Search</a>
+                           
+                        </li>
+                        
+                     </ul>
+                     
+                  </div>
+                  
+               </li>
+               
+               <li>
+                  
+                  <div class="btn-nav navbar-btn">
+                     <span data-template="app:keyboard-select-menu" data-template-input-id="keywordNav"></span>
+                     
+                  </div>
+                  
+               </li>
+               
+               <li>
+                  
+                  <div class="btn-nav">
+                     <a href="#" class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                        Font <span class="caret"></span>
+                        </a>
+                     
+                     <ul class="dropdown-menu" id="swap-font">
+                        
+                        <li>
+                           <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/documentation/wiki.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/srophe-app-data/wiki">Help <span class="glyphicon glyphicon-question-sign"></span>
+                              </a>
+                           
+                        </li>
+                        
+                     </ul>
+                     
+                  </div>
+                  
+               </li>
+               
+            </ul>
+            
+         </div>
+         <!--/.nav-collapse -->
+         
+      </div>
+      <div xmlns:xi="http://www.w3.org/2001/XInclude" data-template="templates:surround" data-template-with="templates/page.html" data-template-at="content">
+         
+         <div class="banner-interior">
+            <span class="img-credit">
+               <label>Photo Credit: </label>Image Colchester 1932.228 f. 4b
+               </span>
+            
+         </div>
+         
+         <h1 class="banner">About Syriac</h1>
+         
+         <div class="row main-content-block">
+            
+            <div class="col-md-8">
+               
+               <div class="indent">
+                  
+                  <!--
             <div style="text-align: center;">
                 <img width="100%" title="About Syriac" src="http://syriac.library.vanderbilt.edu/blog/wp-content/uploads/2011/11/About-Syriac.jpg" alt=""/>
                 <p class="caption">BALA26: Syriac Byzantine Rite Euchologion. Manuscript on paper, early 17th Century. Monastery of Our Lady of Balamand, Lebanon, MS. 31. Photo: Hill Museum &amp; Manuscript Library.</p>
             </div>
             -->
-            <h2>What is Syriac?</h2>
-            <p>Syriac is a dialect of Aramaic that originally developed in the kingdom of Edessa (modern Urfa in Turkey), beginning approximately in the first century of the common era. A Semitic language with its own script, Syriac flourished as a literary language in both the Sassanian (Persian) and Roman Empires. Texts in Syriac comprise the third largest surviving corpus of literature (after Greek and Latin) from the period of Late Antiquity (circa fourth through seventh centuries C.E.). As one of several dialects of Aramaic, Syriac also served as a <em>lingua franca</em> enabling both commerce and religious missionary activity across political boundaries.</p>
-            <h2>Why study it?</h2>
-            <p>Precisely because the study of Syriac has received little attention until now, sources in Syriac hold immense value for increasing our historical understanding of the Middle East and Asia. Perhaps more than ten thousand manuscripts or manuscript fragments written in Syriac survive today. These manuscripts are firsthand evidence for documenting history over a wide geographic range. The oldest of these manuscripts are over 1500 years old; many are unique sources for Middle Eastern and Asian history covering a diverse range of topics.</p>
-            <p>Historians of religion have perhaps had the most interest in Syriac sources, particularly for their usefulness in documenting key moments in the development of Judaism, Christianity, Islam, and other religions of Late Antiquity. In addition to religious history, sources in Syriac are valuable for research on a broad range of questions in intellectual and cultural history. Beyond cultural or intellectual history, further historical evidence in Syriac includes unique sources for political history over the entire history of the Middle East.</p>
-            <p>Because of the unexploited riches of these source materials, scholarly interest in Syriac has risen dramatically in the last two decades. Based on the fruits of this recent growth of scholarship, it is certain that further research on the history of Syriac communities, their cultures, and their literature will be a source of significant new discoveries and advancement in the study of the Middle East and central Asia.</p>
-                <p>Further introduction to Syriac studies can be found through the following online resources:</p>
-            <ul>
-                <li>
-                    <a onclick="javascript:_gaq.push(['_trackPageview', '/out/bethmardutho.org']);" href="http://bethmardutho.org" target="_blank">Beth Mardutho: The Syriac Institute</a>
-                </li>
-                <!-- <li>
+                  
+                  <h2>What is Syriac?</h2>
+                  
+                  <p>Syriac is a dialect of Aramaic that originally developed in the kingdom of Edessa
+                     (modern Urfa in Turkey), beginning approximately in the first century of the common
+                     era. A Semitic language with its own script, Syriac flourished as a literary language
+                     in both the Sassanian (Persian) and Roman Empires. Texts in Syriac comprise the third
+                     largest surviving corpus of literature (after Greek and Latin) from the period of
+                     Late Antiquity (circa fourth through seventh centuries C.E.). As one of several dialects
+                     of Aramaic, Syriac also served as a <em>lingua franca</em> enabling both commerce and religious missionary activity across political boundaries.
+                  </p>
+                  
+                  <h2>Why study it?</h2>
+                  
+                  <p>Precisely because the study of Syriac has received little attention until now, sources
+                     in Syriac hold immense value for increasing our historical understanding of the Middle
+                     East and Asia. Perhaps more than ten thousand manuscripts or manuscript fragments
+                     written in Syriac survive today. These manuscripts are firsthand evidence for documenting
+                     history over a wide geographic range. The oldest of these manuscripts are over 1500
+                     years old; many are unique sources for Middle Eastern and Asian history covering a
+                     diverse range of topics.
+                  </p>
+                  
+                  <p>Historians of religion have perhaps had the most interest in Syriac sources, particularly
+                     for their usefulness in documenting key moments in the development of Judaism, Christianity,
+                     Islam, and other religions of Late Antiquity. In addition to religious history, sources
+                     in Syriac are valuable for research on a broad range of questions in intellectual
+                     and cultural history. Beyond cultural or intellectual history, further historical
+                     evidence in Syriac includes unique sources for political history over the entire history
+                     of the Middle East.
+                  </p>
+                  
+                  <p>Because of the unexploited riches of these source materials, scholarly interest in
+                     Syriac has risen dramatically in the last two decades. Based on the fruits of this
+                     recent growth of scholarship, it is certain that further research on the history of
+                     Syriac communities, their cultures, and their literature will be a source of significant
+                     new discoveries and advancement in the study of the Middle East and central Asia.
+                  </p>
+                  
+                  <p>Further introduction to Syriac studies can be found through the following online resources:</p>
+                  
+                  <ul>
+                     
+                     <li>
+                        <a onclick="javascript:_gaq.push(['_trackPageview', '/out/bethmardutho.org']);" href="http://bethmardutho.org" target="_blank">Beth Mardutho: The Syriac Institute</a>
+                        
+                     </li>
+                     
+                     <!-- <li>
                     <a onclick="javascript:_gaq.push(['_trackPageview', '/out/www.manumed.org/fr/presentation.htm']);" href="http://www.manumed.org/fr/presentation.htm">MANUMED: European Union Programme Euromed Heritage 4</a>
                 </li>
                 <li>
@@ -34,36 +330,82 @@
                 <li>
                     <a onclick="javascript:_gaq.push(['_trackPageview', '/out/www.usek.edu.lb/fr/subpage.aspx?pageid=4524']);" href="http://www.usek.edu.lb/fr/subpage.aspx?pageid=4524">La Bibliotheque Central,L’Universite Saint Esprit de Kaslik</a>
                 </li> -->
-                <li>
-                    <a onclick="javascript:_gaq.push(['_trackPageview', '/out/lib.byu.edu/digital/cua/']);" href="http://lib.byu.edu/digital/cua/">Syriac Studies Reference Library, Brigham Young University and the Catholic University of America</a>
-                </li>
-                <li>
-                    <a onclick="javascript:_gaq.push(['_trackPageview', '/out/cpart.byu.edu/?page=99&amp;sidebar']);" href="http://cpart.byu.edu/?page=99&amp;sidebar">Syriac Books, Center for the Preservation of Religious Texts, Brigham Young University</a>
-                </li>
-                <li>
-                    <a onclick="javascript:_gaq.push(['_trackPageview', '/out/syri.ac']);" href="http://cpart.byu.edu/?page=99&amp;sidebar">Syri.ac, The University of Oklahoma</a>
-                </li>
-            </ul>
-            <hr class="space"/>
-            <div class="sidebaraddthis addthis_toolbox addthis_32x32_style addthis_default_style">
-                <a class="addthis_button_facebook"/>
-                <a class="addthis_button_twitter"/>
-                <a class="addthis_button_email"/>
-                <a class="addthis_button_print"/>
-                <a class="addthis_button_google"/>
-                <a class="addthis_button_compact"/>
+                     
+                     <li>
+                        <a onclick="javascript:_gaq.push(['_trackPageview', '/out/lib.byu.edu/digital/cua/']);" href="http://lib.byu.edu/digital/cua/">Syriac Studies Reference Library, Brigham Young University and the Catholic University
+                           of America</a>
+                        
+                     </li>
+                     
+                     <li>
+                        <a onclick="javascript:_gaq.push(['_trackPageview', '/out/cpart.byu.edu/?page=99&amp;sidebar']);" href="http://cpart.byu.edu/?page=99&amp;sidebar">Syriac Books, Center for the Preservation of Religious Texts, Brigham Young University</a>
+                        
+                     </li>
+                     
+                     <li>
+                        <a onclick="javascript:_gaq.push(['_trackPageview', '/out/syri.ac']);" href="http://cpart.byu.edu/?page=99&amp;sidebar">Syri.ac, The University of Oklahoma</a>
+                        
+                     </li>
+                     
+                  </ul>
+                  
+                  <hr class="space" />
+                  
+                  <div class="sidebaraddthis addthis_toolbox addthis_32x32_style addthis_default_style">
+                     <a class="addthis_button_facebook"></a>
+                     <a class="addthis_button_twitter"></a>
+                     <a class="addthis_button_email"></a>
+                     <a class="addthis_button_print"></a>
+                     <a class="addthis_button_google"></a>
+                     <a class="addthis_button_compact"></a>
+                     
+                  </div>
+                  
+               </div>
+               
             </div>
+            
+            <div class="col-md-4" style="padding-right:2em;">
+               
+               <div class="panel panel-default">
+                  
+                  <div class="panel-heading">
+                     
+                     <h3 class="panel-title">About Syriaca.org</h3>
+                     
+                  </div>
+                  
+                  <div class="panel-body">
+                     
+                     <div data-template="app:shared-content" data-template-path="/about-menu.html"></div>
+                     
+                  </div>
+                  
+               </div>
+               
             </div>
-        </div>
-        <div class="col-md-4" style="padding-right:2em;">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">About Syriaca.org</h3>
-                </div>
-                <div class="panel-body">
-                    <div data-template="app:shared-content" data-template-path="/about-menu.html"/>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+            
+         </div>
+         
+      </div>
+      <!-- Footer with Syriaca.org branding -->
+      <footer>
+         
+         <div class="container" style="width: 60%">
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+               <img alt="Creative Commons License" style="border-width:0" src="/resources/images/cc.png" height="18px" />
+               </a>
+            Digital Syriac Corpus is a collaboration of University of Oxford, Brigham Young University,
+            
+            Vanderbilt University, and the Center of Digital Humanities Research (CoDHR) at Texas
+            A&amp;M University. 
+            This HTML page is copyrighted by Vanderbilt University and released under a under
+            a 
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/" style="color:#C0C0C0;">Creative Commons Attribution 4.0 International Public License (CC-BY 4.0)</a>. 
+            The TEI XML editions are copyrighted by the encoders and released under 
+            CC-BY 4.0. All Syriac base texts are in the public domain.
+            
+         </div>
+         
+      </footer>
+   </body><script data-template="app:google-analytics"></script></html>

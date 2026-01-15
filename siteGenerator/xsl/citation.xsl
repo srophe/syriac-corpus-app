@@ -1,4 +1,4 @@
-<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:local="http://syriaca.org/ns" exclude-result-prefixes="xs t x saxon local" version="2.0">
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:saxon="http://saxon.sf.net/" xmlns:local="http://syriaca.org/ns" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://www.tei-c.org/ns/1.0" xmlns:x="http://www.w3.org/1999/xhtml" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs t x saxon local" version="2.0">
     
     <!-- ================================================================== 
        citation.xsl
@@ -25,57 +25,52 @@
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
      generate a footnote for the matched titleStmt element
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <xsl:template match="t:titleStmt" mode="cite-foot">
-        <xsl:param name="idno"/>
+    <xsl:template match="t:titleStmt" mode="cite-foot">   
         <!-- creator(s) of the entry -->
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-        <xsl:if test="t:editor[@role='creator']">
-            <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='creator'],'footnote',1)"/>
-            <xsl:text>, </xsl:text>
+        <xsl:sequence select="local:emit-responsible-persons(t:author[not(@role='anonymous')],'footnote',1)"/>
+        <xsl:if test="t:author[not(@role='anonymous')]">
+            <xsl:text>, </xsl:text>            
         </xsl:if>
         
         <!-- title of the entry -->
         <xsl:text>“</xsl:text>
-        <xsl:choose>
-            <xsl:when test="t:title[@level='a'][1]">
-                <xsl:apply-templates select="t:title[@level='a'][1]" mode="footnote"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="t:title[1]" mode="footnote"/>
-            </xsl:otherwise>
-        </xsl:choose>
+            <xsl:apply-templates select="t:title[@level='a'][1]" mode="footnote"/>
         <xsl:text>”</xsl:text>
         
+        <!-- monographic title 
+        <xsl:text> in </xsl:text>
+        <xsl:apply-templates select="../descendant::t:title[@level='m'][1]" mode="footnote"/>
+        -->
+        
+        <xsl:text> </xsl:text>
+        <xsl:value-of select="//t:fileDesc/t:editionStmt/t:respStmt[1]/t:resp"/>
+        <xsl:text> </xsl:text>
+        <xsl:call-template name="responsibility"/>
+        <xsl:text>, </xsl:text>
+        
         <!-- monographic title -->
-        <xsl:if test="../descendant::t:titleStmt/t:title[@level='m'][1]">
-            <xsl:text> in </xsl:text>
-            <xsl:apply-templates select="../descendant::t:titleStmt/t:title[@level='m'][1]" mode="footnote"/>
-            <xsl:text>, </xsl:text>
-        </xsl:if>
+        <xsl:text> </xsl:text>
+        <xsl:apply-templates select="t:title[@level='s'][position()=last()]" mode="footnote"/>
+        <xsl:text>, </xsl:text>
         
         <!-- publication date statement -->
         <xsl:text> last modified </xsl:text>
-        <xsl:for-each select="../t:publicationStmt/t:date[1]">
+        <xsl:for-each select="../../t:revisionDesc/t:change[1]">
             <xsl:choose>
-                <xsl:when test=". castable as xs:date">
-                    <xsl:value-of select="format-date(xs:date(.), '[MNn] [D], [Y]')"/>
+                <xsl:when test="@when castable as xs:date">
+                    <xsl:value-of select="format-date(xs:date(@when), '[MNn] [D], [Y]')"/>
                 </xsl:when>
                 <xsl:otherwise>
-                    <xsl:value-of select="."/>
+                    <xsl:value-of select="@when"/>
                 </xsl:otherwise>
             </xsl:choose>
         </xsl:for-each>
         <xsl:text>,</xsl:text>
-        
         <xsl:text> </xsl:text>
-        <xsl:choose>
-            <xsl:when test="$idno != ''">
-                <a href="{$idno}"><xsl:value-of select="$idno"/></a>
-            </xsl:when>
-            <xsl:otherwise>
-                <a href="{$uri}"><xsl:value-of select="$uri"/></a>
-            </xsl:otherwise>
-        </xsl:choose>
+        <a href="{$uri}">
+            <xsl:value-of select="$uri"/>
+        </a>
         <xsl:text>.</xsl:text>
     </xsl:template>
     
@@ -83,31 +78,21 @@
      generate a bibliographic entry for the matched titleStmt element
      ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <xsl:template match="t:titleStmt" mode="cite-biblist">
-        <xsl:param name="idno"/>
         <!-- creator(s) of the entry -->
         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
-        <xsl:if test="t:editor[@role='creator']">
-            <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='creator'],'biblist',1)"/>
-            <xsl:text>, </xsl:text>            
-        </xsl:if>
+       <!--
+        <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='creator'],'biblist',1)"/>
+        <xsl:text>, </xsl:text>
+        -->
         
         <!-- title of the entry -->
         <xsl:text>“</xsl:text>
-        <xsl:choose>
-            <xsl:when test="t:title[@level='a'][1]">
-                <xsl:apply-templates select="t:title[@level='a'][1]" mode="biblist"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:apply-templates select="t:title[1]" mode="biblist"/>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates select="t:title[@level='a'][1]" mode="biblist"/>
         <xsl:text>.”</xsl:text>
         
         <!-- monographic title -->
-        <xsl:if test="../descendant::t:titleStmt/t:title[@level='m'][1]">
-            <xsl:text> In </xsl:text>
-            <xsl:apply-templates select="../descendant::t:titleStmt/t:title[@level='m'][1]" mode="footnote"/>
-        </xsl:if>
+        <xsl:text> In </xsl:text>
+        <xsl:apply-templates select="../descendant::t:title[@level='m'][1]" mode="footnote"/>
         
         <!-- general editors -->
         <xsl:text>, edited by </xsl:text>
@@ -129,18 +114,7 @@
             <xsl:sequence select="local:emit-responsible-persons(t:editor[@role='general'],'footnote',1)"/>
             <xsl:text>.</xsl:text>
         </xsl:for-each>
-        <xsl:text> </xsl:text>
-        <xsl:value-of select="../t:publicationStmt/t:authority"/>,
-        <xsl:for-each select="../t:publicationStmt/t:date[1]">
-            <xsl:choose>
-                <xsl:when test=". castable as xs:date">
-                    <xsl:value-of select="format-date(xs:date(.), '[Y]')"/>.
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:value-of select="."/>.
-                </xsl:otherwise>
-            </xsl:choose>
-        </xsl:for-each>
+        <xsl:text> Syriaca.org, 2016-.</xsl:text>
         <!-- publication date statement -->
         <xsl:text> Entry published </xsl:text>
         <xsl:for-each select="../t:publicationStmt/t:date[1]">
@@ -156,14 +130,9 @@
         <xsl:text>.</xsl:text>
         
         <xsl:text> </xsl:text>
-        <xsl:choose>
-            <xsl:when test="$idno != ''">
-                <a href="{$idno}"><xsl:value-of select="$idno"/></a>
-            </xsl:when>
-            <xsl:otherwise>
-                <a href="{$uri}"><xsl:value-of select="$uri"/></a>
-            </xsl:otherwise>
-        </xsl:choose>
+        <a href="{$uri}">
+            <xsl:value-of select="$uri"/>
+        </a>
         <xsl:text>.</xsl:text>
     </xsl:template>
     
@@ -210,7 +179,7 @@
                         <xsl:text>, editor</xsl:text>
                         <xsl:if test="count(t:editor[@role='general'])&gt; 1">s</xsl:if>
                         <xsl:text>, </xsl:text>
-                        <xsl:apply-templates select="../descendant::t:titleStmt/t:title[@level='m'][1]" mode="footnote"/>
+                        <xsl:apply-templates select="../descendant::t:title[@level='m'][1]" mode="footnote"/>
                     </li>
                     <li>
                         <!-- Process editors/authors using local function in helper-functions.xsl local:emit-responsible-persons -->
@@ -276,9 +245,7 @@
                         <xsl:text>, editor</xsl:text>
                         <xsl:if test="count(t:editor[@role='general'])&gt; 1">s</xsl:if>
                         <xsl:text>, </xsl:text>
-                        <em>
-                            <xsl:value-of select="$collection-title"/>
-                        </em>
+                        <em>Syriaca.org Works Cited</em>
                     </li>
                     <xsl:for-each select="t:editor[@role= ('creator','contributor')]">
                         <li>
@@ -309,4 +276,48 @@
         </xsl:if>
     </xsl:template>
     
+    <!-- Named template to output responsibility statement -->
+    <xsl:template name="responsibility">
+        <xsl:choose>
+            <xsl:when test="//t:fileDesc/t:editionStmt/t:respStmt/t:name/t:ptr"> 
+                <xsl:variable name="source" select="replace(string(//t:fileDesc/t:editionStmt/t:respStmt/t:name/t:ptr/@target),'#','')"/>
+                <xsl:choose>
+                    <xsl:when test="//t:sourceDesc[@xml:id = $source]">
+                        <xsl:for-each select="//t:sourceDesc[@xml:id = $source]">
+                            <xsl:choose>
+                                <xsl:when test="t:biblStruct">
+                                    <xsl:apply-templates select="t:biblStruct" mode="footnote"/>
+                                </xsl:when>
+                                <xsl:when test="t:msDesc">
+                                    <xsl:value-of select="t:msDesc/t:msIdentifier/t:altIdentifier[@type='preferred']/t:idno/text()"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:apply-templates/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:for-each select="//t:teiHeader/t:fileDesc/t:sourceDesc[1]">
+                            <xsl:choose>
+                                <xsl:when test="t:biblStruct">
+                                    <xsl:apply-templates select="t:biblStruct" mode="footnote"/>
+                                </xsl:when>
+                                <xsl:when test="t:msDesc">
+                                    <xsl:value-of select="t:msDesc/t:msIdentifier/t:altIdentifier[@type='preferred']/t:idno/text()"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:apply-templates/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:for-each>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise> 
+                <xsl:text> </xsl:text>
+                <xsl:value-of select="/t:teiHeader/t:fileDesc/t:editionStmt/t:respStmt/t:name"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 </xsl:stylesheet>

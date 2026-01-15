@@ -1,0 +1,651 @@
+<?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:srophe="https://srophe.app">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Isaac of Antioch - On the End Times</title>
+      <link data-template="app:metadata" />
+      <link rel="shortcut icon" href="/resources/images/favicon.ico" />
+      <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css" />
+      <link rel="stylesheet" type="text/css" href="/resources/css/sm-core-css.css" />
+      <link rel="stylesheet" type="text/css" href="/resources/css/syr-icon-fonts.css" />
+      <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
+      <link rel="stylesheet" type="text/css" href="/resources/css/main.css" />
+      <link rel="stylesheet" type="text/css" media="print" href="/resources/css/print.css" />
+      <link rel="stylesheet" type="text/css" href="/resources/dateSlider/css/slider.css" />
+      <link rel="stylesheet" type="text/css" href="/resources/dateSlider/css/slider-classic-min.css" />
+      <link href="/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet" /><script defer="defer" data-domain="syriaccorpus.org" src="https://plausible.io/js/plausible.js"></script><script type="text/javascript" src="/resources/js/jquery.min.js"></script><script type="text/javascript" src="/resources/jquery-ui/jquery-ui.min.js"></script><script type="text/javascript" src="/resources/js/jquery.smartmenus.min.js"></script><script type="text/javascript" src="/resources/js/clipboard.min.js"></script><script src="/resources/dateSlider/js/jQDateRangeSlider-min.js"></script><script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script><script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"></script><link href="/resources/keyboard/css/keyboard.min.css" rel="stylesheet" />
+      <link href="/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet" />
+      <link href="/resources/keyboard/syr/syr.css" rel="stylesheet" /><script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script><script type="text/javascript" src="/resources/js/require.min.js"></script><script type="text/javascript" src="/resources/js/srophe.js"></script></head>
+   <body id="body">
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+         
+         <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               </button>
+            <a class="navbar-brand banner-container" href="/index.html"> 
+               <span class="banner-icon">
+                  <img src="/resources/images/syriac-corpus.svg" alt="" width="50px" />
+                  </span>
+               <span class="banner-text">Digital Syriac Corpus</span>
+               </a>
+            
+         </div>
+         
+         <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
+            
+            <ul class="nav navbar-nav">
+               
+               <li>
+                  <a href="/browse.html" class="nav-text">Browse</a>
+                  
+               </li>
+               
+               <li class="dropdown">
+                  <a href="#" class="dropdown-toggle lonely-caret" data-toggle="dropdown"> 
+                     <span class="mobile-submenu">About</span>  <b class="caret"></b>
+                     </a>
+                  
+                  <ul class="dropdown-menu pull-right">
+                     
+                     <li>
+                        <a href="/about.html">About the Project</a>
+                        
+                     </li>
+                     
+                     <li role="presentation" class="divider"></li>
+                     
+                     <li>
+                        <a href="/history.html">History of the Project</a>
+                        
+                     </li>
+                     
+                     <li role="presentation" class="divider"></li>
+                     
+                     <li>
+                        <a href="/project-team.html">Project Team</a>
+                        
+                     </li>
+                     
+                     <li role="presentation" class="divider"></li>
+                     
+                     <li>
+                        <a href="/submissions.html">Submissions to the Corpus</a>
+                        
+                     </li>
+                     
+                     <li role="presentation" class="divider"></li>
+                     
+                     <li>
+                        <a href="/contact-us.html">Contact Us</a>
+                        
+                     </li>
+                     
+                     <li role="presentation" class="divider"></li>
+                     
+                     <li>
+                        <a href="/documentation/index.html">Documentation</a>
+                        
+                     </li>
+                     
+                  </ul>
+                  
+               </li>
+               
+               <li>
+                  <a href="/search.html" class="nav-text">Advanced Search</a>
+                  
+               </li>
+               
+               <li>
+                  
+                  <div id="search-wrapper">
+                     
+                     <form class="navbar-form navbar-right search-box" role="search" action="/search.html" method="get">
+                        
+                        <div class="form-group">
+                           <input type="text" class="form-control keyboard" placeholder="search" name="keyword" id="keywordNav" />
+                           
+                           <div class="keyboard-menu">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                  <span class="syriaca-icon syriaca-keyboard">  </span><span class="caret"></span></button>             
+                              
+                              <ul class="dropdown-menu">                 
+                                 
+                                 <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="keywordNav">Syriac Phonetic</a></li>                
+                                 
+                                 <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="keywordNav">Syriac Standard</a></li>                 
+                                 
+                                 <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="keywordNav">English QWERTY</a></li>             
+                                 
+                              </ul>        
+                              
+                           </div>
+                           <button class="btn btn-default search-btn" id="searchbtn" type="submit" title="Search">
+                              <span class="glyphicon glyphicon-search"></span>
+                              </button>                                    
+                           
+                        </div>
+                        
+                     </form>
+                     
+                  </div>
+                  
+               </li>
+               
+               <li>
+                  
+                  <div class="btn-nav">
+                     <button class="btn btn-default navbar-btn" id="font" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
+                        <span class="glyphicon glyphicon-font"></span>
+                        </button>  
+                     
+                     <ul class="dropdown-menu dropdown-menu-right" id="swap-font">
+                        
+                        <li>
+                           <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a>
+                           
+                        </li>
+                        
+                        <li>
+                           <a href="/documentation/wiki.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/syriaca-data/wiki">Help <span class="glyphicon glyphicon-question-sign"></span>
+                              </a>
+                           
+                        </li>
+                        
+                     </ul>
+                     
+                  </div>
+                  
+               </li>
+               
+            </ul>
+            
+         </div>
+         
+      </nav>
+      <div class="main-content-block">
+         <div class="interior-content">
+            <div class="interior-content" style="margin-left:1%; margin-right:1%;">
+               <div class="title">
+                  <h1><span id="title"><span>Isaac of Antioch - On the End Times</span></span></h1>
+               </div>
+               <div class="idno seriesStmt" style="margin:0; margin-top:-1em; margin-bottom: 1em; padding:1em; color: #999999;"><small><span class="uri"> <button type="button" class="btn btn-default btn-xs" id="idnoBtn" data-clipboard-action="copy" data-clipboard-target="#syriaca-id"><span class="srp-label">URI</span></button> <span id="syriaca-id">https://syriaccorpus.org/684</span><script>
+                        var clipboard = new Clipboard('#idnoBtn');
+                        clipboard.on('success', function(e) {
+                        console.log(e);
+                        });
+                        
+                        clipboard.on('error', function(e) {
+                        console.log(e);
+                        });
+                    </script> </span></small></div>
+            </div>
+            <div class="row row-centered top-padding">
+               <div class="col-md-2 noprint">
+                  <div class="panel panel-default">
+                     <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#toggleText">Show  </a><span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="Toggle the text display to show line numbers, section numbers and other structural divisions"></span></div>
+                     <div class="panel-body collapse in" id="toggleText">
+                        <div class="toggle-buttons"><span class="toggle-label"> line : </span><input class="toggleDisplay" type="checkbox" id="togglel" data-element="tei-l" checked="checked" /><label for="togglel">line</label></div>
+                        <div class="toggle-buttons"><span class="toggle-label"> page break : </span><input class="toggleDisplay" type="checkbox" id="togglepb" data-element="tei-pb" /><label for="togglepb">page break</label></div>
+                        <div class="toggle-buttons"><span class="toggle-label"> footnote : </span><input class="toggleDisplay" type="checkbox" id="togglemilestone" data-element="tei-footnote" checked="checked" /><label for="togglemilestone">footnote</label></div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-6 entry">
+                  <bdi>
+                     <div class="body">
+                        <div class="section" style="display:block;">
+                           
+                           
+                           
+                           <div class="tei-display-div " id="Head-id.">
+                              <span class="tei-div  tei-head">Text</span>
+                              
+                              <p class="tei-p text-display" id="id..">
+                                 <span class="tei-altl" id="id..."><span class="tei-pb   " id="id....fol. 74r col.a"> <span lang="en" class="text-number ">pb. fol. 74r col.a</span> </span>ܬܘܒ. ܕܥܠ ܙܒ̈ܢܐ ܐܚܪ̈ܝܐ ܕܡܪܝ ܐܝܣܚܩ.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id..."></span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܩܘܫܬܐ<span class="tei-pb   " id="id....fol. 74r col.b"> <span lang="en" class="text-number ">pb. fol. 74r col.b</span> </span> ܙܩܬܢܝ ܘܐܝܟ ܕܠܕܡܟܐ ܩ̣ܪܐ ܘܐܥܝܪܢܝ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܟܕ ܡ̇ܠܦ ܠܝ ܥܠ ܡܬܝܬܐ ܕܙܒ̈ܢܐ ܐܚܪ̈ܝܐ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܗܘܐ ܠܝ ܪܒܐ ܘܐܢܐ ܠܡ̈ܠܘܗܝ ܐܝܟ ܬܠܡܝܕܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܡ̣ܠܘ ܚܘ̈ܫܒܝ ܡܢ ܝܘܠܦܢܗ ܕܟܪܘܙ ܚ̈ܝܐ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܫܡܥ̇ܬ ܡܢܗ ܩ̈ܠܐ ܕܩ̇ܥܝܢ ܥܠ ܢܘܚܡܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܘܐܪܙܐ ܕܐܡ̇ܪ ܫܝܢܐ ܡܟܝܠ ܥܠ ܙܕܝܩ̈ܐ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܨܠܝ ܠܡ ܐܕܢܟ ܛܠܝܐ ܘܫܡ̣ܥ ܐܡ̇ܪ ܗܘܐ ܠܝ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܘܪܗ̣ܛ ܐܟܪܙ ܟܠ ܕܐܡܪ ܠܟ ܠܕܫܡܥ ܠܟ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܦܬܚ ܠܝ ܦܘܡܟ ܫܒܪܐ ܘܐܡܠܝܘܗܝ ܢܒܥܐ ܚܠ̣ܝܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܡ̈ܠܐ ܕܚܠܝܢ ܛܒ ܡܢ ܕܒܫܐ ܠܫܡ̈ܘܥܝܗܝܢ܀ </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܚܠܦ ܐܣܩܝܛܐ. ܬܐ ܐܬܢܓܕ ܒܫܡ̈ܝܥܬܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܘܚܠܦ ܫܒܛܐ ܢܪܕܝܟ ܫܡ̣ܥܐ ܕܦܣܝܩ̈ܬܐ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܐܢ ܝܕܥ ܐܢܬ ܚܝܠܐ ܕܣ̣ܦܪ̈ܐ<span class="tei-pb   " id="id....fol. 74v col.a"> <span lang="en" class="text-number ">pb. fol. 74v col.a</span> </span> ܘܐܠܐ ܫܐܠ: </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܕܡܛܬ ܚܪܬܐ. ܢܒܝ̈ܐ ܩ̇ܥܝܢ ܐܦ ܫܠܝܚ̈ܐ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܐܦ ܗ̣ܘ ܟܝܢܐ ܡ̇ܠܦ ܗ̣ܘ ܠܟ ܥܡ ܢܡܘܣ̈ܘܗܝ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܕܐܘܦܝܘ ܨܒ̈ܬܘܗܝ ܘܐܦ ܬܩܢ̈ܬܗ ܥܡ ܦܘܪ̈ܦܥܘܗܝ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܚܘܪ ܕܝܢ ܒܫ̈ܢܝܟ ܘܒܝܘܡ̈ܬܟ ܘܚܙܝ ܢܦܫܟ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܕܐܡܠܟ ܪܘܫܥܐ ܦܠ̇ܛ ܨܘܪܟ ܡܢ ܢܟܝ̈ܢܘܗܝ܀܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id..."></span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܡ̇ܠܟܐ ܒܝܼܫܐ ܐܡܠܟ ܒܐܪܥܐ̣ ܘܗܐ ܫ̇ܓܫ ܠܗ̇: </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܐܚܘܕ ܓܘܣܐ ܒܡ̇ܠܟܐ ܕܪܘܡܐ ܘܗ̣ܘ ܦ̇ܪܩ ܠܟ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܠܕܡܐ ܕܢܦܫܐ ܨܗܐ ܣܛܢܐ ܥܡ ܫܡܫ̈ܘܗܝ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܓܘܢܚܐ ܗܘ ܐܢ ܗ̣ܘ ܕܒܐ̈ܝܕܘܗܝ ܬܦܠ ܕܐܦ<span class="tei-footnote display footnote-refs" dir="ltr" lang="en"><span class="footnote-ref"><a href="#note3">3</a></span></span> ܩ̇ܛܠ ܠܟ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܒܫܝܢܐ ܩ̇ܛܠ ܛܒ ܡܢ ܚܘܪܒܐ ܘܝ ܠܩܛܝ̈ܠܘܗܝ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܒܕܒܪܐ ܡܚ̣ܛܐ ܛܒ ܡܢ ܫܝܢܐ ܠܐܝܟܐ ܬܥܪܘܩ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">}ܠܕܒܫܝܢܐ<span class="tei-pb   " id="id....fol. 74v col.b"> <span lang="en" class="text-number ">pb. fol. 74v col.b</span> </span> {ܓܝܪ ܚ̇ܢܩ ܠܗܘܢ ܒܪܓܝܓܬܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܘܠܕܒܛܘܪ̈ܐ ܒܨܦܬܐ ܣܢܝܬܐ ܘܒܡܪܢܝܬܐ܀܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id..."></span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܠܫܝܢܐ ܬܥܘܠ ܛܒ ܗܘ ܡܢܗ ܚܘܪܒܐ ܕܚܝܠܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܠܕܒܪܐ ܬܦ݁ܘܩ. ܦܩ̇ܥ ܠܒܟ ܡܢ ܙܘܥ̈ܙܥܐ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܕܐܬܚ̣ܒܠܬ ܠܗ̇ ܐܪܥܐ ܟܘܠܗ̇ ܕܫܓܫܘܗ̇ ܒܝ̈ܫܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܩܢܛܐ ܒܫܝܢܐ ܘܒܓܘ ܕܒܪܐ ܘܐܦ ܣܘܪ̈ܕܐ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܚܘ̈ܒܐ ܒܚܘܪܒܐ ܛܢܢܐ ܒܫܝܢܐ. ܥܘܼܠܐ ܒܟܠ ܕܘܟ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܐܠܝܨ ܩܘܫܬܐ ܘܥܨܐ ܫܪܪܐ ܨܝܕ ܒܥ̈ܝܘܗܝ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܥܠܡܐ ܣܐ̣ܒ ܠܗ. ܘܦܟܗ ܛܥܡܗ̇ ܕܥܠܝܡܘܬܗ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܥܠ ܦܘܡ ܩܒܪܐ ܒܩܢܛܐ ܩܐ̇ܡ ܘܗܐ ܦܛ̇ܪ ܠܗ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܐܪܥܐ ܠܐ̣ܝܬ ܘܒ̣ܨܪ ܚܝܠܗ̇ ܡܢ ܓܐܘ̈ܬܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܙܒܢܐ ܗ̣ܘ ܕܬܢܘܚ ܐܦ ܬܬܚܪܪ ܡܢ ܦܘܠܚܢܐ܀ </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id..."><span class="tei-pb   " id="id....fol. 75r col.a"> <span lang="en" class="text-number ">pb. fol. 75r col.a</span> </span>ܐܬܛܥܝܬ ܠܗ̇ ܐܘܪܚܐ ܕܩܘܫܬܐ ܡܢ ܣܓܝܐ̈ܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܫܒܝܠܐ ܕܢܦܫܗ ܕܪܫ ܠܡ ܟܠ ܐܢܫ ܘܢܦܩ̣ ܛܥ̇ܐ܀ </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܐܝܟ ܙܢܝܬܐ ܟܪܘܡܢܝܬܐ ܒܪܝܬܐ ܙܠܬ݂:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܒܥܘܼܠܐ ܓ̣ܪܬ ܘܥܠ ܦܚܙܘܬܐ ܫܕ̈ܟܐ ܥܒ݂ܕܬܝ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܪܘܚܐ ܢܫܒ݂ܬ ܕܐܝܬܝܗ̇ ܚܛܝܬܐ ܒܝܡܐ ܕܥܘܼܠܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܘܗܐ ܪ̈ܫܝܥܐ ܬܪܨܘ ܐܠܦܝ̈ܗܘܢ ܨܝܕ ܓܗܢܐ܀܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id..."></span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܚܬܝܪ̈ܝܢ ܘܐ̇ܙܠܝܢ ܟܕ ܚ̈ܛܝܝܢ ܠܦܚܬܐ ܕܢܘܪܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܘܠܐ ܚܫ ܠܒܗܘܢ ܒܚܛܗ̈ܝܗܘܢ ܒܟܝܐ ܪܒܐ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܟܘܟܒ ܚܫܟܐ ܗܘ̣ܐ ܠܗܘܢ ܢܝܫܐ ܠܐܘܪܚܐ ܕܡܘܬܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܠܩܘܒܠܗ ܪ̈ܕܝܢ ܐܝܠܝܢ ܕܫܒܩܘ ܐܘܪܚܐ ܕܚ̈ܝܐ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܗܐ ܥܛܝܪ ܝܡܐ ܘܫܓܝܫ ܝܒܫܐ ܒܥܘܡܪ̈ܝܗܘܢ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܟܠܢܫ ܚ̇ܒܨ ܡܢܘ̣ ܢܪܫܥ. ܛܒ ܡܢ ܚܒܪܗ܀ </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id..."><span class="tei-pb   " id="id....fol. 75r col.b"> <span lang="en" class="text-number ">pb. fol. 75r col.b</span> </span>ܚ̇ܙܝܬ ܟܕ ܪܫܐ ܒܝܼܫܐ ܠܒܝܫܐ ܥܠ ܣܘܥܪ̈ܢܘܗܝ: </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܘܠܚܛܝܐ ܕܕܐ̇ܢ ܚܒܪܗ ܥܠ ܣܟܠܘܬܗ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܝܬܒ̣ܬ ܬܡܗ̇ܬ ܐܦ ܐܝܕܝ ܥܠ ܦܟܝ ܣ̇ܡܬ ܘܒܟ̇ܝܬ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܕܠܪܫܝܥܐ ܚܒܪܗ ܩܛܪܓ ܥܠ ܣܢܝ̈ܬܗ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܚ̇ܙܝܼܬ ܓܝܪܐ ܕܚ̇ܣܕ ܚܒܪܗ ܒܓܝܪܘܬܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܘܛܡܐܐ ܕܐܡ̇ܪ ܐܘ ܡܢ ܛܡܐ̈ܐ ܕܣܥܪܘ ܙܐܦܐ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܘܐܝܼܟܘ ܠܒܟ. ܐܘ ܪܫܘܝܐ ܕܠܟ ܠܐ<span class="tei-footnote display footnote-refs" dir="ltr" lang="en"><span class="footnote-ref"><a href="#note4">4</a></span></span>
+                                    ܪܫܝܬ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܐܢ ܟܢܘܬܐ ܠܟ ܡܬܚܙܝܐ ܐܦ ܐܢܬ݂ ܣܢܝܐ ܐܢܬ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܚܛܝܬܐ ܕܚܒܪܟ }}ܗܐ {{ܡܥܝ̇ܩܐ ܠܟ ܢܣ̇ܒ ܒܐ̈ܦܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܥܘܼܠܟ ܕܝܠܟ ܠܐ ܡܟܣ ܠܟ ܕܐ̇ܢ ܫܘܩܪܐ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܠܐ ܢܐܠܨܘܢܟ ܫܡ̣̈ܥܐ ܕܒܗܘܢ ܬܚܛܐ ܢܦܫܟ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܦܐܝܐ ܕܬܗܘܐ ܡܬܪܫܝܢܐ ܘܠܐ ܪܫܘܝܐ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܗܘܝ ܒܨܒܝܢܟ ܕܘܓܐ <span class="tei-pb   " id="id....fol. 75v col.a"> <span lang="en" class="text-number ">pb. fol. 75v col.a</span> </span>ܘܚܪܫܐ ܘܕܠܐ ܥܝ̈ܢܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܫܡ̇ܥ ܘܫ̇ܠܐ ܚ̇ܙܐ ܘܫ̇ܬܝܩ ܝ̇ܕܥ ܘܒܗܝܠ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id..."></span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܗܢ ܦܘܪܫܢܐ ܢܗܘܐ ܠܘܬܟ ܕܡܙ̇ܕܩ ܠܟ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܢܦܫܟ ܠܘܩܕܡ ܬܗܘܐ ܕܐ̇ܢ ܒܟ ܢ̇ܦܠ ܠܟ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܫܠܡܐ ܡܠܠ̣ ܥܠ ܟܘܠ ܒܪ ܐܢܫ ܐܝܟ ܦܪܘܫܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܘܚܠܦ ܣܢܐܐ̣ ܗܘܝ ܚܒܝܒܐ ܒܡܟܝܟܘܬܟ܀ </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܚܬܡܐ ܕܫܬܩܐ ܢܗܘܐ }ܢܗܐ{ ܥܠ ܦܘܡܟ ܒܒܛܝܠܘܬܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܘܪܕܝ ܒܫܬܩܐ ܐ̇ܟܠ ܩܪܨܐ ܕܡ̇ܕܘܕ ܠܟ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܬܒ ܐܬܒܩܐ ܒܐܪܥܟ ܬܒܝܠ ܐܝܟ ܚ̇ܙܝܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܘܚܙܝ ܕܟܠܗ̇ ܥܘܼܬܝܐ ܡܠܝܐ ܘܛܪ ܐܣܟܡܟ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܠܐ ܐܝܬ ܕܚ̇ܣܝܟ ܐܘ ܕܡܚ̇ܪܪ ܡܢ ܒܝܫܬ̈ܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܕܐܢܫ ܐܝܟ ܚܝܠܗ ܛܥܝܢ ܗ̣ܘ ܡܢܗ̇ ܕܡܘܿܒܠ ܚ̈ܘܒܐ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܒܫܢܬܐ ܕܫ̈ܒܥ ]ܥܒ̈ܕܐ<span class="tei-footnote display footnote-refs" dir="ltr" lang="en"><span class="footnote-ref"><a href="#note5">5</a></span></span> [ ܠܥܒ̈ܕܐ ܝܗ̣ܒܘ ܚܪܘܬܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܒܐ̇ܠܦܐ ܕܫܒ̈ܥܐ. ܐܢܬ ܚܪܪ <span class="tei-pb   " id="id....fol. 75v col.b"> <span lang="en" class="text-number ">pb. fol. 75v col.b</span> </span> ܠܢ ܒܪ ܡܪܐ ܟܠ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܒܫܢܬܐ ܕܫܒܥ ܐܪܥܐ ܢܚܬ. ܘܐܟܠܘܗ̇ ܝܬܡ̈ܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܒܐܠܦܐ ܕܫܒ̈ܥܐ ܗܒ ܠܒܢ̈ܝܐ ܡܢ ܛܝܒܘܿܬܟ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܠܟܘܠ ܚ̇ܝܒ̈ܐ ܗ̣ܘܐ ܫܘܒܩܢܐ. ܒܫܢܬܐ ܕܫܒܥ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܘܠܟܠ ܕܚܛܘ ܥܒܕ ܫܘܒܩܢܐ ܒܐܠܦܐ ܕܫ̈ܒܥܐ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܒܫܒܬܐ ܠܥܡܐ ܢܝ̇ܚܐ ܗ̣ܘܐ ܗܘܐ ܠܥܒ̈ܕܐ ܘܚܐܪ̈ܐ: </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܒܫܒܬܟ ܡܪܢ ܠܛܒ̈ܐ ܘܒܝܼܫ̈ܐ ܢܗܘܐ }ܢܗܐ{ ܫܘܒܩܢܐ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܡܙܓ ܫܒܪܐ ܥܡ ܬܘܪܓܡܟ ܘܐܦ ܣܘܥܪ̈ܢܐ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܒܨ̇ܘܪ ܡܢ ܡ̈ܠܐ ܘܐܘܣܦ ܥܡ̈ܠܐ ܥܡ ܢܨܚ̈ܢܐ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܠܐ ܬܗܘܐ ܠܟ ܢܗܪܐ ܕܡܠܐ ܘܣ̣ܪܐ ܘܕܠܝܚ:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܗ̇ܘܝ ܪܨܝܢܐ ܕܩܠܝܠ ܫܚ̇ܠ ܘܚ̣ܠܐ ܛܥܡܗ܀</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id..."></span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">ܫܠܡ ܡܐܡܪܐ. ܕܥܠ ܙܒ̈ܢܐ ܐܚܪ̈ܝܐ. ܕܡܪܝ ܐܝܣܚܩ.</span><span class="tei-l   display"></span>
+                                 
+                              </p>
+                              
+                           </div><span class="tei-div   "></span>
+                           
+                           
+                           <div class="tei-display-div " id="Head-id.">
+                              <span class="tei-div  tei-head">Translation</span>
+                              
+                              <p class="tei-p text-display" id="id..">
+                                 <span class="tei-altl" id="id...">Mēmrā of Mar Isaac-On the End Times</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Next, concerning the end times by Mar Isaac.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Truth goaded me, just as to one sleeping, called and awakened me,</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">teaching me about the coming of the end times.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">(Truth) became a teacher to me, and I became a student to its words.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">My thoughts were filled with the teaching of the preacher of life.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">I heard from him voices shouting about the resurrection,</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">and the mystery that speaks peace from then on unto the righteous.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Lend an ear, boy, and listen. He said to me.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Hasten to proclaim everything that I will say to you, to whoever listens to
+                                    you.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Open for me your mouth, child, and I will fill it (and make it) a sweet
+                                    spring.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Words that are sweeter than honey to those hearing them.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Instead of a whip, come, be scourged by things heard.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Instead of a rod, a report of punishments will chastise you,</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">if you know the meaning of scriptures. And if not, ask!</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">The prophets and the apostles are crying out that the end has arrived.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">And nature too is teaching you with its laws </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">That its ornaments have come to an end, and also its beautiful things with
+                                    its pleasures.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Look at your years and at your days, and consider yourself:</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">That wickedness has come to rule; save your neck from its harms.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">--------------------------------------------</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">An evil king has come to rule the earth, and behold, he has stirred it
+                                    up.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Take refuge in the king of heaven, and he will deliver you.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Satan, with his servants, thirsts for the blood of life.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">It is a calamity if you fall into his hands, for he will kill you.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">On farmland, he kills more than in the desert. Woe to those killed by
+                                    him!</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">In the wilderness, he causes sin more than on farmland. To where will you
+                                    flee?</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">For he chokes those on farmland with desire</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">And those on the mountains with hateful anxiety and with concern.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">-------------------------------------------------</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">If you should enter farmland, the dreadful desert would be better.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">If you should go out to the wilderness, your heart would break from violent
+                                    disturbances.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">For the whole earth has been corrupted because the evil ones stirred it
+                                    up.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Fear is in farmland and in the wilderness -- together with terrors!</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Sins are in the desert; desire in farmland; wickedness is everywhere.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Truth is oppressed and Faithfulness is constrained among its seekers.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">The world has grown old, and the taste of its youthfulness has faded.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">At the mouth of the grave, it stands in fear. And behold, it dies.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">The earth has grown weary, and the delights of its power have diminished.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">At that time it will rest, indeed it will be set free from the plow.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">The way of Truth has been forgotten by many.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Everyone has tread his own path, and has gone forth erring.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Like a shameless harlot, creation has become licentious.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">It committed adultery with iniquity. It married into debauchery!</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">The wind, which is sin, blew on a sea of iniquity.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">And behold, the wicked steered their ships straight toward Gehenna.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">------------------------------------------------------</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">They walk pridefully, though sinners, to the chasm of fire.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Their hearts did not grieve over their sins. What a great sorrow! </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">The star of darkness has become a sign for them to the way of death.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Those who left the way of life, they travel towards it. </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Behold, the sea is swollen and the dry land is stirred up by their ways of
+                                    life.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Everyone hastens to act more wickedly than his neighbor. </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">I watched the wicked accuse the wicked on account of his deeds. </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">And the sinner judge his neighbor on account of his folly.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">I sat, astonished. I even set my hand upon my cheek and wept,</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Because his neighbor accused the wicked on account of his foul deeds.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">I have watched the adulterer revile his neighbor for adultery</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">and the impure one who says, “Oh, impure ones,” of those who have acted
+                                    deceitfully!</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Where is your heart, O Accuser, for you do not accuse yourself!</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">If justice appears to you, you also would be detested.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">The sin of your neighbor annoys you.<span class="tei-footnote display footnote-refs" dir="ltr" lang="en"><span class="footnote-ref"><a href="#note6">6</a></span></span> You hypocrite! </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Your iniquity does not reproach you. You false judge!</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Should not the reports that you yourself will sin in these things compel you? </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">It is proper that you should be the accused and not the accuser.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Be voluntarily deaf and mute, and without eyes!</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Listening but keeping silent. Watching but keeping quiet. Knowing and
+                                    remaining still. </span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Should this difference that justifies you belong to you?</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">You should judge yourself first. It is fitting for you!</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Speak peace to everyone as a discerning person,</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">And instead of an enemy, be a friend through your humility.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Let the seal of silence be<span class="tei-footnote display footnote-refs" dir="ltr" lang="en"><span class="footnote-ref"><a href="#note7">7</a></span></span> upon your
+                                    mouth with diligence.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Chastise through silence the slanderer who disturbs you.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Again, consider your land, the inhabitable world as an observer.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">See, all of it is full of perversity. So guard your manner!</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Nothing is exempt or free from wickedness.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">For man carries some of the burden of sins, according to his strength.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">In the seventh year, slaves<span class="tei-footnote display footnote-refs" dir="ltr" lang="en"><span class="footnote-ref"><a href="#note8">8</a></span></span> gave freedom to slaves.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">In the seventh millennium, set us free, Son of the Master of All.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">In the seventh year, the earth rested and the orphans ate of it.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">In the seventh millennium, give to the children from your grace.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">To all the guilty, there was forgiveness in the seventh year.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">And to all who sinned, grant forgiveness in the seventh millennium.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">On the Sabbath, there was rest for the people, for slaves and freedmen.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">On your Sabbath, our Lord, let there be<span class="tei-footnote display footnote-refs" dir="ltr" lang="en"><span class="footnote-ref"><a href="#note9">9</a></span></span> forgiveness for the good and the wicked.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Mix action with your talk, child.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Cut down on words and increase works with splendid achievements.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Do not be a river full (of water), foul and disturbed.</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">Be a small brook that trickles a little and tastes sweet!</span><span class="tei-l   display"></span>
+                                 <span class="tei-altl" id="id...">The End of the Mēmrā on the end times by Mar Isaac.</span><span class="tei-l   display"></span>
+                                 
+                              </p>
+                              
+                           </div><span class="tei-div   "></span>
+                           
+                           
+                           
+                        </div>
+                        <div class="footnotes" lang="en">
+                           <h2>Footnotes</h2>
+                           <bdi>
+                              <p class="footnote-text" id="note1"><span class="notes footnote-refs"><span class="footnote-ref">‎1</span> </span><span>
+                                    The authors would like to thank Sebastian Brock who suggested Vat. Sir.
+                                    120 in response to our call for unpublished manuscripts to use in the
+                                    testing of Syriac HTR models.</span></p>
+                              <p class="footnote-text" id="note2"><span class="notes footnote-refs"><span class="footnote-ref">‎2</span> </span><span> J.S. Assemani, <span class="tei-hi"><i>Biblioteca apostolica vaticana codicum manuscriptorum catalogus in
+                                          tres partes distributes: in quarum prima Orientales, in altera
+                                          Craeci in tertia Latini Italici aliorumque Europaeorum idiomatum
+                                          codices</i></span> Vol. 3 (Paris: Maisonneuve Frères, 1926), 123–126.
+                                    </span></p>
+                              <p class="footnote-text" id="note3"><span class="notes footnote-refs"><span class="footnote-ref">‎3</span> </span><span> Vat. Sir. 364 has <span class="tei-foreign" xml:lang="syr" lang="syr" dir="rtl"><a href="https://sedra.bethmardutho.org/api/word/%DC%90%DC%A6.html" class="sedra">ܐܦ</a></span></span></p>
+                              <p class="footnote-text" id="note4"><span class="notes footnote-refs"><span class="footnote-ref">‎4</span> </span><span> Vat. Sir. 364 has <span class="tei-foreign" xml:lang="syr" lang="syr" dir="rtl"><a href="https://sedra.bethmardutho.org/api/word/%DC%95%DC%A0%DC%90.html" class="sedra">ܕܠܐ</a></span></span></p>
+                              <p class="footnote-text" id="note5"><span class="notes footnote-refs"><span class="footnote-ref">‎5</span> </span><span> The manuscript is damaged at this point and
+                                    the word is only faintly visible, so it has been restored from Vat.
+                                    Sir. 364.</span></p>
+                              <p class="footnote-text" id="note6"><span class="notes footnote-refs"><span class="footnote-ref">‎6</span> </span><span> Not translating <span class="tei-foreign" xml:lang="syr" lang="syr" dir="rtl"><a href="https://sedra.bethmardutho.org/api/word/%DC%97%DC%90.html" class="sedra">ܗܐ</a></span> from inner
+                                    margin. Likely added for meter.</span></p>
+                              <p class="footnote-text" id="note7"><span class="notes footnote-refs"><span class="footnote-ref">‎7</span> </span><span> Reading
+                                    apocopated form with marginal note for meter. </span></p>
+                              <p class="footnote-text" id="note8"><span class="notes footnote-refs"><span class="footnote-ref">‎8</span> </span><span> The
+                                    text is darkened and obscured here. Reading <span class="tei-foreign" xml:lang="syr" lang="syr" dir="rtl"><a href="https://sedra.bethmardutho.org/api/word/%DC%A5%DC%92%CC%88%DC%95%DC%90.html" class="sedra">ܥܒ̈ܕܐ</a></span> restored from Vat. Sir. 364, though other
+                                    readings may be possible.</span></p>
+                              <p class="footnote-text" id="note9"><span class="notes footnote-refs"><span class="footnote-ref">‎9</span> </span><span>Taken as an apocopated form for meter, following the marginal
+                                    note.</span></p>
+                           </bdi>
+                        </div>
+                     </div>
+                  </bdi>
+                  <div class="panel panel-default">
+                     <div class="panel-heading">How to Cite this Electronic Edition</div>
+                     <div class="panel-body">
+                        <div id="citation-note">
+                           <h5>Note:</h5><span> Isaac of Antioch</span>, “<span class="title-analytic">Isaac of Antioch - On the End Times</span>” edited by  ,  <span class="title-series">Digital Syriac Corpus</span>,  last modified July 3, 2022, <a href="https://syriaccorpus.org/684">https://syriaccorpus.org/684</a>.
+                           <div class="collapse" id="showFullCitation">
+                              <h2>TEST2</h2>
+                              <div id="citation-bibliography">
+                                 <h5>Bibliography:</h5>“<span class="title-analytic">Isaac of Antioch - On the End Times</span>.” In , edited by . Syriaca.org, 2016-. Entry published . <a href="https://syriaccorpus.org/684">https://syriaccorpus.org/684</a>.
+                              </div>
+                           </div><br /><a href="#" class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showFullCitation" data-text-swap="Hide Citation Styles" style="margin-top:1em;">Show Citation Styles <i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-4 right-menu">
+                  <div id="rightCol" class="noprint">
+                     <div id="sedraDisplay" class="sedra panel panel-default">
+                        <div class="panel-body"><span style="display:block;text-align:center;margin:.5em;"><a href=" http://sedra.bethmardutho.org" title="SEDRA IV">SEDRA IV</a></span><img src="/resources/images/sedra-logo.png" title="Sedra logo" width="100%" /><h3>Syriac Lexeme</h3>
+                           <div id="sedraContent">
+                              <div class="content"></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="panel panel-default">
+                     <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#aboutDigitalText">About This Digital Text </a></div>
+                     <div class="panel-body collapse in" id="aboutDigitalText">
+                        <div>
+                           <h5>Corpus Text ID:</h5><span>https://syriaccorpus.org/684</span></div>
+                        <div>
+                           <h5>Source: </h5><span class="tei-sourceDesc">
+                              <span class="tei-msDesc">
+                                 <span class="tei-msIdentifier">
+                                    <span class="tei-settlement">Vatican City</span>
+                                    <span class="tei-repository">Vatican Library</span>
+                                    <span class="tei-idno">120</span>
+                                    <span class="tei-altIdentifier">
+                                       <span class="tei-idno">Vat. sir. 120</span>
+                                       </span>
+                                    <span class="tei-altIdentifier">
+                                       <span class="tei-idno"></span>
+                                       </span>
+                                    </span>
+                                 </span>
+                              </span></div>
+                        <div style="margin-top:1em;"><span class="h5-inline">Type of Text: 
+                              </span><span></span>
+                            <a href="/documentation/wiki.html?wiki-page=/Types-of-Text-in-the-Digital-Syriac-Corpus&amp;wiki-uri=https://github.com/srophe/syriac-corpus/wiki"><span class="glyphicon glyphicon-question-sign text-info moreInfo"></span></a></div>
+                        <div style="margin-top:1em;"><span class="h5-inline">Status: 
+                              </span><span>Proofed Digital Edition</span>
+                            <a href="/documentation/wiki.html?wiki-page=/Status-of-Texts-in-the-Digital-Syriac-Corpus&amp;wiki-uri=https://github.com/srophe/syriac-corpus/wiki"><span class="glyphicon glyphicon-question-sign text-info moreInfo"></span></a></div>
+                        <div style="margin-top:1em;"><span class="h5-inline">Publication Date: </span>July 3, 2022
+                        </div>
+                        <div>
+                           <h5>Preparation of Electronic Edition:</h5>
+                           TEI XML encoding by James E. Walters. <br />
+                           Syriac text transcribed by Automated with Transkribus.
+                           
+                        </div>
+                        <div>
+                           <h5>Open Access and Copyright:</h5>
+                           <div class="small">This electronic edition is designed for open access reuse. The Syriac base text is
+                              in the public domain. The TEI XML edition is copyrighted by James E. Walters and is
+                              released under a Creative Commons Attribution 4.0 International Public License (CC
+                              BY 4.0).
+                              <div id="showMoreAccess" class="collapse">The HTML page is copyrighted by Vanderbilt University and released under a under a
+                                 Creative Commons Attribution 4.0 International Public License (CC-BY 4.0, https://creativecommons.org/licenses/by/4.0/).
+                                 Attribution for reuse should follow the suggested citation and also credit the copyright
+                                 holder of the TEI XML edition.
+                                 <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0;display:inline;" src="/resources/images/cc.png" height="18px" /></a></p>
+                              </div><a href="#" class="togglelink" data-toggle="collapse" data-target="#showMoreAccess" data-text-swap="Hide details">See details...</a></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="panel panel-default">
+                     <div class="panel-heading">How to Cite this Electronic Edition</div>
+                     <div class="panel-body">
+                        <div id="citation-note">
+                           <h5>Note:</h5><span> Isaac of Antioch</span>, “<span class="title-analytic">Isaac of Antioch - On the End Times</span>” edited by  ,  <span class="title-series">Digital Syriac Corpus</span>,  last modified July 3, 2022, <a href="https://syriaccorpus.org/684">https://syriaccorpus.org/684</a>.
+                           <div class="collapse" id="showFullCitation">
+                              <h2>TEST2</h2>
+                              <div id="citation-bibliography">
+                                 <h5>Bibliography:</h5>“<span class="title-analytic">Isaac of Antioch - On the End Times</span>.” In , edited by . Syriaca.org, 2016-. Entry published . <a href="https://syriaccorpus.org/684">https://syriaccorpus.org/684</a>.
+                              </div>
+                           </div><br /><a href="#" class="btn-sm btn-info togglelink pull-right" data-toggle="collapse" data-target="#showFullCitation" data-text-swap="Hide Citation Styles" style="margin-top:1em;">Show Citation Styles <i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>
+                     </div>
+                  </div>
+                  <div class="panel panel-default" style="margin-top:1em;">
+                     <div class="panel-heading"><a href="#" data-toggle="collapse" data-target="#showLinkedData">Linked Data  </a><span class="glyphicon glyphicon-question-sign text-info moreInfo" aria-hidden="true" data-toggle="tooltip" title="This sidebar provides links via Syriaca.org to additional resources beyond this record. We welcome your additions, please use the e-mail button on the right to contact Syriaca.org about submitting additional links."></span><button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#submitLinkedData" style="margin-right:1em;"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button></div>
+                     <div class="panel-body collapse in" id="showLinkedData">
+                        <div class="other-resources">
+                           <div class="collapse in" id="getRDF">
+                              <form class="form-inline hidden" action="https://sparql.vanderbilt.edu/sparql" method="get" id="lod1"><input type="hidden" name="format" id="format" value="json" /><textarea id="query" class="span9" rows="15" cols="150" name="query" type="hidden">
+                                                                                prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                                                                                prefix lawd: <http://lawd.info/ontology/>
+                                                                                prefix skos: <http://www.w3.org/2004/02/skos/core#>
+                                                                                prefix dcterms: <http://purl.org/dc/terms/>
+                                                                                SELECT ?uri (SAMPLE(?l) AS ?label) (SAMPLE(?uriSubject) AS ?subjects) (SAMPLE(?uriCitations) AS ?citations)
+                                                                                {
+                                                                                ?uri rdfs:label ?l
+                                                                                FILTER (?uri IN ( <https://syriaccorpus.org/684>)).
+                                                                                FILTER ( langMatches(lang(?l), 'en')).
+                                                                                OPTIONAL{{SELECT ?uri ( count(?s) as ?uriSubject ) { ?s dcterms:relation ?uri } GROUP BY ?uri }  }
+                                                                                OPTIONAL{{SELECT ?uri ( count(?o) as ?uriCitations ) { ?uri lawd:hasCitation ?o OPTIONAL{?uri skos:closeMatch ?o.}} GROUP BY ?uri }}           
+                                                                                }
+                                                                                GROUP BY ?uri 
+                                                                            </textarea></form>
+                              <div id="showRDF"></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div id="footnoteDisplay" class="footnote">
+            <div class="content"></div>
+         </div>
+         <div data-template="app:contact-form" data-template-collection="bhse"></div>
+         <div data-template="app:contact-form-linked-data"></div>
+         <div class="modal fade" id="selection" tabindex="-1" role="dialog" aria-labelledby="selectionLabel" aria-hidden="true">
+            <div class="modal-dialog">
+               <div class="modal-content">
+                  <div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"> x </span><span class="sr-only">Close</span></button><h2 class="modal-title" id="selectionLabel">Is this record complete?</h2>
+                  </div>
+                  <div class="modal-body">
+                     <div>
+                        <div id="recComplete" style="border:none; margin:0;padding:0;margin-top:-2em;">T</div>
+                     </div>
+                  </div>
+                  <div class="modal-footer"><a class="btn" href="../documentation/faq.html" aria-hidden="true">See all FAQs</a><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+               </div>
+            </div>
+         </div>
+         <div class="modal fade" id="moreInfo" tabindex="-1" role="dialog" aria-labelledby="moreInfoLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+                  <div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button><h2 class="modal-title" id="moreInfoLabel"></h2>
+                  </div>
+                  <div class="modal-body" id="modal-body">
+                     <div id="moreInfo-box"></div><br style="clear:both;" /></div>
+                  <div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">Close</button></div>
+               </div>
+            </div>
+         </div><script type="text/javascript">
+                                        $('html').click(function() {
+                                        $('#footnoteDisplay').hide();
+                                        $('#footnoteDisplay div.content').empty();
+                                        })
+                                        
+                                        $('.footnote-ref a').click(function(e) {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+                                        var link = $(this);
+                                        var href = $(this).attr('href');
+                                        var content = $(href).html()
+                                        $('#footnoteDisplay').css('display','block');
+                                        $('#footnoteDisplay').css({'top':e.pageY-50,'left':e.pageX+25, 'position':'absolute'});
+                                        $('#footnoteDisplay div.content').html( content );    
+                                        });
+                                        
+                                    </script></div>
+      <!-- Footer with Syriaca.org branding -->
+      <footer>
+         
+         <div class="container" style="width: 60%">
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+               <img alt="Creative Commons License" style="border-width:0" src="/resources/images/cc.png" height="18px" />
+               </a>
+            Digital Syriac Corpus is a collaboration of University of Oxford, Brigham Young University,
+            
+            Vanderbilt University, and the Center of Digital Humanities Research (CoDHR) at Texas
+            A&amp;M University. 
+            This HTML page is copyrighted by Vanderbilt University and released under a under
+            a 
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/" style="color:#C0C0C0;">Creative Commons Attribution 4.0 International Public License (CC-BY 4.0)</a>. 
+            The TEI XML editions are copyrighted by the encoders and released under 
+            CC-BY 4.0. All Syriac base texts are in the public domain.
+            
+         </div>
+         
+      </footer>
+   </body><script data-template="app:google-analytics"></script></html>
