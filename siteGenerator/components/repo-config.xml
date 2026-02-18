@@ -51,17 +51,6 @@
         </collections>
         <searchFields>
             <!-- Needed fields -->
-            <!-- 
-            keyword
-            author
-            title
-            category
-            section number
-            corpus uri
-            syriaca uri
-            texti id
-            dates
-            -->
             <fields function="fullText">fullText</fields>
             <fields function="title" boost="10">title</fields>
             <fields function="author">author</fields>
