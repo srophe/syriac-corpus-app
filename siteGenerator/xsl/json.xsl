@@ -30,7 +30,7 @@
     <xsl:output method="text" encoding="utf-8"/>
     
     <xsl:param name="applicationPath" select="'/Users/wsalesky/syriaca/SyriacCorpus/syriac-corpus-app'"/>
-    <xsl:param name="staticSitePath" select="'/Users/wsalesky/syriaca/SyriacCorpus/syriac-corpus-app-temp'"/>
+    <xsl:param name="staticSitePath" select="'/Users/wsalesky/syriaca/SyriacCorpus/syriac-corpus-app'"/>
     <xsl:param name="dataPath" select="'/Users/wsalesky/syriaca/SyriacCorpus/syriac-corpus'"/>
     <xsl:param name="configPath" select="concat($staticSitePath, '/siteGenerator/components/repo-config.xml')"/>
     <xsl:variable name="config">
@@ -38,7 +38,7 @@
             <xsl:sequence select="document(xs:anyURI($configPath))"/>
         </xsl:if>
     </xsl:variable>
-    
+    <xsl:variable name="resource-path" select="substring-after(document-uri(.),':')"/>
     <xsl:function name="local:sortStringEn">
         <xsl:param name="string"/>
         <xsl:variable name="title" select="normalize-space($string)"/>
@@ -138,20 +138,25 @@
                 </xsl:for-each>
             </map>
         </xsl:variable>
-        <xsl:value-of select="xml-to-json($xml, map { 'indent' : true() })"/>
+        <xsl:variable name="filename" select="replace(tokenize($resource-path,'/')[last()],'.xml','.json')"/>
+        <xsl:message>Path: <xsl:value-of select="concat($staticSitePath,'/data/json/',$filename)"/></xsl:message>
+        <xsl:message>Config: <xsl:value-of select="$configPath"/></xsl:message>
+        <xsl:result-document href="{concat($staticSitePath,'/data/json/',$filename)}">
+            <xsl:value-of select="xml-to-json($xml, map { 'indent' : true() })"/>
+        </xsl:result-document>
     </xsl:template>
     
     <!-- Named functions, should match search fields in repo-config.xml -->
     <xsl:template match="*:fields[@function = 'fullText']">
         <xsl:param name="doc"/>
         <xsl:variable name="field">
-            <xsl:value-of select="normalize-space(string-join($doc/descendant::tei:body/descendant::text(),' '))"/>
+            <xsl:value-of select="normalize-space(string-join($doc/descendant::tei:text/descendant::text(),' '))"/>
         </xsl:variable>
         <xsl:if test="$field != ''">
             <string key="{.}" xmlns="http://www.w3.org/2005/xpath-functions">
                 <xsl:value-of select="$field"/>
             </string>    
-        </xsl:if>
+        </xsl:if> 
     </xsl:template>
     
     <xsl:template match="*:fields[@function = 'title']">
@@ -249,17 +254,6 @@
             </xsl:if>
         </xsl:if>
     </xsl:template>
-    <xsl:template match="*:fields[@function = 'syriacaURI']">
-        <xsl:param name="doc"/>
-        <xsl:param name="id"/>
-        <xsl:if test="$doc/descendant::tei:titleStmt/tei:title[@ref != '']"> 
-            <xsl:if test="$doc/descendant::tei:titleStmt/tei:title[@ref != '']"> 
-                <string key="{.}" xmlns="http://www.w3.org/2005/xpath-functions">
-                    <xsl:value-of select="$doc/descendant::tei:titleStmt/tei:title/@ref"/>
-                </string>
-            </xsl:if>
-        </xsl:if>
-    </xsl:template>
     <xsl:template match="*:fields[@function = 'textID']">
         <xsl:param name="doc"/>
         <xsl:param name="id"/>
@@ -303,7 +297,7 @@
     <xsl:template match="*:fields"/>
       
     <xsl:template match="t:TEI" mode="fullText">
-        <xsl:value-of select="normalize-space(string-join(descendant::tei:body/descendant::text(),' '))"/>
+        <xsl:value-of select="normalize-space(string-join(descendant::tei:text/descendant::text(),' '))"/>
     </xsl:template>
     <xsl:template match="t:TEI" mode="title">
         <xsl:choose>
