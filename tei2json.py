@@ -244,6 +244,9 @@ def main():
             # Deduplicate and clean fields
             for key, value in j.items():
                 if isinstance(value, list):
+                    # Skip deduplication for lists of dicts (like langUsage, sections)
+                    if value and isinstance(value[0], dict):
+                        continue
                     seen = set()
                     deduped = []
                     for item in value:

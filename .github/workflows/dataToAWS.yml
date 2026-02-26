@@ -62,8 +62,8 @@ jobs:
       
       - name: Run Python TEI->JSON conversion
         run: |
-          mkdir -p json_output_python
-          python3 tei2json.py syriac-corpus/data/tei --outdir json_output_python --bulk bulk_data.json --manuscripts manuscripts.json --index syriaccorpus-index-1 
+          mkdir -p outputs
+          python3 tei2json.py syriac-corpus/data/tei --outdir outputs --manuscripts manuscripts.json 
           echo "python process"
           
       # 3. Identify XML files (null-safe)

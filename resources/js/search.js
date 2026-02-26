@@ -94,7 +94,7 @@ function displayResults(results, page = 1, perPage = 20) {
                 ${item.catalogName ? `<p><strong>Catalog:</strong> ${item.catalogName}</p>` : ''}
                 <small class="text-muted">
                     ${item.origDate ? `Date: ${item.origDate} | ` : ''}
-                    ${item.langUsage ? `Languages: ${item.langUsage.map(l => l.description).join(', ')} | ` : ''}
+                    ${item.langUsage ? `Languages: ${item.langUsage.map(l => l.language).join(', ')} | ` : ''}
                     ${item.persName ? `Persons: ${formatValue(item.persName, 'persName')}` : ''}
                 </small>
             </div>

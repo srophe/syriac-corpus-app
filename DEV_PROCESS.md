@@ -4,7 +4,6 @@
 
 ### Prerequisites
 - Python 3.13+
-- Apache Ant
 - Git
 
 ### Initial Setup

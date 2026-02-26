@@ -27,6 +27,7 @@
   "langUsage": [
     {
       "ident": "syr",
+      "language": "Syriac",
       "description": "Unvocalized Syriac of any variety or period"
     }
   ],
