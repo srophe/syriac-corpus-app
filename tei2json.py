@@ -33,8 +33,19 @@ SCRIPT_LANG_MAP = {
     "he": "Hebrew",
     "en": "English",
     "la": "Latin",
-    "mul": "Multiple languages"
+    "mul": "Multiple languages",
+    "cop": "Coptic",
+    "fr": "French",
+    "hy": "Armenian",
+    "zh-hant": "Chinese (Traditional)",
+    "hyr": "Armenian",
+    "qhy-x-cpas":"Classical Syriac (ܟܬܒܢܝܐ)",
+    "xcl": "Lycian",
+    "und": "Undetermined",
+    "syr-x-syrm": "Syriac (Melkite script)",
+    "ar-syr": "Arabic language written in Syriac script"
 }
+
 
 def map_script_to_language(script_codes):
     """Convert script codes to language names"""
@@ -120,9 +131,11 @@ def extract_json(tree):
     for lang in root.xpath(".//tei:profileDesc/tei:langUsage/tei:language", namespaces=NS):
         lang_ident = lang.get('ident', '')
         lang_text = ''.join(lang.itertext()).strip()
+        lang_name = SCRIPT_LANG_MAP.get(lang_ident, lang_ident)
         if lang_ident or lang_text:
             lang_usage.append({
                 "ident": lang_ident,
+                "language": lang_name,
                 "description": lang_text
             })
     
