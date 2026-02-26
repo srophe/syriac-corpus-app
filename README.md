@@ -1,44 +1,88 @@
-# Srophé Application
-A TEI publishing application.
+# Syriac Corpus Application
 
-The Srophé Application is an open source TEI publishing framework. Originally developed as a digital publication platform for 
-Syriaca.org [http://syriaca.org/] the Srophé software has been generalize for use with any TEI publications. 
+A TEI publishing application for Syriac texts and manuscripts, built on a ultra-reliable version of the Gaddel framework.
 
-## The Srophé Application offers
-* Multi-lingual Browse 
-* Multi-lingual Search
-* Faceted searching and browsing
-* Maps (Google or Leafletjs) for records with coordinates. 
-* Timelines (https://timeline.knightlab.com/)
-* D3js visualizations for TEI relationships
-* RDF and SPARQL integration and data conversion
-* Multi-format publishing: HTML, TEI, geoJSON, KML, JSON-LD, RDF/XML, RDF/TTL, Plain text
+## Overview
 
-## Requirements 
-The Srophé Application runs on eXist-db v3.5.0 and up. 
+This application provides a digital platform for publishing and exploring Syriac corpus materials encoded in TEI XML. Originally based on the Gaddel framework developed for Syriaca.org, it has been adapted for Syriac manuscript and text collections.
 
-In order to use the git-sync feature 
-(syncing your online website with your github repository) you will need to install the eXist-db EXPath Cryptographic Module Implementation [http://exist-db.org/exist/apps/public-repo/packages/expath-crypto-exist-lib.html]. 
+## Features
 
+- **Multi-lingual Interface** - Browse and search in multiple languages
+- **TEI Processing** - Convert TEI XML to JSON for searching, browsing, and display
+- **TEI Processing** - Convert TEI XML to HTML for item pages
+- **Faceted Search** - Filter and browse by author, date, and catalog
+- **Full-text Search** - Search within Syriac texts and translations
+- **Multi-format Export** - HTML, TEI, JSON formats
+- **SPARQL Integration** - RDF triplestore and SPARQL endpoint support
 
-To use the RDF triplestore and SPARQL endpoint you will need to install the exist-db SPARQL and RDF indexing module [http://exist-db.org/exist/apps/public-repo/packages/exist-sparql.html?eXist-db-min-version=3.0.3]
+## Requirements
+
+- **Python** 3.7+ (for TEI processing and testing)
 
 
-## Getting started
-Clone or fork the repository.
+## Quick Start
 
-Create a data repository, clone or fork the https://github.com/srophe/srophe-app-data repository, or create your own. 
+```bash
+# Clone repository
+git clone <repository-url>
+cd syriac-corpus-app
 
-### Add your data
-Add your TEI the data directory in srophe-app-data/data. 
-The Srophé Application depends on a unique identifier, for Syriaca.org uses `tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='URL']` as a unique identifier. 
-It is also possible to use the document uri, changes would have to made in repo-config.xml and in controller.xql to enable use of the document uri rather then the tei:idno. 
+# Install Python dependencies
+pip install lxml pytest
 
-### Deploy data and application
-In the root directory of each of your new repositories run 'ant' [link to ant instructions] to build the eXist-db application. 
-A new .xar file will be built and saved in srophe/build/ and srophe-data/build. You can install these applications via the eXist-db dashboard [http://localhost:8080/exist/apps/dashboard/index.html] using the Package Manager. 
 
-Once deployed the application should show up as 'The Srophe web application' on your dashboard. 
-Click on the icon to be taken to the app. 
+```
 
-Learn how to customize the application. 
+
+### TEI Requirements
+
+TEI files must include a unique identifier:
+```xml
+<tei:publicationStmt>
+  <tei:idno type="URI">unique-identifier</tei:idno>
+</tei:publicationStmt>
+```
+
+## Project Structure
+
+```
+syriac-corpus-app/
+├── resources/          # CSS, JS, fonts, images
+├── siteGenerator/      # XSL templates and components
+├── documentation/      # API and wiki documentation
+├── exampleData/        # Sample TEI, JSON, HTML files
+├── tei2json.py        # TEI to JSON converter
+├── index.html         # Main entry point
+└── *.html             # Page templates
+```
+
+## Configuration
+
+- `repo-config.xml` - Configure data paths and unique identifiers
+- `controller.xql` - Define URL routing and request handling
+
+## Development
+
+See [DEV_PROCESS.md](DEV_PROCESS.md) for detailed development workflow, testing procedures, and contribution guidelines.
+
+## Data Format
+
+The application extracts the following from TEI files:
+- Title and author information
+- Work and catalog URIs (Syriaca.org references)
+- Composition dates
+- Section divisions with Syriac text
+- Full-text content for search indexing in any language
+
+## License
+
+See [LICENSE](LICENSE) for details.
+
+## Links
+
+- [Syriaca.org](http://syriaca.org/)
+- [Srophé apps](https://github.com/srophe)
+- [Gaddel app](https://github.com/srophe/Gaddel)
+
+

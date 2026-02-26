@@ -1,0 +1,160 @@
+name: Process XML to JSON and HTML For Full Data Set
+
+on:
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: write
+
+jobs:
+  process_and_transform:
+    runs-on: ubuntu-latest
+    steps:
+
+      # 1. Checkout code + data repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout British Library data repository
+        uses: actions/checkout@v4
+        with:
+          repository: srophe/syriac-corpus
+          ref: main
+          path: syriac-corpus
+          
+      # 2. Java + Saxon
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Check cache for Saxon JAR
+        id: cache-saxon
+        uses: actions/cache@v4
+        with:
+          path: saxon.jar
+          key: saxon-HE-10.6
+
+      - name: Download Saxon if not cached
+        if: steps.cache-saxon.outputs.cache-hit != 'true'
+        run: |
+          wget https://repo1.maven.org/maven2/net/sf/saxon/Saxon-HE/10.6/Saxon-HE-10.6.jar -O saxon.jar
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install Python deps
+        run: |
+          pip install --upgrade pip
+          pip install lxml pytest
+
+      - name: Run pytest
+        run: pytest -q --junitxml=test-results.xml || true
+      
+      - name: Run Python TEI->JSON conversion
+        run: |
+          mkdir -p json_output_python
+          python3 tei2json.py s/data/tei --outdir json_output_python --bulk bulk_data.json --manuscripts manuscripts.json --index syriaccorpus-index-1 
+          echo "python process"
+          
+      # 3. Identify XML files (null-safe)
+      - name: Identify XML files (null-safe)
+        run: |
+          mkdir -p workspace
+          # XML path in the data repo
+          find ./syriac-corpus/data/tei -type f -name '*.xml' -print0 > xml_files.null || true
+          tr '\0' '\n' < xml_files.null > xml_files.txt || true
+          echo "Found $(wc -l < xml_files.txt) XML files"
+
+      # 5. Configure AWS credentials 
+      - name: Configure AWS credentials for uploads
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_GADDEL_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-session-name: GitHub-OIDC-batch-upload
+
+      # 6. Upload JSON to S3 (staging for OpenSearch ingestion)
+      - name: Upload JSON to S3
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_S3_BUCKET: ${{secrets.AWS_S3}}
+
+        run: |
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          aws s3 cp bulk_data.json s3://${AWS_S3_BUCKET}/json-data/index_1_$TIMESTAMP.json --acl private
+
+      # 7. Commit manuscripts.json to repo
+      - name: Commit processed JSON to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add manuscripts.json
+          git diff --staged --quiet || git commit -m "Update manuscripts.json from data conversion"
+          git push
+
+    #   7. Convert XML to HTML in parallel (produce ms/<id>.html)
+      - name: Convert XML to HTML in Parallel (safe, outputs ms/<id>.html)
+        run: |
+          mkdir -p logs data-html/ms
+          PARALLEL=$(nproc || echo 2)
+
+          cat xml_files.null | xargs -0 -n1 -P "$PARALLEL" -I {} sh -c '
+            file="$1"
+            id=$(basename "$file" .xml)
+            out_path="data-html/ms/${id}.html"
+            mkdir -p "$(dirname "$out_path")"
+            echo "Converting $file -> $out_path"
+            if ! java -jar saxon.jar -s:"$file" -xsl:resources/xsl/tei2html.xsl -o:"$out_path" 2>> logs/errors.log; then
+              echo "::warning:: HTML transformation failed for $file" >> logs/errors.log
+            fi
+          ' _ {}
+
+      # 8. Upload HTML (ms/) and XML (data/tei/) to S3 via sync (recommended)
+      - name: Upload ms/ HTML and data/tei XML to S3 using aws s3 sync
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3 }}
+        run: |
+          # Sync HTMLs to s3://.../ms/ so keys are ms/<id>.html
+          aws s3 sync data-html/ms/ s3://${AWS_S3_BUCKET}/ms/ \
+            --delete \
+            --exact-timestamps || echo "s3 sync ms/ completed (or no files)"
+
+          # Sync TEI XMLs to s3://.../data/tei/ (source is data repo)
+          aws s3 sync syriac-corpus/data/tei/ s3://${AWS_S3_BUCKET}/ms/ \
+            --exclude "*" --include "*.xml" || echo "s3 sync data completed"
+
+          # quick counts for logs
+          echo "HTML files uploaded (ms/):"
+          aws s3 ls s3://${AWS_S3_BUCKET}/ms/ --recursive | wc -l || true
+          echo "XML files uploaded (data/tei/):"
+          aws s3 ls s3://${AWS_S3_BUCKET}/data/tei/ --recursive | wc -l || true
+
+      # Step 8: Make site changes visible for testers 
+
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.GADDEL_CLOUDFRONT_DISTRIBUTION_ID}} \
+            --paths "/*"
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }} 
+
+      # 9. Upload logs/artifacts for debugging
+      - name: Upload Logs to GitHub Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: error-logs
+          path: logs

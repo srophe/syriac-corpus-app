@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:srophe="https://srophe.app">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      
+      <title data-template="app:record-title">App Title</title>
+      
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      
+      <meta name="DC.type" property="dc.type" content="Text" />
+      
+      <meta name="DC.isPartOf" property="dc.ispartof" content="Syriaca.org: The Syriac Reference Portal" />
+      
+      <link data-template="app:metadata" />
+      
+      <link rel="shortcut icon" href="/resources/images/fav-icons/mss-favicon.ico" />
+      
+      <!-- Bootstrap 3 -->
+      
+      <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css" />
+      
+      <link rel="stylesheet" type="text/css" href="/resources/css/sm-core-css.css" />
+      
+      <!-- Srophe styles -->
+      
+      <link rel="stylesheet" type="text/css" href="/resources/css/syr-icon-fonts.css" />
+      
+      <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
+      
+      <link rel="stylesheet" type="text/css" href="/resources/css/syriaca.css" />
+      
+      <link rel="stylesheet" type="text/css" media="print" href="/resources/css/print.css" />
+      
+      <!-- Leaflet -->
+      
+      <link rel="stylesheet" href="/resources/leaflet/leaflet.css" />
+      
+      <link rel="stylesheet" href="/resources/leaflet/leaflet.awesome-markers.css" />
+      
+      <!-- JQuery -->
+      
+      <link href="/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+      <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+      <script type="text/javascript" src="/resources/js/navbar-search.js"></script>
+      <script type="text/javascript" src="/resources/jquery-ui/jquery-ui.min.js"></script>
+      <script type="text/javascript" src="/resources/js/jquery.smartmenus.min.js"></script>
+      <script type="text/javascript" src="/resources/js/clipboard.min.js"></script>
+      
+      <!-- Bootstrap -->
+      <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script>
+      
+      <!-- ReCaptcha -->
+      
+      <!--        <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"/>-->
+      
+      <!-- Plausible tracking -->
+      <script defer="defer" data-domain="bl.syriac.uk" src="https://plausible.io/js/script.js"></script>
+      
+      <!-- keyboard widget css & script -->
+      <link href="/resources/keyboard/css/keyboard.min.css" rel="stylesheet" />
+      
+      <link href="/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet" />
+      
+      <link href="/resources/keyboard/syr/syr.css" rel="stylesheet" />
+      <script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/syr/keyboardSupport.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/syr/syr.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/layouts/ms-Greek.min.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/layouts/ms-Russian.min.js"></script>
+      <script type="text/javascript" src="/resources/keyboard/layouts/ms-Arabic.min.js"></script>
+      <script type="text/javascript" src="/resources/js/keyboard.js"></script>
+      </head>
+   <body id="body">
+     <script src="resources/js/navbar.js"></script>
+     <script src="resources/js/navbar-search.js"></script>
+      <div data-template="templates:surround" data-template-with="templates/bl.html" data-template-at="content">
+         <h1 style="padding-left:1em; color:white; margin-top:3em;">Advanced Search</h1>
+         <div class="container" style="margin:0;padding:0; width: 100%; background-color:white;">
+            <div class="row">
+               <div class="col-md-12">
+                  <div style="padding:20px 80px; position:relative;">
+                     <button type="button" class="btn btn-default pull-right" id="toggleSearch">Show/Hide Search Options</button>
+                     <div style="clear:both;"></div>
+                  </div>
+                  <form method="get" action="search.html" class="form-horizontal search" role="form" id="advancedSearch" style="padding:20px 80px; display:block;" onsubmit="return false;">
+                     <!-- Keyword -->
+                     <div class="form-group"><label for="fullText" class="col-sm-3 col-md-2 control-label">Keyword in Any Language: </label>
+                        <div class="col-sm-9 col-md-4">
+                           <div class="input-group">
+                              <input type="text" id="fullText" name="fullText" class="form-control keyboard ui-keyboard-input ui-widget-content ui-corner-all" aria-haspopup="true" role="textbox">
+                              <div class="input-group-btn"><span class="keyboard-menu"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                 &nbsp;<span class="syriaca-icon syriaca-keyboard">&nbsp; </span><span class="caret"></span></button>
+                                 <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="qs">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="qs">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="qs">Arabic Mod. Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="qs">English QWERTY</a></li>
+                                 </ul></span></div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- Author -->
+                     <div class="form-group"><label for="author" class="col-sm-3 col-md-2 control-label">Author: </label>
+                        <div class="col-sm-9 col-md-4">
+                           <div class="input-group">
+                              <input type="text" id="author" name="author" class="form-control keyboard ui-keyboard-input ui-widget-content ui-corner-all" 
+                                 aria-haspopup="true" role="textbox">
+                              <div class="input-group-btn"><span class="keyboard-menu"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                 &nbsp;<span class="syriaca-icon syriaca-keyboard">&nbsp; </span><span class="caret"></span></button>
+                                 <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="authorSearch">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="authorSearch">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="authorSearch">Arabic Mod. Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="authorSearch">English QWERTY</a></li>
+                                 </ul></span></div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- Title -->
+                     <div class="form-group"><label for="title" class="col-sm-3 col-md-2 control-label">Translated Title: </label>
+                        <div class="col-sm-9 col-md-4">
+                           <div class="input-group">
+                              <input type="text" id="title" name="title" class="form-control keyboard ui-keyboard-input ui-widget-content ui-corner-all" 
+                                 aria-haspopup="true" role="textbox">
+                              <div class="input-group-btn"><span class="keyboard-menu"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                 &nbsp;<span class="syriaca-icon syriaca-keyboard">&nbsp; </span><span class="caret"></span></button>
+                                 <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="persNameSearch">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="persNameSearch">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="persNameSearch">Arabic Mod. Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="persNameSearch">English QWERTY</a></li>
+                                 </ul></span></div>
+                           </div>
+                        </div>
+                     </div>
+                     
+                     <!-- Syriac Text -->
+                     <div class="form-group"><label for="syriacText" class="col-sm-3 col-md-2 control-label">Syriac Text: </label>
+                        <div class="col-sm-9 col-md-4">
+                           <div class="input-group">
+                              <input type="text" id="syriacText" name="syriacText" class="form-control keyboard ui-keyboard-input ui-widget-content ui-corner-all" 
+                                 aria-haspopup="true" role="textbox">
+                              <div class="input-group-btn"><span class="keyboard-menu"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                 &nbsp;<span class="syriaca-icon syriaca-keyboard">&nbsp; </span><span class="caret"></span></button>
+                                 <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="syriacTextSearch">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="syriacTextSearch">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="syriacTextSearch">Arabic Mod. Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="syriacTextSearch">English QWERTY</a></li>
+                                 </ul></span></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <div class="col-sm-9 col-md-10 col-sm-offset-3 col-md-offset-2">
+                           Search in: 
+                           <input type="checkbox" id="syrRubricsLimit" name="syrRubricsLimit" value="true" checked=""> Titles/Rubrics 
+                           &nbsp;<input type="checkbox" id="syrFinalRubricsLimit" name="syrFinalRubricsLimit" value="true" checked=""> Final Rubrics/Subscriptions
+                           &nbsp;<input type="checkbox" id="syrIncipitsLimit" name="syrIncipitsLimit" value="true" checked=""> Incipits
+                           &nbsp;<input type="checkbox" id="syrExplicitsLimit" name="syrExplicitsLimit" value="true" checked=""> Explicits/Desinits
+                           &nbsp;<input type="checkbox" id="syrColophonsLimit" name="syrColophonsLimit" value="true" checked=""> Colophons
+                           &nbsp;<input type="checkbox" id="syrOtherLimit" name="syrOtherLimit" value="true" checked=""> Other
+                        </div>
+                     </div>
+                     
+                     <!-- Place -->
+                     <div class="form-group"><label for="placeName" class="col-sm-3 col-md-2 control-label">Place: </label>
+                        <div class="col-sm-9 col-md-4">
+                           <div class="input-group">
+                              <input type="text" id="placeName" name="placeName" class="form-control keyboard ui-keyboard-input ui-widget-content ui-corner-all" 
+                                 aria-haspopup="true" role="textbox">
+                              <div class="input-group-btn"><span class="keyboard-menu"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                 &nbsp;<span class="syriaca-icon syriaca-keyboard">&nbsp; </span><span class="caret"></span></button>
+                                 <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="placeNameSearch">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="placeNameSearch">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="placeNameSearch">Arabic Mod. Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="placeNameSearch">English QWERTY</a></li>
+                                 </ul></span></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <div class="col-sm-9 col-md-10 col-sm-offset-3 col-md-offset-2">
+                           Limit search to place of origin: 
+                           <input type="checkbox" id="origPlaceLimit" name="origPlaceLimit" value="true">
+                        </div>
+                     </div>
+                     
+                     <!-- Person -->
+                     <div class="form-group"><label for="persName" class="col-sm-3 col-md-2 control-label">Person: </label>
+                        <div class="col-sm-9 col-md-4">
+                           <div class="input-group">
+                              <input type="text" id="persName" name="persName" class="form-control keyboard ui-keyboard-input ui-widget-content ui-corner-all" 
+                                 aria-haspopup="true" role="textbox">
+                              <div class="input-group-btn"><span class="keyboard-menu"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                 &nbsp;<span class="syriaca-icon syriaca-keyboard">&nbsp; </span><span class="caret"></span></button>
+                                 <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="persNameSearch">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="persNameSearch">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="persNameSearch">Arabic Mod. Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="persNameSearch">English QWERTY</a></li>
+                                 </ul></span></div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- Decorations -->
+                     <div class="form-group"><label for="decorations" class="col-sm-3 col-md-2 control-label">Decorations: </label>
+                        <div class="col-sm-6 col-md-4">
+                           <div class="input-group"><input type="text" id="decorations" name="decorations" class="form-control keyboard ui-keyboard-input ui-widget-content ui-corner-all" aria-haspopup="true" role="textbox">
+                              <div class="input-group-btn"><span class="keyboard-menu"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
+                                 &nbsp;<span class="syriaca-icon syriaca-keyboard">&nbsp; </span><span class="caret"></span></button>
+                                 <ul class="dropdown-menu">
+                                    <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="decorations">Syriac Phonetic</a></li>
+                                    <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="decorations">Syriac Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="ms-Arabic (101)" data-keyboard-id="decorations">Arabic Mod. Standard</a></li>
+                                    <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="decorations">English QWERTY</a></li>
+                                 </ul></span></div>
+                           </div>
+                        </div><label for="decorationsType" class="col-sm-1 col-md-1  control-label">Type: </label>
+                        <div class="col-sm-3 col-md-2 "><select name="decorationsType" id="decorationsType" class="form-control">
+                           <option value="" selected="">All</option>
+                           <option value="border">border</option>
+                           <option value="diagram">diagram</option>
+                           <option value="illustration">illustration</option>
+                           <option value="initial">initial</option>
+                           <option value="marginal">marginal</option>
+                           <option value="ornamentation">ornamentation</option>
+                           <option value="paratext">paratext</option>
+                           <option value="rubrication">rubrication</option>
+                           <option value="other">other</option></select></div>
+                     </div>
+                     <!-- Shelfmark -->
+                     <div class="form-group"><label for="shelfmark" class="col-sm-3 col-md-2 control-label">Shelfmark: </label>
+                        <div class="col-sm-9 col-md-4">
+                           <div class="input-group"><input type="text" id="shelfmark" name="shelfmark" class="form-control keyboard ui-keyboard-input ui-widget-content ui-corner-all" aria-haspopup="true" role="textbox"></div>
+                        </div>
+                     </div>
+                     <hr>
+                     <div class="pull-right"><button type="submit" class="btn btn-info">Search</button>&nbsp;
+                     <button type="reset" class="btn">Clear</button></div><br class="clearfix"><br>
+                  </form>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <h2 style="margin-bottom: 20px;">Search Results</h2>
+                  <div class="row alpha-pages">
+                     <div class="col-md-5">
+                        <div id="search-info"></div>
+                     </div>
+                     <div class="col-md-7" class="pull-right">
+                        <div id="pagination" class="pagination-container pull-right paging">
+                           <ul class="searchPagination pagination pull-right"></ul>
+                        </div>      
+                     </div>
+                  </div>
+                  <div id="search-results"></div>
+                  <div class="col-md-7" class="pull-right">
+                     <div id="pagination" class="pagination-container pull-right paging">
+                        <ul class="searchPagination pagination pull-right"></ul>
+                     </div>      
+                  </div>
+               </div>
+            </div>
+         </div>
+         <script type="text/javascript" src="/resources/js/search.js"></script>
+         <script type="text/javascript">
+         $(document).ready(function () {
+               // Populate form fields from URL parameters
+               const urlParams = new URLSearchParams(window.location.search);
+               if (urlParams.get('fullText')) $('#fullText').val(urlParams.get('fullText'));
+               if (urlParams.get('author')) $('#author').val(urlParams.get('author'));
+               if (urlParams.get('title')) $('#title').val(urlParams.get('title'));
+               if (urlParams.get('syriacText')) $('#syriacText').val(urlParams.get('syriacText'));
+               if (urlParams.get('placeName')) $('#placeName').val(urlParams.get('placeName'));
+               if (urlParams.get('persName')) $('#persName').val(urlParams.get('persName'));
+               if (urlParams.get('shelfmark')) $('#shelfmark').val(urlParams.get('shelfmark'));
+               if (urlParams.get('decorations')) $('#decorations').val(urlParams.get('decorations'));
+               if (urlParams.get('decorationsType')) $('#decorationsType').val(urlParams.get('decorationsType'));
+               
+               $('#toggleSearch').on('click', function() {
+                  $('#advancedSearch').slideToggle();
+               });
+               $('button[type="reset"]').on('click', function() {
+                  $('#search-info').html('');
+                  $('#search-results').html('');
+                  $('.searchPagination').html('');
+                  window.history.pushState({}, '', window.location.pathname);
+               });
+               $('button[type="submit"]').on('click', function(e) {
+                  e.preventDefault();
+                  const searchParams = {
+                     fullText: $('#fullText').val(),
+                     author: $('#author').val(),
+                     title: $('#title').val(),
+                     syriacText: $('#syriacText').val(),
+                     placeName: $('#placeName').val(),
+                     persName: $('#persName').val(),
+                     shelfmark: $('#shelfmark').val(),
+                     decorations: $('#decorations').val(),
+                     decorationsType: $('#decorationsType').val()
+                  };
+                  const params = new URLSearchParams();
+                  Object.keys(searchParams).forEach(key => {
+                     if (searchParams[key]) params.append(key, searchParams[key]);
+                  });
+                  window.history.pushState({}, '', '?' + params.toString());
+                  
+                  // Reload data and run search with new parameters
+                  loadData().then(() => {
+                     const results = searchData(searchParams);
+                     displayResults(results);
+                  });
+               });
+               runSearch();
+            });
+      </script>
+         
+      </div>
+      <!-- Footer with Syriaca.org branding -->
+      <footer>
+         
+         <div class="container">
+            <img alt="Creative Commons License" style="border-width:0" src="$app-root/resources/img/cc.png" height="18px" />
+            This work is licensed under a 
+            <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" style="color:white;">Creative Commons Attribution-NonCommercial 4.0 license (CC BY-NC 4.0)</a>.
+            <br />Copyright © 2011 Beth Mardutho: The Syriac Institute.
+            
+         </div>
+         
+         <!-- Additional Javascript -->
+         <script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
+         <script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script>
+         <script type="text/javascript" src="/resources/js/main.js"></script>
+         <script type="text/javascript" src="/resources/js/lightslider.min.js"></script>
+         </footer>
+   </body><script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script><script type="text/javascript" src="/resources/js/require.min.js"></script><script type="text/javascript" src="/resources/js/srophe.js"></script><script data-template="app:google-analytics"></script></html>

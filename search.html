@@ -20,104 +20,8 @@
       <link href="/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet" />
       <link href="/resources/keyboard/syr/syr.css" rel="stylesheet" /><script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script><script type="text/javascript" src="/resources/js/require.min.js"></script><script type="text/javascript" src="/resources/js/srophe.js"></script></head>
    <body id="body">
-      <nav class="navbar navbar-default navbar-fixed-top" role="navigation"> 
-         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
-               <span class="sr-only">Toggle navigation</span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand banner-container" href="/index.html"> 
-               <span class="banner-icon">
-                  <img src="/resources/images/syriac-corpus.svg" alt="" width="50px" />
-               </span>
-               <span class="banner-text">Digital Syriac Corpus</span>
-            </a>
-         </div>
-         <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
-            <ul class="nav navbar-nav">
-               <li>
-                  <a href="/browse.html" class="nav-text">Browse</a>
-               </li>
-               <li class="dropdown">
-                  <a href="#" class="dropdown-toggle lonely-caret" data-toggle="dropdown">About  <b class="caret"></b></a>
-                  <ul class="dropdown-menu pull-right">
-                     <li>
-                        <a href="/about.html">About the Project</a>
-                     </li>
-                     <li role="presentation" class="divider"></li>
-                     <li>
-                        <a href="/history.html">History of the Project</a>
-                     </li>
-                     <li role="presentation" class="divider"></li>
-                     <li>
-                        <a href="/project-team.html">Project Team</a>
-                     </li>
-                     <li role="presentation" class="divider"></li>
-                     <li>
-                        <a href="/submissions.html">Submissions to the Corpus</a>
-                     </li>
-                     <li role="presentation" class="divider"></li>
-                     <li>
-                        <a href="/contact-us.html">Contact Us</a>
-                     </li>
-                     <li role="presentation" class="divider"></li>
-                     <li>
-                        <a href="/documentation/index.html">Documentation</a>
-                     </li>
-                  </ul>
-               </li>
-               <li>
-                  <a href="/search.html" class="nav-text">Advanced Search</a>
-               </li>
-               <li>
-                  <div id="search-wrapper">
-                     <form class="navbar-form navbar-right search-box" role="search" action="/search.html" method="get">
-                        <div class="form-group">
-                           <input type="text" class="form-control keyboard" placeholder="search" name="keyword" id="keywordNav" />
-                           <div class="keyboard-menu">
-                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard"> <span class="syriaca-icon syriaca-keyboard">  </span><span class="caret"></span></button>                                          
-                              <ul class="dropdown-menu">                 
-                                 <li><a href="#" class="keyboard-select" id="syriac-phonetic" data-keyboard-id="keywordNav">Syriac Phonetic</a></li>                
-                                 <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="keywordNav">Syriac Standard</a></li>                 
-                                 <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="keywordNav">English QWERTY</a></li>             
-                              </ul>        
-                           </div>
-                           <button class="btn btn-default search-btn" id="searchbtn" type="submit" title="Search">
-                              <span class="glyphicon glyphicon-search"></span>
-                           </button>                                    
-                        </div>
-                     </form>
-                  </div>
-               </li>
-               <li>
-                  <div class="btn-nav">
-                     <button class="btn btn-default navbar-btn" id="font" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Font">
-                        <span class="glyphicon glyphicon-font"></span>
-                     </button>    
-                     <ul class="dropdown-menu dropdown-menu-right" id="swap-font">
-                        <li>
-                           <a href="#" class="swap-font" id="DefaultSelect" data-font-id="EstrangeloEdessa">Default</a>
-                        </li>
-                        <li>
-                           <a href="#" class="swap-font" id="EstrangeloEdessaSelect" data-font-id="EstrangeloEdessa">Estrangelo Edessa</a>
-                        </li>
-                        <li>
-                           <a href="#" class="swap-font" id="EastSyriacAdiabeneSelect" data-font-id="EastSyriacAdiabene">East Syriac Adiabene</a>
-                        </li>
-                        <li>
-                           <a href="#" class="swap-font" id="SertoBatnanSelect" data-font-id="SertoBatnan">Serto Batnan</a>
-                        </li>
-                        <li>
-                           <a href="/documentation/wiki.html?wiki-page=/How-to-view-Syriac-script&amp;wiki-uri=https://github.com/srophe/syriaca-data/wiki">Help <span class="glyphicon glyphicon-question-sign"></span></a>                           
-                        </li>                        
-                     </ul>
-                  </div>
-               </li>
-            </ul>
-         </div>
-      </nav>
+    <script src="resources/js/navbar.js"></script>
+    <script src="resources/js/navbar-search.js"></script>
       <div class="main-content-block"> 
          <h1 style="padding-left:1em; color:white; margin-top:3em;">Advanced Search</h1>
          <div class="container" style="margin:0;padding:0; width: 100%; background-color:white;">
@@ -125,10 +29,10 @@
                <div class="col-md-4">
                   <form method="get" action="search.html" class="form-horizontal search" role="form" id="advancedSearch">
                      <!-- Keyword -->
-                     <div class="form-group"><label for="q" class="col-sm-2 col-md-3  control-label">Keyword: </label>
+                     <div class="form-group"><label for="fullText" class="col-sm-2 col-md-3  control-label">Keyword: </label>
                         <div class="col-sm-10 col-md-9 ">
                            <div class="input-group">
-                              <input type="text" id="qs" name="q" class="form-control keyboard ui-keyboard-input ui-widget-content ui-corner-all" aria-haspopup="true" role="textbox">
+                              <input type="text" id="qs" name="fullText" class="form-control keyboard ui-keyboard-input ui-widget-content ui-corner-all" aria-haspopup="true" role="textbox">
                               <div class="input-group-btn"><span class="keyboard-menu"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard">
                                  &nbsp;<span class="syriaca-icon syriaca-keyboard">&nbsp; </span><span class="caret"></span></button>
                                  <ul class="dropdown-menu">
@@ -136,11 +40,6 @@
                                     <li><a href="#" class="keyboard-select" id="syriac-standard" data-keyboard-id="qs">Syriac Standard</a></li>
                                     <li><a href="#" class="keyboard-select" id="qwerty" data-keyboard-id="qs">English QWERTY</a></li>
                                  </ul></span></div>
-                              <!-- NOTE how to do proximity
-                              <div class="input-group-btn"><input type="text" id="keywordProximity" name="keywordProximity" class="form-control"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Proximity Operator">
-                                 &nbsp; Proximity *
-                              </button></div>
-                              -->
                            </div>
                         </div>
                      </div>
@@ -175,66 +74,66 @@
                      <div class="form-group"><label for="title" class="col-sm-2 col-md-3  control-label">&#160;</label>
                         <div class="col-sm-10 col-md-9">
                            <div class="input-group">
-                              <div class="input-group-btn" style="width:50%;"><select name="fq" class="form-control">
+                              <div class="input-group-btn" style="width:50%;"><select name="catalog" class="form-control">
                                  <option value=""> -- Limit by Catalog -- </option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/10513">Acts and the
+                                 <option value="http://syriaca.org/work/10513">Acts and the
                                     Catholic Epistles (Peshitta Version)</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8876">Ascetic
+                                 <option value="http://syriaca.org/work/8876">Ascetic
                                     Discourses, Part 1</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8661">Book of the Laws of the Countries - </option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/160">Catholic Epistles
+                                 <option value="http://syriaca.org/work/8661">Book of the Laws of the Countries - </option>
+                                 <option value="http://syriaca.org/work/160">Catholic Epistles
                                     (Peshitta Version)</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8992">Cause of all
+                                 <option value="http://syriaca.org/work/8992">Cause of all
                                     Causes - </option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8559">Chronicle of
+                                 <option value="http://syriaca.org/work/8559">Chronicle of
                                     Edessa - </option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/9005">Chronicle of
+                                 <option value="http://syriaca.org/work/9005">Chronicle of
                                     Zuqnin</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8819">Dialogue on the
+                                 <option value="http://syriaca.org/work/8819">Dialogue on the
                                     Soul - </option>
-                                 <option value=";fq-Catalog:">Digital Syriac Corpus</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8961">Ecclesiastical
+                                 <option value="">Digital Syriac Corpus</option>
+                                 <option value="http://syriaca.org/work/8961">Ecclesiastical
                                     History</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8854">Ecclesiastical
+                                 <option value="http://syriaca.org/work/8854">Ecclesiastical
                                     History - </option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/159">Epistles of Paul
+                                 <option value="http://syriaca.org/work/159">Epistles of Paul
                                     (Peshitta Version)</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/9041">Hymns on Nativity -
+                                 <option value="http://syriaca.org/work/9041">Hymns on Nativity -
                                  </option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8737">Hymns on Nisibis -
+                                 <option value="http://syriaca.org/work/8737">Hymns on Nisibis -
                                  </option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8527">Memre on
+                                 <option value="http://syriaca.org/work/8527">Memre on
                                     Joseph</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8705">Old Testament
+                                 <option value="http://syriaca.org/work/8705">Old Testament
                                     Commentaries of Dionysius bar Salibi</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8870">Persian Martyr Acts</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/9016">Prose Refutations
+                                 <option value="http://syriaca.org/work/8870">Persian Martyr Acts</option>
+                                 <option value="http://syriaca.org/work/9016">Prose Refutations
                                     of Mani, Marcion, and Bardaisan</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8811">The Apocryphal
+                                 <option value="http://syriaca.org/work/8811">The Apocryphal
                                     Acts of the Apostles - </option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/210">The Apostolic
+                                 <option value="http://syriaca.org/work/210">The Apostolic
                                     Epistles (Peshitta Version)</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8693">The Book of Steps</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8501">The
+                                 <option value="http://syriaca.org/work/8693">The Book of Steps</option>
+                                 <option value="http://syriaca.org/work/8501">The
                                     Demonstrations</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8855">The Discourses of Philoxenos</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/71">The Four Gospels
+                                 <option value="http://syriaca.org/work/8855">The Discourses of Philoxenos</option>
+                                 <option value="http://syriaca.org/work/71">The Four Gospels
                                     (Peshitta Version)</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8528">The Homilies of
+                                 <option value="http://syriaca.org/work/8528">The Homilies of
                                     Mar Narsai</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8820">The Memre of Jacob
+                                 <option value="http://syriaca.org/work/8820">The Memre of Jacob
                                     of Serugh</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8620">The Odes of
+                                 <option value="http://syriaca.org/work/8620">The Odes of
                                     Solomon</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/70">The Peshitta New
+                                 <option value="http://syriaca.org/work/70">The Peshitta New
                                     Testament</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/8695">The
+                                 <option value="http://syriaca.org/work/8695">The
                                     Pseudo-Clementine Recognitions and Homilies</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/209">The remaining
+                                 <option value="http://syriaca.org/work/209">The remaining
                                     Apostolic Epistles (Peshitta Version)</option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/9028">Treatise of
+                                 <option value="http://syriaca.org/work/9028">Treatise of
                                     Treatises - </option>
-                                 <option value=";fq-Catalog:http://syriaca.org/work/9032">On the
+                                 <option value="http://syriaca.org/work/9032">On the
                                     Ecclesiastical Mysteries - </option></select></div>
                            </div>
                         </div>
@@ -242,14 +141,13 @@
                      <div class="form-group"><label for="section" class="col-sm-2 col-md-3  control-label">Section number: </label>
                         <div class="col-sm-10 col-md-9 "><input type="text" id="section" name="section" class="form-control"></div>
                      </div>
-                     <div class="form-group"><label for="corpus-uri" class="col-sm-2 col-md-3  control-label">Corpus URI: </label>
-                        <div class="col-sm-10 col-md-9 "><input type="text" id="corpus-uri" name="corpus-uri" class="form-control"></div>
+                     <div class="form-group"><label for="corpusUri" class="col-sm-2 col-md-3  control-label">Corpus URI: </label>
+                        <div class="col-sm-10 col-md-9 "><input type="text" id="corpusUri" name="corpusUri" class="form-control"></div>
                      </div>
-                     <div class="form-group"><label for="syriaca-uri" class="col-sm-2 col-md-3  control-label">Syriaca URI: </label>
-                        <div class="col-sm-10 col-md-9 "><input type="text" id="syriaca-uri" name="syriaca-uri" class="form-control"></div>
+                     <div class="form-group"><label for="syriacaUri" class="col-sm-2 col-md-3  control-label">Syriaca URI: </label>
+                        <div class="col-sm-10 col-md-9 "><input type="text" id="syriacaUri" name="syriacaUri" class="form-control"></div>
                      </div>
-                     <div class="form-group"><label for="text-id" class="col-sm-2 col-md-3  control-label">Text ID Number: </label>
-                        <div class="col-sm-10 col-md-9 "><input type="text" id="text-id" name="text-id" class="form-control"></div>
+                     <div class="form-group">
                      </div>
                      <div class="form-group"><label for="cds" class="col-sm-2 col-md-3 control-label">Dates: </label>
                         <div class="col-sm-10 col-md-9 form-inline"><input type="text" id="startDate" name="startDate" placeholder="Start Date" class="form-control">&nbsp;
@@ -265,6 +163,7 @@
                </div>
                <div class="col-md-8">
                   <h2>Search Results</h2>
+                  <br/>
                   <div class="row alpha-pages">
                      <div class="col-md-5">
                         <div id="search-info"></div>
@@ -292,21 +191,5 @@
       </script>
          
       </div>
-      <!-- Footer with Syriaca.org branding -->
-      <footer>
-         
-         <div class="container">
-            <img alt="Creative Commons License" style="border-width:0" src="$app-root/resources/img/cc.png" height="18px" />
-            This work is licensed under a 
-            <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" style="color:white;">Creative Commons Attribution-NonCommercial 4.0 license (CC BY-NC 4.0)</a>.
-            <br />Copyright © 2011 Beth Mardutho: The Syriac Institute.
-            
-         </div>
-         
-         <!-- Additional Javascript -->
-         <script type="text/javascript" src="/resources/js/bootstrap.min.js"></script>
-         <script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script>
-         <script type="text/javascript" src="/resources/js/main.js"></script>
-         <script type="text/javascript" src="/resources/js/lightslider.min.js"></script>
-         </footer>
+     <script src="resources/js/footer.js"></script>
    </body><script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script><script type="text/javascript" src="/resources/js/require.min.js"></script><script type="text/javascript" src="/resources/js/srophe.js"></script><script data-template="app:google-analytics"></script></html>
