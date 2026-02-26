@@ -63,7 +63,7 @@ jobs:
       - name: Run Python TEI->JSON conversion
         run: |
           mkdir -p json_output_python
-          python3 tei2json.py s/data/tei --outdir json_output_python --bulk bulk_data.json --manuscripts manuscripts.json --index syriaccorpus-index-1 
+          python3 tei2json.py syriac-corpus/data/tei --outdir json_output_python --bulk bulk_data.json --manuscripts manuscripts.json --index syriaccorpus-index-1 
           echo "python process"
           
       # 3. Identify XML files (null-safe)
@@ -83,15 +83,6 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           role-session-name: GitHub-OIDC-batch-upload
 
-      # 6. Upload JSON to S3 (staging for OpenSearch ingestion)
-      - name: Upload JSON to S3
-        env:
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          AWS_S3_BUCKET: ${{secrets.AWS_S3}}
-
-        run: |
-          TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          aws s3 cp bulk_data.json s3://${AWS_S3_BUCKET}/json-data/index_1_$TIMESTAMP.json --acl private
 
       # 7. Commit manuscripts.json to repo
       - name: Commit processed JSON to repo
@@ -102,16 +93,16 @@ jobs:
           git diff --staged --quiet || git commit -m "Update manuscripts.json from data conversion"
           git push
 
-    #   7. Convert XML to HTML in parallel (produce ms/<id>.html)
-      - name: Convert XML to HTML in Parallel (safe, outputs ms/<id>.html)
+    #   7. Convert XML to HTML in parallel (produce/<id>.html)
+      - name: Convert XML to HTML in Parallel (safe, outputs <id>.html)
         run: |
-          mkdir -p logs data-html/ms
+          mkdir -p logs data-html
           PARALLEL=$(nproc || echo 2)
 
           cat xml_files.null | xargs -0 -n1 -P "$PARALLEL" -I {} sh -c '
             file="$1"
             id=$(basename "$file" .xml)
-            out_path="data-html/ms/${id}.html"
+            out_path="data-html/${id}.html"
             mkdir -p "$(dirname "$out_path")"
             echo "Converting $file -> $out_path"
             if ! java -jar saxon.jar -s:"$file" -xsl:resources/xsl/tei2html.xsl -o:"$out_path" 2>> logs/errors.log; then
@@ -119,26 +110,26 @@ jobs:
             fi
           ' _ {}
 
-      # 8. Upload HTML (ms/) and XML (data/tei/) to S3 via sync (recommended)
-      - name: Upload ms/ HTML and data/tei XML to S3 using aws s3 sync
+      # 8. Upload HTML and XML (data/tei/) to S3 via sync (recommended)
+      - name: Upload HTML and data/tei XML to S3 using aws s3 sync
         env:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_S3_BUCKET: ${{ secrets.AWS_S3 }}
         run: |
-          # Sync HTMLs to s3://.../ms/ so keys are ms/<id>.html
-          aws s3 sync data-html/ms/ s3://${AWS_S3_BUCKET}/ms/ \
-            --delete \
-            --exact-timestamps || echo "s3 sync ms/ completed (or no files)"
+          # Sync HTMLs to s3://... so keys are <id>.html
+          aws s3 sync data-html/ s3://${AWS_S3_BUCKET}/ \
+            --exclude "*" --include "*.html" \
+            --exact-timestamps || echo "s3 sync completed (or no files)"
 
           # Sync TEI XMLs to s3://.../data/tei/ (source is data repo)
-          aws s3 sync syriac-corpus/data/tei/ s3://${AWS_S3_BUCKET}/ms/ \
+          aws s3 sync syriac-corpus/data/tei/ s3://${AWS_S3_BUCKET}/data/tei/ \
             --exclude "*" --include "*.xml" || echo "s3 sync data completed"
 
           # quick counts for logs
-          echo "HTML files uploaded (ms/):"
-          aws s3 ls s3://${AWS_S3_BUCKET}/ms/ --recursive | wc -l || true
+          echo "HTML files uploaded:"
+          aws s3 ls s3://${AWS_S3_BUCKET}/ --recursive | grep -c '\.html$' || true
           echo "XML files uploaded (data/tei/):"
-          aws s3 ls s3://${AWS_S3_BUCKET}/data/tei/ --recursive | wc -l || true
+          aws s3 ls s3://${AWS_S3_BUCKET}/data/tei/ --recursive | grep -c '\.xml$' || true
 
       # Step 8: Make site changes visible for testers 
 
