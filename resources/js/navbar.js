@@ -56,7 +56,7 @@ const navbarHTML = `
             <div id="search-wrapper">
                <form class="navbar-form navbar-right search-box" role="search" action="/search.html" method="get">
                   <div class="form-group">
-                     <input type="text" class="form-control keyboard" placeholder="search" name="keyword" id="keywordNav" />
+                     <input type="text" class="form-control keyboard" placeholder="search" name="fullText" id="keywordNav" />
                      <div class="keyboard-menu">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select Keyboard"> <span class="syriaca-icon syriaca-keyboard">  </span><span class="caret"></span></button>                                          
                         <ul class="dropdown-menu">                 
