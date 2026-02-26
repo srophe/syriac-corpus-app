@@ -160,16 +160,12 @@ img{ margin:0px }
 
 /* N */
 /* Navbar styles*/
-.navbar {padding:0 2em; border-bottom:4px solid #456889 !important;}
-/*.navbar .dropdown {margin-top:.25em;}*/
-.navbar {border-bottom:4px solid #456889 !important;}
-.navbar-inner {border-bottom:.5em solid #456889 !important;}
+.navbar {align-items: center; padding:0 1em; border-bottom:4px solid #456889 !important;}
+/* .navbar-inner {border-bottom:.5em solid #456889 !important;} */
 .navbar-inner .container{height: 45px !important; padding-top:.5em; margin-left:.5em;}
-.navbar-inner {border-bottom:.5em solid #456889 !important;}
-.navbar-inner .container{height: 45px !important; padding-top:.5em; margin-left:.5em;}
-.navbar-brand {margin-top: .15em; padding: 0 1em 0 0; margin-left: 0; margin-right: -2em; font-size: 1.35em;}
-.navbar-brand img {padding:0; margin:0; }
-.navbar .brand {margin-top:-.75em; margin-left:40px;padding-left:0;}
+/* .navbar-brand {margin-top: .15em; padding: 0 0.5em 0 0; margin-left: 0; margin-right: 0.5em; font-size: 1.35em;} */
+/* .navbar-brand img {padding:0; margin:0; }
+.navbar .brand {margin-top:-.75em; margin-left:40px;padding-left:0;} */
 .navbar .brand img {margin-left:1.5em;padding-left:0;}
 .navbar-inner .nav > li > a:hover, .advanced-search > a:hover {
         border-bottom: 4px solid #DDEAF1 !important;  
@@ -182,6 +178,18 @@ img{ margin:0px }
 .navbar-input-group {
   font-size: 0px; /*removes whitespace between button and input*/
 }
+/* Navbar alignment and spacing */
+.navbar-nav {display: flex; align-items: center; margin: 0;}
+.navbar-nav > li {display: inline-block; float: none; margin: 0 0.25em; padding: 0;}
+.navbar-collapse {display: flex !important; justify-content: space-between; padding: 0;}
+.navbar-header {float: left;}
+.navbar .btn-nav {margin: 0; padding-top: 8px;}
+#search-wrapper {margin: 0; padding: 0;}
+.navbar-form {margin: 0; padding: 0;}
+.navbar-form .form-group {display: flex; align-items: center; margin: 0;}
+.navbar-form .form-control {display: inline-block; vertical-align: middle;}
+.navbar-form .keyboard-menu {display: inline-block; vertical-align: middle; margin: 0 2px;}
+.navbar-form .search-btn {display: inline-block; vertical-align: middle; margin: 0;}
 /* Nav submenus*/
 .navbar .dropdown-submenu {position: relative;}
 .navbar .dropdown-submenu > .dropdown-menu {

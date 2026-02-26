@@ -1,0 +1,137 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Template for simplified version of Gaddel application architecture without OpenSearch."
+Parameters:
+  BucketName:
+    Type: String
+    Default: gaddel-syriaccorpus-site
+    Description: S3 bucket name for hosting the SyriacCorpus app.
+  ApplicationName:
+    Type: String
+    Default: SyriacCorpus
+    Description: Application name for tagging resources
+  GitHubOrg:
+    Type: String
+    Default: srophe
+  GitHubCodeRepo:
+    Type: String
+    Default: syriac-corpus-app
+  GitHubDataRepo:
+    Type: String
+    Default: syriac-corpus
+
+Resources:
+  # S3 Bucket for SyriacCorpus
+  SyriacCorpusS3Bucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Ref BucketName
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      WebsiteConfiguration:
+        IndexDocument: "index.html"
+        ErrorDocument: "error.html"
+
+  # Origin Access Control for SyriacCorpus
+  SyriacCorpusOAC:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: "SyriacCorpusOAC"
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+
+  # CloudFront Distribution for SyriacCorpus
+  SyriacCorpusCloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        Origins:
+          - DomainName: !GetAtt SyriacCorpusS3Bucket.RegionalDomainName
+            Id: S3Origin
+            S3OriginConfig: {}
+            OriginAccessControlId: !Ref SyriacCorpusOAC
+        DefaultCacheBehavior:
+          AllowedMethods: [GET, HEAD]
+          CachedMethods: [GET, HEAD]
+          TargetOriginId: S3Origin
+          ViewerProtocolPolicy: redirect-to-https
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+        DefaultRootObject: index.html
+        ViewerCertificate:
+          CloudFrontDefaultCertificate: true
+
+  SyriacCorpusBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref SyriacCorpusS3Bucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowCloudFrontServicePrincipalRead
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource:
+              - !Sub "arn:aws:s3:::${BucketName}"
+              - !Sub "arn:aws:s3:::${BucketName}/*"
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${SyriacCorpusCloudFrontDistribution}"      
+ 
+  SyriacCorpusDeployRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "${ApplicationName}-GitHubDeployOIDCRole"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated: !Sub "arn:aws:iam::${AWS::AccountId}:oidc-provider/token.actions.githubusercontent.com"
+            Action: sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringLike:
+                token.actions.githubusercontent.com:sub:
+                  - !Sub "repo:${GitHubOrg}/${GitHubCodeRepo}:ref:refs/heads/*"
+                  - !Sub "repo:${GitHubOrg}/${GitHubDataRepo}:ref:refs/heads/*"
+                token.actions.githubusercontent.com:aud: sts.amazonaws.com
+
+      Policies:
+        - PolicyName: !Sub "${ApplicationName}-GitHubS3DeployPolicy"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:PutObjectAcl
+                  - s3:DeleteObject
+                  - s3:ListBucket
+                Resource:
+                  - !Sub "arn:aws:s3:::${BucketName}"
+                  - !Sub "arn:aws:s3:::${BucketName}/*"
+
+              - Effect: Allow
+                Action:
+                  - cloudfront:CreateInvalidation
+                Resource: "*"
+
+Outputs:
+  SyriacCorpusS3Bucket:
+    Value: !Ref BucketName
+    Description: "Name of the S3 bucket."
+
+  SyriacCorpusCloudFrontURL:
+    Value: !GetAtt SyriacCorpusCloudFrontDistribution.DomainName
+    Description: "URL for the SyriacCorpus CloudFront distribution."
+
+  DeployRoleArn:
+    Value: !GetAtt SyriacCorpusDeployRole.Arn
+    Description: "IAM Role to assume from GitHub Actions"  

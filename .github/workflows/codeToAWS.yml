@@ -1,0 +1,60 @@
+name: Deploy to S3
+
+on:
+  push:
+    branches:
+      - 'main'  # Trigger the workflow on push to the main branch
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    
+      # Step 1: Check out the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch the full history for accurate diff comparisons
+      
+      # Explicitly check out the 'main' branch
+      - name: Ensure the correct branch is checked out
+        run: |
+          git checkout main
+          git branch --show-current  # Verify the checked-out branch
+
+      # Step 2: Configure AWS credentials
+      - name: Configure AWS credentials from AWS account
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_GADDEL_ROLE }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-session-name: GitHub-OIDC-frontend
+  
+          
+      # Step 3: Full redeployment
+
+      - name: Debug
+        run: aws s3 sync ./ s3://${AWS_S3_BUCKET} --delete --exact-timestamps --dryrun
+      - name: Sync all files to S3
+        run: |
+          aws s3 sync ./ s3://${AWS_S3_BUCKET} --delete --exact-timestamps --exclude "exampleData/*" --exclude ".git/*" --exclude ".github/*" --exclude "tests/*" --exclude "siteGenerator/*" --exclude ".DS_Store"
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+          AWS_S3_BUCKET: ${{secrets.AWS_S3}}
+
+      # Step 4: Make site changes visible for testers 
+
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.GADDEL_CLOUDFRONT_DISTRIBUTION_ID}} \
+            --paths "/*"
+        env:
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }} 
+          

@@ -35,6 +35,18 @@
   "syriacaURI": "http://syriaca.org/work/8503 http://syriaca.org/work/8501",
   "origDate": "337 CE Based on internal dates provided in the text.",
   "dateWhen": "0337",
+  "langUsage": [
+    {
+      "ident": "syr",
+      "description": "Unvocalized Syriac of any variety or period"
+    }
+  ],
+  "persName": [
+    "Aphrahat",
+    "James E. Walters",
+    "D. Ioannes Parisot",
+    "David G.K. Taylor"
+  ],
   "sections": [
     {
       "section": "1",
