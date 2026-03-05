@@ -45,7 +45,6 @@
       
       <link rel="stylesheet" type="text/css" href="/resources/dateSlider/css/slider-classic-min.css" />
       
-      <!-- JQuery -->
       
       <link href="/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
       <script defer="defer" data-domain="syriaccorpus.org" src="https://plausible.io/js/plausible.js"></script>
@@ -91,38 +90,57 @@
                         <a href="browse.html?view=title&amp;element=title">Title</a>
                      </li>
                      <li>
-                        <a href="browse.html?lang=syr&amp;element=title&amp;alpha-filter=ALL">ܠܫܢܐ ܣܘܪܝܝܐ</a>
+                        <a href="browse.html?lang=syr&amp;element=title&amp;lang=syr&amp;alpha-filter=ALL">ܠܫܢܐ ܣܘܪܝܝܐ</a>
                      </li>
                   </ul>
+               <div class="tab-content">
+                  <div id="english" class="tab-pane fade in active">
+                     <div class="browse-alpha tabbable">
+                        <ul class="list-inline" id="abcMenu">
+                        </ul>
+                     </div>
+                  </div>
+               </div>               
                   <!-- Browse Content -->
-                  <div>
-                     <div class="row alpha-pages">
-                        <div class="col-md-5">
-                           <div id="search-info"></div>
+                  <div class="row">
+                     <div class="col-md-3">
+                        <div class="facets-container" style="max-height:600px; overflow-y:auto;">
+                           <h4>Authors</h4>
+                           <ul id="author-facets" class="list-unstyled" style="font-size:0.9em;"></ul>
+                           <h4>Catalogs</h4>
+                           <ul id="catalog-facets" class="list-unstyled" style="font-size:0.9em;"></ul>
                         </div>
+                     </div>
+                     <div class="col-md-9">
+                        <div class="row alpha-pages">
+                           <div class="col-md-5">
+                              <div id="search-info"></div>
+                           </div>
+                           <div class="col-md-7">
+                              <div id="pagination" class="pagination-container pull-right paging">
+                                 <ul id="searchPagination" class="searchPagination pagination pull-right"></ul>
+                              </div>      
+                           </div>
+                        </div>
+                        <div id="search-results"></div>
                         <div class="col-md-7">
                            <div id="pagination" class="pagination-container pull-right paging">
                               <ul id="searchPagination" class="searchPagination pagination pull-right"></ul>
                            </div>      
                         </div>
                      </div>
-                     <div id="search-results"></div>
-                     <div class="col-md-7">
-                        <div id="pagination" class="pagination-container pull-right paging">
-                           <ul id="searchPagination" class="searchPagination pagination pull-right"></ul>
-                        </div>      
-                     </div>
                   </div>
-                  <script type="text/javascript" src="/resources/bootstrap/js/jquery.bootpag.min.js"></script>
-                  <script type="text/javascript" src="/resources/js/search.js"></script>
-                  <script type="text/javascript">
-                  $(document).ready(function () {
-                     browseAlphaMenu();
-                     getBrowse("");
-                  });
-               </script>
+                  <!-- <script type="text/javascript" src="/resources/bootstrap/js/jquery.bootstrap.min.js"></script> -->
+                  <script type="text/javascript" src="/resources/js/browse.js"></script>
          </div>
       </div>
    </body>
    <script src="resources/js/footer.js"></script>
+   <script>
+      (async function() {
+         await loadData();
+         browseAlphaMenu();
+         getBrowse('');
+      })();
+</script>
 </html>
