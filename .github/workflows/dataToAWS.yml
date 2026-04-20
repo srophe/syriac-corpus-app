@@ -124,6 +124,9 @@ jobs:
           # Sync TEI XMLs to s3://.../data/tei/ (source is data repo)
           aws s3 sync syriac-corpus/data/tei/ s3://${AWS_S3_BUCKET}/data/tei/ \
             --exclude "*" --include "*.xml" || echo "s3 sync data completed"
+            
+          # Copy new manuscripts file to s3 
+          aws s3 cp ./manuscripts.json s3://${AWS_S3_BUCKET}/manuscripts.json 
 
           # quick counts for logs
           echo "HTML files uploaded:"
