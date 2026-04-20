@@ -50,8 +50,13 @@ function searchData(params) {
         if (params.syriacaUri && !matchesField(item, 'workUri', params.syriacaUri)) return false;
         if (params.persName && !matchesField(item, 'persName', params.persName)) return false;
         if (params.catalog && !matchesField(item, 'catalog', params.catalog)) return false;
-        if (params.startDate && item.dateWhen && parseInt(item.dateWhen) < parseInt(params.startDate)) return false;
-        if (params.endDate && item.dateWhen && parseInt(item.dateWhen) > parseInt(params.endDate)) return false;
+        if (params.startDate || params.endDate) {
+            const itemStart = item.dateFrom || item.dateWhen;
+            const itemEnd = item.dateTo || item.dateWhen;
+            if (!itemStart && !itemEnd) return false;
+            if (params.startDate && itemEnd && parseInt(itemEnd) < parseInt(params.startDate)) return false;
+            if (params.endDate && itemStart && parseInt(itemStart) > parseInt(params.endDate)) return false;
+        }
         return true;
     });
 }

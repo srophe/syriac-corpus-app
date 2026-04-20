@@ -125,6 +125,8 @@ def extract_json(tree):
     # Date from origDate
     orig_date = first_text(root, ".//tei:origDate[@type='composition']")
     date_when = first_text(root, ".//tei:origDate[@type='composition']/@when")
+    date_from = first_text(root, ".//tei:origDate[@type='composition']/@from")
+    date_to = first_text(root, ".//tei:origDate[@type='composition']/@to")
     
     # Language usage from profileDesc/langUsage
     lang_usage = []
@@ -176,6 +178,8 @@ def extract_json(tree):
     if syriaca_uri: out["syriacaURI"] = syriaca_uri
     if orig_date: out["origDate"] = orig_date
     if date_when: out["dateWhen"] = date_when
+    if date_from: out["dateFrom"] = date_from
+    if date_to: out["dateTo"] = date_to
     if lang_usage: out["langUsage"] = lang_usage
     if person_names: out["persName"] = person_names
     if sections: out["sections"] = sections
