@@ -22,7 +22,7 @@ async function loadData() {
 
 function normalize(str) {
     if (!str) return '';
-    return str.toLowerCase().replace(/[^a-z0-9]/g, '');
+    return str.toLowerCase().replace(/\s+/g, ' ').trim();
 }
 
 function matchesField(item, field, query) {
