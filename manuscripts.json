@@ -27198,6 +27198,62 @@
   },
   {
     "title": [
+      "Letter 1: Untitled"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/578",
+    "corpusUri": "https://syriaccorpus.org/578",
+    "workUri": "http://syriaca.org/work/9071",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9071 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "578"
+  },
+  {
+    "title": [
+      "Letter 2: To the assembly of solitaries on zeal for faith - ܠܟܢܫܐ ܕܝܚܝܕ̈ܝܐ ܡܛܠ ܛܢܢܐ ܕܗܝܡܢܘܬܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/579",
+    "corpusUri": "https://syriaccorpus.org/579",
+    "workUri": "http://syriaca.org/work/9072",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9072 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "579"
+  },
+  {
+    "title": [
       "Against the Jews - ܠܘܼܩܒܲܠ ܝܗ̄ܘܼܕܼܵܝܹ̈ܐ"
     ],
     "author": [
@@ -27227,6 +27283,286 @@
   },
   {
     "title": [
+      "Letter 3: To Sergius the doctor on the report of a disease - ܠܘܬ ܐܢܫ ܐܤܝܐ ܡܛܠ ܫܡܥܐ ܕܟܘܪܗܢܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/580",
+    "corpusUri": "https://syriaccorpus.org/580",
+    "workUri": "http://syriaca.org/work/9073",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9073 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "580"
+  },
+  {
+    "title": [
+      "Letter 4: To Hnanishoʿ the solitary on difficult things that happen against faith - ܠܘܬ ܝܚܝܕܝܐ ܪܒܐ ܘܡܫܡܗܐ: ܡܛܠ ܤܘܥܪ̈ܢܐ ܥܤ̈ܩܐ ܕܓܕܫܘ ܠܘܩܒܠ ܗܝܡܢܘܬܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/581",
+    "corpusUri": "https://syriaccorpus.org/581",
+    "workUri": "http://syriaca.org/work/9074",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9074 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "581"
+  },
+  {
+    "title": [
+      "Letter 5: To Mar Daniel of Arbela - ܠܘܬ ܡܠܦܢܐ ܕܐܪܒܝܠ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/582",
+    "corpusUri": "https://syriaccorpus.org/582",
+    "workUri": "http://syriaca.org/work/9075",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9075 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "582"
+  },
+  {
+    "title": [
+      "Letter 6: To the faithful Sabroi - ܠܘܬ ܡܗܝܡܢܐ ܗܘ̇ ܕܡ̣ܢ ܠܥܠ ܡܛܠܬܗ ܕܢܤܝܘܢܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/583",
+    "corpusUri": "https://syriaccorpus.org/583",
+    "workUri": "http://syriaca.org/work/9076",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9076 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "583"
+  },
+  {
+    "title": [
+      "Letter 7: To Hormizd on the cells of the school of Nisibis - ܠܘܬ ܒܪ ܩܠܝܬܗ ܕܒܐܤܟܘܠܐ ܕܢܨܝܒܝܢ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/584",
+    "corpusUri": "https://syriaccorpus.org/584",
+    "workUri": "http://syriaca.org/work/9077",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9077 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "584"
+  },
+  {
+    "title": [
+      "Letter 8: To Sabrishoʿ, abbot of the monastery of Mar Sliba - ܠܘܬ ܪܫ ܕܝܪܐ ܕܡܪܝ ܨܠܝܒܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/585",
+    "corpusUri": "https://syriaccorpus.org/585",
+    "workUri": "http://syriaca.org/work/9078",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9078 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "585"
+  },
+  {
+    "title": [
+      "Letter 9: To Sergius after the destruction of the Romans - ܠܘܬ ܐܢܫ ܡܚܒܢܐ ܡ̣ܢ ܒܬܪ ܚܪܒܐ ܕܕ̈ܗܘܡܝܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/586",
+    "corpusUri": "https://syriaccorpus.org/586",
+    "workUri": "http://syriaca.org/work/9079",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9079 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "586"
+  },
+  {
+    "title": [
+      "Letter 10: To ʿAbdishoʿ on the death of his superior - ܠܘܬ ܐܢܫ ܝܚܝܕܝܐ ܡܛܠ ܥܘܢܕܢܐ ܕܪܒܗ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/587",
+    "corpusUri": "https://syriaccorpus.org/587",
+    "workUri": "http://syriaca.org/work/9080",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9080 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "587"
+  },
+  {
+    "title": [
+      "Letter 11: To the brothers of Mt. Izla on the death of their superior - ܠܘܬ ܐܚ̈ܐ ܕܒܛܘܪܐ ܕܐܝܙܠܐ ܡܛܠ ܥܘܢܕܢܐ ܕܪܫܗܘܢ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/588",
+    "corpusUri": "https://syriaccorpus.org/588",
+    "workUri": "http://syriaca.org/work/9081",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9081 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "588"
+  },
+  {
+    "title": [
+      "Letter 12: To the brothers of Mt. Izla on the delayed response and report of an opponent - ܠܘܬܗܘܢ ܕܐܚ̈ܐ ܕܒܛܘܪܐ ܕܐܝܙܠܐ: ܡܛܠ ܬܘܚܪܬܐ ܕܦܘܢܝ ܦܬܓܡܐ ܘܡܛܠ ܫܡܥܐ ܤܩܘܒܠܝܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/589",
+    "corpusUri": "https://syriaccorpus.org/589",
+    "workUri": "http://syriaca.org/work/9082",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9082 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "589"
+  },
+  {
+    "title": [
       "On the Canaanite Woman - ܕܟܢܥܢܝܬܐ"
     ],
     "author": [
@@ -27252,6 +27588,286 @@
       "William Toma"
     ],
     "id": "59"
+  },
+  {
+    "title": [
+      "Letter 13: To Paul the solitary who was called to the primacy of another habitation - ܠܘܬ ܐܢܫ ܝܚܝܕܝܐ ܕܐܬܩܪܝ ܠܪܫܢܘܬܐ ܕܥܘܡܪܐ ܐܚܪܢܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/590",
+    "corpusUri": "https://syriaccorpus.org/590",
+    "workUri": "http://syriaca.org/work/9083",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9083 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "590"
+  },
+  {
+    "title": [
+      "Letter 14: To Henana the teacher on disease and poverty - ܠܘܬ ܐܢܫ ܡܠܦܢܐ ܡܛܠ ܟܘܪܗܢܐ ܘܡܤܟܢܘܬܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/591",
+    "corpusUri": "https://syriaccorpus.org/591",
+    "workUri": "http://syriaca.org/work/9084",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9084 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "591"
+  },
+  {
+    "title": [
+      "Letter 15: To the Catholicos on accusations and flight - ܠܘܬ ܩܬܘܠܝܩܐ ܥܠ ܐܦܝ̈ ܪܫܝܢܐ ܕܡܛܠ ܥܪܘܩܝܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/592",
+    "corpusUri": "https://syriaccorpus.org/592",
+    "workUri": "http://syriaca.org/work/9085",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9085 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "592"
+  },
+  {
+    "title": [
+      "Letter 16: To Ishoʿyahb from the bishop Theodore - ܠܘܬ ܐܚ̈ܐ ܕܒܥܘܡܪܐ ܕܐܝܙܠܐ ܕܐܪܬܕܩܘ ܡ̣ܢ ܐܚܝ̈ܗܘܢ ܘܐܒܐܫܘ ܠܗܘܢ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/593",
+    "corpusUri": "https://syriaccorpus.org/593",
+    "workUri": "http://syriaca.org/work/9086",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9086 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "593"
+  },
+  {
+    "title": [
+      "Letter 17: To the brothers in the monastery of Izla who were seperated from their brothers - ܠܘܬ ܐܚ̈ܐ ܕܒܥܘܡܪܐ ܕܐܝܙܠܐ ܕܐܪܬܕܩܘ ܡ̣ܢ ܐܚܝ̈ܗܘܢ ܘܐܒܐܫܘ ܠܗܘܢ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/594",
+    "corpusUri": "https://syriaccorpus.org/594",
+    "workUri": "http://syriaca.org/work/9087",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9087 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "594"
+  },
+  {
+    "title": [
+      "Letter 18: To the brothers in the monastery of Beth Abhe on the estabslishment of a director - ܠܘܢ ܐܚ̈ܐ ܕܒܥܘܡܪܗ ܡܛܠ ܩܘܝܡܗ ܕܪܫܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/595",
+    "corpusUri": "https://syriaccorpus.org/595",
+    "workUri": "http://syriaca.org/work/9088",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9088 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "595"
+  },
+  {
+    "title": [
+      "Letter 19: To Mar Qamishoʿ, a small admonition to the newly established director of the monastery - ܡܪܬܝܢܘܬܐ ܙܥܘܪܬܐ ܠܘܬ ܗܘ ܕܩ̣ܡ ܫܪܘܐܝܬ ܒܪܫܢܘܬܐ ܕܥܘܡܪܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/596",
+    "corpusUri": "https://syriaccorpus.org/596",
+    "workUri": "http://syriaca.org/work/9089",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9089 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "596"
+  },
+  {
+    "title": [
+      "Letter 20: To Mar Iazdshapur, a reply to the duality of persons - ܦܘܢܝ ܦܬܓܡܐ ܠܘܬ ܬܪܝܢܘܬ ܦܪ̈ܨܘܦܐ ܕܟܬܒܘ ܠܗ ܚܕ ܒܫܡ ܚܕ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/597",
+    "corpusUri": "https://syriaccorpus.org/597",
+    "workUri": "http://syriaca.org/work/9090",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9090 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "597"
+  },
+  {
+    "title": [
+      "Letter 21: To Mar Yazdeshapur - ܠܗ ܟܕ ܠܗ ܒܗ ܟܕ ܒܗ ܡܢܗ ܟܕ ܡܢܗ ܤܓܝ ܫܠܡ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/598",
+    "corpusUri": "https://syriaccorpus.org/598",
+    "workUri": "http://syriaca.org/work/9091",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9091 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "598"
+  },
+  {
+    "title": [
+      "Letter 22: To Mar Yazdegard - ܠܡܝܩܪܐ ܘܒܚܝܪܐ ܘܪܚܡܐ ܕܐܠܗܐ ܡܪܝ ܝܙܕܓܪܕ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/599",
+    "corpusUri": "https://syriaccorpus.org/599",
+    "workUri": "http://syriaca.org/work/9092",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9092 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "599"
   },
   {
     "title": [
@@ -27418,6 +28034,286 @@
   },
   {
     "title": [
+      "Letter 23: To Ishoʿsabran on the true faith - ܠܡܗܝܡܢܐ ܕܩܘܫܬܐ ܘܕܚܠܐ ܕܐܠܗܐ ܡܪܝ ܝܫܘܥܤܒܪܢ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/600",
+    "corpusUri": "https://syriaccorpus.org/600",
+    "workUri": "http://syriaca.org/work/9093",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9093 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "600"
+  },
+  {
+    "title": [
+      "Letter 24: To the Catholicos (I) - ܠܩܕܝܫ ܒܟܠ ܐܒܘܢ ܚܤܝܠ ܡܪܝ ܝܫܘܥܝܗܒ ܩܬܘܠܝܩܐ ܦܛܪܝܪܟܝܣ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/601",
+    "corpusUri": "https://syriaccorpus.org/601",
+    "workUri": "http://syriaca.org/work/9094",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9094 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "601"
+  },
+  {
+    "title": [
+      "Letter 25: To the Catholicos (II) - ܠܩܕܝܫ ܒܟܠ ܐܒܘܢ ܚܤܝܐ ܡܪܝ ܩܬܘܠܝܩܐ ܦܛܪܝܪܟܝܣ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/602",
+    "corpusUri": "https://syriaccorpus.org/602",
+    "workUri": "http://syriaca.org/work/9095",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9095 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "602"
+  },
+  {
+    "title": [
+      "Letter 26: To the monastic brothers at Mount Alfaf - ܠܪ̈ܚܡܝ ܐܠܗܐ ܐܚ̈ܐ ܕܝܪ̈ܝܐ ܕܒܛܘܪܐ ܕܐܠܦܦ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/603",
+    "corpusUri": "https://syriaccorpus.org/603",
+    "workUri": "http://syriaca.org/work/9096",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9096 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "603"
+  },
+  {
+    "title": [
+      "Letter 27: To the priest Moshe - ܠܪܚ̇ܡ ܐܠܗܐ ܐܚܘܢ ܡܝܩܪܐ ܡܪܝ ܡܘܫܐ ܩܫܝܫܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/604",
+    "corpusUri": "https://syriaccorpus.org/604",
+    "workUri": "http://syriaca.org/work/9097",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9097 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "604"
+  },
+  {
+    "title": [
+      "Letter 28: To Luliana on the true faith - ܠܡܗܝܡܢܐ ܕܩܘܫܬܐ ܘܕܚܠܐ ܕܐܠܗܐ ܡܪܝ ܠܘ̈ܠܝܢܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/605",
+    "corpusUri": "https://syriaccorpus.org/605",
+    "workUri": "http://syriaca.org/work/9098",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9098 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "605"
+  },
+  {
+    "title": [
+      "Letter 29: To brother Yoḥanan - ܠܝܘܚܢܢ ܐܚܝ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/606",
+    "corpusUri": "https://syriaccorpus.org/606",
+    "workUri": "http://syriaca.org/work/9099",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9099 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "606"
+  },
+  {
+    "title": [
+      "Letter 30: To the brothers Narsai and Maremmeh - ܠܢܪܤܝ ܘܠܡܪܡܗ ܐܚ̈ܝ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/607",
+    "corpusUri": "https://syriaccorpus.org/607",
+    "workUri": "http://syriaca.org/work/9100",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9100 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "607"
+  },
+  {
+    "title": [
+      "Letter 31: To Mar Sabrishoʿ the bishop - ܠܢܟܦܐ ܘܪܚ̇ܡ ܐܠܗܐ ܟܗܢܐ ܚܤܝܐ ܡܪܝ ܤܒܪܝܫܘܥ ܐܦܤܩܘܦܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/608",
+    "corpusUri": "https://syriaccorpus.org/608",
+    "workUri": "http://syriaca.org/work/9101",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9101 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "608"
+  },
+  {
+    "title": [
+      "Letter 32: To Mar Samuel the priest - ܠܓܒܝܐ ܕܐܠܗܐ ܡܪܝ ܫܡܘܐܝܠ ܩܫܝܫܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/609",
+    "corpusUri": "https://syriaccorpus.org/609",
+    "workUri": "http://syriaca.org/work/9102",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9102 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "609"
+  },
+  {
+    "title": [
       "On Holy Week - ܕܚܲܡܫܵܒܿܫܲܒܵܐ ܕܦܸܨܚܵܐ"
     ],
     "author": [
@@ -27447,6 +28343,286 @@
   },
   {
     "title": [
+      "Letter 33: To Yoḥanan the priest - ܠܚܒܝܒܝ ܡܝܩܪܐ ܡܪܝ ܝܘܚܢܢ ܩܫܝܫܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/610",
+    "corpusUri": "https://syriaccorpus.org/610",
+    "workUri": "http://syriaca.org/work/9103",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9103 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "610"
+  },
+  {
+    "title": [
+      "Letter 34: To the Catholicos (III) - ܠܩܕܝܫ ܒܟܠ ܐܒܘܢ ܚܤܝܐ ܡܪܝ ܩܬܘܠܝܩܐ ܦܛܪܝܪܟܝܣ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/611",
+    "corpusUri": "https://syriaccorpus.org/611",
+    "workUri": "http://syriaca.org/work/9104",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9104 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "611"
+  },
+  {
+    "title": [
+      "Letter 35: To Hormizd - ܠܗܘܪܡܙܕ ܚܒܝܒܝ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/612",
+    "corpusUri": "https://syriaccorpus.org/612",
+    "workUri": "http://syriaca.org/work/9105",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9105 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "612"
+  },
+  {
+    "title": [
+      "Letter 36: To Alahazeka the priest and teacher - ܠܢܟܦܐ ܘܪܚ̇ܡ ܐܠܗܐ ܐܚܘܢ ܡܝܩܪܐ ܡܪܝ ܐܠܗܙܟܐ ܩܫܝܫܐ ܘܡܠܦܢܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/613",
+    "corpusUri": "https://syriaccorpus.org/613",
+    "workUri": "http://syriaca.org/work/9106",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9106 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "613"
+  },
+  {
+    "title": [
+      "Letter 37: To the Catholicos (IV) - ܠܩܕܝܫ ܒܟܠ ܐܒܘܢ ܚܤܝܐ ܡܪܝ ܩܬܘܠܝܩܐ ܦܛܪܝܪܟܝܣ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/614",
+    "corpusUri": "https://syriaccorpus.org/614",
+    "workUri": "http://syriaca.org/work/9107",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9107 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "614"
+  },
+  {
+    "title": [
+      "Letter 38: To Mar Aba the bishop - ܠܢܟܦܐ ܘܪܚ̇ܡ ܐܠܗܐ ܐܚܘܢ ܡܝܩܪܐ ܡܪܝ ܐܒܐ ܐܦܤܩܘܦܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/615",
+    "corpusUri": "https://syriaccorpus.org/615",
+    "workUri": "http://syriaca.org/work/9108",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9108 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "615"
+  },
+  {
+    "title": [
+      "Letter 39: To the Catholicos (V) - ܠܩܕܝܫ ܒܟܠ ܠܒܘܢ ܚܤܝܐ ܡܪܝ ܩܬܘܠܝܩܐ ܦܛܪܝܪܟܝܣ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/616",
+    "corpusUri": "https://syriaccorpus.org/616",
+    "workUri": "http://syriaca.org/work/9109",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9109 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "616"
+  },
+  {
+    "title": [
+      "Letter 40: To the Catholicos (VI) - ܠܩܕܝܫ ܒܟܠ ܐܒܘܢ ܚܤܝܐ ܡܪܝ ܩܬܘܠܝܩܐ ܦܛܪܝܪܟܝܣ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/617",
+    "corpusUri": "https://syriaccorpus.org/617",
+    "workUri": "http://syriaca.org/work/9110",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9110 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "617"
+  },
+  {
+    "title": [
+      "Letter 41: To Moshe the priest - ܠܪܚ̇ܡ ܐܠܗܐ ܐܚܘܢ ܡܝܩܪܐ ܡܪܝ ܡܘܫܐ ܩܫܝܫܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/618",
+    "corpusUri": "https://syriaccorpus.org/618",
+    "workUri": "http://syriaca.org/work/9111",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9111 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "618"
+  },
+  {
+    "title": [
+      "Letter 42: To Mor Quriaqos the Metropolitan - ܠܡܝܩܪ ܒܟܠ ܐܒܘܢ ܚܤܝܐ ܡܪ ܩܘܪܝܩܘܣ ܐܦܤܩܘܬܐ ܡܝܛܪܦܘܠܝܛܣ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/619",
+    "corpusUri": "https://syriaccorpus.org/619",
+    "workUri": "http://syriaca.org/work/9112",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9112 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "619"
+  },
+  {
+    "title": [
       "On the Mysteries - ܥܲܠ ܦܘܼܫܵܩ ܐ̄ܪ̈ܵܙܹܐ"
     ],
     "author": [
@@ -27473,6 +28649,286 @@
       "William Toma"
     ],
     "id": "62"
+  },
+  {
+    "title": [
+      "Letter 43: To Mar Yazdannan on the true faith - ܠܡܗܝܡܢܐ ܕܩܘܫܬܐ ܘܕܚܤܝܪ ܩܠܝܠ ܡ̣ܢ ܝܫܘܒܚܐ ܕܦܐܐ ܠܗ: ܪܫܢ ܡܝܩܪܐ ܘܒܚܝܪܐ ܡܪܝ ܝܙܕܚܢ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/620",
+    "corpusUri": "https://syriaccorpus.org/620",
+    "workUri": "http://syriaca.org/work/9113",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9113 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "620"
+  },
+  {
+    "title": [
+      "Letter 44: To Mar Gabriel the Metropolitan - ܠܡܝܩܪ ܒܟܠ ܐܒܘܢ ܚܤܝܐ ܡܪܝ ܓܒܪܝܠ ܐܦܤܩܘܦܐ ܡܝܛܪܦܘܠܝܛܣ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/621",
+    "corpusUri": "https://syriaccorpus.org/621",
+    "workUri": "http://syriaca.org/work/9114",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9114 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "621"
+  },
+  {
+    "title": [
+      "Letter 45: To the clerics and people of Balad - ܠܪ̈ܚܡܝ ܐܠܗܐ ܐܚ̈ܝ ܚܒܝ̈ܒܐ ܩܠܝܪ̈ܝܩܐ ܢܟܦ̈ܐ ܘܥܡܐ ܡܗܝܡܢܐ ܕܒܒܠܕ ܡܕܝܢܬܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/622",
+    "corpusUri": "https://syriaccorpus.org/622",
+    "workUri": "http://syriaca.org/work/9115",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9115 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "622"
+  },
+  {
+    "title": [
+      "Letter 46: Untitled (II)"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/623",
+    "corpusUri": "https://syriaccorpus.org/623",
+    "workUri": "http://syriaca.org/work/9116",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9116 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "623"
+  },
+  {
+    "title": [
+      "Letter 47: To Mar Quriaqos the Metropolitan - ܠܡܝܩܪ ܒܟܠ ܐܒܘܢ ܚܤܝܐ ܡܪܝ ܩܘܪܝܩܘܣ ܐܦܤܩܘܦܐ ܡܝܛܪܦܘܠܝܛܝܣ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/624",
+    "corpusUri": "https://syriaccorpus.org/624",
+    "workUri": "http://syriaca.org/work/9117",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9117 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "624"
+  },
+  {
+    "title": [
+      "Letter 48: To several monks - ܠܒܢ̈ܝܐ ܚܠܫ̈ܐ ܕܡܗܝ̈ܡܢܐ ܫܝܪܝܪ̈ܐ ܘܟܪ̈ܤܛܝܢܐ ܕܩܘܫܬܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/625",
+    "corpusUri": "https://syriaccorpus.org/625",
+    "workUri": "http://syriaca.org/work/9118",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9118 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "625"
+  },
+  {
+    "title": [
+      "Letter 49: To Mar Gabriel the Metropolitan - ܠܡܝܩܪ ܒܟܠ ܐܒܘܢ ܡܪܝ ܓܒܪܐܝܠ ܐܦܤܩܘܦܐ ܡܝܛܪܘܦܘܠܝܛܝܣ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/626",
+    "corpusUri": "https://syriaccorpus.org/626",
+    "workUri": "http://syriaca.org/work/9119",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9119 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "626"
+  },
+  {
+    "title": [
+      "Letter 50: To Yoḥanan the priest and Teʿi, leader of the faithful of Erbil - ܠܪ̈ܚܡܝ ܐܠܗܐ ܐܚ̈ܝ ܚܒܝ̈ܒܐ ܝܘܚܢܢ ܩܫܝܫܐ ܘܐܪܟܝܕܩܘܢ. ܘܛܥܝ ܪܫ ܡܗܝ̈ܡܥܐ ܕܐܪܒܝܠ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/627",
+    "corpusUri": "https://syriaccorpus.org/627",
+    "workUri": "http://syriaca.org/work/9120",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9120 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "627"
+  },
+  {
+    "title": [
+      "Letter 51: To several monks - ܠܩܕܝܫܘ̈ܗܝ ܕܡܪܢ ܘܐܒܗ̈ܐ ܕܝܠܝ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/628",
+    "corpusUri": "https://syriaccorpus.org/628",
+    "workUri": "http://syriaca.org/work/9121",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9121 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "628"
+  },
+  {
+    "title": [
+      "Letter 52: To Mar Gabriel the Metropolitan and Hormizd the bishop - ܠܐܒܝ ܒܤܝܡܐ ܘܡܝܩܪܐ ܡܪܝ ܓܒܪܝܐܝܠ ܐܦܤܩܘܦܐ ܡܝܛܪܦܘܠܝܛܝܣ. ܘܐܚܝ ܪܚܝܡܐ ܘܚܒܝܒܐ ܡܪܝ ܗܘܪܡܙܕ ܐܦܤܩܘܦܐ"
+    ],
+    "author": [
+      "Ishoʿyahb III of Adiabene"
+    ],
+    "idno": "https://syriaccorpus.org/629",
+    "corpusUri": "https://syriaccorpus.org/629",
+    "workUri": "http://syriaca.org/work/9122",
+    "catalog": "http://syriaca.org/work/9177",
+    "catalogName": "Letters of Mar Ishoʿyahb III",
+    "syriacaURI": "http://syriaca.org/work/9122 http://syriaca.org/work/9177",
+    "origDate": "7th century CE (before 659) Based on internal dates provided in the text.",
+    "langUsage": [
+      {
+        "ident": "syr",
+        "language": "Syriac",
+        "description": "Unvocalized Syriac of any variety or period"
+      }
+    ],
+    "persName": [
+      "Ishoʿyahb III of Adiabene",
+      "James E. Walters",
+      "Rubens Duval"
+    ],
+    "id": "629"
   },
   {
     "title": [
