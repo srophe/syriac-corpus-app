@@ -116,19 +116,56 @@ function displayResults(results, page = 1, perPage = 20) {
         $(this).remove();
     });
     
-    const totalPages = Math.ceil(results.length / perPage);
-    let paginationHtml = '';
-    for (let i = 1; i <= totalPages; i++) {
-        paginationHtml += `<li class="${i === page ? 'active' : ''}"><a href="#" data-page="${i}">${i}</a></li>`;
-    }
-    $('.searchPagination').html(paginationHtml);
-    
-    $('.searchPagination a').on('click', function(e) {
-        e.preventDefault();
-        const newPage = parseInt($(this).data('page'));
+    renderPagination(results.length, perPage, page, function(newPage) {
         displayResults(results, newPage, perPage);
     });
 }
+
+function createPaginationButton(pageNumber, onClick) {
+    const listItem = document.createElement('li');
+    listItem.className = 'page-item';
+
+    const pageLink = document.createElement('a');
+    pageLink.href = '#';
+    pageLink.className = 'page-link';
+    pageLink.dataset.page = String(pageNumber);
+    pageLink.textContent = String(pageNumber);
+    pageLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        onClick(pageNumber);
+    });
+
+    listItem.appendChild(pageLink);
+    return listItem;
+}
+
+// Render pagination buttons
+function renderPagination(totalResults, resultsPerPage, currentPage, onPageChange) {
+    const totalPages = Math.ceil(totalResults / resultsPerPage);
+    const paginationContainers = document.getElementsByClassName('searchPagination');
+
+    const maxPageNumbers = 5;
+
+    let startPage = Math.max(1, currentPage - Math.floor(maxPageNumbers / 2));
+    let endPage = Math.min(totalPages, startPage + maxPageNumbers - 1);
+
+    if (endPage - startPage + 1 < maxPageNumbers) {
+        startPage = Math.max(1, endPage - maxPageNumbers + 1);
+    }
+
+    Array.from(paginationContainers).forEach(container => {
+        container.innerHTML = '';
+
+        for (let page = startPage; page <= endPage; page++) {
+            const pageButton = createPaginationButton(page, () => onPageChange(page));
+            if (page === currentPage) {
+                pageButton.classList.add('active');
+            }
+            container.appendChild(pageButton);
+        }
+    });
+}
+
 // JSON search
 async function runSearch() {
     await loadData();
