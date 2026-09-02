@@ -22,10 +22,9 @@ from typing import List
 
 NS = {"tei": "http://www.tei-c.org/ns/1.0"}
 
-# ISO 639-3 language code mapping for scripts
 SCRIPT_LANG_MAP = {
     "syr": "Syriac",
-    "syr-Syre": "Syriac (Estrangela)",
+    "syr-Syre": "Estrangela",
     "syr-Syrj": "Syriac (Western)",
     "syr-Syrn": "Syriac (Eastern)",
     "ar": "Arabic",
@@ -33,17 +32,21 @@ SCRIPT_LANG_MAP = {
     "he": "Hebrew",
     "en": "English",
     "la": "Latin",
-    "mul": "Multiple languages",
+    "mul": "Multiple scripts",
+    "mixed": "Mixed scripts",
     "cop": "Coptic",
     "fr": "French",
     "hy": "Armenian",
-    "zh-hant": "Chinese (Traditional)",
+    "zh-hant": "Chinese",
     "hyr": "Armenian",
-    "qhy-x-cpas":"Classical Syriac (ܟܬܒܢܝܐ)",
-    "xcl": "Lycian",
+    "qhy-x-cpas": "Christian Palestinian Aramaic script",
+    "xcl": "Classical Armenian",
     "und": "Undetermined",
     "syr-x-syrm": "Syriac (Melkite script)",
-    "ar-syr": "Arabic language written in Syriac script"
+    "ar-syr": "Arabic Garshuni script",
+    "ar-Syr": "Arabic Garshuni script",
+    "ar-Syrc": "Arabic Garshuni script"
+
 }
 
 

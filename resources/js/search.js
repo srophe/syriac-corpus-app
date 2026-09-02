@@ -1,5 +1,17 @@
 let allData = [];
 
+// Number of characters of content shown before the Show more/Show less toggle kicks in
+const CONTENT_TRUNCATE_LENGTH = 500;
+
+// Full content text for the results currently on screen, keyed by their index on
+// the page. Kept here rather than in a data- attribute so the whole document text
+// isn't duplicated into the DOM (and doesn't need HTML-escaping to survive there).
+let pageContentText = {};
+
+function escapeHtml(str) {
+    return $('<div>').text(str).html();
+}
+
 // Determine base URL based on environment
 const getBaseUrl = () => {
     const hostname = window.location.hostname;
@@ -65,7 +77,7 @@ function displayResults(results, page = 1, perPage = 20) {
     const start = (page - 1) * perPage;
     const end = start + perPage;
     const pageResults = results.slice(start, end);
-    
+    pageContentText = {};
     $('#search-info').html(`<p>Found ${results.length} results</p>`);
     
     const html = pageResults.map((item, index) => {
@@ -84,17 +96,31 @@ function displayResults(results, page = 1, perPage = 20) {
             contentSummary += ' ' + item.rubric;
         }
         contentSummary = contentSummary.trim().replace(/<[^>]*>/g, '');
-        const truncated = contentSummary.length > 500;
-        const displayContent = truncated ? contentSummary.substring(0, 500) : contentSummary;
-        
+const truncated = contentSummary.length > CONTENT_TRUNCATE_LENGTH;
+const displayContent = truncated
+    ? contentSummary.substring(0, CONTENT_TRUNCATE_LENGTH)
+    : contentSummary;
+
+// Store the full text outside the DOM
+pageContentText[index] = contentSummary;
         const msUrl = item.idno || item.corpusUri || '#';
         
         return `
             <div class="result-item" style="padding:15px; border:1px solid #ddd; margin-bottom:10px; border-radius:5px;">
                 ${item.title ? `<p><strong>Title:</strong> ${formatValue(item.title, 'title')}</p>` : ''}
                 ${item.author ? `<p><strong>Author:</strong> ${formatValue(item.author, 'author')}</p>` : ''}
-                ${contentSummary ? `<p><strong>Content:</strong> <span class="content-text" id="content-${index}">${displayContent}${truncated ? '...' : ''}</span>${truncated ? ` <a href="#" class="show-more" data-index="${index}" data-full="${contentSummary.replace(/"/g, '&quot;')}">Show more</a>` : ''}</p>` : ''}
-                ${item.corpusUri ? `<p><strong>Corpus Uri:</strong> <a href="${item.corpusUri}" target="_blank">${item.corpusUri}</a></p>` : ''}
+${contentSummary ? `
+    <p>
+        <strong>Content:</strong>
+        <span class="content-text" id="content-${index}">${escapeHtml(displayContent)}${truncated ? '...' : ''}</span>
+        ${truncated ? `
+            <a href="#"
+               class="content-toggle"
+               data-index="${index}"
+               data-expanded="false">Show more</a>
+        ` : ''}
+    </p>
+` : ''}                ${item.corpusUri ? `<p><strong>Corpus Uri:</strong> <a href="${item.corpusUri}" target="_blank">${item.corpusUri}</a></p>` : ''}
                 ${item.workUri ? `<p><strong>Syriaca URI:</strong> <a href="${item.workUri}" target="_blank">${item.workUri}</a></p>` : ''}
                 ${item.catalogName ? `<p><strong>Catalog:</strong> ${item.catalogName}</p>` : ''}
                 <small class="text-muted">
@@ -108,18 +134,35 @@ function displayResults(results, page = 1, perPage = 20) {
     
     $('#search-results').html(html || '<p>No results found</p>');
     
-    $('.show-more').on('click', function(e) {
-        e.preventDefault();
-        const index = $(this).data('index');
-        const full = $(this).data('full');
-        $(`#content-${index}`).text(full);
-        $(this).remove();
-    });
+$('.content-toggle').on('click', function(e) {
+    e.preventDefault();
+
+    const $link = $(this);
+    const index = $link.data('index');
+    const $content = $(`#content-${index}`);
+    const isExpanded = $link.attr('data-expanded') === 'true';
+
+    if (isExpanded) {
+        // Collapse
+        const shortText = pageContentText[index]
+            .substring(0, CONTENT_TRUNCATE_LENGTH);
+
+        $content.text(shortText + '...');
+        $link.text('Show more');
+        $link.attr('data-expanded', 'false');
+    } else {
+        // Expand
+        $content.text(pageContentText[index]);
+        $link.text('Show less');
+        $link.attr('data-expanded', 'true');
+    }
+});
     
     renderPagination(results.length, perPage, page, function(newPage) {
         displayResults(results, newPage, perPage);
     });
 }
+
 
 function createPaginationButton(pageNumber, onClick) {
     const listItem = document.createElement('li');
