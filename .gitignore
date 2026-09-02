@@ -164,3 +164,4 @@ nb-configuration.xml
 .vscode/
 *.code-workspace
 test-results.xml
+ __pycache__/
