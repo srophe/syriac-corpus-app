@@ -105,7 +105,7 @@ jobs:
             out_path="data-html/${id}.html"
             mkdir -p "$(dirname "$out_path")"
             echo "Converting $file -> $out_path"
-            if ! java -jar saxon.jar -s:"$file" -xsl:resources/xsl/tei2html.xsl -o:"$out_path" 2>> logs/errors.log; then
+            if ! java -jar saxon.jar -s:"$file" -xsl:siteGenerator/xsl/staticHTML.xsl -o:"$out_path" 2>> logs/errors.log; then
               echo "::warning:: HTML transformation failed for $file" >> logs/errors.log
             fi
           ' _ {}
