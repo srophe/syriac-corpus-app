@@ -250,8 +250,8 @@
         </xsl:variable>
         <xsl:variable name="nodes" select="//t:TEI | //rdf:RDF | *"/>
         <xsl:for-each-group select="$path/child::*" group-by=".">
-            <xsl:message>Path: <xsl:value-of select="$path"/></xsl:message>
-            <xsl:result-document href="{replace(.,'.xml','.html')}">
+<!--            <xsl:message>Path: <xsl:value-of select="$path"/></xsl:message>-->
+<!--            <xsl:result-document href="{replace(.,'.xml','.html')}">-->
                 <xsl:choose>
                     <xsl:when test="$fileType = 'HTML'">
                         <xsl:call-template name="htmlPage">
@@ -278,7 +278,7 @@
                         <xsl:message>Unrecognizable file type <xsl:value-of select="$fileType"/></xsl:message>
                     </xsl:otherwise>    
                 </xsl:choose>
-            </xsl:result-document>
+            <!--</xsl:result-document>-->
         </xsl:for-each-group>
     </xsl:template>
     
