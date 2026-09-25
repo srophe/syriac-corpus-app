@@ -60,11 +60,11 @@ jobs:
       - name: Run pytest
         run: pytest -q --junitxml=test-results.xml || true
       
-      - name: Run Python TEI->JSON conversion
-        run: |
-          mkdir -p outputs
-          python3 tei2json.py syriac-corpus/data/tei --outdir outputs --manuscripts manuscripts.json 
-          echo "python process"
+      # - name: Run Python TEI->JSON conversion
+      #   run: |
+      #     mkdir -p outputs
+      #     python3 tei2json.py syriac-corpus/data/tei --outdir outputs --manuscripts manuscripts.json 
+      #     echo "python process"
           
       # 3. Identify XML files (null-safe)
       - name: Identify XML files (null-safe)
@@ -85,13 +85,13 @@ jobs:
 
 
       # 7. Commit manuscripts.json to repo
-      - name: Commit processed JSON to repo
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add manuscripts.json
-          git diff --staged --quiet || git commit -m "Update manuscripts.json from data conversion"
-          git push
+      # - name: Commit processed JSON to repo
+      #   run: |
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "github-actions[bot]@users.noreply.github.com"
+      #     git add manuscripts.json
+      #     git diff --staged --quiet || git commit -m "Update manuscripts.json from data conversion"
+      #     git push
 
     #   7. Convert XML to HTML in parallel (produce/<id>.html)
       - name: Convert XML to HTML in Parallel (safe, outputs <id>.html)
@@ -105,8 +105,8 @@ jobs:
             out_path="data-html/${id}.html"
             mkdir -p "$(dirname "$out_path")"
             echo "Converting $file -> $out_path"
-            if ! java -jar saxon.jar -s:"$file" -xsl:resources/xsl/tei2html.xsl -o:"$out_path" 2>> logs/errors.log; then
-              echo "::warning:: HTML transformation failed for $file" >> logs/errors.log
+            if ! java -jar saxon.jar -s:"$file" -xsl:siteGenerator/xsl/staticHTML.xsl -o:"$out_path" 2>> logs/errors.log; then
+            echo "::warning:: HTML transformation failed for $file" >> logs/errors.log
             fi
           ' _ {}
 
@@ -117,16 +117,16 @@ jobs:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3 }}
         run: |
           # Sync HTMLs to s3://... so keys are <id>.html
-          aws s3 sync data-html/ s3://${AWS_S3_BUCKET}/ \
+          aws s3 sync data-html/ s3://${AWS_S3_BUCKET}/test/ \
             --exclude "*" --include "*.html" \
             --exact-timestamps || echo "s3 sync completed (or no files)"
 
           # Sync TEI XMLs to s3://.../data/tei/ (source is data repo)
-          aws s3 sync syriac-corpus/data/tei/ s3://${AWS_S3_BUCKET}/data/tei/ \
-            --exclude "*" --include "*.xml" || echo "s3 sync data completed"
+          # aws s3 sync syriac-corpus/data/tei/ s3://${AWS_S3_BUCKET}/data/tei/ \
+          #   --exclude "*" --include "*.xml" || echo "s3 sync data completed"
             
           # Copy new manuscripts file to s3 
-          aws s3 cp ./manuscripts.json s3://${AWS_S3_BUCKET}/manuscripts.json 
+          # aws s3 cp ./manuscripts.json s3://${AWS_S3_BUCKET}/manuscripts.json 
 
           # quick counts for logs
           echo "HTML files uploaded:"
