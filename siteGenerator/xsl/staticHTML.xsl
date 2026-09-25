@@ -352,26 +352,56 @@
                                     <xsl:when test="$pageType = 'TEI'">
                                             <!--<xsl:sequence select="$collectionTemplate"/>-->
                                             <head xmlns="http://www.w3.org/1999/xhtml">
-                                                <!--<xsl:sequence select="$collectionTemplate"/>-->
-                                                <xsl:for-each select="$collectionTemplate/descendant::*:head/child::*">
-                                                    <xsl:choose>
-                                                        <xsl:when test="local-name() = 'title'">
-                                                            <title xmlns="http://www.w3.org/1999/xhtml">
-                                                                <xsl:choose>
-                                                                    <xsl:when test="$nodes/descendant::t:body[descendant::*[@srophe:tags = '#syriaca-headword']]">
-                                                                        <xsl:value-of select="$nodes/descendant::t:body/descendant::*[@srophe:tags = '#syriaca-headword'][@xml:lang = 'en']"/>
-                                                                    </xsl:when>
-                                                                    <xsl:otherwise>
-                                                                       <xsl:value-of select="$nodes/descendant-or-self::t:titleStmt/t:title[1]"/>                
-                                                                    </xsl:otherwise>            
-                                                                </xsl:choose> 
-                                                            </title> 
-                                                        </xsl:when>
-                                                        <xsl:otherwise>
-                                                            <xsl:copy-of select="."/>
-                                                        </xsl:otherwise>
-                                                    </xsl:choose>
-                                                </xsl:for-each>
+                                                <head>
+                                                    <meta charset="utf-8"/>
+                                                    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+                                                    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                                                    <title data-template="config:app-title">
+                                                        <xsl:choose>
+                                                            <xsl:when test="$nodes/descendant::t:body[descendant::*[@srophe:tags = '#syriaca-headword']]">
+                                                                <xsl:value-of select="$nodes/descendant::t:body/descendant::*[@srophe:tags = '#syriaca-headword'][@xml:lang = 'en']"/>
+                                                            </xsl:when>
+                                                            <xsl:otherwise>
+                                                                <xsl:value-of select="$nodes/descendant-or-self::t:titleStmt/t:title[1]"/>                
+                                                            </xsl:otherwise>            
+                                                        </xsl:choose> 
+                                                    </title>
+                                                    <link data-template="app:metadata"/>
+                                                    <link rel="shortcut icon" href="/resources/images/favicon.ico"/>
+                                                    <!-- Bootstrap 3 -->
+                                                    <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css"/>
+                                                    <link rel="stylesheet" type="text/css" href="/resources/css/sm-core-css.css"/>
+                                                    <!-- Srophe styles -->
+                                                    <link rel="stylesheet" type="text/css" href="/resources/css/syr-icon-fonts.css"/>
+                                                    <link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
+                                                    <link rel="stylesheet" type="text/css" href="/resources/css/main.css"/>
+                                                    <link rel="stylesheet" type="text/css" media="print" href="/resources/css/print.css"/>
+       
+                                                    <!-- Date Slider -->
+                                                    <link rel="stylesheet" type="text/css" href="/resources/dateSlider/css/slider.css"/>
+                                                    <link rel="stylesheet" type="text/css" href="/resources/dateSlider/css/slider-classic-min.css"/>
+                                                    <!-- JQuery -->
+                                                    <link href="/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
+                                                    <script defer="defer" data-domain="syriaccorpus.org" src="https://plausible.io/js/plausible.js"/>
+                                                    <script type="text/javascript" src="/resources/js/jquery.min.js"/>
+                                                    <script type="text/javascript" src="/resources/jquery-ui/jquery-ui.min.js"/>
+                                                    <script type="text/javascript" src="/resources/js/jquery.smartmenus.min.js"/>
+                                                    <script type="text/javascript" src="/resources/js/clipboard.min.js"/>
+                                                    <!-- Date Slider -->
+                                                    <script src="/resources/dateSlider/js/jQDateRangeSlider-min.js"/>
+                                                    <!-- Bootstrap -->
+                                                    <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"/>
+                                                    <!-- ReCaptcha -->
+                                                    <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"/>
+                                                    <!-- keyboard widget css & script -->
+                                                    <link href="/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
+                                                    <link href="/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
+                                                    <link href="/resources/keyboard/syr/syr.css" rel="stylesheet"/>
+                                                    <!-- Additional Javascript -->
+                                                    <script type="text/javascript" src="/resources/js/jquery.validate.min.js"/>
+                                                    <script type="text/javascript" src="/resources/js/require.min.js"/>
+                                                    <script type="text/javascript" src="/resources/js/srophe.js"/>
+                                                </head>
                                             </head> 
                                     </xsl:when>
                                     <xsl:otherwise>
@@ -395,14 +425,15 @@
                                 <xsl:copy-of select="$template/descendant::html:div[@role='navigation']"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <xsl:message>No template found for html:nav element 3</xsl:message>
-                                <xsl:call-template name="genericNav"/>
+                                <script src="/resources/js/navbar-search.js"></script>
+                                <div id="navbar-container"></div>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:message>No template found for html:head element</xsl:message>
-                        <xsl:call-template name="genericNav"/>
+                        <script src="/resources/js/authors-navbar-search.js"></script>
+                        <div id="navbar-container"></div>
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:choose>
