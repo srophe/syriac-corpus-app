@@ -148,7 +148,6 @@ function getBrowse(letter) {
             const title = Array.isArray(item.title) ? item.title.join('. ') : item.title;
             const author = Array.isArray(item.author) ? item.author.join(', ') : item.author;
             html += `<div style="padding:10px; border-bottom:1px solid #eee;">
-                <strong>${title || 'Untitled'}</strong><br>
                 <em>${item.catalogName || 'Untitled'}</em><br>
 
                 ${item.corpusUri ? `<a href="${item.corpusUri}" target="_blank">${item.corpusUri}</a>` : ''}
