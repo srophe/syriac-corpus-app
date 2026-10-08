@@ -64,4 +64,3 @@ $('#navbar-container').load('/resources/components/navbar.html', function() {
     
 });
 });
-
