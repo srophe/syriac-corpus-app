@@ -406,8 +406,8 @@
                                 <xsl:copy-of select="$template/descendant::html:div[@role='navigation']"/>
                             </xsl:when>
                             <xsl:otherwise>
-                                <script src="/resources/js/navbar-search.js"></script>
                                 <div id="navbar-container"></div>
+                                <script src="/resources/js/navbar-search.js"></script>
                             </xsl:otherwise>
                         </xsl:choose>
                     </xsl:when>
