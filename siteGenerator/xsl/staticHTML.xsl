@@ -359,41 +359,33 @@
                         <xsl:otherwise>Digital Syriac Corpus</xsl:otherwise>
                     </xsl:choose> 
                 </title>
-                <link data-template="app:metadata"/>
-                <link rel="shortcut icon" href="/resources/images/favicon.ico"/>
-                <!-- Bootstrap 3 -->
-                <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css"/>
-                <link rel="stylesheet" type="text/css" href="/resources/css/sm-core-css.css"/>
-                <!-- Srophe styles -->
-                <link rel="stylesheet" type="text/css" href="/resources/css/syr-icon-fonts.css"/>
-                <link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
+                <link rel="shortcut icon" href="/resources/images/favicon.ico" />
+                <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/bootstrap.min.css" />
+                <link rel="stylesheet" type="text/css" href="/resources/css/sm-core-css.css" />
+                <link rel="stylesheet" type="text/css" href="/resources/css/syr-icon-fonts.css" />
+                <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
                 <link rel="stylesheet" type="text/css" href="/resources/css/main.css"/>
-                <link rel="stylesheet" type="text/css" media="print" href="/resources/css/print.css"/>
-                
-                <!-- Date Slider -->
-                <link rel="stylesheet" type="text/css" href="/resources/dateSlider/css/slider.css"/>
-                <link rel="stylesheet" type="text/css" href="/resources/dateSlider/css/slider-classic-min.css"/>
-                <!-- JQuery -->
-                <link href="/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
-                <script defer="defer" data-domain="syriaccorpus.org" src="https://plausible.io/js/plausible.js"/>
-                <script type="text/javascript" src="/resources/js/jquery.min.js"/>
-                <script type="text/javascript" src="/resources/jquery-ui/jquery-ui.min.js"/>
-                <script type="text/javascript" src="/resources/js/jquery.smartmenus.min.js"/>
-                <script type="text/javascript" src="/resources/js/clipboard.min.js"/>
-                <!-- Date Slider -->
-                <script src="/resources/dateSlider/js/jQDateRangeSlider-min.js"/>
-                <!-- Bootstrap -->
-                <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"/>
-                <!-- ReCaptcha -->
-                <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"/>
-                <!-- keyboard widget css & script -->
-                <link href="/resources/keyboard/css/keyboard.min.css" rel="stylesheet"/>
-                <link href="/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet"/>
-                <link href="/resources/keyboard/syr/syr.css" rel="stylesheet"/>
-                <!-- Additional Javascript -->
-                <script type="text/javascript" src="/resources/js/jquery.validate.min.js"/>
-                <script type="text/javascript" src="/resources/js/require.min.js"/>
-                <script type="text/javascript" src="/resources/js/srophe.js"/>
+                <link rel="stylesheet" type="text/css" media="print" href="/resources/css/print.css" />
+                <script defer="defer" data-domain="syriaca.org" src="https://plausible.io/js/plausible.js"></script>
+                <link href="/resources/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+                <script type="text/javascript" src="/resources/js/jquery.min.js"></script>
+                <script type="text/javascript" src="/resources/jquery-ui/jquery-ui.min.js"></script>
+                <script type="text/javascript" src="/resources/js/jquery.smartmenus.min.js"></script>
+                <script type="text/javascript" src="/resources/js/clipboard.min.js"></script>
+                <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script>
+                <script src="https://www.google.com/recaptcha/api.js" type="text/javascript" async="async" defer="defer"></script>
+                <link href="/resources/keyboard/css/keyboard.min.css" rel="stylesheet" />
+                <link href="/resources/keyboard/css/keyboard-previewkeyset.min.css" rel="stylesheet" />
+                <link href="/resources/keyboard/syr/syr.css" rel="stylesheet" />
+                <script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.js"></script>
+                <script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-mobile.min.js"></script>
+                <script type="text/javascript" src="/resources/keyboard/js/jquery.keyboard.extension-navigation.min.js"></script>
+                <script type="text/javascript" src="/resources/keyboard/syr/jquery.keyboard.extension-autocomplete.js"></script>
+                <script type="text/javascript" src="/resources/keyboard/syr/keyboardSupport.js"></script>
+                <script type="text/javascript" src="/resources/keyboard/syr/syr.js"></script>
+                <script type="text/javascript" src="/resources/js/jquery.validate.min.js"></script>
+                <script type="text/javascript" src="/resources/js/require.min.js"></script>
+                <script type="text/javascript" src="/resources/js/srophe.js"></script>   
             </head> 
             <body id="body">
                 <xsl:choose>
@@ -769,9 +761,11 @@
                     <xsl:copy-of select="document(xs:anyURI(concat($staticSitePath,'/siteGenerator/components/footer.html')))"/>
                 </xsl:if>
             </body>
+            <!--
             <xsl:if test="$template/child::*[1]/html:script">
                 <xsl:copy-of select="$template/child::*[1]/html:script"/>
             </xsl:if>  
+            -->
         </html>
     </xsl:template>
      
