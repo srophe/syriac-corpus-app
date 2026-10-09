@@ -177,7 +177,7 @@
                                                                 <xsl:variable name="uri" select="tokenize(t:ab/t:idno[@type='URI'],'/')[last()]"/>
                                                                 <div xmlns="http://www.w3.org/1999/xhtml" sort="{$sortGroup}" sortTitle="{$sort}" class="results-list {if(descendant::t:div[@type = ('subsection','subSubsection')]) then 'indent' else ()}">
                                                                     <span class="sort-title">  
-                                                                        <a href="/entry/{normalize-space($uri)}.html"><xsl:value-of select="$title"/></a>
+                                                                        <a href="/{normalize-space($uri)}.html"><xsl:value-of select="$title"/></a>
                                                                         <span class="type">&#160;<xsl:value-of select="descendant::t:ab[@type='infobox']"/></span>
                                                                     </span>
                                                                     <xsl:if test="descendant::t:byline">
@@ -188,7 +188,7 @@
                                                                     </xsl:if>
                                                                     <span class="results-list-desc uri">
                                                                         <span class="srp-label">URI: </span>
-                                                                        <a href="/entry/{normalize-space($uri)}.html"><xsl:value-of select="descendant::t:ab/t:idno[@type='URI']"/></a>
+                                                                        <a href="/{normalize-space($uri)}.html"><xsl:value-of select="descendant::t:ab/t:idno[@type='URI']"/></a>
                                                                     </span>
                                                                 </div>
                                                             </xsl:for-each>
@@ -199,7 +199,7 @@
                                                                 <xsl:variable name="uri" select="tokenize(t:ab/t:idno[@type='URI'],'/')[last()]"/>
                                                                 <div xmlns="http://www.w3.org/1999/xhtml" sort="{$sortGroup}" sortTitle="{$sort}" class="results-list {if(descendant::t:div[@type = ('subsection','subSubsection')]) then 'indent' else ()}">
                                                                     <span class="sort-title">  
-                                                                        <a href="/entry/{normalize-space($uri)}.html"><xsl:value-of select="$title"/></a>
+                                                                        <a href="/{normalize-space($uri)}.html"><xsl:value-of select="$title"/></a>
                                                                         <span class="type">&#160;<xsl:value-of select="t:ab[@type='infobox']"/></span>
                                                                     </span>
                                                                     <xsl:if test="t:byline">
@@ -210,7 +210,7 @@
                                                                     </xsl:if>
                                                                     <span class="results-list-desc uri">
                                                                         <span class="srp-label">URI: </span>
-                                                                        <a href="/entry/{normalize-space($uri)}.html"><xsl:value-of select="t:ab/t:idno[@type='URI']"/></a>
+                                                                        <a href="/{normalize-space($uri)}.html"><xsl:value-of select="t:ab/t:idno[@type='URI']"/></a>
                                                                     </span>
                                                                     <xsl:for-each select="t:div[@type='subsection']">
                                                                         <xsl:variable name="title" select="t:head[1]"/>
@@ -228,7 +228,7 @@
                                                                         <xsl:if test="$title != ''">
                                                                             <div xmlns="http://www.w3.org/1999/xhtml" sort="{$sortGroup}" sortTitle="{$sort}" class="results-list {if(@type = ('subsection','subSubsection')) then 'indent' else ()}">
                                                                                 <span class="sort-title">  
-                                                                                    <a href="/entry/{normalize-space($uri)}.html"><xsl:value-of select="$title"/></a>
+                                                                                    <a href="/{normalize-space($uri)}.html"><xsl:value-of select="$title"/></a>
                                                                                     <span class="type">&#160;<xsl:value-of select="t:ab[@type='infobox']"/></span>
                                                                                 </span>
                                                                                 <xsl:if test="t:byline">
@@ -239,7 +239,7 @@
                                                                                 </xsl:if>
                                                                                 <span class="results-list-desc uri">
                                                                                     <span class="srp-label">URI: </span>
-                                                                                    <a href="/entry/{normalize-space($uri)}.html"><xsl:value-of select="t:ab/t:idno[@type='URI']"/></a>
+                                                                                    <a href="/{normalize-space($uri)}.html"><xsl:value-of select="t:ab/t:idno[@type='URI']"/></a>
                                                                                 </span>
                                                                             </div> 
                                                                         </xsl:if>
@@ -252,7 +252,7 @@
                                                             <xsl:variable name="uri" select="tokenize(descendant::t:ab/t:idno[@type='URI'],'/')[last()]"/>
                                                             <div xmlns="http://www.w3.org/1999/xhtml" sort="{$sortGroup}" sortTitle="{$sort}" class="results-list {if(descendant::t:div[@type = ('subsection','subSubsection')]) then 'indent' else ()}">
                                                                 <span class="sort-title">  
-                                                                    <a href="/entry/{normalize-space($uri)}.html"><xsl:value-of select="$title"/></a>
+                                                                    <a href="/{normalize-space($uri)}.html"><xsl:value-of select="$title"/></a>
                                                                     <span class="type">&#160;<xsl:value-of select="descendant::t:ab[@type='infobox']"/></span>
                                                                 </span>
                                                                 <xsl:if test="descendant::t:byline">
@@ -263,7 +263,7 @@
                                                                 </xsl:if>
                                                                 <span class="results-list-desc uri">
                                                                     <span class="srp-label">URI: </span>
-                                                                    <a href="/entry/{normalize-space($uri)}.html"><xsl:value-of select="descendant::t:ab/t:idno[@type='URI']"/></a>
+                                                                    <a href="/{normalize-space($uri)}.html"><xsl:value-of select="descendant::t:ab/t:idno[@type='URI']"/></a>
                                                                 </span>
                                                             </div>
                                                         </xsl:otherwise>
