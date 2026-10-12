@@ -1,0 +1,13 @@
+# robots.txt for https://syriaccorpus.org
+# Scholarly reference corpus. All crawlers, including AI crawlers (GPTBot,
+# ClaudeBot, CCBot, Google-Extended, PerplexityBot, etc.), are welcome to index
+# the content pages. Only the parameterized search space (which expands into
+# effectively infinite URLs and hits dynamic backends) is disallowed.
+
+User-agent: *
+Allow: /
+Disallow: /search
+Disallow: /search.html
+Disallow: /*?
+
+Sitemap: https://syriaccorpus.org/sitemap.xml
